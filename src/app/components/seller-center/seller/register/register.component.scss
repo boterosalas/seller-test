@@ -1,0 +1,53 @@
+:host ::ng-deep {
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    .error {
+        color: red;
+    }
+    #containerH3 {
+        width: 100%;
+        text-align: center;
+    }
+    .imageRegisterSeller {
+        max-width: 50px;
+        border-radius: 10px;
+        border: 1px solid;
+        border-color: #D3D3D3;
+        box-shadow: none;
+        overflow: hidden;
+        img {
+            margin: -20px 0px -24px -20px;
+            border-radius: 10px;
+        }
+    }
+    mat-card.register-image {
+        margin-bottom: 10px;
+    }
+    /**
+    * Inicio Modificacion de estilos por pragma.com.co 
+    * @author Jose Fernan Banguera 16/05/2018
+    * Modificamos el color y background-color del slide-toggle y la caja de checked
+    */
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+        background-color: rgba(72, 90, 250, .38);
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+        background-color: #485AFA;
+    }
+    .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+        background-color: rgb(72, 90, 250) !important;
+    }
+    .marginSlides {
+        margin-top: 16px;
+    }
+    .cdk-overlay-dark-backdrop {
+        background: rgba(0, 0, 0, .70);
+    }
+    /**
+    * Fin Modificacion de estilos por pragma.com.co
+    * @author Jose Fernan Banguera
+    */
+}

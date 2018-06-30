@@ -1,0 +1,36 @@
+<div class="light-content">
+  <mat-toolbar color="primary" class="principal-toolbar">
+    <button color="accent" id="menuElement" matTooltip="Menú" matTooltipPosition="below" mat-icon-button mat-button
+            (click)="toggleMenu()">
+      <mat-icon class="mat-24">menu</mat-icon>
+    </button>
+    <div [routerLink]="['']" class="logo-application"></div>
+    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user"
+       style="margin-left:20px;">Bienvenido:
+      <b></b>
+      <span class="sc-header-name-seller">ID: {{user[webUrl].nit}}</span>
+    </p>
+    <span class="spacer-content"></span>
+    <div fxLayoutGap="10px">
+      <button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+              fxShow="true" (click)="shellComponent.goToEnviosExito()"
+              id="envios-exito-button" mat-button color="accent">
+        Envios Éxito
+      </button>
+      <button class="sc-button-toolbar" (click)="shellComponent.openDialogSupport()" fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
+        <mat-icon class="mat-24">help</mat-icon>
+        Soporte
+      </button>
+      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/perfil']"
+              id="profile-button"
+              mat-icon-button mat-button color="accent">
+        <mat-icon class="mat-24">person</mat-icon>
+      </button>
+      <app-logout matTooltip="Salir" matTooltipPosition="below" (click)="sidenav.close()"></app-logout>
+    </div>
+
+  </mat-toolbar>
+
+</div>

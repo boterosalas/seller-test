@@ -1,0 +1,8 @@
+<div class="content-confirm" id="modal-confirm-alert-component">
+  <h3>{{info.title}}</h3>
+  <p *ngIf="info.description != null">
+    {{info.description}}
+  </p>
+  <button (click)="confirmClick()" id="confirm-modal-ok-button" mat-raised-button>Aceptar</button>
+  <button (click)="onNoClick()" id="confirm-modal-cancel-button" mat-button>Cancelar</button>
+</div>

@@ -1,0 +1,40 @@
+{
+
+  "token": {
+    "comment": "Servicio para obtener el token del usuario",
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUxODE4MjE0OCwiZXhwIjoxNTE4MjgyMTQ3LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.OqiqYNKL2pQApGaeMna44r-OZgm5rdn41eLNNXIxtAGAJr4Pf_7KpE7Bt2sUtupwChgS3aRW7CDtL-LrTEpFLhbWpYQRYkEfQ81x_r0u4eKWT1VnvoDtf6LCETidw8Pltpl0v--R0sfFBT0aHzGgjBd6-eAIdYvFEx4eMM94FHFSozTuNdwzAqIvRVXeoEC0-4aT0FZtvfyDz801BI3rd8Q0-Rr0z5QTjRWZM2DqUJdODCmPsUCDoLXC94Vurm9GF3ohmkL3-3h5aq9EUuB736aKcsTqyDM1zZmGVXO7wEb8oBgjvNg6seuSJAd1rOCJVD1SKyLHlxeq_V_SMMCiGw",
+    "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJodHRwOi8vc2VsbGVyc2hvcC5jb20vdXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiTWFpayBCYWhpYSIsIm5pdCI6IjQ1Ni0xIiwicm9sZXMiOltbIm9yZGVuZXMiLCJlbnZpb3NFeGl0byJdXSwic2VsbGVySWQiOiIxMDAwMyJ9LCJuaWNrbmFtZSI6InN0aXZlbiIsIm5hbWUiOiJNYWlrIEJhaGlhIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzdhYWRjZjVjNDFkYTg0OTI2ZjM5OGZlM2RiNDNjY2ZjP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGc3QucG5nIiwidXBkYXRlZF9hdCI6IjIwMTgtMDItMDlUMTM6MTU6NDcuOTE0WiIsImVtYWlsIjoic3RpdmVuMzM0NUBob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6IkR6TlJiRGlvNmZqODZFN1ZaTXdaSGdabk9hSjgtYzg0IiwiaWF0IjoxNTE4MTgyMTQ4LCJleHAiOjE1MTgyODIxNDd9.ioaEE4U2zkq-kpOV0qPyJ43qJB9XQE1cMvvMni15hvmsYTCfoLpvjcgjT4MpohRXcgp1NpVIbpcBRdKvbFbPFU_-MTgpe-KyYscQc7m5HeffvMkH_XosDbV_d1dkWy185Vd_nvnyQexu6ByWGiSCu3QvX6-YtC_35yLRdlvkEsEbbMmvAL-oQkDQCR_-ip2joMSQa4j1fpXOnaPP-jeJ89vEK-vW3SMCkiB-g42kiyujleuSV2ALat2aHiLLyxS578VJuVRF58SGbIe122mypIWd6XMdJvlUSdXpo6hRH7eRN2bIHI9MBdYv-ut0-ZllsCK6dct7CPDqX_UdtLnczQ",
+    "scope": "openid profile email address phone read:current_user update:current_user_metadata delete:current_user_metadata create:current_user_metadata create:current_user_device_credentials delete:current_user_device_credentials update:current_user_identities",
+    "expires_in": 99999,
+    "token_type": "Bearer"
+  },
+
+
+  "userinfo": {
+    "comment": "Servicio para obtener la información del usuario",
+    "sub": "auth0|5a58ff489b967b281e06cd61",
+    "nickname": "UserTest",
+    "name": "Usuario de prueba",
+    "picture": "https://s.gravatar.com/avatar/7aadcf5c41da84926f398fe3db43ccfc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fst.png",
+    "updated_at": "2018-02-08T20:01:45.081Z",
+    "email": "test@hotmail.com",
+    "email_verified": true,
+    "http://sellershop.com/user_metadata": {
+      "name": "Usuario de prueba",
+      "nit": "456-1",
+      "roles": [
+        [
+          "ordenes",
+          "enviosExito"
+        ]
+      ],
+      "sellerId": "10034"
+    }
+  },
+  "logout": {
+    "message": "Se ha cerrado la sesión"
+  },
+  "recoverypassword": {
+    "message": "Se ha enviado el link de recuperación correctamente"
+  }
+}

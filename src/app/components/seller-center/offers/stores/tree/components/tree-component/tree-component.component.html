@@ -1,0 +1,50 @@
+<div class="content-tree">
+  <div class="header-tree-component">
+    <p>Nombre</p>
+    <p>Comisi&oacute;n</p>
+  </div>
+  <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+    <!-- Tree hijo -->
+    <mat-tree-node class="tree-col" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <div fxLayout="row" fxFlex="100%">
+
+        <!-- Nombre de la columna -->
+        <div fxLayout="row" fxFlex="100%">
+          <p class="tree-child-col">{{node.filename}} : {{node.type}}</p>
+        </div>
+
+        <!-- Componente encargado de la actualización de la comisión -->
+        <div class="badge-tree-cateogry" matBadgePosition="before">
+          <app-input-commision></app-input-commision>
+          <p class="sing-input">%</p>
+        </div>
+      </div>
+    </mat-tree-node>
+
+
+    <!-- Tree padre -->
+    <mat-tree-node class="tree-col" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+
+      <!-- Boton de acción para desplegar o ocultar el arbol de hijos -->
+      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
+        </mat-icon>
+      </button>
+
+      <!-- Nombre de la columna -->
+      <div fxLayout="row" fxFlex="100%">
+        <div fxLayout="row" fxFlex="100%">
+          <p class="tree-title-col">{{node.filename}} : {{node.type}}</p>
+        </div>
+
+        <!-- Componente encargado de la actualización de la comisión -->
+        <div class="badge-tree-cateogry" matBadgePosition="before">
+          <app-input-commision></app-input-commision>
+          <p class="sing-input">%</p>
+        </div>
+      </div>
+    </mat-tree-node>
+  </mat-tree>
+</div>

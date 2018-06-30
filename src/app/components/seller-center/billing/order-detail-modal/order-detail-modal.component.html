@@ -1,0 +1,59 @@
+<div class="container-product-list">
+  <div class="title-page">
+    <span class="sc-title">Factura: {{order.billingNumber}}
+    </span>
+    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </a>
+  </div>
+  <mat-list class="card-info" fxFlex="100">
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Factura
+        <p mat-subheader class="sub-text-list">{{order.billingNumber}}</p>
+      </h4>
+    </mat-list-item>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Número del pedido
+        <p mat-subheader class="sub-text-list">{{order.orderNumber}}</p>
+      </h4>
+    </mat-list-item>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Orden de pago
+        <p mat-subheader class="sub-text-list">{{order.payOrderNumber}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Concepto
+        <p mat-subheader class="sub-text-list">{{order.concept}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Fecha de pago
+        <p mat-subheader class="sub-text-list">{{order.paymentDate | date}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Comisión
+        <p mat-subheader class="sub-text-list">${{order.commission | number}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Valor a pagar
+        <p mat-subheader class="sub-text-list">${{order.billingTotal | number}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+  </mat-list>
+</div>

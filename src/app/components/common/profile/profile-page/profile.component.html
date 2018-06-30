@@ -1,0 +1,26 @@
+<div class="content-profile">
+  <div class="profile">
+    <div class="profile-background">
+      <div class="user-profile">
+        <div class="avatar-profile" [style.background-image]="'url('+ user.picture  + ')'"></div>
+        <div class="text-profile">
+          <p class="name-profile">{{user.name}} {{user.last_name}}</p>
+          <p class="email-profile">{{user.email}}</p>
+          <p class="id-profile">ID: {{user[webUrl].nit}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="strepper-content">
+
+    <mat-tab-group color="accent">
+      <mat-tab label="Perfil">
+        <app-edit-profile></app-edit-profile>
+      </mat-tab>
+      <!-- <mat-tab label="Cambiar Contraseña">
+        <app-edit-password></app-edit-password>
+      </mat-tab> -->
+    </mat-tab-group>
+
+  </div>
+</div>

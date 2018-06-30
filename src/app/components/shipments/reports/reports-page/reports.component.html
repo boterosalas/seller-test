@@ -1,0 +1,27 @@
+<div class="content-order my-content">
+
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100" class="light-content">
+
+      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <app-toolbar-link fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
+      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-options [informationToForm]="informationToForm" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <!-- Toolbar de las opciones para la orden -->
+    </div>
+
+    <!-- Tabla de ordenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="content-table-orders">
+
+      <mat-card class="personal-card">
+        <h3>Componente Reportes</h3>
+
+        <!-- <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="showLegend" [explodeSlices]="explodeSlices"
+          [labels]="showLabels" [doughnut]="doughnut" (select)="onSelect($event)">
+        </ngx-charts-pie-chart> -->
+      </mat-card>
+    </div>
+
+  </div>
+</div>

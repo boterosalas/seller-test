@@ -1,0 +1,50 @@
+<div class="container-product-list">
+  <div class="title-page">
+    <span class="sc-title">Producto: {{product.nameProduct}}
+    </span>
+    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </a>
+  </div>
+  <mat-list class="card-info" fxFlex="100">
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Producto
+        <p mat-subheader class="sub-text-list">{{product.nameProduct}}</p>
+      </h4>
+
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Costo
+        <p mat-subheader class="sub-text-list">${{product.costProduct | number}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Flete
+        <p mat-subheader class="sub-text-list">${{product.costShippingProduct | number}}</p>
+      </h4>
+
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Estado
+        <p mat-subheader class="sub-text-list">{{product.statusProduct}}</p>
+      </h4>
+
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item class="mat-list-item-order">
+      <h4 mat-line>Guía
+        <p mat-subheader class="sub-text-list">{{product.reference}}</p>
+      </h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+
+  </mat-list>
+</div>

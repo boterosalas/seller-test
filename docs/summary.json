@@ -1,0 +1,59 @@
+[{
+    "title": "Home",
+    "file": "readme.md"
+  },
+
+  {
+    "title": "Updating",
+    "file": "UPDATING.md"
+  },
+  {
+    "title": "Coding guides",
+    "file": "readme.md",
+    "children": [{
+        "title": "Angular",
+        "file": "coding-guides/angular.md"
+      },
+      {
+        "title": "e2e-tests",
+        "file": "coding-guides/e2e.md"
+      },
+      {
+        "title": "Html",
+        "file": "coding-guides/html.md"
+      },
+      {
+        "title": "Sass",
+        "file": "coding-guides/sass.md"
+      },
+      {
+        "title": "Typescript",
+        "file": "coding-guides/typescript.md"
+      },
+      {
+        "title": "unit-tests",
+        "file": "coding-guides/unit-test.md"
+      },
+      {
+        "title": "ANGULAR DOC",
+        "file": "angulardoc.md"
+      },
+      {
+        "title": "COMPODOC",
+        "file": "compodoc.md"
+      },
+      {
+        "title": "DOCKER",
+        "file": "docker.md"
+      },
+      {
+        "title": "JSON SERVER",
+        "file": "json-server.md"
+      },
+      {
+        "title": "KATALON",
+        "file": "katalon.md"
+      }
+    ]
+  }
+]

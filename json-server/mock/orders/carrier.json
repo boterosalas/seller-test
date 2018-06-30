@@ -1,0 +1,201 @@
+{
+  "carrier": [{
+      "id": 2,
+      "name": "Aeromensajeria",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Al Día",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "American Logistcis",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "Axpress",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 6,
+      "name": "Blu Logistics",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 7,
+      "name": "Cenco Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 8,
+      "name": "Coordinadora",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 9,
+      "name": "Cootrastame",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 10,
+      "name": "Deprisa",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 11,
+      "name": "DHL",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 12,
+      "name": "Envía",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 13,
+      "name": "Estelar Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 14,
+      "name": "FEDEX",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 15,
+      "name": "Flota Propia",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 16,
+      "name": "Gran Carga Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 17,
+      "name": "Inerrapidísimo",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 18,
+      "name": "Moving Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 19,
+      "name": "Open Market",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 20,
+      "name": "Paquetex",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 21,
+      "name": "Quicklink",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 22,
+      "name": "Rapidisimo",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 23,
+      "name": "Rapido Ochoa",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 24,
+      "name": "Rapiexpress",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 25,
+      "name": "Red Servi",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 26,
+      "name": "Redetrans",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 27,
+      "name": "Saferbo",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 28,
+      "name": "Servientrega",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 29,
+      "name": "Surenvios",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 30,
+      "name": "TCC",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 31,
+      "name": "Thomas Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 32,
+      "name": "Transcarga Mundial",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 33,
+      "name": "Transportadora Propia",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    },
+    {
+      "id": 34,
+      "name": "Tu Mensajero Express",
+      "created": "2018-01-22T23:16:01.385+00:00",
+      "active": true
+    }
+  ]
+}

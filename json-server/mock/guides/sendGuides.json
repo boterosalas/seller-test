@@ -1,0 +1,29 @@
+{
+  "sendAllGuides": {
+  "totalProcess": 2,
+  "error": 2,
+  "successful": 0,
+  "listError": [
+    {
+      "orderNumber": "668180045",
+      "sku": "MK00000003056916",
+      "message": "El sku no existe para la orden"
+    },
+    {
+      "orderNumber": "668370000",
+      "sku": "MK00000003295166",
+      "message": "La orden no existe"
+    },
+    {
+      "orderNumber": "668370000",
+      "sku": "MK00000003295166",
+      "message": "La orden no existe"
+    },
+    {
+      "orderNumber": "668370000",
+      "sku": "MK00000003295166",
+      "message": "La orden no existe"
+    }
+  ]
+}
+}

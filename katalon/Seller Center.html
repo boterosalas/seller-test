@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<title>Seller Center</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Iniciar sesión</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/seller-center-login</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com</option><option>http://localhost:4200/seller-center/ordenes/estado/35</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=input-username<datalist><option>id=input-username</option><option>name=username</option><option>//input[@id='input-username']</option><option>//div/mat-form-field/div/div/div[2]/input</option><option>css=#input-username</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=input-password<datalist><option>id=input-username</option><option>name=username</option><option>//input[@id='input-username']</option><option>//div/mat-form-field/div/div/div[2]/input</option><option>css=#input-username</option><option>id=input-password</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=input-username<datalist><option>id=input-username</option><option>name=username</option><option>//input[@id='input-username']</option><option>//div/mat-form-field/div/div/div[2]/input</option><option>css=#input-username</option></datalist></td><td>adriana2</td>
+</tr>
+<tr><td>type</td><td>id=input-password<datalist><option>id=input-password</option><option>name=password</option><option>//input[@id='input-password']</option><option>//div[2]/mat-form-field/div/div/div[2]/input</option><option>css=#input-password</option></datalist></td><td>123</td>
+</tr>
+<tr><td>click</td><td>id=login-button<datalist><option>id=login-button</option><option>//button[@id='login-button']</option><option>//div[3]/button</option><option>css=#login-button</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ORDENES: (Abrir menú de busqueda de ordenes)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/seller-center/ordenes/estado/35</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='search-order-button']<datalist><option>//button[@id='search-order-button']/span</option><option>//div/div/button/span</option><option>css=#search-order-button &gt; span.mat-button-wrapper</option><option>//button[@id='search-order-button']</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=sinceDate-input<datalist><option>id=sinceDate-input</option><option>//input[@id='sinceDate-input']</option><option>//mat-form-field[@id='sinceDate-input-search-order']/div/div/div[2]/input</option><option>//input</option><option>css=#sinceDate-input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=sinceDate-input<datalist><option>id=sinceDate-input</option><option>//input[@id='sinceDate-input']</option><option>//mat-form-field[@id='sinceDate-input-search-order']/div/div/div[2]/input</option><option>//input</option><option>css=#sinceDate-input</option></datalist></td><td>10/10/2017</td>
+</tr>
+<tr><td>click</td><td>id=untilDate-input<datalist><option>id=untilDate-input</option><option>//input[@id='untilDate-input']</option><option>//mat-form-field[@id='untilDate-input-search-order']/div/div/div[2]/input</option><option>//mat-form-field[2]/div/div/div[2]/input</option><option>css=#untilDate-input</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=untilDate-input<datalist><option>id=untilDate-input</option><option>//input[@id='untilDate-input']</option><option>//mat-form-field[@id='untilDate-input-search-order']/div/div/div[2]/input</option><option>//mat-form-field[2]/div/div/div[2]/input</option><option>css=#untilDate-input</option></datalist></td><td>10/10/2018</td>
+</tr>
+<tr><td>click</td><td>//mat-slide-toggle[@id='processedOrder-input-search-order']/label/div/div/div<datalist><option>//mat-slide-toggle[@id='processedOrder-input-search-order']/label/div/div/div</option><option>//label/div/div/div</option><option>css=div.mat-slide-toggle-thumb</option><option>//mat-slide-toggle[@id='processedOrder-input-search-order']</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='apply-filter-button']/span<datalist><option>//button[@id='apply-filter-button']/span</option><option>//button[2]/span</option><option>css=#apply-filter-button &gt; span.mat-button-wrapper</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ORDENES: (Ver detalle de los productos de una orden y ver accione)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/seller-center/ordenes/estado/35</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='expand-row-number-0']<datalist><option>//button[@id='expand-row-number-0']/span/mat-icon</option><option>//mat-cell[2]/button/span/mat-icon</option><option>css=mat-icon.mat-icon.ng-tns-c26-18.mat-primary.material-icons</option><option>//button[@id='expand-row-number-0']</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='expand-row-number-0']<datalist><option>//button[@id='expand-row-number-0']/span/mat-icon</option><option>//mat-cell[2]/button/span/mat-icon</option><option>css=mat-icon.mat-icon.ng-tns-c26-18.mat-primary.material-icons</option><option>//button[@id='expand-row-number-0']</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=dropdown-button-order-0<datalist><option>id=dropdown-button-order-0</option><option>//button[@id='dropdown-button-order-0']</option><option>//mat-row[@id='order-number-0']/mat-cell[9]/div/button</option><option>//mat-cell[9]/div/button</option><option>css=#dropdown-button-order-0</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=print-rot-order-0<datalist><option>id=print-rot-order-0</option><option>//button[@id='print-rot-order-0']</option><option>//div[@id='cdk-overlay-0']/div/div/button</option><option>//div[2]/div/div/button</option><option>css=#print-rot-order-0</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=dropdown-button-order-0<datalist><option>id=dropdown-button-order-0</option><option>//button[@id='dropdown-button-order-0']</option><option>//mat-row[@id='order-number-0']/mat-cell[9]/div/button</option><option>//mat-cell[9]/div/button</option><option>css=#dropdown-button-order-0</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=send-button-order-0<datalist><option>id=send-button-order-1</option><option>//button[@id='send-button-order-1']</option><option>//div[@id='cdk-overlay-1']/div/div/button[3]</option><option>//div/div/button[3]</option><option>css=#send-button-order-1</option><option>id=send-button-order-0</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=dropdown-button-order-0<datalist><option>id=dropdown-button-order-0</option><option>//button[@id='dropdown-button-order-0']</option><option>//mat-row[@id='order-number-0']/mat-cell[9]/div/button</option><option>//mat-cell[9]/div/button</option><option>css=#dropdown-button-order-0</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='print-rot-button-order-0']<datalist><option>//button[@id='print-rot-button-order-0']/span</option><option>//div[2]/div/div/button[2]/span</option><option>css=#print-rot-button-order-0 &gt; span.ng-tns-c26-18</option><option>//button[@id='print-rot-button-order-0']</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SOPORTE: (Ver Modal de soporte)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=support-link-button<datalist><option>id=suppor-link-button</option><option>//button[@id='suppor-link-button']</option><option>//div[2]/button[2]</option><option>css=#suppor-link-button</option><option>id=support-link-button</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=suport-modal-input-contact<datalist><option>id=suport-modal-input-contact</option><option>//input[@id='suport-modal-input-contact']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div/mat-form-field[3]/div/div/div[2]/input</option><option>//mat-form-field[3]/div/div/div[2]/input</option><option>css=#suport-modal-input-contact</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=suport-modal-input-contact<datalist><option>id=suport-modal-input-contact</option><option>//input[@id='suport-modal-input-contact']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div/mat-form-field[3]/div/div/div[2]/input</option><option>//mat-form-field[3]/div/div/div[2]/input</option><option>css=#suport-modal-input-contact</option></datalist></td><td>Test</td>
+</tr>
+<tr><td>click</td><td>//mat-select[@id='suport-modal-input-reason']/div/div<datalist><option>//mat-select[@id='suport-modal-input-reason']/div/div</option><option>//mat-form-field[4]/div/div/div[2]/mat-select/div/div</option><option>css=#suport-modal-input-reason &gt; div.mat-select-trigger &gt; div.mat-select-value</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=option-reason-3<datalist><option>id=option-reason-3</option><option>//span[@id='option-reason-3']</option><option>//mat-option[@id='mat-option-12']/span/span</option><option>//mat-option[3]/span/span</option><option>css=#option-reason-3</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=suport-modal-input-caseMarketplaceName<datalist><option>id=suport-modal-input-caseMarketplaceName</option><option>//input[@id='suport-modal-input-caseMarketplaceName']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div[2]/mat-form-field/div/div/div[2]/input</option><option>//div[2]/mat-form-field/div/div/div[2]/input</option><option>css=#suport-modal-input-caseMarketplaceName</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=suport-modal-input-caseMarketplaceName<datalist><option>id=suport-modal-input-caseMarketplaceName</option><option>//input[@id='suport-modal-input-caseMarketplaceName']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div[2]/mat-form-field/div/div/div[2]/input</option><option>//div[2]/mat-form-field/div/div/div[2]/input</option><option>css=#suport-modal-input-caseMarketplaceName</option></datalist></td><td>Test</td>
+</tr>
+<tr><td>click</td><td>//mat-select[@id='suport-modal-input-typeOfRequirement']/div/div/span<datalist><option>//mat-select[@id='suport-modal-input-typeOfRequirement']/div/div/span</option><option>//mat-form-field[2]/div/div/div[2]/mat-select/div/div/span</option><option>css=span.mat-select-placeholder.ng-tns-c24-51.ng-star-inserted</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-option[@id='mat-option-21']/span<datalist><option>//mat-option[@id='mat-option-21']/span</option><option>//mat-option[3]/span</option><option>css=#mat-option-21 &gt; span.mat-option-text</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=suport-modal-textarea-reasonDetail<datalist><option>id=suport-modal-textarea-reasonDetail</option><option>//textarea[@id='suport-modal-textarea-reasonDetail']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div[2]/mat-form-field[4]/div/div/div[2]/textarea</option><option>//textarea</option><option>css=#suport-modal-textarea-reasonDetail</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=suport-modal-textarea-reasonDetail<datalist><option>id=suport-modal-textarea-reasonDetail</option><option>//textarea[@id='suport-modal-textarea-reasonDetail']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-support-modal/form/div/div[2]/mat-form-field[4]/div/div/div[2]/textarea</option><option>//textarea</option><option>css=#suport-modal-textarea-reasonDetail</option></datalist></td><td>Test</td>
+</tr>
+<tr><td>click</td><td>//button[@id='suport-modal-button-sendInformation']/span<datalist><option>//button[@id='suport-modal-button-sendInformation']/span</option><option>//mat-dialog-actions/button[2]/span</option><option>css=#suport-modal-button-sendInformation &gt; span.mat-button-wrapper</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">FACTURACIÓN: (Ver resultados de FACTURACIÓN/PAGOS)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/seller-center/facturacion/pagos</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=menuElement<datalist><option>id=menuElement</option><option>//button[@id='menuElement']</option><option>//div/mat-toolbar/button</option><option>css=#menuElement</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-expansion-panel-header[@id='mat-expansion-panel-header-3']/span/mat-panel-title<datalist><option>//mat-expansion-panel-header[@id='mat-expansion-panel-header-3']/span/mat-panel-title</option><option>//div[4]/mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title</option><option>css=#mat-expansion-panel-header-3 &gt; span.mat-content &gt; mat-panel-title.mat-expansion-panel-header-title</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-list-item[@id='matlist-item-button-pagos']<datalist><option>//mat-list-item[@id='matlist-item-button-pagos']/div/div[2]/h6</option><option>//div[4]/mat-expansion-panel/div/div/mat-list-item/div/div[2]/h6</option><option>css=#matlist-item-button-pagos &gt; div.mat-list-item-content &gt; div.mat-list-text &gt; h6.mat-line</option><option>//mat-list-item[@id='matlist-item-button-pagos']</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='expand-more-0']/span/mat-icon<datalist><option>//button[@id='expand-more-0']/span/mat-icon</option><option>//mat-cell/button/span/mat-icon</option><option>css=mat-icon.mat-icon.ng-tns-c26-18.mat-primary.material-icons</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='expand-more-0']/span/mat-icon<datalist><option>//button[@id='expand-more-0']/span/mat-icon</option><option>//mat-cell/button/span/mat-icon</option><option>css=mat-icon.mat-icon.ng-tns-c26-18.mat-primary.material-icons</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=search-order-button<datalist><option>id=search-order-button</option><option>//button[@id='search-order-button']</option><option>//div/div/button</option><option>css=#search-order-button</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//app-search-order-menu/mat-card/mat-nav-list/mat-toolbar/button/span/mat-icon<datalist><option>//app-search-order-menu/mat-card/mat-nav-list/mat-toolbar/button/span/mat-icon</option><option>css=button.mat-button.mat-icon-button.mat-accent.cdk-focused.cdk-program-focused &gt; span.mat-button-wrapper &gt; mat-icon.mat-icon.material-icons</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">FACTURACIÓN: (Abrir menú para filtrar pagos)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/seller-center/ordenes</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='menuElement']/span/mat-icon<datalist><option>//button[@id='menuElement']/span/mat-icon</option><option>//div/mat-toolbar/button/span/mat-icon</option><option>css=mat-icon.mat-24.mat-icon.material-icons</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-expansion-panel-header[@id='mat-expansion-panel-header-3']/span/mat-panel-title<datalist><option>//mat-expansion-panel-header[@id='mat-expansion-panel-header-3']/span/mat-panel-title</option><option>//div[4]/mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title</option><option>css=#mat-expansion-panel-header-3 &gt; span.mat-content &gt; mat-panel-title.mat-expansion-panel-header-title</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-list-item[@id='matlist-item-button-pagos']/div/div[2]/h6<datalist><option>//mat-list-item[@id='matlist-item-button-pagos']/div/div[2]/h6</option><option>//div[4]/mat-expansion-panel/div/div/mat-list-item/div/div[2]/h6</option><option>css=#matlist-item-button-pagos &gt; div.mat-list-item-content &gt; div.mat-list-text &gt; h6.mat-line</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=search-order-button<datalist><option>id=search-order-button</option><option>//button[@id='search-order-button']</option><option>//div/div/button</option><option>css=#search-order-button</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=input-filter-paymentDate<datalist><option>id=input-filter-paymentDate</option><option>//input[@id='input-filter-paymentDate']</option><option>//mat-form-field[@id='paymentDate-input-search-order']/div/div/div[2]/input</option><option>//input</option><option>css=#input-filter-paymentDate</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=input-filter-paymentDate<datalist><option>id=input-filter-paymentDate</option><option>//input[@id='input-filter-paymentDate']</option><option>//mat-form-field[@id='paymentDate-input-search-order']/div/div/div[2]/input</option><option>//input</option><option>css=#input-filter-paymentDate</option></datalist></td><td>10/10/1996</td>
+</tr>
+<tr><td>click</td><td>id=apply-filter-button<datalist><option>id=apply-filter-button</option><option>//button[@id='apply-filter-button']</option><option>//button[2]</option><option>css=#apply-filter-button</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PERFIL: (Ver Perfil del usuario)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://localhost:4200/seller-center/ordenes</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='profile-button']/span/mat-icon<datalist><option>//button[@id='profile-button']/span/mat-icon</option><option>//button[4]/span/mat-icon</option><option>css=#profile-button &gt; span.mat-button-wrapper &gt; mat-icon.mat-24.mat-icon.material-icons</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CARGA DE GUÍAS: (Descargar Guías)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=menuElement<datalist><option>id=menuElement</option><option>//button[@id='menuElement']</option><option>//div/mat-toolbar/button</option><option>css=#menuElement</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-nav-list/mat-list-item/div/div[2]/h6<datalist><option>//mat-nav-list/mat-list-item/div/div[2]/h6</option><option>css=mat-list-item.mat-list-item.mat-list-item-focus &gt; div.mat-list-item-content &gt; div.mat-list-text &gt; h6.mat-line</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//a[@id='download-file-button']/span/mat-icon<datalist><option>//a[@id='download-file-button']/span/mat-icon</option><option>//a/span/mat-icon</option><option>css=mat-icon.mat-18.mat-icon.ng-tns-c37-47.material-icons</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=mat-input-6<datalist><option>id=mat-input-6</option><option>name=limit</option><option>//input[@id='mat-input-6']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-download-format/mat-dialog-content/form/div/div/mat-form-field/div/div/div/input</option><option>//div/mat-form-field/div/div/div/input</option><option>css=#mat-input-6</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=mat-input-6<datalist><option>id=mat-input-6</option><option>name=limit</option><option>//input[@id='mat-input-6']</option><option>//mat-dialog-container[@id='mat-dialog-0']/app-download-format/mat-dialog-content/form/div/div/mat-form-field/div/div/div/input</option><option>//div/mat-form-field/div/div/div/input</option><option>css=#mat-input-6</option></datalist></td><td>100</td>
+</tr>
+<tr><td>click</td><td>//mat-dialog-container[@id='mat-dialog-0']/app-download-format/mat-dialog-actions/button[2]<datalist><option>//mat-dialog-container[@id='mat-dialog-0']/app-download-format/mat-dialog-actions/button[2]</option><option>//mat-dialog-actions/button[2]</option><option>css=button.sc-button.mat-raised-button.mat-accent.cdk-focused.cdk-mouse-focused</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CARGA DE GUÍAS: (Cargar Guías)</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>id=menuElement<datalist><option>id=menuElement</option><option>//button[@id='menuElement']</option><option>//div/mat-toolbar/button</option><option>css=#menuElement</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-nav-list/mat-list-item/div/div[2]/h6<datalist><option>//mat-nav-list/mat-list-item/div/div[2]/h6</option><option>css=mat-list-item.mat-list-item.mat-list-item-focus &gt; div.mat-list-item-content &gt; div.mat-list-text &gt; h6.mat-line</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='load-file-button']/span<datalist><option>//button[@id='load-file-button']/span</option><option>//div[2]/button/span</option><option>css=#load-file-button &gt; span.mat-button-wrapper</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>name=fileUploadOption<datalist><option>name=fileUploadOption</option><option>//input[@name='fileUploadOption']</option><option>//mat-toolbar-row/div/div[2]/input</option><option>css=input[name="fileUploadOption"]</option></datalist></td><td>C:\fakepath\Formato de guías_export_1520878603109.xlsx</td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Cerrar sesión Seller center</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://localhost:4200/<datalist><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/orders-list/35</option><option>http://ec2-54-210-36-240.compute-1.amazonaws.com/</option><option>http://localhost:4200/</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//button[@id='menuElement']/span/mat-icon<datalist><option>//button[@id='menuElement']/span/mat-icon</option><option>//div/mat-toolbar/button/span/mat-icon</option><option>css=mat-icon.mat-24.mat-icon.material-icons</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//mat-list-item[@id='closeSesionUser']/div/div[2]/h6<datalist><option>//mat-list-item[@id='closeSesionUser']/div/div[2]/h6</option><option>//mat-list-item[5]/div/div[2]/h6</option><option>css=#closeSesionUser &gt; div.mat-list-item-content &gt; div.mat-list-text &gt; h6.mat-line</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=input-username<datalist><option>id=input-username</option><option>name=username</option><option>//input[@id='input-username']</option><option>//div/mat-form-field/div/div/div[2]/input</option><option>css=#input-username</option></datalist></td><td>stiven</td>
+</tr>
+<tr><td>type</td><td>id=input-password<datalist><option>id=input-password</option><option>name=password</option><option>//input[@id='input-password']</option><option>//div[2]/mat-form-field/div/div/div[2]/input</option><option>css=#input-password</option></datalist></td><td>123</td>
+</tr>
+</tbody></table>
+</body>
+</html>

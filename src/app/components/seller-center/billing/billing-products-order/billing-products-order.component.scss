@@ -1,0 +1,89 @@
+.title-product-list {
+  // background-color: #f2f2e6;
+  color: #757474;
+  font-weight: bold;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.content-product-detail {
+  padding-left: 54px;
+  padding-bottom: 10px;
+  background-color: #eAeAeA;
+  @media (max-width: 933px) {
+    padding-left: 17px;
+  }
+}
+
+.center-product-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.title-table-product {
+  font-size: 12px;
+}
+
+.content-product-list {
+  flex-wrap: wrap;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.item-title-table {
+  width: 130px;
+  @media (max-width: 960px) {
+    width: 120px;
+  } // @media (max-width: 960px) {
+  // }
+}
+
+.item-action-table {
+  width: 130px;
+  @media (max-width: 430px) {
+    width: 100%;
+    padding: 10px;
+    & button {
+      width: 100%;
+    }
+  }
+}
+
+.n-margin {
+  margin: 0px;
+}
+
+.full-button {
+  width: 100%;
+  margin: 10px;
+}
+
+.cost-item-table {
+  color: #000;
+  font-size: 11px;
+}
+
+.total-product-text {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-start;
+  & p {
+    padding-left: 55px;
+  }
+}
+
+.sc-valueToPay-text {
+  color: #5ea223;
+}
+
+.sc-commission-text {
+  color: #F44336;
+}
+
+.bold {
+  font-weight: bold;
+}

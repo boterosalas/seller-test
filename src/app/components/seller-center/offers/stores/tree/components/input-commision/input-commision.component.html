@@ -1,0 +1,6 @@
+<mat-form-field class="example-full-width">
+  <input matInput [value]="input_value" type="number" placeholder="0.00" required name="price" min="0" value="0" step="0.01"
+    title="Currency" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+  this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.border=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'none':'solid 1px red'
+  ">
+</mat-form-field>

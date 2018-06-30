@@ -1,0 +1,83 @@
+<div class="form-edit">
+  <form #f="ngForm" [formGroup]="myform">
+
+    <div class="title-form">
+      <h2>Mi información</h2>
+      <!-- <button id="button-edit-profile" matTooltip="Editar datos" matTooltipPosition="left" [@shrinkOut] *ngIf="!editUser" mat-fab color="accent" (click)="editProfileUser()">
+        <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">edit</mat-icon>
+      </button> -->
+    </div>
+
+
+    <div fxLayoutGap="25px" fxFlexAlign="center" fxLayout="row wrap" fxFlex>
+      <!-- Nombre de usuario -->
+      <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width input-style">
+          <input name="name_user" [readonly]="!editUser" formControlName="name_user" matInput placeholder="Nombre de usuario" type="text"
+            required>
+          <mat-error>El nombre de usuario no puede estar en blanco</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Nombre -->
+      <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width input-style">
+          <input name="name" [readonly]="!editUser" formControlName="name" matInput placeholder="Nombre" type="text" required>
+          <mat-error>El nombre no puede estar en blanco</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width input-style">
+          <input name="email" [readonly]="!editUser" formControlName="email" matInput placeholder="Correro electronico" type="email"
+            required>
+          <mat-error>El correo no puede estar en blanco</mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <!-- Nombre completo -->
+      <!-- <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width input-style">
+          <input name="name" [readonly]="!editUser" formControlName="name" matInput placeholder="Nombre (s)" type="text" required>
+          <mat-error>Ingrese un nombre(s)</mat-error>
+        </mat-form-field>
+      </div> -->
+
+      <!-- Apellido completo -->
+      <!-- <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width">
+          <input name="last_name" [readonly]="!editUser" formControlName="last_name" matInput placeholder="Apellido (s)" type="text"
+            required>
+          <mat-error>Ingrese un apellido(s))</mat-error>
+        </mat-form-field>
+      </div> -->
+
+      <!-- Genero -->
+      <!-- <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width input-style">
+          <mat-select [disabled]="!editUser" required formControlName="gender" placeholder="G&eacute;nero">
+            <mat-option [value]="1">Masculino</mat-option>
+            <mat-option [value]="2">Femenino</mat-option>
+          </mat-select>
+          <mat-error>Seleccione un g&eacute;nero</mat-error>
+        </mat-form-field>
+      </div> -->
+
+      <!-- Telefono -->
+      <!-- <div fxFlex="100" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="46%" fxFlex.lg="46%" fxFlex.xl="46%">
+        <mat-form-field class="full-width">
+          <input name="phone" [readonly]="!editUser" formControlName="phone" matInput placeholder="Telefono" type="tel" required>
+          <mat-error>Ingrese un telefono valido</mat-error>
+        </mat-form-field>
+      </div> -->
+
+      <!-- <div fxFlex="100">
+        <div class="buttons-form">
+          <button id="button-update-profile" [@shrinkOut] [disabled]="!f.form.dirty" (click)="editProfile(myform)" type="submit" mat-raised-button color="primary">Actualizar datos</button>
+        </div>
+      </div> -->
+    </div>
+  </form>
+</div>

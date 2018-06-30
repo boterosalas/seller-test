@@ -1,0 +1,198 @@
+@import '~@angular/material/theming'; // always include only once per project
+@include mat-core();
+$green: mat-palette($mat-green);
+$amber: mat-palette($mat-amber);
+:host ::ng-deep .content-order {
+  & .container {
+    min-width: 300px;
+    max-height: 500px;
+    flex-direction: column;
+    display: flex;
+    padding: 0 0 200px;
+  }
+  & .sales-card {
+    & .state-cancel {
+      color: red;
+      font-weight: bold;
+    }
+    & .state-pendind {
+      color: map-get($amber, 800);
+      font-weight: bold;
+    }
+    & .state-delivered {
+      color: map-get($green, 400);
+      font-weight: bold;
+    }
+    & .header-sales {
+      position: relative;
+      & .sales-options {
+        position: absolute;
+        right: 0;
+        top: 10px;
+      }
+    }
+    margin-bottom: 20px;
+    & .info-product {
+      padding: 10px;
+      & .price {
+        color: red;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      & .price-after {
+        text-decoration: line-through;
+        color: #9b9b9b;
+      }
+    }
+    & .info-seller {
+      padding: 10px;
+      & .name-seller {
+        color: #000;
+      }
+    }
+    & .options-sales {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  & .content-products {
+    display: flex;
+    flex-wrap: wrap;
+    & mat-card {
+      box-shadow: none;
+    }
+  }
+  & .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+
+  & .mat-table {
+    overflow: auto;
+  }
+  & .mat-column-select {
+    overflow: visible;
+  }
+  // Configuración para el contenedor de la tabla principal
+  & .content-table-orders {
+    padding-top: 10px;
+  }
+  // Configuración para el toolbar que contiene las opciones del usuario en la vista ordenes
+  & .toolbar-orders-options-table {
+    & .toolbar-options {
+      padding-left: 0px;
+      & .title-toolbar {
+        padding-left: 30px;
+      }
+    }
+    padding-left: 0px;
+  }
+  & .orders-paginate {
+    & .mat-paginator-container {
+      flex-wrap: nowrap;
+    }
+  }
+  & .toolbar-options-table {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    & .toolbar-paginate {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & .paginator-style {
+        background-color: transparent;
+      }
+    }
+  }
+  // quitar sombra de los botones fab
+  .mat-mini-fab:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+  }
+  & .element-row {
+    position: relative;
+  }
+  & .element-row:not(.expanded) {
+    cursor: pointer;
+  }
+  & .element-row:not(.expanded):hover {
+    background: #fffff2;
+  }
+  & .element-row.expanded {
+    opacity: 0.7;
+  }
+  & .center-product-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  & .content-detail-order {
+    background-color: #fffff2;
+  }
+  @media (max-width: 960px) {
+    .content-detail-order {
+      padding: 0 !important;
+    }
+  }
+  & .check-table-option {
+    width: 10%;
+    padding-left: 40px;
+  }
+  & .detail-product-name {
+    color: #000;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 0;
+  }
+  & .product-button {
+    font-size: 11px;
+    & mat-icon {
+      font-size: 18px;
+      color: rgb(161, 161, 153);
+    }
+  }
+  & .orders-no-data {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background-color: #fff;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    flex-direction: column;
+    & .icon-not-found {
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+  & .mat-table {
+    padding: 6px 6px 0 6px; // box-shadow: 0px 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  }
+  & .mat-icon-status-order {
+    & mat-icon {
+      font-size: 14px;
+    }
+  }
+  & .option-table-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .cell-options-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  & .mat-header-row {
+    align-items: center;
+    justify-content: center;
+  }
+  & .mat-header-row,
+  .mat-row {
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,35 @@
+<div class="content-page">
+
+  <div class="content-tab" fxFlexAlign="center" fxLayout="row" fxFlex="40" fxFlex.xs="90" fxFlex.sm="50%" fxFlex.md="50" fxFlex.lg="35"
+    xFlex.xl="35">
+    <div [@scaleEfect] fxFlex="100" class="tab-style recovery-content">
+      <div>
+        <div class="title-login">
+          <!-- <h1 class="title-card-form">Recuperar contraseña</h1> -->
+          <div class="logo-application"></div>
+        </div>
+        <mat-card class="card-login">
+          <form #form="ngForm" [formGroup]="myform" class="form-login">
+            <div fxLayout="column" fxLayoutGap="20px">
+              <div fxFlex="100">
+                <mat-form-field fxFlex="100" class="input-style">
+                  <input name="email" formControlName="email" matInput placeholder="Correo electrónico" type="email" required>
+                  <mat-error>El correo electrónico no puede estar en blanco</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100">
+                <button id="send-recovery-button" [disabled]="!form.form.valid" (click)="recoveryPassword(myform)" type="submit" mat-raised-button
+                  fxFlex="100" color="primary">Recuperar contraseña</button>
+              </div>
+              <div fxFlex="100">
+                <div class="buttons-form">
+                  <a color="accent" id="login-page" color="primary" mat-button [routerLink]="['/ingresar']">Iniciar sesión</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>

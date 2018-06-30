@@ -1,0 +1,33 @@
+.client-information-container {
+  padding-left: 54px;
+  padding-bottom: 10px;
+  background-color: #eAeAeA;
+}
+
+.content-information-client {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.client-information {
+  color: rgb(132, 130, 131);
+  font-weight: 400;
+  font-size: 12px;
+  width: auto;
+}
+
+.client-data {
+  color: black;
+  font-size: 13px;
+  width: auto;
+}
+
+@media (max-width: 960px) {
+  .client-information-container {
+    padding: 10px !important;
+  }
+}
+
+.n-margin {
+  margin: 0px;
+}

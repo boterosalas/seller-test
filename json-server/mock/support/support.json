@@ -1,0 +1,16 @@
+{
+
+    "sendSupportMessage": {
+        "status": "SUCCESS",
+        "message": "Record(s) added successfully",
+        "listRecordDetail": [
+            {
+                "id": "1240572000036582068",
+                "createdTime": "2018-04-11 14:29:37",
+                "modifiedTime": "2018-04-11 14:29:37",
+                "createdBy": "Servicio al Cliente exito.com/carulla.com",
+                "modifiedBy": "Servicio al Cliente exito.com/carulla.com"
+            }
+        ]
+    }
+}

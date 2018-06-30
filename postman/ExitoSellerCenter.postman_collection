@@ -1,0 +1,421 @@
+{
+	"id": "c3953478-95c1-b67a-d105-7c681479c8b5",
+	"name": "ExitoSellerCenter",
+	"description": "",
+	"order": [
+		"586a00af-85a7-76ee-2bb2-f7e5346c080d",
+		"9201b366-4141-a668-8610-df86edf18c5f",
+		"2a7a1443-9f98-507a-b7c6-9679eb71ec45",
+		"a844057e-664f-a8e7-d7fb-81dcec6e8a8e",
+		"47847593-2f13-1a12-1758-47b7771d2612",
+		"7bc47ff4-29f6-673a-8815-92319f3ee417",
+		"7baee29b-5a09-ca35-71dc-477646096b1b",
+		"68cf0a3c-4185-3fba-7be6-6e07747024f5",
+		"98788bf5-361e-5705-1f0f-080b207548bb",
+		"81d44d4b-4aef-b6c5-3880-ae14b13aa7db"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 0,
+	"owner": "920845",
+	"public": false,
+	"requests": [
+		{
+			"folder": null,
+			"id": "2a7a1443-9f98-507a-b7c6-9679eb71ec45",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Servicio para consultar todas las ordenes de un usuario.",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [
+				{
+					"key": "idSeller",
+					"value": "10034",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "100",
+					"equals": true,
+					"enabled": true
+				}
+			],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "47847593-2f13-1a12-1758-47b7771d2612",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100&idStatusOrder=170",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Consulta de ordenes con el estado 170",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100&idStatusOrder=170",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [
+				{
+					"key": "idSeller",
+					"value": "10034",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "100",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "idStatusOrder",
+					"value": "170",
+					"equals": true,
+					"enabled": true
+				}
+			],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "586a00af-85a7-76ee-2bb2-f7e5346c080d",
+			"name": "https://leo2707.auth0.com/oauth/token",
+			"dataMode": "raw",
+			"data": [],
+			"auth": null,
+			"events": null,
+			"rawModeData": "{\n\"grant_type\":\"password\",\n\"username\":\"stiven\",\n\"password\":\"123\",\n\n\"scope\": \"openid\", \n\"client_id\": \"DzNRbDio6fj86E7VZMwZHgZnOaJ8-c84\",\n\"client_secret\": \"V9i0jfaBTj3z3Nin2i7ImcC0Znapqnq2D2DyQt0qJiA00WXhl516fz6EzUm4kzWP\"\n}",
+			"descriptionFormat": "html",
+			"description": null,
+			"variables": null,
+			"headers": "Content-Type: application/json\n",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "https://leo2707.auth0.com/oauth/token",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "68cf0a3c-4185-3fba-7be6-6e07747024f5",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/financials/getbilling?idSeller=10034&limit=100",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Facturación/Pagos",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/financials/getbilling?idSeller=10034&limit=100",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [
+				{
+					"key": "idSeller",
+					"value": "10034",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "100",
+					"equals": true,
+					"enabled": true
+				}
+			],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "7baee29b-5a09-ca35-71dc-477646096b1b",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/carrier/getall",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Servició para consultar la lista de transportadoras.",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/carrier/getall",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "7bc47ff4-29f6-673a-8815-92319f3ee417",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/financials/getbilling?idSeller=10034&limit=100",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Consulta de ordenes para la página de facturación/Pagos.",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/financials/getbilling?idSeller=10034&limit=100",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [
+				{
+					"key": "idSeller",
+					"value": "10034",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "100",
+					"equals": true,
+					"enabled": true
+				}
+			],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"id": "81d44d4b-4aef-b6c5-3880-ae14b13aa7db",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/support/createsupport",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/support/createsupport",
+			"description": "Servicio para enviar el mensaje de soporte\n",
+			"descriptionFormat": "html",
+			"time": 1523474971010,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"caseMarketplaceName\":\"Test\",\n\"caseMarketplaceOwner\":\"Maik Bahia\",\n\"contact\":\"Test\",\n\"emailContact\":\"stiven3345@hotmail.com\",\n\"nit\":\"456-1\",\n\"reason\":\"Pagos y facturación\",\n\"reasonDetail\":\"Test\",\n\"typeOfRequirement\":\"Reclamo\"\n}"
+		},
+		{
+			"folder": null,
+			"id": "9201b366-4141-a668-8610-df86edf18c5f",
+			"name": "https://leo2707.auth0.com/userinfo",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": null,
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUxODEyMDEwNSwiZXhwIjoxNTE4MjIwMTA0LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.h9FjkhZR8X3gTVUjcaF-Y40Hci-ZtRzqZUtYKKXeicjHq3wzOGy854zdP8iN9NawljJlvdnRORs261PFB03a_vR-lqsqTG0mznELHFaKUYg5UR7NwxrWRv6S7ZsMzdhCejJO_J1qF_XNnLbk0xkWRvsgUDZ6JDmTSt2SE4ES6qHQnZf1z9S3rcAjxt8rRUUckfSRXqW_PmjOUZMc94wPEbn8_sLAFX3LQx5tZXuL5U7ECDaHBp3_lFPuB-M3Zm312keO0w2ZzsSXoq-UD8NR6NJEYDxlOpmb1pmxq5yadNR6hWnUYxWMYyy_BgYwFlwMKnSue_JWMZRdvjPN2Pewrw\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://leo2707.auth0.com/userinfo",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUxODEyMDEwNSwiZXhwIjoxNTE4MjIwMTA0LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.h9FjkhZR8X3gTVUjcaF-Y40Hci-ZtRzqZUtYKKXeicjHq3wzOGy854zdP8iN9NawljJlvdnRORs261PFB03a_vR-lqsqTG0mznELHFaKUYg5UR7NwxrWRv6S7ZsMzdhCejJO_J1qF_XNnLbk0xkWRvsgUDZ6JDmTSt2SE4ES6qHQnZf1z9S3rcAjxt8rRUUckfSRXqW_PmjOUZMc94wPEbn8_sLAFX3LQx5tZXuL5U7ECDaHBp3_lFPuB-M3Zm312keO0w2ZzsSXoq-UD8NR6NJEYDxlOpmb1pmxq5yadNR6hWnUYxWMYyy_BgYwFlwMKnSue_JWMZRdvjPN2Pewrw",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "98788bf5-361e-5705-1f0f-080b207548bb",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/products",
+			"dataMode": "raw",
+			"data": [],
+			"auth": null,
+			"events": null,
+			"rawModeData": "{\n  \"totalProcess\": 2,\n  \"error\": 2,\n  \"successful\": 0,\n  \"listError\": [\n    {\n      \"orderNumber\": \"668180045\",\n      \"sku\": \"MK00000003056916\",\n      \"message\": \"El sku no existe para la orden\"\n    },\n    {\n      \"orderNumber\": \"668370000\",\n      \"sku\": \"MK00000003295166\",\n      \"message\": \"La orden no existe\"\n    },\n    {\n      \"orderNumber\": \"668370000\",\n      \"sku\": \"MK00000003295166\",\n      \"message\": \"La orden no existe\"\n    },\n    {\n      \"orderNumber\": \"668370000\",\n      \"sku\": \"MK00000003295166\",\n      \"message\": \"La orden no existe\"\n    },\n    {\n      \"orderNumber\": \"668370000\",\n      \"sku\": \"MK00000003295166\",\n      \"message\": \"La orden no existe\"\n    },\n    {\n      \"orderNumber\": \"668370000\",\n      \"sku\": \"MK00000003295166\",\n      \"message\": \"La orden no existe\"\n    }\n  ]\n}",
+			"descriptionFormat": "html",
+			"description": "Order products",
+			"variables": null,
+			"headers": "Content-Type: application/json\n",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/products",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		},
+		{
+			"folder": null,
+			"id": "a844057e-664f-a8e7-d7fb-81dcec6e8a8e",
+			"name": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100&idStatusOrder=35",
+			"dataMode": "params",
+			"data": null,
+			"auth": null,
+			"events": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "Consulta de ordenes con el estado 35",
+			"variables": null,
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://ec2-54-210-36-240.compute-1.amazonaws.com/api/orders/search?idSeller=10034&limit=100&idStatusOrder=35",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"queryParams": [
+				{
+					"key": "idSeller",
+					"value": "10034",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "limit",
+					"value": "100",
+					"equals": true,
+					"enabled": true
+				},
+				{
+					"key": "idStatusOrder",
+					"value": "35",
+					"equals": true,
+					"enabled": true
+				}
+			],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrWXhOVGs1T1RJNU16QkZRVE0wTnpoRE16WkJRVEEzUkRKRk5VUkNOVFpHTjBZMk4wTkRRZyJ9.eyJpc3MiOiJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVhNThmZjQ4OWI5NjdiMjgxZTA2Y2Q2MSIsImF1ZCI6WyJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2xlbzI3MDcuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTUyMTAzMDQyOSwiZXhwIjoxNTIxMTMwNDI4LCJhenAiOiJEek5SYkRpbzZmajg2RTdWWk13WkhnWm5PYUo4LWM4NCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSByZWFkOmN1cnJlbnRfdXNlciB1cGRhdGU6Y3VycmVudF91c2VyX21ldGFkYXRhIGRlbGV0ZTpjdXJyZW50X3VzZXJfbWV0YWRhdGEgY3JlYXRlOmN1cnJlbnRfdXNlcl9tZXRhZGF0YSBjcmVhdGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyBkZWxldGU6Y3VycmVudF91c2VyX2RldmljZV9jcmVkZW50aWFscyB1cGRhdGU6Y3VycmVudF91c2VyX2lkZW50aXRpZXMiLCJndHkiOiJwYXNzd29yZCJ9.CDnq6msnYLOEHHz4OZzzUftcIrYfAw241Ccf-vsL_Gzoc0t5-3z51vf560rZYtXCSBy5LcUYdAKbAun34LPtjsIkw2LS_U4AuIV6esC4VVtF8dQ55g5nE9IIAnBDS9ed7WBs8dwL9LUhZz-xNaUcVblLrLg2hrVvGHjPuAf4oGHg14RsxrfJ6vgWuAwzDxASgqH7jgcn3qIfUl-c0l2W6KGHRNlVSxUvCu9yN7AMGCHqiQOQcxQur16AxOCywZsPj58nA_XBgBlbXbP-uEcKm5pQjVlfp6zU5FKnTm7Zgmr7p7yg8sNvbyevIS0pMhCKbacxZqQf9ziYqSYfv9NuCg",
+					"enabled": true
+				}
+			],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "c3953478-95c1-b67a-d105-7c681479c8b5"
+		}
+	]
+}

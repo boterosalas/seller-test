@@ -1,0 +1,36 @@
+<div class="content-modal">
+  <div class="title-page">
+    <h2 class="sc-title mat-h2">Ingresar observación</h2>
+    <a id="close-finish-send-order" matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </a>
+  </div>
+  <form class="full-width form-devolution" #f="ngForm" [formGroup]="myform">
+    <mat-dialog-content class="full-width">
+
+      <mat-form-field class="full-width">
+        <mat-select required formControlName="reason" placeholder="Motivo del rechazo">
+          <mat-option *ngFor="let reasonReject of reasonRejection" [value]="reasonReject.idMotivoSolicitudReversion">
+            {{ reasonReject.nombreMotivoSolicitudReversion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <textarea formControlName="observation" matInput placeholder="Observación"></textarea>
+      </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="button-content">
+
+      <button class="sc-button" (click)="clearForm()" mat-button>
+        <mat-icon>clear_all</mat-icon>
+        Limpiar
+      </button>
+      <button class="sc-button" [disabled]="!f.form.valid" (click)="refuseOrder(myform)" type="submit" mat-raised-button
+              color="primary">Enviar
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

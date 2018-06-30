@@ -1,0 +1,91 @@
+:host ::ng-deep {
+    .content-table {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .title-expansion-panel-table {
+        font-size: 15px;
+        & mat-icon {
+            color: #c70024;
+            margin-right: 12px;
+        }
+        & span {
+            font-size: 30px;
+            color: #c70024;
+        }
+        & b {
+            color: rgb(115, 115, 115);
+        }
+    }
+    .toolbar-paginate {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        & .paginator-style {
+            background-color: transparent;
+            width: 400px !important;
+            max-width: 400px !important;
+            min-width: 400px !important;
+        }
+    }
+    .card-ok-process {
+        border-top: solid 3px rgb(103, 165, 48);
+    }
+    .text-error {
+        color: #c70024;
+    }
+    .mat-header-cell {
+        justify-content: center;
+        text-align: center;
+    }
+    .card-err-process {
+        border-top: solid 3px #c70024;
+    }
+    /* @media (max-width: 360px) {
+        mat-table {
+            width: 400px;
+            overflow: scroll;
+        }
+    }
+    @media (max-width: 600px) {
+        mat-table {
+            width: 500px;
+            overflow: scroll;
+        }
+    }
+    @media (max-width: 700px) {
+        mat-table {
+            width: 600px;
+            overflow: scroll;
+        }
+    }
+    @media (max-width: 800px) {
+        mat-table {
+            width: 400px;
+            overflow: scroll;
+        }
+    }
+    @media (max-width: 1200px) {
+        mat-table {
+            width: 540px;
+            overflow: hidden;
+        }
+    } */
+    .personal-row {
+        background: #f5f5f5;
+        @media (max-width: 360px) {
+            width: 600px;
+        }
+    }
+    mat-cell:first-child,
+    mat-footer-cell:first-child,
+    mat-header-cell:first-child {
+        padding-left: 0;
+    }
+    mat-cell:last-child,
+    mat-footer-cell:last-child,
+    mat-header-cell:last-child {
+        padding-right: 0;
+    }
+}

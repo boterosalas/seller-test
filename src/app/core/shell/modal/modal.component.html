@@ -1,0 +1,19 @@
+<div *ngIf="status">
+    <div *ngIf="status" fxLayoutAlign="center" fxLayoutGap="0" fxLayoutGap.xs="0" style="padding-top: 55px">
+        <i class="material-icons container" [ngStyle]="{'background-color': status === 'done' ? '#6fb63e' : '#d14444'}">
+            {{status}}
+        </i>
+    </div>
+    <br>
+    <mat-dialog-content *ngIf="status">
+        <h3 fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">{{title}}</h3>
+        <p fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0" style="color: #757474; text-align: -webkit-center; font-size: 1em;">
+            {{message}}
+        </p>
+    </mat-dialog-content>
+    <br>
+    <mat-dialog-actions fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="status">
+        <button *ngIf="status != 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-error">Aceptar</button>
+        <button *ngIf="status == 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-success" (click)="reloadPage()">Aceptar</button>
+    </mat-dialog-actions>
+</div>
