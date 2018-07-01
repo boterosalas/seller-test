@@ -8,5 +8,5 @@ phases:
       - ng build --prod
 artifacts:
   files:
-    - '**/*'
+    - deploy/dist/**/*
     
