@@ -10,7 +10,3 @@ artifacts:
   type: S3
   files:
     - deploy/dist/**/*
-
-
-  
-  
