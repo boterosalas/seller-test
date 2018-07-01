@@ -11,5 +11,3 @@ artifacts:
   files:
     - deploy/dist/**/*
   
-    
-    
