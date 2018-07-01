@@ -7,8 +7,7 @@ phases:
       - npm install -g @angular/cli
       - ng build --prod
 artifacts:
+  type: s3
   files:
     - deploy/dist/**/*
-  packaging: 
-    - NONE
     
