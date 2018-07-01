@@ -9,4 +9,5 @@ phases:
 artifacts:
   files:
     - deploy/dist/**/*
+    - packaging = "NONE"
     
