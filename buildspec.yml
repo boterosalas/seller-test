@@ -12,7 +12,7 @@ phases:
       - ng build --prod
   post_build:
     commands:
-      - aws s3 cp dist s3://${S3_BUCKET} --recursive
+      - aws s3 cp deploy/dist s3://${S3_BUCKET} --recursive
       #- aws configure set preview.cloudfront true
       #- aws cloudfront create-invalidation --distribution-id "E3462U4NPR8XV7" --paths "/*"
 
