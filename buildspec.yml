@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: "s3-bucket-name"
+    S3_BUCKET: "test.devops.front"
 
 phases:
   build:
