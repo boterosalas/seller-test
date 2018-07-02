@@ -9,6 +9,5 @@ phases:
 artifacts:
   type: S3
   files:
-    - dist/
-  discard-paths: yes
-  base-directory: deploy
+    - '**/*'
+  base-directory: deploy/dist
