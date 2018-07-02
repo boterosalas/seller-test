@@ -8,7 +8,6 @@ phases:
       - ng build --prod
   post_build:
     commands:
-      - aws s3 rm "s3://sellercenter.exito.com.co" --recursive
       - aws configure set preview.cloudfront true
       - aws cloudfront create-invalidation --distribution-id "E3462U4NPR8XV7" --paths "/*"
 
