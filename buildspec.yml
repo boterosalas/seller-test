@@ -16,3 +16,4 @@ artifacts:
   files:
     - '**/*'
   base-directory: deploy/dist
+  
