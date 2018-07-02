@@ -178,7 +178,7 @@
       <h6 matLine>Perfil</h6>
     </mat-list-item>
 
-    <mat-list-item id="matlist-item-button-cerrar-sesion" (click)="logout();toggleMenu()">
+    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/securehome/logout']" (click)="toggleMenu()">
       <mat-icon matListIcon class="mat-18">input</mat-icon>
       <h6 matLine>Salir</h6>
     </mat-list-item>

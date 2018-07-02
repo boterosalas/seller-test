@@ -16,7 +16,6 @@ import { ComponentsService } from '../services/common/components/components.serv
 import { EventEmitterOrders } from '../event/eventEmitter-orders.service';
 import { SearchFormEntity, InformationToForm } from '../../components/shared/models/order';
 import { ModalComponent } from './modal/modal.component';
-
 // log component
 const log = new Logger('ShellComponent');
 
@@ -52,6 +51,7 @@ export class ShellComponent implements OnInit {
     information: new InformationToForm
   };
 
+  userLoggin: boolean;
   /**
    * Creates an instance of ShellComponent.
    * @param {MatDialog} dialog

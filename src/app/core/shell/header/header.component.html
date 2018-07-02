@@ -1,4 +1,4 @@
-<div class="light-content">
+<div class="light-content" *ngIf="userLoggin">
   <mat-toolbar color="primary" class="principal-toolbar">
     <button color="accent" id="menuElement" matTooltip="Menú" matTooltipPosition="below" mat-icon-button mat-button
             (click)="toggleMenu()">
@@ -28,7 +28,12 @@
               mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <app-logout matTooltip="Salir" matTooltipPosition="below" (click)="sidenav.close()"></app-logout>
+      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/securehome/logout']"
+              id="logout-button"
+              mat-icon-button mat-button color="accent">
+      <mat-icon class="mat-24">exit_to_app</mat-icon>
+      </button>
+<!-- <app-logout matTooltip="Salir" matTooltipPosition="below" (click)="sidenav.close()"></app-logout> -->  
     </div>
 
   </mat-toolbar>

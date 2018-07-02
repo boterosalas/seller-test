@@ -7,15 +7,9 @@ import { ErrorPageComponent } from './components/common/error-page/error-page.co
 import { HomeComponent } from './components/seller-center/home/home.component';
 /* aws-cognito components */
 import { LoginComponent } from './components/aws-cognito/public/auth/login/login.component';
-import { RegistrationConfirmationComponent, LogoutComponent } from './components/aws-cognito/public/auth/confirm/confirmRegistration.component';
-import { ResendCodeComponent } from './components/aws-cognito/public/auth/resend/resendCode.component';
-import { ForgotPassword2Component, ForgotPasswordStep1Component } from './components/aws-cognito/public/auth/forgot/forgotPassword.component';
-import { NewPasswordComponent } from './components/aws-cognito/public/auth/newpassword/newpassword.component';
 import { SecureHomeComponent } from './components/aws-cognito/secure/landing/securehome.component';
-import { JwtComponent } from './components/aws-cognito/secure/jwttokens/jwt.component';
 import { MyProfileComponent } from './components/aws-cognito/secure/profile/myprofile.component';
-import { UseractivityComponent } from './components/aws-cognito/secure/useractivity/useractivity.component';
-import { RegisterComponent } from './components/seller-center/seller/register/register.component';
+import { LogoutComponent } from './components/aws-cognito/public/auth/confirm/confirmRegistration.component';
 
 const homeRoutes: Routes = [
   {
@@ -49,7 +43,7 @@ const secureHomeRoutes: Routes = [
   },
   {
       path: 'securehome', component: SecureHomeComponent, children: [
-      {path: 'logout', component: HomeComponent},
+      {path: 'logout', component: LogoutComponent},
       {path: 'jwttokens', component: HomeComponent},
       {path: 'myprofile', component: HomeComponent},
       {path: 'useractivity', component: HomeComponent},

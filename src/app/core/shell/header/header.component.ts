@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import { Logger } from '../../utilities/logger.service';
 import { ShellComponent } from '../shell.component';
 import { FAKE } from '../../utilities/fakeData.model';
+import { CognitoUtil } from '../../../components/aws-cognito/service/cognito.service';
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -27,6 +28,8 @@ export class HeaderComponent implements OnInit {
   @Input() sidenav;
   // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
   public webUrl = environment.webUrl;
+  userLoggin: boolean;
+  
 
   /**
    * Creates an instance of HeaderComponent.
@@ -34,7 +37,7 @@ export class HeaderComponent implements OnInit {
    * @memberof HeaderComponent
    */
   constructor(
-    public shellComponent: ShellComponent
+    public shellComponent: ShellComponent, public cognitoUtil: CognitoUtil
   ) { }
 
 
@@ -43,6 +46,12 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit() {
     this.user = this.user || FAKE.FAKEUSER;
+    const token = this.cognitoUtil.getTokenLocalStorage();
+    this.userLoggin = false;
+    if(typeof token !== 'undefined'){
+        this.userLoggin = true;
+    }
+    console.log(this.userLoggin);
   }
 
   /**
