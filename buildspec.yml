@@ -6,9 +6,13 @@ phases:
       - npm install
       - npm install -g @angular/cli
       - ng build --prod
+  post_build:
+    commands:
+      - aws configure set preview.cloudfront true
+      - aws cloudfront create-invalidation --distribution-id "E3462U4NPR8XV7" --paths "/*"
+
 artifacts:
   type: S3
   files:
-    - '/*'
-  discard-paths: yes
+    - '**/*'
   base-directory: deploy/dist
