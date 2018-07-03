@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    S3_BUCKET: "sellercenter.exito.com.co"
+
+phases:
+  build:
+    commands:
+      - npm install
+      - npm install -g @angular/cli
+      - ng build --prod
+  post_build:
+    commands:
+      - aws s3 rm s3://${S3_BUCKET} --recursive
+      - aws s3 cp deploy/dist s3://${S3_BUCKET} --recursive
+      - aws configure set preview.cloudfront true
+      - aws cloudfront create-invalidation --distribution-id "E3462U4NPR8XV7" --paths "/*"
+
+artifacts:
+  type: S3
+  files:
+    - '**/*'
+  base-directory: deploy/dist
+  
+  
