@@ -31,6 +31,7 @@ export class TreeCategoriesComponent implements OnInit {
   // variable para saber si mostrar el loading
   showLoading = false;
   allSellerCategories = [];
+  CONST_MARKETPLACE = 'Marketplace';
   // Información del usuario
   public user: User;
 
@@ -49,7 +50,7 @@ export class TreeCategoriesComponent implements OnInit {
    * @param {*} res
    * @memberof TreeCategoriesComponent
    */
-  configTreeComponent(res) {
+  public configTreeComponent(res: any) {
     // capturo el nombre de la tienda actual
     this.currentStoreSelect = res;
     // indico que no hay información para el arbol
@@ -84,9 +85,14 @@ export class TreeCategoriesComponent implements OnInit {
   * @memberof TreeCategoriesComponent
   */
   getAllSellerCommissionCategory() {
+    this.allSellerCategories = [];
     this.storeService.getAllSellerCommissionCategory(this.user, this.currentStoreSelect).subscribe((res: any) => {
-      // guardo el response
-      this.allSellerCategories = res.Data;
+            // guardo el response
+            if(res.status === 200){
+              this.allSellerCategories = res.body.Data;
+            } else {
+              console.log('getAllSellerCommissionCategory:' + res.message);
+            }
     });
   }
 
@@ -97,23 +103,27 @@ export class TreeCategoriesComponent implements OnInit {
    */
   getSellerCommissionCategory() {
     this.showLoading = true;
-    this.storeService.getSellerCommissionCategory(this.user, this.currentStoreSelect).subscribe((res: any) => {
-      log.error(res);
-      // indico a los componentes suscritos al evento que se ha cargado información para el arbol
-      const information = {
-        informationForTreeIsLoad: true,
-        data: {
-          getSellerCommissionCategory: res.Data,
-          allGetSellerCommissionCategory: this.allSellerCategories
-        }
-      };
-
-      // ejecuto el evento que notifica los cambios en la información para el arbol y informa que se cargo correctamente algun dato
-      this.eventsStore.informationForTreeIsLoad(information);
-      this.informationForTreeIsLoad = true;
-      this.showLoading = false;
-      // this.configTreeInformation(information);
-
+    this.storeService.getSellerCommissionCategory(this.user, this.currentStoreSelect)
+      .subscribe((res: any) => {
+          if (res.status === 200) {
+                  // indico a los componentes suscritos al evento que se ha cargado información para el arbol
+                const information = {
+                  informationForTreeIsLoad: true,
+                  data: {
+                    getSellerCommissionCategory: res.body.Data,
+                    allGetSellerCommissionCategory: this.allSellerCategories
+                  }
+                };
+                // ejecuto el evento que notifica los cambios en la información para el arbol 
+                // y informa que se cargo correctamente algun dato.
+                this.eventsStore.informationForTreeIsLoad(information);
+                this.informationForTreeIsLoad = true;
+                this.showLoading = false;
+                // this.configTreeInformation(information);
+          } else {
+            log.error(res.message);
+            console.log('Error consultando las comisiones por categoria.' + res.message);
+          }
     });
   }
 
@@ -131,7 +141,7 @@ export class TreeCategoriesComponent implements OnInit {
 
     for (let i = 0; i < listCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
-      if (listCategories[i].Name == 'Marketplace') {
+      if (listCategories[i].Name == this.CONST_MARKETPLACE) {
         node = listCategories[i];
         break;
       }

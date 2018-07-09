@@ -11,14 +11,21 @@ import { BaseSellerService } from '../../../shared/services/base-seller.service'
 import { endpoints, defaultVersion } from '../../../../../../api-endpoints';
 import { User } from '../../../shared/models/login.model';
 import { StoreModel } from './models/store.model';
+import { CognitoUtil } from '../../../aws-cognito/service/cognito.service';
 
 @Injectable()
 
 /**
  * Clase StoresService
  */
-export class StoresService extends BaseSellerService {
-
+export class StoresService {
+  /**
+   * Método constructor de la clase StoresService
+   * @param http objeto de la clase HttpClient para consumo de servicio
+   * @param cognitoUtil
+   */
+  constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {
+  }
   /**
    * Método para realiar la consulta de las tiendas disponibles
    * @param {any} user
@@ -26,18 +33,25 @@ export class StoresService extends BaseSellerService {
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
-  getAllStores(user: User): Observable<[{}]> {
+  public getAllStores(user: User): Observable<[{}]> {
 
     return new Observable(observer => {
+      // capturo el token de usuario para el envio en headers
+      const idToken =  this.cognitoUtil.getTokenLocalStorage();
+      // construyo eñ header para enviar al servicio
+      const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
       // obtengo el endpoint desde el archivo de configuración de endpoints
-      const enpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getAllSellers'];
-      this.http.get(enpoint).subscribe((data: any) => {
-        observer.next(data);
-      }, error => {
-        this.hehs.error(error, () => {
-          observer.error(error);
-        });
-      });
+      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getAllSellers'];
+      // llamado al servicio para traer todos los vendedores
+        this.http.get (endpoint, { observe: 'response', headers: headers })
+          .subscribe(
+            (data: any) => {
+              observer.next(data);
+            },
+            error => {
+              observer.next(error);
+            }
+          );
     });
   }
 
@@ -49,19 +63,23 @@ export class StoresService extends BaseSellerService {
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
-  getSellerCommissionCategory(user: User, store: StoreModel): Observable<[{}]> {
+  getSellerCommissionCategory(user:User, store: StoreModel): Observable<[{}]> {
 
     return new Observable(observer => {
       // obtengo el endpoint desde el archivo de configuración de endpoints
-      const enpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'] + `/1`;
-      // const enpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'] + `/${store.IdSeller}`;
-      this.http.get(enpoint).subscribe((data: any) => {
-        observer.next(data);
-      }, error => {
-        this.hehs.error(error, () => {
-          observer.error(error);
-        });
-      });
+      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'] + `/${store.IdSeller}`;
+      // capturo el token de usuario para el envio en headers
+      const idToken =  this.cognitoUtil.getTokenLocalStorage();
+      // construyo eñ header para enviar al servicio
+      const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
+
+      this.http.get(endpoint, {observe: 'response', headers: headers })
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, error => {
+            observer.next(error);
+          }
+        );
     });
   }
 
@@ -72,18 +90,22 @@ export class StoresService extends BaseSellerService {
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
-  getAllSellerCommissionCategory(user: User, store: StoreModel): Observable<[{}]> {
+  public getAllSellerCommissionCategory(user:User, store: StoreModel): Observable<[{}]> {
 
     return new Observable(observer => {
+      // capturo el token de usuario para el envio en headers
+      const idToken =  this.cognitoUtil.getTokenLocalStorage();
+      // construyo eñ header para enviar al servicio
+      const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
       // obtengo el endpoint desde el archivo de configuración de endpoints
-      const enpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'];
-      this.http.get(enpoint).subscribe((data: any) => {
-        observer.next(data);
-      }, error => {
-        this.hehs.error(error, () => {
-          observer.error(error);
-        });
-      });
+      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'];
+      this.http.get(endpoint, {observe: 'response', headers: headers})
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, error => {
+            observer.next(error);
+          }
+        );
     });
   }
 }

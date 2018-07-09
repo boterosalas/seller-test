@@ -49,7 +49,8 @@ export class StatesComponent implements OnInit {
     this.dataService.fetchData().subscribe(
       (result: any) => {
         if (result.status === 200) {
-          const data = result.body.Data;
+          const data_response = JSON.parse(result.body.body);
+          const data = data_response.Data;
           this.listItems = data;
           this.shellComponent.loadingComponent.closeLoadingSpinner();
         } else {

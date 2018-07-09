@@ -171,18 +171,21 @@ export class RegisterComponent implements OnInit {
     this.registerService.registerUser(JSON.stringify(this.formRegister))
       .subscribe(
         (result: any) => {
+          console.log(result);
           if (result.status === 201 || result.status === 200) {
-            const data = result;
-            if (data.body.Data) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
               this.shellComponent.modalComponent.showModal('success');
-            } else if (!data.body.Data) {
+            } else if (!data.Data) {
               this.shellComponent.modalComponent.showModal('error');
             }
           } else {
             this.shellComponent.modalComponent.showModal('errorService');
           }
+
           this.disabledForService = false;
           this.shellComponent.loadingComponent.closeLoadingSpinner();
+
         }
       );
   }
@@ -203,22 +206,22 @@ export class RegisterComponent implements OnInit {
         .subscribe(
           (result: any) => {
             if (result.status === 200) {
-              const data = JSON.stringify(result);
-              this.existValueInDB = result.body.Data;
+              const data_response = JSON.parse(result.body.body);
+              this.existValueInDB = data_response.Data;
               switch (param) {
                 case 'nit':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': result.body.Data });
+                    this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
                   }
                   break;
                 case 'email':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': result.body.Data });
+                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
                 case 'nomTienda':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': result.body.Data });
+                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
                 default:

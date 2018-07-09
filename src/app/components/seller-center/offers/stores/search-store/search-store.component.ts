@@ -75,10 +75,15 @@ export class SearchStoreComponent implements OnInit {
    * Método empleado para consultar la lista de tiendas disponibles
    * @memberof SearchStoreComponent
    */
-  getAllStores() {
+  public getAllStores() {
     this.storeService.getAllStores(this.user).subscribe((res: any) => {
       log.info(res);
-      this.listStores = res.Data;
+      if(res.status === 200) {
+        this.listStores = res.body.Data;
+      }
+      else {
+        this.listStores = res.message;
+      }
     });
   }
 
@@ -87,7 +92,7 @@ export class SearchStoreComponent implements OnInit {
    * @param {any} event
    * @memberof SearchStoreComponent
    */
-  whatchValueInput(event) {
+  public whatchValueInput(event: any): void {
     if (event === '') {
       this.textForSearch.reset();
     }
@@ -99,7 +104,7 @@ export class SearchStoreComponent implements OnInit {
    * @returns {string[]}
    * @memberof SearchStoreComponent
    */
-  filter(val: string): string[] {
+  public filter(val: string): string[] {
     if (val !== null) {
       return this.listStores.filter(option =>
         option.Name.toLowerCase().includes(val.toLowerCase()));
@@ -112,7 +117,7 @@ export class SearchStoreComponent implements OnInit {
    * @param {any} event
    * @memberof SearchStoreComponent
    */
-  keyDownFunction(event) {
+  public keyDownFunction(event: any): void {
     // keyCode 13 -> Enter
     if (event.keyCode === 13) {
       // Obtengo los ultimos registros almacenados sobre la lista de busqueda
@@ -138,7 +143,7 @@ export class SearchStoreComponent implements OnInit {
    * @param {any} search_store
    * @memberof SearchStoreComponent
    */
-  viewStoreInformation(search_store: StoreModel) {
+  public viewStoreInformation(search_store: StoreModel) {
     // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
     this.eventsStore.searchStore(search_store);
   }

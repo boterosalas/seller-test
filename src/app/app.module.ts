@@ -80,8 +80,8 @@ import { ListModule } from './components/seller-center/offers/list/list.module';
 
     // Routing app
     AppRoutingModule,
-    AwsCognitoModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AwsCognitoModule
+   // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
   ],
   entryComponents: [],
   providers: [

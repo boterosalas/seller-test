@@ -11,7 +11,8 @@ export const environment = {
   apiUrl: 'http://ec2-54-210-36-240.compute-1.amazonaws.com/',
   webUrl: 'http://sellershop.com/user_metadata',
   endpoints: {
-    seller: 'http://ec2-34-200-30-156.compute-1.amazonaws.com/api',
+    seller: 'http://balancertestapi-324764564.us-east-1.elb.amazonaws.com:8084/api',
+    // seller: 'http://ec2-34-200-30-156.compute-1.amazonaws.com/api',
     shipments: 'http://ec2-54-157-210-146.compute-1.amazonaws.com/api'
   },
 };
