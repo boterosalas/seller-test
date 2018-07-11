@@ -1,0 +1,55 @@
+<div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
+  <h5>Factura: {{order.billingNumber}}</h5>
+
+  <div class="title-product-list">
+    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="155px" class="sc-text-normal">
+      <div class="title-table-product">
+        <p>Producto</p>
+      </div>
+    </div>
+    <div class="sc-text-normal item-title-table">
+      <div class="title-table-product">
+        <p>EAN</p>
+      </div>
+    </div>
+    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+      <div class="title-table-product">
+        <p>Cantidad</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let product of order.detail" class="content-product-list">
+
+    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="155px">
+      <p class="sc-text-normal">{{product.detailName}}</p>
+    </div>
+    <div class="item-title-table">
+      <div>
+        <p class="sc-text-normal">{{product.ean }}</p>
+      </div>
+    </div>
+    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
+      <div>
+        <p class="sc-text-normal">{{product.quantity }}</p>
+      </div>
+    </div>
+
+    <div class="item-action-table" fxShow.xs="true" fxShow.sm="true" fxShow.lg="false" fxShow.xl="false" fxShow="false">
+
+      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
+        <mat-icon>arrow_drop_down</mat-icon>
+        <span>Acciones</span>
+      </button>
+      <mat-menu #orderOptions="matMenu">
+
+        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)" fxShow.xs="true" fxShow.sm="true"
+          fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+          <mat-icon>more_vert</mat-icon>
+          <span>Ver detalle</span>
+        </button>
+      </mat-menu>
+    </div>
+
+  </div>
+</div>

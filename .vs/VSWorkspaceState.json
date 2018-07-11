@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\core",
+    "\\src\\app\\core\\shell",
+    "\\src\\app\\core\\shell\\sidebar"
   ],
+  "SelectedNode": "\\src\\app\\core\\shell\\sidebar\\sidebar.component.html",
   "PreviewInSolutionExplorer": false
 }

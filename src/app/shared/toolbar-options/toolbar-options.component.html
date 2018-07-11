@@ -1,0 +1,78 @@
+<mat-toolbar class="toolbar-orders-options-table" color="primary">
+  <mat-toolbar-row class="toolbar-options">
+    <div class="normal-theme toolbar-options-table">
+      <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="toolbar-cont">
+
+        <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="sc-title title-toolbar">{{informationToForm.title}}</h3>
+        <!-- Opciones de la pagina ordern -->
+        <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button" id="search-order-button"
+          (click)="toggleMenuOrderSearch()" mat-button color="primary">
+          <mat-icon>search</mat-icon>
+          {{informationToForm.btn_title}}
+        </button>
+
+        <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false" fxShow.md="false"
+          fxShow="true" fxFlex="160px" class="sc-default-button" id="download-order-button" mat-button color="primary">
+          <mat-icon>file_download</mat-icon>
+          Descargar
+        </button>
+
+        <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="50%" class="toolbar-paginate">
+
+          <!-- Paginación de la tabla -->
+          <mat-form-field [ngClass]="{'hidden-pagination': orderListLength == true}" fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
+            fxShow="true" fxFlex="103px" class="list-length-order">
+            <input id="number-elements-input" type="number" matInput placeholder="Número de registros" [(ngModel)]="lengthOrder" (ngModelChange)="getOrdersList()">
+          </mat-form-field>
+
+          <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="250px" fxFlex.sm="250px"
+            fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px" class="paginator-style orders-paginate" itemsPerPageLabel="Items por pagina"
+            #paginator [pageSize]="pageSizeOrder" [length]="lengthOrder" [pageSizeOptions]="[5, 10, 20]">
+          </mat-paginator>
+
+          <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true" fxShow.lg="false"
+            fxShow.xl="false">
+            <button id="more-options-for-search-orden" class="button-toolbar" mat-icon-button [matMenuTriggerFor]="toolbarOptions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #toolbarOptions="matMenu">
+              <div class="options-dropdwon">
+                <button id="close-more-options-for-search-orden" color="primary" mat-icon-button matSuffix>
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <button id="search-order-button" (click)="toggleMenuOrderSearch()" mat-menu-item>
+                <mat-icon>search</mat-icon>
+                <span class="acction-text">{{informationToForm.btn_title}}</span>
+              </button>
+              <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" class="acction-text" id="download-order-button" mat-menu-item>
+                <mat-icon>file_download</mat-icon>
+                <span>Descargar</span>
+              </button>
+
+              <mat-form-field class="selectPageSize">
+                <input id="number-elements-input" (click)="stopPropagation($event)" type="number" matInput placeholder="Número de registros"
+                  [(ngModel)]="lengthOrder" (ngModelChange)="getOrdersList()">
+              </mat-form-field>
+
+              <mat-form-field class="selectPageSize">
+                <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina" [(ngModel)]="pageSizeOrder"
+                  (ngModelChange)="changeSizeOrderTable()">
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="20">20</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="options-dropdwon">
+                <button id="close-more-options-for-search-orden" color="primary" mat-button matSuffix>
+                  Cerrar
+                </button>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,56 @@
+<div class="container-error" *ngIf="countErrors > 0">
+  <div class="name-file-upload">
+    <p>Archivo seleccionado:</p>
+    <b>{{ fileName}}</b>
+  </div>
+  <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"  *ngIf="listLog.length != 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="title-expansion-panel-table">
+          <mat-icon>error</mat-icon>
+          <span>{{countErrors}} </span>
+          <b> Errores detectados</b>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="error-list-content">
+
+      <mat-nav-list dense>
+        <mat-list-item>
+          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de las ofertas.
+          </p>
+        </mat-list-item>
+        <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)" *ngFor="let item of listLog">
+          <mat-icon class="icon-color-error">error</mat-icon>
+
+          <p matLine *ngIf="item.type == 'NumberFormat'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor o igual a cero, sin decimales.
+          </p>
+
+          <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> es obligatorio.
+          </p>
+
+          <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debe ser booleano (1 ó 0).
+          </p>
+
+          <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor a cero, sin decimales.
+          </p>
+
+          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debería tener el formato (# a #), los números deben ser mayores a 0.
+          </p>
+
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </mat-expansion-panel>
+</div>

@@ -1,92 +1,117 @@
-
-/* 3rd party libraries */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { UserRegistrationService } from './service/user-registration.service';
+import { UserParametersService } from './service/user-parameters.service';
+import { UserLoginService } from './service/user-login.service';
+import { CognitoUtil } from './service/cognito.service';
+import { routing } from './app.routes.routing';
+import { AboutComponent, HomeComponent, HomeLandingComponent } from './public/home.component';
+import { AwsUtil } from './service/aws.service';
+import { UseractivityComponent } from './secure/useractivity/useractivity.component';
+import { MyProfileComponent } from './secure/profile/myprofile.component';
+import { SecureHomeComponent } from './secure/landing/securehome.component';
+import { JwtComponent } from './secure/jwttokens/jwt.component';
+import { DynamoDBService } from './service/ddb.service';
+import { LoginComponent } from './public/auth/login/login.component';
+import { RegisterComponent } from './public/auth/register/registration.component';
+import { ForgotPassword2Component, ForgotPasswordStep1Component } from './public/auth/forgot/forgotPassword.component';
+import { LogoutComponent, RegistrationConfirmationComponent } from './public/auth/confirm/confirmRegistration.component';
+import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
+import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
+import { MFAComponent } from './public/auth/mfa/mfa.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LOCALE_ID } from '@angular/core';
-// import 'hammerjs';
 
 /* our own custom components */
-import { AppComponent } from './app.component';
-import { MaterialModule } from './core/components/material-components';
-import { AppRoutingModule } from './app-routing.module';
-import { ShellModule } from './core/shell/shell.module';
+import { MaterialModule } from './secure/seller-center/components/material-components';
+import { AppComponent } from '.';
+import { environment } from './environments/environment';
+import { ShellModule } from './secure/seller-center/shell/shell.module';
+import { HomeModule } from './secure/seller-center/components/home/home.module';
+import { ErrroModule } from './secure/seller-center/components/error-page/error-page.module';
+import { LoadGuideModule } from './secure/seller-center/components/load-guide-page/load-guide.module';
+import { OrdersModule } from './secure/seller-center/components/orders/orders-list/orders.module';
+import { InValidationModule } from './secure/seller-center/components/orders/in-validation/in-validation.module';
+import { PendingDevolutionModule } from './secure/seller-center/components/orders/pending-devolution/pending-devolution.module';
+import { InDevolutionModule } from './secure/seller-center/components/orders/in-devolution/id-devolution.module';
+import { ToolbarOptionsModule } from './shared/toolbar-options/toolbar-options.module';
+import { ToolbarLinkModule } from './shared/toolbar-link/toolbar-link.module';
+import { BillingModule } from './secure/seller-center/components/billing/billing.module';
+import { RegisterModule } from './secure/seller-center/components/seller/register/register.module';
+import { PendingModule } from './secure/seller-center/components/shipments/pending/pending.module';
+import { StoresModule } from './secure/seller-center/components/offers/stores/stores.module';
+import { HistoricModule } from './secure/seller-center/components/shipments/historic/historic.module';
+import { DispatchModule } from './secure/seller-center/components/shipments/dispatched/dispatched.module';
+import { DetailModule } from './secure/seller-center/components/shipments/detail/detail.module';
+import { BulkLoadModule } from './secure/seller-center/components/offers/bulk-load/bulk-load.module';
+import { ListModule } from './secure/seller-center/components/offers/list/list.module';
 
-// seller-center-components
-import { LoadGuideModule } from './components/seller-center/load-guide-page/load-guide.module';
-import { BillingModule } from './components/seller-center/billing/billing.module';
-import { HomeModule } from './components/seller-center/home/home.module';
-import { BulkLoadModule } from './components/seller-center/offers/bulk-load/bulk-load.module';
-
-// shipments-components
-
-import { HistoricModule } from './components/shipments/historic/historic.module';
-import { PendingModule } from './components/shipments/pending/pending.module';
-import { DispatchModule } from './components/shipments/dispatched/dispatched.module';
-import { ToolbarOptionsModule } from './components/shared/toolbar-options/toolbar-options.module';
-import { ToolbarLinkModule } from './components/shared/toolbar-link/toolbar-link.module';
-import { ErrroModule } from './components/common/error-page/error-page.module';
-import { OrdersModule } from './components/seller-center/orders/orders-list/orders.module';
-import { DetailModule } from './components/shipments/detail/detail.module';
-import { InValidationModule } from './components/seller-center/orders/in-validation/in-validation.module';
-import { PendingDevolutionModule } from './components/seller-center/orders/pending-devolution/pending-devolution.module';
-import { InDevolutionModule } from './components/seller-center/orders/in-devolution/id-devolution.module';
-
-// import of seller register module - Pragma
-import { StoresModule } from './components/seller-center/offers/stores/stores.module';
-import { RegisterModule } from './components/seller-center/seller/register/register.module';
-import { environment } from '../environments/environment';
-import { AwsCognitoModule } from './components/aws-cognito/aws-cognito.module';
-import { ListModule } from './components/seller-center/offers/list/list.module';
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    /* angular stuff */
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserAnimationsModule,
-
-    /* 3rd party components */
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    MaterialModule,
-    /* our own custom components */
-    ShellModule,
-    HomeModule,
-    ErrroModule,
-    LoadGuideModule,
-    OrdersModule,
-    InValidationModule,
-    PendingDevolutionModule,
-    InDevolutionModule,
-    ToolbarOptionsModule,
-    ToolbarLinkModule,
-    BillingModule,
-    // Shipments-modules
-    // ReportsModule,
-    RegisterModule,
-    PendingModule,
-    StoresModule,
-    HistoricModule,
-    DispatchModule,
-    DetailModule,
-    BulkLoadModule,
-    ListModule,
-
-    // Routing app
-    AppRoutingModule,
-    AwsCognitoModule
-   // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-  ],
-  entryComponents: [],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'es-CO' }],
-  bootstrap: [AppComponent],
-
+    declarations: [
+        NewPasswordComponent,
+        LoginComponent,
+        LogoutComponent,
+        RegistrationConfirmationComponent,
+        ResendCodeComponent,
+        ForgotPasswordStep1Component,
+        ForgotPassword2Component,
+        RegisterComponent,
+        MFAComponent,
+        AboutComponent,
+        HomeLandingComponent,
+        HomeComponent,
+        UseractivityComponent,
+        MyProfileComponent,
+        SecureHomeComponent,
+        JwtComponent,
+        AppComponent
+    ],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        FormsModule,
+        HttpModule,
+        HttpClientModule,
+        routing,
+        // imports login exito
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MaterialModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        ShellModule,
+        HomeModule,
+        ErrroModule,
+        LoadGuideModule,
+        OrdersModule,
+        InValidationModule,
+        PendingDevolutionModule,
+        InDevolutionModule,
+        ToolbarOptionsModule,
+        ToolbarLinkModule,
+        BillingModule,
+        RegisterModule,
+        PendingModule,
+        StoresModule,
+        HistoricModule,
+        DispatchModule,
+        DetailModule,
+        BulkLoadModule,
+        ListModule
+    ],
+    providers: [
+        CognitoUtil,
+        AwsUtil,
+        DynamoDBService,
+        UserRegistrationService,
+        UserLoginService,
+        UserParametersService,
+        MyProfileComponent,
+        { provide: LOCALE_ID, useValue: 'es-CO' }],
+        bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

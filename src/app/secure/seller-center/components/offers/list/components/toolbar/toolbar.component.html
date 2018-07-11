@@ -1,0 +1,15 @@
+  <div class="light-content">
+    <mat-toolbar color="primary" class="toolbar-component" [class.fixedToolbar]="fixed">
+      <div class="toolbar-options flexbox align-center justify-between">
+        <p>{{tittleBar}}
+          <small class="sub-title">| {{subtitleBar}}</small>
+        </p>
+        <div class="options-toolbar flexbox justify-end">
+          <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
+            <mat-icon>filter_list</mat-icon>
+            <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+  </div>

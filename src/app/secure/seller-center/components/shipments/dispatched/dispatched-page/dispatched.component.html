@@ -1,0 +1,117 @@
+<div class="content-order my-content">
+
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100" class="light-content">
+
+      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <app-toolbar-link fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
+      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-options [informationToForm]="informationToForm" (OnGetOrdersList)="list($event)" (OnChangeSizeOrderTable)="changeSizeTable($event)"></app-toolbar-options>
+      <!-- Toolbar de las opciones para la orden -->
+    </div>
+
+    <!-- Tabla de ordenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="content-table-orders">
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- Order Column -->
+        <ng-container matColumnDef="order">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Orden</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.order}} </mat-cell>
+        </ng-container>
+
+        <!-- Created Column -->
+        <ng-container matColumnDef="created_at">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Pedido</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.created_at | slice : 0 : 10 | date : 'mediumDate'}} </mat-cell>
+        </ng-container>
+
+        <!-- Time limit Column -->
+        <ng-container matColumnDef="time_limit">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Entrega</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.time_limit | slice : 0 : 10 | date : 'mediumDate'}} </mat-cell>
+        </ng-container>
+
+        <!-- Remain Column -->
+        <ng-container matColumnDef="remain">
+          <mat-header-cell *matHeaderCellDef>Restan</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div class="remain">
+              <b>{{element.remain.days}}</b>
+              <span>días</span>
+            </div>
+
+            <div class="remain">
+              <b>{{element.remain.hours}}</b>
+              <span>horas</span>
+            </div>
+
+            <div class="remain">
+              <b>{{element.remain.minutes}}</b>
+              <span>minutos</span>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Destination Column -->
+        <ng-container matColumnDef="destination">
+          <mat-header-cell *matHeaderCellDef>Destino</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.address_to.address}} </mat-cell>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="state_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.state.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Carrier Column -->
+        <ng-container matColumnDef="service.carrier">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Tranportadora</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div>{{element.service.carrier.name}}</div>
+            <div>{{element.service.title}}</div>
+            <div>
+              <b>Guía: {{element.tracking}}</b>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell class="center-product-list" fxFlex.lg="110px" fxFlex.sm="110px" fxFlex.md="110px" fxFlex.xs="110px" *matHeaderCellDef>
+            <span class="title-table-header">Acciones</span>
+          </mat-header-cell>
+          <mat-cell fxFlex.lg="130px" fxFlex.sm="140px" fxFlex.md="130px" fxFlex.xs="130px" *matCellDef="let element">
+            <div class="center-product-list">
+              <button id="dropdown-button-order-{{element.orderNumber}}" color="primary" (click)="stopPropagation($event)" class="sc-button-toolbar button-toolbar"
+                mat-button [matMenuTriggerFor]="orderOptions">
+                <mat-icon matPrefix>arrow_drop_down</mat-icon>
+                <span>Acciones</span>
+              </button>
+              <mat-menu #orderOptions="matMenu">
+                <a id="menu-action-get-tracking-{{element.id}}" mat-menu-item target="_blank" href="{{url}}/tracking/{{element.tracking}}/pdf">
+                  <mat-icon>receipt</mat-icon>
+                  <span>Imprimir guía</span>
+                </a>
+                <a id="menu-action-get-label-{{element.id}}" mat-menu-item target="_blank" href="{{url}}/tracking/{{element.tracking}}/label">
+                  <mat-icon>print</mat-icon>
+                  <span>Imprimir rótulo</span>
+                </a>
+                <a id="menu-action-detail-{{element.id}}" mat-menu-item [routerLink]="['../envio/' + element.id ]">
+                  <mat-icon>assignment</mat-icon>
+                  <span>Ver detalle</span>
+                </a>
+              </mat-menu>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+  </div>
+</div>

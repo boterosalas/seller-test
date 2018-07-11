@@ -1,0 +1,16 @@
+<div class="tree-content">
+  <div class="header-tree-categories">
+    <h1>{{currentStoreSelect.Name}}</h1>
+  </div>
+
+  <!-- Componente empleado cuando no se posee una tienda seleccionada -->
+  <app-no-content *ngIf="currentStoreSelect.Name === ''"></app-no-content>
+
+  <!-- Componente que se visualiza cuando se ha indicado una tienda para consultar -->
+  <app-tree-component *ngIf="informationForTreeIsLoad == true"></app-tree-component>
+
+  <!-- Componente loading -->
+  <div *ngIf="showLoading == true" class="spinner-component">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<form #f="ngForm" [formGroup]="myform" class="search-form light-content">
+  <mat-form-field id="paymentDate-input-search-order" color="accent">
+    <input id="input-filter-paymentDate" [max]="myform.value.dateOrderFinal" formControlName="paymentDate"
+           placeholder="Fecha de pago"
+           matInput [matDatepicker]="paymentDate">
+    <mat-datepicker-toggle id="paymentDate-Perfix" matPrefix [for]="paymentDate"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" startView="year" #paymentDate></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field id="billingNumber-input-search-order" class="example-full-width" color="accent">
+    <mat-icon matPrefix color="accent">format_list_bulleted</mat-icon>
+    <input id="input-filter-billingNumber" formControlName="billingNumber" type="text" pattern="[0-9.]+" matInput
+           placeholder="Número de factura">
+  </mat-form-field>
+
+
+  <div class="orders-search-option normal-theme">
+    <button id="clear-filter-button" class="sc-button" mat-button (click)="clearForm()">
+      <mat-icon>clear_all</mat-icon>
+      Limpiar
+    </button>
+    <button id="apply-filter-button" [disabled]="!f.form.valid" class="sc-button" mat-raised-button color="primary"
+            type="submit"
+            (click)="filterOrder(myform)">Aplicar
+    </button>
+  </div>
+</form>

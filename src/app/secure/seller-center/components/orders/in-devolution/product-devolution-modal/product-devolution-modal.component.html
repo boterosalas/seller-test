@@ -1,0 +1,111 @@
+<div class="container-product-list content-products-pending-detail">
+  <div class="title-page">
+      <span class="sc-title">Producto: {{order.reversionRequestDetailViewModel.productName}}
+      </span>
+    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </a>
+  </div>
+
+  <mat-accordion fxFlex="100">
+    <mat-expansion-panel class="expanded-element" expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="sc-link-text">
+          Informaci&oacute;n del producto
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+
+      <mat-list class="card-info" fxFlex="100">
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Producto
+            <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.productName}}</p>
+          </h4>
+
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Cantidad
+            <p mat-subheader class="sub-text-list">{{order.products.quantity}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider> -->
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Referencia
+            <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.reference}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>SKU
+            <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.sku}}</p>
+          </h4>
+
+        </mat-list-item>
+        <!-- <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Motivo
+            <p mat-subheader class="sub-text-list">{{order.products.reasonReturn}}</p>
+          </h4>
+
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Comentario</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{order.products.commentaryReturn}}
+          </mat-card-content>
+        </mat-card> -->
+
+      </mat-list>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion fxFlex="100">
+    <mat-expansion-panel class="expanded-element">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="sc-link-text">
+          Ver informaci&oacute;n del cliente
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+      <mat-list class="card-info" fxFlex="100">
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Nombre
+            <p mat-subheader class="sub-text-list">{{order.clientName}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Identificaci&oacute;n
+            <p mat-subheader class="sub-text-list">{{order.identificationCard}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Direcci&oacute;n
+            <p mat-subheader class="sub-text-list">{{order.clientAddress}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Tel&eacute;fono
+            <p mat-subheader class="sub-text-list">{{order.clientTelephone}}</p>
+          </h4>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

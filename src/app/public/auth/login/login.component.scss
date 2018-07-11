@@ -1,0 +1,123 @@
+@import '~@angular/material/theming';
+// always include only once per project
+@include mat-core();
+$primary: mat-palette($mat-indigo);
+// $accent:  mat-palette($mat-teal, A200, A100, A400);
+mat-card {
+  // max-width: 80%;
+  margin: 2em auto; // text-align: center;
+}
+
+.logo-application {
+  background-image: url('../../../../assets/logo/logo-seller.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px;
+  height: 85px;
+  width: 200px;
+  padding: 10px;
+  background-size: 189px;
+}
+
+.form-login {
+  flex-wrap: wrap;
+}
+
+.background-page {
+  background: map-get($primary, 800);
+  height: 30%;
+}
+
+.login-content {
+  height: 421px !important;
+}
+
+.done {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
+
+.card-login {
+  height: auto; // width: 400px;
+  box-shadow: none;
+  margin-top: 0px;
+}
+
+.spacer-content {
+  flex: 1 1 auto;
+}
+
+.title-card-form {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.check-login {
+  display: flex;
+  width: 100%;
+  padding-left: 15px;
+  justify-content: flex-start !important;
+}
+
+.buttons-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title-login {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-tab {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  height: 100%;
+  align-items: center;
+}
+
+.content-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-presentation {
+  width: 40%;
+  height: 500px;
+  background: black;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  & .text-content-presentation {
+    color: white;
+    text-align: center;
+  }
+}
+
+.tab-style {
+  width: 50%;
+  height: auto;
+  background: white;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.alert-danger{
+  background-color: #f44336;
+  color: #fff;
+}

@@ -1,5 +1,7 @@
-@import '../theme/angular-material-theming';
-@import '../theme/general';
+@import './../styles/settings/variables';
+@import './../styles/settings/angular-material-theming';
+@import './../styles/generic/flexbox';
+@import './../styles/generic/generalStyle';
 
 .logo-application {
   background-image: url('../assets/logo/logo-seller.svg');
@@ -43,7 +45,7 @@ mat-sidenav-container,
 }
 
 body {
-  background: #fff;
+  background: $color-white;
 }
 
 .container {
@@ -54,7 +56,7 @@ body {
 }
 
 .mat-drawer-container {
-  background-color: #fff !important;
+  background-color: $color-white !important;
 }
 
 .principal-toolbar {
@@ -93,51 +95,3 @@ body {
   text-transform: uppercase;
   font-weight: bold;
 }
-
-
-/**
- * Inicio Modificacion de estilos por pragma.com.co
- * @author Diego Alejandro Henao Calderon
- */
- input.register{
-  width: 100%;
-}
-
-.register .mat-form-field-disabled{
-  background-color:#009688;
-  border: 1px solid #009688;
-}
-
-.register .mat-form-field-underline{
-  background-color:#009688;
-}
-
-.register .mat-form-field-underline:hover{
-  background-color:#485AFA;
-}
-
-img.register-img{
-  max-width: 100px;
-}
-
-button.button-seller-register{
-  background-color: #485AFA;
-  color:#fff;
-}
-
-.register-text-justify{
-  text-align: justify;
-}
-
-.register-actions-right{
-  float:right;
-}
-
-mat-card.register-seller-card{
-  max-height: 100px;
-}
-/**
- * Fin Modificacion de estilos por pragma.com.co
- * @author Diego Alejandro Henao Calderon
- */
-

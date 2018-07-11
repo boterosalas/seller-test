@@ -1,0 +1,30 @@
+<form #f="ngForm" [formGroup]="myForm" fxLayoutGap="10px" fxLayout="row wrap" fxFlex.xs="100%" fxLayoutGap="10px" fxFlex.sm="100%"
+  fxFlex.gt-sm="100%">
+  <div fxFlex.gt-sm="250px" fxFlex.xs="200px">
+    <div class="center-product-list">
+      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px" class="select-send-options sc-text-normal" id="quantity-product" color="accent">
+        <mat-select name="Transporter" required formControlName="Transporter" placeholder="Transportadora">
+          <mat-option *ngFor="let trans of carries" [value]="trans.name">{{trans.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxFlex.gt-sm="230px" fxFlex.xs="200px">
+    <div class="center-product-list">
+      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px" class="textarea-send-options sc-text-normal">
+        <textarea required name="Guide" formControlName="Guide" matInput placeholder="Guía"></textarea>
+        <mat-error>Mínimo 5 caracteres, Maximo 20 caracteres</mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div fxFlex.gt-sm="80px" fxFlex.xs="120px">
+    <div class="center-product-list">
+      <button type="submit" [disabled]="!f.form.valid || order.sendAllProduct" (click)="sendProduct(product,myForm)" class="full-button sc-button"
+        mat-raised-button color="accent">
+        Enviar
+      </button>
+    </div>
+  </div>
+</form>

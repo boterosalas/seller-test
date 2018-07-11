@@ -1,0 +1,36 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+// Tema por defecto para la aplicación.
+// Configuración del tema de la aplicación
+$custom-theme-primary: mat-palette($mat-indigo, A400);
+$custom-theme-accent: mat-palette($mat-green, 600);
+$custom-theme-warn: mat-palette($mat-red);
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+@include angular-material-theme($custom-theme);
+//
+// Themming application
+// Para emplear estos temas, se debe agregar la clase en el elemento y todos sus elementos hijos van a tener los estilos aplicados.
+.light-content {
+  $custom-theme-primary: mat-palette($mat-grey, A100);
+  $custom-theme-accent: mat-palette($mat-grey, 500);
+  $custom-theme-warn: mat-palette($mat-red);
+  $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+  @include angular-material-theme($custom-theme);
+}
+
+.toolbar-style {
+  $custom-theme-primary: mat-palette($mat-grey, 50);
+  $custom-theme-accent: mat-palette($mat-blue, A200);
+  $custom-theme-warn: mat-palette($mat-red);
+  $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+  @include angular-material-theme($custom-theme);
+}
+
+.normal-theme {
+  $custom-theme-primary: mat-palette($mat-indigo, A400);
+  $custom-theme-accent: mat-palette($mat-green, 600);
+  $custom-theme-warn: mat-palette($mat-red);
+  $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+  @include angular-material-theme($custom-theme);
+}
