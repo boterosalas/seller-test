@@ -156,6 +156,7 @@ export class SearchOrderFormComponent implements OnInit {
 
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
+          console.log('res', res);
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
         }else {

@@ -11,7 +11,6 @@ import { ForgotPassword2Component, ForgotPasswordStep1Component } from './public
 import { LogoutComponent, RegistrationConfirmationComponent } from './public/auth/confirm/confirmRegistration.component';
 import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
 import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
-import { ErrorPageComponent } from './secure/seller-center/components/error-page/error-page.component';
 import { OrdersListComponent } from './secure/seller-center/components/orders/orders-list/orders-page/orders-list.component';
 import { RegisterSellerComponent } from './secure/seller-center/components/seller/register/register.component';
 import { Const } from './shared/util/constants';

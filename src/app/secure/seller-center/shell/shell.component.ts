@@ -16,6 +16,8 @@ import { UserService } from '../utils/services/common/user/user.service';
 import { ComponentsService } from '../utils/services/common/components/components.service';
 import { EventEmitterOrders } from '../utils/event/eventEmitter-orders.service';
 import { SupportModalComponent } from '../components/support-modal/support-modal.component';
+import { LoggedInCallback } from '../../../service/cognito.service';
+import { UserLoginService } from '../../../service/user-login.service';
 // log component
 const log = new Logger('ShellComponent');
 
@@ -25,7 +27,7 @@ const log = new Logger('ShellComponent');
   styleUrls: ['./shell.component.scss']
 })
 
-export class ShellComponent implements OnInit {
+export class ShellComponent implements OnInit, LoggedInCallback {
 
   // SideMenu de la aplicación
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -41,7 +43,7 @@ export class ShellComponent implements OnInit {
   // Información del usuario
   user: User;
   // booleano para visualizar la barra de toolbar
-  viewToolbarPrincipal = true;
+  public viewToolbarPrincipal: boolean;
   // Variable que permite saber cual formulario de filtro desplegar en el menú de filtro y que información se le pasar a este mismo
   informationToForm: SearchFormEntity = {
     title: 'Buscar',
@@ -52,6 +54,7 @@ export class ShellComponent implements OnInit {
   };
 
   userLoggin: boolean;
+  public showHeader: any;
   /**
    * Creates an instance of ShellComponent.
    * @param {MatDialog} dialog
@@ -67,7 +70,8 @@ export class ShellComponent implements OnInit {
     public userService: UserService,
     public componentservice: ComponentsService,
     private router: Router,
-    public eventEmitterOrders: EventEmitterOrders
+    public eventEmitterOrders: EventEmitterOrders,
+    public userServiceCognito: UserLoginService
   ) {
     this.router.events
       .filter(event => event instanceof NavigationStart)
@@ -81,7 +85,16 @@ export class ShellComponent implements OnInit {
    * @memberof ShellComponent
    */
   ngOnInit() {
-    this.user = this.userService.getUser();
+    this.userServiceCognito.isAuthenticated(this);
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.showHeader = true;
+      this.viewToolbarPrincipal = true;
+    }else if (!isLoggedIn) {
+      this.router.navigate(['/home']);
+    }
   }
 
   /**

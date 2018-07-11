@@ -44,7 +44,7 @@ export class SearchOrderMenuService extends BaseSellerService {
     this.changeEndPoint();
 
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [user[environment.webUrl].sellerId, limit + stringSearch]),
+      this.http.get(this.api.get('searchOrders', [localStorage.getItem('sellerId'), limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
@@ -66,7 +66,7 @@ export class SearchOrderMenuService extends BaseSellerService {
   getOrdersPendingDevolutionFilter(user: User, limit, stringSearch): Observable<[{}]> {
     this.changeEndPoint();
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', [user[environment.webUrl].sellerId, limit + stringSearch]),
+      this.http.get(this.api.get('searchPendingDevolution', [localStorage.getItem('sellerId'), limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {

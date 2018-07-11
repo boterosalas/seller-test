@@ -54,6 +54,7 @@ export class CitiesComponent implements OnInit, OnChanges {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.dataService.fetchData(state).subscribe(
       (result: any) => {
+        console.log(result);
         if (result.status === 200) {
           const data_response = JSON.parse(result.body.body);
           const data = data_response.Data;

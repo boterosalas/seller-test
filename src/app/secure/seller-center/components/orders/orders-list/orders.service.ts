@@ -13,7 +13,7 @@ import { Order } from '../../../../../shared/models/order';
  * Clase OrderService
  */
 export class OrderService extends BaseSellerService {
-  public sellerId = localStorage.getItem('sellerId');;
+  public sellerId = localStorage.getItem('sellerId');
   /**
    * Método para realiar la consulta de las ordenes
    * @param {any} state

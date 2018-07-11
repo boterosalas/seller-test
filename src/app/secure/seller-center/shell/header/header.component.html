@@ -1,4 +1,4 @@
-<div class="light-content" *ngIf="userLoggin">
+<div class="light-content">
   <mat-toolbar color="primary" class="principal-toolbar">
     <button color="accent" id="menuElement" matTooltip="Menú" matTooltipPosition="below" mat-icon-button mat-button
             (click)="toggleMenu()">
@@ -7,7 +7,7 @@
     <div [routerLink]="['']" class="logo-application"></div>
     <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user"
        style="margin-left:20px;">Bienvenido:
-      <b>{{SellerName}}</b>
+      <b>{{sellerName}}</b>
       <span class="sc-header-name-seller">ID: {{sellerId}}</span>
     </p>
     <span class="spacer-content"></span>

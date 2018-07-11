@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit {
   @Input() sidenav;
   // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
   public webUrl = environment.webUrl;
-  userLoggin: boolean;
-  sellerName: any;
-  sellerId: any;
+  public userLoggin: boolean;
+  public sellerName: any;
+  public sellerId: any;
   /**
    * Creates an instance of HeaderComponent.
    * @param {ShellComponent} shellComponent

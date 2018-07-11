@@ -8,7 +8,10 @@ export class CitiesServices {
   writerUrl = 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/';
   httpOptions: any;
 
-  constructor(private http: HttpClient, public cognitoUtil: CognitoUtil) {
+  constructor(
+    private http: HttpClient,
+    public cognitoUtil: CognitoUtil
+  ) {
   }
 
   /**
@@ -17,8 +20,8 @@ export class CitiesServices {
   * @memberof CitiesServices
   */
   fetchData(paramValue: {}): Observable<{}> {
-    const idToken =  this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
+    const idToken = this.cognitoUtil.getTokenLocalStorage();
+    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
     const url = this.writerUrl + paramValue;
     return new Observable(observer => {
       this.http.get<any>(url, { observe: 'response', headers: headers })
