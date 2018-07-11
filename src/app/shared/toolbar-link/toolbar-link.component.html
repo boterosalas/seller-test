@@ -29,22 +29,6 @@
 
 
       </mat-menu>
-      
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="offers">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Ofertas
-      </button>
-      <mat-menu #offers="matMenu">
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['seller-center/ofertas/arbol-categorias']">
-          <span>Arbol de Categorias</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['seller-center/ofertas/carga-masiva']">
-          <span>Carga Masiva</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['seller-center/ofertas/listado-ofertas']">
-          <span>Listado de Ofertas</span>
-        </button>
-      </mat-menu> 
 
 
       <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
