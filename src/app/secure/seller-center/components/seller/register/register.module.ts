@@ -12,6 +12,7 @@ import { RegisterService } from './register.service';
 import { CitiesComponent } from './cities/cities.component';
 import { NoWhitespaceDirective } from '../../../directives/no-spaces/no-whitespace.directive';
 import { MaterialModule } from '../../material-components';
+import { RegisterRoutingModule } from './register.routing';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { MaterialModule } from '../../material-components';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    RegisterRoutingModule
   ],
   declarations: [
     RegisterSellerComponent,
