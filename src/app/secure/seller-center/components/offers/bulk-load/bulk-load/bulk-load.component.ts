@@ -137,6 +137,7 @@ export class BulkLoadComponent implements OnInit {
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
+    this.arrayCorrectData = [];
     this.finishProcessUpload();
   }
 
@@ -784,7 +785,7 @@ export class BulkLoadComponent implements OnInit {
   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['Ofertas'] };
+    const workbook: XLSX.WorkBook = { Sheets: { 'Ofertas': worksheet }, SheetNames: ['Ofertas'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }

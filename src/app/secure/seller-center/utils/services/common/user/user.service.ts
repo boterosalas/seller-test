@@ -52,7 +52,7 @@ export class UserService {
     getUser() {
 
         try {
-            const user: User = JSON.parse(localStorage.getItem('username'));
+            const user: User = JSON.parse(localStorage.getItem('sellerId'));
             return user || Const.EMPTYUSER;
         } catch (e) {
             log.error(e);

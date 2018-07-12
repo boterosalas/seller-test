@@ -12,17 +12,17 @@ import { LogoutComponent, RegistrationConfirmationComponent } from './public/aut
 import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
 import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
 import { OrdersListComponent } from './secure/seller-center/components/orders/orders-list/orders-page/orders-list.component';
-import { Const } from './shared/util/constants';
+import { RoutesConst } from './shared/util/routes.constants';
 import { ErrorPageComponent } from './secure/seller-center/components/error-page/error-page.component';
 
 const homeRoutes: Routes = [
     {
         path: '',
-        redirectTo: `/${Const.home}`,
+        redirectTo: `/${RoutesConst.home}`,
         pathMatch: 'full'
     },
     {
-        path: `${Const.home}`,
+        path: `${RoutesConst.home}`,
         component: HomeComponent,
         children: [
             { path: '', component: LoginComponent },
@@ -37,7 +37,7 @@ const homeRoutes: Routes = [
         ]
     },
     {
-        path: 'securehome',
+        path: `${RoutesConst.securehome}`,
         component: SecureHomeComponent,
         children: [
             { path: '', component: OrdersListComponent },

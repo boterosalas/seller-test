@@ -93,6 +93,9 @@ export class ShellComponent implements OnInit, LoggedInCallback {
       this.showHeader = true;
       this.viewToolbarPrincipal = true;
     }else if (!isLoggedIn) {
+      console.log(this.showHeader);
+      this.showHeader = false;
+      this.viewToolbarPrincipal = false;
       this.router.navigate(['/home']);
     }
   }
