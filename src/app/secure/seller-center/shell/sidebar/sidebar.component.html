@@ -42,17 +42,18 @@
         </mat-list-item>
 
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ordenes/solicitudes-pendientes']">
+        <!-- <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/solicitudes-pendientes']">
           <h6 matLine>Solicitudes pendientes</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ordenes/en-validacion']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/en-validacion']">
           <h6 matLine>En validación</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ordenes/en-devolucion']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/en-devolucion']">
           <h6 matLine>En devolución</h6>
+        </mat-list-item> -->
+        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/cargar-guia']">
+          <h6 matLine>Cargar guías</h6>
         </mat-list-item>
-
-
       </mat-expansion-panel>
     </div>
     
@@ -70,7 +71,7 @@
           <h6 matLine>Arbol de categorías</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ofertas/carga-masiva']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ofertas/carga-masiva']">
           <h6 matLine>Carga Masiva</h6>
         </mat-list-item>
 
@@ -162,10 +163,6 @@
 
       </mat-expansion-panel>
     </div>
-
-    <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/seller-center/cargar-guia']">
-      <h6 matLine>Cargar guías</h6>
-    </mat-list-item>
     <!-- <mat-list-item id="matlist-item-button-envios-exito" (click)="toggleMenu();shellComponent.goToEnviosExito()">
       <h6 matLine>Envios Éxito</h6>
     </mat-list-item> -->

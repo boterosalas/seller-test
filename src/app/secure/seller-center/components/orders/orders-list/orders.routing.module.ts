@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 /* our own custom components */
 import { OrdersListComponent } from './orders-page/orders-list.component';
 
-const base = 'seller-center/';
+const base = 'securehome/seller-center/';
 
 const routes: Routes = [
-   /*  {
-        path: '',
+    {
+        path: `${base}`,
         component: OrdersListComponent,
         data: { title: 'Todas las ordenes' }
-    }, */
+    },
     {
         path: `${base}ordenes`,
         component: OrdersListComponent,

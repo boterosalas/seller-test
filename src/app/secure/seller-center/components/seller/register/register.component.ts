@@ -60,7 +60,9 @@ export class RegisterSellerComponent implements OnInit {
   public idState: number;
   public daneCode: any;
   public disabledForService: boolean;
-  public emailRegex = /^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i;
+  // tslint:disable-next-line:max-line-length
+  public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
+  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$).)*$/;
 
   /**
    * Creates an instance of RegisterSellerComponent.
@@ -103,7 +105,7 @@ export class RegisterSellerComponent implements OnInit {
       nomTienda: new FormControl
         ('', [Validators.required,
         // tslint:disable-next-line:max-line-length
-        Validators.pattern('^((?! .com$)(?! .co$)(?! .net$)(?! .gov$)(?! .edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$).)*$')]),
+        Validators.pattern(this.nameStoreRegex)]),
       direccion: new FormControl
         ('', [Validators.required]),
       codDane: new FormControl
@@ -140,7 +142,7 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   keyPress(event: any) {
-    const pattern = /[0-9 ]/;
+    const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();

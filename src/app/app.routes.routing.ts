@@ -12,8 +12,8 @@ import { LogoutComponent, RegistrationConfirmationComponent } from './public/aut
 import { ResendCodeComponent } from './public/auth/resend/resendCode.component';
 import { NewPasswordComponent } from './public/auth/newpassword/newpassword.component';
 import { OrdersListComponent } from './secure/seller-center/components/orders/orders-list/orders-page/orders-list.component';
-import { RegisterSellerComponent } from './secure/seller-center/components/seller/register/register.component';
 import { Const } from './shared/util/constants';
+import { ErrorPageComponent } from './secure/seller-center/components/error-page/error-page.component';
 
 const homeRoutes: Routes = [
     {
@@ -37,31 +37,17 @@ const homeRoutes: Routes = [
         ]
     },
     {
-        path: `${Const.securehome}`,
+        path: 'securehome',
         component: SecureHomeComponent,
         children: [
             { path: '', component: OrdersListComponent },
-            { path: `${Const.seller}`, component: OrdersListComponent },
             { path: 'logout', component: LogoutComponent },
             { path: 'jwttokens', component: JwtComponent },
             { path: 'myprofile', component: MyProfileComponent },
             { path: 'useractivity', component: UseractivityComponent }
         ]
     },
-    {
-        path: `${Const.sellerCenterUrls.orders}`,
-        component: OrdersListComponent,
-        children: [
-            { path: '', component: OrdersListComponent }
-        ]
-    },
-    {
-        path: `${Const.sellerCenterUrls.sellers}`,
-        component: RegisterSellerComponent,
-        children: [
-            { path: '', component: RegisterSellerComponent }
-        ]
-    }
+    {path: '**', component: ErrorPageComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

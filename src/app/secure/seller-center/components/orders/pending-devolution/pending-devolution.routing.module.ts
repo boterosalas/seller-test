@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 /* our own custom components */
 import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
 
-const base = 'seller-center/';
+const base = 'securehome/seller-center/';
 
 const routes: Routes = [
 

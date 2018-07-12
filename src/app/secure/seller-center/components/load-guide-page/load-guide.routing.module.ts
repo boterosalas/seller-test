@@ -5,11 +5,11 @@ import {Routes, RouterModule} from '@angular/router';
 /* our own custom components */
 import {LoadGuidePageComponent} from './load-guide/load-guide-page.component';
 
-const base = 'seller-center/';
+const base = 'securehome/seller-center/';
 
 const routes: Routes = [
   {
-    path: `${base}cargar-guia`,
+    path: `${base}ordenes/cargar-guia`,
     component: LoadGuidePageComponent,
     data: {title: 'Cargar de guías'}
   },

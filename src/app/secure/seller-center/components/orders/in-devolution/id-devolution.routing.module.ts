@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 /* our own custom components */
 import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
 
-const base = 'seller-center/';
+const base = 'securehome/seller-center/';
 
 const routes: Routes = [
     {

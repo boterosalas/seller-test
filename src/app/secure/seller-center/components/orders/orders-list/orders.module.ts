@@ -23,6 +23,7 @@ import { ConfirmAlertComponent } from '../../confirm-alert/confirm-alert.compone
 import { UserService } from '../../../utils/services/common/user/user.service';
 import { EventEmitterOrders } from '../../../utils/event/eventEmitter-orders.service';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
+import { OrdersRoutingModule } from './orders.routing.module';
 
 
 /**
@@ -38,7 +39,8 @@ import { ComponentsService } from '../../../utils/services/common/components/com
         ToolbarLinkModule,
         ToolbarOptionsModule,
         ClientInformationModule,
-        CdkDetailRowDirectiveModule
+        CdkDetailRowDirectiveModule,
+        OrdersRoutingModule
     ],
     declarations: [
         ConfirmAlertComponent,

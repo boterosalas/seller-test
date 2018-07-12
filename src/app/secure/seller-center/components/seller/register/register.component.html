@@ -18,7 +18,8 @@
             Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico.
             Se recomienda seguir las recomendaciones del manual de uso al momento de registrar vendedores.'"></p>
 
-            <form #registerSeller="ngForm" [formGroup]="validateFormRegister" (ngSubmit)="submitSellerRegistrationForm()" autocomplete="off" id="register-form-seller">
+            <form #registerSeller="ngForm" [formGroup]="validateFormRegister" (ngSubmit)="submitSellerRegistrationForm()" autocomplete="off"
+                id="register-form-seller">
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap.md="10%" fxLayoutGap.lg="10%"
                     fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
@@ -63,10 +64,13 @@
                                 [errorStateMatcher]="matcher" id="register-contact-name" required>
                             <mat-hint></mat-hint>
 
-                            <mat-error id="error-contact-name-required" *ngIf="validateFormRegister.get('contacto').hasError('required') || (!validateFormRegister.get('contacto').valid && !validateFormRegister.get('contacto').pristine)"
+                            <mat-error id="error-contact-name-required" *ngIf="validateFormRegister.get('contacto').hasError('required'); else invalidContactName"
                                 [innerHTML]="'Este campo es requerido.'"></mat-error>
 
-                            <mat-error id="error-contact-name-invalid" *ngIf="validateFormRegister.get('contacto').hasError('pattern')" [innerHTML]="'El contacto no es v&aacute;lido.'"></mat-error>
+                            <ng-template #invalidContactName>
+                                <mat-error id="error-contact-name-invalid" *ngIf="validateFormRegister.get('contacto').hasError('pattern') || !validateFormRegister.get('contacto').pristine || !validateFormRegister.get('contacto').valid"
+                                [innerHTML]="'El contacto no es v&aacute;lido.'"></mat-error>
+                            </ng-template>
                         </mat-form-field>
                     </div>
 
@@ -187,7 +191,8 @@
                 </div>
 
                 <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-                    <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary" [innerHTML]="'REGISTRAR'" [disabled]="!registerSeller.form.valid || disabledForService"></button>
+                    <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary" [innerHTML]="'REGISTRAR'"
+                        [disabled]="!registerSeller.form.valid || disabledForService"></button>
                 </div>
 
             </form>

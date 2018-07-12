@@ -1,5 +1,5 @@
 /* 3rd party components */
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Component, OnInit, Inject} from '@angular/core';
 
@@ -59,13 +59,13 @@ export class DownloadOrderModalComponent implements OnInit {
 
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
+    this.createForm();
   }
 
   /**
    * @memberof DownloadOrderModalComponent
    */
   ngOnInit() {
-   // this.getDataUser();
   }
 
   /**
@@ -74,7 +74,7 @@ export class DownloadOrderModalComponent implements OnInit {
    */
   getDataUser() {
     this.user = this.userService.getUser();
-    this.createForm();
+
     if (this.user.login === undefined) {
       this.userService.setUser([]);
     }
@@ -93,8 +93,9 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   createForm() {
+    const email = localStorage.getItem('sellerEmail');
     this.myform = this.fb.group({
-      'email': [{value: this.user.email, disabled: false}, Validators.compose([Validators.required, Validators.email])],
+      'email': [{value: email, disabled: false}, Validators.compose([Validators.required, Validators.email])],
     });
   }
 
@@ -107,14 +108,18 @@ export class DownloadOrderModalComponent implements OnInit {
     log.info(form.value);
     log.info(this.downloadOrderService.getCurrentFilterOrders());
     const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
-    currentFiltersOrders.idSeller = this.user[environment.webUrl].sellerId;
-    currentFiltersOrders.sellerName = this.user[environment.webUrl].name;
+    currentFiltersOrders.idSeller = localStorage.getItem('sellerId'); // this.user[environment.webUrl].sellerId;
+    currentFiltersOrders.sellerName = localStorage.getItem('sellerName'); // this.user[environment.webUrl].name;
     currentFiltersOrders.email = form.get('email').value;
-
+    console.log('parametros', currentFiltersOrders);
     this.downloadOrderService.downloadOrders(this.user, currentFiltersOrders).subscribe(res => {
       log.info(res);
-      this.componentsService.openSnackBar('Se ha realizado la descarga de las ordenes correctamente, revisa tu correo electrónico',
+      if (res != null) {
+        this.componentsService.openSnackBar('Se ha realizado la descarga de las ordenes correctamente, revisa tu correo electrónico',
         'Cerrar', 10000);
+      } else{
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las ordenes', 'Cerrar', 5000);
+      }
       this.onNoClick();
     }, err => {
       this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las ordenes', 'Cerrar', 5000);

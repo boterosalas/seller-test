@@ -187,7 +187,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
       };
     }
     // tslint:disable-next-line:max-line-length
-    const stringSearch = `?idSeller=${this.user[environment.webUrl].sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
 
     this.inValidationService.getOrders(this.user, stringSearch).subscribe((res: any) => {
       if (res != null) {

@@ -105,7 +105,7 @@ export class FormProductComponent implements OnInit {
       tracking: form.value.Guide,
       carrier: form.value.Transporter,
       shipDate: new Date(),
-      idSeller: this.user[environment.webUrl].sellerId,
+      idSeller: localStorage.getItem('sellerId'),
       idState: Const.OrderEnProcesoDeEnvio,
       products: [
         product.id

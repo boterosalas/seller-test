@@ -2,7 +2,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {BulkLoadComponent} from './bulk-load/bulk-load.component';
 
-const base = 'seller-center/';
+const base = 'securehome/seller-center/';
 
 const routes: Routes = [
   {

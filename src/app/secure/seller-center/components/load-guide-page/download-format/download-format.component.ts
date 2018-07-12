@@ -71,7 +71,7 @@ export class DownloadFormatComponent implements OnInit {
    */
   downloadInformationForGuide(form) {
     log.info(form.value.limit);
-    this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${this.user[environment.webUrl].sellerId}&limit=${form.value.limit}`)
+    this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${localStorage.getItem('sellerId')}&limit=${form.value.limit}`)
       .subscribe((res: Array<{}>) => {
         log.info(res);
         if (res.length > 0) {

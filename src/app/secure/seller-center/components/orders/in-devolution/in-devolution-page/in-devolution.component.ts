@@ -212,7 +212,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user[environment.webUrl].sellerId}
+    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}
     &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
 
     this.inDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {

@@ -97,13 +97,6 @@ export class LoadGuidePageComponent implements OnInit {
    * @memberof LoadGuidePageComponent
    */
   ngOnInit() {
-    // Funcionalidad para validar el acceso del usuario.
-    // Valido si el usuario se encuentra logeado y puede ingresar a la vista.
-    this.shellComponent.validateAccesUser().subscribe(res => {
-      this.user = this.userService.getUser();
-    }, err => {
-      log.info('Error de autentificación', err);
-    });
   }
 
   /**
@@ -479,7 +472,7 @@ export class LoadGuidePageComponent implements OnInit {
   sendJsonInformation() {
 
     const jsonToSend = {
-      sellerId: this.user[environment.webUrl].sellerId,
+      sellerId: localStorage.getItem('sellerId'),
       // dateTime: datePipe.transform(new Date(), 'yyyy/MM/dd'),
       listOrderTracking: this.arrayInformationForSend
     };

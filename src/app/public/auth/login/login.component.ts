@@ -81,8 +81,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         this.createForm();
         this.errorMessage = null;
         this.userService.isAuthenticated(this);
-        // this.router.navigate(['/seller-center/ordenes']);
-        // log.info('No se posee una sesión activa.');
     }
 
     /**

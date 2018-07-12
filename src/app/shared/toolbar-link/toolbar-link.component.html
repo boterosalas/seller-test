@@ -15,18 +15,20 @@
         </button>
 
 
-        <button mat-menu-item id="dropdown-button-pending-devolution"
-                [routerLink]="['/seller-center/ordenes/solicitudes-pendientes']">
+        <!-- <button mat-menu-item id="dropdown-button-pending-devolution"
+                [routerLink]="['/securehome/seller-center/ordenes/solicitudes-pendientes']">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation"
-                [routerLink]="['/seller-center/ordenes/en-validacion']">
+                [routerLink]="['/securehome/seller-center/ordenes/en-validacion']">
           <span>En validación</span>
         </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/seller-center/ordenes/en-devolucion']">
+        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/securehome/seller-center/ordenes/en-devolucion']">
           <span>En devolución</span>
+        </button> -->
+        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/securehome/seller-center/ordenes/cargar-guia']">
+          <span>Cargar guías</span>
         </button>
-
 
       </mat-menu>
 
@@ -38,7 +40,7 @@
         <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['seller-center/ofertas/arbol-categorias']">
           <span>Arbol de Categorias</span>
         </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['seller-center/ofertas/carga-masiva']">
+        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/securehome/seller-center/ofertas/carga-masiva']">
           <span>Carga Masiva</span>
         </button>
         <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['seller-center/ofertas/listado-ofertas']">

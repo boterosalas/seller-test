@@ -211,7 +211,7 @@ export class SendOrderComponent implements OnInit {
       carrier: this.sendAllForm.value.Transporter,
       shipDate: new Date(),
       idState: Const.OrderEnProcesoDeEnvio,
-      idSeller: this.user[environment.webUrl].sellerId,
+      idSeller: localStorage.getItem('sellerId'),
       products: productList
     };
     log.info(jsonOrder);

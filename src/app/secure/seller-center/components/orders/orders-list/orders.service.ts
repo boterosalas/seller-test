@@ -90,6 +90,7 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product, this.getHeaders(user)).subscribe((data: any) => {
+        console.log('sendProductOrder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {
@@ -114,6 +115,7 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders, this.getHeaders(user)).subscribe((data: any) => {
+        console.log('sendallproductinorder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {
@@ -159,6 +161,7 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('recordProcesSedOrder'), information, this.getHeaders(user)).subscribe((data: any) => {
+        console.log('recordProcesSedOrder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {

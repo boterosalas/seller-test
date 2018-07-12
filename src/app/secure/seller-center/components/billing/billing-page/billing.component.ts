@@ -193,7 +193,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user[environment.webUrl].sellerId}&limit=${$event.lengthOrder}`;
+    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}&limit=${$event.lengthOrder}`;
 
     this.billinService.getBilling(this.user, stringSearch).subscribe((res: any) => {
       if (res != null) {

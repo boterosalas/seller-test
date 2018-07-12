@@ -88,6 +88,7 @@ export class BulkLoadComponent implements OnInit {
   public sort: any;
 
   public arrayNecessaryData: Array<any> = [];
+  public arrayCorrectData: Array<any> = [];
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -238,6 +239,7 @@ export class BulkLoadComponent implements OnInit {
 
       for (let i = 0; i < this.arrayNecessaryData.length; i++) {
         let contEmptycell = 0;
+        let rowEmpty = false;
         for (let j = 0; j < numCol; j++) {
 
           if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
@@ -245,42 +247,40 @@ export class BulkLoadComponent implements OnInit {
             contEmptycell += 1;
             if (contEmptycell === numCol) {
               contEmptyRow += 1;
-              this.arrayNecessaryData.splice(i, 1);
+              rowEmpty = true;
             }
           }
-
         }
-
+        if (!rowEmpty) {
+          this.arrayCorrectData.push(this.arrayNecessaryData[i]);
+        }
       }
 
-      if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
+      if (this.arrayCorrectData.length === 2 && contEmptyRow === 1) {
         this.shellComponent.loadingComponent.closeLoadingSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
-        if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Inventario') &&
-          this.arrayNecessaryData[0].includes('Precio') && this.arrayNecessaryData[0].includes('Precio con Descuento') &&
-          this.arrayNecessaryData[0].includes('Costo de Flete Promedio') && this.arrayNecessaryData[0].includes('Promesa de Entrega') &&
-          this.arrayNecessaryData[0].includes('Free Shipping') && this.arrayNecessaryData[0].includes('Indicador Envios Exito') &&
-          this.arrayNecessaryData[0].includes('Cotizador de Flete') && this.arrayNecessaryData[0].includes('Garantia')) {
+        if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Inventario') &&
+          this.arrayCorrectData[0].includes('Precio')) {
           const iVal = {
-            iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-            iInv: this.arrayNecessaryData[0].indexOf('Inventario'),
-            iPrecio: this.arrayNecessaryData[0].indexOf('Precio'),
-            iPrecDesc: this.arrayNecessaryData[0].indexOf('Precio con Descuento'),
-            iCostFletProm: this.arrayNecessaryData[0].indexOf('Costo de Flete Promedio'),
-            iPromEntrega: this.arrayNecessaryData[0].indexOf('Promesa de Entrega'),
-            iFreeShiping: this.arrayNecessaryData[0].indexOf('Free Shipping'),
-            iIndEnvExito: this.arrayNecessaryData[0].indexOf('Indicador Envios Exito'),
-            iCotFlete: this.arrayNecessaryData[0].indexOf('Cotizador de Flete'),
-            iGarantia: this.arrayNecessaryData[0].indexOf('Garantia')
+            iEAN: this.arrayCorrectData[0].indexOf('EAN'),
+            iInv: this.arrayCorrectData[0].indexOf('Inventario'),
+            iPrecio: this.arrayCorrectData[0].indexOf('Precio'),
+            iPrecDesc: this.arrayCorrectData[0].indexOf('Precio con Descuento'),
+            iCostFletProm: this.arrayCorrectData[0].indexOf('Costo de Flete Promedio'),
+            iPromEntrega: this.arrayCorrectData[0].indexOf('Promesa de Entrega'),
+            iFreeShiping: this.arrayCorrectData[0].indexOf('Free Shipping'),
+            iIndEnvExito: this.arrayCorrectData[0].indexOf('Indicador Envios Exito'),
+            iCotFlete: this.arrayCorrectData[0].indexOf('Cotizador de Flete'),
+            iGarantia: this.arrayCorrectData[0].indexOf('Garantia')
           };
-          if (this.arrayNecessaryData.length > this.limitRowExcel) {
+          if (this.arrayCorrectData.length > this.limitRowExcel) {
             this.shellComponent.loadingComponent.closeLoadingSpinner();
             this.componentService
               .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
           } else {
             this.fileName = file.target.files[0].name;
-            this.createTable(this.arrayNecessaryData, iVal, numCol);
+            this.createTable(this.arrayCorrectData, iVal, numCol);
           }
         } else {
           this.shellComponent.loadingComponent.closeLoadingSpinner();

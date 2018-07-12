@@ -511,7 +511,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
       currentValue = true;
     }
     const data = {
-      sellerId: this.user[environment.webUrl].sellerId,
+      sellerId: localStorage.getItem('sellerId'),
       idOrder: orderId,
       value: currentValue,
     };
@@ -554,11 +554,20 @@ export class GetParameters implements Callback {
   callbackWithParam(result: any) {
 
       for (let i = 0; i < result.length; i++) {
-          if(result[i].getName() === 'custom:SellerId'){
+          if (result[i].getName() === 'custom:SellerId') {
             localStorage.setItem('sellerId', result[i].getValue());
           }
-          if(result[i].getName() === 'custom:Roles'){
-            localStorage.setItem('profileType', result[i].getValue());
+          if (result[i].getName() === 'custom:Roles') {
+            localStorage.setItem('sellerProfile', result[i].getValue());
+          }
+          if (result[i].getName() === 'name') {
+            localStorage.setItem('sellerName', result[i].getValue());
+          }
+          if (result[i].getName() === 'custom:Nit') {
+            localStorage.setItem('sellerNit', result[i].getValue());
+          }
+          if (result[i].getName() === 'email') {
+            localStorage.setItem('sellerEmail', result[i].getValue());
           }
       }
   }

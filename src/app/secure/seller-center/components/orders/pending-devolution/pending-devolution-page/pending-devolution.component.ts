@@ -200,7 +200,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user[environment.webUrl].sellerId}
+    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}
     &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
 
     this.pendingDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {
