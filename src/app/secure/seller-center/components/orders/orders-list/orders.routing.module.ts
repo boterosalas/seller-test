@@ -4,22 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 /* our own custom components */
 import { OrdersListComponent } from './orders-page/orders-list.component';
-
-const base = 'securehome/seller-center/';
+import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
     {
-        path: `${base}`,
+        path: `${RoutesConst.secureSeller}`,
         component: OrdersListComponent,
         data: { title: 'Todas las ordenes' }
     },
     {
-        path: `${base}ordenes`,
+        path: `${RoutesConst.sellerCenterUrls.orders}`,
         component: OrdersListComponent,
         data: { title: 'Todas las ordenes' }
     },
     {
-        path: `${base}ordenes/estado/:category`,
+        path: `${RoutesConst.sellerCenterUrlsInt.ordersState}/:category`,
         component: OrdersListComponent,
         data: { title: 'Ordenes' }
     },

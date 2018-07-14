@@ -10,7 +10,21 @@ export const environment = {
   },
   webUrl: 'http://sellershop.com/user_metadata',
   endpoints: {
-    seller: 'http://localhost:3000',
+    seller: '',
     shipments: 'http://ec2-34-200-30-156.compute-1.amazonaws.com/api'
-  }
+  },
+   // constantes para cognito
+   region: 'us-east-1',
+   identityPoolId: '',
+   userPoolId: 'us-east-1_5vEqf5WT0',
+   clientId: '6sovc853lkkuk7km70jlvlu8u2',
+   rekognitionBucket: 'rekognition-pics',
+   albumName: 'usercontent',
+   bucketRegion: 'us-east-1',
+   ddbTableName: 'LoginTrail',
+   cognito_idp_endpoint: '',
+   cognito_identity_endpoint: '',
+   sts_endpoint: '',
+   dynamodb_endpoint: '',
+   s3_endpoint: ''
 };

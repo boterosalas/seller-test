@@ -2,7 +2,7 @@
  * Environments
  */
 export const environment = {
-  production: true,
+  production: false,
   auth0: {
     url: 'https://leo2707.auth0.com',
     // url: 'https://leo2707.auth0.com/',

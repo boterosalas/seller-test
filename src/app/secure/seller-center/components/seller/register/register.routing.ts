@@ -1,15 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterSellerComponent } from './register.component';
 import { NgModule } from '@angular/core';
+import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
-const base = 'securehome/seller-center/';
 const routes: Routes = [
     {
-        path: `${base}vendedores`,
+        path: `${RoutesConst.sellerCenterUrls.sellers}`,
         component: RegisterSellerComponent
     },
     {
-        path: `${base}vendedores/registrar`,
+        path: `${RoutesConst.sellerCenterUrlsInt.sellerRegister}`,
         component: RegisterSellerComponent,
         data: { title: 'Registrar vendedor' }
     }

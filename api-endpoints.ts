@@ -12,15 +12,17 @@ export const endpoints = {
           downloadOrder: 'https://z0vz1c608a.execute-api.us-east-1.amazonaws.com/DownloadOrder',
           sendAllProductInOrder: 'https://nnsfw2fjr7.execute-api.us-east-1.amazonaws.com/SendAllProductInOrder/{orderId}',
           sendProductInOrder:  'https://89qu0cyz29.execute-api.us-east-1.amazonaws.com/SendProductInOrder/{orderId}/{idDetailProduct}',
-          inDevolution: 'inDevolution',
           searchPendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?idSeller={sellerId}&limit={limit}',
           pendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/search{stringParams}',
           recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
           getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
-          getBilling: 'financials/getbilling{stringParams}',
-          searchBilling: 'financials/getbilling?idSeller={sellerId}&limit={limit}',
-          acceptDevolution: 'orders/acceptDevolution',
-          refuseOrAcceptDevolution: 'reversionrequest/requestacceptordenied',
+          // Billing Mock
+          getBilling: 'http://localhost:3000/financials/getbilling{stringParams}',
+          searchBilling: 'http://localhost:3000/financials/getbilling?idSeller={sellerId}&limit={limit}',
+          inDevolution: 'http://localhost:3000/inDevolution',
+          acceptDevolution: 'http://localhost:3000/orders/acceptDevolution',
+          refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
+          // ?
           supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
           getreasonsrejection:  'https://g7n20mhxc4.execute-api.us-east-1.amazonaws.com/ReasonsRejection{stringParams}',
           // shipments

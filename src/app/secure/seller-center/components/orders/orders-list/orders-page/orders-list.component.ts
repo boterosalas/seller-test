@@ -23,6 +23,8 @@ import { AwsUtil } from '../../../../../../service/aws.service';
 import { UserLoginService } from '../../../../../../service/user-login.service';
 import { CognitoUtil, LoggedInCallback, Callback } from '../../../../../../service/cognito.service';
 import { UserParametersService } from '../../../../../../service/user-parameters.service';
+import { RoutesConst } from '../../../../../../shared/util/routes.constants';
+import { UserService } from '../../../../utils/services/common/user/user.service';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -137,7 +139,8 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     public awsUtil: AwsUtil,
     public userService: UserLoginService,
     public cognito: CognitoUtil,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public userServiceProvider: UserService,
   ) {
 
   }
@@ -152,22 +155,26 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      /* this.user = this.userService.getUser(); */
-      this.userParams.getParameters(new GetParameters(this, this.cognito));
+      this.getDataUser();
       this.getOrdersListSinceCurrentUrl();
-    }else if (!isLoggedIn) {
+    } else if (!isLoggedIn) {
       this.router.navigate(['/home']);
     }
   }
 
+  /**
+   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
+   * @memberof ShellComponent
+   */
+  getDataUser() {
+    this.user = this.userServiceProvider.getUser();
+  }
 
   /**
    * Funcionalidad para remover las suscripciones creadas.
    * @memberof OrdersListComponent
    */
   ngOnDestroy() {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
     if (this.subStateOrder !== undefined) {
       this.subStateOrder.unsubscribe();
     }
@@ -184,7 +191,6 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
         log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -208,20 +214,18 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Evento que permite obtener los parametros pasados por la url
-   * @memberof OrdersListComponent
-   */
+  * Evento que permite obtener los parametros pasados por la url
+  * @memberof OrdersListComponent
+  */
   getOrdersListSinceCurrentUrl() {
 
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
-      // log.info(root)
       if (this.currentRootPage !== undefined) {
         /**
-         *  logica para obtener la categoria seleccionada
-         */
-        const category = Const.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
-        // log.info(category);
+        *  logica para obtener la categoria seleccionada
+        */
+        const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
 
         // si el valor pasado el la url concuerda con la lista de categorías almacenadas,
         // paso a consultar las ordenes con la categoría indicada
@@ -254,39 +258,39 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para dirigir a la vista principal de ordenes.
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para dirigir a la vista principal de ordenes.
+  * @memberof OrdersListComponent
+  */
   getAllOrderList() {
-    this.router.navigate(['/seller-center/ordenes']);
+    this.router.navigate(['/securehome/seller-center/ordenes']);
   }
 
   /**
-   * Funcionalidad para cancelar los propagation .
-   * @param {Event} event
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para cancelar los propagation .
+  * @param {Event} event
+  * @memberof OrdersListComponent
+  */
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
-   * @param {any} pageSize
-   * @memberof OrdersListComponent
-   */
+  * Método para cambiar el page size de la tabla ordenes
+  * @param {any} pageSize
+  * @memberof OrdersListComponent
+  */
   changeSizeOrderTable($event) {
     log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
 
   /**
-   * Método para setear el nombre de la categoría actual de la pagina
-   * @memberof OrdersListComponent
-   */
+  * Método para setear el nombre de la categoría actual de la pagina
+  * @memberof OrdersListComponent
+  */
   setCategoryName() {
     // logica para obtener la categoria seleccionada
-    const category = Const.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
+    const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
     if (category.length !== 0) {
       log.info('Categoría actual:', category);
 
@@ -305,11 +309,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para consultar la lista de ordenes
-   * @param {*} $event
-   * @param {any} [state]
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para consultar la lista de ordenes
+  * @param {*} $event
+  * @param {any} [state]
+  * @memberof OrdersListComponent
+  */
   getOrdersList($event: any) {
     this.setCategoryName();
     log.info('$Event proporcionado en getOrdersList()', $event);
@@ -337,11 +341,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para agregar las opciones de check a la tabla.
-   * @param {any} res
-   * @param {any} paginator
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para agregar las opciones de check a la tabla.
+  * @param {any} res
+  * @param {any} paginator
+  * @memberof OrdersListComponent
+  */
   addCheckOptionInProduct(res, paginator) {
     log.info(res);
     // Logica para crear el contador de ordenes
@@ -380,10 +384,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para poder filtrar los datos de la tabla
-   * @param {string} filterValue
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para poder filtrar los datos de la tabla
+  * @param {string} filterValue
+  * @memberof OrdersListComponent
+  */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     //  Remove whitespace
@@ -393,10 +397,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Whether the number of selected elements matches the total number of rows
-   * @returns
-   * @memberof OrdersListComponent
-   */
+  * Whether the number of selected elements matches the total number of rows
+  * @returns
+  * @memberof OrdersListComponent
+  */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -404,9 +408,9 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Selects all rows if they are not all selected; otherwise clear selection.
-   * @memberof OrdersListComponent
-   */
+  * Selects all rows if they are not all selected; otherwise clear selection.
+  * @memberof OrdersListComponent
+  */
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
@@ -414,10 +418,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Método que retorna el número de elementos a ser enviados en una orden
-   * @returns
-   * @memberof SendOrderComponent
-   */
+  * Método que retorna el número de elementos a ser enviados en una orden
+  * @returns
+  * @memberof SendOrderComponent
+  */
   getLengthProductForSend(order: Order) {
     let numberElements = 0;
     for (let i = 0; i < order.products.length; i++) {
@@ -434,10 +438,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para desplegar el modal que permite hacer el envío de todos los productos de una orden.
-   * @param {any} item
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para desplegar el modal que permite hacer el envío de todos los productos de una orden.
+  * @param {any} item
+  * @memberof OrdersListComponent
+  */
   openDialogSendOrder(item): void {
     if (this.getLengthProductForSend(item) === 0) {
       this.componentService.openSnackBar('La orden seleccionada no posee productos para ser enviados.', 'Cerrar', 3000);
@@ -481,10 +485,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Funcionalidad para despelgar el modal para visualizar el detalle de una orden.
-   * @param {any} item
-   * @memberof OrdersListComponent
-   */
+  * Funcionalidad para despelgar el modal para visualizar el detalle de una orden.
+  * @param {any} item
+  * @memberof OrdersListComponent
+  */
   openModalDetailOrder(item): void {
     const dialogRef = this.dialog.open(OrderDetailModalComponent, {
       data: {
@@ -498,11 +502,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Método para marcar una orden y actualizar el registro mediante un servicio web
-   * @param {any} orderId
-   * @param {any} currentValue
-   * @memberof OrdersListComponent
-   */
+  * Método para marcar una orden y actualizar el registro mediante un servicio web
+  * @param {any} orderId
+  * @param {any} currentValue
+  * @memberof OrdersListComponent
+  */
   recordProcesSedOrder(orderId, currentValue) {
 
     if (currentValue === true) {
@@ -537,38 +541,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Método para realizar un update en los datos pasados al componente toolbar-options
-   * @memberof OrdersListComponent
-   */
+  * Método para realizar un update en los datos pasados al componente toolbar-options
+  * @memberof OrdersListComponent
+  */
   setTitleToolbar() {
     this.informationToForm.title = `${this.currentCategory.name} ${this.numberElements}`;
-  }
-}
-
-export class GetParameters implements Callback {
-  constructor(public me: OrdersListComponent, public cognitoUtil: CognitoUtil) {
-  }
-  callback() {
-  }
-
-  callbackWithParam(result: any) {
-
-      for (let i = 0; i < result.length; i++) {
-          if (result[i].getName() === 'custom:SellerId') {
-            localStorage.setItem('sellerId', result[i].getValue());
-          }
-          if (result[i].getName() === 'custom:Roles') {
-            localStorage.setItem('sellerProfile', result[i].getValue());
-          }
-          if (result[i].getName() === 'name') {
-            localStorage.setItem('sellerName', result[i].getValue());
-          }
-          if (result[i].getName() === 'custom:Nit') {
-            localStorage.setItem('sellerNit', result[i].getValue());
-          }
-          if (result[i].getName() === 'email') {
-            localStorage.setItem('sellerEmail', result[i].getValue());
-          }
-      }
   }
 }

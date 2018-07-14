@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 // Local components
-import { DispatchRoutingModule } from './dispatched.routing.module';
+import { DispatchRoutingModule } from './dispatched.routing';
 import { DispatchedComponent } from './dispatched-page/dispatched.component';
 import { ShipmentsService } from '../shipments.service';
 import { MaterialModule } from '../../material-components';

@@ -12,7 +12,7 @@ import {TableLoadComponent} from './table-load/table-load.component';
 import {LoadGuideService} from './load-guide.service';
 import {TableErrorsComponent} from './table-errors/table-errors.component';
 import {FinishUploadInformationComponent} from './finish-upload-information/finish-upload-information.component';
-import {LoadGuideRoutingModule} from './load-guide.routing.module';
+import {LoadGuideRoutingModule} from './load-guide.routing';
 import {DownloadFormatComponent} from './download-format/download-format.component';
 import { MaterialModule } from '../material-components';
 import { ComponentsService } from '../../utils/services/common/components/components.service';

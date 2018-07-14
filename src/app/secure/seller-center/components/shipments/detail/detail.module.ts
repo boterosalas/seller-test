@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 // Detail Component
-import { DetailRoutingModule } from './detail.routing.module';
+import { DetailRoutingModule } from './detail.routing';
 import { DetailComponent } from './detail-page/detail.component';
 import { DetailService } from './detail.service';
 import { ShipmentsService } from '../shipments.service';

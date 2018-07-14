@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 
 /* our own custom components */
-import {BillingRoutingModule} from './billing.routing.module';
+import {BillingRoutingModule} from './billing.routing';
 import {BillingService} from './billing.service';
 import {BillingComponent} from './billing-page/billing.component';
 import {BillingProductsOrderComponent} from './billing-products-order/billing-products-order.component';

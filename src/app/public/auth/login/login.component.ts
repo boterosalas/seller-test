@@ -14,38 +14,38 @@ import { ShellComponent } from '../../../secure/seller-center/shell/shell.compon
     styleUrls: ['./login.component.scss'],
     animations: [
         trigger('shrinkOut', [
-          state('in', style({ opacity: 1, transform: 'translateX(0)' })),
-          transition('void => *', [
-            style({
-              opacity: 0,
-              transform: 'translateX(-100%)'
-            }),
-            animate('0.5s ease-in')
-          ]),
-          transition('* => void', [
-            animate('0.5s 0.1s ease-out', style({
-              opacity: 0,
-              transform: 'translateX(100%)'
-            }))
-          ])
+            state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-100%)'
+                }),
+                animate('0.5s ease-in')
+            ]),
+            transition('* => void', [
+                animate('0.5s 0.1s ease-out', style({
+                    opacity: 0,
+                    transform: 'translateX(100%)'
+                }))
+            ])
         ]),
         trigger('scaleEfect', [
-          state('in', style({ opacity: 1, transform: 'translateX(0)' })),
-          transition('void => *', [
-            style({
-              opacity: 0,
-              transform: 'translateX(-100%)'
-            }),
-            animate('0.2s ease-in')
-          ]),
-          transition('* => void', [
-            animate('0.2s 0.1s ease-out', style({
-              opacity: 0,
-              transform: 'translateX(100%)'
-            }))
-          ])
+            state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-100%)'
+                }),
+                animate('0.2s ease-in')
+            ]),
+            transition('* => void', [
+                animate('0.2s 0.1s ease-out', style({
+                    opacity: 0,
+                    transform: 'translateX(100%)'
+                }))
+            ])
         ])
-      ]
+    ]
 })
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
     // Contiene la estructura del formulario del login
@@ -71,10 +71,10 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
      * @memberof LoginComponent
      */
     constructor(public router: Router,
-                public ddb: DynamoDBService,
-                public userService: UserLoginService,
-                private fb: FormBuilder,
-                private shellComponent: ShellComponent) {
+        public ddb: DynamoDBService,
+        public userService: UserLoginService,
+        private fb: FormBuilder,
+        private shellComponent: ShellComponent) {
     }
 
     ngOnInit() {
@@ -89,19 +89,19 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     */
     createForm() {
         this.awscognitogroup = this.fb.group({
-        'email': [null, [Validators.required, Validators.email]],
-        'password': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(30)])],
+            'email': [null, [Validators.required, Validators.email]],
+            'password': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(30)])],
         });
     }
 
     onLogin() {
-        this.shellComponent.loadingComponent.viewLoadingProgressBar();
+        // this.shellComponent.loadingComponent.viewLoadingProgressBar();
         if (this.email == null || this.password == null) {
             this.errorMessage = 'Todos los campos son requeridos.';
             return;
         }
         this.errorMessage = null;
-        this.shellComponent.loadingComponent.closeLoadingProgressBar();
+        // this.shellComponent.loadingComponent.closeLoadingProgressBar();
         this.userService.authenticate(this.email, this.password, this);
     }
 
@@ -145,13 +145,13 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         return false;   // necessary to prevent href navigation
     }
 
-      /**
-   * Método para visualizar el log de errores
-   * @param {any} [err]
-   * @memberof LoginComponent
-   */
-  viewErrorMessageLogin(err?) {
-    this.shellComponent.loadingComponent.closeLoadingProgressBar();
-    // this.componentService.openSnackBar('Se ha presentado un error al iniciar sesión', 'Aceptar');
-  }
+    /**
+ * Método para visualizar el log de errores
+ * @param {any} [err]
+ * @memberof LoginComponent
+ */
+    viewErrorMessageLogin(err?) {
+        this.shellComponent.loadingComponent.closeLoadingProgressBar();
+        // this.componentService.openSnackBar('Se ha presentado un error al iniciar sesión', 'Aceptar');
+    }
 }

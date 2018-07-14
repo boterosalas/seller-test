@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserRegistrationService } from '../../../service/user-registration.service';
 import { UserLoginService } from '../../../service/user-login.service';
 import { LoggedInCallback } from '../../../service/cognito.service';
+import { ShellComponent } from './../../../secure/seller-center/shell/shell.component';
 
 @Component({
     selector: 'app-awscognito',
@@ -10,13 +11,16 @@ import { LoggedInCallback } from '../../../service/cognito.service';
 })
 export class LogoutComponent implements LoggedInCallback {
 
-    constructor(public router: Router,
-        public userService: UserLoginService) {
+    constructor(
+        public router: Router,
+        public userService: UserLoginService,
+        public shell: ShellComponent) {
         this.userService.isAuthenticated(this);
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (isLoggedIn) {
+            this.shell.showHeader = false;
             this.userService.logout();
             localStorage.clear();
             this.router.navigate(['/home']);

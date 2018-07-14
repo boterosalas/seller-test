@@ -11,7 +11,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 /* our own custom components */
 import { EventEmitterStore } from './events/eventEmitter-store.service';
 import { StoresService } from './stores.service';
-import { StoresRoutingModule } from './stores.routing.module';
+import { StoresRoutingModule } from './stores.routing';
 import { TreeToolbarComponent } from './tree-toolbar/tree-toolbar.component';
 import { SearchStoreComponent } from './search-store/search-store.component';
 import { StoreComponent } from './store/store.component';

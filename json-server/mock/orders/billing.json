@@ -1,8 +1,9 @@
 {
-  "billing": [{
+  "billing": [
+    {
       "id": 636561345858929046,
       "idBillingPicking": 68,
-      "idSeller": 10034,
+      "idSeller": 10302,
       "billingNumber": "9405101324",
       "orderNumber": "665180001",
       "payOrderNumber": "6600000916",
@@ -10,7 +11,8 @@
       "paymentDate": "2017-10-03T16:12:34.873+00:00",
       "commission": -145243.7,
       "billingTotal": 0,
-      "detail": [{
+      "detail": [
+        {
           "id": 636561345858929072,
           "idBillingDetailPicking": 86,
           "detailName": "Cuadros Modernos Caballo Blanco",
@@ -60,7 +62,8 @@
       "paymentDate": "2017-10-03T16:12:35.497+00:00",
       "commission": 149294.12,
       "billingTotal": 0,
-      "detail": [{
+      "detail": [
+        {
           "id": 636561345858929076,
           "idBillingDetailPicking": 90,
           "detailName": "Sala en L Genova blanco",
@@ -92,7 +95,8 @@
       "paymentDate": "2017-10-03T16:12:34.713+00:00",
       "commission": 299058.82,
       "billingTotal": 0,
-      "detail": [{
+      "detail": [
+        {
           "id": 636561345858929069,
           "idBillingDetailPicking": 83,
           "detailName": "Sofá 2 puestos Osaki blanco",
@@ -133,7 +137,8 @@
       "paymentDate": "2017-10-03T16:12:34.063+00:00",
       "commission": 156201.68,
       "billingTotal": 0,
-      "detail": [{
+      "detail": [
+        {
           "id": 636561345858929067,
           "idBillingDetailPicking": 81,
           "detailName": "Cuadros Modernos Anime 2",
@@ -165,15 +170,17 @@
       "paymentDate": "2017-10-03T16:12:33.153+00:00",
       "commission": 142857.98,
       "billingTotal": 0,
-      "detail": [{
-        "id": 636561345858929066,
-        "idBillingDetailPicking": 80,
-        "detailName": "Puff Olas rojo",
-        "ean": "PRUEBA0000003",
-        "quantity": 3,
-        "commission": 142857.98,
-        "price": 850000
-      }],
+      "detail": [
+        {
+          "id": 636561345858929066,
+          "idBillingDetailPicking": 80,
+          "detailName": "Puff Olas rojo",
+          "ean": "PRUEBA0000003",
+          "quantity": 3,
+          "commission": 142857.98,
+          "price": 850000
+        }
+      ],
       "paginationToken": "636561345858929043|10034"
     }
   ]

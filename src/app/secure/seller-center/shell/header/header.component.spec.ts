@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 /* our own custom components */
-import { MaterialModule } from '../../../../secure/seller-center/components/material-components';
+import { MaterialModule } from '../../components/material-components';
 import { LoginModule } from '../../../components/common/login/login.module';
 import { HeaderComponent } from './header.component';
 

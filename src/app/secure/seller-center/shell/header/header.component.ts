@@ -8,6 +8,7 @@ import { Logger } from '../../utils/logger.service';
 import { User } from '../../../../shared/models/login.model';
 import { CognitoUtil } from '../../../../service/cognito.service';
 import { FAKE } from '../../utils/fakeData.model';
+import { RoutesConst } from '../../../../shared/util/routes.constants';
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
   public userLoggin: boolean;
   public sellerName: any;
   public sellerId: any;
+  public routes: any;
   /**
    * Creates an instance of HeaderComponent.
    * @param {ShellComponent} shellComponent
@@ -45,14 +47,7 @@ export class HeaderComponent implements OnInit {
    * @memberof HeaderComponent
    */
   ngOnInit() {
-    this.user = this.user || FAKE.FAKEUSER;
-    const token = this.cognitoUtil.getTokenLocalStorage();
-    this.userLoggin = false;
-    if (typeof token !== 'undefined') {
-      this.userLoggin = true;
-    }
-    this.sellerName = localStorage.getItem('sellerName');
-    this.sellerId = localStorage.getItem('sellerId');
+    this.routes = RoutesConst;
   }
 
   /**

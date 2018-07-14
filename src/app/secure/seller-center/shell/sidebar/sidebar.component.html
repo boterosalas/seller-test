@@ -9,49 +9,31 @@
 
       <span class="spacer-content"></span>
 
-      <div (click)="toggleMenu()" [routerLink]="['']" class="logo-application"></div>
+      <div (click)="toggleMenu()" [routerLink]="[routes.secureSeller]" class="logo-application"></div>
 
     </mat-toolbar>
-    <!--
-    <div class="menu-content">
-      <img class="background-profile" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d1200341012869.579612ec24d7d.png"
-        alt="Background menu">
-      <div class="avatar-menu" [style.background-image]="'url('+ user.picture  + ')'"></div>
-      <div class="text-menu">
-        <p class="name-menu">{{user.name}}</p>
-        <p class="email-menu">ID: {{user[webUrl].nit}}</p>
-      </div>
-    </div> -->
-
-
     <div class="content-menu-list">
-
-
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
             Ordenes
           </mat-panel-title>
-
         </mat-expansion-panel-header>
-
         <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">
-          <h6 matLine>{{item.name}} </h6>
-          <!-- <h6 matLine>{{item.name}} ({{item.count}})</h6> -->
-
+          <h6 matLine>{{item.name}} {{item.count}}</h6>
         </mat-list-item>
 
 
-        <!-- <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/solicitudes-pendientes']">
+        <!-- <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.orderInPendingDevolution]">
           <h6 matLine>Solicitudes pendientes</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/en-validacion']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.orderInValidation]">
           <h6 matLine>En validación</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/en-devolucion']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.orderInDevolution]">
           <h6 matLine>En devolución</h6>
         </mat-list-item> -->
-        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ordenes/cargar-guia']">
+        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.orderLoadGuide]">
           <h6 matLine>Cargar guías</h6>
         </mat-list-item>
       </mat-expansion-panel>
@@ -66,24 +48,49 @@
           </mat-panel-title>
 
         </mat-expansion-panel-header>
-
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ofertas/arbol-categorias']">
-          <h6 matLine>Arbol de categorías</h6>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.ofersList]">
+          <h6 matLine>Listado de Ofertas</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/ofertas/carga-masiva']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.oferBulkLoad]">
           <h6 matLine>Carga Masiva</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['seller-center/ofertas/listado-ofertas']">
-          <h6 matLine>Listado de Ofertas</h6>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.oferTreeCategory]">
+          <h6 matLine>Arbol de categorías</h6>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-seller">
+          <mat-panel-title>
+            Vendedores
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.sellerRegister]">
+          <h6 matLine>Registrar nuevo</h6>
         </mat-list-item>
 
       </mat-expansion-panel>
     </div>
 
+    <mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
+      <h6 matLine>Soporte Marketplace</h6>
+    </mat-list-item>
+    <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrls.myProfile]">
+      <mat-icon matListIcon class="mat-18">person</mat-icon>
+      <h6 matLine>Perfil</h6>
+    </mat-list-item>
 
-    <div class="content-menu-list">
+    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="[routes.sellerCenterUrls.logout]" (click)="toggleMenu()">
+      <mat-icon matListIcon class="mat-18">input</mat-icon>
+      <h6 matLine>Salir</h6>
+    </mat-list-item>
+    
+    <!-- <div class="content-menu-list">
 
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
@@ -93,11 +100,11 @@
 
         </mat-expansion-panel-header>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/inicio']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['']">
           <h6 matLine>Item link</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/inicio']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['']">
           <h6 matLine>Item link</h6>
         </mat-list-item>
 
@@ -114,29 +121,14 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-list-item id="matlist-item-button-pagos" (click)="toggleMenu()" [routerLink]="['/seller-center/facturacion/pagos']">
+        <mat-list-item id="matlist-item-button-pagos" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.billingPayments]">
           <h6 matLine>Pagos</h6>
         </mat-list-item>
 
       </mat-expansion-panel>
-    </div>
+    </div> 
 
     <div class="content-menu-list">
-      <mat-expansion-panel class="expansion-menu-list" expanded="false">
-        <mat-expansion-panel-header id="matExpansion-item-button-seller">
-          <mat-panel-title>
-            Vendedores
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/securehome/seller-center/vendedores/registrar']">
-          <h6 matLine>Registrar nuevo</h6>
-        </mat-list-item>
-
-      </mat-expansion-panel>
-    </div>
-    <div class="content-menu-list">
-
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-envios-exito">
           <mat-panel-title>
@@ -145,40 +137,23 @@
 
         </mat-expansion-panel-header>
 
-        <mat-list-item id="matlist-item-button-historico" (click)="toggleMenu()" [routerLink]="['/envios-exito/historico']">
+        <mat-list-item id="matlist-item-button-historico" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.shipmentsExitoHistorical]">
           <h6 matLine>Historico</h6>
         </mat-list-item>
 
-        <mat-list-item id="matlist-item-button-despacho" (click)="toggleMenu()" [routerLink]="['/envios-exito/despacho']">
+        <mat-list-item id="matlist-item-button-despacho" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.shipmentsExitoOffice]">
           <h6 matLine>Despacho</h6>
         </mat-list-item>
 
-        <mat-list-item id="matlist-item-button-pendientes" (click)="toggleMenu()" [routerLink]="['/envios-exito/pendientes']">
+        <mat-list-item id="matlist-item-button-pendientes" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.shipmentsExitoPending]">
           <h6 matLine>Pendientes</h6>
         </mat-list-item>
 
-        <mat-list-item id="matlist-item-button-reportes" (click)="toggleMenu()" [routerLink]="['/envios-exito/reportes']">
+        <mat-list-item id="matlist-item-button-reportes" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterUrlsInt.shipmentsExitoReports]">
           <h6 matLine>Reportes</h6>
         </mat-list-item>
-
       </mat-expansion-panel>
-    </div>
-    <!-- <mat-list-item id="matlist-item-button-envios-exito" (click)="toggleMenu();shellComponent.goToEnviosExito()">
-      <h6 matLine>Envios Éxito</h6>
-    </mat-list-item> -->
-    <mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
-      <h6 matLine>Soporte Marketplace</h6>
-    </mat-list-item>
-    <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="['/securehome/myprofile']">
-      <mat-icon matListIcon class="mat-18">person</mat-icon>
-      <!-- <mat-icon >person</mat-icon> -->
-      <h6 matLine>Perfil</h6>
-    </mat-list-item>
-
-    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/securehome/logout']" (click)="toggleMenu()">
-      <mat-icon matListIcon class="mat-18">input</mat-icon>
-      <h6 matLine>Salir</h6>
-    </mat-list-item>
+    </div> -->
 
   </mat-nav-list>
 </mat-card>

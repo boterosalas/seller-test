@@ -16,7 +16,7 @@
     <!-- Componente loading de la página -->
     <app-loading #loadingComponent></app-loading>
     <!-- Componente Header de la página -->
-    <app-header *ngIf="viewToolbarPrincipal && showHeader" [viewToolbarPrincipal]="viewToolbarPrincipal" [user]="user" [sidenav]="sidenav"></app-header>
+    <app-header *ngIf="showHeader && user" [sidenav]="sidenav" [user]="user"></app-header>
 
     <!-- Injecto el router-outlet desde el app-component con la etiqueta ng-content -->
     <ng-content></ng-content>

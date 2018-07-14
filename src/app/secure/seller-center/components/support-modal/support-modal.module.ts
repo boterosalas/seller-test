@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 /* our own custom components */
 import { SupportModalComponent } from './support-modal.component';
-import { MaterialModule } from '../../../../secure/seller-center/components/material-components';
+import { MaterialModule } from '../material-components';
 import { SupportService } from './support.service';
 import { MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 
 /* our own custom components */
-import { defaultVersion, endpoints } from './../../../../../../api-endpoints';
+import { defaultVersion, endpoints } from '../../../../../../api-endpoints';
 import { Logger } from '../logger.service';
 
 

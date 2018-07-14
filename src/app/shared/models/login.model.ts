@@ -41,6 +41,11 @@ export class User {
     access_token: string;
     sub: string;
     updated_at: string;
+    public sellerId: any;
+    public sellerProfile: any;
+    public sellerName: any;
+    public sellerNit: any;
+    public sellerEmail: any;
 }
 
 /**

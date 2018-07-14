@@ -12,7 +12,7 @@ import {TableLoadComponent} from './table-load/table-load.component';
 import {BulkLoadService} from './bulk-load.service';
 import {TableErrorsComponent} from './table-errors/table-errors.component';
 import {FinishUploadInformationComponent} from './finish-upload-information/finish-upload-information.component';
-import {BulkLoadRoutingModule} from './bulk-load.routing.module';
+import {BulkLoadRoutingModule} from './bulk-load.routing';
 import { MaterialModule } from '../../material-components';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
 import { HttpErrorHandlingService } from '../../../utils/http/http-error-handling.service';

@@ -1,11 +1,6 @@
-/* 3rd party components */
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
-
-
-/* our own custom components */
-
+// Local
 import { environment } from '../../../../environments/environment';
 import { User } from '../../../../shared/models/login.model';
 import { BaseSellerService } from '../../../../shared/services/base-seller.service';
@@ -17,7 +12,6 @@ import { BaseSellerService } from '../../../../shared/services/base-seller.servi
  * Clase BillingService
  */
 export class BillingService extends BaseSellerService {
-
 
   /**
    * Método para realiar la consulta de las transportadoras
@@ -31,7 +25,6 @@ export class BillingService extends BaseSellerService {
     this.changeEndPoint();
 
     return new Observable(observer => {
-
       this.http.get(this.api.get('getBilling', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
       }, error => {
@@ -55,7 +48,6 @@ export class BillingService extends BaseSellerService {
     this.changeEndPoint();
 
     return new Observable(observer => {
-
       this.http.get(this.api.get('searchBilling',
         [user[environment.webUrl].sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {

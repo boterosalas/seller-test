@@ -26,7 +26,7 @@ const homeRoutes: Routes = [
         component: HomeComponent,
         children: [
             { path: '', component: LoginComponent },
-            { path: 'login', component: LoginComponent },
+            { path: `${RoutesConst.login}`, component: LoginComponent },
             { path: 'about', component: AboutComponent },
             { path: 'register', component: RegisterComponent },
             { path: 'confirmRegistration/:username', component: RegistrationConfirmationComponent },
@@ -35,23 +35,48 @@ const homeRoutes: Routes = [
             { path: 'forgotPassword', component: ForgotPasswordStep1Component },
             { path: 'newPassword', component: NewPasswordComponent }
         ]
+    }
+];
+
+const secureHomeRoutes: Routes = [
+    {
+
+        path: '',
+        redirectTo: `${RoutesConst.securehome}`,
+        pathMatch: 'full'
     },
     {
         path: `${RoutesConst.securehome}`,
         component: SecureHomeComponent,
         children: [
-            { path: '', component: OrdersListComponent },
-            { path: 'logout', component: LogoutComponent },
-            { path: 'jwttokens', component: JwtComponent },
-            { path: 'myprofile', component: MyProfileComponent },
-            { path: 'useractivity', component: UseractivityComponent }
+            { path: `${RoutesConst.logout}`, component: LogoutComponent },
+            { path: `${RoutesConst.jwttokens}`, component: JwtComponent },
+            { path: `${RoutesConst.myProfile}`, component: MyProfileComponent },
+            { path: `${RoutesConst.useractivity}`, component: UseractivityComponent },
+            { path: `${RoutesConst.seller}`, component: OrdersListComponent },
+            { path: '', component: SecureHomeComponent }]
+    }
+];
+
+const routes: Routes = [
+    {
+        path: '',
+        children: [
+            ...homeRoutes,
+            ...secureHomeRoutes,
+            {
+                path: '',
+                component: HomeComponent
+            }
         ]
     },
-    {path: '**', component: ErrorPageComponent}
+    { path: '**', component: ErrorPageComponent }
+
+
 ];
 
 export const appRoutingProviders: any[] = [];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(homeRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
 
 export class AppRoutingModule { }

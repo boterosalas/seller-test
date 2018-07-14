@@ -5,7 +5,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
 
 /* our own custom components */
-import {MaterialModule} from '../../../../../secure/seller-center/components/material-components';
+import {MaterialModule} from '../../../components/material-components';
 import {SearchOrderMenuModule} from '../search-order-menu.module';
 import {SearchPendingDevolutionFormComponent} from './search-pending-devolution-form.component';
 

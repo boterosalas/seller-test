@@ -1,6 +1,7 @@
 /* 3rd party components */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShellComponent } from '../../shell/shell.component';
+import { RoutesConst } from '../../../../shared/util/routes.constants';
 
 /* our own custom components */
 
@@ -18,6 +19,7 @@ import { ShellComponent } from '../../shell/shell.component';
  * Componente para visualizar la pestaña de error, esta pagina se visualiza cuando el usuario ingresa una url erronea.
  */
 export class ErrorPageComponent implements OnInit, OnDestroy {
+  public routes: any;
   /**
    * Creates an instance of ErrorPageComponent.
    * @param {ShellComponent} shellComponent
@@ -32,6 +34,7 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     // Oculto la barra toolbar de la aplicación
+    this.routes = RoutesConst;
     this.shellComponent.viewToolbarPrincipal = false;
   }
 

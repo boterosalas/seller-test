@@ -17,11 +17,7 @@ module.exports = function () {
     "/reversionrequest/getreasonsrejection": "/getreasonsrejection",
 
     "/inDevolution": "/in-devolution",
-
-
     "/orders/products": "/sendAllGuides",
-
-
     "/support/createsupport": "/sendSupportMessage"
   }
 }

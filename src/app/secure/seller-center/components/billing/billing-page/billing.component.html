@@ -1,8 +1,6 @@
 <div class="content-order my-content">
-
   <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="100" class="light-content">
-
       <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
       <app-toolbar-link fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
       <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
@@ -16,7 +14,6 @@
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
-
         <!-- expand Column -->
         <ng-container matColumnDef="expand">
           <mat-header-cell fxFlex.lg="50px" fxFlex="70px" *matHeaderCellDef mat-sort-header>
@@ -28,7 +25,6 @@
           </mat-cell>
         </ng-container>
 
-
         <!-- bill Column -->
         <ng-container matColumnDef="bill">
           <mat-header-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef mat-sort-header>
@@ -38,7 +34,6 @@
             <p class="sc-text-bold-order">{{element.billingNumber}}</p>
           </mat-cell>
         </ng-container>
-
 
         <!-- numberOrder Column -->
         <ng-container matColumnDef="numberOrder">
@@ -63,7 +58,6 @@
             <p class="sc-text-normal bold">{{element.payOrderNumber }}</p>
           </mat-cell>
         </ng-container>
-
 
         <!-- concept Column -->
         <ng-container matColumnDef="concept">
@@ -140,8 +134,6 @@
           </mat-cell>
         </ng-container>
 
-
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row id="order-{{index}}" *matRowDef="let index=index;let row; columns: displayedColumns;" matRipple class="element-row personal-row-table"
@@ -149,7 +141,7 @@
         </mat-row>
       </mat-table>
 
-      <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength">
+      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
         <p>No se han encontrado ordenes
         </p>
@@ -161,7 +153,7 @@
     <ng-template #tpl let-element>
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column ">
-
+          <pre>{{ element | json}}</pre>
           <!-- Product Information -->
           <app-billing-products-order [order]="element"></app-billing-products-order>
         </div>

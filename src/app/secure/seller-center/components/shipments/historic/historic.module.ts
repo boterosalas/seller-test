@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Local components
 import { HistoricComponent } from './historic-page/historic.component';
-import { HistoricRoutingModule } from './historic.routing.module';
+import { HistoricRoutingModule } from './historic.routing';
 import {ShipmentsService} from '../shipments.service';
 import { MaterialModule } from '../../material-components';
 import { ToolbarLinkModule } from '../../../../../shared/toolbar-link/toolbar-link.module';

@@ -9,6 +9,7 @@ import { Logger } from '../../utils/logger.service';
 import { User } from '../../../../shared/models/login.model';
 // import { LogoutComponent } from '../../../../public/auth/confirm/confirmRegistration.component';
 import { Const } from '../../../../shared/util/constants';
+import { RoutesConst } from '../../../../shared/util/routes.constants';
 import { CategoryList } from '../../../../shared/models/order';
 
 // log component
@@ -30,7 +31,7 @@ export class SidebarComponent implements OnInit {
   webUrl = environment.webUrl;
   // Lista de categorías de las ordenes
   categoryList: any;
-  public urls: any;
+  public routes: any;
 
   /**
    * Creates an instance of SidebarComponent.
@@ -41,9 +42,10 @@ export class SidebarComponent implements OnInit {
    */
   constructor(
     private route: Router,
-    public shellComponent: ShellComponent,
+    public shellComponent: ShellComponent
     // private logoutComponent: LogoutComponent
-  ) { }
+  ) {
+  }
 
   /**
    * @memberof SidebarComponent
@@ -51,8 +53,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     log.info(this.sidenav);
     // inicializo las categorías por defecto para el menú
-    this.categoryList = Const.CATEGORYLIST;
-    this.urls = Const;
+    this.routes = RoutesConst;
+    this.categoryList = this.routes.CATEGORYLIST;
   }
 
   /**

@@ -25,13 +25,13 @@ import { NewPasswordComponent } from './public/auth/newpassword/newpassword.comp
 import { MFAComponent } from './public/auth/mfa/mfa.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LOCALE_ID } from '@angular/core';
+import 'hammerjs';
 
 /* our own custom components */
 import { MaterialModule } from './secure/seller-center/components/material-components';
 import { AppComponent } from '.';
 import { environment } from './environments/environment';
 import { ShellModule } from './secure/seller-center/shell/shell.module';
-import { HomeModule } from './secure/seller-center/components/home/home.module';
 import { ErrroModule } from './secure/seller-center/components/error-page/error-page.module';
 import { LoadGuideModule } from './secure/seller-center/components/load-guide-page/load-guide.module';
 import { OrdersModule } from './secure/seller-center/components/orders/orders-list/orders.module';
@@ -49,6 +49,7 @@ import { DispatchModule } from './secure/seller-center/components/shipments/disp
 import { DetailModule } from './secure/seller-center/components/shipments/detail/detail.module';
 import { BulkLoadModule } from './secure/seller-center/components/offers/bulk-load/bulk-load.module';
 import { ListModule } from './secure/seller-center/components/offers/list/list.module';
+import { ReportsModule } from './secure/seller-center/components/shipments/reports/reports.module';
 
 @NgModule({
     declarations: [
@@ -83,7 +84,6 @@ import { ListModule } from './secure/seller-center/components/offers/list/list.m
         MaterialModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         ShellModule,
-        HomeModule,
         ErrroModule,
         LoadGuideModule,
         OrdersModule,
@@ -95,6 +95,7 @@ import { ListModule } from './secure/seller-center/components/offers/list/list.m
         BillingModule,
         RegisterModule,
         PendingModule,
+        ReportsModule,
         StoresModule,
         HistoricModule,
         DispatchModule,

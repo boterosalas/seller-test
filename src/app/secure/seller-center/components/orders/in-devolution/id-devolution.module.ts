@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* our own custom components */
 import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
 import { InDevolutionService } from './id-devolution.service';
-import { BillingRoutingModule } from './id-devolution.routing.module';
+import { BillingRoutingModule } from './id-devolution.routing';
 import { ActionReportNoveltyComponent } from './action-report-novelty/action-report-novelty.component';
 import { ActionConfirmReceiptComponent } from './action-confirm-receipt/action-confirm-receipt.component';
 import { ProductDevolutionModalComponent } from './product-devolution-modal/product-devolution-modal.component';

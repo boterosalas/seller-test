@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 /* our own custom components */
 import { SearchOrderFormComponent } from './search-order-form.component';
-import { MaterialModule } from '../../../../../secure/seller-center/components/material-components';
+import { MaterialModule } from '../../../components/material-components';
 import { SearchOrderMenuModule } from '../search-order-menu.module';
 
 describe('SearchOrderFormComponent', () => {

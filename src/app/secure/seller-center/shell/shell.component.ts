@@ -18,6 +18,7 @@ import { EventEmitterOrders } from '../utils/event/eventEmitter-orders.service';
 import { SupportModalComponent } from '../components/support-modal/support-modal.component';
 import { LoggedInCallback } from '../../../service/cognito.service';
 import { UserLoginService } from '../../../service/user-login.service';
+import { HeaderComponent } from './header/header.component';
 // log component
 const log = new Logger('ShellComponent');
 
@@ -28,23 +29,32 @@ const log = new Logger('ShellComponent');
 })
 
 export class ShellComponent implements OnInit, LoggedInCallback {
+  public showHeader: boolean;
 
-  // SideMenu de la aplicación
+  /* SideMenu de la aplicación */
   @ViewChild('sidenav') sidenav: MatSidenav;
-  // Sidenav de busqueda de ordenes
+
+  /* Sidenav de busqueda de ordenes */
   @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
-  // Loading de la pagina
+
+  /* Loading de la pagina */
   @ViewChild('loadingComponent') loadingComponent: LoadingComponent;
-  // Modal de la página
+
+  /* Modal de la página */
   @ViewChild('modalComponent') modalComponent: ModalComponent;
-  // Variable que permite cambiar el estado del sidenav
+
+  /* Variable que permite cambiar el estado del sidenav */
   stateSideNav = false;
   stateSideNavOrder = false;
-  // Información del usuario
+
+  /* Información del usuario */
   user: User;
-  // booleano para visualizar la barra de toolbar
+
+  /* booleano para visualizar la barra de toolbar */
   public viewToolbarPrincipal: boolean;
-  // Variable que permite saber cual formulario de filtro desplegar en el menú de filtro y que información se le pasar a este mismo
+
+  /* Variable que permite saber cual formulario de filtro desplegar
+  en el menú de filtro y que información se le pasar a este mismo */
   informationToForm: SearchFormEntity = {
     title: 'Buscar',
     btn_title: 'Buscar',
@@ -54,7 +64,8 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   };
 
   userLoggin: boolean;
-  public showHeader: any;
+
+
   /**
    * Creates an instance of ShellComponent.
    * @param {MatDialog} dialog
@@ -67,19 +78,11 @@ export class ShellComponent implements OnInit, LoggedInCallback {
 
   constructor(
     public dialog: MatDialog,
-    public userService: UserService,
     public componentservice: ComponentsService,
     private router: Router,
     public eventEmitterOrders: EventEmitterOrders,
     public userServiceCognito: UserLoginService
-  ) {
-    this.router.events
-      .filter(event => event instanceof NavigationStart)
-      .subscribe((event: NavigationStart) => {
-        // You only receive NavigationStart events
-        this.getDataUser();
-      });
-  }
+  ) { }
 
   /**
    * @memberof ShellComponent
@@ -88,13 +91,16 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     this.userServiceCognito.isAuthenticated(this);
   }
 
+  /**
+   * @method Metodo para validar si el usuario esta logeado
+   * @param message
+   * @param isLoggedIn
+   * @memberof ShellComponent
+   */
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.showHeader = true;
       this.viewToolbarPrincipal = true;
-    }else if (!isLoggedIn) {
-      console.log(this.showHeader);
-      this.showHeader = false;
+    } else if (!isLoggedIn) {
       this.viewToolbarPrincipal = false;
       this.router.navigate(['/home']);
     }
@@ -107,7 +113,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   toggleMenu() {
     this.sidenav.toggle();
     log.info('Sidenav toggle');
-    this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewLoadingProgressBar();
   }
 
   /**
@@ -125,7 +131,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * @memberof ShellComponent
    */
   openDialogSupport(): void {
-    this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewLoadingProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
       panelClass: 'full-width-dialog'
@@ -144,52 +150,5 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     const url = `https://envios.exito.com/token/${this.user.access_token}`;
     // window.location.href = url;
     window.open(url);
-  }
-
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof ShellComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
-  }
-
-  /**
-   * Funcionalidad encargada de validar el acceso del usuario en la aplicación
-   * @memberof ShellComponent
-   */
-  validateAccesUser(): Observable<[{}]> {
-    return new Observable(observer => {
-      this.getDataUser();
-      if (this.user.login === true) {
-        log.info('Se ha encontrado una sesión activa');
-        this.userService.getProfileUser(this.user.access_token).subscribe(res => {
-          log.info('Perfil del usuario actual:', res);
-          this.viewToolbarPrincipal = true;
-          observer.next();
-        }, err => {
-          log.info('La sesión local ha expirado y se cierra la sesión');
-          this.componentservice.openSnackBar('Se ha cerrado la sesión, Ingresa de nuevo', 'Aceptar');
-
-          // clear user information
-          this.user = this.userService.getEmptyUser();
-          this.userService.setUser(JSON.stringify(this.user));
-          this.stateSideNav = false;
-          observer.error();
-          this.router.navigate(['/home']);
-        });
-      } else {
-        log.info('Se ha presentado un problema con los datos del usuario, se cierrar la sesión');
-        // clear user information
-        this.user = this.userService.getEmptyUser();
-        this.userService.setUser(JSON.stringify(this.user));
-        this.stateSideNav = false;
-        observer.error();
-        this.router.navigate(['/home']);
-      }
-    });
   }
 }

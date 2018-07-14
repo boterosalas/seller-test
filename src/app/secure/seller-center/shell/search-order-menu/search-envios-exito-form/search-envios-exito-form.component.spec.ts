@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 /* our own custom components */
 import { SearchEnviosExitoFormComponent } from './search-envios-exito-form.component';
 import { SearchOrderMenuModule } from '../search-order-menu.module';
-import { MaterialModule } from '../../../../../secure/seller-center/components/material-components';
+import { MaterialModule } from '../../../components/material-components';
 
 
 describe('SearchEnviosExitoFormComponent', () => {

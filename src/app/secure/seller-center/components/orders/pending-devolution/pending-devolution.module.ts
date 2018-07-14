@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* our own custom components */
 import { ActionAcceptDevolutionComponent } from './action-accept-devolution/action-accept-devolution.component';
 import { PendingDevolutionService } from './pending-devolution.service';
-import { PendingDevolutionRoutingModule } from './pending-devolution.routing.module';
+import { PendingDevolutionRoutingModule } from './pending-devolution.routing';
 import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
 import { ProductPendingDevolutionModalComponent } from './product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ActionRefuseDevolutionComponent } from './action-refuse-devolution/action-refuse-devolution.component';

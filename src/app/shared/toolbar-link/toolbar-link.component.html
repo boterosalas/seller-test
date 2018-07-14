@@ -8,25 +8,24 @@
       </button>
       <mat-menu #orders="matMenu">
 
-        <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList"
-                (click)="goToRoot(item)">
+        <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
           <span>{{item.name}}</span>
           <!-- <span>{{item.name}} ({{item.count}})</span> -->
         </button>
 
 
         <!-- <button mat-menu-item id="dropdown-button-pending-devolution"
-                [routerLink]="['/securehome/seller-center/ordenes/solicitudes-pendientes']">
+                [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInPendingDevolution]">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation"
-                [routerLink]="['/securehome/seller-center/ordenes/en-validacion']">
+                [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInValidation]">
           <span>En validación</span>
         </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/securehome/seller-center/ordenes/en-devolucion']">
+        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInDevolution]">
           <span>En devolución</span>
         </button> -->
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/securehome/seller-center/ordenes/cargar-guia']">
+        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterUrlsInt.orderLoadGuide]">
           <span>Cargar guías</span>
         </button>
 
@@ -37,19 +36,19 @@
         Ofertas
       </button>
       <mat-menu #offers="matMenu">
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['seller-center/ofertas/arbol-categorias']">
-          <span>Arbol de Categorias</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/securehome/seller-center/ofertas/carga-masiva']">
-          <span>Carga Masiva</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['seller-center/ofertas/listado-ofertas']">
+        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterUrlsInt.ofersList]">
           <span>Listado de Ofertas</span>
         </button>
-      </mat-menu> 
+        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterUrlsInt.oferBulkLoad]">
+          <span>Carga Masiva</span>
+        </button>
+        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterUrlsInt.oferTreeCategory]">
+          <span>Arbol de Categorias</span>
+        </button>
+      </mat-menu>
 
 
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
+      <!-- <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
@@ -60,24 +59,24 @@
         <button mat-menu-item>
           <span>Item Link</span>
         </button>
-      </mat-menu>
+      </mat-menu> 
 
       <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing">
         <mat-icon>arrow_drop_down</mat-icon>
         Facturación
       </button>
       <mat-menu #billing="matMenu">
-        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/seller-center/facturacion/pagos']">
+        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterUrlsInt.billingPayments]">
           <span>Pagos</span>
         </button>
-      </mat-menu>
+      </mat-menu>-->
 
       <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers">
         <mat-icon>arrow_drop_down</mat-icon>
         Vendedores
       </button>
       <mat-menu #sellers="matMenu">
-        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/securehome/seller-center/vendedores/registrar']">
+        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterUrlsInt.sellerRegister]">
           <span>Registrar</span>
         </button>
       </mat-menu>

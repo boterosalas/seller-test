@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 /* our own custom components */
 import { LoadingComponent } from './loading.component';
-import { MaterialModule } from '../../../../secure/seller-center/components/material-components';
+import { MaterialModule } from '../../components/material-components';
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;

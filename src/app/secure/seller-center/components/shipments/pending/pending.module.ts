@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 // Local components
 import { PendingComponent } from './pending-page/pending.component';
 import { PendingService } from './pending.service';
-import { PendingRoutinModule } from './pending.routing.module';
+import { PendingRoutinModule } from './pending.routing';
 import { ToolbarLinkModule } from '../../../../../shared/toolbar-link/toolbar-link.module';
 import { ToolbarOptionsModule } from '../../../../../shared/toolbar-options/toolbar-options.module';
 import { ShipmentsService } from '../shipments.service';

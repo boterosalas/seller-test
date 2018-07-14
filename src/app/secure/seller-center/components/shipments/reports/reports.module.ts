@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 // Local components
 import { ReportsComponent } from './reports-page/reports.component';
-import { ReportRoutingModule } from './reports.routing.module';
+import { ReportRoutingModule } from './reports.routing';
 import { ToolbarLinkModule } from '../../../../../shared/toolbar-link/toolbar-link.module';
 import { ToolbarOptionsModule } from '../../../../../shared/toolbar-options/toolbar-options.module';
 import {ShipmentsService} from '../shipments.service';

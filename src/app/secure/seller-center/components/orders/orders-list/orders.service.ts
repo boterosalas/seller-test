@@ -13,7 +13,6 @@ import { Order } from '../../../../../shared/models/order';
  * Clase OrderService
  */
 export class OrderService extends BaseSellerService {
-  public sellerId = localStorage.getItem('sellerId');
   /**
    * Método para realiar la consulta de las ordenes
    * @param {any} state
@@ -23,13 +22,12 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   getOrderList(state, user: User, limit): Observable<[{}]> {
-
     this.changeEndPoint();
     return new Observable(observer => {
 
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
-        this.http.get<Order[]>(this.api.get('searchOrders', [this.sellerId, limit + `&idStatusOrder=${state}`]), this.getHeaders(user)).subscribe((data: any) => {
+        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`]), this.getHeaders(user)).subscribe((data: any) => {
           observer.next(data);
         }, err => {
           this.hehs.error(err, () => {
@@ -37,7 +35,7 @@ export class OrderService extends BaseSellerService {
           });
         });
       } else {
-        this.http.get<Order[]>(this.api.get('searchOrders', [this.sellerId, limit]),
+        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit]),
           this.getHeaders(user)).subscribe((data: any) => {
             observer.next(data);
           }, error => {
@@ -63,7 +61,7 @@ export class OrderService extends BaseSellerService {
 
     return new Observable(observer => {
 
-      this.http.get(this.api.get('searchOrders', [this.sellerId, limit + stringSearch]),
+      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
           observer.next(data);
         }, errorMessage => {

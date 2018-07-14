@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 /* our own custom components */
 import { CategoryList } from '../models/order';
-import { Const } from '../util/constants';
+import { RoutesConst } from '../util/routes.constants';
 
 /**
  * Component
@@ -19,6 +19,8 @@ import { Const } from '../util/constants';
  * Componente Toolbar para los links de la orden
  */
 export class ToolbarLinkComponent {
+
+  public routes: any;
 
   // Estructura para la categoría
   categoryEstructure = {
@@ -42,7 +44,8 @@ export class ToolbarLinkComponent {
    * @memberof ToolbarLinkComponent
    */
   getCategory() {
-    this.categoryList = Const.CATEGORYLIST;
+    this.routes = RoutesConst;
+    this.categoryList = RoutesConst.CATEGORYLIST;
   }
 
   /**
