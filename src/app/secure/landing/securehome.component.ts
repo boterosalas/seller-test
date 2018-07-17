@@ -58,23 +58,31 @@ export class GetParametersCallback implements Callback {
             switch (result[i].getName()) {
                 case 'custom:SellerId':
                     this.me.parameters.sellerId = result[i].getValue();
+                    localStorage.setItem('sellerId', result[i].getValue());
                     break;
                 case 'custom:Roles':
                     this.me.parameters.sellerProfile = result[i].getValue();
+                    localStorage.setItem('sellerProfile', result[i].getValue());
                     break;
                 case 'name':
                     this.me.parameters.sellerName = result[i].getValue();
+                    localStorage.setItem('sellerName', result[i].getValue());
                     break;
                 case 'custom:Nit':
                     this.me.parameters.sellerNit = result[i].getValue();
+                    localStorage.setItem('sellerNit', result[i].getValue());
                     break;
                 case 'email':
                     this.me.parameters.sellerEmail = result[i].getValue();
+                    localStorage.setItem('sellerEmail', result[i].getValue());
                     break;
             }
         }
         this.me.shell.user = this.me.parameters;
-        this.me.userServiceProvider.setUser(this.me.parameters);
-        this.router.navigate(['/securehome/seller-center']);
+        if (this.me.parameters.sellerProfile === 'seller') {
+            this.router.navigate(['/securehome/seller-center']);
+        } else if (this.me.parameters.sellerProfile === 'administrator') {
+            this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+        }
     }
 }

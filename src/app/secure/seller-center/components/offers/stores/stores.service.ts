@@ -57,6 +57,7 @@ export class StoresService {
 
   /**
    * Servicio que permite obtener la lista de comisiones de acuerdo al seller
+   * Este servicio trae el arbol más pequeño.
    * @param {User} user
    * @param {StoreModel} store
    * @returns {Observable<[{}]>}

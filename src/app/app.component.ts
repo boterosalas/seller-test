@@ -11,11 +11,11 @@ import { CognitoUtil, LoggedInCallback } from './service/cognito.service';
     preserveWhitespaces: false
 })
 export class AppComponent implements OnInit, LoggedInCallback {
-
     constructor(
         public awsUtil: AwsUtil,
         public userService: UserLoginService,
-        public cognito: CognitoUtil) {
+        public cognito: CognitoUtil
+    ) {
     }
 
     ngOnInit() {

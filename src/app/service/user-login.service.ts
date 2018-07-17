@@ -125,6 +125,7 @@ export class UserLoginService {
 
     isAuthenticated(callback: LoggedInCallback) {
         if (callback == null) {
+            // tslint:disable-next-line:no-string-throw
             throw('UserLoginService: Callback in isAuthenticated() cannot be null');
         }
         const cognitoUser = this.cognitoUtil.getCurrentUser();

@@ -66,6 +66,7 @@ const TREE_DATA = `
     }
 }`;
 
+
 /**
  * File database, it can build a tree structured Json object from string.
  * Each node in Json object represents a file or a directory. For a file, it has filename and type.
@@ -80,21 +81,47 @@ export class FileDatabase {
   get data(): FileNode[] { return this.dataChange.value; }
 
   constructor() {
-    this.initialize();
   }
 
-  initialize() {
-    // Parse the string to json object.
-    const dataObject = JSON.parse(TREE_DATA);
+  initialize(tree: any) {
+    if (typeof tree !== 'undefined') {
+      const dataObject = JSON.parse(JSON.stringify(tree));
+      /* const dataObject = JSON.parse(TREE_DATA); */
+      const parentjson = {};
+      const treeBuild = this.createRealTree(dataObject, parentjson, 'Marketplace');
+      const data = this.buildFileTree(treeBuild, 0);
+      this.dataChange.next(data);
 
-    // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-    //     file node as children.
-    const data = this.buildFileTree(dataObject, 0);
-
-    // Notify the change.
-    this.dataChange.next(data);
+    }
   }
-
+  /**
+   * Function 
+   * @param dataObject 
+   * @param padre 
+   */
+  createRealTree(obj: any, parentjson: any, name_parent: any) {
+    let k;
+    if (obj instanceof Object) {
+      for (k in obj) {
+        if (obj.hasOwnProperty(k)) {
+          if (k === 'Name') {
+            name_parent = obj[k];
+          } else {
+            if (k === 'nodes') {
+              const nodos = obj[k];
+                for (let j = 0; j < nodos.length; j++) {
+                    parentjson[name_parent] = nodos[j].Name;
+                    if (typeof nodos[j].nodes !== 'undefined'){
+                      this.createRealTree(nodos[j], parentjson, nodos[j].Name);
+                    }
+                }
+              }
+            }
+          }
+        }
+    } 
+    return parentjson;
+  }
   /**
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `FileNode`.
@@ -134,11 +161,13 @@ export class TreeComponentComponent implements OnInit {
   dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
 
   @ViewChild('tree') treeElement;
+  // arbol
+  @Input() arbol: any;
 
   tree: MatTree<FileFlatNode>;
 
   constructor(
-    database: FileDatabase,
+    public database: FileDatabase,
     public eventsStore: EventEmitterStore
   ) {
     // Configuración del eventEmitter para saber cuando desplegar todos los nodos del arbol
@@ -149,6 +178,7 @@ export class TreeComponentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.database.initialize(this.arbol);
   }
 
   /**

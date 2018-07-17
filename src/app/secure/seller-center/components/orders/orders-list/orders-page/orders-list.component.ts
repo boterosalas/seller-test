@@ -97,7 +97,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   public subFilterOrder: any;
   public subOrderList: any;
   // Información del usuario
-  public user: User;
+  public user: any;
   // Variable que permite indicar si mostrar la opción de check o no
   optionCheckInTable = false;
   // Variable que almacena la ruta actual para saber la categoría que se esta consultando
@@ -142,7 +142,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     public userParams: UserParametersService,
     public userServiceProvider: UserService,
   ) {
-
+    this.user = {};
   }
 
   /**
@@ -167,7 +167,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    * @memberof ShellComponent
    */
   getDataUser() {
-    this.user = this.userServiceProvider.getUser();
+    this.user['sellerId'] = localStorage.getItem('sellerId');
+    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
+    this.user['sellerName'] = localStorage.getItem('sellerName');
+    this.user['sellerNit'] = localStorage.getItem('sellerNit');
+    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
   }
 
   /**

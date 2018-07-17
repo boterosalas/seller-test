@@ -15,7 +15,7 @@
     "e2e": "ng e2e",
     "docs": "compodoc -s",
     "docs:hads": "hads ./docs -o",
-    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -d ./deploy/documentation/dist/  --includes ./docs",
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -d ./deploy/documentation/dist --includes -t --theme stripe --disableCoverage --hideGenerator -n Documentation",
     "tsc:server": "tsc -p server/tsconfig.ssr.json",
     "build:client-and-server-bundles": "ng build --prod --aot && ng build --prod --aot",
     "build:universal": "npm run build:client-and-server-bundles  && npm run tsc:server",

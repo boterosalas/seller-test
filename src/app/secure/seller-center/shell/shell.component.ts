@@ -29,7 +29,9 @@ const log = new Logger('ShellComponent');
 })
 
 export class ShellComponent implements OnInit, LoggedInCallback {
+
   public showHeader: boolean;
+  public user: any;
 
   /* SideMenu de la aplicación */
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -46,9 +48,6 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   /* Variable que permite cambiar el estado del sidenav */
   stateSideNav = false;
   stateSideNavOrder = false;
-
-  /* Información del usuario */
-  user: User;
 
   /* booleano para visualizar la barra de toolbar */
   public viewToolbarPrincipal: boolean;
@@ -82,7 +81,9 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     private router: Router,
     public eventEmitterOrders: EventEmitterOrders,
     public userServiceCognito: UserLoginService
-  ) { }
+  ) {
+    this.user = {};
+  }
 
   /**
    * @memberof ShellComponent
@@ -100,12 +101,22 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.viewToolbarPrincipal = true;
+      this.showHeader = true;
+      this.getUser();
     } else if (!isLoggedIn) {
+      this.showHeader = false;
       this.viewToolbarPrincipal = false;
       this.router.navigate(['/home']);
     }
   }
 
+  getUser() {
+    this.user['sellerId'] = localStorage.getItem('sellerId');
+    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
+    this.user['sellerName'] = localStorage.getItem('sellerName');
+    this.user['sellerNit'] = localStorage.getItem('sellerNit');
+    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
+  }
   /**
    * Funcionalidad que permite desplegar el menú.
    * @memberof SidebarComponent

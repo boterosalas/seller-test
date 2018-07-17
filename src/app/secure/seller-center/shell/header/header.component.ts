@@ -6,9 +6,10 @@ import { environment } from '../../../../environments/environment';
 import { ShellComponent } from '../shell.component';
 import { Logger } from '../../utils/logger.service';
 import { User } from '../../../../shared/models/login.model';
-import { CognitoUtil } from '../../../../service/cognito.service';
+import { CognitoUtil, LoggedInCallback } from '../../../../service/cognito.service';
 import { FAKE } from '../../utils/fakeData.model';
 import { RoutesConst } from '../../../../shared/util/routes.constants';
+import { UserLoginService } from '../../../../service/user-login.service';
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -19,12 +20,12 @@ const log = new Logger('HeaderComponent');
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, LoggedInCallback {
 
   // booleano para visualizar la barra de toolbar
   @Input() viewToolbarPrincipal: boolean;
   // Información del usuario
-  @Input() user: User;
+  @Input() user: any;
   // Sidenav principal
   @Input() sidenav;
   // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
@@ -39,15 +40,38 @@ export class HeaderComponent implements OnInit {
    * @memberof HeaderComponent
    */
   constructor(
-    public shellComponent: ShellComponent, public cognitoUtil: CognitoUtil
-  ) { }
+    public shellComponent: ShellComponent,
+    public cognitoUtil: CognitoUtil,
+    public userService: UserLoginService
+  ) {
+    this.user = {};
+  }
 
 
   /**
    * @memberof HeaderComponent
    */
   ngOnInit() {
-    this.routes = RoutesConst;
+    this.userService.isAuthenticated(this);
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+      this.routes = RoutesConst;
+    }
+  }
+
+  /**
+   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
+   * @memberof ShellComponent
+   */
+  getDataUser() {
+    this.user['sellerId'] = localStorage.getItem('sellerId');
+    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
+    this.user['sellerName'] = localStorage.getItem('sellerName');
+    this.user['sellerNit'] = localStorage.getItem('sellerNit');
+    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
   }
 
   /**

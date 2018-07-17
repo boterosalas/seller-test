@@ -99,6 +99,7 @@ export class CognitoUtil {
 
     getAccessToken(callback: Callback): void {
         if (callback == null) {
+            // tslint:disable-next-line:no-string-throw
             throw ('CognitoUtil: callback in getAccessToken is null...returning');
         }
         if (this.getCurrentUser() != null) {
@@ -119,6 +120,7 @@ export class CognitoUtil {
 
     getIdToken(callback: Callback): void {
         if (callback == null) {
+            // tslint:disable-next-line:no-string-throw
             throw ('CognitoUtil: callback in getIdToken is null...returning');
         }
         if (this.getCurrentUser() != null) {
@@ -142,6 +144,7 @@ export class CognitoUtil {
 
     getRefreshToken(callback: Callback): void {
         if (callback == null) {
+            // tslint:disable-next-line:no-string-throw
             throw ('CognitoUtil: callback in getRefreshToken is null...returning');
         }
         if (this.getCurrentUser() != null) {

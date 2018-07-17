@@ -66,9 +66,9 @@ export class SearchStoreComponent implements OnInit {
    */
   getDataUser() {
     this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
+    /* if (this.user.login === undefined) {
       this.userService.setUser([]);
-    }
+    } */
   }
 
   /**
@@ -79,7 +79,8 @@ export class SearchStoreComponent implements OnInit {
     this.storeService.getAllStores(this.user).subscribe((res: any) => {
       log.info(res);
       if (res.status === 200) {
-        this.listStores = res.body.Data;
+        const body = JSON.parse(res.body.body);
+        this.listStores = body.Data;
       }else {
         this.listStores = res.message;
       }

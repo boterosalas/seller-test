@@ -32,6 +32,7 @@ export class TreeCategoriesComponent implements OnInit {
   showLoading = false;
   allSellerCategories = [];
   CONST_MARKETPLACE = 'Marketplace';
+  public arbol: any;
   // Información del usuario
   public user: User;
 
@@ -75,9 +76,9 @@ export class TreeCategoriesComponent implements OnInit {
    */
   getDataUser() {
     this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
+/*     if (this.user.login === undefined) {
       this.userService.setUser([]);
-    }
+    } */
   }
 
   /**
@@ -89,7 +90,8 @@ export class TreeCategoriesComponent implements OnInit {
     this.storeService.getAllSellerCommissionCategory(this.user, this.currentStoreSelect).subscribe((res: any) => {
       // guardo el response
       if (res.status === 200) {
-        this.allSellerCategories = res.body.Data;
+        const body = JSON.parse(res.body.body);
+        this.allSellerCategories = body.Data;
       } else {
         console.log('getAllSellerCommissionCategory:' + res.message);
       }
@@ -107,10 +109,11 @@ export class TreeCategoriesComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.status === 200) {
           // indico a los componentes suscritos al evento que se ha cargado información para el arbol
+          const sellerCommission = JSON.parse(res.body.body);
           const information = {
             informationForTreeIsLoad: true,
             data: {
-              getSellerCommissionCategory: res.body.Data,
+              getSellerCommissionCategory: sellerCommission.Data,
               allGetSellerCommissionCategory: this.allSellerCategories
             }
           };
@@ -119,7 +122,7 @@ export class TreeCategoriesComponent implements OnInit {
           this.eventsStore.informationForTreeIsLoad(information);
           this.informationForTreeIsLoad = true;
           this.showLoading = false;
-          // this.configTreeInformation(information);
+          this.configTreeInformation(information);
         } else {
           log.error(res.message);
           console.log('Error consultando las comisiones por categoria.' + res.message);
@@ -147,6 +150,7 @@ export class TreeCategoriesComponent implements OnInit {
       }
     }
     const data = this.createTree(node, listCategories, sellerCategories);
+    this.arbol = data;
     log.info(data);
   }
 

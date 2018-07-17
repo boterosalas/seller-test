@@ -12,7 +12,7 @@
       <div (click)="toggleMenu()" [routerLink]="[routes.secureSeller]" class="logo-application"></div>
 
     </mat-toolbar>
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'seller'">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
@@ -20,7 +20,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">
-          <h6 matLine>{{item.name}} {{item.count}}</h6>
+          <h6 matLine>{{item.name}} ({{item.count}})</h6>
         </mat-list-item>
 
 
@@ -62,7 +62,7 @@
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'administrator'">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-seller">
           <mat-panel-title>
