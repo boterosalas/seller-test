@@ -16,8 +16,6 @@ phases:
       - echo Iniciando compilacion...
       - ng build --prod --output-hashing=all
       - echo Compilacion terminada.
-  post_build:
-    commands:
       - echo Borrando archivos en bucket...
       - aws s3 rm s3://${S3_BUCKET} --recursive
       - echo Archivos en bucket borrados.
