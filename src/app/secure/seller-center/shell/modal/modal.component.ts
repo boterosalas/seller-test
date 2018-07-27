@@ -42,9 +42,9 @@ export class ModalComponent implements OnInit {
             case 'success':
                 dataModal = {
                     'status': 'done',
-                    'message': `'¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario
+                    'message': `¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario
                 y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de
-                vendedor para su registro.'`,
+                vendedor para su registro.`,
                     'title': '¡Registro realizado con exíto!'
                 };
                 break;

@@ -1,5 +1,5 @@
 /* our own custom components */
-import { CategoryList, Order } from '../models/order';
+import { CategoryList, Order } from '../models/order.model';
 import { environment } from '../../environments/environment';
 
 export class Const {
@@ -89,7 +89,7 @@ export class Const {
 
 
     /**
-     * Estados para los productos de las ordenes
+     * Estados para los productos de las órdenes
      * @static
      * @memberof Const
      */
@@ -119,7 +119,7 @@ export class Const {
     static readonly NameProductSinInventarioNotificado = 'SinInventarioNotificado';
 
     /**
-     * Estados para las ordenes
+     * Estados para las órdenes
      * @static
      * @memberof Const
      */
@@ -133,7 +133,7 @@ export class Const {
 
 
     /**
-     * Estados para las ordenes y los productos en la app
+     * Estados para las órdenes y los productos en la app
      */
     static readonly AppProductEnviado = 'En envío';
     static readonly AppProductAsignado = 'Asignado';
@@ -152,4 +152,11 @@ export class Const {
     // Constantes para los tipos de rechazo de solicitudes
     static readonly OrderPendingDevolution = 2;
     static readonly OrdersInDevolution = 4;
+
+    // Conceptos de facturación para los pagos.
+    static readonly BILLING_CONCEPTS = {
+        marketplaceSale: 'Venta Marketplace',
+        logisticsExito: 'Logística Éxito'
+    };
+
 }

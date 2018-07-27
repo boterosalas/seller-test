@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserLoginService } from '../../service/user-login.service';
-import { Callback, LoggedInCallback, CognitoUtil } from '../../service/cognito.service';
-import { ShellComponent } from './../seller-center/shell/shell.component';
+import { LoggedInCallback, CognitoUtil } from '../../service/cognito.service';
+import { ShellComponent } from '../seller-center/shell/shell.component';
 import { UserParametersService } from '../../service/user-parameters.service';
 import { UserService } from '../seller-center/utils/services/common/user/user.service';
 
@@ -13,10 +13,7 @@ import { UserService } from '../seller-center/utils/services/common/user/user.se
 
 export class SecureHomeComponent implements LoggedInCallback {
 
-    public parameters: any;
-    public cognitoId: String;
 
-    // tslint:disable-next-line:max-line-length
     constructor(
         public shell: ShellComponent,
         public userServiceProvider: UserService,
@@ -25,64 +22,11 @@ export class SecureHomeComponent implements LoggedInCallback {
         public userParams: UserParametersService,
         public cognitoUtil: CognitoUtil) {
         this.userService.isAuthenticated(this);
-        this.parameters = {
-            sellerId: '',
-            sellerProfile: '',
-            sellerName: '',
-            sellerNit: '',
-            sellerEmail: ''
-        };
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (isLoggedIn) {
-            this.shell.showHeader = true;
-            this.userParams.getParameters(new GetParametersCallback(this, this.cognitoUtil, this.router));
-        }
-    }
-}
-
-export class GetParametersCallback implements Callback {
-
-    constructor(
-        public me: SecureHomeComponent,
-        public cognitoUtil: CognitoUtil,
-        public router: Router) {
-
-    }
-
-    callback() { }
-
-    callbackWithParam(result: any) {
-        for (let i = 0; i < result.length; i++) {
-            switch (result[i].getName()) {
-                case 'custom:SellerId':
-                    this.me.parameters.sellerId = result[i].getValue();
-                    localStorage.setItem('sellerId', result[i].getValue());
-                    break;
-                case 'custom:Roles':
-                    this.me.parameters.sellerProfile = result[i].getValue();
-                    localStorage.setItem('sellerProfile', result[i].getValue());
-                    break;
-                case 'name':
-                    this.me.parameters.sellerName = result[i].getValue();
-                    localStorage.setItem('sellerName', result[i].getValue());
-                    break;
-                case 'custom:Nit':
-                    this.me.parameters.sellerNit = result[i].getValue();
-                    localStorage.setItem('sellerNit', result[i].getValue());
-                    break;
-                case 'email':
-                    this.me.parameters.sellerEmail = result[i].getValue();
-                    localStorage.setItem('sellerEmail', result[i].getValue());
-                    break;
-            }
-        }
-        this.me.shell.user = this.me.parameters;
-        if (this.me.parameters.sellerProfile === 'seller') {
-            this.router.navigate(['/securehome/seller-center']);
-        } else if (this.me.parameters.sellerProfile === 'administrator') {
-            this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+        if (!isLoggedIn ) {
+            this.router.navigate(['/home/login']);
         }
     }
 }

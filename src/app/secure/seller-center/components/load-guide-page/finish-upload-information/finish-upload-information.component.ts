@@ -6,7 +6,7 @@ import * as FileSaver from 'file-saver';
 
 
 /* our own custom components */
-import { FinishUploadInformation } from '../../../../../shared/models/order';
+import { FinishUploadInformation } from '../../../../../shared';
 import { FAKE } from '../../../utils/fakeData.model';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';

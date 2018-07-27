@@ -7,7 +7,7 @@ import { MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@an
 import { ListShipments, PickupShipment, Shipment } from '../../../../../../shared/models/shipment.model';
 import { User } from '../../../../../../shared/models/login.model';
 import { ShipmentsService } from '../../shipments.service';
-import { SearchFormEntity, InformationToForm } from '../../../../../../shared/models/order';
+import { SearchFormEntity, InformationToForm } from '../../../../../../shared';
 import { Logger } from '../../../../utils/logger.service';
 import { getDutchPaginatorIntl } from '../../../../utils/services/common/components/mat-table.config';
 import { environment } from '../../../../../../environments/environment';
@@ -49,8 +49,8 @@ export class PendingComponent implements OnInit {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Despacho',
-    btn_title: 'Consultar ordenes pendientes',
-    title_for_search: 'Consultar ordenes (Envios Éxito)',
+    btn_title: 'Consultar órdenes pendientes',
+    title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
     information: new InformationToForm
   };
@@ -67,7 +67,6 @@ export class PendingComponent implements OnInit {
    * Init compoment
    */
   ngOnInit() {
-    log.info('PendingComponent is load');
     this.user = this.userService.getUser();
 
     this.list();
@@ -96,16 +95,16 @@ export class PendingComponent implements OnInit {
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
+   * Método para cambiar el page size de la tabla órdenes
    * @memberof DispatchedComponent
    * @param $event
    */
   changeSizeOrderTable($event) {
-    log.info($event);
+
   }
 
 
   getOrdersList($event) {
-    log.info($event);
+
   }
 }

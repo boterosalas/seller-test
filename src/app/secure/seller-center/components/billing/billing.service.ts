@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 // Local
 import { environment } from '../../../../environments/environment';
-import { User } from '../../../../shared/models/login.model';
-import { BaseSellerService } from '../../../../shared/services/base-seller.service';
+import { Billing, User, BaseSellerService } from '../../../../shared';
 
 
 @Injectable()
@@ -17,13 +16,10 @@ export class BillingService extends BaseSellerService {
    * Método para realiar la consulta de las transportadoras
    * @param {any} user
    * @param {any} stringSearch
-   * @returns {Observable<[{}]>}
+   * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getBilling(user, stringSearch): Observable<[{}]> {
-
-    this.changeEndPoint();
-
+  getBilling(user, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
       this.http.get(this.api.get('getBilling', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
@@ -36,21 +32,20 @@ export class BillingService extends BaseSellerService {
   }
 
   /**
-   * Método para realiar la consulta de las ordenes de acuerdo a los filtros indicados.
+   * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
-   * @returns {Observable<[{}]>}
+   * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getOrdersBillingFilter(user: User, limit, stringSearch): Observable<[{}]> {
-
-    this.changeEndPoint();
-
+  getOrdersBillingFilter(user: any, limit, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchBilling',
-        [user[environment.webUrl].sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
+      // Id del vendedor.
+      const sellerId = user.sellerId;
+
+      this.http.get<Billing[]>(this.api.get('searchBilling', [sellerId, limit + stringSearch]),
+        this.getHeaders()).subscribe((data) => {
           observer.next(data);
         }, errorMessage => {
           this.hehs.error(errorMessage, () => {
@@ -62,7 +57,7 @@ export class BillingService extends BaseSellerService {
 
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de ordenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
    * @returns
    * @memberof BillingService
    */
@@ -72,7 +67,7 @@ export class BillingService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las ordenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
    * @param {any} data
    * @memberof BillingService
    */

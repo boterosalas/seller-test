@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material';
 import { ShipmentsService } from '../../shipments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Logger } from '../../../../utils/logger.service';
-import { SearchFormEntity, InformationToForm } from '../../../../../../shared/models/order';
+import { SearchFormEntity, InformationToForm } from '../../../../../../shared';
 import { Shipment } from '../../../../../../shared/models/shipment.model';
 
 /**
@@ -36,8 +36,8 @@ export class HistoricComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Despacho',
-    btn_title: 'Consultar ordenes pendientes',
-    title_for_search: 'Consultar ordenes (Envios Éxito)',
+    btn_title: 'Consultar órdenes pendientes',
+    title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
     information: new InformationToForm
   };
@@ -54,7 +54,6 @@ export class HistoricComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
 
-    log.info('HistoricComponent is load');
   }
 
   /**
@@ -67,7 +66,7 @@ export class HistoricComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * Funcionalidad para consultar la lista de ordenes
+  * Funcionalidad para consultar la lista de órdenes
   * @param {*} $event
   */
   getShipments($event) {
@@ -75,16 +74,16 @@ export class HistoricComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * Método para cambiar el page size de la tabla ordenes
+  * Método para cambiar el page size de la tabla órdenes
   * @param {any} pageSize
   * @memberof HistoricComponent
   */
   changeSizeOrderTable($event) {
-    log.info($event);
+
   }
 
   getOrdersList($event) {
-    log.info($event);
+
   }
 }
 

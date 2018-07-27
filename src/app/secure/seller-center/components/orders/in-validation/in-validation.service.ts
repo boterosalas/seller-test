@@ -15,7 +15,7 @@ import { User } from '../../../../../shared/models/login.model';
 export class InValidationService extends BaseSellerService {
 
     /**
-     * Método para realiar la consulta de las ordenes en estado pendiente
+     * Método para realiar la consulta de las órdenes en estado pendiente
      * @param user
      * @param guide
      * @returns Observable<[{}]>

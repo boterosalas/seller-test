@@ -17,8 +17,7 @@ describe('BillingComponent', () => {
         RouterTestingModule,
         BillingModule
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

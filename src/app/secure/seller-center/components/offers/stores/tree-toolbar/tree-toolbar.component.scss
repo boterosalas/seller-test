@@ -2,7 +2,6 @@
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   & .toolbar-options-table {
-    display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
@@ -24,7 +23,7 @@
 }
 
 .search-content {
-  margin-left: 100px;
+  margin-left: 40px;
 }
 
 .buttn-toolbar-options {

@@ -5,13 +5,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 /* our own custom components */
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { OrderDevolutionsModel, ListReasonRejectionResponseEntity } from '../../../../../../shared/models/order';
+import { OrderDevolutionsModel, ListReasonRejectionResponseEntity } from '../../../../../../shared';
 import { InDevolutionService } from '../id-devolution.service';
 import { Logger } from '../../../../utils/logger.service';
 import { User } from '../../../../../../shared/models/login.model';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { FAKE } from '../../../../utils/fakeData.model';
+import { Callback } from '../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('ActionReportNoveltyComponent');
@@ -26,11 +28,11 @@ const log = new Logger('ActionReportNoveltyComponent');
 /**
  * Component para la acción a realizar con una novedad
  */
-export class ActionReportNoveltyComponent implements OnInit {
+export class ActionReportNoveltyComponent implements OnInit, Callback {
   // Variable que almacena los datos del formulario
   myform: FormGroup;
   // Información del usuario.
-  public user: User;
+  public user: any;
   // Información de la orden actual
   public currentOrder: OrderDevolutionsModel;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -50,9 +52,11 @@ export class ActionReportNoveltyComponent implements OnInit {
     public dialogRef: MatDialogRef<ActionReportNoveltyComponent>,
     public inDevolutionService: InDevolutionService,
     public userService: UserService,
+    public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
+    this.user = {};
   }
 
   /**
@@ -64,15 +68,14 @@ export class ActionReportNoveltyComponent implements OnInit {
     this.createForm();
   }
 
-  /**
-  * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-  * @memberof ActionReportNoveltyComponent
-  */
+  callback() { }
+
   getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -108,11 +111,9 @@ export class ActionReportNoveltyComponent implements OnInit {
    * @memberof ActionReportNoveltyComponent
    */
   reportNovelty(myform) {
-    log.info(myform);
     console.log(this.currentOrder);
     // busco la razon seleccionada por el usuario
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
-    log.info(reason);
 
     // Armo el json para realizar el envio
     const information = {
@@ -123,7 +124,6 @@ export class ActionReportNoveltyComponent implements OnInit {
       Id: this.currentOrder.id
     };
     this.inDevolutionService.reportNovelty(this.user, information).subscribe(res => {
-      log.info(res);
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

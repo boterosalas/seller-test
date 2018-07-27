@@ -9,15 +9,15 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
     {
-        path: `${RoutesConst.sellerCenterUrls.shipmentsExito}`,
+        path: `${RoutesConst.sellerCenterShipmentsExito}`,
         component: HistoricComponent,
         data: { title: 'Historico' }
     },
     {
-        path: `${RoutesConst.sellerCenterUrlsInt.shipmentsExitoHistorical}`,
+        path: `${RoutesConst.sellerCenterIntShipmentsExitoHist}`,
         component: HistoricComponent,
         data: { title: 'Historico' }
-    },
+    }
 ];
 
 @NgModule({

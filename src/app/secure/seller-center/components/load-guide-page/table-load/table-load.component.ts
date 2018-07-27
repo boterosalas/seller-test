@@ -4,7 +4,7 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 
 /* our own custom components */
 import {LoadGuidePageComponent} from '../load-guide/load-guide-page.component';
-import { Guide } from '../../../../../shared/models/order';
+import { Guide } from '../../../../../shared';
 
 
 /**

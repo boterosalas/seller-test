@@ -1,10 +1,13 @@
 /* 3rd party components */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 /* our own custom components */
-import { CategoryList } from '../models/order';
+import { CategoryList } from '../models/order.model';
 import { RoutesConst } from '../util/routes.constants';
+import { LoggedInCallback, Callback } from '../../service/cognito.service';
+import { UserLoginService } from '../../service/user-login.service';
+import { UserParametersService } from '../../service/user-parameters.service';
 
 /**
  * Component
@@ -18,10 +21,10 @@ import { RoutesConst } from '../util/routes.constants';
 /**
  * Componente Toolbar para los links de la orden
  */
-export class ToolbarLinkComponent {
+export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback {
 
   public routes: any;
-
+  public user: any;
   // Estructura para la categoría
   categoryEstructure = {
     root: 'home'
@@ -35,8 +38,33 @@ export class ToolbarLinkComponent {
    * @param {Router} route
    * @memberof ToolbarLinkComponent
    */
-  constructor(private route: Router, ) {
-    this.getCategory();
+  constructor(
+    private route: Router,
+    public userService: UserLoginService,
+    public userParams: UserParametersService
+  ) {
+    this.user = {};
+  }
+
+  ngOnInit() {
+    this.userService.isAuthenticated(this);
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+      this.getCategory();
+    }
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -56,7 +84,7 @@ export class ToolbarLinkComponent {
   goToRoot(category: CategoryList) {
     if (category.id !== '') {
       this.route.navigate([category.root, category.id]);
-    }else {
+    } else {
       this.route.navigate([category.root]);
     }
   }

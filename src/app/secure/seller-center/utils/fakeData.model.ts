@@ -1,6 +1,6 @@
 /* our own custom components */
 import { environment } from '../../../environments/environment';
-import { Order, Billing, FinishUploadInformation, Pending, OrderDevolutionsModel } from '../../../shared/models/order';
+import { Order, Billing, FinishUploadInformation, Pending, OrderDevolutionsModel } from '../../../shared';
 
 /**
  * Información falsa para las pruebas o cuando se corre el comando ng test de Angular

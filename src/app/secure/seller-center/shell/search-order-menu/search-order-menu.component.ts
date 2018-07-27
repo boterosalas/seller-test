@@ -6,7 +6,7 @@ import { MatSidenav } from '@angular/material';
 /* our own custom components */
 import { ShellComponent } from '../shell.component';
 import { Logger } from '../../utils/logger.service';
-import { SearchFormEntity } from '../../../../shared/models/order';
+import { SearchFormEntity } from '../../../../shared';
 
 // log components
 const log = new Logger('SideBarSearchOrdersComponent');
@@ -53,6 +53,5 @@ export class SearchOrderMenuComponent implements OnInit {
    */
   toggleMenu(): void {
     this.sidenavSearchOrder.toggle();
-    log.info('Sidenav toggle');
   }
 }

@@ -2,10 +2,12 @@
 
   <mat-toolbar-row class="toolbar-orders-list">
     <div class="content-options-toolbar">
-      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
+
+      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="user.sellerProfile === 'seller'">
         <mat-icon>arrow_drop_down</mat-icon>
-        Ordenes
+        &Oacute;rdenes
       </button>
+
       <mat-menu #orders="matMenu">
 
         <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
@@ -15,17 +17,17 @@
 
 
         <!-- <button mat-menu-item id="dropdown-button-pending-devolution"
-                [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInPendingDevolution]">
+                [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation"
-                [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInValidation]">
+                [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]">
           <span>En validación</span>
         </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterUrlsInt.orderInDevolution]">
+        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]">
           <span>En devolución</span>
         </button> -->
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterUrlsInt.orderLoadGuide]">
+        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]">
           <span>Cargar guías</span>
         </button>
 
@@ -36,13 +38,13 @@
         Ofertas
       </button>
       <mat-menu #offers="matMenu">
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterUrlsInt.ofersList]">
+        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]" *ngIf="user.sellerProfile === 'seller'">
           <span>Listado de Ofertas</span>
         </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterUrlsInt.oferBulkLoad]">
+        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]" *ngIf="user.sellerProfile === 'seller'">
           <span>Carga Masiva</span>
         </button>
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterUrlsInt.oferTreeCategory]">
+        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user.sellerProfile === 'administrator'">
           <span>Arbol de Categorias</span>
         </button>
       </mat-menu>
@@ -66,20 +68,21 @@
         Facturación
       </button>
       <mat-menu #billing="matMenu">
-        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterUrlsInt.billingPayments]">
+        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterIntBillingPayments]">
           <span>Pagos</span>
         </button>
       </mat-menu>-->
 
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers">
+      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers" *ngIf="user.sellerProfile === 'administrator'">
         <mat-icon>arrow_drop_down</mat-icon>
         Vendedores
       </button>
       <mat-menu #sellers="matMenu">
-        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterUrlsInt.sellerRegister]">
+        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterIntSellerRegister]">
           <span>Registrar</span>
         </button>
       </mat-menu>
+
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -7,12 +7,12 @@ import { BillingComponent } from './billing-page/billing.component';
 
 const routes: Routes = [
   {
-    path: `${RoutesConst.sellerCenterUrls.billing}`,
+    path: `${RoutesConst.sellerCenterBilling}`,
     component: BillingComponent,
     data: { title: 'Facturación' }
   },
   {
-    path: `${RoutesConst.sellerCenterUrlsInt.billingPayments}`,
+    path: `${RoutesConst.sellerCenterIntBillingPayments}`,
     component: BillingComponent,
     data: { title: 'Facturación' }
   }

@@ -11,7 +11,7 @@ import { ShellComponent } from '../../shell.component';
 import { SearchOrderMenuService } from '../search-order-menu.service';
 import { Logger } from '../../../utils/logger.service';
 import { User } from '../../../../../shared/models/login.model';
-import { SearchFormEntity } from '../../../../../shared/models/order';
+import { SearchFormEntity } from '../../../../../shared';
 import { UserService } from '../../../utils/services/common/user/user.service';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
 
@@ -97,7 +97,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   }
 
   /**
-   * Método para obtener las ordenes
+   * Método para obtener las órdenes
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
@@ -106,13 +106,12 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   }
 
   /**
-   * Método para filtrar las ordenes
+   * Método para filtrar las órdenes
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
   filterOrder(data) {
 
-    log.info(data);
     // Obtengo la información del usuario
     this.user = this.userService.getUser();
 
@@ -150,7 +149,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
-      // obtengo las ordenes con el filtro indicado
+      // obtengo las órdenes con el filtro indicado
       this.searchOrderMenuService.getOrdersPendingDevolutionFilter(this.user, 100, stringSearch).subscribe((res: any) => {
 
         if (res != null) {
@@ -158,10 +157,10 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado ordenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las ordenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
       });
     } else {
       this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);

@@ -14,7 +14,7 @@ import {
   ListReasonRejectionResponseEntity,
   SearchFormEntity,
   OrderDevolutionsModel
-} from '../../../../../../shared/models/order';
+} from '../../../../../../shared';
 import { InDevolutionService } from '../id-devolution.service';
 import { ActionReportNoveltyComponent } from '../action-report-novelty/action-report-novelty.component';
 import { ActionConfirmReceiptComponent } from '../action-confirm-receipt/action-confirm-receipt.component';
@@ -24,11 +24,13 @@ import { Const } from '../../../../../../shared/util/constants';
 import { User } from '../../../../../../shared/models/login.model';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
+import { Callback } from '../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 // log component
 const log = new Logger('InDevolutionComponent');
 
 /**
- * Component para visualizar las ordenes en devolucion
+ * Component para visualizar las órdenes en devolucion
  */
 @Component({
   selector: 'app-in-devolution',
@@ -47,7 +49,7 @@ const log = new Logger('InDevolutionComponent');
 /**
  * Componente para visualizar la lista de devoluciones
  */
-export class InDevolutionComponent implements OnInit, OnDestroy {
+export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
   @ViewChild(MatSort) sort: MatSort;
@@ -69,15 +71,15 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   public selection = new SelectionModel<Pending>(true, []);
   // Variable que almacena el numero de elementos de la tabla
   public numberElements = 0;
-  // Variable que almacena el número de ordenes
+  // Variable que almacena el número de órdenes
   public orderListLength = false;
   // user info
-  public user: User;
+  public user: any;
   // suscriptions vars
   private subFilterOrderPending: any;
   // Lista de opciones para realizar el rechazo de una solicitud
   public reasonRejection: Array<ListReasonRejectionResponseEntity>;
-  // Variable que almacena el objeto de paginación actual para listar las ordenes.
+  // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
@@ -109,8 +111,10 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     private zone: NgZone,
     private inDevolutionService: InDevolutionService,
     public userService: UserService,
-    private componentsService: ComponentsService
+    private componentsService: ComponentsService,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
@@ -119,10 +123,20 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     log.info('Devoluciones pendientes component load');
     this.getDataUser();
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -135,19 +149,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   *
-   * @memberof BillingComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
-  }
-
-  /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de ordenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
@@ -174,7 +176,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
+   * Método para cambiar el page size de la tabla órdenes
    * @param {any} $event
    * @memberof InDevolutionComponent
    */
@@ -201,7 +203,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método para obtener la lista de ordenes.
+   * Método para obtener la lista de órdenes.
    * @param {any} $event
    * @memberof InDevolutionComponent
    */
@@ -212,7 +214,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}
+    const stringSearch = `?idSeller=${this.user.sellerId}
     &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
 
     this.inDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {

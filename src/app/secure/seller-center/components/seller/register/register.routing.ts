@@ -5,11 +5,11 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
     {
-        path: `${RoutesConst.sellerCenterUrls.sellers}`,
+        path: `${RoutesConst.sellerCenterSellers}`,
         component: RegisterSellerComponent
     },
     {
-        path: `${RoutesConst.sellerCenterUrlsInt.sellerRegister}`,
+        path: `${RoutesConst.sellerCenterIntSellerRegister}`,
         component: RegisterSellerComponent,
         data: { title: 'Registrar vendedor' }
     }

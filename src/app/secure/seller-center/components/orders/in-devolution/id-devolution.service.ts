@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Rx';
 /* our own custom components */
 import { User } from '../../../../../shared/models/login.model';
 import { BaseSellerService } from '../../../../../shared/services/base-seller.service';
-import { ListReasonRejectionResponseEntity } from '../../../../../shared/models/order';
+import { ListReasonRejectionResponseEntity } from '../../../../../shared';
 import { Const } from '../../../../../shared/util/constants';
 
 
@@ -19,7 +19,7 @@ import { Const } from '../../../../../shared/util/constants';
 export class InDevolutionService extends BaseSellerService {
 
     /**
-     * Método para realiar la consulta de las ordenes en estado pendiente
+     * Método para realiar la consulta de las órdenes en estado pendiente
      * @param user
      * @param guide
      * @returns Observable<[{}]>

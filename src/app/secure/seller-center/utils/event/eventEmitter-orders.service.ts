@@ -15,7 +15,7 @@ export class EventEmitterOrders {
 
 
     /**
-     *  Evento eventEmitter que permite crear un suscribe para saber cuando consultar las ordenes de acuerdo al estado proporcionado.
+     *  Evento eventEmitter que permite crear un suscribe para saber cuando consultar las órdenes de acuerdo al estado proporcionado.
      * @param {any} state
      * @memberof EventEmitterOrders
      */
@@ -25,7 +25,7 @@ export class EventEmitterOrders {
 
     /**
      *  Evento eventEmitter que permite crear un suscribe para saber cuando
-     *  listar una determinada lista de ordenes obtenidas por los filtros aplicados por el usuario en el componente search-order-menu
+     *  listar una determinada lista de órdenes obtenidas por los filtros aplicados por el usuario en el componente search-order-menu
      * @param {any} data
      * @memberof EventEmitterOrders
      */
@@ -33,7 +33,7 @@ export class EventEmitterOrders {
         this.filterOrderList.emit(data);
     }
     /**
-     * Evento eventEmitter que permite crear un suscribe para saber cuando consultar las ordenes de acuerdo al estado proporcionado.
+     * Evento eventEmitter que permite crear un suscribe para saber cuando consultar las órdenes de acuerdo al estado proporcionado.
      * @param {any} state
      * @memberof EventEmitterOrders
      */
@@ -42,7 +42,7 @@ export class EventEmitterOrders {
     }
 
     /**
-     * Evento eventEmitter que permite crear un suscribe para saber cuando listar una determinada lista de ordenes (billing)
+     * Evento eventEmitter que permite crear un suscribe para saber cuando listar una determinada lista de órdenes (billing)
      * obtenidas por los filtros aplicados por el usuario en el componente search-order-menu
      * @param {any} data
      * @memberof EventEmitterOrders
@@ -52,7 +52,7 @@ export class EventEmitterOrders {
     }
 
     /**
-     * Evento eventEmitter que permite crear un suscribe para saber cuando listar una determinada lista de ordenes (Solicitudes pendientes)
+     * Evento eventEmitter que permite crear un suscribe para saber cuando listar una determinada lista de órdenes (Solicitudes pendientes)
      * obtenidas por los filtros aplicados por el usuario en el componente search-order-menu
      * @param {any} data
      * @memberof EventEmitterOrders

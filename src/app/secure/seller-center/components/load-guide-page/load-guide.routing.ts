@@ -7,10 +7,10 @@ import {LoadGuidePageComponent} from './load-guide/load-guide-page.component';
 
 const routes: Routes = [
   {
-    path: `${RoutesConst.sellerCenterUrlsInt.orderLoadGuide}`,
+    path: `${RoutesConst.sellerCenterIntOrderLoadGuide}`,
     component: LoadGuidePageComponent,
     data: {title: 'Cargar de guías'}
-  },
+  }
 ];
 
 @NgModule({

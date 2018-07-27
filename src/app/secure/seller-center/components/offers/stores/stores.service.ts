@@ -63,7 +63,7 @@ export class StoresService {
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
-  getSellerCommissionCategory(user: User, store: StoreModel): Observable<[{}]> {
+  getSellerCommissionCategory(store: StoreModel): Observable<[{}]> {
 
     return new Observable(observer => {
       // obtengo el endpoint desde el archivo de configuración de endpoints
@@ -84,13 +84,41 @@ export class StoresService {
   }
 
   /**
+   * Servicio que permite obtener la lista de comisiones de acuerdo al seller
+   * Este servicio trae el arbol más pequeño.
+   * @param {User} user
+   * @param {StoreModel} store
+   * @returns {Observable<[{}]>}
+   * @memberof StoresService
+   */
+  public patchSellerCommissionCategory(params: {}): Observable<{}> {
+    // obtengo el endpoint desde el archivo de configuración de endpoints
+    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'];
+    // capturo el token de usuario para el envio en headers
+    const idToken = this.cognitoUtil.getTokenLocalStorage();
+    // construyo eñ header para enviar al servicio
+    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
+    return new Observable(observer => {
+      this.http.patch<any>(endpoint, params, { observe: 'response', headers: headers })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
    * Servicio que permite obtener toda la lista de comisiones
    * @param {User} user
    * @param {StoreModel} store
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
-  public getAllSellerCommissionCategory(user: User, store: StoreModel): Observable<[{}]> {
+  public getAllSellerCommissionCategory(): Observable<[{}]> {
 
     return new Observable(observer => {
       // capturo el token de usuario para el envio en headers

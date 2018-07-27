@@ -7,7 +7,7 @@ import {MatTableDataSource, MatDialog} from '@angular/material';
 import {ProductDetailModalComponent} from '../product-detail-modal/product-detail-modal.component';
 import {OrdersListComponent} from '../orders-page/orders-list.component';
 import { Const } from '../../../../../../shared/util/constants';
-import { Order } from '../../../../../../shared/models/order';
+import { Order } from '../../../../../../shared';
 import { User } from '../../../../../../shared/models/login.model';
 import { Logger } from '../../../../utils/logger.service';
 
@@ -54,7 +54,6 @@ export class ProductsOrderComponent {
    * @memberof ProductsOrderComponent
    */
   validateCheckProductForSendAll(item: Order) {
-    log.info('--validateCheckProductForSendAll');
     /* Encuentro en el objeto de la tabla actual la orden seleccionada */
     for (let index = 0; index < this.dataSource.data.length; index++) {
       if (this.dataSource.data[index].orderNumber === item.orderNumber) {
@@ -63,7 +62,6 @@ export class ProductsOrderComponent {
           /*  si un elemento check esta en false, desactivo el boton enviar todo. */
           if (this.dataSource.data[index].products[j].checkProductToSend === false) {
             this.dataSource.data[index].sendAllProduct = false;
-            log.info('Hay uno o mas checks sin seleccionar, no se activa el boton enviar todo');
           }
 
         }

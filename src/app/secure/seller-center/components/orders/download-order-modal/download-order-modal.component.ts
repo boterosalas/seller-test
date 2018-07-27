@@ -1,25 +1,27 @@
 /* 3rd party components */
-import {FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Component, OnInit, Inject} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
 
 /* our own custom components */
-import {environment} from '../../../../../environments/environment';
-import {DownloadOrderService} from './download-order.service';
+import { environment } from '../../../../../environments/environment';
+import { DownloadOrderService } from './download-order.service';
 import { Logger } from '../../../utils/logger.service';
 import { User } from '../../../../../shared/models/login.model';
 import { UserService } from '../../../utils/services/common/user/user.service';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
+import { UserParametersService } from '../../../../../service/user-parameters.service';
+import { Callback } from '../../../../../service/cognito.service';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
 
 /**
- * Componente para realizar la descarga de las ordenes actuales del usuario, este componente permite capturar
+ * Componente para realizar la descarga de las órdenes actuales del usuario, este componente permite capturar
  * el correo electronico del usuario, por defecto se emplea el correo de la cuenta del usuario. luego
  * de capturar el correo se consume un servicio web que permite enviar los filtros aplicados por
- * el usuario al momento de listar las ordenes, posteriormente se realiza el envió de un
- * correo con las ordenes aplicando los filtros obtenidos
+ * el usuario al momento de listar las órdenes, posteriormente se realiza el envió de un
+ * correo con las órdenes aplicando los filtros obtenidos
  */
 @Component({
   selector: 'app-download-order-modal',
@@ -30,12 +32,12 @@ const log = new Logger('DownloadOrderComponent');
 /**
  * DownloadOrderModalComponent
  */
-export class DownloadOrderModalComponent implements OnInit {
+export class DownloadOrderModalComponent implements OnInit, Callback {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
-  public user: User;
+  public user: any;
   // Limite de registros para descargar
   public limitLengthOrder: any = 0;
 
@@ -49,35 +51,36 @@ export class DownloadOrderModalComponent implements OnInit {
    * @param {*} data
    * @memberof DownloadOrderModalComponent
    */
-  constructor(public dialogRef: MatDialogRef<DownloadOrderModalComponent>,
-              public downloadOrderService: DownloadOrderService,
-              public userService: UserService,
-              public componentsService: ComponentsService,
-              private fb: FormBuilder,
-              @Inject(MAT_DIALOG_DATA) public data: any
+  constructor(
+    public dialogRef: MatDialogRef<DownloadOrderModalComponent>,
+    public downloadOrderService: DownloadOrderService,
+    public userService: UserService,
+    public componentsService: ComponentsService,
+    private fb: FormBuilder,
+    public userParams: UserParametersService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
     this.createForm();
+    this.user = {};
   }
 
   /**
    * @memberof DownloadOrderModalComponent
    */
   ngOnInit() {
+    this.getDataUser();
   }
 
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage
-   * @memberof DownloadOrderModalComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
+  callback() { }
 
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -93,36 +96,34 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   createForm() {
-    const email = localStorage.getItem('sellerEmail');
+    const email = this.user.sellerEmail;
     this.myform = this.fb.group({
-      'email': [{value: email, disabled: false}, Validators.compose([Validators.required, Validators.email])],
+      'email': [{ value: email, disabled: false }, Validators.compose([Validators.required, Validators.email])],
     });
   }
 
   /**
-   * Método para realizar la descarga de las ordenes
+   * Método para realizar la descarga de las órdenes
    * @param {any} form
    * @memberof DownloadOrderModalComponent
    */
   downloadOrders(form) {
-    log.info(form.value);
     log.info(this.downloadOrderService.getCurrentFilterOrders());
     const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
-    currentFiltersOrders.idSeller = localStorage.getItem('sellerId'); // this.user[environment.webUrl].sellerId;
-    currentFiltersOrders.sellerName = localStorage.getItem('sellerName'); // this.user[environment.webUrl].name;
+    currentFiltersOrders.idSeller = this.user.sellerId;
+    currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
     console.log('parametros', currentFiltersOrders);
     this.downloadOrderService.downloadOrders(this.user, currentFiltersOrders).subscribe(res => {
-      log.info(res);
       if (res != null) {
-        this.componentsService.openSnackBar('Se ha realizado la descarga de las ordenes correctamente, revisa tu correo electrónico',
-        'Cerrar', 10000);
-      } else{
-        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las ordenes', 'Cerrar', 5000);
+        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
+          'Cerrar', 10000);
+      } else {
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
       }
       this.onNoClick();
     }, err => {
-      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las ordenes', 'Cerrar', 5000);
+      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
       this.onNoClick();
     });
   }

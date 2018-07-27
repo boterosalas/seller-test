@@ -12,7 +12,7 @@ export class DetailOfferComponent implements OnInit {
     @Input() dataOffer;
 
     constructor(
-       public listOffers: ListComponent
+       public list: ListComponent
     ) {
     }
 
@@ -20,6 +20,7 @@ export class DetailOfferComponent implements OnInit {
     }
 
     goToListOffers() {
-        this.listOffers.viewDetailOffer = false;
+        this.list.viewDetailOffer = false;
+        this.list.inDetail = false;
     }
 }

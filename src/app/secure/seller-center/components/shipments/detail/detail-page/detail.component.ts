@@ -42,7 +42,6 @@ export class DetailComponent implements OnInit {
    * Init compoment
    */
   ngOnInit() {
-    log.info('DetailComponent is load');
     this.user = this.userService.getUser();
 
     this.subStateOrder = this.route.params.subscribe(params => {
@@ -56,7 +55,7 @@ export class DetailComponent implements OnInit {
   }
 
   getOrdersList($event) {
-    log.info($event);
+
   }
 
   /**

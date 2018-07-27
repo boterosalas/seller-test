@@ -1,12 +1,11 @@
 <mat-sidenav-container>
-    <app-toolbar [sidenav]="sidenav">
+    <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail">
     </app-toolbar>
 
-    <section id="section-list-offers" class="flexbox justify-center flex-wrap" *ngIf="!viewDetailOffer">
-
+    <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="!viewDetailOffer">
         <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
-                                (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
-                                (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
+                (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
+                (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
             <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span>
 
             <div class="filter-desc first flexbox align-center justify-between" *ngIf="paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== ''">
@@ -31,7 +30,7 @@
             </div>
         </aside>
 
-        <aside class="card-offer" *ngFor="let item of data" (click)="openDetailOffer(item)">
+        <aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
 
             <div class="container-card-img flexbox align-center justify-center">
                 <img [src]="item.imageUrl" alt="">
@@ -52,10 +51,10 @@
             </div>
 
             <footer class="container-last-modification flexbox align-center">
-                <p [innerHTML]="'Última modificación: ' + '<b>' + (item.updatedDate | date : 'dd/MM/yyyy') + '</b>'"></p>
+                <p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
             </footer>
             <footer class="container-last-modification mobile flexbox align-center">
-                <p [innerHTML]="'Última mod: ' + '<b>' + (item.updatedDate | date : 'dd/MM/yyyy') + '</b>'"></p>
+                <p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
                 <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
             </footer>
 

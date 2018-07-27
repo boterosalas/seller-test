@@ -6,7 +6,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as _ from 'lodash';
 
 /* our own custom components */
-import { Order } from '../../../../../../shared/models/order';
+import { Order } from '../../../../../../shared';
 import { FAKE } from '../../../../utils/fakeData.model';
 import { User } from '../../../../../../shared/models/login.model';
 

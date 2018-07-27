@@ -82,7 +82,6 @@ import { ReportsModule } from './secure/seller-center/components/shipments/repor
         ReactiveFormsModule,
         HttpClientModule,
         MaterialModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         ShellModule,
         ErrroModule,
         LoadGuideModule,

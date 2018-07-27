@@ -8,7 +8,7 @@ import { Input } from '@angular/core';
 /* our own custom components */
 import {ShellComponent} from '../../shell.component';
 import { User } from '../../../../../shared/models/login.model';
-import { SearchFormEntity } from '../../../../../shared/models/order';
+import { SearchFormEntity } from '../../../../../shared';
 import { UserService } from '../../../utils/services/common/user/user.service';
 import { BillingService } from '../../../components/billing/billing.service';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
@@ -89,7 +89,7 @@ export class SearchBillingFormComponent implements OnInit {
   }
 
   /**
-   * Método para obtener las ordenes
+   * Método para obtener las órdenes
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
@@ -98,7 +98,7 @@ export class SearchBillingFormComponent implements OnInit {
   }
 
   /**
-   * Método para filtrar las ordenes
+   * Método para filtrar las órdenes
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
@@ -127,7 +127,7 @@ export class SearchBillingFormComponent implements OnInit {
 
       // Guardo el filtro aplicado por el usuario.
       this.billingService.setCurrentFilterOrders(objectSearch);
-      // obtengo las ordenes con el filtro indicado
+      // obtengo las órdenes con el filtro indicado
       this.billingService.getOrdersBillingFilter(this.user, 100, stringSearch).subscribe((res: any) => {
 
         if (res != null) {
@@ -135,10 +135,10 @@ export class SearchBillingFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado ordenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las ordenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
       });
     } else {
       this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);

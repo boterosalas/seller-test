@@ -7,15 +7,17 @@ import * as _ from 'lodash';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /* our own custom components */
-import { Order, ProductsEntity } from '../../../../../../shared/models/order';
+import { Order, ProductsEntity } from '../../../../../../shared';
 import { environment } from '../../../../../../environments/environment';
 import { OrderService } from '../orders.service';
 import { User } from '../../../../../../shared/models/login.model';
-import { Carries } from '../../../../../../shared/models/order';
+import { Carries } from '../../../../../../shared';
 import { Const } from '../../../../../../shared/util/constants';
 import { Logger } from '../../../../utils/logger.service';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
 import { FAKE } from '../../../../utils/fakeData.model';
+import { Callback } from '../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('SendOrderComponent');
@@ -42,18 +44,18 @@ const log = new Logger('SendOrderComponent');
 /**
  * Componente
  */
-export class SendOrderComponent implements OnInit {
+export class SendOrderComponent implements OnInit, Callback {
 
   // User information
-  user: User;
+  public user: any;
   // Información de la orden
-  order: Order;
+  public order: Order;
   // Formulario para realizar el envio de toda la orden
-  sendAllForm: FormGroup;
+  public sendAllForm: FormGroup;
   // Lista de transportadoras.
-  Carries: Array<Carries> = [];
+  public Carries: Array<Carries> = [];
   // Boolean que permite saber si se han editado productos de la orden
-  productIsUpdating = false;
+  public productIsUpdating = false;
 
   /**
    * Creates an instance of SendOrderComponent.
@@ -68,6 +70,7 @@ export class SendOrderComponent implements OnInit {
     public orderService: OrderService,
     public componentService: ComponentsService,
     private fb: FormBuilder,
+    public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     // _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
@@ -75,7 +78,7 @@ export class SendOrderComponent implements OnInit {
     this.user = data.user;
 
     this.order = this.order || FAKE.FAKEORDER;
-    this.user = this.user || FAKE.FAKEUSER;
+    this.user = {};
   }
 
   /**
@@ -95,6 +98,7 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   ngOnInit() {
+    this.getDataUser();
     // Si solo hay un registro de producto para ingresar tracking y guía, y la opción enviar
     // todo esta seleccionada, paso a false la opción de envío de todos los productos
     if (this.getLengthProductForSend() === 1) {
@@ -106,6 +110,16 @@ export class SendOrderComponent implements OnInit {
     this.getCarries();
     // creo el formulario de envío
     this.createForm();
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -211,14 +225,11 @@ export class SendOrderComponent implements OnInit {
       carrier: this.sendAllForm.value.Transporter,
       shipDate: new Date(),
       idState: Const.OrderEnProcesoDeEnvio,
-      idSeller: localStorage.getItem('sellerId'),
+      idSeller: this.user.sellerId,
       products: productList
     };
-    log.info(jsonOrder);
-
 
     this.orderService.sendAllProductInOrder(jsonOrder, this.user, this.order.id).subscribe((res: any) => {
-      log.info(res);
 
       if (res.errors !== 0) {
         this.componentService.openSnackBar('Hubo un error procesando la solicitud.', 'Cerrar', 15000);
@@ -289,7 +300,6 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   updateTrackingAndCarrierForProduct(product: ProductsEntity) {
-    log.info(product);
     // encuentro el objeto de la orden en el array
     const currentProduct = this.order.products.find(x => x.id === product.id);
     // obtengo el index donde se encuentra el objeto

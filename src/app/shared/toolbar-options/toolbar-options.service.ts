@@ -29,7 +29,7 @@ export class ToolbarServiceService {
     ) { }
 
     /**
-     * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de ordenes
+     * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
      * @returns
      * @memberof ToolbarServiceService
      */
@@ -39,7 +39,7 @@ export class ToolbarServiceService {
     }
 
     /**
-     * Metodo para setear el filtro actual que el usuario ha aplicado a las ordenes que esta visualizando
+     * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
      * @param {any} data
      * @memberof ToolbarServiceService
      */

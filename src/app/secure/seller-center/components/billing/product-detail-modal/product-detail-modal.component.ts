@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as _ from 'lodash';
 
 /* our own custom components */
-import { DetailEntity } from '../../../../../shared/models/order';
+import { DetailEntity } from '../../../../../shared';
 import { FAKE } from '../../../utils/fakeData.model';
 
 /** Component */

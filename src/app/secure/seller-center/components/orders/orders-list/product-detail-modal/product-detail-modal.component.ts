@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 /* our own custom components */
 import { User } from '../../../../../../shared/models/login.model';
 import { FAKE } from '../../../../utils/fakeData.model';
-import { ProductsEntity } from '../../../../../../shared/models/order';
+import { ProductsEntity } from '../../../../../../shared';
 
 
 /** Component */

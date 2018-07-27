@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserRegistrationService } from '../../../service/user-registration.service';
 import { UserLoginService } from '../../../service/user-login.service';
 import { LoggedInCallback } from '../../../service/cognito.service';
-import { ShellComponent } from './../../../secure/seller-center/shell/shell.component';
+import { ShellComponent } from '../../../secure/seller-center/shell/shell.component';
 
 @Component({
     selector: 'app-awscognito',
@@ -19,14 +19,10 @@ export class LogoutComponent implements LoggedInCallback {
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
-        if (isLoggedIn) {
-            this.shell.showHeader = false;
-            this.userService.logout();
-            localStorage.clear();
-            this.router.navigate(['/home']);
-        }
+        this.shell.showHeader = false;
+        this.userService.logout();
         localStorage.clear();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/login']);
     }
 }
 
@@ -66,7 +62,6 @@ export class RegistrationConfirmationComponent implements OnInit, OnDestroy {
             this.errorMessage = message;
             console.log('message: ' + this.errorMessage);
         } else {
-            console.log('Moving to securehome');
             // this.configs.curUser = result.user;
             this.router.navigate(['/securehome']);
         }

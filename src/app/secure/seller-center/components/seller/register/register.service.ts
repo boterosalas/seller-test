@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CognitoUtil } from '../../../../../service/cognito.service';
+import { endpoints, defaultVersion } from '../../../../../../../api-endpoints';
 
 @Injectable()
 export class RegisterService {
-  writerRegister = 'https://5a1c7n6t70.execute-api.us-east-1.amazonaws.com/RegisterSeller/';
-  writerValidateSellerNit = 'https://5avfpnwghf.execute-api.us-east-1.amazonaws.com/ValidateSellerNit';
-  writeValidateSellerEmail = 'https://iye9w7rlsg.execute-api.us-east-1.amazonaws.com/ValidateSellerEmail';
-  writerValidateSellerName = 'https://4gxrzfojb9.execute-api.us-east-1.amazonaws.com/ValidateSellerName';
+  writerRegister = endpoints[defaultVersion.prefix + defaultVersion.number]['registerSeller'];
+  writerValidateSellerNit = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerNit'];
+  writeValidateSellerEmail = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerEmail'];
+  writerValidateSellerName = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerName'];
   httpOptions: any;
 
   constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {
@@ -32,7 +33,7 @@ export class RegisterService {
         writeUrl = this.writerValidateSellerName;
         break;
       default:
-        console.log('Hace falta parametro');
+        console.log('one parameter is missing');
     }
     const url = writeUrl + '/' + paramValue;
     const idToken =  this.cognitoUtil.getTokenLocalStorage();

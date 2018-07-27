@@ -5,7 +5,7 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
   {
-    path: `${RoutesConst.sellerCenterUrlsInt.oferTreeCategory}`,
+    path: `${RoutesConst.sellerCenterIntOferTreeCategory}`,
     component: StoreComponent,
     data: { title: 'Arbol de categorías' }
   }

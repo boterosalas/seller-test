@@ -15,6 +15,8 @@ import { ComponentsService } from '../../../utils/services/common/components/com
 import { UserService } from '../../../utils/services/common/user/user.service';
 import { Logger } from '../../../utils/logger.service';
 import { User } from '../../../../../shared/models/login.model';
+import { Callback } from '../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('DownloadFormatComponent');
@@ -24,11 +26,12 @@ const log = new Logger('DownloadFormatComponent');
   templateUrl: './download-format.component.html',
   styleUrls: ['./download-format.component.scss']
 })
-export class DownloadFormatComponent implements OnInit {
 
-  user: User;
+export class DownloadFormatComponent implements OnInit, Callback {
+
+  public user: any;
   // Formulario para realizar la descarga
-  myform: FormGroup;
+  public myform: FormGroup;
 
   /**
    * Creates an instance of DownloadFormatComponent.
@@ -45,7 +48,9 @@ export class DownloadFormatComponent implements OnInit {
     private componentService: ComponentsService,
     public dialogRef: MatDialogRef<DownloadFormatComponent>,
     private fb: FormBuilder,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
@@ -53,8 +58,18 @@ export class DownloadFormatComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    this.getDataUser();
     this.createForm();
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -65,23 +80,20 @@ export class DownloadFormatComponent implements OnInit {
   }
 
   /**
-   * Método para descarga la información de las ordenes
+   * Método para descarga la información de las órdenes
    * @param {any} form
    * @memberof DownloadFormatComponent
    */
   downloadInformationForGuide(form) {
-    log.info(form.value.limit);
-    this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${localStorage.getItem('sellerId')}&limit=${form.value.limit}`)
+    this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${this.user.sellerId}&limit=${form.value.limit}`)
       .subscribe((res: Array<{}>) => {
-        log.info(res);
         if (res.length > 0) {
           this.componentService.openSnackBar('Se ha descargado correctamente la información', 'Cerrar', 3000);
           // aplico el formato al json para los campos tracking y guide
           this.applyFormatToJson(res);
         } else {
-          this.componentService.openConfirmAlert('No se han encontrado ordenes', '¿Quieres descargar el formato de envío vació?')
+          this.componentService.openConfirmAlert('No se han encontrado órdenes', '¿Quieres descargar el formato de envío vació?')
             .then(response => {
-              log.info(response);
               if (response) {
                 const emptyFile = [{
                   'Orden': undefined,
@@ -90,7 +102,6 @@ export class DownloadFormatComponent implements OnInit {
                   'Transportadora': undefined,
                   'Guía': undefined
                 }];
-                log.info(emptyFile);
                 this.exportAsExcelFile(emptyFile, 'Formato de guías');
               }
             });
@@ -111,7 +122,6 @@ export class DownloadFormatComponent implements OnInit {
       res[i].guide = null;
       res[i] = this.renameKeys(res[i], newKeys);
     }
-    log.info(res);
     this.exportAsExcelFile(res, 'Formato de guías');
   }
 

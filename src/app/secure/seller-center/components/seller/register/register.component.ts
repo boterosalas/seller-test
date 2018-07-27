@@ -4,8 +4,13 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ModelRegister } from './models/register.model';
 import { RegisterService } from './register.service';
 import { ShellComponent } from '../../../shell/shell.component';
+import { LoggedInCallback, Callback } from '../../../../../service/cognito.service';
+import { UserLoginService } from '../../../../../service/user-login.service';
+import { Router } from '@angular/router';
+
 import { StatesComponent } from './states/states.component';
 import { CitiesComponent } from './cities/cities.component';
+import { UserParametersService } from '../../../../../service/user-parameters.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,7 +28,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit {
+export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
 
   /*
     * Inicio Modificacion de estilos por pragma.com.co
@@ -62,8 +67,9 @@ export class RegisterSellerComponent implements OnInit {
   public disabledForService: boolean;
   // tslint:disable-next-line:max-line-length
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
-  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$).)*$/;
-
+  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
+  public user: any;
+  public activeButton: boolean;
   /**
    * Creates an instance of RegisterSellerComponent.
    * @param {registerService} registerService
@@ -73,8 +79,13 @@ export class RegisterSellerComponent implements OnInit {
     @Inject(RegisterService)
     private registerService: RegisterService,
     public shellComponent: ShellComponent,
+    public userService: UserLoginService,
+    private router: Router,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
     this.formRegister = new ModelRegister(null, null, '', '', '', '', '', '', null, null, '', false, true, true, false, true);
+    this.userService.isAuthenticated(this);
   }
 
   ngOnInit() {
@@ -117,6 +128,32 @@ export class RegisterSellerComponent implements OnInit {
       goToCatalogo: new FormControl
     });
     this.matcher = new MyErrorStateMatcher();
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+      this.validateProfile();
+    } else if (!isLoggedIn) {
+      this.router.navigate(['/home']);
+    }
+
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+  }
+
+  validateProfile() {
+    if (this.user.sellerProfile === 'seller') {
+      this.router.navigate(['/securehome/seller-center/']);
+    }
   }
 
   /**
@@ -184,6 +221,7 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   validateExist(event: any, param: string) {
+    this.activeButton = false;
     const jsonExistParam = event.target.value;
     // tslint:disable-next-line:quotemark
     if (jsonExistParam !== "" && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
@@ -211,7 +249,9 @@ export class RegisterSellerComponent implements OnInit {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
-                default:
+              }
+              if (!this.existValueInDB) {
+                this.activeButton = true;
               }
               this.disabledForService = false;
               this.shellComponent.loadingComponent.closeLoadingSpinner();

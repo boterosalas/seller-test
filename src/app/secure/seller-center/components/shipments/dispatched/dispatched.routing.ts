@@ -5,11 +5,12 @@ import { DispatchedComponent } from './dispatched-page/dispatched.component';
 import { RoutesConst } from '../../../../../shared/util/routes.constants';
 // local components
 
-const routes: Routes = [{
-    path: `${RoutesConst.sellerCenterUrlsInt.shipmentsExitoOffice}`,
-    component: DispatchedComponent,
-    data: { title: 'Envíos en despacho' }
-}
+const routes: Routes = [
+    {
+        path: `${RoutesConst.sellerCenterIntShipmentsExitoOffice}`,
+        component: DispatchedComponent,
+        data: { title: 'Envíos en despacho' }
+    }
 ];
 
 /**

@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CognitoUtil } from '../../../../../../service/cognito.service';
+import { endpoints, defaultVersion } from '../../../../../../../../api-endpoints';
+
 
 @Injectable()
 export class StatesService {
-  writerUrl = 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States';
+  writerUrl = endpoints[defaultVersion.prefix + defaultVersion.number]['getStates'];
   httpOptions: any;
 
   constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {

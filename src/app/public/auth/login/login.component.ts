@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserLoginService } from '../../../service/user-login.service';
-import { ChallengeParameters, CognitoCallback, LoggedInCallback } from '../../../service/cognito.service';
+import { ChallengeParameters, CognitoCallback, LoggedInCallback, Callback } from '../../../service/cognito.service';
 import { DynamoDBService } from '../../../service/ddb.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewContainerRef } from '@angular/core';
 import { ShellComponent } from '../../../secure/seller-center/shell/shell.component';
+import { iif } from 'rxjs';
+import { UserParametersService } from '../../../service/user-parameters.service';
 
 @Component({
     selector: 'app-awscognito',
@@ -47,7 +49,7 @@ import { ShellComponent } from '../../../secure/seller-center/shell/shell.compon
         ])
     ]
 })
-export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
+export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
     // Contiene la estructura del formulario del login
     awscognitogroup: FormGroup;
     // Variables del uso de aws-cognito
@@ -59,6 +61,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         destination: '',
         callback: null
     };
+
+    public user: any;
     /**
      * Creates an instance of LoginComponent.
      * @param {FormBuilder} fb
@@ -74,13 +78,15 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         public ddb: DynamoDBService,
         public userService: UserLoginService,
         private fb: FormBuilder,
-        private shellComponent: ShellComponent) {
+        public shell: ShellComponent,
+        public userParams: UserParametersService) {
+        this.userService.isAuthenticated(this);
+        this.user = {};
     }
 
     ngOnInit() {
         this.createForm();
         this.errorMessage = null;
-        this.userService.isAuthenticated(this);
     }
 
     /**
@@ -95,13 +101,13 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     }
 
     onLogin() {
-        // this.shellComponent.loadingComponent.viewLoadingProgressBar();
+        this.shell.loadingComponent.viewLoadingProgressBar();
         if (this.email == null || this.password == null) {
             this.errorMessage = 'Todos los campos son requeridos.';
             return;
         }
         this.errorMessage = null;
-        // this.shellComponent.loadingComponent.closeLoadingProgressBar();
+        this.shell.loadingComponent.closeLoadingProgressBar();
         this.userService.authenticate(this.email, this.password, this);
     }
 
@@ -117,7 +123,24 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
             }
         } else { // success
             this.ddb.writeLogEntry('login');
-            this.router.navigate(['/securehome']);
+            this.shell.showHeader = true;
+            this.getDataUser();
+        }
+    }
+
+    callback() { }
+
+    getDataUser() {
+        this.userParams.getUserData(this);
+    }
+
+    callbackWithParam(userData: any) {
+        this.user = userData;
+        this.shell.user = this.user;
+        if (this.user.sellerProfile === 'seller') {
+            this.router.navigate(['/securehome/seller-center']);
+        } else if (this.user.sellerProfile === 'administrator') {
+            this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
         }
     }
 
@@ -151,7 +174,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
  * @memberof LoginComponent
  */
     viewErrorMessageLogin(err?) {
-        this.shellComponent.loadingComponent.closeLoadingProgressBar();
-        // this.componentService.openSnackBar('Se ha presentado un error al iniciar sesión', 'Aceptar');
+        this.shell.loadingComponent.closeLoadingProgressBar();
     }
 }

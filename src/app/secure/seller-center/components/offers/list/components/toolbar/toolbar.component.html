@@ -1,15 +1,20 @@
-  <div class="light-content">
-    <mat-toolbar color="primary" class="toolbar-component" [class.fixedToolbar]="fixed">
-      <div class="toolbar-options flexbox align-center justify-between">
-        <p>{{tittleBar}}
-          <small class="sub-title">| {{subtitleBar}}</small>
-        </p>
-        <div class="options-toolbar flexbox justify-end">
-          <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
-            <mat-icon>filter_list</mat-icon>
-            <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
-          </button>
-        </div>
+<div class="light-content">
+  <mat-toolbar color="primary" class="toolbar-component" [class.fixedToolbar]="fixed">
+    <div class="toolbar-options flexbox align-center justify-between view-mobile" [class.in-detail]="inDetail">
+      <button class="btn-filter" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+    <div class="toolbar-options flexbox align-center justify-between view-desktop" [class.in-detail]="inDetail">
+      <p>{{tittleBar}}
+        <small class="sub-title">| {{subtitleBar}}</small>
+      </p>
+      <div class="options-toolbar flexbox justify-end">
+        <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        </button>
       </div>
-    </mat-toolbar>
-  </div>
+    </div>
+  </mat-toolbar>
+</div>

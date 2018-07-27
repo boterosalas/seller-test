@@ -7,7 +7,7 @@ import { OrderService } from '../../orders.service';
 import { environment } from '../../../../../../../environments/environment';
 import { SendOrderComponent } from '../send-order.component';
 import { Logger } from '../../../../../utils/logger.service';
-import { ProductsEntity, Order, Carries } from '../../../../../../../shared/models/order';
+import { ProductsEntity, Order, Carries } from '../../../../../../../shared';
 import { User } from '../../../../../../../shared/models/login.model';
 import { ComponentsService } from '../../../../../utils/services/common/components/components.service';
 import { Const } from '../../../../../../../shared/util/constants';
@@ -34,12 +34,12 @@ export class FormProductComponent implements OnInit {
 
   // Inputs que obtienens los datos pasados por el componente que importa el componente actual
   @Input() product: ProductsEntity;
-  @Input() user: User;
+  @Input() user: any;
   @Input() order: Order;
   @Input() dialogRef: any;
   // Lista de transportadoras.
   @Input() carries: Array<Carries> = [];
-  // Evento que permite consultar las ordenes
+  // Evento que permite consultar las órdenes
   @Output() OnProductIsSend = new EventEmitter<object>();
   // Información del formulario
   myForm: FormGroup;
@@ -65,7 +65,6 @@ export class FormProductComponent implements OnInit {
    */
   ngOnInit() {
     this.createValidationInProductForSend();
-    log.info(this.product);
   }
 
   /**
@@ -74,7 +73,6 @@ export class FormProductComponent implements OnInit {
    * @memberof FormProductComponent
    */
   changeTrackingAndCarrierForProduct(product) {
-    log.info('Emit changeSizeOrderTable');
     this.OnProductIsSend.emit(product);
   }
 
@@ -105,13 +103,12 @@ export class FormProductComponent implements OnInit {
       tracking: form.value.Guide,
       carrier: form.value.Transporter,
       shipDate: new Date(),
-      idSeller: localStorage.getItem('sellerId'),
+      idSeller: this.user.sellerId,
       idState: Const.OrderEnProcesoDeEnvio,
       products: [
         product.id
       ]
     };
-    log.info(jsonProduct);
 
     if (this.product.id != null) {
       this.orderService.sendProductOrder(jsonProduct, this.user, this.order.id, this.product.id).subscribe((res: any) => {

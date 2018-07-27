@@ -65,7 +65,7 @@
     <!-- Componente para visualizar la lista de errores -->
     <app-table-errors [fileName]="fileName" [countRowUpload]="countRowUpload" [countErrors]="countErrors" [listLog]="listLog"></app-table-errors>
   </div>
-  <!-- Tabla de ordenes -->
+  <!-- Tabla de órdenes -->
   <div *ngIf="!orderListLength" fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="60" fxFlex.lg="60" fxFlex.xl="50" class="content-table-orders">
     <!-- Componente para visualizar la lista de resultados obtenidos -->
     <app-table-load  [countErrors]="countErrors" [countRowUpload]="countRowUpload"></app-table-load>

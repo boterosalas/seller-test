@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // Local components
-import { SearchFormEntity, InformationToForm } from '../../../../../../shared/models/order';
+import { SearchFormEntity, InformationToForm } from '../../../../../../shared';
 import { Logger } from '../../../../utils/logger.service';
 
 /**
@@ -22,8 +22,8 @@ export class ReportsComponent implements OnInit {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Indicadores de mis envios',
-    btn_title: 'Consultar ordenes pendientes',
-    title_for_search: 'Consultar ordenes (Envios Éxito)',
+    btn_title: 'Consultar órdenes pendientes',
+    title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
     information: new InformationToForm
   };
@@ -64,25 +64,25 @@ export class ReportsComponent implements OnInit {
 
 
   /**
-  * Funcionalidad para consultar la lista de ordenes
+  * Funcionalidad para consultar la lista de órdenes
   * @param {*} $event
   * @memberof ReportsComponent
   */
   getOrdersList($event) {
-    log.info($event);
+
   }
 
   /**
-  * Método para cambiar el page size de la tabla ordenes
+  * Método para cambiar el page size de la tabla órdenes
   * @param {any} pageSize
   * @memberof ReportsComponent
   */
   changeSizeOrderTable($event) {
-    log.info($event);
+
   }
 
   onSelect(event) {
-    log.info(event);
+
   }
 }
 

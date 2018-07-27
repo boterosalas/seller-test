@@ -1,12 +1,9 @@
-/* 3rd party components */
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as _ from 'lodash';
-import { User } from '../../../../../shared/models/login.model';
-import { Billing } from '../../../../../shared/models/order';
-import { FAKE } from '../../../utils/fakeData.model';
 
-/* our own custom components */
+import { Billing, User } from '../../../../../shared';
+import { FAKE } from '../../../utils/fakeData.model';
 
 
 /** Component */

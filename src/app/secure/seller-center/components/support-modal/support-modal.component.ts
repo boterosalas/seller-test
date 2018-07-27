@@ -10,6 +10,8 @@ import { Logger } from '../../utils/logger.service';
 import { ComponentsService } from '../../utils/services/common/components/components.service';
 import { UserService } from '../../utils/services/common/user/user.service';
 import { User } from '../../../../shared/models/login.model';
+import { UserParametersService } from '../../../../service/user-parameters.service';
+import { Callback } from '../../../../service/cognito.service';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -30,14 +32,14 @@ const log = new Logger('SupportModalComponent');
 /**
  * SupportModalComponent
  */
-export class SupportModalComponent implements OnInit {
+export class SupportModalComponent implements OnInit, Callback {
 
   // Input file de la vista
   @ViewChild('fileInput') fileInput: ElementRef;
   //  Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
-  public user: User;
+  public user: any;
   // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
   public webUrl = environment.webUrl;
 
@@ -55,8 +57,11 @@ export class SupportModalComponent implements OnInit {
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public USER: UserService
-  ) { }
+    public USER: UserService,
+    public userParams: UserParametersService
+  ) {
+    this.user = {};
+  }
 
   /**
    * @memberof SupportModalComponent
@@ -65,16 +70,14 @@ export class SupportModalComponent implements OnInit {
     this.getDataUser();
   }
 
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof SupportModalComponent
-   */
+  callback() { }
+
   getDataUser() {
-    this.user = this.USER.getUser();
-    this.createForm();
-    if (this.user.login === undefined) {
-      this.USER.setUser([]);
-    }
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -109,7 +112,6 @@ export class SupportModalComponent implements OnInit {
    * @memberof SupportModalComponent
    */
   sendSupportMessage(form) {
-    log.info(form);
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
     const messageSupport = {
@@ -124,7 +126,6 @@ export class SupportModalComponent implements OnInit {
       caseOrigin: 'Sitio web marketplace'
     };
     this.SUPPORT.sendSupportMessage(this.user.access_token, messageSupport).subscribe((res: any) => {
-      log.info(res);
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
       this.onNoClick();
     }, err => {

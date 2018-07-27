@@ -10,7 +10,7 @@
       "concept": "Venta Marketplace",
       "paymentDate": "2017-10-03T16:12:34.873+00:00",
       "commission": -145243.7,
-      "billingTotal": 0,
+      "billingTotal": 300000,
       "detail": [
         {
           "id": 636561345858929072,
@@ -49,39 +49,25 @@
           "price": -850000
         }
       ],
+      "fulfillment": null,
       "paginationToken": "636561345858929046|10034"
     },
     {
       "id": 636561345858929047,
       "idBillingPicking": 69,
-      "idSeller": 10034,
+      "idSeller": 10302,
       "billingNumber": "9405101322",
-      "orderNumber": "665180007",
-      "payOrderNumber": "6600000916",
-      "concept": "Venta Marketplace",
-      "paymentDate": "2017-10-03T16:12:35.497+00:00",
-      "commission": 149294.12,
-      "billingTotal": 0,
-      "detail": [
-        {
-          "id": 636561345858929076,
-          "idBillingDetailPicking": 90,
-          "detailName": "Sala en L Genova blanco",
-          "ean": "PRUEBA0000005",
-          "quantity": 2,
-          "commission": 145243.7,
-          "price": 850000
-        },
-        {
-          "id": 636561345858929077,
-          "idBillingDetailPicking": 91,
-          "detailName": "Cuadros Modernos Caballo Café",
-          "ean": "PRUEBA0000011",
-          "quantity": 1,
-          "commission": 4050.42,
-          "price": 51000
-        }
-      ],
+      "orderNumber": null,
+      "payOrderNumber": null,
+      "concept": "Logística Éxito",
+      "paymentDate": "2017-10-02T16:12:35.497+00:00",
+      "commission": -149294.12,
+      "billingTotal": 120000,
+      "detail": null,
+      "fulfillment": {
+        "totalStorage": 100000,
+        "totalMovement": 200000
+      },
       "paginationToken": "636561345858929047|10034"
     },
     {
@@ -93,7 +79,7 @@
       "payOrderNumber": "6600000916",
       "concept": "Venta Marketplace",
       "paymentDate": "2017-10-03T16:12:34.713+00:00",
-      "commission": 299058.82,
+      "commission": -299058.82,
       "billingTotal": 0,
       "detail": [
         {
@@ -124,6 +110,7 @@
           "price": 850000
         }
       ],
+      "fulfillment": null,
       "paginationToken": "636561345858929045|10034"
     },
     {
@@ -135,28 +122,13 @@
       "payOrderNumber": "6600000916",
       "concept": "Venta Marketplace",
       "paymentDate": "2017-10-03T16:12:34.063+00:00",
-      "commission": 156201.68,
-      "billingTotal": 0,
-      "detail": [
-        {
-          "id": 636561345858929067,
-          "idBillingDetailPicking": 81,
-          "detailName": "Cuadros Modernos Anime 2",
-          "ean": "PRUEBA0000016",
-          "quantity": 2,
-          "commission": 10957.98,
-          "price": 51000
-        },
-        {
-          "id": 636561345858929068,
-          "idBillingDetailPicking": 82,
-          "detailName": "Sala Cama Premium marfil",
-          "ean": "PRUEBA0000001",
-          "quantity": 2,
-          "commission": 145243.7,
-          "price": 850000
-        }
-      ],
+      "commission": -156201.68,
+      "billingTotal": 350000,
+      "detail": null,
+      "fulfillment": {
+        "totalStorage": 150000,
+        "totalMovement": 200000
+      },
       "paginationToken": "636561345858929044|10034"
     },
     {
@@ -168,19 +140,13 @@
       "payOrderNumber": "6600000916",
       "concept": "Venta Marketplace",
       "paymentDate": "2017-10-03T16:12:33.153+00:00",
-      "commission": 142857.98,
-      "billingTotal": 0,
-      "detail": [
-        {
-          "id": 636561345858929066,
-          "idBillingDetailPicking": 80,
-          "detailName": "Puff Olas rojo",
-          "ean": "PRUEBA0000003",
-          "quantity": 3,
-          "commission": 142857.98,
-          "price": 850000
-        }
-      ],
+      "commission": -142857.98,
+      "billingTotal": 500000,
+      "detail": null,
+      "fulfillment": {
+        "totalStorage": 400000,
+        "totalMovement": 100000
+      },
       "paginationToken": "636561345858929043|10034"
     }
   ]

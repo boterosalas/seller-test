@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 /* our own custom components */
 import { StoresService } from '../../stores.service';
 import { StoreModel, IsLoadInformationForTree } from '../../models/store.model';
@@ -7,6 +7,9 @@ import { EventEmitterStore } from '../../events/eventEmitter-store.service';
 import { Logger } from '../../../../../utils/logger.service';
 import { UserService } from '../../../../../utils/services/common/user/user.service';
 import { User } from '../../../../../../../shared/models/login.model';
+import { AnyLengthString } from 'aws-sdk/clients/comprehend';
+import { Callback } from '../../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');
@@ -16,14 +19,7 @@ const log = new Logger('TreeCategoriesComponent');
   templateUrl: './tree-categories.component.html',
   styleUrls: ['./tree-categories.component.scss']
 })
-export class TreeCategoriesComponent implements OnInit {
-
-  constructor(
-    public eventsStore: EventEmitterStore,
-    public userService: UserService,
-    public storeService: StoresService
-  ) { }
-
+export class TreeCategoriesComponent implements OnInit, Callback {
   // variable que almacena el nombre de la tienda seleccionada
   currentStoreSelect: StoreModel = new StoreModel(0, '');
   // variable empleada para saber si se obtuvo la información necesaria para el arbol correctamente
@@ -34,7 +30,21 @@ export class TreeCategoriesComponent implements OnInit {
   CONST_MARKETPLACE = 'Marketplace';
   public arbol: any;
   // Información del usuario
-  public user: User;
+  public user: any;
+
+  @Output() currentTreeOutput = new EventEmitter<any>();
+
+  public curret_tree: any;
+
+  constructor(
+    public eventsStore: EventEmitterStore,
+    public userService: UserService,
+    public storeService: StoresService,
+    public userParams: UserParametersService
+  ) {
+    this.user = {};
+  }
+
 
   ngOnInit() {
     // obtengo los datos del usuario
@@ -44,6 +54,16 @@ export class TreeCategoriesComponent implements OnInit {
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
       this.configTreeComponent(res);
     });
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -71,23 +91,12 @@ export class TreeCategoriesComponent implements OnInit {
   }
 
   /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof BillingComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
-/*     if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    } */
-  }
-
-  /**
   * Servicio empleado para obtener toda la lista de comisiones, esta información es general y se llama al cargar el componente
   * @memberof TreeCategoriesComponent
   */
   getAllSellerCommissionCategory() {
     this.allSellerCategories = [];
-    this.storeService.getAllSellerCommissionCategory(this.user, this.currentStoreSelect).subscribe((res: any) => {
+    this.storeService.getAllSellerCommissionCategory().subscribe((res: any) => {
       // guardo el response
       if (res.status === 200) {
         const body = JSON.parse(res.body.body);
@@ -105,7 +114,7 @@ export class TreeCategoriesComponent implements OnInit {
    */
   getSellerCommissionCategory() {
     this.showLoading = true;
-    this.storeService.getSellerCommissionCategory(this.user, this.currentStoreSelect)
+    this.storeService.getSellerCommissionCategory(this.currentStoreSelect)
       .subscribe((res: any) => {
         if (res.status === 200) {
           // indico a los componentes suscritos al evento que se ha cargado información para el arbol
@@ -137,11 +146,9 @@ export class TreeCategoriesComponent implements OnInit {
    */
   configTreeInformation(information: IsLoadInformationForTree) {
 
-    const listaAuxiliarHijos = information.data.allGetSellerCommissionCategory;
     let node = {};
     const listCategories = information.data.allGetSellerCommissionCategory;
     const sellerCategories = information.data.getSellerCommissionCategory;
-
     for (let i = 0; i < listCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
       if (listCategories[i].Name == this.CONST_MARKETPLACE) {
@@ -151,7 +158,6 @@ export class TreeCategoriesComponent implements OnInit {
     }
     const data = this.createTree(node, listCategories, sellerCategories);
     this.arbol = data;
-    log.info(data);
   }
 
 
@@ -187,8 +193,18 @@ export class TreeCategoriesComponent implements OnInit {
   buscarComision = function (obj, sellerCategories) {
     for (let i = 0; i < sellerCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
-      if (sellerCategories[i].idCategory == obj) { return sellerCategories[i].commission; }
+      if (sellerCategories[i].IdCategory == obj) {
+        return sellerCategories[i].Commission;
+      }
     }
     return 0;
   };
+
+  receiveDataTree($event) {
+    if ($event && $event !== undefined && $event !== null) {
+      this.curret_tree = $event;
+      this.currentTreeOutput.emit(this.curret_tree);
+    }
+  }
+
 }

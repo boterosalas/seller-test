@@ -4,13 +4,8 @@ import { ListComponent } from './list/list.component';
 import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterUrls.ofers}`,
-    component: ListComponent,
-    data: {title: 'Listado de Ofertas'}
-  },
-  {
-    path: `${RoutesConst.sellerCenterUrlsInt.ofersList}`,
+    {
+    path: `${RoutesConst.sellerCenterIntOfersList}`,
     component: ListComponent,
     data: {title: 'Listado de Ofertas'}
   }

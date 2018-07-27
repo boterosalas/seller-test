@@ -54,7 +54,7 @@ const secureHomeRoutes: Routes = [
             { path: `${RoutesConst.myProfile}`, component: MyProfileComponent },
             { path: `${RoutesConst.useractivity}`, component: UseractivityComponent },
             { path: `${RoutesConst.seller}`, component: OrdersListComponent },
-            { path: '', component: SecureHomeComponent }]
+            { path: '', component: OrdersListComponent }]
     }
 ];
 
@@ -71,8 +71,6 @@ const routes: Routes = [
         ]
     },
     { path: '**', component: ErrorPageComponent }
-
-
 ];
 
 export const appRoutingProviders: any[] = [];

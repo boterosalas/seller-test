@@ -45,7 +45,7 @@ export class CognitoUtil {
     public cognitoCreds: AWS.CognitoIdentityCredentials;
 
     getUserPool() {
-        if (environment.cognito_idp_endpoint) {
+        if (environment.cognito_idp_endpoint && environment.cognito_idp_endpoint !== '') {
             CognitoUtil._POOL_DATA.endpoint = environment.cognito_idp_endpoint;
         }
         return new CognitoUserPool(CognitoUtil._POOL_DATA);
@@ -84,7 +84,7 @@ export class CognitoUtil {
             Logins: logins
         };
         const serviceConfigs = <awsservice.ServiceConfigurationOptions>{};
-        if (environment.cognito_identity_endpoint) {
+        if (environment.cognito_identity_endpoint && environment.cognito_identity_endpoint !== '') {
             serviceConfigs.endpoint = environment.cognito_identity_endpoint;
         }
         const creds = new AWS.CognitoIdentityCredentials(params, serviceConfigs);
@@ -109,6 +109,7 @@ export class CognitoUtil {
                     callback.callbackWithParam(null);
                 } else {
                     if (session.isValid()) {
+                        // if de session is valid get token and decodification
                         callback.callbackWithParam(session.getAccessToken().getJwtToken());
                     }
                 }
@@ -170,7 +171,7 @@ export class CognitoUtil {
                 console.log('CognitoUtil: Can\'t set the credentials:' + err);
             }else {
                 if (session.isValid()) {
-                    console.log('CognitoUtil: refreshed successfully');
+                    // 'CognitoUtil: refreshed successfully';
                 } else {
                     console.log('CognitoUtil: refreshed but session is still not valid');
                 }

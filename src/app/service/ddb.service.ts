@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
 export class DynamoDBService {
 
     constructor(public cognitoUtil: CognitoUtil) {
-        console.log('DynamoDBService: constructor');
+        // constructor of DynamoDBService
     }
 
     getAWS() {
@@ -22,7 +22,7 @@ export class DynamoDBService {
     }
 
     getLogEntries(mapArray: Array<Stuff>) {
-        console.log('DynamoDBService: reading from DDB with creds - ' + AWS.config.credentials);
+        // DynamoDBService: reading from DDB with creds - ' + AWS.config.credentials
         const params = {
             TableName: environment.ddbTableName,
             KeyConditionExpression: 'userId = :userId',
@@ -43,7 +43,7 @@ export class DynamoDBService {
                 console.error('DynamoDBService: Unable to query the table. Error JSON:', JSON.stringify(err, null, 2));
             } else {
                 // print all the movies
-                console.log('DynamoDBService: Query succeeded.');
+                // DynamoDBService: Query succeeded
                 data.Items.forEach(function (logitem) {
                     mapArray.push({ type: logitem.type, date: logitem.activityDate });
                 });
@@ -55,16 +55,16 @@ export class DynamoDBService {
         try {
             const date = new Date().toString();
             // tslint:disable-next-line:max-line-length
-            console.log('DynamoDBService: Writing log entry. Type:' + type + ' ID: ' + this.cognitoUtil.getCognitoIdentity() + ' Date: ' + date);
+            // DynamoDBService: Writing log entry. Type:' + type + ' ID: ' + this.cognitoUtil.getCognitoIdentity() + ' Date: ' + date
             this.write(this.cognitoUtil.getCognitoIdentity(), date, type);
         } catch (exc) {
-            console.log('DynamoDBService: Couldnt write to DDB');
+            // 'DynamoDBService: Couldnt write to DDB
         }
 
     }
 
     write(data: string, date: string, type: string): void {
-        console.log('DynamoDBService: writing ' + type + ' entry');
+        // DynamoDBService: writing ' + type + ' entry'
 
         const clientParams: any = {
             params: { TableName: environment.ddbTableName }
@@ -84,7 +84,7 @@ export class DynamoDBService {
             }
         };
         DDB.putItem(itemParams, function (result) {
-            console.log('DynamoDBService: wrote entry: ' + JSON.stringify(result));
+            // DynamoDBService: wrote entry: ' + JSON.stringify(result)
         });
     }
 

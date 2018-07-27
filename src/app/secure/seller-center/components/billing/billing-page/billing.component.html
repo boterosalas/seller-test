@@ -1,15 +1,15 @@
 <div class="content-order my-content">
   <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="100" class="light-content">
-      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <app-toolbar-link fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
-      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-options #toolbarOptions [informationToForm]="informationToForm" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
-    <!-- Tabla de ordenes -->
+    <!-- Tabla de órdenes -->
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="content-table-orders">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
@@ -31,7 +31,7 @@
             <span class="title-table-header"> Factura</span>
           </mat-header-cell>
           <mat-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-bold-order">{{element.billingNumber}}</p>
+            <p class="sc-text-bold-order">{{ element.billingNumber || '------' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -43,7 +43,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal bold">{{element.orderNumber }}</p>
+            <p class="sc-text-normal bold">{{ element.orderNumber || '------' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -55,7 +55,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal bold">{{element.payOrderNumber }}</p>
+            <p class="sc-text-normal bold">{{ element.payOrderNumber || '------' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -67,7 +67,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.concept}}</p>
+            <p class="sc-text-normal">{{ element.concept || '------' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -79,7 +79,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.paymentDate | date}} </p>
+            <p class="sc-date-content-table">{{ element.paymentDate | date }} </p>
           </mat-cell>
         </ng-container>
 
@@ -87,11 +87,11 @@
         <ng-container matColumnDef="commission">
           <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header"> Comisión </span>
+            <span class="title-table-header"> Comisi&oacute;n </span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">${{element.commission | number}}</p>
+            <p class="sc-text-normal sc-commission-text">${{ element.commission | number }}</p>
           </mat-cell>
         </ng-container>
 
@@ -103,7 +103,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-valueToPay-text">${{element.billingTotal | number}}</p>
+            <p class="sc-text-normal sc-valueToPay-text">${{ element.billingTotal | number }}</p>
           </mat-cell>
         </ng-container>
 
@@ -122,7 +122,6 @@
                 <span>Acciones</span>
               </button>
               <mat-menu #orderOptions="matMenu">
-
                 <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" (click)="openModalDetailOrder(element)"
                   mat-menu-item>
                   <mat-icon>more_vert</mat-icon>
@@ -130,7 +129,6 @@
                 </button>
               </mat-menu>
             </div>
-
           </mat-cell>
         </ng-container>
 
@@ -143,19 +141,20 @@
 
       <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <p>No se han encontrado ordenes
+        <p>No se han encontrado &oacute;rdenes
         </p>
         <button id="load-all-orders-button" (click)="getOrdersList()" mat-button color="primary">
-          Cargar todas las ordenes</button>
+          Cargar todas las &oacute;rdenes</button>
       </div>
     </div>
 
     <ng-template #tpl let-element>
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
-        <div fxFlex="100" fxLayout="column ">
-          <pre>{{ element | json}}</pre>
+        <div fxFlex="100" fxLayout="column">
           <!-- Product Information -->
-          <app-billing-products-order [order]="element"></app-billing-products-order>
+          <app-billing-products-order *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element"></app-billing-products-order>
+          <!-- Detail fulfillment -->
+          <app-billing-fulfillment-detail *ngIf="element.concept === billingConcepts.logisticsExito" [data]="element"></app-billing-fulfillment-detail>
         </div>
       </div>
     </ng-template>

@@ -5,10 +5,15 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
   {
-    path: `${RoutesConst.sellerCenterUrlsInt.oferBulkLoad}`,
+    path: `${RoutesConst.sellerCenterOffers}`,
     component: BulkLoadComponent,
     data: {title: 'Cargar masiva de Ofertas'}
   },
+  {
+    path: `${RoutesConst.sellerCenterIntOferBulkLoad}`,
+    component: BulkLoadComponent,
+    data: {title: 'Cargar masiva de Ofertas'}
+  }
 ];
 
 @NgModule({

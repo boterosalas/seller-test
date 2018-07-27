@@ -2,15 +2,15 @@
 
   <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="100" class="light-content">
-      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <app-toolbar-link fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true"></app-toolbar-link>
-      <!-- Toolbar para los dropdown de filtro de estado para las ordenes -->
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
-    <!-- Tabla de ordenes -->
+    <!-- Tabla de órdenes -->
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
@@ -155,10 +155,10 @@
 
       <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength ">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <p>No se han encontrado ordenes
+        <p>No se han encontrado &oacute;rdenes
         </p>
         <button id="load-all-orders-button" (click)="getOrdersList()" mat-button color="primary">
-          Cargar todas las ordenes
+          Cargar todas las &oacute;rdenes
         </button>
       </div>
     </div>

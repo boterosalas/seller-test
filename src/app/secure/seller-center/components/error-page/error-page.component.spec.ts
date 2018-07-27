@@ -5,8 +5,6 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 
 /* our own custom components */
 import { ErrorPageComponent } from './error-page.component';
-import { MaterialModule } from '../../../core/components/material-components';
-import { ShellComponent } from '../../../core/shell/shell.component';
 import { ErrroModule } from './error-page.module';
 
 describe('ErrorPageComponent', () => {

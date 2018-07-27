@@ -7,12 +7,11 @@ import {InValidationComponent} from './in-validation-page/in-validation.componen
 import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
-
   {
-    path: `${RoutesConst.sellerCenterUrlsInt.orderInValidation}`,
+    path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
     component: InValidationComponent,
     data: {title: 'En validación'}
-  },
+  }
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@ import { User } from '../../../../shared/models/login.model';
 export class SearchOrderMenuService extends BaseSellerService {
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de ordenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
    * @returns
    * @memberof OrderService
    */
@@ -23,7 +23,7 @@ export class SearchOrderMenuService extends BaseSellerService {
   }
 
   /**
-   * Método para setear el filtro actual que el usuario ha aplicado a las ordenes que esta visualizando
+   * Método para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
    * @param {any} data
    * @memberof OrderService
    */
@@ -32,19 +32,19 @@ export class SearchOrderMenuService extends BaseSellerService {
   }
 
   /**
-   * Método para realiar la consulta de las ordenes de acuerdo a los filtros indicados.
+   * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(user: User, limit, stringSearch): Observable<[{}]> {
+  getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
 
     this.changeEndPoint();
 
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [localStorage.getItem('sellerId'), limit + stringSearch]),
+      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
@@ -56,7 +56,7 @@ export class SearchOrderMenuService extends BaseSellerService {
   }
 
   /**
-   * Método para realiar la consulta de las ordenes pendientes de devolución de acuerdo a los filtros indicados.
+   * Método para realiar la consulta de las órdenes pendientes de devolución de acuerdo a los filtros indicados.
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
@@ -66,7 +66,7 @@ export class SearchOrderMenuService extends BaseSellerService {
   getOrdersPendingDevolutionFilter(user: User, limit, stringSearch): Observable<[{}]> {
     this.changeEndPoint();
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', [localStorage.getItem('sellerId'), limit + stringSearch]),
+      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {

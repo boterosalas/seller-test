@@ -6,11 +6,13 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 // local components
 
-const routes: Routes = [{
-    path: `${RoutesConst.sellerCenterUrlsInt.shipmentsExitoReports}`,
-    component: ReportsComponent,
-    data: { title: 'Reportes de mis envíos' }
-}];
+const routes: Routes = [
+    {
+        path: `${RoutesConst.sellerCenterIntShipmentsExitoReports}`,
+        component: ReportsComponent,
+        data: { title: 'Reportes de mis envíos' }
+    }
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

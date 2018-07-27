@@ -7,7 +7,7 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
     {
-        path: `${RoutesConst.sellerCenterUrlsInt.shipmentsExitoPending}`,
+        path: `${RoutesConst.sellerCenterIntShipmentsExitoPending}`,
         component: PendingComponent,
         data: { title: 'Histórico de mis pedidos' }
     }

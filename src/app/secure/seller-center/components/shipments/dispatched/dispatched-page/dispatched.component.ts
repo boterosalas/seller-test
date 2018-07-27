@@ -9,7 +9,7 @@ import { Logger } from '../../../../utils/logger.service';
 import { getDutchPaginatorIntl } from '../../../../utils/services/common/components/mat-table.config';
 import { User } from '../../../../../../shared/models/login.model';
 import { environment } from '../../../../../../environments/environment';
-import { SearchFormEntity, InformationToForm } from '../../../../../../shared/models/order';
+import { SearchFormEntity, InformationToForm } from '../../../../../../shared';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { ListShipments } from '../../../../../../shared/models/shipment.model';
 
@@ -48,7 +48,7 @@ export class DispatchedComponent implements OnInit {
   public informationToForm: SearchFormEntity = {
     title: 'Envíos en despacho',
     btn_title: 'Filtrar envíos',
-    title_for_search: 'Consultar ordenes (Envios Éxito)',
+    title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
     information: new InformationToForm
   };
@@ -65,7 +65,6 @@ export class DispatchedComponent implements OnInit {
    * Init compoment
    */
   ngOnInit() {
-    log.info('PendingComponent is load');
     this.user = this.userService.getUser();
 
     this.list();

@@ -10,9 +10,10 @@ import { User } from '../../../../shared/models/login.model';
 // import { LogoutComponent } from '../../../../public/auth/confirm/confirmRegistration.component';
 import { Const } from '../../../../shared/util/constants';
 import { RoutesConst } from '../../../../shared/util/routes.constants';
-import { CategoryList } from '../../../../shared/models/order';
+import { CategoryList } from '../../../../shared';
 import { UserLoginService } from '../../../../service/user-login.service';
-import { LoggedInCallback } from '../../../../service/cognito.service';
+import { LoggedInCallback, Callback } from '../../../../service/cognito.service';
+import { UserParametersService } from '../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -23,7 +24,7 @@ const log = new Logger('SideBarComponent');
   styleUrls: ['./sidebar.component.scss']
 })
 
-export class SidebarComponent implements OnInit, LoggedInCallback {
+export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
 
   // Sidenav principal
   @Input() sidenav;
@@ -31,7 +32,9 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   @Input() user: any;
   // web url. empleada para saber cual es la url del servidor
   webUrl = environment.webUrl;
-  // Lista de categorías de las ordenes
+  // Define si la app esta en un entorno de producción.
+  isProductionEnv = environment.production;
+  // Lista de categorías de las órdenes
   categoryList: any;
   public routes: any;
 
@@ -45,7 +48,8 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
-    public userService: UserLoginService
+    public userService: UserLoginService,
+    public userParams: UserParametersService
   ) {
     this.user = {};
   }
@@ -62,16 +66,17 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.getDataUser();
-      log.info(this.sidenav);
     }
   }
 
+  callback() { }
+
   getDataUser() {
-    this.user['sellerId'] = localStorage.getItem('sellerId');
-    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
-    this.user['sellerName'] = localStorage.getItem('sellerName');
-    this.user['sellerNit'] = localStorage.getItem('sellerNit');
-    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -80,7 +85,6 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    */
   toggleMenu() {
     this.sidenav.toggle();
-    log.info('Sidenav toggle');
   }
 
   /**

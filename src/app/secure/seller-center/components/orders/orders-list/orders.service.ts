@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../../../environments/environment';
 import { User } from '../../../../../shared/models/login.model';
 import { BaseSellerService } from '../../../../../shared/services/base-seller.service';
-import { Order } from '../../../../../shared/models/order';
+import { Order } from '../../../../../shared';
 
 @Injectable()
 /**
@@ -14,17 +14,16 @@ import { Order } from '../../../../../shared/models/order';
  */
 export class OrderService extends BaseSellerService {
   /**
-   * Método para realiar la consulta de las ordenes
+   * Método para realiar la consulta de las órdenes
    * @param {any} state
    * @param {User} user
    * @param {any} limit
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrderList(state, user: User, limit): Observable<[{}]> {
+  getOrderList(state, user: any, limit): Observable<[{}]> {
     this.changeEndPoint();
     return new Observable(observer => {
-
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
         this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`]), this.getHeaders(user)).subscribe((data: any) => {
@@ -48,14 +47,14 @@ export class OrderService extends BaseSellerService {
   }
 
   /**
-   * Método para realiar la consulta de las ordenes de acuerdo a los filtros indicados.
+   * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(user: User, limit, stringSearch): Observable<[{}]> {
+  getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
 
     this.changeEndPoint();
 
@@ -88,7 +87,6 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product, this.getHeaders(user)).subscribe((data: any) => {
-        console.log('sendProductOrder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {
@@ -113,7 +111,6 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders, this.getHeaders(user)).subscribe((data: any) => {
-        console.log('sendallproductinorder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {
@@ -159,7 +156,6 @@ export class OrderService extends BaseSellerService {
     return new Observable(observer => {
 
       this.http.patch(this.api.get('recordProcesSedOrder'), information, this.getHeaders(user)).subscribe((data: any) => {
-        console.log('recordProcesSedOrder', data);
         observer.next(data);
       }, err => {
         this.hehs.error(err, () => {
@@ -170,7 +166,7 @@ export class OrderService extends BaseSellerService {
   }
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de ordenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
    * @returns
    * @memberof OrderService
    */
@@ -180,7 +176,7 @@ export class OrderService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las ordenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
    * @param {any} data
    * @memberof OrderService
    */

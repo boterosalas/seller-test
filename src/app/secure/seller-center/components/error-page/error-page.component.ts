@@ -36,6 +36,7 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
     // Oculto la barra toolbar de la aplicación
     this.routes = RoutesConst;
     this.shellComponent.viewToolbarPrincipal = false;
+    this.shellComponent.showHeader = false;
   }
 
   /**
@@ -46,5 +47,6 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
      * Visualizo la toolbar de la aplicación
      */
     this.shellComponent.viewToolbarPrincipal = true;
+    this.shellComponent.showHeader = true;
   }
 }

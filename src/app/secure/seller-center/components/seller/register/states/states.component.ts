@@ -64,4 +64,18 @@ export class StatesComponent implements OnInit {
   setParamToCities(param) {
     this.idStateEvent.emit(param);
   }
+  /**
+   * Metedo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
+   * @param states
+   */
+  public setParamToCitiesChange(states: any) {
+    const statesId = states.statesObject.Name;
+    if (typeof statesId !== 'undefined' && statesId !== '') {
+      for (let i = 0; i < states.listItems.length; i++) {
+        if (states.listItems[i].Id === statesId) {
+          this.idStateEvent.emit(states.listItems[i]);
+        }
+      }
+    }
+  }
 }

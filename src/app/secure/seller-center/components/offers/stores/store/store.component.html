@@ -1,5 +1,5 @@
-<app-tree-toolbar>
+<app-tree-toolbar [currentTree]="tree">
 </app-tree-toolbar>
 
 
-<app-tree-categories></app-tree-categories>
+<app-tree-categories (currentTreeOutput)="receiveDataTree($event)"></app-tree-categories>

@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 /* our own custom components */
 import { MaterialModule } from '../../components/material-components';
-import { LoginModule } from '../../../components/common/login/login.module';
+// import { LoginModule } from '../../../components/common/login/login.module';
 import { HeaderComponent } from './header.component';
 
 
@@ -22,7 +22,7 @@ describe('HeaderComponent', () => {
         MaterialModule,
         RouterTestingModule,
         HttpClientModule,
-        LoginModule
+        // LoginModule
       ],
       declarations: [HeaderComponent],
     })

@@ -20,14 +20,14 @@ export class UseractivityComponent implements LoggedInCallback {
 
     constructor(public router: Router, public ddb: DynamoDBService, public userService: UserLoginService) {
         this.userService.isAuthenticated(this);
-        console.log('in UseractivityComponent');
+        // 'in UseractivityComponent';
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate(['/home/login']);
         } else {
-            console.log('scanning DDB');
+            // scanning DDB
             this.ddb.getLogEntries(this.logdata);
         }
     }

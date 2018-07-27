@@ -1,6 +1,7 @@
 <mat-form-field class="register"  style="width:100% !important;" [formGroup]="validateFormRegister">
-    <mat-select placeholder="Departamento" formControlName="statesFormControl"  [(ngModel)]="statesObject.Name" id="register-state" required>
-        <mat-option *ngFor='let item of listItems' [value]="item.Id" [innerHTML]="item.Name" (click)="setParamToCities(item)"></mat-option>
+    <mat-select placeholder="Departamento"  formControlName="statesFormControl"  [(ngModel)]="statesObject.Name" id="register-state" required (blur)="setParamToCitiesChange(this)">
+        <mat-option *ngFor='let item of listItems' [value]="item.Id" [innerHTML]="item.Name" 
+        (click)="setParamToCities(item)"></mat-option>
     </mat-select>
     <mat-error id="error-state-required" *ngIf="validateFormRegister.get('statesFormControl').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>
 </mat-form-field>

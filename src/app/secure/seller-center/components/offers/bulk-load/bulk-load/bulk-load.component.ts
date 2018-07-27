@@ -14,6 +14,10 @@ import { User } from '../../../../../../shared/models/login.model';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
 import { ShellComponent } from '../../../../shell/shell.component';
 import { UserService } from '../../../../utils/services/common/user/user.service';
+import { Router } from '@angular/router';
+import { LoggedInCallback, Callback } from '../../../../../../service/cognito.service';
+import { UserLoginService } from '../../../../../../service/user-login.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 
 /* log component */
 const log = new Logger('BulkLoadComponent');
@@ -47,12 +51,12 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit {
+export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
   public paginator: any;
 
   /* Información del usuario*/
-  public user: User;
+  public user: any;
 
   /* Creo el elemento que se empleara para la tabla*/
   public dataSource: MatTableDataSource<ModelOffers>;
@@ -60,7 +64,7 @@ export class BulkLoadComponent implements OnInit {
   /*  Variable que almacena el numero de elementos de la tabla*/
   public numberElements = 0;
 
-  /* Número de ordenes cargadas*/
+  /* Número de órdenes cargadas*/
   public orderListLength = true;
 
   /* Objeto que contendra los datos del excel*/
@@ -99,7 +103,6 @@ export class BulkLoadComponent implements OnInit {
    * @param {BulkLoadService} BulkLoadService
    * @param {MatDialog} dialog
    * @param {ShellComponent} shellComponent
-   * @param {UserService} userService
    * @memberof BulkLoadComponent
    */
   constructor(
@@ -107,14 +110,44 @@ export class BulkLoadComponent implements OnInit {
     public bulkLoadService: BulkLoadService,
     public dialog: MatDialog,
     public shellComponent: ShellComponent,
-    public userService: UserService,
+    public userService: UserLoginService,
+    private router: Router,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
    * @memberof BulkLoadComponent
    */
   ngOnInit() {
+    this.userService.isAuthenticated(this);
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+      this.validateProfile();
+    } else if (!isLoggedIn) {
+      this.router.navigate(['/home']);
+    }
+
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+  }
+
+  validateProfile() {
+    if (this.user.sellerProfile === 'administrator') {
+      this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+    }
   }
 
   /**

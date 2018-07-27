@@ -12,7 +12,7 @@ import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-mo
 import { User } from '../../../../../../shared/models/login.model';
 import { environment } from '../../../../../../environments/environment';
 import { SendOrderComponent } from '../send-order/send-order.component';
-import { Order, CategoryList, SearchFormEntity, InformationToForm } from '../../../../../../shared/models/order';
+import { Order, CategoryList, SearchFormEntity, InformationToForm } from '../../../../../../shared';
 import { Const } from '../../../../../../shared/util/constants';
 import { OrderService } from '../orders.service';
 import { getDutchPaginatorIntl } from '../../../../utils/services/common/components/mat-table.config';
@@ -30,8 +30,8 @@ import { UserService } from '../../../../utils/services/common/user/user.service
 const log = new Logger('OrdersListComponent');
 
 /**
- * Component principal de ordenes. este componente per mite visualizar la lista de ordenes de acuerdo a
- * los diferentes estados que se pueden manejar en las ordenes. Consta de una serie de componentes:
+ * Component principal de órdenes. este componente per mite visualizar la lista de órdenes de acuerdo a
+ * los diferentes estados que se pueden manejar en las órdenes. Consta de una serie de componentes:
  * ClientInformationComponent: Permite cargar la información del usuario de una orden.
  * OrderDetailModalComponent: Permite visualizar detalladamente la información de una orden, se emplea
  * cuando la resolución es muy baja y solo se puede ver completamente la orden en forma de lista
@@ -54,9 +54,9 @@ const log = new Logger('OrdersListComponent');
 })
 
 /**
- *  Component que permite cargar las ordenes
+ *  Component que permite cargar las órdenes
  */
-export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback {
+export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback, Callback {
 
   // Constantes
   public const = Const;
@@ -77,20 +77,20 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     'detailOrder'];
   //  Creo el elemento que se empleara para la tabla
   dataSource: MatTableDataSource<Order>;
-  // Contiene la información de las ordenes consultadas
+  // Contiene la información de las órdenes consultadas
   currentOrderList: Array<Order>;
   // Creo el elemento que permite añadir el check a la tabla
   selection = new SelectionModel<Order>(true, []);
   //  Variable que almacena el numero de elementos de la tabla
   numberElements = 0;
-  // estado por defecto para listar las ordenes
+  // estado por defecto para listar las órdenes
   stateToListOrders: CategoryList;
   // Variable que contiene la categoría por defecto que se empleara en la consulta inicial
   currentCategory: any = {
-    name: 'Todas las ordenes',
+    name: 'Todas las órdenes',
     id: ''
   };
-  // varialbe que almacena el número de ordenes obtenidas
+  // varialbe que almacena el número de órdenes obtenidas
   orderListLength = false;
   // suscriptions vars
   public subStateOrder: any;
@@ -102,13 +102,13 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   optionCheckInTable = false;
   // Variable que almacena la ruta actual para saber la categoría que se esta consultando
   currentRootPage: any;
-  // Variable que almacena el objeto de paginación actual para listar las ordenes.
+  // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: `${this.currentCategory.name} ${this.numberElements}`,
-    btn_title: 'Consultar ordenes',
-    title_for_search: 'Consultar ordenes',
+    btn_title: 'Consultar órdenes',
+    title_for_search: 'Consultar órdenes',
     type_form: 'orders',
     information: new InformationToForm
   };
@@ -156,22 +156,28 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.getDataUser();
-      this.getOrdersListSinceCurrentUrl();
     } else if (!isLoggedIn) {
       this.router.navigate(['/home']);
     }
   }
 
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof ShellComponent
-   */
+  callback() { }
+
   getDataUser() {
-    this.user['sellerId'] = localStorage.getItem('sellerId');
-    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
-    this.user['sellerName'] = localStorage.getItem('sellerName');
-    this.user['sellerNit'] = localStorage.getItem('sellerNit');
-    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+    this.validateProfile();
+    this.getOrdersListSinceCurrentUrl();
+    this.getOrdersListSinceFilterSearchOrder();
+  }
+
+  validateProfile() {
+    if (this.user.sellerProfile === 'administrator') {
+      this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+    }
   }
 
   /**
@@ -188,13 +194,12 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de ordenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        log.info(data);
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -202,7 +207,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
             this.orderListLength = false;
           }
 
-          this.currentCategory.name = 'Ordenes encontradas';
+          /* this.currentCategory.name = 'órdenes encontradas'; */
 
           this.dataSource = new MatTableDataSource(data);
 
@@ -232,37 +237,37 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
         const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
 
         // si el valor pasado el la url concuerda con la lista de categorías almacenadas,
-        // paso a consultar las ordenes con la categoría indicada
+        // paso a consultar las órdenes con la categoría indicada
         if (category[0] !== undefined) {
           this.currentCategory = category[0];
 
-          // Aplico el filtro par consultar las ordenes en el estado this.currentRootPage, el cual se esta indicando por el usuario
+          // Aplico el filtro par consultar las órdenes en el estado this.currentRootPage, el cual se esta indicando por el usuario
           const data = {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
 
-          // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+          // obtengo las órdenes con la función del componente ToolbarOptionsComponent
           this.toolbarOption.getOrdersList(this.currentRootPage);
 
           this.setTitleToolbar();
         } else {
-          //  obtengo las ordenes sin ningun estado en especifico
-          // limpio los filtros aplicados para consultar las ordenes
+          //  obtengo las órdenes sin ningun estado en especifico
+          // limpio los filtros aplicados para consultar las órdenes
           this.orderService.setCurrentFilterOrders({});
           this.getAllOrderList();
         }
       } else {
-        // limpio los filtros aplicados para consultar las ordenes
+        // limpio los filtros aplicados para consultar las órdenes
         this.orderService.setCurrentFilterOrders({});
-        // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+        // obtengo las órdenes con la función del componente ToolbarOptionsComponent
         this.toolbarOption.getOrdersList();
       }
     });
   }
 
   /**
-  * Funcionalidad para dirigir a la vista principal de ordenes.
+  * Funcionalidad para dirigir a la vista principal de órdenes.
   * @memberof OrdersListComponent
   */
   getAllOrderList() {
@@ -279,12 +284,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-  * Método para cambiar el page size de la tabla ordenes
+  * Método para cambiar el page size de la tabla órdenes
   * @param {any} pageSize
   * @memberof OrdersListComponent
   */
   changeSizeOrderTable($event) {
-    log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
 
@@ -296,15 +300,13 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     // logica para obtener la categoria seleccionada
     const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
     if (category.length !== 0) {
-      log.info('Categoría actual:', category);
 
       if (category[0] !== undefined) {
         this.currentCategory = category[0];
       }
     } else {
-      log.info('Categoría actual: Todas las ordenes');
       this.currentCategory = {
-        name: 'Todas las ordenes',
+        name: 'Todas las órdenes',
         id: ''
       };
     }
@@ -313,14 +315,13 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   }
 
   /**
-  * Funcionalidad para consultar la lista de ordenes
+  * Funcionalidad para consultar la lista de órdenes
   * @param {*} $event
   * @param {any} [state]
   * @memberof OrdersListComponent
   */
   getOrdersList($event: any) {
     this.setCategoryName();
-    log.info('$Event proporcionado en getOrdersList()', $event);
     if ($event !== undefined) {
       if ($event.lengthOrder > 0) {
         let category = null;
@@ -328,13 +329,12 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
           category = $event.category;
         }
         this.currentEventPaginate = $event;
-
         this.orderService.getOrderList(category, this.user, $event.lengthOrder).subscribe((res: any) => {
           this.addCheckOptionInProduct(res, $event.paginator);
         }, err => {
           this.orderListLength = true;
-          this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de ordenes', 'Cerrar', 10000);
-          log.error('Se ha presentado un error al consultar la lista de ordenes', err);
+          this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);
+          log.error('Se ha presentado un error al consultar la lista de órdenes', err);
         });
       } else {
         this.componentService.openSnackBar('Indique un limite de registros', 'Cerrar', 1000);
@@ -351,11 +351,9 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   * @memberof OrdersListComponent
   */
   addCheckOptionInProduct(res, paginator) {
-    log.info(res);
-    // Logica para crear el contador de ordenes
-    log.info('response pasado a addCheckOptionInProduct()', res);
+    // Logica para crear el contador de órdenes
     if (res != null) {
-      // si no hay ordenes, muestro el cotenedor de no se han encontrado ordenes
+      // si no hay órdenes, muestro el cotenedor de no se han encontrado órdenes
       if (res.length === 0) {
         this.orderListLength = true;
       } else {
@@ -461,12 +459,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
 
       });
       dialogRef.afterClosed().subscribe(result => {
-        log.info('The dialog was closed', result);
-
         if (result !== false) {
-
-          log.info('Se han enviado productos, se actualizara el registro de ordenes');
-          log.info(result);
 
           // encuentro el objeto de la orden en el array
           const currentOrder = this.dataSource.data.find(x => x.id === result.id);
@@ -477,8 +470,6 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
 
           // let data = JSON.stringify(this.currentOrderList);
           // this.dataSource = new MatTableDataSource(JSON.parse(data));
-
-          log.info(this.dataSource.data[index]);
           this.dataSource._updateChangeSubscription();
         } else {
           log.info('No se han enviado productos de la orden');
@@ -519,15 +510,12 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
       currentValue = true;
     }
     const data = {
-      sellerId: localStorage.getItem('sellerId'),
+      sellerId: this.user.sellerId,
       idOrder: orderId,
       value: currentValue,
     };
-    log.info(data);
-
 
     this.orderService.recordProcesSedOrder(data, this.user).subscribe(res => {
-      log.info(res);
       // encuentro el objeto de la orden en el array
       const currentOrder = this.dataSource.data.find(x => x.id === orderId);
       // obtengo el index donde se encuentra el objeto

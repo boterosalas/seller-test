@@ -1,26 +1,16 @@
-/* 3rd party components */
-import { MatDialog } from '@angular/material/dialog';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
-
-/* our own custom components */
-import { ComponentsService } from '../../../utils/services/common/components/components.service';
-import { User } from '../../../../../shared/models/login.model';
-import { UserService } from '../../../utils/services/common/user/user.service';
-import { Logger } from '../../../utils/logger.service';
-import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
-import { Billing, Order, SearchFormEntity, InformationToForm } from '../../../../../shared/models/order';
-import { ShellComponent } from '../../../shell/shell.component';
-import { environment } from '../../../../../environments/environment';
+import { User, Billing, InformationToForm, Order, SearchFormEntity, Const } from '../../../../../shared';
+import { ShellComponent } from '../../../shell';
+import { Logger, ComponentsService, UserService } from '../../../utils';
 import { BillingService } from '../billing.service';
-
-
-
-
-
+import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
+import { Callback } from '../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -38,7 +28,7 @@ const log = new Logger('BillingComponent');
     ]),
   ]
 })
-export class BillingComponent implements OnInit, OnDestroy {
+export class BillingComponent implements OnInit, OnDestroy, Callback {
 
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
   @ViewChild('toolbarOptions') toolbarOption;
@@ -62,20 +52,22 @@ export class BillingComponent implements OnInit, OnDestroy {
   public selection = new SelectionModel<Order>(true, []);
   // Variable que almacena el numero de elementos de la tabla
   public numberElements = 0;
-  // varialbe que almacena el número de ordenes obtenidas
+  // varialbe que almacena el número de órdenes obtenidas
   public orderListLength = false;
   // Información del usuario
-  public user: User;
+  public user: any;
   // suscriptions vars
   private subFilterOrderBilling: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Facturación',
-    title_for_search: 'Consultar ordenes',
-    btn_title: 'Consultar ordenes',
+    title_for_search: 'Consultar órdenes',
+    btn_title: 'Consultar órdenes',
     type_form: 'billing',
     information: new InformationToForm
   };
+  // Conceptos de facturación.
+  public billingConcepts = Const.BILLING_CONCEPTS;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -93,8 +85,10 @@ export class BillingComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public billinService: BillingService,
     public component: ComponentsService,
-    public shellComponent: ShellComponent
+    public shellComponent: ShellComponent,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
@@ -105,6 +99,16 @@ export class BillingComponent implements OnInit, OnDestroy {
     // obtengo las ordenes con la función del componente ToolbarOptionsComponent
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -143,15 +147,13 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de ordenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
 
     this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
       (data: any) => {
-        log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -170,18 +172,6 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof BillingComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
-  }
-
-
-  /**
    * Funcionalidad para consultar la lista de devoluciones pendientes
    * @param {any} $event
    * @memberof BillingComponent
@@ -193,7 +183,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}&limit=${$event.lengthOrder}`;
+    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}`;
 
     this.billinService.getBilling(this.user, stringSearch).subscribe((res: any) => {
       if (res != null) {
@@ -203,7 +193,6 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.orderListLength = false;
         }
       }
-      log.info(res);
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
       // this.paginator.pageIndex = 0;
@@ -212,17 +201,15 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.numberElements = this.dataSource.data.length;
     }, err => {
       this.orderListLength = true;
-      log.info(this.dataSource);
     });
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
+   * Método para cambiar el page size de la tabla órdenes
    * @param {any} pageSize
    * @memberof BillingComponent
    */
   changeSizeOrderTable($event) {
-    log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
 

@@ -1,5 +1,5 @@
 <div class="light-content">
-  <mat-toolbar color="primary" class="principal-toolbar">
+  <mat-toolbar color="primary" class="principal-toolbar" style="position:fixed;background-color:#fff;">
     <button color="accent" id="menuElement" matTooltip="Menú" matTooltipPosition="below" mat-icon-button mat-button
             (click)="toggleMenu()">
       <mat-icon class="mat-24">menu</mat-icon>
@@ -12,23 +12,23 @@
     </p>
     <span class="spacer-content"></span>
     <div fxLayoutGap="10px">
-      <button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+      <!--<button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" (click)="shellComponent.goToEnviosExito()"
               id="envios-exito-button" mat-button color="accent">
-        Envios Éxito
-      </button>
+        Envíos Éxito
+      </button> 
       <button class="sc-button-toolbar" (click)="shellComponent.openDialogSupport()" fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true"
               fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
         <mat-icon class="mat-24">help</mat-icon>
         Soporte
-      </button>
-      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterUrls.myProfile]"
+      </button> -->
+      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterMyProfile]"
               id="profile-button"
               mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterUrls.logout]"
+      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterLogout]"
               id="logout-button"
               mat-icon-button mat-button color="accent">
       <mat-icon class="mat-24">exit_to_app</mat-icon>
@@ -39,3 +39,4 @@
   </mat-toolbar>
 
 </div>
+<div style="padding-top:64px;"></div>

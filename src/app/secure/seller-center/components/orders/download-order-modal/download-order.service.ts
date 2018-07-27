@@ -12,7 +12,7 @@ import { BaseSellerService } from '../../../../../shared/services/base-seller.se
 export class DownloadOrderService extends BaseSellerService {
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de ordenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
    * @returns
    * @memberof OrderService
    */
@@ -22,7 +22,7 @@ export class DownloadOrderService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las ordenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
    * @param {any} data
    * @memberof OrderService
    */
@@ -31,7 +31,7 @@ export class DownloadOrderService extends BaseSellerService {
   }
 
   /**
-   *  Método para realizar el consumo del servicio que permite enviar las ordenes al correo electronico del usuario
+   *  Método para realizar el consumo del servicio que permite enviar las órdenes al correo electronico del usuario
    * @param {any} user
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}

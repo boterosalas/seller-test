@@ -14,6 +14,13 @@ $color-blue: #485AFA;
             top: 0;
         }
         .toolbar-options {
+
+            &.view-mobile{
+                display: none;
+            }
+            &.view-desktop{
+                display: flex;
+            }
             p {
                 margin: 0;
                 color: $color-black;
@@ -40,6 +47,18 @@ $color-blue: #485AFA;
                         font-size: 12px;
                         line-height: 14px;
                     }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        mat-toolbar.toolbar-component {
+            .toolbar-options {
+                &.view-mobile.in-detail{
+                    display: flex;
+                }
+                &.view-desktop.in-detail{
+                    display: none;
                 }
             }
         }

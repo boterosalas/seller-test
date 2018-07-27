@@ -3,7 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Component, Inject} from '@angular/core';
 import * as _ from 'lodash';
 /* our own custom components */
-import { OrderDevolutionsModel } from '../../../../../../shared/models/order';
+import { OrderDevolutionsModel } from '../../../../../../shared';
 import { FAKE } from '../../../../utils/fakeData.model';
 
 @Component({

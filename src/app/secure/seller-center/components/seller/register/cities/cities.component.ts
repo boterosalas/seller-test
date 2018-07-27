@@ -72,4 +72,19 @@ export class CitiesComponent implements OnInit, OnChanges {
   setDataCitie(param) {
     this.daneCodeEvent.emit(param);
   }
+
+  /**
+   * Metedo para cargar los dane luego de cambiar de foco en el campo de departamentos
+   * @param states 
+   */
+  public setParamToDaneChange(cities: any) {
+    const citiesId = cities.citiesObject.Name;
+    if (typeof citiesId !== 'undefined' && citiesId !== '') {
+      for (let i = 0; i < cities.listItems.length; i++) {
+        if (cities.listItems[i].Id === citiesId) {
+          this.daneCodeEvent.emit(cities.listItems[i]);
+        }
+      }
+    }
+  }
 }

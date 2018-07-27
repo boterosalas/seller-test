@@ -1,6 +1,6 @@
 /* 3rd party components */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AwsCognitoModule } from '../../../app.module';
+// import { AwsCognitoModule } from '../../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
@@ -14,7 +14,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AwsCognitoModule
+        // AwsCognitoModule
       ]
     })
       .compileComponents();

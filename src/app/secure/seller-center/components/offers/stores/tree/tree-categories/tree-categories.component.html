@@ -1,4 +1,4 @@
-<div class="tree-content">
+<div class="tree-content" style="margin-top:64px;">
   <div class="header-tree-categories">
     <h1>{{currentStoreSelect.Name}}</h1>
   </div>
@@ -7,7 +7,7 @@
   <app-no-content *ngIf="currentStoreSelect.Name === ''"></app-no-content>
 
   <!-- Componente que se visualiza cuando se ha indicado una tienda para consultar -->
-  <app-tree-component *ngIf="informationForTreeIsLoad == true"  [arbol]="arbol"></app-tree-component>
+  <app-tree-component *ngIf="informationForTreeIsLoad == true"  [arbol]="arbol" (currentTreeOutput)="receiveDataTree($event)"></app-tree-component>
 
   <!-- Componente loading -->
   <div *ngIf="showLoading == true" class="spinner-component">

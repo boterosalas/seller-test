@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { StoreModel } from '../models/store.model';
 import { Logger } from '../../../../utils/logger.service';
 import { User } from '../../../../../../shared/models/login.model';
 import { UserService } from '../../../../utils/services/common/user/user.service';
+import { Callback } from '../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('SearchStoreComponent');
@@ -23,23 +25,28 @@ const log = new Logger('SearchStoreComponent');
   host: { 'class': 'search-content-selector' },
   styleUrls: ['./search-store.component.scss'],
 })
-export class SearchStoreComponent implements OnInit {
+export class SearchStoreComponent implements OnInit, OnChanges, Callback {
 
   // variable que almacena el texto que se obtiene del input al buscar.
   textForSearch: FormControl = new FormControl();
 
   // Información del usuario
-  public user: User;
+  public user: any;
   // variable que almacena la lista de tiendas disponibles para buscar
   listStores = [];
 
   // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
   filteredOptions: Observable<string[]>;
 
+  @Input() searchStoreInput;
+
   constructor(
     public eventsStore: EventEmitterStore,
     public userService: UserService,
-    public storeService: StoresService) { }
+    public storeService: StoresService,
+    public userParams: UserParametersService) {
+    this.user = {};
+  }
 
   /**
    * Evento al iniciar el componente
@@ -47,8 +54,6 @@ export class SearchStoreComponent implements OnInit {
    */
   ngOnInit() {
     this.getDataUser();
-    // Creación de método que escucha los cambios en el input
-    // y se encarga de filtrar la busqueda sobre la lista de tiendas disponibles
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
         startWith(''),
@@ -60,15 +65,21 @@ export class SearchStoreComponent implements OnInit {
     this.getAllStores();
   }
 
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof BillingComponent
-   */
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.searchStoreInput.currentValue && changes.searchStoreInput.currentValue !== undefined &&
+      changes.searchStoreInput.currentValue !== null) {
+      this.viewStoreInformation(this.searchStoreInput);
+    }
+  }
+
+  callback() { }
+
   getDataUser() {
-    this.user = this.userService.getUser();
-    /* if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    } */
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -77,11 +88,10 @@ export class SearchStoreComponent implements OnInit {
    */
   public getAllStores() {
     this.storeService.getAllStores(this.user).subscribe((res: any) => {
-      log.info(res);
       if (res.status === 200) {
         const body = JSON.parse(res.body.body);
         this.listStores = body.Data;
-      }else {
+      } else {
         this.listStores = res.message;
       }
     });
@@ -128,9 +138,6 @@ export class SearchStoreComponent implements OnInit {
         // tslint:disable-next-line:triple-equals
         if (found != undefined) {
           this.viewStoreInformation(found);
-        } else {
-          // si no hay resultados, mando un vacio que indica que no hay resultados de busqueda.
-          this.viewStoreInformation({ Name: '', IdSeller: 0 });
         }
       });
       suscribe.unsubscribe();
@@ -144,6 +151,8 @@ export class SearchStoreComponent implements OnInit {
    * @memberof SearchStoreComponent
    */
   public viewStoreInformation(search_store: StoreModel) {
+    localStorage.removeItem('parametersCommission');
+    localStorage.setItem('searchStore', JSON.stringify(search_store));
     // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
     this.eventsStore.searchStore(search_store);
   }

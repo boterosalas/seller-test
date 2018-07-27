@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Injectable, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTree, MatTreeModule } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { EventEmitterStore } from '../../../events/eventEmitter-store.service';
@@ -12,6 +12,9 @@ export class FileNode {
   children: FileNode[];
   filename: string;
   type: any;
+  commision: any;
+  idCategory: any;
+  idParent: any;
 }
 
 /** Flat node with expandable and level information */
@@ -20,52 +23,10 @@ export class FileFlatNode {
   type: any;
   level: number;
   expandable: boolean;
+  commission: any;
+  idCategory: any;
+  idParent: any;
 }
-
-/**
- * The file structure tree data in string. The data could be parsed into a Json object
- */
-const TREE_DATA = `
-  {
-    "Documents": {
-      "angular": {
-        "src": {
-          "core": "ts",
-          "compiler": "ts",
-          "src2": {
-            "core": "ts",
-            "compiler": "ts test de texto mas largo"
-          }
-        }
-      },
-      "material2": {
-        "src": {
-          "button": "ts",
-          "checkbox": "ts",
-          "input": "ts"
-        }
-      }
-    },
-    "Downloads": {
-        "Tutorial": "html",
-        "November": "pdf",
-        "October": "pdf"
-    },
-    "Pictures": {
-        "Sun": "png",
-        "Woods": "jpg",
-        "Photo Booth Library": {
-          "Contents": "dir",
-          "Pictures": "dir"
-        }
-    },
-    "Applications": {
-        "Chrome": "app",
-        "Calendar": "app",
-        "Webstorm": "app"
-    }
-}`;
-
 
 /**
  * File database, it can build a tree structured Json object from string.
@@ -78,6 +39,8 @@ const TREE_DATA = `
 export class FileDatabase {
   dataChange: BehaviorSubject<FileNode[]> = new BehaviorSubject<FileNode[]>([]);
 
+  public objetoBuild = {};
+  public objetoBuildExtraData = {};
   get data(): FileNode[] { return this.dataChange.value; }
 
   constructor() {
@@ -86,59 +49,91 @@ export class FileDatabase {
   initialize(tree: any) {
     if (typeof tree !== 'undefined') {
       const dataObject = JSON.parse(JSON.stringify(tree));
-      /* const dataObject = JSON.parse(TREE_DATA); */
-      const parentjson = {};
-      const treeBuild = this.createRealTree(dataObject, parentjson, 'Marketplace');
-      const data = this.buildFileTree(treeBuild, 0);
+      const realTree = this.createRealTree(dataObject, this.objetoBuild);
+      const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
+      const data = this.buildFileTree(realTree, 0, treeExtraData);
       this.dataChange.next(data);
 
     }
   }
+
   /**
-   * Function 
-   * @param dataObject 
-   * @param padre 
+   *
+   * @param obj
+   * @param objetoBuild
    */
-  createRealTree(obj: any, parentjson: any, name_parent: any) {
-    let k;
+  createRealTree(obj: any, objetoBuild: any) {
+    const hijos = {};
     if (obj instanceof Object) {
-      for (k in obj) {
+      for (const k in obj) {
         if (obj.hasOwnProperty(k)) {
-          if (k === 'Name') {
-            name_parent = obj[k];
-          } else {
-            if (k === 'nodes') {
-              const nodos = obj[k];
-                for (let j = 0; j < nodos.length; j++) {
-                    parentjson[name_parent] = nodos[j].Name;
-                    if (typeof nodos[j].nodes !== 'undefined'){
-                      this.createRealTree(nodos[j], parentjson, nodos[j].Name);
-                    }
-                }
-              }
+          if (k === 'IdParent' && obj.IdParent === null) {
+            objetoBuild[obj.Name] = {};
+          }
+          if (k === 'nodes') {
+            for (let i = 0; i < obj[k].length; i++) {
+              hijos[obj[k][i].Name] = obj[k][i].Name;
+              this.createRealTree(obj[k][i], hijos);
             }
+            objetoBuild[obj.Name] = hijos;
           }
         }
-    } 
-    return parentjson;
+      }
+    }
+    return objetoBuild;
   }
+
+  createTreeExtraData(obj: any, objetoBuildExtraData: any) {
+    const hijos = {};
+    if (obj instanceof Object) {
+      for (const k in obj) {
+        if (obj.hasOwnProperty(k)) {
+          if (k === 'IdParent' && obj.IdParent === null) {
+            objetoBuildExtraData[obj.Name] = {};
+          }
+          if (typeof k !== 'undefined' && k === 'nodes') {
+            for (let i = 0; i < obj[k].length; i++) {
+              hijos[obj[k][i].Name] = {};
+              hijos[obj[k][i].Name]['Comision'] = obj[k][i].commission;
+              hijos[obj[k][i].Name]['idCategory'] = obj[k][i].Id;
+              hijos[obj[k][i].Name]['IdParent'] = obj[k][i].IdParent;
+              this.createTreeExtraData(obj[k][i], hijos);
+            }
+            objetoBuildExtraData[obj.Name] = hijos;
+            objetoBuildExtraData[obj.Name]['Comision'] = obj.commission;
+            objetoBuildExtraData[obj.Name]['idCategory'] = obj.Id;
+            objetoBuildExtraData[obj.Name]['IdParent'] = obj.IdParent;
+          }
+        }
+      }
+    }
+    return objetoBuildExtraData;
+  }
+
   /**
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `FileNode`.
    */
-  buildFileTree(value: any, level: number): FileNode[] {
+  buildFileTree(value: any, level: number, extraData?: any): FileNode[] {
     const data: any[] = [];
     // tslint:disable-next-line:forin
     for (const k in value) {
       const v = value[k];
+      const e = extraData[k];
       const node = new FileNode();
       node.filename = `${k}`;
       if (v === null || v === undefined) {
         // no action
       } else if (typeof v === 'object') {
-        node.children = this.buildFileTree(v, level + 1);
+        node.commision = e.Comision;
+        node.idCategory = e.idCategory;
+        node.idParent = e.IdParent;
+        node.children = this.buildFileTree(v, level + 1, e);
       } else {
         node.type = v;
+        node.commision = e.Comision;
+        node.idCategory = e.idCategory;
+        node.idParent = e.IdParent;
       }
       data.push(node);
     }
@@ -163,6 +158,10 @@ export class TreeComponentComponent implements OnInit {
   @ViewChild('tree') treeElement;
   // arbol
   @Input() arbol: any;
+
+  @Output() currentTreeOutput = new EventEmitter<any>();
+
+  public current_tree: any;
 
   tree: MatTree<FileFlatNode>;
 
@@ -193,6 +192,8 @@ export class TreeComponentComponent implements OnInit {
 
     database.dataChange.subscribe(data => {
       this.dataSource.data = data;
+      this.current_tree = this.dataSource.data;
+      this.currentTreeOutput.emit(JSON.stringify(this.dataSource.data));
     });
   }
 
@@ -202,6 +203,9 @@ export class TreeComponentComponent implements OnInit {
     flatNode.type = node.type;
     flatNode.level = level;
     flatNode.expandable = !!node.children;
+    flatNode.commission = node.commision;
+    flatNode.idCategory = node.idCategory;
+    flatNode.idParent = node.idParent;
     return flatNode;
   }
 

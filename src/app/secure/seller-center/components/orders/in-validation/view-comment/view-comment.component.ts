@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 
 /* our own custom components */
 import { FAKE } from '../../../../utils/fakeData.model';
-import { OrderDevolutionsModel } from '../../../../../../shared/models/order';
+import { OrderDevolutionsModel } from '../../../../../../shared';
 
 
 @Component({

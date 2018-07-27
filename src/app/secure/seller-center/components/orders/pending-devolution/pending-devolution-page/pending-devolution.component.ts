@@ -14,7 +14,7 @@ import {
   SearchFormEntity,
   InformationToForm,
   Pending
-} from '../../../../../../shared/models/order';
+} from '../../../../../../shared';
 import { environment } from '../../../../../../environments/environment';
 import { ActionAcceptDevolutionComponent } from '../action-accept-devolution/action-accept-devolution.component';
 import { ProductPendingDevolutionModalComponent } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
@@ -27,12 +27,14 @@ import { Const } from '../../../../../../shared/util/constants';
 import { ShellComponent } from '../../../../shell/shell.component';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
+import { Callback } from '../../../../../../service/cognito.service';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
 
 /**
- * Component para visualizar las ordenes en estado pendiente de devolución
+ * Component para visualizar las órdenes en estado pendiente de devolución
  */
 @Component({
   selector: 'app-pending-devolution',
@@ -51,7 +53,7 @@ const log = new Logger('PendingDevolutionComponent');
 /**
  * Componente
  */
-export class PendingDevolutionComponent implements OnInit, OnDestroy {
+export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   // Elemento paginador
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -77,13 +79,13 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public selection = new SelectionModel<Pending>(true, []);
   // Variable que almacena el numero de elementos de la tabla
   public numberElements = 0;
-  // Número de ordenes
+  // Número de órdenes
   public orderListLength = false;
   // user info
-  public user: User;
+  public user: any;
   // suscriptions vars
   private subFilterOrderPending: any;
-  // Variable que almacena el objeto de paginación actual para listar las ordenes.
+  // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
   // Lista de opciones para realizar el rechazo de una solicitud
   public reasonRejection: Array<ListReasonRejectionResponseEntity>;
@@ -117,8 +119,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private zone: NgZone,
     private pendingDevolutionService: PendingDevolutionService,
-    public componentsService: ComponentsService
+    public componentsService: ComponentsService,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
@@ -126,9 +130,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
-    log.info('Devoluciones pendientes component load');
     this.getDataUser();
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
@@ -143,27 +146,24 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     this.subFilterOrderPending.unsubscribe();
   }
 
-  /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof BillingComponent
-   */
+  callback() { }
+
   getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de ordenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
 
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
-        log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           this.orderListLength = data.length === 0;
           this.dataSource = new MatTableDataSource(data);
@@ -178,18 +178,17 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
+   * Método para cambiar el page size de la tabla órdenes
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
   changeSizeOrderTable($event) {
-    log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
 
 
   /**
-   * Método para obtener la lista de ordenes.
+   * Método para obtener la lista de órdenes.
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
@@ -200,7 +199,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}
+    const stringSearch = `?idSeller=${this.user.sellerId}
     &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
 
     this.pendingDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {
@@ -209,7 +208,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       if (res != null) {
         this.orderListLength = res.length === 0;
       }
-      log.info(res);
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
       // this.paginator.pageIndex = 0;
@@ -285,7 +283,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       Id: order.id
     };
     this.pendingDevolutionService.refuseDevolution(this.user, information).subscribe(res => {
-      log.info(res);
       if (res) {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
@@ -361,7 +358,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         this.getOrdersList(this.currentEventPaginate);
       }
       log.info('The modal detail order was closed');
-      log.info(result);
     });
   }
 }

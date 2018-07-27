@@ -29,7 +29,6 @@ export class UserLoginService {
         const sts = new STS(clientParams);
         sts.getCallerIdentity(function (err, data) {
             console.log('UserLoginService: Successfully set the AWS credentials');
-            console.log(session);
             callback.cognitoCallback(null, session);
         });
     }
@@ -119,7 +118,9 @@ export class UserLoginService {
 
     logout() {
         console.log('UserLoginService: Logging out');
-        this.ddb.writeLogEntry('logout');
+        if (typeof this.cognitoUtil.getCurrentUser() === 'undefined' || this.cognitoUtil.getCurrentUser() === null) {
+            return null;
+        }
         this.cognitoUtil.getCurrentUser().signOut();
     }
 
@@ -135,14 +136,13 @@ export class UserLoginService {
                 if (err) {
                     console.log('UserLoginService: Couldn\'t get the session: ' + err, err.stack);
                     callback.isLoggedIn(err, false);
-                    console.log(session);
                 }else {
-                    console.log('UserLoginService: Session is ' + session.isValid());
+                    // UserLoginService: Session is ' + session.isValid()
                     callback.isLoggedIn(err, session.isValid());
                 }
             });
         } else {
-            console.log('UserLoginService: can\'t retrieve the current user');
+            // UserLoginService: can\'t retrieve the current user
             callback.isLoggedIn('Can\'t retrieve the CurrentUser', false);
         }
     }

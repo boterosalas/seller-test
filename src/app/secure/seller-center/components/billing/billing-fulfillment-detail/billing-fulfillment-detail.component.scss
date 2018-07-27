@@ -1,0 +1,15 @@
+.main {
+    padding-left: 54px;
+    padding-bottom: 10px;
+    background-color: rgba(#eAeAeA, .5);
+    font-size: 13px;
+    @media (max-width: 933px) {
+        padding-left: 17px;
+    }
+    .head {
+        font-weight: bold;
+    }
+    mat-list-item {
+        font-size: 13px !important;
+    }
+}

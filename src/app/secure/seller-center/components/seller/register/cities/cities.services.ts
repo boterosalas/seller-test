@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CognitoUtil } from '../../../../../../service/cognito.service';
+import { endpoints, defaultVersion } from '../../../../../../../../api-endpoints';
 @Injectable()
 export class CitiesServices {
 
-  writerUrl = 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/';
+  writerUrl = endpoints[defaultVersion.prefix + defaultVersion.number]['getCities'];
   httpOptions: any;
 
   constructor(

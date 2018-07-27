@@ -13,10 +13,14 @@ import {DownloadFormatComponent} from '../download-format/download-format.compon
 import {environment} from '../../../../../environments/environment';
 import { Logger } from '../../../utils/logger.service';
 import { User } from '../../../../../shared/models/login.model';
-import { LoadGuide } from '../../../../../shared/models/order';
+import { LoadGuide } from '../../../../../shared';
 import { ComponentsService } from '../../../utils/services/common/components/components.service';
 import { ShellComponent } from '../../../shell/shell.component';
 import { UserService } from '../../../utils/services/common/user/user.service';
+import { LoggedInCallback, Callback } from '../../../../../service/cognito.service';
+import { UserLoginService } from '../../../../../service/user-login.service';
+import { Router } from '@angular/router';
+import { UserParametersService } from '../../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('LoadGuideComponent');
@@ -44,17 +48,17 @@ const log = new Logger('LoadGuideComponent');
     ]),
   ]
 })
-export class LoadGuidePageComponent implements OnInit {
+export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callback {
 
   public paginator: any;
 
   // Información del usuario
-  public user: User;
+  public user: any;
   // Creo el elemento que se empleara para la tabla
   public dataSource: MatTableDataSource<LoadGuide>;
   //  Variable que almacena el numero de elementos de la tabla
   public numberElements = 0;
-  // Número de ordenes cargadas
+  // Número de órdenes cargadas
   public orderListLength = true;
   // Objeto que contendra los datos del excel
   public arrayInformation: Array<LoadGuide> = [];
@@ -89,14 +93,44 @@ export class LoadGuidePageComponent implements OnInit {
     public loadGuideService: LoadGuideService,
     public dialog: MatDialog,
     public shellComponent: ShellComponent,
-    public userService: UserService
+    public userService: UserLoginService,
+    private router: Router,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
    * @memberof LoadGuidePageComponent
    */
   ngOnInit() {
+    this.userService.isAuthenticated(this);
+  }
+
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+      this.validateProfile();
+    } else if (!isLoggedIn) {
+      this.router.navigate(['/home']);
+    }
+
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+  }
+
+  validateProfile() {
+    if (this.user.sellerProfile === 'administrator') {
+      this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+    }
   }
 
   /**
@@ -341,8 +375,6 @@ export class LoadGuidePageComponent implements OnInit {
     /* opción para visualizar el contenedor de no se ha cargado información */
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
-    log.info(this.arrayInformationForSend);
-
   }
 
 
@@ -430,7 +462,6 @@ export class LoadGuidePageComponent implements OnInit {
    */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
-    log.info(item);
     if (item.column === 0) {
       this.arrayInformation[item.row].errorColumn1 = true;
       this.arrayInformation[item.row].errorRow = true;
@@ -472,13 +503,11 @@ export class LoadGuidePageComponent implements OnInit {
   sendJsonInformation() {
 
     const jsonToSend = {
-      sellerId: localStorage.getItem('sellerId'),
+      sellerId: this.user.sellerId,
       // dateTime: datePipe.transform(new Date(), 'yyyy/MM/dd'),
       listOrderTracking: this.arrayInformationForSend
     };
-    log.info(jsonToSend);
     this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
-      log.info(res);
       this.openDialogSendOrder(res);
 
     }, err => {

@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, SimpleChanges, Simpl
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
 
 /* our own custom components */
-import { SearchFormEntity } from '../models/order';
+import { SearchFormEntity } from '../models/order.model';
 import { Logger } from '../../secure/seller-center/utils/logger.service';
 import { getDutchPaginatorIntl } from '../../secure/seller-center/utils/services/common/components/mat-table.config';
 // tslint:disable-next-line:max-line-length
@@ -29,9 +29,9 @@ export class ToolbarOptionsComponent {
   @Input() informationToForm: SearchFormEntity;
 
 
-  // Boolean que indica si hay ordenes o no
+  // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
-  // Evento que permite consultar las ordenes
+  // Evento que permite consultar las órdenes
   @Output() OnGetOrdersList = new EventEmitter<object>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
@@ -52,7 +52,7 @@ export class ToolbarOptionsComponent {
   ) { }
 
   /**
-   * Funcionalidad para despelgar el menu de filtro de ordenes.
+   * Funcionalidad para despelgar el menu de filtro de órdenes.
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
@@ -60,7 +60,7 @@ export class ToolbarOptionsComponent {
   }
 
   /**
-   * Funcionalidad para desplegar el modal que permita descargar las ordenes actuales del usuario
+   * Funcionalidad para desplegar el modal que permita descargar las órdenes actuales del usuario
    * @memberof ToolbarOptionsComponent
    */
   openModalDownloadOrder(): void {
@@ -76,22 +76,20 @@ export class ToolbarOptionsComponent {
 
   /**
    * Método que permite actualizar el valor del pageSize de la tabla de acuerdo al valor pasado,
-   *  luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de ordenes.
+   *  luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de órdenes.
    * @memberof ToolbarOptionsComponent
    */
   changeSizeOrderTable() {
-    log.info('Emit changeSizeOrderTable');
     this.paginator.pageSize = this.pageSizeOrder;
     this.OnChangeSizeOrderTable.emit(this.paginator);
   }
 
   /**
-   * Método que permite emitir un evento al contenedor padre para saber cuando consultar la lista de ordenes.
-   * @param {any} [category]: parametro opcional. solo para la pagina ordenes.
+   * Método que permite emitir un evento al contenedor padre para saber cuando consultar la lista de órdenes.
+   * @param {any} [category]: parametro opcional. solo para la pagina órdenes.
    * @memberof ToolbarOptionsComponent
    */
   getOrdersList(category?) {
-    log.info('Even Emit getOrdersList');
     this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
   }
 

@@ -49,8 +49,6 @@ export class LoadingComponent implements OnInit {
    */
   closeLoadingProgressBar() {
     this.loadingProgressBar = false;
-    log.info('Loading Progress = false');
-
   }
 
   /**
@@ -59,7 +57,6 @@ export class LoadingComponent implements OnInit {
    */
   viewLoadingSpinner() {
     this.loadingSpinner = true;
-    log.info('Loading Spinner = true');
 
   }
 
@@ -69,7 +66,6 @@ export class LoadingComponent implements OnInit {
    */
   closeLoadingSpinner() {
     this.loadingSpinner = false;
-    log.info('Loading Spinner = false');
   }
 
 }

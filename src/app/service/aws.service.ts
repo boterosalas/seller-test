@@ -24,7 +24,7 @@ export class AwsUtil {
 
         if (AwsUtil.runningInit) {
             // Need to make sure I don't get into an infinite loop here, so need to exit if this method is running already
-            console.log('AwsUtil: Aborting running initAwsService()...its running already.');
+            // AwsUtil: Aborting running initAwsService()...its running already.
             // instead of aborting here, it's best to put a timer
             if (callback != null) {
                 callback.callback();
@@ -34,7 +34,7 @@ export class AwsUtil {
         }
 
 
-        console.log('AwsUtil: Running initAwsService()');
+        // Cognito: AwsUtil: Running initAwsService()
         AwsUtil.runningInit = true;
 
 
@@ -54,7 +54,7 @@ export class AwsUtil {
      * @param callback
      */
     setupAWS(isLoggedIn: boolean, callback: Callback, idToken: string): void {
-        console.log('AwsUtil: in setupAWS()');
+        // AwsUtil: in setupAWS()
         if (isLoggedIn) {
             console.log('AwsUtil: User is logged in');
             // Setup mobile analytics
@@ -69,7 +69,7 @@ export class AwsUtil {
 
             this.addCognitoCredentials(idToken);
 
-            console.log('AwsUtil: Retrieving the id token');
+            // AwsUtil: Retrieving the id token'
 
         } else {
             console.log('AwsUtil: User is not logged in');
@@ -101,7 +101,7 @@ export class AwsUtil {
 
     // tslint:disable-next-line:member-ordering
     static getCognitoParametersForIdConsolidation(idTokenJwt: string): {} {
-        console.log('AwsUtil: enter getCognitoParametersForIdConsolidation()');
+        // AwsUtil: enter getCognitoParametersForIdConsolidation()
         const url = 'cognito-idp.' + CognitoUtil._REGION.toLowerCase() + '.amazonaws.com/' + CognitoUtil._USER_POOL_ID;
         const logins: Array<string> = [];
         logins[url] = idTokenJwt;

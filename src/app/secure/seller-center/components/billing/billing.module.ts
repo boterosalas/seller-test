@@ -1,19 +1,19 @@
 /* 3rd party components */
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 /* our own custom components */
-import {BillingRoutingModule} from './billing.routing';
-import {BillingService} from './billing.service';
-import {BillingComponent} from './billing-page/billing.component';
-import {BillingProductsOrderComponent} from './billing-products-order/billing-products-order.component';
-import {OrderBillingDetailModalComponent} from './order-detail-modal/order-detail-modal.component';
-import {ProductDetailBillingModalComponent} from './product-detail-modal/product-detail-modal.component';
+import { BillingRoutingModule } from './billing.routing';
+import { BillingService } from './billing.service';
+import { BillingComponent } from './billing-page/billing.component';
+import { BillingProductsOrderComponent } from './billing-products-order/billing-products-order.component';
+import { OrderBillingDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
+import { ProductDetailBillingModalComponent } from './product-detail-modal/product-detail-modal.component';
 import { ToolbarOptionsModule } from '../../../../shared/toolbar-options/toolbar-options.module';
 import { ToolbarLinkModule } from '../../../../shared/toolbar-link/toolbar-link.module';
 import { CdkDetailRowDirectiveModule } from '../../directives/cdk-detail-row/cdk-detail-row.module';
@@ -24,6 +24,8 @@ import { ComponentsService } from '../../utils/services/common/components/compon
 import { ShellComponent } from '../../shell/shell.component';
 import { EventEmitterOrders } from '../../utils/event/eventEmitter-orders.service';
 import { HttpErrorHandlingService } from '../../utils/http/http-error-handling.service';
+import { BillingFulfillmentDetailComponent } from './billing-fulfillment-detail/billing-fulfillment-detail.component';
+import { CognitoUtil } from '../../../../service/cognito.service';
 
 @NgModule({
   imports: [
@@ -41,7 +43,8 @@ import { HttpErrorHandlingService } from '../../utils/http/http-error-handling.s
     BillingComponent,
     BillingProductsOrderComponent,
     OrderBillingDetailModalComponent,
-    ProductDetailBillingModalComponent
+    ProductDetailBillingModalComponent,
+    BillingFulfillmentDetailComponent
   ],
   exports: [
     BillingComponent,
@@ -61,9 +64,9 @@ import { HttpErrorHandlingService } from '../../utils/http/http-error-handling.s
     ShellComponent,
     EventEmitterOrders,
     HttpErrorHandlingService,
-    {provide: MAT_DIALOG_DATA, useValue: {}},
-    {provide: MatDialogRef, useValue: {}}
-
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} },
+    CognitoUtil
   ]
 })
 export class BillingModule {

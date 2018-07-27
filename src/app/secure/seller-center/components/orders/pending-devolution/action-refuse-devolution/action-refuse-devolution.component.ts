@@ -7,10 +7,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PendingDevolutionService } from '../pending-devolution.service';
 import { Logger } from '../../../../utils/logger.service';
 import { User } from '../../../../../../shared/models/login.model';
-import { OrderDevolutionsModel, ListReasonRejectionResponseEntity } from '../../../../../../shared/models/order';
+import { OrderDevolutionsModel, ListReasonRejectionResponseEntity } from '../../../../../../shared';
 import { ComponentsService } from '../../../../utils/services/common/components/components.service';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { FAKE } from '../../../../utils/fakeData.model';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
+import { Callback } from '../../../../../../service/cognito.service';
 
 // log component
 const log = new Logger('ActionRefuseDevolutionComponent');
@@ -24,12 +26,12 @@ const log = new Logger('ActionRefuseDevolutionComponent');
 /**
  * Componente
  */
-export class ActionRefuseDevolutionComponent implements OnInit {
+export class ActionRefuseDevolutionComponent implements OnInit, Callback {
 
   // Variable que almacena los datos del formulario
   myform: FormGroup;
   // Información del usuario.
-  public user: User;
+  public user: any;
   // Información de la orden actual
   public currentOrder: OrderDevolutionsModel;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -49,9 +51,11 @@ export class ActionRefuseDevolutionComponent implements OnInit {
     public dialogRef: MatDialogRef<ActionRefuseDevolutionComponent>,
     public pendingDevolutionService: PendingDevolutionService,
     public userService: UserService,
+    public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
+    this.user= {};
   }
 
   /**
@@ -63,15 +67,14 @@ export class ActionRefuseDevolutionComponent implements OnInit {
     this.createForm();
   }
 
-  /**
-  * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-  * @memberof BillingComponent
-  */
+  callback() { }
+
   getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   /**
@@ -107,11 +110,9 @@ export class ActionRefuseDevolutionComponent implements OnInit {
    * @memberof ActionRefuseDevolutionComponent
    */
   refuseOrder(myform) {
-    log.info(myform);
 
     // busco la razon seleccionada por el usuario
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
-    log.info(reason);
 
     // Armo el json para realizar el envio
     const information = {
@@ -122,7 +123,6 @@ export class ActionRefuseDevolutionComponent implements OnInit {
       Id: this.currentOrder.id
     };
     this.pendingDevolutionService.refuseDevolution(this.user, information).subscribe(res => {
-      log.info(res);
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

@@ -13,20 +13,21 @@ $color-green: #6FB63E;
         color: $color-gray1;
         article {
             width: 50%;
+            box-sizing: border-box;
             &.detail-offer-img {
                 border-right: 1px solid $color-gray3;
                 button {
                     width: 60px;
                     border-radius: 5px;
-                    .mat-button-ripple-round{
+                    .mat-button-ripple-round {
                         border-radius: 5px;
                     }
                 }
                 div {
                     width: 100%;
                     img {
-                        width: 100%;
-                        height: 100%;
+                        width: 90%;
+                        height: 90%;
                         max-width: 400px;
                         max-height: 400px;
                     }
@@ -34,6 +35,23 @@ $color-green: #6FB63E;
             }
             &.detail-offer-desc {
                 padding: 0 0 0 5%;
+                div.container-stock {
+                    p {
+                        max-width: 230px;
+                        margin: 7px 3px;
+                        &.separator {
+                            position: relative;
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                right: 0;
+                                width: 1px;
+                                height: 100%;
+                                background-color: $color-gray3;
+                            }
+                        }
+                    }
+                }
                 p,
                 .mat-icon {
                     margin: 7px 0;
@@ -44,11 +62,14 @@ $color-green: #6FB63E;
                     .mat-icon {
                         display: flex;
                         align-items: center;
+                        font-size: 20px;
                     }
                 }
                 p {
                     width: 100%;
-                    ;
+                    &.text-color {
+                        width: auto;
+                    }
                     &.ean {
                         font-size: 16px;
                     }
@@ -68,7 +89,7 @@ $color-green: #6FB63E;
                     &.stock {
                         color: $color-gray2;
                     }
-                    b {
+                    strong {
                         font-weight: normal;
                         color: $color-gray1;
                         &.sold-out {
@@ -79,7 +100,7 @@ $color-green: #6FB63E;
                 aside {
                     border: 1px solid $color-gray3;
                     border-radius: 5px;
-                    width: 80%;
+                    width: 95%;
                     margin: 5% 0;
                     div {
                         position: relative;
@@ -117,10 +138,59 @@ $color-green: #6FB63E;
                 }
             }
         }
-        @media screen and (max-width: 768px){
-            
+        @media screen and (max-width: 768px) {
+            article {
+                width: 90%;
+                &.detail-offer-img {
+                    border-right: none;
+                    border-bottom: 1px dashed $color-gray3;
+                    button {
+                        &.btn-back {
+                            display: none;
+                        }
+                    }
+                    div {
+                        &.offer-img{
+                            box-sizing: border-box;
+                            padding: 5% 0;
+                        }
+                        img {
+                            max-width: 300px;
+                            max-height: 300px;
+                        }
+                    }
+                }
+                &.detail-offer-desc {
+                    padding: 0;
+                    p {
+                        &.text-color {
+                            width: auto;
+                        }
+                        &.ean {
+                            color: $color-black;
+                        }
+                        &.name {
+                            font-size: 24px;
+                        }
+                        &.price-strikethrough {
+                            font-size: 20px;
+                        }
+                        &.price {
+                            font-size: 36px;
+                        }
+                        &.stock {
+                            color: $color-gray2;
+                        }
+                        strong {
+                            font-weight: normal;
+                            color: $color-gray1;
+                            &.sold-out {
+                                color: $color-gray4;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
-
-
 }

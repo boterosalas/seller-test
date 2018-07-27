@@ -11,17 +11,19 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { InValidationService } from '../in-validation.service';
 import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
 import { Logger } from '../../../../utils/logger.service';
-import { Pending, SearchFormEntity } from '../../../../../../shared/models/order';
+import { Pending, SearchFormEntity } from '../../../../../../shared';
 import { User } from '../../../../../../shared/models/login.model';
 import { Const } from '../../../../../../shared/util/constants';
 import { UserService } from '../../../../utils/services/common/user/user.service';
 import { ShellComponent } from '../../../../shell/shell.component';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
+import { Callback } from '../../../../../../service/cognito.service';
 
 // log component
 const log = new Logger('InValidationComponent');
 
 /**
- * Component para visualizar las ordenes en estado en validación
+ * Component para visualizar las órdenes en estado en validación
  */
 @Component({
   selector: 'app-in-validation',
@@ -37,7 +39,7 @@ const log = new Logger('InValidationComponent');
   ]
 })
 
-export class InValidationComponent implements OnInit, OnDestroy {
+export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   // Elemento paginador
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,10 +65,10 @@ export class InValidationComponent implements OnInit, OnDestroy {
   public selection = new SelectionModel<Pending>(true, []);
   // Variable que almacena el numero de elementos de la tabla
   public numberElements = 0;
-  // Número de ordenes
+  // Número de órdenes
   public orderListLength = false;
   //  user info
-  public user: User;
+  public user: any;
   // suscriptions vars
   private subFilterOrderPending: any;
   // Configuración para el toolbar-options y el search de la pagina
@@ -97,8 +99,10 @@ export class InValidationComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private zone: NgZone,
     private inValidationService: InValidationService,
-    public userService: UserService
+    public userService: UserService,
+    public userParams: UserParametersService
   ) {
+    this.user = {};
   }
 
   /**
@@ -107,13 +111,21 @@ export class InValidationComponent implements OnInit, OnDestroy {
    * @memberof InValidationComponent
    */
   ngOnInit() {
-    log.info('Devoluciones pendientes component load');
     this.getDataUser();
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }
 
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+  }
 
   /**
    * Funcionalidad para remover las suscripciones creadas.
@@ -126,19 +138,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   *
-   * @memberof BillingComponent
-   */
-  getDataUser() {
-    this.user = this.userService.getUser();
-    if (this.user.login === undefined) {
-      this.userService.setUser([]);
-    }
-  }
-
-  /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de ordenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    *
    * @memberof OrdersListComponent
    */
@@ -146,8 +146,6 @@ export class InValidationComponent implements OnInit, OnDestroy {
 
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
-        log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -165,17 +163,16 @@ export class InValidationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método para cambiar el page size de la tabla ordenes
+   * Método para cambiar el page size de la tabla órdenes
    * @param {any} $event
    * @memberof InValidationComponent
    */
   changeSizeOrderTable($event) {
-    log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
 
   /**
-   * Método para obtener la lista de ordenes.
+   * Método para obtener la lista de órdenes.
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
@@ -187,7 +184,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
       };
     }
     // tslint:disable-next-line:max-line-length
-    const stringSearch = `?idSeller=${localStorage.getItem('sellerId')}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
 
     this.inValidationService.getOrders(this.user, stringSearch).subscribe((res: any) => {
       if (res != null) {
@@ -197,7 +194,6 @@ export class InValidationComponent implements OnInit, OnDestroy {
           this.orderListLength = false;
         }
       }
-      log.info(res);
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
       // this.paginator.pageIndex = 0;

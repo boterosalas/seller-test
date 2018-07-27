@@ -8,10 +8,10 @@ import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
     {
-        path: `${RoutesConst.sellerCenterUrlsInt.orderInDevolution}`,
+        path: `${RoutesConst.sellerCenterIntOrderInDevolution}`,
         component: InDevolutionComponent,
         data: { title: 'En devolución' }
-    },
+    }
 ];
 
 @NgModule({

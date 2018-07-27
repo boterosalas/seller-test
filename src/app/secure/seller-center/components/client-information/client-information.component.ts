@@ -1,7 +1,7 @@
 /* 3rd party components */
 import {Component} from '@angular/core';
 import {Input} from '@angular/core';
-import { Order } from '../../../../shared/models/order';
+import { Order } from '../../../../shared';
 import { Const } from '../../../../shared/util/constants';
 
 /* our own custom components */

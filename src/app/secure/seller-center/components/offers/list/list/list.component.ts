@@ -2,6 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '../../../../shell/shell.component';
+import { UserLoginService } from '../../../../../../service/user-login.service';
+import { Router } from '@angular/router';
+import { ListService } from '../list.service';
+import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+import { LoggedInCallback, Callback } from '../../../../../../service/cognito.service';
+import { UserParametersService } from '../../../../../../service/user-parameters.service';
 
 @Component({
     selector: 'app-list-component',
@@ -9,11 +15,14 @@ import { ShellComponent } from '../../../../shell/shell.component';
     styleUrls: ['./list.component.scss']
 })
 
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     @ViewChild('sidenav') sidenav: MatSidenav;
 
+    public user: any;
+
     public viewDetailOffer = false;
+
     public dataOffer: any;
 
     public filterActive = false;
@@ -24,195 +33,48 @@ export class ListComponent implements OnInit {
 
     public listOffer: any;
 
-    public data = [
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black jas asjas seks asa aakd',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 0,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 0,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 0,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 586000,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-        {
-            'imageUrl': '../../../../../../assets/offers/gopro.png',
-            'ean': '80337790305753A',
-            'price': 1599900,
-            'discountPrice': 889900,
-            'name': 'Cámara deportiva go pro Hero 5 black',
-            'stock': 0,
-            'updatedDate': new Date(),
-            'idOffer': 123465,
-            'promiseDelivery': '2 a 6',
-            'shippingCost': 3000,
-            'warranty': 6,
-            'isFreeShipping': true,
-            'isEnviosExito': false,
-            'isFreightCalculator': false,
-            'size': '',
-            'hexColourCodePDP': ''
-        },
-    ];
+    public inDetail: boolean;
 
-    constructor(public shellComponent: ShellComponent) {
+    constructor(
+        public shellComponent?: ShellComponent,
+        public userService?: UserLoginService,
+        public router?: Router,
+        public offerService?: ListService,
+        public userParams?: UserParametersService
+    ) {
         this.paramData = new ModelFilter();
+        this.user = {};
     }
 
     ngOnInit() {
-        this.getListOffers();
+        this.userService.isAuthenticated(this);
+    }
+
+    isLoggedIn(message: string, isLoggedIn: boolean) {
+        if (isLoggedIn) {
+            this.getDataUser();
+            this.validateProfile();
+        } else if (!isLoggedIn) {
+            this.router.navigate(['/home']);
+        }
+
+    }
+
+    callback() { }
+
+    getDataUser() {
+        this.userParams.getUserData(this);
+    }
+
+    callbackWithParam(userData: any) {
+        this.user = userData;
+    }
+    validateProfile() {
+        if (this.user.sellerProfile === 'administrator') {
+            this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+        } else {
+            this.getListOffers();
+        }
     }
 
     /**
@@ -224,7 +86,7 @@ export class ListComponent implements OnInit {
     openDetailOffer(item) {
         this.viewDetailOffer = true;
         this.dataOffer = item;
-
+        this.inDetail = true;
     }
 
     /**
@@ -272,7 +134,18 @@ export class ListComponent implements OnInit {
      * @description Metodo para consumir el servicio de listado de ofertas
      */
     getListOffers() {
-        this.listOffer = 'Consultando listado de ofertas';
-        console.log(this.listOffer);
+        this.shellComponent.loadingComponent.viewLoadingSpinner();
+        this.offerService.getOffers().subscribe(
+            (result: any) => {
+                if (result.status === 200) {
+                    const data_response = result.body.data;
+                    this.listOffer = data_response.sellerOfferViewModels;
+                    this.shellComponent.loadingComponent.closeLoadingSpinner();
+                } else {
+                    this.shellComponent.loadingComponent.closeLoadingSpinner();
+                    this.shellComponent.modalComponent.showModal('errorService');
+                }
+            }
+        );
     }
 }

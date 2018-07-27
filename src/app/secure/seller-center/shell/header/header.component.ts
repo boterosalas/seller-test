@@ -6,10 +6,11 @@ import { environment } from '../../../../environments/environment';
 import { ShellComponent } from '../shell.component';
 import { Logger } from '../../utils/logger.service';
 import { User } from '../../../../shared/models/login.model';
-import { CognitoUtil, LoggedInCallback } from '../../../../service/cognito.service';
+import { CognitoUtil, LoggedInCallback, Callback } from '../../../../service/cognito.service';
 import { FAKE } from '../../utils/fakeData.model';
 import { RoutesConst } from '../../../../shared/util/routes.constants';
 import { UserLoginService } from '../../../../service/user-login.service';
+import { UserParametersService } from '../../../../service/user-parameters.service';
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -20,7 +21,7 @@ const log = new Logger('HeaderComponent');
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit, LoggedInCallback {
+export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
 
   // booleano para visualizar la barra de toolbar
   @Input() viewToolbarPrincipal: boolean;
@@ -42,17 +43,27 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   constructor(
     public shellComponent: ShellComponent,
     public cognitoUtil: CognitoUtil,
-    public userService: UserLoginService
+    public userService: UserLoginService,
+    public userParams: UserParametersService
   ) {
     this.user = {};
   }
-
 
   /**
    * @memberof HeaderComponent
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
+  }
+
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -63,24 +74,11 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   }
 
   /**
-   * Funcionalidad encargada de traer la información del usuario que se encuentra almacenada en localstorage.
-   * @memberof ShellComponent
-   */
-  getDataUser() {
-    this.user['sellerId'] = localStorage.getItem('sellerId');
-    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
-    this.user['sellerName'] = localStorage.getItem('sellerName');
-    this.user['sellerNit'] = localStorage.getItem('sellerNit');
-    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
-  }
-
-  /**
    * Funcionalidad que permite desplegar el menú.
    * @memberof HeaderComponent
    */
   toggleMenu() {
     this.sidenav.toggle();
-    log.info('Sidenav toggle');
   }
 
 }

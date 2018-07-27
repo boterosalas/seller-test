@@ -15,11 +15,11 @@ export const environment = {
     // seller: 'http://ec2-34-200-30-156.compute-1.amazonaws.com/api',
     shipments: 'http://ec2-54-157-210-146.compute-1.amazonaws.com/api'
   },
-   // constantes para cognito
+   // constantes para cognito productivo
    region: 'us-east-1',
    identityPoolId: '',
-   userPoolId: 'us-east-1_5vEqf5WT0',
-   clientId: '6sovc853lkkuk7km70jlvlu8u2',
+   userPoolId: 'us-east-1_jkYIlpzxO',
+   clientId: '1qhkrhnhjq3171otjfqe8k1h9u',
    rekognitionBucket: 'rekognition-pics',
    albumName: 'usercontent',
    bucketRegion: 'us-east-1',

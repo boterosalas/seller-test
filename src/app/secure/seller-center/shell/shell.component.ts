@@ -11,14 +11,15 @@ import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
 import { Logger } from '../utils/logger.service';
 import { User } from '../../../shared/models/login.model';
-import { SearchFormEntity, InformationToForm } from '../../../shared/models/order';
+import { SearchFormEntity, InformationToForm } from '../../../shared';
 import { UserService } from '../utils/services/common/user/user.service';
 import { ComponentsService } from '../utils/services/common/components/components.service';
 import { EventEmitterOrders } from '../utils/event/eventEmitter-orders.service';
 import { SupportModalComponent } from '../components/support-modal/support-modal.component';
-import { LoggedInCallback } from '../../../service/cognito.service';
+import { LoggedInCallback, Callback } from '../../../service/cognito.service';
 import { UserLoginService } from '../../../service/user-login.service';
 import { HeaderComponent } from './header/header.component';
+import { UserParametersService } from '../../../service/user-parameters.service';
 // log component
 const log = new Logger('ShellComponent');
 
@@ -28,7 +29,7 @@ const log = new Logger('ShellComponent');
   styleUrls: ['./shell.component.scss']
 })
 
-export class ShellComponent implements OnInit, LoggedInCallback {
+export class ShellComponent implements OnInit, LoggedInCallback, Callback {
 
   public showHeader: boolean;
   public user: any;
@@ -36,7 +37,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   /* SideMenu de la aplicación */
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  /* Sidenav de busqueda de ordenes */
+  /* Sidenav de busqueda de órdenes */
   @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
 
   /* Loading de la pagina */
@@ -80,7 +81,8 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     public componentservice: ComponentsService,
     private router: Router,
     public eventEmitterOrders: EventEmitterOrders,
-    public userServiceCognito: UserLoginService
+    public userServiceCognito: UserLoginService,
+    public userParams: UserParametersService
   ) {
     this.user = {};
   }
@@ -102,7 +104,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     if (isLoggedIn) {
       this.viewToolbarPrincipal = true;
       this.showHeader = true;
-      this.getUser();
+      this.getDataUser();
     } else if (!isLoggedIn) {
       this.showHeader = false;
       this.viewToolbarPrincipal = false;
@@ -110,12 +112,14 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     }
   }
 
-  getUser() {
-    this.user['sellerId'] = localStorage.getItem('sellerId');
-    this.user['sellerProfile'] = localStorage.getItem('sellerProfile');
-    this.user['sellerName'] = localStorage.getItem('sellerName');
-    this.user['sellerNit'] = localStorage.getItem('sellerNit');
-    this.user['sellerEmail'] = localStorage.getItem('sellerEmail');
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
   }
   /**
    * Funcionalidad que permite desplegar el menú.
@@ -123,12 +127,11 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    */
   toggleMenu() {
     this.sidenav.toggle();
-    log.info('Sidenav toggle');
     // this.loadingComponent.viewLoadingProgressBar();
   }
 
   /**
-  * Funcionalidad que permite desplegar el menú de filtro de ordenes.
+  * Funcionalidad que permite desplegar el menú de filtro de órdenes.
   * @memberof SidebarComponent
   */
   toggleMenuSearchOrder(informationToForm: SearchFormEntity) {
@@ -148,7 +151,6 @@ export class ShellComponent implements OnInit, LoggedInCallback {
       panelClass: 'full-width-dialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      log.info('The dialog SupportModalComponent was closed');
       this.loadingComponent.closeLoadingProgressBar();
     });
   }

@@ -85,7 +85,7 @@ export class EndpointService {
             const applyParams = !this.isEmptyArr(params);
 
             // Endpoint por defecto
-            if(this.apiUrl === ''){
+            if (this.apiUrl === '') {
                 endpoint = `${this.apiUrl}${valueEndPoint}`;
             } else {
                 endpoint = `${this.apiUrl}/${valueEndPoint}`;

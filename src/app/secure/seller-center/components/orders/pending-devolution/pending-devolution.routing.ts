@@ -8,12 +8,11 @@ import { PendingDevolutionComponent } from './pending-devolution-page/pending-de
 import { RoutesConst } from '../../../../../shared/util/routes.constants';
 
 const routes: Routes = [
-
     {
-        path: `${RoutesConst.sellerCenterUrlsInt.orderInPendingDevolution}`,
+        path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
         component: PendingDevolutionComponent,
         data: { title: 'Solicitudes pendientes' }
-    },
+    }
 ];
 
 @NgModule({
