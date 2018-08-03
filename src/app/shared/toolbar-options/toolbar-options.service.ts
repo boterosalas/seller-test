@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /* our own custom components */
-import { HttpErrorHandlingService } from '../../secure/seller-center/utils/http/http-error-handling.service';
-import { EndpointService } from '../../secure/seller-center/utils/http/endpoint.service';
+import { HttpErrorHandlingService, EndpointService } from '../services';
 
 
 @Injectable()

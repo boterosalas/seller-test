@@ -50,16 +50,13 @@
       </mat-menu>
 
 
-      <!-- <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
+      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
       <mat-menu #products="matMenu">
         <button mat-menu-item>
-          <span>Item Link</span>
-        </button>
-        <button mat-menu-item>
-          <span>Item Link</span>
+          <span>Carga masiva</span>
         </button>
       </mat-menu> 
 
@@ -71,7 +68,7 @@
         <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterIntBillingPayments]">
           <span>Pagos</span>
         </button>
-      </mat-menu>-->
+      </mat-menu>
 
       <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers" *ngIf="user.sellerProfile === 'administrator'">
         <mat-icon>arrow_drop_down</mat-icon>

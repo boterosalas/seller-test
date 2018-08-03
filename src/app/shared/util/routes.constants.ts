@@ -1,4 +1,4 @@
-import { CategoryList } from '../models/order.model';
+import { CategoryList } from '../models';
 
 export class RoutesConst {
     static readonly home: any = 'home';
@@ -7,14 +7,18 @@ export class RoutesConst {
     static readonly logout: any = 'logout';
     static readonly jwttokens: any = 'jwttokens';
     static readonly useractivity: any = 'useractivity';
+    static readonly forgotPassword: any = 'forgotPassword';
+    static readonly confirmRegistration: any = 'confirmRegistration';
+    static readonly newPassword: any = 'newPassword';
+    static readonly error: any = 'error';
     static readonly securehome: any = 'securehome';
+
     static readonly seller: any = 'seller-center';
     static readonly orders: any = 'ordenes';
     static readonly offers: any = 'ofertas';
     static readonly sellers: any = 'vendedores';
     static readonly billing: any = 'billing';
     static readonly shipmentsExito: any = 'envios-exito';
-    static readonly secureSeller: any = 'securehome/seller-center';
 
     static readonly ordersState: any = 'estado';
     static readonly orderLoadGuide: any = 'cargar-guia';
@@ -31,34 +35,41 @@ export class RoutesConst {
     static readonly shipmentsExitoPending: any = 'pendientes';
     static readonly shipmentsExitoReports: any = 'reportes';
 
-    static readonly sellerCenterOrders = RoutesConst.secureSeller + '/' + RoutesConst.orders;
-    static readonly sellerCenterOffers = RoutesConst.secureSeller + '/' + RoutesConst.offers;
-    static readonly sellerCenterSellers = RoutesConst.secureSeller + '/' + RoutesConst.sellers;
-    static readonly sellerCenterBilling = RoutesConst.secureSeller + '/' + RoutesConst.billing;
-    static readonly sellerCenterShipmentsExito = RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
-    static readonly sellerCenterMyProfile = RoutesConst.securehome + '/' + RoutesConst.myProfile;
-    static readonly sellerCenterLogout = RoutesConst.securehome + '/' + RoutesConst.logout;
-    static readonly sellerCenterJwttokens = RoutesConst.securehome + '/' + RoutesConst.jwttokens;
-    static readonly sellerCenterUserActivity = RoutesConst.securehome + '/' + RoutesConst.useractivity;
+    static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
+    static readonly homeForgotPassword: any = RoutesConst.home + '/' + RoutesConst.forgotPassword;
+    static readonly homeConfirmRegistration: any = RoutesConst.home + '/' + RoutesConst.confirmRegistration;
+    static readonly homeNewPassword: any = RoutesConst.home + '/' + RoutesConst.newPassword;
 
-    static readonly sellerCenterIntOrderLoadGuide = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
-    static readonly sellerCenterIntOrdersState = RoutesConst.sellerCenterOrders + '/' + RoutesConst.ordersState;
-    static readonly sellerCenterIntOrderInDevolution = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInDevolution;
-    static readonly sellerCenterIntOrderInValidation = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInValidation;
-    static readonly sellerCenterIntOrderInPendingDevolution = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInPendingDevolution;
+    static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
-    static readonly sellerCenterIntOfersList = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
-    static readonly sellerCenterIntOferBulkLoad = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferBulkLoad;
-    static readonly sellerCenterIntOferTreeCategory = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
+    static readonly sellerCenterOrders: any = RoutesConst.secureSeller + '/' + RoutesConst.orders;
+    static readonly sellerCenterOffers: any = RoutesConst.secureSeller + '/' + RoutesConst.offers;
+    static readonly sellerCenterSellers: any = RoutesConst.secureSeller + '/' + RoutesConst.sellers;
+    static readonly sellerCenterBilling: any = RoutesConst.secureSeller + '/' + RoutesConst.billing;
+    static readonly sellerCenterShipmentsExito: any = RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
+    static readonly sellerCenterMyProfile: any = RoutesConst.securehome + '/' + RoutesConst.myProfile;
+    static readonly sellerCenterLogout: any = RoutesConst.securehome + '/' + RoutesConst.logout;
+    static readonly sellerCenterJwttokens: any = RoutesConst.securehome + '/' + RoutesConst.jwttokens;
+    static readonly sellerCenterUserActivity: any = RoutesConst.securehome + '/' + RoutesConst.useractivity;
 
-    static readonly sellerCenterIntBillingPayments = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
+    static readonly sellerCenterIntOrderLoadGuide: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
+    static readonly sellerCenterIntOrdersState: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.ordersState;
+    static readonly sellerCenterIntOrderInDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInDevolution;
+    static readonly sellerCenterIntOrderInValidation: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInValidation;
+    static readonly sellerCenterIntOrderInPendingDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInPendingDevolution;
 
-    static readonly sellerCenterIntSellerRegister = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerRegister;
+    static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
+    static readonly sellerCenterIntOferBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferBulkLoad;
+    static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
 
-    static readonly sellerCenterIntShipmentsExitoHist = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
-    static readonly sellerCenterIntShipmentsExitoOffice = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;
-    static readonly sellerCenterIntShipmentsExitoPending = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoPending;
-    static readonly sellerCenterIntShipmentsExitoReports = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoReports;
+    static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
+
+    static readonly sellerCenterIntSellerRegister: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerRegister;
+
+    static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
+    static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;
+    static readonly sellerCenterIntShipmentsExitoPending: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoPending;
+    static readonly sellerCenterIntShipmentsExitoReports: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoReports;
 
     /**
      * Lista de categorías para los menus

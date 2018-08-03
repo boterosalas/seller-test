@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AwsUtil } from './service/aws.service';
-import { UserLoginService } from './service/user-login.service';
-import { CognitoUtil, LoggedInCallback } from './service/cognito.service';
+import { AwsUtil, UserLoginService, CognitoUtil, LoggedInCallback } from '@app/shared';
 
 @Component({
     selector: 'app-root',
-    templateUrl: 'template/app.html',
+    templateUrl: 'app.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false

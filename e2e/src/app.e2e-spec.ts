@@ -1,4 +1,4 @@
-import { AppPage } from './app.po';
+import { AppPage } from '@root/e2e/src/app.po';
 
 describe('workspace-project App', () => {
   let page: AppPage;

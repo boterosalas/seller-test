@@ -1,5 +1,5 @@
 import { enableProdMode } from '@angular/core';
-import { environment } from './app/environments/environment';
+import { environment } from '@env/environment';
 
 
 

@@ -1,14 +1,12 @@
 /* 3rd party components */
-import { ShellComponent } from '../../secure/seller-center/shell/shell.component';
-import { Component, Input, Output, EventEmitter, ViewChild, SimpleChanges, SimpleChange } from '@angular/core';
+import { ShellComponent } from '@core/shell/shell.component';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
 
 /* our own custom components */
-import { SearchFormEntity } from '../models/order.model';
-import { Logger } from '../../secure/seller-center/utils/logger.service';
-import { getDutchPaginatorIntl } from '../../secure/seller-center/utils/services/common/components/mat-table.config';
-// tslint:disable-next-line:max-line-length
-import { DownloadOrderModalComponent } from '../../secure/seller-center/components/orders/download-order-modal/download-order-modal.component';
+import { SearchFormEntity } from '../models';
+import { Logger, getDutchPaginatorIntl } from './../services';
+import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal/download-order-modal.component';
 
 
 // log component

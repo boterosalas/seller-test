@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserRegistrationService } from '../../../service/user-registration.service';
-import { UserLoginService } from '../../../service/user-login.service';
-import { LoggedInCallback } from '../../../service/cognito.service';
-import { ShellComponent } from '../../../secure/seller-center/shell/shell.component';
+import {
+    UserRegistrationService,
+    UserLoginService,
+    LoggedInCallback,
+    RoutesConst
+} from '@app/shared';
+import { ShellComponent } from '@app/core/shell/shell.component';
 
 @Component({
     selector: 'app-awscognito',
@@ -22,7 +25,7 @@ export class LogoutComponent implements LoggedInCallback {
         this.shell.showHeader = false;
         this.userService.logout();
         localStorage.clear();
-        this.router.navigate(['/home/login']);
+        this.router.navigate([`/${RoutesConst.homeLogin}`]);
     }
 }
 
@@ -63,7 +66,7 @@ export class RegistrationConfirmationComponent implements OnInit, OnDestroy {
             console.log('message: ' + this.errorMessage);
         } else {
             // this.configs.curUser = result.user;
-            this.router.navigate(['/securehome']);
+            this.router.navigate([`/${RoutesConst.securehome}`]);
         }
     }
 }
