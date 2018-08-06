@@ -8,7 +8,7 @@ phases:
   build:
     commands:
       - echo Instalando npm...
-      - npm install
+      - npm i npm@latest -g
       - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
       - npm install -g @angular/cli
