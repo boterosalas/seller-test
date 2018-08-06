@@ -14,7 +14,7 @@ phases:
       - npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
       - echo Iniciando compilacion...
-      - ng build --configuration=pdn
+      - ng build --configuration=stage
       - echo Compilacion terminada.
       - echo Borrando archivos en bucket...
       - aws s3 rm s3://${S3_BUCKET} --recursive
