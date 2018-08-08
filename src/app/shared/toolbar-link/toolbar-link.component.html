@@ -12,22 +12,21 @@
 
         <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
           <span>{{item.name}}</span>
-          <!-- <span>{{item.name}} ({{item.count}})</span> -->
         </button>
 
 
-        <!-- <button mat-menu-item id="dropdown-button-pending-devolution"
-                [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]">
+         <button mat-menu-item id="dropdown-button-pending-devolution"
+                [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation"
-                [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]">
+                [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]" *ngIf="!isProductionEnv">
           <span>En validación</span>
         </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]">
+        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <span>En devolución</span>
-        </button> -->
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]">
+        </button> 
+        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <span>Cargar guías</span>
         </button>
 
@@ -50,17 +49,17 @@
       </mat-menu>
 
 
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products">
+      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user.sellerProfile === 'administrator' && !isProductionEnv">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
       <mat-menu #products="matMenu">
         <button mat-menu-item>
-          <span>Carga masiva</span>
+          <span>Carga Masiva</span>
         </button>
       </mat-menu> 
 
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing">
+      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
         <mat-icon>arrow_drop_down</mat-icon>
         Facturación
       </button>

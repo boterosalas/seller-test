@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CategoryList } from '../models';
 import { RoutesConst } from '../util';
 import { LoggedInCallback, Callback, UserLoginService, UserParametersService } from '../services';
+import { environment } from '@env/environment';
 /**
  * Component
  */
@@ -29,7 +30,8 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback 
 
   // Lista de categorías
   public categoryList: any;
-
+  // validation of deploy production or stage (qa)
+  isProductionEnv = environment.production;
   /**
    * Creates an instance of ToolbarLinkComponent.
    * @param {Router} route

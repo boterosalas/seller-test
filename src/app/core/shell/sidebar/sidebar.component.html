@@ -24,16 +24,15 @@
           <h6 matLine [innerHTML]="item.name"></h6>
         </mat-list-item>
 
-
-        <!-- <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInPendingDevolution]">
+         <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>Solicitudes pendientes</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInValidation]">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInValidation]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>En validación</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInDevolution]">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>En devolución</h6>
-        </mat-list-item> -->
+        </mat-list-item>
         <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderLoadGuide]">
           <h6 matLine>Cargar guías</h6>
         </mat-list-item>
@@ -60,6 +59,23 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOferTreeCategory]" *ngIf="user.sellerProfile === 'administrator'">
           <h6 matLine>Arbol de categorías</h6>
         </mat-list-item>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'administrator' && !isProductionEnv">
+
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+          <mat-panel-title>
+            Productos
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['']">
+          <h6 matLine>Carga masiva</h6>
+        </mat-list-item>
+
       </mat-expansion-panel>
     </div>
 
@@ -126,22 +142,6 @@
       <h6 matLine>Salir</h6>
     </mat-list-item>
 
-    <div class="content-menu-list">
-
-      <mat-expansion-panel class="expansion-menu-list" expanded="false">
-        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
-          <mat-panel-title>
-            Productos
-          </mat-panel-title>
-
-        </mat-expansion-panel-header>
-
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['']">
-          <h6 matLine>Carga masiva</h6>
-        </mat-list-item>
-
-      </mat-expansion-panel>
-    </div>
     <!-- 
     <div class="content-menu-list">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
