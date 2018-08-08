@@ -3,16 +3,21 @@ version: 0.2
 env:
   variables:
     S3_BUCKET: "sellercenter.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID: "E3462U4NPR8XV7"
 
 phases:
-  build:
+
+  install:
     commands:
       - echo Instalando npm...
       - npm install
       - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
       - npm install -g @angular/cli
+      - npm i npm@latest -g
       - echo Instalacion de Angular finalizada.
+  build:
+    commands:
       - echo Iniciando compilacion...
       - ng build --configuration=stage
       - echo Compilacion terminada.
@@ -24,12 +29,11 @@ phases:
       - echo Archivos transferidos.
       - echo Borrando cache en CloudFront...
       - aws configure set preview.cloudfront true
-      - aws cloudfront create-invalidation --distribution-id "E3462U4NPR8XV7" --paths "/*"
+      - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths "/*"
       - echo Cache borrado.
       - echo Cargando artefacto a S3...
 
 artifacts:
-  type: S3
   files:
     - '**/*'
   base-directory: deploy/dist
