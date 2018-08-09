@@ -62,6 +62,9 @@ $color-blue: #485AFA;
                         .mat-button-ripple-round {
                             border-radius: 5px;
                         }
+                        &[disabled]{
+                            color: $color-gray3;
+                        }
                     }
                 }
                 p.pagination-num {

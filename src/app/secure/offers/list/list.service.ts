@@ -26,17 +26,17 @@ export class ListService {
   * @memberof ListService
   */
   public getOffers(params?: any): Observable<{}> {
-    let ulrParams: any;
+    let urlParams: any;
     this.paramsData.ean = params === undefined || params.ean === undefined ? null : params.ean;
     this.paramsData.product = params === undefined || params.product === undefined ? null : params.product.replace(/\ /g, '+');
     this.paramsData.stock = params === undefined || params.stock === undefined ? null : params.stock;
     this.paramsData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramsData.limit = params === undefined || params.limit === undefined ? null : params.limit;
-    ulrParams = '/' + this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
+    urlParams = '/' + this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
     const idToken = this.cognitoUtil.getTokenLocalStorage();
     const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
     return new Observable(observer => {
-      this.http.get<any>(this.endpoint + ulrParams, { observe: 'response', headers: headers })
+      this.http.get<any>(this.endpoint + urlParams, { observe: 'response', headers: headers })
         .subscribe(
           data => {
             observer.next(data);

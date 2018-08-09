@@ -161,7 +161,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
         this.shellComponent.loadingComponent.viewLoadingSpinner();
         this.offerService.getOffers(params).subscribe(
             (result: any) => {
-                if (result.status === 200) {
+                if (result.status === 200 && result.body !== undefined) {
                     const response = result.body.data;
                     this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
                     this.numberPages = Math.ceil(this.numberPages);
