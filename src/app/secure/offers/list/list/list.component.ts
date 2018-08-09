@@ -1,5 +1,8 @@
+/* 3rd party components */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { Router } from '@angular/router';
+/* our own custom components */
 import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '@core/shell/shell.component';
 import {
@@ -9,8 +12,23 @@ import {
     UserParametersService,
     RoutesConst
 } from '@app/shared';
-import { Router } from '@angular/router';
 import { ListService } from '../list.service';
+/**
+ * Component que permite realizar la carga de guías, consta de tres componentes mas
+ * FinishUploadProductInformationComponent
+ * TableLoadComponent
+ * TableErrorsComponent
+ * Estos componentes se emplean para separar
+ * el comportamiento de la carga de guías, se
+ * emplea "TableErrorsComponent" para visualizar la
+ * lista de errores capturados al momento de subir el archivo excel.
+ * se emplea "TableLoadComponent" para visualizar la lista de datos
+ * con errores en una tabla y visualizar el total de registros correctos
+ * y se emplea "FinishUploadProductInformationComponent" para desplegar un modal
+ * donde se visualicen los logs generados por el back al momento de envíar
+ * las guías. en FinishUploadProductInformationComponent se permite generar un excel
+ * con el log obtenido.
+ */
 
 @Component({
     selector: 'app-list-component',
@@ -30,7 +48,14 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     public listOffer: any;
     public inDetail: boolean;
     public numberPages: any;
-
+  /**
+   * Creates an instance of BulkLoadProductComponent.
+   * @param {ComponentsService} componentService
+   * @param {BulkLoadProductService} BulkLoadProductService
+   * @param {MatDialog} dialog
+   * @param {ShellComponent} shellComponent
+   * @memberof BulkLoadProductComponent
+   */
     constructor(
         public shellComponent?: ShellComponent,
         public userService?: UserLoginService,
