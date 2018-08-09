@@ -3,27 +3,40 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CognitoUtil } from '@app/shared';
 import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+import { ModelFilter } from './components/filter/filter.model';
 
 @Injectable()
 export class ListService {
 
-  endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getOffers'];
-  httpOptions: any;
+  public endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getOffers'];
+  public httpOptions: any;
+  public paramsData: ModelFilter;
 
-  constructor(private http: HttpClient, public cognitoUtil: CognitoUtil) {
+  constructor(
+    private http: HttpClient,
+    public cognitoUtil: CognitoUtil
+  ) {
+    this.paramsData = new ModelFilter();
   }
+
   /**
-  * Método para cerrar sesión
+  * @method getOffers
+  * @description Metodo para obtener el listado de ofertas
   * @returns {Observable<{}>}
-  * @memberof StatesService
+  * @memberof ListService
   */
-  public getOffers(): Observable<{}> {
+  public getOffers(params?: any): Observable<{}> {
+    let ulrParams: any;
+    this.paramsData.ean = params === undefined || params.ean === undefined ? null : params.ean;
+    this.paramsData.product = params === undefined || params.product === undefined ? null : params.product.replace(/\ /g, '+');
+    this.paramsData.stock = params === undefined || params.stock === undefined ? null : params.stock;
+    this.paramsData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
+    this.paramsData.limit = params === undefined || params.limit === undefined ? null : params.limit;
+    ulrParams = '/' + this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
     const idToken = this.cognitoUtil.getTokenLocalStorage();
-
     const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-
     return new Observable(observer => {
-      this.http.get<any>(this.endpoint, { observe: 'response', headers: headers })
+      this.http.get<any>(this.endpoint + ulrParams, { observe: 'response', headers: headers })
         .subscribe(
           data => {
             observer.next(data);

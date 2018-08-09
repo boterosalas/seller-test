@@ -13,7 +13,8 @@ export class StatesService {
   constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {
   }
   /**
-  * Método para cerrar sesión
+  * @method fetchData
+  * @description Metodo para obtener el listado de departamentos
   * @returns {Observable<{}>}
   * @memberof StatesService
   */

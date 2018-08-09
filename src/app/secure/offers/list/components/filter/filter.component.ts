@@ -38,11 +38,22 @@ export class FilterComponent implements OnInit, OnChanges {
         this.formFilter = new ModelFilter();
     }
 
+    /**
+     * @method ngOnInit
+     * @description Metodo que se llama mientras se inicia el componente
+     * @memberof FilterComponent
+     */
     ngOnInit() {
         this.createFormControls();
         this.createForm();
     }
 
+    /**
+     * @method ngOnChanges
+     * @description Metodo que se ejecuta cuando cambie algún miembro de la clase
+     * @param changes
+     * @memberof FilterComponent
+     */
     ngOnChanges(changes: SimpleChanges) {
         switch (changes.filterRemoved.currentValue) {
             case 'filterProduct':
@@ -85,7 +96,7 @@ export class FilterComponent implements OnInit, OnChanges {
     /**
      * @method toggleMenu
      * @memberof FilterComponent
-     * @description Metodo para cerrar el menu
+     * @description Metodo para abrir o cerrar el menu
      */
     toggleMenu() {
         this.sidenav.toggle();

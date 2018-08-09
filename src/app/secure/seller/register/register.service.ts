@@ -12,13 +12,17 @@ export class RegisterService {
   writerValidateSellerName = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerName'];
   httpOptions: any;
 
-  constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {
-  }
+  constructor(
+    private http: HttpClient,
+    public cognitoUtil: CognitoUtil
+  ) { }
 
   /**
-   *
+   * @method fetchData
    * @param paramValue
    * @param param
+   * @description Metodo para validar los datos de: NIT, E-mail, Nombre de la tienda
+   * @memberof RegisterService
    */
   fetchData(paramValue: {}, param: any): Observable<{}> {
     let writeUrl: any;
@@ -36,8 +40,8 @@ export class RegisterService {
         console.log('one parameter is missing');
     }
     const url = writeUrl + '/' + paramValue;
-    const idToken =  this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
+    const idToken = this.cognitoUtil.getTokenLocalStorage();
+    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
     return new Observable(observer => {
       this.http.get<any>(url, { observe: 'response', headers: headers })
@@ -53,12 +57,15 @@ export class RegisterService {
   }
 
   /**
-   *
+   * @method registerUser
    * @param params
+   * @description Metodo para registrar ell usuario
+   * @returns Observable
+   * @memberof RegisterService
    */
   registerUser(params: {}): Observable<{}> {
-    const idToken =  this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
+    const idToken = this.cognitoUtil.getTokenLocalStorage();
+    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
     return new Observable(
       observer => {

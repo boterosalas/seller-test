@@ -20,12 +20,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class StatesComponent implements OnInit {
-  public listItems: {};
-  statesFormControl: FormControl;
-  validateFormRegister: FormGroup;
-  statesObject: State;
-  matcher: MyErrorStateMatcher;
 
+  public listItems: {};
+  public statesFormControl: FormControl;
+  public validateFormRegister: FormGroup;
+  public statesObject: State;
+  public matcher: MyErrorStateMatcher;
   @Output() idStateEvent = new EventEmitter<number>();
 
   constructor(
@@ -35,6 +35,11 @@ export class StatesComponent implements OnInit {
     this.statesObject = new State();
   }
 
+  /**
+   * @method ngOnInit
+   * @description Metodo que se ejecuta mientras inicia el componente
+   * @memberof StatesComponent
+   */
   ngOnInit() {
     this.validateFormRegister = new FormGroup({
       statesFormControl: new FormControl('', [Validators.required])
@@ -44,6 +49,11 @@ export class StatesComponent implements OnInit {
     this.getStatesDropdown();
   }
 
+  /**
+   * @method getStatesDropdown
+   * @description Metodo para consumir el servicio que retorna el listado de departamentos
+   * @memberof StatesComponent
+   */
   getStatesDropdown() {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.dataService.fetchData().subscribe(
@@ -61,12 +71,21 @@ export class StatesComponent implements OnInit {
     );
   }
 
+  /**
+   * @method setParamToCities
+   * @param param
+   * @description Metodo para enviar el id del estado que se necesita para consumir el servicio de ciudades
+   * @memberof StatesComponent
+   */
   setParamToCities(param) {
     this.idStateEvent.emit(param);
   }
+
   /**
-   * Metedo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
+   * @method setParamToCitiesChange
+   * @description Metodo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
    * @param states
+   * @memberof StatesComponent
    */
   public setParamToCitiesChange(states: any) {
     const statesId = states.statesObject.Name;

@@ -288,7 +288,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
         }
       }
 
-      if (this.arrayCorrectData.length === 2 && contEmptyRow === 1) {
+      if (this.arrayCorrectData.length === 1) {
         this.shellComponent.loadingComponent.closeLoadingSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {

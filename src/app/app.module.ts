@@ -41,6 +41,7 @@ import { DetailModule } from './secure/shipments/detail/detail.module';
 import { BulkLoadModule } from './secure/offers/bulk-load/bulk-load.module';
 import { ListModule } from './secure/offers/list/list.module';
 import { ReportsModule } from './secure/shipments/reports/reports.module';
+import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-load-product.module';
 
 @NgModule({
     declarations: [
@@ -80,6 +81,7 @@ import { ReportsModule } from './secure/shipments/reports/reports.module';
         DetailModule,
         BulkLoadModule,
         ListModule,
+        BulkLoadProductModule,
 
         /* Routing App */
         AppRoutingModule

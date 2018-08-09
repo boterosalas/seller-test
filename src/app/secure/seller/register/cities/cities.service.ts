@@ -16,7 +16,8 @@ export class CitiesServices {
   }
 
   /**
-  * Método para consumir el servicio de ciudades
+  * @method fetchData
+  * @description Método para consumir el servicio de ciudades
   * @returns {Observable<{}>}
   * @memberof CitiesServices
   */

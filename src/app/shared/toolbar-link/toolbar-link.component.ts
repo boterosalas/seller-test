@@ -30,8 +30,9 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback 
 
   // Lista de categorías
   public categoryList: any;
-  // validation of deploy production or stage (qa)
+  // Define si la app esta en un entorno de producción.
   isProductionEnv = environment.production;
+
   /**
    * Creates an instance of ToolbarLinkComponent.
    * @param {Router} route

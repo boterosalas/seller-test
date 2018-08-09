@@ -20,14 +20,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CitiesComponent implements OnInit, OnChanges {
 
-  listItems: {};
-  citiesFormControl: FormControl;
-  validateFormRegister: FormGroup;
-  citiesObject: Cities;
-  matcher: MyErrorStateMatcher;
-
+  public listItems: {};
+  public citiesFormControl: FormControl;
+  public validateFormRegister: FormGroup;
+  public citiesObject: Cities;
+  public matcher: MyErrorStateMatcher;
   @Input() idState: number;
-
   @Output() daneCodeEvent = new EventEmitter<number>();
 
   constructor(
@@ -37,6 +35,11 @@ export class CitiesComponent implements OnInit, OnChanges {
     this.citiesObject = new Cities();
   }
 
+  /**
+   * @method ngOnInit
+   * @description Metodo que se ejecuta mientras inicia el componente
+   * @memberof CitiesComponent
+   */
   ngOnInit() {
     this.validateFormRegister = new FormGroup({
       citiesFormControl: new FormControl({ value: '', disabled: true }, [Validators.required])
@@ -44,12 +47,24 @@ export class CitiesComponent implements OnInit, OnChanges {
     this.matcher = new MyErrorStateMatcher();
   }
 
+  /**
+   * @method ngOnInit
+   * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
+   * @memberof CitiesComponent
+   */
   ngOnChanges(changes) {
     if (this.idState && this.idState !== undefined && this.idState !== null) {
       this.getCitiesDropdown(this.idState);
       this.daneCodeEvent.emit(null);
     }
   }
+
+  /**
+   * @method getCitiesDropdown
+   * @param state
+   * @description Metodo que consume el servicio que retorna el listado de ciudades
+   * @memberof CitiesComponent
+   */
   getCitiesDropdown(state) {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.dataService.fetchData(state).subscribe(
@@ -69,13 +84,21 @@ export class CitiesComponent implements OnInit, OnChanges {
     );
   }
 
+  /**
+   * @method setDataCitie
+   * @description Metodo para enviar los datos de la ciudad seleccionada, de aca se usa el codigo dane
+   * @param param
+   * @memberof CitiesComponent
+   */
   setDataCitie(param) {
     this.daneCodeEvent.emit(param);
   }
 
   /**
-   * Metedo para cargar los dane luego de cambiar de foco en el campo de departamentos
+   * @method setParamToDaneChange
+   * @description Metodo para cargar los dane luego de cambiar de foco en el campo de departamentos
    * @param states
+   * @memberof CitiesComponent
    */
   public setParamToDaneChange(cities: any) {
     const citiesId = cities.citiesObject.Name;

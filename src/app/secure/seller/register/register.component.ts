@@ -28,13 +28,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
 
-  /*
-    * Inicio Modificacion de estilos por pragma.com.co
-    * @author Jose Fernan Banguera 16/05/2018
-    * Modificamos la ruta de las url en dos arreglos:
-    *  1.es la url que esta directo, renderiza a las imagenes en las plantilla. (solo para la carga inicial de las urls iniciales. )
-    *  2. El segundo guarda la informacion de las rutas cuando hacemos o quitamos el checkbox.
-  */
   public imagesSrc: Array<any> = [
     '../../../../../assets/seller-register/logo_exito_check.jpg',
     '../../../../../assets/seller-register/logo_carulla.jpg',
@@ -67,6 +60,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
   public user: any;
   public activeButton: boolean;
+
   /**
    * Creates an instance of RegisterSellerComponent.
    * @param {registerService} registerService
@@ -81,7 +75,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     public userParams: UserParametersService
   ) {
     this.user = {};
-    this.formRegister = new ModelRegister(null, null, '', '', '', '', '', '', null, null, '', false, true, true, false, true);
+    this.formRegister = new ModelRegister();
   }
 
   ngOnInit() {

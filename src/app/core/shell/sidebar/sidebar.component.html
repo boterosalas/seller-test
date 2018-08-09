@@ -72,7 +72,7 @@
 
         </mat-expansion-panel-header>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['']">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntProductBulkLoad]" *ngIf="user.sellerProfile === 'administrator'">
           <h6 matLine>Carga masiva</h6>
         </mat-list-item>
 
