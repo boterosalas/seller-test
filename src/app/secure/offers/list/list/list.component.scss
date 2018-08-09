@@ -7,6 +7,9 @@ $color-gray4: #BCBCBC;
 $color-blue: #485AFA;
 $color-white-opacity: rgba(255, 255, 255, 0.7);
 :host ::ng-deep {
+    mat-sidenav-container {
+        position: relative;
+    }
     section {
         &.no-content-component {
             width: 100%;
@@ -14,9 +17,9 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
             align-items: center;
             flex-direction: column;
             justify-content: center;
-            @media (min-width: 900px) {
-                height: 600px;
-            }
+            padding: 0 5%;
+            box-sizing: border-box;
+            height: 600px;
             & p {
                 color: $color-gray1;
                 font-size: 18px;
@@ -40,7 +43,7 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
             width: 100%;
             max-width: 1350px;
             margin: 0 auto;
-            padding: 50px 30px;
+            padding: 100px 30px 50px;
             aside {
                 &.filters {
                     box-sizing: border-box;
@@ -178,7 +181,7 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
     }
     @media screen and (max-width: 768px) {
         section#section-list-offers {
-            padding: 5%;
+            padding: 115px 5% 5%;
             justify-content: center;
             aside {
                 &.filters {
