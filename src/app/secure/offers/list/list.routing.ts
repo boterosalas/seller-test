@@ -1,5 +1,7 @@
+/* 3rd party components */
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+/* our own custom components */
 import { ListComponent } from './list/list.component';
 import { RoutesConst } from './../../../shared';
 
@@ -11,8 +13,14 @@ const routes: Routes = [
   }
 ];
 
+/**
+ *
+ * @export
+ * @class ListRoutingModule
+ */
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
+
 export class ListRoutingModule {}

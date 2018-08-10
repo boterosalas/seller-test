@@ -17,7 +17,7 @@
         <p [innerHTML]="'EAN: ' + dataOffer.ean" class="ean"></p>
         <p [innerHTML]="dataOffer.name" class="name"></p>
         <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
-        <p [innerHTML]="dataOffer.discountPrice > 0 ? dataOffer.discountPrice : dataOffer.price | currency: '$' : 'symbol' : '1.0-0'" class="price"></p>
+        <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (dataOffer.price | currency: '$' : 'symbol' : '1.0-0')" class="price"></p>
         
         <div class="container-stock flexbox">
             <p [innerHTML]="'ID de oferta: <strong>' + dataOffer.idOffer + '</strong>'" class="stock flexbox flex-wrap align-center separator"></p>

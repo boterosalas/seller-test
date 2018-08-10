@@ -1,5 +1,8 @@
+/* 3rd party components */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { Router } from '@angular/router';
+/* our own custom components */
 import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '@core/shell/shell.component';
 import {
@@ -9,9 +12,17 @@ import {
     UserParametersService,
     RoutesConst
 } from '@app/shared';
-import { Router } from '@angular/router';
 import { ListService } from '../list.service';
 
+/**
+ *
+ *
+ * @export
+ * @class ListComponent
+ * @implements {OnInit}
+ * @implements {LoggedInCallback}
+ * @implements {Callback}
+ */
 @Component({
     selector: 'app-list-component',
     templateUrl: './list.component.html',
@@ -20,17 +31,45 @@ import { ListService } from '../list.service';
 
 export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
+    /*Componente necesario para el funcionamiento del filtro*/
     @ViewChild('sidenav') sidenav: MatSidenav;
+
+    /*Variable para almacenar los datos del usuario logeado*/
     public user: any;
+
+    /*Variable que se usa para ir al componente de detalle de la oferta*/
     public viewDetailOffer = false;
+
+    /*Variable en la que se guardara los datos de la oferta de la cual se esta viendo el detalle*/
     public dataOffer: any;
-    public filterActive = false;
-    public paramData: ModelFilter;
-    public filterRemove: any;
-    public listOffer: any;
+
+    /*Variable utilizada para  saber si estas dentro del detalle de la oferta o no*/
     public inDetail: boolean;
+
+    /*Variable para mostrar los filtros aplicados*/
+    public filterActive = false;
+
+    /*Variable donde se almacenan los parametros que se le envian al servicio de listado de ofertas para filtrar o paginar*/
+    public paramData: ModelFilter;
+
+    /*Variable que se usa para controlar que filtro se esta removiendo*/
+    public filterRemove: any;
+
+    /*Variable en la que se guarda la respuesta del servicio de listado de ofertas*/
+    public listOffer: any;
+
+    /*Variable en la que se almacena cuantas páginas trae el servicio de listado de ofertas*/
     public numberPages: any;
 
+    /**
+     *Creates an instance of ListComponent.
+     * @param {ShellComponent} [shellComponent]
+     * @param {UserLoginService} [userService]
+     * @param {Router} [router]
+     * @param {ListService} [offerService]
+     * @param {UserParametersService} [userParams]
+     * @memberof ListComponent
+     */
     constructor(
         public shellComponent?: ShellComponent,
         public userService?: UserLoginService,
@@ -161,7 +200,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
         this.shellComponent.loadingComponent.viewLoadingSpinner();
         this.offerService.getOffers(params).subscribe(
             (result: any) => {
-                if (result.status === 200) {
+                if (result.status === 200 && result.body !== undefined) {
                     const response = result.body.data;
                     this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
                     this.numberPages = Math.ceil(this.numberPages);

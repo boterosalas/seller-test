@@ -9,6 +9,8 @@ $color-blue: #485AFA;
     mat-toolbar.toolbar-component {
         border-bottom: 0.001em solid $color-gray3;
         padding: 0 25px;
+        position: fixed;
+        z-index: 1;
         .toolbar-options {
             &.view-mobile {
                 display: none;
@@ -61,6 +63,9 @@ $color-blue: #485AFA;
                         border-radius: 5px;
                         .mat-button-ripple-round {
                             border-radius: 5px;
+                        }
+                        &[disabled]{
+                            color: $color-gray3;
                         }
                     }
                 }

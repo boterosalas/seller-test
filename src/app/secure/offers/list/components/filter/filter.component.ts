@@ -1,10 +1,28 @@
+/* 3rd party components */
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {
+    ReactiveFormsModule,
+    FormsModule,
+    FormGroup,
+    FormControl,
+    FormGroupDirective,
+    Validators,
+    FormBuilder,
+    NgForm
+} from '@angular/forms';
+/* our own custom components */
 import { ListComponent } from '../../list/list.component';
 import { ModelFilter } from './filter.model';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, FormGroupDirective, Validators, FormBuilder, NgForm } from '@angular/forms';
 
-/** Error when invalid control is dirty, touched, or submitted. */
+
+/**
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @description Error when invalid control is dirty, touched, or submitted.
+ * @implements {ErrorStateMatcher}
+ */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const isSubmitted = form && form.submitted;
@@ -12,6 +30,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     }
 }
 
+/**
+ *
+ * @export
+ * @class FilterComponent
+ * @implements {OnInit}
+ * @implements {OnChanges}
+ */
 @Component({
     selector: 'app-filter-offer',
     templateUrl: './filter.component.html',
@@ -20,10 +45,22 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class FilterComponent implements OnInit, OnChanges {
 
+    /**
+     * Variable que se usa para el funcionamiento de abrir y cerrar el menú
+     * @memberof FilterComponent
+     */
     @Input() sidenav;
 
+    /**
+     * Variable que recibe el filtro removido para limpiar el campo
+     * @memberof FilterComponent
+     */
     @Input() filterRemoved;
 
+    /**
+     * Conjunto de variables necesaria para validar el formulario
+     * @memberof FilterComponent
+     */
     public formFilter: ModelFilter;
     public filterForm: FormGroup;
     public productName: FormControl;
@@ -32,6 +69,11 @@ export class FilterComponent implements OnInit, OnChanges {
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
 
+    /**
+     *Creates an instance of FilterComponent.
+     * @param {ListComponent} list
+     * @memberof FilterComponent
+     */
     constructor(
         public list: ListComponent
     ) {
