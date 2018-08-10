@@ -1,5 +1,7 @@
+/* 3rd party components */
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+/* our own custom components */
 import { ListComponent } from '../../list/list.component';
 import { ModelFilter } from './../filter/filter.model';
 /**

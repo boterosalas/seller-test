@@ -1,8 +1,20 @@
+/* 3rd party components */
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {
+    ReactiveFormsModule,
+    FormsModule,
+    FormGroup,
+    FormControl,
+    FormGroupDirective,
+    Validators,
+    FormBuilder,
+    NgForm
+} from '@angular/forms';
+/* our own custom components */
 import { ListComponent } from '../../list/list.component';
 import { ModelFilter } from './filter.model';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, FormGroupDirective, Validators, FormBuilder, NgForm } from '@angular/forms';
+
 
 /**
  *
