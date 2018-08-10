@@ -22,16 +22,15 @@ phases:
       - ng build --configuration=stage
       - echo Compilacion terminada.
       - echo Borrando archivos en bucket...
-      - aws s3 rm s3://${S3_BUCKET} --recursive
+      - aws s3 rm s3://$S3_BUCKET --recursive
       - echo Archivos en bucket borrados.
       - echo Transfiriendo archivos al bucket...
-      - aws s3 cp deploy/dist s3://${S3_BUCKET} --recursive
+      - aws s3 cp deploy/dist s3://$S3_BUCKET --recursive
       - echo Archivos transferidos.
       - echo Borrando cache en CloudFront...
       - aws configure set preview.cloudfront true
-      - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths "/*"
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
       - echo Cache borrado.
-      - echo Cargando artefacto a S3...
 
 artifacts:
   files:
