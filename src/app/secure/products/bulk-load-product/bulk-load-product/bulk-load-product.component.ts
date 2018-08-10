@@ -796,18 +796,28 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   downloadFormatMassiveOfferLoad() {
     const emptyFile = [{
       'EAN': undefined,
-      'Inventario': undefined,
-      'Precio': undefined,
-      'Precio con Descuento': undefined,
-      'Costo de Flete Promedio': undefined,
-      'Promesa de Entrega': undefined,
-      'Free Shipping': undefined,
-      'Indicador Envios Exito': undefined,
-      'Cotizador de Flete': undefined,
-      'Garantia': undefined
+      'Nombre del producto': undefined,
+      'Categoria': undefined,
+      'Marca': undefined,
+      'Modelo': undefined,
+      'Detalles': undefined,
+      'Descripcion': undefined,
+      'Meta Titulo': undefined,
+      'Meta Descripcion': undefined,
+      'Palabras Clave': undefined,
+      'Alto del empaque': undefined,
+      'Largo del empaque': undefined,
+      'Ancho del empaque': undefined,
+      'Peso del empaque': undefined,
+      'skuShippingsize': undefined,
+      'Alto del producto': undefined,
+      'Largo del producto': undefined,
+      'Ancho del producto': undefined,
+      'Peso del producto': undefined,
+      'Vendedor': undefined
     }];
     log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
+    this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');
   }
 
   /**
