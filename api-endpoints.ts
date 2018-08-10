@@ -52,7 +52,10 @@ export const endpoints = {
         getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
         // Offers
         getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
-        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer'
+        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+        // Products
+        getAmountAvailableLoads: 'http://balancertestapi-324764564.us-east-1.elb.amazonaws.com:4003/api/products/getamountavailableloads?date=9/08/2018',
+        loadProducts: 'http://balancertestapi-324764564.us-east-1.elb.amazonaws.com:4003/api/products/loadproducts'
     },
     // endpoints production version
     v2: {

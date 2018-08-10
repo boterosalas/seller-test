@@ -20,7 +20,7 @@ export class BulkLoadProductService {
     setProducts(params: {}): Observable<{}> {
     const idToken = this.cognitoUtil.getTokenLocalStorage();
     const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['patchOffers'];
+    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['loadProducts'];
     return new Observable(observer => {
       this.http.patch<any>(endpoint, params, { observe: 'response', headers: headers })
         .subscribe(
