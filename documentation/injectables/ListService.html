@@ -3955,6 +3955,11 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Example</h3>
+            </p>
+            <div class="io-description">
+            </div>
 
             <section>
     <h3 id="index">Index</h3>
@@ -3975,10 +3980,6 @@
                             <li>
                                     <span class="modifier">Public</span>
                                 <a href="#endpoint">endpoint</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#httpOptions">httpOptions</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -4023,12 +4024,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/offers/list/list.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/secure/offers/list/list.service.ts:22</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Create instances of ListService</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -4102,7 +4105,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/secure/offers/list/list.service.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/secure/offers/list/list.service.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -4184,7 +4187,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/secure/offers/list/list.service.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/secure/offers/list/list.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -4218,42 +4221,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/secure/offers/list/list.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="httpOptions"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            httpOptions
-                            </b>
-                            <a href="#httpOptions"><span class="fa fa-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <span class="modifier-icon fa fa-reset"></span><code>httpOptions:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/secure/offers/list/list.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/secure/offers/list/list.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -4288,7 +4256,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/offers/list/list.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/secure/offers/list/list.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -4304,17 +4272,30 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
 import { Observable } from &#x27;rxjs/Observable&#x27;;
+/* our own custom components */
 import { CognitoUtil } from &#x27;@app/shared&#x27;;
 import { endpoints, defaultVersion } from &#x27;../../../../../api-endpoints&#x27;;
 import { ModelFilter } from &#x27;./components/filter/filter.model&#x27;;
 
+/**
+ *
+ * @export
+ * @class ListService
+ */
 @Injectable()
 export class ListService {
 
+  /*Variable para almacenar el endpoint que se va a consumir*/
   public endpoint &#x3D; endpoints[defaultVersion.prefix + defaultVersion.number][&#x27;getOffers&#x27;];
-  public httpOptions: any;
+
+  /*Variable para almacenar los parametros que se le enviaran al servicio*/
   public paramsData: ModelFilter;
 
+  /**
+   * Create instances of ListService
+   * @param {http} HttpClient
+   * @param {cognitoUtil} CognitoUtil
+   */
   constructor(
     private http: HttpClient,
     public cognitoUtil: CognitoUtil
@@ -4329,15 +4310,20 @@ export class ListService {
   * @memberof ListService
   */
   public getOffers(params?: any): Observable&lt;{}&gt; {
+    /*Se crea variable que guardara los parametros unidos para enviarle al servicio*/
     let urlParams: any;
+
     this.paramsData.ean &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.ean &#x3D;&#x3D;&#x3D; undefined ? null : params.ean;
     this.paramsData.product &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.product &#x3D;&#x3D;&#x3D; undefined ? null : params.product.replace(/\ /g, &#x27;+&#x27;);
     this.paramsData.stock &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.stock &#x3D;&#x3D;&#x3D; undefined ? null : params.stock;
-    this.paramsData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined ? null : params.currentPage;
+    this.paramsData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined ? null : params.currentPage - 1;
     this.paramsData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined ? null : params.limit;
+
     urlParams &#x3D; &#x27;/&#x27; + this.paramsData.ean + &#x27;/&#x27; + this.paramsData.product + &#x27;/&#x27; + this.paramsData.stock + &#x27;/&#x27; + this.paramsData.currentPage + &#x27;/&#x27; + this.paramsData.limit;
+
     const idToken &#x3D; this.cognitoUtil.getTokenLocalStorage();
     const headers &#x3D; new HttpHeaders({ &#x27;Authorization&#x27;: idToken, &#x27;Content-type&#x27;: &#x27;application/json; charset&#x3D;utf-8&#x27; });
+
     return new Observable(observer &#x3D;&gt; {
       this.http.get&lt;any&gt;(this.endpoint + urlParams, { observe: &#x27;response&#x27;, headers: headers })
         .subscribe(

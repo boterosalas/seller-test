@@ -13,23 +13,16 @@ import {
     RoutesConst
 } from '@app/shared';
 import { ListService } from '../list.service';
-/**
- * Component que permite realizar la carga de guías, consta de tres componentes mas
- * FinishUploadProductInformationComponent
- * TableLoadComponent
- * TableErrorsComponent
- * Estos componentes se emplean para separar
- * el comportamiento de la carga de guías, se
- * emplea "TableErrorsComponent" para visualizar la
- * lista de errores capturados al momento de subir el archivo excel.
- * se emplea "TableLoadComponent" para visualizar la lista de datos
- * con errores en una tabla y visualizar el total de registros correctos
- * y se emplea "FinishUploadProductInformationComponent" para desplegar un modal
- * donde se visualicen los logs generados por el back al momento de envíar
- * las guías. en FinishUploadProductInformationComponent se permite generar un excel
- * con el log obtenido.
- */
 
+/**
+ *
+ *
+ * @export
+ * @class ListComponent
+ * @implements {OnInit}
+ * @implements {LoggedInCallback}
+ * @implements {Callback}
+ */
 @Component({
     selector: 'app-list-component',
     templateUrl: './list.component.html',
@@ -38,24 +31,45 @@ import { ListService } from '../list.service';
 
 export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
+    /*Componente necesario para el funcionamiento del filtro*/
     @ViewChild('sidenav') sidenav: MatSidenav;
+
+    /*Variable para almacenar los datos del usuario logeado*/
     public user: any;
+
+    /*Variable que se usa para ir al componente de detalle de la oferta*/
     public viewDetailOffer = false;
+
+    /*Variable en la que se guardara los datos de la oferta de la cual se esta viendo el detalle*/
     public dataOffer: any;
-    public filterActive = false;
-    public paramData: ModelFilter;
-    public filterRemove: any;
-    public listOffer: any;
+
+    /*Variable utilizada para  saber si estas dentro del detalle de la oferta o no*/
     public inDetail: boolean;
+
+    /*Variable para mostrar los filtros aplicados*/
+    public filterActive = false;
+
+    /*Variable donde se almacenan los parametros que se le envian al servicio de listado de ofertas para filtrar o paginar*/
+    public paramData: ModelFilter;
+
+    /*Variable que se usa para controlar que filtro se esta removiendo*/
+    public filterRemove: any;
+
+    /*Variable en la que se guarda la respuesta del servicio de listado de ofertas*/
+    public listOffer: any;
+
+    /*Variable en la que se almacena cuantas páginas trae el servicio de listado de ofertas*/
     public numberPages: any;
-  /**
-   * Creates an instance of BulkLoadProductComponent.
-   * @param {ComponentsService} componentService
-   * @param {BulkLoadProductService} BulkLoadProductService
-   * @param {MatDialog} dialog
-   * @param {ShellComponent} shellComponent
-   * @memberof BulkLoadProductComponent
-   */
+
+    /**
+     *Creates an instance of ListComponent.
+     * @param {ShellComponent} [shellComponent]
+     * @param {UserLoginService} [userService]
+     * @param {Router} [router]
+     * @param {ListService} [offerService]
+     * @param {UserParametersService} [userParams]
+     * @memberof ListComponent
+     */
     constructor(
         public shellComponent?: ShellComponent,
         public userService?: UserLoginService,

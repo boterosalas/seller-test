@@ -3964,8 +3964,10 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/* 3rd party components */
+import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
 import { NgModule } from &#x27;@angular/core&#x27;;
+/* our own custom components */
 import { ListComponent } from &#x27;./list/list.component&#x27;;
 import { RoutesConst } from &#x27;./../../../shared&#x27;;
 
@@ -3977,10 +3979,16 @@ const routes: Routes &#x3D; [
   }
 ];
 
+/**
+ *
+ * @export
+ * @class ListRoutingModule
+ */
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
+
 export class ListRoutingModule {}
 </code></pre>
     </div>

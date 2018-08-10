@@ -14,15 +14,52 @@ import { ModelFilter } from './../filter/filter.model';
 })
 export class ToolbarComponent implements OnInit {
 
+    /**
+     * Variable que almacena el texto que se mostrara en el titulo
+     * @memberof ToolbarComponent
+     */
     public tittleBar: String = 'Ofertas';
+
+    /**
+    * Variable que almacena el texto que se mostrara en el subtitulo
+    * @memberof ToolbarComponent
+    */
     public subtitleBar: String = 'Listado de ofertas';
+
+    /**
+    * Variable que almacena las varibales del páginados que se enviaran al servicio
+    * @memberof ToolbarComponent
+    */
     public dataPaginate: ModelFilter;
+
+    /**
+    * Variable que almacena la página en la que se encuentra actualmente
+    * @memberof ToolbarComponent
+    */
     public currentPage: any;
 
+    /**
+    * Variable que se usa para el funcionmiento correcto del filtro
+    * @memberof ToolbarComponent
+    */
     @Input() sidenav;
+
+    /**
+    * Variable que se usa para detectar si esta en el detalle de la oferta
+    * @memberof ToolbarComponent
+    */
     @Input() inDetail: boolean;
+
+    /**
+    * Variable que almacena el número de páginas que trae el listado de ofertas
+    * @memberof ToolbarComponent
+    */
     @Input() numberPages: any;
 
+    /**
+     * Creates an instance of ToolbarComponent
+     * @param {ListComponent} list
+     */
     constructor(
         public list: ListComponent
     ) {
