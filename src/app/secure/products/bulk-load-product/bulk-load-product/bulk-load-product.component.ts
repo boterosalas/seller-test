@@ -8,7 +8,7 @@ import * as FileSaver from 'file-saver';
 /* our own custom components */
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent } from '../finish-upload-product-information/finish-upload-product-information.component';
-import { ModelProduct } from '../models/product.model';
+import { ModelProduct, AbaliableLoadModel } from '../models/product.model';
 import {
   Logger,
   ComponentsService,
@@ -60,41 +60,44 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   /* Información del usuario*/
   public user: any;
 
-  /* Creo el elemento que se empleara para la tabla*/
-  public dataSource: MatTableDataSource<ModelProduct>;
-
-  /*  Variable que almacena el numero de elementos de la tabla*/
-  public numberElements = 0;
-
-  /* Número de órdenes cargadas*/
-  public orderListLength = true;
-
-  /* Objeto que contendra los datos del excel*/
-  public arrayInformation: Array<ModelProduct> = [];
-
-  /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
-  public arrayInformationForSend: Array<{}> = [];
-
-  /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
-  public limitRowExcel = 1048576;
-
-  /* Número de filas cargadas*/
-  public countRowUpload = 0;
-
-  /* Numero de errores*/
-  public countErrors = 0;
-
-  /* Lista de logs*/
-  public listLog = [];
-
   /* Nombre del archivo cargado*/
-  public fileName: any = '';
+  public fileName: any;
 
   /* Sort para la tabla*/
   public sort: any;
 
-  public arrayNecessaryData: Array<any> = [];
-  public arrayCorrectData: Array<any> = [];
+  /*Variable para almacenar los datos de la limitacion de carga */
+  public dataAvaliableLoads: AbaliableLoadModel;
+
+  /*  Variable que almacena el numero de elementos de la tabla*/
+  public numberElements: number;
+
+  /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
+  public limitRowExcel: number;
+
+  /* Número de filas cargadas*/
+  public countRowUpload: number;
+
+  /* Numero de errores*/
+  public countErrors: number;
+
+  /* Número de órdenes cargadas*/
+  public orderListLength: boolean;
+
+  /* Creo el elemento que se empleara para la tabla*/
+  public dataSource: MatTableDataSource<ModelProduct>;
+
+  /* Objeto que contendra los datos del excel*/
+  public arrayInformation: Array<ModelProduct>;
+
+  /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
+  public arrayInformationForSend: Array<{}>;
+
+  /* Lista de logs*/
+  public listLog: Array<any>;
+
+  public arrayNecessaryData: Array<any>;
+  public arrayCorrectData: Array<any>;
 
 
   /* Input file que carga el archivo*/
@@ -118,6 +121,17 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     public userParams: UserParametersService
   ) {
     this.user = {};
+    this.arrayInformation = [];
+    this.arrayInformationForSend = [];
+    this.listLog = [];
+    this.arrayNecessaryData = [];
+    this.arrayCorrectData = [];
+    this.orderListLength = true;
+    this.limitRowExcel = 1048576;
+    this.numberElements = 0;
+    this.countRowUpload = 0;
+    this.countErrors = 0;
+    this.fileName = '';
   }
 
   /**
@@ -146,9 +160,29 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.user = userData;
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    } else {
+      this.getAvaliableLoads();
     }
   }
 
+  /**
+   * @method getAvaliableLoads
+   * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
+   */
+  getAvaliableLoads() {
+    this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+      (result: any) => {
+        if (result.status === 200 && result.body) {
+          const response = result.body;
+          console.log(response);
+          this.dataAvaliableLoads = response;
+        } else {
+          this.shellComponent.modalComponent.showModal('errorService');
+        }
+        this.shellComponent.loadingComponent.closeLoadingSpinner();
+      }
+    );
+  }
   /**
    * @memberof BulkLoadProductComponent
    */
@@ -178,21 +212,21 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @param {*} evt
   * @memberof BulkLoadProductComponent
   */
- onFileChange(evt: any) {
-  /*1. Limpio las variables empleadas en el proceso de carga.*/
-  this.resetVariableUploadFile();
-  /*2. Capturo los datos del excel*/
-  this.readFileUpload(evt).then(data => {
-    /*3. Valido los datos del excel*/
-    this.validateDataFromFile(data, evt);
-    this.resetUploadFIle();
-  }, err => {
-    this.shellComponent.loadingComponent.closeLoadingSpinner();
+  onFileChange(evt: any) {
+    /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
-    this.resetUploadFIle();
-    this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
-  });
-}
+    /*2. Capturo los datos del excel*/
+    this.readFileUpload(evt).then(data => {
+      /*3. Valido los datos del excel*/
+      this.validateDataFromFile(data, evt);
+      this.resetUploadFIle();
+    }, err => {
+      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.resetVariableUploadFile();
+      this.resetUploadFIle();
+      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+    });
+  }
 
   /**
    * Funcionalidad que permite capturar los datos del excel.
@@ -243,16 +277,20 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @memberof BulkLoadProductComponent
   */
   validateDataFromFile(res, file: any) {
-    if (res.length > 1) {
-      let contEmptyRow = 0;
+    if (this.dataAvaliableLoads.amountAvailableLoads === 0) {
+      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
+    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+      if (res.length > 1) {
+        let contEmptyRow = 0;
 
-      for (let i = 0; i < res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
 
-        this.arrayNecessaryData.push([]);
+          this.arrayNecessaryData.push([]);
 
-        for (let j = 0; j < res[0].length; j++) {
+          for (let j = 0; j < res[0].length; j++) {
 
-          if (res[0][j] === 'EAN' ||
+            if (res[0][j] === 'EAN' ||
               res[0][j] === 'Nombre del producto' ||
               res[0][j] === 'Categoria' ||
               res[0][j] === 'Marca' ||
@@ -277,85 +315,90 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               res[0][j] === 'URL de Imagen 2' ||
               res[0][j] === 'URL de Imagen 3' ||
               res[0][j] === 'URL de Imagen 4' ||
-              res[0][j] === 'URL de Imagen 5'
-          ) {
-            this.arrayNecessaryData[i].push(res[i][j]);
-          }
-        }
-      }
-
-      const numCol: any = this.arrayNecessaryData[0].length;
-
-      for (let i = 0; i < this.arrayNecessaryData.length; i++) {
-        let contEmptycell = 0;
-        let rowEmpty = false;
-
-        for (let j = 0; j < numCol; j++) {
-
-          if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
-            this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
-            contEmptycell += 1;
-            if (contEmptycell === numCol) {
-              contEmptyRow += 1;
-              rowEmpty = true;
+              res[0][j] === 'URL de Imagen 5' ||
+              res[0][j] === 'Modificacion Imagen'
+            ) {
+              this.arrayNecessaryData[i].push(res[i][j]);
             }
           }
         }
-        if (!rowEmpty) {
-          this.arrayCorrectData.push(this.arrayNecessaryData[i]);
-        }
-      }
 
-      if (this.arrayCorrectData.length === 2 && contEmptyRow === 1) {
+        const numCol: any = this.arrayNecessaryData[0].length;
+
+        for (let i = 0; i < this.arrayNecessaryData.length; i++) {
+          let contEmptycell = 0;
+          let rowEmpty = false;
+
+          for (let j = 0; j < numCol; j++) {
+
+            if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
+              this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
+              contEmptycell += 1;
+              if (contEmptycell === numCol) {
+                contEmptyRow += 1;
+                rowEmpty = true;
+              }
+            }
+          }
+          if (!rowEmpty) {
+            this.arrayCorrectData.push(this.arrayNecessaryData[i]);
+          }
+        }
+        const numberRegister = this.arrayCorrectData.length - 1;
+        if (this.arrayCorrectData.length === 2 && contEmptyRow === 1) {
+          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        } else {
+          if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Tipo de Producto') && this.arrayCorrectData[0].includes('Categoria')) {
+            const iVal = {
+              iEAN: this.arrayCorrectData[0].indexOf('EAN'),
+              iNombreProd: this.arrayCorrectData[0].indexOf('Nombre del producto'),
+              iCategoria: this.arrayCorrectData[0].indexOf('Categoria'),
+              iMarca: this.arrayCorrectData[0].indexOf('Marca'),
+              iModelo: this.arrayCorrectData[0].indexOf('Modelo'),
+              iDetalles: this.arrayCorrectData[0].indexOf('Detalles'),
+              iDescripcion: this.arrayCorrectData[0].indexOf('Descripcion'),
+              iMetaTitulo: this.arrayCorrectData[0].indexOf('Meta Titulo'),
+              iMetaDescripcion: this.arrayCorrectData[0].indexOf('Meta Descripcion'),
+              iPalabrasClave: this.arrayCorrectData[0].indexOf('Palabras Clave'),
+              iAltoDelEmpaque: this.arrayCorrectData[0].indexOf('Alto del empaque'),
+              ilargoDelEmpaque: this.arrayCorrectData[0].indexOf('Largo del empaque'),
+              iAnchoDelEmpaque: this.arrayCorrectData[0].indexOf('Ancho del empaque'),
+              iPesoDelEmpaque: this.arrayCorrectData[0].indexOf('Peso del empaque'),
+              iskuShippingsize: this.arrayCorrectData[0].indexOf('skuShippingsize'),
+              iAltoDelProducto: this.arrayCorrectData[0].indexOf('Alto del producto'),
+              iLargoDelProducto: this.arrayCorrectData[0].indexOf('Largo del producto'),
+              iAnchoDelProducto: this.arrayCorrectData[0].indexOf('Ancho del producto'),
+              iPesoDelProducto: this.arrayCorrectData[0].indexOf('Peso del producto'),
+              iVendedor: this.arrayCorrectData[0].indexOf('Vendedor'),
+              iTipoDeProducto: this.arrayCorrectData[0].indexOf('Tipo de Producto'),
+              iURLDeImagen1: this.arrayCorrectData[0].indexOf('URL de Imagen 1'),
+              iURLDeImagen2: this.arrayCorrectData[0].indexOf('URL de Imagen 2'),
+              iURLDeImagen3: this.arrayCorrectData[0].indexOf('URL de Imagen 3'),
+              iURLDeImagen4: this.arrayCorrectData[0].indexOf('URL de Imagen 4'),
+              iURLDeImagen5: this.arrayCorrectData[0].indexOf('URL de Imagen 5'),
+              iModificacionImagen: this.arrayCorrectData[0].indexOf('Modificacion Imagen')
+            };
+            if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
+              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.componentService.openSnackBar('El archivo contiene mas activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+            } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
+              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+            } else {
+              this.fileName = file.target.files[0].name;
+              this.createTable(this.arrayCorrectData, iVal, numCol);
+            }
+          } else {
+            this.shellComponent.loadingComponent.closeLoadingSpinner();
+            this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
+          }
+        }
+
+      } else {
         this.shellComponent.loadingComponent.closeLoadingSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
-      } else {
-        if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Tipo de Producto')) {
-          const iVal = {
-            iEAN: this.arrayCorrectData[0].indexOf('EAN'),
-            iNombreProd: this.arrayCorrectData[0].indexOf('Nombre del producto'),
-            iCategoria: this.arrayCorrectData[0].indexOf('Categoria'),
-            iMarca: this.arrayCorrectData[0].indexOf('Marca'),
-            iModelo: this.arrayCorrectData[0].indexOf('Modelo'),
-            iDetalles : this.arrayCorrectData[0].indexOf('Detalles'),
-            iDescripcion: this.arrayCorrectData[0].indexOf('Descripcion'),
-            iMetaTitulo: this.arrayCorrectData[0].indexOf('Meta Titulo'),
-            iMetaDescripcion: this.arrayCorrectData[0].indexOf('Meta Descripcion'),
-            iPalabrasClave: this.arrayCorrectData[0].indexOf('Palabras Clave'),
-            iAltoDelEmpaque: this.arrayCorrectData[0].indexOf('Alto del empaque'),
-            ilargoDelEmpaque: this.arrayCorrectData[0].indexOf('Largo del empaque'),
-            iAnchoDelEmpaque: this.arrayCorrectData[0].indexOf('Ancho del empaque'),
-            iPesoDelEmpaque: this.arrayCorrectData[0].indexOf('Peso del empaque'),
-            iskuShippingsize: this.arrayCorrectData[0].indexOf('skuShippingsize'),
-            iAltoDelProducto: this.arrayCorrectData[0].indexOf('Alto del producto'),
-            iLargoDelProducto: this.arrayCorrectData[0].indexOf('Largo del producto'),
-            iAnchoDelProducto: this.arrayCorrectData[0].indexOf('Ancho del producto'),
-            iPesoDelProducto: this.arrayCorrectData[0].indexOf('Peso del producto'),
-            iVendedor: this.arrayCorrectData[0].indexOf('Vendedor'),
-            iTipoDeProducto: this.arrayCorrectData[0].indexOf('Tipo de Producto'),
-            iURLDeImagen1: this.arrayCorrectData[0].indexOf('URL de Imagen 1'),
-            iURLDeImagen2: this.arrayCorrectData[0].indexOf('URL de Imagen 2'),
-            iURLDeImagen3: this.arrayCorrectData[0].indexOf('URL de Imagen 3'),
-            iURLDeImagen4: this.arrayCorrectData[0].indexOf('URL de Imagen 4'),
-            iURLDeImagen5: this.arrayCorrectData[0].indexOf('URL de Imagen 5'),
-            iModificacionImagen: this.arrayCorrectData[0].indexOf('Modificacion Imagen')
-          };
-          if (this.arrayCorrectData.length > this.limitRowExcel) {
-            this.shellComponent.loadingComponent.closeLoadingSpinner();
-            this.componentService
-              .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
-          } else {
-            this.fileName = file.target.files[0].name;
-            this.createTable(this.arrayCorrectData, iVal, numCol);
-          }
-        } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
-          this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
-        }
       }
-    } else {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
-      this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
   }
 
@@ -779,6 +822,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     });
   }
 
+  /*---------------------------------------- Metodos para validar el formato de los campos ----------------------------------------*/
   /**
   * Método para identificar si un string solo contiene números
   * @param {any} inputtxt
@@ -862,6 +906,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       }
     }
   }
+  /*---------------------------------------- Fin Metodos para validar el formato de los campos ----------------------------------------*/
 
   /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
   /**

@@ -2,7 +2,6 @@
 
     <div fxFlex="100" class="light-content">
   
-      <!-- Toolbar de las opciones para la orden -->
       <mat-toolbar class="toolbar-orders-options-table" color="primary">
         <mat-toolbar-row class="toolbar-options">
   
@@ -57,7 +56,6 @@
           </div>
         </mat-toolbar-row>
       </mat-toolbar>
-      <!-- Toolbar de las opciones para la orden -->
     </div>
   
   
@@ -68,7 +66,6 @@
       <app-table-errors-product [fileName]="fileName" [countRowUpload]="countRowUpload" [countErrors]="countErrors" [listLog]="listLog"></app-table-errors-product>
     </div>
   
-    <!-- Tabla de órdenes -->
     <div *ngIf="!orderListLength && countErrors > 0" fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="60" fxFlex.lg="60" fxFlex.xl="50"
       class="content-table-orders">
       <!-- Componente para visualizar la lista de resultados obtenidos -->
