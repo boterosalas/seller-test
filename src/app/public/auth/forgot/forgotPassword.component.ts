@@ -5,17 +5,41 @@ import {
     UserLoginService,
     RoutesConst
 } from '@app/shared';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-awscognito',
-    templateUrl: './forgotPassword.html'
+    templateUrl: './forgotPassword.html',
+    styleUrls: ['./forgotPassword.component.scss'],
+    animations: [
+        trigger('scaleEfect', [
+            state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-100%)'
+                }),
+                animate('0.2s ease-in')
+            ]),
+            transition('* => void', [
+                animate('0.2s 0.1s ease-out', style({
+                    opacity: 0,
+                    transform: 'translateX(100%)'
+                }))
+            ])
+        ])
+    ]
 })
-export class ForgotPasswordStep1Component implements CognitoCallback {
+export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
+    // Contiene la estructura del formulario del login
+    awscognitogroup: FormGroup;
     email: string;
     errorMessage: string;
 
     constructor(public router: Router,
-        public userService: UserLoginService) {
+        public userService: UserLoginService,
+        private fb: FormBuilder) {
         this.errorMessage = null;
     }
 
@@ -31,6 +55,21 @@ export class ForgotPasswordStep1Component implements CognitoCallback {
             this.errorMessage = message;
         }
     }
+    ngOnInit() {
+        this.createForm();
+        this.errorMessage = null;
+    }
+
+    /**
+    * Estructura para los datos del formulario de recuperar contraseña.
+    * @memberof LoginComponent
+    */
+   createForm() {
+    this.awscognitogroup = this.fb.group({
+        'email': [null, [Validators.required, Validators.email, Validators.maxLength(30)]]
+        // 'password': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(30)])],
+    });
+}
 }
 
 
