@@ -104,9 +104,6 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
    */
   ngOnInit() {
     this.getDataUser();
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
   }
 
   callback() { }
@@ -117,6 +114,9 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
 
   callbackWithParam(userData: any) {
     this.user = userData;
+    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+    this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
   /**
