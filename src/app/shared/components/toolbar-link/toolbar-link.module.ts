@@ -1,13 +1,13 @@
-/* 3rd party components */
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
-/* our own custom components */
-import { ToolbarLinkComponent } from './toolbar-link.component';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@secure/material-components';
-import { UserLoginService, DynamoDBService } from '../services';
+
+import { MaterialModule } from '@app/material.module';
+import { DynamoDBService, UserLoginService } from '@shared/services';
+
+import { ToolbarLinkComponent } from './toolbar-link.component';
+
 @NgModule({
     imports: [
         CommonModule,

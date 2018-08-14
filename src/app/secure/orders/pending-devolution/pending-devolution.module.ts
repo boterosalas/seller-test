@@ -22,7 +22,7 @@ import {
 } from '@app/shared';
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { ShellComponent } from '@core/shell/shell.component';
 
 

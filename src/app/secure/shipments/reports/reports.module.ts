@@ -9,7 +9,7 @@ import { UserService } from '@app/shared';
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
 import {ShipmentsService} from '../shipments.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 
 @NgModule({
   imports: [

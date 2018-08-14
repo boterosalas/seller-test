@@ -11,7 +11,7 @@ import { StatesComponent } from './states/states.component';
 import { RegisterService } from './register.service';
 import { CitiesComponent } from './cities/cities.component';
 import { NoWhitespaceDirective } from '../../directives/no-spaces/no-whitespace.directive';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { RegisterRoutingModule } from './register.routing';
 
 @NgModule({

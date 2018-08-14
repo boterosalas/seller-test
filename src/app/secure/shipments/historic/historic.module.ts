@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HistoricComponent } from './historic-page/historic.component';
 import { HistoricRoutingModule } from './historic.routing';
 import {ShipmentsService} from '../shipments.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { UserService } from '@app/shared';
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';

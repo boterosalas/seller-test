@@ -14,7 +14,7 @@ import {TableErrorsComponent} from './table-errors/table-errors.component';
 import {FinishUploadInformationComponent} from './finish-upload-information/finish-upload-information.component';
 import {LoadGuideRoutingModule} from './load-guide.routing';
 import {DownloadFormatComponent} from './download-format/download-format.component';
-import { MaterialModule } from '../material-components';
+import { MaterialModule } from '../../material.module';
 import {
   ComponentsService,
   HttpErrorHandlingService,

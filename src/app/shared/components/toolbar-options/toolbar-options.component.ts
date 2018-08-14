@@ -1,12 +1,11 @@
-/* 3rd party components */
-import { ShellComponent } from '@core/shell/shell.component';
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
 
-/* our own custom components */
-import { SearchFormEntity } from '../models';
-import { Logger, getDutchPaginatorIntl } from './../services';
+import { ShellComponent } from '@core/shell/shell.component';
 import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal/download-order-modal.component';
+import { SearchFormEntity } from '@shared/models';
+import { getDutchPaginatorIntl, Logger } from '@shared/services';
 
 
 // log component

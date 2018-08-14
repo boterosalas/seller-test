@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from '@secure/material-components';
+import { MaterialModule } from '@app/material.module';
 import { HomeRoutingModule } from './home.routing';
 
 import { LoginComponent } from './auth/login/login.component';
@@ -15,6 +15,13 @@ import { MFAComponent } from './auth/mfa/mfa.component';
 import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.component';
 
 @NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        HomeRoutingModule
+    ],
     declarations: [
         LoginComponent,
         LogoutComponent,
@@ -29,14 +36,7 @@ import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.comp
         HomeLandingComponent,
         HomeComponent,
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        HomeRoutingModule
-    ],
     exports: [],
-    providers: [],
+    providers: []
 })
 export class HomeModule { }

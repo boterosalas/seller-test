@@ -19,7 +19,7 @@ import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.
 import { TreeComponentComponent } from './tree/components/tree-component/tree-component.component';
 import { InputCommisionComponent } from './tree/components/input-commision/input-commision.component';
 import { NoContentComponent } from './tree/components/no-content/no-content.component';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 
 
 @NgModule({

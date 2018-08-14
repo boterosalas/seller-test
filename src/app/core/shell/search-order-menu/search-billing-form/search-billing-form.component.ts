@@ -1,17 +1,10 @@
-/* 3rd party components */
-import {DatePipe} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import { Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-/* our own custom components */
+import { ComponentsService, SearchFormEntity, UserService } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {
-  SearchFormEntity,
-  UserService,
-  ComponentsService
-} from '@app/shared';
 import { BillingService } from '@secure/billing/billing.service';
 
 @Component({

@@ -13,7 +13,7 @@ import { BulkLoadProductService } from './bulk-load-product.service';
 import { TableErrorsProductComponent } from './table-errors-product/table-errors-product.component';
 import { FinishUploadProductInformationComponent } from './finish-upload-product-information/finish-upload-product-information.component';
 import { BulkLoadProductRoutingModule } from './bulk-load-product.routing';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import {
   ComponentsService,
   HttpErrorHandlingService,

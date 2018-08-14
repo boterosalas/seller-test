@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { async, TestBed, inject } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
-import { MaterialModule } from '../material-components';
+import { MaterialModule } from '../../material.module';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 /* our own custom components */

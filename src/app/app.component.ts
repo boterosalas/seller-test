@@ -3,7 +3,7 @@ import { AwsUtil, UserLoginService, CognitoUtil, LoggedInCallback } from '@app/s
 
 @Component({
     selector: 'app-root',
-    templateUrl: 'app.html',
+    templateUrl: 'app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false

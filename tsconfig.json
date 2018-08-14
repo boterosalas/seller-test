@@ -18,24 +18,13 @@
       "dom"
     ],
     "paths": {
-      "@root/*": [
-        "../*"
-      ],
-      "@app/*": [
-        "app/*"
-      ],
-      "@env/*": [
-        "environments/*"
-      ],
-      "@secure/*": [
-        "app/secure/*"
-      ],
-      "@public/*": [
-        "app/public/*"
-      ],
-      "@core/*": [
-        "app/core/*"
-      ]
+      "@root/*": ["../*"],
+      "@app/*": ["app/*"],
+      "@env/*": ["environments/*"],
+      "@core/*": ["app/core/*"],
+      "@public/*": ["app/public/*"],
+      "@shared/*": ["app/shared/*"],
+      "@secure/*": ["app/secure/*"]
     },
   }
 }

@@ -1,24 +1,14 @@
-/* 3rd party components */
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
-/* our own custom components */
-import { ErrorPageComponent } from './error-page.component';
-import { MaterialModule } from '../material-components';
-import {
-    UserService,
-    EndpointService,
-    EventEmitterOrders,
-    HttpErrorHandlingService,
-    ComponentsService
- } from '@app/shared';
+import { MaterialModule } from '@app/material.module';
+import { ComponentsService, EndpointService, EventEmitterOrders, HttpErrorHandlingService, UserService } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
-/**
- * @export
- * @class ErrroModule
- */
+import { ErrorPageComponent } from './error-page.component';
+
+
 @NgModule({
     imports: [
         MaterialModule,
@@ -38,11 +28,4 @@ import { ShellComponent } from '@core/shell/shell.component';
     ]
 })
 
-export class ErrroModule {
-    /**
-     * Creates an instance of ErrroModule.
-     * @memberof ErrroModule
-     */
-    constructor() {
-    }
-}
+export class ErrorModule {}

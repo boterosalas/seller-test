@@ -15,7 +15,7 @@ import { ProductDetailModalComponent } from './product-detail-modal/product-deta
 import { SendOrderComponent } from './send-order/send-order.component';
 import { FormProductComponent } from './send-order/form-product/form-product.component';
 import { OrderService } from './orders.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import {
     UserService,
     EventEmitterOrders,

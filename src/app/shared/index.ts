@@ -1,3 +1,6 @@
+// Components
+export * from './components/'
+
 // Models
 export * from './models/';
 

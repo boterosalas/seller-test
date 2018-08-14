@@ -15,7 +15,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './list/list.component';
 import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 
 
 @NgModule({

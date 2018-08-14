@@ -25,7 +25,7 @@ import {
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
 import { CdkDetailRowDirectiveModule } from '../directives/cdk-detail-row/cdk-detail-row.module';
-import { MaterialModule } from '../material-components';
+import { MaterialModule } from '../../material.module';
 import { ShellComponent } from '@core/shell/shell.component';
 import { BillingFulfillmentDetailComponent } from './billing-fulfillment-detail/billing-fulfillment-detail.component';
 

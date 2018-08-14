@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DispatchRoutingModule } from './dispatched.routing';
 import { DispatchedComponent } from './dispatched-page/dispatched.component';
 import { ShipmentsService } from '../shipments.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
 

@@ -1,9 +1,7 @@
-/* 3rd party components */
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 
-/* our own custom components */
 import { BaseSellerService } from '@app/shared';
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -12,6 +10,7 @@ export class SearchOrderMenuService extends BaseSellerService {
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   *
    * @returns
    * @memberof OrderService
    */
@@ -22,6 +21,7 @@ export class SearchOrderMenuService extends BaseSellerService {
 
   /**
    * Método para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   *
    * @param {any} data
    * @memberof OrderService
    */
@@ -31,6 +31,7 @@ export class SearchOrderMenuService extends BaseSellerService {
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
+   *
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
@@ -43,17 +44,18 @@ export class SearchOrderMenuService extends BaseSellerService {
     return new Observable(observer => {
       this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
-        observer.next(data);
-      }, errorMessage => {
-        this.hehs.error(errorMessage, () => {
-          observer.error(errorMessage);
+          observer.next(data);
+        }, errorMessage => {
+          this.hehs.error(errorMessage, () => {
+            observer.error(errorMessage);
+          });
         });
-      });
     });
   }
 
   /**
    * Método para realiar la consulta de las órdenes pendientes de devolución de acuerdo a los filtros indicados.
+   *
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
@@ -64,12 +66,12 @@ export class SearchOrderMenuService extends BaseSellerService {
     return new Observable(observer => {
       this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch]),
         this.getHeaders(user)).subscribe((data: any) => {
-        observer.next(data);
-      }, errorMessage => {
-        this.hehs.error(errorMessage, () => {
-          observer.error(errorMessage);
+          observer.next(data);
+        }, errorMessage => {
+          this.hehs.error(errorMessage, () => {
+            observer.error(errorMessage);
+          });
         });
-      });
     });
   }
 }

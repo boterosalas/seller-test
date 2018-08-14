@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 
 /* our own custom components */
 import {ClientInformationComponent} from './client-information.component';
-import { MaterialModule } from '../material-components';
+import { MaterialModule } from '../../material.module';
 
 @NgModule({
   imports: [

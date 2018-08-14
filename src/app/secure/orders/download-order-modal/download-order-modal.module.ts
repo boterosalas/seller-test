@@ -9,7 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 /* our own custom components */
 import {DownloadOrderModalComponent} from './download-order-modal.component';
 import {DownloadOrderService} from './download-order.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { HttpErrorHandlingService, ComponentsService, UserService, EndpointService } from '@app/shared';
 
 @NgModule({

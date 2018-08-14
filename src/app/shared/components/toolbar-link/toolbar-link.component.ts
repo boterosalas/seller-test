@@ -1,24 +1,25 @@
-/* 3rd party components */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-/* our own custom components */
-import { CategoryList } from '../models';
-import { RoutesConst } from '../util';
-import { LoggedInCallback, Callback, UserLoginService, UserParametersService } from '../services';
 import { environment } from '@env/environment';
+import { CategoryList } from '@shared/models';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@shared/services';
+import { RoutesConst } from '@shared/util';
+
 /**
- * Component
+ * Componente Toolbar para los links de la orden.
+ *
+ * @export
+ * @class ToolbarLinkComponent
+ * @implements {OnInit}
+ * @implements {LoggedInCallback}
+ * @implements {Callback}
  */
 @Component({
   selector: 'app-toolbar-link',
   templateUrl: './toolbar-link.component.html',
   styleUrls: ['./toolbar-link.component.scss'],
 })
-
-/**
- * Componente Toolbar para los links de la orden
- */
 export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback {
 
   public routes: any;

@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 /* our own custom components */
 import { RouterModule } from '@angular/router';
 import { ToolbarOptionsComponent } from './toolbar-options.component';
-import { MaterialModule } from '@secure/material-components';
+import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
 import { ShellComponent } from '@core/shell/shell.component';
 import {
@@ -15,7 +15,7 @@ import {
     UserService,
     ComponentsService,
     EventEmitterOrders
-} from './../services';
+} from '@shared/services';
 
 @NgModule({
     imports: [

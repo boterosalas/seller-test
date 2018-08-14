@@ -1,25 +1,18 @@
-/* 3rd party components */
-import {DatePipe} from '@angular/common';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import { Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-/* our own custom components */
+import { ComponentsService, SearchFormEntity, UserService } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {SearchOrderMenuService} from '../search-order-menu.service';
-import {
-  SearchFormEntity,
-  UserService,
-  ComponentsService
-} from '@app/shared';
+
+import { SearchOrderMenuService } from '../search-order-menu.service';
 
 @Component({
   selector: 'app-search-envios-exito-form',
   templateUrl: './search-envios-exito-form.component.html',
   styleUrls: ['./search-envios-exito-form.component.scss']
 })
-
 export class SearchEnviosExitoFormComponent implements OnInit {
 
   // Formulario para realizar la busqueda

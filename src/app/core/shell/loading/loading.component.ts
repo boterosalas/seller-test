@@ -1,8 +1,5 @@
-/* 3rd party components */
 import { Component, OnInit } from '@angular/core';
 import { Logger } from '@app/shared';
-
-/* our own custom components */
 
 // log component
 const log = new Logger('ShellComponent');

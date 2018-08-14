@@ -1,19 +1,17 @@
-/* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-/* our own custom components */
-import { ShellComponent } from '@core/shell/shell.component';
-import { environment } from '@env/environment';
 import {
+  Callback,
+  CategoryList,
+  LoggedInCallback,
   Logger,
   RoutesConst,
-  CategoryList,
   UserLoginService,
-  LoggedInCallback,
-  Callback,
-  UserParametersService
+  UserParametersService,
 } from '@app/shared';
+import { ShellComponent } from '@core/shell/shell.component';
+import { environment } from '@env/environment';
 
 // log component
 const log = new Logger('SideBarComponent');

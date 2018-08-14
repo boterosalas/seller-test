@@ -1,19 +1,18 @@
-/* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-/* our own custom components */
-import { environment } from '@env/environment';
-import { ShellComponent } from '../shell.component';
 import {
-  Logger,
+  Callback,
   CognitoUtil,
   LoggedInCallback,
-  Callback,
+  Logger,
   RoutesConst,
   UserLoginService,
-  UserParametersService
+  UserParametersService,
 } from '@app/shared';
-import { Router } from '@angular/router';
+import { environment } from '@env/environment';
+
+import { ShellComponent } from '../shell.component';
 
 // log component
 const log = new Logger('HeaderComponent');

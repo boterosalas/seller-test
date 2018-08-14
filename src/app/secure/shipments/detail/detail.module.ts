@@ -7,7 +7,7 @@ import { DetailRoutingModule } from './detail.routing';
 import { DetailComponent } from './detail-page/detail.component';
 import { DetailService } from './detail.service';
 import { ShipmentsService } from '../shipments.service';
-import { MaterialModule } from '../../material-components';
+import { MaterialModule } from '../../../material.module';
 import { ToolbarLinkModule } from '@app/shared/toolbar-link';
 import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
 

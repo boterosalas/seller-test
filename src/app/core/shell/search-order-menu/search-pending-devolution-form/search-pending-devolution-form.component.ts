@@ -1,19 +1,13 @@
-/* 3rd party components */
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Input } from '@angular/core';
 
-
-/* our own custom components */
+import { ComponentsService, Logger, SearchFormEntity, UserService } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
+
 import { SearchOrderMenuService } from '../search-order-menu.service';
-import {
-  Logger,
-  SearchFormEntity,
-  UserService,
-  ComponentsService } from '@app/shared';
+
 
 
 // log component
