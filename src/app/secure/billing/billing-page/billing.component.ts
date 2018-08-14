@@ -89,12 +89,11 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
    * @memberof BillingComponent
    */
   constructor(
-    public userService: UserService,
     public dialog: MatDialog,
     public billinService: BillingService,
     public component: ComponentsService,
     public shellComponent: ShellComponent,
-    public userParams: UserParametersService
+    private userParams: UserParametersService
   ) {
     this.user = {};
   }
@@ -104,9 +103,6 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
    */
   ngOnInit() {
     this.getDataUser();
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
   }
 
   callback() { }
@@ -117,6 +113,9 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
 
   callbackWithParam(userData: any) {
     this.user = userData;
+    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+    this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
   /**
@@ -155,7 +154,9 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar 
+   * el filtro de órdenes en la opcion search-order-menu.
+   * 
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
@@ -180,7 +181,8 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Funcionalidad para consultar la lista de devoluciones pendientes
+   * Funcionalidad para consultar la lista de devoluciones pendientes.
+   * 
    * @param {any} $event
    * @memberof BillingComponent
    */
@@ -193,7 +195,7 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
     }
     const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}`;
 
-    this.billinService.getBilling(this.user, stringSearch).subscribe((res: any) => {
+    this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;

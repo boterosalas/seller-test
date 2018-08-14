@@ -156,7 +156,7 @@ export class Const {
     // Conceptos de facturación para los pagos.
     static readonly BILLING_CONCEPTS = {
         marketplaceSale: 'Venta Marketplace',
-        logisticsExito: 'Logística Éxito'
+        logisticsExito: 'Logistica Exito'
     };
 
     static readonly error = 'error';

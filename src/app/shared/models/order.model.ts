@@ -205,7 +205,7 @@ export class Billing {
   commission: number;
   billingTotal: number;
   detail?: (DetailEntity)[] | Array<DetailEntity>;
-  fulfillment?: DetailFulfillment;
+  fulfillmentDetail?: DetailFulfillment | null;
   paginationToken: string;
 }
 

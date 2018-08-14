@@ -31,7 +31,7 @@
             <span class="title-table-header"> Factura</span>
           </mat-header-cell>
           <mat-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-bold-order">{{ element.billingNumber || '------' }}</p>
+            <p class="sc-text-bold-order">{{ element.billingNumber }}</p>
           </mat-cell>
         </ng-container>
 
@@ -103,7 +103,12 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-valueToPay-text">${{ element.billingTotal | number }}</p>
+            <p class="sc-text-normal sc-valueToPay-text" *ngIf="element.concept === billingConcepts.marketplaceSale">
+              ${{ element.billingTotal | number }}
+            </p>
+            <p class="sc-text-normal" *ngIf="element.concept === billingConcepts.logisticsExito">
+              ------
+            </p>
           </mat-cell>
         </ng-container>
 
