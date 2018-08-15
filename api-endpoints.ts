@@ -52,7 +52,9 @@ export const endpoints = {
         getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
         // Offers
         getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
-        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer'
+        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+        // Products
+        products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
     },
     // endpoints production version
     v2: {

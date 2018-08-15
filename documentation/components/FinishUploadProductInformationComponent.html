@@ -1561,6 +1561,9 @@
                     id="xs-classes-links"
                 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -1613,6 +1616,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -3515,6 +3521,9 @@
                     id="classes-links"
 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -3567,6 +3576,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -4646,7 +4658,7 @@ export class FinishUploadProductInformationComponent {
       &lt;mat-divider *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot;&gt;&lt;/mat-divider&gt;
   
       &lt;mat-nav-list *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot;&gt;
-        &lt;mat-list-item *ngFor&#x3D;&quot;let item of response.body.offerNotifyViewModels&quot;&gt;
+        &lt;mat-list-item *ngFor&#x3D;&quot;let item of response.body.productNotifyViewModel&quot;&gt;
           &lt;mat-icon mat-list-icon class&#x3D;&quot;icon-color-error&quot;&gt;warning&lt;/mat-icon&gt;
           &lt;h4 matLine&gt;EAN:{{item.ean}}&lt;/h4&gt;
           &lt;p matLine&gt;Error presentado: {{item.message}}&lt;/p&gt;
@@ -4655,7 +4667,7 @@ export class FinishUploadProductInformationComponent {
     &lt;/div&gt;
     &lt;mat-dialog-actions class&#x3D;&quot;footer-dialog&quot;&gt;
       &lt;button id&#x3D;&quot;close-finish-upload-button&quot; mat-button mat-dialog-close&gt;Cerrar&lt;/button&gt;
-      &lt;button id&#x3D;&quot;export-to-excel-button&quot; *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot; mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;exportAsExcelFile(response.body.offerNotifyViewModels,&#x27;OffersLog&#x27;)&quot;&gt;Exportar Excel
+      &lt;button id&#x3D;&quot;export-to-excel-button&quot; *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot; mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;exportAsExcelFile(response.body.productNotifyViewModel,&#x27;ProductsLogs&#x27;)&quot;&gt;Exportar Excel
       &lt;/button&gt;
     &lt;/mat-dialog-actions&gt;
   &lt;/div&gt;</code></pre>
@@ -4686,7 +4698,7 @@ export class FinishUploadProductInformationComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div *ngIf="response.body.error !== 0 || response.body.successful !== 0">    <div class="error-list-content list-log">        <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0">        <mat-icon>check</mat-icon>        {{response.successful}} Carga realizada con éxito      </h3>      <mat-divider *ngIf="response.successful != 0"></mat-divider>        <h4 class="error-string" mat-subheader *ngIf="response.body.error !== 0">        <mat-icon>warning</mat-icon>        Se han presentado {{response.body.error}} errores al momento de cargar las ofertas      </h4>      <mat-divider *ngIf="response.body.error !== 0"></mat-divider>        <mat-nav-list *ngIf="response.body.error !== 0">        <mat-list-item *ngFor="let item of response.body.offerNotifyViewModels">          <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>          <h4 matLine>EAN:{{item.ean}}</h4>          <p matLine>Error presentado: {{item.message}}</p>        </mat-list-item>      </mat-nav-list>    </div>    <mat-dialog-actions class="footer-dialog">      <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>      <button id="export-to-excel-button" *ngIf="response.body.error !== 0" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.offerNotifyViewModels,\'OffersLog\')">Exportar Excel      </button>    </mat-dialog-actions>  </div></div>'
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="response.body.error !== 0 || response.body.successful !== 0">    <div class="error-list-content list-log">        <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0">        <mat-icon>check</mat-icon>        {{response.successful}} Carga realizada con éxito      </h3>      <mat-divider *ngIf="response.successful != 0"></mat-divider>        <h4 class="error-string" mat-subheader *ngIf="response.body.error !== 0">        <mat-icon>warning</mat-icon>        Se han presentado {{response.body.error}} errores al momento de cargar las ofertas      </h4>      <mat-divider *ngIf="response.body.error !== 0"></mat-divider>        <mat-nav-list *ngIf="response.body.error !== 0">        <mat-list-item *ngFor="let item of response.body.productNotifyViewModel">          <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>          <h4 matLine>EAN:{{item.ean}}</h4>          <p matLine>Error presentado: {{item.message}}</p>        </mat-list-item>      </mat-nav-list>    </div>    <mat-dialog-actions class="footer-dialog">      <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>      <button id="export-to-excel-button" *ngIf="response.body.error !== 0" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.productNotifyViewModel,\'ProductsLogs\')">Exportar Excel      </button>    </mat-dialog-actions>  </div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
     var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
     var ACTUAL_COMPONENT = {'name': 'FinishUploadProductInformationComponent'};

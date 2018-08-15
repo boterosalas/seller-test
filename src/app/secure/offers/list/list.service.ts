@@ -43,11 +43,11 @@ export class ListService {
     /*Se crea variable que guardara los parametros unidos para enviarle al servicio*/
     let urlParams: any;
 
-    this.paramsData.ean = params === undefined || params.ean === undefined ? null : params.ean;
-    this.paramsData.product = params === undefined || params.product === undefined ? null : params.product.replace(/\ /g, '+');
-    this.paramsData.stock = params === undefined || params.stock === undefined ? null : params.stock;
-    this.paramsData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage - 1;
-    this.paramsData.limit = params === undefined || params.limit === undefined ? null : params.limit;
+    this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
+    this.paramsData.product = params === undefined || params.product === undefined || params.product === null || params.product === '' ? null : params.product.replace(/\ /g, '+');
+    this.paramsData.stock = params === undefined || params.stock === undefined || params.stock === null || params.stock === '' ? null : params.stock;
+    this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : params.currentPage - 1;
+    this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
     urlParams = '/' + this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
 
