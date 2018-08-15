@@ -11,26 +11,28 @@ import { Billing, BaseSellerService } from '@app/shared';
 export class BillingService extends BaseSellerService {
 
   /**
-   * Método para realiar la consulta de las transportadoras
-   * @param {any} user
+   * Método para realiar la consulta de las transportadoras.
+   * 
    * @param {any} stringSearch
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
   getBilling(user, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('getBilling', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
-        observer.next(data);
-      }, error => {
-        this.hehs.error(error, () => {
-          observer.error(error);
+      this.http.get(this.api.get('getBilling', [stringSearch]), this.getHeaders())
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, error => {
+          this.hehs.error(error, () => {
+            observer.error(error);
+          });
         });
-      });
     });
   }
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
+   * 
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
@@ -55,7 +57,8 @@ export class BillingService extends BaseSellerService {
 
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
+   * 
    * @returns
    * @memberof BillingService
    */
@@ -65,7 +68,8 @@ export class BillingService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
+   * 
    * @param {any} data
    * @memberof BillingService
    */
