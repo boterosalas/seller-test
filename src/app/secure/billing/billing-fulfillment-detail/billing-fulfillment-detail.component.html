@@ -31,7 +31,9 @@
       <mat-icon mat-list-icon>local_atm</mat-icon>
       <p mat-line>
         <strong>Total Cobrado: </strong>
-        <span class="billingTotal">{{ data.billingTotal | currency: 'COP' }}</span>
+        <span class="totalCharged">
+          {{ data.fulfillmentDetail.totalMovement + data.fulfillmentDetail.totalStorage | currency: 'COP' }}
+        </span>
       </p>
     </mat-list-item>
   </mat-list>
