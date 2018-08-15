@@ -27,7 +27,6 @@ export class ModelProduct {
         public ImageUrl4?: any,
         public ImageUrl5?: any,
         public ModifyImage?: any,
-        public SpecValue?: any,
         public errorRow?: boolean,
         public errorColumn1?: boolean,
         public errorColumn2?: boolean,
@@ -49,7 +48,13 @@ export class ModelProduct {
         public errorColumn18?: boolean,
         public errorColumn19?: boolean,
         public errorColumn20?: boolean,
-        public errorColumn21?: boolean
+        public errorColumn21?: boolean,
+        public errorColumn22?: boolean,
+        public errorColumn23?: boolean,
+        public errorColumn24?: boolean,
+        public errorColumn25?: boolean,
+        public errorColumn26?: boolean,
+        public features?: Array<FeaturesModel>,
     ) { }
 }
 
@@ -58,5 +63,12 @@ export class AbaliableLoadModel {
         public amountAvailableLoads?: number,
         public amountSuccessfulLoads?: number,
         public maximumAvailableLoads?: number
+    ) {}
+}
+
+export class FeaturesModel {
+    constructor (
+        public key: any,
+        public value: any
     ) {}
 }

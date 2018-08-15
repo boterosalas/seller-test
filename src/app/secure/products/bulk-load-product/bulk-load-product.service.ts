@@ -49,7 +49,7 @@ export class BulkLoadProductService {
   * @memberof BulkLoadProductService
   */
   setProducts(params: {}): Observable<{}> {
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['loadProducts'];
+    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['products'];
     return new Observable(observer => {
       this.http.patch<any>(endpoint, params, { observe: 'response', headers: this.headers })
         .subscribe(
