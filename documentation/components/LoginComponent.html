@@ -4272,7 +4272,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">src/app/public/auth/login/login.component.ts:136</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">src/app/public/auth/login/login.component.ts:137</a></div>
                             </td>
                         </tr>
 
@@ -4310,7 +4310,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/app/public/auth/login/login.component.ts:142</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">src/app/public/auth/login/login.component.ts:143</a></div>
                             </td>
                         </tr>
 
@@ -4379,7 +4379,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="172" class="link-to-prism">src/app/public/auth/login/login.component.ts:172</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">src/app/public/auth/login/login.component.ts:173</a></div>
                             </td>
                         </tr>
 
@@ -4417,7 +4417,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/public/auth/login/login.component.ts:118</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/public/auth/login/login.component.ts:119</a></div>
                             </td>
                         </tr>
 
@@ -4538,7 +4538,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/public/auth/login/login.component.ts:138</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">src/app/public/auth/login/login.component.ts:139</a></div>
                             </td>
                         </tr>
 
@@ -4576,7 +4576,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="153" class="link-to-prism">src/app/public/auth/login/login.component.ts:153</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="154" class="link-to-prism">src/app/public/auth/login/login.component.ts:154</a></div>
                             </td>
                         </tr>
 
@@ -4669,7 +4669,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">src/app/public/auth/login/login.component.ts:166</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="167" class="link-to-prism">src/app/public/auth/login/login.component.ts:167</a></div>
                             </td>
                         </tr>
 
@@ -4826,7 +4826,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">src/app/public/auth/login/login.component.ts:182</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">src/app/public/auth/login/login.component.ts:183</a></div>
                             </td>
                         </tr>
 
@@ -5418,6 +5418,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         }
         this.errorMessage &#x3D; null;
         this.shell.loadingComponent.closeLoadingProgressBar();
+        console.log(&#x27;LoginComponent&#x27;);
         this.userService.authenticate(this.email, this.password, this);
         this.shell.loadingComponent.viewLoadingSpinner();
     }

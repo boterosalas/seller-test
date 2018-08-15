@@ -4325,11 +4325,11 @@ export class ListService {
     /*Se crea variable que guardara los parametros unidos para enviarle al servicio*/
     let urlParams: any;
 
-    this.paramsData.ean &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.ean &#x3D;&#x3D;&#x3D; undefined ? null : params.ean;
-    this.paramsData.product &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.product &#x3D;&#x3D;&#x3D; undefined ? null : params.product.replace(/\ /g, &#x27;+&#x27;);
-    this.paramsData.stock &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.stock &#x3D;&#x3D;&#x3D; undefined ? null : params.stock;
-    this.paramsData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined ? null : params.currentPage - 1;
-    this.paramsData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined ? null : params.limit;
+    this.paramsData.ean &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.ean &#x3D;&#x3D;&#x3D; undefined || params.ean &#x3D;&#x3D;&#x3D; null || params.ean &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.ean;
+    this.paramsData.product &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.product &#x3D;&#x3D;&#x3D; undefined || params.product &#x3D;&#x3D;&#x3D; null || params.product &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.product.replace(/\ /g, &#x27;+&#x27;);
+    this.paramsData.stock &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.stock &#x3D;&#x3D;&#x3D; undefined || params.stock &#x3D;&#x3D;&#x3D; null || params.stock &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.stock;
+    this.paramsData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; null || params.currentPage &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.currentPage - 1;
+    this.paramsData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; null || params.limit &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.limit;
 
     urlParams &#x3D; &#x27;/&#x27; + this.paramsData.ean + &#x27;/&#x27; + this.paramsData.product + &#x27;/&#x27; + this.paramsData.stock + &#x27;/&#x27; + this.paramsData.currentPage + &#x27;/&#x27; + this.paramsData.limit;
 

@@ -4231,7 +4231,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:101</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:102</a></div>
                             </td>
                         </tr>
 
@@ -4336,7 +4336,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:80</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:81</a></div>
                             </td>
                         </tr>
 
@@ -4417,7 +4417,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:127</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="128" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:128</a></div>
                             </td>
                         </tr>
 
@@ -4486,7 +4486,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:119</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">src/app/shared/services/aws-cognito/user-login.service.ts:120</a></div>
                             </td>
                         </tr>
 
@@ -4725,6 +4725,7 @@ export class UserLoginService {
      * @param callback pagina a la cual se va redirigir al momento de autenticar
      */
     authenticate(username: string, password: string, callback: CognitoCallback) {
+        console.log(&#x27;LoginService&#x27;);
         console.log(&#x27;UserLoginService: starting the authentication&#x27;);
 
         const authenticationData &#x3D; {

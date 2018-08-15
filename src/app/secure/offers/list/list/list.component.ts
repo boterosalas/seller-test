@@ -61,6 +61,9 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     /*Variable en la que se almacena cuantas páginas trae el servicio de listado de ofertas*/
     public numberPages: any;
 
+    /*Variable que se le envia al toolbar para volver a ponerlo en la página 1*/
+    public currentPage: any;
+
     /**
      *Creates an instance of ListComponent.
      * @param {ShellComponent} [shellComponent]
@@ -157,10 +160,12 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
      * @memberof ListComponent
      */
     filterOffers(params) {
+        this.currentPage = 1;
         this.filterActive = true;
         this.paramData.product = params.product;
         this.paramData.ean = params.ean;
         this.paramData.stock = params.stock;
+        this.paramData.currentPage = this.currentPage;
         this.getListOffers(this.paramData);
         this.sidenav.toggle();
     }
