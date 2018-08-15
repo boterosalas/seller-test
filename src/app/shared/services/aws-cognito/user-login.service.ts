@@ -47,6 +47,7 @@ export class UserLoginService {
      * @param callback pagina a la cual se va redirigir al momento de autenticar
      */
     authenticate(username: string, password: string, callback: CognitoCallback) {
+        console.log('LoginService');
         console.log('UserLoginService: starting the authentication');
 
         const authenticationData = {

@@ -37,7 +37,8 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para aplicar la url a emplear en los servicios
+     * Método para aplicar la url a emplear en los servicios.
+     * 
      * @memberof BaseSellerService
      */
     changeEndPoint() {
@@ -45,13 +46,12 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para indicar los headers a usar en los servicio
+     * Método para indicar los headers a usar en los servicio.
+     * 
      * @returns {{headers: HttpHeaders}}
      */
     getHeaders(user?: any): { headers: HttpHeaders } {
-        // Empleo la url para el seller center
-        this.changeEndPoint();
-        const idToken =  this.cognitoUtil.getTokenLocalStorage();
+        const idToken = this.cognitoUtil.getTokenLocalStorage();
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

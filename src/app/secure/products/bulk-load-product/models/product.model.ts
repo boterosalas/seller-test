@@ -1,16 +1,33 @@
 export class ModelProduct {
     constructor(
-        public EAN: any,
-        public Stock: any,
-        public Price: any,
-        public DiscountPrice: any,
-        public AverageFreightCost: any,
-        public PromiseDelivery: any,
-        public IsFreeShipping: any,
-        public IsEnviosExito: any,
-        public IsFreightCalculator: any,
-        public Warranty: any,
-        public errorRow: boolean,
+        public Ean: any,
+        public Name: any,
+        public Category: any,
+        public Brand: any,
+        public Model: any,
+        public Details: any,
+        public Description: any,
+        public MetaTitle: any,
+        public MetaDescription: any,
+        public KeyWords: any,
+        public PackageHeight: any,
+        public PackageLength: any,
+        public PackageWidth: any,
+        public PackageWeight: any,
+        public SkuShippingSize: any,
+        public ProductHeight: any,
+        public ProductLength: any,
+        public ProductWidth: any,
+        public ProductWeight: any,
+        public Seller: any,
+        public ProductType: any,
+        public ImageUrl1: any,
+        public ImageUrl2?: any,
+        public ImageUrl3?: any,
+        public ImageUrl4?: any,
+        public ImageUrl5?: any,
+        public ModifyImage?: any,
+        public errorRow?: boolean,
         public errorColumn1?: boolean,
         public errorColumn2?: boolean,
         public errorColumn3?: boolean,
@@ -20,6 +37,38 @@ export class ModelProduct {
         public errorColumn7?: boolean,
         public errorColumn8?: boolean,
         public errorColumn9?: boolean,
-        public errorColumn10?: boolean
+        public errorColumn10?: boolean,
+        public errorColumn11?: boolean,
+        public errorColumn12?: boolean,
+        public errorColumn13?: boolean,
+        public errorColumn14?: boolean,
+        public errorColumn15?: boolean,
+        public errorColumn16?: boolean,
+        public errorColumn17?: boolean,
+        public errorColumn18?: boolean,
+        public errorColumn19?: boolean,
+        public errorColumn20?: boolean,
+        public errorColumn21?: boolean,
+        public errorColumn22?: boolean,
+        public errorColumn23?: boolean,
+        public errorColumn24?: boolean,
+        public errorColumn25?: boolean,
+        public errorColumn26?: boolean,
+        public features?: Array<FeaturesModel>,
     ) { }
+}
+
+export class AbaliableLoadModel {
+    constructor(
+        public amountAvailableLoads?: number,
+        public amountSuccessfulLoads?: number,
+        public maximumAvailableLoads?: number
+    ) {}
+}
+
+export class FeaturesModel {
+    constructor (
+        public key: any,
+        public value: any
+    ) {}
 }

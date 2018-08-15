@@ -8,7 +8,7 @@ import * as FileSaver from 'file-saver';
 /* our own custom components */
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent } from '../finish-upload-product-information/finish-upload-product-information.component';
-import { ModelProduct } from '../models/product.model';
+import { ModelProduct, AbaliableLoadModel } from '../models/product.model';
 import {
   Logger,
   ComponentsService,
@@ -60,41 +60,43 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   /* Información del usuario*/
   public user: any;
 
-  /* Creo el elemento que se empleara para la tabla*/
-  public dataSource: MatTableDataSource<ModelProduct>;
-
-  /*  Variable que almacena el numero de elementos de la tabla*/
-  public numberElements = 0;
-
-  /* Número de órdenes cargadas*/
-  public orderListLength = true;
-
-  /* Objeto que contendra los datos del excel*/
-  public arrayInformation: Array<ModelProduct> = [];
-
-  /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
-  public arrayInformationForSend: Array<{}> = [];
-
-  /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
-  public limitRowExcel = 1048576;
-
-  /* Número de filas cargadas*/
-  public countRowUpload = 0;
-
-  /* Numero de errores*/
-  public countErrors = 0;
-
-  /* Lista de logs*/
-  public listLog = [];
-
   /* Nombre del archivo cargado*/
-  public fileName: any = '';
+  public fileName: any;
 
   /* Sort para la tabla*/
   public sort: any;
 
-  public arrayNecessaryData: Array<any> = [];
-  public arrayCorrectData: Array<any> = [];
+  /*Variable para almacenar los datos de la limitacion de carga */
+  public dataAvaliableLoads: AbaliableLoadModel;
+
+  /*  Variable que almacena el numero de elementos de la tabla*/
+  public numberElements: number;
+
+  /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
+  public limitRowExcel: number;
+
+  /* Número de filas cargadas*/
+  public countRowUpload: number;
+
+  /* Numero de errores*/
+  public countErrors: number;
+
+  /* Número de órdenes cargadas*/
+  public orderListLength: boolean;
+
+  /* Creo el elemento que se empleara para la tabla*/
+  public dataSource: MatTableDataSource<ModelProduct>;
+
+  /* Objeto que contendra los datos del excel*/
+  public arrayInformation: Array<ModelProduct>;
+
+  /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
+  public arrayInformationForSend: Array<{}>;
+
+  /* Lista de logs*/
+  public listLog: Array<any>;
+
+  public arrayNecessaryData: Array<any>;
 
 
   /* Input file que carga el archivo*/
@@ -118,6 +120,16 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     public userParams: UserParametersService
   ) {
     this.user = {};
+    this.arrayInformation = [];
+    this.arrayInformationForSend = [];
+    this.listLog = [];
+    this.arrayNecessaryData = [];
+    this.orderListLength = true;
+    this.limitRowExcel = 1048576;
+    this.numberElements = 0;
+    this.countRowUpload = 0;
+    this.countErrors = 0;
+    this.fileName = '';
   }
 
   /**
@@ -146,9 +158,29 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.user = userData;
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    } else {
+      this.getAvaliableLoads();
     }
   }
 
+  /**
+   * @method getAvaliableLoads
+   * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
+   */
+  getAvaliableLoads() {
+    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+      (result: any) => {
+        if (result.status === 200 && result.body) {
+          const response = result.body;
+          this.dataAvaliableLoads = response;
+        } else {
+          this.shellComponent.modalComponent.showModal('errorService');
+        }
+        this.shellComponent.loadingComponent.closeLoadingSpinner();
+      }
+    );
+  }
   /**
    * @memberof BulkLoadProductComponent
    */
@@ -169,8 +201,28 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
-    this.arrayCorrectData = [];
     this.finishProcessUpload();
+  }
+
+  /**
+  * Método que permite detectar el input file
+  * @param {*} evt
+  * @memberof BulkLoadProductComponent
+  */
+  onFileChange(evt: any) {
+    /*1. Limpio las variables empleadas en el proceso de carga.*/
+    this.resetVariableUploadFile();
+    /*2. Capturo los datos del excel*/
+    this.readFileUpload(evt).then(data => {
+      /*3. Valido los datos del excel*/
+      this.validateDataFromFile(data, evt);
+      this.resetUploadFIle();
+    }, err => {
+      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.resetVariableUploadFile();
+      this.resetUploadFIle();
+      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+    });
   }
 
   /**
@@ -197,7 +249,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
           /* const wsname: string = wb.SheetNames[0]; */
-          const ws: XLSX.WorkSheet = wb.Sheets['Ofertas'];
+          const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
@@ -216,113 +268,114 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   }
 
   /**
-  * Método que permite detectar el input file
-  * @param {*} evt
-  * @memberof BulkLoadProductComponent
-  */
-  onFileChange(evt: any) {
-    /*1. Limpio las variables empleadas en el proceso de carga.*/
-    this.resetVariableUploadFile();
-    /*2. Capturo los datos del excel*/
-    this.readFileUpload(evt).then(data => {
-      /*3. Valido los datos del excel*/
-      this.validateDataFromFile(data, evt);
-      this.resetUploadFIle();
-    }, err => {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
-      this.resetVariableUploadFile();
-      this.resetUploadFIle();
-      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
-    });
-  }
-
-  /**
   * Metodo que se encarga de validar los datos del excel
   * @param {any} res
   * @param {*} file
   * @memberof BulkLoadProductComponent
   */
   validateDataFromFile(res, file: any) {
-    if (res.length > 1) {
-      let contEmptyRow = 0;
 
-      for (let i = 0; i < res.length; i++) {
+    if (this.dataAvaliableLoads.amountAvailableLoads === 0) {
+      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
+    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+      if (res.length > 1) {
+        let contEmptyRow = 0;
 
-        this.arrayNecessaryData.push([]);
+        for (let i = 0; i < res.length; i++) {
 
-        for (let j = 0; j < res[0].length; j++) {
+          this.arrayNecessaryData.push([]);
 
-          if (res[0][j] === 'EAN' ||
-            res[0][j] === 'Inventario' ||
-            res[0][j] === 'Precio' ||
-            res[0][j] === 'Precio con Descuento' ||
-            res[0][j] === 'Costo de Flete Promedio' ||
-            res[0][j] === 'Promesa de Entrega' ||
-            res[0][j] === 'Free Shipping' ||
-            res[0][j] === 'Indicador Envios Exito' ||
-            res[0][j] === 'Cotizador de Flete' ||
-            res[0][j] === 'Garantia') {
-            this.arrayNecessaryData[i].push(res[i][j]);
-          }
+          for (let j = 0; j < res[0].length; j++) {
 
-        }
-      }
-
-      const numCol: any = this.arrayNecessaryData[0].length;
-
-      for (let i = 0; i < this.arrayNecessaryData.length; i++) {
-        let contEmptycell = 0;
-        let rowEmpty = false;
-        for (let j = 0; j < numCol; j++) {
-
-          if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
-            this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
-            contEmptycell += 1;
-            if (contEmptycell === numCol) {
-              contEmptyRow += 1;
-              rowEmpty = true;
+            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
+              this.arrayNecessaryData[i].push(res[i][j]);
             }
           }
         }
-        if (!rowEmpty) {
-          this.arrayCorrectData.push(this.arrayNecessaryData[i]);
-        }
-      }
 
-      if (this.arrayCorrectData.length === 2 && contEmptyRow === 1) {
+        const numCol: any = this.arrayNecessaryData[0].length;
+
+        for (let i = 0; i < this.arrayNecessaryData.length; i++) {
+          let contEmptycell = 0;
+          let rowEmpty = false;
+
+          for (let j = 0; j < numCol; j++) {
+
+            if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
+              this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
+              contEmptycell += 1;
+              if (contEmptycell === numCol) {
+                contEmptyRow += 1;
+                rowEmpty = true;
+              }
+            }
+          }
+
+          if (rowEmpty) {
+            this.arrayNecessaryData.splice(i, 1);
+            i--;
+          }
+
+        }
+
+        const numberRegister = this.arrayNecessaryData.length - 1;
+
+        if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
+          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        } else {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') && this.arrayNecessaryData[0].includes('Categoria')) {
+            const iVal = {
+              iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+              iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
+              iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
+              iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
+              iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
+              iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
+              iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
+              iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
+              iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
+              iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
+              iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
+              ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
+              iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
+              iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
+              iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+              iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
+              iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
+              iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
+              iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
+              iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
+              iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Tipo de Producto'),
+              iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
+              iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
+              iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
+              iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
+              iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
+              iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+            };
+
+            if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
+              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.componentService.openSnackBar('El archivo contiene mas activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+            } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
+              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+            } else {
+              this.fileName = file.target.files[0].name;
+              this.createTable(this.arrayNecessaryData, iVal, numCol);
+            }
+          } else {
+            this.shellComponent.loadingComponent.closeLoadingSpinner();
+            this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
+          }
+        }
+
+      } else {
         this.shellComponent.loadingComponent.closeLoadingSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
-      } else {
-        if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Inventario') &&
-          this.arrayCorrectData[0].includes('Precio')) {
-          const iVal = {
-            iEAN: this.arrayCorrectData[0].indexOf('EAN'),
-            iInv: this.arrayCorrectData[0].indexOf('Inventario'),
-            iPrecio: this.arrayCorrectData[0].indexOf('Precio'),
-            iPrecDesc: this.arrayCorrectData[0].indexOf('Precio con Descuento'),
-            iCostFletProm: this.arrayCorrectData[0].indexOf('Costo de Flete Promedio'),
-            iPromEntrega: this.arrayCorrectData[0].indexOf('Promesa de Entrega'),
-            iFreeShiping: this.arrayCorrectData[0].indexOf('Free Shipping'),
-            iIndEnvExito: this.arrayCorrectData[0].indexOf('Indicador Envios Exito'),
-            iCotFlete: this.arrayCorrectData[0].indexOf('Cotizador de Flete'),
-            iGarantia: this.arrayCorrectData[0].indexOf('Garantia')
-          };
-          if (this.arrayCorrectData.length > this.limitRowExcel) {
-            this.shellComponent.loadingComponent.closeLoadingSpinner();
-            this.componentService
-              .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
-          } else {
-            this.fileName = file.target.files[0].name;
-            this.createTable(this.arrayCorrectData, iVal, numCol);
-          }
-        } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
-          this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
-        }
       }
-    } else {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
-      this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
   }
 
@@ -334,119 +387,228 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   createTable(res, iVal, numCol) {
 
     for (let i = 0; i < res.length; i++) {
-
-      let isErrorNumber = false;
-      let isErrorData = false;
-      let isErrorBoolean = false;
-      let isLessThanZero = false;
-      let invalidFormatPromEntrega = false;
-
+      let variant = false;
+      let errorInCell = false;
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
-
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
-
-            if (j !== iVal.iEAN && j !== iVal.iPromEntrega) {
-
-              if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete) {
-
-                const isBoolean = this.isBoolean(res[i][j]);
-
-                if (!isBoolean && isBoolean === false) {
-
-                  this.countErrors += 1;
-
-                  const row = i + 1, column = j + 1;
-
-                  // tslint:disable-next-line:no-shadowed-variable
-                  const itemLog = {
-                    row: this.arrayInformation.length,
-                    column: j,
-                    type: 'BoleanFormat',
-                    columna: column,
-                    fila: row,
-                    positionRowPrincipal: i
-                  };
-
-                  this.listLog.push(itemLog);
-                  isErrorBoolean = true;
-                }
-
-              } else if (j === iVal.iPrecio || j === iVal.iPrecDesc || j === iVal.iGarantia) {
-
-                const isGreaterThanZero = this.isGreaterThanZero(res[i][j]);
-
-                if (!isGreaterThanZero && isGreaterThanZero === false) {
-
-                  this.countErrors += 1;
-
-                  const row = i + 1, column = j + 1;
-
-                  const itemLog = {
-                    row: this.arrayInformation.length,
-                    column: j,
-                    type: 'LessThanZero',
-                    columna: column,
-                    fila: row,
-                    positionRowPrincipal: i
-                  };
-
-                  this.listLog.push(itemLog);
-                  isLessThanZero = true;
-
-                }
-              } else {
-                const onlyNumber = this.alphanumeric(res[i][j]);
-                if (onlyNumber === false && !onlyNumber) {
-
-                  this.countErrors += 1;
-
-                  const row = i + 1, column = j + 1;
-
-                  const itemLog = {
-                    row: this.arrayInformation.length,
-                    column: j,
-                    type: 'NumberFormat',
-                    columna: column,
-                    fila: row,
-                    positionRowPrincipal: i
-                  };
-
-                  this.listLog.push(itemLog);
-                  isErrorNumber = true;
-
-                }
-              }
-            } else if (j === iVal.iPromEntrega) {
-
-              const validFormatPromEntrega = this.validFormatPromEntrega(res[i][j]);
-
-              if (!validFormatPromEntrega && validFormatPromEntrega === false) {
-
+            if (j === iVal.iEAN) {
+              const validFormatEan = this.validFormat(res[i][j], 'ean');
+              if (!validFormatEan && validFormatEan === false) {
                 this.countErrors += 1;
-
                 const row = i + 1, column = j + 1;
-
                 const itemLog = {
                   row: this.arrayInformation.length,
                   column: j,
-                  type: 'InvalidFormatPromEntrega',
+                  type: 'invalidFormat',
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i
                 };
-
                 this.listLog.push(itemLog);
-                invalidFormatPromEntrega = true;
-
+                errorInCell = true;
+              }
+            } else if (j === iVal.iTipoDeProducto) {
+              if (res[i][j] === 'Variante') {
+                variant = true;
+              } else if (res[i][j] !== 'Variante' && res[i][j] !== 'Estandar') {
+                const validFormatCategory = this.validFormat(res[i][j], 'category');
+                if (!validFormatCategory && validFormatCategory === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iModificacionImagen) {
+              const isBoolean = this.validFormat(res[i][j], 'boolean');
+              if (!isBoolean && isBoolean === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'BoleanFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iNombreProd) {
+              const isFormatNameProd = this.validFormat(res[i][j], 'nameProd');
+              if (!isFormatNameProd && isFormatNameProd === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iCategoria) {
+              const isNumeric = this.validFormat(res[i][j], 'greaterThanZero');
+              if (!isNumeric && isNumeric === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'LessThanZero',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion || j === iVal.iPalabrasClave) {
+              const allChars = this.validFormat(res[i][j], 'formatAllChars');
+              if (!allChars && allChars === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
+              const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
+              if (!limitChars && limitChars === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iVendedor) {
+              const formatSeller = this.validFormat(res[i][j], 'formatSeller');
+              if (!formatSeller && formatSeller === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iURLDeImagen1 || j === iVal.iURLDeImagen2 || j === iVal.iURLDeImagen3 || j === iVal.iURLDeImagen4 || j === iVal.iURLDeImagen5) {
+              const validFormatImg = this.validFormat(res[i][j], 'formatImg');
+              if (!validFormatImg && validFormatImg === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iskuShippingsize) {
+              const validFormatSku = this.validFormat(res[i][j], 'formatSku');
+              if (!validFormatSku && validFormatSku === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iAltoDelEmpaque || j === iVal.ilargoDelEmpaque || j === iVal.iAltoDelProducto || j === iVal.iLargoDelProducto) {
+              const validFormatPackage = this.validFormat(res[i][j], 'formatPackage');
+              if (!validFormatPackage && validFormatPackage === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (j === iVal.iDescripcion) {
+              const validFormatDesc = this.validFormat(res[i][j], 'formatDescription');
+              if (!validFormatDesc && validFormatDesc === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else {
+              const extraFields = this.validFormat(res[i][j]);
+              if (extraFields === false && !extraFields) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
               }
             }
-          } else if (j === iVal.iEAN || j === iVal.iInv || j === iVal.iPrecio) {
+          } else if (j === iVal.iEAN || j === iVal.iTipoDeProducto || j === iVal.iCategoria) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
               this.countErrors += 1;
-
               const row = i + 1, column = j + 1;
-
               const itemLog = {
                 row: this.arrayInformation.length,
                 column: j,
@@ -455,26 +617,36 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 fila: row,
                 positionRowPrincipal: i
               };
-
               this.listLog.push(itemLog);
-              isErrorData = true;
+              errorInCell = true;
             }
-
+          } else if (variant === true) {
+            if (j === iVal.iParentReference || j === iVal.sonReference) {
+              if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'dateNotFound',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            }
           } else {
             log.info('Dato cargado correctamente');
           }
         }
       }
 
-      if (isErrorData || isErrorNumber || isErrorBoolean || isLessThanZero || invalidFormatPromEntrega) {
+      if (errorInCell) {
 
         this.addRowToTable(res, i, iVal);
-        isErrorData = false;
-        isErrorNumber = false;
-        isErrorBoolean = false;
-        isLessThanZero = false;
-        invalidFormatPromEntrega = false;
-
+        errorInCell = false;
       }
 
       this.addInfoTosend(res, i, iVal);
@@ -494,20 +666,77 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @param {any} index
   * @memberof BulkLoadProductComponent
   */
-  addInfoTosend(res, index, iVal) {
-
+  addInfoTosend(res, i, iVal) {
+    const regex = new RegExp('"', 'g');
     const newObjectForSend = {
-      EAN: res[index][iVal.iEAN],
-      Stock: res[index][iVal.iInv],
-      Price: res[index][iVal.iPrecio],
-      DiscountPrice: res[index][iVal.iPrecDesc],
-      AverageFreightCost: res[index][iVal.iCostFletProm],
-      PromiseDelivery: res[index][iVal.iPromEntrega],
-      IsFreeShipping: res[index][iVal.iFreeShiping],
-      IsEnviosExito: res[index][iVal.iIndEnvExito],
-      IsFreightCalculator: res[index][iVal.iCotFlete],
-      Warranty: res[index][iVal.iGarantia]
+      Ean: res[i][iVal.iEAN] ? res[i][iVal.iEAN].trim() : null,
+      Name: res[i][iVal.iNombreProd] ? res[i][iVal.iNombreProd].trim() : null,
+      Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].trim() : null,
+      Brand: res[i][iVal.iMarca] ? res[i][iVal.iMarca].trim() : null,
+      Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
+      Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
+      Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
+      MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
+      MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
+      PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim() : null,
+      PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim() : null,
+      PackageWidth: res[i][iVal.iAnchoDelEmpaque] ? res[i][iVal.iAnchoDelEmpaque].trim() : null,
+      PackageWeight: res[i][iVal.iPesoDelEmpaque] ? res[i][iVal.iPesoDelEmpaque].trim() : null,
+      SkuShippingSize: res[i][iVal.iSkuShippingSize] ? res[i][iVal.iSkuShippingSize].trim() : null,
+      ProductHeight: res[i][iVal.iAltoDelProducto] ? res[i][iVal.iAltoDelProducto].trim() : null,
+      ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim() : null,
+      ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim() : null,
+      ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim() : null,
+      Seller: res[i][iVal.iVendedor] ? res[i][iVal.iVendedor].trim() : null,
+      ProductType: res[i][iVal.iTipoDeProducto] ? res[i][iVal.iTipoDeProducto].trim() : null,
+      ImageUrl1: res[i][iVal.iURLDeImagen1] ? res[i][iVal.iURLDeImagen1].trim() : null,
+      ImageUrl2: res[i][iVal.iURLDeImagen2] ? res[i][iVal.iURLDeImagen2].trim() : null,
+      ImageUrl3: res[i][iVal.iURLDeImagen3] ? res[i][iVal.iURLDeImagen3].trim() : null,
+      ImageUrl4: res[i][iVal.iURLDeImagen4] ? res[i][iVal.iURLDeImagen4].trim() : null,
+      ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
+      ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
+      features: []
     };
+
+    if (i > 0 && i !== 0) {
+      for (let j = 0; j < res.length; j++) {
+        for (let k = 0; k < res[0].length; k++) {
+          const newFeatures = {};
+          if (k !== iVal.iEAN &&
+            k !== iVal.iNombreProd &&
+            k !== iVal.iCategoria &&
+            k !== iVal.iMarca &&
+            k !== iVal.iModelo &&
+            k !== iVal.iDetalles &&
+            k !== iVal.iDescripcion &&
+            k !== iVal.iMetaTitulo &&
+            k !== iVal.iMetaDescripcion &&
+            k !== iVal.iPalabrasClave &&
+            k !== iVal.iAltoDelEmpaque &&
+            k !== iVal.ilargoDelEmpaque &&
+            k !== iVal.iAnchoDelEmpaque &&
+            k !== iVal.iPesoDelEmpaque &&
+            k !== iVal.iSkuShippingSize &&
+            k !== iVal.iAltoDelProducto &&
+            k !== iVal.iLargoDelProducto &&
+            k !== iVal.iAnchoDelProducto &&
+            k !== iVal.iPesoDelProducto &&
+            k !== iVal.iVendedor &&
+            k !== iVal.iTipoDeProducto &&
+            k !== iVal.iURLDeImagen1 &&
+            k !== iVal.iURLDeImagen2 &&
+            k !== iVal.iURLDeImagen3 &&
+            k !== iVal.iURLDeImagen4 &&
+            k !== iVal.iURLDeImagen5 &&
+            k !== iVal.iModificacionImagen) {
+            newFeatures['key'] = res[0][k];
+            newFeatures['value'] = res[i][k];
+            newObjectForSend.features.push(newFeatures);
+          }
+        }
+      }
+    }
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
@@ -520,16 +749,32 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   addRowToTable(res, index, iVal) {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: ModelProduct = {
-      EAN: res[index][iVal.iEAN],
-      Stock: res[index][iVal.iInv],
-      Price: res[index][iVal.iPrecio],
-      DiscountPrice: res[index][iVal.iPrecDesc],
-      AverageFreightCost: res[index][iVal.iCostFletProm],
-      PromiseDelivery: res[index][iVal.iPromEntrega],
-      IsFreeShipping: res[index][iVal.iFreeShiping],
-      IsEnviosExito: res[index][iVal.iIndEnvExito],
-      IsFreightCalculator: res[index][iVal.iCotFlete],
-      Warranty: res[index][iVal.iGarantia],
+      Ean: res[index][iVal.iEAN],
+      Name: res[index][iVal.iNombreProd],
+      Category: res[index][iVal.iCategoria],
+      Brand: res[index][iVal.iMarca],
+      Model: res[index][iVal.iModelo],
+      Details: res[index][iVal.iDetalles],
+      Description: res[index][iVal.iDescripcion],
+      MetaTitle: res[index][iVal.iMetaTitulo],
+      MetaDescription: res[index][iVal.iMetaDescripcion],
+      KeyWords: res[index][iVal.iPalabrasClave],
+      PackageHeight: res[index][iVal.iAltoDelEmpaque],
+      PackageLength: res[index][iVal.ilargoDelEmpaque],
+      PackageWidth: res[index][iVal.iAnchoDelEmpaque],
+      PackageWeight: res[index][iVal.iPesoDelEmpaque],
+      SkuShippingSize: res[index][iVal.iSkuShippingSize],
+      ProductHeight: res[index][iVal.iAltoDelProducto],
+      ProductLength: res[index][iVal.iLargoDelProducto],
+      ProductWidth: res[index][iVal.iAnchoDelProducto],
+      ProductWeight: res[index][iVal.iPesoDelProducto],
+      Seller: res[index][iVal.iVendedor],
+      ProductType: res[index][iVal.iTipoDeProducto],
+      ImageUrl1: res[index][iVal.iURLDeImagen1],
+      ImageUrl2: res[index][iVal.iURLDeImagen2],
+      ImageUrl3: res[index][iVal.iURLDeImagen3],
+      ImageUrl4: res[index][iVal.iURLDeImagen4],
+      ImageUrl5: res[index][iVal.iURLDeImagen5],
       errorRow: false,
       errorColumn1: false,
       errorColumn2: false,
@@ -540,7 +785,23 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       errorColumn7: false,
       errorColumn8: false,
       errorColumn9: false,
-      errorColumn10: false
+      errorColumn10: false,
+      errorColumn11: false,
+      errorColumn12: false,
+      errorColumn13: false,
+      errorColumn14: false,
+      errorColumn15: false,
+      errorColumn16: false,
+      errorColumn17: false,
+      errorColumn18: false,
+      errorColumn19: false,
+      errorColumn20: false,
+      errorColumn21: false,
+      errorColumn22: false,
+      errorColumn23: false,
+      errorColumn24: false,
+      errorColumn25: false,
+      errorColumn26: false
     };
 
     this.arrayInformation.push(newObject);
@@ -667,11 +928,12 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
-          if (result.status === 200) {
+          if (result.status === 201 || result.status === 200) {
             const data = result;
             log.info(data);
             if (data.body.successful !== 0 || data.body.error !== 0) {
               this.openDialogSendOrder(data);
+              this.getAvaliableLoads();
             } else if (data.body.successful === 0 && data.body.error === 0) {
               this.shellComponent.modalComponent.showModal('errorService');
             }
@@ -703,89 +965,150 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     });
   }
 
-  /**
-  * Método para identificar si un string solo contiene números
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadProductComponent
-  */
-  alphanumeric(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const letterNumber = /^[0-9]+$/;
-      if ((inputtxt.match(letterNumber))) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
+  /*---------------------------------------- Metodos para validar el formato de los campos ----------------------------------------*/
 
   /**
-  * Método para validar si es booleano el dato
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadProductComponent
-  */
-  isBoolean(inputtxt) {
+   * @method validFormat
+   * @param inputtxt
+   * @param validation
+   * @description Metodo para validar el formato de la celda enviada del excel
+   * @memberof BulkLoadProductComponent
+   */
+  validFormat(inputtxt: any, validation?: string) {
+    let valueReturn: boolean;
+    const filterNumber = /^[0-9]+$/;
+    const formatEan = /^(IZ[0-9]{5,11})$|^([0-9]{7,13})$/;
+    const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
+    /* const filterAlphanumeric = /^[a-zA-Z0-9\s]{0,200}$/; */
+    const formatAllChars = /^[\w\W\s\d]{1,200}$/;
+    const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
+    const formatImg = /\bJPG$|\bjpg$/;
+    const formatSkuShippingSize = /^[1-5]{1}$/;
+    const formatExtraFields = /^[a-zA-Z0-9\s+\-\,\.]{1,200}$/;
+    const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
+    const formatDesc = /^((?!script|SCRIPT).)*$/;
     if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        if (inputtxt === '1' || inputtxt === '0') {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
+      valueReturn = false;
+    } else if (inputtxt !== undefined) {
+      switch (validation) {
+        case 'ean':
+          if ((inputtxt.match(formatEan))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'nameProd':
+          if ((inputtxt.match(formatNameProd))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'numeric':
+          if ((inputtxt.match(filterNumber))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatAllChars':
+          if ((inputtxt.match(formatAllChars))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatlimitChars':
+          if ((inputtxt.match(formatlimitChars))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatSeller':
+          if (inputtxt === 'Marketplace') {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatImg':
+          if ((inputtxt.match(formatImg))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatSku':
+          if ((inputtxt.match(formatSkuShippingSize))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatPackage':
+          if ((inputtxt.match(formatPackage))) {
+            const num = parseInt(inputtxt, 10);
+            if (num > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatDescription':
+          if ((inputtxt.match(formatDesc))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'boolean':
+          if ((inputtxt.match(filterNumber))) {
+            if (inputtxt === '1' || inputtxt === '0') {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'greaterThanZero':
+          if ((inputtxt.match(filterNumber))) {
+            const num = parseInt(inputtxt, 10);
+            if (num > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'category':
+          if (inputtxt === 'Estandar' || inputtxt === 'Variante') {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        default:
+          if ((inputtxt.match(formatExtraFields))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
+    return valueReturn;
   }
+  /*---------------------------------------- Fin Metodos para validar el formato de los campos ----------------------------------------*/
 
-  /**
-  * Método para validar si es mayor a 0
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadProductComponent
-  */
-  isGreaterThanZero(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        // tslint:disable-next-line:radix
-        const num = parseInt(inputtxt);
-        if (num > 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-  * Metodo para validar formato de la promesa de entrega
-  * @param inputtxt
-  */
-  validFormatPromEntrega(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const format = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-      if ((inputtxt.match(format))) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
   /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
   /**
   * Método para descargar el formato de excel para carga masiva
@@ -814,7 +1137,14 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       'Largo del producto': undefined,
       'Ancho del producto': undefined,
       'Peso del producto': undefined,
-      'Vendedor': undefined
+      'Vendedor': undefined,
+      'Tipo de Producto': undefined,
+      'URL de Imagen 1': undefined,
+      'URL de Imagen 2': undefined,
+      'URL de Imagen 3': undefined,
+      'URL de Imagen 4': undefined,
+      'URL de Imagen 5': undefined,
+      'Modificacion Imagen': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');
@@ -828,7 +1158,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = { Sheets: { 'Ofertas': worksheet }, SheetNames: ['Ofertas'] };
+    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheet }, SheetNames: ['Productos'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }

@@ -49,7 +49,7 @@
           "price": -850000
         }
       ],
-      "fulfillment": null,
+      "fulfillmentDetail": null,
       "paginationToken": "636561345858929046|10034"
     },
     {
@@ -64,7 +64,7 @@
       "commission": -149294.12,
       "billingTotal": 120000,
       "detail": null,
-      "fulfillment": {
+      "fulfillmentDetail": {
         "totalStorage": 100000,
         "totalMovement": 200000
       },
@@ -110,7 +110,7 @@
           "price": 850000
         }
       ],
-      "fulfillment": null,
+      "fulfillmentDetail": null,
       "paginationToken": "636561345858929045|10034"
     },
     {
@@ -121,11 +121,11 @@
       "orderNumber": "665180005",
       "payOrderNumber": "6600000916",
       "concept": "Venta Marketplace",
-      "paymentDate": "2017-10-03T16:12:34.063+00:00",
+      "paymentDate": "2018-02-03T16:12:34.063+00:00",
       "commission": -156201.68,
       "billingTotal": 350000,
       "detail": null,
-      "fulfillment": {
+      "fulfillmentDetail": {
         "totalStorage": 150000,
         "totalMovement": 200000
       },
@@ -143,7 +143,7 @@
       "commission": -142857.98,
       "billingTotal": 500000,
       "detail": null,
-      "fulfillment": {
+      "fulfillmentDetail": {
         "totalStorage": 400000,
         "totalMovement": 100000
       },

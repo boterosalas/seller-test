@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 /* our own custom components */
 import { ListComponent } from '../../list/list.component';
@@ -14,7 +14,7 @@ import { ModelFilter } from './../filter/filter.model';
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnChanges {
 
     /**
      * Variable que almacena el texto que se mostrara en el titulo
@@ -59,11 +59,20 @@ export class ToolbarComponent implements OnInit {
     @Input() numberPages: any;
 
     /**
-     * Creates an instance of ToolbarComponent
+     * Variable que recibe la posicion de la página cuando se aplica un filtro
+     * @memberof ToolbarComponent
+     */
+    @Input() currentPageInput: any;
+
+    /**
+     *Creates an instance of ToolbarComponent.
      * @param {ListComponent} list
+     * @param {ChangeDetectorRef} cdRef
+     * @memberof ToolbarComponent
      */
     constructor(
-        public list: ListComponent
+        public list: ListComponent,
+        private cdRef: ChangeDetectorRef
     ) {
         this.dataPaginate = new ModelFilter();
         this.dataPaginate.limit = '30';
@@ -77,6 +86,17 @@ export class ToolbarComponent implements OnInit {
      */
     ngOnInit() {
         this.numberPages = this.numberPages === undefined ? 0 : this.numberPages;
+    }
+
+    /**
+     * @method ngOnChanges
+     * @param {SimpleChanges} changes
+     * @description Metodo para controlar el cambio de la página (Input)
+     * @memberof ToolbarComponent
+     */
+    ngOnChanges(changes: SimpleChanges) {
+        this.currentPage = this.currentPageInput === undefined ? 1 : this.currentPageInput;
+        this.cdRef.detectChanges();
     }
 
     /**

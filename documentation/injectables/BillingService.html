@@ -1561,6 +1561,9 @@
                     id="xs-classes-links"
                 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -1613,6 +1616,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -3515,6 +3521,9 @@
                     id="classes-links"
 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -3567,6 +3576,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -4028,7 +4040,7 @@
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Método para realiar la consulta de las transportadoras</p>
+                            <div class="io-description"><p>Método para realiar la consulta de las transportadoras.</p>
 </div>
 
                             <div class="io-description">
@@ -4097,14 +4109,14 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/secure/billing/billing.service.ts:62</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/secure/billing/billing.service.ts:65</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes</p>
+                            <div class="io-description"><p>Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.</p>
 </div>
 
                             <div>
@@ -4142,7 +4154,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/secure/billing/billing.service.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/secure/billing/billing.service.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -4235,14 +4247,14 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/secure/billing/billing.service.ts:72</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/secure/billing/billing.service.ts:76</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando</p>
+                            <div class="io-description"><p>Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.</p>
 </div>
 
                             <div class="io-description">
@@ -4300,26 +4312,28 @@ import { Billing, BaseSellerService } from &#x27;@app/shared&#x27;;
 export class BillingService extends BaseSellerService {
 
   /**
-   * Método para realiar la consulta de las transportadoras
-   * @param {any} user
+   * Método para realiar la consulta de las transportadoras.
+   * 
    * @param {any} stringSearch
    * @returns {Observable&lt;Billing[]&gt;}
    * @memberof BillingService
    */
   getBilling(user, stringSearch): Observable&lt;Billing[]&gt; {
     return new Observable(observer &#x3D;&gt; {
-      this.http.get(this.api.get(&#x27;getBilling&#x27;, [stringSearch]), this.getHeaders(user)).subscribe((data: any) &#x3D;&gt; {
-        observer.next(data);
-      }, error &#x3D;&gt; {
-        this.hehs.error(error, () &#x3D;&gt; {
-          observer.error(error);
+      this.http.get(this.api.get(&#x27;getBilling&#x27;, [stringSearch]), this.getHeaders())
+        .subscribe((data: any) &#x3D;&gt; {
+          observer.next(data);
+        }, error &#x3D;&gt; {
+          this.hehs.error(error, () &#x3D;&gt; {
+            observer.error(error);
+          });
         });
-      });
     });
   }
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
+   * 
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
@@ -4344,7 +4358,8 @@ export class BillingService extends BaseSellerService {
 
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
+   * 
    * @returns
    * @memberof BillingService
    */
@@ -4354,7 +4369,8 @@ export class BillingService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
+   * 
    * @param {any} data
    * @memberof BillingService
    */

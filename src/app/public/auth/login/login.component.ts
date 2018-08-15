@@ -111,6 +111,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         }
         this.errorMessage = null;
         this.shell.loadingComponent.closeLoadingProgressBar();
+        console.log('LoginComponent');
         this.userService.authenticate(this.email, this.password, this);
         this.shell.loadingComponent.viewLoadingSpinner();
     }

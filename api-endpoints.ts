@@ -26,8 +26,8 @@ export const endpoints = {
         recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
         getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
         // Billing Mock
-        getBilling: 'http://localhost:3000/financials/getbilling{stringParams}',
-        searchBilling: 'http://localhost:3000/financials/getbilling?idSeller={sellerId}&limit={limit}',
+        getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
+        searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
         inDevolution: 'http://localhost:3000/inDevolution',
         acceptDevolution: 'http://localhost:3000/orders/acceptDevolution',
         refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
@@ -52,7 +52,9 @@ export const endpoints = {
         getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
         // Offers
         getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
-        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer'
+        patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+        // Products
+        products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
     },
     // endpoints production version
     v2: {
