@@ -39,6 +39,7 @@ export class UserLoginService {
 
     constructor(public ddb: DynamoDBService, public cognitoUtil: CognitoUtil) {
     }
+
     /**
      * Metodo de autenticacion de seller-center con aws-cognito
      * @param username correo electronico del usuario

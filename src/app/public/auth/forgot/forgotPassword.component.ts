@@ -3,10 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
     CognitoCallback,
     UserLoginService,
-    RoutesConst
+    RoutesConst,
+    UserParametersService,
+    DynamoDBService,
+    Callback
 } from '@app/shared';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ShellComponent } from '@app/core/shell/shell.component';
 
 @Component({
     selector: 'app-awscognito',
@@ -38,9 +42,16 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     email: string;
     errorMessage: string;
 
+    /**
+     * Creates an instance of ForgotPassword.
+     * @param {LoginService} loginService
+     * @param {ShellComponent} shellComponent
+     */
+
     constructor(
         public router: Router,
         public userService: UserLoginService,
+        public shell: ShellComponent,
         private fb: FormBuilder
     ) {
         this.errorMessage = null;
@@ -48,6 +59,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
 
     onNext() {
         this.errorMessage = null;
+        this.shell.loadingComponent.viewLoadingSpinner();
         this.userService.forgotPassword(this.email, this);
     }
 
@@ -55,7 +67,16 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         if (message == null && result == null) { // error
             this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.email]);
         } else { // success
-            this.errorMessage = message;
+            console.log(message);
+            // this.errorMessage = message;
+            switch (message) {
+                case 'Username/client id combination not found.':
+                    this.errorMessage = 'Usuario no encontrado';
+                    break;
+                default:
+                    this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
+            }
+            this.shell.loadingComponent.closeLoadingSpinner();
         }
     }
     ngOnInit() {
@@ -69,7 +90,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     */
     createForm() {
         this.awscognitogroup = this.fb.group({
-            'email': [null, [Validators.required, Validators.email, Validators.maxLength(30)]]
+            'email': [null, [Validators.required, Validators.email, Validators.maxLength(50)]]
             // 'password': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(30)])],
         });
     }
@@ -99,21 +120,26 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         ])
     ]
 })
-export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDestroy {
+export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDestroy, Callback {
     // Contiene la estructura del formulario del forgot password
     confirmNewPassword: FormGroup;
     verificationCode: string;
+    user: any;
     email: string;
     newPassword: string;
     newPassword2: string;
     errorMessage: string;
+    changePassSucces: boolean;
     private sub: any;
 
     constructor(
         public router: Router,
         public route: ActivatedRoute,
         public userService: UserLoginService,
-        private fb: FormBuilder
+        public shell: ShellComponent,
+        private fb: FormBuilder,
+        public ddb: DynamoDBService,
+        public userParams: UserParametersService
     ) {
         console.log('email from the url: ' + this.email);
     }
@@ -125,6 +151,8 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
         });
         this.errorMessage = null;
+        this.changePassSucces = false;
+        this.shell.loadingComponent.closeLoadingSpinner();
     }
 
     /**
@@ -135,7 +163,6 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         this.confirmNewPassword = this.fb.group({
             'verificationCode': [null, [Validators.required, Validators.maxLength(10)]],
             'newPassword': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(25)])],
-            // 'newPassword2': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(25)])]
             'newPassword2': new FormControl('', [
                 Validators.required,
                 Validators.minLength(1),
@@ -159,16 +186,58 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
     onNext() {
         this.errorMessage = null;
+        this.shell.loadingComponent.viewLoadingSpinner();
         this.userService.confirmNewPassword(this.email, this.verificationCode, this.newPassword, this);
     }
 
     cognitoCallback(message: string) {
         if (message != null) { // error
-            this.errorMessage = message;
-            console.log('result: ' + this.errorMessage);
-        } else { // success
-            this.router.navigate([`/${RoutesConst.homeLogin}`]);
+            // this.errorMessage = message;
+            console.log('result: ' + message);
+            switch (message) {
+                case '1 validation error detected: Value at \'password\' failed to satisfy constraint: Member must have length greater than or equal to 6': // Pass menor a 6
+                    this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+                    break;
+                case 'Password does not conform to policy: Password must have lowercase characters': // Debe tener minusculas
+                    this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+                    break;
+                case 'Password does not conform to policy: Password must have uppercase characters': // Debe tener mayúsculas
+                    this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+                    break;
+                case 'Password does not conform to policy: Password must have symbol characters': // Debe tener caracteres especiales
+                    this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+                    break;
+                case 'Invalid verification code provided, please try again.':
+                    this.errorMessage = 'El código de verificación no es válido, por favor intente de nuevo.';
+                    break;
+                default:
+                    this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
+            }
+            this.shell.loadingComponent.closeLoadingSpinner();
+        } else if (this.changePassSucces) { // success
+            this.ddb.writeLogEntry('login');
+            this.getDataUser();
+        } else {
+            this.changePassSucces = !this.changePassSucces;
+            this.userService.authenticate(this.email, this.newPassword, this);
         }
     }
 
+    callback() { }
+
+    callbackWithParam(userData: any) {
+        this.user = userData;
+        this.shell.user = this.user;
+        this.shell.loadingComponent.closeLoadingSpinner();
+        if (this.user.sellerProfile === 'seller') {
+            this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+            this.shell.showHeader = true;
+        } else if (this.user.sellerProfile === 'administrator') {
+            this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
+        }
+    }
+
+    getDataUser() {
+        this.userParams.getUserData(this);
+    }
 }

@@ -136,6 +136,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     callback() { }
 
     getDataUser() {
+        console.log('Este es this');
+        console.log(this);
         this.userParams.getUserData(this);
     }
 
