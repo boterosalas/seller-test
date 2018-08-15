@@ -1561,6 +1561,9 @@
                     id="xs-classes-links"
                 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -1613,6 +1616,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -3515,6 +3521,9 @@
                     id="classes-links"
 >
                     <li class="link">
+                        <a href="classes/AbaliableLoadModel.html" data-type="entity-link">AbaliableLoadModel</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/AccessTokenCallback.html" data-type="entity-link">AccessTokenCallback</a>
                     </li>
                     <li class="link">
@@ -3567,6 +3576,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -4120,14 +4132,14 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/shared/services/base-seller.service.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/shared/services/base-seller.service.ts:44</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Método para aplicar la url a emplear en los servicios</p>
+                            <div class="io-description"><p>Método para aplicar la url a emplear en los servicios.</p>
 </div>
 
                             <div class="io-description">
@@ -4160,14 +4172,14 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/shared/services/base-seller.service.ts:51</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/shared/services/base-seller.service.ts:53</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Método para indicar los headers a usar en los servicio</p>
+                            <div class="io-description"><p>Método para indicar los headers a usar en los servicio.</p>
 </div>
 
                             <div class="io-description">
@@ -4254,7 +4266,8 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para aplicar la url a emplear en los servicios
+     * Método para aplicar la url a emplear en los servicios.
+     * 
      * @memberof BaseSellerService
      */
     changeEndPoint() {
@@ -4262,13 +4275,12 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para indicar los headers a usar en los servicio
+     * Método para indicar los headers a usar en los servicio.
+     * 
      * @returns {{headers: HttpHeaders}}
      */
     getHeaders(user?: any): { headers: HttpHeaders } {
-        // Empleo la url para el seller center
-        this.changeEndPoint();
-        const idToken &#x3D;  this.cognitoUtil.getTokenLocalStorage();
+        const idToken &#x3D; this.cognitoUtil.getTokenLocalStorage();
         return {
             headers: new HttpHeaders({
                 &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
