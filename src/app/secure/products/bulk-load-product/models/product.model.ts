@@ -26,6 +26,8 @@ export class ModelProduct {
         public ImageUrl3?: any,
         public ImageUrl4?: any,
         public ImageUrl5?: any,
+        public ParentReference?: any,
+        public SonReference?: any,
         public ModifyImage?: any,
         public errorRow?: boolean,
         public errorColumn1?: boolean,
@@ -54,6 +56,9 @@ export class ModelProduct {
         public errorColumn24?: boolean,
         public errorColumn25?: boolean,
         public errorColumn26?: boolean,
+        public errorColumn27?: boolean,
+        public errorColumn28?: boolean,
+        public isVariant?: boolean
     ) { }
 }
 
@@ -62,6 +67,6 @@ export class AbaliableLoadModel {
         public amountAvailableLoads?: number,
         public amountSuccessfulLoads?: number,
         public maximumAvailableLoads?: number
-    ) {}
+    ) { }
 }
 

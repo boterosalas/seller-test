@@ -91,7 +91,8 @@ $color-gray3: #D3D3D3;
         & .information {
             background-color: #c70024;
             font-weight: bold;
-            p {
+            p,
+            p.text-error {
                 color: #fff;
             }
         }
@@ -134,7 +135,7 @@ $color-gray3: #D3D3D3;
                 display: flex;
                 align-items: center;
             }
-            p{
+            p {
                 font-size: 14px;
             }
             &::after {
@@ -152,7 +153,7 @@ $color-gray3: #D3D3D3;
             }
         }
     }
-    .no-data-avaliable{
+    .no-data-avaliable {
         pointer-events: none;
         color: $color-gray3;
     }

@@ -54,7 +54,9 @@ export class TableLoadProductComponent implements OnInit {
     'ImageUrl2',
     'ImageUrl3',
     'ImageUrl4',
-    'ImageUrl5'
+    'ImageUrl5',
+    'ParentReference',
+    'SonReference'
   ];
 
   /**

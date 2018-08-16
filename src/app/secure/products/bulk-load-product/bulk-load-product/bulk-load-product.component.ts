@@ -380,6 +380,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
               iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
               iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+              iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+              iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
             };
 
             if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
@@ -641,13 +643,13 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 type: 'dateNotFound',
                 columna: column,
                 fila: row,
-                positionRowPrincipal: i
+                positionRowPrincipal: i,
               };
               this.listLog.push(itemLog);
               errorInCell = true;
             }
           } else if (variant === true) {
-            if (j === iVal.iParentReference || j === iVal.sonReference) {
+            if (j === iVal.iParentReference || j === iVal.iSonReference) {
               if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
                 this.countErrors += 1;
                 const row = i + 1, column = j + 1;
@@ -657,19 +659,23 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'dateNotFound',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: res[0][j]
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
+            } else if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
+              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+              return;
             }
           }
         }
       }
 
       if (errorInCell) {
-
-        this.addRowToTable(res, i, iVal);
+        this.addRowToTable(res, i, iVal, variant);
         errorInCell = false;
       }
 
@@ -770,7 +776,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @param {any} index
   * @memberof BulkLoadProductComponent
   */
-  addRowToTable(res, index, iVal) {
+  addRowToTable(res, index, iVal, variant) {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: ModelProduct = {
       Ean: res[index][iVal.iEAN],
@@ -794,6 +800,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ProductWeight: res[index][iVal.iPesoDelProducto],
       Seller: res[index][iVal.iVendedor],
       ProductType: res[index][iVal.iTipoDeProducto],
+      ParentReference: res[index][iVal.iParentReference],
+      SonReference: res[index][iVal.iSonReference],
       ImageUrl1: res[index][iVal.iURLDeImagen1],
       ImageUrl2: res[index][iVal.iURLDeImagen2],
       ImageUrl3: res[index][iVal.iURLDeImagen3],
@@ -825,7 +833,10 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       errorColumn23: false,
       errorColumn24: false,
       errorColumn25: false,
-      errorColumn26: false
+      errorColumn26: false,
+      errorColumn27: false,
+      errorColumn28: false,
+      isVariant: variant
     };
 
     this.arrayInformation.push(newObject);
@@ -881,6 +892,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorColumn24 = false;
       this.arrayInformation[index].errorColumn25 = false;
       this.arrayInformation[index].errorColumn26 = false;
+      this.arrayInformation[index].errorColumn27 = false;
+      this.arrayInformation[index].errorColumn28 = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -892,7 +905,17 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
-    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    if (item.dato) {
+      if (item.dato === 'Referencia Padre') {
+        this.arrayInformation[item.row]['errorColumn27'] = true;
+      } else if (item.dato === 'Referencia Hijo') {
+        this.arrayInformation[item.row]['errorColumn28'] = true;
+      }
+    } else {
+      this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    }
+
+
     this.arrayInformation[item.row].errorRow = true;
 
     const data = JSON.stringify(this.arrayInformation);
