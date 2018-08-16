@@ -1,10 +1,9 @@
-/* 3rd party components */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-/* our own custom components */
+import { RoutesConst } from '@app/shared';
+
 import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
-import { RoutesConst } from './../../../shared';
 
 const routes: Routes = [
     {

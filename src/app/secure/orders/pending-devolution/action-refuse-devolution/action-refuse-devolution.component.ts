@@ -124,7 +124,7 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
       ObservationRejectionSeller: myform.value.observation,
       Id: this.currentOrder.id
     };
-    this.pendingDevolutionService.refuseDevolution(this.user, information).subscribe(res => {
+    this.pendingDevolutionService.refuseDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

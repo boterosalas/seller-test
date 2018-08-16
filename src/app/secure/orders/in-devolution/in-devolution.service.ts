@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BaseSellerService } from '@app/shared';
+import { BaseSellerService, Const, ListReasonRejectionResponseEntity } from '@root/src/app/shared';
 import { Observable } from 'rxjs';
 
 
 @Injectable()
-export class InValidationService extends BaseSellerService {
+export class InDevolutionService extends BaseSellerService {
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente.
      * 
+     * @param user
      * @param guide
      * @returns Observable<[{}]>
      */
@@ -16,7 +17,8 @@ export class InValidationService extends BaseSellerService {
         return new Observable(observer => {
             this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders())
                 .subscribe((data: any) => {
-                    data = data ? data : [];
+                    // Validación debido a que a veces el endpoint solo responde un status 200.
+                    data = (!data) ? [] : data;
                     observer.next(data);
                 }, err => {
                     this.hehs.error(err, () => {
@@ -30,7 +32,7 @@ export class InValidationService extends BaseSellerService {
      * Método para realizar la aceptación de una devolución.
      * 
      * @returns {Observable<[{}]>}
-     * @memberof PendingDevolutionService
+     * @memberof InDevolutionService
      */
     acceptDevolution(): Observable<[{}]> {
         return new Observable(observer => {
@@ -46,14 +48,35 @@ export class InValidationService extends BaseSellerService {
     }
 
     /**
+     * Método para realiar la consulta de las opciones para realizar el rechazo.
+     * 
+     * @returns {Observable<[{ListReasonRejectionResponseEntity}]>}
+     * @memberof InDevolutionService
+     */
+    getReasonsRejection(): Observable<Array<ListReasonRejectionResponseEntity>> {
+        return new Observable(observer => {
+            this.http.get(this.api.get('getreasonsrejection', [
+                `?reversionRequestRejectionType=${Const.OrdersInDevolution}`
+            ]), this.getHeaders()).subscribe((data: any) => {
+                observer.next(data);
+            }, err => {
+                this.hehs.error(err, () => {
+                    observer.error(err);
+                });
+            });
+        });
+    }
+
+    /**
      * Método para realizar el rechazo de una devolución.
      * 
+     * @param info
      * @returns {Observable<[{}]>}
-     * @memberof PendingDevolutionService
+     * @memberof InDevolutionService
      */
-    reportNovelty(): Observable<[{}]> {
+    reportNovelty(info): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get(this.api.get('reportNovelty'), this.getHeaders())
+            this.http.post(this.api.get('refuseOrAccepDevolution'), info, this.getHeaders())
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {

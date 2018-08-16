@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
-import { InDevolutionModule } from '../id-devolution.module';
+import { InDevolutionModule } from '@root/src/app/secure/orders/in-devolution/in-devolution.module';
 import { ActionConfirmReceiptComponent } from './action-confirm-receipt.component';
 
 

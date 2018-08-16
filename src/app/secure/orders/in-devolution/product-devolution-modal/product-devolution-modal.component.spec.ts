@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
 import { ProductDevolutionModalComponent } from './product-devolution-modal.component';
-import { InDevolutionModule } from '../id-devolution.module';
+import { InDevolutionModule } from '@root/src/app/secure/orders/in-devolution/in-devolution.module';
 
 
 describe('ProductDevolutionModalComponent', () => {
