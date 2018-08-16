@@ -91,7 +91,7 @@ $color-gray3: #D3D3D3;
         & .information {
             background-color: #c70024;
             font-weight: bold;
-            p.text-error {
+            p {
                 color: #fff;
             }
         }
@@ -154,5 +154,6 @@ $color-gray3: #D3D3D3;
     }
     .no-data-avaliable{
         pointer-events: none;
+        color: $color-gray3;
     }
 }

@@ -139,6 +139,13 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.userService.isAuthenticated(this);
   }
 
+  /**
+   * @method isLoggedIn
+   * @description Metodo para validar si el usuario esta logeado
+   * @param {string} message
+   * @param {boolean} isLoggedIn
+   * @memberof BulkLoadProductComponent
+   */
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.getDataUser();
@@ -148,12 +155,30 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
 
   }
 
+  /**
+   * @method callback
+   * @description Metodo necesario para recibir el callback de getDataUser()
+   * @memberof BulkLoadProductComponent
+   */
   callback() { }
 
+  /**
+   * @method getDataUser
+   * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
+   * @memberof BulkLoadProductComponent
+   */
   getDataUser() {
     this.userParams.getUserData(this);
   }
 
+  /**
+   * @method callbackWithParam
+   * @description metodo que se ejecuta en el callback de getDataUser().
+   * Es utilizado para almacenar los datos del usuario en una variable y luego validar
+   * si es Administrador o Vendedor.
+   * @param userData
+   * @memberof BulkLoadProductComponent
+   */
   callbackWithParam(userData: any) {
     this.user = userData;
     if (this.user.sellerProfile === 'seller') {
@@ -181,6 +206,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       }
     );
   }
+
   /**
    * @memberof BulkLoadProductComponent
    */
@@ -275,7 +301,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   validateDataFromFile(res, file: any) {
 
-    if (this.dataAvaliableLoads.amountAvailableLoads === 0) {
+    if (this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.shellComponent.loadingComponent.closeLoadingSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
     } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
@@ -637,8 +663,6 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 errorInCell = true;
               }
             }
-          } else {
-            log.info('Dato cargado correctamente');
           }
         }
       }
@@ -841,6 +865,22 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorColumn8 = false;
       this.arrayInformation[index].errorColumn9 = false;
       this.arrayInformation[index].errorColumn10 = false;
+      this.arrayInformation[index].errorColumn11 = false;
+      this.arrayInformation[index].errorColumn12 = false;
+      this.arrayInformation[index].errorColumn13 = false;
+      this.arrayInformation[index].errorColumn14 = false;
+      this.arrayInformation[index].errorColumn15 = false;
+      this.arrayInformation[index].errorColumn16 = false;
+      this.arrayInformation[index].errorColumn17 = false;
+      this.arrayInformation[index].errorColumn18 = false;
+      this.arrayInformation[index].errorColumn19 = false;
+      this.arrayInformation[index].errorColumn20 = false;
+      this.arrayInformation[index].errorColumn21 = false;
+      this.arrayInformation[index].errorColumn22 = false;
+      this.arrayInformation[index].errorColumn23 = false;
+      this.arrayInformation[index].errorColumn24 = false;
+      this.arrayInformation[index].errorColumn25 = false;
+      this.arrayInformation[index].errorColumn26 = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -852,49 +892,9 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
-    log.info(item);
-    switch (item.column) {
-      case 0:
-        this.arrayInformation[item.row].errorColumn1 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 1:
-        this.arrayInformation[item.row].errorColumn2 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 2:
-        this.arrayInformation[item.row].errorColumn3 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 3:
-        this.arrayInformation[item.row].errorColumn4 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 4:
-        this.arrayInformation[item.row].errorColumn5 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 5:
-        this.arrayInformation[item.row].errorColumn6 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 6:
-        this.arrayInformation[item.row].errorColumn7 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 7:
-        this.arrayInformation[item.row].errorColumn8 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 8:
-        this.arrayInformation[item.row].errorColumn9 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 9:
-        this.arrayInformation[item.row].errorColumn10 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-    }
+    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    this.arrayInformation[item.row].errorRow = true;
+
     const data = JSON.stringify(this.arrayInformation);
     this.dataSource = new MatTableDataSource(JSON.parse(data));
 
@@ -971,7 +971,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @method validFormat
    * @param inputtxt
    * @param validation
-   * @description Metodo para validar el formato de la celda enviada del excel
+   * @description Metodo para validar el formato de las celdas enviadas del excel
    * @memberof BulkLoadProductComponent
    */
   validFormat(inputtxt: any, validation?: string) {
@@ -979,14 +979,13 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const filterNumber = /^[0-9]+$/;
     const formatEan = /^(IZ[0-9]{5,11})$|^([0-9]{7,13})$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
-    /* const filterAlphanumeric = /^[a-zA-Z0-9\s]{0,200}$/; */
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatExtraFields = /^[a-zA-Z0-9\s+\-\,\.]{1,200}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc = /^((?!script|SCRIPT).)*$/;
+    const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
     if (inputtxt === undefined) {
       valueReturn = false;
     } else if (inputtxt !== undefined) {

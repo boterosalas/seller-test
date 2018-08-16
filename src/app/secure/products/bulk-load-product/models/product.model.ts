@@ -54,7 +54,6 @@ export class ModelProduct {
         public errorColumn24?: boolean,
         public errorColumn25?: boolean,
         public errorColumn26?: boolean,
-        public features?: Array<FeaturesModel>,
     ) { }
 }
 
@@ -66,9 +65,3 @@ export class AbaliableLoadModel {
     ) {}
 }
 
-export class FeaturesModel {
-    constructor (
-        public key: any,
-        public value: any
-    ) {}
-}

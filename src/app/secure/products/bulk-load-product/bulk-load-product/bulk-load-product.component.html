@@ -24,8 +24,8 @@
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)" multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" #fileUploadOption>
-            <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()" mat-button>
-              <mat-icon class="mat-18 ">file_upload</mat-icon>
+            <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()" [class.no-data-avaliable]="!dataAvaliableLoads" mat-button>
+              <mat-icon class="mat-18">file_upload</mat-icon>
               SELECCIONAR ARCHIVO PARA IMPORTAR
             </button>
 

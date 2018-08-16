@@ -1,7 +1,7 @@
 <div *ngIf="response.body.error !== 0 || response.body.successful !== 0">
     <div class="error-list-content list-log">
   
-      <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0">
+      <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0 && response.body.error === 0">
         <mat-icon>check</mat-icon>
         {{response.successful}} Carga realizada con éxito
       </h3>
