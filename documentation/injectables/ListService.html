@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3578,9 +3575,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -4332,7 +4326,7 @@ export class ListService {
     this.paramsData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; null || params.limit &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? null : params.limit;
 
     urlParams &#x3D; &#x27;/&#x27; + this.paramsData.ean + &#x27;/&#x27; + this.paramsData.product + &#x27;/&#x27; + this.paramsData.stock + &#x27;/&#x27; + this.paramsData.currentPage + &#x27;/&#x27; + this.paramsData.limit;
-
+    console.log(this.endpoint + urlParams);
     const idToken &#x3D; this.cognitoUtil.getTokenLocalStorage();
     const headers &#x3D; new HttpHeaders({ &#x27;Authorization&#x27;: idToken, &#x27;Content-type&#x27;: &#x27;application/json; charset&#x3D;utf-8&#x27; });
 
