@@ -11,7 +11,7 @@ export const environment = {
   webUrl: 'http://sellershop.com/user_metadata',
   endpoints: {
     seller: '',
-    shipments: '' 
+    shipments: ''
   },
    // constantes para cognito productivo
    region: 'us-east-1',

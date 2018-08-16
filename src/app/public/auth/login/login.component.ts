@@ -13,6 +13,7 @@ import {
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShellComponent } from '@app/core/shell/shell.component';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-awscognito',
@@ -56,6 +57,8 @@ import { ShellComponent } from '@app/core/shell/shell.component';
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
     // Contiene la estructura del formulario del login
     awscognitogroup: FormGroup;
+    // Define si la app esta en un entorno de producción.
+    isProductionEnv = environment.production;
     // Variables del uso de aws-cognito
     email: string;
     password: string;

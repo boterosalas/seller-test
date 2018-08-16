@@ -31,7 +31,7 @@
             <div *ngIf="errorMessage!=null">
               <mat-error>{{ errorMessage }}</mat-error>
             </div>
-            <div fxFlex="100" fxLayout="row" fxFlexAlign="center">
+            <div fxFlex="100" fxLayout="row" fxFlexAlign="center" *ngIf="!isProductionEnv">
               <p>
                 <a [routerLink]="['/home/forgotPassword']"><i class="fa fa-fw fa-group"></i>Olvidé mi contraseña</a>
               </p>
