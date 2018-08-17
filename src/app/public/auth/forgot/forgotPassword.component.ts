@@ -15,7 +15,6 @@ import { ShellComponent } from '@app/core/shell/shell.component';
 @Component({
     selector: 'app-awscognito',
     templateUrl: './forgotPassword.html',
-    // templateUrl: './forgotPasswordStep2.html',
     styleUrls: ['./forgotPassword.component.scss'],
     animations: [
         trigger('scaleEfect', [
@@ -80,7 +79,6 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
             this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.email]);
         } else { // success
             console.log(message);
-            // this.errorMessage = message;
             switch (message) {
                 case 'Username/client id combination not found.':
                     this.errorMessage = 'Usuario no encontrado';
@@ -105,7 +103,6 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     createForm() {
         this.awscognitogroup = this.fb.group({
             'email': [null, [Validators.required, Validators.email, Validators.maxLength(50)]]
-            // 'password': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(30)])],
         });
     }
 }
@@ -220,7 +217,6 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
      */
     cognitoCallback(message: string) {
         if (message != null) { // error
-            // this.errorMessage = message;
             console.log('result: ' + message);
             switch (message) {
                 case '1 validation error detected: Value at \'password\' failed to satisfy constraint: Member must have length greater than or equal to 6': // Pass menor a 6
