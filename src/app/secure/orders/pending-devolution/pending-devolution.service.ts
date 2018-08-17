@@ -66,14 +66,14 @@ export class PendingDevolutionService extends BaseSellerService {
     }
 
     /**
-     * Método para realizar el rechazo de una devolución
+     * Método para realizar la aceptación o el rechazo de una devolución.
      *
      * @returns {Observable<[{}]>}
      * @memberof PendingDevolutionService
      */
-    refuseDevolution(info): Observable<[{}]> {
+    acceptOrDeniedDevolution(info): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, this.getHeaders())
+            this.http.post(this.api.get('acceptOrDeniedDevolution'), info, this.getHeaders())
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {

@@ -247,18 +247,18 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Método para desplegar el modal de confirmaición
+   * Método para desplegar el modal de confirmaición.
+   * 
    * @param {OrderDevolutionsModel} order
    * @memberof PendingDevolutionComponent
    */
   openModalAceptOrder(order: OrderDevolutionsModel): void {
-
     // Armo el json para realizar el envio, IsAcceptanceRequest: true se emplea para aceptar la solicitud
     const information = {
       IsAcceptanceRequest: true,
       Id: order.id
     };
-    this.pendingDevolutionService.refuseDevolution(information).subscribe(res => {
+    this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();

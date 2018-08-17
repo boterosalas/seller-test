@@ -1,24 +1,15 @@
-/* 3rd party components */
-import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 
-/* our own custom components */
-import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { InValidationService } from '../in-validation.service';
-import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
-import {
-  Logger,
-  Pending,
-  SearchFormEntity,
-  Const,
-  UserService,
-  UserParametersService,
-  Callback
-} from '@app/shared';
+import { Callback, Const, Logger, Pending, SearchFormEntity, UserParametersService, UserService } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
+
+import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
+import { InValidationService } from '../in-validation.service';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
 
 // log component
 const log = new Logger('InValidationComponent');
@@ -97,9 +88,6 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   ngOnInit() {
     this.getDataUser();
-    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
   }
 
   callback() { }
@@ -110,15 +98,14 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   callbackWithParam(userData: any) {
     this.user = userData;
+    //  Obtener las órdenes con la función del componente ToolbarOptionsComponent
+    this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
-  /**
-   * Funcionalidad para remover las suscripciones creadas.
-   *
-   * @memberof BillingComponent
-   */
+
   ngOnDestroy() {
-    // this.subOrderList.unsubscribe();
+    // Remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
   }
 
@@ -129,23 +116,23 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
-    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
-      (data: any) => {
-        if (data != null) {
-          if (data.length === 0) {
-            this.orderListLength = true;
-          } else {
-            this.orderListLength = false;
+    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders
+      .filterOrdersWithStatus.subscribe(
+        (data: any) => {
+          if (data != null) {
+            if (data.length === 0) {
+              this.orderListLength = true;
+            } else {
+              this.orderListLength = false;
+            }
+            this.dataSource = new MatTableDataSource(data);
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.numberElements = this.dataSource.data.length;
           }
-          this.dataSource = new MatTableDataSource(data);
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-        }
-      });
+        });
   }
 
   /**
@@ -165,13 +152,12 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
    * @memberof PendingDevolutionComponent
    */
   getOrdersList($event) {
-
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
 
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
       if (res != null) {

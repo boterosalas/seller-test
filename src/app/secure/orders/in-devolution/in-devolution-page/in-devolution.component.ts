@@ -190,8 +190,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
         lengthOrder: 100
       };
     }
-    const stringSearch = `idSeller=${this.user.sellerId}
-    &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
+    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
 
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       // guardo el filtro actual para la paginación.
