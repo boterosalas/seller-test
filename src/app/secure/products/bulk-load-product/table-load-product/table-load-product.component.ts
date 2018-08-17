@@ -30,15 +30,33 @@ export class TableLoadProductComponent implements OnInit {
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'EAN',
-    'Stock',
-    'Price',
-    'DiscountPrice',
-    'AverageFreightCost',
-    'PromiseDelivery',
-    'IsFreeShipping',
-    'IsEnviosExito',
-    'IsFreightCalculator',
-    'Warranty'
+    'Name',
+    'Category',
+    'Brand',
+    'Model',
+    'Details',
+    'Description',
+     'MetaTitle',
+    'MetaDescription',
+    'KeyWords',
+    'PackageHeight',
+    'PackageLength',
+    'PackageWidth',
+    'PackageWeight',
+    'SkuShippingSize',
+    'ProductHeight',
+    'ProductLength',
+    'ProductWidth',
+    'ProductWeight',
+    'Seller',
+    'ProductType',
+    'ImageUrl1',
+    'ImageUrl2',
+    'ImageUrl3',
+    'ImageUrl4',
+    'ImageUrl5',
+    'ParentReference',
+    'SonReference'
   ];
 
   /**

@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3578,9 +3575,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -4522,7 +4516,6 @@ export class BulkLoadProductService {
     let params &#x3D; new HttpParams;
     params &#x3D; params.append(&#x27;date&#x27;, this.currentDate);
     const endpoint &#x3D; endpoints[defaultVersion.prefix + defaultVersion.number][&#x27;products&#x27;];
-    console.log(this.headers, params);
     return new Observable(observer &#x3D;&gt; {
       this.http.get&lt;any&gt;(endpoint, { observe: &#x27;response&#x27;, headers: this.headers, params: params })
         .subscribe(
