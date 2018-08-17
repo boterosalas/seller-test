@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /deploy/dist
+/deploy/dist.zip
 
 # documentation
 /deploy/documentation/dist
