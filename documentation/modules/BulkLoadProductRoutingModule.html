@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3578,9 +3575,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3980,16 +3974,19 @@
 import {NgModule} from &#x27;@angular/core&#x27;;
 import {BulkLoadProductComponent} from &#x27;./bulk-load-product/bulk-load-product.component&#x27;;
 import { RoutesConst } from &#x27;./../../../shared&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
+import { ErrorPageComponent } from &#x27;@app/secure/error-page/error-page.component&#x27;;
 
+const isProductionEnv &#x3D; environment.production;
 const routes: Routes &#x3D; [
   {
     path: &#x60;${RoutesConst.securehome + &#x27;/&#x27; + RoutesConst.products}&#x60;,
-    component: BulkLoadProductComponent,
+    component: !isProductionEnv ? BulkLoadProductComponent :  ErrorPageComponent,
     data: {title: &#x27;Cargar masiva de Producto&#x27;},
   },
   {
     path: &#x60;${RoutesConst.sellerCenterProducts + &#x27;/&#x27; + RoutesConst.productBulkLoad}&#x60;,
-    component: BulkLoadProductComponent,
+    component: !isProductionEnv ? BulkLoadProductComponent :  ErrorPageComponent,
     data: {title: &#x27;Cargar masiva de Producto&#x27;},
   }
 ];
@@ -3999,6 +3996,7 @@ const routes: Routes &#x3D; [
   exports: [RouterModule],
   providers: []
 })
+
 export class BulkLoadProductRoutingModule {
 }
 </code></pre>

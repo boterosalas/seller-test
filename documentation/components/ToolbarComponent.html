@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3578,9 +3575,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -4303,7 +4297,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:120</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:123</a></div>
                             </td>
                         </tr>
 
@@ -4368,7 +4362,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:107</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:110</a></div>
                             </td>
                         </tr>
 
@@ -4406,7 +4400,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:149</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="152" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:152</a></div>
                             </td>
                         </tr>
 
@@ -4551,7 +4545,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="140" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:140</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">src/app/secure/offers/list/components/toolbar/toolbar.component.ts:143</a></div>
                             </td>
                         </tr>
 
@@ -4885,8 +4879,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
      * @memberof ToolbarComponent
      */
     ngOnChanges(changes: SimpleChanges) {
-        this.currentPage &#x3D; this.currentPageInput &#x3D;&#x3D;&#x3D; undefined ? 1 : this.currentPageInput;
-        this.cdRef.detectChanges();
+        if (!changes.inDetail) {
+            this.currentPage &#x3D; this.currentPageInput &#x3D;&#x3D;&#x3D; undefined ? 1 : this.currentPageInput;
+            this.cdRef.detectChanges();
+        }
+
     }
 
     /**

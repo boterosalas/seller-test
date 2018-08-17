@@ -73,7 +73,6 @@ export class BulkLoadProductService {
     let params = new HttpParams;
     params = params.append('date', this.currentDate);
     const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['products'];
-    console.log(this.headers, params);
     return new Observable(observer => {
       this.http.get<any>(endpoint, { observe: 'response', headers: this.headers, params: params })
         .subscribe(
