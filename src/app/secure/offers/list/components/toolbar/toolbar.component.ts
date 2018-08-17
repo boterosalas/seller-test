@@ -95,8 +95,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
      * @memberof ToolbarComponent
      */
     ngOnChanges(changes: SimpleChanges) {
-        this.currentPage = this.currentPageInput === undefined ? 1 : this.currentPageInput;
-        this.cdRef.detectChanges();
+        if (!changes.inDetail) {
+            this.currentPage = this.currentPageInput === undefined ? 1 : this.currentPageInput;
+            this.cdRef.detectChanges();
+        }
+
     }
 
     /**
