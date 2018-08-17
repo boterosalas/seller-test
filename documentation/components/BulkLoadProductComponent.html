@@ -4752,7 +4752,7 @@ con el log obtenido.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1141" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1141</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1142" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1142</a></div>
                             </td>
                         </tr>
 
@@ -4792,7 +4792,7 @@ con el log obtenido.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1181" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1181</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1182" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1182</a></div>
                             </td>
                         </tr>
 
@@ -5397,7 +5397,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1207" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1207</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1208" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1208</a></div>
                             </td>
                         </tr>
 
@@ -5468,7 +5468,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1194" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1194</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1195" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1195</a></div>
                             </td>
                         </tr>
 
@@ -7637,12 +7637,13 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatlimitChars &#x3D; /^[\w\W\s\d]{1,29}$/;
     const formatImg &#x3D; /\bJPG$|\bjpg$/;
     const formatSkuShippingSize &#x3D; /^[1-5]{1}$/;
-    const formatExtraFields &#x3D; /^[a-zA-Z0-9\s+\-\,\.]{1,200}$/;
+    const formatExtraFields &#x3D; /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage &#x3D; /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc &#x3D; /^((?!&lt;script&gt;|&lt;SCRIPT&gt;).)*$/igm;
     if (inputtxt &#x3D;&#x3D;&#x3D; undefined) {
       valueReturn &#x3D; false;
     } else if (inputtxt !&#x3D;&#x3D; undefined) {
+      inputtxt &#x3D; inputtxt.trim();
       switch (validation) {
         case &#x27;ean&#x27;:
           if ((inputtxt.match(formatEan))) {
