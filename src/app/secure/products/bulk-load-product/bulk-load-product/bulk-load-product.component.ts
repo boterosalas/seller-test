@@ -1006,12 +1006,13 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
-    const formatExtraFields = /^[a-zA-Z0-9\s+\-\,\.]{1,200}$/;
+    const formatExtraFields = /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
     if (inputtxt === undefined) {
       valueReturn = false;
     } else if (inputtxt !== undefined) {
+      inputtxt = inputtxt.trim();
       switch (validation) {
         case 'ean':
           if ((inputtxt.match(formatEan))) {
