@@ -57,12 +57,24 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         this.errorMessage = null;
     }
 
+    /**
+     * @method onNext
+     * @description Redirect to view with form for set a new password
+     * @memberof ForgotPassword
+     */
     onNext() {
         this.errorMessage = null;
         this.shell.loadingComponent.viewLoadingSpinner();
         this.userService.forgotPassword(this.email, this);
     }
 
+    /**
+     * @method cognitoCallback
+     * @param message
+     * @param result
+     * @description Handler the response of cognito login service
+     * @memberof ForgotPassword
+     */
     cognitoCallback(message: string, result: any) {
         if (message == null && result == null) { // error
             this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.email]);
@@ -86,6 +98,8 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
 
     /**
     * Estructura para los datos del formulario de recuperar contraseña.
+    * @method createForm
+    * @description Create a form for request change of password with his respective validations
     * @memberof LoginComponent
     */
     createForm() {
@@ -158,6 +172,8 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     /**
     * Estructura para los datos del formulario de confirmación de nueva contraseña.
     * @memberof LoginComponent
+    * @description Structure the values for the confirm new password form
+    * @memberof ForgotPassword
     */
     createForm() {
         this.confirmNewPassword = this.fb.group({
@@ -171,6 +187,12 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         });
     }
 
+    /**
+     * @method confirmNewPass
+     * @param param
+     * @description Valid if the both entries for a new password are the same
+     * @memberof ForgotPassword
+     */
     confirmNewPass(param) {
         if ((this.newPassword !== '' && this.newPassword !== undefined) &&
             (this.newPassword2 !== '' && this.newPassword2 !== undefined)) {
@@ -190,6 +212,12 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         this.userService.confirmNewPassword(this.email, this.verificationCode, this.newPassword, this);
     }
 
+    /**
+     * @method cognitoCallback
+     * @param message
+     * @description Handle the response of cognito login service
+     * @memberof ForgotPassword
+     */
     cognitoCallback(message: string) {
         if (message != null) { // error
             // this.errorMessage = message;
@@ -225,6 +253,12 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
     callback() { }
 
+    /**
+     * @method callbackWithParam
+     * @param userData
+     * @description Handle the response what return the user data in the login service
+     * @memberof ForgotPassword
+     */
     callbackWithParam(userData: any) {
         this.user = userData;
         this.shell.user = this.user;
@@ -237,6 +271,11 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         }
     }
 
+    /**
+     * @method getDataUser
+     * @description Get the data of user when this make login
+     * @memberof ForgotPassword
+     */
     getDataUser() {
         this.userParams.getUserData(this);
     }
