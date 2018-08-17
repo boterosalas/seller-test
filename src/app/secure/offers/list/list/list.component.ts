@@ -162,8 +162,8 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     filterOffers(params) {
         this.currentPage = 1;
         this.filterActive = true;
-        this.paramData.product = params.product;
-        this.paramData.ean = params.ean;
+        this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
+        this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
         this.paramData.stock = params.stock;
         this.paramData.currentPage = this.currentPage;
         this.getListOffers(this.paramData);

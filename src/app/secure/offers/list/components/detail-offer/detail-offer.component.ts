@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 /* our own custom components */
 import { ListComponent } from '../../list/list.component';
 
@@ -15,7 +15,7 @@ import { ListComponent } from '../../list/list.component';
     styleUrls: ['./detail-offer.component.scss']
 })
 
-export class DetailOfferComponent implements OnInit {
+export class DetailOfferComponent {
     /**
      * Variable en la que almacena los datos de la oferta de la cual se quiere ver el detalle
      * @memberof DetailOfferComponent
@@ -28,16 +28,8 @@ export class DetailOfferComponent implements OnInit {
      * @memberof DetailOfferComponent
      */
     constructor(
-       public list: ListComponent
+        public list: ListComponent
     ) { }
-
-    /**
-     * @method ngOnInit
-     * @description Metodo que se llama mientras se inicia el componente
-     * @memberof DetailOfferComponent
-     */
-    ngOnInit() {
-    }
 
     /**
      * @method goToListOffers
