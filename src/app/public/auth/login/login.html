@@ -33,7 +33,7 @@
             </div>
             <div fxFlex="100" fxLayout="row" fxFlexAlign="center" *ngIf="!isProductionEnv">
               <p>
-                <a [routerLink]="['/home/forgotPassword']"><i class="fa fa-fw fa-group"></i>Olvidé mi contraseña</a>
+                <a [routerLink]="['/' + consts.homeForgotPassword]"><i class="fa fa-fw fa-group"></i>Olvidé mi contraseña</a>
               </p>
             </div>
           </div>
