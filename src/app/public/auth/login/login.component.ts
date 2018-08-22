@@ -13,6 +13,7 @@ import {
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShellComponent } from '@app/core/shell/shell.component';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-awscognito',
@@ -56,6 +57,9 @@ import { ShellComponent } from '@app/core/shell/shell.component';
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
     // Contiene la estructura del formulario del login
     awscognitogroup: FormGroup;
+    // Define si la app esta en un entorno de producción.
+    isProductionEnv = environment.production;
+    public consts = RoutesConst;
     // Variables del uso de aws-cognito
     email: string;
     password: string;
@@ -111,7 +115,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         }
         this.errorMessage = null;
         this.shell.loadingComponent.closeLoadingProgressBar();
-        console.log('LoginComponent');
         this.userService.authenticate(this.email, this.password, this);
         this.shell.loadingComponent.viewLoadingSpinner();
     }
@@ -122,10 +125,10 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
             this.errorMessage = message;
             console.log('result: ' + this.errorMessage);
             if (this.errorMessage === 'User is not confirmed.') {
-                this.router.navigate([`/${RoutesConst.homeConfirmRegistration}`, this.email]);
+                this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.email]);
             } else if (this.errorMessage === 'User needs to set password.') {
                 console.log('redirecting to set new password');
-                this.router.navigate([`/${RoutesConst.homeNewPassword}`]);
+                this.router.navigate([`/${this.consts.homeNewPassword}`]);
             }
         } else { // success
             this.ddb.writeLogEntry('login');
@@ -145,9 +148,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         this.shell.user = this.user;
         this.shell.loadingComponent.closeLoadingSpinner();
         if (this.user.sellerProfile === 'seller') {
-            this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+            this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
         } else if (this.user.sellerProfile === 'administrator') {
-            this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
+            this.router.navigate([`/${this.consts.sellerCenterIntSellerRegister}`]);
         }
     }
 
@@ -166,7 +169,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (isLoggedIn) {
-            this.router.navigate([`/${RoutesConst.securehome}`]);
+            this.router.navigate([`/${this.consts.securehome}`]);
         }
     }
 

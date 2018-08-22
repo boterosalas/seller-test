@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3578,9 +3575,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3971,12 +3965,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-    </p>
 
     <p class="comment">
         <h3>Example</h3>
@@ -4051,9 +4039,6 @@
                         <ul class="index-list">
                             <li>
                                 <a href="#goToListOffers">goToListOffers</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
                             </li>
                         </ul>
                     </td>
@@ -4184,44 +4169,6 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/secure/offers/list/components/detail-offer/detail-offer.component.ts:47</a></div>
-                            </td>
-                        </tr>
-
-
-                <tr>
-                    <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="ngOnInit"></a>
-                        <span class="name">
-                            <b>
-                            ngOnInit
-                            </b>
-                            <a href="#ngOnInit"><span class="fa fa-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-<code>ngOnInit()</code>
-                    </td>
-                </tr>
-
-
-                        <tr>
-                            <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/secure/offers/list/components/detail-offer/detail-offer.component.ts:39</a></div>
                             </td>
                         </tr>
@@ -4286,7 +4233,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input } from &#x27;@angular/core&#x27;;
 /* our own custom components */
 import { ListComponent } from &#x27;../../list/list.component&#x27;;
 
@@ -4302,7 +4249,7 @@ import { ListComponent } from &#x27;../../list/list.component&#x27;;
     styleUrls: [&#x27;./detail-offer.component.scss&#x27;]
 })
 
-export class DetailOfferComponent implements OnInit {
+export class DetailOfferComponent {
     /**
      * Variable en la que almacena los datos de la oferta de la cual se quiere ver el detalle
      * @memberof DetailOfferComponent
@@ -4315,16 +4262,8 @@ export class DetailOfferComponent implements OnInit {
      * @memberof DetailOfferComponent
      */
     constructor(
-       public list: ListComponent
+        public list: ListComponent
     ) { }
-
-    /**
-     * @method ngOnInit
-     * @description Metodo que se llama mientras se inicia el componente
-     * @memberof DetailOfferComponent
-     */
-    ngOnInit() {
-    }
 
     /**
      * @method goToListOffers

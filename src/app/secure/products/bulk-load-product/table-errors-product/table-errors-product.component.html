@@ -18,16 +18,12 @@
 
       <mat-nav-list dense>
         <mat-list-item>
-          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de las ofertas.
+          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.
           </p>
         </mat-list-item>
         <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)" *ngFor="let item of listLog">
           <mat-icon class="icon-color-error">error</mat-icon>
 
-          <p matLine *ngIf="item.type == 'alphanumericFormat'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> Esta restringido a letras y números y no permite caracteres especiales.
-          </p>
 
           <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">El dato en la
             <span class="error-string">columna #{{ item.columna }}</span> de la
@@ -44,7 +40,7 @@
             <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor a cero, sin decimales.
           </p>
 
-          <p matLine *ngIf="item.type == 'invalidFormatCategory'" style="white-space: normal;overflow: visible;">El dato
+          <p matLine *ngIf="item.type == 'invalidFormatProduct'" style="white-space: normal;overflow: visible;">El dato
             en la
             <span class="error-string">columna #{{ item.columna }}</span> de la
             <span class="error-string">fila #{{item.fila}}</span> deber ser 'Estandar' o 'Variante'.
@@ -55,6 +51,13 @@
             <span class="error-string">columna #{{ item.columna }}</span> de la
             <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido'.
           </p>
+
+          <p matLine *ngIf="item.type == 'invalidFormatExtraField'" style="white-space: normal;overflow: visible;">El dato
+            El campo opcional en la 
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido'.
+          </p>
+          
         </mat-list-item>
       </mat-nav-list>
     </div>

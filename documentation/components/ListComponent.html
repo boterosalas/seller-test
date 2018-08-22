@@ -1618,9 +1618,6 @@
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
                     </li>
                     <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
                     </li>
                     <li class="link">
@@ -3576,9 +3573,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/FAKE.html" data-type="entity-link">FAKE</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/FeaturesModel.html" data-type="entity-link">FeaturesModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/FileFlatNode.html" data-type="entity-link">FileFlatNode</a>
@@ -5601,8 +5595,8 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     filterOffers(params) {
         this.currentPage &#x3D; 1;
         this.filterActive &#x3D; true;
-        this.paramData.product &#x3D; params.product;
-        this.paramData.ean &#x3D; params.ean;
+        this.paramData.product &#x3D; params.product !&#x3D;&#x3D; undefined &amp;&amp; params.product !&#x3D;&#x3D; null ? params.product.trim() : params.product;
+        this.paramData.ean &#x3D; params.ean !&#x3D;&#x3D; undefined &amp;&amp; params.ean !&#x3D;&#x3D; null ? params.ean.trim() : params.ean;
         this.paramData.stock &#x3D; params.stock;
         this.paramData.currentPage &#x3D; this.currentPage;
         this.getListOffers(this.paramData);
