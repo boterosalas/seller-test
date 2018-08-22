@@ -21,6 +21,10 @@ export class ModelProduct {
         public ProductWeight: any,
         public Seller: any,
         public ProductType: any,
+        public Size: any,
+        public Color: any,
+        public HexColourCodePDP: any,
+        public HexColourName: any,
         public ImageUrl1: any,
         public ImageUrl2?: any,
         public ImageUrl3?: any,
@@ -60,6 +64,10 @@ export class ModelProduct {
         public errorParentReference?: any,
         public errorSonReference?: any,
         public errorModifyImage?: any,
+        public errorSize?: any,
+        public errorColor?: any,
+        public errorHexColourCodePDP?: any,
+        public errorHexColourName?: any
     ) { }
 }
 
