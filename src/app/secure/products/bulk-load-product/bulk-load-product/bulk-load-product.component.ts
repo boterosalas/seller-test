@@ -431,7 +431,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'Ean'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -447,10 +448,11 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
-                    type: 'invalidFormat',
+                    type: 'invalidFormatProduct',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: 'ProductType'
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
@@ -467,7 +469,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'BoleanFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'ModifyImage'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -483,7 +486,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'Name'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -499,7 +503,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'LessThanZero',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'Category'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -515,7 +520,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iMarca ? 'Brand' : j === iVal.iMetaTitulo ? 'MetaTitle' : j === iVal.iMetaDescripcion ? 'MetaDescription' : j === iVal.iPalabrasClave ? 'KeyWords' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -531,7 +537,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iModelo ? 'Model' : j === iVal.iDetalles ? 'Details' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -547,7 +554,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'Seller'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -563,7 +571,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iURLDeImagen1 ? 'ImageUrl1' : j === iVal.iURLDeImagen2 ? 'ImageUrl2' : j === iVal.iURLDeImagen3 ? 'ImageUrl3' : j === iVal.iURLDeImagen4 ? 'ImageUrl4' : j === iVal.iURLDeImagen5 ? 'ImageUrl5' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -579,13 +588,16 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'SkuShippingSize'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iAltoDelEmpaque || j === iVal.ilargoDelEmpaque || j === iVal.iAltoDelProducto || j === iVal.iLargoDelProducto) {
-              const validFormatPackage = this.validFormat(res[i][j], 'formatPackage');
+            } else if (
+              j === iVal.iAltoDelEmpaque || j === iVal.ilargoDelEmpaque || j === iVal.iAnchoDelEmpaque || j === iVal.iPesoDelEmpaque ||
+              j === iVal.iAltoDelProducto || j === iVal.iLargoDelProducto || j === iVal.iAnchoDelProducto || j === iVal.iPesoDelProducto) {
+              const validFormatPackage = this.validFormat(res[i][j].replace('.', ','), 'formatPackage');
               if (!validFormatPackage && validFormatPackage === false) {
                 this.countErrors += 1;
                 const row = i + 1, column = j + 1;
@@ -595,7 +607,9 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iAltoDelEmpaque ? 'PackageHeight' : j === iVal.ilargoDelEmpaque ? 'PackageLength' : j === iVal.iAnchoDelEmpaque ? 'PackageWidth' : j === iVal.iPesoDelEmpaque ? 'PackageWeight'
+                    : j === iVal.iAltoDelProducto ? 'ProductHeight' : j === iVal.iLargoDelProducto ? 'ProductLength' : j === iVal.iAnchoDelProducto ? 'ProductWidth' : j === iVal.iPesoDelProducto ? 'ProductWeight' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -611,7 +625,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   type: 'invalidFormat',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'Description'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -624,7 +639,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 const itemLog = {
                   row: this.arrayInformation.length,
                   column: j,
-                  type: 'invalidFormat',
+                  type: 'invalidFormatExtraField',
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i
@@ -644,6 +659,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 columna: column,
                 fila: row,
                 positionRowPrincipal: i,
+                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iTipoDeProducto ? 'ProductType' : j === iVal.iCategoria ? 'Category' : null
               };
               this.listLog.push(itemLog);
               errorInCell = true;
@@ -660,7 +676,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: res[0][j]
+                  dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -709,15 +725,15 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
       MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
       KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
-      PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim() : null,
-      PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim() : null,
-      PackageWidth: res[i][iVal.iAnchoDelEmpaque] ? res[i][iVal.iAnchoDelEmpaque].trim() : null,
-      PackageWeight: res[i][iVal.iPesoDelEmpaque] ? res[i][iVal.iPesoDelEmpaque].trim() : null,
+      PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim().replace('.', ',') : null,
+      PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim().replace('.', ',') : null,
+      PackageWidth: res[i][iVal.iAnchoDelEmpaque] ? res[i][iVal.iAnchoDelEmpaque].trim().replace('.', ',') : null,
+      PackageWeight: res[i][iVal.iPesoDelEmpaque] ? res[i][iVal.iPesoDelEmpaque].trim().replace('.', ',') : null,
       SkuShippingSize: res[i][iVal.iSkuShippingSize] ? res[i][iVal.iSkuShippingSize].trim() : null,
-      ProductHeight: res[i][iVal.iAltoDelProducto] ? res[i][iVal.iAltoDelProducto].trim() : null,
-      ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim() : null,
-      ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim() : null,
-      ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim() : null,
+      ProductHeight: res[i][iVal.iAltoDelProducto] ? res[i][iVal.iAltoDelProducto].trim().replace('.', ',') : null,
+      ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim().replace('.', ',') : null,
+      ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim().replace('.', ',') : null,
+      ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim().replace('.', ',') : null,
       Seller: res[i][iVal.iVendedor] ? res[i][iVal.iVendedor].trim() : null,
       ProductType: res[i][iVal.iTipoDeProducto] ? res[i][iVal.iTipoDeProducto].trim() : null,
       ImageUrl1: res[i][iVal.iURLDeImagen1] ? res[i][iVal.iURLDeImagen1].trim() : null,
@@ -789,15 +805,15 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       MetaTitle: res[index][iVal.iMetaTitulo],
       MetaDescription: res[index][iVal.iMetaDescripcion],
       KeyWords: res[index][iVal.iPalabrasClave],
-      PackageHeight: res[index][iVal.iAltoDelEmpaque],
-      PackageLength: res[index][iVal.ilargoDelEmpaque],
-      PackageWidth: res[index][iVal.iAnchoDelEmpaque],
-      PackageWeight: res[index][iVal.iPesoDelEmpaque],
+      PackageHeight: res[index][iVal.iAltoDelEmpaque].replace('.', ','),
+      PackageLength: res[index][iVal.ilargoDelEmpaque].replace('.', ','),
+      PackageWidth: res[index][iVal.iAnchoDelEmpaque].replace('.', ','),
+      PackageWeight: res[index][iVal.iPesoDelEmpaque].replace('.', ','),
       SkuShippingSize: res[index][iVal.iSkuShippingSize],
-      ProductHeight: res[index][iVal.iAltoDelProducto],
-      ProductLength: res[index][iVal.iLargoDelProducto],
-      ProductWidth: res[index][iVal.iAnchoDelProducto],
-      ProductWeight: res[index][iVal.iPesoDelProducto],
+      ProductHeight: res[index][iVal.iAltoDelProducto].replace('.', ','),
+      ProductLength: res[index][iVal.iLargoDelProducto].replace('.', ','),
+      ProductWidth: res[index][iVal.iAnchoDelProducto].replace('.', ','),
+      ProductWeight: res[index][iVal.iPesoDelProducto].replace('.', ','),
       Seller: res[index][iVal.iVendedor],
       ProductType: res[index][iVal.iTipoDeProducto],
       ParentReference: res[index][iVal.iParentReference],
@@ -808,34 +824,35 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
       errorRow: false,
-      errorColumn1: false,
-      errorColumn2: false,
-      errorColumn3: false,
-      errorColumn4: false,
-      errorColumn5: false,
-      errorColumn6: false,
-      errorColumn7: false,
-      errorColumn8: false,
-      errorColumn9: false,
-      errorColumn10: false,
-      errorColumn11: false,
-      errorColumn12: false,
-      errorColumn13: false,
-      errorColumn14: false,
-      errorColumn15: false,
-      errorColumn16: false,
-      errorColumn17: false,
-      errorColumn18: false,
-      errorColumn19: false,
-      errorColumn20: false,
-      errorColumn21: false,
-      errorColumn22: false,
-      errorColumn23: false,
-      errorColumn24: false,
-      errorColumn25: false,
-      errorColumn26: false,
-      errorColumn27: false,
-      errorColumn28: false,
+      errorEan: false,
+      errorName: false,
+      errorCategory: false,
+      errorBrand: false,
+      errorModel: false,
+      errorDetails: false,
+      errorDescription: false,
+      errorMetaTitle: false,
+      errorMetaDescription: false,
+      errorKeyWords: false,
+      errorPackageHeight: false,
+      errorPackageLength: false,
+      errorPackageWidth: false,
+      errorPackageWeight: false,
+      errorSkuShippingSize: false,
+      errorProductHeight: false,
+      errorProductLength: false,
+      errorProductWidth: false,
+      errorProductWeight: false,
+      errorSeller: false,
+      errorProductType: false,
+      errorImageUrl1: false,
+      errorImageUrl2: false,
+      errorImageUrl3: false,
+      errorImageUrl4: false,
+      errorImageUrl5: false,
+      errorParentReference: false,
+      errorSonReference: false,
+      errorModifyImage: false,
       isVariant: variant
     };
 
@@ -866,34 +883,35 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   setErrrorColumns() {
     for (let index = 0; index < this.arrayInformation.length; index++) {
-      this.arrayInformation[index].errorColumn1 = false;
-      this.arrayInformation[index].errorColumn2 = false;
-      this.arrayInformation[index].errorColumn3 = false;
-      this.arrayInformation[index].errorColumn4 = false;
-      this.arrayInformation[index].errorColumn5 = false;
-      this.arrayInformation[index].errorColumn6 = false;
-      this.arrayInformation[index].errorColumn7 = false;
-      this.arrayInformation[index].errorColumn8 = false;
-      this.arrayInformation[index].errorColumn9 = false;
-      this.arrayInformation[index].errorColumn10 = false;
-      this.arrayInformation[index].errorColumn11 = false;
-      this.arrayInformation[index].errorColumn12 = false;
-      this.arrayInformation[index].errorColumn13 = false;
-      this.arrayInformation[index].errorColumn14 = false;
-      this.arrayInformation[index].errorColumn15 = false;
-      this.arrayInformation[index].errorColumn16 = false;
-      this.arrayInformation[index].errorColumn17 = false;
-      this.arrayInformation[index].errorColumn18 = false;
-      this.arrayInformation[index].errorColumn19 = false;
-      this.arrayInformation[index].errorColumn20 = false;
-      this.arrayInformation[index].errorColumn21 = false;
-      this.arrayInformation[index].errorColumn22 = false;
-      this.arrayInformation[index].errorColumn23 = false;
-      this.arrayInformation[index].errorColumn24 = false;
-      this.arrayInformation[index].errorColumn25 = false;
-      this.arrayInformation[index].errorColumn26 = false;
-      this.arrayInformation[index].errorColumn27 = false;
-      this.arrayInformation[index].errorColumn28 = false;
+      this.arrayInformation[index].errorEan = false;
+      this.arrayInformation[index].errorName = false;
+      this.arrayInformation[index].errorCategory = false;
+      this.arrayInformation[index].errorBrand = false;
+      this.arrayInformation[index].errorModel = false;
+      this.arrayInformation[index].errorDetails = false;
+      this.arrayInformation[index].errorDescription = false;
+      this.arrayInformation[index].errorMetaTitle = false;
+      this.arrayInformation[index].errorMetaDescription = false;
+      this.arrayInformation[index].errorKeyWords = false;
+      this.arrayInformation[index].errorPackageHeight = false;
+      this.arrayInformation[index].errorPackageLength = false;
+      this.arrayInformation[index].errorPackageWidth = false;
+      this.arrayInformation[index].errorPackageWeight = false;
+      this.arrayInformation[index].errorSkuShippingSize = false;
+      this.arrayInformation[index].errorProductHeight = false;
+      this.arrayInformation[index].errorProductLength = false;
+      this.arrayInformation[index].errorProductWidth = false;
+      this.arrayInformation[index].errorProductWeight = false;
+      this.arrayInformation[index].errorSeller = false;
+      this.arrayInformation[index].errorProductType = false;
+      this.arrayInformation[index].errorImageUrl1 = false;
+      this.arrayInformation[index].errorImageUrl2 = false;
+      this.arrayInformation[index].errorImageUrl3 = false;
+      this.arrayInformation[index].errorImageUrl4 = false;
+      this.arrayInformation[index].errorImageUrl5 = false;
+      this.arrayInformation[index].errorParentReference = false;
+      this.arrayInformation[index].errorSonReference = false;
+      this.arrayInformation[index].errorModifyImage = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -905,16 +923,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
-    if (item.dato) {
-      if (item.dato === 'Referencia Padre') {
-        this.arrayInformation[item.row]['errorColumn27'] = true;
-      } else if (item.dato === 'Referencia Hijo') {
-        this.arrayInformation[item.row]['errorColumn28'] = true;
-      }
-    } else {
-      this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
-    }
-
+    this.arrayInformation[item.row]['error' + item.dato] = true;
 
     this.arrayInformation[item.row].errorRow = true;
 

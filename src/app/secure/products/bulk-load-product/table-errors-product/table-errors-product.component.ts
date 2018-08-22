@@ -44,7 +44,7 @@ export class TableErrorsProductComponent implements OnInit {
   constructor(
     public bulkLoad: BulkLoadProductComponent
   ) {
-    this.listLog = this.listLog || [];
+    this.listLog = this.listLog;
   }
 
   ngOnInit(): void {
