@@ -1,14 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { Callback, LoggedInCallback, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
+
 import { ModelRegister } from './models/register.model';
 import { RegisterService } from './register.service';
-import { ShellComponent } from '@core/shell/shell.component';
-import { LoggedInCallback, Callback, UserLoginService, UserParametersService, RoutesConst } from '@app/shared';
-import { Router } from '@angular/router';
-
-import { StatesComponent } from './states/states.component';
-import { CitiesComponent } from './cities/cities.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {

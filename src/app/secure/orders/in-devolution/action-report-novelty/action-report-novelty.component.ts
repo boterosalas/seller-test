@@ -1,21 +1,11 @@
-/* 3rd party components */
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { ComponentsService, FAKE, ListReasonRejectionResponseEntity, OrderDevolutionsModel } from '@app/shared';
 
-/* our own custom components */
-
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {
-  OrderDevolutionsModel,
-  ListReasonRejectionResponseEntity,
-  Logger,
-  ComponentsService,
-  UserService,
-  FAKE,
-  Callback,
-  UserParametersService
-} from '@app/shared';
 import { InDevolutionService } from '../id-devolution.service';
+
 
 // log component
 const log = new Logger('ActionReportNoveltyComponent');
@@ -53,7 +43,6 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
     public componentsService: ComponentsService,
     public dialogRef: MatDialogRef<ActionReportNoveltyComponent>,
     public inDevolutionService: InDevolutionService,
-    public userService: UserService,
     public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;

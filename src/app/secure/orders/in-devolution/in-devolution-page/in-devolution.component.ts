@@ -1,29 +1,25 @@
-/* 3rd party components */
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-/* our own custom components */
-import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  Pending,
-  ListReasonRejectionResponseEntity,
-  SearchFormEntity,
-  OrderDevolutionsModel,
-  Logger,
-  Const,
-  UserService,
   ComponentsService,
-  Callback,
-  UserParametersService
+  Const,
+  ListReasonRejectionResponseEntity,
+  OrderDevolutionsModel,
+  Pending,
+  SearchFormEntity,
 } from '@app/shared';
-import { InDevolutionService } from '../id-devolution.service';
-import { ActionReportNoveltyComponent } from '../action-report-novelty/action-report-novelty.component';
-import { ActionConfirmReceiptComponent } from '../action-confirm-receipt/action-confirm-receipt.component';
 import { ShellComponent } from '@core/shell/shell.component';
+
+import { ActionConfirmReceiptComponent } from '../action-confirm-receipt/action-confirm-receipt.component';
+import { ActionReportNoveltyComponent } from '../action-report-novelty/action-report-novelty.component';
+import { InDevolutionService } from '../id-devolution.service';
+import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
+
 // log component
 const log = new Logger('InDevolutionComponent');
 
@@ -108,7 +104,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
     public dialog: MatDialog,
     private zone: NgZone,
     private inDevolutionService: InDevolutionService,
-    public userService: UserService,
     private componentsService: ComponentsService,
     public userParams: UserParametersService
   ) {

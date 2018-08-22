@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Logger } from '@app/shared';
+import { Logger } from '@app/core/util/logger.service';
 
 // log component
 const log = new Logger('ShellComponent');

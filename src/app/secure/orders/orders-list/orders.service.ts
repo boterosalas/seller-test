@@ -1,15 +1,20 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
+import { Order } from '@app/shared';
 import { Observable } from 'rxjs/Observable';
-
-/* our own custom components */
-import { BaseSellerService, Order } from '@app/shared';
 
 @Injectable()
 /**
  * Clase OrderService
  */
-export class OrderService extends BaseSellerService {
+export class OrderService {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+) { }
+
   /**
    * Método para realiar la consulta de las órdenes
    * @param {any} state
@@ -19,25 +24,20 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   getOrderList(state, user: any, limit): Observable<[{}]> {
-    this.changeEndPoint();
     return new Observable(observer => {
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
-        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`]), this.getHeaders(user)).subscribe((data: any) => {
+        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
           observer.next(data);
         }, err => {
-          this.hehs.error(err, () => {
             observer.error(err);
-          });
         });
       } else {
         this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit]),
-          this.getHeaders(user)).subscribe((data: any) => {
+      ).subscribe((data: any) => {
             observer.next(data);
           }, error => {
-            this.hehs.error(error, () => {
               observer.error(error);
-            });
           });
       }
     });
@@ -52,18 +52,12 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
-
       this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
+    ).subscribe((data: any) => {
           observer.next(data);
         }, errorMessage => {
-          this.hehs.error(errorMessage, () => {
             observer.error(errorMessage);
-          });
         });
     });
   }
@@ -78,17 +72,11 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   sendProductOrder(product, user, orderId, idProduct): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
-
-      this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product, this.getHeaders(user)).subscribe((data: any) => {
+      this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }
@@ -102,17 +90,11 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   sendAllProductInOrder(orders, user, orderId): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
-
-      this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders, this.getHeaders(user)).subscribe((data: any) => {
+      this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }
@@ -124,17 +106,11 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   getCarries(user): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
-
-      this.http.get(this.api.get('carries'), this.getHeaders(user)).subscribe((data: any) => {
+      this.http.get(this.api.get('carries')).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }
@@ -147,17 +123,12 @@ export class OrderService extends BaseSellerService {
    * @memberof OrderService
    */
   recordProcesSedOrder(information, user): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
 
-      this.http.patch(this.api.get('recordProcesSedOrder'), information, this.getHeaders(user)).subscribe((data: any) => {
+      this.http.patch(this.api.get('recordProcesSedOrder'), information).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }

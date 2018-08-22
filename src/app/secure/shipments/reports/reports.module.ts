@@ -1,23 +1,18 @@
-// @Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@app/shared';
 
-// Local components
+import { ShipmentsService } from '../shipments.service';
 import { ReportsComponent } from './reports-page/reports.component';
 import { ReportRoutingModule } from './reports.routing';
-import { UserService } from '@app/shared';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import {ShipmentsService} from '../shipments.service';
-import { MaterialModule } from '../../../material.module';
 
 @NgModule({
   imports: [
       CommonModule,
       MaterialModule,
-      ReportRoutingModule,
-      ToolbarLinkModule,
-      ToolbarOptionsModule
+      SharedModule,
+      ReportRoutingModule
   ],
   declarations: [
     ReportsComponent
@@ -26,7 +21,6 @@ import { MaterialModule } from '../../../material.module';
     ReportsComponent
   ],
   providers: [
-    UserService,
     ShipmentsService
   ]
 })

@@ -1,31 +1,9 @@
-
-/* 3rd party components */
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/* our own custom components */
-import { HttpErrorHandlingService, EndpointService } from '../services';
-
-
 @Injectable()
-
-/**
- * Clase ToolbarServiceService
- */
 export class ToolbarServiceService {
 
-    /**
-     * Creates an instance of ToolbarServiceService.
-     * @param {HttpClient} http
-     * @param {HttpErrorHandlingService} hehs
-     * @param {EndpointService} api
-     * @memberof ToolbarServiceService
-     */
-    constructor(
-        private http: HttpClient,
-        private hehs: HttpErrorHandlingService,
-        private api: EndpointService
-    ) { }
+    constructor() { }
 
     /**
      * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes

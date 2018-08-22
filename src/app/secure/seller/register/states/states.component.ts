@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { State } from './states.model';
-import { StatesService } from './states.service';
-import { Validators, FormControl, FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { ShellComponent } from '@core/shell/shell.component';
 
-/** Error when invalid control is dirty, touched, or submitted. */
+import { State } from './states.model';
+import { StatesService } from './states.service';
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

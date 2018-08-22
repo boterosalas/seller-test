@@ -1,6 +1,6 @@
 /* our own custom components */
-import { Order } from '../models';
 import { environment } from '@env/environment';
+import { Order } from '@app/shared/models/order.model';
 
 export class Const {
     /**

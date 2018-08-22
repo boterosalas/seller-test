@@ -1,23 +1,19 @@
-// @Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@app/shared';
 
-// Detail Component
-import { DetailRoutingModule } from './detail.routing';
-import { DetailComponent } from './detail-page/detail.component';
-import { DetailService } from './detail.service';
 import { ShipmentsService } from '../shipments.service';
-import { MaterialModule } from '../../../material.module';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
+import { DetailComponent } from './detail-page/detail.component';
+import { DetailRoutingModule } from './detail.routing';
+import { DetailService } from './detail.service';
 
 @NgModule({
     imports: [
         CommonModule,
         MaterialModule,
-        DetailRoutingModule,
-        ToolbarLinkModule,
-        ToolbarOptionsModule
+        SharedModule,
+        DetailRoutingModule
     ],
     declarations: [
         DetailComponent

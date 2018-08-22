@@ -1,4 +1,4 @@
-import { CategoryList } from '../models';
+import { CategoryList } from '@app/shared/models/order.model';
 
 export class RoutesConst {
     static readonly home: any = 'home';

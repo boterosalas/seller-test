@@ -1,20 +1,13 @@
-/* 3rd party components */
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { CognitoUtil } from '@app/core';
+import { defaultVersion, endpoints } from '@root/api-endpoints';
 import { Observable } from 'rxjs';
 
-
-/* our own custom components */
 import { StoreModel } from './models/store.model';
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+
 
 @Injectable()
-
-/**
- * Clase StoresService
- */
 export class StoresService {
   /**
    * Método constructor de la clase StoresService

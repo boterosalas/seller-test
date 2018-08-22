@@ -1,12 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    UserRegistrationService,
-    UserLoginService,
-    LoggedInCallback,
-    RoutesConst
-} from '@app/shared';
+import { LoggedInCallback, UserLoginService, UserRegistrationService } from '@app/core';
 import { ShellComponent } from '@app/core/shell/shell.component';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-awscognito',

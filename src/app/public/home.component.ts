@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserLoginService, LoggedInCallback, RoutesConst } from '@app/shared';
+import { LoggedInCallback, UserLoginService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 declare let AWS: any;
 declare let AWSCognito: any;

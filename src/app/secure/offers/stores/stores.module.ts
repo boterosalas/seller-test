@@ -1,25 +1,21 @@
-/* 3rd party components */
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// Import relevant http modules
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '@app/material.module';
 
-/* our own custom components */
 import { EventEmitterStore } from './events/eventEmitter-store.service';
-import { StoresService } from './stores.service';
-import { StoresRoutingModule } from './stores.routing';
-import { TreeToolbarComponent } from './tree-toolbar/tree-toolbar.component';
 import { SearchStoreComponent } from './search-store/search-store.component';
 import { StoreComponent } from './store/store.component';
-import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.component';
-import { TreeComponentComponent } from './tree/components/tree-component/tree-component.component';
+import { StoresRoutingModule } from './stores.routing';
+import { StoresService } from './stores.service';
+import { TreeToolbarComponent } from './tree-toolbar/tree-toolbar.component';
 import { InputCommisionComponent } from './tree/components/input-commision/input-commision.component';
 import { NoContentComponent } from './tree/components/no-content/no-content.component';
-import { MaterialModule } from '../../../material.module';
+import { TreeComponentComponent } from './tree/components/tree-component/tree-component.component';
+import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.component';
 
 
 @NgModule({

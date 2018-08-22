@@ -4,8 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@app/material.module';
-import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
-import { SupportModule } from '@secure/support-modal/support-modal.module';
 
 import { HeaderComponent } from './header/header.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -21,8 +19,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
         MaterialModule,
         RouterModule,
         ReactiveFormsModule,
-        SearchOrderMenuModule,
-        SupportModule
+        SearchOrderMenuModule
     ],
     declarations: [
         HeaderComponent,
@@ -39,7 +36,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
         ModalComponent
     ],
     entryComponents: [
-        SupportModalComponent,
         ModalComponent
     ],
     providers: []

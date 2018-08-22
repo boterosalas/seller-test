@@ -1,13 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-    UserLoginService,
-    LoggedInCallback,
-    CognitoUtil,
-    UserParametersService,
-    UserService,
-    RoutesConst
-} from '@app/shared';
+import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
 @Component({
@@ -20,7 +14,6 @@ export class SecureHomeComponent implements LoggedInCallback {
 
     constructor(
         public shell: ShellComponent,
-        public userServiceProvider: UserService,
         public router: Router,
         public userService: UserLoginService,
         public userParams: UserParametersService,

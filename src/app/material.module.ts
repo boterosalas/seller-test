@@ -1,42 +1,40 @@
-/* 3rd party components */
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    MatButtonModule,
-    MatExpansionModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatCardModule,
-    MatListModule,
-    MatSelectModule,
-    MatInputModule,
-    MatGridListModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatStepperModule,
-    MatTooltipModule,
-    MatNativeDateModule,
-    MatProgressBarModule,
-    MatMenuModule,
-    MatSortModule,
-    MatDatepickerModule,
-    MatRippleModule,
     MatAutocompleteModule,
+    MatButtonModule,
     MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    MatSliderModule
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
 } from '@angular/material';
-
-import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTreeModule } from '@angular/material/tree';
 
 /**
  *  Módulo que permitira importar los componentes de Angular material y Angular Flex layout en el app.module.

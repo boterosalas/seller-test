@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AwsUtil, UserLoginService, CognitoUtil, LoggedInCallback } from '@app/shared';
+import { AwsUtil, UserLoginService, CognitoUtil, LoggedInCallback } from '@app/core';
 
 @Component({
     selector: 'app-root',

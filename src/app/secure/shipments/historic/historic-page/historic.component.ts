@@ -1,11 +1,11 @@
-// Angular
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
-// Local components
-import { MatTableDataSource } from '@angular/material';
-import { ShipmentsService } from '../../shipments.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Logger, SearchFormEntity, InformationToForm, Shipment } from '@app/shared';
+
+import { MatTableDataSource } from '@angular/material';
+import { Logger } from '@app/core';
+import { InformationToForm, SearchFormEntity, Shipment } from '@app/shared';
+
+import { ShipmentsService } from '../../shipments.service';
 
 /**
  * Servicio de log empleado para mostrar mensajes en consola

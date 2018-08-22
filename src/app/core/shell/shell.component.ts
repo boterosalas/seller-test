@@ -1,18 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-
-import {
-  Callback,
-  ComponentsService,
-  EventEmitterOrders,
-  InformationToForm,
-  LoggedInCallback,
-  Logger,
-  SearchFormEntity,
-  UserLoginService,
-  UserParametersService,
-} from '@app/shared';
+import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, EventEmitterOrders, InformationToForm, SearchFormEntity } from '@app/shared';
 import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
 
 import { LoadingComponent } from './loading/loading.component';

@@ -1,17 +1,10 @@
-/* 3rd party components */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
-/* our own custom components */
+import { Callback, LoggedInCallback, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
+
 import { ModelFilter } from '../components/filter/filter.model';
-import { ShellComponent } from '@core/shell/shell.component';
-import {
-    UserLoginService,
-    LoggedInCallback,
-    Callback,
-    UserParametersService,
-    RoutesConst
-} from '@app/shared';
 import { ListService } from '../list.service';
 
 /**
@@ -28,7 +21,6 @@ import { ListService } from '../list.service';
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-
 export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /*Componente necesario para el funcionamiento del filtro*/

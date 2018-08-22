@@ -1,27 +1,15 @@
-/* 3rd party components */
-import { Component, ViewChild, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatTableDataSource, MatDialog, MatSort, MatSidenav, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
+import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, LoadGuide, RoutesConst } from '@app/shared';
+import { ShellComponent } from '@core/shell/shell.component';
 import * as XLSX from 'xlsx';
-import { reject } from 'q';
-import * as _ from 'lodash';
 
-/* our own custom components */
+import { DownloadFormatComponent } from '../download-format/download-format.component';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { LoadGuideService } from '../load-guide.service';
-import { DownloadFormatComponent } from '../download-format/download-format.component';
-import {
-  Logger,
-  LoadGuide,
-  ComponentsService,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
-import { Router } from '@angular/router';
 
 // log component
 const log = new Logger('LoadGuideComponent');

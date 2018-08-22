@@ -1,17 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import {
-  Callback,
-  CategoryList,
-  LoggedInCallback,
-  Logger,
-  RoutesConst,
-  UserLoginService,
-  UserParametersService,
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
+import { RoutesConst, CategoryList } from '@app/shared';
 import { environment } from '@env/environment';
+
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { Logger } from '@core/util/logger.service';
+import { ShellComponent } from '@core/shell/shell.component';
 
 // log component
 const log = new Logger('SideBarComponent');

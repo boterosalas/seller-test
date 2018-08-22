@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { AwsCognitoModule } from '@app/secure/aws-cognito/aws-cognito.module';
 import { BillingModule } from '@app/secure/billing/billing.module';
 import { ErrorModule } from '@app/secure/error-page/error-page.module';
@@ -9,7 +8,6 @@ import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolution
 import { BulkLoadProductModule } from '@app/secure/products';
 import { RegisterModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
-
 
 
 @NgModule({

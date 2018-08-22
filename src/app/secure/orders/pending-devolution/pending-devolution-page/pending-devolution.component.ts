@@ -1,31 +1,28 @@
 /* 3rd party components */
-
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-
-/* our own custom components */
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  OrderDevolutionsModel,
-  ListReasonRejectionResponseEntity,
-  SearchFormEntity,
-  Pending,
-  Logger,
-  Const,
-  UserService,
   ComponentsService,
-  UserParametersService,
-  Callback
+  Const,
+  ListReasonRejectionResponseEntity,
+  OrderDevolutionsModel,
+  Pending,
+  SearchFormEntity,
 } from '@app/shared';
+import { ShellComponent } from '@core/shell/shell.component';
+
 import { ActionAcceptDevolutionComponent } from '../action-accept-devolution/action-accept-devolution.component';
-import { ProductPendingDevolutionModalComponent } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ActionRefuseDevolutionComponent } from '../action-refuse-devolution/action-refuse-devolution.component';
 import { PendingDevolutionService } from '../pending-devolution.service';
+import {
+  ProductPendingDevolutionModalComponent,
+} from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { ShellComponent } from '@core/shell/shell.component';
+
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -110,11 +107,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
    */
   constructor(
     public shellComponent: ShellComponent,
-    private route: ActivatedRoute,
-    private router: Router,
-    public userService: UserService,
     public dialog: MatDialog,
-    private zone: NgZone,
     private pendingDevolutionService: PendingDevolutionService,
     public componentsService: ComponentsService,
     public userParams: UserParametersService
@@ -211,10 +204,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
-    }, err => {
-      this.orderListLength = true;
-      log.error(this.dataSource);
-    });
+    }, () => {
+        this.orderListLength = true;
+        log.error(this.dataSource);
+      });
   }
 
 
@@ -262,7 +255,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal detail order was closed');
     });
   }
@@ -305,7 +298,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal comment order was closed');
     });
   }
@@ -321,7 +314,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         user: this.user
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal detail order was closed');
     });
   }

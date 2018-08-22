@@ -1,17 +1,10 @@
-/* 3rd party components */
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Callback, UserParametersService, Logger } from '@app/core';
 
-/* our own custom components */
 import { DownloadOrderService } from './download-order.service';
-import {
-  Logger,
-  UserService,
-  ComponentsService,
-  UserParametersService,
-  Callback
-} from '@app/shared';
+import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
@@ -54,7 +47,6 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   constructor(
     public dialogRef: MatDialogRef<DownloadOrderModalComponent>,
     public downloadOrderService: DownloadOrderService,
-    public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,

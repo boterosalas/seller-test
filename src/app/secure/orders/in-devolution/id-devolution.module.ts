@@ -1,36 +1,27 @@
-/* 3rd party components */
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShellComponent } from '@app/core';
+import { MaterialModule } from '@app/material.module';
+import { EventEmitterOrders, SharedModule } from '@app/shared';
 
-/* our own custom components */
-import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
-import { InDevolutionService } from './id-devolution.service';
-import { BillingRoutingModule } from './id-devolution.routing';
-import { ActionReportNoveltyComponent } from './action-report-novelty/action-report-novelty.component';
 import { ActionConfirmReceiptComponent } from './action-confirm-receipt/action-confirm-receipt.component';
+import { ActionReportNoveltyComponent } from './action-report-novelty/action-report-novelty.component';
+import { BillingRoutingModule } from './id-devolution.routing';
+import { InDevolutionService } from './id-devolution.service';
+import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
 import { ProductDevolutionModalComponent } from './product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
-import {
-    EndpointService,
-    EventEmitterOrders,
-    HttpErrorHandlingService
-} from '@app/shared';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import { MaterialModule } from '../../../material.module';
-import { ShellComponent } from '@core/shell/shell.component';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         BillingRoutingModule,
-        ToolbarLinkModule,
-        ToolbarOptionsModule,
+        SharedModule,
         MaterialModule,
         HttpClientModule,
         BrowserAnimationsModule
@@ -57,10 +48,8 @@ import { ShellComponent } from '@core/shell/shell.component';
     ],
     providers: [
         InDevolutionService,
-        EndpointService,
         ShellComponent,
         EventEmitterOrders,
-        HttpErrorHandlingService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
     ]

@@ -1,6 +1,5 @@
-/* 3rd party components */
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 /**
  * Componente que permite emplear un html de alerta, se emplea para mostrar un modal de confirmación
@@ -13,8 +12,6 @@ import { Component, OnInit, Inject } from '@angular/core';
   templateUrl: './confirm-alert.component.html',
   styleUrls: ['./confirm-alert.component.scss']
 })
-
-// Componente para despelgar un modal
 export class ConfirmAlertComponent implements OnInit {
 
   /**

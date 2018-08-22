@@ -1,12 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { BaseSellerService } from '@app/shared';
-import { Observable } from 'rxjs/Observable';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 
-export class SearchOrderMenuService extends BaseSellerService {
+export class SearchOrderMenuService {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
@@ -39,17 +44,13 @@ export class SearchOrderMenuService extends BaseSellerService {
    */
   getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
 
-    this.changeEndPoint();
 
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
-          observer.next(data);
-        }, errorMessage => {
-          this.hehs.error(errorMessage, () => {
-            observer.error(errorMessage);
-          });
-        });
+      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 
@@ -62,16 +63,12 @@ export class SearchOrderMenuService extends BaseSellerService {
    * @memberof OrderService
    */
   getOrdersPendingDevolutionFilter(user: any, limit, stringSearch): Observable<[{}]> {
-    this.changeEndPoint();
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
-          observer.next(data);
-        }, errorMessage => {
-          this.hehs.error(errorMessage, () => {
-            observer.error(errorMessage);
-          });
-        });
+      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 }

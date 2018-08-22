@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@app/material.module';
-import { DynamoDBService, UserLoginService } from '@shared/services';
 
 import { ToolbarLinkComponent } from './toolbar-link.component';
 
@@ -21,9 +20,6 @@ import { ToolbarLinkComponent } from './toolbar-link.component';
     exports: [
         ToolbarLinkComponent
     ],
-    providers: [
-        DynamoDBService,
-        UserLoginService
-    ]
+    providers: []
 })
 export class ToolbarLinkModule { }

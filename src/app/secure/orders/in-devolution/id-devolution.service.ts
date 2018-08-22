@@ -1,16 +1,20 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
+import { Const, ListReasonRejectionResponseEntity, User } from '@app/shared';
 import { Observable } from 'rxjs';
-
-/* our own custom components */
-import { User, BaseSellerService, ListReasonRejectionResponseEntity, Const } from '@app/shared';
 
 
 @Injectable()
 /**
  * Clase BillingService
  */
-export class InDevolutionService extends BaseSellerService {
+export class InDevolutionService {
+
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente
@@ -19,17 +23,11 @@ export class InDevolutionService extends BaseSellerService {
      * @returns Observable<[{}]>
      */
     getOrders(user: User, stringSearch: any): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('pendingDevolution', [stringSearch])).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
                     observer.error(err);
-                });
             });
         });
     }
@@ -42,17 +40,11 @@ export class InDevolutionService extends BaseSellerService {
      * @memberof InDevolutionService
      */
     acceptDevolution(user): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('acceptDevolution')).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
                     observer.error(err);
-                });
             });
         });
     }
@@ -64,18 +56,12 @@ export class InDevolutionService extends BaseSellerService {
      * @memberof InDevolutionService
      */
     getReasonsRejection(user: User): Observable<Array<ListReasonRejectionResponseEntity>> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
             this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrdersInDevolution}`]),
-                this.getHeaders(user)).subscribe((data: any) => {
+        ).subscribe((data: any) => {
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
                         observer.error(err);
-                    });
                 });
         });
     }
@@ -88,16 +74,11 @@ export class InDevolutionService extends BaseSellerService {
      * @memberof InDevolutionService
      */
     reportNovelty(user: User, info): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, this.getHeaders(user)).subscribe((data: any) => {
+            this.http.post(this.api.get('refuseOrAcceptDevolution'), info).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
                     observer.error(err);
-                });
             });
         });
     }

@@ -1,8 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, Optional, SkipSelf, LOCALE_ID } from '@angular/core';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
+import {
+  AwsUtil,
+  CognitoUtil,
+  DynamoDBService,
+  UserLoginService,
+  UserParametersService,
+  UserRegistrationService,
+} from './aws-cognito';
 import { AuthInterceptor } from './http/auth.interceptor';
 import { CacheInterceptor } from './http/cache.interceptor';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
@@ -30,7 +38,14 @@ import { RouteReusableStrategy } from './util/route-reusable-strategy';
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy
-    }
+    },
+    CognitoUtil,
+    AwsUtil,
+    DynamoDBService,
+    UserRegistrationService,
+    UserLoginService,
+    UserParametersService,
+    { provide: LOCALE_ID, useValue: 'es-CO' }
   ]
 })
 export class CoreModule {

@@ -1,4 +1,3 @@
- /* 3rd party components */
 import { MatPaginatorIntl } from '@angular/material';
 
 

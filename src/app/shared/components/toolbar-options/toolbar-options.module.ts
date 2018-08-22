@@ -1,21 +1,12 @@
-/* 3rd party components */
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-/* our own custom components */
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ToolbarOptionsComponent } from './toolbar-options.component';
+
 import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
-import { ShellComponent } from '@core/shell/shell.component';
-import {
-    EndpointService,
-    HttpErrorHandlingService,
-    UserService,
-    ComponentsService,
-    EventEmitterOrders
-} from '@shared/services';
+
+import { ToolbarOptionsComponent } from './toolbar-options.component';
 
 @NgModule({
     imports: [
@@ -32,13 +23,6 @@ import {
     exports: [
         ToolbarOptionsComponent,
     ],
-    providers: [
-        ShellComponent,
-        EndpointService,
-        HttpErrorHandlingService,
-        UserService,
-        ComponentsService,
-        EventEmitterOrders,
-    ]
+    providers: []
 })
 export class ToolbarOptionsModule { }

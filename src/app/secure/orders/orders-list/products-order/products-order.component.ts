@@ -1,12 +1,10 @@
-/* 3rd party components */
-import {Component} from '@angular/core';
-import {Input} from '@angular/core';
-import {MatTableDataSource, MatDialog} from '@angular/material';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Logger } from '@app/core';
+import { Const, Order } from '@app/shared';
 
-/* our own custom components */
-import {ProductDetailModalComponent} from '../product-detail-modal/product-detail-modal.component';
-import {OrdersListComponent} from '../orders-page/orders-list.component';
-import { Const, Order, Logger } from '@app/shared';
+import { OrdersListComponent } from '../orders-page/orders-list.component';
+import { ProductDetailModalComponent } from '../product-detail-modal/product-detail-modal.component';
 
 // log component
 const log = new Logger('ProductOrderComponent');

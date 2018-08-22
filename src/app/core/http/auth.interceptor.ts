@@ -1,6 +1,6 @@
+import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CognitoUtil } from '@app/shared';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { CognitoUtil } from '@core/aws-cognito';
 
 /**
  * Intersecta todas las peticiones y les agrega el token de la autenticación en el encabezado.

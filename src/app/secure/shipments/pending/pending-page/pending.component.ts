@@ -10,13 +10,12 @@ import {
   PickupShipment,
   SearchFormEntity,
   InformationToForm,
-  Logger,
   getDutchPaginatorIntl,
-  UserService,
   RoutesConst
 } from '@app/shared';
 import { ShipmentsService } from '../../shipments.service';
 import { environment } from '@env/environment';
+import { Logger } from '@app/core';
 
 /**
  * Servicio de log empleado para mostrar mensajes en consola
@@ -67,15 +66,12 @@ export class PendingComponent implements OnInit {
    */
   constructor(
     private service: ShipmentsService,
-    private userService: UserService,
     private router: Router) { }
 
   /**
    * Init compoment
    */
   ngOnInit() {
-    this.user = this.userService.getUser();
-
     this.list();
   }
   /**

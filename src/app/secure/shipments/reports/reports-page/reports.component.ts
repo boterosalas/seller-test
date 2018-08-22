@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 // Local components
-import { SearchFormEntity, InformationToForm, Logger } from '@app/shared';
+import { SearchFormEntity, InformationToForm } from '@app/shared';
+import { Logger } from '@app/core';
 
 /**
  * Servicio de log empleado para mostrar mensajes en consola

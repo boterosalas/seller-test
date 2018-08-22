@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
-
-import { ShellComponent } from '@core/shell/shell.component';
+import { Logger } from '@app/core';
+import { SearchFormEntity } from '@app/shared/models/order.model';
+import { getDutchPaginatorIntl } from '@app/shared/services/mat-table.config';
+import { ShellComponent } from '@app/core/shell/shell.component';
 import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal/download-order-modal.component';
-import { SearchFormEntity } from '@shared/models';
-import { getDutchPaginatorIntl, Logger } from '@shared/services';
 
 
 // log component

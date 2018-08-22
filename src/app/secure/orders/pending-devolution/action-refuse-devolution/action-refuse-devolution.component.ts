@@ -6,15 +6,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 /* our own custom components */
 import { PendingDevolutionService } from '../pending-devolution.service';
 import {
-  Logger,
   OrderDevolutionsModel,
   ListReasonRejectionResponseEntity,
   ComponentsService,
-  UserService,
   FAKE,
-  UserParametersService,
-  Callback
 } from '@app/shared';
+import { Logger, UserParametersService, Callback } from '@app/core';
 
 // log component
 const log = new Logger('ActionRefuseDevolutionComponent');
@@ -52,7 +49,6 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
     public componentsService: ComponentsService,
     public dialogRef: MatDialogRef<ActionRefuseDevolutionComponent>,
     public pendingDevolutionService: PendingDevolutionService,
-    public userService: UserService,
     public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;

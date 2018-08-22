@@ -3,20 +3,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { Billing, ComponentsService, Const, InformationToForm, Order, SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {
-  Logger,
-  ComponentsService,
-  UserService,
-  Callback,
-  UserParametersService,
-  Billing,
-  InformationToForm,
-  Order,
-  SearchFormEntity,
-  Const
-} from '@app/shared';
+
 import { BillingService } from '../billing.service';
 import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 
@@ -89,7 +79,6 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
    * @memberof BillingComponent
    */
   constructor(
-    public userService: UserService,
     public dialog: MatDialog,
     public billinService: BillingService,
     public component: ComponentsService,

@@ -1,35 +1,33 @@
-/* 3rd party components */
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatPaginatorIntl } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Location } from '@angular/common';
-
-/* our own custom components */
-import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
-import { SendOrderComponent } from '../send-order/send-order.component';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Order,
-  CategoryList,
-  SearchFormEntity,
-  InformationToForm,
-  Const,
-  getDutchPaginatorIntl,
-  Logger,
-  ComponentsService,
   AwsUtil,
-  UserLoginService,
+  Callback,
   CognitoUtil,
   LoggedInCallback,
-  Callback,
+  Logger,
+  ShellComponent,
+  UserLoginService,
   UserParametersService,
+} from '@app/core';
+import {
+  CategoryList,
+  ComponentsService,
+  Const,
+  getDutchPaginatorIntl,
+  InformationToForm,
+  Order,
   RoutesConst,
-  UserService
+  SearchFormEntity,
 } from '@app/shared';
+
+import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 import { OrderService } from '../orders.service';
-import { ShellComponent } from '@core/shell/shell.component';
+import { SendOrderComponent } from '../send-order/send-order.component';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -144,8 +142,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
     public awsUtil: AwsUtil,
     public userService: UserLoginService,
     public cognito: CognitoUtil,
-    public userParams: UserParametersService,
-    public userServiceProvider: UserService,
+    public userParams: UserParametersService
   ) {
     this.user = {};
   }

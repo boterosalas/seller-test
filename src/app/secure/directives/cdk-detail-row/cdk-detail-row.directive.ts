@@ -1,17 +1,9 @@
-/* 3rd party components */
 import { Directive, HostBinding, HostListener, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 
-/** 
- * Directive
- */
 @Directive({
   selector: '[cdkDetailRow]'
 })
-
-/**
- * CdkDetailRowDirective
- */
 export class CdkDetailRowDirective {
 
   /**

@@ -1,24 +1,15 @@
-/* 3rd party components */
-import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-/* our own custom components */
-import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { InValidationService } from '../in-validation.service';
-import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
-import {
-  Logger,
-  Pending,
-  SearchFormEntity,
-  Const,
-  UserService,
-  UserParametersService,
-  Callback
-} from '@app/shared';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { Const, Pending, SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
+
+import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
+import { InValidationService } from '../in-validation.service';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
 
 // log component
 const log = new Logger('InValidationComponent');
@@ -100,7 +91,6 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
     public dialog: MatDialog,
     private zone: NgZone,
     private inValidationService: InValidationService,
-    public userService: UserService,
     public userParams: UserParametersService
   ) {
     this.user = {};

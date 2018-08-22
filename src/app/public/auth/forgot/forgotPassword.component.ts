@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    CognitoCallback,
-    UserLoginService,
-    RoutesConst
-} from '@app/shared';
+import { CognitoCallback, UserLoginService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-awscognito',

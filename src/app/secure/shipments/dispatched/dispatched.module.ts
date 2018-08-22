@@ -1,24 +1,19 @@
-// @Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared';
 
-
-// Local components
-import { DispatchRoutingModule } from './dispatched.routing';
-import { DispatchedComponent } from './dispatched-page/dispatched.component';
+import { MaterialModule } from '@app/material.module';
 import { ShipmentsService } from '../shipments.service';
-import { MaterialModule } from '../../../material.module';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
+import { DispatchedComponent } from './dispatched-page/dispatched.component';
+import { DispatchRoutingModule } from './dispatched.routing';
+
 
 @NgModule({
     imports: [
         CommonModule,
         MaterialModule,
-        DispatchRoutingModule,
-        ToolbarLinkModule,
-        ToolbarOptionsModule
+        SharedModule,
+        DispatchRoutingModule
     ],
     declarations: [
         DispatchedComponent

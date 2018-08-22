@@ -1,16 +1,20 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
-/* our own custom components */
-import { BaseSellerService } from '@app/shared';
 
 
 @Injectable()
 /**
  * Clase BillingService
  */
-export class InValidationService extends BaseSellerService {
+export class InValidationService {
+
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente
@@ -19,17 +23,11 @@ export class InValidationService extends BaseSellerService {
      * @returns Observable<[{}]>
      */
     getOrders(user: any, stringSearch: any): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('pendingDevolution', [stringSearch])).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }
@@ -42,17 +40,11 @@ export class InValidationService extends BaseSellerService {
      * @memberof PendingDevolutionService
      */
     acceptDevolution(user): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('acceptDevolution')).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }
@@ -64,17 +56,11 @@ export class InValidationService extends BaseSellerService {
      * @memberof PendingDevolutionService
      */
     reportNovelty(user): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.get(this.api.get('reportNovelty'), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('reportNovelty')).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }

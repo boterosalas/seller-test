@@ -1,30 +1,22 @@
-/* 3rd party components */
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '@app/material.module';
+import { ComponentsService, EventEmitterOrders, SharedModule } from '@app/shared';
 
-
-/* our own custom components */
 import { ClientInformationModule } from '../../client-information/client-information.module';
-import { OrdersListComponent } from './orders-page/orders-list.component';
-import { OrderDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
-import { ProductsOrderComponent } from './products-order/products-order.component';
-import { ProductDetailModalComponent } from './product-detail-modal/product-detail-modal.component';
-import { SendOrderComponent } from './send-order/send-order.component';
-import { FormProductComponent } from './send-order/form-product/form-product.component';
-import { OrderService } from './orders.service';
-import { MaterialModule } from '../../../material.module';
-import {
-    UserService,
-    EventEmitterOrders,
-    ComponentsService } from '@app/shared';
-    import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import { CdkDetailRowDirectiveModule } from '../../directives/cdk-detail-row/cdk-detail-row.module';
 import { ConfirmAlertComponent } from '../../confirm-alert/confirm-alert.component';
+import { CdkDetailRowDirectiveModule } from '../../directives/cdk-detail-row/cdk-detail-row.module';
+import { OrderDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
+import { OrdersListComponent } from './orders-page/orders-list.component';
 import { OrdersRoutingModule } from './orders.routing';
+import { OrderService } from './orders.service';
+import { ProductDetailModalComponent } from './product-detail-modal/product-detail-modal.component';
+import { ProductsOrderComponent } from './products-order/products-order.component';
+import { FormProductComponent } from './send-order/form-product/form-product.component';
+import { SendOrderComponent } from './send-order/send-order.component';
+
 
 
 /**
@@ -37,8 +29,7 @@ import { OrdersRoutingModule } from './orders.routing';
         MaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        ToolbarLinkModule,
-        ToolbarOptionsModule,
+        SharedModule,
         ClientInformationModule,
         CdkDetailRowDirectiveModule,
         OrdersRoutingModule
@@ -60,7 +51,6 @@ import { OrdersRoutingModule } from './orders.routing';
     ],
     providers: [
         OrderService,
-        UserService,
         EventEmitterOrders,
         ComponentsService,
         OrdersListComponent

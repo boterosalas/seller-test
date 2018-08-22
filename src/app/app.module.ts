@@ -1,16 +1,8 @@
 import 'hammerjs';
 
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-    AwsUtil,
-    CognitoUtil,
-    DynamoDBService,
-    UserLoginService,
-    UserParametersService,
-    UserRegistrationService,
-} from '@app/shared';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes.routing';
@@ -29,14 +21,7 @@ import { SecureModule } from '@app/secure/secure.module';
         SecureModule,
         AppRoutingModule
     ],
-    providers: [
-        CognitoUtil,
-        AwsUtil,
-        DynamoDBService,
-        UserRegistrationService,
-        UserLoginService,
-        UserParametersService,
-        { provide: LOCALE_ID, useValue: 'es-CO' }],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {

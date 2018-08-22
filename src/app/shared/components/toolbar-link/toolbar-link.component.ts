@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { CategoryList } from '@app/shared/models/order.model';
+import { RoutesConst } from '@app/shared/util/routes.constants';
 import { environment } from '@env/environment';
-import { CategoryList } from '@shared/models';
-import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@shared/services';
-import { RoutesConst } from '@shared/util';
 
 /**
  * Componente Toolbar para los links de la orden.

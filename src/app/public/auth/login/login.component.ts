@@ -1,18 +1,18 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-    UserLoginService,
+    Callback,
     ChallengeParameters,
     CognitoCallback,
+    DynamoDBService,
     LoggedInCallback,
-    Callback,
-    UserParametersService,
-    RoutesConst,
-    DynamoDBService
- } from '@app/shared';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ShellComponent } from '@app/core/shell/shell.component';
+    ShellComponent,
+    UserLoginService,
+    UserParametersService
+} from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-awscognito',

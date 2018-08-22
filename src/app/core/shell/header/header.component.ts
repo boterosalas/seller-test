@@ -1,15 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import {
-  Callback,
-  CognitoUtil,
-  LoggedInCallback,
-  Logger,
-  RoutesConst,
-  UserLoginService,
-  UserParametersService,
-} from '@app/shared';
+import { Logger } from '@app/core/util/logger.service';
+import { RoutesConst } from '@app/shared/util/routes.constants';
+import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
 import { environment } from '@env/environment';
 
 import { ShellComponent } from '../shell.component';

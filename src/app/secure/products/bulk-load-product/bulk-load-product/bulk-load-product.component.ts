@@ -1,25 +1,18 @@
-/* 3rd party components */
-import { Component, ViewChild, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import { MatTableDataSource, MatDialog, MatSort, MatSidenav, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import * as FileSaver from 'file-saver';
-
-/* our own custom components */
-import { BulkLoadProductService } from '../bulk-load-product.service';
-import { FinishUploadProductInformationComponent } from '../finish-upload-product-information/finish-upload-product-information.component';
-import { ModelProduct } from '../models/product.model';
-import {
-  Logger,
-  ComponentsService,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
 import { Router } from '@angular/router';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Callback, LoggedInCallback, Logger, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst } from '@app/shared';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
+import { BulkLoadProductService } from '../bulk-load-product.service';
+import {
+  FinishUploadProductInformationComponent,
+} from '../finish-upload-product-information/finish-upload-product-information.component';
+import { ModelProduct } from '../models/product.model';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');

@@ -1,24 +1,18 @@
-// @Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared';
 
-// Local components
+import { MaterialModule } from '@app/material.module';
+import { ShipmentsService } from '../shipments.service';
 import { HistoricComponent } from './historic-page/historic.component';
 import { HistoricRoutingModule } from './historic.routing';
-import {ShipmentsService} from '../shipments.service';
-import { MaterialModule } from '../../../material.module';
-import { UserService } from '@app/shared';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    ToolbarLinkModule,
-    HistoricRoutingModule,
-    ToolbarOptionsModule
+    SharedModule,
+    HistoricRoutingModule
   ],
   declarations: [
     HistoricComponent
@@ -27,8 +21,7 @@ import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
     HistoricComponent
   ],
   providers: [
-    ShipmentsService,
-    UserService
+    ShipmentsService
   ]
 })
 

@@ -1,12 +1,11 @@
-/* 3rd party components */
-import { MatDialogRef } from '@angular/material';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-
-/* our own custom components */
-import { SupportService } from './support.service';
+import { MatDialogRef } from '@angular/material';
 import { environment } from '@env/environment';
-import { Logger, ComponentsService, UserService, UserParametersService, Callback } from '@app/shared';
+
+import { SupportService } from './support.service';
+import { Logger, Callback, UserParametersService } from '@app/core';
+import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -52,7 +51,6 @@ export class SupportModalComponent implements OnInit, Callback {
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public USER: UserService,
     public userParams: UserParametersService
   ) {
     this.user = {};

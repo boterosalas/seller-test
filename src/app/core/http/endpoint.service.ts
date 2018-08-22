@@ -1,18 +1,14 @@
-/* 3rd party components */
 import { Injectable } from '@angular/core';
+import { defaultVersion } from '@root/api-endpoints';
 
-/* our own custom components */
-import { defaultVersion, endpoints } from '../../../../api-endpoints';
-import { Logger } from './logger.service';
-
+import { Logger } from '../util/logger.service';
 
 const log = new Logger('EndpointService');
-type typeInterpolation = 'simple' | 'dynamic';
+type TypeInterpolation = 'simple' | 'dynamic';
+
 
 @Injectable()
 export class EndpointService {
-
-    public apiUrl = '';
     // Prefijo de la versión
     private prefix: string;
     // Número de versión
@@ -24,6 +20,7 @@ export class EndpointService {
         simple: /{\w+}/,
         clean: /\/{\w+}/
     };
+    private endpoints = {};
 
     /**
      * Creates an instance of EndpointService.
@@ -37,36 +34,39 @@ export class EndpointService {
     /**
      * Inicializa las variables globales necesarias para definir
      * la versión de los endpoint que se estan usando.
+     *
      * @param {string} prefix
      * @param {number} version
-     * @memberOf EndpointService
+     * @memberof EndpointService
      */
-    protected setVersion(prefix: string, version: number) {
+    setVersion(prefix: string, version: number) {
         this.prefix = prefix;
         this.number = version;
         this.fullVersion = `${prefix}${version}`;
-        const existVersion = endpoints.hasOwnProperty(this.fullVersion);
+        const existVersion = this.endpoints.hasOwnProperty(this.fullVersion);
         if (!existVersion) {
             log.warn('La versión global para consumir los endpoints no existe.');
         }
     }
 
     /**
-     * Retorna un endpoint que este definido en el archivo './api-endpoints.ts'.
+     * Retorna un endpoint que este definido en el archivo './api-this.endpoints.ts'.
      * - Valida la existencia del endpoint.
      * - Realiza la interpolación simple de los ids
      *   requeridos por el endpoint.
      * - Elimina los ids del endpoint en caso de no ser necesarios.
+     *
+     * @param {string} apiUrl
      * @param {string} name
      * @param {any[]} [params]
      * @param {string} [version=null]
      * @returns {string}
-     * @memberOf EndpointService
+     * @memberof EndpointService
      */
     get(name: string, params?: any[], version: string = null): string {
         let endpoint: string = null;
         const fullVersion = this.fullVersion ? this.fullVersion : version;
-        const existVersion = endpoints.hasOwnProperty(fullVersion);
+        const existVersion = this.endpoints.hasOwnProperty(fullVersion);
 
         // Si no existe la versión
         if (!existVersion) {
@@ -74,22 +74,18 @@ export class EndpointService {
             return null;
         }
 
-        const existName = endpoints[fullVersion].hasOwnProperty(name);
+        const existName = this.endpoints[fullVersion].hasOwnProperty(name);
 
         // Si existe el nombre del endpoint
         if (existName) {
-            const valueEndPoint = endpoints[fullVersion][name];
+            const valueEndPoint = this.endpoints[fullVersion][name];
             const lengthParams = (
                 valueEndPoint.match(new RegExp(this.re.simple.toString(), 'g')) || []
             ).length;
             const applyParams = !this.isEmptyArr(params);
 
             // Endpoint por defecto
-            if (this.apiUrl === '') {
-                endpoint = `${this.apiUrl}${valueEndPoint}`;
-            } else {
-                endpoint = `${this.apiUrl}/${valueEndPoint}`;
-            }
+            endpoint = valueEndPoint;
 
             // Se puede interpolar parametros
             if (applyParams) {
@@ -113,14 +109,14 @@ export class EndpointService {
      *
      * @private
      * @param {string} name
-     * @param {typeInterpolation} type
+     * @param {TypeInterpolation} type
      * @param {(any[] | number)} params
      * @returns {string}
-     * @memberOf EndpointService
+     * @memberof EndpointService
      */
     private addParams(
         name: string,
-        type: typeInterpolation,
+        type: TypeInterpolation,
         params: any[] | number
     ): string {
         if (type === 'simple') {
@@ -143,7 +139,7 @@ export class EndpointService {
      * @private
      * @param {Array<any>} a
      * @returns {boolean}
-     * @memberOf EndpointService
+     * @memberof EndpointService
      */
     private isEmptyArr(a: Array<any>): boolean {
         if (a) {

@@ -2,8 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { ComponentsService, SearchFormEntity, UserService } from '@app/shared';
+import { ComponentsService, SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 import { BillingService } from '@secure/billing/billing.service';
 
@@ -35,7 +34,6 @@ export class SearchBillingFormComponent implements OnInit {
    * @memberof SearchBillingFormComponent
    */
   constructor(
-    public userService: UserService,
     public componentsService: ComponentsService,
     private route: Router,
     private billingService: BillingService,
@@ -50,7 +48,7 @@ export class SearchBillingFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
     this.createForm();
   }
 

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+import { Injectable } from '@angular/core';
+import { CognitoUtil } from '@app/core';
+import { defaultVersion, endpoints } from '@root/api-endpoints';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BulkLoadService {

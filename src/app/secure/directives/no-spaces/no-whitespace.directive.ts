@@ -1,9 +1,10 @@
 import { Directive } from '@angular/core';
+import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
+
 import { NoWhitespaceValidator } from './no-whitespace.validator';
-import { Validator, AbstractControl, Validators, NG_VALIDATORS } from '@angular/forms';
 
 /**
- * This validator works like "required" but it does not allow whitespace either
+ * This validator works like "required" but it does not allow whitespace either.
  *
  * @export
  * @class NoWhitespaceDirective

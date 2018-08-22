@@ -1,15 +1,9 @@
-/* 3rd party components */
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-/* our own custom components */
-import { StoresService } from '../../stores.service';
-import { StoreModel, IsLoadInformationForTree } from '../../models/store.model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Callback, Logger, UserParametersService } from '@app/core';
+
 import { EventEmitterStore } from '../../events/eventEmitter-store.service';
-import {
-  Logger,
-  UserService,
-  Callback,
-  UserParametersService
-} from '@app/shared';
+import { IsLoadInformationForTree, StoreModel } from '../../models/store.model';
+import { StoresService } from '../../stores.service';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');
@@ -38,7 +32,6 @@ export class TreeCategoriesComponent implements OnInit, Callback {
 
   constructor(
     public eventsStore: EventEmitterStore,
-    public userService: UserService,
     public storeService: StoresService,
     public userParams: UserParametersService
   ) {

@@ -1,23 +1,17 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs/Rx';
+import { EndpointService } from '@app/core';
+import { Const, ListReasonRejectionResponseEntity } from '@app/shared';
+import { Observable } from 'rxjs';
 
-/* our own custom components */
-import {
-    BaseSellerService,
-    ListReasonRejectionResponseEntity,
-    Const
-} from '@app/shared';
-/**
- * Injectable
- */
+
 @Injectable()
+export class PendingDevolutionService {
 
-/**
- * Clase BillingService
- */
-export class PendingDevolutionService extends BaseSellerService {
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente
@@ -26,17 +20,12 @@ export class PendingDevolutionService extends BaseSellerService {
      * @returns Observable<[{}]>
      */
     getOrders(user: any, stringSearch: any): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
 
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('pendingDevolution', [stringSearch]), ).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }
@@ -48,19 +37,13 @@ export class PendingDevolutionService extends BaseSellerService {
      * @memberof PendingDevolutionService
      */
     getReasonsRejection(user: any): Observable<Array<ListReasonRejectionResponseEntity>> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
 
-            this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrderPendingDevolution}`]),
-                this.getHeaders(user)).subscribe((data: any) => {
-                    observer.next(data);
-                }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
-                });
+            this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrderPendingDevolution}`])).subscribe((data: any) => {
+                observer.next(data);
+            }, err => {
+                observer.error(err);
+            });
         });
     }
 
@@ -71,17 +54,12 @@ export class PendingDevolutionService extends BaseSellerService {
      * @memberof PendingDevolutionService
      */
     acceptDevolution(user): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
 
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders(user)).subscribe((data: any) => {
+            this.http.get(this.api.get('acceptDevolution')).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }
@@ -94,16 +72,11 @@ export class PendingDevolutionService extends BaseSellerService {
      * @memberof PendingDevolutionService
      */
     refuseDevolution(user: any, info): Observable<[{}]> {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, this.getHeaders(user)).subscribe((data: any) => {
+            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, ).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }

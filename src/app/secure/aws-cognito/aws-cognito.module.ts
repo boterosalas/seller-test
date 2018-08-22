@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UseractivityComponent } from './useractivity/useractivity.component';
-import { MyProfileComponent } from './profile/myprofile.component';
-import { SecureHomeComponent } from './landing/securehome.component';
-import { JwtComponent } from './jwttokens/jwt.component';
+import { NgModule } from '@angular/core';
+
 import { AwsCognitoRoutingModule } from './aws-cognito.routing';
+import { JwtComponent } from './jwttokens/jwt.component';
+import { SecureHomeComponent } from './landing/securehome.component';
+import { MyProfileComponent } from './profile/myprofile.component';
+import { UseractivityComponent } from './useractivity/useractivity.component';
 
 @NgModule({
     declarations: [

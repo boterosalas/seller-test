@@ -1,10 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { ShellComponent } from '@app/core';
 import { MaterialModule } from '@app/material.module';
-import { ComponentsService, EndpointService, EventEmitterOrders, HttpErrorHandlingService, UserService } from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
 
 import { ErrorPageComponent } from './error-page.component';
 
@@ -19,10 +18,7 @@ import { ErrorPageComponent } from './error-page.component';
         ErrorPageComponent,
     ],
     providers: [
-        UserService,
-        EndpointService,
         EventEmitterOrders,
-        HttpErrorHandlingService,
         ShellComponent,
         ComponentsService
     ]

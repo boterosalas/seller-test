@@ -1,27 +1,18 @@
-/* 3rd party components */
-import { Component, ViewChild, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import { MatTableDataSource, MatDialog, MatSort, MatSidenav, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
+import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst } from '@app/shared';
+import { ShellComponent } from '@core/shell/shell.component';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
-/* our own custom components */
 import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
-import {
-  Logger,
-  ComponentsService,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
-import { Router } from '@angular/router';
 
-/* log component */
+// log component
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
 

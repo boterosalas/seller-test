@@ -1,9 +1,7 @@
-/* 3rd party components */
-import {Component, Input, OnInit} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
 
-/* our own custom components */
-import {BulkLoadProductComponent} from '../bulk-load-product/bulk-load-product.component';
+import { BulkLoadProductComponent } from '../bulk-load-product/bulk-load-product.component';
 
 /**
  * Component que permite visualizar una lista de errores capturados del excel.

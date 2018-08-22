@@ -1,20 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-// Local components
-import { ShipmentsService } from '../../shipments.service';
-import {
-  Logger,
-  getDutchPaginatorIntl,
-  UserService,
-  ListShipments,
-  SearchFormEntity,
-  InformationToForm,
-  RoutesConst
-} from '@app/shared';
+import { Logger } from '@app/core';
+import { getDutchPaginatorIntl, InformationToForm, ListShipments, RoutesConst, SearchFormEntity } from '@app/shared';
 import { environment } from '@env/environment';
+
+import { ShipmentsService } from '../../shipments.service';
 
 /**
  * Servicio de log empleado para mostrar mensajes en consola
@@ -63,15 +55,13 @@ export class DispatchedComponent implements OnInit {
    */
   constructor(
     private service: ShipmentsService,
-    private userService: UserService,
     private router: Router) { }
 
   /**
    * Init compoment
    */
   ngOnInit() {
-    this.user = this.userService.getUser();
-
+    // this.user = this.userService.getUser();
     this.list();
   }
 
