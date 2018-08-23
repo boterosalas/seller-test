@@ -29,25 +29,6 @@ export class InDevolutionService extends BaseSellerService {
     }
 
     /**
-     * Método para realizar la aceptación de una devolución.
-     * 
-     * @returns {Observable<[{}]>}
-     * @memberof InDevolutionService
-     */
-    acceptDevolution(): Observable<[{}]> {
-        return new Observable(observer => {
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders())
-                .subscribe((data: any) => {
-                    observer.next(data);
-                }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
-                });
-        });
-    }
-
-    /**
      * Método para realiar la consulta de las opciones para realizar el rechazo.
      * 
      * @returns {Observable<[{ListReasonRejectionResponseEntity}]>}
@@ -66,17 +47,16 @@ export class InDevolutionService extends BaseSellerService {
             });
         });
     }
-
+    
     /**
-     * Método para realizar el rechazo de una devolución.
-     * 
-     * @param info
+     * Método para realizar la aceptación o el rechazo de una devolución.
+     *
      * @returns {Observable<[{}]>}
-     * @memberof InDevolutionService
+     * @memberof PendingDevolutionService
      */
-    reportNovelty(info): Observable<[{}]> {
+    acceptOrDeniedDevolution(info): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAccepDevolution'), info, this.getHeaders())
+            this.http.post(this.api.get('acceptOrDeniedDevolution'), info, this.getHeaders())
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {

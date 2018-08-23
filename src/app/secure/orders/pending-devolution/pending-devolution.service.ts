@@ -47,25 +47,6 @@ export class PendingDevolutionService extends BaseSellerService {
     }
 
     /**
-     * Método para realizar la aceptación de una devolución.
-     *
-     * @returns {Observable<[{}]>}
-     * @memberof PendingDevolutionService
-     */
-    acceptDevolution(): Observable<[{}]> {
-        return new Observable(observer => {
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders())
-                .subscribe((data: any) => {
-                    observer.next(data);
-                }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
-                });
-        });
-    }
-
-    /**
      * Método para realizar la aceptación o el rechazo de una devolución.
      *
      * @returns {Observable<[{}]>}

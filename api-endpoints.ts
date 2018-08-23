@@ -24,8 +24,6 @@ export const endpoints = {
     sendProductInOrder: 'https://89qu0cyz29.execute-api.us-east-1.amazonaws.com/SendProductInOrder/{orderId}/{idDetailProduct}',
     searchPendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?idSeller={sellerId}&limit={limit}',
     pendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
-    inDevolution: 'http://localhost:3000/inDevolution',
-    acceptDevolution: 'http://localhost:3000/orders/acceptDevolution',
     acceptOrDeniedDevolution: 'https://v1kfqoa8yd.execute-api.us-east-1.amazonaws.com/RequestAcceptOrDenied',
     recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
     getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
@@ -72,8 +70,6 @@ export const endpoints = {
     // Billing Mock
     getBilling: 'http://localhost:3000/financials/getbilling{stringParams}',
     searchBilling: 'http://localhost:3000/financials/getbilling?idSeller={sellerId}&limit={limit}',
-    inDevolution: 'http://localhost:3000/inDevolution',
-    acceptDevolution: 'http://localhost:3000/orders/acceptDevolution',
     refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
     // Support message
     supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',

@@ -110,7 +110,6 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
    * @memberof ActionReportNoveltyComponent
    */
   reportNovelty(myform) {
-    console.log(this.currentOrder);
     // busco la razon seleccionada por el usuario
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
 
@@ -122,7 +121,7 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
       ObservationRejectionSeller: myform.value.observation,
       Id: this.currentOrder.id
     };
-    this.inDevolutionService.reportNovelty(information).subscribe(res => {
+    this.inDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

@@ -129,8 +129,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
-        log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -280,8 +278,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
       IsAcceptanceRequest: true,
       Id: order.id
     };
-    this.inDevolutionService.reportNovelty(information).subscribe(res => {
-      log.info(res);
+    this.inDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
@@ -306,9 +303,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
         user: this.user
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal detail order was closed');
-    });
   }
 
   /**
@@ -330,8 +324,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
       if (result === true) {
         this.getOrdersList(this.currentEventPaginate);
       }
-      log.info('The modal detail order was closed');
-      log.info(result);
     });
   }
 
