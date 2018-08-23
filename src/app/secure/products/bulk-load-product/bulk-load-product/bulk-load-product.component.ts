@@ -953,7 +953,6 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     }
 
     this.arrayInformationForSend.push(newObjectForSend);
-    console.log(this.arrayInformationForSend);
   }
 
   /**
