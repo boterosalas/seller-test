@@ -3972,20 +3972,23 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
-// Local
+import { ErrorPageComponent } from &#x27;@app/secure/error-page/error-page.component&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
+
 import { RoutesConst } from &#x27;./../../shared&#x27;;
 import { BillingComponent } from &#x27;./billing-page/billing.component&#x27;;
 
+const isProductionEnv &#x3D; environment.production;
 
 const routes: Routes &#x3D; [
   {
     path: &#x60;${RoutesConst.secureSeller + &#x27;/&#x27; + RoutesConst.billing}&#x60;,
-    component: BillingComponent,
+    component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
     data: { title: &#x27;Facturación&#x27; },
   },
   {
     path: &#x60;${RoutesConst.sellerCenterBilling + &#x27;/&#x27; + RoutesConst.billingPayments}&#x60;,
-    component: BillingComponent,
+    component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
     data: { title: &#x27;Facturación&#x27; },
   }
 ];

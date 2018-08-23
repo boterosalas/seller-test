@@ -3981,7 +3981,11 @@ import { RegistrationConfirmationComponent } from &#x27;./auth/confirm/confirmRe
 import { ResendCodeComponent } from &#x27;./auth/resend/resendCode.component&#x27;;
 import { ForgotPassword2Component, ForgotPasswordStep1Component } from &#x27;./auth/forgot/forgotPassword.component&#x27;;
 import { NewPasswordComponent } from &#x27;./auth/newpassword/newpassword.component&#x27;;
+import { ErrorPageComponent } from &#x27;@app/secure/error-page/error-page.component&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
 
+// Define si la app esta en un entorno de producción.
+const isProductionEnv &#x3D; environment.production;
 
 const routes: Routes &#x3D; [
     {
@@ -3999,8 +4003,8 @@ const routes: Routes &#x3D; [
             { path: &#x27;register&#x27;, component: RegisterComponent },
             { path: &#x27;confirmRegistration/:username&#x27;, component: RegistrationConfirmationComponent },
             { path: &#x27;resendCode&#x27;, component: ResendCodeComponent },
-            { path: &#x27;forgotPassword/:email&#x27;, component: ForgotPassword2Component },
-            { path: &#x27;forgotPassword&#x27;, component: ForgotPasswordStep1Component },
+            { path: &#x27;forgotPassword/:email&#x27;, component: !isProductionEnv ? ForgotPassword2Component : ErrorPageComponent },
+            { path: &#x27;forgotPassword&#x27;, component: !isProductionEnv ? ForgotPasswordStep1Component : ErrorPageComponent },
             { path: &#x27;newPassword&#x27;, component: NewPasswordComponent }
         ]
     }
