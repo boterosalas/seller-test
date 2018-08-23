@@ -53,7 +53,7 @@
               <p class="sc-text-normal">{{element.Name}}</p>
             </div>
             <div class="information" *ngIf="element.Name == undefined || element.Name == ''">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error"> -
               </p>
             </div>
           </td>
@@ -395,6 +395,24 @@
               <p class="sc-text-normal">{{element.ProductType}}</p>
             </div>
             <div class="information" *ngIf="element.ProductType == undefined || element.ProductType == ''">
+              <p class="text-error"> Dato obligatorio
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- ModifyImage Column -->
+        <ng-container matColumnDef="ModifyImage">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Modificación Imagen</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorModifyImage == true }" *matCellDef="let element" matTooltip="{{element.ModifyImage}}">
+            <div class="information" *ngIf="element.ModifyImage != undefined && element.ModifyImage != ''">
+              <p class="sc-text-normal">{{element.ModifyImage}}</p>
+            </div>
+            <div class="information" *ngIf="element.ModifyImage == undefined || element.ModifyImage == ''">
               <p class="text-error"> -
               </p>
             </div>
@@ -499,14 +517,14 @@
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorParentReference == true }" *matCellDef="let element" matTooltip="{{element.ParentReference}}">
-            <div class="information" *ngIf="element.ParentReference != undefined && element.ParentReference != ''">
+            <div class="information" *ngIf="element.ParentReference != undefined && element.ParentReference != '' && element.ParentReference !== null">
               <p class="sc-text-normal">{{element.ParentReference}}</p>
             </div>
-            <div class="information" *ngIf="element.isVariant && (element.ParentReference == undefined || element.ParentReference == '')">
+            <div class="information" *ngIf="element.isVariant && (element.ParentReference == undefined || element.ParentReference == '' || element.ParentReference == null)">
               <p class="text-error"> Dato obligatorio
               </p>
             </div>
-            <div class="information" *ngIf="!element.isVariant && (element.ParentReference == undefined || element.ParentReference == '')">
+            <div class="information" *ngIf="!element.isVariant && (element.ParentReference == undefined || element.ParentReference == '' || element.ParentReference == null)">
               <p class="text-error"> -
               </p>
             </div>
@@ -515,25 +533,115 @@
 
         <!-- SonReference Column -->
         <ng-container matColumnDef="SonReference">
-            <th mat-header-cell *matHeaderCellDef>
-              <div class="information th">
-                <p>Referencia Hijo</p>
-              </div>
-            </th>
-            <td mat-cell [ngClass]="{'selected-error': element.errorSonReference == true }" *matCellDef="let element" matTooltip="{{element.SonReference}}">
-              <div class="information" *ngIf="element.SonReference != undefined && element.SonReference != ''">
-                <p class="sc-text-normal">{{element.SonReference}}</p>
-              </div>
-              <div class="information" *ngIf="element.isVariant && (element.SonReference == undefined || element.SonReference == '')">
-                <p class="text-error"> Dato obligatorio
-                </p>
-              </div>
-              <div class="information" *ngIf="!element.isVariant && (element.SonReference == undefined || element.SonReference == '')">
-                <p class="text-error"> -
-                </p>
-              </div>
-            </td>
-          </ng-container>
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Referencia Hijo</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorSonReference == true }" *matCellDef="let element" matTooltip="{{element.SonReference}}">
+            <div class="information" *ngIf="element.SonReference != undefined && element.SonReference != '' && element.SonReference !== null">
+              <p class="sc-text-normal">{{element.SonReference}}</p>
+            </div>
+            <div class="information" *ngIf="element.isVariant && (element.SonReference == undefined || element.SonReference == '' || element.SonReference == null)">
+              <p class="text-error"> Dato obligatorio
+              </p>
+            </div>
+            <div class="information" *ngIf="!element.isVariant && (element.SonReference == undefined || element.SonReference == '' || element.SonReference == null)">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Size Column -->
+        <ng-container matColumnDef="Size">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Talla</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorSize == true }" *matCellDef="let element" matTooltip="{{element.Size}}">
+            <div class="information" *ngIf="element.Size != undefined && element.Size != '' && element.Size !== null">
+              <p class="sc-text-normal">{{element.Size}}</p>
+            </div>
+            <div class="information" *ngIf="element.Size == undefined || element.Size == '' || element.Size == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="Color">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Color</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColor == true }" *matCellDef="let element" matTooltip="{{element.Color}}">
+            <div class="information" *ngIf="element.Color != undefined && element.Color != '' && element.Color !== null">
+              <p class="sc-text-normal">{{element.Color}}</p>
+            </div>
+            <div class="information" *ngIf="element.Color == undefined || element.Color == '' || element.Color == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+        
+        <!-- HexColourCodePDP Column -->
+        <ng-container matColumnDef="HexColourCodePDP">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>HexColourCodePDP</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorHexColourCodePDP == true }" *matCellDef="let element" matTooltip="{{element.HexColourCodePDP}}">
+            <div class="information" *ngIf="element.HexColourCodePDP != undefined && element.HexColourCodePDP != '' && element.HexColourCodePDP !== null">
+              <p class="sc-text-normal">{{element.HexColourCodePDP}}</p>
+            </div>
+            <div class="information" *ngIf="element.HexColourCodePDP == undefined || element.HexColourCodePDP == '' || element.HexColourCodePDP == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- HexColourName Column -->
+        <ng-container matColumnDef="HexColourName">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>HexColourName</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorHexColourName == true }" *matCellDef="let element" matTooltip="{{element.HexColourName}}">
+            <div class="information" *ngIf="element.HexColourName != undefined && element.HexColourName != '' && element.HexColourName !== null">
+              <p class="sc-text-normal">{{element.HexColourName}}</p>
+            </div>
+            <div class="information" *ngIf="element.HexColourName == undefined || element.HexColourName == '' || element.HexColourName == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- LogisticExito Column -->
+        <ng-container matColumnDef="LogisticExito">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Logistica Exito</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorLogisticExito == true }" *matCellDef="let element" matTooltip="{{element.LogisticExito}}">
+            <div class="information" *ngIf="element.LogisticExito != undefined && element.LogisticExito != '' && element.LogisticExito !== null">
+              <p class="sc-text-normal">{{element.LogisticExito}}</p>
+            </div>
+            <div class="information" *ngIf="element.LogisticExito == undefined || element.LogisticExito == '' || element.LogisticExito == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 

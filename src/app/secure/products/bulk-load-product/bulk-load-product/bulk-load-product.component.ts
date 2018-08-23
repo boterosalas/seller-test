@@ -382,6 +382,11 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
               iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
               iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+              iSize: this.arrayNecessaryData[0].indexOf('Talla'),
+              iColor: this.arrayNecessaryData[0].indexOf('Color'),
+              iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+              iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
             };
 
             if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
@@ -416,6 +421,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
 
     for (let i = 0; i < res.length; i++) {
       let variant = false;
+      let isModifyImage = false;
       let errorInCell = false;
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
@@ -424,7 +430,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               const validFormatEan = this.validFormat(res[i][j], 'ean');
               if (!validFormatEan && validFormatEan === false) {
                 this.countErrors += 1;
-                const row = i + 1, column = j + 1;
+                const row = i + 1,
+                  column = j + 1;
                 const itemLog = {
                   row: this.arrayInformation.length,
                   column: j,
@@ -474,6 +481,10 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
+              } else {
+                if (res[i][j] === '1') {
+                  isModifyImage = true;
+                }
               }
             } else if (j === iVal.iNombreProd) {
               const isFormatNameProd = this.validFormat(res[i][j], 'nameProd');
@@ -561,22 +572,41 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 errorInCell = true;
               }
             } else if (j === iVal.iURLDeImagen1 || j === iVal.iURLDeImagen2 || j === iVal.iURLDeImagen3 || j === iVal.iURLDeImagen4 || j === iVal.iURLDeImagen5) {
-              const validFormatImg = this.validFormat(res[i][j], 'formatImg');
-              if (!validFormatImg && validFormatImg === false) {
-                this.countErrors += 1;
-                const row = i + 1, column = j + 1;
-                const itemLog = {
-                  row: this.arrayInformation.length,
-                  column: j,
-                  type: 'invalidFormat',
-                  columna: column,
-                  fila: row,
-                  positionRowPrincipal: i,
-                  dato: j === iVal.iURLDeImagen1 ? 'ImageUrl1' : j === iVal.iURLDeImagen2 ? 'ImageUrl2' : j === iVal.iURLDeImagen3 ? 'ImageUrl3' : j === iVal.iURLDeImagen4 ? 'ImageUrl4' : j === iVal.iURLDeImagen5 ? 'ImageUrl5' : null
-                };
-                this.listLog.push(itemLog);
-                errorInCell = true;
+              if (j === iVal.iURLDeImagen1 && isModifyImage === true && isModifyImage) {
+                if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'dateNotFound',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iURLDeImagen1 ? 'ImageUrl1' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else {
+                const validFormatImg = this.validFormat(res[i][j], 'formatImg');
+                if (!validFormatImg && validFormatImg === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iURLDeImagen1 ? 'ImageUrl1' : j === iVal.iURLDeImagen2 ? 'ImageUrl2' : j === iVal.iURLDeImagen3 ? 'ImageUrl3' : j === iVal.iURLDeImagen4 ? 'ImageUrl4' : j === iVal.iURLDeImagen5 ? 'ImageUrl5' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
               }
+
             } else if (j === iVal.iskuShippingsize) {
               const validFormatSku = this.validFormat(res[i][j], 'formatSku');
               if (!validFormatSku && validFormatSku === false) {
@@ -631,6 +661,134 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
+            } else if (j === iVal.iLogisticExito) {
+              const isBoolean = this.validFormat(res[i][j], 'boolean');
+              if (!isBoolean && isBoolean === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'BoleanFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: 'LogisticExito'
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            } else if (variant === true) {
+              if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
+                this.shellComponent.loadingComponent.closeLoadingSpinner();
+                this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+                return;
+              } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
+                if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'dateNotFound',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                } else {
+                  const validFormat = this.validFormat(res[i][j], 'formatAllChars');
+                  if (!validFormat && validFormat === false) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'invalidFormat',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                }
+              }
+
+              if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
+                if (j === iVal.iSize) {
+                  const validFormatSize = this.validFormat(res[i][j], 'size');
+                  if (!validFormatSize && validFormatSize === false) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'invalidFormat',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'Size'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                } else if (j === iVal.iColor) {
+                  const validColor = this.validFormat(res[i][j], 'color');
+                  if (!validColor && validColor === false) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'invalidFormat',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'Color'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                } else if (j === iVal.iHexColourCodePDP) {
+                  const validColor = this.validFormat(res[i][j], 'colorPDP');
+                  if (!validColor && validColor === false) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'invalidFormat',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'HexColourCodePDP'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                } else if (j === iVal.iHexColourName) {
+                  const validColorName = this.validFormat(res[i][j], 'colorName');
+                  if (!validColorName && validColorName === false) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'invalidFormat',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'HexColourName'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                }
+              }
             } else {
               const extraFields = this.validFormat(res[i][j]);
               if (extraFields === false && !extraFields) {
@@ -664,28 +822,6 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               this.listLog.push(itemLog);
               errorInCell = true;
             }
-          } else if (variant === true) {
-            if (j === iVal.iParentReference || j === iVal.iSonReference) {
-              if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
-                this.countErrors += 1;
-                const row = i + 1, column = j + 1;
-                const itemLog = {
-                  row: this.arrayInformation.length,
-                  column: j,
-                  type: 'dateNotFound',
-                  columna: column,
-                  fila: row,
-                  positionRowPrincipal: i,
-                  dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
-                };
-                this.listLog.push(itemLog);
-                errorInCell = true;
-              }
-            } else if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
-              this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
-              return;
-            }
           }
         }
       }
@@ -695,7 +831,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
         errorInCell = false;
       }
 
-      this.addInfoTosend(res, i, iVal);
+      this.addInfoTosend(res, i, iVal, variant);
     }
 
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
@@ -712,8 +848,9 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @param {any} index
   * @memberof BulkLoadProductComponent
   */
-  addInfoTosend(res, i, iVal) {
+  addInfoTosend(res, i, iVal, variant?) {
     const regex = new RegExp('"', 'g');
+
     const newObjectForSend = {
       Ean: res[i][iVal.iEAN] ? res[i][iVal.iEAN].trim() : null,
       Name: res[i][iVal.iNombreProd] ? res[i][iVal.iNombreProd].trim() : null,
@@ -742,11 +879,21 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ImageUrl4: res[i][iVal.iURLDeImagen4] ? res[i][iVal.iURLDeImagen4].trim() : null,
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
+      Fulfillment: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
       features: []
     };
 
+    if (variant && variant === true) {
+      newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
+      newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
+      newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
+      newObjectForSend['Color'] = res[i][iVal.iColor] ? res[i][iVal.iColor].trim() : null;
+      newObjectForSend['HexColourCodePDP'] = res[i][iVal.iHexColourCodePDP] ? res[i][iVal.iHexColourCodePDP].trim() : null;
+      newObjectForSend['HexColourName'] = res[i][iVal.iHexColourName] ? res[i][iVal.iHexColourName].trim() : null;
+    }
+
     if (i > 0 && i !== 0) {
-      for (let j = 0; j < res.length; j++) {
+      for (let j = i; j < res.length; j++) {
         for (let k = 0; k < res[0].length; k++) {
           const newFeatures = {};
           if (k !== iVal.iEAN &&
@@ -775,14 +922,36 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
             k !== iVal.iURLDeImagen3 &&
             k !== iVal.iURLDeImagen4 &&
             k !== iVal.iURLDeImagen5 &&
-            k !== iVal.iModificacionImagen) {
-            newFeatures['key'] = res[0][k];
-            newFeatures['value'] = res[i][k];
-            newObjectForSend.features.push(newFeatures);
+            k !== iVal.iModificacionImagen &&
+            k !== iVal.iLogisticExito
+          ) {
+            if (variant && variant === true) {
+              if (k !== iVal.iParentReference &&
+                k !== iVal.iSonReference &&
+                k !== iVal.iSize &&
+                k !== iVal.iColor &&
+                k !== iVal.iHexColourCodePDP &&
+                k !== iVal.iHexColourName) {
+                if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
+                  newFeatures['key'] = res[0][k].trim();
+                  newFeatures['value'] = res[i][k].trim();
+                  newObjectForSend.features.push(newFeatures);
+                }
+              }
+            } else if (!variant && variant === false) {
+              if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
+                newFeatures['key'] = res[0][k].trim();
+                newFeatures['value'] = res[i][k].trim();
+                newObjectForSend.features.push(newFeatures);
+              }
+            }
+
           }
+
         }
       }
     }
+
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
@@ -805,54 +974,30 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       MetaTitle: res[index][iVal.iMetaTitulo],
       MetaDescription: res[index][iVal.iMetaDescripcion],
       KeyWords: res[index][iVal.iPalabrasClave],
-      PackageHeight: res[index][iVal.iAltoDelEmpaque].replace('.', ','),
-      PackageLength: res[index][iVal.ilargoDelEmpaque].replace('.', ','),
-      PackageWidth: res[index][iVal.iAnchoDelEmpaque].replace('.', ','),
-      PackageWeight: res[index][iVal.iPesoDelEmpaque].replace('.', ','),
+      PackageHeight: res[index][iVal.iAltoDelEmpaque] ? res[index][iVal.iAltoDelEmpaque].replace('.', ',') : null,
+      PackageLength: res[index][iVal.ilargoDelEmpaque] ? res[index][iVal.ilargoDelEmpaque].replace('.', ',') : null,
+      PackageWidth: res[index][iVal.iAnchoDelEmpaque] ? res[index][iVal.iAnchoDelEmpaque].replace('.', ',') : null,
+      PackageWeight: res[index][iVal.iPesoDelEmpaque] ? res[index][iVal.iPesoDelEmpaque].replace('.', ',') : null,
       SkuShippingSize: res[index][iVal.iSkuShippingSize],
-      ProductHeight: res[index][iVal.iAltoDelProducto].replace('.', ','),
-      ProductLength: res[index][iVal.iLargoDelProducto].replace('.', ','),
-      ProductWidth: res[index][iVal.iAnchoDelProducto].replace('.', ','),
-      ProductWeight: res[index][iVal.iPesoDelProducto].replace('.', ','),
+      ProductHeight: res[index][iVal.iAltoDelProducto] ? res[index][iVal.iAltoDelProducto].replace('.', ',') : null,
+      ProductLength: res[index][iVal.iLargoDelProducto] ? res[index][iVal.iLargoDelProducto].replace('.', ',') : null,
+      ProductWidth: res[index][iVal.iAnchoDelProducto] ? res[index][iVal.iAnchoDelProducto].replace('.', ',') : null,
+      ProductWeight: res[index][iVal.iPesoDelProducto] ? res[index][iVal.iPesoDelProducto].replace('.', ',') : null,
       Seller: res[index][iVal.iVendedor],
       ProductType: res[index][iVal.iTipoDeProducto],
+      Size: res[index][iVal.iSize],
+      Color: res[index][iVal.iColor],
+      HexColourCodePDP: res[index][iVal.iHexColourCodePDP],
+      HexColourName: res[index][iVal.iHexColourName],
       ParentReference: res[index][iVal.iParentReference],
       SonReference: res[index][iVal.iSonReference],
+      ModifyImage: res[index][iVal.iModificacionImagen],
+      LogisticExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
       ImageUrl2: res[index][iVal.iURLDeImagen2],
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
-      errorRow: false,
-      errorEan: false,
-      errorName: false,
-      errorCategory: false,
-      errorBrand: false,
-      errorModel: false,
-      errorDetails: false,
-      errorDescription: false,
-      errorMetaTitle: false,
-      errorMetaDescription: false,
-      errorKeyWords: false,
-      errorPackageHeight: false,
-      errorPackageLength: false,
-      errorPackageWidth: false,
-      errorPackageWeight: false,
-      errorSkuShippingSize: false,
-      errorProductHeight: false,
-      errorProductLength: false,
-      errorProductWidth: false,
-      errorProductWeight: false,
-      errorSeller: false,
-      errorProductType: false,
-      errorImageUrl1: false,
-      errorImageUrl2: false,
-      errorImageUrl3: false,
-      errorImageUrl4: false,
-      errorImageUrl5: false,
-      errorParentReference: false,
-      errorSonReference: false,
-      errorModifyImage: false,
       isVariant: variant
     };
 
@@ -913,6 +1058,11 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorSonReference = false;
       this.arrayInformation[index].errorModifyImage = false;
       this.arrayInformation[index].errorRow = false;
+      this.arrayInformation[index].errorSize = false;
+      this.arrayInformation[index].errorColor = false;
+      this.arrayInformation[index].errorHexColourCodePDP = false;
+      this.arrayInformation[index].errorHexColourName = false;
+      this.arrayInformation[index].errorLogisticExito = false;
     }
   }
 
@@ -1018,6 +1168,10 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatExtraFields = /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
+    const formatSize = /^[^\s]{1,10}$/;
+    const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
+    const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
+
     if (inputtxt === undefined) {
       valueReturn = false;
     } else if (inputtxt !== undefined) {
@@ -1123,6 +1277,41 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           break;
         case 'category':
           if (inputtxt === 'Estandar' || inputtxt === 'Variante') {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'size':
+          if ((inputtxt.match(formatSize))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'color':
+          if (inputtxt === 'Beige' || inputtxt === 'Negro' ||
+            inputtxt === 'Blanco' || inputtxt === 'Azul' ||
+            inputtxt === 'Amarillo' || inputtxt === 'Cafe' ||
+            inputtxt === 'Gris' || inputtxt === 'Verde' ||
+            inputtxt === 'Naranja' || inputtxt === 'Rosa' ||
+            inputtxt === 'Morado' || inputtxt === 'Rojo' ||
+            inputtxt === 'Plata' || inputtxt === 'Dorado' ||
+            inputtxt === 'MultiColor') {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'colorPDP':
+          if ((inputtxt.match(formatHexPDP))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'colorName':
+          if ((inputtxt.match(formatlimitCharsSixty))) {
             valueReturn = true;
           } else {
             valueReturn = false;

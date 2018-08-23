@@ -28,7 +28,7 @@ import { LoadGuideModule } from './secure/load-guide-page/load-guide.module';
 import { OrdersModule } from './secure/orders/orders-list/orders.module';
 import { InValidationModule } from './secure/orders/in-validation/in-validation.module';
 import { PendingDevolutionModule } from './secure/orders/pending-devolution/pending-devolution.module';
-import { InDevolutionModule } from './secure/orders/in-devolution/id-devolution.module';
+import { InDevolutionModule } from '@root/src/app/secure/orders/in-devolution/in-devolution.module';
 import { ToolbarOptionsModule } from './shared/toolbar-options/toolbar-options.module';
 import { ToolbarLinkModule } from './shared/toolbar-link/toolbar-link.module';
 import { BillingModule } from './secure/billing/billing.module';
