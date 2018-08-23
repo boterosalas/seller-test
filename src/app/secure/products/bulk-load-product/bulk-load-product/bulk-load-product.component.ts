@@ -385,7 +385,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               iSize: this.arrayNecessaryData[0].indexOf('Talla'),
               iColor: this.arrayNecessaryData[0].indexOf('Color'),
               iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
-              iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName')
+              iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
             };
 
             if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
@@ -660,6 +661,23 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
+            } else if (j === iVal.iLogisticExito) {
+              const isBoolean = this.validFormat(res[i][j], 'boolean');
+              if (!isBoolean && isBoolean === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'BoleanFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: 'LogisticExito'
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.shellComponent.loadingComponent.closeLoadingSpinner();
@@ -861,6 +879,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ImageUrl4: res[i][iVal.iURLDeImagen4] ? res[i][iVal.iURLDeImagen4].trim() : null,
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
+      Fulfillment: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
       features: []
     };
 
@@ -903,7 +922,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
             k !== iVal.iURLDeImagen3 &&
             k !== iVal.iURLDeImagen4 &&
             k !== iVal.iURLDeImagen5 &&
-            k !== iVal.iModificacionImagen
+            k !== iVal.iModificacionImagen &&
+            k !== iVal.iLogisticExito
           ) {
             if (variant && variant === true) {
               if (k !== iVal.iParentReference &&
@@ -933,6 +953,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     }
 
     this.arrayInformationForSend.push(newObjectForSend);
+    console.log(this.arrayInformationForSend);
   }
 
   /**
@@ -972,6 +993,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ParentReference: res[index][iVal.iParentReference],
       SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
+      LogisticExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
       ImageUrl2: res[index][iVal.iURLDeImagen2],
       ImageUrl3: res[index][iVal.iURLDeImagen3],
@@ -1041,6 +1063,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorColor = false;
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
+      this.arrayInformation[index].errorLogisticExito = false;
     }
   }
 

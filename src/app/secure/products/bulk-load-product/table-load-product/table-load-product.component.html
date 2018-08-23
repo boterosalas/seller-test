@@ -625,6 +625,24 @@
           </td>
         </ng-container>
 
+        <!-- LogisticExito Column -->
+        <ng-container matColumnDef="LogisticExito">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Logistica Exito</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorLogisticExito == true }" *matCellDef="let element" matTooltip="{{element.LogisticExito}}">
+            <div class="information" *ngIf="element.LogisticExito != undefined && element.LogisticExito != '' && element.LogisticExito !== null">
+              <p class="sc-text-normal">{{element.LogisticExito}}</p>
+            </div>
+            <div class="information" *ngIf="element.LogisticExito == undefined || element.LogisticExito == '' || element.LogisticExito == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.Ean}}" *matRowDef="let index=index;let row; columns: displayedColumns;"
