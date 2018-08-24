@@ -320,58 +320,84 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @memberof BulkLoadProductComponent
   */
   validateDataFromFile(res, file: any) {
-    /*Valido si la cantidad de carga permitidas por día es menor o igual a 0*/
+    /*
+    *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
+    *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
+    */
     if (this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.shellComponent.loadingComponent.closeLoadingSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
-    } /*Se valida que el número de cargas permitidas por día sea mayor a 0*/ else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+      /*
+      * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
+      * else el archino no tiene datos y no lo deja continuar*/
       if (res.length > 1) {
+        /*Variable para controlar cuantas filas vacias hay*/
         let contEmptyRow = 0;
 
+        /*Se hace iteración en todas las filas del excel*/
         for (let i = 0; i < res.length; i++) {
-
+          /*Se crea un nuevo objeto por cada fila que traiga el excel*/
           this.arrayNecessaryData.push([]);
-
+          /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
-
+            /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
             if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
+              /*Se insertan los datos de la celda en el objeto creato anteriormente dentro del arreglo de datos necesarios, solo si el la primera celda de toda la columna trae datos*/
               this.arrayNecessaryData[i].push(res[i][j]);
             }
           }
         }
 
+        /*Constante para almacenar cuantas columnas tienes el archivo de excel*/
         const numCol: any = this.arrayNecessaryData[0].length;
 
+        /*Se hace iteración en el arreglo dependiendo del número de filas*/
         for (let i = 0; i < this.arrayNecessaryData.length; i++) {
+          /*Variable para contar cuantas celdas vacias tiene una fila*/
           let contEmptycell = 0;
+          /*Variable para decir si una fila esta vacia*/
           let rowEmpty = false;
 
+          /*Iteracion de 0 hasta el número de columnas */
           for (let j = 0; j < numCol; j++) {
-
+            /*Validación para saber si una celda esta vacia*/
             if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
               this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
+              /*Si hay celdas vacias se empiezan a contar*/
               contEmptycell += 1;
+              /*Validación si el número de celdas vacias es igual al número de columnas*/
               if (contEmptycell === numCol) {
+                /*Se empiezan a contar las filas vacias*/
                 contEmptyRow += 1;
+                /*Se confirma que hay una fila vacia*/
                 rowEmpty = true;
               }
             }
           }
 
+          /*Validación si hay fila vacia */
           if (rowEmpty) {
+            /*Si hay fila vacia esta se remueve y se devuelve la iteración un paso */
             this.arrayNecessaryData.splice(i, 1);
             i--;
           }
 
         }
 
+        /*Variable para contar el número de registros que esta en el excel, se resta 1 porque no se tiene en cuenta la primera fila que es la fila de titulos */
         const numberRegister = this.arrayNecessaryData.length - 1;
 
+        /*
+        * if valido si el excel solo trae 2 registros y hay 1 vacio
+        * else if se valida que el documento tenga en los titulos o primera columna nos datos, EAN, Tipo de Productoo y Categoria
+        * else si no lo tiene significa que el formato es invalido y manda un error*/
         if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
           this.shellComponent.loadingComponent.closeLoadingSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') && this.arrayNecessaryData[0].includes('Categoria')) {
+            /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
             const iVal = {
               iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
               iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
@@ -409,6 +435,11 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
               iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
             };
 
+            /*
+            * if si el número de registros es mayor al número de cargas permitidas no lo deja continuar
+            * else if si el número de registros es mayor al maximo de cargas permitidas no lo deja continuar
+            * else se obtiene el nombre del archivo y se llama la funcion de crear tabla
+            */
             if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
               this.shellComponent.loadingComponent.closeLoadingSpinner();
               this.componentService.openSnackBar('El archivo contiene mas activos de los permitidos por el día de hoy', 'Aceptar', 10000);
