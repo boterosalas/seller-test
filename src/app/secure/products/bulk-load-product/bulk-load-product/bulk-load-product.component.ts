@@ -103,11 +103,14 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
   /**
-   * Creates an instance of BulkLoadProductComponent.
+   *Creates an instance of BulkLoadProductComponent.
    * @param {ComponentsService} componentService
-   * @param {BulkLoadProductService} BulkLoadProductService
+   * @param {BulkLoadProductService} BulkLoadProductS
    * @param {MatDialog} dialog
    * @param {ShellComponent} shellComponent
+   * @param {UserLoginService} userService
+   * @param {Router} router
+   * @param {UserParametersService} userParams
    * @memberof BulkLoadProductComponent
    */
   constructor(
@@ -119,6 +122,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     private router: Router,
     public userParams: UserParametersService
   ) {
+    /*Se le asigna valor a todas las variables*/
     this.user = {};
     this.arrayInformation = [];
     this.arrayInformationForSend = [];
@@ -136,6 +140,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   ngOnInit() {
+    /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.userService.isAuthenticated(this);
   }
 
@@ -147,9 +152,12 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   isLoggedIn(message: string, isLoggedIn: boolean) {
+    /*Valida si esta logeado*/
     if (isLoggedIn) {
+      /*Se llama el metodo que obtiene los datos del usuario logeado*/
       this.getDataUser();
     } else if (!isLoggedIn) {
+      /*Si no esta logeado se redirecciona al home*/
       this.router.navigate([`/${RoutesConst.home}`]);
     }
 
@@ -168,6 +176,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   getDataUser() {
+    /*Se llama el metodo que se encarga de obtener los datos del usuario, este hace un callback que llama el metodo callbackWithParam()*/
     this.userParams.getUserData(this);
   }
 
@@ -180,10 +189,14 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   callbackWithParam(userData: any) {
+    /*Se le asigna a la variable los datos del usario*/
     this.user = userData;
+    /*Se valida si el usuario es vendedor o administrador*/
     if (this.user.sellerProfile === 'seller') {
+      /*Si es vendedor se redirecciona a la vista de ordenes*/
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     } else {
+      /*se llama el metodo para obtener la cantidad de cargas disponibles*/
       this.getAvaliableLoads();
     }
   }
@@ -193,15 +206,20 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
    */
   getAvaliableLoads() {
+    /*Se muestra el loading*/
     this.shellComponent.loadingComponent.viewLoadingSpinner();
+    /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
     this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
       (result: any) => {
+        /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
         if (result.status === 200 && result.body) {
-          const response = result.body;
-          this.dataAvaliableLoads = response;
+          /*Se guardan los datos en una variable*/
+          this.dataAvaliableLoads = result.body;
         } else {
+          /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
           this.shellComponent.modalComponent.showModal('errorService');
         }
+        /*Se oculta el loading*/
         this.shellComponent.loadingComponent.closeLoadingSpinner();
       }
     );
@@ -211,6 +229,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   resetUploadFIle() {
+    /*Limpio el input file*/
     this.inputFileUpload.nativeElement.value = '';
   }
 
@@ -218,6 +237,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   resetVariableUploadFile() {
+    /*Limpio las variables empleadas para visualizar los resultados de la carga*/
     this.listLog = [];
     this.countErrors = 0;
     this.countRowUpload = 0;
@@ -227,6 +247,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
+    /*Se llama el metodo que finaliza la carga*/
     this.finishProcessUpload();
   }
 
@@ -258,15 +279,14 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @memberof BulkLoadProductComponent
    */
   readFileUpload(evt: any): Promise<any> {
-    // tslint:disable-next-line:no-shadowed-variable
     return new Promise((resolve, reject) => {
       this.shellComponent.loadingComponent.viewLoadingSpinner();
-
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
-      // tslint:disable-next-line:curly
-      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+      if (target.files.length !== 1) {
+        throw new Error('Cannot use multiple files');
+      }
       const reader: FileReader = new FileReader();
       reader.onload = (e: any) => {
         try {
@@ -300,11 +320,11 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
   * @memberof BulkLoadProductComponent
   */
   validateDataFromFile(res, file: any) {
-
+    /*Valido si la cantidad de carga permitidas por día es menor o igual a 0*/
     if (this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.shellComponent.loadingComponent.closeLoadingSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
-    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+    } /*Se valida que el número de cargas permitidas por día sea mayor a 0*/ else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
       if (res.length > 1) {
         let contEmptyRow = 0;
 
