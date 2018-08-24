@@ -10,6 +10,8 @@ export class ModelOffers {
         public IsEnviosExito: any,
         public IsFreightCalculator: any,
         public Warranty: any,
+        public Fulfillment: any,
+        public UpdateStock: any,
         public errorRow: boolean,
         public errorColumn1?: boolean,
         public errorColumn2?: boolean,
@@ -20,6 +22,8 @@ export class ModelOffers {
         public errorColumn7?: boolean,
         public errorColumn8?: boolean,
         public errorColumn9?: boolean,
-        public errorColumn10?: boolean
+        public errorColumn10?: boolean,
+        public errorColumn11?: boolean,
+        public errorColumn12?: boolean
     ) { }
 }

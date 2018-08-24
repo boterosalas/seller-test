@@ -19,188 +19,232 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-table #table [dataSource]="bulkLoad.dataSource">
+    <div class="container-table-errors">
+      <table mat-table #table [dataSource]="bulkLoad.dataSource">
 
-      <!-- EAN Column -->
-      <ng-container matColumnDef="EAN">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" fxLayout="center center" *matHeaderCellDef>
-          EAN
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn1 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
+        <!-- EAN Column -->
+        <ng-container matColumnDef="EAN" sticky>
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>EAN</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn1 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.EAN != undefined && element.EAN != ''">
+              <p class="sc-text-normal">{{element.EAN}}</p>
+            </div>
+            <div class="information" *ngIf="element.EAN == undefined || element.EAN == ''">
+              <p class="text-error"> Dato obligatorio
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-          <div class="information" *ngIf="element.EAN != undefined && element.EAN != ''">
-            <p class="sc-text-normal">{{element.EAN}}</p>
-          </div>
+        <!-- Stock Column -->
+        <ng-container matColumnDef="Stock">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Inventario</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Stock != undefined && element.Stock != ''">
+              <p class="sc-text-normal">{{element.Stock}}</p>
+            </div>
+            <div class="information" *ngIf="element.Stock == undefined || element.Stock == ''">
+              <p class="text-error"> Dato obligatorio
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-          <div class="information" *ngIf="element.EAN == undefined || element.EAN == ''">
-            <p class="text-error"> Dato obligatorio
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- Price Column -->
+        <ng-container matColumnDef="Price">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Precio</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Price != undefined && element.Price != ''">
+              <p class="sc-text-normal">{{element.Price}}</p>
+            </div>
+            <div class="information" *ngIf="element.Price == undefined || element.Price == ''">
+              <p class="text-error"> Dato obligatorio
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- Stock Colum Column -->
-      <ng-container matColumnDef="Stock">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Inventario
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.Stock != undefined && element.Stock != ''">
-            <p class="sc-text-normal">{{element.Stock}}</p>
-          </div>
-          <div class="information" *ngIf="element.Stock == undefined || element.Stock == ''">
-            <p class="text-error"> Dato obligatorio
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- DiscountPrice Column -->
+        <ng-container matColumnDef="DiscountPrice">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Precio con Descuento</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.DiscountPrice != undefined && element.DiscountPrice != ''">
+              <p class="sc-text-normal">{{element.DiscountPrice}}</p>
+            </div>
+            <div class="information" *ngIf="element.DiscountPrice == undefined || element.DiscountPrice == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- Price Column -->
-      <ng-container matColumnDef="Price">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Precio
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.Price != undefined && element.Price != ''">
-            <p class="sc-text-normal">{{element.Price}}</p>
-          </div>
-          <div class="information" *ngIf="element.Price == undefined || element.Price == ''">
-            <p class="text-error"> Dato obligatorio
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- AverageFreightCost Column -->
+        <ng-container matColumnDef="AverageFreightCost">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Costo de Flete Promedio</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.AverageFreightCost != undefined && element.AverageFreightCost != ''">
+              <p class="sc-text-normal">{{element.AverageFreightCost}}</p>
+            </div>
+            <div class="information" *ngIf="element.AverageFreightCost == undefined || element.AverageFreightCost == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- DiscountPrice Column -->
-      <ng-container matColumnDef="DiscountPrice">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Precio con Descuento
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.DiscountPrice != undefined && element.DiscountPrice != ''">
-            <p class="sc-text-normal">{{element.DiscountPrice}}</p>
-          </div>
-          <div class="information" *ngIf="element.DiscountPrice == undefined || element.DiscountPrice == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- PromiseDelivery Column -->
+        <ng-container matColumnDef="PromiseDelivery">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Promesa de Entrega</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn6 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.PromiseDelivery != undefined && element.PromiseDelivery != ''">
+              <p class="sc-text-normal">{{element.PromiseDelivery}}</p>
+            </div>
+            <div class="information" *ngIf="element.PromiseDelivery == undefined || element.PromiseDelivery == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- AverageFreightCost Column -->
-      <ng-container matColumnDef="AverageFreightCost">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Costo de Flete Promedio
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.AverageFreightCost != undefined && element.AverageFreightCost != ''">
-            <p class="sc-text-normal">{{element.AverageFreightCost}}</p>
-          </div>
-          <div class="information" *ngIf="element.AverageFreightCost == undefined || element.AverageFreightCost == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- IsFreeShipping Column -->
+        <ng-container matColumnDef="IsFreeShipping">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Free Shipping</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn7 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.IsFreeShipping != undefined && element.IsFreeShipping != ''">
+              <p class="sc-text-normal">{{element.IsFreeShipping}}</p>
+            </div>
+            <div class="information" *ngIf="element.IsFreeShipping == undefined || element.IsFreeShipping == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- PromiseDelivery Column -->
-      <ng-container matColumnDef="PromiseDelivery">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Promesa de Entrega
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn6 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.PromiseDelivery != undefined && element.PromiseDelivery != ''">
-            <p class="sc-text-normal">{{element.PromiseDelivery}}</p>
-          </div>
-          <div class="information" *ngIf="element.PromiseDelivery == undefined || element.PromiseDelivery == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- IsEnviosExito Column -->
+        <ng-container matColumnDef="IsEnviosExito">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Indicador Envios Exito</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn8 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.IsEnviosExito != undefined && element.IsEnviosExito != ''">
+              <p class="sc-text-normal">{{element.IsEnviosExito}}</p>
+            </div>
+            <div class="information" *ngIf="element.IsEnviosExito == undefined || element.IsEnviosExito == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- IsFreeShipping Column -->
-      <ng-container matColumnDef="IsFreeShipping">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-          Free Shipping
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn7 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.IsFreeShipping != undefined && element.IsFreeShipping != ''">
-            <p class="sc-text-normal">{{element.IsFreeShipping}}</p>
-          </div>
-          <div class="information" *ngIf="element.IsFreeShipping == undefined || element.IsFreeShipping == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- IsFreightCalculator Column -->
+        <ng-container matColumnDef="IsFreightCalculator">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Cotizador de Flete</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn9 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.IsFreightCalculator != undefined && element.IsFreightCalculator != ''">
+              <p class="sc-text-normal">{{element.IsFreightCalculator}}</p>
+            </div>
+            <div class="information" *ngIf="element.IsFreightCalculator == undefined || element.IsFreightCalculator == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- IsEnviosExito Column -->
-      <ng-container matColumnDef="IsEnviosExito">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-        Indicador Envios Exito
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn8 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.IsEnviosExito != undefined && element.IsEnviosExito != ''">
-            <p class="sc-text-normal">{{element.IsEnviosExito}}</p>
-          </div>
-          <div class="information" *ngIf="element.IsEnviosExito == undefined || element.IsEnviosExito == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- Warranty Column -->
+        <ng-container matColumnDef="Warranty">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Garantia</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn10 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Warranty != undefined && element.Warranty != ''">
+              <p class="sc-text-normal">{{element.Warranty}}</p>
+            </div>
+            <div class="information" *ngIf="element.Warranty == undefined || element.Warranty == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- IsFreightCalculator Column -->
-      <ng-container matColumnDef="IsFreightCalculator">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-        Cotizador de Flete
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn9 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.IsFreightCalculator != undefined && element.IsFreightCalculator != ''">
-            <p class="sc-text-normal">{{element.IsFreightCalculator}}</p>
-          </div>
-          <div class="information" *ngIf="element.IsFreightCalculator == undefined || element.IsFreightCalculator == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- Fulfillment Column -->
+        <ng-container matColumnDef="Fulfillment">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Logistica Exito</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn11 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Fulfillment != undefined && element.Fulfillment != ''">
+              <p class="sc-text-normal">{{element.Fulfillment}}</p>
+            </div>
+            <div class="information" *ngIf="element.Fulfillment == undefined || element.Fulfillment == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- Warranty Column -->
-      <ng-container matColumnDef="Warranty">
-        <mat-header-cell fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%" fxFlex.xs="10%" *matHeaderCellDef>
-        Garantia
-        </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn10 == true }" fxFlex.sm="10%" fxFlex.md="10%" fxFlex.lg="10%"
-          fxFlex.xs="10%" *matCellDef="let element">
-          <div class="information" *ngIf="element.Warranty != undefined && element.Warranty != ''">
-            <p class="sc-text-normal">{{element.Warranty}}</p>
-          </div>
-          <div class="information" *ngIf="element.Warranty == undefined || element.Warranty == ''">
-            <p class="text-error"> -
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
+        <!-- UpdateStock Column -->
+        <ng-container matColumnDef="UpdateStock">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Actualización de Inventario</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorColumn12 == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.UpdateStock != undefined && element.UpdateStock != ''">
+              <p class="sc-text-normal">{{element.UpdateStock}}</p>
+            </div>
+            <div class="information" *ngIf="element.UpdateStock == undefined || element.UpdateStock == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
-      <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.EAN}}" *matRowDef="let index=index;let row; columns: displayedColumns;"
-        class="personal-row element-row personal-row-tabl ">
-      </mat-row>
-    </mat-table>
-
+        <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.EAN}}" *matRowDef="let index=index;let row; columns: displayedColumns;"
+          class="personal-row element-row personal-row-tabl ">
+        </mat-row>
+      </table>
+    </div>
 
   </mat-expansion-panel>
 

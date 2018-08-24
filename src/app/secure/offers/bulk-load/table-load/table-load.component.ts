@@ -38,7 +38,9 @@ export class TableLoadComponent implements OnInit {
     'IsFreeShipping',
     'IsEnviosExito',
     'IsFreightCalculator',
-    'Warranty'
+    'Warranty',
+    'Fulfillment',
+    'UpdateStock'
   ];
 
   /**
