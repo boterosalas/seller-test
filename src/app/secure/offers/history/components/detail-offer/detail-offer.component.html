@@ -1,0 +1,73 @@
+<section id="section-detail-offer" class="flexbox flex-wrap justify-center">
+
+    <article class="detail-offer-img flexbox align-center justify-center flex-wrap">
+        <div class="offer-button-back flexbox align-center">
+            <button class="btn-back" mat-icon-button (click)="goToListOffers()">
+                <mat-icon>arrow_back</mat-icon>
+                <small class="sub-title-back" [innerHTML]="'Volver'"></small>
+            </button>
+        </div>
+        <div class="offer-img flexbox align-center justify-center">
+            <img [src]="dataOffer.imageUrl" alt="">
+        </div>
+    </article>
+
+    <article class="detail-offer-desc">
+
+        <p [innerHTML]="'EAN: ' + dataOffer.ean" class="ean"></p>
+        <p [innerHTML]="dataOffer.name" class="name"></p>
+        <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
+        <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (dataOffer.price | currency: '$' : 'symbol' : '1.0-0')" class="price"></p>
+        
+        <div class="container-stock flexbox">
+            <p [innerHTML]="'ID de oferta: <strong>' + dataOffer.idOffer + '</strong>'" class="stock flexbox flex-wrap align-center separator"></p>
+            <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? 'En stock: <strong>' + (dataOffer.stock | number) + '<strong>' : '<strong class=sold-out>En stock: Agotado<strong>'"
+                class="stock flexbox flex-wrap align-center"></p>
+        </div>
+
+        <span class="flexbox align-center" *ngIf="dataOffer.size">
+            <mat-icon>tab_unselected</mat-icon>
+            <p [innerHTML]="'Talla: <strong>' + dataOffer.size + '</strong>'"></p>
+        </span>
+
+        <span class="flexbox align-center" *ngIf="dataOffer.hexColourCodePDP">
+            <mat-icon>color_lens</mat-icon>
+            <p class="text-color" [innerHTML]="'Color:'"></p>
+            <mat-icon [ngStyle]="{'color':'#' + dataOffer.hexColourCodePDP}">brightness_1</mat-icon>
+        </span>
+
+        <span class="flexbox align-center">
+            <mat-icon>date_range</mat-icon>
+            <p [innerHTML]="'Promesa de entrega: <strong>' + dataOffer.promiseDelivery + ' días habiles </strong>'"></p>
+        </span>
+
+        <span class="flexbox align-center">
+            <mat-icon>local_shipping</mat-icon>
+            <p [innerHTML]="'Costo de flete promedio: <strong>' + (dataOffer.shippingCost | currency: '$' : 'symbol' : '1.0-0') + '</strong>'"></p>
+        </span>
+
+        <span class="flexbox align-center">
+            <mat-icon>beenhere</mat-icon>
+            <p [innerHTML]="'Garantía: <strong>' + dataOffer.warranty + ' meses </strong>'"></p>
+        </span>
+
+        <aside class="flexbox align-center justify-center">
+            <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isFreeShipping}">
+                <mat-icon *ngIf="dataOffer.isFreeShipping && dataOffer.isFreeShipping === true">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isFreeShipping || dataOffer.isFreeShipping === false">clear</mat-icon>
+                <p [innerHTML]="'Free Shinpping'"></p>
+            </div>
+            <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isEnviosExito}">
+                <mat-icon *ngIf="dataOffer.isEnviosExito && dataOffer.isEnviosExito === true">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isEnviosExito || dataOffer.isEnviosExito === false">clear</mat-icon>
+                <p [innerHTML]="'Envios Exito'"></p>
+            </div>
+            <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isFreightCalculator}">
+                <mat-icon *ngIf="dataOffer.isFreightCalculator && dataOffer.isFreightCalculator === true">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isFreightCalculator || dataOffer.isFreightCalculator === false">clear</mat-icon>
+                <p [innerHTML]="'Cotizador de flete'"></p>
+            </div>
+        </aside>
+        <p [innerHTML]="'Última modificación: ' + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
+    </article>
+</section>

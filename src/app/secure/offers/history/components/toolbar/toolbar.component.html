@@ -1,0 +1,47 @@
+<div class="light-content">
+  <mat-toolbar color="primary" class="toolbar-component" [class.in-detail]="inDetail">
+
+    <div class="toolbar-options flexbox align-center justify-between view-mobile" [class.in-detail]="inDetail">
+      <button class="btn-filter" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
+      <p>{{tittleBar}}
+        <small class="sub-title">| {{subtitleBar}}</small>
+      </p>
+      <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
+
+        <mat-form-field class="select-page-size">
+          <mat-select id="select-number-page-size" placeholder="Productos por página" [(ngModel)]="dataPaginate.limit" (ngModelChange)="changeSize()">
+            <mat-option value="30">30</mat-option>
+            <mat-option value="60">60</mat-option>
+            <mat-option value="120">120</mat-option>
+            <mat-option value="600">600</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p class="pagination-num" [innerHTML]="currentPage + ' - ' + numberPages"></p>
+
+        <button class="btn-paginator" mat-icon-button (click)="changePage('prev')" [disabled]="currentPage <= 1 ">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+
+        <button class="btn-paginator" mat-icon-button (click)="changePage('next')" [disabled]="currentPage >= numberPages">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+
+        <button [disabled]="historyOfferLength" mat-icon-button (click)="openModalDownloadHistoryOffer()">
+          <mat-icon>archive</mat-icon>
+        </button>
+
+        <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        </button>
+
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

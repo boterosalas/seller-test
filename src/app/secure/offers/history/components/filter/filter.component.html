@@ -1,0 +1,53 @@
+<section id="section-history-filter-offers" class="flexbox flex-wrap">
+
+  <form novalidate #historyFilterOffers="ngForm" [formGroup]="historyFilterForm" (ngSubmit)="list.historyFilterOffers(formFilter)" class="flexbox flex-wrap justify-center">
+
+    <article class="flexbox align-center justify-between">
+      <span [innerHTML]="'Filtro histórico'"></span>
+      <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below" mat-icon-button
+        mat-button (click)="toggleMenu()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </article>
+
+    <!-- HistoryDateInitial -->
+    <mat-form-field color="primary">
+      <input id="" placeholder="Fecha de pago inicial" matInput [matDatepicker]="historyDateInitial">
+      <mat-datepicker-toggle matPrefix [for]="historyDateInitial"></mat-datepicker-toggle>
+      <mat-datepicker touchUi="true" startView="year" #historyDateInitial></mat-datepicker>
+    </mat-form-field>
+
+    <!-- HistoryDateFinal -->
+    <mat-form-field color="primary">
+      <input id="" placeholder="Fecha de pago final" matInput [matDatepicker]="historyDateFinal">
+      <mat-datepicker-toggle id="" matPrefix [for]="historyDateFinal"></mat-datepicker-toggle>
+      <mat-datepicker touchUi="true" startView="year" #historyDateFinal></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field color="primary">
+      <input matInput placeholder="Fecha inicio" formControlName="productName" [(ngModel)]="formFilter.product" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="historyFilterForm.get('productName').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="primary">
+      <input matInput placeholder="Fecha fin" formControlName="productName" [(ngModel)]="formFilter.product" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="historyFilterForm.get('productName').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="EAN" formControlName="ean" [(ngModel)]="formFilter.ean" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="historyFilterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
+    </mat-form-field>
+
+
+    <article class="container-buttons flexbox align-center justify-between">
+      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!historyFilterOffers.form.valid || (!formFilter.product && !formFilter.ean && !formFilter.stock)"></button>
+    </article>
+
+  </form>
+
+</section>

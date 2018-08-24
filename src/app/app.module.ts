@@ -40,6 +40,7 @@ import { DispatchModule } from './secure/shipments/dispatched/dispatched.module'
 import { DetailModule } from './secure/shipments/detail/detail.module';
 import { BulkLoadModule } from './secure/offers/bulk-load/bulk-load.module';
 import { ListModule } from './secure/offers/list/list.module';
+import { HistoryModule } from './secure/offers/history/history.module';
 import { ReportsModule } from './secure/shipments/reports/reports.module';
 import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-load-product.module';
 
@@ -81,6 +82,7 @@ import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-
         DetailModule,
         BulkLoadModule,
         ListModule,
+        HistoryModule,
         BulkLoadProductModule,
 
         /* Routing App */

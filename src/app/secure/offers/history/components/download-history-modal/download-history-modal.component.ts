@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 
 /* our own custom components */
-import { DownloadOrderService } from './download-order.service';
+import { DownloadHistoryService } from './download-history.service';
 import {
   Logger,
   UserService,
@@ -14,7 +14,7 @@ import {
 } from '@app/shared';
 
 // log component
-const log = new Logger('DownloadOrderComponent');
+const log = new Logger('DownloadHistoryComponent');
 
 /**
  * Componente para realizar la descarga de las órdenes actuales del usuario, este componente permite capturar
@@ -24,15 +24,17 @@ const log = new Logger('DownloadOrderComponent');
  * correo con las órdenes aplicando los filtros obtenidos
  */
 @Component({
-  selector: 'app-download-order-modal',
-  templateUrl: './download-order-modal.component.html',
-  styleUrls: ['./download-order-modal.component.scss']
+  selector: 'app-download-history-modal',
+  templateUrl: './download-history-modal.component.html',
+  styleUrls: ['./download-history-modal.component.scss'],
+  providers: [DownloadHistoryService]
 })
 
 /**
  * DownloadOrderModalComponent
  */
-export class DownloadOrderModalComponent implements OnInit, Callback {
+// export class DownloadHistoryModalComponent implements OnInit, Callback {
+export class DownloadHistoryModalComponent implements OnInit, Callback {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
@@ -43,7 +45,7 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
 
   /**
    * Creates an instance of DownloadOrderModalComponent.
-   * @param {MatDialogRef<DownloadOrderModalComponent>} dialogRef
+   * @param {MatDialogRef<DownloadHistoryModalComponent>} dialogRef
    * @param {DownloadOrderService} DownloadOrderService
    * @param {UserService} userService
    * @param {ComponentsService} componentsService
@@ -52,8 +54,8 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
    * @memberof DownloadOrderModalComponent
    */
   constructor(
-    public dialogRef: MatDialogRef<DownloadOrderModalComponent>,
-    public downloadOrderService: DownloadOrderService,
+    public dialogRef: MatDialogRef<DownloadHistoryModalComponent>,
+    public downloadOrderService: DownloadHistoryService,
     public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,
@@ -76,7 +78,7 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   callback() { }
 
   getDataUser() {
-    this.userParams.getUserData(this);
+    // this.userParams.getUserData(this);
   }
 
   callbackWithParam(userData: any) {
