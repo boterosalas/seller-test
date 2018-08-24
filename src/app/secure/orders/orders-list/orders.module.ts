@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MaterialModule } from '@app/material.module';
-import { ComponentsService, EventEmitterOrders, SharedModule } from '@app/shared';
+import {ComponentsService, ConfirmAlertComponent, EventEmitterOrders} from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { ClientInformationModule } from '../../client-information/client-information.module';
-import { ConfirmAlertComponent } from '../../confirm-alert/confirm-alert.component';
 import { CdkDetailRowDirectiveModule } from '../../directives/cdk-detail-row/cdk-detail-row.module';
 import { OrderDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
 import { OrdersListComponent } from './orders-page/orders-list.component';
@@ -18,10 +19,6 @@ import { FormProductComponent } from './send-order/form-product/form-product.com
 import { SendOrderComponent } from './send-order/send-order.component';
 
 
-
-/**
- * Módulo de órdenes
- */
 @NgModule({
     imports: [
         BrowserAnimationsModule,

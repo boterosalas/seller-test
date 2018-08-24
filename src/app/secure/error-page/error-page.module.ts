@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ShellComponent } from '@app/core';
+import { ShellComponent } from '@app/core/shell';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 

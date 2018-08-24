@@ -1,6 +1,6 @@
-<form #f="ngForm" [formGroup]="myform" class="search-form light-content">
+<form #f="ngForm" [formGroup]="myForm" class="search-form light-content">
   <mat-form-field id="paymentDate-input-search-order" color="accent">
-    <input id="input-filter-paymentDate" [max]="myform.value.dateOrderFinal" formControlName="paymentDate"
+    <input id="input-filter-paymentDate" [max]="myForm.value.dateOrderFinal" formControlName="paymentDate"
            placeholder="Fecha de pago"
            matInput [matDatepicker]="paymentDate">
     <mat-datepicker-toggle id="paymentDate-Perfix" matPrefix [for]="paymentDate"></mat-datepicker-toggle>
@@ -21,7 +21,7 @@
     </button>
     <button id="apply-filter-button" [disabled]="!f.form.valid" class="sc-button" mat-raised-button color="primary"
             type="submit"
-            (click)="filterOrder(myform)">Aplicar
+            (click)="filterOrder(myForm)">Aplicar
     </button>
   </div>
 </form>

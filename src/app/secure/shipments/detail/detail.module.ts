@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@app/material.module';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { ShipmentsService } from '../shipments.service';
 import { DetailComponent } from './detail-page/detail.component';

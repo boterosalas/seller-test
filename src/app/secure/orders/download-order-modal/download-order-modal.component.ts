@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Callback, UserParametersService, Logger } from '@app/core';
+
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { ComponentsService } from '@app/shared/services/components.service';
 
 import { DownloadOrderService } from './download-order.service';
-import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
@@ -21,10 +22,6 @@ const log = new Logger('DownloadOrderComponent');
   templateUrl: './download-order-modal.component.html',
   styleUrls: ['./download-order-modal.component.scss']
 })
-
-/**
- * DownloadOrderModalComponent
- */
 export class DownloadOrderModalComponent implements OnInit, Callback {
 
   // Formulario para realizar la busqueda

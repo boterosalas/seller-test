@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ComponentsService, SearchFormEntity } from '@app/shared';
+import { SearchFormEntity } from '@app/shared/models';
+import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';

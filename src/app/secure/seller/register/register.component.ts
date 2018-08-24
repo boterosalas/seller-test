@@ -2,11 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { Callback, LoggedInCallback, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
+import { ShellComponent } from '@core/shell';
 
 import { ModelRegister } from './models/register.model';
 import { RegisterService } from './register.service';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -85,30 +87,30 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
         Validators.pattern('^[0-9]*$')
       ]),
       rut: new FormControl
-        ('', [Validators.required,
+      ('', [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
-        ]),
+      ]),
       contacto: new FormControl
-        ('', [Validators.required,
+      ('', [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
-        ]),
+      ]),
       telefono: new FormControl
-        ('', [Validators.required,
+      ('', [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
       email: new FormControl
-        ('', [Validators.required,
+      ('', [Validators.required,
         Validators.pattern(this.emailRegex)
-        ]),
+      ]),
       nomTienda: new FormControl
-        ('', [Validators.required,
+      ('', [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
       direccion: new FormControl
-        ('', [Validators.required]),
+      ('', [Validators.required]),
       codDane: new FormControl
-        ('', [Validators.required]),
+      ('', [Validators.required]),
       logisticExito: new FormControl,
       enviosExito: new FormControl,
       goToExito: new FormControl,
@@ -127,7 +129,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -208,7 +211,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     this.activeButton = false;
     const jsonExistParam = event.target.value;
     // tslint:disable-next-line:quotemark
-    if (jsonExistParam !== "" && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.shellComponent.loadingComponent.viewLoadingSpinner();
       this.disabledForService = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
@@ -220,17 +223,17 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
               switch (param) {
                 case 'nit':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
+                    this.validateFormRegister.controls[param].setErrors({'validExistNitDB': data_response.Data});
                   }
                   break;
                 case 'email':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
+                    this.validateFormRegister.controls[param].setErrors({'validExistEmailDB': data_response.Data});
                   }
                   break;
                 case 'nomTienda':
                   if (this.existValueInDB) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                    this.validateFormRegister.controls[param].setErrors({'validExistNameDB': data_response.Data});
                   }
                   break;
               }

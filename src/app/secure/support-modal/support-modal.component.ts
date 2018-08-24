@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+
+import { Callback, UserParametersService } from '@app/core/aws-cognito';
+import { Logger } from '@app/core/util/logger.service';
+import { ComponentsService } from '@shared/services/components.service';
 import { environment } from '@env/environment';
 
 import { SupportService } from './support.service';
-import { Logger, Callback, UserParametersService } from '@app/core';
-import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -37,15 +39,6 @@ export class SupportModalComponent implements OnInit, Callback {
   // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
   public webUrl = environment.webUrl;
 
-  /**
-   * Creates an instance of SupportModalComponent.
-   * @param {FormBuilder} fb
-   * @param {MatDialogRef<SupportModalComponent>} dialogRef
-   * @param {ComponentsService} COMPONENT
-   * @param {SupportService} SUPPORT
-   * @param {UserService} USER
-   * @memberof SupportModalComponent
-   */
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SupportModalComponent>,

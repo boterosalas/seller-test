@@ -4,9 +4,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShellComponent } from '@app/core';
+
+import { ShellComponent } from '@app/core/shell';
 import { MaterialModule } from '@app/material.module';
-import { EventEmitterOrders, SharedModule } from '@app/shared';
+import { EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { ActionConfirmReceiptComponent } from './action-confirm-receipt/action-confirm-receipt.component';
 import { ActionReportNoveltyComponent } from './action-report-novelty/action-report-novelty.component';

@@ -4,9 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { HeaderComponent } from './header/header.component';
-import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
 import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.module';
 import { ShellComponent } from './shell.component';
@@ -14,30 +14,30 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MaterialModule,
-        RouterModule,
-        ReactiveFormsModule,
-        SearchOrderMenuModule
-    ],
-    declarations: [
-        HeaderComponent,
-        ShellComponent,
-        SidebarComponent,
-        LoadingComponent,
-        ModalComponent
-    ],
-    exports: [
-        HeaderComponent,
-        ShellComponent,
-        SidebarComponent,
-        LoadingComponent,
-        ModalComponent
-    ],
-    entryComponents: [
-        ModalComponent
-    ],
-    providers: []
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MaterialModule,
+    SharedModule,
+    SearchOrderMenuModule
+  ],
+  declarations: [
+    HeaderComponent,
+    ShellComponent,
+    SidebarComponent,
+    ModalComponent
+  ],
+  exports: [
+    HeaderComponent,
+    ShellComponent,
+    SidebarComponent,
+    ModalComponent
+  ],
+  entryComponents: [
+    ModalComponent
+  ],
+  providers: []
 })
-export class ShellModule { }
+export class ShellModule {
+}

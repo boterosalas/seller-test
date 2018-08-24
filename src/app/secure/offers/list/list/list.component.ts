@@ -1,21 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoggedInCallback, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { ShellComponent } from '@core/shell';
 import { RoutesConst } from '@app/shared';
 
 import { ModelFilter } from '../components/filter/filter.model';
 import { ListService } from '../list.service';
 
-/**
- *
- *
- * @export
- * @class ListComponent
- * @implements {OnInit}
- * @implements {LoggedInCallback}
- * @implements {Callback}
- */
+
 @Component({
     selector: 'app-list-component',
     templateUrl: './list.component.html',

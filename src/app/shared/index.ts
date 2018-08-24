@@ -1,9 +1,7 @@
-// Module
-export * from './shared.module';
-
 // Components
 export * from './components/toolbar-link';
 export * from './components/toolbar-options';
+export * from './components/confirm-alert/confirm-alert.component';
 
 // Models
 export * from './models/login.model';

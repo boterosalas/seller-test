@@ -10,19 +10,19 @@ import {
   CognitoUtil,
   LoggedInCallback,
   Logger,
-  ShellComponent,
   UserLoginService,
   UserParametersService,
 } from '@app/core';
+import { ShellComponent } from '@core/shell';
 import {
-  CategoryList,
-  ComponentsService,
-  Const,
-  getDutchPaginatorIntl,
-  InformationToForm,
-  Order,
-  RoutesConst,
-  SearchFormEntity,
+CategoryList,
+ComponentsService,
+Const,
+getDutchPaginatorIntl,
+InformationToForm,
+Order,
+RoutesConst,
+SearchFormEntity,
 } from '@app/shared';
 
 import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
@@ -53,7 +53,7 @@ const log = new Logger('OrdersListComponent');
       transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
-  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }],
+  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl }],
 })
 
 /**

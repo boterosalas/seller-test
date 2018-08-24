@@ -2,9 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ComponentsService, SearchFormEntity } from '@app/shared';
+import { SearchFormEntity } from '@app/shared/models';
 import { ShellComponent } from '@core/shell/shell.component';
 import { BillingService } from '@secure/billing/billing.service';
+import { ComponentsService } from '@shared/services';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -14,8 +15,8 @@ import { BillingService } from '@secure/billing/billing.service';
 
 export class SearchBillingFormComponent implements OnInit {
 
-  // Formulario para realizar la busqueda
-  public myform: FormGroup;
+  // Formulario para realizar la búsqueda
+  public myForm: FormGroup;
   // user info
   public user: any;
   // Configuración para el formato de fecha
@@ -23,16 +24,6 @@ export class SearchBillingFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
-  /**
-   * Creates an instance of SearchBillingFormComponent.
-   * @param {UserService} userService
-   * @param {ComponentsService} componentsService
-   * @param {Router} route
-   * @param {BillingService} billingService
-   * @param {ShellComponent} shellComponent
-   * @param {FormBuilder} fb
-   * @memberof SearchBillingFormComponent
-   */
   constructor(
     public componentsService: ComponentsService,
     private route: Router,
@@ -58,7 +49,7 @@ export class SearchBillingFormComponent implements OnInit {
    */
   createForm() {
     // Estructura para los datos del formulario de consulta.
-    this.myform = this.fb.group({
+    this.myForm = this.fb.group({
       'paymentDate': [null, Validators.compose([])],
       'billingNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
     });
@@ -69,7 +60,7 @@ export class SearchBillingFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   clearForm() {
-    this.myform.reset();
+    this.myForm.reset();
   }
 
   /**
@@ -85,7 +76,7 @@ export class SearchBillingFormComponent implements OnInit {
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state) {
+  getOrderList(state: any) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
@@ -94,14 +85,14 @@ export class SearchBillingFormComponent implements OnInit {
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data) {
+  filterOrder(data: any) {
 
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta
     const paymentDate = datePipe.transform(data.value.paymentDate, 'yyyy/MM/dd');
 
-    // creo el string que indicara los parametros de la consulta
+    // creo el string que indicara los parámetros de la consulta
     let stringSearch = '';
     const objectSearch: any = {};
 

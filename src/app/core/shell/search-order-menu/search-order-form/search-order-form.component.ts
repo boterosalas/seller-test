@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ComponentsService, SearchFormEntity } from '@app/shared';
+import { SearchFormEntity } from '@app/shared/models';
+import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
@@ -91,7 +92,7 @@ export class SearchOrderFormComponent implements OnInit {
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state) {
+  getOrderList(state: any) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
@@ -100,7 +101,7 @@ export class SearchOrderFormComponent implements OnInit {
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data) {
+  filterOrder(data: any) {
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);

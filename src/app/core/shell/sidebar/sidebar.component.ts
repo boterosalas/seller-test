@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoutesConst, CategoryList } from '@app/shared';
+import { RoutesConst } from '@shared/util';
+import { CategoryList } from '@shared/models';
 import { environment } from '@env/environment';
 
 import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';

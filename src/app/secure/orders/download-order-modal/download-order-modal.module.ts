@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MaterialModule } from '@app/material.module';
-import { ComponentsService } from '@app/shared';
 
 import { DownloadOrderModalComponent } from './download-order-modal.component';
 import { DownloadOrderService } from './download-order.service';
@@ -28,7 +27,6 @@ import { DownloadOrderService } from './download-order.service';
   ],
   providers: [
     DownloadOrderService,
-    ComponentsService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ]

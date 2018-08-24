@@ -5,9 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CognitoUtil, ShellComponent } from '@app/core';
+import { CognitoUtil } from '@app/core';
+import { ShellComponent } from '@app/core/shell';
 import { MaterialModule } from '@app/material.module';
-import { ComponentsService, EventEmitterOrders, SharedModule } from '@app/shared';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { CdkDetailRowDirectiveModule } from '../directives/cdk-detail-row/cdk-detail-row.module';
 import { BillingFulfillmentDetailComponent } from './billing-fulfillment-detail/billing-fulfillment-detail.component';

@@ -3,8 +3,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MaterialModule } from '@app/material.module';
-import { ComponentsService, EventEmitterOrders, SharedModule } from '@app/shared';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { InValidationModalComponent } from './in-validation-modal/in-validation-modal.component';

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-import { Callback, LoggedInCallback, Logger, ShellComponent, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -13,6 +13,7 @@ import {
   FinishUploadProductInformationComponent,
 } from '../finish-upload-product-information/finish-upload-product-information.component';
 import { ModelProduct } from '../models/product.model';
+import {ShellComponent} from '@core/shell';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');

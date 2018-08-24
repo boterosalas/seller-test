@@ -1,0 +1,8 @@
+<!-- Progress bar -->
+<mat-progress-bar *ngIf="loadingProgressBar == true" [color]="'accent'" [mode]="'indeterminate'" [value]="10"
+                  [bufferValue]="10"></mat-progress-bar>
+
+<!-- Spinner -->
+<div class="content-mat-spinner" *ngIf="loadingSpinner == true">
+  <mat-spinner color="accent"></mat-spinner>
+</div>

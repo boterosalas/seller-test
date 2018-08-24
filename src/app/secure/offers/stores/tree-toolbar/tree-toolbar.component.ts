@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Logger, ShellComponent } from '@app/core';
+import { Logger } from '@app/core/util';
+import { ShellComponent } from '@app/core/shell';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 

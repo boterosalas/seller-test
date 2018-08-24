@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
-import { ComponentsService, EventEmitterOrders, InformationToForm, SearchFormEntity } from '@app/shared';
+
+import { InformationToForm, SearchFormEntity } from '@shared/models/order.model';
+import { ComponentsService } from '@shared/services/components.service';
+import { EventEmitterOrders } from '@shared/services/eventEmitter-orders.service';
 import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
 
-import { LoadingComponent } from './loading/loading.component';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '../aws-cognito';
+import { Logger } from '../util/logger.service';
+import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
 
 // log component

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Logger } from '@app/core';
-import { SearchFormEntity } from '@app/shared';
+import { SearchFormEntity } from '@app/shared/models';
 import { ShellComponent } from '@core/shell/shell.component';
 
 // log components

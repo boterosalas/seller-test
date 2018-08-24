@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShellComponent } from '@app/core';
+import { ShellComponent } from '@app/core/shell';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EndpointService } from '@app/core';
+import { EndpointService } from '@app/core/http';
 import { Observable } from 'rxjs';
 
 /**

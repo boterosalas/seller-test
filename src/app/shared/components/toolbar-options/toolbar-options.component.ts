@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
-import { Logger } from '@app/core';
-import { SearchFormEntity } from '@app/shared/models/order.model';
-import { getDutchPaginatorIntl } from '@app/shared/services/mat-table.config';
-import { ShellComponent } from '@app/core/shell/shell.component';
-import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal/download-order-modal.component';
+import { Logger } from '@app/core/util';
+import { ShellComponent } from '@core/shell/shell.component';
+import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal';
+
+import { SearchFormEntity } from '@shared/models';
+import { getDutchPaginatorIntl } from '@shared/services';
 
 
 // log component
@@ -14,7 +15,7 @@ const log = new Logger('ToolbarOptionsComponent');
   selector: 'app-toolbar-options',
   templateUrl: './toolbar-options.component.html',
   styleUrls: ['./toolbar-options.component.scss'],
-  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }],
+  providers: [{provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl}],
 })
 
 export class ToolbarOptionsComponent {
@@ -45,7 +46,8 @@ export class ToolbarOptionsComponent {
   constructor(
     public dialog: MatDialog,
     public shellComponent: ShellComponent
-  ) { }
+  ) {
+  }
 
   /**
    * Funcionalidad para despelgar el menu de filtro de órdenes.
@@ -85,8 +87,8 @@ export class ToolbarOptionsComponent {
    * @param {any} [category]: parametro opcional. solo para la pagina órdenes.
    * @memberof ToolbarOptionsComponent
    */
-  getOrdersList(category?) {
-    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
+  getOrdersList(category?: any) {
+    this.OnGetOrdersList.emit({lengthOrder: this.lengthOrder, paginator: this.paginator, category: category});
   }
 
   /**

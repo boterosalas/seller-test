@@ -8,10 +8,10 @@ import {
     CognitoCallback,
     DynamoDBService,
     LoggedInCallback,
-    ShellComponent,
     UserLoginService,
     UserParametersService
 } from '@app/core';
+import { ShellComponent } from '@core/shell';
 import { RoutesConst } from '@app/shared';
 
 @Component({
