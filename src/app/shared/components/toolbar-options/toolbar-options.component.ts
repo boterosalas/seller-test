@@ -15,7 +15,9 @@ const log = new Logger('ToolbarOptionsComponent');
   selector: 'app-toolbar-options',
   templateUrl: './toolbar-options.component.html',
   styleUrls: ['./toolbar-options.component.scss'],
-  providers: [{provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl}],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+  ],
 })
 
 export class ToolbarOptionsComponent {
@@ -88,7 +90,7 @@ export class ToolbarOptionsComponent {
    * @memberof ToolbarOptionsComponent
    */
   getOrdersList(category?: any) {
-    this.OnGetOrdersList.emit({lengthOrder: this.lengthOrder, paginator: this.paginator, category: category});
+    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
   }
 
   /**

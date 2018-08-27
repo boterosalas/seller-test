@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { SearchBillingFormComponent } from './search-billing-form/search-billing-form.component';
 import { SearchEnviosExitoFormComponent } from './search-envios-exito-form/search-envios-exito-form.component';
@@ -22,7 +22,7 @@ import {
         HttpClientModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
-        MaterialModule
+        SharedModule
     ],
     declarations: [
         SearchOrderMenuComponent,

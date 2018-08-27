@@ -14,8 +14,8 @@
     <!-- Componente loading de la página -->
     <app-loading #loadingComponent></app-loading>
     <!-- Componente Header de la página -->
-    <app-header *ngIf="showHeader && user" [sidenav]="sidenav" [user]="user"></app-header>
-               
+    <app-header [sidenav]="sidenav" [user]="user"></app-header>
+
     <!-- Render módulos-->
     <router-outlet></router-outlet>
 

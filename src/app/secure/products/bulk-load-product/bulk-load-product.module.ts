@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ShellComponent } from '@app/core/shell';
-import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@shared/shared.module';
 
 import { BulkLoadProductRoutingModule } from './bulk-load-product.routing';
 import { BulkLoadProductService } from './bulk-load-product.service';
@@ -23,7 +24,7 @@ import { TableLoadProductComponent } from './table-load-product/table-load-produ
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule,
+    SharedModule,
     BulkLoadProductRoutingModule,
     BrowserAnimationsModule
   ],

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
 import { ShellComponent } from '@core/shell/shell.component';
@@ -26,7 +25,6 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
         ReactiveFormsModule,
         PendingDevolutionRoutingModule,
         SharedModule,
-        MaterialModule,
         HttpClientModule,
         BrowserAnimationsModule
     ],

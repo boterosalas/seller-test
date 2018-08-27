@@ -1,13 +1,10 @@
-/* 3rd party components */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientModule} from '@angular/common/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '@shared/shared.module';
 
-/* our own custom components */
-import {MaterialModule} from '../../../components/material-components';
-import {SearchOrderMenuModule} from '../search-order-menu.module';
-import {SearchPendingDevolutionFormComponent} from './search-pending-devolution-form.component';
+import { SearchOrderMenuModule } from '../search-order-menu.module';
+import { SearchPendingDevolutionFormComponent } from './search-pending-devolution-form.component';
+
 
 describe('SearchPendingDevolutionFormComponent', () => {
   let component: SearchPendingDevolutionFormComponent;
@@ -17,6 +14,7 @@ describe('SearchPendingDevolutionFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        SharedModule,
         SearchOrderMenuModule
       ]
     })

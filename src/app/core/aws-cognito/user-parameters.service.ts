@@ -4,19 +4,18 @@ import { Callback, CognitoUtil } from './cognito.service';
 @Injectable()
 export class UserParametersService {
 
-    constructor(public cognitoUtil: CognitoUtil) {
-    }
+    constructor(public cognitoUtil: CognitoUtil) {}
 
     getParameters(callback: Callback) {
         const cognitoUser = this.cognitoUtil.getCurrentUser();
 
         if (cognitoUser != null) {
-            cognitoUser.getSession(function (err, session) {
+            cognitoUser.getSession(function (err: any, session: any) {
                 if (err) {
                     console.log('UserParametersService: Couldnt retrieve the user');
                 } else {
                     // tslint:disable-next-line:no-shadowed-variable
-                    cognitoUser.getUserAttributes(function (err, result) {
+                    cognitoUser.getUserAttributes(function (err: any, result: any) {
                         if (err) {
                             console.log('UserParametersService: in getParameters: ' + err);
                         } else {
@@ -35,12 +34,12 @@ export class UserParametersService {
         const cognitoUser = this.cognitoUtil.getCurrentUser();
 
         if (cognitoUser != null) {
-            cognitoUser.getSession(function (err, session) {
+            cognitoUser.getSession(function (err: any, session: any) {
                 if (err) {
                     console.log('UserParametersService: Couldnt retrieve the user');
                 } else {
                     // tslint:disable-next-line:no-shadowed-variable
-                    cognitoUser.getUserAttributes(function (err, result) {
+                    cognitoUser.getUserAttributes(function (err: any, result: any) {
                         if (err) {
                             console.log('UserParametersService: in getParameters: ' + err);
                         } else {

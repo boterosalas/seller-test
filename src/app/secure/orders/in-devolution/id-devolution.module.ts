@@ -6,7 +6,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ShellComponent } from '@app/core/shell';
-import { MaterialModule } from '@app/material.module';
 import { EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
 
@@ -24,7 +23,6 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
         ReactiveFormsModule,
         BillingRoutingModule,
         SharedModule,
-        MaterialModule,
         HttpClientModule,
         BrowserAnimationsModule
     ],

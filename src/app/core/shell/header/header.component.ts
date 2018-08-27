@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { Logger } from '@app/core/util/logger.service';
 import { RoutesConst } from '@app/shared/util/routes.constants';
 import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
-import { environment } from '@env/environment';
 
-import { ShellComponent } from '../shell.component';
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -24,23 +23,16 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
   @Input() user: any;
   // Sidenav principal
   @Input() sidenav;
-  // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
-  public webUrl = environment.webUrl;
   public userLoggin: boolean;
   public sellerName: any;
   public sellerId: any;
   public routes: any;
-  /**
-   * Creates an instance of HeaderComponent.
-   * @param {ShellComponent} shellComponent
-   * @memberof HeaderComponent
-   */
+
   constructor(
-    public shellComponent: ShellComponent,
-    public cognitoUtil: CognitoUtil,
-    public userService: UserLoginService,
-    public userParams: UserParametersService,
-    public router: Router,
+    private cognitoUtil: CognitoUtil,
+    private userService: UserLoginService,
+    private userParams: UserParametersService,
+    private router: Router,
   ) {
     this.user = {};
   }
@@ -52,7 +44,8 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
     this.userService.isAuthenticated(this);
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -76,6 +69,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }
   }
+
   /**
    * Funcionalidad que permite desplegar el menú.
    * @memberof HeaderComponent

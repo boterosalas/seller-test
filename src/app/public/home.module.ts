@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { LogoutComponent, RegistrationConfirmationComponent } from './auth/confirm/confirmRegistration.component';
@@ -22,7 +21,6 @@ import { HomeRoutingModule } from './home.routing';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    MaterialModule,
     HomeRoutingModule
   ],
   declarations: [

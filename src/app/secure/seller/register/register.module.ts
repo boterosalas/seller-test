@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@app/material.module';
+
+import { SharedModule } from '@shared/shared.module';
 
 import { NoWhitespaceDirective } from '../../directives/no-spaces/no-whitespace.directive';
 import { CitiesComponent } from './cities/cities.component';
@@ -14,15 +15,16 @@ import { RegisterRoutingModule } from './register.routing';
 import { RegisterService } from './register.service';
 import { StatesComponent } from './states/states.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
     HttpClientJsonpModule,
     RegisterRoutingModule
   ],

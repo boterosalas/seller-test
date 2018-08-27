@@ -1,27 +1,29 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { ShellComponent } from '@app/core/shell';
-import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@shared/shared.module';
 
 import { ErrorPageComponent } from './error-page.component';
 
 
 @NgModule({
-    imports: [
-        MaterialModule,
-        RouterModule,
-        HttpClientModule,
-    ],
-    declarations: [
-        ErrorPageComponent,
-    ],
-    providers: [
-        EventEmitterOrders,
-        ShellComponent,
-        ComponentsService
-    ]
+  imports: [
+    RouterModule,
+    HttpClientModule,
+    SharedModule
+  ],
+  declarations: [
+    ErrorPageComponent,
+  ],
+  providers: [
+    EventEmitterOrders,
+    ShellComponent,
+    ComponentsService
+  ]
 })
 
-export class ErrorModule {}
+export class ErrorModule {
+}

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { HeaderComponent } from './header/header.component';
@@ -18,7 +17,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    MaterialModule,
     SharedModule,
     SearchOrderMenuModule
   ],

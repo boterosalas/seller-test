@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@app/material.module';
+
+import { SharedModule } from '@shared/shared.module';
 
 import { EventEmitterStore } from './events/eventEmitter-store.service';
 import { SearchStoreComponent } from './search-store/search-store.component';
@@ -21,12 +22,12 @@ import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
     StoresRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
     HttpClientJsonpModule
   ],
   declarations: [
@@ -39,7 +40,7 @@ import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.
     InputCommisionComponent
   ],
   providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     EventEmitterStore,
     StoresService
   ]

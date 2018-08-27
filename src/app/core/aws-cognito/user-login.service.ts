@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
-import { DynamoDBService } from './ddb.service';
-import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
-import { AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
-import * as AWS from 'aws-sdk/global';
-import * as STS from 'aws-sdk/clients/sts';
+
 import { environment } from '@env/environment';
+
+import { AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import * as STS from 'aws-sdk/clients/sts';
+import * as AWS from 'aws-sdk/global';
+import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
+import { DynamoDBService } from './ddb.service';
+
+
+// Constantes de cognito
+const cognitoEnv = environment.cognito;
+
 
 @Injectable()
 export class UserLoginService {
@@ -23,11 +30,11 @@ export class UserLoginService {
         // chicken and egg problem on our hands. We resolve this problem by "priming" the AWS SDK by calling a
         // very innocuous API call that forces this behavior.
         const clientParams: any = {};
-        if (environment.sts_endpoint) {
-            clientParams.endpoint = environment.sts_endpoint;
+        if (cognitoEnv.sts_endpoint) {
+            clientParams.endpoint = cognitoEnv.sts_endpoint;
         }
         const sts = new STS(clientParams);
-        sts.getCallerIdentity(function (err, data) {
+        sts.getCallerIdentity(function (err: any, data: any) {
             console.log('UserLoginService: Successfully set the AWS credentials');
             callback.cognitoCallback(null, session);
         });
@@ -89,7 +96,7 @@ export class UserLoginService {
             onSuccess: function () {
 
             },
-            onFailure: function (err) {
+            onFailure: function (err: any) {
                 callback.cognitoCallback(err.message, null);
             },
             inputVerificationCode() {
@@ -110,7 +117,7 @@ export class UserLoginService {
             onSuccess: function () {
                 callback.cognitoCallback(null, null);
             },
-            onFailure: function (err) {
+            onFailure: function (err: any) {
                 callback.cognitoCallback(err.message, null);
             }
         });
@@ -132,7 +139,7 @@ export class UserLoginService {
         const cognitoUser = this.cognitoUtil.getCurrentUser();
 
         if (cognitoUser != null) {
-            cognitoUser.getSession(function (err, session) {
+            cognitoUser.getSession(function (err: any, session: any) {
                 if (err) {
                     console.log('UserLoginService: Couldn\'t get the session: ' + err, err.stack);
                     callback.isLoggedIn(err, false);

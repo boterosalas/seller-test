@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared/shared.module';
 
 import { ShipmentsService } from '../shipments.service';
@@ -12,7 +11,6 @@ import { PendingService } from './pending.service';
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
         SharedModule,
         PendingRoutinModule
     ],

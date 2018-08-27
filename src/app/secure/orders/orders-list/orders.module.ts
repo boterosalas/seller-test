@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from '@app/material.module';
-import {ComponentsService, ConfirmAlertComponent, EventEmitterOrders} from '@app/shared';
+import { ComponentsService, ConfirmAlertComponent, EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
 
 import { ClientInformationModule } from '../../client-information/client-information.module';
@@ -23,10 +22,9 @@ import { SendOrderComponent } from './send-order/send-order.component';
     imports: [
         BrowserAnimationsModule,
         CommonModule,
-        MaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        SharedModule,
+      SharedModule,
         ClientInformationModule,
         CdkDetailRowDirectiveModule,
         OrdersRoutingModule

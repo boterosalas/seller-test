@@ -1,9 +1,8 @@
-/* 3rd party components */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedModule } from '@shared/shared.module';
 
-/* our own custom components */
 import { LoadingComponent } from './loading.component';
-import { MaterialModule } from '../../components/material-components';
+
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
@@ -12,7 +11,7 @@ describe('LoadingComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule,
+        SharedModule,
       ],
       declarations: [LoadingComponent]
     })

@@ -3,21 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { MaterialModule } from '@app/material.module';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
-import { ToolbarLinkModule } from '@shared/components/toolbar-link/toolbar-link.module';
-import { ToolbarOptionsModule } from '@shared/components/toolbar-options/toolbar-options.module';
+import { ToolbarLinkModule } from '@shared/components/toolbar-link';
+import { ToolbarOptionsModule } from '@shared/components/toolbar-options';
 
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    ToolbarLinkModule,
-    ToolbarOptionsModule,
   ],
   declarations: [
     LoadingComponent
   ],
   exports: [
+    MaterialModule,
+    ToolbarLinkModule,
+    ToolbarOptionsModule,
     LoadingComponent
   ],
   providers: []

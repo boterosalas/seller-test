@@ -18,26 +18,16 @@ const log = new Logger('SideBarComponent');
 })
 
 export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
-
   // Sidenav principal
   @Input() sidenav;
   // Información del usuario
   @Input() user: any;
-  // web url. empleada para saber cual es la url del servidor
-  webUrl = environment.webUrl;
   // Define si la app esta en un entorno de producción.
   isProductionEnv = environment.production;
   // Lista de categorías de las órdenes
   categoryList: any;
   public routes: any;
 
-  /**
-   * Creates an instance of SidebarComponent.
-   * @param {Router} route
-   * @param {ShellComponent} shellComponent
-   * @param {LogoutComponent} logoutComponent
-   * @memberof SidebarComponent
-   */
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
@@ -62,7 +52,8 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
     }
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);

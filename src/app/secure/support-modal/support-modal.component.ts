@@ -5,7 +5,6 @@ import { MatDialogRef } from '@angular/material';
 import { Callback, UserParametersService } from '@app/core/aws-cognito';
 import { Logger } from '@app/core/util/logger.service';
 import { ComponentsService } from '@shared/services/components.service';
-import { environment } from '@env/environment';
 
 import { SupportService } from './support.service';
 
@@ -36,8 +35,6 @@ export class SupportModalComponent implements OnInit, Callback {
   myform: FormGroup;
   // user info
   public user: any;
-  // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
-  public webUrl = environment.webUrl;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +77,7 @@ export class SupportModalComponent implements OnInit, Callback {
    */
   createForm() {
     this.myform = this.fb.group({
-      'nit': [this.user[this.webUrl].nit, Validators.compose([Validators.required])],
+      'nit': [this.user.nit, Validators.compose([Validators.required])],
       'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
       'account': [this.user.name, Validators.compose([Validators.required])],
       'emailContact': [this.user.email, Validators.compose([Validators.required, Validators.email])],
@@ -97,7 +94,7 @@ export class SupportModalComponent implements OnInit, Callback {
    * @param {any} form
    * @memberof SupportModalComponent
    */
-  sendSupportMessage(form) {
+  sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
     const messageSupport = {

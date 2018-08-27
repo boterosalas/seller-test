@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@app/material.module';
+
+import { SharedModule } from '@shared/shared.module';
 
 import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
 import { FilterComponent } from './components/filter/filter.component';
@@ -19,7 +20,7 @@ import { ListComponent } from './list/list.component';
   imports: [
     BrowserModule,
     CommonModule,
-    MaterialModule,
+    SharedModule,
     ListRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

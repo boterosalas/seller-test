@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CognitoUtil } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
-import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
 
@@ -25,10 +24,9 @@ import { ProductDetailBillingModalComponent } from './product-detail-modal/produ
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    BillingRoutingModule,
     SharedModule,
+    BillingRoutingModule,
     CdkDetailRowDirectiveModule,
-    MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
   ],
