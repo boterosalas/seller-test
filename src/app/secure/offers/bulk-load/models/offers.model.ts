@@ -10,7 +10,7 @@ export class ModelOffers {
         public IsEnviosExito: any,
         public IsFreightCalculator: any,
         public Warranty: any,
-        public Fulfillment: any,
+        public IsFulfillment: any,
         public UpdateStock: any,
         public errorRow: boolean,
         public errorColumn1?: boolean,

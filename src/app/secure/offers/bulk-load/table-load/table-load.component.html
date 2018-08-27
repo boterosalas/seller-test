@@ -202,18 +202,18 @@
           </td>
         </ng-container>
 
-        <!-- Fulfillment Column -->
-        <ng-container matColumnDef="Fulfillment">
+        <!-- IsFulfillment Column -->
+        <ng-container matColumnDef="IsFulfillment">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Logistica Exito</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorColumn11 == true }" *matCellDef="let element">
-            <div class="information" *ngIf="element.Fulfillment != undefined && element.Fulfillment != ''">
-              <p class="sc-text-normal">{{element.Fulfillment}}</p>
+            <div class="information" *ngIf="element.IsFulfillment != undefined && element.IsFulfillment != ''">
+              <p class="sc-text-normal">{{element.IsFulfillment}}</p>
             </div>
-            <div class="information" *ngIf="element.Fulfillment == undefined || element.Fulfillment == ''">
+            <div class="information" *ngIf="element.IsFulfillment == undefined || element.IsFulfillment == ''">
               <p class="text-error"> -
               </p>
             </div>

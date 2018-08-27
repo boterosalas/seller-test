@@ -509,7 +509,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      Fulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsFulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       UpdateStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
     };
     this.arrayInformationForSend.push(newObjectForSend);
@@ -534,7 +534,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      Fulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsFulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       UpdateStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       errorRow: false
     };
