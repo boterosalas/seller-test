@@ -166,7 +166,7 @@
                             <mat-card class="imageRegisterSeller">
                                 <img mat-card-image [src]="imagesSrc[0]">
                                 <mat-card-actions class="register-actions-right">
-                                    <mat-checkbox id="register-go-exito" checked=true (change)="changeImageColor($event, 0)" formControlName="goToExito" [(ngModel)]="formRegister.GotoExito"></mat-checkbox>
+                                    <mat-checkbox id="register-go-exito" (change)="changeImageColor($event, 0)" formControlName="goToExito" [(ngModel)]="formRegister.GotoExito"></mat-checkbox>
                                 </mat-card-actions>
                             </mat-card>
                             <mat-card class="imageRegisterSeller">
@@ -178,7 +178,7 @@
                             <mat-card class="imageRegisterSeller">
                                 <img mat-card-image [src]="imagesSrc[2]">
                                 <mat-card-actions class="register-actions-right">
-                                    <mat-checkbox id="register-go-catalogo" checked=true (change)="changeImageColor($event, 2)" formControlName="goToCatalogo"
+                                    <mat-checkbox id="register-go-catalogo" (change)="changeImageColor($event, 2)" formControlName="goToCatalogo"
                                         [(ngModel)]="formRegister.GotoCatalogo"></mat-checkbox>
                                 </mat-card-actions>
                             </mat-card>
@@ -196,5 +196,5 @@
         </div>
 
     </div>
-
+    
 </div>

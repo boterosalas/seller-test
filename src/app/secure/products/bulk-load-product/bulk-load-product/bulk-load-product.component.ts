@@ -1222,6 +1222,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
+    const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
+    const FormatTypeCategory = /^(Estandar|Variante)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1327,7 +1329,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           }
           break;
         case 'category':
-          if (inputtxt === 'Estandar' || inputtxt === 'Variante') {
+          if (inputtxt.match(FormatTypeCategory)) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1341,14 +1343,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           }
           break;
         case 'color':
-          if (inputtxt === 'Beige' || inputtxt === 'Negro' ||
-            inputtxt === 'Blanco' || inputtxt === 'Azul' ||
-            inputtxt === 'Amarillo' || inputtxt === 'Cafe' ||
-            inputtxt === 'Gris' || inputtxt === 'Verde' ||
-            inputtxt === 'Naranja' || inputtxt === 'Rosa' ||
-            inputtxt === 'Morado' || inputtxt === 'Rojo' ||
-            inputtxt === 'Plata' || inputtxt === 'Dorado' ||
-            inputtxt === 'MultiColor') {
+          if (inputtxt.match(FormatColor)) {
             valueReturn = true;
           } else {
             valueReturn = false;

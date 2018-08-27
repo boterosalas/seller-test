@@ -76,6 +76,9 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   ) {
     this.user = {};
     this.formRegister = new ModelRegister();
+    this.formRegister.GotoExito = true;
+    this.formRegister.GotoCatalogo = true;
+    this.formRegister.GotoCarrulla = false;
   }
 
   ngOnInit() {
