@@ -14,8 +14,6 @@ import { HistoryRoutingModule } from './history.routing';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { DownloadHistoryModalComponent } from './components/download-history-modal/download-history-modal.component';
-// import { DownloadHistoryModalModule } from './components/download-history-modal/download-history-modal.module'; //Delete
-import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
 import { HistoryComponent } from './history/history.component';
 import { MaterialModule } from '../../material-components';
 
@@ -36,7 +34,6 @@ import { MaterialModule } from '../../material-components';
   declarations: [
     HistoryComponent,
     ToolbarComponent,
-    DetailOfferComponent,
     FilterComponent,
     DownloadHistoryModalComponent
   ],

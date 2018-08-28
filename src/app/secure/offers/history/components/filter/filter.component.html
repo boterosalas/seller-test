@@ -1,6 +1,5 @@
 <section id="section-history-filter-offers" class="flexbox flex-wrap">
 
-  <!--form novalidate #historyFilterOffers="ngForm" [formGroup]="historyFilterForm" (ngSubmit)="history.historyFilterOffers(formFilter)" class="flexbox flex-wrap justify-center"-->
   <form
     novalidate
     #f="ngForm"
@@ -29,9 +28,10 @@
         id="sinceDate-input"
         placeholder="Fecha inicio"
         formControlName="dateInitial"
-        [max]="historyFilterForm.value.dateFinal"
+        name="dateInitial"
         matInput
-        [matDatepicker]="dateInitial">
+        [matDatepicker]="dateInitial"
+        (dateChange)="setMaxDateRange();validateFinalRange()">
       <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateInitial"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
     </mat-form-field>
@@ -42,21 +42,24 @@
         id="untilDate-input"
         placeholder="Fecha final"
         formControlName="dateFinal"
+        name="dateFinal"
         [min]="historyFilterForm.value.dateInitial"
+        [max]="rangeDateMax"
         matInput
         [matDatepicker]="dateFinal">
       <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateFinal"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
+      <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput
         placeholder="EAN"
-        formControlName="ean">
+        formControlName="ean"
+        matInput>
       <mat-hint></mat-hint>
       <mat-error *ngIf="historyFilterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
     </mat-form-field>
-
 
     <article class="container-buttons flexbox align-center justify-between">
       <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
