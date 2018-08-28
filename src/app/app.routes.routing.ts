@@ -9,9 +9,9 @@ const appRoutes: Routes =
   [
     {
       path: '**',
-      redirectTo: `${RoutesConst.error}`,
+      redirectTo: `/${RoutesConst.error}`,
     },
-    { path: `${RoutesConst.error}`, component: ErrorPageComponent },
+    { path: `${RoutesConst.error}`, component: ErrorPageComponent }
   ];
 
 @NgModule({

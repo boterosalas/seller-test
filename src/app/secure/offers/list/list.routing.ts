@@ -1,16 +1,19 @@
-/* 3rd party components */
-import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-/* our own custom components */
-import { ListComponent } from './list/list.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
+import { ListComponent } from './list/list.component';
+
 
 const routes: Routes = [
+  Route.withShell([
     {
-    path: `${RoutesConst.sellerCenterIntOfersList}`,
-    component: ListComponent,
-    data: {title: 'Listado de Ofertas'},
-  }
+      path: `${RoutesConst.sellerCenterIntOfersList}`,
+      component: ListComponent,
+      data: { title: 'Listado de Ofertas' },
+    }
+  ])
 ];
 
 /**
@@ -19,8 +22,9 @@ const routes: Routes = [
  * @class ListRoutingModule
  */
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 
-export class ListRoutingModule {}
+export class ListRoutingModule {
+}

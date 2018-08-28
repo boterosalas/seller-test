@@ -1,19 +1,24 @@
-import {Routes, RouterModule} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {BulkLoadProductComponent} from './bulk-load-product/bulk-load-product.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
+import { BulkLoadProductComponent } from './bulk-load-product/bulk-load-product.component';
+
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterProducts}`,
-    component: BulkLoadProductComponent,
-    data: {title: 'Cargar masiva de Producto'},
-  },
-  {
-    path: `${RoutesConst.sellerCenterIntProductBulkLoad}`,
-    component: BulkLoadProductComponent,
-    data: {title: 'Cargar masiva de Producto'},
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterProducts}`,
+      component: BulkLoadProductComponent,
+      data: { title: 'Cargar masiva de Producto' },
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntProductBulkLoad}`,
+      component: BulkLoadProductComponent,
+      data: { title: 'Cargar masiva de Producto' },
+    }
+  ])
 ];
 
 @NgModule({

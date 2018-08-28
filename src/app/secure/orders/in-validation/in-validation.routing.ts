@@ -1,17 +1,20 @@
-/* 3rd party components */
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-/* our own custom components */
-import {InValidationComponent} from './in-validation-page/in-validation.component';
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 
+import { InValidationComponent } from './in-validation-page/in-validation.component';
+
+
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
-    component: InValidationComponent,
-    data: {title: 'En validación'},
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
+      component: InValidationComponent,
+      data: { title: 'En validación' },
+    }
+  ])
 ];
 
 @NgModule({

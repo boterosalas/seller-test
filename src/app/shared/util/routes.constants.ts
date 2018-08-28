@@ -44,11 +44,11 @@ export class RoutesConst {
 
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
-    static readonly sellerCenterOrders: any = RoutesConst.secureSeller + '/' + RoutesConst.orders;
-    static readonly sellerCenterOffers: any = RoutesConst.secureSeller + '/' + RoutesConst.offers;
-    static readonly sellerCenterSellers: any = RoutesConst.secureSeller + '/' + RoutesConst.sellers;
-    static readonly sellerCenterBilling: any = RoutesConst.secureSeller + '/' + RoutesConst.billing;
-    static readonly sellerCenterShipmentsExito: any = RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
+    static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;
+    static readonly sellerCenterOffers: any =  RoutesConst.secureSeller + '/' + RoutesConst.offers;
+    static readonly sellerCenterSellers: any =  RoutesConst.secureSeller + '/' + RoutesConst.sellers;
+    static readonly sellerCenterBilling: any =  RoutesConst.secureSeller + '/' + RoutesConst.billing;
+    static readonly sellerCenterShipmentsExito: any =  RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
     static readonly sellerCenterMyProfile: any = RoutesConst.securehome + '/' + RoutesConst.myProfile;
     static readonly sellerCenterLogout: any = RoutesConst.securehome + '/' + RoutesConst.logout;
     static readonly sellerCenterJwttokens: any = RoutesConst.securehome + '/' + RoutesConst.jwttokens;

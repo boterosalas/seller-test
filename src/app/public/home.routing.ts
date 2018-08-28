@@ -15,7 +15,7 @@ import { AboutComponent, HomeComponent } from './home.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: `${RoutesConst.home}`,
+    redirectTo: `/${RoutesConst.home}`,
     pathMatch: 'full'
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: `${RoutesConst.login}`,
+        redirectTo: `/${RoutesConst.login}`,
         pathMatch: 'full'
       },
       { path: `${RoutesConst.login}`, component: LoginComponent },

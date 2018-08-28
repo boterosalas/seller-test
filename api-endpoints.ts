@@ -44,7 +44,7 @@ export const endpoints = {
       getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/',
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
       // Offers
-      getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+      getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer'
     },
   },
@@ -88,7 +88,7 @@ export const endpoints = {
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
-      patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn'
+      patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}'
     }
   }
 };

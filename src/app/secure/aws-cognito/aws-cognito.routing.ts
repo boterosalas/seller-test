@@ -14,8 +14,8 @@ import { UseractivityComponent } from './useractivity/useractivity.component';
 const routes: Routes = [
   Route.withShell([
     {
-      path: '',
-      redirectTo: `${RoutesConst.securehome}`,
+      path: ``,
+      redirectTo: `/${RoutesConst.securehome}`,
       pathMatch: 'full'
     },
     {

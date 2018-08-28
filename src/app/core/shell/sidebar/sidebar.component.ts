@@ -26,7 +26,8 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
   isProductionEnv = environment.production;
   // Lista de categorías de las órdenes
   categoryList: any;
-  public routes: any;
+  public routes = RoutesConst;
+  prueba = 'solicitudes-pendientes';
 
   constructor(
     private route: Router,
@@ -41,7 +42,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof SidebarComponent
    */
   ngOnInit() {
-    this.routes = RoutesConst;
+    // this.routes = RoutesConst;
     this.categoryList = this.routes.CATEGORYLIST;
     this.userService.isAuthenticated(this);
   }
