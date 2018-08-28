@@ -27,13 +27,13 @@ export class RegisterService {
   fetchData(paramValue: {}, param: any): Observable<{}> {
     let writeUrl: any;
     switch (param) {
-      case 'nit':
+      case 'Nit':
         writeUrl = this.writerValidateSellerNit;
         break;
-      case 'email':
+      case 'Email':
         writeUrl = this.writeValidateSellerEmail;
         break;
-      case 'nomTienda':
+      case 'Name':
         writeUrl = this.writerValidateSellerName;
         break;
       default:
@@ -66,7 +66,7 @@ export class RegisterService {
   registerUser(params: {}): Observable<{}> {
     const idToken = this.cognitoUtil.getTokenLocalStorage();
     const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-
+    console.log('parametros para el servicio', params);
     return new Observable(
       observer => {
         this.http.post<any>(this.writerRegister, params, { observe: 'response', headers: headers }).subscribe(
