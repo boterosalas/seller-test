@@ -1702,6 +1702,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -3668,6 +3671,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -4779,7 +4785,7 @@ con el log obtenido.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1391" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1391</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1386" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1386</a></div>
                             </td>
                         </tr>
 
@@ -4819,7 +4825,7 @@ con el log obtenido.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1431" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1431</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1426" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1426</a></div>
                             </td>
                         </tr>
 
@@ -5424,7 +5430,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1457" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1457</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1452" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1452</a></div>
                             </td>
                         </tr>
 
@@ -5495,7 +5501,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1444" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1444</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1439" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1439</a></div>
                             </td>
                         </tr>
 
@@ -7382,7 +7388,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: &#x27;LogisticExito&#x27;
+                  dato: &#x27;IsLogisticsExito&#x27;
                 };
                 this.listLog.push(itemLog);
                 errorInCell &#x3D; true;
@@ -7588,7 +7594,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ImageUrl4: res[i][iVal.iURLDeImagen4] ? res[i][iVal.iURLDeImagen4].trim() : null,
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
-      Fulfillment: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : &#x27;0&#x27;,
+      IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : &#x27;0&#x27;,
       features: []
     };
 
@@ -7701,7 +7707,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ParentReference: res[index][iVal.iParentReference],
       SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
-      LogisticExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : &#x27;0&#x27;,
+      IsLogisticsExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : &#x27;0&#x27;,
       ImageUrl1: res[index][iVal.iURLDeImagen1],
       ImageUrl2: res[index][iVal.iURLDeImagen2],
       ImageUrl3: res[index][iVal.iURLDeImagen3],
@@ -7771,7 +7777,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorColor &#x3D; false;
       this.arrayInformation[index].errorHexColourCodePDP &#x3D; false;
       this.arrayInformation[index].errorHexColourName &#x3D; false;
-      this.arrayInformation[index].errorLogisticExito &#x3D; false;
+      this.arrayInformation[index].errorIsLogisticsExito &#x3D; false;
     }
   }
 
@@ -7880,6 +7886,8 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatSize &#x3D; /^[^\s]{1,10}$/;
     const formatHexPDP &#x3D; /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty &#x3D; /^[\w\W\s\d]{1,60}$/;
+    const FormatColor &#x3D; /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
+    const FormatTypeCategory &#x3D; /^(Estandar|Variante)$/;
 
     if (inputtxt &#x3D;&#x3D;&#x3D; undefined) {
       valueReturn &#x3D; false;
@@ -7985,7 +7993,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           }
           break;
         case &#x27;category&#x27;:
-          if (inputtxt &#x3D;&#x3D;&#x3D; &#x27;Estandar&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Variante&#x27;) {
+          if (inputtxt.match(FormatTypeCategory)) {
             valueReturn &#x3D; true;
           } else {
             valueReturn &#x3D; false;
@@ -7999,14 +8007,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           }
           break;
         case &#x27;color&#x27;:
-          if (inputtxt &#x3D;&#x3D;&#x3D; &#x27;Beige&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Negro&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Blanco&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Azul&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Amarillo&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Cafe&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Gris&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Verde&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Naranja&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Rosa&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Morado&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Rojo&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;Plata&#x27; || inputtxt &#x3D;&#x3D;&#x3D; &#x27;Dorado&#x27; ||
-            inputtxt &#x3D;&#x3D;&#x3D; &#x27;MultiColor&#x27;) {
+          if (inputtxt.match(FormatColor)) {
             valueReturn &#x3D; true;
           } else {
             valueReturn &#x3D; false;

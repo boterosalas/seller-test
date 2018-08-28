@@ -1702,6 +1702,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -3654,6 +3657,9 @@
                     </li>
                     <li class="link">
                         <a href="classes/ModelRegister.html" data-type="entity-link">ModelRegister</a>
+                    </li>
+                    <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
@@ -7069,8 +7075,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      Fulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : &#x27;0&#x27;,
-      UpdateStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : &#x27;0&#x27;,
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : &#x27;0&#x27;,
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : &#x27;0&#x27;,
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -7094,8 +7100,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      Fulfillment: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : &#x27;0&#x27;,
-      UpdateStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : &#x27;0&#x27;,
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : &#x27;0&#x27;,
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : &#x27;0&#x27;,
       errorRow: false
     };
 

@@ -1702,6 +1702,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -3668,6 +3671,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -4055,7 +4061,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/secure/seller/register/register.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/secure/seller/register/register.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -4126,9 +4132,8 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Inject } from &#x27;@angular/core&#x27;;
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from &#x27;@angular/forms&#x27;;
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormControlDirective } from &#x27;@angular/forms&#x27;;
 import { ErrorStateMatcher } from &#x27;@angular/material/core&#x27;;
-import { ModelRegister } from &#x27;./models/register.model&#x27;;
 import { RegisterService } from &#x27;./register.service&#x27;;
 import { ShellComponent } from &#x27;@core/shell/shell.component&#x27;;
 import { LoggedInCallback, Callback, UserLoginService, UserParametersService, RoutesConst } from &#x27;@app/shared&#x27;;
@@ -4177,7 +4182,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   public values &#x3D; &#x27;&#x27;;
   public existValueInDB: boolean;
-  public formRegister: ModelRegister;
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
   public idState: number;
@@ -4202,49 +4206,55 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     public userParams: UserParametersService
   ) {
     this.user &#x3D; {};
-    this.formRegister &#x3D; new ModelRegister();
   }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
     this.validateFormRegister &#x3D; new FormGroup({
-      nit: new FormControl(&#x27;&#x27;, [
+      Nit: new FormControl(&#x27;&#x27;, [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern(&#x27;^[0-9]*$&#x27;)
       ]),
-      rut: new FormControl
+      Rut: new FormControl
         (&#x27;&#x27;, [Validators.required,
         Validators.maxLength(20),
         Validators.pattern(&#x27;^[0-9]*$&#x27;)
         ]),
-      contacto: new FormControl
+      ContactName: new FormControl
         (&#x27;&#x27;, [Validators.required,
         Validators.pattern(&#x27;^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$&#x27;)
         ]),
-      telefono: new FormControl
+      Email: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+      PhoneNumber: new FormControl
         (&#x27;&#x27;, [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern(&#x27;^[0-9]*$&#x27;)]),
-      email: new FormControl
-        (&#x27;&#x27;, [Validators.required,
-        Validators.pattern(this.emailRegex)
-        ]),
-      nomTienda: new FormControl
+      Address: new FormControl
+        (&#x27;&#x27;, [Validators.required]),
+      State: new FormControl,
+      City: new FormControl,
+      DaneCode: new FormControl,
+      SincoDaneCode: new FormControl,
+      Name: new FormControl
         (&#x27;&#x27;, [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
-      direccion: new FormControl
-        (&#x27;&#x27;, [Validators.required]),
-      codDane: new FormControl
-        (&#x27;&#x27;, [Validators.required]),
-      logisticExito: new FormControl,
-      enviosExito: new FormControl,
-      goToExito: new FormControl,
-      goToCarulla: new FormControl,
-      goToCatalogo: new FormControl
+      IsLogisticsExito: new FormControl,
+      IsShippingExito: new FormControl,
+      GotoExito: new FormControl,
+      GotoCarrulla: new FormControl,
+      GotoCatalogo: new FormControl
     });
     this.matcher &#x3D; new MyErrorStateMatcher();
+    this.validateFormRegister.controls[&#x27;GotoExito&#x27;].setValue(true);
+    this.validateFormRegister.controls[&#x27;GotoCatalogo&#x27;].setValue(true);
+    this.validateFormRegister.controls[&#x27;GotoCarrulla&#x27;].setValue(false);
+    this.validateFormRegister.controls[&#x27;IsLogisticsExito&#x27;].setValue(false);
+    this.validateFormRegister.controls[&#x27;IsShippingExito&#x27;].setValue(false);
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -4306,7 +4316,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   submitSellerRegistrationForm() {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.disabledForService &#x3D; true;
-    this.registerService.registerUser(JSON.stringify(this.formRegister))
+    this.registerService.registerUser(JSON.stringify(this.validateFormRegister.value))
       .subscribe(
         (result: any) &#x3D;&gt; {
           if (result.status &#x3D;&#x3D;&#x3D; 201 || result.status &#x3D;&#x3D;&#x3D; 200) {
@@ -4347,17 +4357,17 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
               const data_response &#x3D; JSON.parse(result.body.body);
               this.existValueInDB &#x3D; data_response.Data;
               switch (param) {
-                case &#x27;nit&#x27;:
+                case &#x27;Nit&#x27;:
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ &#x27;validExistNitDB&#x27;: data_response.Data });
                   }
                   break;
-                case &#x27;email&#x27;:
+                case &#x27;Email&#x27;:
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ &#x27;validExistEmailDB&#x27;: data_response.Data });
                   }
                   break;
-                case &#x27;nomTienda&#x27;:
+                case &#x27;Name&#x27;:
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ &#x27;validExistNameDB&#x27;: data_response.Data });
                   }
@@ -4386,7 +4396,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   receiveDataState($event) {
     if ($event &amp;&amp; $event !&#x3D;&#x3D; undefined &amp;&amp; $event !&#x3D;&#x3D; null) {
       this.idState &#x3D; $event.Id;
-      this.formRegister.State &#x3D; $event.Name;
+      this.validateFormRegister.controls[&#x27;State&#x27;].setValue($event.Name);
     }
   }
 
@@ -4397,12 +4407,16 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    */
   receiveDataCitie($event) {
     if ($event &amp;&amp; $event !&#x3D;&#x3D; undefined &amp;&amp; $event !&#x3D;&#x3D; null) {
-      this.formRegister.DaneCode &#x3D; $event.DaneCode;
-      this.formRegister.City &#x3D; $event.Name;
-      this.formRegister.SincoDaneCode &#x3D; $event.SincoDaneCode;
+      this.validateFormRegister.controls[&#x27;DaneCode&#x27;].setValue($event.DaneCode);
+      this.validateFormRegister.controls[&#x27;City&#x27;].setValue($event.Name);
+      this.validateFormRegister.controls[&#x27;SincoDaneCode&#x27;].setValue($event.SincoDaneCode);
     } else {
-      this.formRegister.DaneCode &#x3D; null;
+      this.validateFormRegister.controls[&#x27;DaneCode&#x27;].setValue(null);
     }
+  }
+
+  disabledButton() {
+    this.activeButton &#x3D; false;
   }
 }
 

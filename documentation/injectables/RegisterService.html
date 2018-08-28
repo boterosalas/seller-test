@@ -1702,6 +1702,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -3668,6 +3671,9 @@
                         <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
                     </li>
                     <li class="link">
+                        <a href="classes/MyErrorStateMatcher.html" data-type="entity-link">MyErrorStateMatcher</a>
+                    </li>
+                    <li class="link">
                         <a href="classes/NewPasswordUser.html" data-type="entity-link">NewPasswordUser</a>
                     </li>
                     <li class="link">
@@ -4501,13 +4507,13 @@ export class RegisterService {
   fetchData(paramValue: {}, param: any): Observable&lt;{}&gt; {
     let writeUrl: any;
     switch (param) {
-      case &#x27;nit&#x27;:
+      case &#x27;Nit&#x27;:
         writeUrl &#x3D; this.writerValidateSellerNit;
         break;
-      case &#x27;email&#x27;:
+      case &#x27;Email&#x27;:
         writeUrl &#x3D; this.writeValidateSellerEmail;
         break;
-      case &#x27;nomTienda&#x27;:
+      case &#x27;Name&#x27;:
         writeUrl &#x3D; this.writerValidateSellerName;
         break;
       default:
@@ -4540,7 +4546,7 @@ export class RegisterService {
   registerUser(params: {}): Observable&lt;{}&gt; {
     const idToken &#x3D; this.cognitoUtil.getTokenLocalStorage();
     const headers &#x3D; new HttpHeaders({ &#x27;Authorization&#x27;: idToken, &#x27;Content-type&#x27;: &#x27;application/json; charset&#x3D;utf-8&#x27; });
-
+    console.log(&#x27;parametros para el servicio&#x27;, params);
     return new Observable(
       observer &#x3D;&gt; {
         this.http.post&lt;any&gt;(this.writerRegister, params, { observe: &#x27;response&#x27;, headers: headers }).subscribe(
