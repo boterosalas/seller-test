@@ -1,7 +1,7 @@
 <form #f="ngForm" [formGroup]="myform" class="search-form light-content">
   <mat-form-field id="sinceDate-input-search-order" color="accent">
     <input id="sinceDate-input" [max]="myform.value.dateOrderFinal" formControlName="dateOrderInitial"
-           placeholder="Desde" matInput
+           placeholder="myform.value.dateOrderFinal" matInput
            [matDatepicker]="dateOrderInitial">
     <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateOrderInitial"></mat-datepicker-toggle>
     <mat-datepicker touchUi="true" startView="year" #dateOrderInitial></mat-datepicker>
@@ -9,7 +9,7 @@
 
   <mat-form-field id="untilDate-input-search-order" color="accent">
     <input id="untilDate-input" [min]="myform.value.dateOrderInitial" formControlName="dateOrderFinal"
-           placeholder="Hasta" matInput
+           placeholder="myform.value.dateOrderInitial" matInput
            [matDatepicker]="dateOrderFinal">
     <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateOrderFinal">
     </mat-datepicker-toggle>

@@ -1,9 +1,7 @@
 export class ModelFilter {
     constructor(
-        public ean?: any,
-        public product?: any,
-        public stock?: any,
-        public currentPage?: any,
-        public limit?: any
+        public dateInitial?: Date,
+        public dateFinal?: Date,
+        public ean?: any
     ) { }
 }
