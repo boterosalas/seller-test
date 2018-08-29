@@ -1,14 +1,14 @@
 
 
 /* 3rd party components */
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /* our own custom components */
-import { HttpErrorHandlingService } from '../../secure/seller-center/utils/http/http-error-handling.service';
-import { EndpointService } from '../../secure/seller-center/utils/http/endpoint.service';
-import { ComponentsService } from '../../secure/seller-center/utils/services/common/components/components.service';
+import { HttpErrorHandlingService } from './http-error-handling.service';
+import { EndpointService } from './endpoint.service';
+import { ComponentsService } from './components.service';
 
 
 

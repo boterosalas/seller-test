@@ -1,14 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "paths": {
       "@root/*": [
         "../*"
@@ -17,22 +25,17 @@
         "app/*"
       ],
       "@env/*": [
-        "app/environments/*"
+        "environments/*"
       ],
-      "@shared/*": [
-        "app/shared/*"
+      "@secure/*": [
+        "app/secure/*"
+      ],
+      "@public/*": [
+        "app/public/*"
+      ],
+      "@core/*": [
+        "app/core/*"
       ]
     },
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "hammerjs",
-      "node"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ]
   }
 }

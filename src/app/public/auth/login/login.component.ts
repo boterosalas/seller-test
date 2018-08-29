@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserLoginService } from '../../../service/user-login.service';
-import { ChallengeParameters, CognitoCallback, LoggedInCallback, Callback } from '../../../service/cognito.service';
-import { DynamoDBService } from '../../../service/ddb.service';
+import { Router } from '@angular/router';
+import {
+    UserLoginService,
+    ChallengeParameters,
+    CognitoCallback,
+    LoggedInCallback,
+    Callback,
+    UserParametersService,
+    RoutesConst,
+    DynamoDBService
+ } from '@app/shared';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ViewContainerRef } from '@angular/core';
-import { ShellComponent } from '../../../secure/seller-center/shell/shell.component';
-import { iif } from 'rxjs';
-import { UserParametersService } from '../../../service/user-parameters.service';
+import { ShellComponent } from '@app/core/shell/shell.component';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-awscognito',
@@ -52,6 +57,9 @@ import { UserParametersService } from '../../../service/user-parameters.service'
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
     // Contiene la estructura del formulario del login
     awscognitogroup: FormGroup;
+    // Define si la app esta en un entorno de producción.
+    isProductionEnv = environment.production;
+    public consts = RoutesConst;
     // Variables del uso de aws-cognito
     email: string;
     password: string;
@@ -101,7 +109,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     }
 
     onLogin() {
-        this.shell.loadingComponent.viewLoadingProgressBar();
         if (this.email == null || this.password == null) {
             this.errorMessage = 'Todos los campos son requeridos.';
             return;
@@ -109,17 +116,19 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         this.errorMessage = null;
         this.shell.loadingComponent.closeLoadingProgressBar();
         this.userService.authenticate(this.email, this.password, this);
+        this.shell.loadingComponent.viewLoadingSpinner();
     }
 
     cognitoCallback(message: string, result: any) {
         if (message != null) { // error
+            this.shell.loadingComponent.closeLoadingSpinner();
             this.errorMessage = message;
             console.log('result: ' + this.errorMessage);
             if (this.errorMessage === 'User is not confirmed.') {
-                this.router.navigate(['/home/confirmRegistration', this.email]);
+                this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.email]);
             } else if (this.errorMessage === 'User needs to set password.') {
                 console.log('redirecting to set new password');
-                this.router.navigate(['/home/newPassword']);
+                this.router.navigate([`/${this.consts.homeNewPassword}`]);
             }
         } else { // success
             this.ddb.writeLogEntry('login');
@@ -137,10 +146,11 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     callbackWithParam(userData: any) {
         this.user = userData;
         this.shell.user = this.user;
+        this.shell.loadingComponent.closeLoadingSpinner();
         if (this.user.sellerProfile === 'seller') {
-            this.router.navigate(['/securehome/seller-center']);
+            this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
         } else if (this.user.sellerProfile === 'administrator') {
-            this.router.navigate(['/securehome/seller-center/vendedores/registrar']);
+            this.router.navigate([`/${this.consts.sellerCenterIntSellerRegister}`]);
         }
     }
 
@@ -159,7 +169,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (isLoggedIn) {
-            this.router.navigate(['/securehome']);
+            this.router.navigate([`/${this.consts.securehome}`]);
         }
     }
 

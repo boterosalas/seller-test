@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 /* our own custom components */
-import { CategoryList } from '../models/order.model';
-import { RoutesConst } from '../util/routes.constants';
-import { LoggedInCallback, Callback } from '../../service/cognito.service';
-import { UserLoginService } from '../../service/user-login.service';
-import { UserParametersService } from '../../service/user-parameters.service';
-
+import { CategoryList } from '../models';
+import { RoutesConst } from '../util';
+import { LoggedInCallback, Callback, UserLoginService, UserParametersService } from '../services';
+import { environment } from '@env/environment';
 /**
  * Component
  */
@@ -32,6 +30,8 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback 
 
   // Lista de categorías
   public categoryList: any;
+  // Define si la app esta en un entorno de producción.
+  isProductionEnv = environment.production;
 
   /**
    * Creates an instance of ToolbarLinkComponent.

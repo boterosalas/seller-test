@@ -1,39 +1,44 @@
 <div class="content-page">
-    <div class="content-tab" fxFlexAlign="center" fxLayout="row" fxFlex="450px" fxFlex.xs="90" fxFlex.sm="450px" fxFlex.md="450px"
-      fxFlex.lg="450px" xFlex.xl="35">
-      <div [@scaleEfect] fxFlex="100" class="tab-style login-content">
-        <div class="title-login">
-          <!-- <h1 class="title-card-form">Iniciar sesión</h1> -->
-          <div class="logo-application"></div>
-        </div>
-        <mat-card class="card-login">
-          <form #f="ngForm" [formGroup]="awscognitogroup" class="form-login" method="POST" action="#" role="form">
-            <div *ngIf="errorMessage!=null" class="alert alert-danger">
-                     {{ errorMessage }}
-            </div>
-            <div fxLayout="column" fxLayoutGap="20px">
-              <div fxFlex="100">
-                <mat-form-field class="full-width input-style">
-                  <mat-icon matPrefix>person</mat-icon>
-                  <input id="input-username" name="email" formControlName="email" matInput placeholder="Usuario" type="email" required  [(ngModel)]="email" maxlength="100">
-                  <mat-error>El usuario debe ser un email válido y es requerido</mat-error>
-                </mat-form-field>
-              </div>
-              <div fxFlex="100">
-                <mat-form-field class="full-width">
-                  <mat-icon matPrefix>https</mat-icon>
-                  <input id="input-password" name="password" formControlName="password" maxlength="25" matInput placeholder="Contraseña" type="password" required length="40" [(ngModel)]="password">
-                  <mat-error>La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)</mat-error>
-                </mat-form-field>
-              </div>
-                <div fxFlex="100" fxLayout="row">
-                    <button id="login-button" [disabled]="!f.form.valid" (click)="onLogin()" type="submit" mat-raised-button fxFlex="100"
-                      color="primary">INGRESAR</button>
-                </div>
-            </div>
-          </form>
-        </mat-card>
-        </div>
+  <div class="content-tab" fxFlexAlign="center" fxLayout="row" fxFlex="450px" fxFlex.xs="90" fxFlex.sm="450px" fxFlex.md="450px"
+    fxFlex.lg="450px" xFlex.xl="35">
+    <div [@scaleEfect] fxFlex="100" class="tab-style login-content">
+      <div class="title-login">
+        <!-- <h1 class="title-card-form">Iniciar sesión</h1> -->
+        <div class="logo-application"></div>
       </div>
+      <mat-card class="card-login">
+        <form #f="ngForm" [formGroup]="awscognitogroup" class="form-login" method="POST" action="#" role="form">
+          <div fxLayout="column" fxLayoutGap="20px">
+            <div fxFlex="100">
+              <mat-form-field class="full-width input-style">
+                <mat-icon matPrefix>person</mat-icon>
+                <input id="input-username" name="email" formControlName="email" matInput placeholder="Usuario" type="email" required [(ngModel)]="email"
+                  maxlength="100">
+                <mat-error>El usuario debe ser un email válido y es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100">
+              <mat-form-field class="full-width">
+                <mat-icon matPrefix>https</mat-icon>
+                <input id="input-password" name="password" formControlName="password" maxlength="25" matInput placeholder="Contraseña" type="password"
+                  required length="40" [(ngModel)]="password">
+                <mat-error>La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxLayout="row">
+              <button id="login-button" [disabled]="!f.form.valid" (click)="onLogin()" type="submit" mat-raised-button fxFlex="100" color="primary">INGRESAR</button>
+            </div>
+            <div *ngIf="errorMessage!=null">
+              <mat-error>{{ errorMessage }}</mat-error>
+            </div>
+            <div fxFlex="100" fxLayout="row" fxFlexAlign="center" *ngIf="!isProductionEnv">
+              <p>
+                <a [routerLink]="['/' + consts.homeForgotPassword]"><i class="fa fa-fw fa-group"></i>Olvidé mi contraseña</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
   </div>
-  
+</div>

@@ -1,8 +1,12 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserRegistrationService} from '../../../service/user-registration.service';
-import {UserLoginService} from '../../../service/user-login.service';
-import {CognitoCallback} from '../../../service/cognito.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import {
+    UserRegistrationService,
+    UserLoginService,
+    CognitoCallback,
+    RoutesConst
+} from '@app/shared';
 
 export class NewPasswordUser {
     username: string;
@@ -17,7 +21,7 @@ export class NewPasswordUser {
     selector: 'app-awscognito',
     templateUrl: './newpassword.html'
 })
-export class NewPasswordComponent implements CognitoCallback {
+export class NewPasswordComponent implements CognitoCallback, OnInit {
     registrationUser: NewPasswordUser;
     router: Router;
     errorMessage: string;
@@ -50,13 +54,14 @@ export class NewPasswordComponent implements CognitoCallback {
         } else { // success
             // move to the next step
             console.log('redirecting');
-            this.router.navigate(['/securehome']);
+            console.log(result);
+            // this.router.navigate([`/${RoutesConst.securehome}`]);
         }
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (isLoggedIn) {
-            this.router.navigate(['/securehome']);
+            this.router.navigate([`/${RoutesConst.securehome}`]);
         }
     }
 }

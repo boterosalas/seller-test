@@ -1,14 +1,13 @@
 /* 3rd party components */
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /* our own custom components */
-import { User } from '../models/login.model';
-import { EndpointService } from '../../secure/seller-center/utils/http/endpoint.service';
-import { ComponentsService } from '../../secure/seller-center/utils/services/common/components/components.service';
-import { HttpErrorHandlingService } from '../../secure/seller-center/utils/http/http-error-handling.service';
-import { CognitoUtil } from '../../service/cognito.service';
+import { EndpointService } from './endpoint.service';
+import { ComponentsService } from './components.service';
+import { HttpErrorHandlingService } from './http-error-handling.service';
+import { CognitoUtil } from './aws-cognito/cognito.service';
 
 /**
  * Injectable
@@ -38,7 +37,8 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para aplicar la url a emplear en los servicios
+     * Método para aplicar la url a emplear en los servicios.
+     * 
      * @memberof BaseSellerService
      */
     changeEndPoint() {
@@ -46,13 +46,12 @@ export class BaseSellerService extends EndpointService {
     }
 
     /**
-     * Método para indicar los headers a usar en los servicio
+     * Método para indicar los headers a usar en los servicio.
+     * 
      * @returns {{headers: HttpHeaders}}
      */
-    getHeaders(user?: User): { headers: HttpHeaders } {
-        // Empleo la url para el seller center
-        this.changeEndPoint();
-        const idToken =  this.cognitoUtil.getTokenLocalStorage();
+    getHeaders(user?: any): { headers: HttpHeaders } {
+        const idToken = this.cognitoUtil.getTokenLocalStorage();
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

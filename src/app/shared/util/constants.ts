@@ -1,6 +1,6 @@
 /* our own custom components */
-import { CategoryList, Order } from '../models/order.model';
-import { environment } from '../../environments/environment';
+import { Order } from '../models';
+import { environment } from '@env/environment';
 
 export class Const {
     /**
@@ -156,7 +156,9 @@ export class Const {
     // Conceptos de facturación para los pagos.
     static readonly BILLING_CONCEPTS = {
         marketplaceSale: 'Venta Marketplace',
-        logisticsExito: 'Logística Éxito'
+        logisticsExito: 'Logistica Exito'
     };
 
+    static readonly error = 'error';
+    static readonly home = 'home';
 }

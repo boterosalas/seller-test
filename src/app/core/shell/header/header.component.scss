@@ -1,0 +1,11 @@
+:host {
+    .principal-toolbar {
+        background-color: #fff;
+        position: fixed;
+        overflow: hidden;
+        z-index: 2;
+    }
+    .mat-toolbar-row, .mat-toolbar-single-row{
+        height: 64px;
+    }
+}

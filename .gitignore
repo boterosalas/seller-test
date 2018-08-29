@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /deploy/dist
+/deploy/dist.zip
 
 # documentation
 /deploy/documentation/dist
@@ -46,3 +47,5 @@ testem.log
 Thumbs.db
 
 dist-server
+
+package-lock.json

@@ -1,5 +1,3 @@
-import {DetailEntity} from './order.model';
-
 /**
  * Interfaz que contiene el tiempo restante de la promesa de entrega
  */

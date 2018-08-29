@@ -1,0 +1,174 @@
+<mat-card class="content-profile">
+
+  <mat-nav-list class="light-content">
+    <mat-toolbar color="primary">
+      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below" mat-icon-button mat-button
+        (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="spacer-content"></span>
+
+      <div (click)="toggleMenu()" [routerLink]="[routes.secureSeller]" class="logo-application"></div>
+
+    </mat-toolbar>
+
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'seller'">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+          <mat-panel-title>
+            &Oacute;rdenes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">
+          <h6 matLine [innerHTML]="item.name"></h6>
+        </mat-list-item>
+
+         <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+          <h6 matLine>Solicitudes pendientes</h6>
+        </mat-list-item>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInValidation]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+          <h6 matLine>En validación</h6>
+        </mat-list-item>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderInDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+          <h6 matLine>En devolución</h6>
+        </mat-list-item>
+        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOrderLoadGuide]">
+          <h6 matLine>Cargar guías</h6>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list">
+
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-ofertas">
+          <mat-panel-title class="divider">
+            Ofertas
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOfersList]" *ngIf="user.sellerProfile === 'seller'">
+          <h6 matLine>Listado de Ofertas</h6>
+        </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOferBulkLoad]" *ngIf="user.sellerProfile === 'seller'">
+          <h6 matLine>Carga Masiva</h6>
+        </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntOferTreeCategory]" *ngIf="user.sellerProfile === 'administrator'">
+          <h6 matLine>Arbol de categorías</h6>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'administrator' && !isProductionEnv">
+
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+          <mat-panel-title>
+            Productos
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntProductBulkLoad]" *ngIf="user.sellerProfile === 'administrator'">
+          <h6 matLine>Carga masiva</h6>
+        </mat-list-item>
+
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'administrator'">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-seller">
+          <mat-panel-title>
+            Vendedores
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntSellerRegister]">
+          <h6 matLine>Registrar nuevo</h6>
+        </mat-list-item>
+
+      </mat-expansion-panel>
+    </div>
+    
+    <div class="content-menu-list" *ngIf="!isProductionEnv">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-facturacion">
+          <mat-panel-title>
+            Facturaci&Oacute;n
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list-item id="matlist-item-button-pagos" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntBillingPayments]">
+          <h6 matLine>Pagos</h6>
+        </mat-list-item>
+
+      </mat-expansion-panel>
+    </div>
+    
+    <div class="content-menu-list" *ngIf="user.sellerProfile === 'administrator'">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-seller">
+          <mat-panel-title>
+            Documentaci&oacute;n
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <a mat-list-item id="matlist-item-button-seller-documentation" href="http://sellercenter.api.exito.com.s3-website-us-east-1.amazonaws.com/"
+            target="_blank">
+            <h3 matLine style="margin-left:50px;">API</h3>
+        </a>
+        <a mat-list-item id="matlist-item-button-seller-documentation-front" href="http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/"
+            target="_blank">
+            <h3 matLine style="margin-left:50px;">App Angular</h3>
+        </a>
+
+      </mat-expansion-panel>
+    </div>
+
+    <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
+      <h6 matLine>Soporte Marketplace</h6>
+    </mat-list-item> -->
+    <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterMyProfile]">
+      <mat-icon matListIcon class="mat-18">person</mat-icon>
+      <h6 matLine>Perfil</h6>
+    </mat-list-item>
+
+    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="[routes.sellerCenterLogout]" (click)="toggleMenu()">
+      <mat-icon matListIcon class="mat-18">input</mat-icon>
+      <h6 matLine>Salir</h6>
+    </mat-list-item>
+
+    <!-- 
+    <div class="content-menu-list">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-envios-exito">
+          <mat-panel-title>
+            Envios Éxito
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-list-item id="matlist-item-button-historico" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntShipmentsExitoHist]">
+          <h6 matLine>Historico</h6>
+        </mat-list-item>
+
+        <mat-list-item id="matlist-item-button-despacho" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntShipmentsExitoOffice]">
+          <h6 matLine>Despacho</h6>
+        </mat-list-item>
+
+        <mat-list-item id="matlist-item-button-pendientes" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntShipmentsExitoPending]">
+          <h6 matLine>Pendientes</h6>
+        </mat-list-item>
+
+        <mat-list-item id="matlist-item-button-reportes" (click)="toggleMenu()" [routerLink]="[routes.sellerCenterIntShipmentsExitoReports]">
+          <h6 matLine>Reportes</h6>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </div> -->
+
+  </mat-nav-list>
+</mat-card>

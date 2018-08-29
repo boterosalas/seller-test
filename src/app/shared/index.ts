@@ -1,11 +1,8 @@
 // Models
-export * from "./models/login.model";
-export * from "./models/order.model";
-export * from "./models/shipment.model";
+export * from './models/';
 
 // Services
-export * from "./services/base-seller.service";
+export * from './services/';
 
 // Util
-export * from "./util/constants";
-export * from "./util/routes.constants";
+export * from './util/';
