@@ -1,30 +1,24 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CognitoUtil } from '@app/core';
-import { defaultVersion, endpoints } from '@root/api-endpoints';
+import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
 export class StatesService {
-  writerUrl = endpoints[defaultVersion.prefix + defaultVersion.number]['getStates'];
-  httpOptions: any;
 
-  constructor(private http: HttpClient,  public cognitoUtil: CognitoUtil) {
+  constructor(private http: HttpClient, private api: EndpointService) {
   }
+
   /**
-  * @method fetchData
-  * @description Metodo para obtener el listado de departamentos
-  * @returns {Observable<{}>}
-  * @memberof StatesService
-  */
+   * @method fetchData
+   * @description Método para obtener el listado de departamentos
+   * @returns {Observable<{}>}
+   * @memberof StatesService
+   */
   public fetchData(): Observable<{}> {
-    const idToken =  this.cognitoUtil.getTokenLocalStorage();
-
-    const headers = new HttpHeaders({'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8'});
-
     return new Observable(observer => {
-      this.http.get<any>(this.writerUrl, { observe: 'response', headers: headers })
+      this.http.get<any>(this.api.get('getStates'), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);

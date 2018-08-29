@@ -1,28 +1,58 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CognitoUtil } from '@app/core';
+import { CognitoUtil, EndpointService } from '@app/core';
 import { defaultVersion, endpoints } from '@root/api-endpoints';
 import { Observable } from 'rxjs';
 
+
 @Injectable()
 export class BulkLoadProductService {
-  httpOptions: any;
+  public httpOptions: any;
+  public idToken: any;
+  public headers: any;
+  public currentDate: any;
 
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil) {
+    public cognitoUtil: CognitoUtil,
+    private api: EndpointService
+  ) {
+    this.currentDate = this.getDate();
   }
+
   /**
-  * Método para cerrar sesión
-  * @returns {Observable<{}>}
-  * @memberof BulkLoadProductService
-  */
-    setProducts(params: {}): Observable<{}> {
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['patchOffers'];
+   * @method getDate()
+   * @returns {*}
+   * @description Metodo para obtener la fecha actual
+   * @memberof BulkLoadProductService
+   */
+  private getDate(): any {
+    let today: any = new Date();
+    let dd: any = today.getDate();
+    let mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+  }
+
+  /**
+   * Método para cerrar sesión.
+   *
+   * @returns {Observable<{}>}
+   * @memberof BulkLoadProductService
+   */
+  setProducts(params: {}): Observable<{}> {
     return new Observable(observer => {
-      this.http.patch<any>(endpoint, params, { observe: 'response', headers: headers })
+      this.http.patch<any>(this.api.get('products'), params, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -33,4 +63,28 @@ export class BulkLoadProductService {
         );
     });
   }
+
+  /**
+   * @method getAmountAvailableLoads()
+   * @returns {Observable}
+   * @description Método para obtener el número de cargas que aun se pueden hacer
+   * @memberof BulkLoadProductService
+   */
+  getAmountAvailableLoads(): Observable<{}> {
+    let params = new HttpParams;
+    params = params.append('date', this.currentDate);
+
+    return new Observable(observer => {
+      this.http.get<any>(this.api.get('products'), { observe: 'response', params: params } )
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
 }

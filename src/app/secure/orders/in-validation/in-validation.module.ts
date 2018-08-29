@@ -4,14 +4,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
-import { ShellComponent } from '@core/shell/shell.component';
 
 import { InValidationModalComponent } from './in-validation-modal/in-validation-modal.component';
 import { InValidationComponent } from './in-validation-page/in-validation.component';
 import { InValidationRoutingModule } from './in-validation.routing';
-import { InValidationService } from './in-validation.service';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
 
 
@@ -38,11 +35,6 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
         InValidationModalComponent,
         ViewCommentComponent
     ],
-    providers: [
-        InValidationService,
-        ComponentsService,
-        EventEmitterOrders,
-        ShellComponent
-    ]
+    providers: []
 })
 export class InValidationModule { }

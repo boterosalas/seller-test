@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Callback, ChallengeParameters, CognitoCallback, DynamoDBService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { ShellComponent } from '@app/core/shell/shell.component';
+import { HomeComponent } from '@app/public';
 import { RoutesConst } from '@app/shared';
-import { HomeComponent } from '@public/home.component';
+import { environment } from '@env/environment';
 
 
 @Component({
@@ -50,6 +52,9 @@ import { HomeComponent } from '@public/home.component';
 export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
   // Contiene la estructura del formulario del login
   awscognitogroup: FormGroup;
+  // Define si la app esta en un entorno de producción.
+  isProductionEnv = environment.production;
+  public consts = RoutesConst;
   // Variables del uso de aws-cognito
   email: string;
   password: string;
@@ -61,15 +66,13 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   };
   public user: any;
 
-
-  constructor(
-    private router: Router,
-    private ddb: DynamoDBService,
-    private userService: UserLoginService,
+  constructor(public router: Router,
+    public ddb: DynamoDBService,
+    public userService: UserLoginService,
     private fb: FormBuilder,
+    public shell: ShellComponent,
     private homeComponent: HomeComponent,
-    private userParams: UserParametersService
-  ) {
+    public userParams: UserParametersService) {
     this.userService.isAuthenticated(this);
     this.user = {};
   }
@@ -80,9 +83,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   }
 
   /**
-   * Estructura para los datos del formulario de login.
-   * @memberof LoginComponent
-   */
+  * Estructura para los datos del formulario de login.
+  * @memberof LoginComponent
+  */
   createForm() {
     this.awscognitogroup = this.fb.group({
       'email': [null, [Validators.required, Validators.email]],
@@ -107,20 +110,19 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       this.errorMessage = message;
       console.log('result: ' + this.errorMessage);
       if (this.errorMessage === 'User is not confirmed.') {
-        this.router.navigate([`/${RoutesConst.homeConfirmRegistration}`, this.email]);
+        this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.email]);
       } else if (this.errorMessage === 'User needs to set password.') {
         console.log('redirecting to set new password');
-        this.router.navigate([`/${RoutesConst.homeNewPassword}`]);
+        this.router.navigate([`/${this.consts.homeNewPassword}`]);
       }
     } else { // success
       this.ddb.writeLogEntry('login');
-      // this.shell.showHeader = true;
+      this.shell.showHeader = true;
       this.getDataUser();
     }
   }
 
-  callback() {
-  }
+  callback() { }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -128,12 +130,12 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   callbackWithParam(userData: any) {
     this.user = userData;
-    // this.shell.user = this.user;
+    this.shell.user = this.user;
     this.homeComponent.loadingComponent.closeLoadingSpinner();
     if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+      this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
     } else if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
+      this.router.navigate([`/${this.consts.sellerCenterIntSellerRegister}`]);
     }
   }
 
@@ -152,7 +154,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.securehome}`]);
+      this.router.navigate([`/${this.consts.securehome}`]);
     }
   }
 
@@ -162,11 +164,12 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   }
 
   /**
-   * Método para visualizar el log de errores
-   * @param {any} [err]
+   * Método para visualizar el log de errores.
+   *
+   * @param {*} [err]
    * @memberof LoginComponent
    */
-  viewErrorMessageLogin(err?: any) {
+  viewErrorMessageLogin(err?) {
     this.homeComponent.loadingComponent.closeLoadingProgressBar();
   }
 }

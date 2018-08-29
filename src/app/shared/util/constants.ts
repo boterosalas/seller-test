@@ -18,13 +18,7 @@ export class Const {
     picture: '',
     access_token: '',
     sub: '',
-    updated_at: '',
-    // [`${environment.webUrl}`]: {
-    //     name: '',
-    //     nit: '',
-    //     roles: [],
-    //     sellerId: ''
-    // }
+    updated_at: ''
   };
 
   /**
@@ -153,7 +147,7 @@ export class Const {
   // Conceptos de facturación para los pagos.
   static readonly BILLING_CONCEPTS = {
     marketplaceSale: 'Venta Marketplace',
-    logisticsExito: 'Logística Éxito'
+    logisticsExito: 'Logistica Exito'
   };
 
   static readonly error = 'error';

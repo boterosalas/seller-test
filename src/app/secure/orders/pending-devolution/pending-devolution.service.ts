@@ -14,70 +14,55 @@ export class PendingDevolutionService {
     ) { }
 
     /**
-     * Método para realiar la consulta de las órdenes en estado pendiente
-     * @param user
+     * Método para realiar la consulta de las órdenes en estado pendiente.
+     *
      * @param stringSearch
      * @returns Observable<[{}]>
      */
-    getOrders(user: any, stringSearch: any): Observable<[{}]> {
+    getOrders(stringSearch: any): Observable<[{}]> {
         return new Observable(observer => {
-
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), ).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                observer.error(err);
-            });
+            this.http.get(this.api.get('pendingDevolution', [stringSearch]))
+                .subscribe((data: any) => {
+                    data = data ? data : [];
+                    observer.next(data);
+                }, err => {
+                    observer.error(err);
+                });
         });
     }
 
     /**
-     * Método para realiar la consulta de las opciones para realizar el rechazo
-     * @param {User} user
+     * Método para realiar la consulta de las opciones para realizar el rechazo.
+     *
      * @returns {Observable<[{ListReasonRejectionResponseEntity}]>}
      * @memberof PendingDevolutionService
      */
-    getReasonsRejection(user: any): Observable<Array<ListReasonRejectionResponseEntity>> {
+    getReasonsRejection(): Observable<Array<ListReasonRejectionResponseEntity>> {
         return new Observable(observer => {
-
-            this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrderPendingDevolution}`])).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                observer.error(err);
-            });
+            this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrderPendingDevolution}`]),
+            )
+                .subscribe((data: any) => {
+                    observer.next(data);
+                }, err => {
+                    observer.error(err);
+                });
         });
     }
 
     /**
-     * Método para realizar la aceptación de una devolución
-     * @param {any} user
+     * Método para realizar la aceptación o el rechazo de una devolución.
+     *
      * @returns {Observable<[{}]>}
      * @memberof PendingDevolutionService
      */
-    acceptDevolution(user): Observable<[{}]> {
+    acceptOrDeniedDevolution(info): Observable<[{}]> {
         return new Observable(observer => {
-
-            this.http.get(this.api.get('acceptDevolution')).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                observer.error(err);
-            });
-        });
-    }
-
-    /**
-     * Método para realizar el rechazo de una devolución
-     * @param {any} user
-     * @param info
-     * @returns {Observable<[{}]>}
-     * @memberof PendingDevolutionService
-     */
-    refuseDevolution(user: any, info): Observable<[{}]> {
-        return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, ).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                observer.error(err);
-            });
+            this.http.post(this.api.get('acceptOrDeniedDevolution'), info)
+                .subscribe((data: any) => {
+                    observer.next(data);
+                }, err => {
+                    observer.error(err);
+                });
         });
     }
 }

@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { SearchFormEntity } from '@app/shared/models';
+
+import { ComponentsService, SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 import { BillingService } from '@secure/billing/billing.service';
-import { ComponentsService } from '@shared/services';
+import { isEmpty } from 'lodash';
+import { UserParametersService } from '@app/core/aws-cognito/user-parameters.service';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -15,8 +16,8 @@ import { ComponentsService } from '@shared/services';
 
 export class SearchBillingFormComponent implements OnInit {
 
-  // Formulario para realizar la búsqueda
-  public myForm: FormGroup;
+  // Formulario para realizar la busqueda
+  public myform: FormGroup;
   // user info
   public user: any;
   // Configuración para el formato de fecha
@@ -24,12 +25,13 @@ export class SearchBillingFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
+
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
     private billingService: BillingService,
     private shellComponent: ShellComponent,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userParams: UserParametersService
   ) {
   }
 
@@ -39,32 +41,46 @@ export class SearchBillingFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
+    this.getDataUser();
     this.createForm();
   }
 
+  callback() { }
+
+  getDataUser() {
+    this.userParams.getUserData(this);
+  }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
+  }
+
   /**
-   * Método para crear el formulario
+   * Método para crear el formulario.
+   * 
    * @memberof SearchOrderFormComponent
    */
   createForm() {
     // Estructura para los datos del formulario de consulta.
-    this.myForm = this.fb.group({
-      'paymentDate': [null, Validators.compose([])],
+    this.myform = this.fb.group({
+      'paymentDateInitial': [null, Validators.compose([])],
+      'paymentDateFinal': [null, Validators.compose([])],
       'billingNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
     });
   }
 
   /**
-   * Método para limpiar el formulario
+   * Método para limpiar el formulario.
+   * 
    * @memberof SearchOrderFormComponent
    */
   clearForm() {
-    this.myForm.reset();
+    this.myform.reset();
   }
 
   /**
-   * Método para desplegar el menú
+   * Método para desplegar el menú.
+   * 
    * @memberof SearchOrderFormComponent
    */
   toggleMenu() {
@@ -72,49 +88,53 @@ export class SearchBillingFormComponent implements OnInit {
   }
 
   /**
-   * Método para obtener las órdenes
+   * Método para obtener las órdenes.
+   * 
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state: any) {
+  getOrderList(state) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
   /**
-   * Método para filtrar las órdenes
+   * Método para filtrar las órdenes.
+   * 
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data: any) {
-
+  filterOrder(data) {
     const datePipe = new DatePipe(this.locale);
 
-    // aplico el formato para la fecha a emplear en la consulta
-    const paymentDate = datePipe.transform(data.value.paymentDate, 'yyyy/MM/dd');
+    // Formatear la fechas.
+    const paymentDateInitial = datePipe.transform(data.paymentDateInitial, 'yyyy/MM/dd');
+    const paymentDateFinal = datePipe.transform(data.paymentDateFinal, 'yyyy/MM/dd');
 
-    // creo el string que indicara los parámetros de la consulta
+    // String que indicara los parametros de la consulta.
     let stringSearch = '';
     const objectSearch: any = {};
 
-    if (paymentDate != null && paymentDate !== '') {
-      stringSearch += `&paymentDate=${paymentDate}`;
-      objectSearch.paymentDate = paymentDate;
+    if (!isEmpty(paymentDateInitial) && !isEmpty(paymentDateFinal)) {
+      // paymentDateInitial
+      stringSearch += `&paymentDateInitial=${paymentDateInitial}`;
+      objectSearch.paymentDateInitial = paymentDateInitial;
+      // paymentDateFinal
+      stringSearch += `&paymentDateFinal=${paymentDateFinal}`;
+      objectSearch.paymentDateFinal = paymentDateFinal;
     }
 
-    if (data.value.billingNumber !== null && data.value.billingNumber !== '') {
-      stringSearch += `&billingNumber=${data.value.billingNumber}`;
-      objectSearch.billingNumber = data.value.billingNumber;
+    if (!isEmpty(data.billingNumber)) {
+      stringSearch += `&billingNumber=${data.billingNumber}`;
+      objectSearch.billingNumber = data.billingNumber;
     }
 
-    if (stringSearch !== '') {
-
-      // Guardo el filtro aplicado por el usuario.
+    if (!isEmpty(stringSearch)) {
+      // Guardar filtro aplicado por el usuario.
       this.billingService.setCurrentFilterOrders(objectSearch);
-      // obtengo las órdenes con el filtro indicado
-      this.billingService.getOrdersBillingFilter(this.user, 100, stringSearch).subscribe((res: any) => {
-
-        if (res != null) {
-          // indico a los elementos que esten suscriptos al evento.
+      // Obtener las órdenes con el filtro indicado.
+      this.billingService.getOrdersBillingFilter(this.user, 100, stringSearch).subscribe((res) => {
+        if (res) {
+          // Indicar los elementos que esten suscriptos al evento.
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
           this.toggleMenu();
         } else {

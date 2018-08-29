@@ -4,22 +4,18 @@ import { EndpointService } from '@app/core';
 import { Billing } from '@app/shared';
 import { Observable } from 'rxjs';
 
-// Local
-@Injectable()
 
-/**
- * Clase BillingService
- */
+@Injectable()
 export class BillingService {
 
   constructor(
     private http: HttpClient,
     private api: EndpointService
-) { }
+  ) { }
 
   /**
-   * Método para realiar la consulta de las transportadoras
-   * @param {any} user
+   * Método para realiar la consulta de las transportadoras.
+   * 
    * @param {any} stringSearch
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
@@ -29,13 +25,14 @@ export class BillingService {
       this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, error => {
-          observer.error(error);
+        observer.error(error);
       });
     });
   }
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
+   * 
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
@@ -48,16 +45,17 @@ export class BillingService {
       const sellerId = user.sellerId;
 
       this.http.get<Billing[]>(this.api.get('searchBilling', [sellerId, limit + stringSearch])).subscribe((data) => {
-          observer.next(data);
-        }, errorMessage => {
-            observer.error(errorMessage);
-        });
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
+   * 
    * @returns
    * @memberof BillingService
    */
@@ -67,7 +65,8 @@ export class BillingService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
+   * 
    * @param {any} data
    * @memberof BillingService
    */

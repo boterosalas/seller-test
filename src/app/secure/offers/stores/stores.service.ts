@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CognitoUtil } from '@app/core';
-import { defaultVersion, endpoints } from '@root/api-endpoints';
+
+import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
 import { StoreModel } from './models/store.model';
@@ -9,31 +9,24 @@ import { StoreModel } from './models/store.model';
 
 @Injectable()
 export class StoresService {
-  /**
-   * Método constructor de la clase StoresService
-   * @param http objeto de la clase HttpClient para consumo de servicio
-   * @param cognitoUtil
-   */
-  constructor(private http: HttpClient, public cognitoUtil: CognitoUtil) {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) {
   }
+
   /**
-   * Método para realiar la consulta de las tiendas disponibles
+   * Método para realiar la consulta de las tiendas disponibles.
+   *
    * @param {any} user
-   * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
   public getAllStores(user: any): Observable<[{}]> {
-
     return new Observable(observer => {
-      // capturo el token de usuario para el envio en headers
-      const idToken = this.cognitoUtil.getTokenLocalStorage();
-      // construyo eñ header para enviar al servicio
-      const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-      // obtengo el endpoint desde el archivo de configuración de endpoints
-      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getAllSellers'];
       // llamado al servicio para traer todos los vendedores
-      this.http.get(endpoint, { observe: 'response', headers: headers })
+      this.http.get(this.api.get('getAllSellers'), { observe: 'response' })
         .subscribe(
           (data: any) => {
             observer.next(data);
@@ -47,9 +40,9 @@ export class StoresService {
 
 
   /**
-   * Servicio que permite obtener la lista de comisiones de acuerdo al seller
-   * Este servicio trae el arbol más pequeño.
-   * @param {User} user
+   * Servicio que permite obtener la lista de comisiones de acuerdo al seller.
+   *
+   * Este servicio trae el árbol más pequeño.
    * @param {StoreModel} store
    * @returns {Observable<[{}]>}
    * @memberof StoresService
@@ -57,40 +50,27 @@ export class StoresService {
   getSellerCommissionCategory(store: StoreModel): Observable<[{}]> {
 
     return new Observable(observer => {
-      // obtengo el endpoint desde el archivo de configuración de endpoints
-      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'] + `/${store.IdSeller}`;
-      // capturo el token de usuario para el envio en headers
-      const idToken = this.cognitoUtil.getTokenLocalStorage();
-      // construyo eñ header para enviar al servicio
-      const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-
-      this.http.get(endpoint, { observe: 'response', headers: headers })
+      this.http.get(this.api.get('getSellerCommissionCategory', [store.IdSeller]), { observe: 'response' })
         .subscribe((data: any) => {
-          observer.next(data);
-        }, error => {
-          observer.next(error);
-        }
+            observer.next(data);
+          }, error => {
+            observer.next(error);
+          }
         );
     });
   }
 
   /**
-   * Servicio que permite obtener la lista de comisiones de acuerdo al seller
+   * Servicio que permite obtener la lista de comisiones de acuerdo al seller.
+   *
    * Este servicio trae el arbol más pequeño.
-   * @param {User} user
-   * @param {StoreModel} store
    * @returns {Observable<[{}]>}
    * @memberof StoresService
+   * @param params
    */
   public patchSellerCommissionCategory(params: {}): Observable<{}> {
-    // obtengo el endpoint desde el archivo de configuración de endpoints
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'];
-    // capturo el token de usuario para el envio en headers
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    // construyo eñ header para enviar al servicio
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
     return new Observable(observer => {
-      this.http.patch<any>(endpoint, params, { observe: 'response', headers: headers })
+      this.http.patch<any>(this.api.get('getSellerCommissionCategory'), params, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -103,27 +83,21 @@ export class StoresService {
   }
 
   /**
-   * Servicio que permite obtener toda la lista de comisiones
-   * @param {User} user
-   * @param {StoreModel} store
+   * Servicio que permite obtener toda la lista de comisiones.
+   *
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
   public getAllSellerCommissionCategory(): Observable<[{}]> {
 
     return new Observable(observer => {
-      // capturo el token de usuario para el envio en headers
-      const idToken = this.cognitoUtil.getTokenLocalStorage();
-      // construyo eñ header para enviar al servicio
-      const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
       // obtengo el endpoint desde el archivo de configuración de endpoints
-      const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getSellerCommissionCategory'];
-      this.http.get(endpoint, { observe: 'response', headers: headers })
+      this.http.get(this.api.get('getSellerCommissionCategory'), { observe: 'response' })
         .subscribe((data: any) => {
-          observer.next(data);
-        }, error => {
-          observer.next(error);
-        }
+            observer.next(data);
+          }, error => {
+            observer.next(error);
+          }
         );
     });
   }

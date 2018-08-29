@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+
 import { Callback, Logger, UserParametersService } from '@app/core';
 import { ComponentsService, FAKE, ListReasonRejectionResponseEntity, OrderDevolutionsModel } from '@app/shared';
-
-import { InDevolutionService } from '../id-devolution.service';
+import { InDevolutionService } from '@root/src/app/secure/orders/in-devolution/in-devolution.service';
 
 
 // log component
@@ -42,18 +42,14 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
     private fb: FormBuilder,
     public componentsService: ComponentsService,
     public dialogRef: MatDialogRef<ActionReportNoveltyComponent>,
-    public inDevolutionService: InDevolutionService,
-    public userParams: UserParametersService,
+    private inDevolutionService: InDevolutionService,
+    private userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
     this.user = {};
   }
 
-  /**
-   * ngOnInit
-   * @memberof ActionReportNoveltyComponent
-   */
   ngOnInit() {
     this.getDataUser();
     this.createForm();
@@ -70,7 +66,8 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
   }
 
   /**
-   * Método para crear el formulario de envío
+   * Método para crear el formulario de envío.
+   * 
    * @memberof ActionReportNoveltyComponent
    */
   createForm() {
@@ -81,7 +78,8 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
   }
 
   /**
-   * Método para limpiar el formulario
+   * Método para limpiar el formulario.
+   * 
    * @memberof ActionReportNoveltyComponent
    */
   clearForm() {
@@ -90,7 +88,8 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
   }
 
   /**
-   * Funcionalidad para cerrar el modal actual de envio
+   * Funcionalidad para cerrar el modal actual de envio.
+   * 
    * @memberof SupportModalComponent
    */
   onNoClick(): void {
@@ -98,15 +97,15 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
   }
 
   /**
-   * Método para rechazar una orden
+   * Método para rechazar una orden.
+   * 
    * @memberof ActionReportNoveltyComponent
    */
   reportNovelty(myform) {
-    console.log(this.currentOrder);
     // busco la razon seleccionada por el usuario
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
 
-    // Armo el json para realizar el envio
+    // Json para realizar el envio
     const information = {
       DescriptionReasonRejection: reason.nombreMotivoSolicitudReversion,
       IdReasonRejection: reason.idMotivoSolicitudReversion,
@@ -114,7 +113,7 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
       ObservationRejectionSeller: myform.value.observation,
       Id: this.currentOrder.id
     };
-    this.inDevolutionService.reportNovelty(this.user, information).subscribe(res => {
+    this.inDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

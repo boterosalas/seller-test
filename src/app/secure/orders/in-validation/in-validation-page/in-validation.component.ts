@@ -11,16 +11,18 @@ import { InValidationModalComponent } from '../in-validation-modal/in-validation
 import { InValidationService } from '../in-validation.service';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 
+
 // log component
 const log = new Logger('InValidationComponent');
 
 /**
- * Component para visualizar las órdenes en estado en validación
+ * Component para visualizar las órdenes en estado en validación.
  */
 @Component({
   selector: 'app-in-validation',
   templateUrl: './in-validation.component.html',
   styleUrls: ['./in-validation.component.scss'],
+  providers: [InValidationService],
   // Configuración para la páginación de la tabla animations:
   animations: [
     trigger('detailExpand', [
@@ -30,7 +32,6 @@ const log = new Logger('InValidationComponent');
     ]),
   ]
 })
-
 export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   // Elemento paginador
@@ -73,17 +74,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
       reversionRequestStatusId: Const.StatusInValidation
     }
   };
-  /**
-   * Creates an instance of InValidationComponent.
-   * @param {ShellComponent} shellComponent
-   * @param {ActivatedRoute} route
-   * @param {Router} router
-   * @param {MatDialog} dialog
-   * @param {NgZone} zone
-   * @param {inValidationService} inValidationService
-   * @param {UserService} userService
-   * @memberof InValidationComponent
-   */
+
   constructor(
     public shellComponent: ShellComponent,
     private route: ActivatedRoute,
@@ -96,16 +87,8 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
     this.user = {};
   }
 
-  /**
-   * ngOnInit
-   *
-   * @memberof InValidationComponent
-   */
   ngOnInit() {
     this.getDataUser();
-    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
   }
 
   callback() { }
@@ -116,45 +99,46 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   callbackWithParam(userData: any) {
     this.user = userData;
+    //  Obtener las órdenes con la función del componente ToolbarOptionsComponent
+    this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
-  /**
-   * Funcionalidad para remover las suscripciones creadas.
-   *
-   * @memberof BillingComponent
-   */
+
   ngOnDestroy() {
-    // this.subOrderList.unsubscribe();
+    // Remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
+   * Evento que permite obtener los resultados obtenidos al momento de realizar 
+   * el filtro de órdenes en la opcion se arch-order-menu.
    *
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
-    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
-      (data: any) => {
-        if (data != null) {
-          if (data.length === 0) {
-            this.orderListLength = true;
-          } else {
-            this.orderListLength = false;
+    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders
+      .filterOrdersWithStatus.subscribe(
+        (data: any) => {
+          if (data != null) {
+            if (data.length === 0) {
+              this.orderListLength = true;
+            } else {
+              this.orderListLength = false;
+            }
+            this.dataSource = new MatTableDataSource(data);
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.numberElements = this.dataSource.data.length;
           }
-          this.dataSource = new MatTableDataSource(data);
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-        }
-      });
+        });
   }
 
   /**
-   * Método para cambiar el page size de la tabla órdenes
+   * Método para cambiar el page size de la tabla órdenes.
+   * 
    * @param {any} $event
    * @memberof InValidationComponent
    */
@@ -164,20 +148,19 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para obtener la lista de órdenes.
+   * 
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
   getOrdersList($event) {
-
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    // tslint:disable-next-line:max-line-length
-    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
 
-    this.inValidationService.getOrders(this.user, stringSearch).subscribe((res: any) => {
+    this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;
@@ -199,6 +182,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Whether the number of selected elements matches the total number of rows.
+   * 
    * @returns
    * @memberof InValidationComponent
    */
@@ -210,6 +194,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Selects all rows if they are not all selected; otherwise clear selection.
+   * 
    * @memberof InValidationComponent
    */
   masterToggle() {
@@ -220,6 +205,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Filtro para la tabla
+   * 
    * @param {string} filterValue
    * @memberof InValidationComponent
    */
@@ -231,7 +217,8 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
 
   /**
-   * Método para desplegar el modal de detallen de orden
+   * Método para desplegar el modal de detallen de orden.
+   * 
    * @param {any} item
    * @memberof InValidationComponent
    */
@@ -248,7 +235,8 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Método para desplegar el modal para ver el comentario de la orden
+   * Método para desplegar el modal para ver el comentario de la orden.
+   * 
    * @param item
    */
   openModalCommentOrder(item): void {

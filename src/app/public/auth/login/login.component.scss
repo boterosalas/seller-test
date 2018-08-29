@@ -2,11 +2,9 @@
 // always include only once per project
 @include mat-core();
 $primary: mat-palette($mat-indigo);
-// $accent:  mat-palette($mat-teal, A200, A100, A400);
 :host ::ng-deep {
     mat-card {
-        // max-width: 80%;
-        margin: 2em auto; // text-align: center;
+        margin: 2em auto;
     }
     .logo-application {
         background-image: url('../../../../assets/logo/logo-seller.svg');
@@ -25,19 +23,17 @@ $primary: mat-palette($mat-indigo);
         background: map-get($primary, 800);
         height: 30%;
     }
-    .login-content {
-        height: 421px !important;
-    }
     .done {
         position: fixed;
         bottom: 20px;
         right: 20px;
         color: white;
     }
-    .mat-card.card-login {
-        height: auto; // width: 400px;
-        box-shadow: none;
-        margin-top: 0px;
+    .mat-card {
+        .card-login {
+            height: auto;
+            margin-top: 0px;
+        }
     }
     .spacer-content {
         flex: 1 1 auto;
@@ -104,5 +100,8 @@ $primary: mat-palette($mat-indigo);
     .alert-danger {
         background-color: #f44336;
         color: #fff;
+    }
+    .mat-card:not([class*=mat-elevation-z]) {
+        box-shadow: none;
     }
 }
