@@ -9,12 +9,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
 /* our own custom components */
-import { HistoryService } from './history.service';
-import { HistoryRoutingModule } from './history.routing';
+import { HistoricalService } from './historical.service';
+import { HistoricalRoutingModule } from './historical.routing';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FilterComponent } from './components/filter/filter.component';
-import { DownloadHistoryModalComponent } from './components/download-history-modal/download-history-modal.component';
-import { HistoryComponent } from './history/history.component';
+import { DownloadHistoricalModalModule } from './download-historical-modal/download-historical-modal.module';
+import { HistoricalComponent } from './historical/historical.component';
 import { MaterialModule } from '../../material-components';
 
 
@@ -23,26 +23,22 @@ import { MaterialModule } from '../../material-components';
     BrowserModule,
     CommonModule,
     MaterialModule,
-    HistoryRoutingModule,
+    HistoricalRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientJsonpModule
-    // DownloadHistoryModalModule //Delete
+    HttpClientJsonpModule,
+    DownloadHistoricalModalModule // Delete
   ],
   declarations: [
-    HistoryComponent,
+    HistoricalComponent,
     ToolbarComponent,
     FilterComponent,
-    DownloadHistoryModalComponent
-  ],
-  entryComponents: [
-    DownloadHistoryModalComponent
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    HistoryService
+    HistoricalService
   ]
 })
-export class HistoryModule {}
+export class HistoricalModule {}

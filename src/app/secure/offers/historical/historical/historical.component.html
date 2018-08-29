@@ -1,0 +1,65 @@
+<mat-sidenav-container>
+    <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [numberPages]="numberPages" [currentPageInput]="currentPage">
+    </app-toolbar>
+
+    <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="!viewDetailOffer && listOffer">
+
+        <!-- Here go the historical list offers -->
+        
+        <!-- /Here go the historical list offers -->
+
+        <!-- List historical offers -->
+        <aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
+            
+            <!-- Product image -->
+            <div class="container-card-img flexbox align-center justify-center">
+                <img [src]="item.imageUrl" alt="">
+            </div>
+            <!-- /Product image -->
+
+            <!-- Info offer -->
+            <div class="container-desc-card flexbox flex-wrap align-center">
+                <h3 [innerHTML]="'EAN: ' + item.ean"></h3>
+                <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
+                <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (item.price | currency: '$' : 'symbol' : '1.0-0')"
+                    class="price"></p>
+                <p [innerHTML]="item.name" class="name"></p>
+                <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"
+                    class="stock"></p>
+            </div>
+            <!-- /Info offer -->
+
+            <!-- Desktop offer -->
+            <footer class="container-last-modification flexbox align-center">
+                <p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+            </footer>
+            <!-- /Desktop offer -->
+            
+            <!-- Footer offer mobile -->
+            <footer class="container-last-modification mobile flexbox align-center">
+                <p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+                <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
+            </footer>
+            <!-- /Footer offer mobile -->
+
+        </aside>
+        <!-- /List historical offers -->
+
+    </section>
+
+    <!-- Message for not offers -->
+    <section *ngIf="!listOffer || listOffer.length === 0" class="no-content-component">
+        <div class="icon-sentiment-dissatisfied">
+            <mat-icon>sentiment_dissatisfied</mat-icon>
+        </div>
+        <p [innerHTML]="'No se han encontrado registros en el historico de ofertas.'"></p>
+    </section>
+    <!-- Message for not offers -->
+
+    <!-- Filter sidenav component -->
+    <mat-sidenav #sidenav mode="over" position="end">
+        <app-historical-filter [sidenav]="sidenav" [filterRemoved]="filterRemove"></app-historical-filter>
+    </mat-sidenav>
+    <!-- /Filter sidenav component -->
+
+</mat-sidenav-container>

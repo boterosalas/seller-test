@@ -7,7 +7,7 @@ import {
     FormBuilder
 } from '@angular/forms';
 /* our own custom components */
-import { HistoryComponent } from '../../history/history.component';
+import { HistoricalComponent } from '../../historical/historical.component';
 import { ModelFilter } from './filter.model';
 
 /**
@@ -18,7 +18,7 @@ import { ModelFilter } from './filter.model';
  * @implements {OnChanges}
  */
 @Component({
-    selector: 'app-history-offer',
+    selector: 'app-historical-filter',
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
@@ -42,7 +42,7 @@ export class FilterComponent implements OnInit {
      * @memberof FilterComponent
      */
     public formFilter: ModelFilter;
-    public historyFilterForm: FormGroup;
+    public historicalFilterForm: FormGroup;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public rangeDays = 14;
     public milisecondsRangeDays = 1000 * 60 * 60 * 24 * this.rangeDays;
@@ -51,11 +51,11 @@ export class FilterComponent implements OnInit {
 
     /**
      *Creates an instance of FilterComponent.
-     * @param {HistoryComponent} list
+     * @param {HistoricalComponent} list
      * @memberof FilterComponent
      */
     constructor(
-        public history: HistoryComponent,
+        public historical: HistoricalComponent,
         private fb: FormBuilder
     ) {
         this.formFilter = new ModelFilter();
@@ -76,7 +76,7 @@ export class FilterComponent implements OnInit {
      * @description Metodo para crear el formulario
      */
     createForm() {
-        this.historyFilterForm = this.fb.group({
+        this.historicalFilterForm = this.fb.group({
             'dateInitial': [null, Validators.compose([Validators.required])],
             'dateFinal': new FormControl(null, Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
             'ean': [null, Validators.compose([Validators.pattern(this.regexNoSpaces)])]
@@ -98,8 +98,8 @@ export class FilterComponent implements OnInit {
      * @description Set the date final of filter
      */
     setMaxDateRange() {
-        if ( this.historyFilterForm.value.dateInitial != null ) {
-            this.rangeDateMax = new Date( this.historyFilterForm.value.dateInitial.getTime() + this.milisecondsRangeDays );
+        if ( this.historicalFilterForm.value.dateInitial != null ) {
+            this.rangeDateMax = new Date( this.historicalFilterForm.value.dateInitial.getTime() + this.milisecondsRangeDays );
         }
     }
 
@@ -109,14 +109,14 @@ export class FilterComponent implements OnInit {
      * @description Validate the range of dates for filter
      */
     validateFinalRange() {
-        if ( this.historyFilterForm.value.dateFinal != null && this.historyFilterForm.value.dateInitial != null ) {
-            if ( (this.historyFilterForm.value.dateFinal.getTime() - this.historyFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++)) ) {
+        if ( this.historicalFilterForm.value.dateFinal != null && this.historicalFilterForm.value.dateInitial != null ) {
+            if ( (this.historicalFilterForm.value.dateFinal.getTime() - this.historicalFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++)) ) {
                 this.rangeError = true;
             }
         }
     }
 
-    historyFilter(data) {
+    historicalFilter(data) {
         console.log(data.value);
     }
 }

@@ -9,7 +9,7 @@ import { BaseSellerService } from '@app/shared';
 /**
  * Clase OrderService
  */
-export class DownloadHistoryService extends BaseSellerService {
+export class DownloadHistoricalService extends BaseSellerService {
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 
 /* our own custom components */
-import { DownloadHistoryService } from './download-history.service';
+import { DownloadHistoricalService } from './download-historical.service';
 import {
   Logger,
   UserService,
@@ -14,7 +14,7 @@ import {
 } from '@app/shared';
 
 // log component
-const log = new Logger('DownloadHistoryComponent');
+const log = new Logger('DownloadHistoricalComponent');
 
 /**
  * Componente para realizar la descarga de las órdenes actuales del usuario, este componente permite capturar
@@ -24,17 +24,17 @@ const log = new Logger('DownloadHistoryComponent');
  * correo con las órdenes aplicando los filtros obtenidos
  */
 @Component({
-  selector: 'app-download-history-modal',
-  templateUrl: './download-history-modal.component.html',
-  styleUrls: ['./download-history-modal.component.scss'],
-  providers: [DownloadHistoryService]
+  selector: 'app-download-historical-modal',
+  templateUrl: './download-historical-modal.component.html',
+  styleUrls: ['./download-historical-modal.component.scss'],
+  providers: [DownloadHistoricalService]
 })
 
 /**
  * DownloadOrderModalComponent
  */
-// export class DownloadHistoryModalComponent implements OnInit, Callback {
-export class DownloadHistoryModalComponent implements OnInit, Callback {
+// export class DownloadHistoricalModalComponent implements OnInit, Callback {
+export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
@@ -45,7 +45,7 @@ export class DownloadHistoryModalComponent implements OnInit, Callback {
 
   /**
    * Creates an instance of DownloadOrderModalComponent.
-   * @param {MatDialogRef<DownloadHistoryModalComponent>} dialogRef
+   * @param {MatDialogRef<DownloadHistoricalModalComponent>} dialogRef
    * @param {DownloadOrderService} DownloadOrderService
    * @param {UserService} userService
    * @param {ComponentsService} componentsService
@@ -54,8 +54,8 @@ export class DownloadHistoryModalComponent implements OnInit, Callback {
    * @memberof DownloadOrderModalComponent
    */
   constructor(
-    public dialogRef: MatDialogRef<DownloadHistoryModalComponent>,
-    public downloadOrderService: DownloadHistoryService,
+    public dialogRef: MatDialogRef<DownloadHistoricalModalComponent>,
+    public downloadOrderService: DownloadHistoricalService,
     public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,

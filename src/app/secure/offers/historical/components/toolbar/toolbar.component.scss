@@ -33,17 +33,6 @@ $color-blue: #485AFA;
             height: 100%;
             .options-toolbar {
                 width: 50%;
-                .select-page-size {
-                    width: 120px;
-                    box-sizing: border-box;
-                    height: 40px;
-                    font-size: 15px;
-                    text-align: right;
-                    padding: 0px 5px;
-                    .mat-form-field-wrapper {
-                        height: 100%;
-                    }
-                }
                 .btn {
                     &-filter {
                         width: 70px;

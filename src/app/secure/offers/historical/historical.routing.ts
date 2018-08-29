@@ -2,13 +2,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 /* our own custom components */
-import { HistoryComponent } from './history/history.component';
+import { HistoricalComponent } from './historical/historical.component';
 import { RoutesConst } from './../../../shared';
 
 const routes: Routes = [
     {
-    path: `${RoutesConst.sellerCenterIntOferHistoryBulkLoad}`,
-    component: HistoryComponent,
+    path: `${RoutesConst.sellerCenterIntOferHistoricalBulkLoad}`,
+    component: HistoricalComponent,
     data: {title: 'Histórico de Carga de Ofertas'},
   }
 ];
@@ -16,11 +16,11 @@ const routes: Routes = [
 /**
  *
  * @export
- * @class HistoryRoutingModule
+ * @class HistoricalRoutingModule
  */
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 
-export class HistoryRoutingModule {}
+export class HistoricalRoutingModule {}

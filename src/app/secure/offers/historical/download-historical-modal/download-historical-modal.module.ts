@@ -7,9 +7,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 /* our own custom components */
-import {DownloadHistoryModalComponent} from './download-history-modal.component';
-import {DownloadHistoryService} from '@app/secure/offers/history/components/download-history-modal/download-history.service';
-import { MaterialModule } from '../../../../material-components';
+import {DownloadHistoricalModalComponent} from './download-historical-modal.component';
+import {DownloadHistoricalService} from '@app/secure/offers/historical/download-historical-modal/download-historical.service';
+import { MaterialModule } from '../../../material-components';
 import { HttpErrorHandlingService, ComponentsService, UserService, EndpointService } from '@app/shared';
 
 @NgModule({
@@ -22,13 +22,13 @@ import { HttpErrorHandlingService, ComponentsService, UserService, EndpointServi
     BrowserAnimationsModule
   ],
   declarations: [
-    DownloadHistoryModalComponent
+    DownloadHistoricalModalComponent
   ],
   entryComponents: [
-    DownloadHistoryModalComponent
+    DownloadHistoricalModalComponent
   ],
   providers: [
-    DownloadHistoryService,
+    DownloadHistoricalService,
     HttpErrorHandlingService,
     ComponentsService,
     UserService,
@@ -37,5 +37,5 @@ import { HttpErrorHandlingService, ComponentsService, UserService, EndpointServi
     {provide: MatDialogRef, useValue: {}}
   ]
 })
-export class DownloadHistoryModalModule {
+export class DownloadHistoricalModalModule {
 }

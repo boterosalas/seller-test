@@ -2,10 +2,10 @@
 import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav, MatDialog } from '@angular/material';
 /* our own custom components */
-import { HistoryComponent } from '../../history/history.component';
+import { HistoricalComponent } from '../../historical/historical.component';
 import { Logger } from '../../../../../shared/services';
 import { ModelFilter } from './../filter/filter.model';
-import { DownloadHistoryModalComponent } from '@secure/offers/history/components/download-history-modal/download-history-modal.component';
+import { DownloadHistoricalModalComponent } from '@secure/offers/historical/download-historical-modal/download-historical-modal.component';
 
 // log component
 const log = new Logger('ToolbarOptionsComponent');
@@ -46,6 +46,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
     */
     public currentPage: any;
 
+    public historicalOfferLength: any;
+
     /**
     * Variable que se usa para el funcionmiento correcto del filtro
     * @memberof ToolbarComponent
@@ -76,17 +78,17 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     /**
      *Creates an instance of ToolbarComponent.
-     * @param {HistoryComponent} list
+     * @param {HistoricalComponent} list
      * @param {ChangeDetectorRef} cdRef
      * @memberof ToolbarComponent
      */
     constructor(
-        public list: HistoryComponent,
+        public list: HistoricalComponent,
         private cdRef: ChangeDetectorRef,
         public dialog: MatDialog,
     ) {
         this.dataPaginate = new ModelFilter();
-        this.dataPaginate.limit = '30';
+        this.dataPaginate.limit = '100';
         this.currentPage = 1;
     }
 
@@ -111,17 +113,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
             this.cdRef.detectChanges();
         }
 
-    }
-
-    /**
-     * @method changeSize
-     * @description Metodo para cambiar el número de ofertas que se ven en pantalla 30 - 60 - 120 - 600
-     * @memberof ToolbarComponent
-     */
-    changeSize() {
-        this.currentPage = 1;
-        this.dataPaginate.currentPage = this.currentPage;
-        // this.list.setDataPaginate(this.dataPaginate);
     }
 
     /**
@@ -156,21 +147,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
     }
 
     /**
-     * @method goBack
-     * @description metodo para volver atras desde la vista de detalle hasta el filtro de ofertas
-     * @memberof ToolbarComponent
-     */
-    goBack() {
-        // this.list.viewDetailOffer = false;
-        // this.list.inDetail = false;
-    }
-
-    /**
    * Funcionalidad para desplegar el modal que permita descargar las órdenes actuales del usuario
    * @memberof ToolbarOptionsComponent
    */
-   openModalDownloadHistoryOffer(): void {
-        const dialogRef = this.dialog.open(DownloadHistoryModalComponent, {
+   openModalDownloadHistoricalOffer(): void {
+        const dialogRef = this.dialog.open(DownloadHistoricalModalComponent, {
             data: {
                 limit: this.lengthOrder,
             },

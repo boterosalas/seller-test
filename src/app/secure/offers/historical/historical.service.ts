@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 /**
  *
  * @export
- * @class HistoryService
+ * @class HistoricalService
  */
 @Injectable()
-export class HistoryService {
+export class HistoricalService {
 
 }
