@@ -4032,6 +4032,20 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clear">clear</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -4325,6 +4339,50 @@
         </table>
 </section>
 
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clear"></a>
+                        <span class="name">
+                            <b>
+                            clear
+                            </b>
+                            <a href="#clear"><span class="fa fa-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>clear()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -4343,6 +4401,19 @@
         public currentPage?: any,
         public limit?: any
     ) { }
+
+    /**
+     * @description Metodo para limpiar los valores del array
+     * @method clear
+     * @memberof ModelFilter
+     */
+    clear() {
+        this.ean &#x3D; undefined;
+        this.product &#x3D; undefined;
+        this.stock &#x3D; undefined;
+        this.currentPage &#x3D; undefined;
+        this.limit &#x3D; undefined;
+    }
 }
 </code></pre>
     </div>
