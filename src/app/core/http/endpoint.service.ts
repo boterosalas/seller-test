@@ -68,7 +68,7 @@ export class EndpointService {
 
     // Si no existe la versión
     if (!this.existVersion(fullVersion)) {
-      log.error(`No existe la versión ${fullVersion} para el endpoint: ${name}`);
+      log.error(`No existe la versión ${fullVersion} para el endpoint: "${name}" en el grupo: "${this.group}".`);
       return null;
     }
 

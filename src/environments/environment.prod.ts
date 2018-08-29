@@ -5,7 +5,7 @@ export const environment = {
   production: true,
   // Endpoints para la app 'group' coincide con una key de 'api-endpoints'.
   endpoints: {
-    group: 'test',
+    group: 'prod',
     version: 1
   },
   // Constantes para cognito productivo.

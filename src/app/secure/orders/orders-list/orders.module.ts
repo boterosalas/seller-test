@@ -7,7 +7,6 @@ import { ComponentsService, ConfirmAlertComponent, EventEmitterOrders } from '@a
 import { SharedModule } from '@app/shared/shared.module';
 
 import { ClientInformationModule } from '../../client-information/client-information.module';
-import { CdkDetailRowDirectiveModule } from '../../directives/cdk-detail-row/cdk-detail-row.module';
 import { OrderDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
 import { OrdersListComponent } from './orders-page/orders-list.component';
 import { OrdersRoutingModule } from './orders.routing';
@@ -19,44 +18,44 @@ import { SendOrderComponent } from './send-order/send-order.component';
 
 
 @NgModule({
-    imports: [
-        BrowserAnimationsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-      SharedModule,
-        ClientInformationModule,
-        CdkDetailRowDirectiveModule,
-        OrdersRoutingModule
-    ],
-    declarations: [
-        ConfirmAlertComponent,
-        OrdersListComponent,
-        OrderDetailModalComponent,
-        ProductDetailModalComponent,
-        ProductsOrderComponent,
-        SendOrderComponent,
-        FormProductComponent
-    ],
-    entryComponents: [
-        ConfirmAlertComponent,
-        SendOrderComponent,
-        OrderDetailModalComponent,
-        ProductDetailModalComponent
-    ],
-    providers: [
-        OrderService,
-        EventEmitterOrders,
-        ComponentsService,
-        OrdersListComponent
-    ],
-    exports: [
-        OrdersListComponent,
-        OrderDetailModalComponent,
-        ProductDetailModalComponent,
-        ProductsOrderComponent,
-        SendOrderComponent,
-        FormProductComponent
-    ]
+  imports: [
+    BrowserAnimationsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
+    ClientInformationModule,
+    OrdersRoutingModule
+  ],
+  declarations: [
+    ConfirmAlertComponent,
+    OrdersListComponent,
+    OrderDetailModalComponent,
+    ProductDetailModalComponent,
+    ProductsOrderComponent,
+    SendOrderComponent,
+    FormProductComponent
+  ],
+  entryComponents: [
+    ConfirmAlertComponent,
+    SendOrderComponent,
+    OrderDetailModalComponent,
+    ProductDetailModalComponent
+  ],
+  providers: [
+    OrderService,
+    EventEmitterOrders,
+    ComponentsService,
+    OrdersListComponent
+  ],
+  exports: [
+    OrdersListComponent,
+    OrderDetailModalComponent,
+    ProductDetailModalComponent,
+    ProductsOrderComponent,
+    SendOrderComponent,
+    FormProductComponent
+  ]
 })
-export class OrdersModule { }
+export class OrdersModule {
+}

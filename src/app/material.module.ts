@@ -122,7 +122,6 @@ import { MatTreeModule } from '@angular/material/tree';
         FlexLayoutModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-
 })
 export class MaterialModule {
 }

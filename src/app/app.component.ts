@@ -1,35 +1,36 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AwsUtil, UserLoginService, CognitoUtil, LoggedInCallback } from '@app/core';
+import { AwsUtil, CognitoUtil, LoggedInCallback, UserLoginService } from '@app/core';
+
 
 @Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    preserveWhitespaces: false
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false
 })
 export class AppComponent implements OnInit, LoggedInCallback {
-    constructor(
-        public awsUtil: AwsUtil,
-        public userService: UserLoginService,
-        public cognito: CognitoUtil
-    ) {
-    }
+  constructor(
+    public awsUtil: AwsUtil,
+    public userService: UserLoginService,
+    public cognito: CognitoUtil
+  ) {
+  }
 
-    ngOnInit() {
-        this.userService.isAuthenticated(this);
-    }
+  ngOnInit() {
+    this.userService.isAuthenticated(this);
+  }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
-        const mythis = this;
-        this.cognito.getIdToken({
-            callback() {
-            },
-            callbackWithParam(token: any) {
-                // Include the passed-in callback here as well so that it's executed downstream
-                mythis.awsUtil.initAwsService(null, isLoggedIn, token);
-            }
-        });
-    }
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    const mythis = this;
+    this.cognito.getIdToken({
+      callback() {
+      },
+      callbackWithParam(token: any) {
+        // Include the passed-in callback here as well so that it's executed downstream
+        mythis.awsUtil.initAwsService(null, isLoggedIn, token);
+      }
+    });
+  }
 }
 

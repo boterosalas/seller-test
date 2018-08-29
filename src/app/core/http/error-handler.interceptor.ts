@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 import { Logger } from '../util/logger.service';
 
+
 const log = new Logger('ErrorHandlerInterceptor');
 
 /**
@@ -15,7 +16,8 @@ const log = new Logger('ErrorHandlerInterceptor');
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {
+  }
 
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -53,5 +55,4 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
     throw error;
   }
-
 }

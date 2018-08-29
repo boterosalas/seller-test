@@ -10,7 +10,6 @@ import { ShellComponent } from '@app/core/shell';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { SharedModule } from '@app/shared/shared.module';
 
-import { CdkDetailRowDirectiveModule } from '../directives/cdk-detail-row/cdk-detail-row.module';
 import { BillingFulfillmentDetailComponent } from './billing-fulfillment-detail/billing-fulfillment-detail.component';
 import { BillingComponent } from './billing-page/billing.component';
 import { BillingProductsOrderComponent } from './billing-products-order/billing-products-order.component';
@@ -26,7 +25,6 @@ import { ProductDetailBillingModalComponent } from './product-detail-modal/produ
     ReactiveFormsModule,
     SharedModule,
     BillingRoutingModule,
-    CdkDetailRowDirectiveModule,
     BrowserAnimationsModule,
     HttpClientModule,
   ],

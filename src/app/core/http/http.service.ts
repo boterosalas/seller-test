@@ -6,9 +6,12 @@ import { AuthInterceptor } from './auth.interceptor';
 import { CacheInterceptor } from './cache.interceptor';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
 
-// HttpClient se declara en un módulo reexportado, por lo que debemos ampliar 
-// el módulo original para que funcione correctamente.
-// Más info: https://github.com/Microsoft/TypeScript/issues/13897
+
+/**
+ * HttpClient se declara en un módulo reexportado, por lo que debemos ampliar
+ * el módulo original para que funcione correctamente.
+ * Más info: https://github.com/Microsoft/TypeScript/issues/13897
+ */
 declare module '@angular/common/http/src/client' {
 
   // Métodos personalizados los cuales se implementan en la clase 'HttpService'.
@@ -16,7 +19,7 @@ declare module '@angular/common/http/src/client' {
 
     /**
      * Habilita el almacenamiento en caché para esta solicitud.
-     * 
+     *
      * @param {boolean} forceUpdate Obliga a realizar la solicitud y actualiza la entrada de caché.
      * @return {HttpClient} La nueva instancia.
      */
@@ -24,14 +27,14 @@ declare module '@angular/common/http/src/client' {
 
     /**
      * Omite el controlador de errores predeterminado para esta solicitud.
-     * 
+     *
      * @return {HttpClient} La nueva instancia.
      */
     skipErrorHandler(): HttpClient;
 
     /**
      * No agrega el token de autenticación a la solicitud.
-     * 
+     *
      * @return {HttpClient} La nueva instancia.
      */
     disableAuth(): HttpClient;
@@ -43,7 +46,8 @@ declare module '@angular/common/http/src/client' {
 // @angular/common/http/src/interceptor: permite encadenar interceptores.
 class HttpInterceptorHandler implements HttpHandler {
 
-  constructor(private next: HttpHandler, private interceptor: HttpInterceptor) { }
+  constructor(private next: HttpHandler, private interceptor: HttpInterceptor) {
+  }
 
   handle(request: HttpRequest<any>): Observable<HttpEvent<any>> {
     return this.interceptor.intercept(request, this.next);

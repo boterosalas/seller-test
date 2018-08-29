@@ -4,6 +4,7 @@ import { Observable, Subscriber } from 'rxjs';
 
 import { HttpCacheService } from './http-cache.service';
 
+
 /**
  * Caches HTTP requests.
  * Use ExtendedHttpClient fluent API to configure caching for each request.
@@ -13,11 +14,12 @@ export class CacheInterceptor implements HttpInterceptor {
 
   private forceUpdate = false;
 
-  constructor(private httpCacheService: HttpCacheService) { }
+  constructor(private httpCacheService: HttpCacheService) {
+  }
 
   /**
    * Configura las opciones del interceptor.
-   * 
+   *
    * @param {{update: boolean}} options Si es true, obliga a realizar una solicitud y actualiza
    * la entrada de la memoria caché.
    * @return {CacheInterceptor} La instancia configurada.

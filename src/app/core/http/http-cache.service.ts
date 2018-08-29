@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { each } from 'lodash';
 
 import { Logger } from '../util/logger.service';
+
 
 const log = new Logger('HttpCacheService');
 const cachePersistenceKey = 'httpCache';
@@ -27,11 +28,10 @@ export class HttpCacheService {
 
   /**
    * Establece los datos en caché para la solicitud especificada.
-   * 
+   *
    * @param {!string} url La URL de solicitud.
    * @param {ResponseOptions} data Los datos recibidos.
    * @param {Date=} lastUpdated La última actualización del caché, la fecha actual se usa si no se especifica.
-
    */
   setCacheData(url: string, data: HttpResponse<any>, lastUpdated?: Date) {
     this.cachedData[url] = {
@@ -44,7 +44,7 @@ export class HttpCacheService {
 
   /**
    * Obtiene los datos en caché para la solicitud especificada.
-   * 
+   *
    * @param {!string} url La URL de solicitud.
    * @return {?ResponseOptions} Los datos en caché son nulos si no existen datos para esta solicitud.
    */
@@ -59,7 +59,7 @@ export class HttpCacheService {
 
   /**
    * Obtiene la entrada en caché para la solicitud especificada.
-   * 
+   *
    * @param {!string} url La URL de solicitud.
    * @return {?HttpCacheEntry} La entrada de caché es nula si no existe datos para esta solicitud.
    */
@@ -69,7 +69,7 @@ export class HttpCacheService {
 
   /**
    * Borra la entrada de caché (si existe) para la solicitud especificada.
-   * 
+   *
    * @param {!string} url La URL de solicitud.
    */
   clearCache(url: string): void {
@@ -80,7 +80,7 @@ export class HttpCacheService {
 
   /**
    * Limpia entradas de caché anteriores a la fecha especificada.
-   * 
+   *
    * @param {date=} expirationDate La fecha de vencimiento de la caché.
    *   Si no se especifica ninguna fecha, se borra todo el caché.
    */
@@ -101,7 +101,7 @@ export class HttpCacheService {
    * Establece la política de persistencia de caché.
    * Tenga en cuenta que cambiar la persistencia de la memoria caché también
    * borrará la memoria caché de su almacenamiento anterior.
-   * 
+   *
    * @param {'local'|'session'=} persistence Cómo debe conservarse el caché, puede ser local o session
    *   si no se proporciona ningún valor, solo estará en la memoria (valor predeterminado).
    */

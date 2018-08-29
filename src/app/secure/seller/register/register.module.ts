@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { NoWhitespaceDirective } from '../../directives/no-spaces/no-whitespace.directive';
 import { CitiesComponent } from './cities/cities.component';
 import { RegisterSellerComponent } from './register.component';
 import { RegisterRoutingModule } from './register.routing';
@@ -31,8 +30,7 @@ import { StatesComponent } from './states/states.component';
   declarations: [
     RegisterSellerComponent,
     StatesComponent,
-    CitiesComponent,
-    NoWhitespaceDirective
+    CitiesComponent
   ],
   providers: [
     {

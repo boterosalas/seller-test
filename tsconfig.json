@@ -25,6 +25,6 @@
       "@public/*": ["app/public/*"],
       "@shared/*": ["app/shared/*"],
       "@secure/*": ["app/secure/*"]
-    },
+    }
   }
 }
