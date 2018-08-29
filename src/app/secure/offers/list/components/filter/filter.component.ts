@@ -61,9 +61,8 @@ export class FilterComponent implements OnInit, OnChanges {
      * Conjunto de variables necesaria para validar el formulario
      * @memberof FilterComponent
      */
-    public formFilter: ModelFilter;
     public filterForm: FormGroup;
-    public productName: FormControl;
+    public product: FormControl;
     public ean: FormControl;
     public stock: FormControl;
     public matcher: MyErrorStateMatcher;
@@ -76,9 +75,7 @@ export class FilterComponent implements OnInit, OnChanges {
      */
     constructor(
         public list: ListComponent
-    ) {
-        this.formFilter = new ModelFilter();
-    }
+    ) { }
 
     /**
      * @method ngOnInit
@@ -99,13 +96,16 @@ export class FilterComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         switch (changes.filterRemoved.currentValue) {
             case 'filterProduct':
-                this.formFilter.product = undefined;
+                this.product.setValue(undefined);
                 break;
             case 'filterEan':
-                this.formFilter.ean = undefined;
+                this.ean.setValue(undefined);
                 break;
             case 'filterStock':
-                this.formFilter.stock = undefined;
+                this.stock.setValue(undefined);
+                break;
+            case 'all':
+                this.filterForm.reset();
                 break;
         }
     }
@@ -116,7 +116,7 @@ export class FilterComponent implements OnInit, OnChanges {
      * @description Metodo para crear los controles el formulario
      */
     createFormControls() {
-        this.productName = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
+        this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.stock = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
@@ -129,7 +129,7 @@ export class FilterComponent implements OnInit, OnChanges {
      */
     createForm() {
         this.filterForm = new FormGroup({
-            productName: this.productName,
+            product: this.product,
             ean: this.ean,
             stock: this.stock
         });

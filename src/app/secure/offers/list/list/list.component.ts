@@ -86,7 +86,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method ngOnInit
-     * @description Metodo que se llama mientras se inicia el componente
+     * @description Metodo que se llama mientras se inicia el componente.
      * @memberof ListComponent
      */
     ngOnInit() {
@@ -95,7 +95,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method isLoggedIn
-     * @description Metodo para validar si el usuario esta logeado
+     * @description Metodo para validar si el usuario esta logeado.
      * @param message
      * @param isLoggedIn
      * @memberof ListComponent
@@ -110,7 +110,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method getDataUser
-     * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
+     * @description Metodo para ir al servicio de userParams y obtener los datos del usuario.
      * @memberof ListComponent
      */
     getDataUser() {
@@ -119,7 +119,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method callback
-     * @description Metodo necesario para recibir el callback de getDataUser()
+     * @description Metodo necesario para recibir el callback de getDataUser().
      * @memberof ListComponent
      */
     callback() { }
@@ -144,7 +144,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     /**
      * @method openDetailOffer
      * @param item
-     * @description Metodo para ver el detalle de la oferta
+     * @description Metodo para ver el detalle de la oferta.
      * @memberof ListComponent
      */
     openDetailOffer(item) {
@@ -156,7 +156,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     /**
      * @method filterOffers
      * @param params
-     * @description Metodo para filtrar el listado de ofertas
+     * @description Metodo para filtrar el listado de ofertas.
      * @memberof ListComponent
      */
     filterOffers(params) {
@@ -173,7 +173,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     /**
      * @method removeFilter
      * @param filter
-     * @description Metodo para remover filtros
+     * @description Metodo para remover filtros.
      * @memberof ListComponent
      */
     removeFilter(filter) {
@@ -198,7 +198,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method getListOffers
-     * @description Metodo para consumir el servicio de listado de ofertas
+     * @description Metodo para consumir el servicio de listado de ofertas.
      * @memberof ListComponent
      */
     getListOffers(params?: any) {
@@ -221,7 +221,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
     /**
      * @method setDataPaginate
-     * @description Metodo para el funcionamiento del páginador
+     * @description Metodo para el funcionamiento del páginador.
      * @param params
      * @memberof ListComponent
      */
@@ -229,5 +229,22 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
         this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
         this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
         this.getListOffers(this.paramData);
+    }
+
+    /**
+     * @method receiveVarConsumeList
+     * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
+     * @param event
+     * @memberof ListComponent
+     */
+    receiveVarConsumeList(event) {
+        if (event && event !== undefined && event !== null) {
+            this.listOffer = [];
+            this.currentPage = 1;
+            this.filterActive = false;
+            this.filterRemove = 'all';
+            this.paramData.clear();
+            this.getListOffers();
+        }
     }
 }

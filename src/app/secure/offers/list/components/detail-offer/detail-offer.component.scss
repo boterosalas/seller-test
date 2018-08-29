@@ -80,6 +80,7 @@ $color-green: #6FB63E;
                     &.btn-edit-offer {
                         box-sizing: border-box;
                         padding: 0 20px;
+                        width: 20%;
                         button {
                             width: 50px;
                             color: $color-gray1;
@@ -131,6 +132,7 @@ $color-green: #6FB63E;
                     }
                     &.ean {
                         font-size: 16px;
+                        width: 80%
                     }
                     &.name {
                         width: 70%;
@@ -220,7 +222,21 @@ $color-green: #6FB63E;
                     }
                 }
                 &.detail-offer-desc {
-                    padding: 0;
+                    box-sizing: border-box;
+                    padding: 20px 0 0 0;
+                    div {
+                        &.container-data-offer{
+                            width: 100%;
+                        }
+                        &.container-form-edit-offer {
+                            form {
+                                .mat-form-field,
+                                .mat-slide-toggle {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
                     p {
                         &.text-color {
                             width: auto;

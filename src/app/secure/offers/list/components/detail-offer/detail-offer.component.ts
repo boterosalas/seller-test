@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
     ReactiveFormsModule,
@@ -37,15 +37,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class DetailOfferComponent {
+
     /**
-     * @description Variable para controlar si el usuario esta editando la oferta
+     * @description Variable para controlar si el usuario esta editando la oferta.
      * @type {boolean}
      * @memberof DetailOfferComponent
      */
     public isUpdateOffer: boolean;
 
     /**
-     * @description Variable para validar el formulario
+     * @description Variable para validar el formulario.
      * @type {FormGroup}
      * @memberof DetailOfferComponent
      */
@@ -53,7 +54,7 @@ export class DetailOfferComponent {
 
     /**
      *
-     *  @description Variables para controlar los campos del formulario
+     *  @description Variables para controlar los campos del formulario.
      * @type {FormControl}
      * @memberof DetailOfferComponent
      */
@@ -71,18 +72,32 @@ export class DetailOfferComponent {
     public IsUpdatedStock: FormControl;
 
     /**
-     * @description Variable para controlar los errores de los inputs
+     * @description Variable para controlar los errores de los inputs.
      * @type {MyErrorStateMatcher}
      * @memberof DetailOfferComponent
      */
     public matcher: MyErrorStateMatcher;
 
-    public params: Array<any>;
     /**
-     * @description Variable en la que almacena los datos de la oferta de la cual se quiere ver el detalle
+     * @description Variable que almacena los datos que se le van a enviar al servcio.
+     * @type {Array<any>}
+     * @memberof DetailOfferComponent
+     */
+    public params: Array<any>;
+
+    /**
+     * @description Variable en la que almacena los datos de la oferta de la cual se quiere ver el detalle.
      * @memberof DetailOfferComponent
      */
     @Input() dataOffer;
+
+    /**
+     * @description Variable que almancena un booleano que se le envia al listado de ofertas para volver a consumir el servicio
+     * de listado de ofertas.
+     * @type {EventEmitter<boolean>}
+     * @memberof DetailOfferComponent
+     */
+    @Output() consumeServiceList = new EventEmitter<boolean>();
 
     /**
      *Creates an instance of DetailOfferComponent.
@@ -101,7 +116,7 @@ export class DetailOfferComponent {
     /**
      * @method handleKeyboardEvent
      * @param event
-     * @description Metodo para controlar cuando se presiona la tecla Esc y poder volver al listado de ofertas
+     * @description Metodo para controlar cuando se presiona la tecla Esc y poder volver al listado de ofertas.
      * @memberof DetailOfferComponent
      */
     @HostListener('document:keydown', ['$event'])
@@ -114,7 +129,7 @@ export class DetailOfferComponent {
 
     /**
      * @method goToListOffers
-     * @description Metodo para volver a listado de ofertas
+     * @description Metodo para volver a listado de ofertas.
      * @memberof DetailOfferComponent
      */
     goToListOffers() {
@@ -124,7 +139,7 @@ export class DetailOfferComponent {
 
     /**
      * @method editOffer
-     * @description Metodo para activar la edicion de la oferta
+     * @description Metodo para activar la edicion de la oferta.
      * @memberof DetailOfferComponent
      */
     editOffer() {
@@ -135,7 +150,7 @@ export class DetailOfferComponent {
 
     /**
      * @method cancelEditOffer
-     * @description Metodo para desactivar la edicion de la oferta
+     * @description Metodo para desactivar la edicion de la oferta.
      * @memberof DetailOfferComponent
      */
     cancelEditOffer() {
@@ -144,7 +159,7 @@ export class DetailOfferComponent {
 
     /**
      * @method createValidators
-     * @description Metodo para crear el formControl de cada input con sus validaciones
+     * @description Metodo para crear el formControl de cada input con sus validaciones.
      * @memberof DetailOfferComponent
      */
     createValidators() {
@@ -167,7 +182,7 @@ export class DetailOfferComponent {
     }
 
     /**
-     *  @description Metodo que crea el formGroup con las validaciones de los campos
+     *  @description Metodo que crea el formGroup con las validaciones de los campos.
      *  @method createForm
      * @memberof DetailOfferComponent
      */
@@ -190,7 +205,7 @@ export class DetailOfferComponent {
 
     /**
      * @method checkSlide
-     * @description Metodo para validar los toogle
+     * @description Metodo para validar los toogle.
      * @param {*} event
      * @param {string} slide
      * @memberof DetailOfferComponent
@@ -258,7 +273,7 @@ export class DetailOfferComponent {
     }
 
     /**
-     * @method onlyNumber que permite solo el ingreso de números
+     * @method onlyNumber que permite solo el ingreso de números.
      * @param event
      * @memberof DetailOfferComponent
      */
@@ -272,7 +287,7 @@ export class DetailOfferComponent {
 
     /**
      * @method validInput
-     * @description Metodo utilizado para validar los datos de precio y precio con descuento
+     * @description Metodo utilizado para validar los datos de precio y precio con descuento.
      * @param {*} input
      * @memberof DetailOfferComponent
      */
@@ -283,11 +298,11 @@ export class DetailOfferComponent {
                 if (this.Price.value === '') {
                     this.DiscountPrice.reset();
                     this.DiscountPrice.disable();
-                } else if (this.Price.value < 8000) {
+                } else if (parseInt(this.Price.value, 10) < 8000) {
                     this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
                     this.DiscountPrice.reset();
                     this.DiscountPrice.disable();
-                } else if (this.Price.value <= this.DiscountPrice.value) {
+                } else if (parseInt(this.Price.value, 10) <= parseInt(this.DiscountPrice.value, 10)) {
                     this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
                     this.DiscountPrice.reset();
                     this.DiscountPrice.disable();
@@ -297,16 +312,35 @@ export class DetailOfferComponent {
                 break;
             case 'DiscountPrice':
                 if (this.DiscountPrice.value !== '') {
-                    if (this.DiscountPrice.value < 8000) {
+                    if (parseInt(this.DiscountPrice.value, 10) < 8000) {
                         this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
-                    } else if (this.DiscountPrice.value >= this.Price.value) {
+                    } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
                         this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
+                    }
+                }
+                break;
+            case 'PromiseDelivery':
+                let val = this.PromiseDelivery.value;
+                let start, end;
+                const pattern = /(\d+ a \d+)$/;
+                if (val.match(pattern)) {
+                    val = val.trim();
+                    start = parseInt(val.split('a')[0], 10);
+                    end = parseInt(val.split('a')[1], 10);
+
+                    if (start >= end) {
+                        this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
                     }
                 }
                 break;
         }
     }
 
+    /**
+     * @description Metodo para enviar los datos al servicio y actualizar la oferta.
+     * @method submitUpdateOffer
+     * @memberof DetailOfferComponent
+     */
     submitUpdateOffer() {
         this.params.push(this.formUpdateOffer.value);
         this.shellComponent.loadingComponent.viewLoadingSpinner();
@@ -315,15 +349,16 @@ export class DetailOfferComponent {
                 if (result.status === 200) {
                     const data = result;
                     if (data.body.successful !== 0 || data.body.error !== 0) {
-                        this.list.getListOffers();
+                        this.shellComponent.loadingComponent.closeLoadingSpinner();
                         this.goToListOffers();
+                        this.consumeServiceList.emit(true);
                     } else if (data.body.successful === 0 && data.body.error === 0) {
                         this.shellComponent.modalComponent.showModal('errorService');
                     }
                 } else {
                     this.shellComponent.modalComponent.showModal('errorService');
+                    this.shellComponent.loadingComponent.closeLoadingSpinner();
                 }
-                this.shellComponent.loadingComponent.closeLoadingSpinner();
             }
         );
     }
