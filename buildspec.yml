@@ -14,7 +14,7 @@ phases:
       - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
       - npm install -g @angular/cli
-      - npm i @angular/flex-layout
+      - npm i --save @angular/flex-layout@6.0.0-beta.15
       # npm i npm@latest -g
       - echo Instalacion de Angular finalizada.
   build:
