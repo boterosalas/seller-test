@@ -13,6 +13,7 @@ import { ForgotPassword2Component, ForgotPasswordStep1Component } from './auth/f
 import { RegisterComponent } from './auth/register/registration.component';
 import { MFAComponent } from './auth/mfa/mfa.component';
 import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.component';
+import { GetTokenComponent } from './auth/token/token.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.comp
         AboutComponent,
         HomeLandingComponent,
         HomeComponent,
+        GetTokenComponent
     ],
     imports: [
         CommonModule,
