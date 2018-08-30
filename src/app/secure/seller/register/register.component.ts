@@ -110,18 +110,13 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
       Name: new FormControl
         ('', [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
-      IsLogisticsExito: new FormControl,
-      IsShippingExito: new FormControl,
-      GotoExito: new FormControl,
-      GotoCarrulla: new FormControl,
-      GotoCatalogo: new FormControl
+      IsLogisticsExito: new FormControl(false),
+      IsShippingExito: new FormControl(true),
+      GotoExito: new FormControl(true),
+      GotoCarrulla: new FormControl(false),
+      GotoCatalogo: new FormControl(true)
     });
     this.matcher = new MyErrorStateMatcher();
-    this.validateFormRegister.controls['GotoExito'].setValue(true);
-    this.validateFormRegister.controls['GotoCatalogo'].setValue(true);
-    this.validateFormRegister.controls['GotoCarrulla'].setValue(false);
-    this.validateFormRegister.controls['IsLogisticsExito'].setValue(false);
-    this.validateFormRegister.controls['IsShippingExito'].setValue(false);
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
