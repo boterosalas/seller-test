@@ -29,8 +29,8 @@ export class GetTokenComponent implements OnInit, CognitoCallback {
     }
 
     cognitoCallback(message: string, result: any) {
-        this.message = message;
-        if (this.message != null) { // error
+        if (message != null) { // error
+            this.message = message;
         } else { // success
             this.idToken = this.cognitoUtil.getTokenLocalStorage();
             this.userService.logout();
