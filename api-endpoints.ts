@@ -53,6 +53,7 @@ export const endpoints = {
         // Offers
         getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
         patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+        getHistoricalOffers: '',
         // Products
         products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
     },

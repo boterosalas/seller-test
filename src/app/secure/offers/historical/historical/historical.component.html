@@ -1,65 +1,88 @@
 <mat-sidenav-container>
-    <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [numberPages]="numberPages" [currentPageInput]="currentPage">
-    </app-toolbar>
+  	<app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [numberPages]="numberPages" [currentPageInput]="currentPage"></app-toolbar>
 
-    <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="!viewDetailOffer && listOffer">
+  	<section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="historicalOffer">
 
-        <!-- Here go the historical list offers -->
-        
-        <!-- /Here go the historical list offers -->
+		<!-- Here go the historical list offers -->
+		<aside>
+			<mat-accordion class="historical-list-container">
 
-        <!-- List historical offers -->
-        <aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
-            
-            <!-- Product image -->
-            <div class="container-card-img flexbox align-center justify-center">
-                <img [src]="item.imageUrl" alt="">
-            </div>
-            <!-- /Product image -->
+				<mat-expansion-panel  *ngFor="let item of historicalOffer">
+					<mat-expansion-panel-header>
+						<mat-panel-description>
+							Hora: {{ item.UpdatedDate }}
+						</mat-panel-description>
+						<mat-panel-description>
+							EAN: {{ item.EAN }}
+						</mat-panel-description>
+						<mat-panel-description>
+							Inventario: {{ item.Stock }}
+						</mat-panel-description>
+						<mat-panel-description>
+							Precio: {{ item.Price }}
+						</mat-panel-description>
+						<mat-panel-description>
+							Precio con descuento: {{ item.DiscountPrice }}
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<mat-form-field>
+						<input matInput placeholder="First name">
+					</mat-form-field>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</aside>
+		<!-- /Here go the historical list offers -->
 
-            <!-- Info offer -->
-            <div class="container-desc-card flexbox flex-wrap align-center">
-                <h3 [innerHTML]="'EAN: ' + item.ean"></h3>
-                <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
-                <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (item.price | currency: '$' : 'symbol' : '1.0-0')"
-                    class="price"></p>
-                <p [innerHTML]="item.name" class="name"></p>
-                <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"
-                    class="stock"></p>
-            </div>
-            <!-- /Info offer -->
+		<!-- List historical offers -->
+		<aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
 
-            <!-- Desktop offer -->
-            <footer class="container-last-modification flexbox align-center">
-                <p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
-            </footer>
-            <!-- /Desktop offer -->
-            
-            <!-- Footer offer mobile -->
-            <footer class="container-last-modification mobile flexbox align-center">
-                <p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
-                <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
-            </footer>
-            <!-- /Footer offer mobile -->
+			<!-- Product image -->
+			<div class="container-card-img flexbox align-center justify-center">
+				<img [src]="item.imageUrl" alt="">
+			</div>
+			<!-- /Product image -->
 
-        </aside>
-        <!-- /List historical offers -->
+			<!-- Info offer -->
+			<div class="container-desc-card flexbox flex-wrap align-center">
+				<h3 [innerHTML]="'EAN: ' + item.ean"></h3>
+				<p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
+				<p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (item.price | currency: '$' : 'symbol' : '1.0-0')" class="price"></p>
+				<p [innerHTML]="item.name" class="name"></p>
+				<p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'" class="stock"></p>
+			</div>
+			<!-- /Info offer -->
 
-    </section>
+			<!-- Desktop offer -->
+			<footer class="container-last-modification flexbox align-center">
+				<p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+			</footer>
+			<!-- /Desktop offer -->
 
-    <!-- Message for not offers -->
-    <section *ngIf="!listOffer || listOffer.length === 0" class="no-content-component">
-        <div class="icon-sentiment-dissatisfied">
-            <mat-icon>sentiment_dissatisfied</mat-icon>
-        </div>
-        <p [innerHTML]="'No se han encontrado registros en el historico de ofertas.'"></p>
-    </section>
-    <!-- Message for not offers -->
+			<!-- Footer offer mobile -->
+			<footer class="container-last-modification mobile flexbox align-center">
+				<p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+				<p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
+			</footer>
+			<!-- /Footer offer mobile -->
 
-    <!-- Filter sidenav component -->
-    <mat-sidenav #sidenav mode="over" position="end">
-        <app-historical-filter [sidenav]="sidenav" [filterRemoved]="filterRemove"></app-historical-filter>
-    </mat-sidenav>
-    <!-- /Filter sidenav component -->
+		</aside>
+		<!-- /List historical offers -->
+
+   </section>
+
+  	<!-- Message for not offers -->
+  	<section *ngIf="!historicalOffer || historicalOffer.length === 0" class="no-content-component">
+    	<div class="icon-sentiment-dissatisfied">
+      	<mat-icon>sentiment_dissatisfied</mat-icon>
+    	</div>
+    	<p [innerHTML]="'No se han encontrado registros en el historico de ofertas.'"></p>
+  	</section>
+  	<!-- Message for not offers -->
+
+  	<!-- Filter sidenav component -->
+  	<mat-sidenav #sidenav mode="over" position="end">
+   	<app-historical-filter [sidenav]="sidenav" [filterRemoved]="filterRemove"></app-historical-filter>
+  	</mat-sidenav>
+  	<!-- /Filter sidenav component -->
 
 </mat-sidenav-container>

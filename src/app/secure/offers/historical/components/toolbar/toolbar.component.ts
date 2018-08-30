@@ -88,7 +88,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
         public dialog: MatDialog,
     ) {
         this.dataPaginate = new ModelFilter();
-        this.dataPaginate.limit = '100';
+        this.dataPaginate.limit = 100;
         this.currentPage = 1;
     }
 
