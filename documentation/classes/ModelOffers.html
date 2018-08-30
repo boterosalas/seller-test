@@ -657,14 +657,14 @@
                         <a href="modules/HomeModule.html" data-type="entity-link">HomeModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#xs-components-links-module-HomeModule-1f19e263667addbaa35aede8777624db"
+                                        data-target="#xs-components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
                                     >
                                     <span class="fa fa-fw fa-cogs"></span>
                                     <span>Components</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="xs-components-links-module-HomeModule-1f19e263667addbaa35aede8777624db"
+                                        id="xs-components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
                                     >
                                         <li class="link">
                                             <a href="components/AboutComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">AboutComponent</a>
@@ -674,6 +674,9 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/ForgotPasswordStep1Component.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">ForgotPasswordStep1Component</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="components/GetTokenComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">GetTokenComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/HomeComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">HomeComponent</a>
@@ -2623,14 +2626,14 @@
                         <a href="modules/HomeModule.html" data-type="entity-link">HomeModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#components-links-module-HomeModule-1f19e263667addbaa35aede8777624db"
+                                        data-target="#components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
 >
                                     <span class="fa fa-fw fa-cogs"></span>
                                     <span>Components</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="components-links-module-HomeModule-1f19e263667addbaa35aede8777624db"
+                                        id="components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
 >
                                         <li class="link">
                                             <a href="components/AboutComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">AboutComponent</a>
@@ -2640,6 +2643,9 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/ForgotPasswordStep1Component.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">ForgotPasswordStep1Component</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="components/GetTokenComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">GetTokenComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/HomeComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">HomeComponent</a>
@@ -4075,10 +4081,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#Fulfillment">Fulfillment</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
                                 <a href="#IsEnviosExito">IsEnviosExito</a>
                             </li>
                             <li>
@@ -4088,6 +4090,10 @@
                             <li>
                                     <span class="modifier">Public</span>
                                 <a href="#IsFreightCalculator">IsFreightCalculator</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#IsFulfillment">IsFulfillment</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -4128,7 +4134,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(EAN: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Stock: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Price: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, DiscountPrice: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, AverageFreightCost: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, PromiseDelivery: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsFreeShipping: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsEnviosExito: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsFreightCalculator: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Warranty: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Fulfillment: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, UpdateStock: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, errorRow: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn1?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn2?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn3?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn4?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn5?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn6?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn7?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn8?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn9?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn10?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn11?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn12?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+<code>constructor(EAN: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Stock: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Price: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, DiscountPrice: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, AverageFreightCost: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, PromiseDelivery: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsFreeShipping: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsEnviosExito: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsFreightCalculator: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, Warranty: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, IsFulfillment: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, UpdateStock: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, errorRow: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn1?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn2?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn3?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn4?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn5?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn6?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn7?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn8?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn9?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn10?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn11?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, errorColumn12?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -4271,7 +4277,7 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>Fulfillment</td>
+                                                        <td>IsFulfillment</td>
                                                   
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -5040,41 +5046,6 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="Fulfillment"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            Fulfillment
-                            </b>
-                            <a href="#Fulfillment"><span class="fa fa-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <span class="modifier-icon fa fa-reset"></span><code>Fulfillment:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/offers/bulk-load/models/offers.model.ts:13</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
                         <a name="IsEnviosExito"></a>
                         <span class="name">
                             <b>
@@ -5170,6 +5141,41 @@
                         <tr>
                             <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/secure/offers/bulk-load/models/offers.model.ts:11</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="IsFulfillment"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            IsFulfillment
+                            </b>
+                            <a href="#IsFulfillment"><span class="fa fa-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon fa fa-reset"></span><code>IsFulfillment:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/offers/bulk-load/models/offers.model.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -5375,7 +5381,7 @@
         public IsEnviosExito: any,
         public IsFreightCalculator: any,
         public Warranty: any,
-        public Fulfillment: any,
+        public IsFulfillment: any,
         public UpdateStock: any,
         public errorRow: boolean,
         public errorColumn1?: boolean,
