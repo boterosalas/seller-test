@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LoggedInCallback, UserLoginService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-import { ViewChild } from '@root/node_modules/@angular/core';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 
 

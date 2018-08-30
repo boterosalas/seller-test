@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Callback, ChallengeParameters, CognitoCallback, DynamoDBService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
-import { ShellComponent } from '@app/core/shell/shell.component';
 import { HomeComponent } from '@app/public';
 import { RoutesConst } from '@app/shared';
 import { environment } from '@env/environment';
@@ -66,13 +65,14 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   };
   public user: any;
 
-  constructor(public router: Router,
-    public ddb: DynamoDBService,
-    public userService: UserLoginService,
+  constructor(
+    private router: Router,
+    private ddb: DynamoDBService,
+    private userService: UserLoginService,
     private fb: FormBuilder,
-    public shell: ShellComponent,
     private homeComponent: HomeComponent,
-    public userParams: UserParametersService) {
+    private userParams: UserParametersService
+  ) {
     this.userService.isAuthenticated(this);
     this.user = {};
   }
@@ -83,9 +83,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   }
 
   /**
-  * Estructura para los datos del formulario de login.
-  * @memberof LoginComponent
-  */
+   * Estructura para los datos del formulario de login.
+   * @memberof LoginComponent
+   */
   createForm() {
     this.awscognitogroup = this.fb.group({
       'email': [null, [Validators.required, Validators.email]],
@@ -117,12 +117,13 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       }
     } else { // success
       this.ddb.writeLogEntry('login');
-      this.shell.showHeader = true;
+      // this.shell.showHeader = true;
       this.getDataUser();
     }
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -130,7 +131,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   callbackWithParam(userData: any) {
     this.user = userData;
-    this.shell.user = this.user;
+    // this.shell.user = this.user;
     this.homeComponent.loadingComponent.closeLoadingSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
@@ -169,7 +170,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
    * @param {*} [err]
    * @memberof LoginComponent
    */
-  viewErrorMessageLogin(err?) {
+  viewErrorMessageLogin(err?: any) {
     this.homeComponent.loadingComponent.closeLoadingProgressBar();
   }
 }
