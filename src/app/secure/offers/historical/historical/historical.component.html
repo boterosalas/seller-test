@@ -3,70 +3,72 @@
 
   	<section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="historicalOffer">
 
-		<!-- Here go the historical list offers -->
+		<!-- Historical list offers -->
 		<aside>
 			<mat-accordion class="historical-list-container">
 
-				<mat-expansion-panel  *ngFor="let item of historicalOffer">
-					<mat-expansion-panel-header>
-						<mat-panel-description>
-							Hora: {{ item.UpdatedDate }}
+				<mat-expansion-panel *ngFor="let item of historicalOffer">
+					<mat-expansion-panel-header class="extension-panel-header">
+						<mat-panel-description class="extension-panel-description">
+							<p><span>{{ item.UpdatedDate | date:'LLLL d, y' | titlecase  }} | {{ item.UpdatedDate | date:'shortTime' }}</span></p>
 						</mat-panel-description>
-						<mat-panel-description>
-							EAN: {{ item.EAN }}
+						<mat-panel-description class="extension-panel-description">
+							<p>EAN: <span>{{ item.EAN }}</span></p>
 						</mat-panel-description>
-						<mat-panel-description>
-							Inventario: {{ item.Stock }}
+						<mat-panel-description class="extension-panel-description">
+							<p>Inventario: <span>{{ item.Stock | number }} unidades</span></p>
 						</mat-panel-description>
-						<mat-panel-description>
-							Precio: {{ item.Price }}
+						<mat-panel-description class="extension-panel-description">
+							<p>Precio: <span>{{ item.Price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
 						</mat-panel-description>
-						<mat-panel-description>
-							Precio con descuento: {{ item.DiscountPrice }}
+						<mat-panel-description class="extension-panel-description d-none d-block-lg">
+							<p>Precio con descuento: <span>{{ item.DiscountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+						</mat-panel-description>
+						<mat-panel-description class="extension-panel-description d-none d-block-xl">
+							<p>Precio flete: <span>{{ item.ShippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+						</mat-panel-description>
+						<mat-panel-description class="extension-panel-description d-none d-block-xl">
+							<p>Garantia: <span>{{ item.Warranty }} meses</span></p>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
-					<mat-form-field>
-						<input matInput placeholder="First name">
-					</mat-form-field>
+
+					<mat-grid-list class="grid-list" cols="5" rowHeight="30px">
+
+						<mat-grid-tile class="grid-tile">
+							<mat-icon *ngIf="item.IsFreeShipping == 1" class="icon check">check</mat-icon>
+							<mat-icon *ngIf="item.IsFreeShipping == 0" class="icon close">close</mat-icon>
+							<span [ngClass]="{'ligthen-gray' : item.IsFreeShipping == 0}">Free shipping</span>
+						</mat-grid-tile>
+
+						<mat-grid-tile class="grid-tile">
+							<mat-icon *ngIf="item.IsEnviosExito == 1" class="icon check">check</mat-icon>
+							<mat-icon *ngIf="item.IsEnviosExito == 0" class="icon close">close</mat-icon>
+							<span [ngClass]="{'ligthen-gray' : item.IsEnviosExito == 0}">Envios Éxito</span>
+						</mat-grid-tile>
+
+						<mat-grid-tile class="grid-tile">
+							<mat-icon *ngIf="item.IsLogisticsExito == 1" class="icon check">check</mat-icon>
+							<mat-icon *ngIf="item.IsLogisticsExito == 0" class="icon close">close</mat-icon>
+							<span [ngClass]="{'ligthen-gray' : item.IsLogisticsExito == 0}">Logística Éxito</span>
+						</mat-grid-tile>
+						
+						<mat-grid-tile class="grid-tile">
+							<mat-icon *ngIf="item.IsFreightCalculator == 1" class="icon check">check</mat-icon>
+							<mat-icon *ngIf="item.IsFreightCalculator == 0" class="icon close">close</mat-icon>
+							<span [ngClass]="{'ligthen-gray' : item.IsFreightCalculator == 0}">Cotizador de flete</span>
+						</mat-grid-tile>
+
+						<mat-grid-tile class="grid-tile">
+							<span>Promesa de entrega: {{ item.PromiseDelivery }} días</span>
+						</mat-grid-tile>
+
+					</mat-grid-list>
+
+
 				</mat-expansion-panel>
 			</mat-accordion>
 		</aside>
-		<!-- /Here go the historical list offers -->
-
-		<!-- List historical offers -->
-		<aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
-
-			<!-- Product image -->
-			<div class="container-card-img flexbox align-center justify-center">
-				<img [src]="item.imageUrl" alt="">
-			</div>
-			<!-- /Product image -->
-
-			<!-- Info offer -->
-			<div class="container-desc-card flexbox flex-wrap align-center">
-				<h3 [innerHTML]="'EAN: ' + item.ean"></h3>
-				<p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
-				<p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (item.price | currency: '$' : 'symbol' : '1.0-0')" class="price"></p>
-				<p [innerHTML]="item.name" class="name"></p>
-				<p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'" class="stock"></p>
-			</div>
-			<!-- /Info offer -->
-
-			<!-- Desktop offer -->
-			<footer class="container-last-modification flexbox align-center">
-				<p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
-			</footer>
-			<!-- /Desktop offer -->
-
-			<!-- Footer offer mobile -->
-			<footer class="container-last-modification mobile flexbox align-center">
-				<p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
-				<p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
-			</footer>
-			<!-- /Footer offer mobile -->
-
-		</aside>
-		<!-- /List historical offers -->
+		<!-- /Historical list offers -->
 
    </section>
 

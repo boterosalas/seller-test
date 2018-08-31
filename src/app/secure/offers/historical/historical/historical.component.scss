@@ -1,3 +1,5 @@
+@import 'helpers';
+
 $color-white: #FFFFFF;
 $color-black: #000000;
 $color-gray1: #5D5D5D;
@@ -5,6 +7,7 @@ $color-gray2: #909090;
 $color-gray3: #D3D3D3;
 $color-gray4: #BCBCBC;
 $color-blue: #485AFA;
+$color-green: #6FB63E;
 $color-white-opacity: rgba(255, 255, 255, 0.7);
 :host ::ng-deep {
     mat-sidenav-container {
@@ -46,6 +49,48 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
             padding: 100px 30px 50px;
             aside {
                 width: 100%;
+                .extension-panel-header {
+                    font-size: 13px;
+                    .mat-expansion-panel-header-description {
+                        span {
+                            color: $color-black;
+                        }
+                    }
+                }
+                .grid-list {
+                    border-radius: 5px;
+                    border: solid 1px $color-gray4;
+                    .grid-tile {
+                        font-size: 13px;
+                        &:after {
+                            content: '';
+                            display: block;
+                            height: 80%;
+                            width: 1px;
+                            top: 10%;
+                            right: 0;
+                            position: absolute;
+                            border-right: solid 1px$color-gray4;
+                        }
+                        &:last-child {
+                            &:after {
+                                display: none;
+                            }
+                        }
+                        .icon {
+                            margin-right: 10px;
+                            &.check {
+                                color: $color-green;
+                            }
+                            &.close {
+                                color: $color-gray2;
+                            }
+                        }
+                        .ligthen-gray {
+                            color: $color-gray2;
+                        }
+                    }
+                }
             }
         }
     }
