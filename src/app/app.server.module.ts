@@ -1,4 +1,4 @@
- /* 3rd party components */
+/* 3rd party components */
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 
@@ -13,4 +13,5 @@ import { AppComponent } from './app.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppServerModule {}
+export class AppServerModule { }
+
