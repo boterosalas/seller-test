@@ -657,14 +657,14 @@
                         <a href="modules/HomeModule.html" data-type="entity-link">HomeModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#xs-components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
+                                        data-target="#xs-components-links-module-HomeModule-749715a117e711df950a94dbb52aad74"
                                     >
                                     <span class="fa fa-fw fa-cogs"></span>
                                     <span>Components</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="xs-components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
+                                        id="xs-components-links-module-HomeModule-749715a117e711df950a94dbb52aad74"
                                     >
                                         <li class="link">
                                             <a href="components/AboutComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">AboutComponent</a>
@@ -674,9 +674,6 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/ForgotPasswordStep1Component.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">ForgotPasswordStep1Component</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/GetTokenComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">GetTokenComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/HomeComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">HomeComponent</a>
@@ -2626,14 +2623,14 @@
                         <a href="modules/HomeModule.html" data-type="entity-link">HomeModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                        data-target="#components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
+                                        data-target="#components-links-module-HomeModule-749715a117e711df950a94dbb52aad74"
 >
                                     <span class="fa fa-fw fa-cogs"></span>
                                     <span>Components</span>
                                     <span class="fa fa-angle-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                        id="components-links-module-HomeModule-d1c37d4aec18d5f9d3d9caeddacbe683"
+                                        id="components-links-module-HomeModule-749715a117e711df950a94dbb52aad74"
 >
                                         <li class="link">
                                             <a href="components/AboutComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">AboutComponent</a>
@@ -2643,9 +2640,6 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/ForgotPasswordStep1Component.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">ForgotPasswordStep1Component</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/GetTokenComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">GetTokenComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/HomeComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">HomeComponent</a>
@@ -4006,7 +4000,6 @@ import { ResendCodeComponent } from &#x27;./auth/resend/resendCode.component&#x2
 import { ForgotPassword2Component, ForgotPasswordStep1Component } from &#x27;./auth/forgot/forgotPassword.component&#x27;;
 import { NewPasswordComponent } from &#x27;./auth/newpassword/newpassword.component&#x27;;
 import { ErrorPageComponent } from &#x27;@app/secure/error-page/error-page.component&#x27;;
-import { GetTokenComponent } from &#x27;./auth/token/token.component&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
 
 // Define si la app esta en un entorno de producción.
@@ -4030,8 +4023,7 @@ const routes: Routes &#x3D; [
             { path: &#x27;resendCode&#x27;, component: ResendCodeComponent },
             { path: &#x27;forgotPassword/:email&#x27;, component: !isProductionEnv ? ForgotPassword2Component : ErrorPageComponent },
             { path: &#x27;forgotPassword&#x27;, component: !isProductionEnv ? ForgotPasswordStep1Component : ErrorPageComponent },
-            { path: &#x27;newPassword&#x27;, component: NewPasswordComponent },
-            { path: &#x27;getToken/:email/:password&#x27;, component: !isProductionEnv ? GetTokenComponent : ErrorPageComponent }
+            { path: &#x27;newPassword&#x27;, component: NewPasswordComponent }
         ]
     }
 ];
