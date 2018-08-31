@@ -7,8 +7,6 @@ import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '@core/shell/shell.component';
 import {
     UserLoginService,
-    LoggedInCallback,
-    Callback,
     UserParametersService,
     RoutesConst
 } from '@app/shared';
@@ -29,7 +27,7 @@ import { ListService } from '../list.service';
     styleUrls: ['./list.component.scss']
 })
 
-export class ListComponent implements OnInit, LoggedInCallback, Callback {
+export class ListComponent implements OnInit {
 
     /*Componente necesario para el funcionamiento del filtro*/
     @ViewChild('sidenav') sidenav: MatSidenav;
@@ -82,6 +80,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     ) {
         this.paramData = new ModelFilter();
         this.user = {};
+        console.log('aaa');
     }
 
     /**
