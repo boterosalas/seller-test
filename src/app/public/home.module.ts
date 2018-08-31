@@ -27,7 +27,7 @@ import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.comp
         MFAComponent,
         AboutComponent,
         HomeLandingComponent,
-        HomeComponent,
+        HomeComponent
     ],
     imports: [
         CommonModule,

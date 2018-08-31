@@ -1,3 +1,4 @@
+$color-gray3: #D3D3D3;
 :host ::ng-deep .container {
     padding: 0px;
     min-width: 300px;
@@ -90,6 +91,7 @@
         & .information {
             background-color: #c70024;
             font-weight: bold;
+            p,
             p.text-error {
                 color: #fff;
             }
@@ -118,5 +120,41 @@
             color: #F44336;
             font-size: 20px;
         }
+    }
+    aside {
+        width: 100%;
+        margin: 5% auto;
+        div {
+            position: relative;
+            box-sizing: border-box;
+            padding: 0 20px;
+            width: 33%;
+            height: 50px;
+            .mat-icon {
+                font-size: 17px;
+                display: flex;
+                align-items: center;
+            }
+            p {
+                font-size: 14px;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                width: 1px;
+                height: 80%;
+                background-color: $color-gray3;
+            }
+            &:last-child {
+                &::after {
+                    content: none;
+                }
+            }
+        }
+    }
+    .no-data-avaliable {
+        pointer-events: none;
+        color: $color-gray3;
     }
 }

@@ -21,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class StatesComponent implements OnInit {
 
-  public listItems: {};
+  public listItems: any;
   public statesFormControl: FormControl;
   public validateFormRegister: FormGroup;
   public statesObject: State;
@@ -84,15 +84,14 @@ export class StatesComponent implements OnInit {
   /**
    * @method setParamToCitiesChange
    * @description Metodo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
-   * @param states
    * @memberof StatesComponent
    */
-  public setParamToCitiesChange(states: any) {
-    const statesId = states.statesObject.Name;
-    if (typeof statesId !== 'undefined' && statesId !== '') {
-      for (let i = 0; i < states.listItems.length; i++) {
-        if (states.listItems[i].Id === statesId) {
-          this.idStateEvent.emit(states.listItems[i]);
+  public setParamToCitiesChange() {
+    const stateId = this.validateFormRegister.get('statesFormControl').value;
+    if (typeof stateId !== 'undefined' && stateId !== '') {
+      for (let i = 0; i < this.listItems.length; i++) {
+        if (this.listItems[i].Id === stateId) {
+          this.idStateEvent.emit(this.listItems[i]);
         }
       }
     }

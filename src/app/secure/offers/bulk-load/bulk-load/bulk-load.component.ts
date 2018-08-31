@@ -64,37 +64,36 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   public dataSource: MatTableDataSource<ModelOffers>;
 
   /*  Variable que almacena el numero de elementos de la tabla*/
-  public numberElements = 0;
+  public numberElements: number;
 
   /* Número de órdenes cargadas*/
-  public orderListLength = true;
+  public orderListLength: boolean;
 
   /* Objeto que contendra los datos del excel*/
-  public arrayInformation: Array<ModelOffers> = [];
+  public arrayInformation: Array<ModelOffers>;
 
   /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
-  public arrayInformationForSend: Array<{}> = [];
+  public arrayInformationForSend: Array<{}>;
 
   /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
-  public limitRowExcel = 1048576;
+  public limitRowExcel: number;
 
   /* Número de filas cargadas*/
-  public countRowUpload = 0;
+  public countRowUpload: number;
 
   /* Numero de errores*/
-  public countErrors = 0;
+  public countErrors: number;
 
   /* Lista de logs*/
-  public listLog = [];
+  public listLog: Array<any>;
 
   /* Nombre del archivo cargado*/
-  public fileName: any = '';
+  public fileName: any;
 
   /* Sort para la tabla*/
   public sort: any;
 
-  public arrayNecessaryData: Array<any> = [];
-  public arrayCorrectData: Array<any> = [];
+  public arrayNecessaryData: Array<any>;
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -117,6 +116,16 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
     public userParams: UserParametersService
   ) {
     this.user = {};
+    this.arrayInformation = [];
+    this.arrayInformationForSend = [];
+    this.listLog = [];
+    this.arrayNecessaryData = [];
+    this.orderListLength = true;
+    this.numberElements = 0;
+    this.limitRowExcel = 1048576;
+    this.countRowUpload = 0;
+    this.countErrors = 0;
+    this.fileName = '';
   }
 
   /**
@@ -168,7 +177,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
-    this.arrayCorrectData = [];
     this.finishProcessUpload();
   }
 
@@ -260,7 +268,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             res[0][j] === 'Free Shipping' ||
             res[0][j] === 'Indicador Envios Exito' ||
             res[0][j] === 'Cotizador de Flete' ||
-            res[0][j] === 'Garantia') {
+            res[0][j] === 'Garantia' ||
+            res[0][j] === 'Logistica Exito' ||
+            res[0][j] === 'Actualizacion de Inventario') {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
 
@@ -283,36 +293,41 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             }
           }
         }
-        if (!rowEmpty) {
-          this.arrayCorrectData.push(this.arrayNecessaryData[i]);
+        /*Validación si hay fila vacia */
+        if (rowEmpty) {
+          /*Si hay fila vacia esta se remueve y se devuelve la iteración un paso */
+          this.arrayNecessaryData.splice(i, 1);
+          i--;
         }
       }
 
-      if (this.arrayCorrectData.length === 1) {
+      if (this.arrayNecessaryData.length === 1) {
         this.shellComponent.loadingComponent.closeLoadingSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
-        if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Inventario') &&
-          this.arrayCorrectData[0].includes('Precio')) {
+        if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Inventario') &&
+          this.arrayNecessaryData[0].includes('Precio')) {
           const iVal = {
-            iEAN: this.arrayCorrectData[0].indexOf('EAN'),
-            iInv: this.arrayCorrectData[0].indexOf('Inventario'),
-            iPrecio: this.arrayCorrectData[0].indexOf('Precio'),
-            iPrecDesc: this.arrayCorrectData[0].indexOf('Precio con Descuento'),
-            iCostFletProm: this.arrayCorrectData[0].indexOf('Costo de Flete Promedio'),
-            iPromEntrega: this.arrayCorrectData[0].indexOf('Promesa de Entrega'),
-            iFreeShiping: this.arrayCorrectData[0].indexOf('Free Shipping'),
-            iIndEnvExito: this.arrayCorrectData[0].indexOf('Indicador Envios Exito'),
-            iCotFlete: this.arrayCorrectData[0].indexOf('Cotizador de Flete'),
-            iGarantia: this.arrayCorrectData[0].indexOf('Garantia')
+            iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+            iInv: this.arrayNecessaryData[0].indexOf('Inventario'),
+            iPrecio: this.arrayNecessaryData[0].indexOf('Precio'),
+            iPrecDesc: this.arrayNecessaryData[0].indexOf('Precio con Descuento'),
+            iCostFletProm: this.arrayNecessaryData[0].indexOf('Costo de Flete Promedio'),
+            iPromEntrega: this.arrayNecessaryData[0].indexOf('Promesa de Entrega'),
+            iFreeShiping: this.arrayNecessaryData[0].indexOf('Free Shipping'),
+            iIndEnvExito: this.arrayNecessaryData[0].indexOf('Indicador Envios Exito'),
+            iCotFlete: this.arrayNecessaryData[0].indexOf('Cotizador de Flete'),
+            iGarantia: this.arrayNecessaryData[0].indexOf('Garantia'),
+            iLogisticaExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+            iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario')
           };
-          if (this.arrayCorrectData.length > this.limitRowExcel) {
+          if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.shellComponent.loadingComponent.closeLoadingSpinner();
             this.componentService
               .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
           } else {
             this.fileName = file.target.files[0].name;
-            this.createTable(this.arrayCorrectData, iVal, numCol);
+            this.createTable(this.arrayNecessaryData, iVal, numCol);
           }
         } else {
           this.shellComponent.loadingComponent.closeLoadingSpinner();
@@ -334,11 +349,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
     for (let i = 0; i < res.length; i++) {
 
-      let isErrorNumber = false;
-      let isErrorData = false;
-      let isErrorBoolean = false;
-      let isLessThanZero = false;
-      let invalidFormatPromEntrega = false;
+      let errorInCell = false;
 
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
@@ -346,10 +357,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
 
             if (j !== iVal.iEAN && j !== iVal.iPromEntrega) {
+              if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete || j === iVal.iLogisticaExito || j === iVal.iActInventario) {
 
-              if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete) {
-
-                const isBoolean = this.isBoolean(res[i][j]);
+                const isBoolean = this.validFormat(res[i][j], 'boolean');
 
                 if (!isBoolean && isBoolean === false) {
 
@@ -357,7 +367,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
                   const row = i + 1, column = j + 1;
 
-                  // tslint:disable-next-line:no-shadowed-variable
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
@@ -368,12 +377,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isErrorBoolean = true;
+                  errorInCell = true;
                 }
 
               } else if (j === iVal.iPrecio || j === iVal.iPrecDesc || j === iVal.iGarantia) {
 
-                const isGreaterThanZero = this.isGreaterThanZero(res[i][j]);
+                const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
 
                 if (!isGreaterThanZero && isGreaterThanZero === false) {
 
@@ -391,11 +400,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isLessThanZero = true;
+                  errorInCell = true;
 
                 }
               } else {
-                const onlyNumber = this.alphanumeric(res[i][j]);
+                const onlyNumber = this.validFormat(res[i][j], 'alphanumeric');
                 if (onlyNumber === false && !onlyNumber) {
 
                   this.countErrors += 1;
@@ -412,13 +421,13 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isErrorNumber = true;
+                  errorInCell = true;
 
                 }
               }
             } else if (j === iVal.iPromEntrega) {
 
-              const validFormatPromEntrega = this.validFormatPromEntrega(res[i][j]);
+              const validFormatPromEntrega = this.validFormat(res[i][j], 'formatPromEntrega');
 
               if (!validFormatPromEntrega && validFormatPromEntrega === false) {
 
@@ -436,7 +445,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                 };
 
                 this.listLog.push(itemLog);
-                invalidFormatPromEntrega = true;
+                errorInCell = true;
 
               }
             }
@@ -456,7 +465,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
               };
 
               this.listLog.push(itemLog);
-              isErrorData = true;
+              errorInCell = true;
             }
 
           } else {
@@ -465,15 +474,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
         }
       }
 
-      if (isErrorData || isErrorNumber || isErrorBoolean || isLessThanZero || invalidFormatPromEntrega) {
-
+      if (errorInCell) {
         this.addRowToTable(res, i, iVal);
-        isErrorData = false;
-        isErrorNumber = false;
-        isErrorBoolean = false;
-        isLessThanZero = false;
-        invalidFormatPromEntrega = false;
-
+        errorInCell = false;
       }
 
       this.addInfoTosend(res, i, iVal);
@@ -505,7 +508,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsFreeShipping: res[index][iVal.iFreeShiping],
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
-      Warranty: res[index][iVal.iGarantia]
+      Warranty: res[index][iVal.iGarantia],
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -529,17 +534,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      errorRow: false,
-      errorColumn1: false,
-      errorColumn2: false,
-      errorColumn3: false,
-      errorColumn4: false,
-      errorColumn5: false,
-      errorColumn6: false,
-      errorColumn7: false,
-      errorColumn8: false,
-      errorColumn9: false,
-      errorColumn10: false
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
+      errorRow: false
     };
 
     this.arrayInformation.push(newObject);
@@ -579,6 +576,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       this.arrayInformation[index].errorColumn8 = false;
       this.arrayInformation[index].errorColumn9 = false;
       this.arrayInformation[index].errorColumn10 = false;
+      this.arrayInformation[index].errorColumn11 = false;
+      this.arrayInformation[index].errorColumn12 = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -591,48 +590,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   selectErrorLog(item: any) {
     this.setErrrorColumns();
     log.info(item);
-    switch (item.column) {
-      case 0:
-        this.arrayInformation[item.row].errorColumn1 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 1:
-        this.arrayInformation[item.row].errorColumn2 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 2:
-        this.arrayInformation[item.row].errorColumn3 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 3:
-        this.arrayInformation[item.row].errorColumn4 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 4:
-        this.arrayInformation[item.row].errorColumn5 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 5:
-        this.arrayInformation[item.row].errorColumn6 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 6:
-        this.arrayInformation[item.row].errorColumn7 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 7:
-        this.arrayInformation[item.row].errorColumn8 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 8:
-        this.arrayInformation[item.row].errorColumn9 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 9:
-        this.arrayInformation[item.row].errorColumn10 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-    }
+    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    this.arrayInformation[item.row].errorRow = true;
     const data = JSON.stringify(this.arrayInformation);
     this.dataSource = new MatTableDataSource(JSON.parse(data));
 
@@ -702,88 +661,63 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método para identificar si un string solo contiene números
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  alphanumeric(inputtxt) {
+   * @method validFormat
+   * @param inputtxt
+   * @param validation
+   * @description Metodo para validar el formato de las celdas enviadas del excel
+   * @memberof BulkLoadComponent
+   */
+  validFormat(inputtxt: any, validation?: string) {
+    let valueReturn: boolean;
+    const formatNumber = /^[0-9]+$/;
+    const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     if (inputtxt === undefined) {
-      return false;
-    } else {
-      const letterNumber = /^[0-9]+$/;
-      if ((inputtxt.match(letterNumber))) {
-        return true;
-      } else {
-        return false;
+      valueReturn = false;
+    } else if (inputtxt !== undefined) {
+      inputtxt = inputtxt.trim();
+      switch (validation) {
+        case 'alphanumeric':
+          if ((inputtxt.match(formatNumber))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'boolean':
+          if ((inputtxt.match(formatNumber))) {
+            if (inputtxt === '1' || inputtxt === '0') {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'greaterThanZero':
+          if ((inputtxt.match(formatNumber))) {
+            const num = parseInt(inputtxt, 10);
+            if (num > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatPromEntrega':
+          if ((inputtxt.match(formatPromEntrega))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
+    return valueReturn;
   }
 
-  /**
-  * Método para validar si es booleano el dato
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  isBoolean(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        if (inputtxt === '1' || inputtxt === '0') {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-  * Método para validar si es mayor a 0
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  isGreaterThanZero(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        // tslint:disable-next-line:radix
-        const num = parseInt(inputtxt);
-        if (num > 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-  * Metodo para validar formato de la promesa de entrega
-  * @param inputtxt
-  */
-  validFormatPromEntrega(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const format = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-      if ((inputtxt.match(format))) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
   /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
   /**
   * Método para descargar el formato de excel para carga masiva

@@ -1,16 +1,17 @@
-
-/* 3rd party components */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
+import { environment } from '@env/environment';
 
-/* our own custom components */
-import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
 import { RoutesConst } from './../../../shared';
+import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
+
+const isProductionEnv = environment.production;
 
 const routes: Routes = [
     {
         path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
-        component: PendingDevolutionComponent,
+        component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
         data: { title: 'Solicitudes pendientes' },
     }
 ];

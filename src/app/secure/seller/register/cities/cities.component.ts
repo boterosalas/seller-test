@@ -20,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CitiesComponent implements OnInit, OnChanges {
 
-  public listItems: {};
+  public listItems: any;
   public citiesFormControl: FormControl;
   public validateFormRegister: FormGroup;
   public citiesObject: Cities;
@@ -69,7 +69,6 @@ export class CitiesComponent implements OnInit, OnChanges {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.dataService.fetchData(state).subscribe(
       (result: any) => {
-        console.log(result);
         if (result.status === 200) {
           const data_response = JSON.parse(result.body.body);
           const data = data_response.Data;
@@ -100,12 +99,12 @@ export class CitiesComponent implements OnInit, OnChanges {
    * @param states
    * @memberof CitiesComponent
    */
-  public setParamToDaneChange(cities: any) {
-    const citiesId = cities.citiesObject.Name;
-    if (typeof citiesId !== 'undefined' && citiesId !== '') {
-      for (let i = 0; i < cities.listItems.length; i++) {
-        if (cities.listItems[i].Id === citiesId) {
-          this.daneCodeEvent.emit(cities.listItems[i]);
+  public setParamToDaneChange() {
+    const citieId = this.validateFormRegister.get('citiesFormControl').value;
+    if (typeof citieId !== 'undefined' && citieId !== '') {
+      for (let i = 0; i < this.listItems.length; i++) {
+        if (this.listItems[i].Id === citieId) {
+          this.daneCodeEvent.emit(this.listItems[i]);
         }
       }
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormControlDirective } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ModelRegister } from './models/register.model';
 import { RegisterService } from './register.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { LoggedInCallback, Callback, UserLoginService, UserParametersService, RoutesConst } from '@app/shared';
@@ -50,7 +49,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   public values = '';
   public existValueInDB: boolean;
-  public formRegister: ModelRegister;
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
   public idState: number;
@@ -75,47 +73,48 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     public userParams: UserParametersService
   ) {
     this.user = {};
-    this.formRegister = new ModelRegister();
   }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
     this.validateFormRegister = new FormGroup({
-      nit: new FormControl('', [
+      Nit: new FormControl('', [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
       ]),
-      rut: new FormControl
+      Rut: new FormControl
         ('', [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
         ]),
-      contacto: new FormControl
+      ContactName: new FormControl
         ('', [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
         ]),
-      telefono: new FormControl
+      Email: new FormControl
+        ('', [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+      PhoneNumber: new FormControl
         ('', [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
-      email: new FormControl
-        ('', [Validators.required,
-        Validators.pattern(this.emailRegex)
-        ]),
-      nomTienda: new FormControl
+      Address: new FormControl
+        ('', [Validators.required]),
+      State: new FormControl,
+      City: new FormControl,
+      DaneCode: new FormControl,
+      SincoDaneCode: new FormControl,
+      Name: new FormControl
         ('', [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
-      direccion: new FormControl
-        ('', [Validators.required]),
-      codDane: new FormControl
-        ('', [Validators.required]),
-      logisticExito: new FormControl,
-      enviosExito: new FormControl,
-      goToExito: new FormControl,
-      goToCarulla: new FormControl,
-      goToCatalogo: new FormControl
+      IsLogisticsExito: new FormControl(false),
+      IsShippingExito: new FormControl(true),
+      GotoExito: new FormControl(true),
+      GotoCarrulla: new FormControl(false),
+      GotoCatalogo: new FormControl(true)
     });
     this.matcher = new MyErrorStateMatcher();
   }
@@ -179,7 +178,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   submitSellerRegistrationForm() {
     this.shellComponent.loadingComponent.viewLoadingSpinner();
     this.disabledForService = true;
-    this.registerService.registerUser(JSON.stringify(this.formRegister))
+    this.registerService.registerUser(JSON.stringify(this.validateFormRegister.value))
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
@@ -220,17 +219,17 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
               const data_response = JSON.parse(result.body.body);
               this.existValueInDB = data_response.Data;
               switch (param) {
-                case 'nit':
+                case 'Nit':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
                   }
                   break;
-                case 'email':
+                case 'Email':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
-                case 'nomTienda':
+                case 'Name':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
@@ -259,7 +258,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   receiveDataState($event) {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
-      this.formRegister.State = $event.Name;
+      this.validateFormRegister.controls['State'].setValue($event.Name);
     }
   }
 
@@ -270,12 +269,16 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    */
   receiveDataCitie($event) {
     if ($event && $event !== undefined && $event !== null) {
-      this.formRegister.DaneCode = $event.DaneCode;
-      this.formRegister.City = $event.Name;
-      this.formRegister.SincoDaneCode = $event.SincoDaneCode;
+      this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
+      this.validateFormRegister.controls['City'].setValue($event.Name);
+      this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
     } else {
-      this.formRegister.DaneCode = null;
+      this.validateFormRegister.controls['DaneCode'].setValue(null);
     }
+  }
+
+  disabledButton() {
+    this.activeButton = false;
   }
 }
 
