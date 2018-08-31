@@ -15,6 +15,7 @@ import {
 import { ListComponent } from '../../list/list.component';
 import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ShellComponent } from '@core/shell/shell.component';
+import { environment } from '@env/environment';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -99,6 +100,12 @@ export class DetailOfferComponent {
      */
     @Output() consumeServiceList = new EventEmitter<boolean>();
 
+    /**
+     *
+     * @description Variable para controlar si es production o no
+     * @memberof DetailOfferComponent
+     */
+    public isProductionEnv = environment.production;
     /**
      *Creates an instance of DetailOfferComponent.
      * @param {ListComponent} list

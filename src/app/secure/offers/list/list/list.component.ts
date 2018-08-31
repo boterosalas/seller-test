@@ -80,7 +80,6 @@ export class ListComponent implements OnInit {
     ) {
         this.paramData = new ModelFilter();
         this.user = {};
-        console.log('aaa');
     }
 
     /**

@@ -62,7 +62,6 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   ) {
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
-    this.createForm();
     this.user = {};
   }
 
@@ -71,6 +70,7 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
    */
   ngOnInit() {
     this.getDataUser();
+    this.createForm();
   }
 
   callback() { }
