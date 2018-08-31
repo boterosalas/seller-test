@@ -87,7 +87,7 @@ export class EndpointService {
         endpoint = this.addParams(valueEndPoint, 'simple', params);
       } else {
         // Si el endpoint no tiene parámetros definidos.
-        if (lengthParams) {
+        if (!lengthParams) {
           endpoint = this.addParams(valueEndPoint, 'simple', lengthParams);
         }
       }

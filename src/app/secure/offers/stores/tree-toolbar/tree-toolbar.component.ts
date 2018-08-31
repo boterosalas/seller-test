@@ -56,14 +56,14 @@ export class TreeToolbarComponent implements OnInit {
 
   modifyCommission() {
 
-    this.shell.loadingComponent.viewLoadingSpinner();
+    // this.shell.loadingComponent.viewSpinner();
     const params = JSON.stringify(localStorage.getItem('parametersCommission'));
     this.storesService.patchSellerCommissionCategory(params).subscribe((res: any) => {
       if (res.status === 200) {
-        this.shell.loadingComponent.closeLoadingSpinner();
+        // this.shell.loadingComponent.closeSpinner();
         this.searchStore = JSON.parse(localStorage.getItem('searchStore'));
       } else {
-        this.shell.loadingComponent.closeLoadingSpinner();
+        // this.shell.loadingComponent.closeSpinner();
         log.error(res.message);
         console.log('Error consultando las comisiones por categoria.' + res.message);
       }
@@ -71,7 +71,7 @@ export class TreeToolbarComponent implements OnInit {
   }
 
   saveTreeToExcel() {
-    this.shell.loadingComponent.viewLoadingSpinner();
+    // this.shell.loadingComponent.viewSpinner();
     const current_tree = JSON.parse(this.currentTree);
     this.objetoBuild = [];
     this.currentDownloadTree(current_tree[0], this.rutaPadre);
@@ -120,7 +120,7 @@ export class TreeToolbarComponent implements OnInit {
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
-    this.shell.loadingComponent.closeLoadingSpinner();
+    // this.shell.loadingComponent.closeSpinner();
   }
   /**
    * Método que permite generar el excel con los datos pasados.

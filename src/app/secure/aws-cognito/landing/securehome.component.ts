@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { LoggedInCallback, UserLoginService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
 
 
 @Component({
@@ -12,11 +11,9 @@ import { ShellComponent } from '@core/shell/shell.component';
 })
 export class SecureHomeComponent implements LoggedInCallback {
   constructor(
-    public shell: ShellComponent,
     public router: Router,
-    public userService: UserLoginService,
-    public userParams: UserParametersService,
-    public cognitoUtil: CognitoUtil) {
+    public userService: UserLoginService
+  ) {
     this.userService.isAuthenticated(this);
   }
 
@@ -25,4 +22,4 @@ export class SecureHomeComponent implements LoggedInCallback {
       this.router.navigate([`/${RoutesConst.homeLogin}`]);
     }
   }
-}
+} // End class

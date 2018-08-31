@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Callback, ChallengeParameters, CognitoCallback, DynamoDBService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
-import { HomeComponent } from '@app/public';
+import { Callback, ChallengeParameters, CognitoCallback, DynamoDBService, LoadingService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { environment } from '@env/environment';
 
@@ -70,7 +69,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private ddb: DynamoDBService,
     private userService: UserLoginService,
     private fb: FormBuilder,
-    private homeComponent: HomeComponent,
+    private loadingService: LoadingService,
     private userParams: UserParametersService
   ) {
     this.userService.isAuthenticated(this);
@@ -99,14 +98,14 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       return;
     }
     this.errorMessage = null;
-    this.homeComponent.loadingComponent.closeLoadingProgressBar();
+    this.loadingService.closeProgressBar();
     this.userService.authenticate(this.email, this.password, this);
-    this.homeComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
   }
 
   cognitoCallback(message: string, result: any) {
     if (message != null) { // error
-      this.homeComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.errorMessage = message;
       console.log('result: ' + this.errorMessage);
       if (this.errorMessage === 'User is not confirmed.') {
@@ -132,7 +131,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   callbackWithParam(userData: any) {
     this.user = userData;
     // this.shell.user = this.user;
-    this.homeComponent.loadingComponent.closeLoadingSpinner();
+    this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
     } else if (this.user.sellerProfile === 'administrator') {
@@ -171,6 +170,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
    * @memberof LoginComponent
    */
   viewErrorMessageLogin(err?: any) {
-    this.homeComponent.loadingComponent.closeLoadingProgressBar();
+    this.loadingService.closeProgressBar();
   }
 }

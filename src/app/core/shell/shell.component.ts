@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
+import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
 
 import { InformationToForm, SearchFormEntity } from '@shared/models/order.model';
 import { ComponentsService } from '@shared/services/components.service';
 import { EventEmitterOrders } from '@shared/services/eventEmitter-orders.service';
-import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
 
 import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '../aws-cognito';
 import { Logger } from '../util/logger.service';
-import { LoadingComponent } from '@shared/components/loading/loading.component';
-import { ModalComponent } from './modal/modal.component';
 
 // log component
 const log = new Logger('ShellComponent');
@@ -24,14 +22,10 @@ const log = new Logger('ShellComponent');
 export class ShellComponent implements OnInit, LoggedInCallback, Callback {
   // Usuario autenticado.
   public user: any;
-  // SideMenu de la aplicación-
+  // SideMenu de la aplicación.
   @ViewChild('sidenav') sidenav: MatSidenav;
   // Sidenav de búsqueda de órdenes.
   @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
-  // Loading de la pagina.
-  @ViewChild('loadingComponent') loadingComponent: LoadingComponent;
-  // Modal de la página.
-  @ViewChild('modalComponent') modalComponent: ModalComponent;
   // Mostrar header
   showHeader = false;
   // Variable que permite cambiar el estado del sidenav.
@@ -101,7 +95,7 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    */
   toggleMenu() {
     this.sidenav.toggle();
-    // this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewProgressBar();
   }
 
   /**
@@ -119,13 +113,13 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof ShellComponent
    */
   openDialogSupport(): void {
-    // this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
       panelClass: 'full-width-dialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.loadingComponent.closeLoadingProgressBar();
+      // this.loadingComponent.closeProgressBar();
     });
   }
 

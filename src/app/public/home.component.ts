@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LoggedInCallback, UserLoginService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-import { LoadingComponent } from '@shared/components/loading/loading.component';
+import { LoadingComponent } from '@shared/../core/global/loading/loading.component';
 
 
 declare let AWS: any;
@@ -31,9 +31,6 @@ export class HomeLandingComponent {
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit, LoggedInCallback {
-  // Loading de la pagina
-  @ViewChild(LoadingComponent) loadingComponent: LoadingComponent;
-
   constructor(
     public router: Router,
     public userService: UserLoginService) {
@@ -48,6 +45,6 @@ export class HomeComponent implements OnInit, LoggedInCallback {
       this.router.navigate([`/${RoutesConst.securehome}`]);
     }
   }
-}
+} // End class
 
 

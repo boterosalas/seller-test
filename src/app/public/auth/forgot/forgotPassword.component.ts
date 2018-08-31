@@ -59,7 +59,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
    */
   onNext() {
     this.errorMessage = null;
-    this.shell.loadingComponent.viewLoadingSpinner();
+    // this.shell.loadingComponent.viewSpinner();
     this.userService.forgotPassword(this.email, this);
   }
 
@@ -82,7 +82,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      this.shell.loadingComponent.closeLoadingSpinner();
+      // this.shell.loadingComponent.closeSpinner();
     }
   }
 
@@ -160,7 +160,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     });
     this.errorMessage = null;
     this.changePassSucces = false;
-    this.shell.loadingComponent.closeLoadingSpinner();
+    // this.shell.loadingComponent.closeSpinner();
   }
 
   /**
@@ -202,7 +202,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
   onNext() {
     this.errorMessage = null;
-    this.shell.loadingComponent.viewLoadingSpinner();
+    // this.shell.loadingComponent.viewSpinner();
     this.userService.confirmNewPassword(this.email, this.verificationCode, this.newPassword, this);
   }
 
@@ -234,7 +234,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      this.shell.loadingComponent.closeLoadingSpinner();
+      // this.shell.loadingComponent.closeSpinner();
     } else if (this.changePassSucces) { // success
       this.ddb.writeLogEntry('login');
       this.getDataUser();
@@ -256,7 +256,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
   callbackWithParam(userData: any) {
     this.user = userData;
     this.shell.user = this.user;
-    this.shell.loadingComponent.closeLoadingSpinner();
+    // this.shell.loadingComponent.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
       this.shell.showHeader = true;

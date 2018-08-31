@@ -2,9 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-import { ShellComponent } from '@core/shell';
 
 import { ModelRegister } from './models/register.model';
 import { RegisterService } from './register.service';
@@ -61,15 +60,12 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public user: any;
   public activeButton: boolean;
 
-  /**
-   * Creates an instance of RegisterSellerComponent.
-   * @param {registerService} registerService
-   * @param {shellComponent} shellComponent
-   */
+
   constructor(
     @Inject(RegisterService)
     private registerService: RegisterService,
-    public shellComponent: ShellComponent,
+    private loadingService: LoadingService,
+    private modalService: ModalService,
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
@@ -152,7 +148,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param num
    * @memberof RegisterSellerComponent
    */
-  changeImageColor(e, num) {
+  changeImageColor(e: any, num: any) {
     /* La 'e' se trae el elemento que se esta ejecutando en el DOM de html de angular.
     Le enviamos la posicion desde HTML[num] */
     if (e.checked) {
@@ -181,7 +177,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @memberof RegisterSellerComponent
    */
   submitSellerRegistrationForm() {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.disabledForService = true;
     this.registerService.registerUser(JSON.stringify(this.formRegister))
       .subscribe(
@@ -189,17 +185,15 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
-              this.shellComponent.modalComponent.showModal('success');
+              this.modalService.showModal('success');
             } else if (!data.Data) {
-              this.shellComponent.modalComponent.showModal('error');
+              this.modalService.showModal('error');
             }
           } else {
-            this.shellComponent.modalComponent.showModal('errorService');
+            this.modalService.showModal('errorService');
           }
-
           this.disabledForService = false;
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
-
+          this.loadingService.closeSpinner();
         }
       );
   }
@@ -215,7 +209,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     const jsonExistParam = event.target.value;
     // tslint:disable-next-line:quotemark
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+      this.loadingService.viewSpinner();
       this.disabledForService = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
         .subscribe(
@@ -244,11 +238,11 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
                 this.activeButton = true;
               }
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             } else {
-              this.shellComponent.modalComponent.showModal('errorService');
+              this.modalService.showModal('errorService');
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             }
           }
         );
@@ -260,7 +254,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataState($event) {
+  receiveDataState($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
       this.formRegister.State = $event.Name;
@@ -272,7 +266,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataCitie($event) {
+  receiveDataCitie($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.formRegister.DaneCode = $event.DaneCode;
       this.formRegister.City = $event.Name;

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AwsUtil, CognitoUtil, LoggedInCallback, UserLoginService } from '@app/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, ModalComponent, ModalService, UserLoginService } from '@app/core';
 
 
 @Component({
@@ -9,16 +9,39 @@ import { AwsUtil, CognitoUtil, LoggedInCallback, UserLoginService } from '@app/c
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false
 })
-export class AppComponent implements OnInit, LoggedInCallback {
+export class AppComponent implements OnInit, AfterViewInit, LoggedInCallback {
+  // Controla para el progress bar
+  progressBar = false;
+  // Controla para el mat-spinner
+  spinner = false;
+
+  @ViewChild(ModalComponent) private modalComponent: ModalComponent;
+
   constructor(
-    public awsUtil: AwsUtil,
-    public userService: UserLoginService,
-    public cognito: CognitoUtil
+    private awsUtil: AwsUtil,
+    private userService: UserLoginService,
+    private cognito: CognitoUtil,
+    private loadingService: LoadingService,
+    private modalService: ModalService
   ) {
   }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
+    this.modalService.modals.subscribe(type => {
+      if (type) {
+        this.modalComponent.showModal(type);
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    this.loadingService.spinnerStatus.subscribe(state => {
+      this.spinner = state;
+    });
+    this.loadingService.progressBarStatus.subscribe(state => {
+      this.progressBar = state;
+    });
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {

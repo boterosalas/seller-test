@@ -2,9 +2,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, LoadGuide, RoutesConst } from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
 import * as XLSX from 'xlsx';
 
 import { DownloadFormatComponent } from '../download-format/download-format.component';
@@ -68,20 +67,12 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
   // Input file que carga el archivo
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
-  /**
-   * Creates an instance of LoadGuidePageComponent.
-   * @param {ComponentsService} componentService
-   * @param {LoadGuideService} loadGuideService
-   * @param {MatDialog} dialog
-   * @param {ShellComponent} shellComponent
-   * @param {UserService} userService
-   * @memberof LoadGuidePageComponent
-   */
+
   constructor(
     public componentService: ComponentsService,
     public loadGuideService: LoadGuideService,
     public dialog: MatDialog,
-    public shellComponent: ShellComponent,
+    private loadingService: LoadingService,
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
@@ -105,7 +96,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
 
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -167,7 +159,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
 
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise((resolve, reject) => {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+      this.loadingService.viewSpinner();
 
       let data: any;
       /* wire up file reader */
@@ -212,7 +204,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
     }, err => {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
@@ -227,13 +219,13 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @param {*} file
    * @memberof LoadGuidePageComponent
    */
-  validateDataFromFile(res, file: any) {
+  validateDataFromFile(res: any, file: any) {
     /* Elimino la posicion 0 que es la parte de titulo del excel */
     if (res.length !== 1 && res.length !== 0) {
 
       if (res.length === 2 && res[1][0] === undefined && res[1][1] === undefined &&
         res[1][2] === undefined && res[1][3] === undefined && res[1][4] === undefined) {
-        this.shellComponent.loadingComponent.closeLoadingSpinner();
+        this.loadingService.closeSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
         // validación de los campos necesarios para el archivo
@@ -242,7 +234,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
 
           // validación para el número de registros
           if (res.length > this.limitRowExcel) {
-            this.shellComponent.loadingComponent.closeLoadingSpinner();
+            this.loadingService.closeSpinner();
             this.componentService.openSnackBar('El número de registros supera los 500, no se permite esta cantidad', 'Aceptar', 10000);
           } else {
             /* Funcionalidad que se necarga de cargar los datos del excel */
@@ -252,12 +244,12 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
             this.createTable(res);
           }
         } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
         }
       }
     } else {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
   }
@@ -268,7 +260,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @returns
    * @memberof LoadGuidePageComponent
    */
-  alphanumeric(inputtxt) {
+  alphanumeric(inputtxt: any) {
     if (inputtxt === undefined) {
       return false;
     } else {
@@ -287,7 +279,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @param {any} res
    * @memberof LoadGuidePageComponent
    */
-  createTable(res) {
+  createTable(res: any) {
     // El array retornado por el excel es un array que indica en la primera posicion
     // El numero de filas, y cada fila posee los datos que obtuvo del excel.
     for (let index = 0; index < res.length; index++) {
@@ -369,7 +361,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @param {any} index
    * @memberof LoadGuidePageComponent
    */
-  addInfoTosend(res, index) {
+  addInfoTosend(res: any, index: any) {
     const newObjectForSend = {
       orderNumber: res[index][0],
       sku: res[index][1],
@@ -386,7 +378,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @param {any} index
    * @memberof LoadGuidePageComponent
    */
-  addRowToTable(res, index) {
+  addRowToTable(res: any, index: any) {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: LoadGuide = {
       orderNumber: res[index][0],
@@ -422,7 +414,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.numberElements = this.dataSource.data.length;
-    this.shellComponent.loadingComponent.closeLoadingSpinner();
+    this.loadingService.closeSpinner();
   }
 
   /**
@@ -506,8 +498,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
    * @param {any} res
    * @memberof LoadGuidePageComponent
    */
-  openDialogSendOrder(res): void {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+  openDialogSendOrder(res: any): void {
+    this.loadingService.viewSpinner();
     const dialogRef = this.dialog.open(FinishUploadInformationComponent, {
       width: '95%',
       data: {
@@ -516,7 +508,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
     });
     dialogRef.afterClosed().subscribe(result => {
       log.info('The dialog was closed');
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
     });
   }
 }
