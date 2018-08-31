@@ -4544,7 +4544,7 @@ correo con las órdenes aplicando los filtros obtenidos</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:72</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:71</a></div>
                             </td>
                         </tr>
 
@@ -5000,7 +5000,6 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   ) {
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder &#x3D; data.limit;
-    this.createForm();
     this.user &#x3D; {};
   }
 
@@ -5009,6 +5008,7 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
    */
   ngOnInit() {
     this.getDataUser();
+    this.createForm();
   }
 
   callback() { }

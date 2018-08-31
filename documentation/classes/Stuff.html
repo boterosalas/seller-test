@@ -3984,7 +3984,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/secure/aws-cognito/jwttokens/jwt.component.ts</code>
+            <code>src/app/secure/aws-cognito/useractivity/useractivity.component.ts</code>
         </p>
 
 
@@ -4005,11 +4005,11 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#accessToken">accessToken</a>
+                                <a href="#date">date</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#idToken">idToken</a>
+                                <a href="#type">type</a>
                             </li>
                         </ul>
                     </td>
@@ -4034,19 +4034,19 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="accessToken"></a>
+                        <a name="date"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                            accessToken
+                            date
                             </b>
-                            <a href="#accessToken"><span class="fa fa-link"></span></a>
+                            <a href="#date"><span class="fa fa-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon fa fa-reset"></span><code>accessToken:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <span class="modifier-icon fa fa-reset"></span><code>date:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                     </td>
                 </tr>
@@ -4058,7 +4058,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/secure/aws-cognito/jwttokens/jwt.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/aws-cognito/useractivity/useractivity.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -4069,19 +4069,19 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="idToken"></a>
+                        <a name="type"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                            idToken
+                            type
                             </b>
-                            <a href="#idToken"><span class="fa fa-link"></span></a>
+                            <a href="#type"><span class="fa fa-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon fa fa-reset"></span><code>idToken:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <span class="modifier-icon fa fa-reset"></span><code>type:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                     </td>
                 </tr>
@@ -4093,7 +4093,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/aws-cognito/jwttokens/jwt.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/secure/aws-cognito/useractivity/useractivity.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -4115,68 +4115,40 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import {
     UserLoginService,
-    Callback,
-    CognitoUtil,
     LoggedInCallback,
+    DynamoDBService,
     RoutesConst
 } from &#x27;@app/shared&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
+
 export class Stuff {
-    public accessToken: string;
-    public idToken: string;
+    public type: string;
+    public date: string;
 }
 
 @Component({
     selector: &#x27;app-awscognito&#x27;,
-    templateUrl: &#x27;./jwt.html&#x27;
+    templateUrl: &#x27;./useractivity.html&#x27;
 })
-export class JwtComponent implements LoggedInCallback {
+export class UseractivityComponent implements LoggedInCallback {
 
-    public stuff: Stuff &#x3D; new Stuff();
+    public logdata: Array&lt;Stuff&gt; &#x3D; [];
 
-    constructor(public router: Router, public userService: UserLoginService, public cognitoUtil: CognitoUtil) {
+    constructor(public router: Router, public ddb: DynamoDBService, public userService: UserLoginService) {
         this.userService.isAuthenticated(this);
-        console.log(&#x27;in JwtComponent&#x27;);
-
+        // &#x27;in UseractivityComponent&#x27;;
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate([&#x60;/${RoutesConst.homeLogin}&#x60;]);
         } else {
-            this.cognitoUtil.getAccessToken(new AccessTokenCallback(this));
-            this.cognitoUtil.getIdToken(new IdTokenCallback(this));
+            // scanning DDB
+            this.ddb.getLogEntries(this.logdata);
         }
     }
-}
 
-export class AccessTokenCallback implements Callback {
-    constructor(public jwt: JwtComponent) {
-
-    }
-
-    callback() {
-
-    }
-
-    callbackWithParam(result) {
-        this.jwt.stuff.accessToken &#x3D; result;
-    }
-}
-
-export class IdTokenCallback implements Callback {
-    constructor(public jwt: JwtComponent) {
-
-    }
-
-    callback() {
-
-    }
-
-    callbackWithParam(result) {
-        this.jwt.stuff.idToken &#x3D; result;
-    }
 }
 </code></pre>
     </div>
