@@ -1,6 +1,7 @@
 /* 3rd party components */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 /* our own custom components */
 import { ModelFilter } from '../components/filter/filter.model';
@@ -53,6 +54,12 @@ export class HistoricalComponent implements OnInit {
     /*Variable que se le envia al toolbar para volver a ponerlo en la página 1*/
     public currentPage: any;
 
+     /*Variable que se usa para escuchar los cambios en el layout*/
+    public layoutChanges: any;
+
+    /*Variable que contiene el numero de columnas que ocuparan el grid-list*/
+    public numCols: any;
+
     /**
      *Creates an instance of HistoricalComponent.
      * @param {ShellComponent} [shellComponent]
@@ -68,10 +75,12 @@ export class HistoricalComponent implements OnInit {
         public userService?: UserLoginService,
         public router?: Router,
         public historicalService?: HistoricalService,
-        public userParams?: UserParametersService
+        public userParams?: UserParametersService,
+        public breakpointObserver?: BreakpointObserver
     ) {
         this.paramData = new ModelFilter();
         this.user = {};
+        this.layoutChanges = breakpointObserver.observe('(min-width: 577px)');
     }
 
     /**
@@ -81,6 +90,9 @@ export class HistoricalComponent implements OnInit {
      */
     ngOnInit() {
         this.userService.isAuthenticated(this);
+        this.layoutChanges.subscribe(result => {
+            this.numCols = result.matches ? 1 : 2;
+        });
     }
 
     /**

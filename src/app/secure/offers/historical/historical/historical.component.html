@@ -8,17 +8,19 @@
 			<mat-accordion class="historical-list-container">
 
 				<mat-expansion-panel *ngFor="let item of historicalOffer">
-					<mat-expansion-panel-header class="extension-panel-header">
+					<mat-expansion-panel-header class="extension-panel-header" expandedHeight="48px" collapsedHeight="48px">
 						<mat-panel-description class="extension-panel-description">
-							<p><span>{{ item.UpdatedDate | date:'LLLL d, y' | titlecase  }} | {{ item.UpdatedDate | date:'shortTime' }}</span></p>
+							<p class="d-none d-block-sm"><span>{{item.UpdatedDate | date:'LLLL d, y' | titlecase}} | {{item.UpdatedDate | date:'h:mm'}} {{item.UpdatedDate | date:'a' | slice: 0:1}}m</span></p>
+							<p class="d-none d-block-xs d-none-sm"><span>{{ item.UpdatedDate | date:'LLL d, y' | titlecase  }} | {{item.UpdatedDate | date:'h:mm'}} {{item.UpdatedDate | date:'a' | slice: 0:1}}m</span></p>
+							<p class="d-none-xs"><span>{{ item.UpdatedDate | date:'M/d/yy' }}, {{item.UpdatedDate | date:'h:mm'}} {{item.UpdatedDate | date:'a' | slice: 0:1}}m</span></p>
 						</mat-panel-description>
 						<mat-panel-description class="extension-panel-description">
 							<p>EAN: <span>{{ item.EAN }}</span></p>
 						</mat-panel-description>
-						<mat-panel-description class="extension-panel-description">
+						<mat-panel-description class="extension-panel-description d-none d-block-sm">
 							<p>Inventario: <span>{{ item.Stock | number }} unidades</span></p>
 						</mat-panel-description>
-						<mat-panel-description class="extension-panel-description">
+						<mat-panel-description class="extension-panel-description d-none d-block-md">
 							<p>Precio: <span>{{ item.Price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
 						</mat-panel-description>
 						<mat-panel-description class="extension-panel-description d-none d-block-lg">
@@ -32,39 +34,40 @@
 						</mat-panel-description>
 					</mat-expansion-panel-header>
 
-					<mat-grid-list class="grid-list" cols="5" rowHeight="30px">
+					<span class="extension-panel-down">
+						<p class="d-none-sm">Inventario: <span>{{ item.Stock | number }} unidades</span></p>
+						<p class="d-none-md">Precio: <span>{{ item.Price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+						<p class="d-none-lg ">Precio con descuento: <span>{{ item.DiscountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+						<p class="d-none-xl ">Precio flete: <span>{{ item.ShippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+						<p class="d-none-xl">Garantia: <span>{{ item.Warranty }} meses</span></p>
+						<p>Promesa de entrega: <span>{{ item.PromiseDelivery }} días</span></p>
+					</span>
 
-						<mat-grid-tile class="grid-tile">
+					<mat-grid-list class="grid-list" cols="4" rowHeight="30px">
+						<mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
 							<mat-icon *ngIf="item.IsFreeShipping == 1" class="icon check">check</mat-icon>
 							<mat-icon *ngIf="item.IsFreeShipping == 0" class="icon close">close</mat-icon>
 							<span [ngClass]="{'ligthen-gray' : item.IsFreeShipping == 0}">Free shipping</span>
 						</mat-grid-tile>
 
-						<mat-grid-tile class="grid-tile">
+						<mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
 							<mat-icon *ngIf="item.IsEnviosExito == 1" class="icon check">check</mat-icon>
 							<mat-icon *ngIf="item.IsEnviosExito == 0" class="icon close">close</mat-icon>
 							<span [ngClass]="{'ligthen-gray' : item.IsEnviosExito == 0}">Envios Éxito</span>
 						</mat-grid-tile>
 
-						<mat-grid-tile class="grid-tile">
+						<mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
 							<mat-icon *ngIf="item.IsLogisticsExito == 1" class="icon check">check</mat-icon>
 							<mat-icon *ngIf="item.IsLogisticsExito == 0" class="icon close">close</mat-icon>
 							<span [ngClass]="{'ligthen-gray' : item.IsLogisticsExito == 0}">Logística Éxito</span>
 						</mat-grid-tile>
 						
-						<mat-grid-tile class="grid-tile">
+						<mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
 							<mat-icon *ngIf="item.IsFreightCalculator == 1" class="icon check">check</mat-icon>
 							<mat-icon *ngIf="item.IsFreightCalculator == 0" class="icon close">close</mat-icon>
 							<span [ngClass]="{'ligthen-gray' : item.IsFreightCalculator == 0}">Cotizador de flete</span>
 						</mat-grid-tile>
-
-						<mat-grid-tile class="grid-tile">
-							<span>Promesa de entrega: {{ item.PromiseDelivery }} días</span>
-						</mat-grid-tile>
-
 					</mat-grid-list>
-
-
 				</mat-expansion-panel>
 			</mat-accordion>
 		</aside>

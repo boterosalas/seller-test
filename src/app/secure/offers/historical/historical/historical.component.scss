@@ -1,11 +1,11 @@
 @import 'helpers';
-
 $color-white: #FFFFFF;
 $color-black: #000000;
 $color-gray1: #5D5D5D;
 $color-gray2: #909090;
 $color-gray3: #D3D3D3;
 $color-gray4: #BCBCBC;
+$color-gray5: #0000008a;
 $color-blue: #485AFA;
 $color-green: #6FB63E;
 $color-white-opacity: rgba(255, 255, 255, 0.7);
@@ -47,13 +47,56 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
             max-width: 1350px;
             margin: 0 auto;
             padding: 100px 30px 50px;
+            @media screen and (max-width: 768px) {
+                padding: 115px 5% 5%;
+                justify-content: center;
+            }
             aside {
                 width: 100%;
                 .extension-panel-header {
                     font-size: 13px;
+                    @media screen and (max-width: 768px) {
+                        font-size: 12px;
+                        padding: 0 15px;
+                    }
+                    @media screen and (max-width: 370px) {     
+                        font-size: 11px;
+                    }
                     .mat-expansion-panel-header-description {
+                        @media screen and (max-width: 768px) {
+                            margin-right: 10px;
+                        }
+                        @media screen and (max-width: 576px) {
+                            margin-right: 5px;
+                        }
                         span {
                             color: $color-black;
+                        }
+                    }
+                }
+                .mat-expansion-panel-content {
+                    .mat-expansion-panel-body {
+                        margin-top: -12px;
+                        @media screen and (max-width: 576px) {
+                            margin-top: -15px;
+                        }
+                        @media screen and (max-width: 768px) {
+                            padding: 0 15px 16px;
+                        }
+                        .extension-panel-down {
+                            font-size: 13px;
+                            color: $color-gray5;
+                            @media screen and (max-width: 768px) {
+                                font-size: 12px;
+                            }        
+                            @media screen and (max-width: 370px) {     
+                                font-size: 11px;
+                            }        
+                            p {        
+                                span {
+                                    color: $color-black;
+                                }
+                            }
                         }
                     }
                 }
@@ -62,6 +105,24 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                     border: solid 1px $color-gray4;
                     .grid-tile {
                         font-size: 13px;
+                        @media screen and (max-width: 768px) {
+                            font-size: 12px;
+                        }    
+                        @media screen and (max-width: 370px) {     
+                            font-size: 11px;
+                        }
+                        &.mat-grid-tile {
+                            .mat-figure {
+                                @media screen and (max-width: 576px) {
+                                    justify-content: left;
+                                    left: 20px;
+                                }
+                                @media screen and (max-width: 370px) {
+                                    justify-content: left;
+                                    left: 5px;
+                                }
+                            }
+                        }
                         &:after {
                             content: '';
                             display: block;
@@ -72,13 +133,36 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                             position: absolute;
                             border-right: solid 1px$color-gray4;
                         }
+                        &:nth-child(1) {
+                            @media screen and (max-width: 576px) {
+                                border-bottom: solid 1px $color-gray4;
+                            }
+                        }
+                        &:nth-child(2) {
+                            @media screen and (max-width: 576px) {
+                                border-bottom: solid 1px $color-gray4;
+
+                                &:after {
+                                    display: none;                                    
+                                }
+                            }
+                        }
                         &:last-child {
                             &:after {
                                 display: none;
                             }
-                        }
+                        }                        
                         .icon {
                             margin-right: 10px;
+                            @media screen and (max-width: 768px) {
+                                height: 20px;
+                                width: 20px;
+                                font-size: 20px;
+                                margin-right: 0;
+                            }
+                            @media screen and (max-width: 576px) {
+                                margin-right: 5px;
+                            }
                             &.check {
                                 color: $color-green;
                             }
@@ -103,9 +187,6 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
         section#section-list-offers {
             padding: 115px 5% 5%;
             justify-content: center;
-            aside {
-                
-            }
         }
         mat-sidenav {
             &.mat-sidenav {
