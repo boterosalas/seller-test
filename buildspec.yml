@@ -15,7 +15,7 @@ phases:
       - echo Instalando Angular...
       # npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
-      - ng -v
+      # ng -v
   build:
     commands:
       - echo Iniciando compilacion...
