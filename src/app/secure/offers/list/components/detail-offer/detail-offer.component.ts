@@ -106,6 +106,7 @@ export class DetailOfferComponent {
      * @memberof DetailOfferComponent
      */
     public isProductionEnv = environment.production;
+
     /**
      *Creates an instance of DetailOfferComponent.
      * @param {ListComponent} list

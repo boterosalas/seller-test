@@ -1,0 +1,54 @@
+.tree-content {
+    padding: 20px 60px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.spinner-component {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    @media (min-width: 900px) {
+        height: 600px;
+    }
+}
+
+/* On screens that are 600px wide or less, make the menu links stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 600px) {
+    .tree-content {
+        padding: 20px 0px;
+    }
+}
+
+.no-content-component {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    @media (min-width: 900px) {
+        height: 600px;
+    }
+    & p {
+        color: #757474;
+        font-size: 18px;
+    }
+}
+
+.icon-face {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    & mat-icon {
+        font-size: 120px;
+        color: #EFEDED;
+        height: 120px;
+        width: 120px;
+    }
+}

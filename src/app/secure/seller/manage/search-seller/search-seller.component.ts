@@ -1,0 +1,158 @@
+/* 3rd party components */
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+/* our own custom components */
+import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
+import {
+    Logger,
+    UserService,
+    Callback,
+    UserParametersService
+} from '@app/shared';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { ShellComponent } from '@app/core/shell/shell.component';
+
+@Component({
+    selector: 'app-search-seller',
+    templateUrl: './search-seller.component.html',
+    styleUrls: ['./search-seller.component.scss'],
+})
+export class SearchSellerComponent implements OnInit, OnChanges, Callback {
+
+    // variable que almacena el texto que se obtiene del input al buscar.
+    public textForSearch: FormControl;
+
+    // Información del usuario
+    public user: any;
+    // variable que almacena la lista de tiendas disponibles para buscar
+    public listSellers: any;
+
+    // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
+    public filteredOptions: Observable<string[]>;
+
+    @Input() searchSellerInput;
+
+    constructor(
+        public eventsSeller: EventEmitterSeller,
+        public userService: UserService,
+        public storeService: StoresService,
+        public userParams: UserParametersService,
+        public shell: ShellComponent) {
+        this.textForSearch = new FormControl();
+        this.user = {};
+        this.listSellers = [];
+    }
+
+    /**
+     * Evento al iniciar el componente
+     * @memberof SearchStoreComponent
+     */
+    ngOnInit() {
+        this.getDataUser();
+        this.filteredOptions = this.textForSearch.valueChanges
+            .pipe(
+                startWith(''),
+                map((val: any) =>
+                    this.filter(val)
+                )
+            );
+        // consulto las tiendas disponibles
+        this.getAllSellers();
+    }
+
+    callback() { }
+
+    getDataUser() {
+        this.userParams.getUserData(this);
+    }
+
+    callbackWithParam(userData: any) {
+        this.user = userData;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
+            changes.searchSellerInput.currentValue !== null) {
+            this.viewStoreInformation(this.searchSellerInput);
+        }
+    }
+
+    /**
+     * Método empleado para consultar la lista de tiendas disponibles
+     * @memberof SearchStoreComponent
+     */
+    public getAllSellers() {
+        this.shell.loadingComponent.viewLoadingSpinner();
+        this.storeService.getAllStores(this.user).subscribe((res: any) => {
+            if (res.status === 200) {
+                const body = JSON.parse(res.body.body);
+                this.listSellers = body.Data;
+            } else {
+                this.listSellers = res.message;
+            }
+            this.shell.loadingComponent.closeLoadingSpinner();
+        });
+    }
+
+    /**
+     * Evento que permite escuchar los cambios en el input de busqueda para saber si no hay un valor ingresado y setear el campo
+     * @param {any} event
+     * @memberof SearchStoreComponent
+     */
+    public whatchValueInput(event: any): void {
+        if (event === '') {
+            this.textForSearch.reset();
+        }
+    }
+
+    /**
+     * Método que retorna el resultado dentro del array de tiendas disponible
+     * @param {string} val
+     * @returns {string[]}
+     * @memberof SearchStoreComponent
+     */
+    public filter(val: string): string[] {
+        if (val !== null) {
+            return this.listSellers.filter(option =>
+                option.Name.toLowerCase().includes(val.toLowerCase()));
+        }
+    }
+
+    /**
+     * Evento que permite capturar cuando un usuario presiona enter al estar en el input,
+     * Este evento se agrega para poder obtener el primer resultado que se encuentre en la lista al momento de presionar enter
+     * @param {any} event
+     * @memberof SearchStoreComponent
+     */
+    public keyDownFunction(event: any): void {
+        // keyCode 13 -> Enter
+        if (event.keyCode === 13) {
+            // Obtengo los ultimos registros almacenados sobre la lista de busqueda
+            const suscribe = this.filteredOptions.subscribe((res: any) => {
+                // busco dentro de los registro el que conincida con el cricterio de busqueda actual
+                const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
+                // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
+                if (found !== undefined) {
+                    this.viewStoreInformation(found);
+                }
+            });
+            suscribe.unsubscribe();
+        }
+    }
+
+    /**
+     * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
+     * En la busqueda de tiendas
+     * @param {any} search_seller
+     * @memberof SearchStoreComponent
+     */
+    public viewStoreInformation(search_seller: StoreModel) {
+        // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
+        this.eventsSeller.searchSeller(search_seller);
+    }
+
+}

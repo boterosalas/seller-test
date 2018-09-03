@@ -42,13 +42,26 @@ import { BulkLoadModule } from './secure/offers/bulk-load/bulk-load.module';
 import { ListModule } from './secure/offers/list/list.module';
 import { ReportsModule } from './secure/shipments/reports/reports.module';
 import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-load-product.module';
+import { ManageModule } from './secure/seller/manage/manage.module';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+    align: 'left',
+    allowNegative: true,
+    decimal: ',',
+    precision: 0,
+    prefix: '$ ',
+    suffix: '',
+    thousands: '.'
+};
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
-         /* angular stuff */
+        /* angular stuff */
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
 
@@ -82,6 +95,8 @@ import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-
         BulkLoadModule,
         ListModule,
         BulkLoadProductModule,
+        ManageModule,
+        CurrencyMaskModule,
 
         /* Routing App */
         AppRoutingModule
@@ -93,7 +108,9 @@ import { BulkLoadProductModule } from './secure/products/bulk-load-product/bulk-
         UserRegistrationService,
         UserLoginService,
         UserParametersService,
-        { provide: LOCALE_ID, useValue: 'es-CO' }],
+        { provide: LOCALE_ID, useValue: 'es-CO' },
+        { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

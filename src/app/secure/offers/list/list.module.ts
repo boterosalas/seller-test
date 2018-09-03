@@ -16,6 +16,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ListComponent } from './list/list.component';
 import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
 import { MaterialModule } from '../../material-components';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MaterialModule } from '../../material-components';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    CurrencyMaskModule
   ],
   declarations: [
     ListComponent,
@@ -41,4 +43,4 @@ import { MaterialModule } from '../../material-components';
     ListService
   ]
 })
-export class ListModule {}
+export class ListModule { }

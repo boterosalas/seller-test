@@ -109,7 +109,7 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Precio" formControlName="Price" (keypress)="onlyNumber($event)" (blur)="validInput('Price')"
+                    <input currencyMask matInput placeholder="Precio" formControlName="Price" (keypress)="onlyNumber($event)" (blur)="validInput('Price')"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
@@ -120,14 +120,14 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Precio con Descuento" formControlName="DiscountPrice" (keypress)="onlyNumber($event)" (blur)="validInput('DiscountPrice')">
+                    <input currencyMask matInput placeholder="Precio con Descuento" formControlName="DiscountPrice" (keypress)="onlyNumber($event)" (blur)="validInput('DiscountPrice')">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser mayor o igual a 8.000'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser menor a Precio'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost" (keypress)="onlyNumber($event)"
+                    <input currencyMask matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost" (keypress)="onlyNumber($event)"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
