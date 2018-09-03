@@ -73,8 +73,8 @@
                 <p [innerHTML]="'Garantía: <strong>' + dataOffer.warranty + ' meses </strong>'"></p>
             </span>
 
-            <aside class="flexbox align-center justify-center">
-                <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isFreeShipping}">
+            <aside class="flexbox align-center justify-center flex-wrap">
+                <div class="flexbox align-center justify-center sep-right" [ngClass]="{'check' : dataOffer.isFreeShipping}">
                     <mat-icon *ngIf="dataOffer.isFreeShipping && dataOffer.isFreeShipping === true">check</mat-icon>
                     <mat-icon *ngIf="!dataOffer.isFreeShipping || dataOffer.isFreeShipping === false">clear</mat-icon>
                     <p [innerHTML]="'Free Shinpping'"></p>
@@ -84,10 +84,15 @@
                     <mat-icon *ngIf="!dataOffer.isEnviosExito || dataOffer.isEnviosExito === false">clear</mat-icon>
                     <p [innerHTML]="'Envios Exito'"></p>
                 </div>
-                <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isFreightCalculator}">
+                <div class="flexbox align-center justify-center sep-right sep-top" [ngClass]="{'check' : dataOffer.isFreightCalculator}">
                     <mat-icon *ngIf="dataOffer.isFreightCalculator && dataOffer.isFreightCalculator === true">check</mat-icon>
                     <mat-icon *ngIf="!dataOffer.isFreightCalculator || dataOffer.isFreightCalculator === false">clear</mat-icon>
                     <p [innerHTML]="'Cotizador de flete'"></p>
+                </div>
+                <div class="flexbox align-center justify-center sep-top" [ngClass]="{'check' : dataOffer.isLogisticsExito}">
+                    <mat-icon *ngIf="dataOffer.isLogisticsExito && dataOffer.isLogisticsExito === true">check</mat-icon>
+                    <mat-icon *ngIf="!dataOffer.isLogisticsExito || dataOffer.isLogisticsExito === false">clear</mat-icon>
+                    <p [innerHTML]="'Logistica Éxito'"></p>
                 </div>
             </aside>
             <p [innerHTML]="'Última modificación: ' + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>

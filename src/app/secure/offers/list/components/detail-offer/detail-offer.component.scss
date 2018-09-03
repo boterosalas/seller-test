@@ -60,19 +60,22 @@ $color-green: #6FB63E;
             &.detail-offer-desc {
                 padding: 0 0 0 5%;
                 div {
-                    &.container-stock {
-                        p {
-                            max-width: 230px;
-                            margin: 7px 3px;
-                            &.separator {
-                                position: relative;
-                                &::after {
-                                    content: '';
-                                    position: absolute;
-                                    right: 0;
-                                    width: 1px;
-                                    height: 100%;
-                                    background-color: $color-gray3;
+                    &.container-data-offer {
+                        width: 100%;
+                        .container-stock {
+                            p {
+                                max-width: 230px;
+                                margin: 7px 3px;
+                                &.separator {
+                                    position: relative;
+                                    &::after {
+                                        content: '';
+                                        position: absolute;
+                                        right: 0;
+                                        width: 1px;
+                                        height: 100%;
+                                        background-color: $color-gray3;
+                                    }
                                 }
                             }
                         }
@@ -167,19 +170,27 @@ $color-green: #6FB63E;
                         position: relative;
                         box-sizing: border-box;
                         padding: 0 20px;
-                        width: 33%;
+                        width: 50%;
                         height: 50px;
                         .mat-icon {
                             font-size: 17px;
                             display: flex;
                             align-items: center;
                         }
-                        &::after {
+                        &.sep-right::after {
                             content: '';
                             position: absolute;
                             right: 0;
                             width: 1px;
                             height: 80%;
+                            background-color: $color-gray3;
+                        }
+                        &.sep-top::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            width: 90%;
+                            height: 1px;
                             background-color: $color-gray3;
                         }
                         &.check {
@@ -188,11 +199,6 @@ $color-green: #6FB63E;
                             }
                             p {
                                 color: $color-black;
-                            }
-                        }
-                        &:last-child {
-                            &::after {
-                                content: none;
                             }
                         }
                     }
@@ -225,9 +231,6 @@ $color-green: #6FB63E;
                     box-sizing: border-box;
                     padding: 20px 0 0 0;
                     div {
-                        &.container-data-offer{
-                            width: 100%;
-                        }
                         &.container-form-edit-offer {
                             form {
                                 .mat-form-field,
