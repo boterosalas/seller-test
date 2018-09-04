@@ -1,14 +1,17 @@
 import { Routes, RouterModule } from '@angular/router';
+import { Route } from '@app/core';
 import { ManageComponent } from './manage.component';
 import { NgModule } from '@angular/core';
 import { RoutesConst } from './../../../shared';
 
 const routes: Routes = [
-    {
-        path: `${RoutesConst.sellerCenterIntSellerManage}`,
-        component: ManageComponent,
-        data: { title: 'Administrar vendedor' },
-    }
+    Route.withShell([
+        {
+            path: `${RoutesConst.sellerCenterIntSellerManage}`,
+            component: ManageComponent,
+            data: { title: 'Administrar vendedor' },
+        }
+    ])
 ];
 
 @NgModule({

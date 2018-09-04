@@ -10,7 +10,7 @@ import { ManageComponent } from './manage.component';
 import { ManageRoutingModule } from './manage.routing';
 import { ToolbarSellerComponent } from './toolbar-seller/toolbar-seller.component';
 import { SearchSellerComponent } from './search-seller/search-seller.component';
-import { MaterialModule } from '@app/secure/material-components';
+import { MaterialModule } from '@app/material.module';
 import { EventEmitterSeller } from './events/eventEmitter-seller.service';
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { FormManageSellerComponent } from './manage-seller/form-manage-seller/form-manage-seller.component';

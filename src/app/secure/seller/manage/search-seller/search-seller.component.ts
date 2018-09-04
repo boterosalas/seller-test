@@ -6,22 +6,17 @@ import { map, startWith } from 'rxjs/operators';
 
 /* our own custom components */
 import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
-import {
-    Logger,
-    UserService,
-    Callback,
-    UserParametersService
-} from '@app/shared';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { ShellComponent } from '@app/core/shell/shell.component';
+import { LoadingService } from '@app/core';
 
 @Component({
     selector: 'app-search-seller',
     templateUrl: './search-seller.component.html',
     styleUrls: ['./search-seller.component.scss'],
 })
-export class SearchSellerComponent implements OnInit, OnChanges, Callback {
+export class SearchSellerComponent implements OnInit, OnChanges {
 
     // variable que almacena el texto que se obtiene del input al buscar.
     public textForSearch: FormControl;
@@ -38,10 +33,9 @@ export class SearchSellerComponent implements OnInit, OnChanges, Callback {
 
     constructor(
         public eventsSeller: EventEmitterSeller,
-        public userService: UserService,
         public storeService: StoresService,
-        public userParams: UserParametersService,
-        public shell: ShellComponent) {
+        public shell: ShellComponent,
+        private loadingService: LoadingService) {
         this.textForSearch = new FormControl();
         this.user = {};
         this.listSellers = [];
@@ -52,7 +46,6 @@ export class SearchSellerComponent implements OnInit, OnChanges, Callback {
      * @memberof SearchStoreComponent
      */
     ngOnInit() {
-        this.getDataUser();
         this.filteredOptions = this.textForSearch.valueChanges
             .pipe(
                 startWith(''),
@@ -62,16 +55,6 @@ export class SearchSellerComponent implements OnInit, OnChanges, Callback {
             );
         // consulto las tiendas disponibles
         this.getAllSellers();
-    }
-
-    callback() { }
-
-    getDataUser() {
-        this.userParams.getUserData(this);
-    }
-
-    callbackWithParam(userData: any) {
-        this.user = userData;
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -86,7 +69,7 @@ export class SearchSellerComponent implements OnInit, OnChanges, Callback {
      * @memberof SearchStoreComponent
      */
     public getAllSellers() {
-        this.shell.loadingComponent.viewLoadingSpinner();
+        this.loadingService.viewSpinner();
         this.storeService.getAllStores(this.user).subscribe((res: any) => {
             if (res.status === 200) {
                 const body = JSON.parse(res.body.body);
@@ -94,7 +77,7 @@ export class SearchSellerComponent implements OnInit, OnChanges, Callback {
             } else {
                 this.listSellers = res.message;
             }
-            this.shell.loadingComponent.closeLoadingSpinner();
+            this.loadingService.closeSpinner();
         });
     }
 

@@ -1,18 +1,18 @@
 <div class="tree-content">
-    <div class="header-tree-categories">
-        <h1>{{currentSellerSelect.Name}}</h1>
-    </div>
+  <div class="header-tree-categories">
+    <h1>{{currentSellerSelect.Name}}</h1>
+  </div>
 
-    <!-- Componente empleado cuando no se posee una tienda seleccionada -->
-    <div *ngIf="currentSellerSelect.Name === ''" class="no-content-component">
-        <div class="icon-face">
-            <mat-icon>face</mat-icon>
-        </div>
-        <p>Ingresa el nombre del vendedor en la barra de b&uacute;squeda para ver los datos.</p>
+  <!-- Componente empleado cuando no se posee una tienda seleccionada -->
+  <div *ngIf="currentSellerSelect.Name === ''" class="no-content-component">
+    <div class="icon-face">
+      <mat-icon>face</mat-icon>
     </div>
+    <p>Ingresa el nombre del vendedor en la barra de b&uacute;squeda para ver los datos.</p>
+  </div>
 
-    <!-- Componente que se visualiza cuando se ha indicado una tienda para consultar -->
-    <div *ngIf="currentSellerSelect.Name != ''">
-        <app-form-manage-seller [dataSellerSelect]="currentSellerSelect"></app-form-manage-seller>
-    </div>
+  <!-- Componente que se visualiza cuando se ha indicado una tienda para consultar -->
+  <div *ngIf="currentSellerSelect.Name != ''">
+    <app-form-manage-seller [dataSellerSelect]="currentSellerSelect"></app-form-manage-seller>
+  </div>
 </div>
