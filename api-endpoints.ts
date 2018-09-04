@@ -5,7 +5,7 @@ export const defaultVersion = {
 
 export const endpoints = {
   // Endpoints QA
-  test: {
+  stage: {
     v1: {
       // orders
       searchOrders: 'https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller={sellerId}&limit={limit}',
