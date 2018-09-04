@@ -4,16 +4,8 @@
 
         <div fxFlex="50%">
             <mat-form-field class="register" style="width:100% !important">
-                <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="Nit" autocomplete="off" [errorStateMatcher]="matcher"
-                    autofocus id="register-nit" (ngModelChange)="activeButton = false" required>
-                <mat-hint></mat-hint>
-
-                <mat-error id="error-nit-required" *ngIf="validateFormRegister.get('Nit').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>
-
-                <mat-error id="error-nit-invalid" *ngIf="validateFormRegister.get('Nit').hasError('maxlength') || validateFormRegister.get('Nit').hasError('pattern')"
-                    [innerHTML]="'El nit no es v&aacute;lido.'"></mat-error>
-
-                <mat-error id="error-nit-exist" *ngIf="validateFormRegister.get('Nit').hasError('validExistNitDB')" [innerHTML]="'El nit ya existe.'"></mat-error>
+                <input matInput placeholder="NIT" formControlName="Nit" id="register-nit" (ngModelChange)="activeButton = false" [readonly]="true"
+                    required>
             </mat-form-field>
         </div>
 
@@ -151,7 +143,7 @@
             </div>
         </div>
     </div>
-
+    <pre>{{validateFormRegister.value | json}}</pre>
     <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary" [innerHTML]="'REGISTRAR'"
             [disabled]="!registerSeller.form.valid || disabledForService || !activeButton"></button>

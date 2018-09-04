@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
 
@@ -15,6 +15,7 @@ export class FormManageSellerComponent implements OnInit {
         '../../../../../assets/seller-register/logo_carulla.jpg',
         '../../../../../assets/seller-register/logo_mis_catalogos_check.jpg'
     ];
+
     public imagesRegister: Array<any> = [
         {
             checked: '../../../../../assets/seller-register/logo_exito_check.jpg',
@@ -53,6 +54,7 @@ export class FormManageSellerComponent implements OnInit {
     public gotoCarrulla: FormControl;
     public gotoCatalogo: FormControl;
 
+    @Input() dataSellerSelect: any;
     constructor() {
         this.matcher = new MyErrorStateMatcher();
     }
@@ -79,7 +81,7 @@ export class FormManageSellerComponent implements OnInit {
     }
 
     createFormControls() {
-        this.nit = new FormControl('', [
+        this.nit = new FormControl(this.dataSellerSelect.Nit, [
             Validators.required,
             Validators.maxLength(20),
             Validators.pattern('^[0-9]*$')
@@ -103,19 +105,19 @@ export class FormManageSellerComponent implements OnInit {
             Validators.maxLength(10),
             Validators.pattern('^[0-9]*$')]);
         this.address = new FormControl
-            ('', [Validators.required]);
-        this.state = new FormControl;
-        this.city = new FormControl;
-        this.daneCode = new FormControl;
-        this.sincoDaneCode = new FormControl;
+            (this.dataSellerSelect.Address, [Validators.required]);
+        this.state = new FormControl();
+        this.city = new FormControl();
+        this.daneCode = new FormControl(this.dataSellerSelect.DaneCode);
+        this.sincoDaneCode = new FormControl();
         this.name = new FormControl
-            ('', [Validators.required,
+            (this.dataSellerSelect.Name, [Validators.required,
             Validators.pattern(this.nameStoreRegex)]);
-        this.isLogisticsExito = new FormControl(false);
-        this.isShippingExito = new FormControl(true);
-        this.gotoExito = new FormControl(true);
-        this.gotoCarrulla = new FormControl(false);
-        this.gotoCatalogo = new FormControl(true);
+        this.isLogisticsExito = new FormControl(this.dataSellerSelect.IsLogisticsExito);
+        this.isShippingExito = new FormControl(this.dataSellerSelect.IsShippingExito);
+        this.gotoExito = new FormControl(this.dataSellerSelect.GotoExito);
+        this.gotoCarrulla = new FormControl(this.dataSellerSelect.GotoCarrulla);
+        this.gotoCatalogo = new FormControl(this.dataSellerSelect.GotoCatalogo);
         this.createForm();
     }
 
