@@ -7,11 +7,22 @@
         <mat-form-field fxFlex="100" class="input-style">
 
           <!-- Email imput -->
-          <input name="email" formControlName="email" matInput placeholder="Correo electrónico" type="email" required>
+          <input
+            name="email"
+            formControlName="email"
+            matInput placeholder="Correo electrónico"
+            type="email"
+            required>
           <!-- /Email imput -->
 
           <!-- Clean email input -->
-          <button disabled="{{!f.form.dirty}}" matSuffix type="button" color="primary" mat-icon-button (click)="createForm()">
+          <button
+            disabled="{{!f.form.dirty}}"
+            matSuffix
+            type="button"
+            color="primary"
+            mat-icon-button
+            (click)="createForm()">            
             <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>
               autorenew
             </mat-icon>
@@ -35,7 +46,11 @@
   <!-- /Cancel button -->
 
   <!-- Send historical button -->
-  <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">Enviar hist&oacute;rico
+  <button
+    class="sc-button"
+    [disabled]="!f.form.valid"
+    (click)="downloadHistorical(myform)"
+    mat-raised-button color="accent">Enviar hist&oacute;rico
   </button>
   <!-- /Send historical button -->
 

@@ -51,7 +51,7 @@ export class FilterComponent implements OnInit {
 
     /**
      *Creates an instance of FilterComponent.
-     * @param {HistoricalComponent} list
+     * @param {HistoricalComponent} historical
      * @memberof FilterComponent
      */
     constructor(
@@ -114,9 +114,5 @@ export class FilterComponent implements OnInit {
                 this.rangeError = true;
             }
         }
-    }
-
-    historicalFilter(data) {
-        console.log(data.value);
     }
 }

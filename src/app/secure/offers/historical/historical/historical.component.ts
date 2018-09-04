@@ -12,6 +12,7 @@ import {
     RoutesConst
 } from '@app/shared';
 import { HistoricalService } from '../historical.service';
+import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 
 @Component({
     selector: 'app-historical-component',
@@ -76,7 +77,8 @@ export class HistoricalComponent implements OnInit {
         public router?: Router,
         public historicalService?: HistoricalService,
         public userParams?: UserParametersService,
-        public breakpointObserver?: BreakpointObserver
+        public breakpointObserver?: BreakpointObserver,
+        public downloadHistoricalService?: DownloadHistoricalService
     ) {
         this.paramData = new ModelFilter();
         this.user = {};
@@ -89,6 +91,7 @@ export class HistoricalComponent implements OnInit {
      * @memberof HistoricalComponent
      */
     ngOnInit() {
+        localStorage.removeItem('currentFilterHistorical');
         this.userService.isAuthenticated(this);
         this.layoutChanges.subscribe(result => {
             this.numCols = result.matches ? 1 : 2;
@@ -189,5 +192,61 @@ export class HistoricalComponent implements OnInit {
                 }
             }
         );
+    }
+
+     /**
+     * TODO: Eliminar
+     */
+    getHistoricalOffersFake2(params?: any) {
+        this.shellComponent.loadingComponent.viewLoadingSpinner();
+        this.historicalService.getHistoricalOffersFake2(params).subscribe(
+            (result: any) => {
+                if (result) {
+                    // if (result.status === 200 && result.body !== undefined) {
+                    const response = result;
+                    this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
+                    this.numberPages = Math.ceil(this.numberPages);
+                    this.historicalOffer = response.sellerHistoricalOffers;
+                    this.shellComponent.loadingComponent.closeLoadingSpinner();
+                    console.log(response);
+                } else {
+                    this.shellComponent.loadingComponent.closeLoadingSpinner();
+                    this.shellComponent.modalComponent.showModal('errorService');
+                }
+            }
+        );
+    }
+
+     /**
+     * @method historicalFilter
+     * @param params
+     * @description Metodo para filtrar el historico de ofertas
+     * @memberof HistoricalComponent
+     */
+    historicalFilter(params) {
+        this.currentPage = 1;
+        this.filterActive = true;
+        this.paramData.dateInitial = params.get('dateInitial').value;
+        this.paramData.dateFinal = params.get('dateFinal').value;
+        this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
+        this.paramData.currentPage = this.currentPage;
+        this.paramData.limit = 100;
+        this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean);
+        // this.getHistoricalOffers(this.paramData);
+        this.getHistoricalOffersFake(this.paramData); // TODO: Eliminar
+        this.sidenav.toggle();
+    }
+
+    /**
+     * @method setDataPaginate
+     * @description Metodo para el funcionamiento del páginador
+     * @param params
+     * @memberof HistoricalComponent
+     */
+    setDataPaginate(params) {
+        this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
+        this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
+        // this.getHistoricalOffers(this.paramData);
+        this.getHistoricalOffersFake2(this.paramData);  // TODO: Eliminar
     }
 }

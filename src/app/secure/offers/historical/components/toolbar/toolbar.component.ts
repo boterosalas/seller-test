@@ -127,12 +127,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
             case 'next':
                 this.currentPage += 1;
                 this.dataPaginate.currentPage = this.currentPage;
-                // this.list.setDataPaginate(this.dataPaginate);
+                this.list.setDataPaginate(this.dataPaginate);
                 break;
             case 'prev':
                 this.currentPage -= 1;
                 this.dataPaginate.currentPage = this.currentPage;
-                // this.list.setDataPaginate(this.dataPaginate);
+                this.list.setDataPaginate(this.dataPaginate);
                 break;
         }
     }

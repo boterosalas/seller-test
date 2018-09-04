@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 
@@ -31,7 +31,7 @@ const log = new Logger('DownloadHistoricalComponent');
 })
 
 /**
- * DownloadOrderModalComponent
+ * DownloadHistoricalModalComponent
  */
 // export class DownloadHistoricalModalComponent implements OnInit, Callback {
 export class DownloadHistoricalModalComponent implements OnInit, Callback {
@@ -41,21 +41,21 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   // user info
   public user: any;
   // Limite de registros para descargar
-  public limitLengthOrder: any = 0;
+  public limitLengthHistorical: any = 0;
 
   /**
-   * Creates an instance of DownloadOrderModalComponent.
+   * Creates an instance of DownloadHistoricalModalComponent.
    * @param {MatDialogRef<DownloadHistoricalModalComponent>} dialogRef
-   * @param {DownloadOrderService} DownloadOrderService
+   * @param {DownloadHistoricalService} DownloadHistoricalService
    * @param {UserService} userService
    * @param {ComponentsService} componentsService
    * @param {FormBuilder} fb
    * @param {*} data
-   * @memberof DownloadOrderModalComponent
+   * @memberof DownloadHistoricalModalComponent
    */
   constructor(
     public dialogRef: MatDialogRef<DownloadHistoricalModalComponent>,
-    public downloadOrderService: DownloadHistoricalService,
+    public downloadHistoricalService: DownloadHistoricalService,
     public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,
@@ -63,12 +63,12 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // capturo el limite de registros indicados por el usuario
-    this.limitLengthOrder = data.limit;
+    this.limitLengthHistorical = data.limit;
     this.user = {};
   }
 
   /**
-   * @memberof DownloadOrderModalComponent
+   * @memberof DownloadHistoricalModalComponent
    */
   ngOnInit() {
     this.getDataUser();
@@ -87,7 +87,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   /**
    * Funcionalidad para cerrar el modal
-   * @memberof DownloadOrderModalComponent
+   * @memberof DownloadHistoricalModalComponent
    */
   onNoClick(): void {
     this.dialogRef.close(false);
@@ -95,7 +95,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   /**
    * Funcionalidad para crear el formulario
-   * @memberof DownloadOrderModalComponent
+   * @memberof DownloadHistoricalModalComponent
    */
   createForm() {
     const email = this.user.sellerEmail;
@@ -107,16 +107,12 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   /**
    * Método para realizar la descarga de las órdenes
    * @param {any} form
-   * @memberof DownloadOrderModalComponent
+   * @memberof DownloadHistoricalModalComponent
    */
-  downloadOrders(form) {
-    log.info(this.downloadOrderService.getCurrentFilterOrders());
-    const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
-    currentFiltersOrders.idSeller = this.user.sellerId;
-    currentFiltersOrders.sellerName = this.user.sellerName;
-    currentFiltersOrders.email = form.get('email').value;
-    console.log('parametros', currentFiltersOrders);
-    this.downloadOrderService.downloadOrders(this.user, currentFiltersOrders).subscribe(res => {
+  downloadHistorical(form) {
+    log.info(this.downloadHistoricalService.getCurrentFilterHistorical());
+    const email = form.get('email').value;
+    this.downloadHistoricalService.downloadHistorical(email).subscribe(res => {
       if (res != null) {
         this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
           'Cerrar', 10000);

@@ -85,4 +85,23 @@ export class HistoricalService {
     });
   }
 
+  /**
+   * TODO: Eliminar
+   */
+  public getHistoricalOffersFake2(params?: any): Observable<{}> {
+    return new Observable(observer => {
+      this.http.get<any>('./assets/data2.json') // TODO; Eliminar JSON File
+        .subscribe(
+          data => {
+            setTimeout( () => {
+              observer.next(data);
+            }, 3000 );
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
 }
