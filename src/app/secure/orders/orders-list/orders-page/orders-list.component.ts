@@ -1,35 +1,17 @@
-/* 3rd party components */
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatPaginatorIntl } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 
-/* our own custom components */
+import { AwsUtil, Callback, CognitoUtil, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService, } from '@app/core';
+import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, } from '@app/shared';
+import { ShellComponent } from '@core/shell';
+
 import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
-import { SendOrderComponent } from '../send-order/send-order.component';
-import {
-  Order,
-  CategoryList,
-  SearchFormEntity,
-  InformationToForm,
-  Const,
-  getDutchPaginatorIntl,
-  Logger,
-  ComponentsService,
-  AwsUtil,
-  UserLoginService,
-  CognitoUtil,
-  LoggedInCallback,
-  Callback,
-  UserParametersService,
-  RoutesConst,
-  UserService
-} from '@app/shared';
 import { OrderService } from '../orders.service';
-import { ShellComponent } from '@core/shell/shell.component';
+import { SendOrderComponent } from '../send-order/send-order.component';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -55,7 +37,7 @@ const log = new Logger('OrdersListComponent');
       transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
-  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }],
+  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl }],
 })
 
 /**
@@ -122,19 +104,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
-  /**
-   * Método para cerrar el modal
-   * @param {ShellComponent} shellComponent
-   * @param {ActivatedRoute} route
-   * @param {Router} router
-   * @param {MatDialog} dialog
-   * @param {Location} location
-   * @param {ComponentsService} componentService
-   * @param {OrderService} orderService
-   * @memberof OrdersListComponent
-   */
+
   constructor(
-    public shellComponent: ShellComponent,
+    private shellComponent: ShellComponent,
+    private loadingService: LoadingService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
@@ -144,8 +117,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
     public awsUtil: AwsUtil,
     public userService: UserLoginService,
     public cognito: CognitoUtil,
-    public userParams: UserParametersService,
-    public userServiceProvider: UserService,
+    public userParams: UserParametersService
   ) {
     this.user = {};
   }
@@ -166,7 +138,8 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
     }
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -225,17 +198,17 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Evento que permite obtener los parametros pasados por la url
-  * @memberof OrdersListComponent
-  */
+   * Evento que permite obtener los parametros pasados por la url
+   * @memberof OrdersListComponent
+   */
   getOrdersListSinceCurrentUrl() {
 
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
       if (this.currentRootPage !== undefined) {
         /**
-        *  logica para obtener la categoria seleccionada
-        */
+         *  logica para obtener la categoria seleccionada
+         */
         const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
 
         // si el valor pasado el la url concuerda con la lista de categorías almacenadas,
@@ -269,35 +242,35 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Funcionalidad para dirigir a la vista principal de órdenes.
-  * @memberof OrdersListComponent
-  */
+   * Funcionalidad para dirigir a la vista principal de órdenes.
+   * @memberof OrdersListComponent
+   */
   getAllOrderList() {
     this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
   }
 
   /**
-  * Funcionalidad para cancelar los propagation .
-  * @param {Event} event
-  * @memberof OrdersListComponent
-  */
+   * Funcionalidad para cancelar los propagation .
+   * @param {Event} event
+   * @memberof OrdersListComponent
+   */
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
 
   /**
-  * Método para cambiar el page size de la tabla órdenes
-  * @param {any} pageSize
-  * @memberof OrdersListComponent
-  */
-  changeSizeOrderTable($event) {
+   * Método para cambiar el page size de la tabla órdenes
+   * @param {any} pageSize
+   * @memberof OrdersListComponent
+   */
+  changeSizeOrderTable($event: any) {
     this.dataSource.paginator = $event.paginator;
   }
 
   /**
-  * Método para setear el nombre de la categoría actual de la pagina
-  * @memberof OrdersListComponent
-  */
+   * Método para setear el nombre de la categoría actual de la pagina
+   * @memberof OrdersListComponent
+   */
   setCategoryName() {
     // logica para obtener la categoria seleccionada
     const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
@@ -317,11 +290,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Funcionalidad para consultar la lista de órdenes
-  * @param {*} $event
-  * @param {any} [state]
-  * @memberof OrdersListComponent
-  */
+   * Funcionalidad para consultar la lista de órdenes
+   * @param {*} $event
+   * @param {any} [state]
+   * @memberof OrdersListComponent
+   */
   getOrdersList($event: any) {
     this.setCategoryName();
     if ($event !== undefined) {
@@ -347,12 +320,12 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Funcionalidad para agregar las opciones de check a la tabla.
-  * @param {any} res
-  * @param {any} paginator
-  * @memberof OrdersListComponent
-  */
-  addCheckOptionInProduct(res, paginator) {
+   * Funcionalidad para agregar las opciones de check a la tabla.
+   * @param {any} res
+   * @param {any} paginator
+   * @memberof OrdersListComponent
+   */
+  addCheckOptionInProduct(res: any, paginator: any) {
     // Logica para crear el contador de órdenes
     if (res != null) {
       // si no hay órdenes, muestro el cotenedor de no se han encontrado órdenes
@@ -388,10 +361,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Funcionalidad para poder filtrar los datos de la tabla
-  * @param {string} filterValue
-  * @memberof OrdersListComponent
-  */
+   * Funcionalidad para poder filtrar los datos de la tabla
+   * @param {string} filterValue
+   * @memberof OrdersListComponent
+   */
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     //  Remove whitespace
@@ -401,10 +374,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Whether the number of selected elements matches the total number of rows
-  * @returns
-  * @memberof OrdersListComponent
-  */
+   * Whether the number of selected elements matches the total number of rows
+   * @returns
+   * @memberof OrdersListComponent
+   */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -412,9 +385,9 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Selects all rows if they are not all selected; otherwise clear selection.
-  * @memberof OrdersListComponent
-  */
+   * Selects all rows if they are not all selected; otherwise clear selection.
+   * @memberof OrdersListComponent
+   */
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
@@ -422,10 +395,10 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Método que retorna el número de elementos a ser enviados en una orden
-  * @returns
-  * @memberof SendOrderComponent
-  */
+   * Método que retorna el número de elementos a ser enviados en una orden
+   * @returns
+   * @memberof SendOrderComponent
+   */
   getLengthProductForSend(order: Order) {
     let numberElements = 0;
     for (let i = 0; i < order.products.length; i++) {
@@ -442,15 +415,15 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Funcionalidad para desplegar el modal que permite hacer el envío de todos los productos de una orden.
-  * @param {any} item
-  * @memberof OrdersListComponent
-  */
-  openDialogSendOrder(item): void {
+   * Funcionalidad para desplegar el modal que permite hacer el envío de todos los productos de una orden.
+   * @param {any} item
+   * @memberof OrdersListComponent
+   */
+  openDialogSendOrder(item: any): void {
     if (this.getLengthProductForSend(item) === 0) {
       this.componentService.openSnackBar('La orden seleccionada no posee productos para ser enviados.', 'Cerrar', 3000);
     } else {
-      this.shellComponent.loadingComponent.viewLoadingProgressBar();
+      this.loadingService.viewProgressBar();
       const dialogRef = this.dialog.open(SendOrderComponent, {
         width: '95%',
         data: {
@@ -476,17 +449,17 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
         } else {
           log.info('No se han enviado productos de la orden');
         }
-        this.shellComponent.loadingComponent.closeLoadingProgressBar();
+        this.loadingService.closeProgressBar();
       });
     }
   }
 
   /**
-  * Funcionalidad para despelgar el modal para visualizar el detalle de una orden.
-  * @param {any} item
-  * @memberof OrdersListComponent
-  */
-  openModalDetailOrder(item): void {
+   * Funcionalidad para despelgar el modal para visualizar el detalle de una orden.
+   * @param {any} item
+   * @memberof OrdersListComponent
+   */
+  openModalDetailOrder(item: any): void {
     const dialogRef = this.dialog.open(OrderDetailModalComponent, {
       data: {
         user: this.user,
@@ -499,12 +472,12 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Método para marcar una orden y actualizar el registro mediante un servicio web
-  * @param {any} orderId
-  * @param {any} currentValue
-  * @memberof OrdersListComponent
-  */
-  recordProcesSedOrder(orderId, currentValue) {
+   * Método para marcar una orden y actualizar el registro mediante un servicio web
+   * @param {any} orderId
+   * @param {any} currentValue
+   * @memberof OrdersListComponent
+   */
+  recordProcesSedOrder(orderId: any, currentValue: any) {
 
     if (currentValue === true) {
       currentValue = false;
@@ -535,9 +508,9 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   }
 
   /**
-  * Método para realizar un update en los datos pasados al componente toolbar-options
-  * @memberof OrdersListComponent
-  */
+   * Método para realizar un update en los datos pasados al componente toolbar-options
+   * @memberof OrdersListComponent
+   */
   setTitleToolbar() {
     this.informationToForm.title = `${this.currentCategory.name} ${this.numberElements}`;
   }

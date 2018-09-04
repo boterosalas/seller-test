@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {UserRegistrationService, CognitoCallback, RoutesConst} from '@app/shared';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CognitoCallback, UserRegistrationService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-awscognito',

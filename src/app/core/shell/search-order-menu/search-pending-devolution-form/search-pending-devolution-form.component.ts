@@ -1,19 +1,14 @@
-/* 3rd party components */
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Input } from '@angular/core';
 
-
-/* our own custom components */
+import { Logger } from '@app/core';
+import { SearchFormEntity } from '@app/shared/models';
+import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
+
 import { SearchOrderMenuService } from '../search-order-menu.service';
-import {
-  Logger,
-  SearchFormEntity,
-  UserService,
-  ComponentsService } from '@app/shared';
 
 
 // log component
@@ -47,7 +42,6 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   constructor(
-    public userService: UserService,
     public componentsService: ComponentsService,
     private route: Router,
     public searchOrderMenuService: SearchOrderMenuService,
@@ -61,7 +55,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
     this.createForm();
   }
 
@@ -113,7 +107,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   filterOrder(data) {
 
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
 
     const datePipe = new DatePipe(this.locale);
 

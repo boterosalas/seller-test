@@ -1,29 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseSellerService, Const, ListReasonRejectionResponseEntity } from '@root/src/app/shared';
+import { EndpointService } from '@app/core';
+import { Const, ListReasonRejectionResponseEntity } from '@app/shared';
 import { Observable } from 'rxjs';
 
 
 @Injectable()
-export class InDevolutionService extends BaseSellerService {
+export class InDevolutionService {
+
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente.
      * 
-     * @param user
      * @param guide
      * @returns Observable<[{}]>
      */
     getOrders(stringSearch: any): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders())
+            this.http.get(this.api.get('pendingDevolution', [stringSearch]))
                 .subscribe((data: any) => {
                     // Validación debido a que a veces el endpoint solo responde un status 200.
                     data = (!data) ? [] : data;
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }
@@ -38,16 +42,14 @@ export class InDevolutionService extends BaseSellerService {
         return new Observable(observer => {
             this.http.get(this.api.get('getreasonsrejection', [
                 `?reversionRequestRejectionType=${Const.OrdersInDevolution}`
-            ]), this.getHeaders()).subscribe((data: any) => {
+            ])).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
+                observer.error(err);
             });
         });
     }
-    
+
     /**
      * Método para realizar la aceptación o el rechazo de una devolución.
      *
@@ -56,13 +58,11 @@ export class InDevolutionService extends BaseSellerService {
      */
     acceptOrDeniedDevolution(info): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.post(this.api.get('acceptOrDeniedDevolution'), info, this.getHeaders())
+            this.http.post(this.api.get('acceptOrDeniedDevolution'), info)
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }

@@ -1,26 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginatorIntl, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 
-// Local components
-import {
-  ListShipments,
-  PickupShipment,
-  SearchFormEntity,
-  InformationToForm,
-  Logger,
-  getDutchPaginatorIntl,
-  UserService,
-  RoutesConst
-} from '@app/shared';
-import { ShipmentsService } from '../../shipments.service';
-import { environment } from '@env/environment';
+import { Logger } from '@app/core';
+import { getDutchPaginatorIntl, InformationToForm, ListShipments, PickupShipment, RoutesConst, SearchFormEntity } from '@app/shared';
 
-/**
- * Servicio de log empleado para mostrar mensajes en consola
- */
+import { ShipmentsService } from '../../shipments.service';
+
+
 const log = new Logger('PendingComponent');
 
 @Component({
@@ -37,20 +25,23 @@ const log = new Logger('PendingComponent');
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }],
 })
-
 export class PendingComponent implements OnInit {
   public id: number;
-
   public user: any;
-
   public subStateOrder: any;
-
-  public displayedColumns = ['order', 'created_at', 'time_limit', 'remain', 'products', 'origin', 'destination', 'carrier', 'actions'];
+  public displayedColumns = [
+    'order',
+    'created_at',
+    'time_limit',
+    'remain',
+    'products',
+    'origin',
+    'destination',
+    'carrier',
+    'actions'
+  ];
 
   public dataSource;
-
-  public url = environment.endpoints.shipments;
-
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Despacho',
@@ -67,17 +58,16 @@ export class PendingComponent implements OnInit {
    */
   constructor(
     private service: ShipmentsService,
-    private userService: UserService,
-    private router: Router) { }
+    private router: Router) {
+  }
 
   /**
    * Init compoment
    */
   ngOnInit() {
-    this.user = this.userService.getUser();
-
     this.list();
   }
+
   /**
    * get Shipment by id in view
    */
@@ -106,12 +96,10 @@ export class PendingComponent implements OnInit {
    * @memberof DispatchedComponent
    * @param $event
    */
-  changeSizeOrderTable($event) {
-
+  changeSizeOrderTable($event: any) {
   }
 
 
-  getOrdersList($event) {
-
+  getOrdersList($event: any) {
   }
 }

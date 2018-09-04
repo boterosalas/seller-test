@@ -1,17 +1,10 @@
-/* 3rd party components */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {
-  RoutesConst,
-  UserLoginService,
-  UserParametersService,
-  LoggedInCallback,
-  Callback
-} from '@app/shared';
 
 
-/* our own custom components */
 
 
 /**

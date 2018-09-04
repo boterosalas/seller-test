@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
 import { environment } from '@env/environment';
 
@@ -8,12 +10,16 @@ import { InValidationComponent } from './in-validation-page/in-validation.compon
 
 const isProductionEnv = environment.production;
 
+
+
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
-    component: !isProductionEnv ? InValidationComponent : ErrorPageComponent,
-    data: {title: 'En validación'},
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
+      component: !isProductionEnv ? InValidationComponent : ErrorPageComponent,
+      data: { title: 'En validación' },
+    }
+  ])
 ];
 
 @NgModule({

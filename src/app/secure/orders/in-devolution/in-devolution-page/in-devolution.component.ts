@@ -3,17 +3,15 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  Callback,
   ComponentsService,
   Const,
   ListReasonRejectionResponseEntity,
-  Logger,
   OrderDevolutionsModel,
   Pending,
   SearchFormEntity,
-  UserParametersService,
-  UserService,
 } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
@@ -33,6 +31,7 @@ const log = new Logger('InDevolutionComponent');
   selector: 'app-in-devolution',
   templateUrl: './in-devolution.component.html',
   styleUrls: ['./in-devolution.component.scss'],
+  providers: [InDevolutionService],
   // Configuración para la páginación de la tabla animations:
   animations: [
     trigger('detailExpand', [
@@ -92,7 +91,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
     public dialog: MatDialog,
     private zone: NgZone,
     private inDevolutionService: InDevolutionService,
-    public userService: UserService,
     private componentsService: ComponentsService,
     public userParams: UserParametersService
   ) {

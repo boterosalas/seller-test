@@ -1,50 +1,43 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
+
 
 @Injectable()
 export class RegisterService {
-  writerRegister = endpoints[defaultVersion.prefix + defaultVersion.number]['registerSeller'];
-  writerValidateSellerNit = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerNit'];
-  writeValidateSellerEmail = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerEmail'];
-  writerValidateSellerName = endpoints[defaultVersion.prefix + defaultVersion.number]['validateSellerName'];
-  httpOptions: any;
 
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil
-  ) { }
+    private api: EndpointService
+  ) {
+  }
 
   /**
    * @method fetchData
    * @param paramValue
    * @param param
-   * @description Metodo para validar los datos de: NIT, E-mail, Nombre de la tienda
+   * @description Método para validar los datos de: NIT, E-mail, Nombre de la tienda
    * @memberof RegisterService
    */
   fetchData(paramValue: {}, param: any): Observable<{}> {
     let writeUrl: any;
     switch (param) {
-      case 'Nit':
-        writeUrl = this.writerValidateSellerNit;
+      case 'nit':
+        writeUrl = 'validateSellerNit';
         break;
-      case 'Email':
-        writeUrl = this.writeValidateSellerEmail;
+      case 'email':
+        writeUrl = 'validateSellerEmail';
         break;
-      case 'Name':
-        writeUrl = this.writerValidateSellerName;
+      case 'nomTienda':
+        writeUrl = 'validateSellerName';
         break;
       default:
         console.log('one parameter is missing');
     }
-    const url = writeUrl + '/' + paramValue;
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
     return new Observable(observer => {
-      this.http.get<any>(url, { observe: 'response', headers: headers })
+      this.http.get<any>(this.api.get(writeUrl, [paramValue]), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -64,12 +57,9 @@ export class RegisterService {
    * @memberof RegisterService
    */
   registerUser(params: {}): Observable<{}> {
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-    console.log('parametros para el servicio', params);
     return new Observable(
       observer => {
-        this.http.post<any>(this.writerRegister, params, { observe: 'response', headers: headers }).subscribe(
+        this.http.post<any>(this.api.get('registerSeller'), params, { observe: 'response' }).subscribe(
           data => {
             observer.next(data);
           },

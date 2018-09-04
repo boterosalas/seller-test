@@ -1,7 +1,6 @@
 <mat-sidenav-container>
-
+  <!-- Sidebar Principal -->
   <mat-sidenav #sidenav mode="over" opened="{{stateSideNav}}">
-    <!-- Sidebar Principal -->
     <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
   </mat-sidenav>
 
@@ -12,14 +11,11 @@
 
   <!-- Contenido principal -->
   <mat-sidenav-content>
-
-    <!-- Componente loading de la página -->
-    <app-loading #loadingComponent></app-loading>
     <!-- Componente Header de la página -->
-    <app-header *ngIf="showHeader && user" [sidenav]="sidenav" [user]="user"></app-header>
+    <app-header [sidenav]="sidenav" [user]="user"></app-header>
 
-    <!-- Injecto el router-outlet desde el app-component con la etiqueta ng-content -->
-    <ng-content></ng-content>
-    <app-modal #modalComponent></app-modal>
+    <!-- Render módulos-->
+    <router-outlet></router-outlet>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

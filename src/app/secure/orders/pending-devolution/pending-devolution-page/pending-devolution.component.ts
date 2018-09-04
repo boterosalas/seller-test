@@ -1,18 +1,15 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  Callback,
   ComponentsService,
   Const,
   ListReasonRejectionResponseEntity,
-  Logger,
   OrderDevolutionsModel,
   Pending,
   SearchFormEntity,
-  UserParametersService,
 } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 import { isEmpty } from 'lodash';
@@ -24,8 +21,6 @@ import {
   ProductPendingDevolutionModalComponent,
 } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
-
-
 
 // log component
 const log = new Logger('PendingDevolutionComponent');

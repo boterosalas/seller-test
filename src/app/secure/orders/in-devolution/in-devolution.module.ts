@@ -4,33 +4,21 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from '@app/shared/shared.module';
 
-import { InDevolutionService } from '@app/secure/orders/in-devolution/in-devolution.service';
-import {
-    ProductDevolutionModalComponent,
-} from '@app/secure/orders/in-devolution/product-devolution-modal/product-devolution-modal.component';
-import { ViewCommentComponent } from '@app/secure/orders/in-devolution/view-comment/view-comment.component';
-import { EndpointService, EventEmitterOrders, HttpErrorHandlingService } from '@app/shared';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import { ShellComponent } from '@root/src/app/core/shell/shell.component';
-import { MaterialModule } from '@root/src/app/secure/material-components';
-import {
-    ActionConfirmReceiptComponent,
-} from '@secure/orders/in-devolution/action-confirm-receipt/action-confirm-receipt.component';
-import { BillingRoutingModule } from '@secure/orders/in-devolution/in-devolution.routing';
-
+import { ActionConfirmReceiptComponent } from './action-confirm-receipt/action-confirm-receipt.component';
 import { ActionReportNoveltyComponent } from './action-report-novelty/action-report-novelty.component';
 import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
+import { BillingRoutingModule } from './in-devolution.routing';
+import { ProductDevolutionModalComponent } from './product-devolution-modal/product-devolution-modal.component';
+import { ViewCommentComponent } from './view-comment/view-comment.component';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         BillingRoutingModule,
-        ToolbarLinkModule,
-        ToolbarOptionsModule,
-        MaterialModule,
+        SharedModule,
         HttpClientModule,
         BrowserAnimationsModule
     ],
@@ -55,11 +43,6 @@ import { InDevolutionComponent } from './in-devolution-page/in-devolution.compon
         ViewCommentComponent
     ],
     providers: [
-        InDevolutionService,
-        EndpointService,
-        ShellComponent,
-        EventEmitterOrders,
-        HttpErrorHandlingService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
     ]

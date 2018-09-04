@@ -1,17 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import {
-  Callback,
-  ComponentsService,
-  FAKE,
-  ListReasonRejectionResponseEntity,
-  Logger,
-  OrderDevolutionsModel,
-  UserParametersService
-} from '@app/shared';
 
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { ComponentsService, FAKE, ListReasonRejectionResponseEntity, OrderDevolutionsModel } from '@app/shared';
 import { InDevolutionService } from '@root/src/app/secure/orders/in-devolution/in-devolution.service';
 
 

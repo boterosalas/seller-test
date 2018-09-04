@@ -22,15 +22,15 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_ClientInformationModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="76,-70 76,-268 420,-268 420,-70 76,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="80,-70 80,-268 416,-268 416,-70 80,-70"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_ClientInformationModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="214,-78 214,-130 412,-130 412,-78 214,-78"/>
+<polygon fill="none" stroke="#000000" points="210,-78 210,-130 408,-130 408,-78 210,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_ClientInformationModule_imports</title>
-<polygon fill="none" stroke="#000000" points="84,-78 84,-130 206,-130 206,-78 84,-78"/>
+<polygon fill="none" stroke="#000000" points="88,-78 88,-130 202,-130 202,-78 88,-78"/>
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_ClientInformationModule_exports</title>
@@ -39,8 +39,8 @@
 <!-- ClientInformationComponent -->
 <g id="node1" class="node">
 <title>ClientInformationComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="404.4241,-122 221.5759,-122 221.5759,-86 404.4241,-86 404.4241,-122"/>
-<text text-anchor="middle" x="313" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">ClientInformationComponent</text>
+<polygon fill="#ffffb3" stroke="#000000" points="400.4241,-122 217.5759,-122 217.5759,-86 400.4241,-86 400.4241,-122"/>
+<text text-anchor="middle" x="309" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">ClientInformationComponent</text>
 </g>
 <!-- ClientInformationModule -->
 <g id="node2" class="node">
@@ -51,8 +51,8 @@
 <!-- ClientInformationComponent&#45;&gt;ClientInformationModule -->
 <g id="edge1" class="edge">
 <title>ClientInformationComponent&#45;&gt;ClientInformationModule</title>
-<path fill="none" stroke="#000000" d="M275.0544,-122.1061C275.0544,-122.1061 275.0544,-140.991 275.0544,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="271.5544,-140.9909 275.0544,-150.991 278.5544,-140.991 271.5544,-140.9909"/>
+<path fill="none" stroke="#000000" d="M273.0544,-122.1061C273.0544,-122.1061 273.0544,-140.991 273.0544,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="269.5544,-140.9909 273.0544,-150.991 276.5544,-140.991 269.5544,-140.9909"/>
 </g>
 <!-- ClientInformationComponent  -->
 <g id="node4" class="node">
@@ -66,17 +66,17 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
 </g>
-<!-- MaterialModule -->
+<!-- SharedModule -->
 <g id="node3" class="node">
-<title>MaterialModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="198.4706,-122 195.4706,-126 174.4706,-126 171.4706,-122 91.5294,-122 91.5294,-86 198.4706,-86 198.4706,-122"/>
-<text text-anchor="middle" x="145" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">MaterialModule</text>
+<title>SharedModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="194.4231,-122 191.4231,-126 170.4231,-126 167.4231,-122 95.5769,-122 95.5769,-86 194.4231,-86 194.4231,-122"/>
+<text text-anchor="middle" x="145" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SharedModule</text>
 </g>
-<!-- MaterialModule&#45;&gt;ClientInformationModule -->
+<!-- SharedModule&#45;&gt;ClientInformationModule -->
 <g id="edge2" class="edge">
-<title>MaterialModule&#45;&gt;ClientInformationModule</title>
-<path fill="none" stroke="#000000" d="M183.0824,-122.1061C183.0824,-122.1061 183.0824,-140.991 183.0824,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="179.5825,-140.9909 183.0824,-150.991 186.5825,-140.991 179.5825,-140.9909"/>
+<title>SharedModule&#45;&gt;ClientInformationModule</title>
+<path fill="none" stroke="#000000" d="M180.9453,-122.1061C180.9453,-122.1061 180.9453,-140.991 180.9453,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="177.4454,-140.9909 180.9453,-150.991 184.4454,-140.991 177.4454,-140.9909"/>
 </g>
 </g>
 </svg>

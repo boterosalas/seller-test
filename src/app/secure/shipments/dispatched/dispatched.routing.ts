@@ -1,28 +1,26 @@
-
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DispatchedComponent } from './dispatched-page/dispatched.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
-// local components
+import { DispatchedComponent } from './dispatched-page/dispatched.component';
+
 
 const routes: Routes = [
+  Route.withShell([
     {
-        path: `${RoutesConst.sellerCenterIntShipmentsExitoOffice}`,
-        component: DispatchedComponent,
-        data: { title: 'Envíos en despacho' },
+      path: `${RoutesConst.sellerCenterIntShipmentsExitoOffice}`,
+      component: DispatchedComponent,
+      data: { title: 'Envíos en despacho' },
     }
+  ])
 ];
 
-/**
- *
- *
- * @export
- * @class HomeRoutingModule
- */
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
-})
 
-export class DispatchRoutingModule { }
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
+})
+export class DispatchRoutingModule {
+}

@@ -1,14 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
+import { Billing } from '@app/shared';
 import { Observable } from 'rxjs';
-// Local
-import { Billing, BaseSellerService } from '@app/shared';
+
 
 @Injectable()
+export class BillingService {
 
-/**
- * Clase BillingService
- */
-export class BillingService extends BaseSellerService {
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
   /**
    * Método para realiar la consulta de las transportadoras.
@@ -19,14 +22,11 @@ export class BillingService extends BaseSellerService {
    */
   getBilling(user, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('getBilling', [stringSearch]), this.getHeaders())
-        .subscribe((data: any) => {
-          observer.next(data);
-        }, error => {
-          this.hehs.error(error, () => {
-            observer.error(error);
-          });
-        });
+      this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
+        observer.next(data);
+      }, error => {
+        observer.error(error);
+      });
     });
   }
 
@@ -44,14 +44,11 @@ export class BillingService extends BaseSellerService {
       // Id del vendedor.
       const sellerId = user.sellerId;
 
-      this.http.get<Billing[]>(this.api.get('searchBilling', [sellerId, limit + stringSearch]),
-        this.getHeaders()).subscribe((data) => {
-          observer.next(data);
-        }, errorMessage => {
-          this.hehs.error(errorMessage, () => {
-            observer.error(errorMessage);
-          });
-        });
+      this.http.get<Billing[]>(this.api.get('searchBilling', [sellerId, limit + stringSearch])).subscribe((data) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 

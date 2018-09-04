@@ -1,19 +1,12 @@
-/* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-/* our own custom components */
-import { ShellComponent } from '@core/shell/shell.component';
+import { RoutesConst } from '@shared/util';
+import { CategoryList } from '@shared/models';
 import { environment } from '@env/environment';
-import {
-  Logger,
-  RoutesConst,
-  CategoryList,
-  UserLoginService,
-  LoggedInCallback,
-  Callback,
-  UserParametersService
-} from '@app/shared';
+
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { Logger } from '@core/util/logger.service';
+import { ShellComponent } from '@core/shell/shell.component';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -25,26 +18,17 @@ const log = new Logger('SideBarComponent');
 })
 
 export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
-
   // Sidenav principal
   @Input() sidenav;
   // Información del usuario
   @Input() user: any;
-  // web url. empleada para saber cual es la url del servidor
-  webUrl = environment.webUrl;
   // Define si la app esta en un entorno de producción.
   isProductionEnv = environment.production;
   // Lista de categorías de las órdenes
   categoryList: any;
-  public routes: any;
+  public routes = RoutesConst;
+  prueba = 'solicitudes-pendientes';
 
-  /**
-   * Creates an instance of SidebarComponent.
-   * @param {Router} route
-   * @param {ShellComponent} shellComponent
-   * @param {LogoutComponent} logoutComponent
-   * @memberof SidebarComponent
-   */
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
@@ -58,7 +42,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof SidebarComponent
    */
   ngOnInit() {
-    this.routes = RoutesConst;
+    // this.routes = RoutesConst;
     this.categoryList = this.routes.CATEGORYLIST;
     this.userService.isAuthenticated(this);
   }
@@ -69,7 +53,8 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
     }
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);

@@ -1,12 +1,12 @@
-/* 3rd party components */
-import { MatDialogRef } from '@angular/material';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
-/* our own custom components */
+import { Callback, UserParametersService } from '@app/core/aws-cognito';
+import { Logger } from '@app/core/util/logger.service';
+import { ComponentsService } from '@shared/services/components.service';
+
 import { SupportService } from './support.service';
-import { environment } from '@env/environment';
-import { Logger, ComponentsService, UserService, UserParametersService, Callback } from '@app/shared';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -35,24 +35,12 @@ export class SupportModalComponent implements OnInit, Callback {
   myform: FormGroup;
   // user info
   public user: any;
-  // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
-  public webUrl = environment.webUrl;
 
-  /**
-   * Creates an instance of SupportModalComponent.
-   * @param {FormBuilder} fb
-   * @param {MatDialogRef<SupportModalComponent>} dialogRef
-   * @param {ComponentsService} COMPONENT
-   * @param {SupportService} SUPPORT
-   * @param {UserService} USER
-   * @memberof SupportModalComponent
-   */
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public USER: UserService,
     public userParams: UserParametersService
   ) {
     this.user = {};
@@ -89,7 +77,7 @@ export class SupportModalComponent implements OnInit, Callback {
    */
   createForm() {
     this.myform = this.fb.group({
-      'nit': [this.user[this.webUrl].nit, Validators.compose([Validators.required])],
+      'nit': [this.user.nit, Validators.compose([Validators.required])],
       'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
       'account': [this.user.name, Validators.compose([Validators.required])],
       'emailContact': [this.user.email, Validators.compose([Validators.required, Validators.email])],
@@ -106,7 +94,7 @@ export class SupportModalComponent implements OnInit, Callback {
    * @param {any} form
    * @memberof SupportModalComponent
    */
-  sendSupportMessage(form) {
+  sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
     const messageSupport = {

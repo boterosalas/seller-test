@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ComponentsService, SearchFormEntity, UserParametersService } from '@app/shared';
+import { ComponentsService, SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 import { BillingService } from '@secure/billing/billing.service';
 import { isEmpty } from 'lodash';
+import { UserParametersService } from '@app/core/aws-cognito/user-parameters.service';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -24,16 +25,7 @@ export class SearchBillingFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
-  /**
-   * Creates an instance of SearchBillingFormComponent.
-   * @param {UserService} userService
-   * @param {ComponentsService} componentsService
-   * @param {Router} route
-   * @param {BillingService} billingService
-   * @param {ShellComponent} shellComponent
-   * @param {FormBuilder} fb
-   * @memberof SearchBillingFormComponent
-   */
+
   constructor(
     public componentsService: ComponentsService,
     private billingService: BillingService,

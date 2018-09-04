@@ -1,19 +1,12 @@
-/* 3rd party components */
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-/* our own custom components */
 import { EventEmitterStore } from '../events/eventEmitter-store.service';
-import { StoresService } from '../stores.service';
 import { StoreModel } from '../models/store.model';
-import {
-  Logger,
-  UserService,
-  Callback,
-  UserParametersService
-} from '@app/shared';
+import { StoresService } from '../stores.service';
 
 // log component
 const log = new Logger('SearchStoreComponent');
@@ -42,7 +35,6 @@ export class SearchStoreComponent implements OnInit, OnChanges, Callback {
 
   constructor(
     public eventsStore: EventEmitterStore,
-    public userService: UserService,
     public storeService: StoresService,
     public userParams: UserParametersService) {
     this.user = {};

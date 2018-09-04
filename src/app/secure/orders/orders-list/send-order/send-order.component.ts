@@ -1,23 +1,11 @@
-/* 3rd party components */
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// Load the full build.
-import * as _ from 'lodash';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Callback, Logger, UserParametersService } from '@app/core';
+import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity } from '@app/shared';
+import * as _ from 'lodash';
 
-/* our own custom components */
-import {
-  Order,
-  ProductsEntity,
-  Carries,
-  Const,
-  Logger,
-  ComponentsService,
-  FAKE,
-  Callback,
-  UserParametersService
-} from '@app/shared';
 import { OrderService } from '../orders.service';
 
 // log component

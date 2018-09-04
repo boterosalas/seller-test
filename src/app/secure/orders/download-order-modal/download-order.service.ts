@@ -1,15 +1,18 @@
-/* 3rd party components */
-import {Observable} from 'rxjs/Observable';
-import {Injectable} from '@angular/core';
-
-/* our own custom components */
-import { BaseSellerService } from '@app/shared';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 /**
  * Clase OrderService
  */
-export class DownloadOrderService extends BaseSellerService {
+export class DownloadOrderService {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+) { }
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
@@ -38,14 +41,11 @@ export class DownloadOrderService extends BaseSellerService {
    * @memberof OrderService
    */
   downloadOrders(user, stringSearch): Observable<[{}]> {
-    this.changeEndPoint();
     return new Observable(observer => {
-      this.http.post(this.api.get('downloadOrder'), stringSearch, this.getHeaders(user)).subscribe((data: any) => {
+      this.http.post(this.api.get('downloadOrder'), stringSearch).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }

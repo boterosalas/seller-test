@@ -1,12 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 @Component({
   selector: 'app-store',

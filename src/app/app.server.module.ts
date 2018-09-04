@@ -1,10 +1,9 @@
-/* 3rd party components */
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 
-/* our own custom components */
-import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
+
 
 @NgModule({
   imports: [
@@ -13,5 +12,6 @@ import { AppComponent } from './app.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppServerModule { }
+export class AppServerModule {
+}
 

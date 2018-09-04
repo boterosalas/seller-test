@@ -1,29 +1,32 @@
-// Angular
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-// local components
-import { HistoricComponent } from './historic-page/historic.component';
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
+
+import { HistoricComponent } from './historic-page/historic.component';
 
 
 const routes: Routes = [
+  Route.withShell([
     {
-        path: `${RoutesConst.sellerCenterShipmentsExito}`,
-        component: HistoricComponent,
-        data: { title: 'Historico' },
+      path: `${RoutesConst.sellerCenterShipmentsExito}`,
+      component: HistoricComponent,
+      data: { title: 'Historico' },
     },
     {
-        path: `${RoutesConst.sellerCenterIntShipmentsExitoHist}`,
-        component: HistoricComponent,
-        data: { title: 'Historico' },
+      path: `${RoutesConst.sellerCenterIntShipmentsExitoHist}`,
+      component: HistoricComponent,
+      data: { title: 'Historico' },
     }
+  ])
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
 
-export class HistoricRoutingModule { }
+export class HistoricRoutingModule {
+}
