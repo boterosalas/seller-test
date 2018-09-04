@@ -25,7 +25,7 @@ export class ModelProduct {
         public Color: any,
         public HexColourCodePDP: any,
         public HexColourName: any,
-        public LogisticExito: any,
+        public IsLogisticsExito: any,
         public ImageUrl1: any,
         public ImageUrl2?: any,
         public ImageUrl3?: any,
@@ -69,7 +69,7 @@ export class ModelProduct {
         public errorColor?: any,
         public errorHexColourCodePDP?: any,
         public errorHexColourName?: any,
-        public errorLogisticExito?: any
+        public errorIsLogisticsExito?: any
     ) { }
 }
 

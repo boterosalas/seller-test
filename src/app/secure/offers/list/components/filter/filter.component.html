@@ -1,6 +1,6 @@
 <section id="section-filter-offers" class="flexbox flex-wrap">
 
-    <form novalidate #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(formFilter)" class="flexbox flex-wrap justify-center">
+    <form novalidate #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(filterForm.value)" class="flexbox flex-wrap justify-center">
 
         <article class="flexbox align-center justify-between">
             <span [innerHTML]="'Filtro ofertas'"></span>
@@ -11,30 +11,30 @@
         </article>
 
         <mat-form-field color="primary">
-            <input matInput placeholder="Producto" formControlName="productName" [(ngModel)]="formFilter.product" [errorStateMatcher]="matcher">
+            <input matInput placeholder="Producto" formControlName="product" [errorStateMatcher]="matcher">
             <mat-hint></mat-hint>
-            <mat-error *ngIf="filterForm.get('productName').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
+            <mat-error *ngIf="filterForm.get('product').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="EAN" formControlName="ean" [(ngModel)]="formFilter.ean" [errorStateMatcher]="matcher">
+            <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
             <mat-hint></mat-hint>
             <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
         </mat-form-field>
 
         <article class="container-radio-buttons flexbox align-center justify-between">
             <div class="inputGroup flexbox align-center justify-center">
-                <input id="stock-sold-out" name="stock" type="radio" value="0" formControlName="stock" [(ngModel)]="formFilter.stock" />
+                <input id="stock-sold-out" name="stock" type="radio" value="0" formControlName="stock" />
                 <label class="flexbox align-center" for="stock-sold-out" [innerHTML]="'Agotado'"></label>
             </div>
             <div class="inputGroup flexbox align-center justify-center">
-                <input id="stock" name="stock" type="radio" value="1" formControlName="stock" [(ngModel)]="formFilter.stock" />
+                <input id="stock" name="stock" type="radio" value="1" formControlName="stock" />
                 <label class="flexbox align-center" for="stock" [innerHTML]="'Con inventario'"></label>
             </div>
         </article>
 
         <article class="container-buttons flexbox align-center justify-between">
             <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
-            <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterOffers.form.valid || (!formFilter.product && !formFilter.ean && !formFilter.stock)"></button>
+            <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value)"></button>
         </article>
 
     </form>

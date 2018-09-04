@@ -4,6 +4,7 @@ import { Logger } from '@core/util/logger.service';
 import { endpoints, defaultVersion } from '@root/api-endpoints';
 import { environment } from '@env/environment';
 
+
 const log = new Logger('EndpointService');
 type typeInterpolation = 'simple';
 
@@ -78,16 +79,19 @@ export class EndpointService {
     if (existName) {
       const valueEndPoint = endpoints[this.group][fullVersion][name];
       const lengthParams = (
-        valueEndPoint.match(new RegExp(this.re.simple.toString(), 'g')) || []
+        valueEndPoint.match(new RegExp(this.re.simple, 'g')) || []
       ).length;
       const applyParams = !this.isEmptyArr(params);
+
+      // Endpoint por defecto
+      endpoint = valueEndPoint;
 
       // Se puede interpolar parámetros.
       if (applyParams) {
         endpoint = this.addParams(valueEndPoint, 'simple', params);
       } else {
-        // Si el endpoint no tiene parámetros definidos.
-        if (!lengthParams) {
+        // Si el endpoint tiene parámetros definidos.
+        if (lengthParams) {
           endpoint = this.addParams(valueEndPoint, 'simple', lengthParams);
         }
       }

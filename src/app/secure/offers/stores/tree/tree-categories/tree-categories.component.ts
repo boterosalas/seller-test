@@ -49,7 +49,8 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     });
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -84,9 +85,10 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   }
 
   /**
-  * Servicio empleado para obtener toda la lista de comisiones, esta información es general y se llama al cargar el componente
-  * @memberof TreeCategoriesComponent
-  */
+   * Servicio empleado para obtener toda la lista de comisiones, esta información
+   * es general y se llama al cargar el componente.
+   * @memberof TreeCategoriesComponent
+   */
   getAllSellerCommissionCategory() {
     this.allSellerCategories = [];
     this.storeService.getAllSellerCommissionCategory().subscribe((res: any) => {
@@ -154,7 +156,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   }
 
 
-  createTree(parent, listCategories, sellerCategories) {
+  createTree(parent: any, listCategories: any, sellerCategories: any) {
 
     this.obtenerRelacionesCategorias(parent, sellerCategories);
     const hijos = [];
@@ -179,11 +181,11 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     return parent;
   }
 
-  obtenerRelacionesCategorias = function (nodo, sellerCategories) {
+  obtenerRelacionesCategorias = function (nodo: any, sellerCategories: any) {
     nodo.commission = this.buscarComision(nodo.Id, sellerCategories);
   };
 
-  buscarComision = function (obj, sellerCategories) {
+  buscarComision = function (obj: any, sellerCategories: any) {
     for (let i = 0; i < sellerCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
       if (sellerCategories[i].IdCategory == obj) {
@@ -193,7 +195,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     return 0;
   };
 
-  receiveDataTree($event) {
+  receiveDataTree($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.curret_tree = $event;
       this.currentTreeOutput.emit(this.curret_tree);

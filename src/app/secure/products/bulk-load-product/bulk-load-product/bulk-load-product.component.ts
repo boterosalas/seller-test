@@ -707,7 +707,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'LogisticExito'
+                  dato: 'IsLogisticsExito'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -913,7 +913,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ImageUrl4: res[i][iVal.iURLDeImagen4] ? res[i][iVal.iURLDeImagen4].trim() : null,
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
-      Fulfillment: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
+      IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
       features: []
     };
 
@@ -1026,7 +1026,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       ParentReference: res[index][iVal.iParentReference],
       SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
-      LogisticExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
+      IsLogisticsExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
       ImageUrl2: res[index][iVal.iURLDeImagen2],
       ImageUrl3: res[index][iVal.iURLDeImagen3],
@@ -1096,7 +1096,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
       this.arrayInformation[index].errorColor = false;
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
-      this.arrayInformation[index].errorLogisticExito = false;
+      this.arrayInformation[index].errorIsLogisticsExito = false;
     }
   }
 

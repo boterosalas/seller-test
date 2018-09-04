@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
+
 import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-
 import { ModelFilter } from '../components/filter/filter.model';
 import { ListService } from '../list.service';
 
@@ -13,6 +13,7 @@ import { ListService } from '../list.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
   // Componente necesario para el funcionamiento del filtro.
@@ -33,7 +34,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
   // Variable para mostrar los filtros aplicados.
   public filterActive = false;
 
-  // Variable donde se almacenan los parametros que se le envian al servicio de listado de ofertas para filtrar o paginar.
+  // Variable donde se almacenan los parámetros que se le envian al servicio de listado de ofertas para filtrar o paginar.
   public paramData: ModelFilter;
 
   // Variable que se usa para controlar que filtro se esta removiendo.
@@ -48,25 +49,31 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
   // Variable que se le envia al toolbar para volver a ponerlo en la página 1.
   public currentPage: any;
 
+
   constructor(
-    public userService?: UserLoginService,
-    public router?: Router,
-    public offerService?: ListService,
     private loadingService?: LoadingService,
-    public userParams?: UserParametersService,
-    private modalService?: ModalService
+    private modalService?: ModalService,
+    private userService?: UserLoginService,
+    private router?: Router,
+    private offerService?: ListService,
+    private userParams?: UserParametersService
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
   }
 
+  /**
+   * @method ngOnInit
+   * @description Método que se llama mientras se inicia el componente
+   * @memberof ListComponent
+   */
   ngOnInit() {
     this.userService.isAuthenticated(this);
   }
 
   /**
    * @method isLoggedIn
-   * @description Metodo para validar si el usuario esta logeado
+   * @description Método para validar si el usuario esta logeado
    * @param message
    * @param isLoggedIn
    * @memberof ListComponent
@@ -81,7 +88,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
   /**
    * @method getDataUser
-   * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
+   * @description Método para ir al servicio de userParams y obtener los datos del usuario
    * @memberof ListComponent
    */
   getDataUser() {
@@ -90,7 +97,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
   /**
    * @method callback
-   * @description Metodo necesario para recibir el callback de getDataUser()
+   * @description Método necesario para recibir el callback de getDataUser()
    * @memberof ListComponent
    */
   callback() {
@@ -116,7 +123,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
   /**
    * @method openDetailOffer
    * @param item
-   * @description Metodo para ver el detalle de la oferta
+   * @description Método para ver el detalle de la oferta
    * @memberof ListComponent
    */
   openDetailOffer(item: any) {
@@ -128,7 +135,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
   /**
    * @method filterOffers
    * @param params
-   * @description Metodo para filtrar el listado de ofertas
+   * @description Método para filtrar el listado de ofertas
    * @memberof ListComponent
    */
   filterOffers(params: any) {
@@ -145,7 +152,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
   /**
    * @method removeFilter
    * @param filter
-   * @description Metodo para remover filtros
+   * @description Método para remover filtros
    * @memberof ListComponent
    */
   removeFilter(filter: any) {
@@ -170,7 +177,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
   /**
    * @method getListOffers
-   * @description Metodo para consumir el servicio de listado de ofertas
+   * @description Método para consumir el servicio de listado de ofertas
    * @memberof ListComponent
    */
   getListOffers(params?: any) {
@@ -193,7 +200,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
 
   /**
    * @method setDataPaginate
-   * @description Metodo para el funcionamiento del páginador
+   * @description Método para el funcionamiento del paginador.
    * @param params
    * @memberof ListComponent
    */

@@ -202,36 +202,36 @@
           </td>
         </ng-container>
 
-        <!-- IsFulfillment Column -->
-        <ng-container matColumnDef="IsFulfillment">
+        <!-- IsLogisticsExito Column -->
+        <ng-container matColumnDef="IsLogisticsExito">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Logistica Exito</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorColumn11 == true }" *matCellDef="let element">
-            <div class="information" *ngIf="element.IsFulfillment != undefined && element.IsFulfillment != ''">
-              <p class="sc-text-normal">{{element.IsFulfillment}}</p>
+            <div class="information" *ngIf="element.IsLogisticsExito != undefined && element.IsLogisticsExito != ''">
+              <p class="sc-text-normal">{{element.IsLogisticsExito}}</p>
             </div>
-            <div class="information" *ngIf="element.IsFulfillment == undefined || element.IsFulfillment == ''">
+            <div class="information" *ngIf="element.IsLogisticsExito == undefined || element.IsLogisticsExito == ''">
               <p class="text-error"> -
               </p>
             </div>
           </td>
         </ng-container>
 
-        <!-- UpdateStock Column -->
-        <ng-container matColumnDef="UpdateStock">
+        <!-- IsUpdatedStock Column -->
+        <ng-container matColumnDef="IsUpdatedStock">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Actualización de Inventario</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorColumn12 == true }" *matCellDef="let element">
-            <div class="information" *ngIf="element.UpdateStock != undefined && element.UpdateStock != ''">
-              <p class="sc-text-normal">{{element.UpdateStock}}</p>
+            <div class="information" *ngIf="element.IsUpdatedStock != undefined && element.IsUpdatedStock != ''">
+              <p class="sc-text-normal">{{element.IsUpdatedStock}}</p>
             </div>
-            <div class="information" *ngIf="element.UpdateStock == undefined || element.UpdateStock == ''">
+            <div class="information" *ngIf="element.IsUpdatedStock == undefined || element.IsUpdatedStock == ''">
               <p class="text-error"> -
               </p>
             </div>
