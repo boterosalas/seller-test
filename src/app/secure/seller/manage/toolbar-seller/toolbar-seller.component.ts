@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
 import { ShellComponent } from '@core/shell/shell.component';
-import { IsLoadInformationForTree } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 
 

@@ -13,15 +13,13 @@ import { SearchSellerComponent } from './search-seller/search-seller.component';
 import { MaterialModule } from '@app/material.module';
 import { EventEmitterSeller } from './events/eventEmitter-seller.service';
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
-import { FormManageSellerComponent } from './manage-seller/form-manage-seller/form-manage-seller.component';
 
 @NgModule({
     declarations: [
         ManageComponent,
         SearchSellerComponent,
         ToolbarSellerComponent,
-        ManageSellerComponent,
-        FormManageSellerComponent
+        ManageSellerComponent
     ],
     imports: [
         MaterialModule,

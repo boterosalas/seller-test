@@ -14,7 +14,7 @@ export class EventEmitterSeller {
      * @param {any} store
      * @memberof EventEmitterSeller
      */
-    searchSeller(seller) {
+    searchSeller(seller: any) {
         this.eventSearchSeller.emit(seller);
     }
 }
