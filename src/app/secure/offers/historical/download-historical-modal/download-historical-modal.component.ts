@@ -77,7 +77,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   callback() { }
 
-  getDataUser() {
+  getDataUser() { // TODO: Revisar
     // this.userParams.getUserData(this);
   }
 
@@ -86,7 +86,8 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   }
 
   /**
-   * Funcionalidad para cerrar el modal
+   * @method onNoClick
+   * @description Funcionalidad para cerrar el modal
    * @memberof DownloadHistoricalModalComponent
    */
   onNoClick(): void {
@@ -94,7 +95,8 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   }
 
   /**
-   * Funcionalidad para crear el formulario
+   * @method createForm
+   * @description Funcionalidad para crear el formulario
    * @memberof DownloadHistoricalModalComponent
    */
   createForm() {
@@ -105,7 +107,8 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   }
 
   /**
-   * Método para realizar la descarga de las órdenes
+   *@method downloadHistorical
+   * @description Método para realizar la descarga de las órdenes
    * @param {any} form
    * @memberof DownloadHistoricalModalComponent
    */

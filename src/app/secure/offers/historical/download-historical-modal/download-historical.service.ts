@@ -16,13 +16,18 @@ export class DownloadHistoricalService extends BaseSellerService {
   /*Variable para almacenar el endpoint que se va a consumir*/
   public endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['downloadHistorical'];
 
+  // Variable para almacenar la fecha de inicio del filtro
   public dateInitial: Date;
+
+  // Variable para almacenar la fecha de fin del filtro
   public dateFinal: Date;
+
+  // Variable para almacenar el EAN del filtro
   public ean: string;
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
-   * @returns
+   * @method getCurrentFilterHistorical
+   * @description Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
    * @memberof DownloadHistoricalService
    */
   getCurrentFilterHistorical() {
@@ -31,8 +36,11 @@ export class DownloadHistoricalService extends BaseSellerService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
-   * @param {any} data
+   * @method setCurrentFilterHistorical
+   * @description Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   * @param dateInitial
+   * @param dateFinal
+   * @param ean
    * @memberof DownloadHistoricalService
    */
   setCurrentFilterHistorical(dateInitial, dateFinal, ean) {
@@ -45,7 +53,8 @@ export class DownloadHistoricalService extends BaseSellerService {
   }
 
   /**
-   *  Método para realizar el consumo del servicio que permite enviar las órdenes al correo electronico del usuario
+   * @method downloadHistorical
+   * @description Método para realizar el consumo del servicio que permite enviar las órdenes al correo electronico del usuario
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof DownloadHistoricalService
@@ -55,6 +64,7 @@ export class DownloadHistoricalService extends BaseSellerService {
 
     let urlFilterParams: any;
 
+    // Valida los datos antes de enviar la petición
     this.dateInitial = paramsFilter.dateInitial === undefined ? null : paramsFilter.dateInitial;
     this.dateFinal = paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal;
     this.ean = paramsFilter.ean === undefined || paramsFilter.ean === '' ? null : paramsFilter.ean;

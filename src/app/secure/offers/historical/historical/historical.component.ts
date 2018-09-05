@@ -62,7 +62,7 @@ export class HistoricalComponent implements OnInit {
     public numCols: any;
 
     /**
-     *Creates an instance of HistoricalComponent.
+     * Creates an instance of HistoricalComponent.
      * @param {ShellComponent} [shellComponent]
      * @param {UserLoginService} [userService]
      * @param {Router} [router]
@@ -91,7 +91,9 @@ export class HistoricalComponent implements OnInit {
      * @memberof HistoricalComponent
      */
     ngOnInit() {
+        // Borra el filtro del localstorage
         localStorage.removeItem('currentFilterHistorical');
+
         this.userService.isAuthenticated(this);
         this.layoutChanges.subscribe(result => {
             this.numCols = result.matches ? 1 : 2;
@@ -149,7 +151,8 @@ export class HistoricalComponent implements OnInit {
 
     /**
      * @method getHistoricalOffers
-     * @description Metodo para consumir el servicio del histirico de ofertas
+     * @description Metodo para consumir el servicio del historico de ofertas
+     * @param params
      * @memberof HistoricalComponent
      */
     getHistoricalOffers(params?: any) {
@@ -231,9 +234,10 @@ export class HistoricalComponent implements OnInit {
         this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
         this.paramData.currentPage = this.currentPage;
         this.paramData.limit = 100;
-        this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean);
         // this.getHistoricalOffers(this.paramData);
         this.getHistoricalOffersFake(this.paramData); // TODO: Eliminar
+        // Metodo para guardadr los parametros del filtro
+        this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean);
         this.sidenav.toggle();
     }
 

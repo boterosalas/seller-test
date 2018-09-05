@@ -57,9 +57,13 @@ export class HistoricalService {
       this.http.get<any>(this.endpoint + urlParams, { observe: 'response', headers: headers })
         .subscribe(
           data => {
+            console.log('succes');
+            console.log(this.endpoint + urlParams, { observe: 'response', headers: headers });
             observer.next(data);
           },
           error => {
+            console.log('error');
+            console.log(this.endpoint + urlParams, { observe: 'response', headers: headers });
             observer.next(error);
           }
         );
