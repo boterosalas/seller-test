@@ -7,6 +7,8 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
 import { AnyLengthString } from 'aws-sdk/clients/comprehend';
+import { LoadingService, ModalService } from '@app/core';
+import { RegisterService } from '@app/secure/seller/register/register.service';
 
 @Component({
   selector: 'app-manage-seller',
@@ -58,13 +60,20 @@ export class ManageSellerComponent implements OnInit {
   // Información del usuario
   public user: any;
 
+  public activeButton: boolean;
+  public existValueInDB: boolean;
+
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
+    private loadingService: LoadingService,
+    private registerService: RegisterService,
+    private modalService: ModalService,
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
     this.user = {};
+    this.activeButton = false;
   }
 
   AnyLengthString;
@@ -145,5 +154,62 @@ export class ManageSellerComponent implements OnInit {
       GotoCarrulla: this.gotoCarrulla,
       GotoCatalogo: this.gotoCatalogo
     });
+  }
+
+  /**
+   * @method keyPress que permite solo el ingreso de números
+   * @param event
+   * @memberof RegisterSellerComponent
+   */
+  keyPress(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   *
+   * @method Metodo para validar si existe el parametro despues de cambiar el focus del input
+   * @param {*} event
+   * @memberof RegisterSellerComponent
+   */
+  validateExist(event: any, param: string) {
+    const jsonExistParam = event.target.value;
+    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+      this.loadingService.viewSpinner();
+      this.activeButton = false;
+      this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
+        .subscribe(
+          (result: any) => {
+            if (result.status === 200) {
+              const data_response = JSON.parse(result.body.body);
+              this.existValueInDB = data_response.Data;
+              switch (param) {
+                case 'Email':
+                  if (this.existValueInDB) {
+                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
+                  }
+                  break;
+                case 'Name':
+                  if (this.existValueInDB) {
+                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+              }
+              if (!this.existValueInDB) {
+                this.activeButton = true;
+              }
+              this.activeButton = true;
+              this.loadingService.closeSpinner();
+            } else {
+              this.modalService.showModal('errorService');
+              this.activeButton = true;
+              this.loadingService.closeSpinner();
+            }
+          }
+        );
+    }
   }
 }

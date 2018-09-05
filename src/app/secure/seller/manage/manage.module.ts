@@ -30,7 +30,7 @@ import { ManageSellerComponent } from './manage-seller/manage-seller.component';
         FormsModule,
         ManageRoutingModule,
         HttpClientModule,
-        HttpClientJsonpModule,
+        HttpClientJsonpModule
     ],
     exports: [],
     providers: [

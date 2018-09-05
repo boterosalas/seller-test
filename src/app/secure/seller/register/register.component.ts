@@ -26,11 +26,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
 
-  public imagesSrc: Array<any> = [
-    '../../../../../assets/seller-register/logo_exito_check.jpg',
-    '../../../../../assets/seller-register/logo_carulla.jpg',
-    '../../../../../assets/seller-register/logo_mis_catalogos_check.jpg'
-  ];
   public imagesRegister: Array<any> = [
     {
       checked: '../../../../../assets/seller-register/logo_exito_check.jpg',
@@ -139,23 +134,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   }
 
   /**
-   *
-   * @param e
-   * @param num
-   * @memberof RegisterSellerComponent
-   */
-  changeImageColor(e: any, num: any) {
-    /* La 'e' se trae el elemento que se esta ejecutando en el DOM de html de angular.
-    Le enviamos la posicion desde HTML[num] */
-    if (e.checked) {
-      this.imagesSrc[num] = this.imagesRegister[num].checked;
-    } else {
-      this.imagesSrc[num] = this.imagesRegister[num].unchecked;
-    }
-
-  }
-
-  /**
    * @method keyPress que permite solo el ingreso de números
    * @param event
    * @memberof RegisterSellerComponent
@@ -205,7 +183,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   validateExist(event: any, param: string) {
     this.activeButton = false;
     const jsonExistParam = event.target.value;
-    // tslint:disable-next-line:quotemark
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;

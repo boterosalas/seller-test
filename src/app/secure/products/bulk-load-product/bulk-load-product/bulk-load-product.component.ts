@@ -479,9 +479,9 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 errorInCell = true;
               }
             } else if (j === iVal.iTipoDeProducto) {
-              if (res[i][j] === 'Variante') {
+              if (res[i][j] === 'Clothing') {
                 variant = true;
-              } else if (res[i][j] !== 'Variante' && res[i][j] !== 'Estandar') {
+              } else if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
                 const validFormatCategory = this.validFormat(res[i][j], 'category');
                 if (!validFormatCategory && validFormatCategory === false) {
                   this.countErrors += 1;
@@ -1169,7 +1169,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @param {any} res
    * @memberof BulkLoadProductComponent
    */
-  openDialogSendOrder(res): void {
+  openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
       data: {
@@ -1206,7 +1206,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
-    const FormatTypeCategory = /^(Estandar|Variante)$/;
+    const FormatTypeCategory = /^(Technology|Clothing)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;

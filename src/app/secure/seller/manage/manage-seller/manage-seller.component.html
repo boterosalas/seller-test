@@ -61,7 +61,7 @@
         <div fxFlex="50%">
           <mat-form-field class="register" style="width:100% !important;">
             <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email" [errorStateMatcher]="matcher" id="register-email"
-              (ngModelChange)="activeButton = false" required>
+              (ngModelChange)="activeButton = false" (blur)="validateExist($event, 'Email')" required>
             <mat-hint></mat-hint>
 
             <mat-error id="error-email-required" *ngIf="validateFormRegister.get('Email').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>
