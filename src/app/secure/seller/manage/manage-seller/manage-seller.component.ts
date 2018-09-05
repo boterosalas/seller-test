@@ -62,6 +62,7 @@ export class ManageSellerComponent implements OnInit {
 
   public activeButton: boolean;
   public existValueInDB: boolean;
+  public idState: number;
 
   constructor(
     public eventsSeller: EventEmitterSeller,
@@ -210,6 +211,33 @@ export class ManageSellerComponent implements OnInit {
             }
           }
         );
+    }
+  }
+
+  /**
+   * @method receiveDataState Metodo para obtener la data de departamento.
+   * @param
+   * @memberof RegisterSellerComponent
+   */
+  receiveDataState($event: any) {
+    if ($event && $event !== undefined && $event !== null) {
+      this.idState = $event.Id;
+      this.validateFormRegister.controls['State'].setValue($event.Name);
+    }
+  }
+
+  /**
+   * @method receiveDataCitie Metodo para obtener la data de la ciudad.
+   * @param
+   * @memberof RegisterSellerComponent
+   */
+  receiveDataCitie($event: any) {
+    if ($event && $event !== undefined && $event !== null) {
+      this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
+      this.validateFormRegister.controls['City'].setValue($event.Name);
+      this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
+    } else {
+      this.validateFormRegister.controls['DaneCode'].setValue(null);
     }
   }
 }

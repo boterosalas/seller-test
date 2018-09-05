@@ -10,9 +10,9 @@ import { ManageComponent } from './manage.component';
 import { ManageRoutingModule } from './manage.routing';
 import { ToolbarSellerComponent } from './toolbar-seller/toolbar-seller.component';
 import { SearchSellerComponent } from './search-seller/search-seller.component';
-import { MaterialModule } from '@app/material.module';
 import { EventEmitterSeller } from './events/eventEmitter-seller.service';
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -22,7 +22,6 @@ import { ManageSellerComponent } from './manage-seller/manage-seller.component';
         ManageSellerComponent
     ],
     imports: [
-        MaterialModule,
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
@@ -30,7 +29,8 @@ import { ManageSellerComponent } from './manage-seller/manage-seller.component';
         FormsModule,
         ManageRoutingModule,
         HttpClientModule,
-        HttpClientJsonpModule
+        HttpClientJsonpModule,
+        SharedModule
     ],
     exports: [],
     providers: [

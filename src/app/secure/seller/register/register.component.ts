@@ -153,7 +153,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
-    this.registerService.registerUser(JSON.stringify(this.validateFormRegister.value))
+    this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {

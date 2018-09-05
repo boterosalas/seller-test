@@ -100,6 +100,18 @@
         fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
         <div fxFlex="50%">
+          <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+        </div>
+
+        <div fxFlex="50%">
+          <app-cities [idState]="idState" (daneCodeEvent)="receiveDataCitie($event)"></app-cities>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap.md="10%" fxLayoutGap.lg="10%"
+        fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+
+        <div fxFlex="50%">
           <mat-form-field class="register" style="width:100% !important;">
             <input matInput placeholder="C&oacute;digo DANE" [readonly]="true" formControlName="DaneCode" id="register-dane-code" required>
           </mat-form-field>
