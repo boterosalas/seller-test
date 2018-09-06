@@ -1,46 +1,41 @@
-/* 3rd party components */
+// 3rd party components
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-/* our own custom components */
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+// our own custom components
+import { EndpointService } from '@app/core';
 import { ModelFilter } from './components/filter/filter.model';
 
 /**
- *
  * @export
  * @class HistoricalService
  */
 @Injectable()
 export class HistoricalService {
 
-  /*Variable para almacenar el endpoint que se va a consumir*/
-  public endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['getHistoricalOffers'];
-
-  /*Variable para almacenar los parametros que se le enviaran al servicio*/
+  // Variable para almacenar los parametros que se le enviaran al servicio
   public paramsData: ModelFilter;
 
   /**
    * Create instances of HistoricalService
    * @param {http} HttpClient
-   * @param {cognitoUtil} CognitoUtil
+   * @param {endpointService} EndpointService
    */
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil
+    private api: EndpointService
   ) {
     this.paramsData = new ModelFilter();
   }
 
   /**
-  * @method getHistoricalOffers
-  * @description Metodo para obtener el Historicalado de ofertas
-  * @returns {Observable<{}>}
-  * @memberof HistoricalService
-  */
+   * @method getHistoricalOffers
+   * @description Metodo para obtener el histórico de ofertas
+   * @returns {Observable<{}>}
+   * @memberof HistoricalService
+   */
   public getHistoricalOffers(params?: any): Observable<{}> {
-    /*Se crea variable que guardara los parametros unidos para enviarle al servicio*/
+    // Se crea variable que guardara los parametros unidos para enviarle al servicio
     let urlParams: any;
 
     this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : params.dateInitial;
@@ -50,20 +45,14 @@ export class HistoricalService {
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
     urlParams = '/' + this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
     return new Observable(observer => {
-      this.http.get<any>(this.endpoint + urlParams, { observe: 'response', headers: headers })
+      this.http.get<any>(this.api.get('getHistoricalOffers', [urlParams]), { observe: 'response' })
         .subscribe(
           data => {
-            console.log('succes');
-            console.log(this.endpoint + urlParams, { observe: 'response', headers: headers });
             observer.next(data);
           },
           error => {
-            console.log('error');
-            console.log(this.endpoint + urlParams, { observe: 'response', headers: headers });
             observer.next(error);
           }
         );

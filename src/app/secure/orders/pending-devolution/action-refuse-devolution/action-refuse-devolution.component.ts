@@ -6,15 +6,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 /* our own custom components */
 import { PendingDevolutionService } from '../pending-devolution.service';
 import {
-  Logger,
   OrderDevolutionsModel,
   ListReasonRejectionResponseEntity,
   ComponentsService,
-  UserService,
   FAKE,
-  UserParametersService,
-  Callback
 } from '@app/shared';
+import { Logger, UserParametersService, Callback } from '@app/core';
 
 // log component
 const log = new Logger('ActionRefuseDevolutionComponent');
@@ -52,7 +49,6 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
     public componentsService: ComponentsService,
     public dialogRef: MatDialogRef<ActionRefuseDevolutionComponent>,
     public pendingDevolutionService: PendingDevolutionService,
-    public userService: UserService,
     public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
@@ -124,7 +120,7 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
       ObservationRejectionSeller: myform.value.observation,
       Id: this.currentOrder.id
     };
-    this.pendingDevolutionService.refuseDevolution(this.user, information).subscribe(res => {
+    this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
       this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
     }, error => {

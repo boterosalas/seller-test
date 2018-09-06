@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import {
-    UserRegistrationService,
-    UserLoginService,
-    CognitoCallback,
-    RoutesConst
-} from '@app/shared';
+import { CognitoCallback, UserLoginService, UserRegistrationService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 export class NewPasswordUser {
     username: string;

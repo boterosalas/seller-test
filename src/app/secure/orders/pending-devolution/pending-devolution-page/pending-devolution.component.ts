@@ -1,31 +1,26 @@
-/* 3rd party components */
-
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-
-/* our own custom components */
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  OrderDevolutionsModel,
-  ListReasonRejectionResponseEntity,
-  SearchFormEntity,
-  Pending,
-  Logger,
-  Const,
-  UserService,
   ComponentsService,
-  UserParametersService,
-  Callback
+  Const,
+  ListReasonRejectionResponseEntity,
+  OrderDevolutionsModel,
+  Pending,
+  SearchFormEntity,
 } from '@app/shared';
+import { ShellComponent } from '@core/shell/shell.component';
+import { isEmpty } from 'lodash';
+
 import { ActionAcceptDevolutionComponent } from '../action-accept-devolution/action-accept-devolution.component';
-import { ProductPendingDevolutionModalComponent } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ActionRefuseDevolutionComponent } from '../action-refuse-devolution/action-refuse-devolution.component';
 import { PendingDevolutionService } from '../pending-devolution.service';
+import {
+  ProductPendingDevolutionModalComponent,
+} from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { ShellComponent } from '@core/shell/shell.component';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -97,24 +92,9 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
     }
   };
 
-  /**
-   * Creates an instance of PendingDevolutionComponent.
-   * @param {ShellComponent} shellComponent
-   * @param {ActivatedRoute} route
-   * @param {Router} router
-   * @param {MatDialog} dialog
-   * @param {NgZone} zone
-   * @param {PendingDevolutionService} pendingDevolutionService
-   * @param {UserService} userService
-   * @memberof PendingDevolutionComponent
-   */
   constructor(
     public shellComponent: ShellComponent,
-    private route: ActivatedRoute,
-    private router: Router,
-    public userService: UserService,
     public dialog: MatDialog,
-    private zone: NgZone,
     private pendingDevolutionService: PendingDevolutionService,
     public componentsService: ComponentsService,
     public userParams: UserParametersService
@@ -128,18 +108,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
    */
   ngOnInit() {
     this.getDataUser();
-    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
-    this.getReasonsRejection();
   }
 
-  /**
-   * Funcionalidad para remover las suscripciones creadas.
-   * @memberof BillingComponent
-   */
   ngOnDestroy() {
-    // this.subOrderList.unsubscribe();
+    // Funcionalidad para remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
   }
 
@@ -151,6 +123,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   callbackWithParam(userData: any) {
     this.user = userData;
+    // Obtener las órdenes con la función del componente ToolbarOptionsComponent
+    this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
+    this.getReasonsRejection();
   }
 
   /**
@@ -190,19 +166,17 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
    * @memberof PendingDevolutionComponent
    */
   getOrdersList($event) {
-
-    if ($event == null) {
+    if (!$event) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user.sellerId}
-    &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
+    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
 
-    this.pendingDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {
+    this.pendingDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
-      if (res != null) {
+      if (isEmpty(res)) {
         this.orderListLength = res.length === 0;
       }
       // Creo el elemento que permite pintar la tabla
@@ -211,9 +185,9 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
-    }, err => {
+    }, () => {
       this.orderListLength = true;
-      log.error(this.dataSource);
+      // log.error(this.dataSource);
     });
   }
 
@@ -262,24 +236,24 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal detail order was closed');
     });
   }
 
   /**
-   * Método para desplegar el modal de confirmaición
+   * Método para desplegar el modal de confirmaición.
+   * 
    * @param {OrderDevolutionsModel} order
    * @memberof PendingDevolutionComponent
    */
   openModalAceptOrder(order: OrderDevolutionsModel): void {
-
     // Armo el json para realizar el envio, IsAcceptanceRequest: true se emplea para aceptar la solicitud
     const information = {
       IsAcceptanceRequest: true,
       Id: order.id
     };
-    this.pendingDevolutionService.refuseDevolution(this.user, information).subscribe(res => {
+    this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
@@ -305,7 +279,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal comment order was closed');
     });
   }
@@ -321,7 +295,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
         user: this.user
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal detail order was closed');
     });
   }
@@ -331,7 +305,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
    * @memberof PendingDevolutionComponent
    */
   getReasonsRejection() {
-    this.pendingDevolutionService.getReasonsRejection(this.user).subscribe((res: Array<ListReasonRejectionResponseEntity>) => {
+    this.pendingDevolutionService.getReasonsRejection().subscribe((res: Array<ListReasonRejectionResponseEntity>) => {
       this.reasonRejection = res;
     });
   }

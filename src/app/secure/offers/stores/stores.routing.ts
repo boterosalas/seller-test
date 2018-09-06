@@ -1,14 +1,19 @@
-import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { StoreComponent } from './store/store.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
+import { StoreComponent } from './store/store.component';
+
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterIntOferTreeCategory}`,
-    component: StoreComponent,
-    data: { title: 'Arbol de categorías' },
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterIntOferTreeCategory}`,
+      component: StoreComponent,
+      data: { title: 'Arbol de categorías' },
+    }
+  ])
 ];
 
 @NgModule({
@@ -17,4 +22,5 @@ const routes: Routes = [
   providers: []
 })
 
-export class StoresRoutingModule { }
+export class StoresRoutingModule {
+}

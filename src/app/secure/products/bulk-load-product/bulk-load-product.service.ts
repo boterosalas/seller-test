@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../api-endpoints';
+import { Injectable } from '@angular/core';
+import { CognitoUtil, EndpointService } from '@app/core';
+import { defaultVersion, endpoints } from '@root/api-endpoints';
+import { Observable } from 'rxjs';
+
 
 @Injectable()
 export class BulkLoadProductService {
@@ -13,9 +14,9 @@ export class BulkLoadProductService {
 
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil) {
-    this.idToken = this.cognitoUtil.getTokenLocalStorage();
-    this.headers = new HttpHeaders({ 'Authorization': this.idToken, 'Content-type': 'application/json; charset=utf-8' });
+    public cognitoUtil: CognitoUtil,
+    private api: EndpointService
+  ) {
     this.currentDate = this.getDate();
   }
 
@@ -44,14 +45,14 @@ export class BulkLoadProductService {
   }
 
   /**
-  * Método para cerrar sesión
-  * @returns {Observable<{}>}
-  * @memberof BulkLoadProductService
-  */
+   * Método para cerrar sesión.
+   *
+   * @returns {Observable<{}>}
+   * @memberof BulkLoadProductService
+   */
   setProducts(params: {}): Observable<{}> {
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['products'];
     return new Observable(observer => {
-      this.http.patch<any>(endpoint, params, { observe: 'response', headers: this.headers })
+      this.http.patch<any>(this.api.get('products'), params, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -66,15 +67,15 @@ export class BulkLoadProductService {
   /**
    * @method getAmountAvailableLoads()
    * @returns {Observable}
-   * @description Metodo para obtener el número de cargas que aun se pueden hacer
+   * @description Método para obtener el número de cargas que aun se pueden hacer
    * @memberof BulkLoadProductService
    */
   getAmountAvailableLoads(): Observable<{}> {
     let params = new HttpParams;
     params = params.append('date', this.currentDate);
-    const endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['products'];
+
     return new Observable(observer => {
-      this.http.get<any>(endpoint, { observe: 'response', headers: this.headers, params: params })
+      this.http.get<any>(this.api.get('products'), { observe: 'response', params: params } )
         .subscribe(
           data => {
             observer.next(data);

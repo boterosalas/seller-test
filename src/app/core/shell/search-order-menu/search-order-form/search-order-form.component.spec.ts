@@ -1,13 +1,10 @@
-/* 3rd party components */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
-
-/* our own custom components */
-import { SearchOrderFormComponent } from './search-order-form.component';
-import { MaterialModule } from '../../../components/material-components';
+import { SharedModule } from '@shared/shared.module';
 import { SearchOrderMenuModule } from '../search-order-menu.module';
+
+import { SearchOrderFormComponent } from './search-order-form.component';
+
 
 describe('SearchOrderFormComponent', () => {
   let component: SearchOrderFormComponent;
@@ -17,6 +14,7 @@ describe('SearchOrderFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        SharedModule,
         SearchOrderMenuModule
       ]
     })

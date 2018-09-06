@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import {
-    UserLoginService,
-    Callback,
-    CognitoUtil,
-    LoggedInCallback,
-    RoutesConst
-} from '@app/shared';
 import { Router } from '@angular/router';
+import { Callback, CognitoUtil, LoggedInCallback, UserLoginService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 export class Stuff {
     public accessToken: string;
@@ -24,7 +19,6 @@ export class JwtComponent implements LoggedInCallback {
     constructor(public router: Router, public userService: UserLoginService, public cognitoUtil: CognitoUtil) {
         this.userService.isAuthenticated(this);
         console.log('in JwtComponent');
-
     }
 
     isLoggedIn(message: string, isLoggedIn: boolean) {

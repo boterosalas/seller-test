@@ -1,5 +1,5 @@
 <mat-form-field class="register" style="width:100% !important;" [formGroup]="validateFormRegister">
-    <mat-select placeholder="Ciudad" formControlName="citiesFormControl" [(ngModel)]="citiesObject.Name" id="register-cities" required (blur)="setParamToDaneChange(this)">
+    <mat-select placeholder="Ciudad" formControlName="citiesFormControl" id="register-cities" required (blur)="setParamToDaneChange()">
         <mat-option *ngFor='let item of listItems' [value]=item.Id [innerHTML]="item.Name" (click)="setDataCitie(item)"></mat-option>
     </mat-select>
     <mat-error id="error-cities-required" *ngIf="validateFormRegister.get('citiesFormControl').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>

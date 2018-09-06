@@ -1,22 +1,26 @@
-
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PendingComponent } from './pending-page/pending.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
-// local components
+import { PendingComponent } from './pending-page/pending.component';
+
 
 const routes: Routes = [
+  Route.withShell([
     {
-        path: `${RoutesConst.sellerCenterIntShipmentsExitoPending}`,
-        component: PendingComponent,
-        data: { title: 'Histórico de mis pedidos' },
+      path: `${RoutesConst.sellerCenterIntShipmentsExitoPending}`,
+      component: PendingComponent,
+      data: { title: 'Histórico de mis pedidos' },
     }
+  ])
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
 
-export class PendingRoutinModule { }
+export class PendingRoutinModule {
+}

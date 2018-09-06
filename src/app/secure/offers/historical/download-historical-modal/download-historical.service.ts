@@ -1,20 +1,13 @@
-/* 3rd party components */
-import { HttpHeaders } from '@angular/common/http';
+// 3rd party components
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
-/* our own custom components */
-import { endpoints, defaultVersion } from '../../../../../../api-endpoints';
-import { BaseSellerService } from '@app/shared';
+// our own custom components
+import { EndpointService } from '@app/core';
 
 @Injectable()
-/**
- * Clase DownloadHistoricalService
- */
-export class DownloadHistoricalService extends BaseSellerService {
-
-  /*Variable para almacenar el endpoint que se va a consumir*/
-  public endpoint = endpoints[defaultVersion.prefix + defaultVersion.number]['downloadHistorical'];
+export class DownloadHistoricalService {
 
   // Variable para almacenar la fecha de inicio del filtro
   public dateInitial: Date;
@@ -24,6 +17,11 @@ export class DownloadHistoricalService extends BaseSellerService {
 
   // Variable para almacenar el EAN del filtro
   public ean: string;
+
+  constructor (
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
   /**
    * @method getCurrentFilterHistorical
@@ -43,7 +41,7 @@ export class DownloadHistoricalService extends BaseSellerService {
    * @param ean
    * @memberof DownloadHistoricalService
    */
-  setCurrentFilterHistorical(dateInitial, dateFinal, ean) {
+  setCurrentFilterHistorical(dateInitial: Date, dateFinal: Date, ean: string) {
     const objParamsFilter = {
       dateInitial,
       dateFinal,
@@ -59,7 +57,7 @@ export class DownloadHistoricalService extends BaseSellerService {
    * @returns {Observable<[{}]>}
    * @memberof DownloadHistoricalService
    */
-  downloadHistorical(email): Observable<[{}]> {
+  downloadHistorical(email: string): Observable<[{}]> {
     const paramsFilter = this.getCurrentFilterHistorical();
 
     let urlFilterParams: any;
@@ -69,21 +67,17 @@ export class DownloadHistoricalService extends BaseSellerService {
     this.dateFinal = paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal;
     this.ean = paramsFilter.ean === undefined || paramsFilter.ean === '' ? null : paramsFilter.ean;
 
+    // Arma la ulr con los datos de la petición
     urlFilterParams = '/' + email + '/' + this.dateInitial + '/' + this.dateFinal + '/' + this.ean;
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-
-    this.changeEndPoint();
 
     return new Observable(observer => {
-      this.http.post(this.endpoint + urlFilterParams, { observe: 'response', headers: headers })
+      this.http.post(this.api.get('', [urlFilterParams]), { observe: 'response'})
       .subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
           observer.error(err);
-        });
       });
     });
   }
+
 }

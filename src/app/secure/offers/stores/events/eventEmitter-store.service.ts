@@ -1,4 +1,3 @@
-/* 3rd party components */
 import { EventEmitter, Injectable } from '@angular/core';
 
 /**

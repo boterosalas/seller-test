@@ -1,27 +1,17 @@
-/* 3rd party components */
-import { Component, ViewChild, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import { MatTableDataSource, MatDialog, MatSort, MatSidenav, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
+import { Callback, LoadingService, LoggedInCallback, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
-/* our own custom components */
 import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
-import {
-  Logger,
-  ComponentsService,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
-import { Router } from '@angular/router';
 
-/* log component */
+// log component
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -64,59 +54,62 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   public dataSource: MatTableDataSource<ModelOffers>;
 
   /*  Variable que almacena el numero de elementos de la tabla*/
-  public numberElements = 0;
+  public numberElements: number;
 
   /* Número de órdenes cargadas*/
-  public orderListLength = true;
+  public orderListLength: boolean;
 
   /* Objeto que contendra los datos del excel*/
-  public arrayInformation: Array<ModelOffers> = [];
+  public arrayInformation: Array<ModelOffers>;
 
   /* Objeto que contendra los datos del excel y servira para realizar el envio de la información*/
-  public arrayInformationForSend: Array<{}> = [];
+  public arrayInformationForSend: Array<{}>;
 
   /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
-  public limitRowExcel = 1048576;
+  public limitRowExcel: number;
 
   /* Número de filas cargadas*/
-  public countRowUpload = 0;
+  public countRowUpload: number;
 
   /* Numero de errores*/
-  public countErrors = 0;
+  public countErrors: number;
 
   /* Lista de logs*/
-  public listLog = [];
+  public listLog: Array<any>;
 
   /* Nombre del archivo cargado*/
-  public fileName: any = '';
+  public fileName: any;
 
   /* Sort para la tabla*/
   public sort: any;
 
-  public arrayNecessaryData: Array<any> = [];
-  public arrayCorrectData: Array<any> = [];
+  public arrayNecessaryData: Array<any>;
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
-  /**
-   * Creates an instance of BulkLoadComponent.
-   * @param {ComponentsService} componentService
-   * @param {BulkLoadService} BulkLoadService
-   * @param {MatDialog} dialog
-   * @param {ShellComponent} shellComponent
-   * @memberof BulkLoadComponent
-   */
+
   constructor(
     public componentService: ComponentsService,
     public bulkLoadService: BulkLoadService,
     public dialog: MatDialog,
-    public shellComponent: ShellComponent,
     public userService: UserLoginService,
     private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private loadingService: LoadingService,
+    private modalService: ModalService
   ) {
     this.user = {};
+    this.arrayInformation = [];
+    this.arrayInformationForSend = [];
+    this.listLog = [];
+    this.arrayNecessaryData = [];
+    this.orderListLength = true;
+    this.numberElements = 0;
+    this.limitRowExcel = 1048576;
+    this.countRowUpload = 0;
+    this.countErrors = 0;
+    this.fileName = '';
   }
 
   /**
@@ -135,7 +128,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -168,7 +162,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
-    this.arrayCorrectData = [];
     this.finishProcessUpload();
   }
 
@@ -181,7 +174,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   readFileUpload(evt: any): Promise<any> {
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise((resolve, reject) => {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+      this.loadingService.viewSpinner();
 
       let data: any;
       /* wire up file reader */
@@ -215,10 +208,10 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite detectar el input file
-  * @param {*} evt
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite detectar el input file
+   * @param {*} evt
+   * @memberof BulkLoadComponent
+   */
   onFileChange(evt: any) {
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
@@ -228,7 +221,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
     }, err => {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
@@ -236,12 +229,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Metodo que se encarga de validar los datos del excel
-  * @param {any} res
-  * @param {*} file
-  * @memberof BulkLoadComponent
-  */
-  validateDataFromFile(res, file: any) {
+   * Metodo que se encarga de validar los datos del excel
+   * @param {any} res
+   * @param {*} file
+   * @memberof BulkLoadComponent
+   */
+  validateDataFromFile(res: any, file: any) {
     if (res.length > 1) {
       let contEmptyRow = 0;
 
@@ -260,7 +253,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             res[0][j] === 'Free Shipping' ||
             res[0][j] === 'Indicador Envios Exito' ||
             res[0][j] === 'Cotizador de Flete' ||
-            res[0][j] === 'Garantia') {
+            res[0][j] === 'Garantia' ||
+            res[0][j] === 'Logistica Exito' ||
+            res[0][j] === 'Actualizacion de Inventario') {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
 
@@ -283,62 +278,64 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             }
           }
         }
-        if (!rowEmpty) {
-          this.arrayCorrectData.push(this.arrayNecessaryData[i]);
+        /*Validación si hay fila vacia */
+        if (rowEmpty) {
+          /*Si hay fila vacia esta se remueve y se devuelve la iteración un paso */
+          this.arrayNecessaryData.splice(i, 1);
+          i--;
         }
       }
 
-      if (this.arrayCorrectData.length === 1) {
-        this.shellComponent.loadingComponent.closeLoadingSpinner();
+      if (this.arrayNecessaryData.length === 1) {
+        this.loadingService.closeSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
-        if (this.arrayCorrectData[0].includes('EAN') && this.arrayCorrectData[0].includes('Inventario') &&
-          this.arrayCorrectData[0].includes('Precio')) {
+        if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Inventario') &&
+          this.arrayNecessaryData[0].includes('Precio')) {
           const iVal = {
-            iEAN: this.arrayCorrectData[0].indexOf('EAN'),
-            iInv: this.arrayCorrectData[0].indexOf('Inventario'),
-            iPrecio: this.arrayCorrectData[0].indexOf('Precio'),
-            iPrecDesc: this.arrayCorrectData[0].indexOf('Precio con Descuento'),
-            iCostFletProm: this.arrayCorrectData[0].indexOf('Costo de Flete Promedio'),
-            iPromEntrega: this.arrayCorrectData[0].indexOf('Promesa de Entrega'),
-            iFreeShiping: this.arrayCorrectData[0].indexOf('Free Shipping'),
-            iIndEnvExito: this.arrayCorrectData[0].indexOf('Indicador Envios Exito'),
-            iCotFlete: this.arrayCorrectData[0].indexOf('Cotizador de Flete'),
-            iGarantia: this.arrayCorrectData[0].indexOf('Garantia')
+            iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+            iInv: this.arrayNecessaryData[0].indexOf('Inventario'),
+            iPrecio: this.arrayNecessaryData[0].indexOf('Precio'),
+            iPrecDesc: this.arrayNecessaryData[0].indexOf('Precio con Descuento'),
+            iCostFletProm: this.arrayNecessaryData[0].indexOf('Costo de Flete Promedio'),
+            iPromEntrega: this.arrayNecessaryData[0].indexOf('Promesa de Entrega'),
+            iFreeShiping: this.arrayNecessaryData[0].indexOf('Free Shipping'),
+            iIndEnvExito: this.arrayNecessaryData[0].indexOf('Indicador Envios Exito'),
+            iCotFlete: this.arrayNecessaryData[0].indexOf('Cotizador de Flete'),
+            iGarantia: this.arrayNecessaryData[0].indexOf('Garantia'),
+            iLogisticaExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+            iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario')
           };
-          if (this.arrayCorrectData.length > this.limitRowExcel) {
-            this.shellComponent.loadingComponent.closeLoadingSpinner();
+          if (this.arrayNecessaryData.length > this.limitRowExcel) {
+            this.loadingService.closeSpinner();
             this.componentService
               .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
           } else {
             this.fileName = file.target.files[0].name;
-            this.createTable(this.arrayCorrectData, iVal, numCol);
+            this.createTable(this.arrayNecessaryData, iVal, numCol);
           }
         } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
         }
       }
     } else {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
   }
 
   /**
-  * Método que se encarga de crear la tabla
-  * @param {any} res
-  * @memberof BulkLoadComponent
-  */
-  createTable(res, iVal, numCol) {
+   * Método que se encarga de crear la tabla.
+   *
+   * @param {any} res
+   * @memberof BulkLoadComponent
+   */
+  createTable(res: any, iVal: any, numCol: any) {
 
     for (let i = 0; i < res.length; i++) {
 
-      let isErrorNumber = false;
-      let isErrorData = false;
-      let isErrorBoolean = false;
-      let isLessThanZero = false;
-      let invalidFormatPromEntrega = false;
+      let errorInCell = false;
 
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
@@ -346,10 +343,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
 
             if (j !== iVal.iEAN && j !== iVal.iPromEntrega) {
+              if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete || j === iVal.iLogisticaExito || j === iVal.iActInventario) {
 
-              if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete) {
-
-                const isBoolean = this.isBoolean(res[i][j]);
+                const isBoolean = this.validFormat(res[i][j], 'boolean');
 
                 if (!isBoolean && isBoolean === false) {
 
@@ -357,7 +353,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
                   const row = i + 1, column = j + 1;
 
-                  // tslint:disable-next-line:no-shadowed-variable
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
@@ -368,12 +363,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isErrorBoolean = true;
+                  errorInCell = true;
                 }
 
               } else if (j === iVal.iPrecio || j === iVal.iPrecDesc || j === iVal.iGarantia) {
 
-                const isGreaterThanZero = this.isGreaterThanZero(res[i][j]);
+                const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
 
                 if (!isGreaterThanZero && isGreaterThanZero === false) {
 
@@ -391,11 +386,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isLessThanZero = true;
+                  errorInCell = true;
 
                 }
               } else {
-                const onlyNumber = this.alphanumeric(res[i][j]);
+                const onlyNumber = this.validFormat(res[i][j], 'alphanumeric');
                 if (onlyNumber === false && !onlyNumber) {
 
                   this.countErrors += 1;
@@ -412,13 +407,13 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   };
 
                   this.listLog.push(itemLog);
-                  isErrorNumber = true;
+                  errorInCell = true;
 
                 }
               }
             } else if (j === iVal.iPromEntrega) {
 
-              const validFormatPromEntrega = this.validFormatPromEntrega(res[i][j]);
+              const validFormatPromEntrega = this.validFormat(res[i][j], 'formatPromEntrega');
 
               if (!validFormatPromEntrega && validFormatPromEntrega === false) {
 
@@ -436,7 +431,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                 };
 
                 this.listLog.push(itemLog);
-                invalidFormatPromEntrega = true;
+                errorInCell = true;
 
               }
             }
@@ -456,7 +451,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
               };
 
               this.listLog.push(itemLog);
-              isErrorData = true;
+              errorInCell = true;
             }
 
           } else {
@@ -465,15 +460,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
         }
       }
 
-      if (isErrorData || isErrorNumber || isErrorBoolean || isLessThanZero || invalidFormatPromEntrega) {
-
+      if (errorInCell) {
         this.addRowToTable(res, i, iVal);
-        isErrorData = false;
-        isErrorNumber = false;
-        isErrorBoolean = false;
-        isLessThanZero = false;
-        invalidFormatPromEntrega = false;
-
+        errorInCell = false;
       }
 
       this.addInfoTosend(res, i, iVal);
@@ -488,12 +477,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
-  * @param {any} res
-  * @param {any} index
-  * @memberof BulkLoadComponent
-  */
-  addInfoTosend(res, index, iVal) {
+   * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
+   * @param {any} res
+   * @param {any} index
+   * @memberof BulkLoadComponent
+   */
+  addInfoTosend(res: any, index: any, iVal: any) {
 
     const newObjectForSend = {
       EAN: res[index][iVal.iEAN],
@@ -505,18 +494,20 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsFreeShipping: res[index][iVal.iFreeShiping],
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
-      Warranty: res[index][iVal.iGarantia]
+      Warranty: res[index][iVal.iGarantia],
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
   /**
-  * Método que permite almacenar los registros de errores que se visualizaran en la tabla
-  * @param {any} res
-  * @param {any} index
-  * @memberof BulkLoadComponent
-  */
-  addRowToTable(res, index, iVal) {
+   * Método que permite almacenar los registros de errores que se visualizaran en la tabla
+   * @param {any} res
+   * @param {any} index
+   * @memberof BulkLoadComponent
+   */
+  addRowToTable(res: any, index: any, iVal: any) {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: ModelOffers = {
       EAN: res[index][iVal.iEAN],
@@ -529,26 +520,18 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
       Warranty: res[index][iVal.iGarantia],
-      errorRow: false,
-      errorColumn1: false,
-      errorColumn2: false,
-      errorColumn3: false,
-      errorColumn4: false,
-      errorColumn5: false,
-      errorColumn6: false,
-      errorColumn7: false,
-      errorColumn8: false,
-      errorColumn9: false,
-      errorColumn10: false
+      IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
+      IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
+      errorRow: false
     };
 
     this.arrayInformation.push(newObject);
   }
 
   /**
-  * Método que termina de armar los datos para la tabla.
-  * @memberof BulkLoadComponent
-  */
+   * Método que termina de armar los datos para la tabla.
+   * @memberof BulkLoadComponent
+   */
   finishProcessUpload() {
     /* almaceno el numero de filas cargadas correctamente */
     this.countRowUpload = this.arrayInformationForSend.length;
@@ -560,13 +543,13 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.numberElements = this.dataSource.data.length;
-    this.shellComponent.loadingComponent.closeLoadingSpinner();
+    this.loadingService.closeSpinner();
   }
 
   /**
-  * Funcionalidad para limpiar los errores seleccionados en la tabla
-  * @memberof BulkLoadComponent
-  */
+   * Funcionalidad para limpiar los errores seleccionados en la tabla
+   * @memberof BulkLoadComponent
+   */
   setErrrorColumns() {
     for (let index = 0; index < this.arrayInformation.length; index++) {
       this.arrayInformation[index].errorColumn1 = false;
@@ -579,60 +562,22 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       this.arrayInformation[index].errorColumn8 = false;
       this.arrayInformation[index].errorColumn9 = false;
       this.arrayInformation[index].errorColumn10 = false;
+      this.arrayInformation[index].errorColumn11 = false;
+      this.arrayInformation[index].errorColumn12 = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
 
   /**
-  * Funcionalidad para seleccionar el error del log en la tabla
-  * @param {*} item
-  * @memberof BulkLoadComponent
-  */
+   * Funcionalidad para seleccionar el error del log en la tabla
+   * @param {*} item
+   * @memberof BulkLoadComponent
+   */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
     log.info(item);
-    switch (item.column) {
-      case 0:
-        this.arrayInformation[item.row].errorColumn1 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 1:
-        this.arrayInformation[item.row].errorColumn2 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 2:
-        this.arrayInformation[item.row].errorColumn3 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 3:
-        this.arrayInformation[item.row].errorColumn4 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 4:
-        this.arrayInformation[item.row].errorColumn5 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 5:
-        this.arrayInformation[item.row].errorColumn6 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 6:
-        this.arrayInformation[item.row].errorColumn7 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 7:
-        this.arrayInformation[item.row].errorColumn8 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 8:
-        this.arrayInformation[item.row].errorColumn9 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-      case 9:
-        this.arrayInformation[item.row].errorColumn10 = true;
-        this.arrayInformation[item.row].errorRow = true;
-        break;
-    }
+    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    this.arrayInformation[item.row].errorRow = true;
     const data = JSON.stringify(this.arrayInformation);
     this.dataSource = new MatTableDataSource(JSON.parse(data));
 
@@ -656,12 +601,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite realizar el envío del json cargado del excel
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite realizar el envío del json cargado del excel
+   * @memberof BulkLoadComponent
+   */
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
@@ -671,25 +616,25 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             if (data.body.successful !== 0 || data.body.error !== 0) {
               this.openDialogSendOrder(data);
             } else if (data.body.successful === 0 && data.body.error === 0) {
-              this.shellComponent.modalComponent.showModal('errorService');
+              this.modalService.showModal('errorService');
             }
           } else {
-            this.shellComponent.modalComponent.showModal('errorService');
+            this.modalService.showModal('errorService');
           }
           this.resetVariableUploadFile();
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
         }
       );
   }
 
   /**
-  * Funcionalidad para desplegar el
-  * modal que permite visualizar la lista de
-  * mensajes que retorna el back con los errores o registros correctos.
-  * @param {any} res
-  * @memberof BulkLoadComponent
-  */
-  openDialogSendOrder(res): void {
+   * Funcionalidad para desplegar el
+   * modal que permite visualizar la lista de
+   * mensajes que retorna el back con los errores o registros correctos.
+   * @param {any} res
+   * @memberof BulkLoadComponent
+   */
+  openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(FinishUploadInformationComponent, {
       width: '95%',
       data: {
@@ -702,94 +647,70 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método para identificar si un string solo contiene números
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  alphanumeric(inputtxt) {
+   * @method validFormat
+   * @param inputtxt
+   * @param validation
+   * @description Metodo para validar el formato de las celdas enviadas del excel
+   * @memberof BulkLoadComponent
+   */
+  validFormat(inputtxt: any, validation?: string) {
+    let valueReturn: boolean;
+    const formatNumber = /^[0-9]+$/;
+    const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     if (inputtxt === undefined) {
-      return false;
-    } else {
-      const letterNumber = /^[0-9]+$/;
-      if ((inputtxt.match(letterNumber))) {
-        return true;
-      } else {
-        return false;
+      valueReturn = false;
+    } else if (inputtxt !== undefined) {
+      inputtxt = inputtxt.trim();
+      switch (validation) {
+        case 'alphanumeric':
+          if ((inputtxt.match(formatNumber))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'boolean':
+          if ((inputtxt.match(formatNumber))) {
+            if (inputtxt === '1' || inputtxt === '0') {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'greaterThanZero':
+          if ((inputtxt.match(formatNumber))) {
+            const num = parseInt(inputtxt, 10);
+            if (num > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatPromEntrega':
+          if ((inputtxt.match(formatPromEntrega))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
+    return valueReturn;
   }
 
-  /**
-  * Método para validar si es booleano el dato
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  isBoolean(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        if (inputtxt === '1' || inputtxt === '0') {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-  * Método para validar si es mayor a 0
-  * @param {any} inputtxt
-  * @returns
-  * @memberof BulkLoadComponent
-  */
-  isGreaterThanZero(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const filterNumbre = /^[0-9]+$/;
-      if ((inputtxt.match(filterNumbre))) {
-        // tslint:disable-next-line:radix
-        const num = parseInt(inputtxt);
-        if (num > 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-  }
-
-  /**
-  * Metodo para validar formato de la promesa de entrega
-  * @param inputtxt
-  */
-  validFormatPromEntrega(inputtxt) {
-    if (inputtxt === undefined) {
-      return false;
-    } else {
-      const format = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-      if ((inputtxt.match(format))) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
   /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
   /**
-  * Método para descargar el formato de excel para carga masiva
-  * @param {any} form
-  * @memberof BulkLoadComponent
-  */
+   * Método para descargar el formato de excel para carga masiva
+   * @param {any} form
+   * @memberof BulkLoadComponent
+   */
+
   /* Massive offer load*/
   downloadFormatMassiveOfferLoad() {
     const emptyFile = [{
@@ -809,11 +730,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que genera el dato json en el formato que emplea excel para.
-  * @param {any[]} json
-  * @param {string} excelFileName
-  * @memberof BulkLoadComponent
-  */
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof BulkLoadComponent
+   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'Ofertas': worksheet }, SheetNames: ['Ofertas'] };
@@ -822,11 +743,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite generar el excel con los datos pasados.
-  * @param {*} buffer
-  * @param {string} fileName
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite generar el excel con los datos pasados.
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof BulkLoadComponent
+   */
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
@@ -835,11 +756,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite dar el formato correcto al archivo excel generado
-  * @param {*} s
-  * @returns
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite dar el formato correcto al archivo excel generado
+   * @param {*} s
+   * @returns
+   * @memberof BulkLoadComponent
+   */
   s2ab(s: any) {
     const buf = new ArrayBuffer(s.length);
     const view = new Uint8Array(buf);

@@ -1,10 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {
-    UserRegistrationService,
-    CognitoCallback,
-    RoutesConst
-} from '@app/shared';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CognitoCallback, UserRegistrationService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 export class RegistrationUser {
     name: string;

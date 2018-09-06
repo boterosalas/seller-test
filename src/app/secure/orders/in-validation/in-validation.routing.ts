@@ -1,17 +1,25 @@
-/* 3rd party components */
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-/* our own custom components */
-import {InValidationComponent} from './in-validation-page/in-validation.component';
+import { Route } from '@app/core';
+import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
+import { environment } from '@env/environment';
+
 import { RoutesConst } from './../../../shared';
+import { InValidationComponent } from './in-validation-page/in-validation.component';
+
+const isProductionEnv = environment.production;
+
+
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
-    component: InValidationComponent,
-    data: {title: 'En validación'},
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
+      component: !isProductionEnv ? InValidationComponent : ErrorPageComponent,
+      data: { title: 'En validación' },
+    }
+  ])
 ];
 
 @NgModule({

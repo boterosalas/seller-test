@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
-import {
-    UserLoginService,
-    Callback,
-    CognitoUtil,
-    LoggedInCallback,
-    UserParametersService,
-    RoutesConst
-} from '@app/shared';
 import { Router } from '@angular/router';
+import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-awscognito',

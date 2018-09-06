@@ -1,23 +1,29 @@
-
-/* 3rd party components */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-/* our own custom components */
-import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
+import { Route } from '@app/core';
+import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
+import { environment } from '@env/environment';
+
 import { RoutesConst } from './../../../shared';
+import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
+
+const isProductionEnv = environment.production;
 
 const routes: Routes = [
+  Route.withShell([
     {
         path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
-        component: PendingDevolutionComponent,
+        component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
         data: { title: 'Solicitudes pendientes' },
     }
+  ])
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
-export class PendingDevolutionRoutingModule { }
+export class PendingDevolutionRoutingModule {
+}

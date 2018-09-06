@@ -1,10 +1,8 @@
-/* 3rd party components */
-import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-
-/* our own custom components */
-import {LoadGuidePageComponent} from '../load-guide/load-guide-page.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Guide } from '@app/shared';
+
+import { LoadGuidePageComponent } from '../load-guide/load-guide-page.component';
 
 
 /**

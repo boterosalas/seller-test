@@ -1,16 +1,21 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core/http';
 import { Observable } from 'rxjs';
 
-/* our own custom components */
-import { BaseSellerService } from '@app/shared';
-
-@Injectable()
-
 /**
- * Clase Support Service, clase empleada para los servicios necesarios en el proceso de envio de mensaje de soporte
+ * Clase empleada para los servicios necesarios en el proceso de envio de mensaje de soporte.
+ *
+ * @export
+ * @class SupportService
  */
-export class SupportService extends BaseSellerService {
+@Injectable()
+export class SupportService {
+
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar el envío del mensaje de soporte
@@ -20,17 +25,9 @@ export class SupportService extends BaseSellerService {
      * @memberof SupportService
      */
     sendSupportMessage(user, supportMessage) {
-
-        this.changeEndPoint();
-
         return new Observable(observer => {
-
-            this.http.post(this.api.get('supporMessage'), supportMessage, this.getHeaders(user)).subscribe((data: any) => {
+            this.http.post(this.api.get('supporMessage'), supportMessage).subscribe((data: any) => {
                 observer.next(data);
-            }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
             });
         });
     }

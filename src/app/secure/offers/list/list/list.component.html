@@ -71,7 +71,7 @@
         <p [innerHTML]="'No se han encontrado registros en el listado de ofertas.'"></p>
     </section>
     <section *ngIf="viewDetailOffer && viewDetailOffer == true">
-        <app-detail-offer [dataOffer]="dataOffer"></app-detail-offer>
+        <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer>
     </section>
 
     <mat-sidenav #sidenav mode="over" position="end">

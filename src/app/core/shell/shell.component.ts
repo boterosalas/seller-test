@@ -1,23 +1,14 @@
-/* 3rd party components */
-import { MatDialog } from '@angular/material/dialog';
-import { MatSidenav } from '@angular/material';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* our own custom components */
-import { LoadingComponent } from './loading/loading.component';
-import { ModalComponent } from './modal/modal.component';
-import {
-  Logger,
-  SearchFormEntity,
-  InformationToForm,
-  ComponentsService,
-  EventEmitterOrders,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService
- } from '@app/shared';
+import { MatSidenav } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
+
+import { InformationToForm, SearchFormEntity } from '@shared/models/order.model';
+import { ComponentsService } from '@shared/services/components.service';
+import { EventEmitterOrders } from '@shared/services/eventEmitter-orders.service';
+
+import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '../aws-cognito';
+import { Logger } from '../util/logger.service';
 
 // log component
 const log = new Logger('ShellComponent');
@@ -29,31 +20,22 @@ const log = new Logger('ShellComponent');
 })
 
 export class ShellComponent implements OnInit, LoggedInCallback, Callback {
-
-  public showHeader: boolean;
+  // Usuario autenticado.
   public user: any;
-
-  /* SideMenu de la aplicación */
+  // SideMenu de la aplicación.
   @ViewChild('sidenav') sidenav: MatSidenav;
-
-  /* Sidenav de busqueda de órdenes */
+  // Sidenav de búsqueda de órdenes.
   @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
-
-  /* Loading de la pagina */
-  @ViewChild('loadingComponent') loadingComponent: LoadingComponent;
-
-  /* Modal de la página */
-  @ViewChild('modalComponent') modalComponent: ModalComponent;
-
-  /* Variable que permite cambiar el estado del sidenav */
+  // Mostrar header
+  showHeader = false;
+  // Variable que permite cambiar el estado del sidenav.
   stateSideNav = false;
   stateSideNavOrder = false;
-
-  /* booleano para visualizar la barra de toolbar */
+  // booleano para visualizar la barra de toolbar.
   public viewToolbarPrincipal: boolean;
 
-  /* Variable que permite saber cual formulario de filtro desplegar
-  en el menú de filtro y que información se le pasar a este mismo */
+  // Variable que permite saber cual formulario de filtro desplegar
+  // en el menú de filtro y que información se le pasar a este mismo.
   informationToForm: SearchFormEntity = {
     title: 'Buscar',
     btn_title: 'Buscar',
@@ -61,39 +43,26 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
     type_form: 'orders',
     information: new InformationToForm
   };
-
   userLoggin: boolean;
 
 
-  /**
-   * Creates an instance of ShellComponent.
-   * @param {MatDialog} dialog
-   * @param {UserService} userService
-   * @param {ComponentsService} componentservice
-   * @param {Router} router
-   * @param {EventEmitterOrders} eventEmitterOrders
-   * @memberof ShellComponent
-   */
-
   constructor(
     public dialog: MatDialog,
-    public componentservice: ComponentsService,
+    public componentService: ComponentsService,
     public eventEmitterOrders: EventEmitterOrders,
-    public userServiceCognito: UserLoginService,
-    public userParams: UserParametersService
+    private userServiceCognito: UserLoginService,
+    private userParams: UserParametersService
   ) {
     this.user = {};
   }
 
-  /**
-   * @memberof ShellComponent
-   */
+
   ngOnInit() {
     this.userServiceCognito.isAuthenticated(this);
   }
 
   /**
-   * @method Metodo para validar si el usuario esta logeado
+   * @method Método para validar si el usuario esta autenticado.
    * @param message
    * @param isLoggedIn
    * @memberof ShellComponent
@@ -109,7 +78,8 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
     }
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -118,19 +88,20 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
   callbackWithParam(userData: any) {
     this.user = userData;
   }
+
   /**
    * Funcionalidad que permite desplegar el menú.
    * @memberof SidebarComponent
    */
   toggleMenu() {
     this.sidenav.toggle();
-    // this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewProgressBar();
   }
 
   /**
-  * Funcionalidad que permite desplegar el menú de filtro de órdenes.
-  * @memberof SidebarComponent
-  */
+   * Funcionalidad que permite desplegar el menú de filtro de órdenes.
+   * @memberof SidebarComponent
+   */
   toggleMenuSearchOrder(informationToForm: SearchFormEntity) {
     this.sidenavSearchOrder.toggle();
     this.informationToForm = informationToForm;
@@ -142,13 +113,13 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof ShellComponent
    */
   openDialogSupport(): void {
-    // this.loadingComponent.viewLoadingProgressBar();
+    // this.loadingComponent.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
       panelClass: 'full-width-dialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.loadingComponent.closeLoadingProgressBar();
+      // this.loadingComponent.closeProgressBar();
     });
   }
 

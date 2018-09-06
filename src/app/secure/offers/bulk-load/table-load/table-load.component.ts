@@ -1,8 +1,6 @@
-/* 3rd party components */
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
 
-/* our own custom components */
 import { BulkLoadComponent } from '../bulk-load/bulk-load.component';
 
 /**
@@ -38,7 +36,9 @@ export class TableLoadComponent implements OnInit {
     'IsFreeShipping',
     'IsEnviosExito',
     'IsFreightCalculator',
-    'Warranty'
+    'Warranty',
+    'IsLogisticsExito',
+    'IsUpdatedStock'
   ];
 
   /**

@@ -1,9 +1,7 @@
-/* 3rd party components */
-import { MatSnackBar, MatDialog } from '@angular/material';
 import { Injectable } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
-/* our own custom components */
-import { ConfirmAlertComponent } from '@secure/confirm-alert/confirm-alert.component';
+import { ConfirmAlertComponent } from '../components/confirm-alert/confirm-alert.component';
 
 @Injectable()
 
@@ -18,14 +16,14 @@ export class ComponentsService {
     constructor(public snackBar: MatSnackBar, public dialog: MatDialog) { }
 
     /**
-     * Método para desplegar el snackbar de material
+     * Método para desplegar el snackbar de material.
+     * 
      * @param {string} message
      * @param {string} action
      * @param {any} [duration]
      * @memberof ComponentsService
      */
     openSnackBar(message: string, action: string, duration?) {
-        // tslint:disable-next-line:curly
         if (duration === null || duration === undefined) {
             duration = 2000;
         }
@@ -35,7 +33,8 @@ export class ComponentsService {
     }
 
     /**
-     * Método para despelgar el modal de confirmación
+     * Método para despelgar el modal de confirmación.
+     * 
      * @param {string} title
      * @param {string} [description]
      * @returns

@@ -1,11 +1,12 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
+import { LoadingService, ModalService } from '@app/core';
+
 import { State } from './states.model';
 import { StatesService } from './states.service';
-import { Validators, FormControl, FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
-import { ShellComponent } from '@core/shell/shell.component';
 
-/** Error when invalid control is dirty, touched, or submitted. */
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -21,7 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class StatesComponent implements OnInit {
 
-  public listItems: {};
+  public listItems: any;
   public statesFormControl: FormControl;
   public validateFormRegister: FormGroup;
   public statesObject: State;
@@ -31,13 +32,15 @@ export class StatesComponent implements OnInit {
   constructor(
     @Inject(StatesService)
     private dataService: StatesService,
-    public shellComponent: ShellComponent) {
+    private loadingService: LoadingService,
+    private modalService: ModalService
+  ) {
     this.statesObject = new State();
   }
 
   /**
    * @method ngOnInit
-   * @description Metodo que se ejecuta mientras inicia el componente
+   * @description Método que se ejecuta mientras inicia el componente
    * @memberof StatesComponent
    */
   ngOnInit() {
@@ -55,17 +58,17 @@ export class StatesComponent implements OnInit {
    * @memberof StatesComponent
    */
   getStatesDropdown() {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.dataService.fetchData().subscribe(
       (result: any) => {
         if (result.status === 200) {
           const data_response = JSON.parse(result.body.body);
           const data = data_response.Data;
           this.listItems = data;
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
         } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
-          this.shellComponent.modalComponent.showModal('errorService');
+          this.loadingService.closeSpinner();
+          this.modalService.showModal('errorService');
         }
       }
     );
@@ -77,22 +80,21 @@ export class StatesComponent implements OnInit {
    * @description Metodo para enviar el id del estado que se necesita para consumir el servicio de ciudades
    * @memberof StatesComponent
    */
-  setParamToCities(param) {
+  setParamToCities(param: any) {
     this.idStateEvent.emit(param);
   }
 
   /**
    * @method setParamToCitiesChange
    * @description Metodo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
-   * @param states
    * @memberof StatesComponent
    */
-  public setParamToCitiesChange(states: any) {
-    const statesId = states.statesObject.Name;
-    if (typeof statesId !== 'undefined' && statesId !== '') {
-      for (let i = 0; i < states.listItems.length; i++) {
-        if (states.listItems[i].Id === statesId) {
-          this.idStateEvent.emit(states.listItems[i]);
+  public setParamToCitiesChange() {
+    const stateId = this.validateFormRegister.get('statesFormControl').value;
+    if (typeof stateId !== 'undefined' && stateId !== '') {
+      for (let i = 0; i < this.listItems.length; i++) {
+        if (this.listItems[i].Id === stateId) {
+          this.idStateEvent.emit(this.listItems[i]);
         }
       }
     }

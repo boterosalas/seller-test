@@ -1,32 +1,27 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { CognitoUtil } from '@app/shared';
-import { endpoints, defaultVersion } from '../../../../../../api-endpoints';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
+
+
 @Injectable()
 export class CitiesServices {
 
-  writerUrl = endpoints[defaultVersion.prefix + defaultVersion.number]['getCities'];
-  httpOptions: any;
-
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil
+    private api: EndpointService
   ) {
   }
 
   /**
-  * @method fetchData
-  * @description Método para consumir el servicio de ciudades
-  * @returns {Observable<{}>}
-  * @memberof CitiesServices
-  */
+   * @method fetchData
+   * @description Método para consumir el servicio de ciudades
+   * @returns {Observable<{}>}
+   * @memberof CitiesServices
+   */
   fetchData(paramValue: {}): Observable<{}> {
-    const idToken = this.cognitoUtil.getTokenLocalStorage();
-    const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
-    const url = this.writerUrl + paramValue;
     return new Observable(observer => {
-      this.http.get<any>(url, { observe: 'response', headers: headers })
+      this.http.get<any>(this.api.get('getCities', [paramValue]), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);

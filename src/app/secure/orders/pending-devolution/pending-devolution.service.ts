@@ -1,110 +1,68 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs/Rx';
+import { EndpointService } from '@app/core';
+import { Const, ListReasonRejectionResponseEntity } from '@app/shared';
+import { Observable } from 'rxjs';
 
-/* our own custom components */
-import {
-    BaseSellerService,
-    ListReasonRejectionResponseEntity,
-    Const
-} from '@app/shared';
-/**
- * Injectable
- */
+
 @Injectable()
+export class PendingDevolutionService {
 
-/**
- * Clase BillingService
- */
-export class PendingDevolutionService extends BaseSellerService {
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
-     * Método para realiar la consulta de las órdenes en estado pendiente
-     * @param user
+     * Método para realiar la consulta de las órdenes en estado pendiente.
+     *
      * @param stringSearch
      * @returns Observable<[{}]>
      */
-    getOrders(user: any, stringSearch: any): Observable<[{}]> {
-
-        this.changeEndPoint();
-
+    getOrders(stringSearch: any): Observable<[{}]> {
         return new Observable(observer => {
-
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders(user)).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                this.hehs.error(err, () => {
+            this.http.get(this.api.get('pendingDevolution', [stringSearch]))
+                .subscribe((data: any) => {
+                    data = data ? data : [];
+                    observer.next(data);
+                }, err => {
                     observer.error(err);
                 });
-            });
         });
     }
 
     /**
-     * Método para realiar la consulta de las opciones para realizar el rechazo
-     * @param {User} user
+     * Método para realiar la consulta de las opciones para realizar el rechazo.
+     *
      * @returns {Observable<[{ListReasonRejectionResponseEntity}]>}
      * @memberof PendingDevolutionService
      */
-    getReasonsRejection(user: any): Observable<Array<ListReasonRejectionResponseEntity>> {
-
-        this.changeEndPoint();
-
+    getReasonsRejection(): Observable<Array<ListReasonRejectionResponseEntity>> {
         return new Observable(observer => {
-
             this.http.get(this.api.get('getreasonsrejection', [`?reversionRequestRejectionType=${Const.OrderPendingDevolution}`]),
-                this.getHeaders(user)).subscribe((data: any) => {
+            )
+                .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }
 
     /**
-     * Método para realizar la aceptación de una devolución
-     * @param {any} user
+     * Método para realizar la aceptación o el rechazo de una devolución.
+     *
      * @returns {Observable<[{}]>}
      * @memberof PendingDevolutionService
      */
-    acceptDevolution(user): Observable<[{}]> {
-
-        this.changeEndPoint();
-
+    acceptOrDeniedDevolution(info): Observable<[{}]> {
         return new Observable(observer => {
-
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders(user)).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                this.hehs.error(err, () => {
+            this.http.post(this.api.get('acceptOrDeniedDevolution'), info)
+                .subscribe((data: any) => {
+                    observer.next(data);
+                }, err => {
                     observer.error(err);
                 });
-            });
-        });
-    }
-
-    /**
-     * Método para realizar el rechazo de una devolución
-     * @param {any} user
-     * @param info
-     * @returns {Observable<[{}]>}
-     * @memberof PendingDevolutionService
-     */
-    refuseDevolution(user: any, info): Observable<[{}]> {
-
-        this.changeEndPoint();
-
-        return new Observable(observer => {
-            this.http.post(this.api.get('refuseOrAcceptDevolution'), info, this.getHeaders(user)).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                this.hehs.error(err, () => {
-                    observer.error(err);
-                });
-            });
         });
     }
 }

@@ -1,19 +1,13 @@
-
-/* 3rd party components */
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Input } from '@angular/core';
-
-/* our own custom components */
+import { SearchFormEntity } from '@app/shared/models';
+import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
+
 import { SearchOrderMenuService } from '../search-order-menu.service';
-import {
-  SearchFormEntity,
-  UserService,
-  ComponentsService
-} from '@app/shared';
+
 
 @Component({
   selector: 'app-search-order-form',
@@ -43,7 +37,6 @@ export class SearchOrderFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   constructor(
-    public userService: UserService,
     public componentsService: ComponentsService,
     private route: Router,
     public searchOrderMenuService: SearchOrderMenuService,
@@ -57,7 +50,7 @@ export class SearchOrderFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
     this.createForm();
   }
 
@@ -99,7 +92,7 @@ export class SearchOrderFormComponent implements OnInit {
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state) {
+  getOrderList(state: any) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
@@ -108,9 +101,9 @@ export class SearchOrderFormComponent implements OnInit {
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data) {
+  filterOrder(data: any) {
     // Obtengo la información del usuario
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta

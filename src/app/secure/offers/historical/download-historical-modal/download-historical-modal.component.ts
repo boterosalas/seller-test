@@ -1,17 +1,16 @@
-/* 3rd party components */
+// 3rd party components
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 
-/* our own custom components */
+// our own custom components
 import { DownloadHistoricalService } from './download-historical.service';
 import {
   Logger,
-  UserService,
-  ComponentsService,
   UserParametersService,
   Callback
-} from '@app/shared';
+} from '@app/core';
+import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('DownloadHistoricalComponent');
@@ -31,15 +30,16 @@ const log = new Logger('DownloadHistoricalComponent');
 })
 
 /**
- * DownloadHistoricalModalComponent
+ * @memberof DownloadHistoricalModalComponent
  */
-// export class DownloadHistoricalModalComponent implements OnInit, Callback {
 export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
+
   // user info
   public user: any;
+
   // Limite de registros para descargar
   public limitLengthHistorical: any = 0;
 
@@ -47,7 +47,6 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
    * Creates an instance of DownloadHistoricalModalComponent.
    * @param {MatDialogRef<DownloadHistoricalModalComponent>} dialogRef
    * @param {DownloadHistoricalService} DownloadHistoricalService
-   * @param {UserService} userService
    * @param {ComponentsService} componentsService
    * @param {FormBuilder} fb
    * @param {*} data
@@ -56,13 +55,12 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   constructor(
     public dialogRef: MatDialogRef<DownloadHistoricalModalComponent>,
     public downloadHistoricalService: DownloadHistoricalService,
-    public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    // capturo el limite de registros indicados por el usuario
+    // Capturo el limite de registros indicados por el usuario
     this.limitLengthHistorical = data.limit;
     this.user = {};
   }
@@ -78,7 +76,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   callback() { }
 
   getDataUser() { // TODO: Revisar
-    // this.userParams.getUserData(this);
+    this.userParams.getUserData(this);
   }
 
   callbackWithParam(userData: any) {
@@ -107,25 +105,29 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   }
 
   /**
-   *@method downloadHistorical
-   * @description Método para realizar la descarga de las órdenes
+   * @method downloadHistorical
+   * @description Método para realizar la descarga del histórico
    * @param {any} form
    * @memberof DownloadHistoricalModalComponent
    */
-  downloadHistorical(form) {
+  downloadHistorical(form: any) {
     log.info(this.downloadHistoricalService.getCurrentFilterHistorical());
     const email = form.get('email').value;
-    this.downloadHistoricalService.downloadHistorical(email).subscribe(res => {
-      if (res != null) {
-        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
-          'Cerrar', 10000);
-      } else {
-        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+    this.downloadHistoricalService.downloadHistorical(email)
+    .subscribe(
+      res => {
+        if (res != null) {
+          this.componentsService.openSnackBar('Se ha realizado la descarga del historico correctamente, revisa tu correo electrónico',
+            'Cerrar', 10000);
+        } else {
+          this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga del historico', 'Cerrar', 5000);
+        }
+        this.onNoClick();
+      },
+      err => {
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga del historico', 'Cerrar', 5000);
+        this.onNoClick();
       }
-      this.onNoClick();
-    }, err => {
-      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
-      this.onNoClick();
-    });
+    );
   }
 }

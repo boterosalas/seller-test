@@ -1,16 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ModelRegister } from './models/register.model';
-import { RegisterService } from './register.service';
-import { ShellComponent } from '@core/shell/shell.component';
-import { LoggedInCallback, Callback, UserLoginService, UserParametersService, RoutesConst } from '@app/shared';
 import { Router } from '@angular/router';
 
-import { StatesComponent } from './states/states.component';
-import { CitiesComponent } from './cities/cities.component';
+import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
+import { RegisterService } from './register.service';
 
-/** Error when invalid control is dirty, touched, or submitted. */
+
+// Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -50,7 +48,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   public values = '';
   public existValueInDB: boolean;
-  public formRegister: ModelRegister;
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
   public idState: number;
@@ -61,61 +58,59 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public user: any;
   public activeButton: boolean;
 
-  /**
-   * Creates an instance of RegisterSellerComponent.
-   * @param {registerService} registerService
-   * @param {shellComponent} shellComponent
-   */
+
   constructor(
     @Inject(RegisterService)
     private registerService: RegisterService,
-    public shellComponent: ShellComponent,
+    private loadingService: LoadingService,
+    private modalService: ModalService,
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
   ) {
     this.user = {};
-    this.formRegister = new ModelRegister();
   }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
     this.validateFormRegister = new FormGroup({
-      nit: new FormControl('', [
+      Nit: new FormControl('', [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
       ]),
-      rut: new FormControl
-        ('', [Validators.required,
+      Rut: new FormControl
+      ('', [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
-        ]),
-      contacto: new FormControl
-        ('', [Validators.required,
+      ]),
+      ContactName: new FormControl
+      ('', [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
-        ]),
-      telefono: new FormControl
-        ('', [Validators.required,
+      ]),
+      Email: new FormControl
+      ('', [Validators.required,
+        Validators.pattern(this.emailRegex)
+      ]),
+      PhoneNumber: new FormControl
+      ('', [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
-      email: new FormControl
-        ('', [Validators.required,
-        Validators.pattern(this.emailRegex)
-        ]),
-      nomTienda: new FormControl
-        ('', [Validators.required,
+      Address: new FormControl
+      ('', [Validators.required]),
+      State: new FormControl,
+      City: new FormControl,
+      DaneCode: new FormControl,
+      SincoDaneCode: new FormControl,
+      Name: new FormControl
+      ('', [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
-      direccion: new FormControl
-        ('', [Validators.required]),
-      codDane: new FormControl
-        ('', [Validators.required]),
-      logisticExito: new FormControl,
-      enviosExito: new FormControl,
-      goToExito: new FormControl,
-      goToCarulla: new FormControl,
-      goToCatalogo: new FormControl
+      IsLogisticsExito: new FormControl(false),
+      IsShippingExito: new FormControl(true),
+      GotoExito: new FormControl(true),
+      GotoCarrulla: new FormControl(false),
+      GotoCatalogo: new FormControl(true)
     });
     this.matcher = new MyErrorStateMatcher();
   }
@@ -129,7 +124,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   }
 
-  callback() { }
+  callback() {
+  }
 
   getDataUser() {
     this.userParams.getUserData(this);
@@ -148,7 +144,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param num
    * @memberof RegisterSellerComponent
    */
-  changeImageColor(e, num) {
+  changeImageColor(e: any, num: any) {
     /* La 'e' se trae el elemento que se esta ejecutando en el DOM de html de angular.
     Le enviamos la posicion desde HTML[num] */
     if (e.checked) {
@@ -177,24 +173,24 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @memberof RegisterSellerComponent
    */
   submitSellerRegistrationForm() {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.disabledForService = true;
-    this.registerService.registerUser(JSON.stringify(this.formRegister))
+    this.registerService.registerUser(JSON.stringify(this.validateFormRegister.value))
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
-              this.shellComponent.modalComponent.showModal('success');
+              this.modalService.showModal('success');
             } else if (!data.Data) {
-              this.shellComponent.modalComponent.showModal('error');
+              this.modalService.showModal('error');
             }
           } else {
-            this.shellComponent.modalComponent.showModal('errorService');
+            this.modalService.showModal('errorService');
           }
 
           this.disabledForService = false;
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
 
         }
       );
@@ -210,8 +206,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     this.activeButton = false;
     const jsonExistParam = event.target.value;
     // tslint:disable-next-line:quotemark
-    if (jsonExistParam !== "" && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+      this.loadingService.viewSpinner();
       this.disabledForService = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
         .subscribe(
@@ -220,17 +216,17 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
               const data_response = JSON.parse(result.body.body);
               this.existValueInDB = data_response.Data;
               switch (param) {
-                case 'nit':
+                case 'Nit':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
                   }
                   break;
-                case 'email':
+                case 'Email':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
-                case 'nomTienda':
+                case 'Name':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
@@ -240,11 +236,11 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
                 this.activeButton = true;
               }
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             } else {
-              this.shellComponent.modalComponent.showModal('errorService');
+              this.modalService.showModal('errorService');
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             }
           }
         );
@@ -256,10 +252,10 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataState($event) {
+  receiveDataState($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
-      this.formRegister.State = $event.Name;
+      this.validateFormRegister.controls['State'].setValue($event.Name);
     }
   }
 
@@ -268,14 +264,18 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataCitie($event) {
+  receiveDataCitie($event: any) {
     if ($event && $event !== undefined && $event !== null) {
-      this.formRegister.DaneCode = $event.DaneCode;
-      this.formRegister.City = $event.Name;
-      this.formRegister.SincoDaneCode = $event.SincoDaneCode;
+      this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
+      this.validateFormRegister.controls['City'].setValue($event.Name);
+      this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
     } else {
-      this.formRegister.DaneCode = null;
+      this.validateFormRegister.controls['DaneCode'].setValue(null);
     }
+  }
+
+  disabledButton() {
+    this.activeButton = false;
   }
 }
 

@@ -1,3 +1,3 @@
 export * from './constants';
-export * from './routes.constants';
 export * from './fakeData.model';
+export * from './routes.constants';

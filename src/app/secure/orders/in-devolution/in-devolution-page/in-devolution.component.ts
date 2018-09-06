@@ -1,29 +1,26 @@
-/* 3rd party components */
-import { Component, NgZone, OnInit, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort, MatSidenav, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 
-/* our own custom components */
-import { ViewCommentComponent } from '../view-comment/view-comment.component';
-import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
+import { Callback, Logger, UserParametersService } from '@app/core';
 import {
-  Pending,
-  ListReasonRejectionResponseEntity,
-  SearchFormEntity,
-  OrderDevolutionsModel,
-  Logger,
-  Const,
-  UserService,
   ComponentsService,
-  Callback,
-  UserParametersService
+  Const,
+  ListReasonRejectionResponseEntity,
+  OrderDevolutionsModel,
+  Pending,
+  SearchFormEntity,
 } from '@app/shared';
-import { InDevolutionService } from '../id-devolution.service';
-import { ActionReportNoveltyComponent } from '../action-report-novelty/action-report-novelty.component';
-import { ActionConfirmReceiptComponent } from '../action-confirm-receipt/action-confirm-receipt.component';
 import { ShellComponent } from '@core/shell/shell.component';
+
+import { ActionConfirmReceiptComponent } from '../action-confirm-receipt/action-confirm-receipt.component';
+import { ActionReportNoveltyComponent } from '../action-report-novelty/action-report-novelty.component';
+import { InDevolutionService } from '../in-devolution.service';
+import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
+
 // log component
 const log = new Logger('InDevolutionComponent');
 
@@ -34,6 +31,7 @@ const log = new Logger('InDevolutionComponent');
   selector: 'app-in-devolution',
   templateUrl: './in-devolution.component.html',
   styleUrls: ['./in-devolution.component.scss'],
+  providers: [InDevolutionService],
   // Configuración para la páginación de la tabla animations:
   animations: [
     trigger('detailExpand', [
@@ -43,10 +41,6 @@ const log = new Logger('InDevolutionComponent');
     ]),
   ]
 })
-
-/**
- * Componente para visualizar la lista de devoluciones
- */
 export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
@@ -90,17 +84,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
     }
   };
 
-  /**
-   * Creates an instance of InDevolutionComponent.
-   * @param {ShellComponent} shellComponent
-   * @param {ActivatedRoute} route
-   * @param {Router} router
-   * @param {MatDialog} dialog
-   * @param {NgZone} zone
-   * @param {InDevolutionService} inDevolutionService
-   * @param {UserService} userService
-   * @memberof InDevolutionComponent
-   */
   constructor(
     public shellComponent: ShellComponent,
     private route: ActivatedRoute,
@@ -108,54 +91,42 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
     public dialog: MatDialog,
     private zone: NgZone,
     private inDevolutionService: InDevolutionService,
-    public userService: UserService,
     private componentsService: ComponentsService,
     public userParams: UserParametersService
   ) {
     this.user = {};
   }
 
-  /**
-   * @memberof InDevolutionComponent
-   */
   ngOnInit() {
-    log.info('Devoluciones pendientes component load');
-    this.getDataUser();
+    // Datos del usuario autenticado.
+    this.userParams.getUserData(this);
+  }
+
+  callback() { }
+
+  callbackWithParam(userData: any) {
+    this.user = userData;
     // obtengo las órdenes con la función del componente ToolbarOptionsComponent
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-  }
-
-  /**
-   * Funcionalidad para remover las suscripciones creadas.
-   * @memberof BillingComponent
-   */
   ngOnDestroy() {
+    // Remover las suscripciones creadas.
     // this.subOrderList.unsubscribe();
     this.subFilterOrderPending.unsubscribe();
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
+   * Otener los resultados obtenidos al momento de realizar
+   * el filtro de órdenes en la opcion search-order-menu.
+   * 
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
-        log.info(data);
-        // log.info("Aplicando resultados obtenidos por el filtro")
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -173,9 +144,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
       });
   }
 
+
   /**
-   * Método para cambiar el page size de la tabla órdenes
-   * @param {any} $event
+   * Método para cambiar el page size de la tabla órdenes.
+   *
+   * @param {*} $event
    * @memberof InDevolutionComponent
    */
   changeSizeOrderTable($event) {
@@ -184,7 +157,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Método para desplegar el modal para ver el comentario de la orden
+   * Método para desplegar el modal para ver el comentario de la orden.
+   * 
    * @param item
    */
   openModalCommentOrder(item): void {
@@ -202,24 +176,21 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para obtener la lista de órdenes.
+   * 
    * @param {any} $event
    * @memberof InDevolutionComponent
    */
   getOrdersList($event) {
-
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user.sellerId}
-    &limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
+    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
 
-    this.inDevolutionService.getOrders(this.user, stringSearch).subscribe((res: any) => {
-
+    this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
-
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;
@@ -227,7 +198,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
           this.orderListLength = false;
         }
       }
-      log.info(res);
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
       // this.paginator.pageIndex = 0;
@@ -236,23 +206,27 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
       this.numberElements = this.dataSource.data.length;
     }, err => {
       this.orderListLength = true;
-      log.error(this.dataSource);
+      log.error('No se pudo cargar las órdenes');
     });
   }
 
+
   /**
-   * Whether the number of selected elements matches the total number of rows.
-   * @returns
+   * Si la cantidad de elementos seleccionados coincide con el número total de filas.
+   *
+   * @returns {boolean}
    * @memberof InDevolutionComponent
    */
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   /**
-   * Selects all rows if they are not all selected; otherwise clear selection.
+   * Selecciona todas las filas si no están todos los seleccionados;
+   * de lo contrario, borrar selección.
+   * 
    * @memberof InDevolutionComponent
    */
   masterToggle() {
@@ -262,18 +236,22 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Filtro para la tabla
+   * Filtro para la tabla.
+   * 
    * @param {string} filterValue
    * @memberof InDevolutionComponent
    */
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    // Eliminar el espacio en blanco.
+    filterValue = filterValue.trim();
+    // Datasource se predetermina a minúsculas.
+    filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 
   /**
-   * Método para desplegar el modal de detalle de la orden
+   * Método para desplegar el modal de detalle de la orden.
+   * 
    * @param {any} item
    * @memberof InDevolutionComponent
    */
@@ -284,24 +262,21 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal detail order was closed');
-    });
   }
 
   /**
-   * Método para desplegar el modal de confirmaición
+   * Método para desplegar el modal de confirmaición.
+   * 
    * @param {any} item
    * @memberof InDevolutionComponent
    */
   openModalConfirmReceipt(order: OrderDevolutionsModel): void {
-    // Armo el json para realizar el envio, IsAcceptanceRequest: true se emplea para aceptar la solicitud
+    // Json para realizar el envio, IsAcceptanceRequest: true se emplea para aceptar la solicitud.
     const information = {
       IsAcceptanceRequest: true,
       Id: order.id
     };
-    this.inDevolutionService.reportNovelty(this.user, information).subscribe(res => {
-      log.info(res);
+    this.inDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
@@ -315,7 +290,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Método para desplegar el modal de confirmación
+   * Método para desplegar el modal de confirmación.
+   * 
    * @memberof InDevolutionComponent
    */
   dialogAcceptDevolution() {
@@ -325,13 +301,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
         user: this.user
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal detail order was closed');
-    });
   }
 
   /**
-    * Método para desplegar el modal de report novelty
+    * Método para desplegar el modal de report novedad.
+    * 
     * @param {OrderDevolutionsModel} item
     * @memberof InDevolutionComponent
     */
@@ -348,22 +322,20 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
       if (result === true) {
         this.getOrdersList(this.currentEventPaginate);
       }
-      log.info('The modal detail order was closed');
-      log.info(result);
     });
   }
 
   /**
-   * Método para obtener la lista de opciones para realizar el rechazo de una solicitud de devolución
+   * Método para obtener la lista de opciones para realizar el rechazo de una solicitud de devolución.
+   * 
    * @memberof InDevolutionComponent
    */
   getReasonsRejection() {
-    this.inDevolutionService.getReasonsRejection(this.user).subscribe((res: Array<ListReasonRejectionResponseEntity>) => {
+    this.inDevolutionService.getReasonsRejection().subscribe((res: Array<ListReasonRejectionResponseEntity>) => {
       this.reasonRejection = res;
     });
   }
 
-
-}
+} // End class
 
 

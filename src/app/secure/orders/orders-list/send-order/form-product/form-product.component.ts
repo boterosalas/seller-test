@@ -1,18 +1,10 @@
-/* 3rd party components */
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Logger } from '@app/core';
+import { Carries, ComponentsService, Const, Order, ProductsEntity } from '@app/shared';
 
-/* our own custom components */
 import { OrderService } from '../../orders.service';
 import { SendOrderComponent } from '../send-order.component';
-import {
-  Logger,
-  ProductsEntity,
-  Order,
-  Carries,
-  ComponentsService,
-  Const
-} from '@app/shared';
 
 // log component
 const log = new Logger('FormProductComponent');

@@ -1,17 +1,21 @@
-/* 3rd party components */
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
-/* our own custom components */
-import { BaseSellerService } from '@app/shared';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 
-export class SearchOrderMenuService extends BaseSellerService {
+export class SearchOrderMenuService {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   *
    * @returns
    * @memberof OrderService
    */
@@ -22,6 +26,7 @@ export class SearchOrderMenuService extends BaseSellerService {
 
   /**
    * Método para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   *
    * @param {any} data
    * @memberof OrderService
    */
@@ -31,6 +36,7 @@ export class SearchOrderMenuService extends BaseSellerService {
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
+   *
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
@@ -38,37 +44,30 @@ export class SearchOrderMenuService extends BaseSellerService {
    */
   getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
 
-    this.changeEndPoint();
 
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
+      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
-        this.hehs.error(errorMessage, () => {
-          observer.error(errorMessage);
-        });
+        observer.error(errorMessage);
       });
     });
   }
 
   /**
    * Método para realiar la consulta de las órdenes pendientes de devolución de acuerdo a los filtros indicados.
+   *
    * @param {any} limit
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
   getOrdersPendingDevolutionFilter(user: any, limit, stringSearch): Observable<[{}]> {
-    this.changeEndPoint();
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch]),
-        this.getHeaders(user)).subscribe((data: any) => {
+      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
-        this.hehs.error(errorMessage, () => {
-          observer.error(errorMessage);
-        });
+        observer.error(errorMessage);
       });
     });
   }

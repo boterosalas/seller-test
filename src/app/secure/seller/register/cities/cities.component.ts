@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
-import { CitiesServices } from './cities.service';
-import { Cities } from '../models/cities.model';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
-import { ShellComponent } from '@core/shell/shell.component';
+
+import { LoadingService, ModalService } from '@app/core';
+
+import { Cities } from '../models/cities.model';
+import { CitiesServices } from './cities.service';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,7 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CitiesComponent implements OnInit, OnChanges {
 
-  public listItems: {};
+  public listItems: any;
   public citiesFormControl: FormControl;
   public validateFormRegister: FormGroup;
   public citiesObject: Cities;
@@ -31,7 +34,9 @@ export class CitiesComponent implements OnInit, OnChanges {
   constructor(
     @Inject(CitiesServices)
     private dataService: CitiesServices,
-    public shellComponent: ShellComponent) {
+    private loadingService: LoadingService,
+    private modalService: ModalService
+  ) {
     this.citiesObject = new Cities();
   }
 
@@ -52,7 +57,7 @@ export class CitiesComponent implements OnInit, OnChanges {
    * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
    * @memberof CitiesComponent
    */
-  ngOnChanges(changes) {
+  ngOnChanges(changes: any) {
     if (this.idState && this.idState !== undefined && this.idState !== null) {
       this.getCitiesDropdown(this.idState);
       this.daneCodeEvent.emit(null);
@@ -65,20 +70,19 @@ export class CitiesComponent implements OnInit, OnChanges {
    * @description Metodo que consume el servicio que retorna el listado de ciudades
    * @memberof CitiesComponent
    */
-  getCitiesDropdown(state) {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+  getCitiesDropdown(state: any) {
+    this.loadingService.viewSpinner();
     this.dataService.fetchData(state).subscribe(
       (result: any) => {
-        console.log(result);
         if (result.status === 200) {
           const data_response = JSON.parse(result.body.body);
           const data = data_response.Data;
           this.listItems = data;
           this.validateFormRegister.get('citiesFormControl').enable();
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
         } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
-          this.shellComponent.modalComponent.showModal('errorService');
+          this.loadingService.closeSpinner();
+          this.modalService.showModal('errorService');
         }
       }
     );
@@ -90,22 +94,22 @@ export class CitiesComponent implements OnInit, OnChanges {
    * @param param
    * @memberof CitiesComponent
    */
-  setDataCitie(param) {
+  setDataCitie(param: any) {
     this.daneCodeEvent.emit(param);
   }
 
   /**
    * @method setParamToDaneChange
    * @description Metodo para cargar los dane luego de cambiar de foco en el campo de departamentos
-   * @param states
    * @memberof CitiesComponent
+   * @param cities
    */
-  public setParamToDaneChange(cities: any) {
-    const citiesId = cities.citiesObject.Name;
-    if (typeof citiesId !== 'undefined' && citiesId !== '') {
-      for (let i = 0; i < cities.listItems.length; i++) {
-        if (cities.listItems[i].Id === citiesId) {
-          this.daneCodeEvent.emit(cities.listItems[i]);
+  public setParamToDaneChange() {
+    const citieId = this.validateFormRegister.get('citiesFormControl').value;
+    if (typeof citieId !== 'undefined' && citieId !== '') {
+      for (let i = 0; i < this.listItems.length; i++) {
+        if (this.listItems[i].Id === citieId) {
+          this.daneCodeEvent.emit(this.listItems[i]);
         }
       }
     }

@@ -1,16 +1,17 @@
-/* 3rd party components */
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// 3rd party components
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule , FormsModule} from '@angular/forms';
+import { MAT_DIALOG_DATA , MatDialogRef} from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-/* our own custom components */
-import {DownloadHistoricalModalComponent} from './download-historical-modal.component';
-import {DownloadHistoricalService} from '@app/secure/offers/historical/download-historical-modal/download-historical.service';
-import { MaterialModule } from '../../../material-components';
-import { HttpErrorHandlingService, ComponentsService, UserService, EndpointService } from '@app/shared';
+// our own custom components
+import { DownloadHistoricalModalComponent } from './download-historical-modal.component';
+import { DownloadHistoricalService } from '@app/secure/offers/historical/download-historical-modal/download-historical.service';
+import { MaterialModule } from '@app/material.module';
+import { ComponentsService } from '@app/shared';
+import { UserLoginService, EndpointService } from '@app/core';
 
 @NgModule({
   imports: [
@@ -29,9 +30,8 @@ import { HttpErrorHandlingService, ComponentsService, UserService, EndpointServi
   ],
   providers: [
     DownloadHistoricalService,
-    HttpErrorHandlingService,
     ComponentsService,
-    UserService,
+    UserLoginService,
     EndpointService,
     {provide: MAT_DIALOG_DATA, useValue: {}},
     {provide: MatDialogRef, useValue: {}}

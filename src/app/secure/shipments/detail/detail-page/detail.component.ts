@@ -1,11 +1,9 @@
-// Angular
 import { Component, OnInit } from '@angular/core';
-
-// Local components
-import { MatTableDataSource } from '@angular/material';
-import { ShipmentsService } from '../../shipments.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Logger, Shipment, UserService, RoutesConst } from '@app/shared';
+import { Logger } from '@app/core';
+import { RoutesConst, Shipment } from '@app/shared';
+
+import { ShipmentsService } from '../../shipments.service';
 
 /**
  * Servicio de log empleado para mostrar mensajes en consola
@@ -31,7 +29,6 @@ export class DetailComponent implements OnInit {
    * Creates an instance of HistoricComponent.
    */
   constructor(private service: ShipmentsService,
-    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -39,7 +36,7 @@ export class DetailComponent implements OnInit {
    * Init compoment
    */
   ngOnInit() {
-    this.user = this.userService.getUser();
+    // this.user = this.userService.getUser();
 
     this.subStateOrder = this.route.params.subscribe(params => {
       this.id = params['id'];

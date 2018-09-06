@@ -1,8 +1,7 @@
-/* 3rd party components */
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, Inject, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const EXCEL_EXTENSION = '.xlsx';
 

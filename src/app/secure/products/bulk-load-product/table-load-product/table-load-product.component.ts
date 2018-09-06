@@ -1,8 +1,6 @@
-/* 3rd party components */
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
 
-/* our own custom components */
 import { BulkLoadProductComponent } from '../bulk-load-product/bulk-load-product.component';
 
 /**
@@ -36,7 +34,7 @@ export class TableLoadProductComponent implements OnInit {
     'Model',
     'Details',
     'Description',
-     'MetaTitle',
+    'MetaTitle',
     'MetaDescription',
     'KeyWords',
     'PackageHeight',
@@ -50,13 +48,19 @@ export class TableLoadProductComponent implements OnInit {
     'ProductWeight',
     'Seller',
     'ProductType',
+    'ModifyImage',
     'ImageUrl1',
     'ImageUrl2',
     'ImageUrl3',
     'ImageUrl4',
     'ImageUrl5',
     'ParentReference',
-    'SonReference'
+    'SonReference',
+    'Size',
+    'Color',
+    'HexColourCodePDP',
+    'HexColourName',
+    'IsLogisticsExito'
   ];
 
   /**
