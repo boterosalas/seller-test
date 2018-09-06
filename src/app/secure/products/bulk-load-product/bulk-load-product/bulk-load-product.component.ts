@@ -277,7 +277,6 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          /* const wsname: string = wb.SheetNames[0]; */
           const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {

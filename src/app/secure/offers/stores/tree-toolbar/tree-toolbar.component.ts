@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx';
 import { EventEmitterStore } from '../events/eventEmitter-store.service';
 import { IsLoadInformationForTree } from '../models/store.model';
 import { StoresService } from '../stores.service';
+import { LoadingService } from '@app/core';
 
 
 const EXCEL_EXTENSION = '.xlsx';
@@ -28,7 +29,8 @@ export class TreeToolbarComponent implements OnInit {
   constructor(
     public eventsStore: EventEmitterStore,
     public storesService: StoresService,
-    public shell: ShellComponent) { }
+    public shell: ShellComponent,
+    private loadingService: LoadingService) { }
 
 
   // variable empleada para saber si se obtuvo la información necesaria para el arbol correctamente
@@ -55,23 +57,20 @@ export class TreeToolbarComponent implements OnInit {
   }
 
   modifyCommission() {
-
-    // this.shell.loadingComponent.viewSpinner();
+    this.loadingService.viewSpinner();
     const params = JSON.stringify(localStorage.getItem('parametersCommission'));
     this.storesService.patchSellerCommissionCategory(params).subscribe((res: any) => {
       if (res.status === 200) {
-        // this.shell.loadingComponent.closeSpinner();
+        this.loadingService.closeSpinner();
         this.searchStore = JSON.parse(localStorage.getItem('searchStore'));
       } else {
-        // this.shell.loadingComponent.closeSpinner();
+        this.loadingService.closeSpinner();
         log.error(res.message);
-        console.log('Error consultando las comisiones por categoria.' + res.message);
       }
     });
   }
 
   saveTreeToExcel() {
-    // this.shell.loadingComponent.viewSpinner();
     const current_tree = JSON.parse(this.currentTree);
     this.objetoBuild = [];
     this.currentDownloadTree(current_tree[0], this.rutaPadre);
@@ -110,11 +109,11 @@ export class TreeToolbarComponent implements OnInit {
     return objetoBuild;
   }
   /**
-  * Método que genera el dato json en el formato que emplea excel para.
-  * @param {any[]} json
-  * @param {string} excelFileName
-  * @memberof FinishUploadInformationComponent
-  */
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof FinishUploadInformationComponent
+   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
