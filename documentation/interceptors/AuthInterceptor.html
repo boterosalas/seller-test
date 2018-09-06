@@ -3959,7 +3959,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpHandler, HttpInterceptor, HttpRequest } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpHandler, HttpInterceptor, HttpRequest, HttpHeaders } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { CognitoUtil } from &#x27;@core/aws-cognito&#x27;;
 
@@ -3979,11 +3979,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler) {
     const idToken &#x3D; this.cognitoUtil.getTokenLocalStorage();
+    const headers &#x3D; new HttpHeaders({ &#x27;Authorization&#x27;: idToken, &#x27;Content-type&#x27;: &#x27;application/json; charset&#x3D;utf-8&#x27; });
 
     // Clona la solicitud y reemplaza los encabezados originales con
     // encabezados actualizados con la autorización.
     const authReq &#x3D; req.clone({
-      headers: req.headers.set(&#x27;Authorization&#x27;, idToken)
+      headers: headers
     });
 
     return next.handle(authReq);
