@@ -29,7 +29,7 @@
               <p>EAN</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn1 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorEan == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.EAN != undefined && element.EAN != ''">
               <p class="sc-text-normal">{{element.EAN}}</p>
             </div>
@@ -47,7 +47,7 @@
               <p>Inventario</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorStock == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.Stock != undefined && element.Stock != ''">
               <p class="sc-text-normal">{{element.Stock}}</p>
             </div>
@@ -65,7 +65,7 @@
               <p>Precio</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorPrice == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.Price != undefined && element.Price != ''">
               <p class="sc-text-normal">{{element.Price}}</p>
             </div>
@@ -83,7 +83,7 @@
               <p>Precio con Descuento</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorDiscountPrice == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.DiscountPrice != undefined && element.DiscountPrice != ''">
               <p class="sc-text-normal">{{element.DiscountPrice}}</p>
             </div>
@@ -101,7 +101,7 @@
               <p>Costo de Flete Promedio</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorAverageFreightCost == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.AverageFreightCost != undefined && element.AverageFreightCost != ''">
               <p class="sc-text-normal">{{element.AverageFreightCost}}</p>
             </div>
@@ -119,7 +119,7 @@
               <p>Promesa de Entrega</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn6 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorPromiseDelivery == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.PromiseDelivery != undefined && element.PromiseDelivery != ''">
               <p class="sc-text-normal">{{element.PromiseDelivery}}</p>
             </div>
@@ -137,7 +137,7 @@
               <p>Free Shipping</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn7 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorIsFreeShipping == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.IsFreeShipping != undefined && element.IsFreeShipping != ''">
               <p class="sc-text-normal">{{element.IsFreeShipping}}</p>
             </div>
@@ -155,7 +155,7 @@
               <p>Indicador Envios Exito</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn8 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorIsEnviosExito == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.IsEnviosExito != undefined && element.IsEnviosExito != ''">
               <p class="sc-text-normal">{{element.IsEnviosExito}}</p>
             </div>
@@ -173,7 +173,7 @@
               <p>Cotizador de Flete</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn9 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorIsFreightCalculator == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.IsFreightCalculator != undefined && element.IsFreightCalculator != ''">
               <p class="sc-text-normal">{{element.IsFreightCalculator}}</p>
             </div>
@@ -191,7 +191,7 @@
               <p>Garantia</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn10 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorWarranty == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.Warranty != undefined && element.Warranty != ''">
               <p class="sc-text-normal">{{element.Warranty}}</p>
             </div>
@@ -209,7 +209,7 @@
               <p>Logistica Exito</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn11 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorIsLogisticsExito == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.IsLogisticsExito != undefined && element.IsLogisticsExito != ''">
               <p class="sc-text-normal">{{element.IsLogisticsExito}}</p>
             </div>
@@ -227,7 +227,7 @@
               <p>Actualización de Inventario</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorColumn12 == true }" *matCellDef="let element">
+          <td mat-cell [ngClass]="{'selected-error': element.errorIsUpdatedStock == true }" *matCellDef="let element">
             <div class="information" *ngIf="element.IsUpdatedStock != undefined && element.IsUpdatedStock != ''">
               <p class="sc-text-normal">{{element.IsUpdatedStock}}</p>
             </div>
