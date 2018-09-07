@@ -3918,6 +3918,9 @@
                                 <a href="#openDetailOffer">openDetailOffer</a>
                             </li>
                             <li>
+                                <a href="#receiveVarConsumeList">receiveVarConsumeList</a>
+                            </li>
+                            <li>
                                 <a href="#removeFilter">removeFilter</a>
                             </li>
                             <li>
@@ -4498,6 +4501,75 @@
                                         <tbody>
                                                 <tr>
                                                         <td>item</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="receiveVarConsumeList"></a>
+                        <span class="name">
+                            <b>
+                            receiveVarConsumeList
+                            </b>
+                            <a href="#receiveVarConsumeList"><span class="fa fa-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>receiveVarConsumeList(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">src/app/secure/offers/list/list/list.component.ts:219</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
@@ -5272,6 +5344,23 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     this.paramData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined ? null : params.currentPage;
     this.paramData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined ? null : params.limit;
     this.getListOffers(this.paramData);
+  }
+
+  /**
+   * @method receiveVarConsumeList
+   * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
+   * @param event
+   * @memberof ListComponent
+   */
+  receiveVarConsumeList(event: any) {
+    if (event &amp;&amp; event !&#x3D;&#x3D; undefined &amp;&amp; event !&#x3D;&#x3D; null) {
+      this.listOffer &#x3D; [];
+      this.currentPage &#x3D; 1;
+      this.filterActive &#x3D; false;
+      this.filterRemove &#x3D; &#x27;all&#x27;;
+      this.paramData.clear();
+      this.getListOffers();
+    }
   }
 }
 </code></pre>
