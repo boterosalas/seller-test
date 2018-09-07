@@ -172,7 +172,6 @@ export class BulkLoadComponent implements OnInit, Callback {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          /* const wsname: string = wb.SheetNames[0]; */
           const ws: XLSX.WorkSheet = wb.Sheets['Ofertas'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
