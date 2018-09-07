@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Callback, CognitoCallback, DynamoDBService, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, CognitoCallback, DynamoDBService, UserLoginService, UserParametersService, LoadingService } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { RoutesConst } from '@app/shared';
 
@@ -47,7 +47,8 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     public router: Router,
     public userService: UserLoginService,
     public shell: ShellComponent,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loadingService?: LoadingService
   ) {
     this.errorMessage = null;
   }
@@ -59,7 +60,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
    */
   onNext() {
     this.errorMessage = null;
-    // this.shell.loadingComponent.viewSpinner();
+    this.loadingService.viewSpinner();
     this.userService.forgotPassword(this.email, this);
   }
 
@@ -82,7 +83,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      // this.shell.loadingComponent.closeSpinner();
+      this.loadingService.closeSpinner();
     }
   }
 
@@ -147,7 +148,8 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     public shell: ShellComponent,
     private fb: FormBuilder,
     public ddb: DynamoDBService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private loadingService?: LoadingService
   ) {
     console.log('email from the url: ' + this.email);
   }
@@ -160,7 +162,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     });
     this.errorMessage = null;
     this.changePassSucces = false;
-    // this.shell.loadingComponent.closeSpinner();
+    this.loadingService.closeSpinner();
   }
 
   /**
@@ -202,7 +204,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
   onNext() {
     this.errorMessage = null;
-    // this.shell.loadingComponent.viewSpinner();
+    this.loadingService.viewSpinner();
     this.userService.confirmNewPassword(this.email, this.verificationCode, this.newPassword, this);
   }
 
@@ -234,7 +236,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      // this.shell.loadingComponent.closeSpinner();
+      this.loadingService.closeSpinner();
     } else if (this.changePassSucces) { // success
       this.ddb.writeLogEntry('login');
       this.getDataUser();
@@ -256,7 +258,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
   callbackWithParam(userData: any) {
     this.user = userData;
     this.shell.user = this.user;
-    // this.shell.loadingComponent.closeSpinner();
+    this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
       this.shell.showHeader = true;

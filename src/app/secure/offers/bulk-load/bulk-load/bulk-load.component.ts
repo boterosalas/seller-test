@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, LoggedInCallback, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -15,22 +15,6 @@ import { ModelOffers } from '../models/offers.model';
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
 
-/**
- * Component que permite realizar la carga de guías, consta de tres componentes mas
- * FinishUploadInformationComponent
- * TableLoadComponent
- * TableErrorsComponent
- * Estos componentes se emplean para separar
- * el comportamiento de la carga de guías, se
- * emplea "TableErrorsComponent" para visualizar la
- * lista de errores capturados al momento de subir el archivo excel.
- * se emplea "TableLoadComponent" para visualizar la lista de datos
- * con errores en una tabla y visualizar el total de registros correctos
- * y se emplea "FinishUploadInformationComponent" para desplegar un modal
- * donde se visualicen los logs generados por el back al momento de envíar
- * las guías. en FinishUploadInformationComponent se permite generar un excel
- * con el log obtenido.
- */
 @Component({
   selector: 'app-bulk-load',
   templateUrl: './bulk-load.component.html',
@@ -43,7 +27,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
+export class BulkLoadComponent implements OnInit, Callback {
 
   public paginator: any;
 

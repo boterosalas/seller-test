@@ -119,7 +119,7 @@ export class TreeToolbarComponent implements OnInit {
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
-    // this.shell.loadingComponent.closeSpinner();
+    this.loadingService.closeSpinner();
   }
   /**
    * Método que permite generar el excel con los datos pasados.

@@ -116,7 +116,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       }
     } else { // success
       this.ddb.writeLogEntry('login');
-      // this.shell.showHeader = true;
       this.getDataUser();
     }
   }
@@ -130,7 +129,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   callbackWithParam(userData: any) {
     this.user = userData;
-    // this.shell.user = this.user;
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${this.consts.sellerCenterOrders}`]);
