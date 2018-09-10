@@ -38,11 +38,11 @@ export class UserLoginService {
       console.log('UserLoginService: Successfully set the AWS credentials');
       callback.cognitoCallback(null, session);
     });
-  };
+  }
 
   private onLoginError = (callback: CognitoCallback, err) => {
     callback.cognitoCallback(err.message, null);
-  };
+  }
 
   constructor(public ddb: DynamoDBService, public cognitoUtil: CognitoUtil) {
   }
@@ -135,7 +135,7 @@ export class UserLoginService {
   isAuthenticated(callback: LoggedInCallback) {
     if (callback == null) {
       // tslint:disable-next-line:no-string-throw
-      throw('UserLoginService: Callback in isAuthenticated() cannot be null');
+      throw ('UserLoginService: Callback in isAuthenticated() cannot be null');
     }
     const cognitoUser = this.cognitoUtil.getCurrentUser();
 

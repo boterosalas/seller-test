@@ -54,8 +54,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   isProductionEnv = environment.production;
   public consts = RoutesConst;
   // Variables del uso de aws-cognito
-  email: string;
-  password: string;
   errorMessage: string;
   mfaStep = false;
   mfaData = {
@@ -93,13 +91,13 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
   }
 
   onLogin() {
-    if (this.email == null || this.password == null) {
+    if (this.awscognitogroup.controls.email.value == null || this.awscognitogroup.controls.password.value == null) {
       this.errorMessage = 'Todos los campos son requeridos.';
       return;
     }
     this.errorMessage = null;
     this.loadingService.closeProgressBar();
-    this.userService.authenticate(this.email, this.password, this);
+    this.userService.authenticate(this.awscognitogroup.controls.email.value, this.awscognitogroup.controls.password.value, this);
     this.loadingService.viewSpinner();
   }
 
@@ -109,7 +107,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       this.errorMessage = message;
       console.log('result: ' + this.errorMessage);
       if (this.errorMessage === 'User is not confirmed.') {
-        this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.email]);
+        this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.awscognitogroup.controls.email.value]);
       } else if (this.errorMessage === 'User needs to set password.') {
         console.log('redirecting to set new password');
         this.router.navigate([`/${this.consts.homeNewPassword}`]);
