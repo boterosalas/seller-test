@@ -1,7 +1,7 @@
 export class ModelFilter {
   constructor(
-    public dateInitial?: Date,
-    public dateFinal?: Date,
+    public dateInitial?: string,
+    public dateFinal?: string,
     public ean?: string,
     public currentPage?: number,
     public limit?: number

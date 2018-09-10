@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 // our own custom components
 import { EndpointService } from '@app/core';
@@ -10,17 +11,18 @@ import { EndpointService } from '@app/core';
 export class DownloadHistoricalService {
 
   // Variable para almacenar la fecha de inicio del filtro
-  public dateInitial: Date;
+  public dateInitial: string;
 
   // Variable para almacenar la fecha de fin del filtro
-  public dateFinal: Date;
+  public dateFinal: string;
 
   // Variable para almacenar el EAN del filtro
   public ean: string;
 
   constructor (
     private http: HttpClient,
-    private api: EndpointService
+    private api: EndpointService,
+    private datePipe: DatePipe
   ) { }
 
   /**
@@ -41,7 +43,7 @@ export class DownloadHistoricalService {
    * @param ean
    * @memberof DownloadHistoricalService
    */
-  setCurrentFilterHistorical(dateInitial: Date, dateFinal: Date, ean: string) {
+  setCurrentFilterHistorical(dateInitial: string, dateFinal: string, ean: string) {
     const objParamsFilter = {
       dateInitial,
       dateFinal,
@@ -63,15 +65,17 @@ export class DownloadHistoricalService {
     let urlFilterParams: any;
 
     // Valida los datos antes de enviar la petición
-    this.dateInitial = paramsFilter.dateInitial === undefined ? null : paramsFilter.dateInitial;
-    this.dateFinal = paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal;
+    this.dateInitial = paramsFilter.dateInitial === undefined ? null : this.datePipe.transform(paramsFilter.dateInitial, 'yyyy-MM-dd');
+    this.dateFinal = paramsFilter.dateFinal === undefined ? null : this.datePipe.transform(paramsFilter.dateFinal, 'yyyy-MM-dd');
     this.ean = paramsFilter.ean === undefined || paramsFilter.ean === '' ? null : paramsFilter.ean;
 
     // Arma la ulr con los datos de la petición
-    urlFilterParams = '/' + email + '/' + this.dateInitial + '/' + this.dateFinal + '/' + this.ean;
+    urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email;
+
+    console.log(this.api.get('downloadHistorical') + '/' + urlFilterParams); // TODO: Eliminar
 
     return new Observable(observer => {
-      this.http.post(this.api.get('', [urlFilterParams]), { observe: 'response'})
+      this.http.post(this.api.get('downloadHistorical', [urlFilterParams]), { observe: 'response'})
       .subscribe((data: any) => {
         observer.next(data);
       }, err => {

@@ -1,5 +1,6 @@
 // 3rd party components
 import { Injectable } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 // our own custom components
@@ -23,7 +24,8 @@ export class HistoricalService {
    */
   constructor(
     private http: HttpClient,
-    private api: EndpointService
+    private api: EndpointService,
+    private datePipe: DatePipe
   ) {
     this.paramsData = new ModelFilter();
   }
@@ -38,59 +40,24 @@ export class HistoricalService {
     // Se crea variable que guardara los parametros unidos para enviarle al servicio
     let urlParams: any;
 
-    this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : params.dateInitial;
-    this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? null : params.dateFinal;
+    // this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
+    // this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? null : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
+
+    this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? '2018-09-01' : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
+    this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? '2018-09-10' : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
     this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
     this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : params.currentPage - 1;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
-    urlParams = '/' + this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
+    urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
 
-    console.log(this.api.get('getHistoricalOffers') + urlParams);
+    console.log(this.api.get('getHistoricalOffers') + '/' + urlParams); // TODO: Eliminar
 
     return new Observable(observer => {
       this.http.get<any>(this.api.get('getHistoricalOffers', [urlParams]), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
-  }
-
-  /**
-   * TODO: Eliminar
-   */
-  public getHistoricalOffersFake(params?: any): Observable<{}> {
-    return new Observable(observer => {
-      this.http.get<any>('./assets/data.json') // TODO; Eliminar JSON File
-        .subscribe(
-          data => {
-            setTimeout( () => {
-              observer.next(data);
-            }, 3000 );
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
-  }
-
-  /**
-   * TODO: Eliminar
-   */
-  public getHistoricalOffersFake2(params?: any): Observable<{}> {
-    return new Observable(observer => {
-      this.http.get<any>('./assets/data2.json') // TODO; Eliminar JSON File
-        .subscribe(
-          data => {
-            setTimeout( () => {
-              observer.next(data);
-            }, 3000 );
           },
           error => {
             observer.next(error);

@@ -144,7 +144,6 @@ export class HistoricalComponent implements OnInit {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {
       this.getHistoricalOffers();
-      // this.getHistoricalOffersFake(); // TODO: Eliminar
     }
   }
 
@@ -160,55 +159,15 @@ export class HistoricalComponent implements OnInit {
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
           const response = result.body.data;
-          this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
-          this.numberPages = Math.ceil(this.numberPages);
-          this.historicalOffer = response.sellerOfferViewModels;
-          this.loadingService.closeSpinner();
-          console.log(response);
-        } else {
-          this.loadingService.closeSpinner();
-          this.modalService.showModal('errorService');
-        }
-      }
-    );
-  }
-
-  /**
-   * TODO: Eliminar
-   */
-  getHistoricalOffersFake(params?: any) {
-    this.loadingService.viewSpinner();
-    this.historicalService.getHistoricalOffersFake(params).subscribe(
-      (result: any) => {
-        if (result) {
-          // if (result.status === 200 && result.body !== undefined) {
-          const response = result;
-          this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
-          this.numberPages = Math.ceil(this.numberPages);
-          this.historicalOffer = response.sellerHistoricalOffers;
-          this.loadingService.closeSpinner();
-          console.log(response);
-        } else {
-          this.loadingService.closeSpinner();
-          this.modalService.showModal('errorService');
-        }
-      }
-    );
-  }
-
-  /**
-   * TODO: Eliminar
-   */
-  getHistoricalOffersFake2(params?: any) {
-    this.loadingService.viewSpinner();
-    this.historicalService.getHistoricalOffersFake2(params).subscribe(
-      (result: any) => {
-        if (result) {
-          // if (result.status === 200 && result.body !== undefined) {
-          const response = result;
-          this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
-          this.numberPages = Math.ceil(this.numberPages);
-          this.historicalOffer = response.sellerHistoricalOffers;
+          if ( response ) {
+            // Sí hay resultados
+            // this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
+            // this.numberPages = Math.ceil(this.numberPages);
+            this.historicalOffer = response.offerHistoricals;
+          }else {
+            // No hay resultados
+            this.historicalOffer = false;
+          }
           this.loadingService.closeSpinner();
           console.log(response);
         } else {
@@ -233,10 +192,8 @@ export class HistoricalComponent implements OnInit {
     this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
     this.paramData.currentPage = this.currentPage;
     this.paramData.limit = 100;
-    // this.getHistoricalOffers(this.paramData);
-    this.getHistoricalOffersFake(this.paramData); // TODO: Eliminar
-    // Metodo para guardadr los parametros del filtro
-    this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean);
+    this.getHistoricalOffers(this.paramData);
+    this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean); // Metodo para guardadr los parametros del filtro
     this.sidenav.toggle();
   }
 
@@ -249,8 +206,7 @@ export class HistoricalComponent implements OnInit {
   setDataPaginate(params: any) {
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
-    // this.getHistoricalOffers(this.paramData);
-    this.getHistoricalOffersFake2(this.paramData);  // TODO: Eliminar
+    this.getHistoricalOffers(this.paramData);
   }
 
 }

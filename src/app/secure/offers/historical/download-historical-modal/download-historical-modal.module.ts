@@ -1,5 +1,5 @@
 // 3rd party components
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule , FormsModule} from '@angular/forms';
 import { MAT_DIALOG_DATA , MatDialogRef} from '@angular/material';
@@ -33,6 +33,7 @@ import { UserLoginService, EndpointService } from '@app/core';
     ComponentsService,
     UserLoginService,
     EndpointService,
+    DatePipe,
     {provide: MAT_DIALOG_DATA, useValue: {}},
     {provide: MatDialogRef, useValue: {}}
   ]

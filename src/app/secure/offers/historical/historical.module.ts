@@ -1,7 +1,7 @@
 // 3rd party components
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule , DatePipe} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Import relevant http modules
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
@@ -38,7 +38,8 @@ import { HistoricalComponent } from './historical/historical.component';
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    HistoricalService
+    HistoricalService,
+    DatePipe
   ]
 })
 export class HistoricalModule {}
