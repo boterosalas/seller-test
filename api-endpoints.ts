@@ -35,8 +35,8 @@ export const endpoints = {
       // Register Seller Name
       registerSeller: 'https://5a1c7n6t70.execute-api.us-east-1.amazonaws.com/RegisterSeller/',
       validateSellerNit: 'https://5avfpnwghf.execute-api.us-east-1.amazonaws.com/ValidateSellerNit/{params}',
-      validateSellerEmail: 'https://iye9w7rlsg.execute-api.us-east-1.amazonaws.com/ValidateSellerEmail',
-      validateSellerName: 'https://4gxrzfojb9.execute-api.us-east-1.amazonaws.com/ValidateSellerName',
+      validateSellerEmail: 'https://iye9w7rlsg.execute-api.us-east-1.amazonaws.com/ValidateSellerEmail/{params}',
+      validateSellerName: 'https://4gxrzfojb9.execute-api.us-east-1.amazonaws.com/ValidateSellerName/{params}',
       // Cities and States services
       getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/{params}',
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',

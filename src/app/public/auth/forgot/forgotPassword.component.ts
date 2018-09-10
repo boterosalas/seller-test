@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Callback, CognitoCallback, DynamoDBService, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, CognitoCallback, DynamoDBService, UserLoginService, UserParametersService, LoadingService } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { RoutesConst } from '@app/shared';
 
@@ -34,7 +34,6 @@ import { RoutesConst } from '@app/shared';
 export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
   // Contiene la estructura del formulario del forgot password
   awscognitogroup: FormGroup;
-  email: string;
   errorMessage: string;
 
   /**
@@ -47,7 +46,8 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     public router: Router,
     public userService: UserLoginService,
     public shell: ShellComponent,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loadingService?: LoadingService
   ) {
     this.errorMessage = null;
   }
@@ -59,8 +59,8 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
    */
   onNext() {
     this.errorMessage = null;
-    // this.shell.loadingComponent.viewSpinner();
-    this.userService.forgotPassword(this.email, this);
+    this.loadingService.viewSpinner();
+    this.userService.forgotPassword(this.awscognitogroup.controls.email.value, this);
   }
 
   /**
@@ -72,7 +72,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
    */
   cognitoCallback(message: string, result: any) {
     if (message == null && result == null) { // error
-      this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.email]);
+      this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.awscognitogroup.controls.email.value]);
     } else { // success
       console.log(message);
       switch (message) {
@@ -82,7 +82,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      // this.shell.loadingComponent.closeSpinner();
+      this.loadingService.closeSpinner();
     }
   }
 
@@ -147,10 +147,9 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     public shell: ShellComponent,
     private fb: FormBuilder,
     public ddb: DynamoDBService,
-    public userParams: UserParametersService
-  ) {
-    console.log('email from the url: ' + this.email);
-  }
+    public userParams: UserParametersService,
+    private loadingService?: LoadingService
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -160,7 +159,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     });
     this.errorMessage = null;
     this.changePassSucces = false;
-    // this.shell.loadingComponent.closeSpinner();
+    this.loadingService.closeSpinner();
   }
 
   /**
@@ -188,9 +187,9 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
    * @memberof ForgotPassword
    */
   confirmNewPass(param: any) {
-    if ((this.newPassword !== '' && this.newPassword !== undefined) &&
-      (this.newPassword2 !== '' && this.newPassword2 !== undefined)) {
-      if (this.newPassword !== this.newPassword2) {
+    if ((this.confirmNewPassword.controls.newPassword.value !== '' && this.confirmNewPassword.controls.newPassword.value !== undefined) &&
+      (this.confirmNewPassword.controls.newPassword2.value !== '' && this.confirmNewPassword.controls.newPassword2.value !== undefined)) {
+      if (this.confirmNewPassword.controls.newPassword.value !== this.confirmNewPassword.controls.newPassword2.value) {
         this.confirmNewPassword.controls[param].setErrors({ 'passNoMatch': true });
       }
     }
@@ -202,8 +201,8 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
 
   onNext() {
     this.errorMessage = null;
-    // this.shell.loadingComponent.viewSpinner();
-    this.userService.confirmNewPassword(this.email, this.verificationCode, this.newPassword, this);
+    this.loadingService.viewSpinner();
+    this.userService.confirmNewPassword(this.email, this.confirmNewPassword.controls.verificationCode.value, this.confirmNewPassword.controls.newPassword.value, this);
   }
 
   /**
@@ -234,13 +233,13 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
         default:
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
-      // this.shell.loadingComponent.closeSpinner();
+      this.loadingService.closeSpinner();
     } else if (this.changePassSucces) { // success
       this.ddb.writeLogEntry('login');
       this.getDataUser();
     } else {
       this.changePassSucces = !this.changePassSucces;
-      this.userService.authenticate(this.email, this.newPassword, this);
+      this.userService.authenticate(this.email, this.confirmNewPassword.controls.newPassword.value, this);
     }
   }
 
@@ -256,7 +255,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
   callbackWithParam(userData: any) {
     this.user = userData;
     this.shell.user = this.user;
-    // this.shell.loadingComponent.closeSpinner();
+    this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
       this.shell.showHeader = true;

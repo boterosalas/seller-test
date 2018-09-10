@@ -14,6 +14,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ListRoutingModule } from './list.routing';
 import { ListService } from './list.service';
 import { ListComponent } from './list/list.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ListComponent } from './list/list.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    CurrencyMaskModule
   ],
   declarations: [
     ListComponent,
@@ -39,4 +41,4 @@ import { ListComponent } from './list/list.component';
     ListService
   ]
 })
-export class ListModule {}
+export class ListModule { }

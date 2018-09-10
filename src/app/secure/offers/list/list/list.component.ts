@@ -209,4 +209,21 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
     this.getListOffers(this.paramData);
   }
+
+  /**
+   * @method receiveVarConsumeList
+   * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
+   * @param event
+   * @memberof ListComponent
+   */
+  receiveVarConsumeList(event: any) {
+    if (event && event !== undefined && event !== null) {
+      this.listOffer = [];
+      this.currentPage = 1;
+      this.filterActive = false;
+      this.filterRemove = 'all';
+      this.paramData.clear();
+      this.getListOffers();
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material';
 
 import { LoadingService, ModalService } from '@app/core';
 
-import { Cities } from '../models/cities.model';
+import { Cities } from './cities.model';
 import { CitiesServices } from './cities.service';
 
 

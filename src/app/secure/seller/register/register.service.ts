@@ -23,13 +23,13 @@ export class RegisterService {
   fetchData(paramValue: {}, param: any): Observable<{}> {
     let writeUrl: any;
     switch (param) {
-      case 'nit':
+      case 'Nit':
         writeUrl = 'validateSellerNit';
         break;
-      case 'email':
+      case 'Email':
         writeUrl = 'validateSellerEmail';
         break;
-      case 'nomTienda':
+      case 'Name':
         writeUrl = 'validateSellerName';
         break;
       default:

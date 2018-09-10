@@ -29,14 +29,14 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
-  }
-
-  ngAfterViewChecked() {
     this.modalService.modals.subscribe(type => {
       setTimeout(() => {
         this.modalComponent.showModal(type);
       });
     });
+  }
+
+  ngAfterViewChecked() {
     this.loadingService.spinnerStatus.subscribe(state => {
       this.spinner = state;
     });

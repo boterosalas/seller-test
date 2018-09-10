@@ -5,6 +5,8 @@ import { MaterialModule } from '@app/material.module';
 import { ToolbarLinkModule } from '@shared/components/toolbar-link';
 import { ToolbarOptionsModule } from '@shared/components/toolbar-options';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from '@shared/directives';
+import { StatesModule } from '@shared/components/states';
+import { CitiesModule } from '@shared/components/cities';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { CdkDetailRowDirective, NoWhitespaceDirective } from '@shared/directives
     ToolbarLinkModule,
     ToolbarOptionsModule,
     CdkDetailRowDirective,
-    NoWhitespaceDirective
+    NoWhitespaceDirective,
+    StatesModule,
+    CitiesModule
   ],
   providers: []
 })

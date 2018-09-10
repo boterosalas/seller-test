@@ -8,11 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { CitiesComponent } from './cities/cities.component';
 import { RegisterSellerComponent } from './register.component';
 import { RegisterRoutingModule } from './register.routing';
 import { RegisterService } from './register.service';
-import { StatesComponent } from './states/states.component';
 
 
 @NgModule({
@@ -28,9 +26,7 @@ import { StatesComponent } from './states/states.component';
     RegisterRoutingModule
   ],
   declarations: [
-    RegisterSellerComponent,
-    StatesComponent,
-    CitiesComponent
+    RegisterSellerComponent
   ],
   providers: [
     {

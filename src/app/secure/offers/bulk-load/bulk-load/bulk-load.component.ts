@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, LoggedInCallback, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -15,22 +15,6 @@ import { ModelOffers } from '../models/offers.model';
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
 
-/**
- * Component que permite realizar la carga de guías, consta de tres componentes mas
- * FinishUploadInformationComponent
- * TableLoadComponent
- * TableErrorsComponent
- * Estos componentes se emplean para separar
- * el comportamiento de la carga de guías, se
- * emplea "TableErrorsComponent" para visualizar la
- * lista de errores capturados al momento de subir el archivo excel.
- * se emplea "TableLoadComponent" para visualizar la lista de datos
- * con errores en una tabla y visualizar el total de registros correctos
- * y se emplea "FinishUploadInformationComponent" para desplegar un modal
- * donde se visualicen los logs generados por el back al momento de envíar
- * las guías. en FinishUploadInformationComponent se permite generar un excel
- * con el log obtenido.
- */
 @Component({
   selector: 'app-bulk-load',
   templateUrl: './bulk-load.component.html',
@@ -43,7 +27,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
+export class BulkLoadComponent implements OnInit, Callback {
 
   public paginator: any;
 
@@ -188,7 +172,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          /* const wsname: string = wb.SheetNames[0]; */
           const ws: XLSX.WorkSheet = wb.Sheets['Ofertas'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
@@ -359,7 +342,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'BoleanFormat',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iFreeShiping ? 'IsFreeShipping' : j === iVal.iIndEnvExito ? 'IsEnviosExito' : j === iVal.iCotFlete ? 'IsFreightCalculator' : j === iVal.iLogisticaExito ? 'IsLogisticsExito' : j === iVal.iActInventario ? 'IsUpdatedStock' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -382,7 +366,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'LessThanZero',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : j === iVal.iGarantia ? 'Warranty' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -403,7 +388,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'NumberFormat',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' :  j === iVal.iInv ? 'Stock' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -427,7 +413,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   type: 'InvalidFormatPromEntrega',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'PromiseDelivery'
                 };
 
                 this.listLog.push(itemLog);
@@ -447,7 +434,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                 type: 'dateNotFound',
                 columna: column,
                 fila: row,
-                positionRowPrincipal: i
+                positionRowPrincipal: i,
+                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iInv ? 'Stock' : j === iVal.iPrecio ? 'Price' : null
               };
 
               this.listLog.push(itemLog);
@@ -552,18 +540,18 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
    */
   setErrrorColumns() {
     for (let index = 0; index < this.arrayInformation.length; index++) {
-      this.arrayInformation[index].errorColumn1 = false;
-      this.arrayInformation[index].errorColumn2 = false;
-      this.arrayInformation[index].errorColumn3 = false;
-      this.arrayInformation[index].errorColumn4 = false;
-      this.arrayInformation[index].errorColumn5 = false;
-      this.arrayInformation[index].errorColumn6 = false;
-      this.arrayInformation[index].errorColumn7 = false;
-      this.arrayInformation[index].errorColumn8 = false;
-      this.arrayInformation[index].errorColumn9 = false;
-      this.arrayInformation[index].errorColumn10 = false;
-      this.arrayInformation[index].errorColumn11 = false;
-      this.arrayInformation[index].errorColumn12 = false;
+      this.arrayInformation[index].errorEan = false;
+      this.arrayInformation[index].errorStock = false;
+      this.arrayInformation[index].errorPrice = false;
+      this.arrayInformation[index].errorDiscountPrice = false;
+      this.arrayInformation[index].errorAverageFreightCost = false;
+      this.arrayInformation[index].errorPromiseDelivery = false;
+      this.arrayInformation[index].errorIsFreeShipping = false;
+      this.arrayInformation[index].errorIsEnviosExito = false;
+      this.arrayInformation[index].errorIsFreightCalculator = false;
+      this.arrayInformation[index].errorWarranty = false;
+      this.arrayInformation[index].errorIsLogisticsExito = false;
+      this.arrayInformation[index].errorIsUpdatedStock = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -576,7 +564,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   selectErrorLog(item: any) {
     this.setErrrorColumns();
     log.info(item);
-    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    this.arrayInformation[item.row]['error' + item.dato] = true;
     this.arrayInformation[item.row].errorRow = true;
     const data = JSON.stringify(this.arrayInformation);
     this.dataSource = new MatTableDataSource(JSON.parse(data));

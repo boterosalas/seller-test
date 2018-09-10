@@ -23,7 +23,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrderList(state, user: any, limit): Observable<[{}]> {
+  getOrderList(state: any, user: any, limit: any): Observable<[{}]> {
     return new Observable(observer => {
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
@@ -51,7 +51,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
+  getOrdersFilter(user: any, limit: any, stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
     ).subscribe((data: any) => {
@@ -71,7 +71,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  sendProductOrder(product, user, orderId, idProduct): Observable<[{}]> {
+  sendProductOrder(product: any, user: any, orderId: any, idProduct: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product).subscribe((data: any) => {
         observer.next(data);

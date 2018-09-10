@@ -32,6 +32,7 @@ export class RoutesConst {
     static readonly oferTreeCategory: any = 'arbol-categorias';
     static readonly billingPayments: any = 'pagos';
     static readonly sellerRegister: any = 'registrar';
+    static readonly sellerManage: any = 'administrar';
     static readonly shipmentsExitoHist: any = 'historico';
     static readonly shipmentsExitoOffice: any = 'despacho';
     static readonly shipmentsExitoPending: any = 'pendientes';
@@ -71,6 +72,7 @@ export class RoutesConst {
     static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
 
     static readonly sellerCenterIntSellerRegister: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerRegister;
+    static readonly sellerCenterIntSellerManage: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerManage;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

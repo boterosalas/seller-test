@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, LoggedInCallback, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -16,22 +16,6 @@ import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
 const log = new Logger('BulkLoadProductComponent');
 const EXCEL_EXTENSION = '.xlsx';
 
-/**
- * Component que permite realizar la carga de guías, consta de tres componentes mas
- * FinishUploadProductInformationComponent
- * TableLoadComponent
- * TableErrorsComponent
- * Estos componentes se emplean para separar
- * el comportamiento de la carga de guías, se
- * emplea "TableErrorsComponent" para visualizar la
- * lista de errores capturados al momento de subir el archivo excel.
- * se emplea "TableLoadComponent" para visualizar la lista de datos
- * con errores en una tabla y visualizar el total de registros correctos
- * y se emplea "FinishUploadProductInformationComponent" para desplegar un modal
- * donde se visualicen los logs generados por el back al momento de envíar
- * las guías. en FinishUploadProductInformationComponent se permite generar un excel
- * con el log obtenido.
- */
 @Component({
   selector: 'app-bulk-load-product',
   templateUrl: './bulk-load-product.component.html',
@@ -44,7 +28,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callback {
+export class BulkLoadProductComponent implements OnInit, Callback {
 
   public paginator: any;
 
@@ -277,7 +261,6 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          /* const wsname: string = wb.SheetNames[0]; */
           const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
@@ -425,7 +408,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
             */
             if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
               this.loadingService.closeSpinner();
-              this.componentService.openSnackBar('El archivo contiene mas activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+              this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
             } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
               this.loadingService.closeSpinner();
               this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
@@ -435,7 +418,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
             }
           } else {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
+            this.componentService.openSnackBar('El formato seleccionado es inválido', 'Aceptar', 10000);
           }
         }
 
@@ -479,9 +462,9 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
                 errorInCell = true;
               }
             } else if (j === iVal.iTipoDeProducto) {
-              if (res[i][j] === 'Variante') {
+              if (res[i][j] === 'Clothing') {
                 variant = true;
-              } else if (res[i][j] !== 'Variante' && res[i][j] !== 'Estandar') {
+              } else if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
                 const validFormatCategory = this.validFormat(res[i][j], 'category');
                 if (!validFormatCategory && validFormatCategory === false) {
                   this.countErrors += 1;
@@ -1169,7 +1152,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
    * @param {any} res
    * @memberof BulkLoadProductComponent
    */
-  openDialogSendOrder(res): void {
+  openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
       data: {
@@ -1206,7 +1189,7 @@ export class BulkLoadProductComponent implements OnInit, LoggedInCallback, Callb
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
-    const FormatTypeCategory = /^(Estandar|Variante)$/;
+    const FormatTypeCategory = /^(Technology|Clothing)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;

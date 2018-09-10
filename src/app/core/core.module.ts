@@ -15,7 +15,18 @@ import { HttpCacheService } from './http/http-cache.service';
 import { HttpService } from './http/http.service';
 import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: 'left',
+  allowNegative: true,
+  decimal: ',',
+  precision: 0,
+  prefix: '$ ',
+  suffix: '',
+  thousands: '.'
+};
 
 @NgModule({
   imports: [
@@ -57,7 +68,8 @@ import { RouteReusableStrategy } from './util/route-reusable-strategy';
     UserRegistrationService,
     UserLoginService,
     UserParametersService,
-    { provide: LOCALE_ID, useValue: 'es-CO' }
+    { provide: LOCALE_ID, useValue: 'es-CO' },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]
 })
 export class CoreModule {
