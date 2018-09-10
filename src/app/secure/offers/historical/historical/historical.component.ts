@@ -143,8 +143,8 @@ export class HistoricalComponent implements OnInit {
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {
-      // this.getHistoricalOffers();
-      this.getHistoricalOffersFake(); // TODO: Eliminar
+      this.getHistoricalOffers();
+      // this.getHistoricalOffersFake(); // TODO: Eliminar
     }
   }
 
