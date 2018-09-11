@@ -3,8 +3,8 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 
-import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { RoutesConst } from '@app/shared';
+import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst, UserInformation } from '@app/shared';
 import { RegisterService } from './register.service';
 
 
@@ -24,7 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
+export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
   public imagesRegister: Array<any> = [
     {
@@ -50,7 +50,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public disabledForService: boolean;
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
-  public user: any;
+  public user: UserInformation;
   public activeButton: boolean;
 
 
@@ -62,9 +62,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -75,31 +73,31 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
         Validators.pattern('^[0-9]*$')
       ]),
       Rut: new FormControl
-      ('', [Validators.required,
+        ('', [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
-      ]),
+        ]),
       ContactName: new FormControl
-      ('', [Validators.required,
+        ('', [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
-      ]),
+        ]),
       Email: new FormControl
-      ('', [Validators.required,
+        ('', [Validators.required,
         Validators.pattern(this.emailRegex)
-      ]),
+        ]),
       PhoneNumber: new FormControl
-      ('', [Validators.required,
+        ('', [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
       Address: new FormControl
-      ('', [Validators.required]),
+        ('', [Validators.required]),
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
       Name: new FormControl
-      ('', [Validators.required,
+        ('', [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
       IsLogisticsExito: new FormControl(false),
       IsShippingExito: new FormControl(true),
@@ -119,15 +117,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   }
 
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }

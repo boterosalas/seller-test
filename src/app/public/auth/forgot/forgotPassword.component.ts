@@ -3,10 +3,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Callback, CognitoCallback, DynamoDBService, UserLoginService, UserParametersService, LoadingService } from '@app/core';
+import { CognitoCallback, DynamoDBService, UserLoginService, UserParametersService, LoadingService } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { RoutesConst } from '@app/shared';
+import { Logger } from '@core/util/logger.service';
 
+const log = new Logger('ForgotPasswordComponent');
 
 @Component({
   selector: 'app-awscognito',
@@ -74,7 +76,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     if (message == null && result == null) { // error
       this.router.navigate([`/${RoutesConst.homeForgotPassword}`, this.awscognitogroup.controls.email.value]);
     } else { // success
-      console.log(message);
+      log.debug(message);
       switch (message) {
         case 'Username/client id combination not found.':
           this.errorMessage = 'Usuario no encontrado';
@@ -128,7 +130,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     ])
   ]
 })
-export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDestroy, Callback {
+export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDestroy {
   // Contiene la estructura del formulario del forgot password
   confirmNewPassword: FormGroup;
   verificationCode: string;
@@ -213,7 +215,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
    */
   cognitoCallback(message: string) {
     if (message != null) { // error
-      console.log('result: ' + message);
+      log.error('result: ' + message);
       switch (message) {
         case '1 validation error detected: Value at \'password\' failed to satisfy constraint: Member must have length greater than or equal to 6': // Pass menor a 6
           this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
@@ -243,17 +245,13 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     }
   }
 
-  callback() {
-  }
-
   /**
-   * @method callbackWithParam
-   * @param userData
-   * @description Handle the response what return the user data in the login service
+   * @method getDataUser
+   * @description Get the data of user when this make login
    * @memberof ForgotPassword
    */
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  getDataUser() {
+    this.user = this.userParams.getUserData();
     this.shell.user = this.user;
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
@@ -262,14 +260,5 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     } else if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     }
-  }
-
-  /**
-   * @method getDataUser
-   * @description Get the data of user when this make login
-   * @memberof ForgotPassword
-   */
-  getDataUser() {
-    this.userParams.getUserData(this);
   }
 }

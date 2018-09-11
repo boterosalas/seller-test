@@ -2,11 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
-import { Callback, UserParametersService } from '@app/core/aws-cognito';
+import { UserParametersService } from '@app/core/aws-cognito';
 import { Logger } from '@app/core/util/logger.service';
 import { ComponentsService } from '@shared/services/components.service';
 
 import { SupportService } from './support.service';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -27,14 +28,14 @@ const log = new Logger('SupportModalComponent');
 /**
  * SupportModalComponent
  */
-export class SupportModalComponent implements OnInit, Callback {
+export class SupportModalComponent implements OnInit {
 
   // Input file de la vista
   @ViewChild('fileInput') fileInput: ElementRef;
   //  Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
-  public user: any;
+  public user: UserInformation;
 
   constructor(
     private fb: FormBuilder,
@@ -42,25 +43,13 @@ export class SupportModalComponent implements OnInit, Callback {
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * @memberof SupportModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
   }
 
   /**
@@ -77,10 +66,10 @@ export class SupportModalComponent implements OnInit, Callback {
    */
   createForm() {
     this.myform = this.fb.group({
-      'nit': [this.user.nit, Validators.compose([Validators.required])],
+      'nit': [this.user.sellerNit, Validators.compose([Validators.required])],
       'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
-      'account': [this.user.name, Validators.compose([Validators.required])],
-      'emailContact': [this.user.email, Validators.compose([Validators.required, Validators.email])],
+      'account': [this.user.sellerName, Validators.compose([Validators.required])],
+      'emailContact': [this.user.sellerEmail, Validators.compose([Validators.required, Validators.email])],
       'typeOfRequirement': [null, Validators.compose([Validators.required])],
       'reason': [null, Validators.compose([Validators.required])],
       'description': [null, Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])],
@@ -108,7 +97,7 @@ export class SupportModalComponent implements OnInit, Callback {
       typeOfRequirement: form.value.typeOfRequirement,
       caseOrigin: 'Sitio web marketplace'
     };
-    this.SUPPORT.sendSupportMessage(this.user.access_token, messageSupport).subscribe((res: any) => {
+    this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
       this.onNoClick();
     }, err => {

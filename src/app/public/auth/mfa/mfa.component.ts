@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Logger } from '@core/util/logger.service';
+
+const log = new Logger('MFAComponent');
 
 @Component({
     selector: 'app-awscognito-mfa',
@@ -9,6 +12,6 @@ export class MFAComponent {
     @Input() onSubmit: (code: string) => void;
 
     constructor() {
-        console.log('MFAComponent constructor');
+        log.debug('MFAComponent constructor');
     }
 }

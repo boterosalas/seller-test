@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoggedInCallback, UserLoginService, UserRegistrationService } from '@app/core';
 import { ShellComponent } from '@app/core/shell/shell.component';
 import { RoutesConst } from '@app/shared';
+import { Logger } from '@core/util/logger.service';
+
+const log = new Logger('RegistrationConfirmationComponent');
 
 @Component({
     selector: 'app-awscognito',
@@ -59,7 +62,7 @@ export class RegistrationConfirmationComponent implements OnInit, OnDestroy {
     cognitoCallback(message: string, result: any) {
         if (message != null) {
             this.errorMessage = message;
-            console.log('message: ' + this.errorMessage);
+            log.error('message: ' + this.errorMessage);
         } else {
             // this.configs.curUser = result.user;
             this.router.navigate([`/${RoutesConst.securehome}`]);

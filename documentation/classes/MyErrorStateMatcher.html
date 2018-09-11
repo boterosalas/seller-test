@@ -1503,9 +1503,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -1534,12 +1531,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -1645,9 +1636,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3367,9 +3355,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -3398,12 +3383,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -3509,9 +3488,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3919,8 +3895,8 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from &
 import { ErrorStateMatcher } from &#x27;@angular/material/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
-import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from &#x27;@app/core&#x27;;
-import { RoutesConst } from &#x27;@app/shared&#x27;;
+import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from &#x27;@app/core&#x27;;
+import { RoutesConst, UserInformation } from &#x27;@app/shared&#x27;;
 import { RegisterService } from &#x27;./register.service&#x27;;
 
 
@@ -3940,7 +3916,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
+export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
   public imagesRegister: Array&lt;any&gt; &#x3D; [
     {
@@ -3966,7 +3942,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public disabledForService: boolean;
   public emailRegex &#x3D; /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
   public nameStoreRegex &#x3D; /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
-  public user: any;
+  public user: UserInformation;
   public activeButton: boolean;
 
 
@@ -3978,9 +3954,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
-  ) {
-    this.user &#x3D; {};
-  }
+  ) { }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -3991,31 +3965,31 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
         Validators.pattern(&#x27;^[0-9]*$&#x27;)
       ]),
       Rut: new FormControl
-      (&#x27;&#x27;, [Validators.required,
+        (&#x27;&#x27;, [Validators.required,
         Validators.maxLength(20),
         Validators.pattern(&#x27;^[0-9]*$&#x27;)
-      ]),
+        ]),
       ContactName: new FormControl
-      (&#x27;&#x27;, [Validators.required,
+        (&#x27;&#x27;, [Validators.required,
         Validators.pattern(&#x27;^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$&#x27;)
-      ]),
+        ]),
       Email: new FormControl
-      (&#x27;&#x27;, [Validators.required,
+        (&#x27;&#x27;, [Validators.required,
         Validators.pattern(this.emailRegex)
-      ]),
+        ]),
       PhoneNumber: new FormControl
-      (&#x27;&#x27;, [Validators.required,
+        (&#x27;&#x27;, [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern(&#x27;^[0-9]*$&#x27;)]),
       Address: new FormControl
-      (&#x27;&#x27;, [Validators.required]),
+        (&#x27;&#x27;, [Validators.required]),
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
       Name: new FormControl
-      (&#x27;&#x27;, [Validators.required,
+        (&#x27;&#x27;, [Validators.required,
         Validators.pattern(this.nameStoreRegex)]),
       IsLogisticsExito: new FormControl(false),
       IsShippingExito: new FormControl(true),
@@ -4035,15 +4009,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   }
 
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user &#x3D; userData;
+    this.user &#x3D; this.userParams.getUserData();
     if (this.user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;) {
       this.router.navigate([&#x60;/${RoutesConst.sellerCenterOrders}&#x60;]);
     }

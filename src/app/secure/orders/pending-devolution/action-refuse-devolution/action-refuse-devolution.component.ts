@@ -10,8 +10,9 @@ import {
   ListReasonRejectionResponseEntity,
   ComponentsService,
   FAKE,
+  UserInformation,
 } from '@app/shared';
-import { Logger, UserParametersService, Callback } from '@app/core';
+import { Logger, UserParametersService } from '@app/core';
 
 // log component
 const log = new Logger('ActionRefuseDevolutionComponent');
@@ -25,12 +26,12 @@ const log = new Logger('ActionRefuseDevolutionComponent');
 /**
  * Componente
  */
-export class ActionRefuseDevolutionComponent implements OnInit, Callback {
+export class ActionRefuseDevolutionComponent implements OnInit {
 
   // Variable que almacena los datos del formulario
   myform: FormGroup;
   // Información del usuario.
-  public user: any;
+  public user: UserInformation;
   // Información de la orden actual
   public currentOrder: OrderDevolutionsModel;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -53,7 +54,6 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
-    this.user = {};
   }
 
   /**
@@ -61,18 +61,8 @@ export class ActionRefuseDevolutionComponent implements OnInit, Callback {
    * @memberof ActionRefuseDevolutionComponent
    */
   ngOnInit() {
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     this.createForm();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

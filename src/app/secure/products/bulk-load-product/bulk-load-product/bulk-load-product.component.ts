@@ -3,8 +3,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { ComponentsService, RoutesConst } from '@app/shared';
+import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -28,12 +28,12 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadProductComponent implements OnInit, Callback {
+export class BulkLoadProductComponent implements OnInit {
 
   public paginator: any;
 
   /* Información del usuario*/
-  public user: any;
+  public user: UserInformation;
 
   /* Nombre del archivo cargado*/
   public fileName: any;
@@ -89,7 +89,6 @@ export class BulkLoadProductComponent implements OnInit, Callback {
     private modalService: ModalService
   ) {
     /*Se le asigna valor a todas las variables*/
-    this.user = {};
     this.arrayInformation = [];
     this.arrayInformationForSend = [];
     this.listLog = [];
@@ -130,40 +129,15 @@ export class BulkLoadProductComponent implements OnInit, Callback {
   }
 
   /**
-   * @method callback
-   * @description Metodo necesario para recibir el callback de getDataUser()
-   * @memberof BulkLoadProductComponent
-   */
-  callback() {
-  }
-
-  /**
    * @method getDataUser
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
    * @memberof BulkLoadProductComponent
    */
   getDataUser() {
-    /*Se llama el metodo que se encarga de obtener los datos del usuario, este hace un callback que llama el metodo callbackWithParam()*/
-    this.userParams.getUserData(this);
-  }
-
-  /**
-   * @method callbackWithParam
-   * @description metodo que se ejecuta en el callback de getDataUser().
-   * Es utilizado para almacenar los datos del usuario en una variable y luego validar
-   * si es Administrador o Vendedor.
-   * @param userData
-   * @memberof BulkLoadProductComponent
-   */
-  callbackWithParam(userData: any) {
-    /*Se le asigna a la variable los datos del usario*/
-    this.user = userData;
-    /*Se valida si el usuario es vendedor o administrador*/
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
-      /*Si es vendedor se redirecciona a la vista de ordenes*/
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     } else {
-      /*se llama el metodo para obtener la cantidad de cargas disponibles*/
       this.getAvaliableLoads();
     }
   }

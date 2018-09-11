@@ -2,8 +2,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Callback, Logger, UserParametersService } from '@app/core';
-import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity } from '@app/shared';
+import { Logger, UserParametersService } from '@app/core';
+import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity, UserInformation } from '@app/shared';
 import * as _ from 'lodash';
 
 import { OrderService } from '../orders.service';
@@ -33,10 +33,10 @@ const log = new Logger('SendOrderComponent');
 /**
  * Componente
  */
-export class SendOrderComponent implements OnInit, Callback {
+export class SendOrderComponent implements OnInit {
 
   // User information
-  public user: any;
+  public user: UserInformation;
   // Información de la orden
   public order: Order;
   // Formulario para realizar el envio de toda la orden
@@ -65,9 +65,7 @@ export class SendOrderComponent implements OnInit, Callback {
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
     this.order = _.cloneDeep(data.order);
     this.user = data.user;
-
     this.order = this.order || FAKE.FAKEORDER;
-    this.user = {};
   }
 
   /**
@@ -87,7 +85,7 @@ export class SendOrderComponent implements OnInit, Callback {
    * @memberof SendOrderComponent
    */
   ngOnInit() {
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     // Si solo hay un registro de producto para ingresar tracking y guía, y la opción enviar
     // todo esta seleccionada, paso a false la opción de envío de todos los productos
     if (this.getLengthProductForSend() === 1) {
@@ -99,16 +97,6 @@ export class SendOrderComponent implements OnInit, Callback {
     this.getCarries();
     // creo el formulario de envío
     this.createForm();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

@@ -3,7 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Logger } from '@app/core/util/logger.service';
 import { RoutesConst } from '@app/shared/util/routes.constants';
-import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { UserInformation } from '@app/shared';
 
 
 // log component
@@ -15,12 +16,12 @@ const log = new Logger('HeaderComponent');
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
+export class HeaderComponent implements OnInit, LoggedInCallback {
 
   // booleano para visualizar la barra de toolbar
   @Input() viewToolbarPrincipal: boolean;
   // Información del usuario
-  @Input() user: any;
+  @Input() user: UserInformation;
   // Sidenav principal
   @Input() sidenav;
   public userLoggin: boolean;
@@ -29,13 +30,10 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
   public routes: any;
 
   constructor(
-    private cognitoUtil: CognitoUtil,
     private userService: UserLoginService,
     private userParams: UserParametersService,
     private router: Router,
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * @memberof HeaderComponent
@@ -44,20 +42,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
     this.userService.isAuthenticated(this);
   }
 
-  callback() {
-  }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-  }
-
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.getDataUser();
+      this.user = this.userParams.getUserData();
       this.routes = RoutesConst;
     }
   }

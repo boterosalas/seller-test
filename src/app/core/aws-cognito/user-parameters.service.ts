@@ -1,76 +1,78 @@
 import { Injectable } from '@angular/core';
-import { Callback, CognitoUtil } from './cognito.service';
+import { CognitoUtil } from './cognito.service';
+import { UserInformation } from '@app/shared/models';
+import { Logger } from '../util/logger.service';
+
+const log = new Logger('UserParametersService');
 
 @Injectable()
 export class UserParametersService {
+    private cognitoUser: any;
+    private user: UserInformation;
 
-    constructor(public cognitoUtil: CognitoUtil) {}
-
-    getParameters(callback: Callback) {
-        const cognitoUser = this.cognitoUtil.getCurrentUser();
-
-        if (cognitoUser != null) {
-            cognitoUser.getSession(function (err: any, session: any) {
-                if (err) {
-                    console.log('UserParametersService: Couldnt retrieve the user');
-                } else {
-                    // tslint:disable-next-line:no-shadowed-variable
-                    cognitoUser.getUserAttributes(function (err: any, result: any) {
-                        if (err) {
-                            console.log('UserParametersService: in getParameters: ' + err);
-                        } else {
-                            callback.callbackWithParam(result);
-                        }
-                    });
-                }
-
-            });
-        } else {
-            callback.callbackWithParam(null);
+    constructor(public cognitoUtil: CognitoUtil) {
+        this.user = new UserInformation();
+        if (this.cognitoUtil.getCurrentUser()) {
+            this.getParameters();
         }
     }
 
-    getUserData(callback: Callback) {
-        const cognitoUser = this.cognitoUtil.getCurrentUser();
+    getUserData(): UserInformation {
+        return this.user;
+    }
 
-        if (cognitoUser != null) {
-            cognitoUser.getSession(function (err: any, session: any) {
-                if (err) {
-                    console.log('UserParametersService: Couldnt retrieve the user');
-                } else {
-                    // tslint:disable-next-line:no-shadowed-variable
-                    cognitoUser.getUserAttributes(function (err: any, result: any) {
-                        if (err) {
-                            console.log('UserParametersService: in getParameters: ' + err);
-                        } else {
-                            const userData: any = {};
-                            for (let i = 0; i < result.length; i++) {
-                                switch (result[i].getName()) {
-                                    case 'custom:SellerId':
-                                        userData['sellerId'] = result[i].getValue();
-                                        break;
-                                    case 'custom:Roles':
-                                        userData['sellerProfile'] = result[i].getValue();
-                                        break;
-                                    case 'name':
-                                        userData['sellerName'] = result[i].getValue();
-                                        break;
-                                    case 'custom:Nit':
-                                        userData['sellerNit'] = result[i].getValue();
-                                        break;
-                                    case 'email':
-                                        userData['sellerEmail'] = result[i].getValue();
-                                        break;
-                                }
-                            }
-                            callback.callbackWithParam(userData);
-                        }
-                    });
-                }
-
-            });
-        } else {
-            callback.callbackWithParam(null);
+    async getParameters(onlyAttributes?: any) {
+        this.cognitoUser = await this.cognitoUtil.getCurrentUser();
+        const attributes = await this.getAttributes();
+        if (onlyAttributes) {
+            return attributes;
         }
+        for (let i = 0; i < attributes.length; i++) {
+            switch (attributes[i].getName()) {
+                case 'custom:SellerId':
+                    this.user.sellerId = attributes[i].getValue();
+                    break;
+                case 'custom:Roles':
+                    this.user.sellerProfile = attributes[i].getValue();
+                    break;
+                case 'name':
+                    this.user.sellerName = attributes[i].getValue();
+                    break;
+                case 'custom:Nit':
+                    this.user.sellerNit = attributes[i].getValue();
+                    break;
+                case 'email':
+                    this.user.sellerEmail = attributes[i].getValue();
+                    break;
+            }
+        }
+    }
+
+    private async getAttributes(): Promise<any> {
+        await this.getSession();
+        return new Promise((resolve, reject) => {
+            this.cognitoUser.getUserAttributes((err: any, result: any) => {
+                if (err) {
+                    log.error('UserParametersService: in getParameters: ' + err);
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+    }
+
+    private getSession(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.cognitoUser.getSession((err: any, res: any) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+
     }
 }

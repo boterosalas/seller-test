@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -27,7 +27,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit, Callback {
+export class BulkLoadComponent implements OnInit {
 
   public paginator: any;
 
@@ -112,15 +112,8 @@ export class BulkLoadComponent implements OnInit, Callback {
 
   }
 
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     }
@@ -389,7 +382,7 @@ export class BulkLoadComponent implements OnInit, Callback {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' :  j === iVal.iInv ? 'Stock' : null
+                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : null
                   };
 
                   this.listLog.push(itemLog);

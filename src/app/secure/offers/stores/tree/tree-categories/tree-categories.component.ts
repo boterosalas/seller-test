@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Callback, Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService } from '@app/core';
 
 import { EventEmitterStore } from '../../events/eventEmitter-store.service';
 import { IsLoadInformationForTree, StoreModel } from '../../models/store.model';
 import { StoresService } from '../../stores.service';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');
@@ -13,7 +14,7 @@ const log = new Logger('TreeCategoriesComponent');
   templateUrl: './tree-categories.component.html',
   styleUrls: ['./tree-categories.component.scss']
 })
-export class TreeCategoriesComponent implements OnInit, Callback {
+export class TreeCategoriesComponent implements OnInit {
   // variable que almacena el nombre de la tienda seleccionada
   currentStoreSelect: StoreModel = new StoreModel(0, '');
   // variable empleada para saber si se obtuvo la información necesaria para el arbol correctamente
@@ -24,7 +25,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   CONST_MARKETPLACE = 'Marketplace';
   public arbol: any;
   // Información del usuario
-  public user: any;
+  public user: UserInformation;
 
   @Output() currentTreeOutput = new EventEmitter<any>();
 
@@ -34,30 +35,17 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     public eventsStore: EventEmitterStore,
     public storeService: StoresService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
 
   ngOnInit() {
     // obtengo los datos del usuario
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     this.getAllSellerCommissionCategory();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
       this.configTreeComponent(res);
     });
-  }
-
-  callback() {
-  }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**
@@ -97,7 +85,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
         const body = JSON.parse(res.body.body);
         this.allSellerCategories = body.Data;
       } else {
-        console.log('getAllSellerCommissionCategory:' + res.message);
+        log.debug('getAllSellerCommissionCategory:' + res.message);
       }
     });
   }
@@ -129,7 +117,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
           this.configTreeInformation(information);
         } else {
           log.error(res.message);
-          console.log('Error consultando las comisiones por categoria.' + res.message);
+          log.error('Error consultando las comisiones por categoria.' + res.message);
         }
       });
   }

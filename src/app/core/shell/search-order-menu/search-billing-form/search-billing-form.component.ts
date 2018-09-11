@@ -41,23 +41,13 @@ export class SearchBillingFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     this.createForm();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**
    * Método para crear el formulario.
-   * 
+   *
    * @memberof SearchOrderFormComponent
    */
   createForm() {
@@ -71,7 +61,7 @@ export class SearchBillingFormComponent implements OnInit {
 
   /**
    * Método para limpiar el formulario.
-   * 
+   *
    * @memberof SearchOrderFormComponent
    */
   clearForm() {
@@ -80,7 +70,7 @@ export class SearchBillingFormComponent implements OnInit {
 
   /**
    * Método para desplegar el menú.
-   * 
+   *
    * @memberof SearchOrderFormComponent
    */
   toggleMenu() {
@@ -89,7 +79,7 @@ export class SearchBillingFormComponent implements OnInit {
 
   /**
    * Método para obtener las órdenes.
-   * 
+   *
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
@@ -99,7 +89,7 @@ export class SearchBillingFormComponent implements OnInit {
 
   /**
    * Método para filtrar las órdenes.
-   * 
+   *
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */

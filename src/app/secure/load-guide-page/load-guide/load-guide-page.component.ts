@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
+import { LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, LoadGuide, RoutesConst } from '@app/shared';
 import * as XLSX from 'xlsx';
 
@@ -36,7 +36,7 @@ const log = new Logger('LoadGuideComponent');
     ]),
   ]
 })
-export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callback {
+export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
 
   public paginator: any;
 
@@ -96,15 +96,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback, Callbac
 
   }
 
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     }

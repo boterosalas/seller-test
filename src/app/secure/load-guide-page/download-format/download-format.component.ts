@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { Callback, Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService } from '@app/core';
 import { ComponentsService } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -20,7 +20,7 @@ const log = new Logger('DownloadFormatComponent');
   styleUrls: ['./download-format.component.scss']
 })
 
-export class DownloadFormatComponent implements OnInit, Callback {
+export class DownloadFormatComponent implements OnInit {
 
   public user: any;
   // Formulario para realizar la descarga
@@ -50,18 +50,8 @@ export class DownloadFormatComponent implements OnInit, Callback {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     this.createForm();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

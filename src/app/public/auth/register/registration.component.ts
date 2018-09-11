@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoCallback, UserRegistrationService } from '@app/core';
 import { RoutesConst } from '@app/shared';
+import { Logger } from '@core/util/logger.service';
+
+const log = new Logger('RegisterComponentAWS');
 
 export class RegistrationUser {
     name: string;
@@ -40,10 +43,10 @@ export class RegisterComponent implements CognitoCallback {
     cognitoCallback(message: string, result: any) {
         if (message != null) { // error
             this.errorMessage = message;
-            console.log('result: ' + this.errorMessage);
+            log.error('result: ' + this.errorMessage);
         } else { // success
             // move to the next step
-            console.log('redirecting');
+            log.debug('redirecting');
             this.router.navigate([`/${RoutesConst.homeConfirmRegistration}`, result.user.username]);
         }
     }
