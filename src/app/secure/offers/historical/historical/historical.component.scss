@@ -62,26 +62,86 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
       aside {
         width: 100%;
 
+        .mat-expansion-panel {
+          &:nth-child(odd){
+            background-color: #0000000d;
+
+            .mat-expansion-panel-header {              
+              &:focus {
+                background-color: transparent;
+              }
+              &:focus-within {
+                background-color: transparent;
+              }
+              &.mat-expanded {
+                &:hover {
+                  background-color: transparent;
+                } 
+              }
+            }
+            &.mat-expanded {
+              &:hover {
+                background-color: #0000000d;
+              } 
+            }
+          }
+          &:not([class*=mat-elevation-z]) {
+            box-shadow: 0 0px 0px 0px rgba(0,0,0,.2),
+                        0 0px 0px 0 rgba(0,0,0,.14),
+                        0 1px 3px 0 rgba(0,0,0,.12);
+          }
+          &:hover {
+            background-color: #dfdfdf;
+          }
+          &.mat-expanded {
+            &:hover {
+              background-color: transparent;
+            } 
+          }
+        }
+
         .extension-panel-header {
           font-size: 13px;
 
-          @media screen and (max-width: 768px) {
-            font-size: 12px;
-            padding: 0 15px;
+          .extension-panel-description {
+            &:nth-child(1) {
+              @media screen and (min-width: 320px) { width: 40%; }
+              @media screen and (min-width: 370px) { width: 50%; }
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 27%; }
+              @media screen and (min-width: 992px) { width: 18%; }
+            }
+            &:nth-child(2) {
+              @media screen and (min-width: 320px) { width: 60%; }
+              @media screen and (min-width: 370px) { width: 55%; }
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 25%; }
+              @media screen and (min-width: 992px) { width: 17%; }
+            }
+            &:nth-child(3) {
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 22%; }
+              @media screen and (min-width: 992px) { width: 14%; }
+            }
+            &:nth-child(4) {
+              @media screen and (min-width: 768px) { width: 20%; }
+              @media screen and (min-width: 992px) { width: 13%; }
+            }
+            &:nth-child(5) {
+              width: 20%;
+            }
+            &:nth-child(6) {
+              width: 13%;
+            }
           }
 
-          @media screen and (max-width: 370px) {
-            font-size: 11px;
-          }
+          @media screen and (max-width: 1220px) { font-size: 12px; }
+          @media screen and (max-width: 768px) { padding: 0 15px; }
+          @media screen and (max-width: 370px) { font-size: 11px; }
 
           .mat-expansion-panel-header-description {
-            @media screen and (max-width: 768px) {
-              margin-right: 10px;
-            }
-
-            @media screen and (max-width: 576px) {
-              margin-right: 5px;
-            }
+            @media screen and (max-width: 768px) { margin-right: 10px; }
+            @media screen and (max-width: 576px) { margin-right: 0; }
 
             span {
               color: $color-black;
@@ -93,25 +153,15 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
           .mat-expansion-panel-body {
             margin-top: -12px;
 
-            @media screen and (max-width: 576px) {
-              margin-top: -15px;
-            }
-
-            @media screen and (max-width: 768px) {
-              padding: 0 15px 16px;
-            }
+            @media screen and (max-width: 576px) { margin-top: -15px; }
+            @media screen and (max-width: 768px) { padding: 0 15px 16px; }
 
             .extension-panel-down {
               font-size: 13px;
               color: $color-gray5;
 
-              @media screen and (max-width: 768px) {
-                font-size: 12px;
-              }
-
-              @media screen and (max-width: 370px) {
-                font-size: 11px;
-              }
+              @media screen and (max-width: 768px) { font-size: 12px; }
+              @media screen and (max-width: 370px) { font-size: 11px; }
 
               p {
                 span {
@@ -123,19 +173,13 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
         }
 
         .grid-list {
-          border-radius: 5px;
-          border: solid 1px $color-gray4;
+          margin-top: 20px;
 
           .grid-tile {
             font-size: 13px;
 
-            @media screen and (max-width: 768px) {
-              font-size: 12px;
-            }
-
-            @media screen and (max-width: 370px) {
-              font-size: 11px;
-            }
+            @media screen and (max-width: 768px) { font-size: 12px; }
+            @media screen and (max-width: 370px) { font-size: 11px; }
 
             &.mat-grid-tile {
               .mat-figure {
@@ -194,9 +238,7 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                 margin-right: 0;
               }
 
-              @media screen and (max-width: 576px) {
-                margin-right: 5px;
-              }
+              @media screen and (max-width: 576px) { margin-right: 5px; }
 
               &.check {
                 color: $color-green;

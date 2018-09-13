@@ -117,15 +117,15 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
     .subscribe(
       res => {
         if (res != null) {
-          this.componentsService.openSnackBar('Se ha realizado la descarga del historico correctamente, revisa tu correo electrónico',
+          this.componentsService.openSnackBar('Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico',
             'Cerrar', 10000);
         } else {
-          this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga del historico', 'Cerrar', 5000);
+          this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
         }
         this.onNoClick();
       },
       err => {
-        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga del historico', 'Cerrar', 5000);
+        this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
         this.onNoClick();
       }
     );

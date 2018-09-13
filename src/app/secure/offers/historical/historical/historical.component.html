@@ -10,11 +10,11 @@
         <mat-expansion-panel *ngFor="let item of historicalOffer">
           <mat-expansion-panel-header class="extension-panel-header" expandedHeight="48px" collapsedHeight="48px">
             <mat-panel-description class="extension-panel-description">
-              <p class="d-none d-block-sm"><span>{{item.updatedDate | date:'LLLL d, y' | titlecase}} |
+              <p class="d-none d-block-md"><span>{{item.updatedDate | date:'LLLL d, y' | titlecase}} |
                   {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
-              <p class="d-none d-block-xs d-none-sm"><span>{{ item.updatedDate | date:'LLL d, y' | titlecase }} |
+              <p class="d-none d-block-sm d-none-md"><span>{{ item.updatedDate | date:'LLL d, y' | titlecase }} |
                   {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
-              <p class="d-none-xs"><span>{{ item.updatedDate | date:'M/d/yy' }}, {{item.updatedDate | date:'h:mm'}}
+              <p class="d-none-sm"><span>{{ item.updatedDate | date:'M/d/yy' }}, {{item.updatedDate | date:'h:mm'}}
                   {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description">
@@ -32,9 +32,6 @@
             <mat-panel-description class="extension-panel-description d-none d-block-xl">
               <p>Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
             </mat-panel-description>
-            <mat-panel-description class="extension-panel-description d-none d-block-xl">
-              <p>Garantia: <span>{{ item.warranty }} meses</span></p>
-            </mat-panel-description>
           </mat-expansion-panel-header>
 
           <span class="extension-panel-down">
@@ -43,7 +40,7 @@
             <p class="d-none-lg ">Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' :
                 '1.0-0' }}</span></p>
             <p class="d-none-xl ">Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
-            <p class="d-none-xl">Garantia: <span>{{ item.warranty }} meses</span></p>
+            <p>Garantia: <span>{{ item.warranty }} meses</span></p>
             <p>Promesa de entrega: <span>{{ item.promiseDelivery }} días</span></p>
           </span>
 

@@ -75,7 +75,7 @@ export class DownloadHistoricalService {
     console.log(this.api.get('downloadHistorical') + '/' + urlFilterParams); // TODO: Eliminar
 
     return new Observable(observer => {
-      this.http.post(this.api.get('downloadHistorical', [urlFilterParams]), { observe: 'response'})
+      this.http.get<any>(this.api.get('downloadHistorical', [urlFilterParams]), { observe: 'response'})
       .subscribe((data: any) => {
         observer.next(data);
       }, err => {
