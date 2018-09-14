@@ -28,6 +28,8 @@ export class TableLoadProductComponent implements OnInit {
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'EAN',
+    'ParentReference',
+    'SonReference',
     'Name',
     'Category',
     'Brand',
@@ -54,8 +56,6 @@ export class TableLoadProductComponent implements OnInit {
     'ImageUrl3',
     'ImageUrl4',
     'ImageUrl5',
-    'ParentReference',
-    'SonReference',
     'Size',
     'Color',
     'HexColourCodePDP',

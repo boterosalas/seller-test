@@ -415,7 +415,121 @@ export class BulkLoadProductComponent implements OnInit {
       let isModifyImage = false;
       let errorInCell = false;
       if (i !== 0 && i > 0) {
+        if (res[i][iVal.iTipoDeProducto] === 'Clothing') {
+          variant = true;
+        }
         for (let j = 0; j < numCol; j++) {
+          if (variant === true) {
+            if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
+              this.loadingService.closeSpinner();
+              this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+              return;
+            } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
+              if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'dateNotFound',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              } else {
+                const validFormat = this.validFormat(res[i][j], 'formatAllChars');
+                if (!validFormat && validFormat === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            }
+            if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
+              if (j === iVal.iSize) {
+                const validFormatSize = this.validFormat(res[i][j], 'size');
+                if (!validFormatSize && validFormatSize === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Size'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iColor) {
+                const validColor = this.validFormat(res[i][j], 'color');
+                if (!validColor && validColor === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Color'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iHexColourCodePDP) {
+                const validColor = this.validFormat(res[i][j], 'colorPDP');
+                if (!validColor && validColor === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'HexColourCodePDP'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iHexColourName) {
+                const validColorName = this.validFormat(res[i][j], 'colorName');
+                if (!validColorName && validColorName === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'HexColourName'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            }
+          }
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
             if (j === iVal.iEAN) {
               const validFormatEan = this.validFormat(res[i][j], 'ean');
@@ -436,9 +550,7 @@ export class BulkLoadProductComponent implements OnInit {
                 errorInCell = true;
               }
             } else if (j === iVal.iTipoDeProducto) {
-              if (res[i][j] === 'Clothing') {
-                variant = true;
-              } else if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
+              if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
                 const validFormatCategory = this.validFormat(res[i][j], 'category');
                 if (!validFormatCategory && validFormatCategory === false) {
                   this.countErrors += 1;
@@ -668,117 +780,6 @@ export class BulkLoadProductComponent implements OnInit {
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
-              }
-            } else if (variant === true) {
-              if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
-                this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
-                return;
-              } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
-                if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
-                  this.countErrors += 1;
-                  const row = i + 1, column = j + 1;
-                  const itemLog = {
-                    row: this.arrayInformation.length,
-                    column: j,
-                    type: 'dateNotFound',
-                    columna: column,
-                    fila: row,
-                    positionRowPrincipal: i,
-                    dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
-                  };
-                  this.listLog.push(itemLog);
-                  errorInCell = true;
-                } else {
-                  const validFormat = this.validFormat(res[i][j], 'formatAllChars');
-                  if (!validFormat && validFormat === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                }
-              }
-
-              if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
-                if (j === iVal.iSize) {
-                  const validFormatSize = this.validFormat(res[i][j], 'size');
-                  if (!validFormatSize && validFormatSize === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'Size'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iColor) {
-                  const validColor = this.validFormat(res[i][j], 'color');
-                  if (!validColor && validColor === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'Color'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iHexColourCodePDP) {
-                  const validColor = this.validFormat(res[i][j], 'colorPDP');
-                  if (!validColor && validColor === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'HexColourCodePDP'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iHexColourName) {
-                  const validColorName = this.validFormat(res[i][j], 'colorName');
-                  if (!validColorName && validColorName === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'HexColourName'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                }
               }
             } else {
               const extraFields = this.validFormat(res[i][j]);
