@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CognitoCallback, DynamoDBService, UserLoginService, UserParametersService, LoadingService } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst, UserInformation } from '@app/shared';
 import { Logger } from '@core/util/logger.service';
 
 const log = new Logger('ForgotPasswordComponent');
@@ -134,7 +134,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
   // Contiene la estructura del formulario del forgot password
   confirmNewPassword: FormGroup;
   verificationCode: string;
-  user: any;
+  user: UserInformation;
   email: string;
   newPassword: string;
   newPassword2: string;
