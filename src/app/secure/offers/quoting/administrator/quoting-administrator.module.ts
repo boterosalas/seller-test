@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { QuotingAdministratorComponent } from './quoting-administrator.component';
 import { ShippingMethodsModule } from './shipping-methods/shipping-methods.module';
+import { ListTransporterModule } from './list-transporter/list-transporter.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ShippingMethodsModule } from './shipping-methods/shipping-methods.modul
   ],
   imports: [
     CommonModule,
-    ShippingMethodsModule
+    ShippingMethodsModule,
+    ListTransporterModule
   ],
   exports: [
     QuotingAdministratorComponent
