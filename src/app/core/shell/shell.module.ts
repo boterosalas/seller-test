@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.module';
 import { ShellComponent } from './shell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ToolbarLinkComponent } from './toolbar-link';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [
     HeaderComponent,
     ShellComponent,
-    SidebarComponent
+    SidebarComponent,
+    ToolbarLinkComponent
   ],
   exports: [
     HeaderComponent,

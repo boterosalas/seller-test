@@ -1,0 +1,16 @@
+:host {
+  section#app-quoting {
+    width: 100%;
+    height: 100%;
+    app-toolbar-tittle {
+      height: 65px;
+      width: 100%;
+    }
+    article.container-quoting{
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px 42px;
+    }
+  }
+}

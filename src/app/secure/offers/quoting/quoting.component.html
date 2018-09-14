@@ -1,2 +1,11 @@
-<app-quoting-seller></app-quoting-seller>
-<app-quoting-administrator></app-quoting-administrator>
+<section id="app-quoting" class="flexbox flex-wrap">
+  <app-toolbar-tittle [tittleBar]="'Ofertas'" [subtitleBar]="userRol"></app-toolbar-tittle>
+
+  <article class="container-quoting" *ngIf="user.sellerProfile === 'administrator'">
+    <app-quoting-administrator></app-quoting-administrator>
+  </article>
+
+  <article class="container-quoting" *ngIf="user.sellerProfile === 'seller'">
+    <app-quoting-seller></app-quoting-seller>
+  </article>
+</section>

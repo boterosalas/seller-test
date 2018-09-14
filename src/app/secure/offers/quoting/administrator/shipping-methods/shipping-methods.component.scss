@@ -1,0 +1,28 @@
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-gray1: #5D5D5D;
+$color-gray2: #909090;
+$color-gray3: #D3D3D3;
+$color-gray4: #BCBCBC;
+$color-blue: #485AFA;
+:host{
+  article#shipping-methods{
+    aside{
+      border: 1px solid $color-gray3;
+      border-radius: 5px;
+      min-height: 70px;
+      width: 70%;
+      div{
+        width: 33%;
+        height: 100%;
+        mat-icon{
+          margin-right: 5px;
+          color: $color-gray2;
+        }
+        p{
+          color: $color-gray1;
+        }
+      }
+    }
+  }
+}
