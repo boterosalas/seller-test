@@ -8,6 +8,7 @@ import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolution
 import { BulkLoadProductModule } from '@app/secure/products';
 import { RegisterModule, ManageModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
+import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsMod
         BulkLoadModule,
         ListModule,
         BulkLoadProductModule,
+        QuotingModule
     ],
     providers: [],
 })
