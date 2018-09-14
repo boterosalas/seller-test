@@ -13,9 +13,11 @@ import { ModelFilter } from './components/filter/filter.model';
  */
 @Injectable()
 export class HistoricalService {
-
   // Variable para almacenar los parametros que se le enviaran al servicio
   public paramsData: ModelFilter;
+
+  // Variable para almancenar los paginationTokens
+  public paginationTokens: Array<string>;
 
   /**
    * Create instances of HistoricalService
@@ -31,6 +33,17 @@ export class HistoricalService {
   }
 
   /**
+   * @method savePaginationTokens
+   * @param pagTokens
+   * @description Metodo para almacenar los paginationTokens, necesarios para las peticiones
+   *              al servicio mediante el paginador
+   * @memberof HistoricalService
+   */
+  public savePaginationTokens(pagTokens: Array<string>) {
+    this.paginationTokens = pagTokens;
+  }
+
+  /**
    * @method getHistoricalOffers
    * @description Metodo para obtener el histórico de ofertas
    * @returns {Observable<{}>}
@@ -40,17 +53,13 @@ export class HistoricalService {
     // Se crea variable que guardara los parametros unidos para enviarle al servicio
     let urlParams: any;
 
-    // this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
-    // this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? null : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
-
-    this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? '2018-09-01' : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
-    this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? '2018-09-10' : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
+    this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
+    this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? null : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
     this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
-    this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : params.currentPage - 1;
+    this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : this.paginationTokens[params.currentPage - 1];
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
     urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
-
     console.log(this.api.get('getHistoricalOffers') + '/' + urlParams); // TODO: Eliminar
 
     return new Observable(observer => {

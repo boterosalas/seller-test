@@ -3,7 +3,7 @@ export class ModelFilter {
     public dateInitial?: string,
     public dateFinal?: string,
     public ean?: string,
-    public currentPage?: number,
+    public currentPage?: string,
     public limit?: number
   ) { }
 }

@@ -10,6 +10,7 @@ import { UserLoginService, UserParametersService, LoadingService, ModalService }
 import { RoutesConst } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
+import { Logger } from '@core/util/logger.service';
 
 @Component({
   selector: 'app-historical-component',
@@ -52,11 +53,20 @@ export class HistoricalComponent implements OnInit {
   // Variable que se le envia al toolbar para volver a ponerlo en la página 1
   public currentPage: any;
 
+  // Variable que almacena el paginationToken de cada petición
+  public paginationToken: Array<string>;
+
   // Variable que se usa para escuchar los cambios en el layout
   public layoutChanges: any;
 
   // Variable que contiene el numero de columnas que ocuparan el grid-list
-  public numCols: any;
+  public numCols: number;
+
+  // Variable que contiene el limite de registros por petición
+  public limit: number;
+
+  // Instancia de Logger
+  public log: Logger;
 
   /**
    * Creates an instance of HistoricalComponent.
@@ -92,6 +102,14 @@ export class HistoricalComponent implements OnInit {
   ngOnInit() {
     // Borra el filtro del localstorage
     localStorage.removeItem('currentFilterHistorical');
+    // Inicializa el valor del limite
+    this.limit = 100;
+    // Inicializa el array de paginationToken
+    this.paginationToken = [];
+    // Llena la primeara posición del paginationToken con null
+    this.paginationToken.push('null');
+    // Inicializa la instancia de Logger
+    this.log = new Logger('HistoricalComponent');
 
     this.userService.isAuthenticated(this);
     this.layoutChanges.subscribe(result => {
@@ -159,17 +177,32 @@ export class HistoricalComponent implements OnInit {
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
           const response = result.body.data;
-          if ( response ) {
-            // Sí hay resultados
-            // this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 100 : response.total / this.paramData.limit;
-            // this.numberPages = Math.ceil(this.numberPages);
-            this.historicalOffer = response.offerHistoricals;
+
+          // Pregunta si la respuesta tiene resultados
+          if (response) {
+            // Pregunta si ya hay datos en la variable historicalOffer
+            if (this.historicalOffer) {
+              this.paginationToken.push(response.paginationToken);
+              this.historicalService.savePaginationTokens(this.paginationToken);
+              this.historicalOffer = response.offerHistoricals;
+            // Entra cuando no hay datos en la variable historicalOffer
+            }else {
+              // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
+              this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
+              this.numberPages = Math.ceil(this.numberPages);
+              this.paginationToken.push(response.paginationToken);
+              this.historicalService.savePaginationTokens(this.paginationToken);
+              this.historicalOffer = response.offerHistoricals;
+            }
+          // Entra cuando la respuesta no tiene resultados
           }else {
-            // No hay resultados
+            // Pone en false la variable historicalOffer y resetea los valores del páginador
             this.historicalOffer = false;
+            this.numberPages = 0;
+            this.currentPage = 0;
           }
           this.loadingService.closeSpinner();
-          console.log(response);
+          this.log.debug(response);
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
@@ -185,13 +218,14 @@ export class HistoricalComponent implements OnInit {
    * @memberof HistoricalComponent
    */
   historicalFilter(params: any) {
+    this.historicalOffer = false;
     this.currentPage = 1;
     this.filterActive = true;
     this.paramData.dateInitial = params.get('dateInitial').value;
     this.paramData.dateFinal = params.get('dateFinal').value;
     this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
     this.paramData.currentPage = this.currentPage;
-    this.paramData.limit = 100;
+    this.paramData.limit = this.limit;
     this.getHistoricalOffers(this.paramData);
     this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean); // Metodo para guardadr los parametros del filtro
     this.sidenav.toggle();
