@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@shared/util';
-import { CategoryList } from '@shared/models';
+import { CategoryList, UserInformation } from '@shared/models';
 import { environment } from '@env/environment';
 
-import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
 import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
 
@@ -17,11 +17,11 @@ const log = new Logger('SideBarComponent');
   styleUrls: ['./sidebar.component.scss']
 })
 
-export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
+export class SidebarComponent implements OnInit, LoggedInCallback {
   // Sidenav principal
   @Input() sidenav;
   // Información del usuario
-  @Input() user: any;
+  @Input() user: UserInformation;
   // Define si la app esta en un entorno de producción.
   isProductionEnv = environment.production;
   // Lista de categorías de las órdenes
@@ -34,34 +34,20 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * @memberof SidebarComponent
    */
   ngOnInit() {
-    // this.routes = RoutesConst;
     this.categoryList = this.routes.CATEGORYLIST;
     this.userService.isAuthenticated(this);
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.getDataUser();
+      this.user = this.userParams.getUserData();
     }
-  }
-
-  callback() {
-  }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**
@@ -83,13 +69,5 @@ export class SidebarComponent implements OnInit, LoggedInCallback, Callback {
     } else {
       this.route.navigate([category.root]);
     }
-  }
-
-  /**
-   * Método para cerrar sesión
-   * @memberof SidebarComponent
-   */
-  logout() {
-    /* this.logoutComponent.logout(); */
   }
 }

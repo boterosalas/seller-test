@@ -4,7 +4,7 @@ import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Callback, Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService } from '@app/core';
 import {
   ComponentsService,
   Const,
@@ -12,6 +12,7 @@ import {
   OrderDevolutionsModel,
   Pending,
   SearchFormEntity,
+  UserInformation,
 } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
@@ -41,7 +42,7 @@ const log = new Logger('InDevolutionComponent');
     ]),
   ]
 })
-export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
+export class InDevolutionComponent implements OnInit, OnDestroy {
 
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
   @ViewChild(MatSort) sort: MatSort;
@@ -66,7 +67,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   // Variable que almacena el número de órdenes
   public orderListLength = false;
   // user info
-  public user: any;
+  public user: UserInformation;
   // suscriptions vars
   private subFilterOrderPending: any;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -93,20 +94,15 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
     private inDevolutionService: InDevolutionService,
     private componentsService: ComponentsService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   ngOnInit() {
     // Datos del usuario autenticado.
-    this.userParams.getUserData(this);
+    this.getDataUser();
   }
 
-  callback() { }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-    // obtengo las órdenes con la función del componente ToolbarOptionsComponent
+  getDataUser() {
+    this.user = this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
@@ -114,14 +110,13 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   ngOnDestroy() {
     // Remover las suscripciones creadas.
-    // this.subOrderList.unsubscribe();
     this.subFilterOrderPending.unsubscribe();
   }
 
   /**
    * Otener los resultados obtenidos al momento de realizar
    * el filtro de órdenes en la opcion search-order-menu.
-   * 
+   *
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
@@ -158,7 +153,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal para ver el comentario de la orden.
-   * 
+   *
    * @param item
    */
   openModalCommentOrder(item): void {
@@ -176,7 +171,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para obtener la lista de órdenes.
-   * 
+   *
    * @param {any} $event
    * @memberof InDevolutionComponent
    */
@@ -226,7 +221,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   /**
    * Selecciona todas las filas si no están todos los seleccionados;
    * de lo contrario, borrar selección.
-   * 
+   *
    * @memberof InDevolutionComponent
    */
   masterToggle() {
@@ -237,7 +232,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Filtro para la tabla.
-   * 
+   *
    * @param {string} filterValue
    * @memberof InDevolutionComponent
    */
@@ -251,7 +246,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal de detalle de la orden.
-   * 
+   *
    * @param {any} item
    * @memberof InDevolutionComponent
    */
@@ -266,7 +261,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal de confirmaición.
-   * 
+   *
    * @param {any} item
    * @memberof InDevolutionComponent
    */
@@ -291,7 +286,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal de confirmación.
-   * 
+   *
    * @memberof InDevolutionComponent
    */
   dialogAcceptDevolution() {
@@ -304,11 +299,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-    * Método para desplegar el modal de report novedad.
-    * 
-    * @param {OrderDevolutionsModel} item
-    * @memberof InDevolutionComponent
-    */
+   * Método para desplegar el modal de report novedad.
+   *
+   * @param {OrderDevolutionsModel} item
+   * @memberof InDevolutionComponent
+   */
   openModalReportNovelty(item: OrderDevolutionsModel): void {
     const dialogRef = this.dialog.open(ActionReportNoveltyComponent, {
       width: '50%',
@@ -327,7 +322,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para obtener la lista de opciones para realizar el rechazo de una solicitud de devolución.
-   * 
+   *
    * @memberof InDevolutionComponent
    */
   getReasonsRejection() {

@@ -1503,9 +1503,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -1534,12 +1531,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -1645,9 +1636,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3367,9 +3355,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -3398,12 +3383,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -3509,9 +3488,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3875,7 +3851,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -3968,7 +3944,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -4062,7 +4038,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -4097,7 +4073,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -4132,7 +4108,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/public/auth/confirm/confirmRegistration.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -4150,6 +4126,9 @@ import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
 import { LoggedInCallback, UserLoginService, UserRegistrationService } from &#x27;@app/core&#x27;;
 import { ShellComponent } from &#x27;@app/core/shell/shell.component&#x27;;
 import { RoutesConst } from &#x27;@app/shared&#x27;;
+import { Logger } from &#x27;@core/util/logger.service&#x27;;
+
+const log &#x3D; new Logger(&#x27;RegistrationConfirmationComponent&#x27;);
 
 @Component({
     selector: &#x27;app-awscognito&#x27;,
@@ -4206,7 +4185,7 @@ export class RegistrationConfirmationComponent implements OnInit, OnDestroy {
     cognitoCallback(message: string, result: any) {
         if (message !&#x3D; null) {
             this.errorMessage &#x3D; message;
-            console.log(&#x27;message: &#x27; + this.errorMessage);
+            log.error(&#x27;message: &#x27; + this.errorMessage);
         } else {
             // this.configs.curUser &#x3D; result.user;
             this.router.navigate([&#x60;/${RoutesConst.securehome}&#x60;]);

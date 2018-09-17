@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Callback, ChallengeParameters, CognitoCallback, DynamoDBService, LoadingService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
-import { RoutesConst } from '@app/shared';
+import { ChallengeParameters, CognitoCallback, DynamoDBService, LoadingService, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst, UserInformation } from '@app/shared';
 import { environment } from '@env/environment';
+import { Logger } from '@core/util/logger.service';
 
+const log = new Logger('LoginComponent');
 
 @Component({
   selector: 'app-awscognito',
@@ -47,7 +49,7 @@ import { environment } from '@env/environment';
     ])
   ]
 })
-export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, Callback {
+export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
   // Contiene la estructura del formulario del login
   awscognitogroup: FormGroup;
   // Define si la app esta en un entorno de producción.
@@ -60,7 +62,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     destination: '',
     callback: null
   };
-  public user: any;
+  public user: UserInformation;
 
   constructor(
     private router: Router,
@@ -71,7 +73,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private userParams: UserParametersService
   ) {
     this.userService.isAuthenticated(this);
-    this.user = {};
   }
 
   ngOnInit() {
@@ -101,32 +102,26 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     this.loadingService.viewSpinner();
   }
 
-  cognitoCallback(message: string, result: any) {
+  async cognitoCallback(message: string, result: any) {
     if (message != null) { // error
       this.loadingService.closeSpinner();
       this.errorMessage = message;
-      console.log('result: ' + this.errorMessage);
+      log.error('result: ' + this.errorMessage);
       if (this.errorMessage === 'User is not confirmed.') {
         this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.awscognitogroup.controls.email.value]);
       } else if (this.errorMessage === 'User needs to set password.') {
-        console.log('redirecting to set new password');
+        log.error('redirecting to set new password');
         this.router.navigate([`/${this.consts.homeNewPassword}`]);
       }
     } else { // success
       this.ddb.writeLogEntry('login');
+      await this.userParams.getParameters();
       this.getDataUser();
     }
   }
 
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.user = this.userParams.getUserData();
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${this.consts.sellerCenterOrders}`]);

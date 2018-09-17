@@ -3,8 +3,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Callback, LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { ComponentsService, RoutesConst } from '@app/shared';
+import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -28,12 +28,12 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadProductComponent implements OnInit, Callback {
+export class BulkLoadProductComponent implements OnInit {
 
   public paginator: any;
 
   /* Información del usuario*/
-  public user: any;
+  public user: UserInformation;
 
   /* Nombre del archivo cargado*/
   public fileName: any;
@@ -89,7 +89,6 @@ export class BulkLoadProductComponent implements OnInit, Callback {
     private modalService: ModalService
   ) {
     /*Se le asigna valor a todas las variables*/
-    this.user = {};
     this.arrayInformation = [];
     this.arrayInformationForSend = [];
     this.listLog = [];
@@ -130,40 +129,15 @@ export class BulkLoadProductComponent implements OnInit, Callback {
   }
 
   /**
-   * @method callback
-   * @description Metodo necesario para recibir el callback de getDataUser()
-   * @memberof BulkLoadProductComponent
-   */
-  callback() {
-  }
-
-  /**
    * @method getDataUser
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
    * @memberof BulkLoadProductComponent
    */
   getDataUser() {
-    /*Se llama el metodo que se encarga de obtener los datos del usuario, este hace un callback que llama el metodo callbackWithParam()*/
-    this.userParams.getUserData(this);
-  }
-
-  /**
-   * @method callbackWithParam
-   * @description metodo que se ejecuta en el callback de getDataUser().
-   * Es utilizado para almacenar los datos del usuario en una variable y luego validar
-   * si es Administrador o Vendedor.
-   * @param userData
-   * @memberof BulkLoadProductComponent
-   */
-  callbackWithParam(userData: any) {
-    /*Se le asigna a la variable los datos del usario*/
-    this.user = userData;
-    /*Se valida si el usuario es vendedor o administrador*/
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
-      /*Si es vendedor se redirecciona a la vista de ordenes*/
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     } else {
-      /*se llama el metodo para obtener la cantidad de cargas disponibles*/
       this.getAvaliableLoads();
     }
   }
@@ -441,7 +415,121 @@ export class BulkLoadProductComponent implements OnInit, Callback {
       let isModifyImage = false;
       let errorInCell = false;
       if (i !== 0 && i > 0) {
+        if (res[i][iVal.iTipoDeProducto] === 'Clothing') {
+          variant = true;
+        }
         for (let j = 0; j < numCol; j++) {
+          if (variant === true) {
+            if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
+              this.loadingService.closeSpinner();
+              this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+              return;
+            } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
+              if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'dateNotFound',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              } else {
+                const validFormat = this.validFormat(res[i][j], 'formatAllChars');
+                if (!validFormat && validFormat === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            }
+            if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
+              if (j === iVal.iSize) {
+                const validFormatSize = this.validFormat(res[i][j], 'size');
+                if (!validFormatSize && validFormatSize === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Size'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iColor) {
+                const validColor = this.validFormat(res[i][j], 'color');
+                if (!validColor && validColor === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Color'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iHexColourCodePDP) {
+                const validColor = this.validFormat(res[i][j], 'colorPDP');
+                if (!validColor && validColor === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'HexColourCodePDP'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              } else if (j === iVal.iHexColourName) {
+                const validColorName = this.validFormat(res[i][j], 'colorName');
+                if (!validColorName && validColorName === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'HexColourName'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            }
+          }
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
             if (j === iVal.iEAN) {
               const validFormatEan = this.validFormat(res[i][j], 'ean');
@@ -462,9 +550,7 @@ export class BulkLoadProductComponent implements OnInit, Callback {
                 errorInCell = true;
               }
             } else if (j === iVal.iTipoDeProducto) {
-              if (res[i][j] === 'Clothing') {
-                variant = true;
-              } else if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
+              if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
                 const validFormatCategory = this.validFormat(res[i][j], 'category');
                 if (!validFormatCategory && validFormatCategory === false) {
                   this.countErrors += 1;
@@ -694,117 +780,6 @@ export class BulkLoadProductComponent implements OnInit, Callback {
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
-              }
-            } else if (variant === true) {
-              if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
-                this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
-                return;
-              } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
-                if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
-                  this.countErrors += 1;
-                  const row = i + 1, column = j + 1;
-                  const itemLog = {
-                    row: this.arrayInformation.length,
-                    column: j,
-                    type: 'dateNotFound',
-                    columna: column,
-                    fila: row,
-                    positionRowPrincipal: i,
-                    dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
-                  };
-                  this.listLog.push(itemLog);
-                  errorInCell = true;
-                } else {
-                  const validFormat = this.validFormat(res[i][j], 'formatAllChars');
-                  if (!validFormat && validFormat === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: j === iVal.iParentReference ? 'ParentReference' : j === iVal.iSonReference ? 'SonReference' : null
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                }
-              }
-
-              if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
-                if (j === iVal.iSize) {
-                  const validFormatSize = this.validFormat(res[i][j], 'size');
-                  if (!validFormatSize && validFormatSize === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'Size'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iColor) {
-                  const validColor = this.validFormat(res[i][j], 'color');
-                  if (!validColor && validColor === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'Color'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iHexColourCodePDP) {
-                  const validColor = this.validFormat(res[i][j], 'colorPDP');
-                  if (!validColor && validColor === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'HexColourCodePDP'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                } else if (j === iVal.iHexColourName) {
-                  const validColorName = this.validFormat(res[i][j], 'colorName');
-                  if (!validColorName && validColorName === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'HexColourName'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
-                }
               }
             } else {
               const extraFields = this.validFormat(res[i][j]);

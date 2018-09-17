@@ -1503,9 +1503,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -1534,12 +1531,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -1645,9 +1636,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3367,9 +3355,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -3398,12 +3383,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -3509,9 +3488,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3833,7 +3809,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/core/aws-cognito/cognito.service.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/aws-cognito/cognito.service.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -3915,7 +3891,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/core/aws-cognito/cognito.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/aws-cognito/cognito.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -3999,6 +3975,9 @@ import * as AWS from &#x27;aws-sdk/global&#x27;;
 import * as awsservice from &#x27;aws-sdk/lib/service&#x27;;
 import * as CognitoIdentity from &#x27;aws-sdk/clients/cognitoidentity&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
+import { Logger } from &#x27;../util/logger.service&#x27;;
+
+const log &#x3D; new Logger(&#x27;CognitoService&#x27;);
 
 // Constantes de cognito
 const cognitoEnv &#x3D; environment.cognito;
@@ -4102,7 +4081,7 @@ export class CognitoUtil {
     if (this.getCurrentUser() !&#x3D; null) {
       this.getCurrentUser().getSession(function (err: any, session: any) {
         if (err) {
-          console.log(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
+          log.error(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
           callback.callbackWithParam(null);
         } else {
           if (session.isValid()) {
@@ -4124,13 +4103,13 @@ export class CognitoUtil {
     if (this.getCurrentUser() !&#x3D; null) {
       this.getCurrentUser().getSession(function (err: any, session: any) {
         if (err) {
-          console.log(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
+          log.error(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
           callback.callbackWithParam(null);
         } else {
           if (session.isValid()) {
             callback.callbackWithParam(session.getIdToken().getJwtToken());
           } else {
-            console.log(&#x27;CognitoUtil: Got the id token, but the session isn\&#x27;t valid&#x27;);
+            log.error(&#x27;CognitoUtil: Got the id token, but the session isn\&#x27;t valid&#x27;);
           }
         }
       });
@@ -4148,7 +4127,7 @@ export class CognitoUtil {
     if (this.getCurrentUser() !&#x3D; null) {
       this.getCurrentUser().getSession(function (err: any, session: any) {
         if (err) {
-          console.log(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
+          log.error(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
           callback.callbackWithParam(null);
         } else {
           if (session.isValid()) {
@@ -4165,12 +4144,12 @@ export class CognitoUtil {
   refresh(): void {
     this.getCurrentUser().getSession(function (err: any, session: any) {
       if (err) {
-        console.log(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
+        log.error(&#x27;CognitoUtil: Can\&#x27;t set the credentials:&#x27; + err);
       } else {
         if (session.isValid()) {
           // &#x27;CognitoUtil: refreshed successfully&#x27;;
         } else {
-          console.log(&#x27;CognitoUtil: refreshed but session is still not valid&#x27;);
+          log.error(&#x27;CognitoUtil: refreshed but session is still not valid&#x27;);
         }
       }
     });

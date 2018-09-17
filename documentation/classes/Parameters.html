@@ -1503,9 +1503,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -1534,12 +1531,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -1645,9 +1636,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3367,9 +3355,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -3398,12 +3383,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -3509,9 +3488,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3845,7 +3821,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/secure/aws-cognito/profile/myprofile.component.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/secure/aws-cognito/profile/myprofile.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -3879,7 +3855,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/secure/aws-cognito/profile/myprofile.component.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/secure/aws-cognito/profile/myprofile.component.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -3900,7 +3876,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
-import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from &#x27;@app/core&#x27;;
+import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from &#x27;@app/core&#x27;;
 import { RoutesConst } from &#x27;@app/shared&#x27;;
 
 @Component({
@@ -3911,8 +3887,8 @@ export class MyProfileComponent implements LoggedInCallback {
 
     public parameters: Array&lt;Parameters&gt; &#x3D; [];
     public cognitoId: String;
+    public user: any;
 
-    // tslint:disable-next-line:max-line-length
     constructor(
         public router: Router,
         public userService: UserLoginService,
@@ -3921,11 +3897,21 @@ export class MyProfileComponent implements LoggedInCallback {
         this.userService.isAuthenticated(this);
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
+    async isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate([&#x60;/${RoutesConst.homeLogin}&#x60;]);
         } else {
-            this.userParams.getParameters(new GetParametersCallback(this, this.cognitoUtil));
+            this.user &#x3D; await this.userParams.getParameters(true);
+            for (let i &#x3D; 0; i &lt; this.user.length; i++) {
+                const parameter &#x3D; new Parameters();
+                parameter.name &#x3D; this.user[i].getName();
+                parameter.value &#x3D; this.user[i].getValue();
+                this.parameters.push(parameter);
+            }
+            const param &#x3D; new Parameters();
+            param.name &#x3D; &#x27;cognito ID&#x27;;
+            param.value &#x3D; this.cognitoUtil.getCognitoIdentity();
+            this.parameters.push(param);
         }
     }
 }
@@ -3933,30 +3919,6 @@ export class MyProfileComponent implements LoggedInCallback {
 export class Parameters {
     name: string;
     value: string;
-}
-
-export class GetParametersCallback implements Callback {
-
-    constructor(public me: MyProfileComponent, public cognitoUtil: CognitoUtil) {
-
-    }
-
-    callback() {
-
-    }
-
-    callbackWithParam(result: any) {
-        for (let i &#x3D; 0; i &lt; result.length; i++) {
-            const parameter &#x3D; new Parameters();
-            parameter.name &#x3D; result[i].getName();
-            parameter.value &#x3D; result[i].getValue();
-            this.me.parameters.push(parameter);
-        }
-        const param &#x3D; new Parameters();
-        param.name &#x3D; &#x27;cognito ID&#x27;;
-        param.value &#x3D; this.cognitoUtil.getCognitoIdentity();
-        this.me.parameters.push(param);
-    }
 }
 </code></pre>
     </div>

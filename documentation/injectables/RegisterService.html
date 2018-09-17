@@ -1503,9 +1503,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -1534,12 +1531,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -1645,9 +1636,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3367,9 +3355,6 @@
                         <a href="classes/FinishUploadInformation.html" data-type="entity-link">FinishUploadInformation</a>
                     </li>
                     <li class="link">
-                        <a href="classes/GetParametersCallback.html" data-type="entity-link">GetParametersCallback</a>
-                    </li>
-                    <li class="link">
                         <a href="classes/Guide.html" data-type="entity-link">Guide</a>
                     </li>
                     <li class="link">
@@ -3398,12 +3383,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Logger.html" data-type="entity-link">Logger</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/Login.html" data-type="entity-link">Login</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/LoginModel.html" data-type="entity-link">LoginModel</a>
                     </li>
                     <li class="link">
                         <a href="classes/ModelFilter.html" data-type="entity-link">ModelFilter</a>
@@ -3509,9 +3488,6 @@
                     </li>
                     <li class="link">
                         <a href="classes/Stuff.html" data-type="entity-link">Stuff</a>
-                    </li>
-                    <li class="link">
-                        <a href="classes/User.html" data-type="entity-link">User</a>
                     </li>
                     <li class="link">
                         <a href="classes/UserInformation.html" data-type="entity-link">UserInformation</a>
@@ -3818,7 +3794,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/secure/seller/register/register.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/secure/seller/register/register.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -3895,7 +3871,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/secure/seller/register/register.service.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/secure/seller/register/register.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -3976,7 +3952,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/secure/seller/register/register.service.ts:59</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/secure/seller/register/register.service.ts:61</a></div>
                             </td>
                         </tr>
 
@@ -4035,7 +4011,9 @@
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { EndpointService } from &#x27;@app/core&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
+import { Logger } from &#x27;@core/util/logger.service&#x27;;
 
+const log &#x3D; new Logger(&#x27;RegisterService&#x27;);
 
 @Injectable()
 export class RegisterService {
@@ -4066,7 +4044,7 @@ export class RegisterService {
         writeUrl &#x3D; &#x27;validateSellerName&#x27;;
         break;
       default:
-        console.log(&#x27;one parameter is missing&#x27;);
+        log.error(&#x27;one parameter is missing&#x27;);
     }
 
     return new Observable(observer &#x3D;&gt; {

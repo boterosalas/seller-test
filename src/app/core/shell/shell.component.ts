@@ -7,8 +7,10 @@ import { InformationToForm, SearchFormEntity } from '@shared/models/order.model'
 import { ComponentsService } from '@shared/services/components.service';
 import { EventEmitterOrders } from '@shared/services/eventEmitter-orders.service';
 
-import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '../aws-cognito';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '../aws-cognito';
 import { Logger } from '../util/logger.service';
+import { LoadingService } from '../global';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('ShellComponent');
@@ -19,9 +21,9 @@ const log = new Logger('ShellComponent');
   styleUrls: ['./shell.component.scss']
 })
 
-export class ShellComponent implements OnInit, LoggedInCallback, Callback {
+export class ShellComponent implements OnInit, LoggedInCallback {
   // Usuario autenticado.
-  public user: any;
+  public user: UserInformation;
   // SideMenu de la aplicación.
   @ViewChild('sidenav') sidenav: MatSidenav;
   // Sidenav de búsqueda de órdenes.
@@ -51,10 +53,9 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
     public componentService: ComponentsService,
     public eventEmitterOrders: EventEmitterOrders,
     private userServiceCognito: UserLoginService,
-    private userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+    private userParams: UserParametersService,
+    private loadingService: LoadingService,
+  ) { }
 
 
   ngOnInit() {
@@ -71,22 +72,11 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
     if (isLoggedIn) {
       this.viewToolbarPrincipal = true;
       this.showHeader = true;
-      this.getDataUser();
+      this.user = this.userParams.getUserData();
     } else if (!isLoggedIn) {
       this.showHeader = false;
       this.viewToolbarPrincipal = false;
     }
-  }
-
-  callback() {
-  }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**
@@ -95,7 +85,7 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    */
   toggleMenu() {
     this.sidenav.toggle();
-    // this.loadingComponent.viewProgressBar();
+    this.loadingService.viewProgressBar();
   }
 
   /**
@@ -113,13 +103,13 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof ShellComponent
    */
   openDialogSupport(): void {
-    // this.loadingComponent.viewProgressBar();
+    this.loadingService.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
       panelClass: 'full-width-dialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.loadingComponent.closeProgressBar();
+      this.loadingService.closeProgressBar();
     });
   }
 
@@ -128,8 +118,8 @@ export class ShellComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof ShellComponent
    */
   goToEnviosExito() {
-    const url = `https://envios.exito.com/token/${this.user.access_token}`;
-    // window.location.href = url;
+    const url = `https://envios.exito.com/token/${this.user['access_token']}`;
+    window.location.href = url;
     window.open(url);
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Callback, CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 
 @Component({
@@ -11,8 +11,8 @@ export class MyProfileComponent implements LoggedInCallback {
 
     public parameters: Array<Parameters> = [];
     public cognitoId: String;
+    public user: any;
 
-    // tslint:disable-next-line:max-line-length
     constructor(
         public router: Router,
         public userService: UserLoginService,
@@ -21,11 +21,21 @@ export class MyProfileComponent implements LoggedInCallback {
         this.userService.isAuthenticated(this);
     }
 
-    isLoggedIn(message: string, isLoggedIn: boolean) {
+    async isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate([`/${RoutesConst.homeLogin}`]);
         } else {
-            this.userParams.getParameters(new GetParametersCallback(this, this.cognitoUtil));
+            this.user = await this.userParams.getParameters(true);
+            for (let i = 0; i < this.user.length; i++) {
+                const parameter = new Parameters();
+                parameter.name = this.user[i].getName();
+                parameter.value = this.user[i].getValue();
+                this.parameters.push(parameter);
+            }
+            const param = new Parameters();
+            param.name = 'cognito ID';
+            param.value = this.cognitoUtil.getCognitoIdentity();
+            this.parameters.push(param);
         }
     }
 }
@@ -33,28 +43,4 @@ export class MyProfileComponent implements LoggedInCallback {
 export class Parameters {
     name: string;
     value: string;
-}
-
-export class GetParametersCallback implements Callback {
-
-    constructor(public me: MyProfileComponent, public cognitoUtil: CognitoUtil) {
-
-    }
-
-    callback() {
-
-    }
-
-    callbackWithParam(result: any) {
-        for (let i = 0; i < result.length; i++) {
-            const parameter = new Parameters();
-            parameter.name = result[i].getName();
-            parameter.value = result[i].getValue();
-            this.me.parameters.push(parameter);
-        }
-        const param = new Parameters();
-        param.name = 'cognito ID';
-        param.value = this.cognitoUtil.getCognitoIdentity();
-        this.me.parameters.push(param);
-    }
 }

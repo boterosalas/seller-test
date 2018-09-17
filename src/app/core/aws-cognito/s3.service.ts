@@ -4,6 +4,10 @@ import * as S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk/global';
 import { CognitoUtil } from './cognito.service';
 
+import { Logger } from '../util/logger.service';
+
+const log = new Logger('S3Service');
+
 // Constantes de cognito
 const cognitoEnv = environment.cognito;
 
@@ -36,7 +40,7 @@ export class S3Service {
 
   public addPhoto(selectedFile: any): boolean {
     if (!selectedFile) {
-      console.log('Please choose a file to upload first.');
+      log.error('Please choose a file to upload first.');
       return;
     }
     const fileName = selectedFile.name;
@@ -51,10 +55,10 @@ export class S3Service {
       ACL: 'private'
     }, function (err: any, data: any) {
       if (err) {
-        console.log('There was an error uploading your photo: ', err);
+        log.error('There was an error uploading your photo: ', err);
         return false;
       }
-      console.log('Successfully uploaded photo.');
+      log.debug('Successfully uploaded photo.');
       return true;
     });
   }
@@ -65,10 +69,10 @@ export class S3Service {
     // }
     this.getS3().deleteObject({ Key: photoKey }, function (err: any, data: any) {
       if (err) {
-        console.log('There was an error deleting your photo: ', err.message);
+        log.error('There was an error deleting your photo: ', err.message);
         return;
       }
-      console.log('Successfully deleted photo.');
+      log.debug('Successfully deleted photo.');
     });
   }
 
@@ -76,7 +80,7 @@ export class S3Service {
     const albumPhotosKey = encodeURIComponent(cognitoEnv.albumName) + '//';
     this.getS3().listObjects({ Prefix: albumPhotosKey }, function (err: any, data: any) {
       if (err) {
-        console.log('There was an error viewing your album: ' + err);
+        log.error('There was an error viewing your album: ' + err);
       }
 
     });

@@ -5,14 +5,17 @@ import { AuthenticationDetails, CognitoUser, CognitoUserAttribute } from 'amazon
 import * as AWS from 'aws-sdk/global';
 import { CognitoCallback, CognitoUtil } from './cognito.service';
 
+import { Logger } from '../util/logger.service';
+
+const log = new Logger('UserRegistrationService');
 
 @Injectable()
 export class UserRegistrationService {
 
-    constructor(@Inject(CognitoUtil) public cognitoUtil: CognitoUtil) {}
+    constructor(@Inject(CognitoUtil) public cognitoUtil: CognitoUtil) { }
 
     register(user: RegistrationUser, callback: CognitoCallback): void {
-        console.log('UserRegistrationService: user is ' + user);
+        log.error('UserRegistrationService: user is ' + user);
 
         const attributeList = [];
 
@@ -35,7 +38,7 @@ export class UserRegistrationService {
             if (err) {
                 callback.cognitoCallback(err.message, null);
             } else {
-                console.log('UserRegistrationService: registered user is ' + result);
+                log.debug('UserRegistrationService: registered user is ' + result);
                 callback.cognitoCallback(null, result);
             }
         });
@@ -92,8 +95,8 @@ export class UserRegistrationService {
 
         // UserLoginService: Params set...Authenticating the user
         const cognitoUser = new CognitoUser(userData);
-        console.log('UserLoginService: config is ');
-        console.log(AWS.config);
+        log.debug('UserLoginService: config is ');
+        log.debug(AWS.config);
         cognitoUser.authenticateUser(authenticationDetails, {
             newPasswordRequired: function (userAttributes: any, requiredAttributes: any) {
                 // User was signed up by an admin and must provide new

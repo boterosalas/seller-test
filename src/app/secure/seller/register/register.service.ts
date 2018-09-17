@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
+import { Logger } from '@core/util/logger.service';
 
+const log = new Logger('RegisterService');
 
 @Injectable()
 export class RegisterService {
@@ -33,7 +35,7 @@ export class RegisterService {
         writeUrl = 'validateSellerName';
         break;
       default:
-        console.log('one parameter is missing');
+        log.error('one parameter is missing');
     }
 
     return new Observable(observer => {

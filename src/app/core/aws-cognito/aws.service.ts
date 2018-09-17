@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Callback, CognitoUtil } from './cognito.service';
 import * as AWS from 'aws-sdk/global';
+import { Logger } from '../util/logger.service';
 
-
+const log = new Logger('AwsUtil');
 /**
  * Created by Vladimir Budilov
  */
@@ -58,13 +59,8 @@ export class AwsUtil {
   setupAWS(isLoggedIn: boolean, callback: Callback, idToken: string): void {
     // AwsUtil: in setupAWS()
     if (isLoggedIn) {
-      console.log('AwsUtil: User is logged in');
+      log.debug('AwsUtil: User is logged in');
       // Setup mobile analytics
-      /* let options = {
-          appId: '32673c035a0b40e99d6e1f327be0cb60',
-          appTitle: 'seller-center'
-      }; */
-
       // TODO: The mobile Analytics client needs some work to handle Typescript. Disabling for the time being.
       // var mobileAnalyticsClient = new AMA.Manager(options);
       // mobileAnalyticsClient.submitEvents();
@@ -74,7 +70,7 @@ export class AwsUtil {
       // AwsUtil: Retrieving the id token'
 
     } else {
-      console.log('AwsUtil: User is not logged in');
+      log.error('AwsUtil: User is not logged in');
     }
 
     if (callback != null) {

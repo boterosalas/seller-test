@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Callback, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core/aws-cognito';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@app/core/aws-cognito';
 import { CategoryList } from '@app/shared/models/order.model';
 import { RoutesConst } from '@app/shared/util/routes.constants';
 import { environment } from '@env/environment';
+import { UserInformation } from '@app/shared/models';
 
 /**
  * Componente Toolbar para los links de la orden.
@@ -19,10 +20,10 @@ import { environment } from '@env/environment';
   templateUrl: './toolbar-link.component.html',
   styleUrls: ['./toolbar-link.component.scss'],
 })
-export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback {
+export class ToolbarLinkComponent implements OnInit, LoggedInCallback {
 
   public routes: any;
-  public user: any;
+  public user: UserInformation;
   // Estructura para la categoría
   categoryEstructure = {
     root: 'home'
@@ -42,9 +43,7 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback 
     private route: Router,
     public userService: UserLoginService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) {}
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -52,19 +51,9 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback, Callback 
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.getDataUser();
+      this.user = this.userParams.getUserData();
       this.getCategory();
     }
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

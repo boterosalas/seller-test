@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FAKE, OrderDevolutionsModel, User } from '@app/shared';
+import { FAKE, OrderDevolutionsModel, UserInformation } from '@app/shared';
 import * as _ from 'lodash';
 
 // Load the full build.
@@ -19,7 +19,7 @@ import * as _ from 'lodash';
 export class ProductDevolutionModalComponent {
 
   // Información del usuario
-  user: User;
+  user: UserInformation;
   // Información de la orden
   order: OrderDevolutionsModel;
 

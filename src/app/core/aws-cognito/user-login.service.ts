@@ -8,6 +8,10 @@ import * as AWS from 'aws-sdk/global';
 import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
 import { DynamoDBService } from './ddb.service';
 
+import { Logger } from '../util/logger.service';
+
+const log = new Logger('UserLoginService');
+
 
 // Constantes de cognito
 const cognitoEnv = environment.cognito;
@@ -18,7 +22,7 @@ export class UserLoginService {
 
   private onLoginSuccess = (callback: CognitoCallback, session: CognitoUserSession) => {
 
-    console.log('In authenticateUser onSuccess callback');
+    log.debug('In authenticateUser onSuccess callback');
 
     AWS.config.credentials = this.cognitoUtil.buildCognitoCreds(session.getIdToken().getJwtToken());
 
@@ -35,7 +39,7 @@ export class UserLoginService {
     }
     const sts = new STS(clientParams);
     sts.getCallerIdentity(function (err: any, data: any) {
-      console.log('UserLoginService: Successfully set the AWS credentials');
+      log.debug('UserLoginService: Successfully set the AWS credentials');
       callback.cognitoCallback(null, session);
     });
   }
@@ -54,7 +58,7 @@ export class UserLoginService {
    * @param callback pagina a la cual se va redirigir al momento de autenticar
    */
   authenticate(username: string, password: string, callback: CognitoCallback) {
-    console.log('UserLoginService: starting the authentication');
+    log.debug('UserLoginService: starting the authentication');
 
     const authenticationData = {
       Username: username,
@@ -67,9 +71,9 @@ export class UserLoginService {
       Pool: this.cognitoUtil.getUserPool()
     };
 
-    console.log('UserLoginService: Params set...Authenticating the user');
+    log.debug('UserLoginService: Params set...Authenticating the user');
     const cognitoUser = new CognitoUser(userData);
-    console.log('UserLoginService: config is ' + AWS.config);
+    log.debug('UserLoginService: config is ' + AWS.config);
     cognitoUser.authenticateUser(authenticationDetails, {
       newPasswordRequired: (userAttributes, requiredAttributes) => callback.cognitoCallback(`User needs to set password.`, null),
       onSuccess: result => this.onLoginSuccess(callback, result),
@@ -125,7 +129,7 @@ export class UserLoginService {
   }
 
   logout() {
-    console.log('UserLoginService: Logging out');
+    log.debug('UserLoginService: Logging out');
     if (typeof this.cognitoUtil.getCurrentUser() === 'undefined' || this.cognitoUtil.getCurrentUser() === null) {
       return null;
     }
@@ -142,7 +146,7 @@ export class UserLoginService {
     if (cognitoUser != null) {
       cognitoUser.getSession(function (err: any, session: any) {
         if (err) {
-          console.log('UserLoginService: Couldn\'t get the session: ' + err, err.stack);
+          log.debug('UserLoginService: Couldn\'t get the session: ' + err, err.stack);
           callback.isLoggedIn(err, false);
         } else {
           // UserLoginService: Session is ' + session.isValid()

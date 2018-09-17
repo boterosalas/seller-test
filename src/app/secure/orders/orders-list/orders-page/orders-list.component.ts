@@ -5,8 +5,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AwsUtil, Callback, CognitoUtil, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService, } from '@app/core';
-import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, } from '@app/shared';
+import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService, } from '@app/core';
+import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, UserInformation, } from '@app/shared';
 import { ShellComponent } from '@core/shell';
 
 import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
@@ -43,7 +43,7 @@ const log = new Logger('OrdersListComponent');
 /**
  *  Component que permite cargar las órdenes
  */
-export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback, Callback {
+export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback {
 
   // Constantes
   public const = Const;
@@ -84,7 +84,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
   public subFilterOrder: any;
   public subOrderList: any;
   // Información del usuario
-  public user: any;
+  public user: UserInformation;
   // Variable que permite indicar si mostrar la opción de check o no
   optionCheckInTable = false;
   // Variable que almacena la ruta actual para saber la categoría que se esta consultando
@@ -118,9 +118,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
     public userService: UserLoginService,
     public cognito: CognitoUtil,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * ngOnInit
@@ -137,16 +135,8 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback,
       this.router.navigate([`/${RoutesConst.home}`]);
     }
   }
-
-  callback() {
-  }
-
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else if (this.user.sellerProfile === 'seller') {

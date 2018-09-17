@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { Callback, LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ListService } from '../list.service';
@@ -14,7 +14,7 @@ import { ListService } from '../list.service';
   styleUrls: ['./list.component.scss']
 })
 
-export class ListComponent implements OnInit, LoggedInCallback, Callback {
+export class ListComponent implements OnInit, LoggedInCallback {
 
   // Componente necesario para el funcionamiento del filtro.
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -92,27 +92,7 @@ export class ListComponent implements OnInit, LoggedInCallback, Callback {
    * @memberof ListComponent
    */
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  /**
-   * @method callback
-   * @description Método necesario para recibir el callback de getDataUser()
-   * @memberof ListComponent
-   */
-  callback() {
-  }
-
-  /**
-   * @method callbackWithParam
-   * @description metodo que se ejecuta en el callback de getDataUser().
-   * Es utilizado para almacenar los datos del usuario en una variable y luego validar
-   * si es Administrador o Vendedor.
-   * @param userData
-   * @memberof ListComponent
-   */
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {
