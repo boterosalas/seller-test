@@ -72,8 +72,6 @@ export class DownloadHistoricalService {
     // Arma la ulr con los datos de la petición
     urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email;
 
-    console.log(this.api.get('downloadHistorical') + '/' + urlFilterParams); // TODO: Eliminar
-
     return new Observable(observer => {
       this.http.get<any>(this.api.get('downloadHistorical', [urlFilterParams]), { observe: 'response'})
       .subscribe((data: any) => {

@@ -75,7 +75,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
 
   callback() { }
 
-  getDataUser() { // TODO: Revisar
+  getDataUser() {
     this.userParams.getUserData(this);
   }
 
@@ -111,7 +111,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
    * @memberof DownloadHistoricalModalComponent
    */
   downloadHistorical(form: any) {
-    log.info(this.downloadHistoricalService.getCurrentFilterHistorical());
+    log.debug(this.downloadHistoricalService.getCurrentFilterHistorical());
     const email = form.get('email').value;
     this.downloadHistoricalService.downloadHistorical(email)
     .subscribe(

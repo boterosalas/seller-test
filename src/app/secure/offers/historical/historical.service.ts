@@ -60,7 +60,6 @@ export class HistoricalService {
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
     urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
-    console.log(this.api.get('getHistoricalOffers') + '/' + urlParams); // TODO: Eliminar
 
     return new Observable(observer => {
       this.http.get<any>(this.api.get('getHistoricalOffers', [urlParams]), { observe: 'response' })
