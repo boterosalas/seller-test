@@ -5,12 +5,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 // our own custom components
 import { DownloadHistoricalService } from './download-historical.service';
+import { UserInformation, ComponentsService } from '@app/shared';
 import {
   Logger,
   UserParametersService,
   Callback
 } from '@app/core';
-import { ComponentsService } from '@app/shared';
 
 // log component
 const log = new Logger('DownloadHistoricalComponent');
@@ -38,7 +38,7 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   myform: FormGroup;
 
   // user info
-  public user: any;
+  public user: UserInformation;
 
   // Limite de registros para descargar
   public limitLengthHistorical: any = 0;
@@ -62,25 +62,14 @@ export class DownloadHistoricalModalComponent implements OnInit, Callback {
   ) {
     // Capturo el limite de registros indicados por el usuario
     this.limitLengthHistorical = data.limit;
-    this.user = {};
   }
 
   /**
    * @memberof DownloadHistoricalModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
+    this.user = this.userParams.getUserData();
     this.createForm();
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

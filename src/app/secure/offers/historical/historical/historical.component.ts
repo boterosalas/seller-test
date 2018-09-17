@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '@core/shell/shell.component';
 import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst, UserInformation } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 import { Logger } from '@core/util/logger.service';
@@ -24,7 +24,7 @@ export class HistoricalComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   // Variable para almacenar los datos del usuario logeado
-  public user: any;
+  public user: UserInformation;
 
   // Variable que se usa para ir al componente de detalle de la oferta
   public viewDetailOffer = false;
@@ -90,7 +90,6 @@ export class HistoricalComponent implements OnInit {
     public downloadHistoricalService?: DownloadHistoricalService
   ) {
     this.paramData = new ModelFilter();
-    this.user = {};
     this.layoutChanges = breakpointObserver.observe('(min-width: 577px)');
   }
 
@@ -138,26 +137,7 @@ export class HistoricalComponent implements OnInit {
    * @memberof HistoricalComponent
    */
   getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  /**
-   * @method callback
-   * @description Metodo necesario para recibir el callback de getDataUser()
-   * @memberof HistoricalComponent
-   */
-  callback() { }
-
-  /**
-   * @method callbackWithParam
-   * @description Metodo que se ejecuta en el callback de getDataUser().
-   *              Es utilizado para almacenar los datos del usuario en una variable y luego validar
-   *              si es Administrador o Vendedor.
-   * @param userData
-   * @memberof HistoricalComponent
-   */
-  callbackWithParam(userData: any) {
-    this.user = userData;
+    this.user = this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {
