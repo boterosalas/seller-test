@@ -7,10 +7,10 @@ $color-gray4: #BCBCBC;
 $color-gray5: #757474;
 $color-blue: #3d5afe;
 :host ::ng-deep {
-  article#list-transporter {
+  article#list-zones {
     aside {
       &.title-list-comp {
-        width: 75%;
+        width: 100%;
         p {
           color: $color-gray5;
           font-weight: bold;
@@ -20,14 +20,14 @@ $color-blue: #3d5afe;
       &.cont-list-comp {
         border-top: 1px solid $color-gray3;
         div {
-          &.info-transporter {
+          &.info-zones {
             width: 75%;
             p {
               color: $color-gray2;
               font-size: 14px;
             }
           }
-          &.options-transporter {
+          &.options-zones {
             width: 25%;
             button {
               color: $color-gray2;

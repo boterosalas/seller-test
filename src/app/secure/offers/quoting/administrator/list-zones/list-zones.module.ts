@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListTransporterComponent } from './list-transporter.component';
-import { ListTransporterService } from './list-transporter.service';
+import { ListZonesService } from './list-zones.service';
+import { ListZonesComponent } from './list-zones.component';
 import { MaterialModule } from '@app/material.module';
 
 @NgModule({
   declarations: [
-    ListTransporterComponent
+    ListZonesComponent
   ],
   imports: [
     CommonModule,
     MaterialModule
   ],
   exports: [
-    ListTransporterComponent
+    ListZonesComponent
   ],
   providers: [
-    ListTransporterService
+    ListZonesService
   ],
 })
-export class ListTransporterModule { }
+export class ListZonesModule { }
