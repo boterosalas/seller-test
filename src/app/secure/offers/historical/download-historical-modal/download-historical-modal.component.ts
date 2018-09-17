@@ -8,8 +8,7 @@ import { DownloadHistoricalService } from './download-historical.service';
 import { UserInformation, ComponentsService } from '@app/shared';
 import {
   Logger,
-  UserParametersService,
-  Callback
+  UserParametersService
 } from '@app/core';
 
 // log component
@@ -32,7 +31,7 @@ const log = new Logger('DownloadHistoricalComponent');
 /**
  * @memberof DownloadHistoricalModalComponent
  */
-export class DownloadHistoricalModalComponent implements OnInit, Callback {
+export class DownloadHistoricalModalComponent implements OnInit {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
