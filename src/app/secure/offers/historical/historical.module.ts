@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { MaterialModule } from '@app/material.module';
 
 // our own custom components
 import { SharedModule } from '@shared/shared.module';
@@ -29,7 +30,8 @@ import { HistoricalComponent } from './historical/historical.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientJsonpModule,
-    DownloadHistoricalModalModule
+    DownloadHistoricalModalModule,
+    MaterialModule
   ],
   declarations: [
     HistoricalComponent,

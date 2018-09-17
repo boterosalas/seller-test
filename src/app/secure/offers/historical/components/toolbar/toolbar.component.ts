@@ -1,5 +1,5 @@
 // 3rd party components
-import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav, MatDialog } from '@angular/material';
 // our own custom components
 import { HistoricalComponent } from '../../historical/historical.component';
