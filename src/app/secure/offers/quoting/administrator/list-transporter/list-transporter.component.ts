@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ListTransporterService } from './list-transporter.service';
 import { Logger } from '@app/core';
+import { CreateDialogComponent } from '../dialogs/create/create-dialog.component';
+import { MatDialog } from '@angular/material';
 
 const log = new Logger('ListTransporterComponent');
 
@@ -15,6 +17,7 @@ export class ListTransporterComponent implements OnInit {
   public listTransporters: Array<{}>;
 
   constructor(
+    public dialog: MatDialog,
     private service: ListTransporterService
   ) { }
 
@@ -26,8 +29,17 @@ export class ListTransporterComponent implements OnInit {
     this.listTransporters = this.service.getFakeListTransporter();
   }
 
-  createTransporter() {
+  createTransporter(): void {
     log.debug('Crear');
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      disableClose: true,
+      width: '760px',
+      height: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.debug('The dialog was closed');
+    });
+
   }
 
   editTransporter() {
