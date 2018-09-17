@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
  */
 export class DownloadOrderService {
 
-  constructor(
+  constructor (
     private http: HttpClient,
     private api: EndpointService
-) { }
+  ) { }
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes

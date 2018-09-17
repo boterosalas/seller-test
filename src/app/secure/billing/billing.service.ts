@@ -4,7 +4,6 @@ import { EndpointService } from '@app/core';
 import { Billing } from '@app/shared';
 import { Observable } from 'rxjs';
 
-
 @Injectable()
 export class BillingService {
 
@@ -15,7 +14,7 @@ export class BillingService {
 
   /**
    * Método para realiar la consulta de las transportadoras.
-   * 
+   *
    * @param {any} stringSearch
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
@@ -32,7 +31,7 @@ export class BillingService {
 
   /**
    * Método para realiar la consulta de las órdenes de acuerdo a los filtros indicados.
-   * 
+   *
    * @param {User} user
    * @param {any} limit
    * @param {any} stringSearch
@@ -55,7 +54,7 @@ export class BillingService {
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
-   * 
+   *
    * @returns
    * @memberof BillingService
    */
@@ -66,7 +65,7 @@ export class BillingService {
 
   /**
    * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
-   * 
+   *
    * @param {any} data
    * @memberof BillingService
    */

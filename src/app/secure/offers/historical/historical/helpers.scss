@@ -1,0 +1,61 @@
+/*
+* Clases auxiliares para mostrar y ocultar un elemento
+* En diferentes breackpoints
+*/
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+@media (min-width: 370px) {
+  .d-none-xs {
+    display: none !important;
+  }
+
+  .d-block-xs {
+    display: block !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .d-none-sm {
+    display: none !important;
+  }
+
+  .d-block-sm {
+    display: block !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .d-none-md {
+    display: none !important;
+  }
+
+  .d-block-md {
+    display: block !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .d-none-lg {
+    display: none !important;
+  }
+
+  .d-block-lg {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1220px) {
+  .d-none-xl {
+    display: none !important;
+  }
+
+  .d-block-xl {
+    display: block !important;
+  }
+}

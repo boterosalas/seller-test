@@ -13,20 +13,21 @@ import { AppRoutingModule } from './app.routes.routing';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({appId: 'serverApp'}),
-    BrowserAnimationsModule,
-    CoreModule,
-    SharedModule,
-    HomeModule,
-    SecureModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+ declarations: [
+   AppComponent
+ ],
+ imports: [
+   BrowserModule.withServerTransition({appId: 'serverApp'}),
+   BrowserAnimationsModule,
+   CoreModule,
+   SharedModule,
+   HomeModule,
+   SecureModule,
+   AppRoutingModule
+ ],
+ providers: [],
+ bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

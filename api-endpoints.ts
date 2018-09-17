@@ -43,6 +43,9 @@ export const endpoints = {
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+      // Historical
+      getHistoricalOffers: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
+      downloadHistorical: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
       // Products
       products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
     },
@@ -85,7 +88,10 @@ export const endpoints = {
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
-      patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn'
+      patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
+      // Historical
+      getHistoricalOffers: '',
+      downloadHistorical: '',
     }
   }
 };
