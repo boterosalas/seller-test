@@ -1,22 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { Logger } from '@app/core';
+import { EventEmitterDialogs } from './../../events/eventEmitter-dialogs.service';
 
 const log = new Logger('CreateDialogComponent');
 
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
-  styleUrls: ['./create-dialog.component.scss']
+  styleUrls: ['./../dialog.component.scss']
 })
 export class CreateDialogComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<CreateDialogComponent>) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    private events: EventEmitterDialogs
+  ) { }
 
   ngOnInit(): void { }
+
+  closeDialog(): void {
+    this.events.openDialogCreate(false);
+  }
 }
