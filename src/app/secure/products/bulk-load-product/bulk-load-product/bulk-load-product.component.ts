@@ -336,7 +336,7 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') && this.arrayNecessaryData[0].includes('Categoria')) {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto')) {
             /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
             const iVal = {
               iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
@@ -798,7 +798,7 @@ export class BulkLoadProductComponent implements OnInit {
                 errorInCell = true;
               }
             }
-          } else if (j === iVal.iEAN || j === iVal.iTipoDeProducto || j === iVal.iCategoria) {
+          } else if (j === iVal.iEAN || j === iVal.iTipoDeProducto) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
               this.countErrors += 1;
               const row = i + 1, column = j + 1;
@@ -809,7 +809,7 @@ export class BulkLoadProductComponent implements OnInit {
                 columna: column,
                 fila: row,
                 positionRowPrincipal: i,
-                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iTipoDeProducto ? 'ProductType' : j === iVal.iCategoria ? 'Category' : null
+                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iTipoDeProducto ? 'ProductType' : null
               };
               this.listLog.push(itemLog);
               errorInCell = true;
