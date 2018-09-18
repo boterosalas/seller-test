@@ -44,7 +44,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
    * @memberof SearchStoreComponent
    */
   ngOnInit() {
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
         startWith(''),
@@ -54,6 +54,10 @@ export class SearchStoreComponent implements OnInit, OnChanges {
       );
     // consulto las tiendas disponibles
     this.getAllStores();
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   ngOnChanges(changes: SimpleChanges) {

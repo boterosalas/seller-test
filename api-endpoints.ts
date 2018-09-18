@@ -92,6 +92,8 @@ export const endpoints = {
       // Historical
       getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/OfferHistorical',
       downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical',
+      // Products
+      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn'
     }
   }
 };

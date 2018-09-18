@@ -3,7 +3,7 @@
   <mat-toolbar-row class="toolbar-orders-list">
     <div class="content-options-toolbar">
 
-      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="user.sellerProfile === 'seller'">
+      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="user?.sellerProfile === 'seller'">
         <mat-icon>arrow_drop_down</mat-icon>
         &Oacute;rdenes
       </button>
@@ -16,17 +16,17 @@
 
 
          <button mat-menu-item id="dropdown-button-pending-devolution"
-                [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+                [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation"
                 [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]" *ngIf="!isProductionEnv">
           <span>En validación</span>
         </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>En devolución</span>
         </button> 
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>Cargar guías</span>
         </button>
 
@@ -37,19 +37,19 @@
         Ofertas
       </button>
       <mat-menu #offers="matMenu">
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]" *ngIf="user.sellerProfile === 'seller'">
+        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]" *ngIf="user?.sellerProfile === 'seller'">
           <span>Listado de Ofertas</span>
         </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]" *ngIf="user.sellerProfile === 'seller'">
+        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]" *ngIf="user?.sellerProfile === 'seller'">
           <span>Carga Masiva</span>
         </button>
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user.sellerProfile === 'administrator'">
+        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <span>Arbol de Categorias</span>
         </button>
       </mat-menu>
 
 
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user.sellerProfile === 'administrator' && !isProductionEnv">
+      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user?.sellerProfile === 'administrator' && !isProductionEnv">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
@@ -59,7 +59,7 @@
         </button>
       </mat-menu> 
 
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
+      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
         <mat-icon>arrow_drop_down</mat-icon>
         Facturación
       </button>
@@ -69,7 +69,7 @@
         </button>
       </mat-menu>
 
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers" *ngIf="user.sellerProfile === 'administrator'">
+      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="sellers" *ngIf="user?.sellerProfile === 'administrator'">
         <mat-icon>arrow_drop_down</mat-icon>
         Vendedores
       </button>

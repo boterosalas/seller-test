@@ -33,8 +33,8 @@ export class StoreComponent implements OnInit, LoggedInCallback {
 
   }
 
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }

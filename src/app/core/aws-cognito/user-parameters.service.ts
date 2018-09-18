@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CognitoUtil } from './cognito.service';
 import { UserInformation } from '@app/shared/models';
 import { Logger } from '../util/logger.service';
+import { isEmpty } from 'lodash';
 
 const log = new Logger('UserParametersService');
 
@@ -9,16 +10,22 @@ const log = new Logger('UserParametersService');
 export class UserParametersService {
     private cognitoUser: any;
     private user: UserInformation;
-
     constructor(public cognitoUtil: CognitoUtil) {
         this.user = new UserInformation();
-        if (this.cognitoUtil.getCurrentUser()) {
-            this.getParameters();
-        }
     }
 
-    getUserData(): UserInformation {
-        return this.user;
+    async getUserData(): Promise<UserInformation> {
+        return new Promise<UserInformation>(async (resolve) => {
+            if (isEmpty(this.user)) {
+                await this.getParameters();
+            }
+            resolve(this.user);
+        });
+
+    }
+
+    clearUserData(): void {
+        this.user = new UserInformation();
     }
 
     async getParameters(onlyAttributes?: any) {

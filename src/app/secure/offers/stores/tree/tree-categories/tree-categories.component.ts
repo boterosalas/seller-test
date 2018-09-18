@@ -40,12 +40,16 @@ export class TreeCategoriesComponent implements OnInit {
 
   ngOnInit() {
     // obtengo los datos del usuario
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
     this.getAllSellerCommissionCategory();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
       this.configTreeComponent(res);
     });
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**

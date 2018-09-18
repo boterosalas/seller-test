@@ -85,7 +85,7 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   ngOnInit() {
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
     // Si solo hay un registro de producto para ingresar tracking y guía, y la opción enviar
     // todo esta seleccionada, paso a false la opción de envío de todos los productos
     if (this.getLengthProductForSend() === 1) {
@@ -97,6 +97,10 @@ export class SendOrderComponent implements OnInit {
     this.getCarries();
     // creo el formulario de envío
     this.createForm();
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**

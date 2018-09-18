@@ -67,8 +67,12 @@ export class DownloadHistoricalModalComponent implements OnInit {
    * @memberof DownloadHistoricalModalComponent
    */
   ngOnInit() {
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
     this.createForm();
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**
