@@ -259,9 +259,6 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
-                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1484,9 +1481,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -2204,9 +2198,6 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3433,9 +3424,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -4048,6 +4036,7 @@
                                 <a href="#goToRoot">goToRoot</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#isLoggedIn">isLoggedIn</a>
                             </li>
                             <li>
@@ -4297,6 +4286,7 @@
                         <a name="isLoggedIn"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Async</span>
                             isLoggedIn
                             </b>
                             <a href="#isLoggedIn"><span class="fa fa-link"></span></a>
@@ -4305,7 +4295,8 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>isLoggedIn(message: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isLoggedIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>isLoggedIn(message: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isLoggedIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                     </td>
                 </tr>
 
@@ -4361,7 +4352,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                             </div>
                                 <div class="io-description">
@@ -4753,9 +4744,9 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
     this.userService.isAuthenticated(this);
   }
 
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.user &#x3D; this.userParams.getUserData();
+      this.user &#x3D; await this.userParams.getUserData();
     }
   }
 
@@ -4795,11 +4786,11 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
 
       &lt;span class&#x3D;&quot;spacer-content&quot;&gt;&lt;/span&gt;
 
-      &lt;div (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.secureSeller]&quot; class&#x3D;&quot;logo-application&quot;&gt;&lt;/div&gt;
+      &lt;div (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.secureSeller]&quot; class&#x3D;&quot;logo-application&quot;&gt;&lt;/div&gt;
 
     &lt;/mat-toolbar&gt;
 
-    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
       &lt;mat-expansion-panel class&#x3D;&quot;expansion-menu-list&quot; expanded&#x3D;&quot;false&quot;&gt;
         &lt;mat-expansion-panel-header id&#x3D;&quot;matExpansion-item-button-ordenes&quot;&gt;
           &lt;mat-panel-title&gt;
@@ -4810,16 +4801,16 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
           &lt;h6 matLine [innerHTML]&#x3D;&quot;item.name&quot;&gt;&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-         &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOrderInPendingDevolution]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
+         &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOrderInPendingDevolution]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
           &lt;h6 matLine&gt;Solicitudes pendientes&lt;/h6&gt;
         &lt;/mat-list-item&gt;
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOrderInValidation]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOrderInValidation]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
           &lt;h6 matLine&gt;En validación&lt;/h6&gt;
         &lt;/mat-list-item&gt;
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOrderInDevolution]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOrderInDevolution]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
           &lt;h6 matLine&gt;En devolución&lt;/h6&gt;
         &lt;/mat-list-item&gt;
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-cargar-guias&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOrderLoadGuide]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-cargar-guias&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOrderLoadGuide]&quot;&gt;
           &lt;h6 matLine&gt;Cargar guías&lt;/h6&gt;
         &lt;/mat-list-item&gt;
       &lt;/mat-expansion-panel&gt;
@@ -4834,25 +4825,25 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
           &lt;/mat-panel-title&gt;
 
         &lt;/mat-expansion-panel-header&gt;
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOfersList]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOfersList]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
           &lt;h6 matLine&gt;Listado de Ofertas&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOferBulkLoad]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOferBulkLoad]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
           &lt;h6 matLine&gt;Carga Masiva&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOferHistoricalBulkLoad]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOferHistoricalBulkLoad]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;&quot;&gt;
           &lt;h6 matLine&gt;Histórico de Carga de Ofertas&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntOferTreeCategory]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntOferTreeCategory]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
           &lt;h6 matLine&gt;Arbol de categorías&lt;/h6&gt;
         &lt;/mat-list-item&gt;
       &lt;/mat-expansion-panel&gt;
     &lt;/div&gt;
 
-    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
+    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27; &amp;&amp; !isProductionEnv&quot;&gt;
 
       &lt;mat-expansion-panel class&#x3D;&quot;expansion-menu-list&quot; expanded&#x3D;&quot;false&quot;&gt;
         &lt;mat-expansion-panel-header id&#x3D;&quot;matExpansion-item-button-products&quot;&gt;
@@ -4862,14 +4853,14 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
 
         &lt;/mat-expansion-panel-header&gt;
 
-        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntProductBulkLoad]&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
+        &lt;mat-list-item (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntProductBulkLoad]&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
           &lt;h6 matLine&gt;Carga masiva&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
       &lt;/mat-expansion-panel&gt;
     &lt;/div&gt;
 
-    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
       &lt;mat-expansion-panel class&#x3D;&quot;expansion-menu-list&quot; expanded&#x3D;&quot;false&quot;&gt;
         &lt;mat-expansion-panel-header id&#x3D;&quot;matExpansion-item-button-seller&quot;&gt;
           &lt;mat-panel-title&gt;
@@ -4877,7 +4868,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
           &lt;/mat-panel-title&gt;
         &lt;/mat-expansion-panel-header&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-seller-register&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntSellerRegister]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-seller-register&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntSellerRegister]&quot;&gt;
           &lt;h6 matLine&gt;Registrar nuevo&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
@@ -4892,14 +4883,14 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
           &lt;/mat-panel-title&gt;
         &lt;/mat-expansion-panel-header&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-pagos&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntBillingPayments]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-pagos&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntBillingPayments]&quot;&gt;
           &lt;h6 matLine&gt;Pagos&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
       &lt;/mat-expansion-panel&gt;
     &lt;/div&gt;
 
-    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;content-menu-list&quot; *ngIf&#x3D;&quot;user?.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;&quot;&gt;
       &lt;mat-expansion-panel class&#x3D;&quot;expansion-menu-list&quot; expanded&#x3D;&quot;false&quot;&gt;
         &lt;mat-expansion-panel-header id&#x3D;&quot;matExpansion-item-button-docs&quot;&gt;
           &lt;mat-panel-title&gt;
@@ -4922,12 +4913,12 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
     &lt;!--&lt;mat-list-item id&#x3D;&quot;matlist-item-button-soporte&quot; (click)&#x3D;&quot;toggleMenu();shellComponent.openDialogSupport()&quot;&gt;
       &lt;h6 matLine&gt;Soporte Marketplace&lt;/h6&gt;
     &lt;/mat-list-item&gt; --&gt;
-    &lt;mat-list-item id&#x3D;&quot;matlist-item-button-perfil-usuario&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterMyProfile]&quot;&gt;
+    &lt;mat-list-item id&#x3D;&quot;matlist-item-button-perfil-usuario&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterMyProfile]&quot;&gt;
       &lt;mat-icon matListIcon class&#x3D;&quot;mat-18&quot;&gt;person&lt;/mat-icon&gt;
       &lt;h6 matLine&gt;Perfil&lt;/h6&gt;
     &lt;/mat-list-item&gt;
 
-    &lt;mat-list-item id&#x3D;&quot;matlist-item-button-cerrar-sesion&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterLogout]&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
+    &lt;mat-list-item id&#x3D;&quot;matlist-item-button-cerrar-sesion&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterLogout]&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
       &lt;mat-icon matListIcon class&#x3D;&quot;mat-18&quot;&gt;input&lt;/mat-icon&gt;
       &lt;h6 matLine&gt;Salir&lt;/h6&gt;
     &lt;/mat-list-item&gt;
@@ -4942,19 +4933,19 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
 
         &lt;/mat-expansion-panel-header&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-historico&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntShipmentsExitoHist]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-historico&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntShipmentsExitoHist]&quot;&gt;
           &lt;h6 matLine&gt;Historico&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-despacho&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntShipmentsExitoOffice]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-despacho&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntShipmentsExitoOffice]&quot;&gt;
           &lt;h6 matLine&gt;Despacho&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-pendientes&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntShipmentsExitoPending]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-pendientes&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntShipmentsExitoPending]&quot;&gt;
           &lt;h6 matLine&gt;Pendientes&lt;/h6&gt;
         &lt;/mat-list-item&gt;
 
-        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-reportes&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes.sellerCenterIntShipmentsExitoReports]&quot;&gt;
+        &lt;mat-list-item id&#x3D;&quot;matlist-item-button-reportes&quot; (click)&#x3D;&quot;toggleMenu()&quot; [routerLink]&#x3D;&quot;[&#x27;/&#x27; + routes?.sellerCenterIntShipmentsExitoReports]&quot;&gt;
           &lt;h6 matLine&gt;Reportes&lt;/h6&gt;
         &lt;/mat-list-item&gt;
       &lt;/mat-expansion-panel&gt;
@@ -4990,7 +4981,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card class="content-profile">  <mat-nav-list class="light-content">    <mat-toolbar color="primary">      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below" mat-icon-button mat-button        (click)="toggleMenu()">        <mat-icon>menu</mat-icon>      </button>      <span class="spacer-content"></span>      <div (click)="toggleMenu()" [routerLink]="[\'/\' + routes.secureSeller]" class="logo-application"></div>    </mat-toolbar>    <div class="content-menu-list" *ngIf="user.sellerProfile === \'seller\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">          <mat-panel-title>            &Oacute;rdenes          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">          <h6 matLine [innerHTML]="item.name"></h6>        </mat-list-item>         <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>Solicitudes pendientes</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOrderInValidation]" *ngIf="user.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>En validación</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>En devolución</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOrderLoadGuide]">          <h6 matLine>Cargar guías</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-ofertas">          <mat-panel-title class="divider">            Ofertas          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOfersList]" *ngIf="user.sellerProfile === \'seller\'">          <h6 matLine>Listado de Ofertas</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOferBulkLoad]" *ngIf="user.sellerProfile === \'seller\'">          <h6 matLine>Carga Masiva</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOferHistoricalBulkLoad]" *ngIf="user.sellerProfile === \'seller\'">          <h6 matLine>Histórico de Carga de Ofertas</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user.sellerProfile === \'administrator\'">          <h6 matLine>Arbol de categorías</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user.sellerProfile === \'administrator\' && !isProductionEnv">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-products">          <mat-panel-title>            Productos          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntProductBulkLoad]" *ngIf="user.sellerProfile === \'administrator\'">          <h6 matLine>Carga masiva</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user.sellerProfile === \'administrator\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-seller">          <mat-panel-title>            Vendedores          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntSellerRegister]">          <h6 matLine>Registrar nuevo</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="!isProductionEnv">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-facturacion">          <mat-panel-title>            Facturaci&Oacute;n          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-pagos" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntBillingPayments]">          <h6 matLine>Pagos</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user.sellerProfile === \'administrator\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-docs">          <mat-panel-title>            Documentaci&oacute;n          </mat-panel-title>        </mat-expansion-panel-header>        <a mat-list-item id="matlist-item-button-seller-documentation" href="http://sellercenter.api.exito.com.s3-website-us-east-1.amazonaws.com/"            target="_blank">            <h3 matLine style="margin-left:50px;">API</h3>        </a>        <a mat-list-item id="matlist-item-button-seller-documentation-front" href="http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/"            target="_blank">            <h3 matLine style="margin-left:50px;">App Angular</h3>        </a>      </mat-expansion-panel>    </div>    <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">      <h6 matLine>Soporte Marketplace</h6>    </mat-list-item> -->    <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterMyProfile]">      <mat-icon matListIcon class="mat-18">person</mat-icon>      <h6 matLine>Perfil</h6>    </mat-list-item>    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="[\'/\' + routes.sellerCenterLogout]" (click)="toggleMenu()">      <mat-icon matListIcon class="mat-18">input</mat-icon>      <h6 matLine>Salir</h6>    </mat-list-item>    <!--    <div class="content-menu-list">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-envios-exito">          <mat-panel-title>            Envios Éxito          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-historico" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntShipmentsExitoHist]">          <h6 matLine>Historico</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-despacho" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntShipmentsExitoOffice]">          <h6 matLine>Despacho</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-pendientes" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntShipmentsExitoPending]">          <h6 matLine>Pendientes</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-reportes" (click)="toggleMenu()" [routerLink]="[\'/\' + routes.sellerCenterIntShipmentsExitoReports]">          <h6 matLine>Reportes</h6>        </mat-list-item>      </mat-expansion-panel>    </div> -->  </mat-nav-list></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-card class="content-profile">  <mat-nav-list class="light-content">    <mat-toolbar color="primary">      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below" mat-icon-button mat-button        (click)="toggleMenu()">        <mat-icon>menu</mat-icon>      </button>      <span class="spacer-content"></span>      <div (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.secureSeller]" class="logo-application"></div>    </mat-toolbar>    <div class="content-menu-list" *ngIf="user?.sellerProfile === \'seller\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-ordenes">          <mat-panel-title>            &Oacute;rdenes          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">          <h6 matLine [innerHTML]="item.name"></h6>        </mat-list-item>         <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOrderInPendingDevolution]" *ngIf="user?.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>Solicitudes pendientes</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOrderInValidation]" *ngIf="user?.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>En validación</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === \'seller\' && !isProductionEnv">          <h6 matLine>En devolución</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOrderLoadGuide]">          <h6 matLine>Cargar guías</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-ofertas">          <mat-panel-title class="divider">            Ofertas          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOfersList]" *ngIf="user?.sellerProfile === \'seller\'">          <h6 matLine>Listado de Ofertas</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOferBulkLoad]" *ngIf="user?.sellerProfile === \'seller\'">          <h6 matLine>Carga Masiva</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOferHistoricalBulkLoad]" *ngIf="user?.sellerProfile === \'seller\'">          <h6 matLine>Histórico de Carga de Ofertas</h6>        </mat-list-item>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === \'administrator\'">          <h6 matLine>Arbol de categorías</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user?.sellerProfile === \'administrator\' && !isProductionEnv">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-products">          <mat-panel-title>            Productos          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntProductBulkLoad]" *ngIf="user?.sellerProfile === \'administrator\'">          <h6 matLine>Carga masiva</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user?.sellerProfile === \'administrator\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-seller">          <mat-panel-title>            Vendedores          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntSellerRegister]">          <h6 matLine>Registrar nuevo</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="!isProductionEnv">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-facturacion">          <mat-panel-title>            Facturaci&Oacute;n          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-pagos" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntBillingPayments]">          <h6 matLine>Pagos</h6>        </mat-list-item>      </mat-expansion-panel>    </div>    <div class="content-menu-list" *ngIf="user?.sellerProfile === \'administrator\'">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-docs">          <mat-panel-title>            Documentaci&oacute;n          </mat-panel-title>        </mat-expansion-panel-header>        <a mat-list-item id="matlist-item-button-seller-documentation" href="http://sellercenter.api.exito.com.s3-website-us-east-1.amazonaws.com/"            target="_blank">            <h3 matLine style="margin-left:50px;">API</h3>        </a>        <a mat-list-item id="matlist-item-button-seller-documentation-front" href="http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/"            target="_blank">            <h3 matLine style="margin-left:50px;">App Angular</h3>        </a>      </mat-expansion-panel>    </div>    <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">      <h6 matLine>Soporte Marketplace</h6>    </mat-list-item> -->    <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterMyProfile]">      <mat-icon matListIcon class="mat-18">person</mat-icon>      <h6 matLine>Perfil</h6>    </mat-list-item>    <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="[\'/\' + routes?.sellerCenterLogout]" (click)="toggleMenu()">      <mat-icon matListIcon class="mat-18">input</mat-icon>      <h6 matLine>Salir</h6>    </mat-list-item>    <!--    <div class="content-menu-list">      <mat-expansion-panel class="expansion-menu-list" expanded="false">        <mat-expansion-panel-header id="matExpansion-item-button-envios-exito">          <mat-panel-title>            Envios Éxito          </mat-panel-title>        </mat-expansion-panel-header>        <mat-list-item id="matlist-item-button-historico" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntShipmentsExitoHist]">          <h6 matLine>Historico</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-despacho" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntShipmentsExitoOffice]">          <h6 matLine>Despacho</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-pendientes" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntShipmentsExitoPending]">          <h6 matLine>Pendientes</h6>        </mat-list-item>        <mat-list-item id="matlist-item-button-reportes" (click)="toggleMenu()" [routerLink]="[\'/\' + routes?.sellerCenterIntShipmentsExitoReports]">          <h6 matLine>Reportes</h6>        </mat-list-item>      </mat-expansion-panel>    </div> -->  </mat-nav-list></mat-card></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HistoricalComponent', 'selector': 'app-historical-component'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManageSellerComponent', 'selector': 'app-manage-seller'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchSellerComponent', 'selector': 'app-search-seller'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'ToolbarSellerComponent', 'selector': 'app-toolbar-seller'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
     var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
     var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};

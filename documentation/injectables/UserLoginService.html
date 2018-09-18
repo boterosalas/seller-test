@@ -259,9 +259,6 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
-                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1484,9 +1481,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -2204,9 +2198,6 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3433,9 +3424,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -4202,7 +4190,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>confirmNewPassword(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, verificationCode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, callback: <a href="../interfaces/CognitoCallback.html">CognitoCallback</a>)</code>
+<code>confirmNewPassword(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, verificationCode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
 
@@ -4264,25 +4252,13 @@
                                                     
 
                                                 </tr>
-                                                <tr>
-                                                        <td>callback</td>
-                                                        <td>
-                                                                    <code><a href="../interfaces/CognitoCallback.html" target="_self" >CognitoCallback</a></code>
-                                                        </td>
-                                                    
-                                                    <td>
-                                                            no
-                                                    </td>
-                                                    
-
-                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
 
                             </div>
                                 <div class="io-description">
@@ -4395,7 +4371,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">src/app/core/aws-cognito/user-login.service.ts:139</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/core/aws-cognito/user-login.service.ts:141</a></div>
                             </td>
                         </tr>
 
@@ -4464,7 +4440,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/app/core/aws-cognito/user-login.service.ts:131</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">src/app/core/aws-cognito/user-login.service.ts:133</a></div>
                             </td>
                         </tr>
 
@@ -4767,21 +4743,23 @@ export class UserLoginService {
     });
   }
 
-  confirmNewPassword(email: string, verificationCode: string, password: string, callback: CognitoCallback) {
-    const userData &#x3D; {
-      Username: email,
-      Pool: this.cognitoUtil.getUserPool()
-    };
+  confirmNewPassword(email: string, verificationCode: string, password: string): Promise&lt;string&gt; {
+    return new Promise&lt;string&gt;((resolve) &#x3D;&gt; {
+      const userData &#x3D; {
+        Username: email,
+        Pool: this.cognitoUtil.getUserPool()
+      };
 
-    const cognitoUser &#x3D; new CognitoUser(userData);
+      const cognitoUser &#x3D; new CognitoUser(userData);
 
-    cognitoUser.confirmPassword(verificationCode, password, {
-      onSuccess: function () {
-        callback.cognitoCallback(null, null);
-      },
-      onFailure: function (err: any) {
-        callback.cognitoCallback(err.message, null);
-      }
+      cognitoUser.confirmPassword(verificationCode, password, {
+        onSuccess: () &#x3D;&gt; {
+          resolve(null);
+        },
+        onFailure: (err: any) &#x3D;&gt; {
+          resolve(err.message);
+        }
+      });
     });
   }
 

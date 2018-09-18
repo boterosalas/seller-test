@@ -259,9 +259,6 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
-                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1484,9 +1481,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -2204,9 +2198,6 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3433,9 +3424,6 @@
                             <li class="link">
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
-                            <li class="link">
-                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
-                            </li>
                     </ul>
                 </li>
 
@@ -4054,6 +4042,7 @@
                                 <a href="#createForm">createForm</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getDataUser">getDataUser</a>
                             </li>
                             <li>
@@ -4369,6 +4358,7 @@
                         <a name="getDataUser"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Async</span>
                             getDataUser
                             </b>
                             <a href="#getDataUser"><span class="fa fa-link"></span></a>
@@ -4377,7 +4367,8 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>getDataUser()</code>
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>getDataUser()</code>
                     </td>
                 </tr>
 
@@ -4393,7 +4384,7 @@
                     <td class="col-md-4">
 
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                             </div>
                     </td>
@@ -5101,8 +5092,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     }
   }
 
-  getDataUser() {
-    this.user &#x3D; this.user &#x3D; this.userParams.getUserData();
+  async getDataUser() {
+    this.user &#x3D; await this.userParams.getUserData();
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;) {
       this.router.navigate([&#x60;/${this.consts.sellerCenterOrders}&#x60;]);
