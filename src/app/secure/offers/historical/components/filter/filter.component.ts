@@ -1,5 +1,5 @@
 // 3rd party components
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -29,6 +29,18 @@ export class FilterComponent implements OnInit {
    * @memberof FilterComponent
    */
   @Input() sidenav;
+
+  /**
+   * Variable para observar el input del filtro inicial
+   * @memberof FilterComponent
+   */
+  @ViewChild('dateInitial') dateInitial;
+
+  /**
+   * Variable para observar el input del filtro final
+   * @memberof FilterComponent
+   */
+  @ViewChild('dateFinal') dateFinal;
 
   /**
    * Conjunto de variables necesaria para validar el formulario
@@ -108,4 +120,23 @@ export class FilterComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * @method openDateInitial
+   * @description Metodo para abrir el popup del datepicker cuando se hace click en el input de fecha inicial
+   * @memberof FilterComponent
+   */
+  openDateInitial() {
+    this.dateInitial.open();
+  }
+
+  /**
+   * @method openDateFinal
+   * @description Metodo para abrir el popup del datepicker cuando se hace click en el input de fecha final
+   * @memberof FilterComponent
+   */
+  openDateFinal() {
+    this.dateFinal.open();
+  }
+
 }
