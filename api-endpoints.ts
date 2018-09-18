@@ -92,6 +92,8 @@ export const endpoints = {
       // Historical
       getHistoricalOffers: '',
       downloadHistorical: '',
+      // Products
+      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn'
     }
   }
 };
