@@ -31,10 +31,12 @@
         placeholder="Fecha inicio"
         formControlName="dateInitial"
         name="dateInitial"
+        [readonly]="true"
         matInput
         [matDatepicker]="dateInitial"
-        (dateChange)="setMaxDateRange();validateFinalRange()">
-      <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+        (dateChange)="setMaxDateRange();validateFinalRange();"
+        (click)="openDateInitial()">
+      <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
     </mat-form-field>
     <!-- /Input date initial -->
@@ -46,11 +48,13 @@
         placeholder="Fecha final"
         formControlName="dateFinal"
         name="dateFinal"
+        [readonly]="true"
         [min]="historicalFilterForm.value.dateInitial"
         [max]="rangeDateMax"
         matInput
-        [matDatepicker]="dateFinal">
-      <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateFinal"></mat-datepicker-toggle>
+        [matDatepicker]="dateFinal"
+        (click)="openDateFinal()">
+      <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
       <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
     </mat-form-field>
