@@ -90,7 +90,11 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   ngOnInit() {
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }

@@ -41,8 +41,12 @@ export class SearchBillingFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
     this.createForm();
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**

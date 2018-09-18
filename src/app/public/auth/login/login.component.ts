@@ -120,8 +120,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     }
   }
 
-  getDataUser() {
-    this.user = this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${this.consts.sellerCenterOrders}`]);

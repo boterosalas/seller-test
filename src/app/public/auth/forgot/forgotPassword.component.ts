@@ -201,10 +201,11 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     this.sub.unsubscribe();
   }
 
-  onNext() {
+  async onNext() {
     this.errorMessage = null;
     this.loadingService.viewSpinner();
-    this.userService.confirmNewPassword(this.email, this.confirmNewPassword.controls.verificationCode.value, this.confirmNewPassword.controls.newPassword.value, this);
+    const message = await this.userService.confirmNewPassword(this.email, this.confirmNewPassword.controls.verificationCode.value, this.confirmNewPassword.controls.newPassword.value);
+    this.validChangePassword(message);
   }
 
   /**
@@ -213,7 +214,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
    * @description Handle the response of cognito login service
    * @memberof ForgotPassword
    */
-  cognitoCallback(message: string) {
+  validChangePassword(message: string) {
     if (message != null) { // error
       log.error('result: ' + message);
       switch (message) {
@@ -236,22 +237,25 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
           this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
       }
       this.loadingService.closeSpinner();
-    } else if (this.changePassSucces) { // success
-      this.ddb.writeLogEntry('login');
-      this.getDataUser();
-    } else {
-      this.changePassSucces = !this.changePassSucces;
+    } else { // success
       this.userService.authenticate(this.email, this.confirmNewPassword.controls.newPassword.value, this);
     }
   }
 
+  async cognitoCallback(message: string, result: any) {
+    if (message === null) {
+      this.ddb.writeLogEntry('login');
+      await this.userParams.getParameters();
+      this.getDataUser();
+    }
+  }
   /**
    * @method getDataUser
    * @description Get the data of user when this make login
    * @memberof ForgotPassword
    */
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.shell.user = this.user;
     this.loadingService.closeSpinner();
     if (this.user.sellerProfile === 'seller') {

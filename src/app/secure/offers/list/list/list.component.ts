@@ -91,8 +91,8 @@ export class ListComponent implements OnInit, LoggedInCallback {
    * @description Método para ir al servicio de userParams y obtener los datos del usuario
    * @memberof ListComponent
    */
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {

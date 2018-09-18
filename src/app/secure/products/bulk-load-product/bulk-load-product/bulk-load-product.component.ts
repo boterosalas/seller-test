@@ -133,8 +133,8 @@ export class BulkLoadProductComponent implements OnInit {
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
    * @memberof BulkLoadProductComponent
    */
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     } else {

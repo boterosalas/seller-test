@@ -5,6 +5,9 @@ import { CategoryList } from '@app/shared/models/order.model';
 import { RoutesConst } from '@app/shared/util/routes.constants';
 import { environment } from '@env/environment';
 import { UserInformation } from '@app/shared/models';
+import { Logger } from '@app/core';
+
+const log = new Logger('ToolbarLinkComponent');
 
 /**
  * Componente Toolbar para los links de la orden.
@@ -43,16 +46,16 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback {
     private route: Router,
     public userService: UserLoginService,
     public userParams: UserParametersService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
+    this.getCategory();
   }
 
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.user = this.userParams.getUserData();
-      this.getCategory();
+      this.user = await this.userParams.getUserData();
     }
   }
 

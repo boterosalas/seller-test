@@ -7,8 +7,8 @@
     <div (click)="goToHome()" class="logo-application"></div>
     <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user"
        style="margin-left:20px;">Bienvenido:
-      <b>{{user.sellerName}}</b>
-      <span class="sc-header-name-seller">ID: {{user.sellerId}}</span>
+      <b>{{user?.sellerName}}</b>
+      <span class="sc-header-name-seller">ID: {{user?.sellerId}}</span>
     </p>
     <span class="spacer-content"></span>
     <div fxLayoutGap="10px">
@@ -23,12 +23,12 @@
         <mat-icon class="mat-24">help</mat-icon>
         Soporte
       </button> -->
-      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterMyProfile]"
+      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
               id="profile-button"
               mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes.sellerCenterLogout]"
+      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
               id="logout-button"
               mat-icon-button mat-button color="accent">
       <mat-icon class="mat-24">exit_to_app</mat-icon>

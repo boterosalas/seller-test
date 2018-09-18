@@ -42,9 +42,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     this.userService.isAuthenticated(this);
   }
 
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.user = this.userParams.getUserData();
+      this.user = await this.userParams.getUserData();
       this.routes = RoutesConst;
     }
   }
