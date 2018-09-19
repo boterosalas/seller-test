@@ -71,13 +71,17 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  sendProductOrder(product: any, user: any, orderId: any, idProduct: any): Observable<[{}]> {
+  sendProductOrder(product: any, orderId: any, idProduct: any): Observable<{}> {
     return new Observable(observer => {
-      this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-        observer.error(err);
-      });
+      this.http.patch<any>(this.api.get('sendProductInOrder', [orderId, idProduct]), product, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
     });
   }
 
@@ -89,7 +93,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  sendAllProductInOrder(orders, user, orderId): Observable<[{}]> {
+  sendAllProductInOrder(orders, orderId): Observable<[{}]> {
     return new Observable(observer => {
       this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders).subscribe((data: any) => {
         observer.next(data);

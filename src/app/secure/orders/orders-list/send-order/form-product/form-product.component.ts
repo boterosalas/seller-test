@@ -105,7 +105,7 @@ export class FormProductComponent implements OnInit {
     };
 
     if (this.product.id != null) {
-      this.orderService.sendProductOrder(jsonProduct, this.user, this.order.id, this.product.id).subscribe((res: any) => {
+      this.orderService.sendProductOrder(jsonProduct, this.order.id, this.product.id).subscribe((res: any) => {
         this.componentsService.openSnackBar('Se ha enviado el producto correctamente', 'Cerrar', 4000);
 
         // armo un json con la información del producto y actualizo la guía y la transportadora.

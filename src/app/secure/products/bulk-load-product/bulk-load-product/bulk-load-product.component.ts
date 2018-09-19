@@ -7,6 +7,7 @@ import { LoadingService, Logger, ModalService, UserLoginService, UserParametersS
 import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { uniq, isEqual, uniqWith } from 'lodash';
 
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
@@ -884,62 +885,60 @@ export class BulkLoadProductComponent implements OnInit {
     }
 
     if (i > 0 && i !== 0) {
-      for (let j = i; j < res.length; j++) {
-        for (let k = 0; k < res[0].length; k++) {
-          const newFeatures = {};
-          if (k !== iVal.iEAN &&
-            k !== iVal.iNombreProd &&
-            k !== iVal.iCategoria &&
-            k !== iVal.iMarca &&
-            k !== iVal.iModelo &&
-            k !== iVal.iDetalles &&
-            k !== iVal.iDescripcion &&
-            k !== iVal.iMetaTitulo &&
-            k !== iVal.iMetaDescripcion &&
-            k !== iVal.iPalabrasClave &&
-            k !== iVal.iAltoDelEmpaque &&
-            k !== iVal.ilargoDelEmpaque &&
-            k !== iVal.iAnchoDelEmpaque &&
-            k !== iVal.iPesoDelEmpaque &&
-            k !== iVal.iSkuShippingSize &&
-            k !== iVal.iAltoDelProducto &&
-            k !== iVal.iLargoDelProducto &&
-            k !== iVal.iAnchoDelProducto &&
-            k !== iVal.iPesoDelProducto &&
-            k !== iVal.iVendedor &&
-            k !== iVal.iTipoDeProducto &&
-            k !== iVal.iURLDeImagen1 &&
-            k !== iVal.iURLDeImagen2 &&
-            k !== iVal.iURLDeImagen3 &&
-            k !== iVal.iURLDeImagen4 &&
-            k !== iVal.iURLDeImagen5 &&
-            k !== iVal.iModificacionImagen &&
-            k !== iVal.iLogisticExito
-          ) {
-            if (variant && variant === true) {
-              if (k !== iVal.iParentReference &&
-                k !== iVal.iSonReference &&
-                k !== iVal.iSize &&
-                k !== iVal.iColor &&
-                k !== iVal.iHexColourCodePDP &&
-                k !== iVal.iHexColourName) {
-                if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
-                  newFeatures['key'] = res[0][k].trim();
-                  newFeatures['value'] = res[i][k].trim();
-                  newObjectForSend.features.push(newFeatures);
-                }
-              }
-            } else if (!variant && variant === false) {
+      for (let k = 0; k < res[0].length; k++) {
+        const newFeatures = {};
+        if (k !== iVal.iEAN &&
+          k !== iVal.iNombreProd &&
+          k !== iVal.iCategoria &&
+          k !== iVal.iMarca &&
+          k !== iVal.iModelo &&
+          k !== iVal.iDetalles &&
+          k !== iVal.iDescripcion &&
+          k !== iVal.iMetaTitulo &&
+          k !== iVal.iMetaDescripcion &&
+          k !== iVal.iPalabrasClave &&
+          k !== iVal.iAltoDelEmpaque &&
+          k !== iVal.ilargoDelEmpaque &&
+          k !== iVal.iAnchoDelEmpaque &&
+          k !== iVal.iPesoDelEmpaque &&
+          k !== iVal.iSkuShippingSize &&
+          k !== iVal.iAltoDelProducto &&
+          k !== iVal.iLargoDelProducto &&
+          k !== iVal.iAnchoDelProducto &&
+          k !== iVal.iPesoDelProducto &&
+          k !== iVal.iVendedor &&
+          k !== iVal.iTipoDeProducto &&
+          k !== iVal.iURLDeImagen1 &&
+          k !== iVal.iURLDeImagen2 &&
+          k !== iVal.iURLDeImagen3 &&
+          k !== iVal.iURLDeImagen4 &&
+          k !== iVal.iURLDeImagen5 &&
+          k !== iVal.iModificacionImagen &&
+          k !== iVal.iLogisticExito
+        ) {
+          if (variant && variant === true) {
+            if (k !== iVal.iParentReference &&
+              k !== iVal.iSonReference &&
+              k !== iVal.iSize &&
+              k !== iVal.iColor &&
+              k !== iVal.iHexColourCodePDP &&
+              k !== iVal.iHexColourName) {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
                 newObjectForSend.features.push(newFeatures);
               }
             }
-
+          } else if (!variant && variant === false) {
+            if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
+              newFeatures['key'] = res[0][k].trim();
+              newFeatures['value'] = res[i][k].trim();
+              newObjectForSend.features.push(newFeatures);
+            }
           }
 
         }
+
       }
     }
 
