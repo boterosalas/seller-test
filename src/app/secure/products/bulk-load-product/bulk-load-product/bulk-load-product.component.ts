@@ -7,6 +7,7 @@ import { LoadingService, Logger, ModalService, UserLoginService, UserParametersS
 import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { uniq, isEqual, uniqWith } from 'lodash';
 
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
@@ -942,7 +943,9 @@ export class BulkLoadProductComponent implements OnInit {
         }
       }
     }
-
+    // ESO ES UN MACHETE, HAY CORREGIRLO.
+    // Solución temporal: eliminar elmentos duplicados del array de 'features'.
+    newObjectForSend.features = uniqWith(newObjectForSend.features, isEqual);
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
