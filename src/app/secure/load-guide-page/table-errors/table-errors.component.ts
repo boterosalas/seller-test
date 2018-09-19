@@ -1,9 +1,7 @@
-/* 3rd party components */
-import {Component, Input} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Input } from '@angular/core';
 
-/* our own custom components */
-import {LoadGuidePageComponent} from '../load-guide/load-guide-page.component';
+import { LoadGuidePageComponent } from '../load-guide/load-guide-page.component';
 
 /**
  * Component que permite visualizar una

@@ -5,7 +5,8 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 
 /* our own custom components */
 import { ProductDetailBillingModalComponent } from '../product-detail-modal/product-detail-modal.component';
-import { Logger, FAKE } from '@app/shared';
+import { FAKE } from '@app/shared';
+import { Logger } from '@app/core';
 
 
 // log component

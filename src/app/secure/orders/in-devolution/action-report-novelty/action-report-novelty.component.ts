@@ -1,17 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import {
-  Callback,
-  ComponentsService,
-  FAKE,
-  ListReasonRejectionResponseEntity,
-  Logger,
-  OrderDevolutionsModel,
-  UserParametersService
-} from '@app/shared';
 
+import { Logger, UserParametersService } from '@app/core';
+import { ComponentsService, FAKE, ListReasonRejectionResponseEntity, OrderDevolutionsModel, UserInformation } from '@app/shared';
 import { InDevolutionService } from '@root/src/app/secure/orders/in-devolution/in-devolution.service';
 
 
@@ -28,11 +20,11 @@ const log = new Logger('ActionReportNoveltyComponent');
 /**
  * Component para la acción a realizar con una novedad
  */
-export class ActionReportNoveltyComponent implements OnInit, Callback {
+export class ActionReportNoveltyComponent implements OnInit {
   // Variable que almacena los datos del formulario
   myform: FormGroup;
   // Información del usuario.
-  public user: any;
+  public user: UserInformation;
   // Información de la orden actual
   public currentOrder: OrderDevolutionsModel;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -55,7 +47,6 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
-    this.user = {};
   }
 
   ngOnInit() {
@@ -63,19 +54,13 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
     this.createForm();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**
    * Método para crear el formulario de envío.
-   * 
+   *
    * @memberof ActionReportNoveltyComponent
    */
   createForm() {
@@ -87,7 +72,7 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
 
   /**
    * Método para limpiar el formulario.
-   * 
+   *
    * @memberof ActionReportNoveltyComponent
    */
   clearForm() {
@@ -97,7 +82,7 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
 
   /**
    * Funcionalidad para cerrar el modal actual de envio.
-   * 
+   *
    * @memberof SupportModalComponent
    */
   onNoClick(): void {
@@ -106,7 +91,7 @@ export class ActionReportNoveltyComponent implements OnInit, Callback {
 
   /**
    * Método para rechazar una orden.
-   * 
+   *
    * @memberof ActionReportNoveltyComponent
    */
   reportNovelty(myform) {

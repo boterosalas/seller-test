@@ -1,18 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Logger, UserParametersService } from '@app/core';
 import {
-  Callback,
   ComponentsService,
   Const,
   ListReasonRejectionResponseEntity,
-  Logger,
   OrderDevolutionsModel,
   Pending,
   SearchFormEntity,
-  UserParametersService,
+  UserInformation,
 } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 import { isEmpty } from 'lodash';
@@ -24,8 +22,6 @@ import {
   ProductPendingDevolutionModalComponent,
 } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
-
-
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -50,7 +46,7 @@ const log = new Logger('PendingDevolutionComponent');
 /**
  * Componente
  */
-export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
+export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
   // Elemento paginador
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -79,7 +75,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
   // Número de órdenes
   public orderListLength = false;
   // user info
-  public user: any;
+  public user: UserInformation;
   // suscriptions vars
   private subFilterOrderPending: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
@@ -103,9 +99,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
     private pendingDevolutionService: PendingDevolutionService,
     public componentsService: ComponentsService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * ngOnInit
@@ -120,15 +114,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
     this.subFilterOrderPending.unsubscribe();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-    // Obtener las órdenes con la función del componente ToolbarOptionsComponent
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
@@ -248,7 +235,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal de confirmaición.
-   * 
+   *
    * @param {OrderDevolutionsModel} order
    * @memberof PendingDevolutionComponent
    */

@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import {
-    UserLoginService,
-    LoggedInCallback,
-    DynamoDBService,
-    RoutesConst
-} from '@app/shared';
 import { Router } from '@angular/router';
+import { DynamoDBService, LoggedInCallback, UserLoginService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 
 
 export class Stuff {

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
 import { environment } from '@env/environment';
 
@@ -9,16 +11,19 @@ import { PendingDevolutionComponent } from './pending-devolution-page/pending-de
 const isProductionEnv = environment.production;
 
 const routes: Routes = [
+  Route.withShell([
     {
         path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
         component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
         data: { title: 'Solicitudes pendientes' },
     }
+  ])
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
-export class PendingDevolutionRoutingModule { }
+export class PendingDevolutionRoutingModule {
+}

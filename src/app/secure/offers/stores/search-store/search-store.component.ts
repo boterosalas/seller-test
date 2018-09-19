@@ -1,19 +1,13 @@
-/* 3rd party components */
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Logger, UserParametersService } from '@app/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-/* our own custom components */
 import { EventEmitterStore } from '../events/eventEmitter-store.service';
-import { StoresService } from '../stores.service';
 import { StoreModel } from '../models/store.model';
-import {
-  Logger,
-  UserService,
-  Callback,
-  UserParametersService
-} from '@app/shared';
+import { StoresService } from '../stores.service';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('SearchStoreComponent');
@@ -25,13 +19,13 @@ const log = new Logger('SearchStoreComponent');
   host: { 'class': 'search-content-selector' },
   styleUrls: ['./search-store.component.scss'],
 })
-export class SearchStoreComponent implements OnInit, OnChanges, Callback {
+export class SearchStoreComponent implements OnInit, OnChanges {
 
   // variable que almacena el texto que se obtiene del input al buscar.
   textForSearch: FormControl = new FormControl();
 
   // Información del usuario
-  public user: any;
+  public user: UserInformation;
   // variable que almacena la lista de tiendas disponibles para buscar
   listStores = [];
 
@@ -42,11 +36,8 @@ export class SearchStoreComponent implements OnInit, OnChanges, Callback {
 
   constructor(
     public eventsStore: EventEmitterStore,
-    public userService: UserService,
     public storeService: StoresService,
-    public userParams: UserParametersService) {
-    this.user = {};
-  }
+    public userParams: UserParametersService) { }
 
   /**
    * Evento al iniciar el componente
@@ -65,21 +56,15 @@ export class SearchStoreComponent implements OnInit, OnChanges, Callback {
     this.getAllStores();
   }
 
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.searchStoreInput.currentValue && changes.searchStoreInput.currentValue !== undefined &&
       changes.searchStoreInput.currentValue !== null) {
       this.viewStoreInformation(this.searchStoreInput);
     }
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   /**

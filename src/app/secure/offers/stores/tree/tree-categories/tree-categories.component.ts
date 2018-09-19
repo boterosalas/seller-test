@@ -1,15 +1,10 @@
-/* 3rd party components */
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-/* our own custom components */
-import { StoresService } from '../../stores.service';
-import { StoreModel, IsLoadInformationForTree } from '../../models/store.model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Logger, UserParametersService } from '@app/core';
+
 import { EventEmitterStore } from '../../events/eventEmitter-store.service';
-import {
-  Logger,
-  UserService,
-  Callback,
-  UserParametersService
-} from '@app/shared';
+import { IsLoadInformationForTree, StoreModel } from '../../models/store.model';
+import { StoresService } from '../../stores.service';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');
@@ -19,7 +14,7 @@ const log = new Logger('TreeCategoriesComponent');
   templateUrl: './tree-categories.component.html',
   styleUrls: ['./tree-categories.component.scss']
 })
-export class TreeCategoriesComponent implements OnInit, Callback {
+export class TreeCategoriesComponent implements OnInit {
   // variable que almacena el nombre de la tienda seleccionada
   currentStoreSelect: StoreModel = new StoreModel(0, '');
   // variable empleada para saber si se obtuvo la información necesaria para el arbol correctamente
@@ -30,7 +25,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   CONST_MARKETPLACE = 'Marketplace';
   public arbol: any;
   // Información del usuario
-  public user: any;
+  public user: UserInformation;
 
   @Output() currentTreeOutput = new EventEmitter<any>();
 
@@ -38,12 +33,9 @@ export class TreeCategoriesComponent implements OnInit, Callback {
 
   constructor(
     public eventsStore: EventEmitterStore,
-    public userService: UserService,
     public storeService: StoresService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
 
   ngOnInit() {
@@ -56,14 +48,8 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     });
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**
@@ -91,9 +77,10 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   }
 
   /**
-  * Servicio empleado para obtener toda la lista de comisiones, esta información es general y se llama al cargar el componente
-  * @memberof TreeCategoriesComponent
-  */
+   * Servicio empleado para obtener toda la lista de comisiones, esta información
+   * es general y se llama al cargar el componente.
+   * @memberof TreeCategoriesComponent
+   */
   getAllSellerCommissionCategory() {
     this.allSellerCategories = [];
     this.storeService.getAllSellerCommissionCategory().subscribe((res: any) => {
@@ -102,7 +89,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
         const body = JSON.parse(res.body.body);
         this.allSellerCategories = body.Data;
       } else {
-        console.log('getAllSellerCommissionCategory:' + res.message);
+        log.debug('getAllSellerCommissionCategory:' + res.message);
       }
     });
   }
@@ -134,7 +121,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
           this.configTreeInformation(information);
         } else {
           log.error(res.message);
-          console.log('Error consultando las comisiones por categoria.' + res.message);
+          log.error('Error consultando las comisiones por categoria.' + res.message);
         }
       });
   }
@@ -161,7 +148,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
   }
 
 
-  createTree(parent, listCategories, sellerCategories) {
+  createTree(parent: any, listCategories: any, sellerCategories: any) {
 
     this.obtenerRelacionesCategorias(parent, sellerCategories);
     const hijos = [];
@@ -186,11 +173,11 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     return parent;
   }
 
-  obtenerRelacionesCategorias = function (nodo, sellerCategories) {
+  obtenerRelacionesCategorias = function (nodo: any, sellerCategories: any) {
     nodo.commission = this.buscarComision(nodo.Id, sellerCategories);
   };
 
-  buscarComision = function (obj, sellerCategories) {
+  buscarComision = function (obj: any, sellerCategories: any) {
     for (let i = 0; i < sellerCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
       if (sellerCategories[i].IdCategory == obj) {
@@ -200,7 +187,7 @@ export class TreeCategoriesComponent implements OnInit, Callback {
     return 0;
   };
 
-  receiveDataTree($event) {
+  receiveDataTree($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.curret_tree = $event;
       this.currentTreeOutput.emit(this.curret_tree);

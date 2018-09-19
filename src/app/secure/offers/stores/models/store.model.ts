@@ -3,13 +3,18 @@
  * Estructura de la respuesta del servidor de busqueda de tiendas
  */
 export class StoreModel {
-    IdSeller: number;
-    Name: string;
-
-    constructor(IdSeller: number, Name: string) {
-        this.IdSeller = IdSeller;
-        this.Name = Name;
-    }
+    constructor(
+        public IdSeller?: number,
+        public Name?: string,
+        public Address?: string,
+        public DaneCode?: string,
+        public GotoCarrulla?: boolean,
+        public GotoCatalogo?: boolean,
+        public GotoExito?: boolean,
+        public IsLogisticsExito?: boolean,
+        public IsShippingExito?: boolean,
+        public Nit?: string
+    ) { }
 }
 
 /**

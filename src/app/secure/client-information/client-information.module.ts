@@ -1,15 +1,15 @@
-/* 3rd party components */
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-/* our own custom components */
-import {ClientInformationComponent} from './client-information.component';
-import { MaterialModule } from '../material-components';
+import { SharedModule } from '@shared/shared.module';
+
+import { ClientInformationComponent } from './client-information.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
+    SharedModule
   ],
   declarations: [
     ClientInformationComponent

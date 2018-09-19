@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-    UserRegistrationService,
-    UserLoginService,
-    LoggedInCallback,
-    RoutesConst
-} from '@app/shared';
+import { LoggedInCallback, UserLoginService, UserRegistrationService, UserParametersService } from '@app/core';
 import { ShellComponent } from '@app/core/shell/shell.component';
+import { RoutesConst } from '@app/shared';
+import { Logger } from '@core/util/logger.service';
+
+const log = new Logger('RegistrationConfirmationComponent');
 
 @Component({
     selector: 'app-awscognito',
@@ -17,6 +16,7 @@ export class LogoutComponent implements LoggedInCallback {
     constructor(
         public router: Router,
         public userService: UserLoginService,
+        public userParams: UserParametersService,
         public shell: ShellComponent) {
         this.userService.isAuthenticated(this);
     }
@@ -24,6 +24,7 @@ export class LogoutComponent implements LoggedInCallback {
     isLoggedIn(message: string, isLoggedIn: boolean) {
         this.shell.showHeader = false;
         this.userService.logout();
+        this.userParams.clearUserData();
         localStorage.clear();
         this.router.navigate([`/${RoutesConst.homeLogin}`]);
     }
@@ -63,7 +64,7 @@ export class RegistrationConfirmationComponent implements OnInit, OnDestroy {
     cognitoCallback(message: string, result: any) {
         if (message != null) {
             this.errorMessage = message;
-            console.log('message: ' + this.errorMessage);
+            log.error('message: ' + this.errorMessage);
         } else {
             // this.configs.curUser = result.user;
             this.router.navigate([`/${RoutesConst.securehome}`]);

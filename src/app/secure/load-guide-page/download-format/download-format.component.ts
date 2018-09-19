@@ -1,22 +1,15 @@
-/* 3rd party components */
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+import { Logger, UserParametersService } from '@app/core';
+import { ComponentsService } from '@app/shared';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
+import { LoadGuideService } from '../load-guide.service';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
-
-/* our own custom components */
-import { LoadGuideService } from '../load-guide.service';
-import {
-  ComponentsService,
-  UserService,
-  Logger,
-  Callback,
-  UserParametersService
-} from '@app/shared';
 
 // log component
 const log = new Logger('DownloadFormatComponent');
@@ -27,7 +20,7 @@ const log = new Logger('DownloadFormatComponent');
   styleUrls: ['./download-format.component.scss']
 })
 
-export class DownloadFormatComponent implements OnInit, Callback {
+export class DownloadFormatComponent implements OnInit {
 
   public user: any;
   // Formulario para realizar la descarga
@@ -44,7 +37,6 @@ export class DownloadFormatComponent implements OnInit, Callback {
    */
   constructor(
     private loadGuide: LoadGuideService,
-    private userService: UserService,
     private componentService: ComponentsService,
     public dialogRef: MatDialogRef<DownloadFormatComponent>,
     private fb: FormBuilder,
@@ -62,14 +54,8 @@ export class DownloadFormatComponent implements OnInit, Callback {
     this.createForm();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**

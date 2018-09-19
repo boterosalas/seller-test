@@ -1,4 +1,4 @@
-import { CategoryList } from '../models';
+import { CategoryList } from '@app/shared/models/order.model';
 
 export class RoutesConst {
     static readonly home: any = 'home';
@@ -28,9 +28,11 @@ export class RoutesConst {
     static readonly orderInPendingDevolution: any = 'solicitudes-pendientes';
     static readonly oferList: any = 'listado-ofertas';
     static readonly oferBulkLoad: any = 'carga-masiva';
+    static readonly oferHistoricalBulkLoad: any = 'historico-carga-ofertas';
     static readonly oferTreeCategory: any = 'arbol-categorias';
     static readonly billingPayments: any = 'pagos';
     static readonly sellerRegister: any = 'registrar';
+    static readonly sellerManage: any = 'administrar';
     static readonly shipmentsExitoHist: any = 'historico';
     static readonly shipmentsExitoOffice: any = 'despacho';
     static readonly shipmentsExitoPending: any = 'pendientes';
@@ -44,11 +46,11 @@ export class RoutesConst {
 
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
-    static readonly sellerCenterOrders: any = RoutesConst.secureSeller + '/' + RoutesConst.orders;
-    static readonly sellerCenterOffers: any = RoutesConst.secureSeller + '/' + RoutesConst.offers;
-    static readonly sellerCenterSellers: any = RoutesConst.secureSeller + '/' + RoutesConst.sellers;
-    static readonly sellerCenterBilling: any = RoutesConst.secureSeller + '/' + RoutesConst.billing;
-    static readonly sellerCenterShipmentsExito: any = RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
+    static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;
+    static readonly sellerCenterOffers: any =  RoutesConst.secureSeller + '/' + RoutesConst.offers;
+    static readonly sellerCenterSellers: any =  RoutesConst.secureSeller + '/' + RoutesConst.sellers;
+    static readonly sellerCenterBilling: any =  RoutesConst.secureSeller + '/' + RoutesConst.billing;
+    static readonly sellerCenterShipmentsExito: any =  RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
     static readonly sellerCenterMyProfile: any = RoutesConst.securehome + '/' + RoutesConst.myProfile;
     static readonly sellerCenterLogout: any = RoutesConst.securehome + '/' + RoutesConst.logout;
     static readonly sellerCenterJwttokens: any = RoutesConst.securehome + '/' + RoutesConst.jwttokens;
@@ -63,12 +65,14 @@ export class RoutesConst {
 
     static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
     static readonly sellerCenterIntOferBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferBulkLoad;
+    static readonly sellerCenterIntOferHistoricalBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoad;
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
 
     static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
 
     static readonly sellerCenterIntSellerRegister: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerRegister;
+    static readonly sellerCenterIntSellerManage: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerManage;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

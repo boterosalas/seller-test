@@ -1,34 +1,34 @@
-/* 3rd party components */
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// Import relevant http modules
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-/* our own custom components */
-import { ListService } from './list.service';
-import { ListRoutingModule } from './list.routing';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { ListComponent } from './list/list.component';
+import { SharedModule } from '@shared/shared.module';
+
 import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
-import { MaterialModule } from '../../material-components';
+import { FilterComponent } from './components/filter/filter.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ListRoutingModule } from './list.routing';
+import { ListService } from './list.service';
+import { ListComponent } from './list/list.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
   imports: [
     BrowserModule,
     CommonModule,
-    MaterialModule,
+    SharedModule,
     ListRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    CurrencyMaskModule
   ],
   declarations: [
     ListComponent,
@@ -41,4 +41,4 @@ import { MaterialModule } from '../../material-components';
     ListService
   ]
 })
-export class ListModule {}
+export class ListModule { }

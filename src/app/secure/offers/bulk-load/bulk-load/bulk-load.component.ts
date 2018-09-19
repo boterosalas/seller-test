@@ -1,46 +1,20 @@
-/* 3rd party components */
-import { Component, ViewChild, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import { MatTableDataSource, MatDialog, MatSort, MatSidenav, MatPaginator } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
+import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { ComponentsService, RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
-/* our own custom components */
 import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
-import {
-  Logger,
-  ComponentsService,
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
-import { Router } from '@angular/router';
 
-/* log component */
+// log component
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
 
-/**
- * Component que permite realizar la carga de guías, consta de tres componentes mas
- * FinishUploadInformationComponent
- * TableLoadComponent
- * TableErrorsComponent
- * Estos componentes se emplean para separar
- * el comportamiento de la carga de guías, se
- * emplea "TableErrorsComponent" para visualizar la
- * lista de errores capturados al momento de subir el archivo excel.
- * se emplea "TableLoadComponent" para visualizar la lista de datos
- * con errores en una tabla y visualizar el total de registros correctos
- * y se emplea "FinishUploadInformationComponent" para desplegar un modal
- * donde se visualicen los logs generados por el back al momento de envíar
- * las guías. en FinishUploadInformationComponent se permite generar un excel
- * con el log obtenido.
- */
 @Component({
   selector: 'app-bulk-load',
   templateUrl: './bulk-load.component.html',
@@ -53,7 +27,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
+export class BulkLoadComponent implements OnInit {
 
   public paginator: any;
 
@@ -98,22 +72,16 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
-  /**
-   * Creates an instance of BulkLoadComponent.
-   * @param {ComponentsService} componentService
-   * @param {BulkLoadService} BulkLoadService
-   * @param {MatDialog} dialog
-   * @param {ShellComponent} shellComponent
-   * @memberof BulkLoadComponent
-   */
+
   constructor(
     public componentService: ComponentsService,
     public bulkLoadService: BulkLoadService,
     public dialog: MatDialog,
-    public shellComponent: ShellComponent,
     public userService: UserLoginService,
     private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private loadingService: LoadingService,
+    private modalService: ModalService
   ) {
     this.user = {};
     this.arrayInformation = [];
@@ -144,14 +112,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     }
@@ -189,7 +151,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   readFileUpload(evt: any): Promise<any> {
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise((resolve, reject) => {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+      this.loadingService.viewSpinner();
 
       let data: any;
       /* wire up file reader */
@@ -203,7 +165,6 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          /* const wsname: string = wb.SheetNames[0]; */
           const ws: XLSX.WorkSheet = wb.Sheets['Ofertas'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
@@ -223,10 +184,10 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite detectar el input file
-  * @param {*} evt
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite detectar el input file
+   * @param {*} evt
+   * @memberof BulkLoadComponent
+   */
   onFileChange(evt: any) {
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
@@ -236,7 +197,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
     }, err => {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
@@ -244,12 +205,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Metodo que se encarga de validar los datos del excel
-  * @param {any} res
-  * @param {*} file
-  * @memberof BulkLoadComponent
-  */
-  validateDataFromFile(res, file: any) {
+   * Metodo que se encarga de validar los datos del excel
+   * @param {any} res
+   * @param {*} file
+   * @memberof BulkLoadComponent
+   */
+  validateDataFromFile(res: any, file: any) {
     if (res.length > 1) {
       let contEmptyRow = 0;
 
@@ -302,7 +263,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
       }
 
       if (this.arrayNecessaryData.length === 1) {
-        this.shellComponent.loadingComponent.closeLoadingSpinner();
+        this.loadingService.closeSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
         if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Inventario') &&
@@ -322,7 +283,7 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
-            this.shellComponent.loadingComponent.closeLoadingSpinner();
+            this.loadingService.closeSpinner();
             this.componentService
               .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
           } else {
@@ -330,22 +291,23 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             this.createTable(this.arrayNecessaryData, iVal, numCol);
           }
         } else {
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
         }
       }
     } else {
-      this.shellComponent.loadingComponent.closeLoadingSpinner();
+      this.loadingService.closeSpinner();
       this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
   }
 
   /**
-  * Método que se encarga de crear la tabla
-  * @param {any} res
-  * @memberof BulkLoadComponent
-  */
-  createTable(res, iVal, numCol) {
+   * Método que se encarga de crear la tabla.
+   *
+   * @param {any} res
+   * @memberof BulkLoadComponent
+   */
+  createTable(res: any, iVal: any, numCol: any) {
 
     for (let i = 0; i < res.length; i++) {
 
@@ -373,7 +335,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'BoleanFormat',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iFreeShiping ? 'IsFreeShipping' : j === iVal.iIndEnvExito ? 'IsEnviosExito' : j === iVal.iCotFlete ? 'IsFreightCalculator' : j === iVal.iLogisticaExito ? 'IsLogisticsExito' : j === iVal.iActInventario ? 'IsUpdatedStock' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -396,7 +359,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'LessThanZero',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : j === iVal.iGarantia ? 'Warranty' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -417,7 +381,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                     type: 'NumberFormat',
                     columna: column,
                     fila: row,
-                    positionRowPrincipal: i
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -441,7 +406,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                   type: 'InvalidFormatPromEntrega',
                   columna: column,
                   fila: row,
-                  positionRowPrincipal: i
+                  positionRowPrincipal: i,
+                  dato: 'PromiseDelivery'
                 };
 
                 this.listLog.push(itemLog);
@@ -461,7 +427,8 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
                 type: 'dateNotFound',
                 columna: column,
                 fila: row,
-                positionRowPrincipal: i
+                positionRowPrincipal: i,
+                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iInv ? 'Stock' : j === iVal.iPrecio ? 'Price' : null
               };
 
               this.listLog.push(itemLog);
@@ -491,12 +458,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
-  * @param {any} res
-  * @param {any} index
-  * @memberof BulkLoadComponent
-  */
-  addInfoTosend(res, index, iVal) {
+   * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
+   * @param {any} res
+   * @param {any} index
+   * @memberof BulkLoadComponent
+   */
+  addInfoTosend(res: any, index: any, iVal: any) {
 
     const newObjectForSend = {
       EAN: res[index][iVal.iEAN],
@@ -516,12 +483,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite almacenar los registros de errores que se visualizaran en la tabla
-  * @param {any} res
-  * @param {any} index
-  * @memberof BulkLoadComponent
-  */
-  addRowToTable(res, index, iVal) {
+   * Método que permite almacenar los registros de errores que se visualizaran en la tabla
+   * @param {any} res
+   * @param {any} index
+   * @memberof BulkLoadComponent
+   */
+  addRowToTable(res: any, index: any, iVal: any) {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: ModelOffers = {
       EAN: res[index][iVal.iEAN],
@@ -543,9 +510,9 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que termina de armar los datos para la tabla.
-  * @memberof BulkLoadComponent
-  */
+   * Método que termina de armar los datos para la tabla.
+   * @memberof BulkLoadComponent
+   */
   finishProcessUpload() {
     /* almaceno el numero de filas cargadas correctamente */
     this.countRowUpload = this.arrayInformationForSend.length;
@@ -557,40 +524,40 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.numberElements = this.dataSource.data.length;
-    this.shellComponent.loadingComponent.closeLoadingSpinner();
+    this.loadingService.closeSpinner();
   }
 
   /**
-  * Funcionalidad para limpiar los errores seleccionados en la tabla
-  * @memberof BulkLoadComponent
-  */
+   * Funcionalidad para limpiar los errores seleccionados en la tabla
+   * @memberof BulkLoadComponent
+   */
   setErrrorColumns() {
     for (let index = 0; index < this.arrayInformation.length; index++) {
-      this.arrayInformation[index].errorColumn1 = false;
-      this.arrayInformation[index].errorColumn2 = false;
-      this.arrayInformation[index].errorColumn3 = false;
-      this.arrayInformation[index].errorColumn4 = false;
-      this.arrayInformation[index].errorColumn5 = false;
-      this.arrayInformation[index].errorColumn6 = false;
-      this.arrayInformation[index].errorColumn7 = false;
-      this.arrayInformation[index].errorColumn8 = false;
-      this.arrayInformation[index].errorColumn9 = false;
-      this.arrayInformation[index].errorColumn10 = false;
-      this.arrayInformation[index].errorColumn11 = false;
-      this.arrayInformation[index].errorColumn12 = false;
+      this.arrayInformation[index].errorEan = false;
+      this.arrayInformation[index].errorStock = false;
+      this.arrayInformation[index].errorPrice = false;
+      this.arrayInformation[index].errorDiscountPrice = false;
+      this.arrayInformation[index].errorAverageFreightCost = false;
+      this.arrayInformation[index].errorPromiseDelivery = false;
+      this.arrayInformation[index].errorIsFreeShipping = false;
+      this.arrayInformation[index].errorIsEnviosExito = false;
+      this.arrayInformation[index].errorIsFreightCalculator = false;
+      this.arrayInformation[index].errorWarranty = false;
+      this.arrayInformation[index].errorIsLogisticsExito = false;
+      this.arrayInformation[index].errorIsUpdatedStock = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
 
   /**
-  * Funcionalidad para seleccionar el error del log en la tabla
-  * @param {*} item
-  * @memberof BulkLoadComponent
-  */
+   * Funcionalidad para seleccionar el error del log en la tabla
+   * @param {*} item
+   * @memberof BulkLoadComponent
+   */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
     log.info(item);
-    this.arrayInformation[item.row]['errorColumn' + item.columna] = true;
+    this.arrayInformation[item.row]['error' + item.dato] = true;
     this.arrayInformation[item.row].errorRow = true;
     const data = JSON.stringify(this.arrayInformation);
     this.dataSource = new MatTableDataSource(JSON.parse(data));
@@ -615,12 +582,12 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite realizar el envío del json cargado del excel
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite realizar el envío del json cargado del excel
+   * @memberof BulkLoadComponent
+   */
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
@@ -630,25 +597,25 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
             if (data.body.successful !== 0 || data.body.error !== 0) {
               this.openDialogSendOrder(data);
             } else if (data.body.successful === 0 && data.body.error === 0) {
-              this.shellComponent.modalComponent.showModal('errorService');
+              this.modalService.showModal('errorService');
             }
           } else {
-            this.shellComponent.modalComponent.showModal('errorService');
+            this.modalService.showModal('errorService');
           }
           this.resetVariableUploadFile();
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
         }
       );
   }
 
   /**
-  * Funcionalidad para desplegar el
-  * modal que permite visualizar la lista de
-  * mensajes que retorna el back con los errores o registros correctos.
-  * @param {any} res
-  * @memberof BulkLoadComponent
-  */
-  openDialogSendOrder(res): void {
+   * Funcionalidad para desplegar el
+   * modal que permite visualizar la lista de
+   * mensajes que retorna el back con los errores o registros correctos.
+   * @param {any} res
+   * @memberof BulkLoadComponent
+   */
+  openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(FinishUploadInformationComponent, {
       width: '95%',
       data: {
@@ -720,10 +687,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
 
   /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
   /**
-  * Método para descargar el formato de excel para carga masiva
-  * @param {any} form
-  * @memberof BulkLoadComponent
-  */
+   * Método para descargar el formato de excel para carga masiva
+   * @param {any} form
+   * @memberof BulkLoadComponent
+   */
+
   /* Massive offer load*/
   downloadFormatMassiveOfferLoad() {
     const emptyFile = [{
@@ -743,11 +711,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que genera el dato json en el formato que emplea excel para.
-  * @param {any[]} json
-  * @param {string} excelFileName
-  * @memberof BulkLoadComponent
-  */
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof BulkLoadComponent
+   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'Ofertas': worksheet }, SheetNames: ['Ofertas'] };
@@ -756,11 +724,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite generar el excel con los datos pasados.
-  * @param {*} buffer
-  * @param {string} fileName
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite generar el excel con los datos pasados.
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof BulkLoadComponent
+   */
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
@@ -769,11 +737,11 @@ export class BulkLoadComponent implements OnInit, LoggedInCallback, Callback {
   }
 
   /**
-  * Método que permite dar el formato correcto al archivo excel generado
-  * @param {*} s
-  * @returns
-  * @memberof BulkLoadComponent
-  */
+   * Método que permite dar el formato correcto al archivo excel generado
+   * @param {*} s
+   * @returns
+   * @memberof BulkLoadComponent
+   */
   s2ab(s: any) {
     const buf = new ArrayBuffer(s.length);
     const view = new Uint8Array(buf);

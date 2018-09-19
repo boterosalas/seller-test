@@ -3,20 +3,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-
+import { Logger, UserParametersService } from '@app/core';
+import { Billing, ComponentsService, Const, InformationToForm, Order, SearchFormEntity, UserInformation } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {
-  Logger,
-  ComponentsService,
-  UserService,
-  Callback,
-  UserParametersService,
-  Billing,
-  InformationToForm,
-  Order,
-  SearchFormEntity,
-  Const
-} from '@app/shared';
+
 import { BillingService } from '../billing.service';
 import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 
@@ -36,7 +26,7 @@ const log = new Logger('BillingComponent');
     ]),
   ]
 })
-export class BillingComponent implements OnInit, OnDestroy, Callback {
+export class BillingComponent implements OnInit, OnDestroy {
 
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
   @ViewChild('toolbarOptions') toolbarOption;
@@ -63,7 +53,7 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
   // varialbe que almacena el número de órdenes obtenidas
   public orderListLength = false;
   // Información del usuario
-  public user: any;
+  public user: UserInformation;
   // suscriptions vars
   private subFilterOrderBilling: any;
   // Configuración para el toolbar-options y el search de la pagina
@@ -94,9 +84,7 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
     public component: ComponentsService,
     public shellComponent: ShellComponent,
     private userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * @memberof BillingComponent
@@ -105,15 +93,8 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
     this.getDataUser();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-    // obtengo las ordenes con la función del componente ToolbarOptionsComponent
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }
@@ -123,7 +104,6 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
    * @memberof BillingComponent
    */
   ngOnDestroy() {
-    // this.subOrderList.unsubscribe();
     this.subFilterOrderBilling.unsubscribe();
   }
 
@@ -154,9 +134,9 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar 
+   * Evento que permite obtener los resultados obtenidos al momento de realizar
    * el filtro de órdenes en la opcion search-order-menu.
-   * 
+   *
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
@@ -182,7 +162,7 @@ export class BillingComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Funcionalidad para consultar la lista de devoluciones pendientes.
-   * 
+   *
    * @param {any} $event
    * @memberof BillingComponent
    */

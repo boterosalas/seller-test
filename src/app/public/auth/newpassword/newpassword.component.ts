@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CognitoCallback, UserLoginService, UserRegistrationService } from '@app/core';
+import { RoutesConst } from '@app/shared';
+import { Logger } from '@core/util/logger.service';
 
-import {
-    UserRegistrationService,
-    UserLoginService,
-    CognitoCallback,
-    RoutesConst
-} from '@app/shared';
+const log = new Logger('NewPasswordComponent');
 
 export class NewPasswordUser {
     username: string;
@@ -42,7 +40,7 @@ export class NewPasswordComponent implements CognitoCallback, OnInit {
     }
 
     onRegister() {
-        console.log(this.registrationUser);
+        log.debug(this.registrationUser);
         this.errorMessage = null;
         this.userRegistration.newPassword(this.registrationUser, this);
     }
@@ -50,11 +48,11 @@ export class NewPasswordComponent implements CognitoCallback, OnInit {
     cognitoCallback(message: string, result: any) {
         if (message != null) { // error
             this.errorMessage = message;
-            console.log('result: ' + this.errorMessage);
+            log.error('result: ' + this.errorMessage);
         } else { // success
             // move to the next step
-            console.log('redirecting');
-            console.log(result);
+            log.debug('redirecting');
+            log.debug(result);
             // this.router.navigate([`/${RoutesConst.securehome}`]);
         }
     }

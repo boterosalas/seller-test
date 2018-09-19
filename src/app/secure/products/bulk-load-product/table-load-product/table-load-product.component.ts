@@ -1,8 +1,6 @@
-/* 3rd party components */
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
 
-/* our own custom components */
 import { BulkLoadProductComponent } from '../bulk-load-product/bulk-load-product.component';
 
 /**
@@ -30,6 +28,8 @@ export class TableLoadProductComponent implements OnInit {
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'EAN',
+    'ParentReference',
+    'SonReference',
     'Name',
     'Category',
     'Brand',
@@ -56,8 +56,6 @@ export class TableLoadProductComponent implements OnInit {
     'ImageUrl3',
     'ImageUrl4',
     'ImageUrl5',
-    'ParentReference',
-    'SonReference',
     'Size',
     'Color',
     'HexColourCodePDP',

@@ -1,20 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {
-  LoggedInCallback,
-  Callback,
-  UserLoginService,
-  UserParametersService,
-  RoutesConst
-} from '@app/shared';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst, UserInformation } from '@app/shared';
 
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss']
 })
-export class StoreComponent implements OnInit, LoggedInCallback, Callback {
-  public user: any;
+export class StoreComponent implements OnInit, LoggedInCallback {
+  public user: UserInformation;
 
   public tree: any;
 
@@ -23,9 +18,7 @@ export class StoreComponent implements OnInit, LoggedInCallback, Callback {
     private router: Router,
     private cdRef: ChangeDetectorRef,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -40,20 +33,15 @@ export class StoreComponent implements OnInit, LoggedInCallback, Callback {
 
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }
   }
 
-  receiveDataTree($event) {
+
+  receiveDataTree($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.tree = $event;
       this.cdRef.detectChanges();

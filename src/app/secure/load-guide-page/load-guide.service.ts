@@ -1,16 +1,20 @@
-/* 3rd party components */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
 
-/* our own custom components */
-import { BaseSellerService } from '@app/shared';
 
 @Injectable()
 
 /**
  * Clase LoadGuideService
  */
-export class LoadGuideService extends BaseSellerService {
+export class LoadGuideService {
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
   /**
    * Método para realiar la consulta de las transportadoras
@@ -20,15 +24,11 @@ export class LoadGuideService extends BaseSellerService {
    * @memberof LoadGuideService
    */
   sendAllGuides(user, guide): Observable<[{}]> {
-
-    this.changeEndPoint();
     return new Observable(observer => {
-      this.http.patch(this.api.get('sendAllGuides'), guide, this.getHeaders(user)).subscribe((data: any) => {
+      this.http.patch(this.api.get('sendAllGuides'), guide).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-        this.hehs.error(err, () => {
-          observer.error(err);
-        });
+        observer.error(err);
       });
     });
   }
@@ -41,19 +41,13 @@ export class LoadGuideService extends BaseSellerService {
    * @memberof LoadGuideService
    */
   downloadInformationForGuide(user: any, stringUrl): Observable<[{}]> {
-
-    this.changeEndPoint();
-
     return new Observable(observer => {
-
       this.http.get(this.api.get('getallordersbysellerwithouttracking', [stringUrl]),
-        this.getHeaders(user)).subscribe((data: any) => {
-          observer.next(data);
-        }, error => {
-          this.hehs.error(error, () => {
-            observer.error(error);
-          });
-        });
+      ).subscribe((data: any) => {
+        observer.next(data);
+      }, error => {
+        observer.error(error);
+      });
     });
   }
 }

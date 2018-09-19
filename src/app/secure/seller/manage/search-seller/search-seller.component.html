@@ -1,0 +1,19 @@
+<form id="search-store-form" class="search-store mat-typography" (keydown)="keyDownFunction($event)">
+    <mat-form-field class="input-search">
+      <!-- Icon search -->
+      <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
+  
+      <!-- Input search -->
+      <input id="input-search-store" class="search-store-input" type="search" (ngModelChange)="whatchValueInput($event)" matInput
+        [formControl]="textForSearch" [matAutocomplete]="auto">
+    </mat-form-field>
+  
+    <!-- Autocomplete -->
+    <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
+      <mat-option id="option-search-store-number-{{position}}" (click)="viewStoreInformation(option)" class="autocomplete-list"
+        *ngFor="let option of filteredOptions | async; let position = index" [value]="option.Name">
+        <mat-icon>store</mat-icon>
+        {{option.Name}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>

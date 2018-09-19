@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Logger } from '@app/core/util';
+import { ShellComponent } from '@app/core/shell';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
 import { EventEmitterStore } from '../events/eventEmitter-store.service';
 import { IsLoadInformationForTree } from '../models/store.model';
 import { StoresService } from '../stores.service';
-import { Logger } from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import { LoadingService } from '@app/core';
 
 
 const EXCEL_EXTENSION = '.xlsx';
@@ -27,7 +29,8 @@ export class TreeToolbarComponent implements OnInit {
   constructor(
     public eventsStore: EventEmitterStore,
     public storesService: StoresService,
-    public shell: ShellComponent) { }
+    public shell: ShellComponent,
+    private loadingService: LoadingService) { }
 
 
   // variable empleada para saber si se obtuvo la información necesaria para el arbol correctamente
@@ -54,23 +57,20 @@ export class TreeToolbarComponent implements OnInit {
   }
 
   modifyCommission() {
-
-    this.shell.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     const params = JSON.stringify(localStorage.getItem('parametersCommission'));
     this.storesService.patchSellerCommissionCategory(params).subscribe((res: any) => {
       if (res.status === 200) {
-        this.shell.loadingComponent.closeLoadingSpinner();
+        this.loadingService.closeSpinner();
         this.searchStore = JSON.parse(localStorage.getItem('searchStore'));
       } else {
-        this.shell.loadingComponent.closeLoadingSpinner();
+        this.loadingService.closeSpinner();
         log.error(res.message);
-        console.log('Error consultando las comisiones por categoria.' + res.message);
       }
     });
   }
 
   saveTreeToExcel() {
-    this.shell.loadingComponent.viewLoadingSpinner();
     const current_tree = JSON.parse(this.currentTree);
     this.objetoBuild = [];
     this.currentDownloadTree(current_tree[0], this.rutaPadre);
@@ -109,17 +109,17 @@ export class TreeToolbarComponent implements OnInit {
     return objetoBuild;
   }
   /**
-  * Método que genera el dato json en el formato que emplea excel para.
-  * @param {any[]} json
-  * @param {string} excelFileName
-  * @memberof FinishUploadInformationComponent
-  */
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof FinishUploadInformationComponent
+   */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
-    this.shell.loadingComponent.closeLoadingSpinner();
+    this.loadingService.closeSpinner();
   }
   /**
    * Método que permite generar el excel con los datos pasados.

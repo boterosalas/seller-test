@@ -1,27 +1,21 @@
-/* 3rd party components */
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-/* our own custom components */
-import {LoadGuidePageComponent} from './load-guide/load-guide-page.component';
-import {TableLoadComponent} from './table-load/table-load.component';
-import {LoadGuideService} from './load-guide.service';
-import {TableErrorsComponent} from './table-errors/table-errors.component';
-import {FinishUploadInformationComponent} from './finish-upload-information/finish-upload-information.component';
-import {LoadGuideRoutingModule} from './load-guide.routing';
-import {DownloadFormatComponent} from './download-format/download-format.component';
-import { MaterialModule } from '../material-components';
-import {
-  ComponentsService,
-  HttpErrorHandlingService,
-  EndpointService,
-  UserService,
-  EventEmitterOrders } from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
+import { ShellComponent } from '@app/core/shell';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@shared/shared.module';
+
+import { DownloadFormatComponent } from './download-format/download-format.component';
+import { FinishUploadInformationComponent } from './finish-upload-information/finish-upload-information.component';
+import { LoadGuideRoutingModule } from './load-guide.routing';
+import { LoadGuideService } from './load-guide.service';
+import { LoadGuidePageComponent } from './load-guide/load-guide-page.component';
+import { TableErrorsComponent } from './table-errors/table-errors.component';
+import { TableLoadComponent } from './table-load/table-load.component';
 
 
 @NgModule({
@@ -29,9 +23,9 @@ import { ShellComponent } from '@core/shell/shell.component';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule,
-    LoadGuideRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule,
+    LoadGuideRoutingModule
   ],
   declarations: [
     LoadGuidePageComponent,
@@ -54,9 +48,6 @@ import { ShellComponent } from '@core/shell/shell.component';
   providers: [
     ComponentsService,
     LoadGuideService,
-    HttpErrorHandlingService,
-    EndpointService,
-    UserService,
     ShellComponent,
     LoadGuidePageComponent,
     EventEmitterOrders,

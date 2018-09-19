@@ -1,27 +1,20 @@
-/* 3rd party components */
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-/* our own custom components */
-import { BulkLoadComponent } from './bulk-load/bulk-load.component';
-import { TableLoadComponent } from './table-load/table-load.component';
-import { BulkLoadService } from './bulk-load.service';
-import { TableErrorsComponent } from './table-errors/table-errors.component';
-import { FinishUploadInformationComponent } from './finish-upload-information/finish-upload-information.component';
+import { ShellComponent } from '@app/core/shell';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@shared/shared.module';
+
 import { BulkLoadRoutingModule } from './bulk-load.routing';
-import { MaterialModule } from '../../material-components';
-import {
-  ComponentsService,
-  HttpErrorHandlingService,
-  EndpointService,
-  UserService,
-  EventEmitterOrders
-} from '@app/shared';
-import { ShellComponent } from '@core/shell/shell.component';
+import { BulkLoadService } from './bulk-load.service';
+import { BulkLoadComponent } from './bulk-load/bulk-load.component';
+import { FinishUploadInformationComponent } from './finish-upload-information/finish-upload-information.component';
+import { TableErrorsComponent } from './table-errors/table-errors.component';
+import { TableLoadComponent } from './table-load/table-load.component';
 
 
 @NgModule({
@@ -29,7 +22,7 @@ import { ShellComponent } from '@core/shell/shell.component';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MaterialModule,
+    SharedModule,
     BulkLoadRoutingModule,
     BrowserAnimationsModule
   ],
@@ -51,9 +44,6 @@ import { ShellComponent } from '@core/shell/shell.component';
   providers: [
     ComponentsService,
     BulkLoadService,
-    HttpErrorHandlingService,
-    EndpointService,
-    UserService,
     ShellComponent,
     BulkLoadComponent,
     EventEmitterOrders,

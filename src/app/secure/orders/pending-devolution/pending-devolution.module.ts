@@ -1,29 +1,22 @@
-/* 3rd party components */
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-/* our own custom components */
-import { ActionAcceptDevolutionComponent } from './action-accept-devolution/action-accept-devolution.component';
-import { PendingDevolutionService } from './pending-devolution.service';
-import { PendingDevolutionRoutingModule } from './pending-devolution.routing';
-import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
-import { ProductPendingDevolutionModalComponent } from './product-pending-devolution-modal/product-pending-devolution-modal.component';
-import { ActionRefuseDevolutionComponent } from './action-refuse-devolution/action-refuse-devolution.component';
-import { ViewCommentComponent } from './view-comment/view-comment.component';
-import {
-    EndpointService,
-    HttpErrorHandlingService,
-    UserService,
-    ComponentsService,
-    EventEmitterOrders
-} from '@app/shared';
-import { ToolbarLinkModule } from '@app/shared/toolbar-link';
-import { ToolbarOptionsModule } from '@app/shared/toolbar-options';
-import { MaterialModule } from '../../material-components';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { ShellComponent } from '@core/shell/shell.component';
+
+import { ActionAcceptDevolutionComponent } from './action-accept-devolution/action-accept-devolution.component';
+import { ActionRefuseDevolutionComponent } from './action-refuse-devolution/action-refuse-devolution.component';
+import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
+import { PendingDevolutionRoutingModule } from './pending-devolution.routing';
+import { PendingDevolutionService } from './pending-devolution.service';
+import {
+    ProductPendingDevolutionModalComponent,
+} from './product-pending-devolution-modal/product-pending-devolution-modal.component';
+import { ViewCommentComponent } from './view-comment/view-comment.component';
 
 
 @NgModule({
@@ -31,9 +24,7 @@ import { ShellComponent } from '@core/shell/shell.component';
         CommonModule,
         ReactiveFormsModule,
         PendingDevolutionRoutingModule,
-        ToolbarOptionsModule,
-        ToolbarLinkModule,
-        MaterialModule,
+        SharedModule,
         HttpClientModule,
         BrowserAnimationsModule
     ],
@@ -59,9 +50,6 @@ import { ShellComponent } from '@core/shell/shell.component';
     ],
     providers: [
         PendingDevolutionService,
-        EndpointService,
-        HttpErrorHandlingService,
-        UserService,
         ComponentsService,
         EventEmitterOrders,
         ShellComponent

@@ -3,13 +3,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { Callback, Const, Logger, Pending, SearchFormEntity, UserParametersService, UserService } from '@app/shared';
+import { Logger, UserParametersService } from '@app/core';
+import { Const, Pending, SearchFormEntity, UserInformation } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
 import { InValidationService } from '../in-validation.service';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
+
 
 // log component
 const log = new Logger('InValidationComponent');
@@ -21,6 +22,7 @@ const log = new Logger('InValidationComponent');
   selector: 'app-in-validation',
   templateUrl: './in-validation.component.html',
   styleUrls: ['./in-validation.component.scss'],
+  providers: [InValidationService],
   // Configuración para la páginación de la tabla animations:
   animations: [
     trigger('detailExpand', [
@@ -30,7 +32,7 @@ const log = new Logger('InValidationComponent');
     ]),
   ]
 })
-export class InValidationComponent implements OnInit, OnDestroy, Callback {
+export class InValidationComponent implements OnInit, OnDestroy {
 
   // Elemento paginador
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,7 +61,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
   // Número de órdenes
   public orderListLength = false;
   //  user info
-  public user: any;
+  public user: UserInformation;
   // suscriptions vars
   private subFilterOrderPending: any;
   // Configuración para el toolbar-options y el search de la pagina
@@ -80,25 +82,15 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
     public dialog: MatDialog,
     private zone: NgZone,
     private inValidationService: InValidationService,
-    public userService: UserService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   ngOnInit() {
     this.getDataUser();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-    //  Obtener las órdenes con la función del componente ToolbarOptionsComponent
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }
@@ -110,7 +102,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar 
+   * Evento que permite obtener los resultados obtenidos al momento de realizar
    * el filtro de órdenes en la opcion se arch-order-menu.
    *
    * @memberof OrdersListComponent
@@ -137,7 +129,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para cambiar el page size de la tabla órdenes.
-   * 
+   *
    * @param {any} $event
    * @memberof InValidationComponent
    */
@@ -147,7 +139,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para obtener la lista de órdenes.
-   * 
+   *
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
@@ -181,7 +173,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Whether the number of selected elements matches the total number of rows.
-   * 
+   *
    * @returns
    * @memberof InValidationComponent
    */
@@ -193,7 +185,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Selects all rows if they are not all selected; otherwise clear selection.
-   * 
+   *
    * @memberof InValidationComponent
    */
   masterToggle() {
@@ -204,7 +196,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Filtro para la tabla
-   * 
+   *
    * @param {string} filterValue
    * @memberof InValidationComponent
    */
@@ -217,7 +209,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal de detallen de orden.
-   * 
+   *
    * @param {any} item
    * @memberof InValidationComponent
    */
@@ -235,7 +227,7 @@ export class InValidationComponent implements OnInit, OnDestroy, Callback {
 
   /**
    * Método para desplegar el modal para ver el comentario de la orden.
-   * 
+   *
    * @param item
    */
   openModalCommentOrder(item): void {

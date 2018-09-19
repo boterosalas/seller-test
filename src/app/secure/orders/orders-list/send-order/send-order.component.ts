@@ -1,23 +1,11 @@
-/* 3rd party components */
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// Load the full build.
-import * as _ from 'lodash';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Logger, UserParametersService } from '@app/core';
+import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity, UserInformation } from '@app/shared';
+import * as _ from 'lodash';
 
-/* our own custom components */
-import {
-  Order,
-  ProductsEntity,
-  Carries,
-  Const,
-  Logger,
-  ComponentsService,
-  FAKE,
-  Callback,
-  UserParametersService
-} from '@app/shared';
 import { OrderService } from '../orders.service';
 
 // log component
@@ -45,10 +33,10 @@ const log = new Logger('SendOrderComponent');
 /**
  * Componente
  */
-export class SendOrderComponent implements OnInit, Callback {
+export class SendOrderComponent implements OnInit {
 
   // User information
-  public user: any;
+  public user: UserInformation;
   // Información de la orden
   public order: Order;
   // Formulario para realizar el envio de toda la orden
@@ -77,9 +65,7 @@ export class SendOrderComponent implements OnInit, Callback {
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
     this.order = _.cloneDeep(data.order);
     this.user = data.user;
-
     this.order = this.order || FAKE.FAKEORDER;
-    this.user = {};
   }
 
   /**
@@ -113,14 +99,8 @@ export class SendOrderComponent implements OnInit, Callback {
     this.createForm();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**

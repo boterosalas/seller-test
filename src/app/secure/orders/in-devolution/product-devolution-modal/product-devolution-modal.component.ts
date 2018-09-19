@@ -1,12 +1,9 @@
-/* 3rd party components */
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-// Load the full build.
+import { FAKE, OrderDevolutionsModel, UserInformation } from '@app/shared';
 import * as _ from 'lodash';
 
-/* our own custom components */
-import { User, OrderDevolutionsModel, FAKE } from '@app/shared';
-
+// Load the full build.
 /**
  * Component
  */
@@ -22,7 +19,7 @@ import { User, OrderDevolutionsModel, FAKE } from '@app/shared';
 export class ProductDevolutionModalComponent {
 
   // Información del usuario
-  user: User;
+  user: UserInformation;
   // Información de la orden
   order: OrderDevolutionsModel;
 

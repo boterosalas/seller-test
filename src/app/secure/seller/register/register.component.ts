@@ -1,15 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormControlDirective } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { RegisterService } from './register.service';
-import { ShellComponent } from '@core/shell/shell.component';
-import { LoggedInCallback, Callback, UserLoginService, UserParametersService, RoutesConst } from '@app/shared';
 import { Router } from '@angular/router';
 
-import { StatesComponent } from './states/states.component';
-import { CitiesComponent } from './cities/cities.component';
+import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst, UserInformation } from '@app/shared';
+import { RegisterService } from './register.service';
 
-/** Error when invalid control is dirty, touched, or submitted. */
+
+// Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -25,13 +24,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callback {
+export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
-  public imagesSrc: Array<any> = [
-    '../../../../../assets/seller-register/logo_exito_check.jpg',
-    '../../../../../assets/seller-register/logo_carulla.jpg',
-    '../../../../../assets/seller-register/logo_mis_catalogos_check.jpg'
-  ];
   public imagesRegister: Array<any> = [
     {
       checked: '../../../../../assets/seller-register/logo_exito_check.jpg',
@@ -56,24 +50,19 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   public disabledForService: boolean;
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
-  public user: any;
+  public user: UserInformation;
   public activeButton: boolean;
 
-  /**
-   * Creates an instance of RegisterSellerComponent.
-   * @param {registerService} registerService
-   * @param {shellComponent} shellComponent
-   */
+
   constructor(
     @Inject(RegisterService)
     private registerService: RegisterService,
-    public shellComponent: ShellComponent,
+    private loadingService: LoadingService,
+    private modalService: ModalService,
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -128,34 +117,11 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
 
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }
-  }
-
-  /**
-   *
-   * @param e
-   * @param num
-   * @memberof RegisterSellerComponent
-   */
-  changeImageColor(e, num) {
-    /* La 'e' se trae el elemento que se esta ejecutando en el DOM de html de angular.
-    Le enviamos la posicion desde HTML[num] */
-    if (e.checked) {
-      this.imagesSrc[num] = this.imagesRegister[num].checked;
-    } else {
-      this.imagesSrc[num] = this.imagesRegister[num].unchecked;
-    }
-
   }
 
   /**
@@ -176,24 +142,24 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @memberof RegisterSellerComponent
    */
   submitSellerRegistrationForm() {
-    this.shellComponent.loadingComponent.viewLoadingSpinner();
+    this.loadingService.viewSpinner();
     this.disabledForService = true;
-    this.registerService.registerUser(JSON.stringify(this.validateFormRegister.value))
+    this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
-              this.shellComponent.modalComponent.showModal('success');
+              this.modalService.showModal('success');
             } else if (!data.Data) {
-              this.shellComponent.modalComponent.showModal('error');
+              this.modalService.showModal('error');
             }
           } else {
-            this.shellComponent.modalComponent.showModal('errorService');
+            this.modalService.showModal('errorService');
           }
 
           this.disabledForService = false;
-          this.shellComponent.loadingComponent.closeLoadingSpinner();
+          this.loadingService.closeSpinner();
 
         }
       );
@@ -208,9 +174,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
   validateExist(event: any, param: string) {
     this.activeButton = false;
     const jsonExistParam = event.target.value;
-    // tslint:disable-next-line:quotemark
-    if (jsonExistParam !== "" && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
-      this.shellComponent.loadingComponent.viewLoadingSpinner();
+    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+      this.loadingService.viewSpinner();
       this.disabledForService = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
         .subscribe(
@@ -239,11 +204,11 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
                 this.activeButton = true;
               }
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             } else {
-              this.shellComponent.modalComponent.showModal('errorService');
+              this.modalService.showModal('errorService');
               this.disabledForService = false;
-              this.shellComponent.loadingComponent.closeLoadingSpinner();
+              this.loadingService.closeSpinner();
             }
           }
         );
@@ -255,7 +220,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataState($event) {
+  receiveDataState($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
       this.validateFormRegister.controls['State'].setValue($event.Name);
@@ -267,7 +232,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback, Callba
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataCitie($event) {
+  receiveDataCitie($event: any) {
     if ($event && $event !== undefined && $event !== null) {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);

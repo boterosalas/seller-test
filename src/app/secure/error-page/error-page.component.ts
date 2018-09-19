@@ -1,17 +1,10 @@
-/* 3rd party components */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
-import {
-  RoutesConst,
-  UserLoginService,
-  UserParametersService,
-  LoggedInCallback,
-  Callback
-} from '@app/shared';
 
 
-/* our own custom components */
 
 
 /**
@@ -26,7 +19,7 @@ import {
 /**
  * Componente para visualizar la pestaña de error, esta pagina se visualiza cuando el usuario ingresa una url erronea.
  */
-export class ErrorPageComponent implements OnInit, LoggedInCallback, Callback {
+export class ErrorPageComponent implements OnInit, LoggedInCallback {
   public routes: any;
   public user: any;
   public isLoged = false;
@@ -54,21 +47,10 @@ export class ErrorPageComponent implements OnInit, LoggedInCallback, Callback {
     this.userService.isAuthenticated(this);
   }
 
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.getDataUser();
+      this.user = await this.userParams.getUserData();
     }
-  }
-
-  callback() { }
-
-  getDataUser() {
-    this.isLoged = true;
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
   }
 
   goToHome() {

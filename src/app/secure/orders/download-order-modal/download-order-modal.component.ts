@@ -1,17 +1,12 @@
-/* 3rd party components */
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-/* our own custom components */
+import { Logger, UserParametersService } from '@app/core';
+import { ComponentsService } from '@app/shared/services/components.service';
+
 import { DownloadOrderService } from './download-order.service';
-import {
-  Logger,
-  UserService,
-  ComponentsService,
-  UserParametersService,
-  Callback
-} from '@app/shared';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
@@ -28,16 +23,12 @@ const log = new Logger('DownloadOrderComponent');
   templateUrl: './download-order-modal.component.html',
   styleUrls: ['./download-order-modal.component.scss']
 })
-
-/**
- * DownloadOrderModalComponent
- */
-export class DownloadOrderModalComponent implements OnInit, Callback {
+export class DownloadOrderModalComponent implements OnInit {
 
   // Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
-  public user: any;
+  public user: UserInformation;
   // Limite de registros para descargar
   public limitLengthOrder: any = 0;
 
@@ -54,7 +45,6 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   constructor(
     public dialogRef: MatDialogRef<DownloadOrderModalComponent>,
     public downloadOrderService: DownloadOrderService,
-    public userService: UserService,
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
@@ -62,7 +52,6 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
   ) {
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
-    this.user = {};
   }
 
   /**
@@ -73,14 +62,8 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
     this.createForm();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   /**
@@ -113,7 +96,7 @@ export class DownloadOrderModalComponent implements OnInit, Callback {
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
-    console.log('parametros', currentFiltersOrders);
+    log.debug('parametros', currentFiltersOrders);
     this.downloadOrderService.downloadOrders(this.user, currentFiltersOrders).subscribe(res => {
       if (res != null) {
         this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',

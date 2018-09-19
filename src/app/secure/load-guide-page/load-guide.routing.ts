@@ -1,16 +1,19 @@
-/* 3rd party components */
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { RoutesConst } from './../../shared';
-/* our own custom components */
-import {LoadGuidePageComponent} from './load-guide/load-guide-page.component';
+import { LoadGuidePageComponent } from './load-guide/load-guide-page.component';
+
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterIntOrderLoadGuide}`,
-    component: LoadGuidePageComponent,
-    data: {title: 'Cargar de guías'},
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterIntOrderLoadGuide}`,
+      component: LoadGuidePageComponent,
+      data: { title: 'Cargar de guías' },
+    }
+  ])
 ];
 
 @NgModule({

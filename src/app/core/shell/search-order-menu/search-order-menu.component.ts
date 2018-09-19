@@ -1,10 +1,8 @@
-/* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material';
-
-/* our own custom components */
+import { Logger } from '@app/core';
+import { SearchFormEntity } from '@app/shared/models';
 import { ShellComponent } from '@core/shell/shell.component';
-import { Logger, SearchFormEntity } from '@app/shared';
 
 // log components
 const log = new Logger('SideBarSearchOrdersComponent');

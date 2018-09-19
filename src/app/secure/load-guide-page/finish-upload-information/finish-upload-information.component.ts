@@ -1,12 +1,9 @@
-/* 3rd party components */
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, Inject } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FAKE, FinishUploadInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
-
-/* our own custom components */
-import { FinishUploadInformation, FAKE } from '@app/shared';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';

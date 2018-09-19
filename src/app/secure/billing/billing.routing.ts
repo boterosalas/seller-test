@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { Route } from '@app/core';
 import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
 import { environment } from '@env/environment';
 
@@ -9,16 +11,18 @@ import { BillingComponent } from './billing-page/billing.component';
 const isProductionEnv = environment.production;
 
 const routes: Routes = [
-  {
-    path: `${RoutesConst.sellerCenterBilling}`,
-    component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
-    data: { title: 'Facturación' },
-  },
-  {
-    path: `${RoutesConst.sellerCenterIntBillingPayments}`,
-    component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
-    data: { title: 'Facturación' },
-  }
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterBilling}`,
+      component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
+      data: { title: 'Facturación' },
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntBillingPayments}`,
+      component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
+      data: { title: 'Facturación' },
+    }
+  ])
 ];
 
 @NgModule({

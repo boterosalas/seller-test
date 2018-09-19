@@ -1,10 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseSellerService } from '@app/shared';
+import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
 
 @Injectable()
-export class InValidationService extends BaseSellerService {
+export class InValidationService {
+
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService
+    ) { }
 
     /**
      * Método para realiar la consulta de las órdenes en estado pendiente.
@@ -14,14 +20,12 @@ export class InValidationService extends BaseSellerService {
      */
     getOrders(stringSearch: any): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get(this.api.get('pendingDevolution', [stringSearch]), this.getHeaders())
+            this.http.get(this.api.get('pendingDevolution', [stringSearch]))
                 .subscribe((data: any) => {
                     data = data ? data : [];
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }
@@ -34,13 +38,11 @@ export class InValidationService extends BaseSellerService {
      */
     acceptDevolution(): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get(this.api.get('acceptDevolution'), this.getHeaders())
+            this.http.get(this.api.get('acceptDevolution'))
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }
@@ -53,13 +55,11 @@ export class InValidationService extends BaseSellerService {
      */
     reportNovelty(): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get(this.api.get('reportNovelty'), this.getHeaders())
+            this.http.get(this.api.get('reportNovelty'))
                 .subscribe((data: any) => {
                     observer.next(data);
                 }, err => {
-                    this.hehs.error(err, () => {
-                        observer.error(err);
-                    });
+                    observer.error(err);
                 });
         });
     }

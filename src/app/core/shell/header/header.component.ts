@@ -1,19 +1,11 @@
-/* 3rd party components */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-/* our own custom components */
-import { environment } from '@env/environment';
-import { ShellComponent } from '../shell.component';
-import {
-  Logger,
-  CognitoUtil,
-  LoggedInCallback,
-  Callback,
-  RoutesConst,
-  UserLoginService,
-  UserParametersService
-} from '@app/shared';
 import { Router } from '@angular/router';
+import { Logger } from '@app/core/util/logger.service';
+import { RoutesConst } from '@app/shared/util/routes.constants';
+import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
+import { UserInformation } from '@app/shared';
+
 
 // log component
 const log = new Logger('HeaderComponent');
@@ -24,34 +16,24 @@ const log = new Logger('HeaderComponent');
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
+export class HeaderComponent implements OnInit, LoggedInCallback {
 
   // booleano para visualizar la barra de toolbar
   @Input() viewToolbarPrincipal: boolean;
   // Información del usuario
-  @Input() user: any;
+  @Input() user: UserInformation;
   // Sidenav principal
   @Input() sidenav;
-  // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
-  public webUrl = environment.webUrl;
   public userLoggin: boolean;
   public sellerName: any;
   public sellerId: any;
   public routes: any;
-  /**
-   * Creates an instance of HeaderComponent.
-   * @param {ShellComponent} shellComponent
-   * @memberof HeaderComponent
-   */
+
   constructor(
-    public shellComponent: ShellComponent,
-    public cognitoUtil: CognitoUtil,
-    public userService: UserLoginService,
-    public userParams: UserParametersService,
-    public router: Router,
-  ) {
-    this.user = {};
-  }
+    private userService: UserLoginService,
+    private userParams: UserParametersService,
+    private router: Router,
+  ) { }
 
   /**
    * @memberof HeaderComponent
@@ -60,19 +42,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
     this.userService.isAuthenticated(this);
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
-  }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-  }
-
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.getDataUser();
+      this.user = await this.userParams.getUserData();
       this.routes = RoutesConst;
     }
   }
@@ -84,6 +56,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback, Callback {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }
   }
+
   /**
    * Funcionalidad que permite desplegar el menú.
    * @memberof HeaderComponent

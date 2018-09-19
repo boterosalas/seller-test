@@ -1,12 +1,13 @@
-/* 3rd party components */
-import { MatDialogRef } from '@angular/material';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
-/* our own custom components */
+import { UserParametersService } from '@app/core/aws-cognito';
+import { Logger } from '@app/core/util/logger.service';
+import { ComponentsService } from '@shared/services/components.service';
+
 import { SupportService } from './support.service';
-import { environment } from '@env/environment';
-import { Logger, ComponentsService, UserService, UserParametersService, Callback } from '@app/shared';
+import { UserInformation } from '@app/shared';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -27,36 +28,22 @@ const log = new Logger('SupportModalComponent');
 /**
  * SupportModalComponent
  */
-export class SupportModalComponent implements OnInit, Callback {
+export class SupportModalComponent implements OnInit {
 
   // Input file de la vista
   @ViewChild('fileInput') fileInput: ElementRef;
   //  Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
-  public user: any;
-  // Url que se emplea para acceder a el atributo del usuario que se arma con un nombre de url
-  public webUrl = environment.webUrl;
+  public user: UserInformation;
 
-  /**
-   * Creates an instance of SupportModalComponent.
-   * @param {FormBuilder} fb
-   * @param {MatDialogRef<SupportModalComponent>} dialogRef
-   * @param {ComponentsService} COMPONENT
-   * @param {SupportService} SUPPORT
-   * @param {UserService} USER
-   * @memberof SupportModalComponent
-   */
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public USER: UserService,
     public userParams: UserParametersService
-  ) {
-    this.user = {};
-  }
+  ) { }
 
   /**
    * @memberof SupportModalComponent
@@ -65,16 +52,9 @@ export class SupportModalComponent implements OnInit, Callback {
     this.getDataUser();
   }
 
-  callback() { }
-
-  getDataUser() {
-    this.userParams.getUserData(this);
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
-
-  callbackWithParam(userData: any) {
-    this.user = userData;
-  }
-
   /**
    * Funcionalidad para cerrar el modal actual de envio
    * @memberof SupportModalComponent
@@ -89,10 +69,10 @@ export class SupportModalComponent implements OnInit, Callback {
    */
   createForm() {
     this.myform = this.fb.group({
-      'nit': [this.user[this.webUrl].nit, Validators.compose([Validators.required])],
+      'nit': [this.user.sellerNit, Validators.compose([Validators.required])],
       'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
-      'account': [this.user.name, Validators.compose([Validators.required])],
-      'emailContact': [this.user.email, Validators.compose([Validators.required, Validators.email])],
+      'account': [this.user.sellerName, Validators.compose([Validators.required])],
+      'emailContact': [this.user.sellerEmail, Validators.compose([Validators.required, Validators.email])],
       'typeOfRequirement': [null, Validators.compose([Validators.required])],
       'reason': [null, Validators.compose([Validators.required])],
       'description': [null, Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])],
@@ -106,7 +86,7 @@ export class SupportModalComponent implements OnInit, Callback {
    * @param {any} form
    * @memberof SupportModalComponent
    */
-  sendSupportMessage(form) {
+  sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
     const messageSupport = {
@@ -120,7 +100,7 @@ export class SupportModalComponent implements OnInit, Callback {
       typeOfRequirement: form.value.typeOfRequirement,
       caseOrigin: 'Sitio web marketplace'
     };
-    this.SUPPORT.sendSupportMessage(this.user.access_token, messageSupport).subscribe((res: any) => {
+    this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
       this.onNoClick();
     }, err => {
