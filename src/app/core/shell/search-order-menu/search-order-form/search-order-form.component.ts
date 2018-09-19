@@ -7,6 +7,7 @@ import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
+import { UserParametersService } from '@app/core';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class SearchOrderFormComponent implements OnInit {
     private route: Router,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userParams: UserParametersService
   ) { }
 
   /**
@@ -50,10 +52,13 @@ export class SearchOrderFormComponent implements OnInit {
    */
   ngOnInit() {
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
+    this.getDataUser();
     this.createForm();
   }
 
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+  }
   /**
    * Método para crear el formulario
    * @memberof SearchOrderFormComponent

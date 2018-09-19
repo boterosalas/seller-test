@@ -13,7 +13,7 @@ export class OrderService {
   constructor(
     private http: HttpClient,
     private api: EndpointService
-) { }
+  ) { }
 
   /**
    * Método para realiar la consulta de las órdenes
@@ -30,15 +30,15 @@ export class OrderService {
         this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
           observer.next(data);
         }, err => {
-            observer.error(err);
+          observer.error(err);
         });
       } else {
         this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit]),
-      ).subscribe((data: any) => {
-            observer.next(data);
-          }, error => {
-              observer.error(error);
-          });
+        ).subscribe((data: any) => {
+          observer.next(data);
+        }, error => {
+          observer.error(error);
+        });
       }
     });
   }
@@ -54,11 +54,11 @@ export class OrderService {
   getOrdersFilter(user: any, limit: any, stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
-    ).subscribe((data: any) => {
-          observer.next(data);
-        }, errorMessage => {
-            observer.error(errorMessage);
-        });
+      ).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 
@@ -76,7 +76,7 @@ export class OrderService {
       this.http.patch(this.api.get('sendProductInOrder', [orderId, idProduct]), product).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-          observer.error(err);
+        observer.error(err);
       });
     });
   }
@@ -94,7 +94,7 @@ export class OrderService {
       this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-          observer.error(err);
+        observer.error(err);
       });
     });
   }
@@ -110,7 +110,7 @@ export class OrderService {
       this.http.get(this.api.get('carries')).subscribe((data: any) => {
         observer.next(data);
       }, err => {
-          observer.error(err);
+        observer.error(err);
       });
     });
   }
@@ -122,14 +122,17 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  recordProcesSedOrder(information, user): Observable<[{}]> {
+  recordProcesSedOrder(information: any): Observable<{}> {
     return new Observable(observer => {
-
-      this.http.patch(this.api.get('recordProcesSedOrder'), information).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-          observer.error(err);
-      });
+      this.http.patch<any>(this.api.get('recordProcesSedOrder'), information, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
     });
   }
 

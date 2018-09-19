@@ -43,6 +43,11 @@
         <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]" *ngIf="user?.sellerProfile === 'seller'">
           <span>Carga Masiva</span>
         </button>
+
+        <button mat-menu-item id="dropdown-button-historic-categories" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoad]" *ngIf="user?.sellerProfile === 'seller'">
+          <span>Histórico de Carga de Ofertas</span>
+        </button>
+
         <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <span>Arbol de Categorias</span>
         </button>
