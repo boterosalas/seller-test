@@ -2,8 +2,8 @@
 
   <mat-nav-list class="light-content">
     <mat-toolbar color="primary">
-      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="toggleMenu()">
+      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below"
+        mat-icon-button mat-button (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
       </button>
 
@@ -20,11 +20,13 @@
             &Oacute;rdenes
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)" (click)="toggleMenu()">
+        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)"
+          (click)="toggleMenu()">
           <h6 matLine [innerHTML]="item.name"></h6>
         </mat-list-item>
 
-         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInPendingDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInPendingDevolution]"
+          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>Solicitudes pendientes</h6>
         </mat-list-item>
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInValidation]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
@@ -56,7 +58,8 @@
           <h6 matLine>Carga Masiva</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoad]" *ngIf="user?.sellerProfile === 'seller'">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoad]"
+          *ngIf="user?.sellerProfile === 'seller'">
           <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
 
@@ -66,7 +69,7 @@
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator' && !isProductionEnv">
+    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator'">
 
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-products">
@@ -122,12 +125,12 @@
         </mat-expansion-panel-header>
 
         <a mat-list-item id="matlist-item-button-seller-documentation" href="http://sellercenter.api.exito.com.s3-website-us-east-1.amazonaws.com/"
-            target="_blank">
-            <h3 matLine style="margin-left:50px;">API</h3>
+          target="_blank">
+          <h3 matLine style="margin-left:50px;">API</h3>
         </a>
         <a mat-list-item id="matlist-item-button-seller-documentation-front" href="http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/"
-            target="_blank">
-            <h3 matLine style="margin-left:50px;">App Angular</h3>
+          target="_blank">
+          <h3 matLine style="margin-left:50px;">App Angular</h3>
         </a>
 
       </mat-expansion-panel>
