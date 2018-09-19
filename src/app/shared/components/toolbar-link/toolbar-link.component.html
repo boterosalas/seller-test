@@ -54,7 +54,7 @@
       </mat-menu>
 
 
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user?.sellerProfile === 'administrator' && !isProductionEnv">
+      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user?.sellerProfile === 'administrator'">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
