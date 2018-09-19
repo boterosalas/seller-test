@@ -58,8 +58,9 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
-    this.createForm();
+    this.getDataUser().then(data => {
+      this.createForm();
+    });
   }
 
   async getDataUser() {
