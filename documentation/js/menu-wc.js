@@ -215,15 +215,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <li class="link">
                                             <a href="components/BulkLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">BulkLoadComponent</a>
                                         </li>
-                                        <li class="link">
-                                            <a href="components/FinishUploadInformationComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">FinishUploadInformationComponent</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
-                                        </li>
-                                        <li class="link">
-                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
-                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1316,6 +1307,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                     </div>
                     <ul class="links collapse"
                     ${ isNormalMode ? 'id="components-links"' : 'id="xs-components-links"' }>
+                            <li class="link">
+                                <a href="components/ConfirmAlertComponent.html" data-type="entity-link">ConfirmAlertComponent</a>
+                            </li>
                             <li class="link">
                                 <a href="components/FilterComponent-1.html" data-type="entity-link">FilterComponent</a>
                             </li>
