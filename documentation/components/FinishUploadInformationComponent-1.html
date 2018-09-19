@@ -1,0 +1,862 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Seller Center documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Seller Center documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>FinishUploadInformationComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component Modal que permite visualizar la lista de erores recibidos y exportarlos a un archivo tipo excel</p>
+
+    </p>
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-finish-upload-information</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>finish-upload-information.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./finish-upload-information.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#data">data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef">dialogRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#response">response</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#exportAsExcelFile">exportAsExcelFile</a>
+                            </li>
+                            <li>
+                                <a href="#onNoClick">onNoClick</a>
+                            </li>
+                            <li>
+                                <a href="#s2ab">s2ab</a>
+                            </li>
+                            <li>
+                                <a href="#saveAsExcelFile">saveAsExcelFile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialogRef: <a href="../classes/FinishUploadInformation.html">MatDialogRef<FinishUploadInformationComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Creates an instance of FinishUploadInformationComponent.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../classes/FinishUploadInformation.html" target="_self" >MatDialogRef&lt;FinishUploadInformationComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="exportAsExcelFile"></a>
+                        <span class="name">
+                            <b>
+                            exportAsExcelFile
+                            </b>
+                            <a href="#exportAsExcelFile"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>exportAsExcelFile(json: any[], excelFileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Método que genera el dato json en el formato que emplea excel para.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>json</td>
+                                                        <td>
+                                                                    <code>any[]</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>excelFileName</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onNoClick"></a>
+                        <span class="name">
+                            <b>
+                            onNoClick
+                            </b>
+                            <a href="#onNoClick"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onNoClick()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Método para cerrar el modal</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="s2ab"></a>
+                        <span class="name">
+                            <b>
+                            s2ab
+                            </b>
+                            <a href="#s2ab"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>s2ab(s: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Método que permite dar el formato correcto al archivo excel generado</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>s</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="saveAsExcelFile"></a>
+                        <span class="name">
+                            <b>
+                            saveAsExcelFile
+                            </b>
+                            <a href="#saveAsExcelFile"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>saveAsExcelFile(buffer: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:82</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Método que permite generar el excel con los datos pasados.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>buffer</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>fileName</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            data
+                            </b>
+                            <a href="#data"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>data:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>Inject</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogRef"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogRef
+                            </b>
+                            <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dialogRef:     <code><a href="../classes/FinishUploadInformation.html" target="_self" >MatDialogRef&lt;FinishUploadInformationComponent&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/FinishUploadInformation.html" target="_self" >MatDialogRef&lt;FinishUploadInformationComponent&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="response"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            response
+                            </b>
+                            <a href="#response"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>response:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject } from &#x27;@angular/core&#x27;;
+import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material&#x27;;
+import * as FileSaver from &#x27;file-saver&#x27;;
+import * as XLSX from &#x27;xlsx&#x27;;
+
+const EXCEL_EXTENSION &#x3D; &#x27;.xlsx&#x27;;
+
+
+/**
+ * Component Modal que permite visualizar la lista de erores recibidos y exportarlos a un archivo tipo excel
+ */
+@Component({
+  selector: &#x27;app-finish-upload-information&#x27;,
+  templateUrl: &#x27;./finish-upload-information.component.html&#x27;,
+  styleUrls: [&#x27;./finish-upload-information.component.scss&#x27;]
+})
+
+/**
+ * FinishUploadInformationComponent
+ */
+export class FinishUploadInformationComponent {
+
+  public response: any;
+
+  /**
+   * Creates an instance of FinishUploadInformationComponent.
+   * @param {MatDialogRef&lt;FinishUploadInformationComponent&gt;} dialogRef
+   * @param {*} data
+   * @memberof FinishUploadInformationComponent
+   */
+  constructor(
+    public dialogRef: MatDialogRef&lt;FinishUploadInformationComponent&gt;,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.response &#x3D; data.response;
+  }
+
+  /**
+   * Método para cerrar el modal
+   * @memberof FinishUploadInformationComponent
+   */
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+
+  /**
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof FinishUploadInformationComponent
+   */
+  exportAsExcelFile(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet &#x3D; XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook &#x3D; { Sheets: { &#x27;data&#x27;: worksheet }, SheetNames: [&#x27;data&#x27;] };
+    const excelBuffer: any &#x3D; XLSX.write(workbook, { bookType: &#x27;xlsx&#x27;, bookSST: false, type: &#x27;binary&#x27; });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  /**
+   * Método que permite dar el formato correcto al archivo excel generado
+   * @param {*} s
+   * @returns
+   * @memberof FinishUploadInformationComponent
+   */
+  s2ab(s: any) {
+    const buf &#x3D; new ArrayBuffer(s.length);
+    const view &#x3D; new Uint8Array(buf);
+    // tslint:disable-next-line:curly
+    for (let i &#x3D; 0; i !&#x3D;&#x3D; s.length; ++i) {
+      // tslint:disable-next-line:no-bitwise
+      view[i] &#x3D; s.charCodeAt(i) &amp; 0xFF;
+    }
+    return buf;
+  }
+
+  /**
+   * Método que permite generar el excel con los datos pasados.
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof FinishUploadInformationComponent
+   */
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob &#x3D; new Blob([this.s2ab(buffer)], {
+      type: &#x27;&#x27;
+    });
+    FileSaver.saveAs(data, fileName + &#x27;_export_&#x27; + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0 || response.body.successful !&#x3D;&#x3D; 0&quot;&gt;
+  &lt;div class&#x3D;&quot;error-list-content list-log&quot;&gt;
+
+    &lt;h3 class&#x3D;&quot;succes-string&quot; mat-subheader *ngIf&#x3D;&quot;response.body.successful !&#x3D;&#x3D; 0&quot;&gt;
+      &lt;mat-icon&gt;check&lt;/mat-icon&gt;
+      {{response.successful}} Carga realizada con éxito
+    &lt;/h3&gt;
+    &lt;mat-divider *ngIf&#x3D;&quot;response.successful !&#x3D; 0&quot;&gt;&lt;/mat-divider&gt;
+
+    &lt;h4 class&#x3D;&quot;error-string&quot; mat-subheader *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot;&gt;
+      &lt;mat-icon&gt;warning&lt;/mat-icon&gt;
+      Se han presentado {{response.body.error}} errores al momento de cargar las ofertas
+    &lt;/h4&gt;
+    &lt;mat-divider *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot;&gt;&lt;/mat-divider&gt;
+
+    &lt;mat-nav-list *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot;&gt;
+      &lt;mat-list-item *ngFor&#x3D;&quot;let item of response.body.offerNotifyViewModels&quot;&gt;
+        &lt;mat-icon mat-list-icon class&#x3D;&quot;icon-color-error&quot;&gt;warning&lt;/mat-icon&gt;
+        &lt;h4 matLine&gt;EAN:{{item.ean}}&lt;/h4&gt;
+        &lt;p matLine&gt;Error presentado: {{item.message}}&lt;/p&gt;
+      &lt;/mat-list-item&gt;
+    &lt;/mat-nav-list&gt;
+  &lt;/div&gt;
+  &lt;mat-dialog-actions class&#x3D;&quot;footer-dialog&quot;&gt;
+    &lt;button id&#x3D;&quot;close-finish-upload-button&quot; mat-button mat-dialog-close&gt;Cerrar&lt;/button&gt;
+    &lt;button id&#x3D;&quot;export-to-excel-button&quot; *ngIf&#x3D;&quot;response.body.error !&#x3D;&#x3D; 0&quot; mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;exportAsExcelFile(response.body.offerNotifyViewModels,&#x27;OffersLog&#x27;)&quot;&gt;Exportar Excel
+    &lt;/button&gt;
+  &lt;/mat-dialog-actions&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="response.body.error !== 0 || response.body.successful !== 0">  <div class="error-list-content list-log">    <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0">      <mat-icon>check</mat-icon>      {{response.successful}} Carga realizada con éxito    </h3>    <mat-divider *ngIf="response.successful != 0"></mat-divider>    <h4 class="error-string" mat-subheader *ngIf="response.body.error !== 0">      <mat-icon>warning</mat-icon>      Se han presentado {{response.body.error}} errores al momento de cargar las ofertas    </h4>    <mat-divider *ngIf="response.body.error !== 0"></mat-divider>    <mat-nav-list *ngIf="response.body.error !== 0">      <mat-list-item *ngFor="let item of response.body.offerNotifyViewModels">        <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>        <h4 matLine>EAN:{{item.ean}}</h4>        <p matLine>Error presentado: {{item.message}}</p>      </mat-list-item>    </mat-nav-list>  </div>  <mat-dialog-actions class="footer-dialog">    <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>    <button id="export-to-excel-button" *ngIf="response.body.error !== 0" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.offerNotifyViewModels,\'OffersLog\')">Exportar Excel    </button>  </mat-dialog-actions></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HistoricalComponent', 'selector': 'app-historical-component'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManageSellerComponent', 'selector': 'app-manage-seller'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchSellerComponent', 'selector': 'app-search-seller'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'ToolbarSellerComponent', 'selector': 'app-toolbar-seller'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
+    var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
+    var ACTUAL_COMPONENT = {'name': 'FinishUploadInformationComponent-1'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FinishUploadInformationComponent-1.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
