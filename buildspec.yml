@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: "sellercenterprod.exito.com.co"
-    CLOUDFRONT_DISTRIBUTION_ID: "E34UHKF31PAFG2"
+    S3_BUCKET: "sellercenter.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID: "E3462U4NPR8XV7"
 
 phases:
 
