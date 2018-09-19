@@ -32,8 +32,8 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'confirmRegistration/:username', component: RegistrationConfirmationComponent },
       { path: 'resendCode', component: ResendCodeComponent },
-      { path: 'forgotPassword/:email', component: !isProductionEnv ? ForgotPassword2Component : ErrorPageComponent },
-      { path: 'forgotPassword', component: !isProductionEnv ? ForgotPasswordStep1Component : ErrorPageComponent },
+      { path: 'forgotPassword/:email', component: ForgotPassword2Component },
+      { path: 'forgotPassword', component: ForgotPasswordStep1Component },
       { path: 'newPassword', component: NewPasswordComponent }
     ]
   }
