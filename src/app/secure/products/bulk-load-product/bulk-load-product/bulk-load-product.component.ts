@@ -1104,12 +1104,17 @@ export class BulkLoadProductComponent implements OnInit {
           if (result.status === 201 || result.status === 200) {
             const data = result;
             log.info(data);
-            if (data.body.successful !== 0 || data.body.error !== 0) {
-              this.openDialogSendOrder(data);
-              this.getAvaliableLoads();
-            } else if (data.body.successful === 0 && data.body.error === 0) {
+            if (data.body !== null && data.body !== undefined) {
+              if (data.body.successful !== 0 || data.body.error !== 0) {
+                this.openDialogSendOrder(data);
+                this.getAvaliableLoads();
+              } else if (data.body.successful === 0 && data.body.error === 0) {
+                this.modalService.showModal('errorService');
+              }
+            } else {
               this.modalService.showModal('errorService');
             }
+
           } else {
             this.modalService.showModal('errorService');
           }
