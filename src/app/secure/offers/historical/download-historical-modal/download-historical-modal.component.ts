@@ -1,5 +1,5 @@
 // 3rd party components
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 
@@ -34,7 +34,7 @@ const log = new Logger('DownloadHistoricalComponent');
 export class DownloadHistoricalModalComponent implements OnInit {
 
   // Formulario para realizar la busqueda
-  myform: FormGroup;
+  public myform: FormGroup;
 
   // user info
   public user: UserInformation;
@@ -67,12 +67,13 @@ export class DownloadHistoricalModalComponent implements OnInit {
    * @memberof DownloadHistoricalModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
     this.createForm();
+    this.getDataUser();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+    this.myform.controls['email'].setValue(this.user.sellerEmail);
   }
 
   /**
@@ -90,9 +91,11 @@ export class DownloadHistoricalModalComponent implements OnInit {
    * @memberof DownloadHistoricalModalComponent
    */
   createForm() {
-    const email = this.user.sellerEmail;
-    this.myform = this.fb.group({
-      'email': [{ value: email, disabled: false }, Validators.compose([Validators.required, Validators.email])],
+    this.myform = new FormGroup({
+      email: new FormControl({ disabled: false }, [
+        Validators.required,
+        Validators.email
+      ])
     });
   }
 
@@ -106,20 +109,20 @@ export class DownloadHistoricalModalComponent implements OnInit {
     log.debug(this.downloadHistoricalService.getCurrentFilterHistorical());
     const email = form.get('email').value;
     this.downloadHistoricalService.downloadHistorical(email)
-    .subscribe(
-      res => {
-        if (res != null) {
-          this.componentsService.openSnackBar('Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico',
-            'Cerrar', 10000);
-        } else {
+      .subscribe(
+        res => {
+          if (res != null) {
+            this.componentsService.openSnackBar('Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico',
+              'Cerrar', 10000);
+          } else {
+            this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
+          }
+          this.onNoClick();
+        },
+        err => {
           this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
+          this.onNoClick();
         }
-        this.onNoClick();
-      },
-      err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
-        this.onNoClick();
-      }
-    );
+      );
   }
 }
