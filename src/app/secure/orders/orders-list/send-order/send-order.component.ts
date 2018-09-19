@@ -210,7 +210,7 @@ export class SendOrderComponent implements OnInit {
       products: productList
     };
 
-    this.orderService.sendAllProductInOrder(jsonOrder, this.user, this.order.id).subscribe((res: any) => {
+    this.orderService.sendAllProductInOrder(jsonOrder, this.order.id).subscribe((res: any) => {
 
       if (res.errors !== 0) {
         this.componentService.openSnackBar('Hubo un error procesando la solicitud.', 'Cerrar', 15000);
