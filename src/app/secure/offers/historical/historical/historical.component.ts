@@ -202,7 +202,6 @@ export class HistoricalComponent implements OnInit {
    * @memberof HistoricalComponent
    */
   historicalFilter(params: any) {
-    console.log('historicalFilter');
     this.historicalOffer = false;
     this.currentPage = 1;
     this.filterActive = true;
