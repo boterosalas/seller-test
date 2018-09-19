@@ -85,12 +85,12 @@ const routes: Routes &#x3D; [
   &quot;Route.withShell([\
     {\
       path: &#x60;${RoutesConst.sellerCenterProducts}&#x60;,\
-      component: !isProductionEnv ? BulkLoadProductComponent : ErrorPageComponent,\
+      component: BulkLoadProductComponent,\
       data: { title: &#x27;Cargar masiva de Producto&#x27; },\
     },\
     {\
       path: &#x60;${RoutesConst.sellerCenterIntProductBulkLoad}&#x60;,\
-      component: !isProductionEnv ? BulkLoadProductComponent : ErrorPageComponent,\
+      component: BulkLoadProductComponent,\
       data: { title: &#x27;Cargar masiva de Producto&#x27; },\
     }\
   ])&quot;

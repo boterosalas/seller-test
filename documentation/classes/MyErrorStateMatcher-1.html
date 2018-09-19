@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/shared/components/states/states.component.ts</code>
+            <code>src/app/shared/components/cities/cities.component.ts</code>
         </p>
 
 
@@ -133,7 +133,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/shared/components/states/states.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -203,13 +203,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Inject, OnInit, Output } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from &#x27;@angular/core&#x27;;
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from &#x27;@angular/forms&#x27;;
 import { ErrorStateMatcher } from &#x27;@angular/material&#x27;;
+
 import { LoadingService, ModalService } from &#x27;@app/core&#x27;;
 
-import { State } from &#x27;./states.model&#x27;;
-import { StatesService } from &#x27;./states.service&#x27;;
+import { Cities } from &#x27;./cities.model&#x27;;
+import { CitiesServices } from &#x27;./cities.service&#x27;;
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -219,57 +220,70 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-@Component({
-  selector: &#x27;app-states-data&#x27;,
-  templateUrl: &#x27;./states.component.html&#x27;,
-  providers: [StatesService]
-})
 
-export class StatesComponent implements OnInit {
+@Component({
+  selector: &#x27;app-cities&#x27;,
+  templateUrl: &#x27;./cities.component.html&#x27;,
+  providers: [CitiesServices]
+})
+export class CitiesComponent implements OnInit, OnChanges {
 
   public listItems: any;
-  public statesFormControl: FormControl;
+  public citiesFormControl: FormControl;
   public validateFormRegister: FormGroup;
-  public statesObject: State;
+  public citiesObject: Cities;
   public matcher: MyErrorStateMatcher;
-  @Output() idStateEvent &#x3D; new EventEmitter&lt;number&gt;();
+  @Input() idState: number;
+  @Output() daneCodeEvent &#x3D; new EventEmitter&lt;number&gt;();
 
   constructor(
-    @Inject(StatesService)
-    private dataService: StatesService,
+    @Inject(CitiesServices)
+    private dataService: CitiesServices,
     private loadingService: LoadingService,
     private modalService: ModalService
   ) {
-    this.statesObject &#x3D; new State();
+    this.citiesObject &#x3D; new Cities();
   }
 
   /**
    * @method ngOnInit
-   * @description Método que se ejecuta mientras inicia el componente
-   * @memberof StatesComponent
+   * @description Metodo que se ejecuta mientras inicia el componente
+   * @memberof CitiesComponent
    */
   ngOnInit() {
     this.validateFormRegister &#x3D; new FormGroup({
-      statesFormControl: new FormControl(&#x27;&#x27;, [Validators.required])
+      citiesFormControl: new FormControl({ value: &#x27;&#x27;, disabled: true }, [Validators.required])
     });
     this.matcher &#x3D; new MyErrorStateMatcher();
-
-    this.getStatesDropdown();
   }
 
   /**
-   * @method getStatesDropdown
-   * @description Metodo para consumir el servicio que retorna el listado de departamentos
-   * @memberof StatesComponent
+   * @method ngOnInit
+   * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
+   * @memberof CitiesComponent
    */
-  getStatesDropdown() {
+  ngOnChanges(changes: any) {
+    if (this.idState &amp;&amp; this.idState !&#x3D;&#x3D; undefined &amp;&amp; this.idState !&#x3D;&#x3D; null) {
+      this.getCitiesDropdown(this.idState);
+      this.daneCodeEvent.emit(null);
+    }
+  }
+
+  /**
+   * @method getCitiesDropdown
+   * @param state
+   * @description Metodo que consume el servicio que retorna el listado de ciudades
+   * @memberof CitiesComponent
+   */
+  getCitiesDropdown(state: any) {
     this.loadingService.viewSpinner();
-    this.dataService.fetchData().subscribe(
+    this.dataService.fetchData(state).subscribe(
       (result: any) &#x3D;&gt; {
         if (result.status &#x3D;&#x3D;&#x3D; 200) {
           const data_response &#x3D; JSON.parse(result.body.body);
           const data &#x3D; data_response.Data;
           this.listItems &#x3D; data;
+          this.validateFormRegister.get(&#x27;citiesFormControl&#x27;).enable();
           this.loadingService.closeSpinner();
         } else {
           this.loadingService.closeSpinner();
@@ -280,26 +294,27 @@ export class StatesComponent implements OnInit {
   }
 
   /**
-   * @method setParamToCities
+   * @method setDataCitie
+   * @description Metodo para enviar los datos de la ciudad seleccionada, de aca se usa el codigo dane
    * @param param
-   * @description Metodo para enviar el id del estado que se necesita para consumir el servicio de ciudades
-   * @memberof StatesComponent
+   * @memberof CitiesComponent
    */
-  setParamToCities(param: any) {
-    this.idStateEvent.emit(param);
+  setDataCitie(param: any) {
+    this.daneCodeEvent.emit(param);
   }
 
   /**
-   * @method setParamToCitiesChange
-   * @description Metodo para cargar las ciudades luego de cambiar de foco en el campo de departamentos
-   * @memberof StatesComponent
+   * @method setParamToDaneChange
+   * @description Metodo para cargar los dane luego de cambiar de foco en el campo de departamentos
+   * @memberof CitiesComponent
+   * @param cities
    */
-  public setParamToCitiesChange() {
-    const stateId &#x3D; this.validateFormRegister.get(&#x27;statesFormControl&#x27;).value;
-    if (typeof stateId !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; stateId !&#x3D;&#x3D; &#x27;&#x27;) {
+  public setParamToDaneChange() {
+    const citieId &#x3D; this.validateFormRegister.get(&#x27;citiesFormControl&#x27;).value;
+    if (typeof citieId !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; citieId !&#x3D;&#x3D; &#x27;&#x27;) {
       for (let i &#x3D; 0; i &lt; this.listItems.length; i++) {
-        if (this.listItems[i].Id &#x3D;&#x3D;&#x3D; stateId) {
-          this.idStateEvent.emit(this.listItems[i]);
+        if (this.listItems[i].Id &#x3D;&#x3D;&#x3D; citieId) {
+          this.daneCodeEvent.emit(this.listItems[i]);
         }
       }
     }

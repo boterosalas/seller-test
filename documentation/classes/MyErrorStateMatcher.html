@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/shared/components/cities/cities.component.ts</code>
+            <code>src/app/secure/seller/register/register.component.ts</code>
         </p>
 
 
@@ -133,7 +133,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/secure/seller/register/register.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -203,16 +203,17 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from &#x27;@angular/forms&#x27;;
-import { ErrorStateMatcher } from &#x27;@angular/material&#x27;;
+import { ErrorStateMatcher } from &#x27;@angular/material/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
 
-import { LoadingService, ModalService } from &#x27;@app/core&#x27;;
+import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from &#x27;@app/core&#x27;;
+import { RoutesConst, UserInformation } from &#x27;@app/shared&#x27;;
+import { RegisterService } from &#x27;./register.service&#x27;;
 
-import { Cities } from &#x27;./cities.model&#x27;;
-import { CitiesServices } from &#x27;./cities.service&#x27;;
 
-
+// Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted &#x3D; form &amp;&amp; form.submitted;
@@ -220,106 +221,237 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
 @Component({
-  selector: &#x27;app-cities&#x27;,
-  templateUrl: &#x27;./cities.component.html&#x27;,
-  providers: [CitiesServices]
+  selector: &#x27;app-register&#x27;,
+  templateUrl: &#x27;./register.component.html&#x27;,
+  styleUrls: [&#x27;./register.component.scss&#x27;],
+  providers: [RegisterService]
 })
-export class CitiesComponent implements OnInit, OnChanges {
 
-  public listItems: any;
-  public citiesFormControl: FormControl;
-  public validateFormRegister: FormGroup;
-  public citiesObject: Cities;
+
+export class RegisterSellerComponent implements OnInit, LoggedInCallback {
+
+  public imagesRegister: Array&lt;any&gt; &#x3D; [
+    {
+      checked: &#x27;../../../../../assets/seller-register/logo_exito_check.jpg&#x27;,
+      unchecked: &#x27;../../../../../assets/seller-register/logo_exito.jpg&#x27;
+    },
+    {
+      checked: &#x27;../../../../../assets/seller-register/logo_carulla_check.jpg&#x27;,
+      unchecked: &#x27;../../../../../assets/seller-register/logo_carulla.jpg&#x27;
+    },
+    {
+      checked: &#x27;../../../../../assets/seller-register/logo_mis_catalogos_check.jpg&#x27;,
+      unchecked: &#x27;../../../../../assets/seller-register/logo_mis_catalogos.jpg&#x27;
+    }
+  ];
+
+  public values &#x3D; &#x27;&#x27;;
+  public existValueInDB: boolean;
   public matcher: MyErrorStateMatcher;
-  @Input() idState: number;
-  @Output() daneCodeEvent &#x3D; new EventEmitter&lt;number&gt;();
+  public validateFormRegister: FormGroup;
+  public idState: number;
+  public daneCode: any;
+  public disabledForService: boolean;
+  public emailRegex &#x3D; /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
+  public nameStoreRegex &#x3D; /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
+  public user: UserInformation;
+  public activeButton: boolean;
+
 
   constructor(
-    @Inject(CitiesServices)
-    private dataService: CitiesServices,
+    @Inject(RegisterService)
+    private registerService: RegisterService,
     private loadingService: LoadingService,
-    private modalService: ModalService
-  ) {
-    this.citiesObject &#x3D; new Cities();
-  }
+    private modalService: ModalService,
+    public userService: UserLoginService,
+    private router: Router,
+    public userParams: UserParametersService
+  ) { }
 
-  /**
-   * @method ngOnInit
-   * @description Metodo que se ejecuta mientras inicia el componente
-   * @memberof CitiesComponent
-   */
   ngOnInit() {
+    this.userService.isAuthenticated(this);
     this.validateFormRegister &#x3D; new FormGroup({
-      citiesFormControl: new FormControl({ value: &#x27;&#x27;, disabled: true }, [Validators.required])
+      Nit: new FormControl(&#x27;&#x27;, [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern(&#x27;^[0-9]*$&#x27;)
+      ]),
+      Rut: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern(&#x27;^[0-9]*$&#x27;)
+        ]),
+      ContactName: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.pattern(&#x27;^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$&#x27;)
+        ]),
+      Email: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+      PhoneNumber: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(10),
+        Validators.pattern(&#x27;^[0-9]*$&#x27;)]),
+      Address: new FormControl
+        (&#x27;&#x27;, [Validators.required]),
+      State: new FormControl,
+      City: new FormControl,
+      DaneCode: new FormControl,
+      SincoDaneCode: new FormControl,
+      Name: new FormControl
+        (&#x27;&#x27;, [Validators.required,
+        Validators.pattern(this.nameStoreRegex)]),
+      IsLogisticsExito: new FormControl(false),
+      IsShippingExito: new FormControl(true),
+      GotoExito: new FormControl(true),
+      GotoCarrulla: new FormControl(false),
+      GotoCatalogo: new FormControl(true)
     });
     this.matcher &#x3D; new MyErrorStateMatcher();
   }
 
-  /**
-   * @method ngOnInit
-   * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
-   * @memberof CitiesComponent
-   */
-  ngOnChanges(changes: any) {
-    if (this.idState &amp;&amp; this.idState !&#x3D;&#x3D; undefined &amp;&amp; this.idState !&#x3D;&#x3D; null) {
-      this.getCitiesDropdown(this.idState);
-      this.daneCodeEvent.emit(null);
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+    } else if (!isLoggedIn) {
+      this.router.navigate([&#x60;/${RoutesConst.home}&#x60;]);
+    }
+
+  }
+
+  async getDataUser() {
+    this.user &#x3D; await this.userParams.getUserData();
+    if (this.user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;seller&#x27;) {
+      this.router.navigate([&#x60;/${RoutesConst.sellerCenterOrders}&#x60;]);
     }
   }
 
   /**
-   * @method getCitiesDropdown
-   * @param state
-   * @description Metodo que consume el servicio que retorna el listado de ciudades
-   * @memberof CitiesComponent
+   * @method keyPress que permite solo el ingreso de números
+   * @param event
+   * @memberof RegisterSellerComponent
    */
-  getCitiesDropdown(state: any) {
+  keyPress(event: any) {
+    const pattern &#x3D; /[0-9]/;
+    const inputChar &#x3D; String.fromCharCode(event.charCode);
+    if (event.keyCode !&#x3D;&#x3D; 8 &amp;&amp; !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * @method submitSellerRegistrationForm para registrar al usuario
+   * @memberof RegisterSellerComponent
+   */
+  submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
-    this.dataService.fetchData(state).subscribe(
-      (result: any) &#x3D;&gt; {
-        if (result.status &#x3D;&#x3D;&#x3D; 200) {
-          const data_response &#x3D; JSON.parse(result.body.body);
-          const data &#x3D; data_response.Data;
-          this.listItems &#x3D; data;
-          this.validateFormRegister.get(&#x27;citiesFormControl&#x27;).enable();
+    this.disabledForService &#x3D; true;
+    this.registerService.registerUser(this.validateFormRegister.value)
+      .subscribe(
+        (result: any) &#x3D;&gt; {
+          if (result.status &#x3D;&#x3D;&#x3D; 201 || result.status &#x3D;&#x3D;&#x3D; 200) {
+            const data &#x3D; JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal(&#x27;success&#x27;);
+            } else if (!data.Data) {
+              this.modalService.showModal(&#x27;error&#x27;);
+            }
+          } else {
+            this.modalService.showModal(&#x27;errorService&#x27;);
+          }
+
+          this.disabledForService &#x3D; false;
           this.loadingService.closeSpinner();
-        } else {
-          this.loadingService.closeSpinner();
-          this.modalService.showModal(&#x27;errorService&#x27;);
+
         }
-      }
-    );
+      );
   }
 
   /**
-   * @method setDataCitie
-   * @description Metodo para enviar los datos de la ciudad seleccionada, de aca se usa el codigo dane
-   * @param param
-   * @memberof CitiesComponent
+   *
+   * @method Metodo para validar si existe el parametro despues de cambiar el focus del input
+   * @param {*} event
+   * @memberof RegisterSellerComponent
    */
-  setDataCitie(param: any) {
-    this.daneCodeEvent.emit(param);
-  }
-
-  /**
-   * @method setParamToDaneChange
-   * @description Metodo para cargar los dane luego de cambiar de foco en el campo de departamentos
-   * @memberof CitiesComponent
-   * @param cities
-   */
-  public setParamToDaneChange() {
-    const citieId &#x3D; this.validateFormRegister.get(&#x27;citiesFormControl&#x27;).value;
-    if (typeof citieId !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; citieId !&#x3D;&#x3D; &#x27;&#x27;) {
-      for (let i &#x3D; 0; i &lt; this.listItems.length; i++) {
-        if (this.listItems[i].Id &#x3D;&#x3D;&#x3D; citieId) {
-          this.daneCodeEvent.emit(this.listItems[i]);
-        }
-      }
+  validateExist(event: any, param: string) {
+    this.activeButton &#x3D; false;
+    const jsonExistParam &#x3D; event.target.value;
+    if (jsonExistParam !&#x3D;&#x3D; &#x27;&#x27; &amp;&amp; jsonExistParam !&#x3D;&#x3D; &#x27;&#x27; &amp;&amp; jsonExistParam !&#x3D;&#x3D; undefined &amp;&amp; jsonExistParam !&#x3D;&#x3D; null) {
+      this.loadingService.viewSpinner();
+      this.disabledForService &#x3D; true;
+      this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, &#x27;+&#x27;))), param)
+        .subscribe(
+          (result: any) &#x3D;&gt; {
+            if (result.status &#x3D;&#x3D;&#x3D; 200) {
+              const data_response &#x3D; JSON.parse(result.body.body);
+              this.existValueInDB &#x3D; data_response.Data;
+              switch (param) {
+                case &#x27;Nit&#x27;:
+                  if (this.existValueInDB) {
+                    this.validateFormRegister.controls[param].setErrors({ &#x27;validExistNitDB&#x27;: data_response.Data });
+                  }
+                  break;
+                case &#x27;Email&#x27;:
+                  if (this.existValueInDB) {
+                    this.validateFormRegister.controls[param].setErrors({ &#x27;validExistEmailDB&#x27;: data_response.Data });
+                  }
+                  break;
+                case &#x27;Name&#x27;:
+                  if (this.existValueInDB) {
+                    this.validateFormRegister.controls[param].setErrors({ &#x27;validExistNameDB&#x27;: data_response.Data });
+                  }
+                  break;
+              }
+              if (!this.existValueInDB) {
+                this.activeButton &#x3D; true;
+              }
+              this.disabledForService &#x3D; false;
+              this.loadingService.closeSpinner();
+            } else {
+              this.modalService.showModal(&#x27;errorService&#x27;);
+              this.disabledForService &#x3D; false;
+              this.loadingService.closeSpinner();
+            }
+          }
+        );
     }
+  }
+
+  /**
+   * @method receiveDataState Metodo para obtener la data de departamento.
+   * @param
+   * @memberof RegisterSellerComponent
+   */
+  receiveDataState($event: any) {
+    if ($event &amp;&amp; $event !&#x3D;&#x3D; undefined &amp;&amp; $event !&#x3D;&#x3D; null) {
+      this.idState &#x3D; $event.Id;
+      this.validateFormRegister.controls[&#x27;State&#x27;].setValue($event.Name);
+    }
+  }
+
+  /**
+   * @method receiveDataCitie Metodo para obtener la data de la ciudad.
+   * @param
+   * @memberof RegisterSellerComponent
+   */
+  receiveDataCitie($event: any) {
+    if ($event &amp;&amp; $event !&#x3D;&#x3D; undefined &amp;&amp; $event !&#x3D;&#x3D; null) {
+      this.validateFormRegister.controls[&#x27;DaneCode&#x27;].setValue($event.DaneCode);
+      this.validateFormRegister.controls[&#x27;City&#x27;].setValue($event.Name);
+      this.validateFormRegister.controls[&#x27;SincoDaneCode&#x27;].setValue($event.SincoDaneCode);
+    } else {
+      this.validateFormRegister.controls[&#x27;DaneCode&#x27;].setValue(null);
+    }
+  }
+
+  disabledButton() {
+    this.activeButton &#x3D; false;
   }
 }
+
 </code></pre>
     </div>
 </div>
