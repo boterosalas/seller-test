@@ -4653,7 +4653,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1332" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1332</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1331" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1331</a></div>
                             </td>
                         </tr>
 
@@ -4693,7 +4693,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1372" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1372</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1371" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1371</a></div>
                             </td>
                         </tr>
 
@@ -5304,7 +5304,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1398" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1398</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1397" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1397</a></div>
                             </td>
                         </tr>
 
@@ -5375,7 +5375,7 @@ mensajes que retorna el back con los errores o registros correctos.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="1385" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1385</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="1384" class="link-to-prism">src/app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component.ts:1384</a></div>
                             </td>
                         </tr>
 
@@ -7665,7 +7665,6 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitChars &#x3D; /^[\w\W\s\d]{1,29}$/;
     const formatImg &#x3D; /\bJPG$|\bjpg$/;
     const formatSkuShippingSize &#x3D; /^[1-5]{1}$/;
-    const formatExtraFields &#x3D; /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage &#x3D; /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc &#x3D; /^((?!&lt;script&gt;|&lt;SCRIPT&gt;).)*$/igm;
     const formatSize &#x3D; /^[^\s]{1,10}$/;
@@ -7813,7 +7812,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         default:
-          if ((inputtxt.match(formatExtraFields))) {
+          if ((inputtxt.match(formatAllChars))) {
             valueReturn &#x3D; true;
           } else {
             valueReturn &#x3D; false;
