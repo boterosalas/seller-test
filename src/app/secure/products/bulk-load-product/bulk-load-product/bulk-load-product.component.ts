@@ -1160,7 +1160,6 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
-    const formatExtraFields = /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
     const formatSize = /^[^\s]{1,10}$/;
@@ -1308,7 +1307,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         default:
-          if ((inputtxt.match(formatExtraFields))) {
+          if ((inputtxt.match(formatAllChars))) {
             valueReturn = true;
           } else {
             valueReturn = false;
