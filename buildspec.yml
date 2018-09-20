@@ -19,7 +19,7 @@ phases:
   build:
     commands:
       - echo Iniciando compilacion...
-      - ng build --configuration=stage
+      - ng build --configuration=production
       - echo Compilacion terminada.
       - echo Borrando archivos en bucket...
       - aws s3 rm s3://$S3_BUCKET --recursive
