@@ -6,6 +6,7 @@ import { HistoricalComponent } from '../../historical/historical.component';
 import { Logger } from '@app/core/util/logger.service';
 import { ModelFilter } from './../filter/filter.model';
 import { DownloadHistoricalModalComponent } from '@secure/offers/historical/download-historical-modal/download-historical-modal.component';
+import { HistoricalService } from '@secure/offers/historical/historical.service';
 
 // log component
 const log = new Logger('ToolbarOptionsComponent');
@@ -84,7 +85,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   constructor(
     public list: HistoricalComponent,
     private cdRef: ChangeDetectorRef,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {
     this.dataPaginate = new ModelFilter();
     this.dataPaginate.limit = 100;
@@ -129,6 +130,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
         this.list.setDataPaginate(this.dataPaginate);
         break;
       case 'prev':
+        this.list.removeLastPaginationToken(this.currentPage);
         this.currentPage -= 1;
         this.dataPaginate.currentPage = this.currentPage;
         this.list.setDataPaginate(this.dataPaginate);

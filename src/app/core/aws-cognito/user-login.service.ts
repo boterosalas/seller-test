@@ -110,21 +110,23 @@ export class UserLoginService {
     });
   }
 
-  confirmNewPassword(email: string, verificationCode: string, password: string, callback: CognitoCallback) {
-    const userData = {
-      Username: email,
-      Pool: this.cognitoUtil.getUserPool()
-    };
+  confirmNewPassword(email: string, verificationCode: string, password: string): Promise<string> {
+    return new Promise<string>((resolve) => {
+      const userData = {
+        Username: email,
+        Pool: this.cognitoUtil.getUserPool()
+      };
 
-    const cognitoUser = new CognitoUser(userData);
+      const cognitoUser = new CognitoUser(userData);
 
-    cognitoUser.confirmPassword(verificationCode, password, {
-      onSuccess: function () {
-        callback.cognitoCallback(null, null);
-      },
-      onFailure: function (err: any) {
-        callback.cognitoCallback(err.message, null);
-      }
+      cognitoUser.confirmPassword(verificationCode, password, {
+        onSuccess: () => {
+          resolve(null);
+        },
+        onFailure: (err: any) => {
+          resolve(err.message);
+        }
+      });
     });
   }
 

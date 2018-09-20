@@ -114,8 +114,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     this.subFilterOrderPending.unsubscribe();
   }
 
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();

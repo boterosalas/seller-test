@@ -12,12 +12,12 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterProducts}`,
-      component: !isProductionEnv ? BulkLoadProductComponent : ErrorPageComponent,
+      component: BulkLoadProductComponent,
       data: { title: 'Cargar masiva de Producto' },
     },
     {
       path: `${RoutesConst.sellerCenterIntProductBulkLoad}`,
-      component: !isProductionEnv ? BulkLoadProductComponent : ErrorPageComponent,
+      component: BulkLoadProductComponent,
       data: { title: 'Cargar masiva de Producto' },
     }
   ])

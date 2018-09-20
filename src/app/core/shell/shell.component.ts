@@ -68,11 +68,11 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * @param isLoggedIn
    * @memberof ShellComponent
    */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.viewToolbarPrincipal = true;
       this.showHeader = true;
-      this.user = this.userParams.getUserData();
+      this.user = await this.userParams.getUserData();
     } else if (!isLoggedIn) {
       this.showHeader = false;
       this.viewToolbarPrincipal = false;

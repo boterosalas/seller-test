@@ -259,6 +259,9 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
+                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1669,6 +1672,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -2397,6 +2403,9 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3811,6 +3820,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -4503,6 +4515,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getDataUser">getDataUser</a>
                             </li>
                             <li>
@@ -4516,6 +4529,9 @@
                             </li>
                             <li>
                                 <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#removeLastPaginationToken">removeLastPaginationToken</a>
                             </li>
                             <li>
                                 <a href="#setDataPaginate">setDataPaginate</a>
@@ -4695,6 +4711,7 @@
                         <a name="getDataUser"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Async</span>
                             getDataUser
                             </b>
                             <a href="#getDataUser"><span class="fa fa-link"></span></a>
@@ -4703,7 +4720,8 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>getDataUser()</code>
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>getDataUser()</code>
                     </td>
                 </tr>
 
@@ -4719,7 +4737,7 @@
                     <td class="col-md-4">
 
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                             </div>
                     </td>
@@ -4817,7 +4835,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">src/app/secure/offers/historical/historical/historical.component.ts:200</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">src/app/secure/offers/historical/historical/historical.component.ts:204</a></div>
                             </td>
                         </tr>
 
@@ -4987,6 +5005,75 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="removeLastPaginationToken"></a>
+                        <span class="name">
+                            <b>
+                            removeLastPaginationToken
+                            </b>
+                            <a href="#removeLastPaginationToken"><span class="fa fa-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>removeLastPaginationToken(currentPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="242" class="link-to-prism">src/app/secure/offers/historical/historical/historical.component.ts:242</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>currentPage</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="setDataPaginate"></a>
                         <span class="name">
                             <b>
@@ -5005,7 +5092,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="220" class="link-to-prism">src/app/secure/offers/historical/historical/historical.component.ts:220</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">src/app/secure/offers/historical/historical/historical.component.ts:230</a></div>
                             </td>
                         </tr>
 
@@ -6016,8 +6103,8 @@ export class HistoricalComponent implements OnInit {
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
    * @memberof HistoricalComponent
    */
-  getDataUser() {
-    this.user &#x3D; this.userParams.getUserData();
+  async getDataUser() {
+    this.user &#x3D; await this.userParams.getUserData();
     if (this.user.sellerProfile &#x3D;&#x3D;&#x3D; &#x27;administrator&#x27;) {
       this.router.navigate([&#x60;/${RoutesConst.sellerCenterIntSellerRegister}&#x60;]);
     } else {
@@ -6042,7 +6129,9 @@ export class HistoricalComponent implements OnInit {
           if (response) {
             // Pregunta si ya hay datos en la variable historicalOffer
             if (this.historicalOffer) {
-              this.paginationToken.push(response.paginationToken);
+              if ( response.paginationToken !&#x3D;&#x3D; &#x27;{}&#x27;) {
+                this.paginationToken.push(response.paginationToken);
+              }
               this.historicalService.savePaginationTokens(this.paginationToken);
               this.historicalOffer &#x3D; response.offerHistoricals;
             // Entra cuando no hay datos en la variable historicalOffer
@@ -6050,7 +6139,9 @@ export class HistoricalComponent implements OnInit {
               // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
               this.numberPages &#x3D; this.paramData.limit &#x3D;&#x3D;&#x3D; undefined || this.paramData.limit &#x3D;&#x3D;&#x3D; null ? response.total / this.limit : response.total / this.paramData.limit;
               this.numberPages &#x3D; Math.ceil(this.numberPages);
-              this.paginationToken.push(response.paginationToken);
+              if ( response.paginationToken !&#x3D;&#x3D; &#x27;{}&#x27;) {
+                this.paginationToken.push(response.paginationToken);
+              }
               this.historicalService.savePaginationTokens(this.paginationToken);
               this.historicalOffer &#x3D; response.offerHistoricals;
             }
@@ -6088,6 +6179,12 @@ export class HistoricalComponent implements OnInit {
     this.paramData.limit &#x3D; this.limit;
     this.getHistoricalOffers(this.paramData);
     this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean); // Metodo para guardadr los parametros del filtro
+
+    this.paginationToken &#x3D; []; // Clear paginationToken variable
+    this.paginationToken.push(&#x27;null&#x27;);
+    this.historicalService.savePaginationTokens(this.paginationToken);
+    this.numberPages &#x3D; 0; // Clear paginator
+
     this.sidenav.toggle();
   }
 
@@ -6101,6 +6198,22 @@ export class HistoricalComponent implements OnInit {
     this.paramData.currentPage &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.currentPage &#x3D;&#x3D;&#x3D; undefined ? null : params.currentPage;
     this.paramData.limit &#x3D; params &#x3D;&#x3D;&#x3D; undefined || params.limit &#x3D;&#x3D;&#x3D; undefined ? null : params.limit;
     this.getHistoricalOffers(this.paramData);
+  }
+
+  /**
+   * @method removeLastPaginationToken
+   * @description Metodo eliminar el ultimo pagination Token
+   * @param currentPage
+   * @memberof HistoricalComponent
+   */
+  removeLastPaginationToken(currentPage: number) {
+    if ( currentPage &#x3D;&#x3D;&#x3D; this.paginationToken.length) {
+      this.paginationToken.pop();
+    } else {
+      this.paginationToken.pop();
+      this.paginationToken.pop();
+    }
+    this.historicalService.savePaginationTokens(this.paginationToken);
   }
 
 }

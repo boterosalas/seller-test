@@ -81,8 +81,8 @@ export const endpoints = {
       // Register seller services
       registerSeller: 'https://x2vflz270c.execute-api.us-east-1.amazonaws.com/registerseller-pdn/',
       validateSellerNit: 'https://ce8fuvj37h.execute-api.us-east-1.amazonaws.com/validatesellernit-pdn/{params}',
-      validateSellerEmail: 'https://ejn1rdfov9.execute-api.us-east-1.amazonaws.com/validateselleremail-pdn',
-      validateSellerName: 'https://z0exz5y0f6.execute-api.us-east-1.amazonaws.com/validatesellername-pdn',
+      validateSellerEmail: 'https://ejn1rdfov9.execute-api.us-east-1.amazonaws.com/validateselleremail-pdn/{params}',
+      validateSellerName: 'https://z0exz5y0f6.execute-api.us-east-1.amazonaws.com/validatesellername-pdn/{params}',
       // Cities and States services
       getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/{params}',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
@@ -90,8 +90,10 @@ export const endpoints = {
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
       // Historical
-      getHistoricalOffers: '',
-      downloadHistorical: '',
+      getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/offerhistorical-pdn/{params}',
+      downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/offerdownloadhistorical-pdn/{params}',
+      // Products
+      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn'
     }
   }
 };

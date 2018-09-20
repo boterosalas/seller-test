@@ -49,9 +49,12 @@ export class SupportModalComponent implements OnInit {
    * @memberof SupportModalComponent
    */
   ngOnInit() {
-    this.user = this.userParams.getUserData();
+    this.getDataUser();
   }
 
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+  }
   /**
    * Funcionalidad para cerrar el modal actual de envio
    * @memberof SupportModalComponent

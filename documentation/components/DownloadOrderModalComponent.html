@@ -259,6 +259,9 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
+                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1669,6 +1672,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -2397,6 +2403,9 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3811,6 +3820,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -4453,6 +4465,10 @@ correo con las órdenes aplicando los filtros obtenidos</p>
                                 <a href="#downloadOrders">downloadOrders</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getDataUser">getDataUser</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
@@ -4612,7 +4628,7 @@ correo con las órdenes aplicando los filtros obtenidos</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:77</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:82</a></div>
                             </td>
                         </tr>
 
@@ -4652,7 +4668,7 @@ correo con las órdenes aplicando los filtros obtenidos</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:89</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:94</a></div>
                             </td>
                         </tr>
 
@@ -4693,6 +4709,46 @@ correo con las órdenes aplicando los filtros obtenidos</p>
                                 <div class="io-description">
                                     
                                 </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getDataUser"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Async</span>
+                            getDataUser
+                            </b>
+                            <a href="#getDataUser"><span class="fa fa-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>getDataUser()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:66</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
                     </td>
                 </tr>
             </tbody>
@@ -4757,7 +4813,7 @@ correo con las órdenes aplicando los filtros obtenidos</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:69</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/secure/orders/download-order-modal/download-order-modal.component.ts:74</a></div>
                             </td>
                         </tr>
 
@@ -5137,8 +5193,13 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   ngOnInit() {
-    this.user &#x3D; this.userParams.getUserData();
-    this.createForm();
+    this.getDataUser().then(data &#x3D;&gt; {
+      this.createForm();
+    });
+  }
+
+  async getDataUser() {
+    this.user &#x3D; await this.userParams.getUserData();
   }
 
   /**
@@ -5190,36 +5251,36 @@ export class DownloadOrderModalComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;h2 mat-dialog-title&gt;Te enviaremos las &amp;oacute;rdenes al siguiente correo electrónico.&lt;/h2&gt;
-&lt;mat-dialog-content&gt;
-  &lt;form #f&#x3D;&quot;ngForm&quot; [formGroup]&#x3D;&quot;myform&quot; class&#x3D;&quot;form-login&quot;&gt;
-    &lt;div fxLayout&#x3D;&quot;column&quot; fxLayoutGap&#x3D;&quot;20px&quot;&gt;
-      &lt;div fxLayout&#x3D;&quot;row&quot; fxFlex&#x3D;&quot;100&quot;&gt;
-        &lt;mat-form-field fxFlex&#x3D;&quot;100&quot; class&#x3D;&quot;input-style&quot;&gt;
-          &lt;input name&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot; matInput placeholder&#x3D;&quot;Correo electrónico&quot; type&#x3D;&quot;email&quot; required&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;myform&quot;&gt;
+  &lt;h2 mat-dialog-title&gt;Te enviaremos las &amp;oacute;rdenes al siguiente correo electrónico.&lt;/h2&gt;
+  &lt;mat-dialog-content&gt;
+    &lt;form #f&#x3D;&quot;ngForm&quot; [formGroup]&#x3D;&quot;myform&quot; class&#x3D;&quot;form-login&quot;&gt;
+      &lt;div fxLayout&#x3D;&quot;column&quot; fxLayoutGap&#x3D;&quot;20px&quot;&gt;
+        &lt;div fxLayout&#x3D;&quot;row&quot; fxFlex&#x3D;&quot;100&quot;&gt;
+          &lt;mat-form-field fxFlex&#x3D;&quot;100&quot; class&#x3D;&quot;input-style&quot;&gt;
+            &lt;input name&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot; matInput placeholder&#x3D;&quot;Correo electrónico&quot; type&#x3D;&quot;email&quot; required&gt;
 
-          &lt;!-- dirty: si el campo cambia --&gt;
-          &lt;button disabled&#x3D;&quot;{{!f.form.dirty}}&quot; matSuffix type&#x3D;&quot;button&quot; color&#x3D;&quot;primary&quot; mat-icon-button (click)&#x3D;&quot;createForm()&quot;&gt;
-            &lt;mat-icon matTooltip&#x3D;&quot;Volver a seleccionar mi corre electrónico&quot; matTooltipPosition&#x3D;&quot;below&quot; matSuffix&gt;
-              autorenew
-            &lt;/mat-icon&gt;
-          &lt;/button&gt;
-          &lt;mat-error&gt;El correo electrónico no puede estar en blanco&lt;/mat-error&gt;
-        &lt;/mat-form-field&gt;
+            &lt;!-- dirty: si el campo cambia --&gt;
+            &lt;button disabled&#x3D;&quot;{{!f.form.dirty}}&quot; matSuffix type&#x3D;&quot;button&quot; color&#x3D;&quot;primary&quot; mat-icon-button (click)&#x3D;&quot;createForm()&quot;&gt;
+              &lt;mat-icon matTooltip&#x3D;&quot;Volver a seleccionar mi corre electrónico&quot; matTooltipPosition&#x3D;&quot;below&quot; matSuffix&gt;
+                autorenew
+              &lt;/mat-icon&gt;
+            &lt;/button&gt;
+            &lt;mat-error&gt;El correo electrónico no puede estar en blanco&lt;/mat-error&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/form&gt;
-&lt;/mat-dialog-content&gt;
-&lt;mat-dialog-actions class&#x3D;&quot;dialog-buttons&quot;&gt;
+    &lt;/form&gt;
+  &lt;/mat-dialog-content&gt;
+  &lt;mat-dialog-actions class&#x3D;&quot;dialog-buttons&quot;&gt;
+    &lt;!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. --&gt;
+    &lt;button class&#x3D;&quot;sc-button&quot; mat-button [mat-dialog-close]&#x3D;&quot;true&quot;&gt;Cancelar&lt;/button&gt;
 
-
-  &lt;!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. --&gt;
-  &lt;button class&#x3D;&quot;sc-button&quot; mat-button [mat-dialog-close]&#x3D;&quot;true&quot;&gt;Cancelar&lt;/button&gt;
-
-  &lt;button class&#x3D;&quot;sc-button&quot; [disabled]&#x3D;&quot;!f.form.valid&quot; (click)&#x3D;&quot;downloadOrders(myform)&quot; mat-raised-button color&#x3D;&quot;accent&quot;&gt;Enviar &amp;oacute;rdenes
-  &lt;/button&gt;
-&lt;/mat-dialog-actions&gt;
-</code></pre>
+    &lt;button class&#x3D;&quot;sc-button&quot; [disabled]&#x3D;&quot;!f.form.valid&quot; (click)&#x3D;&quot;downloadOrders(myform)&quot; mat-raised-button color&#x3D;&quot;accent&quot;&gt;Enviar
+      &amp;oacute;rdenes
+    &lt;/button&gt;
+  &lt;/mat-dialog-actions&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -5247,7 +5308,7 @@ export class DownloadOrderModalComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h2 mat-dialog-title>Te enviaremos las &oacute;rdenes al siguiente correo electrónico.</h2><mat-dialog-content>  <form #f="ngForm" [formGroup]="myform" class="form-login">    <div fxLayout="column" fxLayoutGap="20px">      <div fxLayout="row" fxFlex="100">        <mat-form-field fxFlex="100" class="input-style">          <input name="email" formControlName="email" matInput placeholder="Correo electrónico" type="email" required>          <!-- dirty: si el campo cambia -->          <button disabled="{{!f.form.dirty}}" matSuffix type="button" color="primary" mat-icon-button (click)="createForm()">            <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>              autorenew            </mat-icon>          </button>          <mat-error>El correo electrónico no puede estar en blanco</mat-error>        </mat-form-field>      </div>    </div>  </form></mat-dialog-content><mat-dialog-actions class="dialog-buttons">  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->  <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>  <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">Enviar &oacute;rdenes  </button></mat-dialog-actions></div>'
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="myform">  <h2 mat-dialog-title>Te enviaremos las &oacute;rdenes al siguiente correo electrónico.</h2>  <mat-dialog-content>    <form #f="ngForm" [formGroup]="myform" class="form-login">      <div fxLayout="column" fxLayoutGap="20px">        <div fxLayout="row" fxFlex="100">          <mat-form-field fxFlex="100" class="input-style">            <input name="email" formControlName="email" matInput placeholder="Correo electrónico" type="email" required>            <!-- dirty: si el campo cambia -->            <button disabled="{{!f.form.dirty}}" matSuffix type="button" color="primary" mat-icon-button (click)="createForm()">              <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>                autorenew              </mat-icon>            </button>            <mat-error>El correo electrónico no puede estar en blanco</mat-error>          </mat-form-field>        </div>      </div>    </form>  </mat-dialog-content>  <mat-dialog-actions class="dialog-buttons">    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->    <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>    <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">Enviar      &oacute;rdenes    </button>  </mat-dialog-actions></div></div>'
     var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'CreateDialogComponent', 'selector': 'app-create-dialog'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HistoricalComponent', 'selector': 'app-historical-component'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'ListTransporterComponent', 'selector': 'app-list-transporter'},{'name': 'ListZonesComponent', 'selector': 'app-list-zones'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManageSellerComponent', 'selector': 'app-manage-seller'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'QuotingAdministratorComponent', 'selector': 'app-quoting-administrator'},{'name': 'QuotingComponent', 'selector': 'app-quoting'},{'name': 'QuotingSellerComponent', 'selector': 'app-quoting-seller'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchSellerComponent', 'selector': 'app-search-seller'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'ShippingMethodsComponent', 'selector': 'app-shipping-methods'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'ToolbarSellerComponent', 'selector': 'app-toolbar-seller'},{'name': 'ToolbarTittleComponent', 'selector': 'app-toolbar-tittle'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
     var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
     var ACTUAL_COMPONENT = {'name': 'DownloadOrderModalComponent'};

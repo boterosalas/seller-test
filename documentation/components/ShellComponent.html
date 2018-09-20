@@ -259,6 +259,9 @@
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
+                                        </li>
                                 </ul>
                             </li>
                             <li class="chapter inner">
@@ -1669,6 +1672,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -2397,6 +2403,9 @@
                                         </li>
                                         <li class="link">
                                             <a href="components/TableErrorsComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableErrorsComponent</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
                                         </li>
                                         <li class="link">
                                             <a href="components/TableLoadComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TableLoadComponent</a>
@@ -3811,6 +3820,9 @@
                                 <a href="components/TableErrorsComponent.html" data-type="entity-link">TableErrorsComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/TableLoadComponent.html" data-type="entity-link">TableLoadComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ToolbarLinkComponent.html" data-type="entity-link">ToolbarLinkComponent</a>
                             </li>
                     </ul>
@@ -4450,6 +4462,7 @@
                                 <a href="#goToEnviosExito">goToEnviosExito</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#isLoggedIn">isLoggedIn</a>
                             </li>
                             <li>
@@ -4641,6 +4654,7 @@
                         <a name="isLoggedIn"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Async</span>
                             isLoggedIn
                             </b>
                             <a href="#isLoggedIn"><span class="fa fa-link"></span></a>
@@ -4649,7 +4663,8 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>isLoggedIn(message: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isLoggedIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                            <span class="modifier-icon fa fa-reset"></span>
+                        <code>isLoggedIn(message: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, isLoggedIn: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                     </td>
                 </tr>
 
@@ -4705,7 +4720,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                             </div>
                                 <div class="io-description">
@@ -5418,11 +5433,11 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * @param isLoggedIn
    * @memberof ShellComponent
    */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
+  async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.viewToolbarPrincipal &#x3D; true;
       this.showHeader &#x3D; true;
-      this.user &#x3D; this.userParams.getUserData();
+      this.user &#x3D; await this.userParams.getUserData();
     } else if (!isLoggedIn) {
       this.showHeader &#x3D; false;
       this.viewToolbarPrincipal &#x3D; false;

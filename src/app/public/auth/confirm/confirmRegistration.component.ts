@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoggedInCallback, UserLoginService, UserRegistrationService } from '@app/core';
+import { LoggedInCallback, UserLoginService, UserRegistrationService, UserParametersService } from '@app/core';
 import { ShellComponent } from '@app/core/shell/shell.component';
 import { RoutesConst } from '@app/shared';
 import { Logger } from '@core/util/logger.service';
@@ -16,6 +16,7 @@ export class LogoutComponent implements LoggedInCallback {
     constructor(
         public router: Router,
         public userService: UserLoginService,
+        public userParams: UserParametersService,
         public shell: ShellComponent) {
         this.userService.isAuthenticated(this);
     }
@@ -23,6 +24,7 @@ export class LogoutComponent implements LoggedInCallback {
     isLoggedIn(message: string, isLoggedIn: boolean) {
         this.shell.showHeader = false;
         this.userService.logout();
+        this.userParams.clearUserData();
         localStorage.clear();
         this.router.navigate([`/${RoutesConst.homeLogin}`]);
     }

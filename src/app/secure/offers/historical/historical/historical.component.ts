@@ -136,8 +136,8 @@ export class HistoricalComponent implements OnInit {
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
    * @memberof HistoricalComponent
    */
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else {
@@ -162,7 +162,9 @@ export class HistoricalComponent implements OnInit {
           if (response) {
             // Pregunta si ya hay datos en la variable historicalOffer
             if (this.historicalOffer) {
-              this.paginationToken.push(response.paginationToken);
+              if ( response.paginationToken !== '{}') {
+                this.paginationToken.push(response.paginationToken);
+              }
               this.historicalService.savePaginationTokens(this.paginationToken);
               this.historicalOffer = response.offerHistoricals;
             // Entra cuando no hay datos en la variable historicalOffer
@@ -170,7 +172,9 @@ export class HistoricalComponent implements OnInit {
               // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
               this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
               this.numberPages = Math.ceil(this.numberPages);
-              this.paginationToken.push(response.paginationToken);
+              if ( response.paginationToken !== '{}') {
+                this.paginationToken.push(response.paginationToken);
+              }
               this.historicalService.savePaginationTokens(this.paginationToken);
               this.historicalOffer = response.offerHistoricals;
             }
@@ -208,6 +212,12 @@ export class HistoricalComponent implements OnInit {
     this.paramData.limit = this.limit;
     this.getHistoricalOffers(this.paramData);
     this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean); // Metodo para guardadr los parametros del filtro
+
+    this.paginationToken = []; // Clear paginationToken variable
+    this.paginationToken.push('null');
+    this.historicalService.savePaginationTokens(this.paginationToken);
+    this.numberPages = 0; // Clear paginator
+
     this.sidenav.toggle();
   }
 
@@ -221,6 +231,22 @@ export class HistoricalComponent implements OnInit {
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
     this.getHistoricalOffers(this.paramData);
+  }
+
+  /**
+   * @method removeLastPaginationToken
+   * @description Metodo eliminar el ultimo pagination Token
+   * @param currentPage
+   * @memberof HistoricalComponent
+   */
+  removeLastPaginationToken(currentPage: number) {
+    if ( currentPage === this.paginationToken.length) {
+      this.paginationToken.pop();
+    } else {
+      this.paginationToken.pop();
+      this.paginationToken.pop();
+    }
+    this.historicalService.savePaginationTokens(this.paginationToken);
   }
 
 }

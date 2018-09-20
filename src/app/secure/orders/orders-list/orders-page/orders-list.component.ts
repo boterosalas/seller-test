@@ -135,8 +135,9 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
       this.router.navigate([`/${RoutesConst.home}`]);
     }
   }
-  getDataUser() {
-    this.user = this.userParams.getUserData();
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else if (this.user.sellerProfile === 'seller') {
@@ -479,22 +480,24 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
       idOrder: orderId,
       value: currentValue,
     };
+    this.orderService.recordProcesSedOrder(data)
+      .subscribe((result: any) => {
+        if (result.status === 200) {
+          // encuentro el objeto de la orden en el array
+          const currentOrder = this.dataSource.data.find(x => x.id === orderId);
+          // obtengo el index donde se encuentra el objeto
+          const index = this.dataSource.data.indexOf(currentOrder);
+          // edito el valor del la variable processedOrder al valor mandado al servidor
+          this.dataSource.data[index].processedOrder = currentValue;
 
-    this.orderService.recordProcesSedOrder(data, this.user).subscribe(res => {
-      // encuentro el objeto de la orden en el array
-      const currentOrder = this.dataSource.data.find(x => x.id === orderId);
-      // obtengo el index donde se encuentra el objeto
-      const index = this.dataSource.data.indexOf(currentOrder);
-      // edito el valor del la variable processedOrder al valor mandado al servidor
-      this.dataSource.data[index].processedOrder = currentValue;
+          if (currentValue) {
+            this.componentService.openSnackBar('Se ha marcado la orden correctamente', 'Cerrar', 10000);
 
-      if (currentValue) {
-        this.componentService.openSnackBar('Se ha marcado la orden correctamente', 'Cerrar', 10000);
-
-      } else {
-        this.componentService.openSnackBar('Se ha removido la marca de la orden correctamente', 'Cerrar', 10000);
-      }
-    });
+          } else {
+            this.componentService.openSnackBar('Se ha removido la marca de la orden correctamente', 'Cerrar', 10000);
+          }
+        }
+      });
   }
 
   /**
