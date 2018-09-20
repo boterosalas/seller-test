@@ -15,32 +15,18 @@
         </button>
 
 
-<<<<<<< HEAD:src/app/core/shell/toolbar-link/toolbar-link.component.html
-        <button mat-menu-item id="dropdown-button-pending-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]"
-          *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
-=======
          <button mat-menu-item id="dropdown-button-pending-devolution"
                 [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
->>>>>>> develop:src/app/shared/components/toolbar-link/toolbar-link.component.html
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation" [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]"
           *ngIf="!isProductionEnv">
           <span>En validación</span>
         </button>
-<<<<<<< HEAD:src/app/core/shell/toolbar-link/toolbar-link.component.html
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]"
-          *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
-          <span>En devolución</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]"
-          *ngIf="user.sellerProfile === 'seller' && !isProductionEnv">
-=======
         <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>En devolución</span>
         </button> 
         <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
->>>>>>> develop:src/app/shared/components/toolbar-link/toolbar-link.component.html
           <span>Cargar guías</span>
         </button>
 
@@ -51,18 +37,6 @@
         Ofertas
       </button>
       <mat-menu #offers="matMenu">
-<<<<<<< HEAD:src/app/core/shell/toolbar-link/toolbar-link.component.html
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]"
-          *ngIf="user.sellerProfile === 'seller'">
-          <span>Listado de Ofertas</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]"
-          *ngIf="user.sellerProfile === 'seller'">
-          <span>Carga Masiva</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]"
-          *ngIf="user.sellerProfile === 'administrator'">
-=======
         <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]" *ngIf="user?.sellerProfile === 'seller'">
           <span>Listado de Ofertas</span>
         </button>
@@ -75,7 +49,6 @@
         </button>
 
         <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
->>>>>>> develop:src/app/shared/components/toolbar-link/toolbar-link.component.html
           <span>Arbol de Categorias</span>
         </button>
 

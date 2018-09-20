@@ -25,7 +25,7 @@ export class QuotingComponent implements OnInit {
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.user = this.userParams.getUserData();
+      this.user = await this.userParams.getUserData();
       this.userRol = this.user.sellerProfile === 'seller' ? 'Cotizador vendedor' : this.user.sellerProfile === 'administrator' ? 'Cotizador administrador' : null;
     } else if (!isLoggedIn) {
       this.router.navigate([`/${RoutesConst.home}`]);
