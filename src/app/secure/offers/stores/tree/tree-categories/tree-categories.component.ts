@@ -44,6 +44,7 @@ export class TreeCategoriesComponent implements OnInit {
     this.getAllSellerCommissionCategory();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
+      debugger;
       this.configTreeComponent(res);
     });
   }

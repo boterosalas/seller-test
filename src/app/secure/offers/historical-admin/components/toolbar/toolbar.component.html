@@ -1,0 +1,46 @@
+<div class="light-content">
+  <mat-toolbar color="primary" class="toolbar-component" [class.in-detail]="inDetail">
+
+    <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
+
+      <p>{{tittleBar}}
+        <small class="sub-title">| {{subtitleBar}}</small>
+      </p>
+      <div class="seller-search">
+        <app-search-seller></app-search-seller>
+      </div>
+
+      <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
+        <!-- Paginator index -->
+        <p class="pagination-num" [innerHTML]="currentPage + ' - ' + numberPages"></p>
+        <!-- /Paginator index -->
+
+        <!-- Paginator prev icon -->
+        <button class="btn-paginator" mat-icon-button (click)="changePage('prev')" [disabled]="currentPage <= 1 ">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <!-- /Paginator prev icon -->
+
+        <!-- Paginator next icon -->
+        <button class="btn-paginator" mat-icon-button (click)="changePage('next')" [disabled]="currentPage >= numberPages">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+        <!-- /Paginator next icon -->
+
+        <!-- Download button -->
+        <button [disabled]="historicalOfferLength" mat-icon-button (click)="openModalDownloadHistoricalOffer()">
+          <mat-icon>archive</mat-icon>
+        </button>
+        <!-- /Download button -->
+
+        <!-- Filter button -->
+        <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        </button>
+        <!-- /Filter button -->
+      </div>
+
+    </div>
+  </mat-toolbar>
+</div>

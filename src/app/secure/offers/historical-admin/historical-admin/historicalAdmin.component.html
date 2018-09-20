@@ -1,0 +1,94 @@
+<mat-sidenav-container>
+  <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [currentPageInput]="currentPage" [numberPages]="numberPages"></app-toolbar>
+
+  <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="historicalOffer">
+
+    <!-- Historical list offers -->
+    <aside>
+      <mat-accordion class="historical-list-container">
+
+        <mat-expansion-panel *ngFor="let item of historicalOffer">
+          <mat-expansion-panel-header class="extension-panel-header" expandedHeight="48px" collapsedHeight="48px">
+            <mat-panel-description class="extension-panel-description">
+              <p class="d-none d-block-md"><span>{{item.updatedDate | date:'LLLL d, y' | titlecase}} |
+                  {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
+              <p class="d-none d-block-sm d-none-md"><span>{{ item.updatedDate | date:'LLL d, y' | titlecase }} |
+                  {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
+              <p class="d-none-sm"><span>{{ item.updatedDate | date:'M/d/yy' }}, {{item.updatedDate | date:'h:mm'}}
+                  {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
+            </mat-panel-description>
+            <mat-panel-description class="extension-panel-description">
+              <p>EAN: <span>{{ item.ean }}</span></p>
+            </mat-panel-description>
+            <mat-panel-description class="extension-panel-description d-none d-block-sm">
+              <p>Inventario: <span>{{ item.stock | number }} unidades</span></p>
+            </mat-panel-description>
+            <mat-panel-description class="extension-panel-description d-none d-block-md">
+              <p>Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            </mat-panel-description>
+            <mat-panel-description class="extension-panel-description d-none d-block-lg">
+              <p>Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            </mat-panel-description>
+            <mat-panel-description class="extension-panel-description d-none d-block-xl">
+              <p>Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <span class="extension-panel-down">
+            <p class="d-none-sm">Inventario: <span>{{ item.stock | number }} unidades</span></p>
+            <p class="d-none-md">Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            <p class="d-none-lg ">Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' :
+                '1.0-0' }}</span></p>
+            <p class="d-none-xl ">Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            <p>Garantia: <span>{{ item.warranty }} meses</span></p>
+            <p>Promesa de entrega: <span>{{ item.promiseDelivery }} días</span></p>
+          </span>
+
+          <mat-grid-list class="grid-list" cols="4" rowHeight="30px">
+            <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
+              <mat-icon *ngIf="item.isFreeShipping == 1" class="icon check">check</mat-icon>
+              <mat-icon *ngIf="item.isFreeShipping == 0" class="icon close">close</mat-icon>
+              <span [ngClass]="{'ligthen-gray' : item.isFreeShipping == 0}">Free shipping</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
+              <mat-icon *ngIf="item.isEnviosExito == 1" class="icon check">check</mat-icon>
+              <mat-icon *ngIf="item.isEnviosExito == 0" class="icon close">close</mat-icon>
+              <span [ngClass]="{'ligthen-gray' : item.isEnviosExito == 0}">Envios Éxito</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
+              <mat-icon *ngIf="item.isLogisticsExito == 1" class="icon check">check</mat-icon>
+              <mat-icon *ngIf="item.isLogisticsExito == 0" class="icon close">close</mat-icon>
+              <span [ngClass]="{'ligthen-gray' : item.isLogisticsExito == 0}">Logística Éxito</span>
+            </mat-grid-tile>
+
+            <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
+              <mat-icon *ngIf="item.isFreightCalculator == 1" class="icon check">check</mat-icon>
+              <mat-icon *ngIf="item.isFreightCalculator == 0" class="icon close">close</mat-icon>
+              <span [ngClass]="{'ligthen-gray' : item.isFreightCalculator == 0}">Cotizador de flete</span>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </aside>
+    <!-- /Historical list offers -->
+
+  </section>
+
+  <!-- Message for not offers -->
+  <section *ngIf="!historicalOffer || historicalOffer.length === 0 || historicalOffer.length === null" class="no-content-component">
+    <div class="icon-sentiment-dissatisfied">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+    </div>
+    <p [innerHTML]="'No se han encontrado registros en el historico de ofertas.'"></p>
+  </section>
+  <!-- Message for not offers -->
+
+  <!-- Filter sidenav component -->
+  <mat-sidenav #sidenav mode="over" position="end">
+    <app-historical-filter [sidenav]="sidenav"></app-historical-filter>
+  </mat-sidenav>
+  <!-- /Filter sidenav component -->
+
+</mat-sidenav-container>

@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 /* our own custom components */
-import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { ShellComponent } from '@app/core/shell/shell.component';
 import { LoadingService } from '@app/core';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
     selector: 'app-search-seller',
@@ -31,14 +31,19 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     @Input() searchSellerInput;
 
+    // Para identificar qué tipo de búsqueda se va a realizar.
+    @Input() isFullSearch: boolean;
+
     constructor(
         public eventsSeller: EventEmitterSeller,
         public storeService: StoresService,
         public shell: ShellComponent,
-        private loadingService: LoadingService) {
+        private loadingService: LoadingService
+    ) {
         this.textForSearch = new FormControl();
         this.user = {};
         this.listSellers = [];
+        this.isFullSearch = true;
     }
 
     /**
@@ -53,8 +58,14 @@ export class SearchSellerComponent implements OnInit, OnChanges {
                     this.filter(val)
                 )
             );
-        // consulto las tiendas disponibles
-        this.getAllSellers();
+        if (this.isFullSearch) {
+            // consulto las tiendas disponibles
+            this.getAllSellers();
+        } else {
+            // TODO Cambiar búsqueda ==========================================================================================================================
+            // consulto las tiendas disponibles
+            this.getAllSellers();
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {

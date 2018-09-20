@@ -9,15 +9,13 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { ManageComponent } from './manage.component';
 import { ManageRoutingModule } from './manage.routing';
 import { ToolbarSellerComponent } from './toolbar-seller/toolbar-seller.component';
-import { SearchSellerComponent } from './search-seller/search-seller.component';
-import { EventEmitterSeller } from './events/eventEmitter-seller.service';
+
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     declarations: [
         ManageComponent,
-        SearchSellerComponent,
         ToolbarSellerComponent,
         ManageSellerComponent
     ],
@@ -32,9 +30,9 @@ import { SharedModule } from '@shared/shared.module';
         HttpClientJsonpModule,
         SharedModule
     ],
-    exports: [],
+    exports: [
+    ],
     providers: [
-        EventEmitterSeller,
         {
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher

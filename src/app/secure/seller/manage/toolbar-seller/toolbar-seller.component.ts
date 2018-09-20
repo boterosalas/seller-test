@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 
@@ -12,7 +11,6 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 export class ToolbarSellerComponent implements OnInit {
 
   constructor(
-    public eventsStore: EventEmitterSeller,
     public storesService: StoresService,
     public shell: ShellComponent) { }
 

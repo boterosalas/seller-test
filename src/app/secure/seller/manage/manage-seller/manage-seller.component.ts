@@ -1,7 +1,6 @@
 /* 3rd party components */
 import { Component, OnInit } from '@angular/core';
 /* our own custom components */
-import { EventEmitterSeller } from '../events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -9,6 +8,7 @@ import { MyErrorStateMatcher } from '@app/secure/seller/register/register.compon
 import { AnyLengthString } from 'aws-sdk/clients/comprehend';
 import { LoadingService, ModalService } from '@app/core';
 import { RegisterService } from '@app/secure/seller/register/register.service';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
   selector: 'app-manage-seller',
