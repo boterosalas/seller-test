@@ -58,14 +58,8 @@ export class SearchSellerComponent implements OnInit, OnChanges {
                     this.filter(val)
                 )
             );
-        if (this.isFullSearch) {
-            // consulto las tiendas disponibles
-            this.getAllSellers();
-        } else {
-            // TODO Cambiar búsqueda ==========================================================================================================================
-            // consulto las tiendas disponibles
-            this.getAllSellers();
-        }
+        // consulto las tiendas disponibles
+        this.getAllSellers();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -81,15 +75,27 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public getAllSellers() {
         this.loadingService.viewSpinner();
-        this.storeService.getAllStores(this.user).subscribe((res: any) => {
-            if (res.status === 200) {
-                const body = JSON.parse(res.body.body);
-                this.listSellers = body.Data;
-            } else {
-                this.listSellers = res.message;
-            }
-            this.loadingService.closeSpinner();
-        });
+        if (this.isFullSearch) {
+            this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+                if (res.status === 200) {
+                    const body = JSON.parse(res.body.body);
+                    this.listSellers = body.Data;
+                } else {
+                    this.listSellers = res.message;
+                }
+                this.loadingService.closeSpinner();
+            });
+        } else {
+            this.storeService.getAllStores(this.user).subscribe((res: any) => {
+                if (res.status === 200) {
+                    const body = JSON.parse(res.body.body);
+                    this.listSellers = body.Data;
+                } else {
+                    this.listSellers = res.message;
+                }
+                this.loadingService.closeSpinner();
+            });
+        }
     }
 
     /**
