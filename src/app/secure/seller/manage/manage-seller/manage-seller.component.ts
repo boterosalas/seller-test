@@ -6,15 +6,26 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
-import { AnyLengthString } from 'aws-sdk/clients/comprehend';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, Logger } from '@app/core';
+import { ManageSellerService } from './../manage.service';
+import { isEmpty } from 'lodash';
 import { RegisterService } from '@app/secure/seller/register/register.service';
 
+const log = new Logger('ManageSellerComponent');
+
+/**
+ *
+ *
+ * @export
+ * @class ManageSellerComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-manage-seller',
   templateUrl: './manage-seller.component.html',
   styleUrls: ['./manage-seller.component.scss']
 })
+
 export class ManageSellerComponent implements OnInit {
 
   public imagesRegister: Array<any> = [
@@ -63,38 +74,72 @@ export class ManageSellerComponent implements OnInit {
   public activeButton: boolean;
   public existValueInDB: boolean;
   public idState: number;
-
+  public disabledForService: boolean;
+  /**
+   * Creates an instance of ManageSellerComponent.
+   * @param {EventEmitterSeller} eventsSeller
+   * @param {StoresService} storeService
+   * @param {LoadingService} loadingService
+   * @param {ManageSellerService} manageSeller
+   * @param {ModalService} modalService
+   * @param {RegisterService} registerService
+   * @memberof ManageSellerComponent
+   */
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
     private loadingService: LoadingService,
-    private registerService: RegisterService,
+    private manageSeller: ManageSellerService,
     private modalService: ModalService,
+    private registerService: RegisterService
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
     this.user = {};
-    this.activeButton = false;
+    this.activeButton = true;
   }
 
-  AnyLengthString;
+  /**
+   *
+   *
+   * @memberof ManageSellerComponent
+   */
   ngOnInit() {
     this.createFormControls();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
-      this.currentSellerSelect = seller;
-      this.name.setValue(this.currentSellerSelect.Name);
-      this.nit.setValue(this.currentSellerSelect.Nit);
-      this.address.setValue(this.currentSellerSelect.Address);
-      this.daneCode.setValue(this.currentSellerSelect.DaneCode);
-      this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
-      this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
-      this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
-      this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
-      this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+      if (!isEmpty(seller)) {
+        this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
+          if (res.status === 200) {
+            const body = JSON.parse(res.body.body);
+            this.currentSellerSelect = body.Data;
+            this.nit.setValue(this.currentSellerSelect.Nit);
+            this.rut.setValue(this.currentSellerSelect.Rut);
+            this.contactName.setValue(this.currentSellerSelect.ContactName);
+            this.email.setValue(this.currentSellerSelect.Email);
+            this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
+            this.state.setValue(this.currentSellerSelect.State);
+            this.city.setValue(this.currentSellerSelect.City);
+            this.address.setValue(this.currentSellerSelect.Address);
+            this.daneCode.setValue(this.currentSellerSelect.DaneCode);
+            this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
+            this.name.setValue(this.currentSellerSelect.Name);
+            this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
+            this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
+            this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
+            this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
+            this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+          }
+        });
+      }
     });
   }
 
+  /**
+   *
+   *
+   * @memberof ManageSellerComponent
+   */
   createFormControls() {
     this.nit = new FormControl('', [
       Validators.required,
@@ -136,6 +181,11 @@ export class ManageSellerComponent implements OnInit {
     this.createForm();
   }
 
+  /**
+   *
+   *
+   * @memberof ManageSellerComponent
+   */
   createForm() {
     this.validateFormRegister = new FormGroup({
       Nit: this.nit,
@@ -162,7 +212,7 @@ export class ManageSellerComponent implements OnInit {
    * @param event
    * @memberof RegisterSellerComponent
    */
-  keyPress(event: any) {
+  keyPress(event: any): void {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
@@ -176,7 +226,7 @@ export class ManageSellerComponent implements OnInit {
    * @param {*} event
    * @memberof RegisterSellerComponent
    */
-  validateExist(event: any, param: string) {
+  validateExist(event: any, param: string): void {
     const jsonExistParam = event.target.value;
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.loadingService.viewSpinner();
@@ -219,7 +269,7 @@ export class ManageSellerComponent implements OnInit {
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataState($event: any) {
+  receiveDataState($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
       this.validateFormRegister.controls['State'].setValue($event.Name);
@@ -231,7 +281,7 @@ export class ManageSellerComponent implements OnInit {
    * @param
    * @memberof RegisterSellerComponent
    */
-  receiveDataCitie($event: any) {
+  receiveDataCitie($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
@@ -239,5 +289,28 @@ export class ManageSellerComponent implements OnInit {
     } else {
       this.validateFormRegister.controls['DaneCode'].setValue(null);
     }
+  }
+
+  submitUpdateSeller(): void {
+    this.loadingService.viewSpinner();
+    this.disabledForService = true;
+    this.manageSeller.updateSeller(this.validateFormRegister.value).subscribe(
+      (result: any) => {
+        if (result.status === 201 || result.status === 200) {
+          const data = JSON.parse(result.body.body);
+          if (data.Data) {
+            this.modalService.showModal('successUpdate');
+          } else if (!data.Data) {
+            this.modalService.showModal('error');
+          }
+        } else {
+          this.modalService.showModal('errorService');
+        }
+
+        this.disabledForService = false;
+        this.loadingService.closeSpinner();
+
+      }
+    );
   }
 }
