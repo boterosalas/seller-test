@@ -3925,15 +3925,17 @@
 </nav>
                </div>
                <!-- START CONTENT -->
-               <div class="content component">
+               <div class="content injectable">
                    <div class="content-data">
 
 
 
 
+
+
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>SearchOrderMenuComponent</li>
+  <li>Injectables</li>
+  <li>ManageSellerService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -3943,96 +3945,23 @@
         <li >
             <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
-        </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
-        </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
-    <h3>File</h3>
-</p>
-<p class="comment">
-    <code>src/app/core/shell/search-order-menu/search-order-menu.component.ts</code>
-</p>
-
-    <p class="comment">
-        <h3>Description</h3>
-    </p>
-    <p class="comment">
-        <p>Component Que permite realizar el filtro personalizado por el usaurio para realizar la busqueda de una orden.
-este componente puede ser llamado desde diferentes Componentes así que sus filtros varian de acuerdo de donde se llame</p>
-
-    </p>
-
-
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-    </p>
-
-
-<section>
-    <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
-        <tbody>
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/secure/seller/manage/manage.service.ts</code>
+        </p>
 
 
 
-
-
-
-
-
-
-
-
-            <tr>
-                <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-search-order-menu</code></td>
-            </tr>
-
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>search-order-menu.component.scss</code></td>
-            </tr>
-
-
-
-            <tr>
-                <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./search-order-menu.component.html</code></td>
-            </tr>
-
-
-        </tbody>
-    </table>
-</section>
-
-    <section>
+            <section>
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Properties</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#shellComponent">shellComponent</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -4043,32 +3972,18 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#ngOnInit">ngOnInit</a>
+                                <a href="#getListSellersName">getListSellersName</a>
                             </li>
                             <li>
-                                <a href="#toggleMenu">toggleMenu</a>
+                                <a href="#getSpecificSeller">getSpecificSeller</a>
+                            </li>
+                            <li>
+                                <a href="#updateSeller">updateSeller</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Inputs</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#informationToForm">informationToForm</a>
-                            </li>
-                            <li>
-                                <a href="#sidenavSearchOrder">sidenavSearchOrder</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -4077,25 +3992,23 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
     </table>
 </section>
 
-    <section>
+            <section>
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(shellComponent: <a href="../components/ShellComponent.html">ShellComponent</a>)</code>
+<code>constructor(http: <a href="../interfaces/HttpClient.html">HttpClient</a>, api: <a href="../injectables/EndpointService.html">EndpointService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/secure/seller/manage/manage.service.ts:10</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Creates an instance of SearchOrderMenuComponent.</p>
-</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -4108,10 +4021,22 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>shellComponent</td>
+                                                        <td>http</td>
                                                   
                                                         <td>
-                                                                    <code><a href="../components/ShellComponent.html" target="_self" >ShellComponent</a></code>
+                                                                    <code><a href="../interfaces/HttpClient.html" target="_self" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/EndpointService.html" target="_self" >EndpointService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -4128,55 +4053,7 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
         </table>
 </section>
 
-    <section>
-    <h3 id="inputs">Inputs</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-2">
-                        <a name="informationToForm"></a>
-                        <code>informationToForm</code>
-                    </td>
-                    <td class="col-md-10">
-                            <p>
-                            <em>Type:</em>    <code><a href="../classes/SearchFormEntity.html" target="_self" >SearchFormEntity</a></code>
-
-                            </p>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:28</a></div>
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-2">
-                        <a name="sidenavSearchOrder"></a>
-                        <code>sidenavSearchOrder</code>
-                    </td>
-                    <td class="col-md-10">
-                            <p>
-                            <em>Type:</em>    <code>MatSidenav</code>
-
-                            </p>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:26</a></div>
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
-</section>
-
-
-
-    <section>
+            <section>
     
         <h3 id="methods">
             Methods
@@ -4185,25 +4062,25 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="ngOnInit"></a>
+                        <a name="getListSellersName"></a>
                         <span class="name">
                             <b>
-                            ngOnInit
+                            getListSellersName
                             </b>
-                            <a href="#ngOnInit"><span class="fa fa-link"></span></a>
+                            <a href="#getListSellersName"><span class="fa fa-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>ngOnInit()</code>
+<code>getListSellersName(param: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/secure/seller/manage/manage.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -4212,9 +4089,40 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
                     <td class="col-md-4">
 
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>param</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
 
                             </div>
+                                <div class="io-description">
+                                    
+                                </div>
                     </td>
                 </tr>
             </tbody>
@@ -4223,205 +4131,244 @@ este componente puede ser llamado desde diferentes Componentes así que sus filt
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="toggleMenu"></a>
+                        <a name="getSpecificSeller"></a>
                         <span class="name">
                             <b>
-                            toggleMenu
+                            getSpecificSeller
                             </b>
-                            <a href="#toggleMenu"><span class="fa fa-link"></span></a>
+                            <a href="#getSpecificSeller"><span class="fa fa-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>toggleMenu()</code>
+<code>getSpecificSeller(idSeller: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, allSeller: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/secure/seller/manage/manage.service.ts:47</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Funcionalidad que permite desplegar el menú.</p>
-</div>
 
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>idSeller</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>allSeller</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
 
                             </div>
+                                <div class="io-description">
+                                    
+                                </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-</section>
-
-    <section>
-    
-        <h3 id="inputs">
-            Properties
-        </h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shellComponent"></a>
+                        <a name="updateSeller"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Public</span>
-                            shellComponent
+                            updateSeller
                             </b>
-                            <a href="#shellComponent"><span class="fa fa-link"></span></a>
+                            <a href="#updateSeller"><span class="fa fa-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon fa fa-reset"></span><code>shellComponent:     <code><a href="../components/ShellComponent.html" target="_self" >ShellComponent</a></code>
-</code>
+<code>updateSeller(params: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="../components/ShellComponent.html" target="_self" >ShellComponent</a></code>
 
-                        </td>
-                    </tr>
+
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/core/shell/search-order-menu/search-order-menu.component.ts:36</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/secure/seller/manage/manage.service.ts:68</a></div>
                             </td>
                         </tr>
 
 
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>params</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            no
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
 
-</div>
+
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
-import { MatSidenav } from &#x27;@angular/material&#x27;;
-import { Logger } from &#x27;@app/core&#x27;;
-import { SearchFormEntity } from &#x27;@app/shared/models&#x27;;
-import { ShellComponent } from &#x27;@core/shell/shell.component&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
+import { EndpointService } from &#x27;@app/core&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { Logger } from &#x27;@core/util/logger.service&#x27;;
 
-// log components
-const log &#x3D; new Logger(&#x27;SideBarSearchOrdersComponent&#x27;);
+const log &#x3D; new Logger(&#x27;ManageSellerService&#x27;);
 
-/**
- * Component Que permite realizar el filtro personalizado por el usaurio para realizar la busqueda de una orden.
- * este componente puede ser llamado desde diferentes Componentes así que sus filtros varian de acuerdo de donde se llame
- */
-@Component({
-  selector: &#x27;app-search-order-menu&#x27;,
-  templateUrl: &#x27;./search-order-menu.component.html&#x27;,
-  styleUrls: [&#x27;./search-order-menu.component.scss&#x27;],
-})
+@Injectable()
+export class ManageSellerService {
 
-/**
- * Component
- */
-export class SearchOrderMenuComponent implements OnInit {
-
-  // Sidenav principal
-  @Input() sidenavSearchOrder: MatSidenav;
-  // Variable que almacena los datos que se le pueden pasar al formulario
-  @Input() informationToForm: SearchFormEntity;
-
-  /**
-   * Creates an instance of SearchOrderMenuComponent.
-   * @param {ShellComponent} shellComponent
-   * @memberof SearchOrderMenuComponent
-   */
   constructor(
-    public shellComponent: ShellComponent
+    private http: HttpClient,
+    private api: EndpointService
   ) {
   }
 
   /**
-   * @memberof SearchOrderMenuComponent
+   *
+   *
+   * @param {*} param
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ManageSellerService
    */
-  ngOnInit() {
+  getListSellersName(param: any): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.get&lt;any&gt;(this.api.get(&#x27;getListSellersName&#x27;, [param]), { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
   }
 
   /**
-   * Funcionalidad que permite desplegar el menú.
-   * @memberof SidebarComponent
+   *
+   *
+   * @param {string} idSeller
+   * @param {string} allSeller
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ManageSellerService
    */
-  toggleMenu(): void {
-    this.sidenavSearchOrder.toggle();
+  getSpecificSeller(idSeller: string, allSeller: string): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.get&lt;any&gt;(this.api.get(&#x27;getSpecificSeller&#x27;, [idSeller, allSeller]), { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
+   *
+   *
+   * @param {*} params
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ManageSellerService
+   */
+  updateSeller(params: any): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.patch&lt;any&gt;(this.api.get(&#x27;updateSeller&#x27;), params, { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
   }
 }
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;mat-card class&#x3D;&quot;content-profile&quot;&gt;
-
-  &lt;mat-nav-list class&#x3D;&quot;light-content&quot;&gt;
-    &lt;mat-toolbar color&#x3D;&quot;primary&quot; class&#x3D;&quot;toolbar-title-search&quot;&gt;
-      &lt;h4 class&#x3D;&quot;title-toolbar&quot;&gt;{{informationToForm.title_for_search}}&lt;/h4&gt;
-      &lt;button color&#x3D;&quot;accent&quot; matTooltip&#x3D;&quot;Cerrar&quot; matTooltipPosition&#x3D;&quot;below&quot; mat-icon-button mat-button (click)&#x3D;&quot;toggleMenu()&quot;&gt;
-        &lt;mat-icon&gt;close&lt;/mat-icon&gt;
-      &lt;/button&gt;
-    &lt;/mat-toolbar&gt;
-  &lt;/mat-nav-list&gt;
-  &lt;mat-card-content&gt;
-
-    &lt;app-search-order-form [informationToForm]&#x3D;&quot;informationToForm&quot; *ngIf&#x3D;&quot;informationToForm.type_form &#x3D;&#x3D; &#x27;orders&#x27;&quot;&gt;&lt;/app-search-order-form&gt;
-
-    &lt;app-search-billing-form [informationToForm]&#x3D;&quot;informationToForm&quot; *ngIf&#x3D;&quot;informationToForm.type_form &#x3D;&#x3D; &#x27;billing&#x27;&quot;&gt;&lt;/app-search-billing-form&gt;
-
-    &lt;app-search-pending-devolution-form [informationToForm]&#x3D;&quot;informationToForm&quot; *ngIf&#x3D;&quot;informationToForm.type_form &#x3D;&#x3D; &#x27;pending-devolution&#x27;&quot;&gt;&lt;/app-search-pending-devolution-form&gt;
-
-    &lt;app-search-envios-exito-form [informationToForm]&#x3D;&quot;informationToForm&quot; *ngIf&#x3D;&quot;informationToForm.type_form &#x3D;&#x3D; &#x27;envios-exito&#x27;&quot;&gt;&lt;/app-search-envios-exito-form&gt;
-    
-  &lt;/mat-card-content&gt;
-&lt;/mat-card&gt;
-</code></pre>
-    </div>
-
-    <div class="tab-pane fade " id="c-tree">
-        <div id="tree-container"></div>
-        <div class="tree-legend">
-            <div class="title">
-                <b>Legend</b>
-            </div>
-            <div>
-                <div class="color htmlelement"></div><span>Html element</span>
-            </div>
-            <div>
-                <div class="color component"></div><span>Component</span>
-            </div>
-            <div>
-                <div class="color directive"></div><span>Html element with directive</span>
-            </div>
-        </div>
-    </div>
-
-    
 </div>
-
-<script src="../js/libs/vis.min.js"></script>
-<script src="../js/libs/htmlparser.js"></script>
-<script src="../js/libs/deep-iterator.js"></script>
-<script>
-        var COMPONENT_TEMPLATE = '<div><mat-card class="content-profile">  <mat-nav-list class="light-content">    <mat-toolbar color="primary" class="toolbar-title-search">      <h4 class="title-toolbar">{{informationToForm.title_for_search}}</h4>      <button color="accent" matTooltip="Cerrar" matTooltipPosition="below" mat-icon-button mat-button (click)="toggleMenu()">        <mat-icon>close</mat-icon>      </button>    </mat-toolbar>  </mat-nav-list>  <mat-card-content>    <app-search-order-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == \'orders\'"></app-search-order-form>    <app-search-billing-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == \'billing\'"></app-search-billing-form>    <app-search-pending-devolution-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == \'pending-devolution\'"></app-search-pending-devolution-form>    <app-search-envios-exito-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == \'envios-exito\'"></app-search-envios-exito-form>      </mat-card-content></mat-card></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HistoricalComponent', 'selector': 'app-historical-component'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManageSellerComponent', 'selector': 'app-manage-seller'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchSellerComponent', 'selector': 'app-search-seller'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'ToolbarSellerComponent', 'selector': 'app-toolbar-seller'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
-    var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
-    var ACTUAL_COMPONENT = {'name': 'SearchOrderMenuComponent'};
-</script>
-<script src="../js/tree.js"></script>
-
-
 
 
 
@@ -4456,8 +4403,8 @@ export class SearchOrderMenuComponent implements OnInit {
 
         <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'SearchOrderMenuComponent.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ManageSellerService.html';
         </script>
 
        <script src="../js/search/search.js"></script>
