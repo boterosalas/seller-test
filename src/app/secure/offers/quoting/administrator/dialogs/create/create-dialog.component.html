@@ -1,7 +1,63 @@
 <section class="dialog-component flexbox flex-wrap align-center justify-center">
-  <article>
-    <button (click)="closeDialog()">
-      Cerrar
-    </button>
+  <article class="transport-dialog">
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+      <div class="container-transport-icon" fxLayout="column" fxLayoutAlign="center center">
+        <i class="material-icons">
+          local_shipping
+        </i>
+      </div>
+      <h3>
+        Crear transportadora
+      </h3>
+
+      <!-- Description form -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <p fxFlex="70" class="text-dialog-transporter">
+          Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Aenean viverra rhoncus pede. Pellentesque habitant
+          morbi
+        </p>
+      </div>
+
+      <div class="form-transporter-container">
+        <!-- FORM: to create transport -->
+        <form [formGroup]="formTransporter" (ngSubmit)="onSubmit()" fxLayout="column">
+
+          <!-- Fields container -->
+          <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
+            <!-- Name input Field -->
+            <mat-form-field fxFill="48" fxFlex="48">
+              <mat-icon matPrefix>local_shipping</mat-icon>
+              <input matInput formControlName="name" placeholder="Nombre transportadora">
+              <mat-error>Campo obligatorio </mat-error>
+            </mat-form-field>
+
+            <!-- Method transport select Field -->
+            <mat-form-field fxFlex="48" class="select-transport">
+              <mat-select placeholder="Seleccionar método" formControlName="typeTransport">
+                <mat-option *ngFor="let type of transportTypeList" [value]="type.id">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Buttons SAVE and CANCEL -->
+          <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+              <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
+                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
+                  (click)="closeDialog()"></button>
+              </div>
+              <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
   </article>
 </section>

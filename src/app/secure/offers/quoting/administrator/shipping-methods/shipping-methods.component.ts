@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShippingMethodsService } from './shipping-methods.service';
+import { ShippingMethodsModel } from './shipping-methods.model';
 
 @Component({
   selector: 'app-shipping-methods',
@@ -6,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shipping-methods.component.scss']
 })
 export class ShippingMethodsComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit(): void { }
+  public shippingMethodsList: Array<ShippingMethodsModel>;
+
+  constructor( private service: ShippingMethodsService) { }
+
+  ngOnInit(): void {
+    this.getRequiredData();
+  }
+
+  /**
+   * Get from shiping methods a list with it
+   *
+   * @memberof ShippingMethodsComponent
+   */
+  public getRequiredData(): void {
+    this.shippingMethodsList = this.service.getFakeListShipingMethods();
+  }
 }

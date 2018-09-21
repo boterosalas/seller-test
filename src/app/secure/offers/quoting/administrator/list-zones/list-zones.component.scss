@@ -6,15 +6,19 @@ $color-gray3: #D3D3D3;
 $color-gray4: #BCBCBC;
 $color-gray5: #757474;
 $color-blue: #3d5afe;
+@mixin title-zones {
+  color: $color-gray5;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 :host ::ng-deep {
   article#list-zones {
     aside {
       &.title-list-comp {
         width: 100%;
         p {
-          color: $color-gray5;
-          font-weight: bold;
-          font-size: 14px;
+          @include title-zones();
         }
       }
       &.cont-list-comp {
@@ -48,5 +52,18 @@ $color-blue: #3d5afe;
         }
       }
     }
+  }
+}
+
+.title-zones{
+  @include title-zones();
+}
+
+@media (max-width: 768px) {
+  p{
+    margin: 0.2em 0px;
+  }
+  .cont-list-comp{
+    padding: 1em 0;
   }
 }

@@ -5,6 +5,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { EventEmitterDialogs } from './../events/eventEmitter-dialogs.service';
 
 const log = new Logger('ListTransporterComponent');
+const dialogTypeTransporter = 1;
 
 @Component({
   selector: 'app-list-transporter',
@@ -30,6 +31,8 @@ export class ListTransporterComponent implements OnInit {
 
   private listTransporters: Array<{}>;
   private openModalCreate: boolean;
+  public typeDialog = dialogTypeTransporter;
+  public idToEdit: number;
 
   constructor(
     private service: ListTransporterService,
@@ -51,12 +54,14 @@ export class ListTransporterComponent implements OnInit {
 
   createTransporter(): void {
     log.debug('Crear');
+    this.idToEdit = null;
     this.openModalCreate = true;
-
   }
 
-  editTransporter(): void {
+  editTransporter(item: any): void {
     log.debug('Editar');
+    this.idToEdit = item.idTransporter;
+    this.openModalCreate = true;
   }
 
   deleteTransporter(): void {

@@ -2,42 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
+import { TransportModel } from '../dialogs/models/transport.model';
 
 @Injectable()
 export class ListTransporterService {
 
-  public transporters: Array<any>;
+  public transporters: Array<TransportModel>;
 
   constructor(
     private http: HttpClient,
     private api: EndpointService
   ) {
     this.transporters = [
-      {
-        idTransporter: 0,
-        nameTransporter: 'Envio Propio',
-        typeTransporter: 'Home delivery'
-      },
-      {
-        idTransporter: 1,
-        nameTransporter: 'Envio Propio 1',
-        typeTransporter: 'Home delivery 1'
-      },
-      {
-        idTransporter: 2,
-        nameTransporter: 'Envio Propio 2',
-        typeTransporter: 'Home delivery 2'
-      },
-      {
-        idTransporter: 3,
-        nameTransporter: 'Envio Propio 3',
-        typeTransporter: 'Home delivery 3'
-      },
-      {
-        idTransporter: 4,
-        nameTransporter: 'Envio Propio 4',
-        typeTransporter: 'Home delivery 4'
-      }
+      new TransportModel( 'Envio Propio', 'Home delivery 1', 1),
+      new TransportModel( 'Envio Propio 2', 'Home delivery 2', 2),
+      new TransportModel( 'Envio Propio 3', 'Home delivery 3', 3),
+      new TransportModel( 'Envio Propio 4', 'Home delivery 4', 4),
+      new TransportModel( 'Envio Propio 5', 'Home delivery 5', 5),
     ];
   }
 
@@ -61,8 +42,12 @@ export class ListTransporterService {
     });
   }
 
-  getFakeListTransporter() {
+  public getFakeListTransporter(): Array<TransportModel> {
     return this.transporters;
+  }
+
+  public getFakeTransporter() {
+    return this.transporters[0];
   }
 
 }

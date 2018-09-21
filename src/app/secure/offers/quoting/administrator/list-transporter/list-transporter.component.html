@@ -1,26 +1,38 @@
 <article id="list-transporter">
   <h4>Transportadoras</h4>
 
-  <aside class="title-list-comp flexbox flex-wrap align-center justify-between">
-    <p>Nombre</p>
-    <p>Tipo de Transportadora</p>
+  <!-- Transporters title table CRUD-->
+  <aside fxLayout="row" fxHide.xs>
+    <p class="title-list-transporter" fxFlex="40">Nombre</p>
+    <div fxFlex="42" fxLayout="row" fxLayoutAlign="end end">
+      <p class="title-list-transporter">M&eacute;todo de env&iacute;o</p>
+    </div>
   </aside>
 
-  <aside class="cont-list-comp flexbox flex-wrap align-center justify-between" *ngFor="let item of listTransporters">
-    <div class="info-transporter flexbox flex-wrap align-center justify-between">
-      <p>{{item.nameTransporter}}</p>
-      <p>{{item.typeTransporter}}</p>
-    </div>
-    <div class="options-transporter flexbox flex-wrap align-center justify-end">
-      <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="deleteTransporter()">
-        <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
-      </button>
+  <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters">
+    <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
+      <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Nombre</p>
+      <p fxFlex="40">
+        {{item.name}}
+      </p>
+      <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
+        <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
+            <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Tipo de Transportadora</p>
+            <p>{{item.idMethod}}</p>
+        </div>
 
-      <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="editTransporter()">
-        <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
-      </button>
+        <div fxFlex="30" class="button-list-transporter" fxLayout="row" fxLayoutAlign.xs="end center" class="options-transporter flexbox flex-wrap align-center justify-end">
+          <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button
+            mat-button (click)="deleteTransporter()">
+            <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
+          </button>
+
+          <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button
+            mat-button (click)="editTransporter(item)">
+            <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -29,4 +41,4 @@
   </aside>
 
 </article>
-<app-create-dialog *ngIf="openModalCreate" [@enterAnimation]></app-create-dialog>
+<app-create-dialog *ngIf="openModalCreate" [@enterAnimation] [typeDialog]="typeDialog" [dataEdit]="dataEdit"></app-create-dialog>

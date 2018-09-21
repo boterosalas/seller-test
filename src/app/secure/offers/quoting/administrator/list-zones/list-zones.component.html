@@ -1,29 +1,32 @@
 <article id="list-zones">
-    <h4>Zonas</h4>
-  
-    <aside class="title-list-comp flexbox flex-wrap align-center justify-between">
-      <p>Nombre</p>
-    </aside>
-  
-    <aside class="cont-list-comp flexbox flex-wrap align-center justify-between" *ngFor="let item of listZones">
-      <div class="info-zones flexbox flex-wrap align-center justify-between">
+  <h4>Zonas</h4>
+
+
+  <aside class="title-list-comp" fxHide.xs>
+    <p>Nombre</p>
+  </aside>
+  <div fxLayout="column">
+    <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listZones">
+      <div class="info-zones" fxFlex="90" fxLayout.xs="column">
+        <p class="title-zones" fxShow.xs="true" fxShow="false">Nombre</p>
         <p>{{item.nameZone}}</p>
       </div>
-      <div class="options-zones flexbox flex-wrap align-center justify-end">
-        <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button mat-button
-          (click)="deleteZone()">
+      <div class="options-zones" fxFlex="10" fxLayout="row" fxLayoutAlign="end end">
+        <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button
+          mat-button (click)="deleteZone()">
           <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
         </button>
-  
+
         <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
           (click)="editZone()">
           <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
         </button>
       </div>
     </aside>
-  
+
     <aside class="buton-create flexbox flex-wrap align-center justify-center">
       <button id="btn-create-zone" type="submit" mat-stroked-button color="primary" [innerHTML]="'CREAR'" (click)="createZone()"></button>
     </aside>
-  
-  </article>
+  </div>
+
+</article>

@@ -6,29 +6,30 @@ $color-gray3: #D3D3D3;
 $color-gray4: #BCBCBC;
 $color-gray5: #757474;
 $color-blue: #3d5afe;
+@mixin title-table {
+  color: $color-gray5;
+  font-weight: bold;
+  font-size: 14px;
+}
 :host ::ng-deep {
   article#list-transporter {
     aside {
       &.title-list-comp {
         width: 75%;
         p {
-          color: $color-gray5;
-          font-weight: bold;
-          font-size: 14px;
+          @include title-table();
         }
       }
       &.cont-list-comp {
         border-top: 1px solid $color-gray3;
         div {
           &.info-transporter {
-            width: 75%;
             p {
               color: $color-gray2;
               font-size: 14px;
             }
           }
           &.options-transporter {
-            width: 25%;
             button {
               color: $color-gray2;
             }
@@ -48,5 +49,18 @@ $color-blue: #3d5afe;
         }
       }
     }
+  }
+}
+
+.title-list-transporter{
+  @include title-table();
+}
+
+@media (max-width: 768px) {
+  p{
+    margin: 0.2em 0px;
+  }
+  .cont-list-comp{
+    padding: 1em 0;
   }
 }
