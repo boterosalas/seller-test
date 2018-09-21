@@ -19,7 +19,10 @@ export class DownloadHistoricalService {
   // Variable para almacenar el EAN del filtro
   public ean: string;
 
-  constructor (
+  // Variable para almacenar la id del seller
+  public idSeller: string;
+
+  constructor(
     private http: HttpClient,
     private api: EndpointService,
     private datePipe: DatePipe
@@ -43,11 +46,12 @@ export class DownloadHistoricalService {
    * @param ean
    * @memberof DownloadHistoricalService
    */
-  setCurrentFilterHistorical(dateInitial: string, dateFinal: string, ean: string) {
+  setCurrentFilterHistorical(dateInitial: string, dateFinal: string, ean: string, idSeller: string) {
     const objParamsFilter = {
       dateInitial,
       dateFinal,
-      ean
+      ean,
+      idSeller
     };
     localStorage.setItem('currentFilterHistorical', JSON.stringify(objParamsFilter));
   }
@@ -68,17 +72,18 @@ export class DownloadHistoricalService {
     this.dateInitial = paramsFilter.dateInitial === undefined ? null : this.datePipe.transform(paramsFilter.dateInitial, 'yyyy-MM-dd');
     this.dateFinal = paramsFilter.dateFinal === undefined ? null : this.datePipe.transform(paramsFilter.dateFinal, 'yyyy-MM-dd');
     this.ean = paramsFilter.ean === undefined || paramsFilter.ean === '' ? null : paramsFilter.ean;
+    this.idSeller = paramsFilter.idSeller === undefined || paramsFilter.idSeller === '' ? null : paramsFilter.idSeller;
 
     // Arma la ulr con los datos de la petición
-    urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email;
+    urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email + '/' + this.idSeller;
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('downloadHistorical', [urlFilterParams]), { observe: 'response'})
-      .subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
+      this.http.get<any>(this.api.get('downloadHistoricalAdmin', [urlFilterParams]), { observe: 'response' })
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
           observer.error(err);
-      });
+        });
     });
   }
 

@@ -25,8 +25,8 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
   // Componente necesario para el funcionamiento del filtro
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  // Variable para almacenar los datos del usuario logeado
-  public user: UserInformation;
+  // Variable para almacenar los datos del vendedor que se va a buscar
+  public seller: any;
 
   // Variable que se usa para ir al componente de detalle de la oferta
   public viewDetailOffer = false;
@@ -72,6 +72,9 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
 
   // Search subscription
   private searchSubscription: any;
+
+  // Filter enabled
+  public isEnabled: boolean;
 
   /**
    * Creates an instance of HistoricalComponent.
@@ -121,10 +124,13 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
       this.numCols = result.matches ? 1 : 2;
     });
 
-    this.searchSubscription = this.searchEventEmitter.eventSearchSeller.subscribe((res: any) => {
-      debugger;
+    this.searchSubscription = this.searchEventEmitter.eventSearchSeller.subscribe((seller: any) => {
+      this.seller = seller;
+      const PARAMS = {
+        IdSeller: seller.IdSeller
+      };
+      this.getHistoricalOffers(PARAMS);
     });
-
   }
 
   ngOnDestroy(): void {
@@ -139,23 +145,9 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
    * @memberof HistoricalComponent
    */
   isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
+    if (!isLoggedIn) {
       this.router.navigate([`/${RoutesConst.home}`]);
     }
-  }
-
-  /**
-   * @method getDataUser
-   * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
-   * @memberof HistoricalComponent
-   */
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-
-    // this.getHistoricalOffers();
-
   }
 
   /**
@@ -173,6 +165,8 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
 
           // Pregunta si la respuesta tiene resultados
           if (response) {
+            this.isEnabled = true;
+
             // Pregunta si ya hay datos en la variable historicalOffer
             if (this.historicalOffer) {
               if (response.paginationToken !== '{}') {
@@ -185,6 +179,7 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
               // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
               this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
               this.numberPages = Math.ceil(this.numberPages);
+              this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, params.IdSeller);
               if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
@@ -197,12 +192,14 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
             this.historicalOffer = false;
             this.numberPages = 0;
             this.currentPage = 0;
+            this.isEnabled = false;
           }
           this.loadingService.closeSpinner();
           this.log.debug(response);
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
+          this.isEnabled = false;
         }
       }
     );
@@ -221,10 +218,11 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
     this.paramData.dateInitial = params.get('dateInitial').value;
     this.paramData.dateFinal = params.get('dateFinal').value;
     this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
-    this.paramData.currentPage = this.currentPage;
+    // this.paramData.currentPage = this.currentPage;
     this.paramData.limit = this.limit;
+    this.paramData.IdSeller = this.seller.IdSeller;
     this.getHistoricalOffers(this.paramData);
-    this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean); // Metodo para guardadr los parametros del filtro
+    this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, this.paramData.IdSeller); // Metodo para guardadr los parametros del filtro
 
     this.paginationToken = []; // Clear paginationToken variable
     this.paginationToken.push('null');

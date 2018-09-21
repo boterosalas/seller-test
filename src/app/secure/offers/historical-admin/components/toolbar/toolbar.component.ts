@@ -4,8 +4,7 @@ import { MatSidenav, MatDialog } from '@angular/material';
 // our own custom components
 import { Logger } from '@app/core/util/logger.service';
 import { ModelFilter } from './../filter/filter.model';
-import { DownloadHistoricalModalComponent } from '@secure/offers/historical/download-historical-modal/download-historical-modal.component';
-import { HistoricalService } from '@secure/offers/historical/historical.service';
+import { DownloadHistoricalModalComponent } from '@secure/offers/historical-admin/download-historical-modal/download-historical-modal.component';
 import { HistoricalAdminComponent } from '@app/secure/offers/historical-admin/historical-admin/historicalAdmin.component';
 
 // log component
@@ -73,6 +72,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
    */
   @Input() currentPageInput: any;
 
+  /**
+   * Variable que permite habilitar/deshabilitar el filtro.
+   */
+  @Input() isEnabled: boolean;
+
   // Limite de registros por petición
   lengthHistorical = null;
 
@@ -90,6 +94,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.dataPaginate = new ModelFilter();
     this.dataPaginate.limit = 100;
     this.currentPage = 1;
+    this.isEnabled = true;
   }
 
   /**

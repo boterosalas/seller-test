@@ -58,11 +58,12 @@ export class HistoricalService {
     this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
     this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : this.paginationTokens[params.currentPage - 1];
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
+    this.paramsData.IdSeller = params.IdSeller;
 
-    urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
+    urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit + '/' + this.paramsData.IdSeller;
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('getHistoricalOffers', [urlParams]), { observe: 'response' })
+      this.http.get<any>(this.api.get('getHistoricalOffersAdmin', [urlParams]), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);

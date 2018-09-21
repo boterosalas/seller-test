@@ -69,7 +69,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
+        if (changes.searchSellerInput && changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
             changes.searchSellerInput.currentValue !== null) {
             this.viewStoreInformation(this.searchSellerInput);
         }

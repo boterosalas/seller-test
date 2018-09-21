@@ -4,6 +4,7 @@ export class ModelFilter {
     public dateFinal?: string,
     public ean?: string,
     public currentPage?: string,
-    public limit?: number
+    public limit?: number,
+    public IdSeller?: string
   ) { }
 }

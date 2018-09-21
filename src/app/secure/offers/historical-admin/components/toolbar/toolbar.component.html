@@ -7,7 +7,7 @@
         <small class="sub-title">| {{subtitleBar}}</small>
       </p>
       <div class="seller-search">
-        <app-search-seller></app-search-seller>
+        <app-search-seller [isFullSearch]="false"></app-search-seller>
       </div>
 
       <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
@@ -34,7 +34,7 @@
         <!-- /Download button -->
 
         <!-- Filter button -->
-        <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
+        <button *ngIf="isEnabled" class="btn-filter" mat-icon-button (click)="toggleMenu()">
           <mat-icon>filter_list</mat-icon>
           <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
         </button>
