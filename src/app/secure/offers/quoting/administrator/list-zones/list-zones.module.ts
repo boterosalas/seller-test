@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ListZonesService } from './list-zones.service';
 import { ListZonesComponent } from './list-zones.component';
 import { MaterialModule } from '@app/material.module';
+import { CreateDialogModule } from '../dialogs/create/create-dialog.module';
+import { DeleteDialogModule } from '../dialogs/delete/delete-dialog.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -10,7 +13,10 @@ import { MaterialModule } from '@app/material.module';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    CreateDialogModule,
+    DeleteDialogModule,
+    MatDialogModule,
   ],
   exports: [
     ListZonesComponent

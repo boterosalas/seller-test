@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
 
+const dialogTypeZone = 2;
+
 @Injectable()
 export class ListZonesService {
 
@@ -14,23 +16,23 @@ export class ListZonesService {
   ) {
     this.zones = [
       {
-        idZone: 0,
+        id: 5,
         nameZone: 'Envio Propio'
       },
       {
-        idZone: 1,
+        id: 1,
         nameZone: 'Envio Propio 1'
       },
       {
-        idZone: 2,
+        id: 2,
         nameZone: 'Envio Propio 2'
       },
       {
-        idZone: 3,
+        id: 3,
         nameZone: 'Envio Propio 3'
       },
       {
-        idZone: 4,
+        id: 4,
         nameZone: 'Envio Propio 4'
       }
     ];
@@ -54,6 +56,16 @@ export class ListZonesService {
           }
         );
     });
+  }
+
+  /**
+   * Get const with a value of dialog type
+   *
+   * @returns {number}
+   * @memberof ListTransporterService
+   */
+  getDialogType(): number {
+    return dialogTypeZone;
   }
 
   getFakeListZones() {

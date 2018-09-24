@@ -6,19 +6,19 @@
     <p>Nombre</p>
   </aside>
   <div fxLayout="column">
-    <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listZones">
+    <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listZones; let i = index">
       <div class="info-zones" fxFlex="90" fxLayout.xs="column">
         <p class="title-zones" fxShow.xs="true" fxShow="false">Nombre</p>
         <p>{{item.nameZone}}</p>
       </div>
       <div class="options-zones" fxFlex="10" fxLayout="row" fxLayoutAlign="end end">
         <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button
-          mat-button (click)="deleteZone()">
+          mat-button (click)="deleteZone(item.id , i)">
           <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
         </button>
 
         <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
-          (click)="editZone()">
+          (click)="editZone(item.id)">
           <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
         </button>
       </div>
@@ -30,3 +30,4 @@
   </div>
 
 </article>
+<app-create-dialog *ngIf="openModalCreate" [@enterAnimation] [typeDialog]="typeDialog" [idToEdit]="idToEdit"></app-create-dialog>

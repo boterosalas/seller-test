@@ -1,11 +1,14 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core';
 import { EventEmitterDialogs } from './../../events/eventEmitter-dialogs.service';
-import { FormControl , FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateDialogService } from './create-dialog.service';
 import { TransportModel } from '../models/transport.model';
 import { TypeTransportModel } from '../models/transports-type.model';
+import { ZoneModel } from '../models/zone.model';
 import { ListTransporterService } from '../../list-transporter/list-transporter.service';
+import { ListZonesService } from '../../list-zones/list-zones.service';
+import { ModalService } from '@app/core';
 
 const log = new Logger('CreateDialogComponent');
 
@@ -17,25 +20,47 @@ const log = new Logger('CreateDialogComponent');
 export class CreateDialogComponent implements OnInit {
 
   public formTransporter: FormGroup;
+  public formZone: FormGroup;
   public transportTypeList: Array<TypeTransportModel>;
   public dialogMode = false; // False: Add mode, True: Update mode.
   public transportDataToEdit: TransportModel;
+  public dialogTransport: number;
+  public dialogZone: number;
   @Input() typeDialog: number;
-  @Input() dataEdit: Array<{}>;
+  @Input() idToEdit: number;
 
   constructor(
     private events: EventEmitterDialogs,
     private service: CreateDialogService,
-    private serviceTransport: ListTransporterService
+    private transportService: ListTransporterService,
+    private modalService: ModalService,
+    private zoneService: ListZonesService
   ) { }
 
+  /**
+   * Initialize create dialog component.
+   *
+   * @memberof CreateDialogComponent
+   */
   ngOnInit(): void {
-    log.debug(this.typeDialog);
+    this.dialogTransport = this.transportService.getDialogType();
+    this.dialogZone = this.zoneService.getDialogType();
+    console.log(this.idToEdit);
     /** Verify if component initialization has data to edit or create  */
-    if ( this.dataEdit !== null ) {
-      this.dialogMode = true;
+    if ( this.showDialogForm(this.dialogTransport) ) {
+      if (this.idToEdit !== null) {
+        this.dialogMode = true;
+        this.getTransportData();
+      } else {
+        this.createTransportDialog(null);
+      }
     } else {
-      this.createTransportDialog(this.dataEdit);
+      if (this.idToEdit) {
+        this.dialogMode = true;
+        this.createZoneDialog(null);
+      } else {
+        this.createZoneDialog(null);
+      }
     }
   }
 
@@ -48,20 +73,47 @@ export class CreateDialogComponent implements OnInit {
     this.transportTypeList = this.service.getFakeListTransporter();
   }
 
-  public getTransportData(): void {
-    // this.transportDataToEdit = this.service.get
+
+  /**
+   * Return boolean value depends of dialog initialize
+   *
+   * @param {number} type
+   * @returns {boolean}
+   * @memberof CreateDialogComponent
+   */
+  public showDialogForm(type: number): boolean {
+    return type === this.typeDialog;
   }
 
+  /**
+   * Function to get data to edit transport.
+   * First get transport data to execute create dialog function with it.
+   * @memberof CreateDialogComponent
+   */
+  public getTransportData(): void {
+    this.transportDataToEdit = this.transportService.getFakeTransporter(this.idToEdit);
+    this.createTransportDialog(this.transportDataToEdit);
+  }
+
+  /**
+   * Close dialog.
+   */
   closeDialog(): void {
     this.events.openDialogCreate(false);
   }
 
-  /**  */
-  createTransportDialog(dataEdit: any): void {
-    this.getTransportMethodRequiredData();
+  /**
+   * Function to create reactive transport form, can initializate by edit and add mode.
+   * 1. To edit mode: needs data to show in this form
+   * 2. To add dont need data to show.
+   * @param {TransportModel} dataEdit, model with transport data.
+   * @memberof CreateDialogComponent
+   */
+  createTransportDialog(dataEdit: TransportModel): void {
+    this.getTransportMethodRequiredData(); // Get methods.
     let name: string;
     let idMethod: number;
-    if ( this.dataEdit ) {
+    if (dataEdit) {
       name = dataEdit.name;
       idMethod = dataEdit.idMethod;
     }
@@ -73,4 +125,86 @@ export class CreateDialogComponent implements OnInit {
       typeTransport: new FormControl(idMethod, Validators.required)
     });
   }
+
+  createZoneDialog(dataEdit: ZoneModel): void {
+    let name: string;
+    let daneCode: string;
+    if ( dataEdit ) {
+      name = dataEdit.name;
+      daneCode = dataEdit.daneCode;
+    }
+    this.formZone = new FormGroup({
+      nameZone: new FormControl(name, [
+        Validators.required,
+        Validators.maxLength(20)
+      ]),
+      danceCode: new FormControl(name, [
+        Validators.required,
+        Validators.maxLength(20)
+      ])
+    });
+  }
+
+  /**
+   * Submit function from dialog.
+   *
+   * @memberof CreateDialogComponent
+   */
+  saveTransport(): void {
+    log.debug(this.formTransporter.value);
+    if (this.dialogMode) {
+      this.updateTransport(this.formTransporter.value);
+    } else {
+      this.createTransport(this.formTransporter.value);
+    }
+  }
+
+  /**
+   * Send to transportService data to edit transport.
+   *
+   * @param {TransportModel} data
+   * @memberof CreateDialogComponent
+   */
+  updateTransport(data: TransportModel): void {
+    this.transportService.updateTransporter(data)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const response = JSON.parse(result.body.body);
+            if (response.Data) {
+              this.modalService.showModal('success');
+            } else if (!response.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+        }
+      );
+  }
+
+  /**
+   * Send to transportService data to create transport.
+   *
+   * @param {TransportModel} data
+   * @memberof CreateDialogComponent
+   */
+  createTransport(data: TransportModel): void {
+    this.transportService.createTransporter(data)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const response = JSON.parse(result.body.body);
+            if (response.Data) {
+              this.modalService.showModal('success');
+            } else if (!response.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+        }
+      );
+  }
+
 }

@@ -1,5 +1,5 @@
 <article id="list-transporter">
-  <h4>Transportadoras</h4>
+  <h4>Transportadoras {{openModalCreate}}</h4>
 
   <!-- Transporters title table CRUD-->
   <aside fxLayout="row" fxHide.xs>
@@ -9,7 +9,7 @@
     </div>
   </aside>
 
-  <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters">
+  <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters; let i = index">
     <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
       <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Nombre</p>
       <p fxFlex="40">
@@ -18,12 +18,12 @@
       <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
         <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
             <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Tipo de Transportadora</p>
-            <p>{{item.idMethod}}</p>
+            <p>{{item.method}}</p>
         </div>
 
         <div fxFlex="30" class="button-list-transporter" fxLayout="row" fxLayoutAlign.xs="end center" class="options-transporter flexbox flex-wrap align-center justify-end">
           <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button
-            mat-button (click)="deleteTransporter()">
+            mat-button (click)="deleteTransporter(item.id, i)">
             <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
           </button>
 
@@ -41,4 +41,4 @@
   </aside>
 
 </article>
-<app-create-dialog *ngIf="openModalCreate" [@enterAnimation] [typeDialog]="typeDialog" [dataEdit]="dataEdit"></app-create-dialog>
+<app-create-dialog *ngIf="openModalCreate" [@enterAnimation] [typeDialog]="typeDialog" [idToEdit]="idToEdit"></app-create-dialog>

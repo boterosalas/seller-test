@@ -4,6 +4,8 @@ import { ListTransporterComponent } from './list-transporter.component';
 import { ListTransporterService } from './list-transporter.service';
 import { MaterialModule } from '@app/material.module';
 import { CreateDialogModule } from '../dialogs/create/create-dialog.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDialogModule } from '../dialogs/delete/delete-dialog.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { CreateDialogModule } from '../dialogs/create/create-dialog.module';
     CommonModule,
     MaterialModule,
     CreateDialogModule,
+    MatDialogModule,
+    DeleteDialogModule
   ],
   exports: [
     ListTransporterComponent

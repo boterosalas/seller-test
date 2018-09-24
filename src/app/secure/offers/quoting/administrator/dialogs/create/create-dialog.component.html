@@ -1,27 +1,57 @@
+<!-- TRANSPORT TEXT DIALOG -->
+<ng-template #addTransportBlock>Crear transportadora</ng-template>
+<ng-template #updateTransportBlock>Editar transportadora</ng-template>
+<ng-template #addTransportParagraphBlock>Ingresa una nombre de transportadora y un método de envío asociado para que
+  aparezca
+  en la lista de los vendedores al momento de configurar el método de envío seleccionado.</ng-template>
+<ng-template #updateTransportParagraphBlock>Reemplaza el nombre de transportadora existente y da clic a Guardar para
+  modificar el nombre de esta transportadora.</ng-template>
+
+<!-- ZONE TEXT DIALOG -->
+<ng-template #addZoneBlock>Crear zona</ng-template>
+<ng-template #updateZoneBlock>Editar zona</ng-template>
+<ng-template #addZoneParagraphBlock>Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para
+  que aparezca en la lista de los vendedores al momento de configurar un método de envío.</ng-template>
+<ng-template #updateZoneParagraphBlock>Reemplaza el nombre de la zona existente o los códigos DANE configurados para la
+  zona y da clic a Guardar para modificar esta zona</ng-template>
+
 <section class="dialog-component flexbox flex-wrap align-center justify-center">
   <article class="transport-dialog">
 
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
       <div class="container-transport-icon" fxLayout="column" fxLayoutAlign="center center">
-        <i class="material-icons">
+        <i class="material-icons" *ngIf="showDialogForm(dialogTransport)">
           local_shipping
         </i>
+        <i class="material-icons" *ngIf="showDialogForm(dialogZone)">
+          map
+        </i>
       </div>
-      <h3>
-        Crear transportadora
+
+
+
+      <h3 *ngIf="showDialogForm(dialogTransport)">
+        <div *ngIf="dialogMode; then updateTransportBlock; else addTransportBlock"></div>
+      </h3>
+      <h3 *ngIf="showDialogForm(dialogZone)">
+        <div *ngIf="dialogMode; then updateZoneBlock; else addZoneBlock"></div>
       </h3>
 
       <!-- Description form -->
       <div fxLayout="row" fxLayoutAlign="center center">
-        <p fxFlex="70" class="text-dialog-transporter">
-          Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Aenean viverra rhoncus pede. Pellentesque habitant
-          morbi
+        <p fxFlex="70" class="text-dialog-transporter" *ngIf="showDialogForm(dialogTransport)">
+          <span *ngIf="dialogMode; then updateTransportParagraphBlock; else addTransportParagraphBlock"></span>
+        </p>
+        <p fxFlex="70" class="text-dialog-transporter" *ngIf="showDialogForm(dialogZone)">
+          <span *ngIf="dialogMode; then updateZoneParagraphBlock; else addZoneParagraphBlock"></span>
         </p>
       </div>
 
-      <div class="form-transporter-container">
+
+      <!-- TRANSPORT DIALOG -->
+      <div class="form-transporter-container" *ngIf="showDialogForm(dialogTransport)">
         <!-- FORM: to create transport -->
-        <form [formGroup]="formTransporter" (ngSubmit)="onSubmit()" fxLayout="column">
+        <form [formGroup]="formTransporter" (ngSubmit)="saveTransport()" fxLayout="column">
 
           <!-- Fields container -->
           <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
@@ -55,9 +85,52 @@
               </div>
             </div>
           </div>
-
         </form>
       </div>
+      <!-- END TRANSPORT DIALOG -->
+
+
+      <!-- ZONE DIALOG -->
+      <div class="form-transporter-container" *ngIf="showDialogForm(dialogZone)">
+        <!-- FORM: to create transport -->
+        <form [formGroup]="formZone" (ngSubmit)="saveZone()" fxLayout="column">
+
+          <!-- Fields container -->
+          <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
+            <!-- Name input Field -->
+            <mat-form-field fxFill="48" fxFlex="48">
+              <mat-icon matPrefix>map</mat-icon>
+              <input matInput formControlName="nameZone" placeholder="Nombre zona">
+              <mat-error>Campo obligatorio</mat-error>
+            </mat-form-field>
+
+            <!-- DANE code input Field -->
+            <mat-form-field fxFill="48" fxFlex="48">
+              <input matInput formControlName="danceCode" placeholder="Código DANE">
+              <mat-error>Campo obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Buttons SAVE and CANCEL -->
+          <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+              <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
+                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
+                  (click)="closeDialog()"></button>
+              </div>
+              <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'">
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- END ZONE DIALOG -->
+
+
+
+
     </div>
   </article>
 </section>

@@ -3,9 +3,12 @@ import { ListTransporterService } from './list-transporter.service';
 import { Logger } from '@app/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { EventEmitterDialogs } from './../events/eventEmitter-dialogs.service';
+import { ModalService } from '@app/core';
+import { TypeTransportModel } from '../dialogs/models/transports-type.model';
+import { DeleteDialogComponent } from '../dialogs/delete/delete-dialog.component';
+import { MatDialog } from '@angular/material';
 
 const log = new Logger('ListTransporterComponent');
-const dialogTypeTransporter = 1;
 
 @Component({
   selector: 'app-list-transporter',
@@ -31,40 +34,111 @@ export class ListTransporterComponent implements OnInit {
 
   private listTransporters: Array<{}>;
   private openModalCreate: boolean;
-  public typeDialog = dialogTypeTransporter;
+  public typeDialog: number;
   public idToEdit: number;
 
   constructor(
-    private service: ListTransporterService,
-    private events: EventEmitterDialogs
+    private transportService: ListTransporterService,
+    private events: EventEmitterDialogs,
+    private modalService: ModalService,
+    public dialog: MatDialog
   ) {
     this.openModalCreate = false;
   }
 
-  ngOnInit(): void {
-    this.getListTransporters();
-    this.events.eventOpenCreateDialog.subscribe((view: boolean) => {
-      this.openModalCreate = view;
+  /**
+   * Open dialog to delete a transporter
+   *
+   * @memberof ListTransporterComponent
+   */
+  deleteTransporter(id: number, indexTransporter: number): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      minWidth: '390px',
+      maxWidth: '1000px',
+      disableClose: true,
+      data:  this.typeDialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', id, indexTransporter);
+      /** If has result (True) its because user confirm deleltes transporter */
+      if (result) {
+        this.deleteTransporterServ(id, indexTransporter);
+      }
     });
   }
 
-  getListTransporters() {
-    this.listTransporters = this.service.getFakeListTransporter();
+  /**
+   * Initialize component with
+   * 1. Get type of dialog.
+   * 2. Get transport list.
+   * 3. Event launch when dialog edit or add close.
+   * @memberof ListTransporterComponent
+   */
+  ngOnInit(): void {
+    this.typeDialog = this.transportService.getDialogType();
+    this.getListTransporters();
+    this.events.eventOpenCreateDialog.subscribe((view: boolean) => {
+      this.openModalCreate = view;
+      if (!view) {
+        this.getListTransporters();
+      }
+    });
   }
 
+  /**
+   * Function to get transport list.
+   *
+   * @memberof ListTransporterComponent
+   */
+  getListTransporters() {
+    this.listTransporters = this.transportService.getFakeListTransporter();
+  }
+
+  /**
+   *  Function to open dialog component initialize with transport type and add mode
+   */
   createTransporter(): void {
     log.debug('Crear');
     this.idToEdit = null;
     this.openModalCreate = true;
   }
 
-  editTransporter(item: any): void {
+  /**
+   * Function to open dialog component initialize with transport type and update mode
+   *
+   * @param {TypeTransportModel} item
+   * @memberof ListTransporterComponent
+   */
+  editTransporter(item: TypeTransportModel): void {
     log.debug('Editar');
-    this.idToEdit = item.idTransporter;
+    this.idToEdit = item.id;
     this.openModalCreate = true;
   }
 
-  deleteTransporter(): void {
-    log.debug('Eliminar');
+  /**
+   *
+   * @param {number} idTransport
+   * @param {number} indexList
+   * @memberof ListTransporterComponent
+   */
+  deleteTransporterServ(idTransport: number, indexList: number): void {
+    this.transportService.deleteTransporter(idTransport)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const response = JSON.parse(result.body.body);
+            if (response.Data) {
+              this.modalService.showModal('success');
+              this.listTransporters.splice(indexList, 1);
+            } else if (!response.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+        }
+      );
   }
 }

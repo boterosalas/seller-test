@@ -3,6 +3,15 @@ $color-black-transparent2 :rgba($color: #000000, $alpha: 0.16);
 $color-white: #FFFFFF;
 $color-gray: #BCBCBC;
 $modal: 72px;
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  i {
+    color: $color-white;
+  }
+}
 
 :host {
   section {
@@ -20,40 +29,44 @@ $modal: 72px;
         box-sizing: border-box;
         box-shadow: $color-black-transparent2 0 9px 10px;
       }
-      .container-transport-icon{
-        border-radius: 40px;
-        background-color: $color-gray;
-        width: $modal;
-        height: $modal;
-        i{
-          color: $color-white;
-        }
+      .container-transport-icon {
+        @include icon-border-gray();
       }
-      .form-transporter-container{
+      .form-transporter-container {
         width: 70%;
       }
-      .transport-dialog{
-        &.mat-form-field-wrapper{
+      .transport-dialog {
+        &.mat-form-field-wrapper {
           width: 100%;
         }
       }
-      .select-transport{
+      .select-transport {
         width: 100%;
       }
     }
   }
 }
 
-.mat-form-field-flex{
+.delete-dialog{
+  .container-transport-icon {
+    @include icon-border-gray();
+  }
+  .form-transporter-container{
+    width: 100%;
+  }
+  p{
+    margin-top: 0;
+  }
+}
+
+.mat-form-field-flex {
   align-items: flex-end !important;
-  .material-icons{
+  .material-icons {
     color: $color-gray;
   }
 }
 
-
-
-.text-dialog-transporter{
+.text-dialog-transporter {
   text-align: center;
 }
 
@@ -62,7 +75,7 @@ $modal: 72px;
     width: 90%;
     height: 50%;
   }
-  .mat-form-field-infix{
+  .mat-form-field-infix {
     width: 100%;
   }
 }

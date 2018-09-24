@@ -2,14 +2,17 @@
 export class TransportModel {
   id?: number;
   name: string;
-  idMethod: string;
+  method: string;
+  idMethod?: number;
   constructor(
     name: string,
-    idMethod: string,
+    method: string,
+    idMethod?: number,
     id?: number
   ) {
     this.id = id;
     this.name = name;
+    this.method = method;
     this.idMethod = idMethod;
   }
 }
