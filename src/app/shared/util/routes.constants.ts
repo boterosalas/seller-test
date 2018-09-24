@@ -14,6 +14,7 @@ export class RoutesConst {
     static readonly securehome: any = 'securehome';
 
     static readonly seller: any = 'seller-center';
+    static readonly dashboard: any = 'dashboard';
     static readonly orders: any = 'ordenes';
     static readonly offers: any = 'ofertas';
     static readonly sellers: any = 'vendedores';
@@ -46,6 +47,7 @@ export class RoutesConst {
 
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
+    static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
     static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;
     static readonly sellerCenterOffers: any =  RoutesConst.secureSeller + '/' + RoutesConst.offers;
     static readonly sellerCenterSellers: any =  RoutesConst.secureSeller + '/' + RoutesConst.sellers;

@@ -1,0 +1,169 @@
+.dashboard {
+  &__content {
+    padding: 3em 5%;
+    margin-bottom: 3em;
+  }
+
+  &__orders {}
+
+  &__sales {
+    margin-top: 3em;
+  }
+}
+
+.orders {
+  &__title {
+    font-size: 18px;
+  }
+}
+
+.table {
+  $self: &;
+  width: 100%;
+  border-collapse: collapse;
+
+  &__cell {
+    font-size: 22px;
+
+    &:nth-child(1) {
+      #{$self}__icon-box {
+        color: #9E9E9E;
+      }
+    }
+
+    &:nth-child(2) {
+      #{$self}__icon-box {
+        color: #FFDA10;
+      }
+    }
+
+    &:nth-child(3) {
+      #{$self}__icon-box {
+        color: #34B72D;
+      }
+    }
+
+    &:nth-child(4) {
+      #{$self}__icon-box {
+        color: red;
+      }
+    }
+  }
+
+  &__inner-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    color: #757474;
+    font-size: 12px;
+  }
+
+  &__cell,
+  &__title {
+    text-align: start;
+    padding: 1.5em 0;
+    border-top: 2px solid #D3D3D3;
+    border-bottom: 2px solid #D3D3D3;
+
+  }
+
+  &__icon {
+    width: 18px;
+    height: 20px;
+
+    &-box {
+      margin-right: 20px;
+    }
+  }
+}
+
+.sales {
+  &__body {
+    margin-top: .6em;
+  }
+
+  &__date {
+    width: 25%;
+    max-width: 400px;
+  }
+
+  &__graph {
+    &-box {
+      margin-top: 1.6em;
+    }
+  }
+}
+
+.graph {
+  $self: &;
+
+  &__content {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2em;
+    border-left: 2px solid #D3D3D3;
+    border-bottom: 2px solid #D3D3D3;
+    height: 260px;
+  }
+
+  &__table {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__value {
+    margin-bottom: 1.5em;
+    font-weight: bold;
+  }
+
+  &__bar {
+    width: 150px;
+    border-radius: 5px 5px 0px 0px;
+    position: relative;
+
+    &-box {
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      text-align: center;
+
+      &:nth-child(1) {
+        #{$self}__bar {
+          background-color: #FFA600;
+        }
+      }
+
+      &:nth-child(2) {
+        #{$self}__bar {
+          background-color: #FFC10C;
+        }
+      }
+
+      &:nth-child(3) {
+        #{$self}__bar {
+          background-color: #FFD54F;
+        }
+      }
+    }
+  }
+
+  &__label {
+    position: absolute;
+    bottom: -2.5em;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  &__info {
+    text-align: center;
+    font-size: 14px;
+    color: #909090;
+    margin-top: 6em;
+  }
+}
