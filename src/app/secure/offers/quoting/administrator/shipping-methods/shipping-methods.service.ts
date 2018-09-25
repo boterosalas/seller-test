@@ -2,18 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
-import { ShippingMethodsModel } from '@app/secure/offers/quoting/administrator/shipping-methods/shipping-methods.model';
+import { ShippingMethodsModel } from './shipping-methods.model';
 
 @Injectable()
 export class ShippingMethodsService {
 
-  public shipingMethods: Array<ShippingMethodsModel>;
+  public shippingMethods: Array<ShippingMethodsModel>;
 
   constructor(
     private http: HttpClient,
     private api: EndpointService
   ) {
-    this.shipingMethods = [
+    this.shippingMethods = [
         new ShippingMethodsModel ('Por Categoria', 'library_books', 0),
         new ShippingMethodsModel ('Rango de precio', 'local_offer', 0),
         new ShippingMethodsModel ('Rango de peso', 'assignment', 0),
@@ -21,7 +21,17 @@ export class ShippingMethodsService {
   }
 
   getFakeListShipingMethods() {
-    return this.shipingMethods;
+    return this.shippingMethods;
   }
 
+  public getShippingMethods():  Observable<Array<ShippingMethodsModel>> {
+    return new Observable(observer => {
+      this.http.get(this.api.get('getStates'))
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
+          observer.error(err);
+        });
+    });
+  }
 }

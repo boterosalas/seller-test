@@ -11,7 +11,7 @@ export class ShippingMethodsComponent implements OnInit {
 
   public shippingMethodsList: Array<ShippingMethodsModel>;
 
-  constructor( private service: ShippingMethodsService) { }
+  constructor(private service: ShippingMethodsService) { }
 
   ngOnInit(): void {
     this.getRequiredData();
@@ -24,5 +24,14 @@ export class ShippingMethodsComponent implements OnInit {
    */
   public getRequiredData(): void {
     this.shippingMethodsList = this.service.getFakeListShipingMethods();
+    /*this.service.getShippingMethods().subscribe((res: any) => {
+      if (res.status === 200) {
+          const body = JSON.parse(res.body.body);
+          console.log(body.Data);
+      } else {
+        console.log('error');
+        // Error here
+      }
+  });*/
   }
 }
