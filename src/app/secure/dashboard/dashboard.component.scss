@@ -7,8 +7,6 @@ $table-break: 900px;
     margin-bottom: 3em;
   }
 
-  &__orders {}
-
   &__sales {
     margin-top: 3em;
   }
@@ -22,22 +20,31 @@ $table-break: 900px;
   }
 
   &__row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    border-top: 1px solid #D3D3D3;
     border-bottom: 1px solid #D3D3D3;
 
     @media only screen and (max-width: $mobile-break) {
-      border-bottom: none;
+      border-top: none;
     }
   }
 
   &__colum {
     font-size: 22px;
     width: 25%;
-    min-width: 200px;
+    min-width: 250px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
     flex-grow: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 
     &:nth-child(1) {
@@ -65,10 +72,16 @@ $table-break: 900px;
     }
 
     @media only screen and (max-width: $mobile-break) {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
       flex-direction: row;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
       min-width: 100%;
-      border-bottom: 1px solid #D3D3D3;
+      border-top: 1px solid #D3D3D3;
+      border-bottom: none;
     }
   }
 
@@ -82,15 +95,18 @@ $table-break: 900px;
     }
 
     &:nth-child(1) {
+      border-top: 1px solid #D3D3D3;
       border-bottom: 1px solid #D3D3D3;
 
       @media only screen and (max-width: $mobile-break) {
         border-bottom: none;
+        border-top: none;
       }
     }
 
     &:nth-child(2) {
       @media only screen and (max-width: $mobile-break) {
+        border-top: none;
         margin-left: auto;
       }
     }
@@ -136,7 +152,6 @@ $table-break: 900px;
       max-width: initial;
     }
 
-
   }
 
   &__graph {
@@ -150,7 +165,11 @@ $table-break: 900px;
   $self: &;
 
   &__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: flex-end;
     margin-bottom: 2em;
     border-left: 2px solid #D3D3D3;
@@ -161,7 +180,10 @@ $table-break: 900px;
   &__table {
     width: 100%;
     height: 200px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
   }
 
@@ -186,8 +208,15 @@ $table-break: 900px;
       min-width: 45px;
       height: 100%;
       width: 20%;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
       justify-content: flex-end;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
       flex-direction: column;
       text-align: center;
 

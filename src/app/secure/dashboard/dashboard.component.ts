@@ -1,5 +1,12 @@
+// 3rd party components
 import { Component, OnInit } from '@angular/core';
+// our own custom components
+import { UserLoginService, UserParametersService } from '@app/core';
 
+/**
+ * @export
+ * @class DashboardComponent
+ */
 @Component({
     selector: 'app-dashboard-component',
     templateUrl: './dashboard.component.html',
@@ -7,13 +14,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+    // Variable que almacena el objeto que contiene los datos de las órdenes del vendedor.
     public orders: any;
 
-    public last_sales: any;
+    // Variable que almacena un arreglo con los datos de ventas de los tres últimos meses del vendedor.
+    public last_sales: any[];
 
-    public startDate: any;
+    // Variable para almacenar los datos del vendedor.
+    private user: any;
 
-    constructor() {
+    /**
+     * @description crea una instancia del componente.
+     * @param {UserLoginService} [userService]
+     * @param {UserParametersService} [userParams]
+     * @memberof DashboardComponent
+     */
+    constructor(
+        public userService?: UserLoginService,
+        public userParams?: UserParametersService
+    ) {
         this.orders = {
             all: 0,
             pending: 0,
@@ -21,18 +40,29 @@ export class DashboardComponent implements OnInit {
             expired: 0
         };
 
-        this.last_sales = {
-            Mes3: 0,
-            Mes2: 0,
-            Mes1: 0
-        };
+        this.last_sales = [];
     }
 
+    /**
+     * @description Método que inicializa los datos.
+     */
     ngOnInit(): void {
+        this.getuserData();
+    }
+
+    /**
+     * @description Método que carga los datos del vendedor para obtener la sellerId.
+     */
+    private async getuserData() {
+        this.user = await this.userParams.getUserData();
+        // this.user.sellerId
         this.getOrdersData();
         this.getLastSales();
     }
 
+    /**
+     * @description Método que carga los datos de las órdenes.
+     */
     private getOrdersData() {
         this.orders = {
             all: 1300000,
@@ -42,6 +72,9 @@ export class DashboardComponent implements OnInit {
         };
     }
 
+    /**
+     * @description Método que carga los datos de las ventas de los últimos tres meses a parir de la fecha indicada.
+     */
     private getLastSales() {
         this.last_sales = [
             {
@@ -61,6 +94,11 @@ export class DashboardComponent implements OnInit {
         this.last_sales = this.parseLastSales(this.last_sales);
     }
 
+    /**
+     * @description Método organiza la información de las ventas de los últimos 3 meses para encontrar
+     *  las proporciones adecuadas para pintar los datos en la gráfica.
+     * @param last datos sin procesar de los últimos tres meses.
+     */
     private parseLastSales(last: any) {
         const last_array: any = last;
 
@@ -85,6 +123,11 @@ export class DashboardComponent implements OnInit {
         return last_array;
     }
 
+    /**
+     * @description Método que se encarga de responder al evento que se produce al seleccionar un mes en el date picker.
+     * @param month Fecha correspondiente al mes seleccionado en el date picker.
+     * @param dp El elemento date picker.
+     */
     public chosenMonthHandler(month: any, dp: any) {
         console.log(month);
         dp.close();
