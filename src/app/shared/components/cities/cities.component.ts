@@ -100,7 +100,9 @@ export class CitiesComponent implements OnInit, OnChanges {
           this.loadingService.closeSpinner();
           if (this.elementLoad) {
             const citySelected = this.validateElementLoaded(this.elementLoad);
-            this.validateFormRegister.controls['citiesFormControl'].setValue(citySelected.Id, {onlySelf: true});
+            if (citySelected) {
+              this.validateFormRegister.controls['citiesFormControl'].setValue(citySelected.Id, {onlySelf: true});
+            }
           }
         } else {
           this.loadingService.closeSpinner();

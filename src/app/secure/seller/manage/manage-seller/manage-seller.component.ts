@@ -113,6 +113,8 @@ export class ManageSellerComponent implements OnInit {
     this.createFormControls();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.elementStateLoad = null;
+      this.elementCityLoad = null;
       if (!isEmpty(seller)) {
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
           if (res.status === 200) {
