@@ -1,3 +1,6 @@
+$mobile-break: 666px;
+$table-break: 900px;
+
 .dashboard {
   &__content {
     padding: 3em 5%;
@@ -12,18 +15,30 @@
 }
 
 .orders {
+  $self: &;
+
   &__title {
     font-size: 18px;
   }
-}
 
-.table {
-  $self: &;
-  width: 100%;
-  border-collapse: collapse;
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #D3D3D3;
 
-  &__cell {
+    @media only screen and (max-width: $mobile-break) {
+      border-bottom: none;
+    }
+  }
+
+  &__colum {
     font-size: 22px;
+    width: 25%;
+    min-width: 200px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 
     &:nth-child(1) {
       #{$self}__icon-box {
@@ -48,24 +63,41 @@
         color: red;
       }
     }
+
+    @media only screen and (max-width: $mobile-break) {
+      flex-direction: row;
+      align-items: center;
+      min-width: 100%;
+      border-bottom: 1px solid #D3D3D3;
+    }
   }
 
-  &__inner-cell {
-    display: flex;
-    align-items: center;
-  }
-
-  &__title {
-    color: #757474;
-    font-size: 12px;
-  }
-
-  &__cell,
-  &__title {
+  &__cell {
     text-align: start;
     padding: 1.5em 0;
-    border-top: 2px solid #D3D3D3;
-    border-bottom: 2px solid #D3D3D3;
+
+    &--title {
+      color: #757474;
+      font-size: 12px;
+    }
+
+    &:nth-child(1) {
+      border-bottom: 1px solid #D3D3D3;
+
+      @media only screen and (max-width: $mobile-break) {
+        border-bottom: none;
+      }
+    }
+
+    &:nth-child(2) {
+      @media only screen and (max-width: $mobile-break) {
+        margin-left: auto;
+      }
+    }
+
+    @media only screen and (max-width: $mobile-break) {
+      padding: .8em 0;
+    }
 
   }
 
@@ -80,6 +112,12 @@
 }
 
 .sales {
+  &__title {
+    @media only screen and (max-width: $mobile-break) {
+      margin: .4em 0;
+    }
+  }
+
   &__body {
     margin-top: .6em;
   }
@@ -87,6 +125,18 @@
   &__date {
     width: 25%;
     max-width: 400px;
+
+    @media only screen and (max-width: $table-break) {
+      width: 50%;
+      max-width: initial;
+    }
+
+    @media only screen and (max-width: $mobile-break) {
+      width: 100%;
+      max-width: initial;
+    }
+
+
   }
 
   &__graph {
@@ -118,15 +168,24 @@
   &__value {
     margin-bottom: 1.5em;
     font-weight: bold;
+    font-size: 14px;
+
+    @media only screen and (max-width: $mobile-break) {
+      font-size: 9px;
+      margin-bottom: .8em;
+    }
   }
 
   &__bar {
-    width: 150px;
+    width: 100%;
     border-radius: 5px 5px 0px 0px;
     position: relative;
 
     &-box {
+      max-width: 150px;
+      min-width: 45px;
       height: 100%;
+      width: 20%;
       display: flex;
       justify-content: flex-end;
       flex-direction: column;
@@ -158,6 +217,10 @@
     text-align: center;
     width: 100%;
     font-weight: bold;
+
+    @media only screen and (max-width: $mobile-break) {
+      font-size: 12px;
+    }
   }
 
   &__info {
