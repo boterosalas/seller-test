@@ -75,6 +75,11 @@ export class ManageSellerComponent implements OnInit {
   public existValueInDB: boolean;
   public idState: number;
   public disabledForService: boolean;
+  public noValidateData: any;
+  public elementStateLoad: string;
+  public elementCityLoad: string;
+  public firstEmit = true;
+
   /**
    * Creates an instance of ManageSellerComponent.
    * @param {EventEmitterSeller} eventsSeller
@@ -129,6 +134,12 @@ export class ManageSellerComponent implements OnInit {
             this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
             this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
             this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+            this.noValidateData = Object.assign({},  {
+              email: this.currentSellerSelect.Email,
+              name : this.currentSellerSelect.Name
+            });
+            this.elementStateLoad = this.currentSellerSelect.State;
+            this.elementCityLoad = this.currentSellerSelect.City;
           }
         });
       }
@@ -187,6 +198,7 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   createForm() {
+
     this.validateFormRegister = new FormGroup({
       Nit: this.nit,
       Rut: this.rut,
@@ -239,12 +251,12 @@ export class ManageSellerComponent implements OnInit {
               this.existValueInDB = data_response.Data;
               switch (param) {
                 case 'Email':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
                 case 'Name':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
@@ -286,8 +298,9 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
       this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
-    } else {
+    } else if (!this.firstEmit) {
       this.validateFormRegister.controls['DaneCode'].setValue(null);
+      this.firstEmit = false;
     }
   }
 
@@ -301,6 +314,7 @@ export class ManageSellerComponent implements OnInit {
           if (data.Data) {
             this.modalService.showModal('successUpdate');
           } else if (!data.Data) {
+            console.log(result);
             this.modalService.showModal('error');
           }
         } else {

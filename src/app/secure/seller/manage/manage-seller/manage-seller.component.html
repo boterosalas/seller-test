@@ -107,11 +107,11 @@
         fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
         <div fxFlex="50%">
-          <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+          <app-states-data *ngIf="elementStateLoad" [elementLoad]="elementStateLoad" (idStateEvent)="receiveDataState($event)"></app-states-data>
         </div>
 
         <div fxFlex="50%">
-          <app-cities [idState]="idState" (daneCodeEvent)="receiveDataCitie($event)"></app-cities>
+          <app-cities *ngIf="elementCityLoad" [elementLoad]="elementCityLoad" [idState]="idState" (daneCodeEvent)="receiveDataCitie($event)"></app-cities>
         </div>
 
       </div>
