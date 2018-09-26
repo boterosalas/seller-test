@@ -12,6 +12,7 @@ import { ToolbarSellerComponent } from './toolbar-seller/toolbar-seller.componen
 
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
+import { ManageSellerService } from './manage.service';
 
 @NgModule({
     declarations: [

@@ -885,67 +885,63 @@ export class BulkLoadProductComponent implements OnInit {
     }
 
     if (i > 0 && i !== 0) {
-      for (let j = i; j < res.length; j++) {
-        for (let k = 0; k < res[0].length; k++) {
-          const newFeatures = {};
-          if (k !== iVal.iEAN &&
-            k !== iVal.iNombreProd &&
-            k !== iVal.iCategoria &&
-            k !== iVal.iMarca &&
-            k !== iVal.iModelo &&
-            k !== iVal.iDetalles &&
-            k !== iVal.iDescripcion &&
-            k !== iVal.iMetaTitulo &&
-            k !== iVal.iMetaDescripcion &&
-            k !== iVal.iPalabrasClave &&
-            k !== iVal.iAltoDelEmpaque &&
-            k !== iVal.ilargoDelEmpaque &&
-            k !== iVal.iAnchoDelEmpaque &&
-            k !== iVal.iPesoDelEmpaque &&
-            k !== iVal.iSkuShippingSize &&
-            k !== iVal.iAltoDelProducto &&
-            k !== iVal.iLargoDelProducto &&
-            k !== iVal.iAnchoDelProducto &&
-            k !== iVal.iPesoDelProducto &&
-            k !== iVal.iVendedor &&
-            k !== iVal.iTipoDeProducto &&
-            k !== iVal.iURLDeImagen1 &&
-            k !== iVal.iURLDeImagen2 &&
-            k !== iVal.iURLDeImagen3 &&
-            k !== iVal.iURLDeImagen4 &&
-            k !== iVal.iURLDeImagen5 &&
-            k !== iVal.iModificacionImagen &&
-            k !== iVal.iLogisticExito
-          ) {
-            if (variant && variant === true) {
-              if (k !== iVal.iParentReference &&
-                k !== iVal.iSonReference &&
-                k !== iVal.iSize &&
-                k !== iVal.iColor &&
-                k !== iVal.iHexColourCodePDP &&
-                k !== iVal.iHexColourName) {
-                if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
-                  newFeatures['key'] = res[0][k].trim();
-                  newFeatures['value'] = res[i][k].trim();
-                  newObjectForSend.features.push(newFeatures);
-                }
-              }
-            } else if (!variant && variant === false) {
+      for (let k = 0; k < res[0].length; k++) {
+        const newFeatures = {};
+        if (k !== iVal.iEAN &&
+          k !== iVal.iNombreProd &&
+          k !== iVal.iCategoria &&
+          k !== iVal.iMarca &&
+          k !== iVal.iModelo &&
+          k !== iVal.iDetalles &&
+          k !== iVal.iDescripcion &&
+          k !== iVal.iMetaTitulo &&
+          k !== iVal.iMetaDescripcion &&
+          k !== iVal.iPalabrasClave &&
+          k !== iVal.iAltoDelEmpaque &&
+          k !== iVal.ilargoDelEmpaque &&
+          k !== iVal.iAnchoDelEmpaque &&
+          k !== iVal.iPesoDelEmpaque &&
+          k !== iVal.iSkuShippingSize &&
+          k !== iVal.iAltoDelProducto &&
+          k !== iVal.iLargoDelProducto &&
+          k !== iVal.iAnchoDelProducto &&
+          k !== iVal.iPesoDelProducto &&
+          k !== iVal.iVendedor &&
+          k !== iVal.iTipoDeProducto &&
+          k !== iVal.iURLDeImagen1 &&
+          k !== iVal.iURLDeImagen2 &&
+          k !== iVal.iURLDeImagen3 &&
+          k !== iVal.iURLDeImagen4 &&
+          k !== iVal.iURLDeImagen5 &&
+          k !== iVal.iModificacionImagen &&
+          k !== iVal.iLogisticExito
+        ) {
+          if (variant && variant === true) {
+            if (k !== iVal.iParentReference &&
+              k !== iVal.iSonReference &&
+              k !== iVal.iSize &&
+              k !== iVal.iColor &&
+              k !== iVal.iHexColourCodePDP &&
+              k !== iVal.iHexColourName) {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
                 newObjectForSend.features.push(newFeatures);
               }
             }
-
+          } else if (!variant && variant === false) {
+            if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
+              newFeatures['key'] = res[0][k].trim();
+              newFeatures['value'] = res[i][k].trim();
+              newObjectForSend.features.push(newFeatures);
+            }
           }
 
         }
+
       }
     }
-    // ESO ES UN MACHETE, HAY CORREGIRLO.
-    // Solución temporal: eliminar elmentos duplicados del array de 'features'.
-    newObjectForSend.features = uniqWith(newObjectForSend.features, isEqual);
+
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
@@ -1164,7 +1160,6 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
-    const formatExtraFields = /^[a-zA-Z0-9ñÑ\s+\-\,\.\_\/\#\(\)]{1,200}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
     const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
     const formatSize = /^[^\s]{1,10}$/;
@@ -1312,7 +1307,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         default:
-          if ((inputtxt.match(formatExtraFields))) {
+          if ((inputtxt.match(formatAllChars))) {
             valueReturn = true;
           } else {
             valueReturn = false;
