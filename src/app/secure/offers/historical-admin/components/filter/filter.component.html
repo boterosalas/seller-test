@@ -73,7 +73,7 @@
 
     <!-- Filter action button -->
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
+      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'" (click)="clearAndSubmit()"></button>
       <button mat-flat-button
         color="primary"
         type="submit"

@@ -75,8 +75,7 @@ export class DownloadHistoricalService {
     this.idSeller = paramsFilter.idSeller === undefined || paramsFilter.idSeller === '' ? null : paramsFilter.idSeller;
 
     // Arma la ulr con los datos de la petición
-    urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email + '/' + this.idSeller;
-
+    urlFilterParams = this.idSeller + '/' + this.dateInitial + '/' + this.dateFinal + '/' + this.ean + '/' + email;
     return new Observable(observer => {
       this.http.get<any>(this.api.get('downloadHistoricalAdmin', [urlFilterParams]), { observe: 'response' })
         .subscribe((data: any) => {

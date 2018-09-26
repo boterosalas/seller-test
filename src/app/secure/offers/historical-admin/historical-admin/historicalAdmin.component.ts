@@ -28,6 +28,9 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
   // Variable para almacenar los datos del vendedor que se va a buscar
   public seller: any;
 
+  // Variable para almacenar los datos del usuario
+  public user: any;
+
   // Variable que se usa para ir al componente de detalle de la oferta
   public viewDetailOffer = false;
 
@@ -138,6 +141,18 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * @method getDataUser
+   * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
+   * @memberof HistoricalComponent
+   */
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.router.navigate([`/${RoutesConst.home}`]);
+    }
+  }
+
+  /**
    * @method isLoggedIn
    * @description Metodo para validar si el usuario esta logeado
    * @param message
@@ -147,6 +162,8 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (!isLoggedIn) {
       this.router.navigate([`/${RoutesConst.home}`]);
+    } else {
+      this.getDataUser();
     }
   }
 
@@ -239,6 +256,7 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
    * @memberof HistoricalComponent
    */
   setDataPaginate(params: any) {
+    this.paramData.IdSeller = this.seller.IdSeller;
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
     this.getHistoricalOffers(this.paramData);

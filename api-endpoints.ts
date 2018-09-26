@@ -48,8 +48,8 @@ export const endpoints = {
       getHistoricalOffers: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
       downloadHistorical: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
       // Historical admin
-      getHistoricalOffersAdmin: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
-      downloadHistoricalAdmin: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
+      getHistoricalOffersAdmin: 'https://rk6blagjy8.execute-api.us-east-1.amazonaws.com/OfferHistoricalAdmin/{params}',
+      downloadHistoricalAdmin: 'https://vlaswi5ovd.execute-api.us-east-1.amazonaws.com/OfferDownloadHistoricalAdmin/{params}',
       // Products
       products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
     },
@@ -99,8 +99,8 @@ export const endpoints = {
       getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/offerhistorical-pdn/{params}',
       downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/offerdownloadhistorical-pdn/{params}',
       // Historical admin
-      getHistoricalOffersAdmin: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
-      downloadHistoricalAdmin: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
+      getHistoricalOffersAdmin: '',
+      downloadHistoricalAdmin: '',
       // Products
       products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn'
     }

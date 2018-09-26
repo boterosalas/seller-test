@@ -60,8 +60,7 @@ export class HistoricalService {
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
     this.paramsData.IdSeller = params.IdSeller;
 
-    urlParams = this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit + '/' + this.paramsData.IdSeller;
-
+    urlParams = + this.paramsData.IdSeller + '/' + this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
     return new Observable(observer => {
       this.http.get<any>(this.api.get('getHistoricalOffersAdmin', [urlParams]), { observe: 'response' })
         .subscribe(
