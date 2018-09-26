@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
         this.last_sales = [
             {
                 value: 30000000,
-                monthName: 'Julio'
+                monthName: 'Junio' 
             },
             {
                 value: 100000000,
