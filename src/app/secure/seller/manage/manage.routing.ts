@@ -3,15 +3,12 @@ import { Route } from '@app/core';
 import { ManageComponent } from './manage.component';
 import { NgModule } from '@angular/core';
 import { RoutesConst } from './../../../shared';
-import { environment } from '@env/environment';
-import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
 
-const isProductionEnv = environment.production;
 const routes: Routes = [
     Route.withShell([
         {
             path: `${RoutesConst.sellerCenterIntSellerManage}`,
-            component: !isProductionEnv ? ManageComponent : ErrorPageComponent,
+            component: ManageComponent ,
             data: { title: 'Administrar vendedor' },
         }
     ])
