@@ -4461,7 +4461,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:119</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:121</a></div>
                             </td>
                         </tr>
 
@@ -4532,7 +4532,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:129</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/app/shared/components/cities/cities.component.ts:131</a></div>
                             </td>
                         </tr>
 
@@ -4912,7 +4912,9 @@ export class CitiesComponent implements OnInit, OnChanges {
           this.loadingService.closeSpinner();
           if (this.elementLoad) {
             const citySelected &#x3D; this.validateElementLoaded(this.elementLoad);
-            this.validateFormRegister.controls[&#x27;citiesFormControl&#x27;].setValue(citySelected.Id, {onlySelf: true});
+            if (citySelected) {
+              this.validateFormRegister.controls[&#x27;citiesFormControl&#x27;].setValue(citySelected.Id, {onlySelf: true});
+            }
           }
         } else {
           this.loadingService.closeSpinner();
