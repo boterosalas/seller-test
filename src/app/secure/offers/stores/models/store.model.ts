@@ -4,7 +4,7 @@
  */
 export class StoreModel {
     constructor(
-        public IdSeller?: number,
+        public IdSeller?: any,
         public Name?: string,
         public Address?: string,
         public DaneCode?: string,
@@ -13,7 +13,14 @@ export class StoreModel {
         public GotoExito?: boolean,
         public IsLogisticsExito?: boolean,
         public IsShippingExito?: boolean,
-        public Nit?: string
+        public Nit?: string,
+        public Rut?: string,
+        public ContactName?: string,
+        public Email?: string,
+        public PhoneNumber?: string,
+        public State?: string,
+        public City?: string,
+        public SincoDaneCode?: string
     ) { }
 }
 

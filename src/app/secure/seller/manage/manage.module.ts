@@ -13,6 +13,7 @@ import { SearchSellerComponent } from './search-seller/search-seller.component';
 import { EventEmitterSeller } from './events/eventEmitter-seller.service';
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
+import { ManageSellerService } from './manage.service';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { SharedModule } from '@shared/shared.module';
     exports: [],
     providers: [
         EventEmitterSeller,
+        ManageSellerService,
         {
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher

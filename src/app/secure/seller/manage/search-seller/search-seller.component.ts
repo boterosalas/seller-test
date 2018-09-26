@@ -6,10 +6,10 @@ import { map, startWith } from 'rxjs/operators';
 
 /* our own custom components */
 import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
-import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { ShellComponent } from '@app/core/shell/shell.component';
 import { LoadingService } from '@app/core';
+import { ManageSellerService } from './../manage.service';
 
 @Component({
     selector: 'app-search-seller',
@@ -33,7 +33,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     constructor(
         public eventsSeller: EventEmitterSeller,
-        public storeService: StoresService,
+        public manageService: ManageSellerService,
         public shell: ShellComponent,
         private loadingService: LoadingService) {
         this.textForSearch = new FormControl();
@@ -70,7 +70,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public getAllSellers() {
         this.loadingService.viewSpinner();
-        this.storeService.getAllStores(this.user).subscribe((res: any) => {
+        this.manageService.getListSellersName(1).subscribe((res: any) => {
             if (res.status === 200) {
                 const body = JSON.parse(res.body.body);
                 this.listSellers = body.Data;
