@@ -45,23 +45,26 @@ export class DashboardComponent implements OnInit {
 
     /**
      * @description Método que inicializa los datos.
+     * @memberof DashboardComponent
      */
     ngOnInit(): void {
-        this.getuserData();
+        this.getUserData();
     }
 
     /**
      * @description Método que carga los datos del vendedor para obtener la sellerId.
+     * @memberof DashboardComponent
      */
-    private async getuserData() {
+    private async getUserData() {
         this.user = await this.userParams.getUserData();
-        // this.user.sellerId
+
         this.getOrdersData();
         this.getLastSales();
     }
 
     /**
      * @description Método que carga los datos de las órdenes.
+     * @memberof DashboardComponent
      */
     private getOrdersData() {
         this.orders = {
@@ -74,8 +77,9 @@ export class DashboardComponent implements OnInit {
 
     /**
      * @description Método que carga los datos de las ventas de los últimos tres meses a parir de la fecha indicada.
+     * @memberof DashboardComponent
      */
-    private getLastSales() {
+    private getLastSales(date?: any) {
         this.last_sales = [
             {
                 value: 30000000,
@@ -98,6 +102,7 @@ export class DashboardComponent implements OnInit {
      * @description Método organiza la información de las ventas de los últimos 3 meses para encontrar
      *  las proporciones adecuadas para pintar los datos en la gráfica.
      * @param last datos sin procesar de los últimos tres meses.
+     * @memberof DashboardComponent
      */
     private parseLastSales(last: any) {
         const last_array: any = last;
@@ -127,9 +132,11 @@ export class DashboardComponent implements OnInit {
      * @description Método que se encarga de responder al evento que se produce al seleccionar un mes en el date picker.
      * @param month Fecha correspondiente al mes seleccionado en el date picker.
      * @param dp El elemento date picker.
+     * @memberof DashboardComponent
      */
     public chosenMonthHandler(month: any, dp: any) {
         console.log(month);
+        this.getLastSales(new Date(month));
         dp.close();
     }
 }

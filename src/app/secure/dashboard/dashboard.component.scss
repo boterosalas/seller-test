@@ -202,6 +202,7 @@ $table-break: 900px;
     width: 100%;
     border-radius: 5px 5px 0px 0px;
     position: relative;
+    background-color: #FFD54F;
 
     &-box {
       max-width: 150px;
@@ -219,6 +220,7 @@ $table-break: 900px;
       -ms-flex-direction: column;
       flex-direction: column;
       text-align: center;
+      
 
       &:nth-child(1) {
         #{$self}__bar {
