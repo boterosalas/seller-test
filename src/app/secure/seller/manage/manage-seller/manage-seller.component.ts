@@ -5,11 +5,13 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
-import { LoadingService, ModalService, Logger } from '@app/core';
+import { LoadingService, ModalService, Logger, UserLoginService, UserParametersService} from '@app/core';
 import { ManageSellerService } from './../manage.service';
 import { isEmpty } from 'lodash';
 import { RegisterService } from '@app/secure/seller/register/register.service';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
 
 const log = new Logger('ManageSellerComponent');
 
@@ -75,6 +77,12 @@ export class ManageSellerComponent implements OnInit {
   public existValueInDB: boolean;
   public idState: number;
   public disabledForService: boolean;
+  public noValidateData: any;
+  public elementStateLoad: string;
+  public elementCityLoad: string;
+  public firstEmit = true;
+  public idSeller: string;
+
   /**
    * Creates an instance of ManageSellerComponent.
    * @param {EventEmitterSeller} eventsSeller
@@ -91,7 +99,10 @@ export class ManageSellerComponent implements OnInit {
     private loadingService: LoadingService,
     private manageSeller: ManageSellerService,
     private modalService: ModalService,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    public userService: UserLoginService,
+    private router: Router,
+    public userParams: UserParametersService
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
@@ -105,10 +116,14 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   ngOnInit() {
+    this.userService.isAuthenticated(this);
     this.createFormControls();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.elementStateLoad = null;
+      this.elementCityLoad = null;
       if (!isEmpty(seller)) {
+        this.idSeller = seller.IdSeller;
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
           if (res.status === 200) {
             const body = JSON.parse(res.body.body);
@@ -129,6 +144,12 @@ export class ManageSellerComponent implements OnInit {
             this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
             this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
             this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+            this.noValidateData = Object.assign({},  {
+              email: this.currentSellerSelect.Email,
+              name : this.currentSellerSelect.Name
+            });
+            this.elementStateLoad = this.currentSellerSelect.State;
+            this.elementCityLoad = this.currentSellerSelect.City;
           }
         });
       }
@@ -187,6 +208,7 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   createForm() {
+
     this.validateFormRegister = new FormGroup({
       Nit: this.nit,
       Rut: this.rut,
@@ -239,12 +261,12 @@ export class ManageSellerComponent implements OnInit {
               this.existValueInDB = data_response.Data;
               switch (param) {
                 case 'Email':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
                 case 'Name':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
@@ -286,31 +308,51 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
       this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
-    } else {
+    } else if (!this.firstEmit) {
       this.validateFormRegister.controls['DaneCode'].setValue(null);
+      this.firstEmit = false;
     }
   }
 
   submitUpdateSeller(): void {
-    this.loadingService.viewSpinner();
-    this.disabledForService = true;
-    this.manageSeller.updateSeller(this.validateFormRegister.value).subscribe(
-      (result: any) => {
-        if (result.status === 201 || result.status === 200) {
-          const data = JSON.parse(result.body.body);
-          if (data.Data) {
-            this.modalService.showModal('successUpdate');
-          } else if (!data.Data) {
-            this.modalService.showModal('error');
+    if (this.validateFormRegister.valid) {
+      this.loadingService.viewSpinner();
+      this.disabledForService = true;
+      const values = this.validateFormRegister.value;
+      values.id = this.idSeller;
+      this.manageSeller.updateSeller( values ).subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal('successUpdate');
+            } else if (!data.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
           }
-        } else {
-          this.modalService.showModal('errorService');
+
+          this.disabledForService = false;
+          this.loadingService.closeSpinner();
+
         }
+      );
+    }
+  }
 
-        this.disabledForService = false;
-        this.loadingService.closeSpinner();
+  isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.getDataUser();
+    } else if (!isLoggedIn) {
+      this.router.navigate([`/${RoutesConst.home}`]);
+    }
+  }
 
-      }
-    );
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    }
   }
 }

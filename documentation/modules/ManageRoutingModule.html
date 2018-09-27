@@ -4197,15 +4197,12 @@ import { Route } from &#x27;@app/core&#x27;;
 import { ManageComponent } from &#x27;./manage.component&#x27;;
 import { NgModule } from &#x27;@angular/core&#x27;;
 import { RoutesConst } from &#x27;./../../../shared&#x27;;
-import { environment } from &#x27;@env/environment&#x27;;
-import { ErrorPageComponent } from &#x27;@app/secure/error-page/error-page.component&#x27;;
 
-const isProductionEnv &#x3D; environment.production;
 const routes: Routes &#x3D; [
     &quot;Route.withShell([\
         {\
             path: &#x60;${RoutesConst.sellerCenterIntSellerManage}&#x60;,\
-            component: !isProductionEnv ? ManageComponent : ErrorPageComponent,\
+            component: ManageComponent ,\
             data: { title: &#x27;Administrar vendedor&#x27; },\
         }\
     ])&quot;
