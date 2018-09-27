@@ -178,7 +178,8 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
     this.historicalService.getHistoricalOffers(params).subscribe(
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
-          const response = result.body.data;
+
+          const response = result.body ? result.body.data : null;
 
           // Pregunta si la respuesta tiene resultados
           if (response) {
