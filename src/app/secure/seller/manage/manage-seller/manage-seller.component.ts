@@ -5,7 +5,7 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
-import { LoadingService, ModalService, Logger, UserLoginService, UserParametersService} from '@app/core';
+import { LoadingService, ModalService, Logger, UserLoginService, UserParametersService } from '@app/core';
 import { ManageSellerService } from './../manage.service';
 import { isEmpty } from 'lodash';
 import { RegisterService } from '@app/secure/seller/register/register.service';
@@ -124,6 +124,7 @@ export class ManageSellerComponent implements OnInit {
       this.elementCityLoad = null;
       if (!isEmpty(seller)) {
         this.idSeller = seller.IdSeller;
+        this.firstEmit = true;
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
           if (res.status === 200) {
             const body = JSON.parse(res.body.body);
@@ -144,9 +145,9 @@ export class ManageSellerComponent implements OnInit {
             this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
             this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
             this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
-            this.noValidateData = Object.assign({},  {
+            this.noValidateData = Object.assign({}, {
               email: this.currentSellerSelect.Email,
-              name : this.currentSellerSelect.Name
+              name: this.currentSellerSelect.Name
             });
             this.elementStateLoad = this.currentSellerSelect.State;
             this.elementCityLoad = this.currentSellerSelect.City;
@@ -295,8 +296,14 @@ export class ManageSellerComponent implements OnInit {
     if ($event && $event !== undefined && $event !== null) {
       this.idState = $event.Id;
       this.validateFormRegister.controls['State'].setValue($event.Name);
+      if (!this.firstEmit) {
+        this.validateFormRegister.controls['City'].setValue('');
+        this.validateFormRegister.controls['DaneCode'].setValue(null);
+      }
+      this.firstEmit = false;
     }
   }
+
 
   /**
    * @method receiveDataCitie Metodo para obtener la data de la ciudad.
@@ -308,9 +315,6 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
       this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
-    } else if (!this.firstEmit) {
-      this.validateFormRegister.controls['DaneCode'].setValue(null);
-      this.firstEmit = false;
     }
   }
 
@@ -320,7 +324,7 @@ export class ManageSellerComponent implements OnInit {
       this.disabledForService = true;
       const values = this.validateFormRegister.value;
       values.id = this.idSeller;
-      this.manageSeller.updateSeller( values ).subscribe(
+      this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
