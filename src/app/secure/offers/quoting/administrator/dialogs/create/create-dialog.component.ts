@@ -72,7 +72,14 @@ export class CreateDialogComponent implements OnInit {
    * @memberof CreateDialogComponent
    */
   public getTransportMethodRequiredData(): void {
-    this.transportTypeList = this.methodService.getFakeListShipingMethods();
+    this.methodService.getShippingMethods().subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        const body = JSON.parse(res.body);
+        this.transportTypeList = body.Data;
+      } else {
+        log.error('Error al intentar obtener los metodos de envios');
+      }
+    });
   }
 
 

@@ -68,7 +68,6 @@ export class ListTransporterComponent implements OnInit {
      * Execute before close dialog and call service function
      */
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', id, indexTransporter);
       /** If has result (True) its because user confirm deleltes transporter */
       if (result) {
         this.deleteTransporterServ(id, indexTransporter);
