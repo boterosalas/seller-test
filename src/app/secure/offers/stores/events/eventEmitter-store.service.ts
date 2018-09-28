@@ -15,25 +15,25 @@ export class EventEmitterStore {
      * @param {any} store
      * @memberof EventEmitterStore
      */
-    searchStore(store) {
+    searchStore(store: any) {
         this.eventSearchStore.emit(store);
     }
 
     /**
-    *  Evento eventEmitter que permite detectar cuando el usuario quiere visualizar todos los nodos de un arbol.
-    * @param {any} store
-    * @memberof EventEmitterStore
-    */
-    expandAllNodes(store) {
+     *  Evento eventEmitter que permite detectar cuando el usuario quiere visualizar todos los nodos de un arbol.
+     * @param {any} store
+     * @memberof EventEmitterStore
+     */
+    expandAllNodes(store: any) {
         this.eventExpandAllNodes.emit(store);
     }
 
     /**
-    *  Evento eventEmitter que permite detectar cuando la información para armar el arbol ha sido cargada correctamente.
-    * @param {any} information
-    * @memberof EventEmitterStore
-    */
-    informationForTreeIsLoad(information) {
+     *  Evento eventEmitter que permite detectar cuando la información para armar el arbol ha sido cargada correctamente.
+     * @param {any} information
+     * @memberof EventEmitterStore
+     */
+    informationForTreeIsLoad(information: any) {
         this.eventInformationForTreeIsLoad.emit(information);
     }
 }

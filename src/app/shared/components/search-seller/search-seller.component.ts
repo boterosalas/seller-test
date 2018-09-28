@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 /* our own custom components */
-import { EventEmitterSeller } from './../events/eventEmitter-seller.service';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { ShellComponent } from '@app/core/shell/shell.component';
 import { LoadingService } from '@app/core';
-import { ManageSellerService } from './../manage.service';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
     selector: 'app-search-seller',
@@ -31,14 +31,19 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     @Input() searchSellerInput;
 
+    // Para identificar qué tipo de búsqueda se va a realizar.
+    @Input() isFullSearch: boolean;
+
     constructor(
         public eventsSeller: EventEmitterSeller,
-        public manageService: ManageSellerService,
+        public storeService: StoresService,
         public shell: ShellComponent,
-        private loadingService: LoadingService) {
+        private loadingService: LoadingService
+    ) {
         this.textForSearch = new FormControl();
         this.user = {};
         this.listSellers = [];
+        this.isFullSearch = true;
     }
 
     /**
@@ -58,7 +63,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
+        if (changes.searchSellerInput && changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
             changes.searchSellerInput.currentValue !== null) {
             this.viewStoreInformation(this.searchSellerInput);
         }
@@ -70,15 +75,27 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public getAllSellers() {
         this.loadingService.viewSpinner();
-        this.manageService.getListSellersName(1).subscribe((res: any) => {
-            if (res.status === 200) {
-                const body = JSON.parse(res.body.body);
-                this.listSellers = body.Data;
-            } else {
-                this.listSellers = res.message;
-            }
-            this.loadingService.closeSpinner();
-        });
+        if (this.isFullSearch) {
+            this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+                if (res.status === 200) {
+                    const body = JSON.parse(res.body.body);
+                    this.listSellers = body.Data;
+                } else {
+                    this.listSellers = res.message;
+                }
+                this.loadingService.closeSpinner();
+            });
+        } else {
+            this.storeService.getAllStores(this.user).subscribe((res: any) => {
+                if (res.status === 200) {
+                    const body = JSON.parse(res.body.body);
+                    this.listSellers = body.Data;
+                } else {
+                    this.listSellers = res.message;
+                }
+                this.loadingService.closeSpinner();
+            });
+        }
     }
 
     /**
@@ -99,7 +116,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      * @memberof SearchStoreComponent
      */
     public filter(val: string): string[] {
-        if (val !== null) {
+        if (val !== null && this.listSellers)  {
             return this.listSellers.filter(option =>
                 option.Name.toLowerCase().includes(val.toLowerCase()));
         }
