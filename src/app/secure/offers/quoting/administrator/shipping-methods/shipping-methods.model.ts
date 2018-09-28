@@ -1,12 +1,12 @@
 export class ShippingMethodsModel {
-  id?: number;
-  nameShippingMethod: string;
-  iconMethod: string;
-  constructor( nameShippingMethod: string,
-               iconMethod: string,
-               id?: number ) {
-    this.id = id;
-    this.iconMethod = iconMethod;
-    this.nameShippingMethod = nameShippingMethod;
+  Id?: number;
+  Name: string;
+  Icon: string;
+  constructor( Name: string,
+               Icon: string,
+               Id?: number ) {
+    this.Id = Id;
+    this.Icon = Icon;
+    this.Name = Name;
   }
 }

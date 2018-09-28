@@ -26,11 +26,13 @@ export class ShippingMethodsService {
 
   public getShippingMethods():  Observable<Array<ShippingMethodsModel>> {
     return new Observable(observer => {
-      this.http.get(this.api.get('getStates'))
+      this.http.get(this.api.get('getSendMethod'))
         .subscribe((data: any) => {
           observer.next(data);
+          console.log(data);
         }, err => {
           observer.error(err);
+          console.log(err);
         });
     });
   }

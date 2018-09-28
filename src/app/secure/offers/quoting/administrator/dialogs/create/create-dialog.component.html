@@ -30,8 +30,6 @@
         </i>
       </div>
 
-
-
       <h3 *ngIf="showDialogForm(dialogTransport)">
         <div *ngIf="dialogMode; then updateTransportBlock; else addTransportBlock"></div>
       </h3>
@@ -54,7 +52,7 @@
       <div class="form-transporter-container" *ngIf="showDialogForm(dialogTransport)">
         <!-- FORM: to create transport -->
         <form [formGroup]="formTransporter" (ngSubmit)="saveTransport()" fxLayout="column">
-
+         
           <!-- Fields container -->
           <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
             <!-- Name input Field -->
@@ -67,8 +65,8 @@
             <!-- Method transport select Field -->
             <mat-form-field fxFlex="48" class="select-transport">
               <mat-select placeholder="Seleccionar método" formControlName="typeTransport">
-                <mat-option *ngFor="let type of transportTypeList" [value]="type.id">
-                  {{type.name}}
+                <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
+                  {{type.Name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -82,7 +80,7 @@
                   (click)="closeDialog()"></button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'" [disabled]="formTransporter.invalid">
                 </button>
               </div>
             </div>
@@ -90,7 +88,7 @@
         </form>
       </div>
       <!-- END TRANSPORT DIALOG -->
-
+      
 
       <!-- ZONE DIALOG -->
       <div class="form-transporter-container" *ngIf="showDialogForm(dialogZone)">
@@ -121,7 +119,7 @@
                   (click)="closeDialog()"></button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'" [disabled]="formZone.invalid">
                 </button>
               </div>
             </div>

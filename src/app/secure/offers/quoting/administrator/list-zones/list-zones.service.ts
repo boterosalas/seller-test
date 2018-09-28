@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
+import { ZoneModel } from '../dialogs/models/zone.model';
+
 
 const dialogTypeZone = 2;
 
@@ -70,6 +72,20 @@ export class ListZonesService {
 
   getFakeListZones() {
     return this.zones;
+  }
+
+  createZone(transport: ZoneModel): Observable<{}> {
+    return new Observable(observer => {
+      this.http.post<any>(this.api.get('addZone'), transport, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
   }
 
 }

@@ -48,6 +48,14 @@ export const endpoints = {
       downloadHistorical: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
       // Products
       products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
+      // Quoting
+      getSendMethod: 'https://bkafj0viij.execute-api.us-east-1.amazonaws.com/ShippingMethod',
+      addTransport: '',
+      updateTransport: '',
+      deleteTransport: '{params}',
+      addZone: '',
+      updateZone: '',
+      deleteZone: ''
     },
   },
   // Endpoints production

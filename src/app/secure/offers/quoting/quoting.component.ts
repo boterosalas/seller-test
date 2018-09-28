@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { UserInformation, RoutesConst } from '@app/shared';
 import { UserLoginService, UserParametersService } from '@app/core';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ export class QuotingComponent implements OnInit {
 
   public user: UserInformation;
   public userRol: string;
-
+  public numberOfClicks = 0;
   constructor(
     private userService: UserLoginService,
     private router: Router,
@@ -31,4 +31,14 @@ export class QuotingComponent implements OnInit {
       this.router.navigate([`/${RoutesConst.home}`]);
     }
   }
+
+  @HostListener('scroll', []) scrolling() {
+    console.log('scrolling');
+  }
+
+  @HostListener('click', ['$event.target'])
+  onClick(btn: any) {
+    console.log('button', btn, 'number of clicks:', this.numberOfClicks++);
+  }
+
 }

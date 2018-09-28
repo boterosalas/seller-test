@@ -32,6 +32,7 @@ const log = new Logger('ListTransporterComponent');
 
 export class ListTransporterComponent implements OnInit {
 
+  /** Initialize required variables   */
   private listTransporters: Array<{}>;
   private openModalCreate: boolean;
   public typeDialog: number;
@@ -47,11 +48,14 @@ export class ListTransporterComponent implements OnInit {
   }
 
   /**
-   * Open dialog to delete a transporter
-   *
+   * Open dialog to deletes one transport.
+   * It needs two params to identificate transport in list and database.
+   * to open dialog needs size, data and type dialog.
+   * @param {number} id
+   * @param {number} indexTransporter
    * @memberof ListTransporterComponent
    */
-  deleteTransporter(id: number, indexTransporter: number): void {
+  public deleteTransporter(id: number, indexTransporter: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '50%',
       minWidth: '390px',
@@ -60,6 +64,9 @@ export class ListTransporterComponent implements OnInit {
       data:  this.typeDialog
     });
 
+    /**
+     * Execute before close dialog and call service function
+     */
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', id, indexTransporter);
       /** If has result (True) its because user confirm deleltes transporter */
@@ -76,7 +83,7 @@ export class ListTransporterComponent implements OnInit {
    * 3. Event launch when dialog edit or add close.
    * @memberof ListTransporterComponent
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.typeDialog = this.transportService.getDialogType();
     this.getListTransporters();
     this.events.eventOpenCreateDialog.subscribe((view: boolean) => {
@@ -92,15 +99,14 @@ export class ListTransporterComponent implements OnInit {
    *
    * @memberof ListTransporterComponent
    */
-  getListTransporters() {
+  public getListTransporters() {
     this.listTransporters = this.transportService.getFakeListTransporter();
   }
 
   /**
    *  Function to open dialog component initialize with transport type and add mode
    */
-  createTransporter(): void {
-    log.debug('Crear');
+  public createTransporter(): void {
     this.idToEdit = null;
     this.openModalCreate = true;
   }
@@ -111,8 +117,7 @@ export class ListTransporterComponent implements OnInit {
    * @param {TypeTransportModel} item
    * @memberof ListTransporterComponent
    */
-  editTransporter(item: TypeTransportModel): void {
-    log.debug('Editar');
+  public editTransporter(item: TypeTransportModel): void {
     this.idToEdit = item.id;
     this.openModalCreate = true;
   }
@@ -123,7 +128,7 @@ export class ListTransporterComponent implements OnInit {
    * @param {number} indexList
    * @memberof ListTransporterComponent
    */
-  deleteTransporterServ(idTransport: number, indexList: number): void {
+  private deleteTransporterServ(idTransport: number, indexList: number): void {
     this.transportService.deleteTransporter(idTransport)
       .subscribe(
         (result: any) => {

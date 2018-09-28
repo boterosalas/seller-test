@@ -63,7 +63,7 @@ export class ListTransporterService {
    */
   createTransporter(transport: TransportModel): Observable<{}> {
     return new Observable(observer => {
-      this.http.post<any>(this.api.get('createRest'), transport, { observe: 'response' })
+      this.http.post<any>(this.api.get('addTransport'), transport, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -84,7 +84,7 @@ export class ListTransporterService {
    */
   updateTransporter(transport: TransportModel): Observable<{}> {
     return new Observable(observer => {
-      this.http.patch<any>(this.api.get('createRest'), transport, { observe: 'response' })
+      this.http.patch<any>(this.api.get('updateTransport'), transport, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -104,9 +104,9 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   deleteTransporter(idTransport: number): Observable<{}> {
-    console.log(idTransport, this.api.get('createRest', [idTransport]));
+    console.log('idTransport', idTransport);
     return new Observable(observer => {
-      this.http.delete(this.api.get('createRest', [idTransport])).subscribe((data: any) => {
+      this.http.delete(this.api.get('deleteTransport', [idTransport])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
