@@ -37,6 +37,7 @@ import { ManageSellerService } from './manage.service';
         {
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher
-        }],
+        },
+        ManageSellerService],
 })
 export class ManageModule { }
