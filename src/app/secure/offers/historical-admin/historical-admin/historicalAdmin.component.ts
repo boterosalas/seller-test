@@ -173,7 +173,7 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
    * @param params
    * @memberof HistoricalComponent
    */
-  getHistoricalOffers(params?: any) {
+  getHistoricalOffers(params?: any, isPageChangue?: boolean) {
     this.loadingService.viewSpinner();
     this.historicalService.getHistoricalOffers(params).subscribe(
       (result: any) => {
@@ -186,7 +186,7 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
             this.isEnabled = true;
 
             // Pregunta si ya hay datos en la variable historicalOffer
-            if (this.historicalOffer) {
+            if (this.historicalOffer && isPageChangue) {
               if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
@@ -260,7 +260,7 @@ export class HistoricalAdminComponent implements OnInit, OnDestroy {
     this.paramData.IdSeller = this.seller.IdSeller;
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
-    this.getHistoricalOffers(this.paramData);
+    this.getHistoricalOffers(this.paramData, true);
   }
 
   /**
