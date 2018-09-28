@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
+import { DashboardService } from './services/dashboard.service';
 
 import { SharedModule } from '@shared/shared.module';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
@@ -28,6 +29,7 @@ import { DashboardRoutingModule } from '@app/secure/dashboard/dashboard.routing'
     ],
     exports: [],
     providers: [
+        DashboardService,
         {
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher

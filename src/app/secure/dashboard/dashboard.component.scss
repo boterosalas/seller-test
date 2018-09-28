@@ -220,7 +220,7 @@ $table-break: 900px;
       -ms-flex-direction: column;
       flex-direction: column;
       text-align: center;
-      
+
 
       &:nth-child(1) {
         #{$self}__bar {
@@ -248,6 +248,7 @@ $table-break: 900px;
     text-align: center;
     width: 100%;
     font-weight: bold;
+    text-transform: capitalize;
 
     @media only screen and (max-width: $mobile-break) {
       font-size: 12px;

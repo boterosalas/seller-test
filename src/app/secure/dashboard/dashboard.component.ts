@@ -1,7 +1,9 @@
 // 3rd party components
 import { Component, OnInit } from '@angular/core';
-// our own custom components
-import { UserLoginService, UserParametersService } from '@app/core';
+// Our own custom components
+import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
+import { Logger } from '@core/util/logger.service';
+import { DashboardService } from './services/dashboard.service';
 
 /**
  * @export
@@ -23,6 +25,9 @@ export class DashboardComponent implements OnInit {
     // Variable para almacenar los datos del vendedor.
     private user: any;
 
+    // Instancia de Logger
+    public log: Logger;
+
     /**
      * @description crea una instancia del componente.
      * @param {UserLoginService} [userService]
@@ -30,8 +35,11 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     constructor(
+        private _dashboard: DashboardService,
         public userService?: UserLoginService,
-        public userParams?: UserParametersService
+        public userParams?: UserParametersService,
+        private loadingService?: LoadingService,
+        private modalService?: ModalService,
     ) {
         this.orders = {
             all: 0,
@@ -49,6 +57,7 @@ export class DashboardComponent implements OnInit {
      */
     ngOnInit(): void {
         this.getUserData();
+        this.log = new Logger('DashboardComponent');
     }
 
     /**
@@ -67,12 +76,16 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     private getOrdersData() {
-        this.orders = {
-            all: 1300000,
-            pending: 300,
-            delivered: 1500,
-            expired: 1296700
-        };
+        this.loadingService.viewSpinner();
+        this._dashboard.getOrdersByStatus(this.user.sellerId)
+            .subscribe(res => {
+                this.orders = res;
+                this.loadingService.closeSpinner();
+            }, err => {
+                this.loadingService.closeSpinner();
+                this.log.debug(err);
+                this.modalService.showModal('errorService');
+            });
     }
 
     /**
@@ -80,22 +93,16 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     private getLastSales(date?: any) {
-        this.last_sales = [
-            {
-                value: 30000000,
-                monthName: 'Julio'
-            },
-            {
-                value: 100000000,
-                monthName: 'Agosto'
-            },
-            {
-                value: 90000000,
-                monthName: 'Septiembre'
-            }
-        ];
-
-        this.last_sales = this.parseLastSales(this.last_sales);
+        this.loadingService.viewSpinner();
+        this._dashboard.getLastSales(this.user.sellerId, date)
+            .subscribe((res: any[]) => {
+                this.loadingService.closeSpinner();
+                this.last_sales = this.parseLastSales(res.reverse());
+            }, err => {
+                this.loadingService.closeSpinner();
+                this.log.debug(err);
+                this.modalService.showModal('errorService');
+            });
     }
 
     /**
@@ -117,12 +124,18 @@ export class DashboardComponent implements OnInit {
             }
         }
 
-        last_array[max_index].percent = 100 + '%';
+        if (parseInt(last_array[max_index].value, 10) !== 0) {
+            last_array[max_index].percent = 100 + '%';
 
-        for (let f = 0; f < last_array.length; f++) {
-            if (f !== max_index) {
-                last_array[f].percent = ((last_array[f].value / max.value) * 100) + '%';
-            }
+            last_array.forEach((e, f) => {
+                if (f !== max_index) {
+                    e.percent = ((e.value / max.value) * 100) + '%';
+                }
+            });
+        } else {
+            last_array.forEach(e => {
+                e.percent = 0 + '%';
+            });
         }
 
         return last_array;
@@ -135,8 +148,8 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     public chosenMonthHandler(month: any, dp: any) {
-        console.log(month);
-        this.getLastSales(new Date(month));
+        const date = new Date(month);
+        this.getLastSales(date);
         dp.close();
     }
 }
