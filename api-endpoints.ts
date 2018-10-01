@@ -105,7 +105,8 @@ export const endpoints = {
       getHistoricalOffersAdmin: '',
       downloadHistoricalAdmin: '',
       // Products
-      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn'
+      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+      updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn'
     }
   }
 };
