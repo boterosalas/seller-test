@@ -73,7 +73,7 @@ export class ModalComponent implements OnInit {
         dataModal = {
           'status': 'done',
           'message': `¡Tú actualización ha sido exitosa!`,
-          'title': '¡actualización realizado con exíto!'
+          'title': '¡Actualización realizada con éxito!'
         };
         break;
     }
