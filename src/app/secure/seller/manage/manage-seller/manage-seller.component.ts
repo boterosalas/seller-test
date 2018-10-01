@@ -359,4 +359,15 @@ export class ManageSellerComponent implements OnInit {
       this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     }
   }
+
+  /**
+   * Function to capitalize a string
+   * @param value
+   */
+  public capitalizeName(value: string): string {
+    if (!value) {
+      return null;
+    }
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
 }
