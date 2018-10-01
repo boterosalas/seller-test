@@ -84,7 +84,7 @@ export const endpoints = {
       pickupShipment: 'service/shipping/pickup',
       // servicios para el arbol de categorías
       getAllSellersFull: 'https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn',
-      // getAllSellers: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller',
+      getAllSellers: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/1',
       // servicio empleado para obtener las comisiones de un usuario o todas las comisiones
       getSellerCommissionCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/{params}',
       // Register seller services
@@ -102,8 +102,8 @@ export const endpoints = {
       getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/offerhistorical-pdn/{params}',
       downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/offerdownloadhistorical-pdn/{params}',
       // Historical admin
-      getHistoricalOffersAdmin: '',
-      downloadHistoricalAdmin: '',
+      getHistoricalOffersAdmin: 'https://0gt6matz9i.execute-api.us-east-1.amazonaws.com/offerhistoricaladmin-pdn/{params}',
+      downloadHistoricalAdmin: 'https://cb0d3nxi40.execute-api.us-east-1.amazonaws.com/offerdownloadhistoricaladmin-pdn/{params}',
       // Products
       products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
       updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn'
