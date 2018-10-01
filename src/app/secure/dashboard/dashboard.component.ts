@@ -1,9 +1,11 @@
 // 3rd party components
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 // Our own custom components
 import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { DashboardService } from './services/dashboard.service';
+import { RoutesConst } from '@app/shared';
 
 /**
  * @export
@@ -28,7 +30,23 @@ export class DashboardComponent implements OnInit {
     // Instancia de Logger
     public log: Logger;
 
+    // Fecha inicial del datepicker
+    public startDate: Date;
+
+    // Fecha inicial del datepicker
+    public visibleDate: string;
+
+    // Fecha máxima del datePicker
+    public dateMax: Date;
+
     /**
+     * Variable para observar el input del filtro inicial
+     * @memberof FilterComponent
+     */
+    @ViewChild('picker') picker;
+
+    /**
+     * @method constructor
      * @description crea una instancia del componente.
      * @param {UserLoginService} [userService]
      * @param {UserParametersService} [userParams]
@@ -40,6 +58,7 @@ export class DashboardComponent implements OnInit {
         public userParams?: UserParametersService,
         private loadingService?: LoadingService,
         private modalService?: ModalService,
+        public router?: Router,
     ) {
         this.orders = {
             all: 0,
@@ -49,29 +68,40 @@ export class DashboardComponent implements OnInit {
         };
 
         this.last_sales = [];
+
+        this.startDate = new Date();
+        this.dateMax = this.startDate;
+        this.visibleDate = this.getVisibleDate(this.startDate.getMonth());
     }
 
     /**
+     * @method ngOnInit
      * @description Método que inicializa los datos.
      * @memberof DashboardComponent
      */
     ngOnInit(): void {
-        this.getUserData();
+        this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
     }
 
     /**
+     * @method getUserData
      * @description Método que carga los datos del vendedor para obtener la sellerId.
      * @memberof DashboardComponent
      */
     private async getUserData() {
         this.user = await this.userParams.getUserData();
 
-        this.getOrdersData();
-        this.getLastSales();
+        if (this.user.sellerProfile !== 'seller') {
+            this.router.navigate([`/${RoutesConst.home}`]);
+        } else {
+            this.getOrdersData();
+            this.getLastSales();
+        }
     }
 
     /**
+     * @method getOrdersData
      * @description Método que carga los datos de las órdenes.
      * @memberof DashboardComponent
      */
@@ -89,6 +119,7 @@ export class DashboardComponent implements OnInit {
     }
 
     /**
+     * @method getLastSales
      * @description Método que carga los datos de las ventas de los últimos tres meses a parir de la fecha indicada.
      * @memberof DashboardComponent
      */
@@ -106,6 +137,7 @@ export class DashboardComponent implements OnInit {
     }
 
     /**
+     * @method parseLastSales
      * @description Método organiza la información de las ventas de los últimos 3 meses para encontrar
      *  las proporciones adecuadas para pintar los datos en la gráfica.
      * @param last datos sin procesar de los últimos tres meses.
@@ -142,6 +174,7 @@ export class DashboardComponent implements OnInit {
     }
 
     /**
+     * @method chosenMonthHandler
      * @description Método que se encarga de responder al evento que se produce al seleccionar un mes en el date picker.
      * @param month Fecha correspondiente al mes seleccionado en el date picker.
      * @param dp El elemento date picker.
@@ -149,7 +182,68 @@ export class DashboardComponent implements OnInit {
      */
     public chosenMonthHandler(month: any, dp: any) {
         const date = new Date(month);
+        this.startDate = date;
+        this.visibleDate = this.getVisibleDate(date.getMonth());
         this.getLastSales(date);
         dp.close();
+    }
+
+    /**
+     * @method openDatePicker
+     * @description Método que abre el date picker.
+     * @memberof DashboardComponent
+     */
+    public openDatePicker() {
+        this.picker.open();
+    }
+
+    /**
+     * @method getVisibleDate
+     * @description Método que retorna el mes actual en forma de string.
+     * @param month El mes actual en número. (0-11)
+     * @memberof DashboardComponent
+     */
+    private getVisibleDate(month: number) {
+        switch (month) {
+            case 0:
+                return 'Enero';
+            case 1:
+                return 'Febrero';
+            case 2:
+                return 'Marzo';
+            case 3:
+                return 'Abril';
+            case 4:
+                return 'Mayo';
+            case 5:
+                return 'Junio';
+            case 6:
+                return 'Julio';
+            case 7:
+                return 'Agosto';
+            case 8:
+                return 'Septiembre';
+            case 9:
+                return 'Octubre';
+            case 10:
+                return 'Noviembre';
+            case 11:
+                return 'Diciembre';
+        }
+    }
+
+    /**
+     * @method isLoggedIn
+     * @description Metodo para validar si el usuario esta logeado
+     * @param message
+     * @param isLoggedIn
+     * @memberof DashboardComponent
+     */
+    public isLoggedIn(message: string, isLoggedIn: boolean) {
+        if (!isLoggedIn) {
+            this.router.navigate([`/${RoutesConst.home}`]);
+        } else {
+            this.getUserData();
+        }
     }
 }

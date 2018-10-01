@@ -154,6 +154,33 @@ $table-break: 900px;
 
   }
 
+  &__false-dp-box {
+    border-bottom: 1px solid #009688;
+    width: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-right: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  &__month {
+    cursor: pointer;
+  }
+
+  &__icon {
+    width: 20px;
+    height: auto;
+  }
+
   &__graph {
     &-box {
       margin-top: 1.6em;
