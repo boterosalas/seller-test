@@ -34,7 +34,7 @@
 </g>
 <g id="clust8" class="cluster">
 <title>cluster_BulkLoadModule_exports</title>
-<polygon fill="none" stroke="#000000" points="442,-208 442,-260 1178,-260 1178,-208 442,-208"/>
+<polygon fill="none" stroke="#000000" points="716,-208 716,-260 872,-260 872,-208 716,-208"/>
 </g>
 <g id="clust10" class="cluster">
 <title>cluster_BulkLoadModule_providers</title>
@@ -55,8 +55,8 @@
 <!-- BulkLoadComponent&#45;&gt;BulkLoadModule -->
 <g id="edge1" class="edge">
 <title>BulkLoadComponent&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M1535,-122.2843C1535,-143.3211 1535,-175 1535,-175 1535,-175 861.8364,-175 861.8364,-175"/>
-<polygon fill="#000000" stroke="#000000" points="861.8364,-171.5001 851.8364,-175 861.8363,-178.5001 861.8364,-171.5001"/>
+<path fill="none" stroke="#000000" d="M1535,-122.0109C1535,-144.4852 1535,-180 1535,-180 1535,-180 861.8364,-180 861.8364,-180"/>
+<polygon fill="#000000" stroke="#000000" points="861.8364,-176.5001 851.8364,-180 861.8363,-183.5001 861.8364,-176.5001"/>
 </g>
 <!-- FinishUploadInformationComponent -->
 <g id="node2" class="node">
@@ -67,8 +67,8 @@
 <!-- FinishUploadInformationComponent&#45;&gt;BulkLoadModule -->
 <g id="edge2" class="edge">
 <title>FinishUploadInformationComponent&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M1336,-122.1061C1336,-141.3391 1336,-169 1336,-169 1336,-169 861.7467,-169 861.7467,-169"/>
-<polygon fill="#000000" stroke="#000000" points="861.7467,-165.5001 851.7467,-169 861.7467,-172.5001 861.7467,-165.5001"/>
+<path fill="none" stroke="#000000" d="M1336,-122.1289C1336,-142.5724 1336,-173 1336,-173 1336,-173 861.7467,-173 861.7467,-173"/>
+<polygon fill="#000000" stroke="#000000" points="861.7467,-169.5001 851.7467,-173 861.7467,-176.5001 861.7467,-169.5001"/>
 </g>
 <!-- TableErrorsComponent -->
 <g id="node3" class="node">
@@ -79,8 +79,8 @@
 <!-- TableErrorsComponent&#45;&gt;BulkLoadModule -->
 <g id="edge3" class="edge">
 <title>TableErrorsComponent&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M1114.1608,-122.0225C1114.1608,-139.3734 1114.1608,-163 1114.1608,-163 1114.1608,-163 861.6081,-163 861.6081,-163"/>
-<polygon fill="#000000" stroke="#000000" points="861.6081,-159.5001 851.6081,-163 861.6081,-166.5001 861.6081,-159.5001"/>
+<path fill="none" stroke="#000000" d="M1132,-122.2667C1132,-140.5552 1132,-166 1132,-166 1132,-166 861.7202,-166 861.7202,-166"/>
+<polygon fill="#000000" stroke="#000000" points="861.7203,-162.5001 851.7202,-166 861.7202,-169.5001 861.7203,-162.5001"/>
 </g>
 <!-- TableLoadComponent -->
 <g id="node4" class="node">
@@ -91,56 +91,20 @@
 <!-- TableLoadComponent&#45;&gt;BulkLoadModule -->
 <g id="edge4" class="edge">
 <title>TableLoadComponent&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M954.9872,-122.2396C954.9872,-137.5706 954.9872,-157 954.9872,-157 954.9872,-157 861.6654,-157 861.6654,-157"/>
-<polygon fill="#000000" stroke="#000000" points="861.6654,-153.5001 851.6654,-157 861.6653,-160.5001 861.6654,-153.5001"/>
+<path fill="none" stroke="#000000" d="M969,-122.0091C969,-138.0494 969,-159 969,-159 969,-159 861.7865,-159 861.7865,-159"/>
+<polygon fill="#000000" stroke="#000000" points="861.7866,-155.5001 851.7865,-159 861.7865,-162.5001 861.7866,-155.5001"/>
 </g>
 <!-- BulkLoadComponent  -->
 <g id="node8" class="node">
 <title>BulkLoadComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="1170.3269,-252 1029.6731,-252 1029.6731,-216 1170.3269,-216 1170.3269,-252"/>
-<text text-anchor="middle" x="1100" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BulkLoadComponent </text>
+<polygon fill="#fb8072" stroke="#000000" points="864.3269,-252 723.6731,-252 723.6731,-216 864.3269,-216 864.3269,-252"/>
+<text text-anchor="middle" x="794" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BulkLoadComponent </text>
 </g>
 <!-- BulkLoadModule&#45;&gt;BulkLoadComponent  -->
 <g id="edge7" class="edge">
 <title>BulkLoadModule&#45;&gt;BulkLoadComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M851.6743,-181C922.9088,-181 1034.7863,-181 1034.7863,-181 1034.7863,-181 1034.7863,-205.7604 1034.7863,-205.7604"/>
-<polygon fill="#000000" stroke="#000000" points="1031.2864,-205.7604 1034.7863,-215.7604 1038.2864,-205.7604 1031.2864,-205.7604"/>
-</g>
-<!-- FinishUploadInformationComponent  -->
-<g id="node9" class="node">
-<title>FinishUploadInformationComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="1011.9208,-252 784.0792,-252 784.0792,-216 1011.9208,-216 1011.9208,-252"/>
-<text text-anchor="middle" x="898" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">FinishUploadInformationComponent </text>
-</g>
-<!-- BulkLoadModule&#45;&gt;FinishUploadInformationComponent  -->
-<g id="edge8" class="edge">
-<title>BulkLoadModule&#45;&gt;FinishUploadInformationComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M817.9059,-187.1061C817.9059,-187.1061 817.9059,-205.991 817.9059,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="814.4059,-205.9909 817.9059,-215.991 821.4059,-205.991 814.4059,-205.9909"/>
-</g>
-<!-- TableErrorsComponent  -->
-<g id="node10" class="node">
-<title>TableErrorsComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="765.6841,-252 614.3159,-252 614.3159,-216 765.6841,-216 765.6841,-252"/>
-<text text-anchor="middle" x="690" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TableErrorsComponent </text>
-</g>
-<!-- BulkLoadModule&#45;&gt;TableErrorsComponent  -->
-<g id="edge9" class="edge">
-<title>BulkLoadModule&#45;&gt;TableErrorsComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M751.0349,-187.1061C751.0349,-187.1061 751.0349,-205.991 751.0349,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="747.535,-205.9909 751.0349,-215.991 754.535,-205.991 747.535,-205.9909"/>
-</g>
-<!-- TableLoadComponent  -->
-<g id="node11" class="node">
-<title>TableLoadComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="595.9728,-252 450.0272,-252 450.0272,-216 595.9728,-216 595.9728,-252"/>
-<text text-anchor="middle" x="523" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TableLoadComponent </text>
-</g>
-<!-- BulkLoadModule&#45;&gt;TableLoadComponent  -->
-<g id="edge10" class="edge">
-<title>BulkLoadModule&#45;&gt;TableLoadComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M736.3871,-181C674.2709,-181 584.1759,-181 584.1759,-181 584.1759,-181 584.1759,-205.7604 584.1759,-205.7604"/>
-<polygon fill="#000000" stroke="#000000" points="580.676,-205.7604 584.1759,-215.7604 587.676,-205.7604 580.676,-205.7604"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M794,-187.1061C794,-187.1061 794,-205.991 794,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="790.5001,-205.9909 794,-215.991 797.5001,-205.991 790.5001,-205.9909"/>
 </g>
 <!-- BulkLoadRoutingModule -->
 <g id="node6" class="node">
@@ -163,44 +127,44 @@
 <!-- SharedModule&#45;&gt;BulkLoadModule -->
 <g id="edge6" class="edge">
 <title>SharedModule&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M654.6846,-122.2396C654.6846,-137.5706 654.6846,-157 654.6846,-157 654.6846,-157 726.128,-157 726.128,-157"/>
-<polygon fill="#000000" stroke="#000000" points="726.1281,-160.5001 736.128,-157 726.128,-153.5001 726.1281,-160.5001"/>
+<path fill="none" stroke="#000000" d="M646,-122.0091C646,-138.0494 646,-159 646,-159 646,-159 726.3555,-159 726.3555,-159"/>
+<polygon fill="#000000" stroke="#000000" points="726.3556,-162.5001 736.3555,-159 726.3555,-155.5001 726.3556,-162.5001"/>
 </g>
 <!-- BulkLoadService -->
-<g id="node12" class="node">
+<g id="node9" class="node">
 <title>BulkLoadService</title>
 <ellipse fill="#fdb462" stroke="#000000" cx="494" cy="-104" rx="78.7318" ry="18"/>
 <text text-anchor="middle" x="494" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BulkLoadService</text>
 </g>
 <!-- BulkLoadService&#45;&gt;BulkLoadModule -->
-<g id="edge11" class="edge">
+<g id="edge8" class="edge">
 <title>BulkLoadService&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M511.4399,-121.7019C511.4399,-139.0808 511.4399,-163 511.4399,-163 511.4399,-163 726.1379,-163 726.1379,-163"/>
-<polygon fill="#000000" stroke="#000000" points="726.1379,-166.5001 736.1379,-163 726.1379,-159.5001 726.1379,-166.5001"/>
+<path fill="none" stroke="#000000" d="M494,-122.2667C494,-140.5552 494,-166 494,-166 494,-166 726.157,-166 726.157,-166"/>
+<polygon fill="#000000" stroke="#000000" points="726.157,-169.5001 736.157,-166 726.1569,-162.5001 726.157,-169.5001"/>
 </g>
 <!-- ComponentsService -->
-<g id="node13" class="node">
+<g id="node10" class="node">
 <title>ComponentsService</title>
 <ellipse fill="#fdb462" stroke="#000000" cx="309" cy="-104" rx="88.6255" ry="18"/>
 <text text-anchor="middle" x="309" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">ComponentsService</text>
 </g>
 <!-- ComponentsService&#45;&gt;BulkLoadModule -->
-<g id="edge12" class="edge">
+<g id="edge9" class="edge">
 <title>ComponentsService&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M309,-122.1061C309,-141.3391 309,-169 309,-169 309,-169 725.9794,-169 725.9794,-169"/>
-<polygon fill="#000000" stroke="#000000" points="725.9794,-172.5001 735.9794,-169 725.9794,-165.5001 725.9794,-172.5001"/>
+<path fill="none" stroke="#000000" d="M309,-122.1289C309,-142.5724 309,-173 309,-173 309,-173 725.9794,-173 725.9794,-173"/>
+<polygon fill="#000000" stroke="#000000" points="725.9794,-176.5001 735.9794,-173 725.9794,-169.5001 725.9794,-176.5001"/>
 </g>
 <!-- EventEmitterOrders -->
-<g id="node14" class="node">
+<g id="node11" class="node">
 <title>EventEmitterOrders</title>
 <ellipse fill="#fdb462" stroke="#000000" cx="113" cy="-104" rx="88.5986" ry="18"/>
 <text text-anchor="middle" x="113" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">EventEmitterOrders</text>
 </g>
 <!-- EventEmitterOrders&#45;&gt;BulkLoadModule -->
-<g id="edge13" class="edge">
+<g id="edge10" class="edge">
 <title>EventEmitterOrders&#45;&gt;BulkLoadModule</title>
-<path fill="none" stroke="#000000" d="M113,-122.2843C113,-143.3211 113,-175 113,-175 113,-175 726.2321,-175 726.2321,-175"/>
-<polygon fill="#000000" stroke="#000000" points="726.2321,-178.5001 736.2321,-175 726.2321,-171.5001 726.2321,-178.5001"/>
+<path fill="none" stroke="#000000" d="M113,-122.0109C113,-144.4852 113,-180 113,-180 113,-180 726.2321,-180 726.2321,-180"/>
+<polygon fill="#000000" stroke="#000000" points="726.2321,-183.5001 736.2321,-180 726.2321,-176.5001 726.2321,-183.5001"/>
 </g>
 </g>
 </svg>

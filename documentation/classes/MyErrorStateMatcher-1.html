@@ -235,6 +235,7 @@ export class CitiesComponent implements OnInit, OnChanges {
   public matcher: MyErrorStateMatcher;
   @Input() idState: number;
   @Output() daneCodeEvent &#x3D; new EventEmitter&lt;number&gt;();
+  @Input() elementLoad: string;
 
   constructor(
     @Inject(CitiesServices)
@@ -270,6 +271,23 @@ export class CitiesComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Recibe una cadena de palabras y procede a buscar en la lista de departamentos, para obtener el Identificador
+   * para asi cargarlo en front
+   * @param {*} element
+   * @returns {number}
+   * @memberof StatesComponent
+   */
+  public validateElementLoaded(element: string): any {
+    let loaded: any;
+    this.listItems.forEach(item &#x3D;&gt; {
+      if (item.Name &#x3D;&#x3D;&#x3D; element) {
+        loaded &#x3D; item;
+      }
+    });
+    return loaded;
+  }
+
+  /**
    * @method getCitiesDropdown
    * @param state
    * @description Metodo que consume el servicio que retorna el listado de ciudades
@@ -285,6 +303,12 @@ export class CitiesComponent implements OnInit, OnChanges {
           this.listItems &#x3D; data;
           this.validateFormRegister.get(&#x27;citiesFormControl&#x27;).enable();
           this.loadingService.closeSpinner();
+          if (this.elementLoad) {
+            const citySelected &#x3D; this.validateElementLoaded(this.elementLoad);
+            if (citySelected) {
+              this.validateFormRegister.controls[&#x27;citiesFormControl&#x27;].setValue(citySelected.Id, {onlySelf: true});
+            }
+          }
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal(&#x27;errorService&#x27;);

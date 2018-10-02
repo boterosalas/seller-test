@@ -69,6 +69,13 @@ export class ModalComponent implements OnInit {
           'title': '¡Oops!.'
         };
         break;
+      case 'successUpdate':
+        dataModal = {
+          'status': 'done',
+          'message': `¡Tú actualización ha sido exitosa!`,
+          'title': '¡Actualización realizada con éxito!'
+        };
+        break;
     }
     dialogRef.componentInstance.status = dataModal.status;
     dialogRef.componentInstance.message = dataModal.message;

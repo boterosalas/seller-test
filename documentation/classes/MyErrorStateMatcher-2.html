@@ -203,7 +203,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Inject, OnInit, Output } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Inject, OnInit, Output, Input } from &#x27;@angular/core&#x27;;
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from &#x27;@angular/forms&#x27;;
 import { ErrorStateMatcher } from &#x27;@angular/material&#x27;;
 import { LoadingService, ModalService } from &#x27;@app/core&#x27;;
@@ -233,6 +233,7 @@ export class StatesComponent implements OnInit {
   public statesObject: State;
   public matcher: MyErrorStateMatcher;
   @Output() idStateEvent &#x3D; new EventEmitter&lt;number&gt;();
+  @Input() elementLoad: any;
 
   constructor(
     @Inject(StatesService)
@@ -258,6 +259,23 @@ export class StatesComponent implements OnInit {
   }
 
   /**
+   * Recibe una cadena de palabras y procede a buscar en la lista de departamentos, para obtener el Identificador
+   * para asi cargarlo en front
+   * @param {*} element
+   * @returns {number}
+   * @memberof StatesComponent
+   */
+  public validateElementLoaded(element: string): number {
+    let idLoad: number;
+    this.listItems.forEach(item &#x3D;&gt; {
+      if (item.Name &#x3D;&#x3D;&#x3D; element) {
+        idLoad &#x3D; item.Id;
+      }
+    });
+    return idLoad;
+  }
+
+  /**
    * @method getStatesDropdown
    * @description Metodo para consumir el servicio que retorna el listado de departamentos
    * @memberof StatesComponent
@@ -271,6 +289,10 @@ export class StatesComponent implements OnInit {
           const data &#x3D; data_response.Data;
           this.listItems &#x3D; data;
           this.loadingService.closeSpinner();
+          if (this.elementLoad) {
+            this.validateFormRegister.controls[&#x27;statesFormControl&#x27;].setValue(this.validateElementLoaded(this.elementLoad), {onlySelf: true});
+            this.setParamToCitiesChange();
+          }
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal(&#x27;errorService&#x27;);

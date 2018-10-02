@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
@@ -28,6 +28,7 @@ export class StatesComponent implements OnInit {
   public statesObject: State;
   public matcher: MyErrorStateMatcher;
   @Output() idStateEvent = new EventEmitter<number>();
+  @Input() elementLoad: any;
 
   constructor(
     @Inject(StatesService)
@@ -53,6 +54,23 @@ export class StatesComponent implements OnInit {
   }
 
   /**
+   * Recibe una cadena de palabras y procede a buscar en la lista de departamentos, para obtener el Identificador
+   * para asi cargarlo en front
+   * @param {*} element
+   * @returns {number}
+   * @memberof StatesComponent
+   */
+  public validateElementLoaded(element: string): number {
+    let idLoad: number;
+    this.listItems.forEach(item => {
+      if (item.Name === element) {
+        idLoad = item.Id;
+      }
+    });
+    return idLoad;
+  }
+
+  /**
    * @method getStatesDropdown
    * @description Metodo para consumir el servicio que retorna el listado de departamentos
    * @memberof StatesComponent
@@ -66,6 +84,10 @@ export class StatesComponent implements OnInit {
           const data = data_response.Data;
           this.listItems = data;
           this.loadingService.closeSpinner();
+          if (this.elementLoad) {
+            this.validateFormRegister.controls['statesFormControl'].setValue(this.validateElementLoaded(this.elementLoad), {onlySelf: true});
+            this.setParamToCitiesChange();
+          }
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
