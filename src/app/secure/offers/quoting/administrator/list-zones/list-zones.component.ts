@@ -30,7 +30,7 @@ const log = new Logger('ListZonesComponent');
 })
 export class ListZonesComponent implements OnInit {
   public listZones: Array<{}>;
-  private openModalCreate: boolean;
+  public openModalCreate: boolean;
   public typeDialog = 0;
   public idToEdit: number;
 

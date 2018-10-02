@@ -33,8 +33,8 @@ const log = new Logger('ListTransporterComponent');
 export class ListTransporterComponent implements OnInit {
 
   /** Initialize required variables   */
-  private listTransporters: Array<{}>;
-  private openModalCreate: boolean;
+  public listTransporters: Array<{}>;
+  public openModalCreate: boolean;
   public typeDialog: number;
   public idToEdit: number;
 
