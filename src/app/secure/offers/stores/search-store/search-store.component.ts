@@ -72,7 +72,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
    * @memberof SearchStoreComponent
    */
   public getAllStores() {
-    this.storeService.getAllStores(this.user).subscribe((res: any) => {
+    this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
       if (res.status === 200) {
         const body = JSON.parse(res.body.body);
         this.listStores = body.Data;

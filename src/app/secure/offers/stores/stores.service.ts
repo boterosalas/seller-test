@@ -23,6 +23,28 @@ export class StoresService {
    * @returns {Observable<[{}]>}
    * @memberof StoresService
    */
+  public getAllStoresFull(user: any): Observable<[{}]> {
+    return new Observable(observer => {
+      // llamado al servicio para traer todos los vendedores
+      this.http.get(this.api.get('getAllSellersFull'), { observe: 'response' })
+        .subscribe(
+          (data: any) => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
+   * Método para realiar la consulta de las tiendas disponibles.
+   *
+   * @param {any} user
+   * @returns {Observable<[{}]>}
+   * @memberof StoresService
+   */
   public getAllStores(user: any): Observable<[{}]> {
     return new Observable(observer => {
       // llamado al servicio para traer todos los vendedores
@@ -52,10 +74,10 @@ export class StoresService {
     return new Observable(observer => {
       this.http.get(this.api.get('getSellerCommissionCategory', [store.IdSeller]), { observe: 'response' })
         .subscribe((data: any) => {
-            observer.next(data);
-          }, error => {
-            observer.next(error);
-          }
+          observer.next(data);
+        }, error => {
+          observer.next(error);
+        }
         );
     });
   }
@@ -94,10 +116,10 @@ export class StoresService {
       // obtengo el endpoint desde el archivo de configuración de endpoints
       this.http.get(this.api.get('getSellerCommissionCategory'), { observe: 'response' })
         .subscribe((data: any) => {
-            observer.next(data);
-          }, error => {
-            observer.next(error);
-          }
+          observer.next(data);
+        }, error => {
+          observer.next(error);
+        }
         );
     });
   }
