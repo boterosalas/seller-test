@@ -1,12 +1,12 @@
 export class ZoneModel {
-  public id?: number;
-  public name: string;
-  public daneCode: string;
-  constructor(name: string,
-              daneCode: string,
-              id?: number) {
-    this.name = name;
-    this.daneCode = daneCode;
-    this.id = id;
+  public Id?: number;
+  public Name: string;
+  public DaneCode: string;
+  constructor(Name: string,
+              DaneCode: string,
+              Id?: number) {
+    this.Name = Name;
+    this.DaneCode = DaneCode;
+    this.Id = Id;
   }
 }

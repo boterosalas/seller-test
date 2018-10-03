@@ -13,12 +13,12 @@
     <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
       <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Nombre</p>
       <p fxFlex="40">
-        {{item.name}}
+        {{item.Name}}
       </p>
       <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
         <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
             <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Tipo de Transportadora</p>
-            <p>{{item.method}}</p>
+            <p>{{ getNameMethod( item.IdShippingMethod ) }}</p>
         </div>
 
         <div fxFlex="30" class="button-list-transporter" fxLayout="row" fxLayoutAlign.xs="end center" class="options-transporter flexbox flex-wrap align-center justify-end">

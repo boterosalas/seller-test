@@ -27,6 +27,7 @@ export class CreateDialogComponent implements OnInit {
   public transportDataToEdit: TransportModel;
   public dialogTransport: number;
   public dialogZone: number;
+  public chargeData: boolean;
   @Input() typeDialog: number;
   @Input() idToEdit: number;
 
@@ -47,9 +48,8 @@ export class CreateDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dialogTransport = this.transportService.getDialogType();
     this.dialogZone = this.zoneService.getDialogType();
-
     /** Verify if component initialization has data to edit or create  */
-    if (this.showDialogForm(this.dialogTransport)) {
+    if (this.typeDialog === this.dialogTransport) {
       if (this.idToEdit !== null) {
         this.dialogMode = true;
         this.getTransportData();
@@ -59,11 +59,22 @@ export class CreateDialogComponent implements OnInit {
     } else {
       if (this.idToEdit) {
         this.dialogMode = true;
-        this.createZoneDialog(null);
+        this.chargeZone();
       } else {
         this.createZoneDialog(null);
       }
     }
+  }
+
+  public chargeZone(): void {
+    this.zoneService.getZone(this.idToEdit).subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.createZoneDialog(body.Data);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
@@ -91,7 +102,7 @@ export class CreateDialogComponent implements OnInit {
    * @memberof CreateDialogComponent
    */
   public showDialogForm(type: number): boolean {
-    return type === this.typeDialog;
+    return type === this.typeDialog && this.chargeData;
   }
 
   /**
@@ -100,15 +111,21 @@ export class CreateDialogComponent implements OnInit {
    * @memberof CreateDialogComponent
    */
   public getTransportData(): void {
-    this.transportDataToEdit = this.transportService.getFakeTransporter(this.idToEdit);
-    this.createTransportDialog(this.transportDataToEdit);
+    this.transportService.getTransport(this.idToEdit).subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.createTransportDialog( body.Data );
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
    * Close dialog.
    */
-  closeDialog(): void {
-    this.events.openDialogCreate(false);
+  closeDialog(recharge: boolean = false): void {
+    this.events.openDialogCreate(recharge);
   }
 
   /**
@@ -123,16 +140,17 @@ export class CreateDialogComponent implements OnInit {
     let name: string;
     let idMethod: number;
     if (dataEdit) {
-      name = dataEdit.name;
-      idMethod = dataEdit.idMethod;
+      name = dataEdit.Name;
+      idMethod = dataEdit.IdShippingMethod;
     }
     this.formTransporter = new FormGroup({
-      name: new FormControl(name, [
+      Name: new FormControl(name, [
         Validators.required,
         Validators.maxLength(20)
       ]),
-      typeTransport: new FormControl(idMethod, Validators.required)
+      IdShippingMethod: new FormControl(idMethod, Validators.required)
     });
+    this.chargeData = true;
   }
 
   /**
@@ -145,19 +163,20 @@ export class CreateDialogComponent implements OnInit {
     let name: string;
     let daneCode: string;
     if (dataEdit) {
-      name = dataEdit.name;
-      daneCode = dataEdit.daneCode;
+      name = dataEdit.Name;
+      daneCode = dataEdit.DaneCode;
     }
     this.formZone = new FormGroup({
-      nameZone: new FormControl(name, [
+      Name: new FormControl(name, [
         Validators.required,
         Validators.maxLength(20)
       ]),
-      danceCode: new FormControl(name, [
+      DaneCode: new FormControl(daneCode, [
         Validators.required,
         Validators.maxLength(20)
       ])
     });
+    this.chargeData = true;
   }
 
   /**
@@ -176,23 +195,46 @@ export class CreateDialogComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Submit function from zones form.
+   * Valid form and verify if is to create or update zone.
+   * @memberof CreateDialogComponent
+   */
   saveZone(): void {
     if (this.formZone.valid) {
       if (this.dialogMode) {
-        this.updateZone(this.formTransporter.value);
+        this.updateZone(this.formZone.value);
       } else {
-        this.addZone(this.formTransporter.value);
+        this.addZone(this.formZone.value);
       }
     }
   }
 
   public updateZone(dataToUpdate: ZoneModel): void {
-
+    dataToUpdate.Id = this.idToEdit;
+    const dataToSend: ZoneModel[] = [];
+    dataToSend.push(dataToUpdate);
+    this.zoneService.addZone(dataToSend).subscribe((result: any) => {
+      if (result.status === 201 || result.
+        status === 200) {
+        this.closeDialog();
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
-  public addZone(dataToUpdate: ZoneModel): void {
-
+  public addZone(dataToAdd: ZoneModel): void {
+    dataToAdd.Id = 0;
+    const dataToSend: ZoneModel[] = [];
+    dataToSend.push(dataToAdd);
+    this.zoneService.addZone(dataToSend).subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        this.events.openDialogCreate(false);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
@@ -202,14 +244,14 @@ export class CreateDialogComponent implements OnInit {
    * @memberof CreateDialogComponent
    */
   updateTransport(data: TransportModel): void {
+    data.Id = this.idToEdit;
     this.transportService.updateTransporter(data)
       .subscribe(
         (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const response = JSON.parse(result.body.body);
+          if (result.statusCode === 201 || result.statusCode === 200) {
+            const response = JSON.parse(result.body);
             if (response.Data) {
               this.events.openDialogCreate(false);
-              this.modalService.showModal('success');
             } else if (!response.Data) {
               this.modalService.showModal('error');
             }

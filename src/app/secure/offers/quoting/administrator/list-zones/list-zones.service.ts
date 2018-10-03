@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
 import { ZoneModel } from '../dialogs/models/zone.model';
+import { AnalysisSchemeStatus } from 'aws-sdk/clients/cloudsearch';
 
 
 const dialogTypeZone = 2;
@@ -16,49 +17,57 @@ export class ListZonesService {
     private http: HttpClient,
     private api: EndpointService
   ) {
-    this.zones = [
-      {
-        id: 5,
-        nameZone: 'Envio Propio'
-      },
-      {
-        id: 1,
-        nameZone: 'Envio Propio 1'
-      },
-      {
-        id: 2,
-        nameZone: 'Envio Propio 2'
-      },
-      {
-        id: 3,
-        nameZone: 'Envio Propio 3'
-      },
-      {
-        id: 4,
-        nameZone: 'Envio Propio 4'
-      }
-    ];
   }
 
   /**
+   * Get all zones storage in database.
    * @method getListZones
-   * @description Método para obtener el listado de departamentos
    * @returns {Observable<{}>}
    * @memberof ListZonesService
    */
   getListZones(): Observable<{}> {
-    return new Observable(observer => {
-      this.http.get<any>(this.api.get('getZones'), { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+    return this.http.get(this.api.get('zones'), { observe: 'response' });
   }
+
+  /**
+   * Add zone
+   * @param model
+   */
+  public addZone(model: ZoneModel[]): Observable<{}> {
+    return this.http.patch<any>(this.api.get('zones'), model, { observe: 'response' });
+  }
+
+  /**
+   * Update zone
+   *
+   * @param {ZoneModel[]} model
+   * @returns {Observable<{}>}
+   * @memberof ListZonesService
+   */
+  public updateZone(model: ZoneModel[]): Observable<{}> {
+    return this.http.post<any>(this.api.get('zones'), model, { observe: 'response' });
+  }
+
+  /**
+   * Delete a zone by identifier
+   * Service to delete a zone data from a identifier param
+   * @param idZone
+   */
+  public deleteZone(idZone: number): Observable<{}> {
+    return this.http.delete<any>(this.api.get('getZone', [idZone]), { observe: 'response' });
+  }
+
+  /**
+   * Get a zone by identifier.
+   * Service to get a zone data from a identifier param
+   * @param {number} idZone
+   * @returns {Observable<{}>}
+   * @memberof ListZonesService
+   */
+  public getZone(idZone: number): Observable<{}> {
+    return this.http.get<any>(this.api.get('getZone', [idZone]), { observe: 'response' });
+  }
+
 
   /**
    * Get const with a value of dialog type
@@ -69,23 +78,4 @@ export class ListZonesService {
   getDialogType(): number {
     return dialogTypeZone;
   }
-
-  getFakeListZones() {
-    return this.zones;
-  }
-
-  createZone(transport: ZoneModel): Observable<{}> {
-    return new Observable(observer => {
-      this.http.post<any>(this.api.get('addZone'), transport, { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
-  }
-
 }

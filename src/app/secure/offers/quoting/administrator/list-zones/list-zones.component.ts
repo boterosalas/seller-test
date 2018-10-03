@@ -6,6 +6,7 @@ import { ModalService } from '@app/core';
 import { MatDialog } from '@angular/material';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { DeleteDialogComponent } from '../dialogs/delete/delete-dialog.component';
+import { ZoneModel } from '../dialogs/models/zone.model';
 
 const log = new Logger('ListZonesComponent');
 
@@ -46,9 +47,7 @@ export class ListZonesComponent implements OnInit {
     this.typeDialog = this.service.getDialogType();
     this.events.eventOpenCreateDialog.subscribe((view: boolean) => {
       this.openModalCreate = view;
-      if (!view) {
-
-      }
+      this.getListZones();
     });
   }
 
@@ -58,7 +57,14 @@ export class ListZonesComponent implements OnInit {
    * @memberof ListZonesComponent
    */
   public getListZones(): void {
-    this.listZones = this.service.getFakeListZones();
+    this.service.getListZones().subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listZones = body.Data;
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
@@ -82,6 +88,17 @@ export class ListZonesComponent implements OnInit {
     this.openModalCreate = true;
   }
 
+  public confirmDeleteZone(model: ZoneModel): void {
+    this.service.deleteZone(model.Id).subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        console.log('aquiii');
+        this.getListZones();
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
   /**
    * Launch deletes dialog initialized by zone, needs zone id and type of dialog.
    *
@@ -89,21 +106,20 @@ export class ListZonesComponent implements OnInit {
    * @param {number} indexZone index in zone list to identified one in it.
    * @memberof ListZonesComponent
    */
-  public deleteZone(id: number, indexZone: number): void {
+  public deleteZone(model: ZoneModel, indexZone: number): void {
     log.debug('Eliminar');
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '50%',
       minWidth: '390px',
       maxWidth: '1000px',
       disableClose: true,
-      data:  this.typeDialog
+      data: this.typeDialog
     });
 
     dialogRef.afterClosed().subscribe(result => {
       /** If has result (True) its because user confirm deleltes transporter */
-      console.log('eliminar zona');
       if (result) {
-
+        this.confirmDeleteZone(model);
       }
     });
   }

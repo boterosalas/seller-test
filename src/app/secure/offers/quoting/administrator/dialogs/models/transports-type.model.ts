@@ -1,12 +1,12 @@
 /** Class type transport to define atributes of types */
 export class TypeTransportModel {
-  id?: number;
+  Id?: number;
   name: string;
   constructor(
     name: string,
     id?: number
   ) {
-    this.id = id;
+    this.Id = id;
     this.name = name;
   }
 }

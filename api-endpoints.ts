@@ -54,12 +54,11 @@ export const endpoints = {
       products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
       // Quoting
       getSendMethod: 'https://bkafj0viij.execute-api.us-east-1.amazonaws.com/ShippingMethod',
-      addTransport: '',
-      updateTransport: '',
-      deleteTransport: '{params}',
-      addZone: '',
-      updateZone: '',
-      deleteZone: '',
+      zones: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas',
+      getZone: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas/{params}',
+      transports: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters',
+      getTransport: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters/{params}',
+      // Seller
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller'

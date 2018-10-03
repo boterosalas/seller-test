@@ -35,23 +35,23 @@ export class ListTransporterService {
   }
 
   /**
+   * Function to get all transports from service
    * @method getListTransporters
-   * @description Método para obtener el listado de departamentos
    * @returns {Observable<{}>}
    * @memberof ListTransporterService
    */
-  getListTransporters(): Observable<{}> {
-    return new Observable(observer => {
-      this.http.get<any>(this.api.get('getTransporters'), { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+  public getListTransporters(): Observable<{}> {
+    return this.http.get(this.api.get('transports'), { observe: 'response' });
+  }
+
+  /**
+   * Function to get a transport by identifier
+   * @method getListTransporters
+   * @returns {Observable<{}>}
+   * @memberof ListTransporterService
+   */
+  public getTransport(idTransport: number): Observable<{}> {
+    return this.http.get(this.api.get('getTransport', [idTransport]), { observe: 'response' });
   }
 
   /**
@@ -83,17 +83,7 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   updateTransporter(transport: TransportModel): Observable<{}> {
-    return new Observable(observer => {
-      this.http.patch<any>(this.api.get('updateTransport'), transport, { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+    return this.http.patch(this.api.get('transports'), [transport]);
   }
 
   /**
@@ -104,9 +94,8 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   deleteTransporter(idTransport: number): Observable<{}> {
-    console.log('idTransport', idTransport);
     return new Observable(observer => {
-      this.http.delete(this.api.get('deleteTransport', [idTransport])).subscribe((data: any) => {
+      this.http.delete(this.api.get('getTransport', [idTransport])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);

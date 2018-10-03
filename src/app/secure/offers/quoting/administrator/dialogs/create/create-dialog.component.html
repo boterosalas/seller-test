@@ -19,8 +19,10 @@
 
 <section class="dialog-component flexbox flex-wrap align-center justify-center">
   <article class="transport-dialog">
-
-    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+    <div fxFlex="100" fxLayoutAlign="center center" *ngIf="!chargeData">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100" *ngIf="chargeData">
       <div class="container-transport-icon" fxLayout="column" fxLayoutAlign="center center">
         <i class="material-icons" *ngIf="showDialogForm(dialogTransport)">
           local_shipping
@@ -58,13 +60,13 @@
             <!-- Name input Field -->
             <mat-form-field fxFill="48" fxFlex="48">
               <mat-icon matPrefix>local_shipping</mat-icon>
-              <input matInput formControlName="name" placeholder="Nombre transportadora">
+              <input matInput formControlName="Name" placeholder="Nombre transportadora">
               <mat-error>Campo obligatorio </mat-error>
             </mat-form-field>
 
             <!-- Method transport select Field -->
             <mat-form-field fxFlex="48" class="select-transport">
-              <mat-select placeholder="Seleccionar método" formControlName="typeTransport">
+              <mat-select placeholder="Seleccionar método" formControlName="IdShippingMethod">
                 <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
                   {{type.Name}}
                 </mat-option>
@@ -80,7 +82,7 @@
                   (click)="closeDialog()"></button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'" [disabled]="formTransporter.invalid">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'" [disabled]="formTransporter.invalid">
                 </button>
               </div>
             </div>
@@ -100,13 +102,13 @@
             <!-- Name input Field -->
             <mat-form-field fxFill="48" fxFlex="48">
               <mat-icon matPrefix>map</mat-icon>
-              <input matInput formControlName="nameZone" placeholder="Nombre zona">
+              <input matInput formControlName="Name" placeholder="Nombre zona">
               <mat-error>Campo obligatorio</mat-error>
             </mat-form-field>
 
             <!-- DANE code input Field -->
             <mat-form-field fxFill="48" fxFlex="48">
-              <input matInput formControlName="danceCode" placeholder="Código DANE">
+              <input matInput formControlName="DaneCode" placeholder="Código DANE">
               <mat-error>Campo obligatorio</mat-error>
             </mat-form-field>
           </div>
@@ -119,7 +121,7 @@
                   (click)="closeDialog()"></button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'CREAR'" [disabled]="formZone.invalid">
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'" [disabled]="formZone.invalid">
                 </button>
               </div>
             </div>

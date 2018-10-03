@@ -29,10 +29,8 @@ export class ShippingMethodsService {
       this.http.get(this.api.get('getSendMethod'))
         .subscribe((data: any) => {
           observer.next(data);
-          console.log(data);
         }, err => {
           observer.error(err);
-          console.log(err);
         });
     });
   }

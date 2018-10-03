@@ -32,13 +32,14 @@ export class QuotingComponent implements OnInit {
     }
   }
 
-  @HostListener('scroll', []) scrolling() {
-    console.log('scrolling');
-  }
-
-  @HostListener('click', ['$event.target'])
-  onClick(btn: any) {
-    console.log('button', btn, 'number of clicks:', this.numberOfClicks++);
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    const max = document.documentElement.scrollHeight;
+    // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
+    if (pos === max) {
+      console.warn('bajooo');
+    }
   }
 
 }

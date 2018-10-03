@@ -4,9 +4,11 @@ import { Logger } from '@app/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { EventEmitterDialogs } from './../events/eventEmitter-dialogs.service';
 import { ModalService } from '@app/core';
-import { TypeTransportModel } from '../dialogs/models/transports-type.model';
+import { TransportModel } from '../dialogs/models/transport.model';
 import { DeleteDialogComponent } from '../dialogs/delete/delete-dialog.component';
 import { MatDialog } from '@angular/material';
+import { ShippingMethodsService } from '../shipping-methods/shipping-methods.service';
+import { ShippingMethodsModel } from '../shipping-methods/shipping-methods.model';
 
 const log = new Logger('ListTransporterComponent');
 
@@ -37,12 +39,13 @@ export class ListTransporterComponent implements OnInit {
   public openModalCreate: boolean;
   public typeDialog: number;
   public idToEdit: number;
-
+  public shippingMethodsList: ShippingMethodsModel[];
   constructor(
     private transportService: ListTransporterService,
     private events: EventEmitterDialogs,
     private modalService: ModalService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private serviceMethods: ShippingMethodsService
   ) {
     this.openModalCreate = false;
   }
@@ -84,7 +87,7 @@ export class ListTransporterComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.typeDialog = this.transportService.getDialogType();
-    this.getListTransporters();
+    this.getShippingMethods();
     this.events.eventOpenCreateDialog.subscribe((view: boolean) => {
       this.openModalCreate = view;
       if (!view) {
@@ -99,7 +102,39 @@ export class ListTransporterComponent implements OnInit {
    * @memberof ListTransporterComponent
    */
   public getListTransporters() {
-    this.listTransporters = this.transportService.getFakeListTransporter();
+    this.transportService.getListTransporters().subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listTransporters = body.Data;
+      } else {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  public getShippingMethods(): void {
+    this.serviceMethods.getShippingMethods().subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        const body = JSON.parse(res.body);
+        this.shippingMethodsList = body.Data;
+        this.getListTransporters();
+      } else {
+        log.error('Error al intentar obtener los metodos de envios');
+      }
+    });
+  }
+
+  public getNameMethod(idMethod: number): string {
+    let nameMethod = '';
+    if (this.shippingMethodsList && this.shippingMethodsList.length) {
+      for (let i = 0; i < this.shippingMethodsList.length; i++) {
+        if (this.shippingMethodsList[i].Id === idMethod) {
+          nameMethod = this.shippingMethodsList[i].Name;
+          return nameMethod;
+        }
+      }
+    }
+    return nameMethod;
   }
 
   /**
@@ -113,11 +148,11 @@ export class ListTransporterComponent implements OnInit {
   /**
    * Function to open dialog component initialize with transport type and update mode
    *
-   * @param {TypeTransportModel} item
+   * @param {TransportModel} item
    * @memberof ListTransporterComponent
    */
-  public editTransporter(item: TypeTransportModel): void {
-    this.idToEdit = item.id;
+  public editTransporter(item: TransportModel): void {
+    this.idToEdit = item.Id;
     this.openModalCreate = true;
   }
 
