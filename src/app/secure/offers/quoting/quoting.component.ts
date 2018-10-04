@@ -38,7 +38,6 @@ export class QuotingComponent implements OnInit {
     const max = document.documentElement.scrollHeight;
     // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
     if (pos === max) {
-      console.warn('bajooo');
     }
   }
 

@@ -91,7 +91,6 @@ export class ListZonesComponent implements OnInit {
   public confirmDeleteZone(model: ZoneModel): void {
     this.service.deleteZone(model.Id).subscribe((result: any) => {
       if (result.status === 201 || result.status === 200) {
-        console.log('aquiii');
         this.getListZones();
       } else {
         this.modalService.showModal('errorService');

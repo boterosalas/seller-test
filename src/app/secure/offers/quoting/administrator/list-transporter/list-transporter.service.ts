@@ -83,7 +83,7 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   updateTransporter(transport: TransportModel): Observable<{}> {
-    return this.http.patch(this.api.get('transports'), [transport]);
+    return this.http.post(this.api.get('transports'), [transport]);
   }
 
   /**
@@ -94,13 +94,7 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   deleteTransporter(idTransport: number): Observable<{}> {
-    return new Observable(observer => {
-      this.http.delete(this.api.get('getTransport', [idTransport])).subscribe((data: any) => {
-        observer.next(data);
-      }, errorMessage => {
-        observer.error(errorMessage);
-      });
-    });
+    return this.http.delete(this.api.get('getTransport', [idTransport]));
   }
 
   /**
