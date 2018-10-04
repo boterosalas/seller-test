@@ -11,7 +11,6 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes.routing';
 
-
 @NgModule({
  declarations: [
    AppComponent,
