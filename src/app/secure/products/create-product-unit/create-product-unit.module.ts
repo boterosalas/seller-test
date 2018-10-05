@@ -8,6 +8,7 @@ import { MaterialModule } from '@app/material.module';
 import { CreateUnutaryProductComponent } from './create-unutary-product/create-unutary-product.component';
 import { UnitProductRoutingModule } from '@app/secure/products/create-product-unit/create-product-unit.routing';
 import { ComponentProcessComponent } from './component-process/component-process.component';
+import { ValidateEanComponent } from '@app/secure/products/create-product-unit/validate-ean/validate-ean.component';
 
 
 @NgModule({
@@ -21,11 +22,13 @@ import { ComponentProcessComponent } from './component-process/component-process
   ],
   declarations: [
     CreateUnutaryProductComponent,
-    ComponentProcessComponent
+    ComponentProcessComponent,
+    ValidateEanComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
-    ComponentProcessComponent
+    ComponentProcessComponent,
+    ValidateEanComponent
   ],
   entryComponents: [
   ],

@@ -1,0 +1,11 @@
+<form #registerEan="ngForm" [formGroup]="validateFormEan" (ngSubmit)="submitEanRegistrationForm()" >
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="EAN" formControlName="Ean">
+    <mat-error id="error-nit-exist" *ngIf="validateFormEan.get('Ean').hasError('validExistNitDB')" [innerHTML]="'El EAN ya existe.'"></mat-error>
+  </mat-form-field>
+  <mat-radio-group>
+    <mat-radio-button value="auto">No tengo EAN asociado</mat-radio-button>
+  </mat-radio-group>
+</div>
+</form>
