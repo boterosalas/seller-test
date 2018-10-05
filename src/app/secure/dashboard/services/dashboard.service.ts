@@ -29,9 +29,7 @@ export class DashboardService {
    * @memberof DashboardService
    */
   public getOrdersByStatus(idSeller: string) {
-    const PARAMS = `?sellerId=${idSeller}`;
-    let URL = this._api.get('getOrdersStatus'/*, [idSeller]*/);
-    URL += PARAMS;
+    const URL = this._api.get('getOrdersStatus', [idSeller]);
     return this._http.get(URL);
   }
 
@@ -42,9 +40,8 @@ export class DashboardService {
    */
   public getLastSales(idSeller: string, date: string = new Date().toString() + '') {
     date = this.datePipe.transform(date, 'yyyy-MM-dd');
-    const PARAMS = `?sellerId=${idSeller},&date=${date}`;
-    let URL = this._api.get('getSellsSummary', [idSeller, date]);
-    URL += PARAMS;
+    const PARAMS = `${idSeller}/${date}`;
+    const URL = this._api.get('getSellsSummary', [PARAMS]);
     return this._http.get(URL);
   }
 

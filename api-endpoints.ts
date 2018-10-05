@@ -56,8 +56,8 @@ export const endpoints = {
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
       // Dashboard
-      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales',
-      getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus'
+      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
+      getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}'
     },
   },
   // Endpoints production
