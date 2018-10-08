@@ -5,13 +5,11 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
 
 describe('ErrorHandlerInterceptor', () => {
-  let errorHandlerInterceptor: ErrorHandlerInterceptor;
   let http: HttpClient;
   let httpMock: HttpTestingController;
 
   function createInterceptor() {
-    errorHandlerInterceptor = new ErrorHandlerInterceptor();
-    return errorHandlerInterceptor;
+    return null;
   }
 
   beforeEach(() => {

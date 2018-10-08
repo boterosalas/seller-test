@@ -5,6 +5,14 @@
   <aside class="title-list-comp" fxHide.xs>
     <p>Nombre</p>
   </aside>
+
+  <div *ngIf="!listZones || (listZones && !listZones.length)" class="no-items" fxLayout="row"
+    fxLayoutAlign="center center">
+    <p class="title-zones">
+      No hay elementos creados.
+    </p>
+  </div>
+
   <div fxLayout="column">
     <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listZones; let i = index">
       <div class="info-zones" fxFlex="90" fxLayout.xs="column">
@@ -24,7 +32,7 @@
       </div>
     </aside>
 
-    <aside class="buton-create flexbox flex-wrap align-center justify-center">
+    <aside class="buton-create flexbox flex-wrap align-center justify-center" [ngClass]="{'button-create': listZones && listZones.length}">
       <button id="btn-create-zone" type="submit" mat-stroked-button color="primary" [innerHTML]="'CREAR'" (click)="createZone()"></button>
     </aside>
   </div>

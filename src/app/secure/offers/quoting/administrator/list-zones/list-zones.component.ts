@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { DeleteDialogComponent } from '../dialogs/delete/delete-dialog.component';
 import { ZoneModel } from '../dialogs/models/zone.model';
+import { QuotingAdminService } from '../quoting-administrator.service';
+import { LoadingService } from '@app/core';
 
 const log = new Logger('ListZonesComponent');
 
@@ -39,7 +41,9 @@ export class ListZonesComponent implements OnInit {
     private service: ListZonesService,
     private events: EventEmitterDialogs,
     private modalService: ModalService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private quotingService: QuotingAdminService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +65,12 @@ export class ListZonesComponent implements OnInit {
       if (result.status === 201 || result.status === 200) {
         const body = JSON.parse(result.body.body);
         this.listZones = body.Data;
+        /** Validate if needs to show spinner, because doesnt finished required services */
+        if (this.quotingService.getNumberOfService()) {
+          this.loadingService.closeSpinner();
+        } else {
+          this.loadingService.viewSpinner();
+        }
       } else {
         this.modalService.showModal('errorService');
       }
@@ -73,7 +83,7 @@ export class ListZonesComponent implements OnInit {
    * @memberof ListZonesComponent
    */
   public createZone(): void {
-    this.idToEdit = 0;
+    this.idToEdit = null;
     this.openModalCreate = true;
   }
 

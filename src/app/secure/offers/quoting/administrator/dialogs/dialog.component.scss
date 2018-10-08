@@ -43,6 +43,9 @@ $modal: 72px;
       .select-transport {
         width: 100%;
       }
+      .buttons-container{
+        padding: 2em;
+      }
     }
   }
 }
@@ -96,4 +99,12 @@ $modal: 72px;
 
 .mat-form-field-prefix{
   padding: 20px;
+}
+
+.name-transport{
+  width: 100%;
+}
+
+.name-transport-update{
+  width: 48%;
 }

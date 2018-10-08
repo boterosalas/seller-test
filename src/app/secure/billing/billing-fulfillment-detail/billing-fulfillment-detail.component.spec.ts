@@ -74,7 +74,7 @@ describe('BillingFulfillmentDetailComponent', () => {
    */
   it('should be shown total movement date in the collapsible', () => {
     const valueEl = getTextElementFromCollapsible('totalMovement');
-    const formattedData = new CurrencyPipe('en-US').transform(component.data.fulfillment.totalMovement, 'COP');
+    const formattedData = new CurrencyPipe('en-US').transform(component.data.fulfillmentDetail.totalMovement, 'COP');
     expect(valueEl).toBe(formattedData);
   });
 
@@ -83,7 +83,7 @@ describe('BillingFulfillmentDetailComponent', () => {
    */
   it('should be shown total storage date in the collapsible', () => {
     const valueEl = getTextElementFromCollapsible('totalStorage');
-    const formattedData = new CurrencyPipe('en-US').transform(component.data.fulfillment.totalStorage, 'COP');
+    const formattedData = new CurrencyPipe('en-US').transform(component.data.fulfillmentDetail.totalStorage, 'COP');
     expect(valueEl).toBe(formattedData);
   });
 });

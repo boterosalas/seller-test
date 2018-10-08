@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core';
 import { EventEmitterDialogs } from './../../events/eventEmitter-dialogs.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateDialogService } from './create-dialog.service';
 import { TransportModel } from '../models/transport.model';
 import { ShippingMethodsModel } from '../../shipping-methods/shipping-methods.model';
 import { ZoneModel } from '../models/zone.model';
@@ -10,6 +9,7 @@ import { ListTransporterService } from '../../list-transporter/list-transporter.
 import { ListZonesService } from '../../list-zones/list-zones.service';
 import { ShippingMethodsService } from '../../shipping-methods/shipping-methods.service';
 import { ModalService } from '@app/core';
+import { MatSnackBar } from '@angular/material';
 
 const log = new Logger('CreateDialogComponent');
 
@@ -28,16 +28,17 @@ export class CreateDialogComponent implements OnInit {
   public dialogTransport: number;
   public dialogZone: number;
   public chargeData: boolean;
+  private regexDaneCode = /^(((\w){8})(\,){0,1})+$/; // Validate alphanumerics sepharate by comma regex
   @Input() typeDialog: number;
   @Input() idToEdit: number;
 
   constructor(
     private events: EventEmitterDialogs,
-    private service: CreateDialogService,
     private transportService: ListTransporterService,
     private modalService: ModalService,
     private zoneService: ListZonesService,
-    private methodService: ShippingMethodsService
+    private methodService: ShippingMethodsService,
+    private snackBar: MatSnackBar
   ) { }
 
   /**
@@ -57,7 +58,7 @@ export class CreateDialogComponent implements OnInit {
         this.createTransportDialog(null);
       }
     } else {
-      if (this.idToEdit) {
+      if (this.idToEdit !== null) {
         this.dialogMode = true;
         this.chargeZone();
       } else {
@@ -146,7 +147,6 @@ export class CreateDialogComponent implements OnInit {
     this.formTransporter = new FormGroup({
       Name: new FormControl(name, [
         Validators.required,
-        Validators.maxLength(20)
       ]),
       IdShippingMethod: new FormControl(idMethod, Validators.required)
     });
@@ -169,11 +169,10 @@ export class CreateDialogComponent implements OnInit {
     this.formZone = new FormGroup({
       Name: new FormControl(name, [
         Validators.required,
-        Validators.maxLength(20)
       ]),
       DaneCode: new FormControl(daneCode, [
         Validators.required,
-        Validators.maxLength(20)
+        Validators.pattern(this.regexDaneCode)
       ])
     });
     this.chargeData = true;
@@ -185,7 +184,6 @@ export class CreateDialogComponent implements OnInit {
    * @memberof CreateDialogComponent
    */
   saveTransport(): void {
-    log.debug(this.formTransporter.valid);
     if (this.formTransporter.valid) {
       if (this.dialogMode) {
         this.updateTransport(this.formTransporter.value);
@@ -214,9 +212,10 @@ export class CreateDialogComponent implements OnInit {
     dataToUpdate.Id = this.idToEdit;
     const dataToSend: ZoneModel[] = [];
     dataToSend.push(dataToUpdate);
-    this.zoneService.addZone(dataToSend).subscribe((result: any) => {
+    this.zoneService.updateZone(dataToSend).subscribe((result: any) => {
       if (result.status === 201 || result.
         status === 200) {
+        this.showUpdateToast();
         this.closeDialog();
       } else {
         this.modalService.showModal('errorService');
@@ -225,12 +224,12 @@ export class CreateDialogComponent implements OnInit {
   }
 
   public addZone(dataToAdd: ZoneModel): void {
-    dataToAdd.Id = 0;
     const dataToSend: ZoneModel[] = [];
     dataToSend.push(dataToAdd);
     this.zoneService.addZone(dataToSend).subscribe((result: any) => {
       if (result.status === 201 || result.status === 200) {
         this.events.openDialogCreate(false);
+        this.showAddToast();
       } else {
         this.modalService.showModal('errorService');
       }
@@ -252,6 +251,7 @@ export class CreateDialogComponent implements OnInit {
             const response = JSON.parse(result.body);
             if (response.Data) {
               this.events.openDialogCreate(false);
+              this.showUpdateToast();
             } else if (!response.Data) {
               this.modalService.showModal('error');
             }
@@ -260,6 +260,28 @@ export class CreateDialogComponent implements OnInit {
           }
         }
       );
+  }
+
+  /**
+   * Show add toast with message.
+   *
+   * @memberof CreateDialogComponent
+   */
+  public showAddToast(): void {
+    this.snackBar.open('Agregó correctamente', 'Cerrar', {
+      duration: 3000,
+    });
+  }
+
+  /**
+   * Show update toast with message.
+   *
+   * @memberof CreateDialogComponent
+   */
+  public showUpdateToast(): void {
+    this.snackBar.open('Actualizó correctamente', 'Cerrar', {
+      duration: 3000,
+    });
   }
 
   /**
@@ -272,14 +294,9 @@ export class CreateDialogComponent implements OnInit {
     this.transportService.createTransporter(data)
       .subscribe(
         (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const response = JSON.parse(result.body.body);
-            if (response.Data) {
+          if (result.statusCode === 201 || result.statusCode === 200) {
               this.events.openDialogCreate(false);
-              this.modalService.showModal('success');
-            } else if (!response.Data) {
-              this.modalService.showModal('error');
-            }
+              this.showAddToast();
           } else {
             this.modalService.showModal('errorService');
           }

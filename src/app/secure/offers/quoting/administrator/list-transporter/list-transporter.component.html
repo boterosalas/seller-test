@@ -1,5 +1,5 @@
 <article id="list-transporter">
-  <h4>Transportadoras {{openModalCreate}}</h4>
+  <h4>Transportadoras</h4>
 
   <!-- Transporters title table CRUD-->
   <aside fxLayout="row" fxHide.xs>
@@ -9,6 +9,13 @@
     </div>
   </aside>
 
+  <div *ngIf="!listTransporters || (listTransporters && !listTransporters.length)" class="no-items" fxLayout="row"
+    fxLayoutAlign="center center">
+    <p class="title-list-transporter">
+      No hay elementos creados.
+    </p>
+  </div>
+
   <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters; let i = index">
     <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
       <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Nombre</p>
@@ -17,8 +24,8 @@
       </p>
       <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
         <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
-            <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Tipo de Transportadora</p>
-            <p>{{ getNameMethod( item.IdShippingMethod ) }}</p>
+          <p class="title-list-transporter" fxShow.xs="true" fxShow="false">M&eacute;todo de env&iacute;o</p>
+          <p>{{ getNameMethod( item.IdShippingMethod ) }}</p>
         </div>
 
         <div fxFlex="30" class="button-list-transporter" fxLayout="row" fxLayoutAlign.xs="end center" class="options-transporter flexbox flex-wrap align-center justify-end">
@@ -35,8 +42,7 @@
       </div>
     </div>
   </aside>
-
-  <aside class="buton-create flexbox flex-wrap align-center justify-center">
+  <aside class="flexbox flex-wrap align-center justify-center" [ngClass]="{'button-create': listTransporters && listTransporters.length}">
     <button id="btn-create-transporter" type="submit" mat-stroked-button color="primary" [innerHTML]="'CREAR'" (click)="createTransporter()"></button>
   </aside>
 

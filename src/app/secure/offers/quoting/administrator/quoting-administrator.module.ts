@@ -7,6 +7,7 @@ import { ShippingMethodsModule } from './shipping-methods/shipping-methods.modul
 import { ListTransporterModule } from './list-transporter/list-transporter.module';
 import { ListZonesModule } from './list-zones/list-zones.module';
 import { EventEmitterDialogs } from './events/eventEmitter-dialogs.service';
+import { QuotingAdminService } from './quoting-administrator.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EventEmitterDialogs } from './events/eventEmitter-dialogs.service';
     QuotingAdministratorComponent
   ],
   providers: [
-    EventEmitterDialogs
+    EventEmitterDialogs,
+    QuotingAdminService
   ],
 })
 export class QuotingAdministratorModule { }

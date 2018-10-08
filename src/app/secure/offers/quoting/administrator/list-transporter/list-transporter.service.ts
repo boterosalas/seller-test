@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
 import { TransportModel } from '../dialogs/models/transport.model';
+import { RequestOptions, Headers } from '@angular/http';
 
 const dialogTypeTransporter = 1;
 
@@ -16,11 +17,11 @@ export class ListTransporterService {
     private api: EndpointService
   ) {
     this.transporters = [
-      new TransportModel( 'Envio Propio', 'Home delivery 1', 1, 1),
-      new TransportModel( 'Envio Propio 2', 'Home delivery 2', 2, 2),
-      new TransportModel( 'Envio Propio 3', 'Home delivery 3', 2, 3),
-      new TransportModel( 'Envio Propio 4', 'Home delivery 4', 3, 4),
-      new TransportModel( 'Envio Propio 5', 'Home delivery 5', 1, 5),
+      new TransportModel('Envio Propio', 'Home delivery 1', 1, 1),
+      new TransportModel('Envio Propio 2', 'Home delivery 2', 2, 2),
+      new TransportModel('Envio Propio 3', 'Home delivery 3', 2, 3),
+      new TransportModel('Envio Propio 4', 'Home delivery 4', 3, 4),
+      new TransportModel('Envio Propio 5', 'Home delivery 5', 1, 5),
     ];
   }
 
@@ -62,17 +63,7 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   createTransporter(transport: TransportModel): Observable<{}> {
-    return new Observable(observer => {
-      this.http.post<any>(this.api.get('addTransport'), transport, { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+    return this.http.patch<any>(this.api.get('transports'), [transport]);
   }
 
   /**
@@ -94,7 +85,7 @@ export class ListTransporterService {
    * @memberof ListTransporterService
    */
   deleteTransporter(idTransport: number): Observable<{}> {
-    return this.http.delete(this.api.get('getTransport', [idTransport]));
+    return this.http.delete<any>(this.api.get('getTransport', [idTransport]));
   }
 
   /**

@@ -9,6 +9,8 @@ import { DeleteDialogComponent } from '../dialogs/delete/delete-dialog.component
 import { MatDialog } from '@angular/material';
 import { ShippingMethodsService } from '../shipping-methods/shipping-methods.service';
 import { ShippingMethodsModel } from '../shipping-methods/shipping-methods.model';
+import { QuotingAdminService } from '../quoting-administrator.service';
+import { LoadingService } from '@app/core';
 
 const log = new Logger('ListTransporterComponent');
 
@@ -35,7 +37,7 @@ const log = new Logger('ListTransporterComponent');
 export class ListTransporterComponent implements OnInit {
 
   /** Initialize required variables   */
-  public listTransporters: Array<{}>;
+  public listTransporters: Array<{}> = [];
   public openModalCreate: boolean;
   public typeDialog: number;
   public idToEdit: number;
@@ -45,7 +47,9 @@ export class ListTransporterComponent implements OnInit {
     private events: EventEmitterDialogs,
     private modalService: ModalService,
     public dialog: MatDialog,
-    private serviceMethods: ShippingMethodsService
+    private serviceMethods: ShippingMethodsService,
+    private quotingService: QuotingAdminService,
+    private loadingService: LoadingService
   ) {
     this.openModalCreate = false;
   }
@@ -106,6 +110,12 @@ export class ListTransporterComponent implements OnInit {
       if (result.status === 201 || result.status === 200) {
         const body = JSON.parse(result.body.body);
         this.listTransporters = body.Data;
+        /** Validate if needs to show spinner, because doesnt finished required services */
+        if (this.quotingService.getNumberOfService()) {
+          this.loadingService.closeSpinner();
+        } else {
+          this.loadingService.viewSpinner();
+        }
       } else {
         this.modalService.showModal('errorService');
       }
@@ -117,6 +127,12 @@ export class ListTransporterComponent implements OnInit {
       if (res.statusCode === 200) {
         const body = JSON.parse(res.body);
         this.shippingMethodsList = body.Data;
+        /** Validate if needs to show spinner, because doesnt finished required services */
+        if (this.quotingService.getNumberOfService()) {
+          this.loadingService.closeSpinner();
+        } else {
+          this.loadingService.viewSpinner();
+        }
         this.getListTransporters();
       } else {
         log.error('Error al intentar obtener los metodos de envios');
@@ -163,19 +179,15 @@ export class ListTransporterComponent implements OnInit {
    * @memberof ListTransporterComponent
    */
   private deleteTransporterServ(idTransport: number, indexList: number): void {
+    this.loadingService.viewSpinner();
     this.transportService.deleteTransporter(idTransport)
       .subscribe(
         (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const response = JSON.parse(result.body.body);
-            if (response.Data) {
-              this.modalService.showModal('success');
-              this.listTransporters.splice(indexList, 1);
-            } else if (!response.Data) {
-              this.modalService.showModal('error');
-            }
+          if (result.statusCode === 201 || result.statusCode === 200) {
+            this.getListTransporters();
+            this.loadingService.closeSpinner();
           } else {
-            this.modalService.showModal('errorService');
+            this.modalService.showModal('error');
           }
         }
       );

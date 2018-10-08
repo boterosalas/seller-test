@@ -36,7 +36,7 @@ $color-blue: #3d5afe;
           }
         }
       }
-      &.buton-create {
+      &.button-create {
         border-top: 1px solid $color-gray3;
         box-sizing: border-box;
         padding: 20px 0;
@@ -63,4 +63,13 @@ $color-blue: #3d5afe;
   .cont-list-comp{
     padding: 1em 0;
   }
+}
+
+.no-items{
+  padding: 0.5em 0;
+  margin-bottom: 0.5em;
+  border-top: 1px solid #D3D3D3;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: #f3f0f0;
 }
