@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-validate-ean',
@@ -7,21 +7,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./validate-ean.component.scss']
 })
 export class ValidateEanComponent implements OnInit {
-  validateFormEan: any;
+  options: FormGroup;
 
-  constructor() { }
+  // constructor() { }
+
+  constructor(fb: FormBuilder) {
+    this.options = fb.group({
+      hideRequired: false,
+      floatLabel: 'auto',
+    });
+  }
 
   ngOnInit() {
-  this.validateFormEan = new FormGroup({
-    Ean: new FormControl('', [
-      Validators.maxLength(13),
-      Validators.minLength(7),
-      Validators.pattern('^[0-9A-Z Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
-    ]),
-    CheckEan: new FormControl
-      ('', [
-      Validators.maxLength(20),
-      Validators.pattern('^[0-9]*$')
-      ])
-    }
+  }
 }

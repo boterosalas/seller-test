@@ -1,10 +1,10 @@
-<div class="process" fxLayout.xs="column">
+<div class="process" fxLayout="column">
   <div class="process__container">
     <div class="process__item-box">
       <div class="process__circle process__circle--active">
         <span> 1 </span>
       </div>
-      <span class="process__title process__title--active">EAN</span>
+      <span class="process__title process__title--active" id="ocultarDivNom">EAN</span>
     </div>
     <div class="process__item-box">
       <div class="process__line"></div>
@@ -13,7 +13,7 @@
       <div class="process__circle process__circle--inactive">
         <span> 2 </span>
       </div>
-      <span class="process__title">Categorización</span>
+      <span class="process__title" id="ocultarDivNom">Categorización</span>
     </div>
     <div class="process__item-box">
       <div class="process__line"></div>
@@ -22,7 +22,7 @@
       <div class="process__circle process__circle--inactive">
         <span> 3 </span>
       </div>
-      <span class="process__title">Información básica</span>
+      <span class="process__title" id="ocultarDivNom">Información básica</span>
     </div>
     <div class="process__item-box">
       <div class="process__line"></div>
@@ -31,7 +31,7 @@
       <div class="process__circle process__circle--inactive">
         <span> 4 </span>
       </div>
-      <span class="process__title">Especificaciones</span>
+      <span class="process__title" id="ocultarDivNom">Especificaciones</span>
     </div>
     <div class="process__item-box">
       <div class="process__line"></div>
@@ -40,9 +40,13 @@
       <div class="process__circle process__circle--inactive">
         <span> 5 </span>
       </div>
-      <span class="process__title">Imágenes</span>
+      <span class="process__title" id="ocultarDivNom">Imágenes</span>
     </div>
   </div>
+</div>
+
+<div class="mostrarNomRes" id="styleNomRes">
+  1. EAN
 </div>
 
 <div>
