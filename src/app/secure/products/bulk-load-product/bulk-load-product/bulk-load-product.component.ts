@@ -373,7 +373,10 @@ export class BulkLoadProductComponent implements OnInit {
               iColor: this.arrayNecessaryData[0].indexOf('Color'),
               iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
               iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
+              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+              iDescUnidadMedida: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+              iFactConversion: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+              iFactEscurrido: this.arrayNecessaryData[0].indexOf('Factor escurrido')
             };
 
             /*
@@ -438,6 +441,63 @@ export class BulkLoadProductComponent implements OnInit {
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
+              }
+            } else if (j === iVal.iDescUnidadMedida) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
+                if (!validFormatiDescUnidadMedida && validFormatiDescUnidadMedida === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormatUnidad',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Descripcion Unidad de Medida'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iFactConversion) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiFactConversion = this.validFormat(res[i][j], 'factConversion');
+                if (!validFormatiFactConversion && validFormatiFactConversion === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Factor de conversion'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iFactEscurrido) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiFactEscurrido = this.validFormat(res[i][j], 'factEscurrido');
+                if (!validFormatiFactEscurrido && validFormatiFactEscurrido === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Factor escurrido'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
               }
             } else if (j === iVal.iTipoDeProducto) {
               if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
@@ -872,6 +932,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
+      DescUnidMeasure: res[i][iVal.iDescUnidadMedida] ? res[i][iVal.iDescUnidadMedida].trim() : null,
+      FactConversion: res[i][iVal.iFactConversion] ? res[i][iVal.iFactConversion].trim() : null,
+      FactDrained: res[i][iVal.iFactEscurrido] ? res[i][iVal.iFactEscurrido].trim() : null,
       features: []
     };
 
@@ -914,7 +977,10 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iURLDeImagen4 &&
           k !== iVal.iURLDeImagen5 &&
           k !== iVal.iModificacionImagen &&
-          k !== iVal.iLogisticExito
+          k !== iVal.iLogisticExito &&
+          k !== iVal.iDescUnidadMedida &&
+          k !== iVal.iFactConversion &&
+          k !== iVal.iFactEscurrido
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -988,6 +1054,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
+      DescUnidMeasure: res[index][iVal.iDescUnidadMedida],
+      FactConversion: res[index][iVal.iFactConversion],
+      FactDrained: res[index][iVal.iFactEscurrido],
       isVariant: variant
     };
 
@@ -1053,6 +1122,9 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
+      this.arrayInformation[index].errorDescUnidMeasure = false;
+      this.arrayInformation[index].errorFactConversion = false;
+      this.arrayInformation[index].errorFactDrained = false;
     }
   }
 
@@ -1167,6 +1239,9 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
+    const formatiDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
+    const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    const formatFactEscurrido = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1175,6 +1250,27 @@ export class BulkLoadProductComponent implements OnInit {
       switch (validation) {
         case 'ean':
           if ((inputtxt.match(formatEan))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'descUniMedida':
+          if ((inputtxt.match(formatiDescUnidadMedida))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'factConversion':
+          if ((inputtxt.match(formatFactConversion))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'factEscurrido':
+          if ((inputtxt.match(formatFactEscurrido))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1356,7 +1452,10 @@ export class BulkLoadProductComponent implements OnInit {
       'URL de Imagen 3': undefined,
       'URL de Imagen 4': undefined,
       'URL de Imagen 5': undefined,
-      'Modificacion Imagen': undefined
+      'Modificacion Imagen': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Factor escurrido': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');
