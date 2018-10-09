@@ -61,6 +61,7 @@ export class ListZonesComponent implements OnInit {
    * @memberof ListZonesComponent
    */
   public getListZones(): void {
+    this.loadingService.viewSpinner();
     this.service.getListZones().subscribe((result: any) => {
       if (result.status === 201 || result.status === 200) {
         const body = JSON.parse(result.body.body);

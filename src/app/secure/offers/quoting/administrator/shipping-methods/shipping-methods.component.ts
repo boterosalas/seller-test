@@ -31,6 +31,7 @@ export class ShippingMethodsComponent implements OnInit {
    * @memberof ShippingMethodsComponent
    */
   public getRequiredData(): void {
+    this.loadingService.viewSpinner();
     this.service.getShippingMethods().subscribe((res: any) => {
       if (res.statusCode === 200) {
         const body = JSON.parse(res.body);
