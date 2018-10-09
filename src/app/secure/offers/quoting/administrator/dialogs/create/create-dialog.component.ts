@@ -228,7 +228,7 @@ export class CreateDialogComponent implements OnInit {
     dataToSend.push(dataToAdd);
     this.zoneService.addZone(dataToSend).subscribe((result: any) => {
       if (result.status === 201 || result.status === 200) {
-        this.events.openDialogCreate(false);
+        this.closeDialog(false);
         this.showAddToast();
       } else {
         this.modalService.showModal('errorService');
@@ -250,7 +250,7 @@ export class CreateDialogComponent implements OnInit {
           if (result.statusCode === 201 || result.statusCode === 200) {
             const response = JSON.parse(result.body);
             if (response.Data) {
-              this.events.openDialogCreate(false);
+              this.closeDialog(false);
               this.showUpdateToast();
             } else if (!response.Data) {
               this.modalService.showModal('error');

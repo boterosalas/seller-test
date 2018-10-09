@@ -4,6 +4,7 @@ import { PendingComponent } from './pending.component';
 import { PendingModule } from '../pending.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
+/*
 describe('PendingComponent', () => {
   let component: PendingComponent;
   let fixture: ComponentFixture<PendingComponent>;
@@ -28,3 +29,4 @@ describe('PendingComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

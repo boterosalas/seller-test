@@ -16,13 +16,6 @@ export class ListTransporterService {
     private http: HttpClient,
     private api: EndpointService
   ) {
-    this.transporters = [
-      new TransportModel('Envio Propio', 'Home delivery 1', 1, 1),
-      new TransportModel('Envio Propio 2', 'Home delivery 2', 2, 2),
-      new TransportModel('Envio Propio 3', 'Home delivery 3', 2, 3),
-      new TransportModel('Envio Propio 4', 'Home delivery 4', 3, 4),
-      new TransportModel('Envio Propio 5', 'Home delivery 5', 1, 5),
-    ];
   }
 
   /**
@@ -87,19 +80,4 @@ export class ListTransporterService {
   deleteTransporter(idTransport: number): Observable<{}> {
     return this.http.delete<any>(this.api.get('getTransport', [idTransport]));
   }
-
-  /**
-   * Mock to get and object.
-   *
-   * @returns {Array<TransportModel>}
-   * @memberof ListTransporterService
-   */
-  public getFakeListTransporter(): Array<TransportModel> {
-    return this.transporters;
-  }
-
-  public getFakeTransporter(idToEdit: number) {
-    return this.transporters[0];
-  }
-
 }

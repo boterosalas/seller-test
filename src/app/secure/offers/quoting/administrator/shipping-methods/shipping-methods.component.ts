@@ -37,7 +37,7 @@ export class ShippingMethodsComponent implements OnInit {
         this.shippingMethodsList = body.Data;
         /** Valida if needs to show spinner, because doesnt finished required services */
         if (this.quotingService.getNumberOfService()) {
-          this.loadingService.closeSpinner ();
+          this.loadingService.closeSpinner();
         } else {
           this.loadingService.viewSpinner();
         }

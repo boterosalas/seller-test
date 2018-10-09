@@ -32,7 +32,7 @@ const log = new Logger('ListZonesComponent');
   ],
 })
 export class ListZonesComponent implements OnInit {
-  public listZones: Array<{}>;
+  public listZones: ZoneModel[];
   public openModalCreate: boolean;
   public typeDialog = 0;
   public idToEdit: number;
@@ -66,7 +66,8 @@ export class ListZonesComponent implements OnInit {
         const body = JSON.parse(result.body.body);
         this.listZones = body.Data;
         /** Validate if needs to show spinner, because doesnt finished required services */
-        if (this.quotingService.getNumberOfService()) {
+        const closeSpinner = this.quotingService.getNumberOfService();
+        if (closeSpinner) {
           this.loadingService.closeSpinner();
         } else {
           this.loadingService.viewSpinner();

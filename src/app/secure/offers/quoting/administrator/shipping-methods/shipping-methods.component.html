@@ -7,7 +7,7 @@
     <div class="shipping-methods" fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="start start" fxLayoutAlign="center center"
       *ngFor="let shippingMethod of shippingMethodsList">
       <mat-icon>{{shippingMethod.Icon}}</mat-icon>
-      <p>{{shippingMethod.Name}}</p>
+      <p [id]="shippingMethod.Id">{{shippingMethod.Name}}</p>
     </div>
 
   </aside>

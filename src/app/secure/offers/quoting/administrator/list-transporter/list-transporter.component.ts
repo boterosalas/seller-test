@@ -37,7 +37,7 @@ const log = new Logger('ListTransporterComponent');
 export class ListTransporterComponent implements OnInit {
 
   /** Initialize required variables   */
-  public listTransporters: Array<{}> = [];
+  public listTransporters: Array<TransportModel> = [];
   public openModalCreate: boolean;
   public typeDialog: number;
   public idToEdit: number;
@@ -141,7 +141,7 @@ export class ListTransporterComponent implements OnInit {
   }
 
   public getNameMethod(idMethod: number): string {
-    let nameMethod = '';
+    let nameMethod = 'No encontrado';
     if (this.shippingMethodsList && this.shippingMethodsList.length) {
       for (let i = 0; i < this.shippingMethodsList.length; i++) {
         if (this.shippingMethodsList[i].Id === idMethod) {

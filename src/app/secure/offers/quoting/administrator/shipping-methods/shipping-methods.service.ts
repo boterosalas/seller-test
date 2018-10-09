@@ -13,18 +13,9 @@ export class ShippingMethodsService {
     private http: HttpClient,
     private api: EndpointService
   ) {
-    this.shippingMethods = [
-        new ShippingMethodsModel ('Por Categoria', 'library_books', 0),
-        new ShippingMethodsModel ('Rango de precio', 'local_offer', 0),
-        new ShippingMethodsModel ('Rango de peso', 'assignment', 0),
-    ];
   }
 
-  getFakeListShipingMethods() {
-    return this.shippingMethods;
-  }
-
-  public getShippingMethods():  Observable<Array<ShippingMethodsModel>> {
+  public getShippingMethods():  Observable<any> {
     return new Observable(observer => {
       this.http.get(this.api.get('getSendMethod'))
         .subscribe((data: any) => {

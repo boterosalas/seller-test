@@ -4,9 +4,8 @@ import { UserLoginService, UserParametersService } from '@app/core';
 import { UserInformation } from '@app/shared/models';
 import { Router } from '@angular/router';
 
-fdescribe('QuotingComponent', () => {
+describe('QuotingComponent', () => {
 
-  const router: Router = null;
 
   const userMock = new UserInformation();
   userMock.sellerId = '1';
@@ -30,6 +29,15 @@ fdescribe('QuotingComponent', () => {
       return new Promise<UserInformation>(async (resolve) => {
         resolve(userMock);
     });
+    }
+  };
+
+
+  const router = <Router>{
+    navigate(commands: any[], extras?: any): Promise<boolean> {
+      return new Promise(resolve => {
+        resolve(true);
+      });
     }
   };
 
