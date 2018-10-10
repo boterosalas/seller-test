@@ -241,7 +241,7 @@ export class DashboardComponent implements OnInit {
      */
     public isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
-            this.router.navigate([`/${RoutesConst.home}`]);
+            // this.router.navigate([`/${RoutesConst.home}`]);
         } else {
             this.getUserData();
         }
