@@ -1,16 +1,4 @@
-<!--
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="EAN">
-  </mat-form-field>
-  <mat-radio-group>
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
-  </mat-radio-group>
-</div>
--->
-
-
-
+<!-- 
 <div class="example-container">
   <mat-form-field
       [hideRequiredMarker]="options.value.hideRequired"
@@ -21,3 +9,31 @@
     <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
   </form>
 </div>
+-->
+
+<mat-step [stepControl]="eanFormGroup">
+    <form [formGroup]="eanFormGroup">
+      <ng-template matStepLabel>EAN</ng-template>
+      <div>
+        <p id="textCreateEan">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+        </p>
+      </div>
+      <mat-form-field class="distanceComponetInt" [hideRequiredMarker]="options.value.hideRequired"
+      [floatLabel]="options.value.floatLabel">
+        <input matInput placeholder="EAN" formControlName="eanCtrl" required>
+      </mat-form-field>
+      <div class="distanceComponetInt">
+        <form [formGroup]="options">
+          <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
+        </form>
+      </div>
+      <div class="buttonProcess">
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
+    </form>
+  </mat-step>
