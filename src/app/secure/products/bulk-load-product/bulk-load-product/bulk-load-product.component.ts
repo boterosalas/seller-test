@@ -470,7 +470,7 @@ export class BulkLoadProductComponent implements OnInit {
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
-                    type: 'LessThanZero',
+                    type: 'invalidFortFact',
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
@@ -489,7 +489,7 @@ export class BulkLoadProductComponent implements OnInit {
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
-                    type: 'LessThanZero',
+                    type: 'invalidFortFact',
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
@@ -1240,8 +1240,9 @@ export class BulkLoadProductComponent implements OnInit {
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
     const formatiDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
-    const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
-    const formatFactEscurrido = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
+    // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1264,6 +1265,11 @@ export class BulkLoadProductComponent implements OnInit {
           break;
           case 'factConversion':
           if ((inputtxt.match(formatFactConversion))) {
+            if (inputtxt > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
             valueReturn = true;
           } else {
             valueReturn = false;
