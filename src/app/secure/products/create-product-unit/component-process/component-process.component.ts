@@ -20,7 +20,7 @@ export class ComponentProcessComponent implements OnInit {
   imageFormGroup: FormGroup;
   options: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -28,19 +28,19 @@ export class ComponentProcessComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.eanFormGroup = this._formBuilder.group({
+    this.eanFormGroup = this.fb.group({
       eanCtrl: ['', Validators.required]
     });
-    this.categoryFormGroup = this._formBuilder.group({
+    this.categoryFormGroup = this.fb.group({
       categoryCtrl: ['', Validators.required]
     });
-    this.basicInfoFormGroup = this._formBuilder.group({
+    this.basicInfoFormGroup = this.fb.group({
       basicInfoCtrl: ['', Validators.required]
     });
-    this.especificFormGroup = this._formBuilder.group({
+    this.especificFormGroup = this.fb.group({
       especificCtrl: ['', Validators.required]
     });
-    this.imageFormGroup = this._formBuilder.group({
+    this.imageFormGroup = this.fb.group({
       imageCtrl: ['', Validators.required]
     });
   }

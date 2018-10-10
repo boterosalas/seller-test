@@ -5,7 +5,7 @@
     justify-content: space-around;
     margin: 3em 5%;
   }
-
+/*
   &__circle {
     width: 28px;
     height: 28px;
@@ -63,7 +63,7 @@
     width: 80%;
   }
 }
-
+*/
 #textCreateEan {
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
@@ -95,6 +95,7 @@
   margin: 0 13% 5% 13%;
 }
 
+/*
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-accent .mat-pseudo-checkbox-checked,
