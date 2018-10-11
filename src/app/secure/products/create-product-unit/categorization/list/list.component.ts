@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SearchService } from '../search.component.service';
 import { Logger } from '@app/core';
 import { CategoryModel } from './category.model';
@@ -12,7 +12,7 @@ const log = new Logger('TreeCategoriesComponent');
     templateUrl: './list.component.html'
 })
 
-export class ListCategorizationComponent implements OnInit {
+export class ListCategorizationComponent implements OnInit, OnChanges {
 
     /**
      * Initialize data
@@ -23,34 +23,76 @@ export class ListCategorizationComponent implements OnInit {
     @Input() searchText: string;
     listCategories: CategoryModel[];
     finishCharge = false;
+    openAllItems = false;
 
     constructor(private searchService: SearchService) { }
 
     ngOnInit() {
         this.getCategoriesList();
-        console.log(this.searchText, 'searchTextsearchTextsearchText');
+    }
+
+    ngOnChanges() {
+        this.organizedLisSearchText(this.listCategories);
+    }
+
+    public openAll(): void {
+        this.openAllItems = !this.openAllItems;
+        this.organizedLisSearchText(this.listCategories, true);
+    }
+
+    public organizedLisSearchText(list: any, openClose: boolean = false): boolean {
+        let find = false;
+        let findSons = false;
+        for (let i = 0; i < list.length; i++) {
+            if (!openClose) {
+                list[i].Show = false;
+                list[i].ModifyName = false;
+                if (list[i].Name.search(this.searchText) !== -1) {
+                    list[i].Show = true;
+                    find = true;
+                    list[i].ModifyName = list[i].Name.replace(this.searchText, '<mark>' + this.searchText + '</mark>');
+                }
+                if (list[i].Son.length) {
+                    findSons = this.organizedLisSearchText(list[i].Son);
+                    if (!find && findSons) {
+                        list[i].Show = true;
+                        find = true;
+                    }else if (!find) {
+                        find = findSons;
+                    }
+                }
+            } else {
+                list[i].Show = this.openAllItems;
+                findSons = this.organizedLisSearchText(list[i].Son, true);
+            }
+        }
+        return find;
     }
 
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((body: any) => {
-            console.log(body);
             // guardo el response
             if (body.status === 200 || true) {
                 this.listCategories = body.Data;
-                this.organizedCategoriesList(this.listCategories);
-                for (let i = 0; i < this.listCategories.length; i ++) {
-                    if (this.listCategories[i].IdParent || !this.listCategories[i].Son.length) {
-                        this.listCategories.splice(i, 1);
-                        i--;
-                    } else {
-                        this.listCategories[i].Show = true;
-                    }
-                }
-                this.finishCharge = true;
+                this.showOnlyWithSon();
             } else {
                 log.debug('ListCategorizationComponent:' + body.message);
             }
         });
+    }
+
+    public showOnlyWithSon(): void {
+        if (this.listCategories && this.listCategories.length) {
+            this.organizedCategoriesList(this.listCategories);
+            for (let i = 0; i < this.listCategories.length; i++) {
+                if (this.listCategories[i].IdParent || !this.listCategories[i].Son.length) {
+                    this.listCategories.splice(i, 1);
+                    i--;
+                }
+            }
+            console.log(this.listCategories);
+            this.finishCharge = true;
+        }
     }
 
     private getCategoryMap(model: any): CategoryModel {
@@ -74,6 +116,9 @@ export class ListCategorizationComponent implements OnInit {
             for (let j = 0; j < list.length; j++) {
                 if (list[i].Id === list[j].IdParent) {
                     list[j].Show = false;
+                    if (this.searchText && list[j].Name.search(this.searchText) !== -1) {
+                        list[j].Show = true;
+                    }
                     list[i].Son.push(list[j]);
                     list[j].touched = true;
                 }
@@ -84,13 +129,5 @@ export class ListCategorizationComponent implements OnInit {
 
         }
         return categories;
-    }
-
-    public showChild(categorie: CategoryModel): void {
-        console.log(categorie);
-        categorie.Son.forEach(element => {
-            console.log(element);
-            element.Show = true;
-        });
     }
 }

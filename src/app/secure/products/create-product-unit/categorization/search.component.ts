@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.component.service';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { ListCategorizationComponent } from './list/list.component';
 import { FormControl } from '@angular/forms';
 
 
-export interface State {
-    flag: string;
-    name: string;
-    population: string;
+export interface FilterList {
+    Id: string;
+    Name: string;
 }
 
 @Component({
@@ -23,60 +22,55 @@ export class SearchCategorizationComponent implements OnInit {
     // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
     public filteredOptions: Observable<string[]>;
 
-    stateCtrl = new FormControl();
-    filteredStates: Observable<State[]>;
-
-    states: State[] = [
-        {
-            name: 'Arkansas',
-            population: '2.978M',
-            // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-            flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-        },
-        {
-            name: 'California',
-            population: '39.14M',
-            // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-            flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-        },
-        {
-            name: 'Florida',
-            population: '20.27M',
-            // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-            flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-        },
-        {
-            name: 'Texas',
-            population: '27.47M',
-            // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-            flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-        }
-    ];
+    searchCategory = new FormControl();
+    filteredStates: Observable<FilterList[]>;
+    listCategories: any;
+    chargueList = false;
+    searchText: string;
+    searchTextInput: any;
 
     constructor(private searchService: SearchService) {
-        this.filteredStates = this.stateCtrl.valueChanges
+        this.filteredStates = this.searchCategory.valueChanges
             .pipe(
                 startWith(''),
-                map(state => state ? this._filterStates(state) : this.states.slice())
+                map(state => state ? this._filterStates(state) : this.listCategories.slice())
             );
     }
 
-    private _filterStates(value: string): State[] {
+    private _filterStates(value: string): FilterList[] {
         const filterValue = value.toLowerCase();
+        return this.listCategories.filter(state => state.Name.toLowerCase().indexOf(filterValue) === 0);
+    }
 
-        return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+    public getCategoriesList(): void {
+        this.searchService.getCategories().subscribe((body: any) => {
+            // guardo el response
+            if (body.status === 200 || true) {
+                this.listCategories = body.Data;
+                this.chargueList = true;
+            } else {
+                // log.debug('ListCategorizationComponent:' + body.message);
+            }
+        });
     }
 
     ngOnInit() {
+        this.getCategoriesList();
     }
 
     whatchValueInput(event: any): void {
+        this.searchTextInput = event;
     }
 
     public keyDownFunction(event: any): void {
         // keyCode 13 -> Enter
         if (event.keyCode === 13) {
-            console.log(event);
+            // this.chargueList = !this.chargueList;
+            if (this.searchTextInput.Name) {
+                this.searchText = this.searchTextInput.Name;
+            } else {
+                this.searchText = this.searchTextInput;
+            }
         }
     }
 }
