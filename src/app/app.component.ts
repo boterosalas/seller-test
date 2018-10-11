@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation, AfterViewChecked } from '@angular/core';
-import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, ModalComponent, ModalService, UserLoginService } from '@app/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, ModalComponent, ModalService, UserLoginService } from '@app/core';
+import { environment } from '@env/environment';
 
+const log = new Logger('AppComponent');
 
 @Component({
   selector: 'app-root',
@@ -25,6 +27,10 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private modalService: ModalService,
     private cdRef: ChangeDetectorRef
   ) {
+    // Setup logger
+    if (environment.production) {
+      Logger.enableProductionMode();
+    }
   }
 
   ngOnInit() {
@@ -47,13 +53,13 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
-    const mythis = this;
+    const self = this;
     this.cognito.getIdToken({
       callback() {
       },
       callbackWithParam(token: any) {
         // Include the passed-in callback here as well so that it's executed downstream
-        mythis.awsUtil.initAwsService(null, isLoggedIn, token);
+        self.awsUtil.initAwsService(null, isLoggedIn, token);
       }
     });
   }

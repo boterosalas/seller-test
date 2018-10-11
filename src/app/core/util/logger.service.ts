@@ -1,3 +1,5 @@
+import { Log, Level } from '@app/shared/models/log-cloudwatch.model';
+
 /**
  * Simple logger system with the possibility of registering custom outputs.
  *
@@ -64,9 +66,23 @@ export class Logger {
    * Enables production mode.
    * Sets logging level to LogLevel.Warning.
    */
-  static enableProductionMode() {
-    Logger.level = LogLevel.Warning;
+  static enableProductionMode(level: LogLevel = LogLevel.Warning) {
+    Logger.level = level;
   }
+
+  static setServerConfig(url: string, authToken: string, levelReport: LogLevel = LogLevel.Error) {
+    Logger.server = {
+      url: url,
+      levelReport: levelReport,
+      authToken: authToken
+    }
+  }
+
+  private static server = {
+    url: null,
+    levelReport: LogLevel.Error,
+    authToken: null
+  };
 
   constructor(private source?: string) { }
 
@@ -102,12 +118,67 @@ export class Logger {
     this.log(console.error, LogLevel.Error, objects);
   }
 
+  async sendToServer(log: Log) {
+    try {
+      const url = Logger.server.url;
+      const authToken = Logger.server.authToken;
+      if (url && authToken) {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': authToken,
+          },
+          body: JSON.stringify(log)
+        });
+        const body = await response.json();
+        if (response.status === 200) {
+          this.debug('Log stored in CloudWatch: ', log);
+        } else {
+          this.debug('The log could not be saved in CloudWatch: ', response, body);
+        }
+        return body;
+      }
+    } catch (error) {
+      console.error('Error when saving the log in CloudWatch: ', error)
+    }
+  }
+
   private log(func: Function, level: LogLevel, objects: any[]) {
     if (level <= Logger.level) {
       const log = this.source ? ['[' + this.source + ']'].concat(objects) : objects;
       func.apply(console, log);
       Logger.outputs.forEach((output) => output.apply(output, [this.source, level].concat(objects)));
     }
+    if (level <= Logger.server.levelReport) {
+      const hasMessage = typeof objects[0] === 'string';
+      const message = hasMessage ? objects[0] : 'Mensaje no definido por el desarrollador.';
+      this.sendToServer({
+        level: this.getLevelServer(level),
+        message: message,
+        context: hasMessage ? objects.slice(1) : objects
+      });
+    }
+  }
+
+  private getLevelServer(level: LogLevel): Level {
+    let levelServer: Level;
+    switch (level) {
+      case LogLevel.Debug:
+        levelServer = Level.DEBUG;
+        break;
+      case LogLevel.Error:
+        levelServer = Level.ERROR;
+        break;
+      case LogLevel.Info:
+        levelServer = Level.INFO;
+        break;
+      case LogLevel.Warning:
+        levelServer = Level.WARN;
+        break;
+    }
+    return levelServer;
   }
 
 }

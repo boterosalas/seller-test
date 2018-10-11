@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-
 import { environment } from '@env/environment';
-
 import { AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
 import * as STS from 'aws-sdk/clients/sts';
 import * as AWS from 'aws-sdk/global';
+
+import { EndpointService } from '../http';
+import { Logger } from '../util/logger.service';
 import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
 import { DynamoDBService } from './ddb.service';
-
-import { Logger } from '../util/logger.service';
 
 const log = new Logger('UserLoginService');
 
@@ -20,11 +19,24 @@ const cognitoEnv = environment.cognito;
 @Injectable()
 export class UserLoginService {
 
-  private onLoginSuccess = (callback: CognitoCallback, session: CognitoUserSession) => {
+  constructor(
+    private ddb: DynamoDBService,
+    private cognitoUtil: CognitoUtil,
+    private api: EndpointService
+  ) { }
+
+  configServerLogs() {
+    // Configurar datos del servidor para los logs.
+    const token = this.cognitoUtil.getTokenLocalStorage();
+    Logger.setServerConfig(this.api.get('setCloudWatchLog'), token);
+  }
+
+  private onLoginSuccess(callback: CognitoCallback, session: CognitoUserSession) {
 
     log.debug('In authenticateUser onSuccess callback');
 
-    AWS.config.credentials = this.cognitoUtil.buildCognitoCreds(session.getIdToken().getJwtToken());
+    const token = session.getIdToken().getJwtToken();
+    AWS.config.credentials = this.cognitoUtil.buildCognitoCreds(token);
 
     // So, when CognitoIdentity authenticates a user, it doesn't actually hand us the IdentityID,
     // used by many of our other handlers. This is handled by some sly underhanded calls to AWS Cognito
@@ -38,17 +50,16 @@ export class UserLoginService {
       clientParams.endpoint = cognitoEnv.sts_endpoint;
     }
     const sts = new STS(clientParams);
-    sts.getCallerIdentity(function (err: any, data: any) {
+    sts.getCallerIdentity((err: any, data: any) => {
       log.debug('UserLoginService: Successfully set the AWS credentials');
+      // Configurar datos del servidor para los logs.
+      this.configServerLogs();
       callback.cognitoCallback(null, session);
     });
   }
 
   private onLoginError = (callback: CognitoCallback, err) => {
     callback.cognitoCallback(err.message, null);
-  }
-
-  constructor(public ddb: DynamoDBService, public cognitoUtil: CognitoUtil) {
   }
 
   /**
@@ -146,12 +157,13 @@ export class UserLoginService {
     const cognitoUser = this.cognitoUtil.getCurrentUser();
 
     if (cognitoUser != null) {
-      cognitoUser.getSession(function (err: any, session: any) {
+      cognitoUser.getSession((err: any, session: any) => {
         if (err) {
           log.debug('UserLoginService: Couldn\'t get the session: ' + err, err.stack);
           callback.isLoggedIn(err, false);
         } else {
           // UserLoginService: Session is ' + session.isValid()
+          this.configServerLogs();
           callback.isLoggedIn(err, session.isValid());
         }
       });
