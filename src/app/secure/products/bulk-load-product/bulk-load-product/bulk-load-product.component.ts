@@ -932,9 +932,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
-      DescUnidMeasure: res[i][iVal.iDescUnidadMedida] ? res[i][iVal.iDescUnidadMedida].trim() : null,
-      FactConversion: res[i][iVal.iFactConversion] ? res[i][iVal.iFactConversion].trim() : null,
-      FactDrained: res[i][iVal.iFactEscurrido] ? res[i][iVal.iFactEscurrido].trim() : null,
+      MeasurementUnit: res[i][iVal.iDescUnidadMedida] ? res[i][iVal.iDescUnidadMedida].trim() : null,
+      ConversionFactor : res[i][iVal.iFactConversion] ? res[i][iVal.iFactConversion].trim() : null,
+      DrainedFactor : res[i][iVal.iFactEscurrido] ? res[i][iVal.iFactEscurrido].trim() : null,
       features: []
     };
 
@@ -1092,9 +1092,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
-      DescUnidMeasure: res[index][iVal.iDescUnidadMedida],
-      FactConversion: res[index][iVal.iFactConversion],
-      FactDrained: res[index][iVal.iFactEscurrido],
+      MeasurementUnit: res[index][iVal.iDescUnidadMedida],
+      ConversionFactor : res[index][iVal.iFactConversion],
+      DrainedFactor : res[index][iVal.iFactEscurrido],
       isVariant: variant
     };
 
@@ -1160,9 +1160,9 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
-      this.arrayInformation[index].errorDescUnidMeasure = false;
-      this.arrayInformation[index].errorFactConversion = false;
-      this.arrayInformation[index].errorFactDrained = false;
+      this.arrayInformation[index].errorMeasurementUnit = false;
+      this.arrayInformation[index].errorConversionFactor  = false;
+      this.arrayInformation[index].errorDrainedFactor  = false;
     }
   }
 

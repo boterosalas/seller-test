@@ -671,57 +671,57 @@
           </td>
         </ng-container>
 
-        <!-- DescUnidMeasure Column -->
-        <ng-container matColumnDef="DescUnidMeasure">
+        <!-- MeasurementUnit Column -->
+        <ng-container matColumnDef="MeasurementUnit">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Des. Unidad Medida</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorDescUnidMeasure == true }" *matCellDef="let element"
-            matTooltip="{{element.DescUnidMeasure}}">
-            <div class="information" *ngIf="element.DescUnidMeasure != undefined && element.DescUnidMeasure != '' && element.DescUnidMeasure !== null">
-              <p class="sc-text-normal">{{element.DescUnidMeasure}}</p>
+          <td mat-cell [ngClass]="{'selected-error': element.errorMeasurementUnit == true }" *matCellDef="let element"
+            matTooltip="{{element.MeasurementUnit}}">
+            <div class="information" *ngIf="element.MeasurementUnit != undefined && element.MeasurementUnit != '' && element.MeasurementUnit !== null">
+              <p class="sc-text-normal">{{element.MeasurementUnit}}</p>
             </div>
-            <div class="information" *ngIf="element.DescUnidMeasure == undefined || element.DescUnidMeasure == '' || element.DescUnidMeasure == null">
+            <div class="information" *ngIf="element.MeasurementUnit == undefined || element.MeasurementUnit == '' || element.MeasurementUnit == null">
               <p class="text-error"> -
               </p>
             </div>
           </td>
         </ng-container>
 
-         <!-- FactConversion Column -->
-         <ng-container matColumnDef="FactConversion">
+         <!-- ConversionFactor  Column -->
+         <ng-container matColumnDef="ConversionFactor ">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Factor Conversion</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorFactConversion == true }" *matCellDef="let element"
-            matTooltip="{{element.FactConversion}}">
-            <div class="information" *ngIf="element.FactConversion != undefined && element.FactConversion != '' && element.FactConversion !== null" maxlength="11">
-              <p class="sc-text-normal">{{element.FactConversion}}</p>
+          <td mat-cell [ngClass]="{'selected-error': element.errorConversionFactor  == true }" *matCellDef="let element"
+            matTooltip="{{element.ConversionFactor }}">
+            <div class="information" *ngIf="element.ConversionFactor  != undefined && element.ConversionFactor  != '' && element.ConversionFactor  !== null" maxlength="11">
+              <p class="sc-text-normal">{{element.ConversionFactor }}</p>
             </div>
-            <div class="information" *ngIf="element.FactConversion == undefined || element.FactConversion == '' || element.FactConversion == null">
+            <div class="information" *ngIf="element.ConversionFactor  == undefined || element.ConversionFactor  == '' || element.ConversionFactor  == null">
               <p class="text-error"> -
               </p>
             </div>
           </td>
         </ng-container>
 
-         <!-- FactDrained Column -->
-         <ng-container matColumnDef="FactDrained">
+         <!-- DrainedFactor Column -->
+         <ng-container matColumnDef="DrainedFactor">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Imagen 5</p>
             </div>
           </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl5 == true }" *matCellDef="let element"
-            matTooltip="{{element.FactDrained}}">
-            <div class="information" *ngIf="element.FactDrained != undefined && element.FactDrained != ''">
-              <p class="sc-text-normal">{{element.FactDrained}}</p>
+          <td mat-cell [ngClass]="{'selected-error': element.errorDrainedFactor == true }" *matCellDef="let element"
+            matTooltip="{{element.DrainedFactor}}">
+            <div class="information" *ngIf="element.DrainedFactor != undefined && element.DrainedFactor != ''">
+              <p class="sc-text-normal">{{element.DrainedFactor}}</p>
             </div>
-            <div class="information" *ngIf="element.FactDrained == undefined || element.FactDrained == ''">
+            <div class="information" *ngIf="element.DrainedFactor == undefined || element.DrainedFactor == ''">
               <p class="text-error"> -
               </p>
             </div>

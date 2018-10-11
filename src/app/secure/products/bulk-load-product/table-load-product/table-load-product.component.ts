@@ -61,9 +61,9 @@ export class TableLoadProductComponent implements OnInit {
     'HexColourCodePDP',
     'HexColourName',
     'IsLogisticsExito',
-    'DescUnidMeasure',
-    'FactConversion',
-    'FactDrained'
+    'MeasurementUnit',
+    'ConversionFactor',
+    'DrainedFactor'
   ];
 
   /**
