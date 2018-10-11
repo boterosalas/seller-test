@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
         this.user = await this.userParams.getUserData();
 
         if (this.user.sellerProfile !== 'seller') {
-            this.router.navigate([`/${RoutesConst.home}`]);
+            this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
         } else {
             this.getOrdersData();
             this.getLastSales();
