@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class ValidateEanComponent implements OnInit {
   options: FormGroup;
+  eanGroup: FormGroup;
   // constructor() { }
 
   constructor(private fb: FormBuilder) {
@@ -18,5 +19,8 @@ export class ValidateEanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.eanGroup = this.fb.group({
+      eanCtrl: ['', Validators.required]
+    });
   }
 }
