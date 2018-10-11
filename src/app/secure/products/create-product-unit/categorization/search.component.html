@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <form id="search-form" class="search mat-typography" (keydown)="keyDownFunction($event)">
+        <mat-form-field class="input-search">
+            <!-- Icon search -->
+            <mat-icon id="icon-search" class="icon-search" matPrefix>search</mat-icon>
+
+            <!-- Input search -->
+            <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)"
+                matInput [matAutocomplete]="auto">
+        </mat-form-field>
+
+        <!-- Autocomplete -->
+        <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
+            <mat-option id="option-search-number-{{position}}" (click)="viewStoreInformation(option)" class="autocomplete-list"
+                *ngFor="let option of filteredOptions | async; let position = index" [value]="option.Name">
+                <mat-icon>store</mat-icon>
+                {{option.Name}}
+            </mat-option>
+        </mat-autocomplete>
+    </form>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+            <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+            <span>{{state.name}}</span> |
+            <small>Population: {{state.population}}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+</div>
+<app-list-categorization [searchText]="searchText"></app-list-categorization>

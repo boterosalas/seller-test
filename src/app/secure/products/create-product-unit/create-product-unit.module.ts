@@ -9,7 +9,11 @@ import { CreateUnutaryProductComponent } from './create-unutary-product/create-u
 import { UnitProductRoutingModule } from '@app/secure/products/create-product-unit/create-product-unit.routing';
 import { ComponentProcessComponent } from './component-process/component-process.component';
 import { ValidateEanComponent } from '@app/secure/products/create-product-unit/validate-ean/validate-ean.component';
-
+import { SearchCategorizationComponent } from './categorization/search.component';
+import { FormsModule } from '@angular/forms';
+import { SearchService } from './categorization/search.component.service';
+import { ListCategorizationComponent  } from './categorization/list/list.component';
+import { TreeComponent  } from './categorization/list/tree.component';
 
 @NgModule({
   imports: [
@@ -18,21 +22,29 @@ import { ValidateEanComponent } from '@app/secure/products/create-product-unit/v
     ReactiveFormsModule,
     BrowserAnimationsModule,
     UnitProductRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   declarations: [
     CreateUnutaryProductComponent,
     ComponentProcessComponent,
-    ValidateEanComponent
+    ValidateEanComponent,
+    SearchCategorizationComponent,
+    ListCategorizationComponent,
+    TreeComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
     ComponentProcessComponent,
-    ValidateEanComponent
+    ValidateEanComponent,
+    SearchCategorizationComponent,
+    ListCategorizationComponent,
+    TreeComponent
   ],
   entryComponents: [
   ],
-  providers: [
+  providers: [,
+    SearchService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ]
