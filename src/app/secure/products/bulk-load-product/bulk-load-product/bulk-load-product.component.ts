@@ -880,10 +880,10 @@ export class BulkLoadProductComponent implements OnInit {
 
       if (errorInCell) {
         this.addRowToTable(res, i, iVal, variant);
-        errorInCell = false;
       }
 
-      this.addInfoTosend(res, i, iVal, variant);
+      this.addInfoTosend(res, i, iVal, variant, errorInCell);
+      errorInCell = false;
     }
 
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
@@ -900,7 +900,7 @@ export class BulkLoadProductComponent implements OnInit {
    * @param {any} index
    * @memberof BulkLoadProductComponent
    */
-  addInfoTosend(res: any, i: any, iVal: any, variant?: any) {
+  addInfoTosend(res: any, i: any, iVal: any, variant?: any, errorInCell: boolean = false) {
     const regex = new RegExp('"', 'g');
 
     const newObjectForSend = {
@@ -992,6 +992,7 @@ export class BulkLoadProductComponent implements OnInit {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
+                this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
                 newObjectForSend.features.push(newFeatures);
               }
             }
@@ -999,6 +1000,7 @@ export class BulkLoadProductComponent implements OnInit {
             if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
               newFeatures['key'] = res[0][k].trim();
               newFeatures['value'] = res[i][k].trim();
+              this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
               newObjectForSend.features.push(newFeatures);
             }
           }
@@ -1009,6 +1011,42 @@ export class BulkLoadProductComponent implements OnInit {
     }
 
     this.arrayInformationForSend.push(newObjectForSend);
+  }
+
+  /**
+   * Function to validate the required feature format.
+   * And introduce error in two list, one on them to show error position.
+   * And second one to show table with principal data. 
+   * @author luis.echeverry
+   * @param {*} res
+   * @param {*} i
+   * @param {*} k
+   * @param {*} iVal
+   * @param {*} featureValue
+   * @param {*} [variant]
+   * @returns {boolean}
+   * @memberof BulkLoadProductComponent
+   */
+  validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
+    const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
+    if (featureValue.length > 200 || !featureValue.match(format)) {
+      this.countErrors += 1;
+      const itemLog = {
+        row: this.arrayInformation.length,
+        column: i,
+        type: 'invalidFormat',
+        columna: k + 1,
+        fila: i + 1,
+        positionRowPrincipal: i,
+        dato: 'Feature'
+      };
+      this.listLog.push(itemLog);
+      if (!errorInCell) {
+        this.addRowToTable(res, i, iVal, variant);
+      }
+      return true;
+    }
+    return false;
   }
 
   /**

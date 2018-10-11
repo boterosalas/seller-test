@@ -10,7 +10,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.secureSeller}`,
-      redirectTo: `/${RoutesConst.sellerCenterOrders}`,
+      redirectTo: `/${RoutesConst.sellerCenterIntDashboard}`,
       pathMatch: 'full',
     },
     {
