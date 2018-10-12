@@ -63,6 +63,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                 }
             } else {
                 list[i].Show = this.openAllItems;
+                list[i].ModifyName = null;
                 findSons = this.organizedLisSearchText(list[i].Son, true);
             }
         }

@@ -1,4 +1,6 @@
 
 
 <div (click)="openAll()">Abrir</div>
-<app-tree [treeData]=listCategories [open]="true" *ngIf="finishCharge"></app-tree>
+<div style="margin: 20px;">
+    <app-tree [treeData]=listCategories [open]="true" *ngIf="finishCharge"></app-tree>
+</div>

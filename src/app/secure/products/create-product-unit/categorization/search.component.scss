@@ -83,9 +83,24 @@ $height-input: 25px;
     list-style-type: none;
     .tree-item {
         padding-top: 2px;
+        color: #757474;
+        &-father{
+            color: black;
+        }
     }
+    
     .tree-item-categories {
         padding: 0.5em 0;
         border-bottom: 1px solid #e0e0e0;
+    }
+    .tree-item-selected .tree-item{
+        margin-left: 1em;
+    }
+    .tree-item-selected:hover { 
+        background-color: #efeded;
+        cursor: pointer;
+    }
+    .material-icons{
+        cursor: pointer;
     }
 }
