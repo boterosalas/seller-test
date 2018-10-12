@@ -46,6 +46,18 @@
             <span class="error-string">fila #{{item.fila}}</span> deber ser 'Technology' o 'Clothing'.
           </p>
 
+          <p matLine *ngIf="item.type == 'invalidFormatUnidad'" style="white-space: normal;overflow: visible;">El dato
+            en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> deber ser 'Gramo', 'Mililitro', 'Metro' o 'Unidad'.
+          </p>
+
+          <p matLine *ngIf="item.type == 'invalidFortFact'" style="white-space: normal;overflow: visible;">El dato
+            en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span>  no cumple con el formato.
+          </p>
+
           <p matLine *ngIf="item.type == 'invalidFormat'" style="white-space: normal;overflow: visible;">El dato
             en la
             <span class="error-string">columna #{{ item.columna }}</span> de la

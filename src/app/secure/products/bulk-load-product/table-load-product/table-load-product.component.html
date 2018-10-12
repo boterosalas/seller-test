@@ -671,6 +671,64 @@
           </td>
         </ng-container>
 
+        <!-- MeasurementUnit Column -->
+        <ng-container matColumnDef="MeasurementUnit">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Des. Unidad Medida</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorMeasurementUnit == true }" *matCellDef="let element"
+            matTooltip="{{element.MeasurementUnit}}">
+            <div class="information" *ngIf="element.MeasurementUnit != undefined && element.MeasurementUnit != '' && element.MeasurementUnit !== null">
+              <p class="sc-text-normal">{{element.MeasurementUnit}}</p>
+            </div>
+            <div class="information" *ngIf="element.MeasurementUnit == undefined || element.MeasurementUnit == '' || element.MeasurementUnit == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+         <!-- ConversionFactor  Column -->
+         <ng-container matColumnDef="ConversionFactor ">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Factor Conversion</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorConversionFactor  == true }" *matCellDef="let element"
+            matTooltip="{{element.ConversionFactor }}">
+            <div class="information" *ngIf="element.ConversionFactor  != undefined && element.ConversionFactor  != '' && element.ConversionFactor  !== null" maxlength="11">
+              <p class="sc-text-normal">{{element.ConversionFactor }}</p>
+            </div>
+            <div class="information" *ngIf="element.ConversionFactor  == undefined || element.ConversionFactor  == '' || element.ConversionFactor  == null">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+         <!-- DrainedFactor Column -->
+         <ng-container matColumnDef="DrainedFactor">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Imagen 5</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorDrainedFactor == true }" *matCellDef="let element"
+            matTooltip="{{element.DrainedFactor}}">
+            <div class="information" *ngIf="element.DrainedFactor != undefined && element.DrainedFactor != ''">
+              <p class="sc-text-normal">{{element.DrainedFactor}}</p>
+            </div>
+            <div class="information" *ngIf="element.DrainedFactor == undefined || element.DrainedFactor == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.Ean}}" *matRowDef="let index=index;let row; columns: displayedColumns;"

@@ -1,0 +1,23 @@
+<!--
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="EAN">
+  </mat-form-field>
+  <mat-radio-group>
+    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
+  </mat-radio-group>
+</div>
+-->
+
+
+
+<div class="example-container">
+  <mat-form-field
+      [hideRequiredMarker]="options.value.hideRequired"
+      [floatLabel]="options.value.floatLabel">
+    <input matInput placeholder="EAN" required>
+  </mat-form-field>
+  <form [formGroup]="options">
+    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
+  </form>
+</div>
