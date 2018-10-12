@@ -18,7 +18,6 @@ export enum Level {
   DEBUG = 'DEBUG'
 }
 
-
 /**
  * Módelo para crear los log.
  *

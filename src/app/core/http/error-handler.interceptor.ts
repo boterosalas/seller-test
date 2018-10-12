@@ -49,8 +49,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         this.snackBar.open('No se pudo realizar la petición al servidor, Ocurrió un error.', 'Cerrar', {
           duration: 3000,
         });
+        log.error(`${message} `, error);
       }
-      log.error(`${message} `, error);
     }
 
     throw error;

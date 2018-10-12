@@ -26,15 +26,16 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private loadingService: LoadingService,
     private modalService: ModalService,
     private cdRef: ChangeDetectorRef
-  ) {
-    // Setup logger
+  ) { }
+
+  ngOnInit() {
+    // Configurar logs.
     if (environment.production) {
       Logger.enableProductionMode();
     }
-  }
-
-  ngOnInit() {
+    // Validar autenticación.
     this.userService.isAuthenticated(this);
+    // Escuchar eventos para abrir la modal global.
     this.modalService.modals.subscribe(type => {
       setTimeout(() => {
         this.modalComponent.showModal(type);

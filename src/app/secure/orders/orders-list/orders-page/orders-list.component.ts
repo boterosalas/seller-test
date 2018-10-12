@@ -126,9 +126,6 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
-    log.debug({
-      otra: 'otra cosaa'
-    });
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
