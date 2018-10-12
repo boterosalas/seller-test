@@ -374,9 +374,9 @@ export class BulkLoadProductComponent implements OnInit {
               iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
               iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
               iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-              iDescUnidadMedida: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
-              iFactConversion: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
-              iFactEscurrido: this.arrayNecessaryData[0].indexOf('Factor escurrido')
+              iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+              iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido')
             };
 
             /*
@@ -442,10 +442,10 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iDescUnidadMedida) {
+            } else if (j === iVal.iMeasurementUnit) {
               if (res[i][j] !== undefined && res[i][j] !== '') {
-                const validFormatiDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
-                if (!validFormatiDescUnidadMedida && validFormatiDescUnidadMedida === false) {
+                const validformatDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
+                if (!validformatDescUnidadMedida && validformatDescUnidadMedida === false) {
                   this.countErrors += 1;
                   const row = i + 1, column = j + 1;
                   const itemLog = {
@@ -461,10 +461,10 @@ export class BulkLoadProductComponent implements OnInit {
                   errorInCell = true;
                 }
               }
-            } else if (j === iVal.iFactConversion) {
+            } else if (j === iVal.iConversionFactor) {
               if (res[i][j] !== undefined && res[i][j] !== '') {
-                const validFormatiFactConversion = this.validFormat(res[i][j], 'factConversion');
-                if (!validFormatiFactConversion && validFormatiFactConversion === false) {
+                const validformatFactConversion = this.validFormat(res[i][j], 'factConversion');
+                if (!validformatFactConversion && validformatFactConversion === false) {
                   this.countErrors += 1;
                   const row = i + 1, column = j + 1;
                   const itemLog = {
@@ -480,10 +480,10 @@ export class BulkLoadProductComponent implements OnInit {
                   errorInCell = true;
                 }
               }
-            } else if (j === iVal.iFactEscurrido) {
+            } else if (j === iVal.iDrainedFactor) {
               if (res[i][j] !== undefined && res[i][j] !== '') {
-                const validFormatiFactEscurrido = this.validFormat(res[i][j], 'factEscurrido');
-                if (!validFormatiFactEscurrido && validFormatiFactEscurrido === false) {
+                const validformatFactEscurrido = this.validFormat(res[i][j], 'factEscurrido');
+                if (!validformatFactEscurrido && validformatFactEscurrido === false) {
                   this.countErrors += 1;
                   const row = i + 1, column = j + 1;
                   const itemLog = {
@@ -932,9 +932,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
-      MeasurementUnit: res[i][iVal.iDescUnidadMedida] ? res[i][iVal.iDescUnidadMedida].trim() : null,
-      ConversionFactor : res[i][iVal.iFactConversion] ? res[i][iVal.iFactConversion].trim() : null,
-      DrainedFactor : res[i][iVal.iFactEscurrido] ? res[i][iVal.iFactEscurrido].trim() : null,
+      MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
+      ConversionFactor : res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
+      DrainedFactor : res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
       features: []
     };
 
@@ -978,9 +978,9 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iURLDeImagen5 &&
           k !== iVal.iModificacionImagen &&
           k !== iVal.iLogisticExito &&
-          k !== iVal.iDescUnidadMedida &&
-          k !== iVal.iFactConversion &&
-          k !== iVal.iFactEscurrido
+          k !== iVal.iMeasurementUnit &&
+          k !== iVal.iConversionFactor &&
+          k !== iVal.iDrainedFactor
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -1016,7 +1016,7 @@ export class BulkLoadProductComponent implements OnInit {
   /**
    * Function to validate the required feature format.
    * And introduce error in two list, one on them to show error position.
-   * And second one to show table with principal data. 
+   * And second one to show table with principal data.
    * @author luis.echeverry
    * @param {*} res
    * @param {*} i
@@ -1092,9 +1092,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
-      MeasurementUnit: res[index][iVal.iDescUnidadMedida],
-      ConversionFactor : res[index][iVal.iFactConversion],
-      DrainedFactor : res[index][iVal.iFactEscurrido],
+      MeasurementUnit: res[index][iVal.iMeasurementUnit],
+      ConversionFactor: res[index][iVal.iConversionFactor],
+      DrainedFactor: res[index][iVal.iDrainedFactor],
       isVariant: variant
     };
 
@@ -1277,7 +1277,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
-    const formatiDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
+    const formatDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
     const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
     // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
     const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
@@ -1295,7 +1295,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
           case 'descUniMedida':
-          if ((inputtxt.match(formatiDescUnidadMedida))) {
+          if ((inputtxt.match(formatDescUnidadMedida))) {
             valueReturn = true;
           } else {
             valueReturn = false;

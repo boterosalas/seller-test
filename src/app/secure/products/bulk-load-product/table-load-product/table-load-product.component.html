@@ -690,24 +690,42 @@
           </td>
         </ng-container>
 
-         <!-- ConversionFactor  Column -->
-         <ng-container matColumnDef="ConversionFactor ">
+
+        <ng-container matColumnDef="ConversionFactor">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Factor Conversion</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorConversionFactor == true }" *matCellDef="let element" matTooltip="{{element.ConversionFactor}}">
+            <div class="information" *ngIf="element.ConversionFactor != undefined && element.ConversionFactor != ''">
+              <p class="sc-text-normal">{{element.ConversionFactor}}</p>
+            </div>
+            <div class="information" *ngIf="element.ConversionFactor == undefined || element.ConversionFactor == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+         <!-- ConversionFactor  Column 
+         <ng-container matColumnDef="ConversionFactor">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
               <p>Factor Conversion</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorConversionFactor  == true }" *matCellDef="let element"
-            matTooltip="{{element.ConversionFactor }}">
-            <div class="information" *ngIf="element.ConversionFactor  != undefined && element.ConversionFactor  != '' && element.ConversionFactor  !== null" maxlength="11">
-              <p class="sc-text-normal">{{element.ConversionFactor }}</p>
+            matTooltip="{{element.ConversionFactor}}">
+            <div class="information" *ngIf="element.ConversionFactor  != undefined && element.ConversionFactor  != '' ">
+              <p class="sc-text-normal">{{element.ConversionFactor}}</p>
             </div>
-            <div class="information" *ngIf="element.ConversionFactor  == undefined || element.ConversionFactor  == '' || element.ConversionFactor  == null">
-              <p class="text-error"> -
+            <div class="information" *ngIf="element.ConversionFactor  == undefined || element.ConversionFactor  == '' ">
+              <p class="text-error"> Dato obligatorio
               </p>
             </div>
           </td>
-        </ng-container>
+        </ng-container> -->
 
          <!-- DrainedFactor Column -->
          <ng-container matColumnDef="DrainedFactor">
