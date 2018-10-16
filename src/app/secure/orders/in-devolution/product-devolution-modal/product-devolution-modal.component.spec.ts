@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProductDevolutionModalComponent } from './product-devolution-modal.component';
 import { InDevolutionModule } from '@root/src/app/secure/orders/in-devolution/in-devolution.module';
 
-
+/*
 describe('ProductDevolutionModalComponent', () => {
   let component: ProductDevolutionModalComponent;
   let fixture: ComponentFixture<ProductDevolutionModalComponent>;
@@ -31,3 +31,4 @@ describe('ProductDevolutionModalComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

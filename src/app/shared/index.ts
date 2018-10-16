@@ -1,5 +1,4 @@
 // Components
-export * from './components/toolbar-link';
 export * from './components/toolbar-options';
 export * from './components/confirm-alert/confirm-alert.component';
 

@@ -1,0 +1,110 @@
+$color-black-transparent :rgba($color: #000000, $alpha: 0.7);
+$color-black-transparent2 :rgba($color: #000000, $alpha: 0.16);
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$modal: 72px;
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  i {
+    color: $color-white;
+  }
+}
+
+:host {
+  section {
+    &.dialog-component {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $color-black-transparent;
+      z-index: 9999;
+      article {
+        background-color: $color-white;
+        border-radius: 5px;
+        box-sizing: border-box;
+        box-shadow: $color-black-transparent2 0 9px 10px;
+      }
+      .container-transport-icon {
+        @include icon-border-gray();
+      }
+      .form-transporter-container {
+        width: 70%;
+      }
+      .transport-dialog {
+        &.mat-form-field-wrapper {
+          width: 100%;
+        }
+      }
+      .select-transport {
+        width: 100%;
+      }
+      .buttons-container{
+        padding: 2em;
+      }
+    }
+  }
+}
+
+.delete-dialog{
+  .container-transport-icon {
+    @include icon-border-gray();
+  }
+  .form-transporter-container{
+    width: 100%;
+  }
+  p{
+    margin-top: 0;
+  }
+}
+
+.mat-form-field-flex {
+  align-items: flex-end !important;
+  .material-icons {
+    color: $color-gray;
+  }
+}
+
+.text-dialog-transporter {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  article {
+    width: 90%;
+    height: 50%;
+  }
+  .mat-form-field-infix {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  article {
+    width: 55%;
+    height: 55%;
+  }
+}
+
+@media (min-width: 1400px) {
+  article {
+    width: 55%;
+    height: 45%;
+  }
+}
+
+.mat-form-field-prefix{
+  padding: 20px;
+}
+
+.name-transport{
+  width: 100%;
+}
+
+.name-transport-update{
+  width: 48%;
+}

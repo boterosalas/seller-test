@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DownloadOrderModalComponent } from './download-order-modal.component';
 import { DownloadOrderModalModule } from './download-order-modal.module';
 
-
+/*
 describe('DownloadOrderModalComponent', () => {
   let component: DownloadOrderModalComponent;
   let fixture: ComponentFixture<DownloadOrderModalComponent>;
@@ -31,3 +31,4 @@ describe('DownloadOrderModalComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

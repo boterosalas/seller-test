@@ -1,0 +1,14 @@
+<article id="shipping-methods">
+  <h4>M&eacute;todo de env&iacute;o</h4>
+
+  <aside fxLayout="row" fxLayoutAlign="space-between center">
+
+    <!-- List with shiping methods -->
+    <div class="shipping-methods" fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="start start" fxLayoutAlign="center center"
+      *ngFor="let shippingMethod of shippingMethodsList">
+      <mat-icon>{{shippingMethod.Icon}}</mat-icon>
+      <p [id]="shippingMethod.Id">{{shippingMethod.Name}}</p>
+    </div>
+
+  </aside>
+</article>
