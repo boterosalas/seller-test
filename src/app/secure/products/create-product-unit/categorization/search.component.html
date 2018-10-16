@@ -10,7 +10,7 @@
         </mat-form-field>
 
         <!-- Autocomplete -->
-        <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
+        <mat-autocomplete class="auto-complete" #auto="matAutocomplete">
             <mat-option id="option-search-number-{{position}}" (click)="whatchValueInput(option)" class="autocomplete-list"
                 *ngFor="let option of filteredStates | async; let position = index" [value]="option.Name">
                 <mat-icon>store</mat-icon>

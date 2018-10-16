@@ -40,17 +40,39 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
         this.organizedLisSearchText(this.listCategories, true);
     }
 
+    public searchTextIn(modelName: string): boolean {
+        if (modelName === 'Gastronomia') {
+            console.log(modelName.toLowerCase().search(this.searchText.toLowerCase()) !== -1);
+        }
+        return modelName.toLowerCase().search(this.searchText.toLowerCase()) !== -1;
+    }
+
+    public changeText(modelName: string): string {
+        const init = modelName.toLowerCase().search(this.searchText.toLowerCase());
+        const end = this.searchText.length;
+        if (modelName === 'Gastronomia') {
+            console.log('si', modelName.slice(init, init + end));
+        }
+        return modelName.replace( modelName.slice(init, init + end), '<mark>' + modelName.slice(init, init + end) + '</mark>');
+    }
+
     public organizedLisSearchText(list: any, openClose: boolean = false): boolean {
         let find = false;
         let findSons = false;
         for (let i = 0; i < list.length; i++) {
+            if (i === 9) {
+                console.log('stop here');
+            }
             if (!openClose) {
                 list[i].Show = false;
                 list[i].ModifyName = false;
-                if (list[i].Name.search(this.searchText) !== -1) {
+                if ( this.searchTextIn(list[i].Name) ) {
                     list[i].Show = true;
                     find = true;
-                    list[i].ModifyName = list[i].Name.replace(this.searchText, '<mark>' + this.searchText + '</mark>');
+                    list[i].ModifyName = this.changeText(list[i].Name);
+                    if (list[i].Name === 'Gastronomia') {
+                        console.log(list[i]);
+                    }
                 }
                 if (list[i].Son.length) {
                     findSons = this.organizedLisSearchText(list[i].Son);
@@ -59,8 +81,11 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                         find = true;
                     }else if (!find) {
                         find = findSons;
+                        list[i].Show = true;
                     }
                 }
+
+                list[i].Name = list[i].Name + list[i].Show;
             } else {
                 list[i].Show = this.openAllItems;
                 list[i].ModifyName = null;
@@ -91,7 +116,6 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                     i--;
                 }
             }
-            console.log(this.listCategories);
             this.finishCharge = true;
         }
     }

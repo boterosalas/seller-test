@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.component.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ListCategorizationComponent } from './list/list.component';
 import { FormControl } from '@angular/forms';
+import { Logger } from '@app/core';
 
+/* log component */
+const log = new Logger('BulkLoadProductComponent');
 
 export interface FilterList {
     Id: string;
@@ -29,6 +31,11 @@ export class SearchCategorizationComponent implements OnInit {
     searchText: string;
     searchTextInput: any;
 
+    /**
+     * Creates an instance of SearchCategorizationComponent.
+     * @param {SearchService} searchService
+     * @memberof SearchCategorizationComponent
+     */
     constructor(private searchService: SearchService) {
         this.filteredStates = this.searchCategory.valueChanges
             .pipe(
@@ -37,11 +44,33 @@ export class SearchCategorizationComponent implements OnInit {
             );
     }
 
+    /**
+     * Initialize component gets categories list.
+     *
+     * @memberof SearchCategorizationComponent
+     */
+    ngOnInit() {
+        this.getCategoriesList();
+    }
+
+    /**
+     * Verify if find in categories names lower case and return boolean.
+     *
+     * @private
+     * @param {string} value
+     * @returns {FilterList[]}
+     * @memberof SearchCategorizationComponent
+     */
     private _filterStates(value: string): FilterList[] {
         const filterValue = value.toLowerCase();
         return this.listCategories.filter(state => state.Name.toLowerCase().indexOf(filterValue) === 0);
     }
 
+    /**
+     * Get categories from service, and storage in list categories.
+     *
+     * @memberof SearchCategorizationComponent
+     */
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((body: any) => {
             // guardo el response
@@ -49,23 +78,30 @@ export class SearchCategorizationComponent implements OnInit {
                 this.listCategories = body.Data;
                 this.chargueList = true;
             } else {
-                // log.debug('ListCategorizationComponent:' + body.message);
+                log.debug('ListCategorizationComponent:' + body.message);
             }
         });
     }
 
-    ngOnInit() {
-        this.getCategoriesList();
-    }
-
+    /**
+     * Event from angular material search
+     *
+     * @param {*} event
+     * @memberof SearchCategorizationComponent
+     */
     whatchValueInput(event: any): void {
         this.searchTextInput = event;
     }
 
+    /**
+     * Execute search text in tree after click ENTER.
+     *
+     * @param {*} event
+     * @memberof SearchCategorizationComponent
+     */
     public keyDownFunction(event: any): void {
         // keyCode 13 -> Enter
         if (event.keyCode === 13) {
-            // this.chargueList = !this.chargueList;
             if (this.searchTextInput.Name) {
                 this.searchText = this.searchTextInput.Name;
             } else {

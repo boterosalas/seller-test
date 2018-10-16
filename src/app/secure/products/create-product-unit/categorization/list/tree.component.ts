@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { String } from 'aws-sdk/clients/kinesisvideoarchivedmedia';
 
 @Component({
   selector: 'app-tree',
@@ -21,26 +20,49 @@ import { String } from 'aws-sdk/clients/kinesisvideoarchivedmedia';
   `,
   styleUrls: ['../search.component.scss']
 })
+
 export class TreeComponent  implements OnInit {
+
+  /**
+   * Init variables
+   *
+   * @type {*}
+   * @memberof TreeComponent
+   */
   @Input() treeData: any;
   @Input() open: boolean;
   @Input() margin: number;
   openSon: boolean;
+
+  /** Constructor empty */
   constructor() {
   }
 
+  /** Initialize component gets margin in number to show  */
   ngOnInit() {
     if ( !this.margin ) {
       this.margin = 1;
     }
     this.margin ++;
-    console.log(this.margin);
   }
 
+  /**
+   * Expand or Collapse all items.
+   *
+   * @param {*} node
+   * @memberof TreeComponent
+   */
   public openSonClick(node: any) {
     node.Show = !node.Show;
   }
 
+  /**
+   * Gets margin with em.
+   *
+   * @param {*} node
+   * @returns {string}
+   * @memberof TreeComponent
+   */
   public getMargin(node: any): string {
     if (node && !node.Son.length) {
       return (3 + this.margin) + 'em';
@@ -51,6 +73,13 @@ export class TreeComponent  implements OnInit {
     }
   }
 
+  /**
+   * Get name or modify name who gets when match with search text.
+   *
+   * @param {*} node
+   * @returns {string}
+   * @memberof TreeComponent
+   */
   public getName(node: any): string {
     let htmlName = node.Name;
     if (node.ModifyName) {
