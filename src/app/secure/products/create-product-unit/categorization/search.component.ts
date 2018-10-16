@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 import { Logger } from '@app/core';
 
 /* log component */
-const log = new Logger('BulkLoadProductComponent');
+const log = new Logger('SearchCategorizationComponent');
 
 export interface FilterList {
     Id: string;
