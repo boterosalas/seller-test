@@ -65,8 +65,6 @@ export class Logger {
    */
   static level = LogLevel.Debug;
 
-
-
   /**
    * Salidas de registro adicionales.
    *
@@ -75,7 +73,6 @@ export class Logger {
    * @memberof Logger
    */
   static outputs: LogOutput[] = [];
-
 
   /**
    * Habilita el modo de producción.
@@ -129,7 +126,6 @@ export class Logger {
     this.log(console.log, LogLevel.Debug, objects);
   }
 
-
   /**
    * Registra mensajes u objetos con el nivel de información.
    * Funciona igual que console.info().
@@ -138,7 +134,6 @@ export class Logger {
     this.log(console.info, LogLevel.Info, objects);
   }
 
-
   /**
    * Registra mensajes u objetos con el nivel de advertencia.
    * Funciona igual que console.warn().
@@ -146,7 +141,6 @@ export class Logger {
   warn(...objects: any[]) {
     this.log(console.warn, LogLevel.Warning, objects);
   }
-
 
   /**
    * Registra mensajes u objetos con el nivel de error.
