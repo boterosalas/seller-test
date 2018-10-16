@@ -61,7 +61,10 @@ export const endpoints = {
       // Seller
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
-      updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller'
+      updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
+      // Dashboard
+      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
+      getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}'
     },
   },
   // Endpoints production
@@ -115,7 +118,7 @@ export const endpoints = {
       products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
       getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
-      updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn'
+      updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
     }
   }
 };

@@ -373,7 +373,10 @@ export class BulkLoadProductComponent implements OnInit {
               iColor: this.arrayNecessaryData[0].indexOf('Color'),
               iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
               iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
+              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+              iDescUnidadMedida: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+              iFactConversion: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+              iFactEscurrido: this.arrayNecessaryData[0].indexOf('Factor escurrido')
             };
 
             /*
@@ -438,6 +441,63 @@ export class BulkLoadProductComponent implements OnInit {
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
+              }
+            } else if (j === iVal.iDescUnidadMedida) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
+                if (!validFormatiDescUnidadMedida && validFormatiDescUnidadMedida === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormatUnidad',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Descripcion Unidad de Medida'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iFactConversion) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiFactConversion = this.validFormat(res[i][j], 'factConversion');
+                if (!validFormatiFactConversion && validFormatiFactConversion === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFortFact',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Factor de conversion'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iFactEscurrido) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validFormatiFactEscurrido = this.validFormat(res[i][j], 'factEscurrido');
+                if (!validFormatiFactEscurrido && validFormatiFactEscurrido === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFortFact',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'Factor escurrido'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
               }
             } else if (j === iVal.iTipoDeProducto) {
               if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
@@ -820,10 +880,10 @@ export class BulkLoadProductComponent implements OnInit {
 
       if (errorInCell) {
         this.addRowToTable(res, i, iVal, variant);
-        errorInCell = false;
       }
 
-      this.addInfoTosend(res, i, iVal, variant);
+      this.addInfoTosend(res, i, iVal, variant, errorInCell);
+      errorInCell = false;
     }
 
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
@@ -840,7 +900,7 @@ export class BulkLoadProductComponent implements OnInit {
    * @param {any} index
    * @memberof BulkLoadProductComponent
    */
-  addInfoTosend(res: any, i: any, iVal: any, variant?: any) {
+  addInfoTosend(res: any, i: any, iVal: any, variant?: any, errorInCell: boolean = false) {
     const regex = new RegExp('"', 'g');
 
     const newObjectForSend = {
@@ -872,6 +932,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
+      MeasurementUnit: res[i][iVal.iDescUnidadMedida] ? res[i][iVal.iDescUnidadMedida].trim() : null,
+      ConversionFactor : res[i][iVal.iFactConversion] ? res[i][iVal.iFactConversion].trim() : null,
+      DrainedFactor : res[i][iVal.iFactEscurrido] ? res[i][iVal.iFactEscurrido].trim() : null,
       features: []
     };
 
@@ -914,7 +977,10 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iURLDeImagen4 &&
           k !== iVal.iURLDeImagen5 &&
           k !== iVal.iModificacionImagen &&
-          k !== iVal.iLogisticExito
+          k !== iVal.iLogisticExito &&
+          k !== iVal.iDescUnidadMedida &&
+          k !== iVal.iFactConversion &&
+          k !== iVal.iFactEscurrido
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -926,6 +992,7 @@ export class BulkLoadProductComponent implements OnInit {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
+                this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
                 newObjectForSend.features.push(newFeatures);
               }
             }
@@ -933,6 +1000,7 @@ export class BulkLoadProductComponent implements OnInit {
             if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
               newFeatures['key'] = res[0][k].trim();
               newFeatures['value'] = res[i][k].trim();
+              this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
               newObjectForSend.features.push(newFeatures);
             }
           }
@@ -943,6 +1011,42 @@ export class BulkLoadProductComponent implements OnInit {
     }
 
     this.arrayInformationForSend.push(newObjectForSend);
+  }
+
+  /**
+   * Function to validate the required feature format.
+   * And introduce error in two list, one on them to show error position.
+   * And second one to show table with principal data. 
+   * @author luis.echeverry
+   * @param {*} res
+   * @param {*} i
+   * @param {*} k
+   * @param {*} iVal
+   * @param {*} featureValue
+   * @param {*} [variant]
+   * @returns {boolean}
+   * @memberof BulkLoadProductComponent
+   */
+  validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
+    const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
+    if (featureValue.length > 200 || !featureValue.match(format)) {
+      this.countErrors += 1;
+      const itemLog = {
+        row: this.arrayInformation.length,
+        column: i,
+        type: 'invalidFormat',
+        columna: k + 1,
+        fila: i + 1,
+        positionRowPrincipal: i,
+        dato: 'Feature'
+      };
+      this.listLog.push(itemLog);
+      if (!errorInCell) {
+        this.addRowToTable(res, i, iVal, variant);
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -988,6 +1092,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
+      MeasurementUnit: res[index][iVal.iDescUnidadMedida],
+      ConversionFactor : res[index][iVal.iFactConversion],
+      DrainedFactor : res[index][iVal.iFactEscurrido],
       isVariant: variant
     };
 
@@ -1053,6 +1160,9 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
+      this.arrayInformation[index].errorMeasurementUnit = false;
+      this.arrayInformation[index].errorConversionFactor  = false;
+      this.arrayInformation[index].errorDrainedFactor  = false;
     }
   }
 
@@ -1167,6 +1277,10 @@ export class BulkLoadProductComponent implements OnInit {
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
+    const formatiDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
+    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
+    // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1175,6 +1289,32 @@ export class BulkLoadProductComponent implements OnInit {
       switch (validation) {
         case 'ean':
           if ((inputtxt.match(formatEan))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'descUniMedida':
+          if ((inputtxt.match(formatiDescUnidadMedida))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'factConversion':
+          if ((inputtxt.match(formatFactConversion))) {
+            if (inputtxt > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'factEscurrido':
+          if ((inputtxt.match(formatFactEscurrido))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1356,7 +1496,10 @@ export class BulkLoadProductComponent implements OnInit {
       'URL de Imagen 3': undefined,
       'URL de Imagen 4': undefined,
       'URL de Imagen 5': undefined,
-      'Modificacion Imagen': undefined
+      'Modificacion Imagen': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Factor escurrido': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');

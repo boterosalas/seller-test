@@ -70,14 +70,15 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]">
           <h6 matLine>Cotizador</h6>
         </mat-list-item>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]" *ngIf="user?.sellerProfile === 'administrator'">
+        
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
+          *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Historico carga de ofertas</h6>
         </mat-list-item>
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator'">
-
+    <div class="content-menu-list">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-products">
           <mat-panel-title>
@@ -88,6 +89,10 @@
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntProductBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Carga masiva</h6>
+        </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntCreateUnutaryProduct]" *ngIf="user?.sellerProfile === 'seller'">
+          <h6 matLine>Creación Unitaria</h6>
         </mat-list-item>
 
       </mat-expansion-panel>
@@ -104,7 +109,7 @@
         <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerRegister]">
           <h6 matLine>Registrar nuevo</h6>
         </mat-list-item>
-        
+
         <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerManage]">
           <h6 matLine>Administrar</h6>
         </mat-list-item>
