@@ -432,6 +432,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    */
   selectErrorLog(item: any) {
     this.setErrrorColumns();
+    console.log(item);
     if (item.column === 0) {
       this.arrayInformation[item.row].errorColumn1 = true;
       this.arrayInformation[item.row].errorRow = true;

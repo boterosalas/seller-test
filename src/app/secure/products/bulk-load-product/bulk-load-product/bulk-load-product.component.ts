@@ -455,7 +455,7 @@ export class BulkLoadProductComponent implements OnInit {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: 'Descripcion Unidad de Medida'
+                    dato: 'MeasurementUnit'
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
@@ -474,7 +474,7 @@ export class BulkLoadProductComponent implements OnInit {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: 'Factor de conversion'
+                    dato: 'ConversionFactor'
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
@@ -493,7 +493,7 @@ export class BulkLoadProductComponent implements OnInit {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: 'Factor escurrido'
+                    dato: 'DrainedFactor'
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
