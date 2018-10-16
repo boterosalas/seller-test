@@ -495,18 +495,12 @@ export class DetailOfferComponent {
   validInput(input: any) {
     switch (input) {
       case &#x27;Price&#x27;:
-        this.DiscountPrice.reset();
+        // this.DiscountPrice.reset(); Se elimina linea, con error al siempre hacer unfocus en precio borraba el precio de descuento.
         if (this.Price.value &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
-          this.DiscountPrice.reset();
-          this.DiscountPrice.disable();
         } else if (parseInt(this.Price.value, 10) &lt; 8000) {
           this.formUpdateOffer.controls[input].setErrors({ &#x27;isLessThanEightThousand&#x27;: true });
-          this.DiscountPrice.reset();
-          this.DiscountPrice.disable();
         } else if (parseInt(this.Price.value, 10) &lt;&#x3D; parseInt(this.DiscountPrice.value, 10)) {
           this.formUpdateOffer.controls[input].setErrors({ &#x27;isLessThanDiscPrice&#x27;: true });
-          this.DiscountPrice.reset();
-          this.DiscountPrice.disable();
         } else {
           this.DiscountPrice.enable();
         }
@@ -517,6 +511,8 @@ export class DetailOfferComponent {
             this.formUpdateOffer.controls[input].setErrors({ &#x27;isLessThanEightThousand&#x27;: true });
           } else if (parseInt(this.DiscountPrice.value, 10) &gt;&#x3D; parseInt(this.Price.value, 10)) {
             this.formUpdateOffer.controls[input].setErrors({ &#x27;isgreaterThanPrice&#x27;: true });
+          } else {
+            this.formUpdateOffer.controls[&#x27;Price&#x27;].reset(this.Price.value);
           }
         }
         break;

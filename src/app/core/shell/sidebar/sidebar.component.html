@@ -66,6 +66,11 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Arbol de categorías</h6>
         </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]">
+          <h6 matLine>Cotizador</h6>
+        </mat-list-item>
+        
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Historico carga de ofertas</h6>

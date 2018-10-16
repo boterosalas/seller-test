@@ -1,0 +1,1887 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Seller Center documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Seller Center documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>CreateDialogComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-create-dialog</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>../dialog.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./create-dialog.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogMode">dialogMode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogTransport">dialogTransport</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogZone">dialogZone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formTransporter">formTransporter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formZone">formZone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#transportDataToEdit">transportDataToEdit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#transportTypeList">transportTypeList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#addZone">addZone</a>
+                            </li>
+                            <li>
+                                <a href="#closeDialog">closeDialog</a>
+                            </li>
+                            <li>
+                                <a href="#createTransport">createTransport</a>
+                            </li>
+                            <li>
+                                <a href="#createTransportDialog">createTransportDialog</a>
+                            </li>
+                            <li>
+                                <a href="#createZoneDialog">createZoneDialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getTransportData">getTransportData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getTransportMethodRequiredData">getTransportMethodRequiredData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveTransport">saveTransport</a>
+                            </li>
+                            <li>
+                                <a href="#saveZone">saveZone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#showDialogForm">showDialogForm</a>
+                            </li>
+                            <li>
+                                <a href="#updateTransport">updateTransport</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#updateZone">updateZone</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#idToEdit">idToEdit</a>
+                            </li>
+                            <li>
+                                <a href="#typeDialog">typeDialog</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(events: <a href="../injectables/EventEmitterDialogs.html">EventEmitterDialogs</a>, service: <a href="../injectables/CreateDialogService.html">CreateDialogService</a>, transportService: <a href="../injectables/ListTransporterService.html">ListTransporterService</a>, modalService: <a href="../injectables/ModalService.html">ModalService</a>, zoneService: <a href="../injectables/ListZonesService.html">ListZonesService</a>, methodService: <a href="../injectables/ShippingMethodsService.html">ShippingMethodsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>events</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/EventEmitterDialogs.html" target="_self" >EventEmitterDialogs</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/CreateDialogService.html" target="_self" >CreateDialogService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>transportService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ListTransporterService.html" target="_self" >ListTransporterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ModalService.html" target="_self" >ModalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>zoneService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ListZonesService.html" target="_self" >ListZonesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>methodService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ShippingMethodsService.html" target="_self" >ShippingMethodsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="idToEdit"></a>
+                        <code>idToEdit</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="typeDialog"></a>
+                        <code>typeDialog</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addZone"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            addZone
+                            </b>
+                            <a href="#addZone"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>addZone(dataToUpdate: <a href="../classes/ZoneModel.html">ZoneModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:194</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataToUpdate</td>
+                                                        <td>
+                                                                    <code><a href="../classes/ZoneModel.html" target="_self" >ZoneModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closeDialog"></a>
+                        <span class="name">
+                            <b>
+                            closeDialog
+                            </b>
+                            <a href="#closeDialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>closeDialog()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:110</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Close dialog.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createTransport"></a>
+                        <span class="name">
+                            <b>
+                            createTransport
+                            </b>
+                            <a href="#createTransport"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createTransport(data: <a href="../classes/TransportModel.html">TransportModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:229</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Send to transportService data to create transport.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>data</td>
+                                                        <td>
+                                                                    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createTransportDialog"></a>
+                        <span class="name">
+                            <b>
+                            createTransportDialog
+                            </b>
+                            <a href="#createTransportDialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createTransportDialog(dataEdit: <a href="../classes/TransportModel.html">TransportModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:121</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Function to create reactive transport form, can initializate by edit and add mode.</p>
+<ol>
+<li>To edit mode: needs data to show in this form</li>
+<li>To add dont need data to show.</li>
+</ol>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataEdit</td>
+                                                        <td>
+                                                                    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>, model with transport data.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createZoneDialog"></a>
+                        <span class="name">
+                            <b>
+                            createZoneDialog
+                            </b>
+                            <a href="#createZoneDialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createZoneDialog(dataEdit: <a href="../classes/ZoneModel.html">ZoneModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:144</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initialize the zone form.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataEdit</td>
+                                                        <td>
+                                                                    <code><a href="../classes/ZoneModel.html" target="_self" >ZoneModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getTransportData"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getTransportData
+                            </b>
+                            <a href="#getTransportData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getTransportData()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:102</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Function to get data to edit transport.
+First get transport data to execute create dialog function with it.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getTransportMethodRequiredData"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getTransportMethodRequiredData
+                            </b>
+                            <a href="#getTransportMethodRequiredData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getTransportMethodRequiredData()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:74</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Function to get required data to charge select in transport form.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initialize create dialog component.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="saveTransport"></a>
+                        <span class="name">
+                            <b>
+                            saveTransport
+                            </b>
+                            <a href="#saveTransport"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>saveTransport()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:168</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Submit function from dialog.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="saveZone"></a>
+                        <span class="name">
+                            <b>
+                            saveZone
+                            </b>
+                            <a href="#saveZone"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>saveZone()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="180" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:180</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showDialogForm"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            showDialogForm
+                            </b>
+                            <a href="#showDialogForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>showDialogForm(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:93</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Return boolean value depends of dialog initialize</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>type</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateTransport"></a>
+                        <span class="name">
+                            <b>
+                            updateTransport
+                            </b>
+                            <a href="#updateTransport"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateTransport(data: <a href="../classes/TransportModel.html">TransportModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:204</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Send to transportService data to edit transport.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>data</td>
+                                                        <td>
+                                                                    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateZone"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            updateZone
+                            </b>
+                            <a href="#updateZone"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>updateZone(dataToUpdate: <a href="../classes/ZoneModel.html">ZoneModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:190</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataToUpdate</td>
+                                                        <td>
+                                                                    <code><a href="../classes/ZoneModel.html" target="_self" >ZoneModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogMode"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogMode
+                            </b>
+                            <a href="#dialogMode"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dialogMode:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogTransport"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogTransport
+                            </b>
+                            <a href="#dialogTransport"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dialogTransport:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogZone"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogZone
+                            </b>
+                            <a href="#dialogZone"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dialogZone:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formTransporter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            formTransporter
+                            </b>
+                            <a href="#formTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>formTransporter:     <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formZone"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            formZone
+                            </b>
+                            <a href="#formZone"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>formZone:     <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="transportDataToEdit"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            transportDataToEdit
+                            </b>
+                            <a href="#transportDataToEdit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>transportDataToEdit:     <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="transportTypeList"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            transportTypeList
+                            </b>
+                            <a href="#transportTypeList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>transportTypeList:     <code><a href="../classes/ShippingMethodsModel.html" target="_self" >Array&lt;ShippingMethodsModel&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/ShippingMethodsModel.html" target="_self" >Array&lt;ShippingMethodsModel&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/secure/offers/quoting/administrator/dialogs/create/create-dialog.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input } from &#x27;@angular/core&#x27;;
+import { Logger } from &#x27;@app/core&#x27;;
+import { EventEmitterDialogs } from &#x27;./../../events/eventEmitter-dialogs.service&#x27;;
+import { FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { CreateDialogService } from &#x27;./create-dialog.service&#x27;;
+import { TransportModel } from &#x27;../models/transport.model&#x27;;
+import { ShippingMethodsModel } from &#x27;../../shipping-methods/shipping-methods.model&#x27;;
+import { ZoneModel } from &#x27;../models/zone.model&#x27;;
+import { ListTransporterService } from &#x27;../../list-transporter/list-transporter.service&#x27;;
+import { ListZonesService } from &#x27;../../list-zones/list-zones.service&#x27;;
+import { ShippingMethodsService } from &#x27;../../shipping-methods/shipping-methods.service&#x27;;
+import { ModalService } from &#x27;@app/core&#x27;;
+
+const log &#x3D; new Logger(&#x27;CreateDialogComponent&#x27;);
+
+@Component({
+  selector: &#x27;app-create-dialog&#x27;,
+  templateUrl: &#x27;./create-dialog.component.html&#x27;,
+  styleUrls: [&#x27;./../dialog.component.scss&#x27;]
+})
+export class CreateDialogComponent implements OnInit {
+
+  public formTransporter: FormGroup;
+  public formZone: FormGroup;
+  public transportTypeList: Array&lt;ShippingMethodsModel&gt;;
+  public dialogMode &#x3D; false; // False: Add mode, True: Update mode.
+  public transportDataToEdit: TransportModel;
+  public dialogTransport: number;
+  public dialogZone: number;
+  @Input() typeDialog: number;
+  @Input() idToEdit: number;
+
+  constructor(
+    private events: EventEmitterDialogs,
+    private service: CreateDialogService,
+    private transportService: ListTransporterService,
+    private modalService: ModalService,
+    private zoneService: ListZonesService,
+    private methodService: ShippingMethodsService
+  ) { }
+
+  /**
+   * Initialize create dialog component.
+   *
+   * @memberof CreateDialogComponent
+   */
+  ngOnInit(): void {
+    this.dialogTransport &#x3D; this.transportService.getDialogType();
+    this.dialogZone &#x3D; this.zoneService.getDialogType();
+
+    /** Verify if component initialization has data to edit or create  */
+    if (this.showDialogForm(this.dialogTransport)) {
+      if (this.idToEdit !&#x3D;&#x3D; null) {
+        this.dialogMode &#x3D; true;
+        this.getTransportData();
+      } else {
+        this.createTransportDialog(null);
+      }
+    } else {
+      if (this.idToEdit) {
+        this.dialogMode &#x3D; true;
+        this.createZoneDialog(null);
+      } else {
+        this.createZoneDialog(null);
+      }
+    }
+  }
+
+  /**
+   * Function to get required data to charge select in transport form.
+   *
+   * @memberof CreateDialogComponent
+   */
+  public getTransportMethodRequiredData(): void {
+    this.methodService.getShippingMethods().subscribe((res: any) &#x3D;&gt; {
+      if (res.statusCode &#x3D;&#x3D;&#x3D; 200) {
+        const body &#x3D; JSON.parse(res.body);
+        this.transportTypeList &#x3D; body.Data;
+      } else {
+        log.error(&#x27;Error al intentar obtener los metodos de envios&#x27;);
+      }
+    });
+  }
+
+
+  /**
+   * Return boolean value depends of dialog initialize
+   *
+   * @param {number} type
+   * @returns {boolean}
+   * @memberof CreateDialogComponent
+   */
+  public showDialogForm(type: number): boolean {
+    return type &#x3D;&#x3D;&#x3D; this.typeDialog;
+  }
+
+  /**
+   * Function to get data to edit transport.
+   * First get transport data to execute create dialog function with it.
+   * @memberof CreateDialogComponent
+   */
+  public getTransportData(): void {
+    this.transportDataToEdit &#x3D; this.transportService.getFakeTransporter(this.idToEdit);
+    this.createTransportDialog(this.transportDataToEdit);
+  }
+
+  /**
+   * Close dialog.
+   */
+  closeDialog(): void {
+    this.events.openDialogCreate(false);
+  }
+
+  /**
+   * Function to create reactive transport form, can initializate by edit and add mode.
+   * 1. To edit mode: needs data to show in this form
+   * 2. To add dont need data to show.
+   * @param {TransportModel} dataEdit, model with transport data.
+   * @memberof CreateDialogComponent
+   */
+  createTransportDialog(dataEdit: TransportModel): void {
+    this.getTransportMethodRequiredData(); // Get methods.
+    let name: string;
+    let idMethod: number;
+    if (dataEdit) {
+      name &#x3D; dataEdit.name;
+      idMethod &#x3D; dataEdit.idMethod;
+    }
+    this.formTransporter &#x3D; new FormGroup({
+      name: new FormControl(name, [
+        Validators.required,
+        Validators.maxLength(20)
+      ]),
+      typeTransport: new FormControl(idMethod, Validators.required)
+    });
+  }
+
+  /**
+   * Initialize the zone form.
+   *
+   * @param {ZoneModel} dataEdit
+   * @memberof CreateDialogComponent
+   */
+  createZoneDialog(dataEdit: ZoneModel): void {
+    let name: string;
+    let daneCode: string;
+    if (dataEdit) {
+      name &#x3D; dataEdit.name;
+      daneCode &#x3D; dataEdit.daneCode;
+    }
+    this.formZone &#x3D; new FormGroup({
+      nameZone: new FormControl(name, [
+        Validators.required,
+        Validators.maxLength(20)
+      ]),
+      danceCode: new FormControl(name, [
+        Validators.required,
+        Validators.maxLength(20)
+      ])
+    });
+  }
+
+  /**
+   * Submit function from dialog.
+   *
+   * @memberof CreateDialogComponent
+   */
+  saveTransport(): void {
+    log.debug(this.formTransporter.valid);
+    if (this.formTransporter.valid) {
+      if (this.dialogMode) {
+        this.updateTransport(this.formTransporter.value);
+      } else {
+        this.createTransport(this.formTransporter.value);
+      }
+    }
+  }
+
+
+  saveZone(): void {
+    if (this.formZone.valid) {
+      if (this.dialogMode) {
+        this.updateZone(this.formTransporter.value);
+      } else {
+        this.addZone(this.formTransporter.value);
+      }
+    }
+  }
+
+  public updateZone(dataToUpdate: ZoneModel): void {
+
+  }
+
+  public addZone(dataToUpdate: ZoneModel): void {
+
+  }
+
+  /**
+   * Send to transportService data to edit transport.
+   *
+   * @param {TransportModel} data
+   * @memberof CreateDialogComponent
+   */
+  updateTransport(data: TransportModel): void {
+    this.transportService.updateTransporter(data)
+      .subscribe(
+        (result: any) &#x3D;&gt; {
+          if (result.status &#x3D;&#x3D;&#x3D; 201 || result.status &#x3D;&#x3D;&#x3D; 200) {
+            const response &#x3D; JSON.parse(result.body.body);
+            if (response.Data) {
+              this.events.openDialogCreate(false);
+              this.modalService.showModal(&#x27;success&#x27;);
+            } else if (!response.Data) {
+              this.modalService.showModal(&#x27;error&#x27;);
+            }
+          } else {
+            this.modalService.showModal(&#x27;errorService&#x27;);
+          }
+        }
+      );
+  }
+
+  /**
+   * Send to transportService data to create transport.
+   *
+   * @param {TransportModel} data
+   * @memberof CreateDialogComponent
+   */
+  createTransport(data: TransportModel): void {
+    this.transportService.createTransporter(data)
+      .subscribe(
+        (result: any) &#x3D;&gt; {
+          if (result.status &#x3D;&#x3D;&#x3D; 201 || result.status &#x3D;&#x3D;&#x3D; 200) {
+            const response &#x3D; JSON.parse(result.body.body);
+            if (response.Data) {
+              this.events.openDialogCreate(false);
+              this.modalService.showModal(&#x27;success&#x27;);
+            } else if (!response.Data) {
+              this.modalService.showModal(&#x27;error&#x27;);
+            }
+          } else {
+            this.modalService.showModal(&#x27;errorService&#x27;);
+          }
+        }
+      );
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- TRANSPORT TEXT DIALOG --&gt;
+&lt;ng-template #addTransportBlock&gt;Crear transportadora&lt;/ng-template&gt;
+&lt;ng-template #updateTransportBlock&gt;Editar transportadora&lt;/ng-template&gt;
+&lt;ng-template #addTransportParagraphBlock&gt;Ingresa una nombre de transportadora y un método de envío asociado para que
+  aparezca
+  en la lista de los vendedores al momento de configurar el método de envío seleccionado.&lt;/ng-template&gt;
+&lt;ng-template #updateTransportParagraphBlock&gt;Reemplaza el nombre de transportadora existente y da clic a Guardar para
+  modificar el nombre de esta transportadora.&lt;/ng-template&gt;
+
+&lt;!-- ZONE TEXT DIALOG --&gt;
+&lt;ng-template #addZoneBlock&gt;Crear zona&lt;/ng-template&gt;
+&lt;ng-template #updateZoneBlock&gt;Editar zona&lt;/ng-template&gt;
+&lt;ng-template #addZoneParagraphBlock&gt;Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para
+  que aparezca en la lista de los vendedores al momento de configurar un método de envío.&lt;/ng-template&gt;
+&lt;ng-template #updateZoneParagraphBlock&gt;Reemplaza el nombre de la zona existente o los códigos DANE configurados para la
+  zona y da clic a Guardar para modificar esta zona&lt;/ng-template&gt;
+
+&lt;!-- END TEXT --&gt;
+
+&lt;section class&#x3D;&quot;dialog-component flexbox flex-wrap align-center justify-center&quot;&gt;
+  &lt;article class&#x3D;&quot;transport-dialog&quot;&gt;
+
+    &lt;div fxLayout&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;center center&quot; fxFlex&#x3D;&quot;100&quot;&gt;
+      &lt;div class&#x3D;&quot;container-transport-icon&quot; fxLayout&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;center center&quot;&gt;
+        &lt;i class&#x3D;&quot;material-icons&quot; *ngIf&#x3D;&quot;showDialogForm(dialogTransport)&quot;&gt;
+          local_shipping
+        &lt;/i&gt;
+        &lt;i class&#x3D;&quot;material-icons&quot; *ngIf&#x3D;&quot;showDialogForm(dialogZone)&quot;&gt;
+          map
+        &lt;/i&gt;
+      &lt;/div&gt;
+
+      &lt;h3 *ngIf&#x3D;&quot;showDialogForm(dialogTransport)&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;dialogMode; then updateTransportBlock; else addTransportBlock&quot;&gt;&lt;/div&gt;
+      &lt;/h3&gt;
+      &lt;h3 *ngIf&#x3D;&quot;showDialogForm(dialogZone)&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;dialogMode; then updateZoneBlock; else addZoneBlock&quot;&gt;&lt;/div&gt;
+      &lt;/h3&gt;
+
+      &lt;!-- Description form --&gt;
+      &lt;div fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;center center&quot;&gt;
+        &lt;p fxFlex&#x3D;&quot;70&quot; class&#x3D;&quot;text-dialog-transporter&quot; *ngIf&#x3D;&quot;showDialogForm(dialogTransport)&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;dialogMode; then updateTransportParagraphBlock; else addTransportParagraphBlock&quot;&gt;&lt;/span&gt;
+        &lt;/p&gt;
+        &lt;p fxFlex&#x3D;&quot;70&quot; class&#x3D;&quot;text-dialog-transporter&quot; *ngIf&#x3D;&quot;showDialogForm(dialogZone)&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;dialogMode; then updateZoneParagraphBlock; else addZoneParagraphBlock&quot;&gt;&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+
+      &lt;!-- TRANSPORT DIALOG --&gt;
+      &lt;div class&#x3D;&quot;form-transporter-container&quot; *ngIf&#x3D;&quot;showDialogForm(dialogTransport)&quot;&gt;
+        &lt;!-- FORM: to create transport --&gt;
+        &lt;form [formGroup]&#x3D;&quot;formTransporter&quot; (ngSubmit)&#x3D;&quot;saveTransport()&quot; fxLayout&#x3D;&quot;column&quot;&gt;
+         
+          &lt;!-- Fields container --&gt;
+          &lt;div fxFlex&#x3D;&quot;100&quot; fxLayout&#x3D;&quot;row&quot; fxLayout.xs&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot; fxLayoutAlign.xs&#x3D;&quot;center center&quot;&gt;
+            &lt;!-- Name input Field --&gt;
+            &lt;mat-form-field fxFill&#x3D;&quot;48&quot; fxFlex&#x3D;&quot;48&quot;&gt;
+              &lt;mat-icon matPrefix&gt;local_shipping&lt;/mat-icon&gt;
+              &lt;input matInput formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Nombre transportadora&quot;&gt;
+              &lt;mat-error&gt;Campo obligatorio &lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+
+            &lt;!-- Method transport select Field --&gt;
+            &lt;mat-form-field fxFlex&#x3D;&quot;48&quot; class&#x3D;&quot;select-transport&quot;&gt;
+              &lt;mat-select placeholder&#x3D;&quot;Seleccionar método&quot; formControlName&#x3D;&quot;typeTransport&quot;&gt;
+                &lt;mat-option *ngFor&#x3D;&quot;let type of transportTypeList&quot; [value]&#x3D;&quot;type.Id&quot;&gt;
+                  {{type.Name}}
+                &lt;/mat-option&gt;
+              &lt;/mat-select&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Buttons SAVE and CANCEL --&gt;
+          &lt;div class&#x3D;&quot;buton-create flexbox&quot; fxLayout&#x3D;&quot;row&quot; fxLayout.fx&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;center center&quot;&gt;
+            &lt;div fxLayout&#x3D;&quot;row&quot; fxFlex&#x3D;&quot;100&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot;&gt;
+              &lt;div fxFlex&#x3D;&quot;48&quot; fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;end center&quot;&gt;
+                &lt;button type&#x3D;&quot;button&quot; id&#x3D;&quot;btn-create-transporter&quot; mat-stroked-button color&#x3D;&quot;primary&quot; [innerHTML]&#x3D;&quot;&#x27;CANCELAR&#x27;&quot;
+                  (click)&#x3D;&quot;closeDialog()&quot;&gt;&lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div fxFlex&#x3D;&quot;48&quot; fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;start center&quot;&gt;
+                &lt;button id&#x3D;&quot;btn-create-transporter&quot; type&#x3D;&quot;submit&quot; mat-raised-button color&#x3D;&quot;primary&quot; [innerHTML]&#x3D;&quot;&#x27;CREAR&#x27;&quot; [disabled]&#x3D;&quot;formTransporter.invalid&quot;&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;!-- END TRANSPORT DIALOG --&gt;
+      
+
+      &lt;!-- ZONE DIALOG --&gt;
+      &lt;div class&#x3D;&quot;form-transporter-container&quot; *ngIf&#x3D;&quot;showDialogForm(dialogZone)&quot;&gt;
+        &lt;!-- FORM: to create transport --&gt;
+        &lt;form [formGroup]&#x3D;&quot;formZone&quot; (ngSubmit)&#x3D;&quot;saveZone()&quot; fxLayout&#x3D;&quot;column&quot;&gt;
+
+          &lt;!-- Fields container --&gt;
+          &lt;div fxFlex&#x3D;&quot;100&quot; fxLayout&#x3D;&quot;row&quot; fxLayout.xs&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot; fxLayoutAlign.xs&#x3D;&quot;center center&quot;&gt;
+            &lt;!-- Name input Field --&gt;
+            &lt;mat-form-field fxFill&#x3D;&quot;48&quot; fxFlex&#x3D;&quot;48&quot;&gt;
+              &lt;mat-icon matPrefix&gt;map&lt;/mat-icon&gt;
+              &lt;input matInput formControlName&#x3D;&quot;nameZone&quot; placeholder&#x3D;&quot;Nombre zona&quot;&gt;
+              &lt;mat-error&gt;Campo obligatorio&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+
+            &lt;!-- DANE code input Field --&gt;
+            &lt;mat-form-field fxFill&#x3D;&quot;48&quot; fxFlex&#x3D;&quot;48&quot;&gt;
+              &lt;input matInput formControlName&#x3D;&quot;danceCode&quot; placeholder&#x3D;&quot;Código DANE&quot;&gt;
+              &lt;mat-error&gt;Campo obligatorio&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Buttons SAVE and CANCEL --&gt;
+          &lt;div class&#x3D;&quot;buton-create flexbox&quot; fxLayout&#x3D;&quot;row&quot; fxLayout.fx&#x3D;&quot;column&quot; fxLayoutAlign&#x3D;&quot;center center&quot;&gt;
+            &lt;div fxLayout&#x3D;&quot;row&quot; fxFlex&#x3D;&quot;100&quot; fxLayoutAlign&#x3D;&quot;space-between center&quot;&gt;
+              &lt;div fxFlex&#x3D;&quot;48&quot; fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;end center&quot;&gt;
+                &lt;button type&#x3D;&quot;button&quot; id&#x3D;&quot;btn-create-transporter&quot; mat-stroked-button color&#x3D;&quot;primary&quot; [innerHTML]&#x3D;&quot;&#x27;CANCELAR&#x27;&quot;
+                  (click)&#x3D;&quot;closeDialog()&quot;&gt;&lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div fxFlex&#x3D;&quot;48&quot; fxLayout&#x3D;&quot;row&quot; fxLayoutAlign&#x3D;&quot;start center&quot;&gt;
+                &lt;button id&#x3D;&quot;btn-create-transporter&quot; type&#x3D;&quot;submit&quot; mat-raised-button color&#x3D;&quot;primary&quot; [innerHTML]&#x3D;&quot;&#x27;CREAR&#x27;&quot; [disabled]&#x3D;&quot;formZone.invalid&quot;&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;!-- END ZONE DIALOG --&gt;
+      
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- TRANSPORT TEXT DIALOG --><ng-template #addTransportBlock>Crear transportadora</ng-template><ng-template #updateTransportBlock>Editar transportadora</ng-template><ng-template #addTransportParagraphBlock>Ingresa una nombre de transportadora y un método de envío asociado para que  aparezca  en la lista de los vendedores al momento de configurar el método de envío seleccionado.</ng-template><ng-template #updateTransportParagraphBlock>Reemplaza el nombre de transportadora existente y da clic a Guardar para  modificar el nombre de esta transportadora.</ng-template><!-- ZONE TEXT DIALOG --><ng-template #addZoneBlock>Crear zona</ng-template><ng-template #updateZoneBlock>Editar zona</ng-template><ng-template #addZoneParagraphBlock>Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para  que aparezca en la lista de los vendedores al momento de configurar un método de envío.</ng-template><ng-template #updateZoneParagraphBlock>Reemplaza el nombre de la zona existente o los códigos DANE configurados para la  zona y da clic a Guardar para modificar esta zona</ng-template><!-- END TEXT --><section class="dialog-component flexbox flex-wrap align-center justify-center">  <article class="transport-dialog">    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">      <div class="container-transport-icon" fxLayout="column" fxLayoutAlign="center center">        <i class="material-icons" *ngIf="showDialogForm(dialogTransport)">          local_shipping        </i>        <i class="material-icons" *ngIf="showDialogForm(dialogZone)">          map        </i>      </div>      <h3 *ngIf="showDialogForm(dialogTransport)">        <div *ngIf="dialogMode; then updateTransportBlock; else addTransportBlock"></div>      </h3>      <h3 *ngIf="showDialogForm(dialogZone)">        <div *ngIf="dialogMode; then updateZoneBlock; else addZoneBlock"></div>      </h3>      <!-- Description form -->      <div fxLayout="row" fxLayoutAlign="center center">        <p fxFlex="70" class="text-dialog-transporter" *ngIf="showDialogForm(dialogTransport)">          <span *ngIf="dialogMode; then updateTransportParagraphBlock; else addTransportParagraphBlock"></span>        </p>        <p fxFlex="70" class="text-dialog-transporter" *ngIf="showDialogForm(dialogZone)">          <span *ngIf="dialogMode; then updateZoneParagraphBlock; else addZoneParagraphBlock"></span>        </p>      </div>      <!-- TRANSPORT DIALOG -->      <div class="form-transporter-container" *ngIf="showDialogForm(dialogTransport)">        <!-- FORM: to create transport -->        <form [formGroup]="formTransporter" (ngSubmit)="saveTransport()" fxLayout="column">                   <!-- Fields container -->          <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">            <!-- Name input Field -->            <mat-form-field fxFill="48" fxFlex="48">              <mat-icon matPrefix>local_shipping</mat-icon>              <input matInput formControlName="name" placeholder="Nombre transportadora">              <mat-error>Campo obligatorio </mat-error>            </mat-form-field>            <!-- Method transport select Field -->            <mat-form-field fxFlex="48" class="select-transport">              <mat-select placeholder="Seleccionar método" formControlName="typeTransport">                <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">                  {{type.Name}}                </mat-option>              </mat-select>            </mat-form-field>          </div>          <!-- Buttons SAVE and CANCEL -->          <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">              <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="\'CANCELAR\'"                  (click)="closeDialog()"></button>              </div>              <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="\'CREAR\'" [disabled]="formTransporter.invalid">                </button>              </div>            </div>          </div>        </form>      </div>      <!-- END TRANSPORT DIALOG -->            <!-- ZONE DIALOG -->      <div class="form-transporter-container" *ngIf="showDialogForm(dialogZone)">        <!-- FORM: to create transport -->        <form [formGroup]="formZone" (ngSubmit)="saveZone()" fxLayout="column">          <!-- Fields container -->          <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">            <!-- Name input Field -->            <mat-form-field fxFill="48" fxFlex="48">              <mat-icon matPrefix>map</mat-icon>              <input matInput formControlName="nameZone" placeholder="Nombre zona">              <mat-error>Campo obligatorio</mat-error>            </mat-form-field>            <!-- DANE code input Field -->            <mat-form-field fxFill="48" fxFlex="48">              <input matInput formControlName="danceCode" placeholder="Código DANE">              <mat-error>Campo obligatorio</mat-error>            </mat-form-field>          </div>          <!-- Buttons SAVE and CANCEL -->          <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">              <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="\'CANCELAR\'"                  (click)="closeDialog()"></button>              </div>              <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="\'CREAR\'" [disabled]="formZone.invalid">                </button>              </div>            </div>          </div>        </form>      </div>      <!-- END ZONE DIALOG -->          </div>  </article></section></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-awscognito'},{'name': 'ActionAcceptDevolutionComponent', 'selector': 'app-action-accept-devolution'},{'name': 'ActionConfirmReceiptComponent', 'selector': 'app-action-confirm-receipt'},{'name': 'ActionRefuseDevolutionComponent', 'selector': 'app-action-refuse-devolution'},{'name': 'ActionReportNoveltyComponent', 'selector': 'app-action-report-novelty'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingComponent', 'selector': 'app-billing'},{'name': 'BillingFulfillmentDetailComponent', 'selector': 'app-billing-fulfillment-detail'},{'name': 'BillingProductsOrderComponent', 'selector': 'app-billing-products-order'},{'name': 'BulkLoadComponent', 'selector': 'app-bulk-load'},{'name': 'BulkLoadProductComponent', 'selector': 'app-bulk-load-product'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'ClientInformationComponent', 'selector': 'app-client-information'},{'name': 'ConfirmAlertComponent', 'selector': 'app-confirm-alert'},{'name': 'CreateDialogComponent', 'selector': 'app-create-dialog'},{'name': 'DeleteDialogComponent', 'selector': 'app-delete-dialog'},{'name': 'DetailComponent', 'selector': 'app-detail'},{'name': 'DetailOfferComponent', 'selector': 'app-detail-offer'},{'name': 'DispatchedComponent', 'selector': 'app-dispatched'},{'name': 'DownloadFormatComponent', 'selector': 'app-download-format'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadHistoricalModalComponent', 'selector': 'app-download-historical-modal'},{'name': 'DownloadOrderModalComponent', 'selector': 'app-download-order-modal'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-historical-filter'},{'name': 'FilterComponent', 'selector': 'app-filter-offer'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadInformationComponent', 'selector': 'app-finish-upload-information'},{'name': 'FinishUploadProductInformationComponent', 'selector': 'app-finish-upload-product-information'},{'name': 'ForgotPassword2Component', 'selector': 'app-awscognito'},{'name': 'ForgotPasswordStep1Component', 'selector': 'app-awscognito'},{'name': 'FormProductComponent', 'selector': 'app-form-product'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HistoricComponent', 'selector': 'app-historic'},{'name': 'HistoricalAdminComponent', 'selector': 'app-historical-admin-component'},{'name': 'HistoricalComponent', 'selector': 'app-historical-component'},{'name': 'HomeComponent', 'selector': 'app-awscognito'},{'name': 'HomeLandingComponent', 'selector': 'app-awscognito'},{'name': 'InDevolutionComponent', 'selector': 'app-in-devolution'},{'name': 'InValidationComponent', 'selector': 'app-in-validation'},{'name': 'InValidationModalComponent', 'selector': 'app-in-validation-modal'},{'name': 'InputCommisionComponent', 'selector': 'app-input-commision'},{'name': 'JwtComponent', 'selector': 'app-awscognito'},{'name': 'ListComponent', 'selector': 'app-list-component'},{'name': 'ListTransporterComponent', 'selector': 'app-list-transporter'},{'name': 'ListZonesComponent', 'selector': 'app-list-zones'},{'name': 'LoadGuidePageComponent', 'selector': 'app-load-guide-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-awscognito'},{'name': 'LogoutComponent', 'selector': 'app-awscognito'},{'name': 'MFAComponent', 'selector': 'app-awscognito-mfa'},{'name': 'ManageComponent', 'selector': 'app-manage'},{'name': 'ManageSellerComponent', 'selector': 'app-manage-seller'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'MyProfileComponent', 'selector': 'app-awscognito'},{'name': 'NewPasswordComponent', 'selector': 'app-awscognito'},{'name': 'NoContentComponent', 'selector': 'app-no-content'},{'name': 'OrderBillingDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrderDetailModalComponent', 'selector': 'app-order-detail-modal'},{'name': 'OrdersListComponent', 'selector': 'app-orders-list'},{'name': 'PendingComponent', 'selector': 'app-pending'},{'name': 'PendingDevolutionComponent', 'selector': 'app-pending-devolution'},{'name': 'ProductDetailBillingModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDetailModalComponent', 'selector': 'app-product-detail-modal'},{'name': 'ProductDevolutionModalComponent', 'selector': 'app-product-devolution-modal'},{'name': 'ProductPendingDevolutionModalComponent', 'selector': 'app-product-pending-devolution-modal'},{'name': 'ProductsOrderComponent', 'selector': 'app-products-order'},{'name': 'QuotingAdministratorComponent', 'selector': 'app-quoting-administrator'},{'name': 'QuotingComponent', 'selector': 'app-quoting'},{'name': 'QuotingSellerComponent', 'selector': 'app-quoting-seller'},{'name': 'RegisterComponent', 'selector': 'app-awscognito'},{'name': 'RegisterSellerComponent', 'selector': 'app-register'},{'name': 'RegistrationConfirmationComponent', 'selector': 'app-awscognito'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResendCodeComponent', 'selector': 'app-awscognito'},{'name': 'SearchBillingFormComponent', 'selector': 'app-search-billing-form'},{'name': 'SearchEnviosExitoFormComponent', 'selector': 'app-search-envios-exito-form'},{'name': 'SearchOrderFormComponent', 'selector': 'app-search-order-form'},{'name': 'SearchOrderMenuComponent', 'selector': 'app-search-order-menu'},{'name': 'SearchPendingDevolutionFormComponent', 'selector': 'app-search-pending-devolution-form'},{'name': 'SearchSellerComponent', 'selector': 'app-search-seller'},{'name': 'SearchStoreComponent', 'selector': 'app-search-store'},{'name': 'SecureHomeComponent', 'selector': 'app-awscognito'},{'name': 'SendOrderComponent', 'selector': 'app-send-order'},{'name': 'ShellComponent', 'selector': 'app-shell'},{'name': 'ShippingMethodsComponent', 'selector': 'app-shipping-methods'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'StatesComponent', 'selector': 'app-states-data'},{'name': 'StoreComponent', 'selector': 'app-store'},{'name': 'SupportModalComponent', 'selector': 'app-support-modal'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsComponent', 'selector': 'app-table-errors'},{'name': 'TableErrorsProductComponent', 'selector': 'app-table-errors-product'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadComponent', 'selector': 'app-table-load'},{'name': 'TableLoadProductComponent', 'selector': 'app-table-load-product'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'ToolbarLinkComponent', 'selector': 'app-toolbar-link'},{'name': 'ToolbarOptionsComponent', 'selector': 'app-toolbar-options'},{'name': 'ToolbarSellerComponent', 'selector': 'app-toolbar-seller'},{'name': 'ToolbarTittleComponent', 'selector': 'app-toolbar-tittle'},{'name': 'TreeCategoriesComponent', 'selector': 'app-tree-categories'},{'name': 'TreeComponentComponent', 'selector': 'app-tree-component'},{'name': 'TreeToolbarComponent', 'selector': 'app-tree-toolbar'},{'name': 'UseractivityComponent', 'selector': 'app-awscognito'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'},{'name': 'ViewCommentComponent', 'selector': 'app-view-comment'}];
+    var DIRECTIVES = [{'name': 'CdkDetailRowDirective', 'selector': '[cdkDetailRow]'},{'name': 'NoWhitespaceDirective', 'selector': '[appNoSpaces]'}];
+    var ACTUAL_COMPONENT = {'name': 'CreateDialogComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CreateDialogComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

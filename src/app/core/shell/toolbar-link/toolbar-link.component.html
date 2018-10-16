@@ -19,8 +19,8 @@
                 [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>Solicitudes pendientes</span>
         </button>
-        <button mat-menu-item id="dropdown-button-in-validation"
-                [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]" *ngIf="!isProductionEnv">
+        <button mat-menu-item id="dropdown-button-in-validation" [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]"
+          *ngIf="!isProductionEnv">
           <span>En validación</span>
         </button>
         <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
@@ -51,6 +51,10 @@
         <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <span>Arbol de Categorias</span>
         </button>
+
+        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]">
+          <span>Cotizador</span>
+        </button>
       </mat-menu>
 
 
@@ -62,7 +66,7 @@
         <button mat-menu-item id="dropdown-button-builk-load-product" [routerLink]="['/'+ routes.sellerCenterIntProductBulkLoad]">
           <span>Carga Masiva</span>
         </button>
-      </mat-menu> 
+      </mat-menu>
 
       <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
         <mat-icon>arrow_drop_down</mat-icon>

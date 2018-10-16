@@ -1,0 +1,856 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Seller Center documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Seller Center documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>ListTransporterService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts</code>
+        </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#transporters">transporters</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createTransporter">createTransporter</a>
+                            </li>
+                            <li>
+                                <a href="#deleteTransporter">deleteTransporter</a>
+                            </li>
+                            <li>
+                                <a href="#getDialogType">getDialogType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getFakeListTransporter">getFakeListTransporter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getFakeTransporter">getFakeTransporter</a>
+                            </li>
+                            <li>
+                                <a href="#getListTransporters">getListTransporters</a>
+                            </li>
+                            <li>
+                                <a href="#updateTransporter">updateTransporter</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: <a href="../interfaces/HttpClient.html">HttpClient</a>, api: <a href="../injectables/EndpointService.html">EndpointService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../interfaces/HttpClient.html" target="_self" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/EndpointService.html" target="_self" >EndpointService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createTransporter"></a>
+                        <span class="name">
+                            <b>
+                            createTransporter
+                            </b>
+                            <a href="#createTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createTransporter(transport: <a href="../classes/TransportModel.html">TransportModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:64</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Service to add transport, needs transport data to send to back.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>transport</td>
+                                                        <td>
+                                                                    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteTransporter"></a>
+                        <span class="name">
+                            <b>
+                            deleteTransporter
+                            </b>
+                            <a href="#deleteTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>deleteTransporter(idTransport: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="106" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:106</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Service to delete transport, needs transport identifier to send to back.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>idTransport</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getDialogType"></a>
+                        <span class="name">
+                            <b>
+                            getDialogType
+                            </b>
+                            <a href="#getDialogType"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getDialogType()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get const with a value of dialog type</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getFakeListTransporter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getFakeListTransporter
+                            </b>
+                            <a href="#getFakeListTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getFakeListTransporter()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:123</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Mock to get and object.</p>
+</div>
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="../classes/TransportModel.html" target="_self" >Array&lt;TransportModel&gt;</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getFakeTransporter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getFakeTransporter
+                            </b>
+                            <a href="#getFakeTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getFakeTransporter(idToEdit: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:127</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>idToEdit</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getListTransporters"></a>
+                        <span class="name">
+                            <b>
+                            getListTransporters
+                            </b>
+                            <a href="#getListTransporters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getListTransporters()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateTransporter"></a>
+                        <span class="name">
+                            <b>
+                            updateTransporter
+                            </b>
+                            <a href="#updateTransporter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateTransporter(transport: <a href="../classes/TransportModel.html">TransportModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:85</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Service to update transport, need transport data to send to back.
+Additional to data is required transport identifier to update.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>transport</td>
+                                                        <td>
+                                                                    <code><a href="../classes/TransportModel.html" target="_self" >TransportModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="transporters"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            transporters
+                            </b>
+                            <a href="#transporters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>transporters:     <code><a href="../classes/TransportModel.html" target="_self" >Array&lt;TransportModel&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/TransportModel.html" target="_self" >Array&lt;TransportModel&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/secure/offers/quoting/administrator/list-transporter/list-transporter.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
+import { EndpointService } from &#x27;@app/core&#x27;;
+import { Observable } from &#x27;rxjs/Observable&#x27;;
+import { TransportModel } from &#x27;../dialogs/models/transport.model&#x27;;
+
+const dialogTypeTransporter &#x3D; 1;
+
+@Injectable()
+export class ListTransporterService {
+
+  public transporters: Array&lt;TransportModel&gt;;
+
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) {
+    this.transporters &#x3D; [
+      new TransportModel( &#x27;Envio Propio&#x27;, &#x27;Home delivery 1&#x27;, 1, 1),
+      new TransportModel( &#x27;Envio Propio 2&#x27;, &#x27;Home delivery 2&#x27;, 2, 2),
+      new TransportModel( &#x27;Envio Propio 3&#x27;, &#x27;Home delivery 3&#x27;, 2, 3),
+      new TransportModel( &#x27;Envio Propio 4&#x27;, &#x27;Home delivery 4&#x27;, 3, 4),
+      new TransportModel( &#x27;Envio Propio 5&#x27;, &#x27;Home delivery 5&#x27;, 1, 5),
+    ];
+  }
+
+  /**
+   * Get const with a value of dialog type
+   *
+   * @returns {number}
+   * @memberof ListTransporterService
+   */
+  getDialogType(): number {
+    return dialogTypeTransporter;
+  }
+
+  /**
+   * @method getListTransporters
+   * @description Método para obtener el listado de departamentos
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ListTransporterService
+   */
+  getListTransporters(): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.get&lt;any&gt;(this.api.get(&#x27;getTransporters&#x27;), { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
+   * Service to add transport, needs transport data to send to back.
+   *
+   * @param {TransportModel} transport
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ListTransporterService
+   */
+  createTransporter(transport: TransportModel): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.post&lt;any&gt;(this.api.get(&#x27;addTransport&#x27;), transport, { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
+   * Service to update transport, need transport data to send to back.
+   * Additional to data is required transport identifier to update.
+   * @param {TransportModel} transport
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ListTransporterService
+   */
+  updateTransporter(transport: TransportModel): Observable&lt;{}&gt; {
+    return new Observable(observer &#x3D;&gt; {
+      this.http.patch&lt;any&gt;(this.api.get(&#x27;updateTransport&#x27;), transport, { observe: &#x27;response&#x27; })
+        .subscribe(
+          data &#x3D;&gt; {
+            observer.next(data);
+          },
+          error &#x3D;&gt; {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  /**
+   * Service to delete transport, needs transport identifier to send to back.
+   *
+   * @param {number} idTransport
+   * @returns {Observable&lt;{}&gt;}
+   * @memberof ListTransporterService
+   */
+  deleteTransporter(idTransport: number): Observable&lt;{}&gt; {
+    console.log(&#x27;idTransport&#x27;, idTransport);
+    return new Observable(observer &#x3D;&gt; {
+      this.http.delete(this.api.get(&#x27;deleteTransport&#x27;, [idTransport])).subscribe((data: any) &#x3D;&gt; {
+        observer.next(data);
+      }, errorMessage &#x3D;&gt; {
+        observer.error(errorMessage);
+      });
+    });
+  }
+
+  /**
+   * Mock to get and object.
+   *
+   * @returns {Array&lt;TransportModel&gt;}
+   * @memberof ListTransporterService
+   */
+  public getFakeListTransporter(): Array&lt;TransportModel&gt; {
+    return this.transporters;
+  }
+
+  public getFakeTransporter(idToEdit: number) {
+    return this.transporters[0];
+  }
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ListTransporterService.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
