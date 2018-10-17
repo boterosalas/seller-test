@@ -1,23 +1,26 @@
-<!--
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="EAN">
-  </mat-form-field>
-  <mat-radio-group>
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
-  </mat-radio-group>
-</div>
--->
+<div>
+  <div>
+    <p id="textCreateEan">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+      Curabitur malesuada magna vel interdum maximus.
+      Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+      Curabitur malesuada magna vel interdum maximus.
+    </p>
+  </div>
+  <div [formGroup]="eanGroup">
+    <mat-form-field class="distanceComponetInt" [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
+      <mat-error>Formato inv&aacute;lido de EAN (7-12 caraceteres alfan&uacute;mericos)</mat-error>
+    </mat-form-field>
+    <div class="distanceComponetInt">
+      <form [formGroup]="options">
+        <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
+      </form>
+    </div>
+  </div>
 
-
-
-<div class="example-container">
-  <mat-form-field
-      [hideRequiredMarker]="options.value.hideRequired"
-      [floatLabel]="options.value.floatLabel">
-    <input matInput placeholder="EAN" required>
-  </mat-form-field>
-  <form [formGroup]="options">
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
-  </form>
+  <div class="buttonProcess">
+    <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!infox">Continuar</button>
+  </div>
 </div>
