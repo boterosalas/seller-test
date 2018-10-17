@@ -12,6 +12,11 @@
   <mat-step [stepControl]="categoryFormGroup">
     <form [formGroup]="categoryFormGroup">
       <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
+      <app-search-categorization></app-search-categorization>
+      <div class="buttonProcess">
+        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="basicInfoFormGroup">

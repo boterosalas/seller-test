@@ -1,12 +1,20 @@
+<p id="textCreateEan">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+    Curabitur malesuada magna vel interdum maximus.
+    Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+    Curabitur malesuada magna vel interdum maximus.
+</p>
 <div fxLayout="row" fxLayoutAlign="center center">
+
     <form id="search-form" class="search mat-typography" (keydown)="keyDownFunction($event)">
         <mat-form-field class="input-search">
             <!-- Icon search -->
             <mat-icon id="icon-search" class="icon-search" matPrefix>search</mat-icon>
 
             <!-- Input search -->
-            <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)" [formControl]="searchCategory"
-                matInput [matAutocomplete]="auto">
+            <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)"
+                [formControl]="searchCategory" matInput [matAutocomplete]="auto">
         </mat-form-field>
 
         <!-- Autocomplete -->
