@@ -28,7 +28,7 @@ export class CreateDialogComponent implements OnInit {
   public dialogTransport: number;
   public dialogZone: number;
   public chargeData: boolean;
-  private regexDaneCode = /^(((\w){8})(\,){0,1})+$/; // Validate alphanumerics sepharate by comma regex
+  private regexDaneCode = /^((((\w){8})(\,){1}){0,1})*(((\w){8}){1})$/; // Validate alphanumerics sepharate by comma regex
   @Input() typeDialog: number;
   @Input() idToEdit: number;
 

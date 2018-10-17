@@ -4,6 +4,7 @@ import { ShippingMethodsModel } from './shipping-methods.model';
 import { Logger } from '@app/core';
 import { QuotingAdminService } from '../quoting-administrator.service';
 import { LoadingService } from '@app/core';
+import { ModalService } from '@app/core';
 
 
 const log = new Logger('CreateDialogComponent');
@@ -19,7 +20,8 @@ export class ShippingMethodsComponent implements OnInit {
 
   constructor(private service: ShippingMethodsService,
               private quotingService: QuotingAdminService,
-              private loadingService: LoadingService) { }
+              private loadingService: LoadingService,
+              private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.getRequiredData();
@@ -43,6 +45,7 @@ export class ShippingMethodsComponent implements OnInit {
           this.loadingService.viewSpinner();
         }
       } else {
+        this.modalService.showModal('errorService');
         log.error('Error al intentar obtener los metodos de envios');
       }
     });
