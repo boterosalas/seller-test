@@ -113,6 +113,13 @@
           </mat-icon>
           {{const.AppProductEnviado}}
         </p>
+
+        <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameOrderEnFacturadoEnviado">
+          <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameOrderEnFacturadoEnviado}">
+            notifications
+          </mat-icon>
+          {{const.AppOrderFacturadoEnviado}}
+        </p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"

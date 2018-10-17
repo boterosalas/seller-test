@@ -129,6 +129,13 @@
                 {{const.AppOrderEnviado}}
               </p>
 
+              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderEnFacturadoEnviado">
+                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderEnFacturadoEnviado}">
+                  notifications
+                </mat-icon>
+                {{const.AppOrderFacturadoEnviado}}
+              </p>
+
             </div>
           </mat-cell>
         </ng-container>
