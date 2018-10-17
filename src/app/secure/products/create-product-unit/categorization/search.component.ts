@@ -37,11 +37,6 @@ export class SearchCategorizationComponent implements OnInit {
      * @memberof SearchCategorizationComponent
      */
     constructor(private searchService: SearchService) {
-        this.filteredStates = this.searchCategory.valueChanges
-            .pipe(
-                startWith(''),
-                map(state => state ? this._filterStates(state) : this.listCategories.slice())
-            );
     }
 
     /**
@@ -61,7 +56,7 @@ export class SearchCategorizationComponent implements OnInit {
      * @returns {FilterList[]}
      * @memberof SearchCategorizationComponent
      */
-    private _filterStates(value: string): FilterList[] {
+    public _filterStates(value: string): FilterList[] {
         const filterValue = value.toLowerCase();
         return this.listCategories.filter(state => state.Name.toLowerCase().indexOf(filterValue) === 0);
     }
@@ -72,13 +67,19 @@ export class SearchCategorizationComponent implements OnInit {
      * @memberof SearchCategorizationComponent
      */
     public getCategoriesList(): void {
-        this.searchService.getCategories().subscribe((body: any) => {
+        this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
-            if (body.status === 200 || true) {
+            if (result.status === 200) {
+                const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.chargueList = true;
+                this.filteredStates = this.searchCategory.valueChanges
+                    .pipe(
+                        startWith(''),
+                        map(state => state ? this._filterStates(state) : this.listCategories.slice())
+                    );
             } else {
-                log.debug('ListCategorizationComponent:' + body.message);
+                log.debug('SearchCategorizationComponent:' + result.message);
             }
         });
     }

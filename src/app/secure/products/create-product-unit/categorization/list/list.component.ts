@@ -77,7 +77,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     public changeText(modelName: string): string {
         const init = modelName.toLowerCase().search(this.searchText.toLowerCase());
         const end = this.searchText.length;
-        return modelName.replace( modelName.slice(init, init + end), '<mark>' + modelName.slice(init, init + end) + '</mark>');
+        return modelName.replace(modelName.slice(init, init + end), '<mark>' + modelName.slice(init, init + end) + '</mark>');
     }
 
     /**
@@ -92,34 +92,36 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     public organizedLisSearchText(list: any, openClose: boolean = false): boolean {
         let find = false;
         let findSons = false;
-        for (let i = 0; i < list.length; i++) {
-            // Has a conditional to open all with out modify names, refer to a the same name but with the mark.
-            if (!openClose) {
-                list[i].Show = false;
-                list[i].ModifyName = false;
-                // Verify if has text in name.
-                if ( this.searchTextIn(list[i].Name) ) {
-                    list[i].Show = true;
-                    find = true;
-                    list[i].ModifyName = this.changeText(list[i].Name);
-                }
-                // If has sons do the same recursive function
-                if (list[i].Son.length) {
-                    findSons = this.organizedLisSearchText(list[i].Son);
-                    // If has sons with the search text on it, open his father.
-                    if (!find && findSons || find && findSons) {
+        if (list) {
+            for (let i = 0; i < list.length; i++) {
+                // Has a conditional to open all with out modify names, refer to a the same name but with the mark.
+                if (!openClose) {
+                    list[i].Show = false;
+                    list[i].ModifyName = false;
+                    // Verify if has text in name.
+                    if (this.searchTextIn(list[i].Name)) {
                         list[i].Show = true;
                         find = true;
-                    }else if (!find) {
-                        find = findSons;
-                        list[i].Show = findSons;
+                        list[i].ModifyName = this.changeText(list[i].Name);
                     }
+                    // If has sons do the same recursive function
+                    if (list[i].Son.length) {
+                        findSons = this.organizedLisSearchText(list[i].Son);
+                        // If has sons with the search text on it, open his father.
+                        if (!find && findSons || find && findSons) {
+                            list[i].Show = true;
+                            find = true;
+                        } else if (!find) {
+                            find = findSons;
+                            list[i].Show = findSons;
+                        }
+                    }
+                } else {
+                    // Else show all items and with the recursive function open her sons.
+                    list[i].Show = this.openAllItems;
+                    list[i].ModifyName = null;
+                    findSons = this.organizedLisSearchText(list[i].Son, true);
                 }
-            } else {
-                // Else show all items and with the recursive function open her sons.
-                list[i].Show = this.openAllItems;
-                list[i].ModifyName = null;
-                findSons = this.organizedLisSearchText(list[i].Son, true);
             }
         }
         return find; // Return if find sons.
@@ -131,16 +133,18 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @memberof ListCategorizationComponent
      */
     public getCategoriesList(): void {
-        this.searchService.getCategories().subscribe((body: any) => {
+        this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
-            if (body.status === 200 || true) {
+            if (result.status === 200) {
+                const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
             } else {
-                log.debug('ListCategorizationComponent:' + body.message);
+                log.debug('ListCategorizationComponent:' + result.message);
             }
         });
     }
+
 
     /**
      * Categories has ones with outh sons, and is required deletes.
@@ -205,9 +209,6 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             for (let j = 0; j < list.length; j++) {
                 if (list[i].Id === list[j].IdParent) {
                     list[j].Show = false;
-                    if (this.searchText && list[j].Name.search(this.searchText) !== -1) {
-                        list[j].Show = true;
-                    }
                     list[i].Son.push(list[j]);
                     list[j].touched = true;
                 }
