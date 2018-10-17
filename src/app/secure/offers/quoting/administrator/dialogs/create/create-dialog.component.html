@@ -1,6 +1,6 @@
 <!-- TRANSPORT TEXT DIALOG -->
 <ng-template #addTransportBlock>Crear transportadora</ng-template>
-<ng-template #updateTransportBlock>Editar transportadora</ng-template>
+<ng-template #updateTransportBlock>Modificar transportadora</ng-template>
 <ng-template #addTransportParagraphBlock>Ingresa una nombre de transportadora y un método de envío asociado para que
   aparezca
   en la lista de los vendedores al momento de configurar el método de envío seleccionado.</ng-template>
@@ -9,7 +9,7 @@
 
 <!-- ZONE TEXT DIALOG -->
 <ng-template #addZoneBlock>Crear zona</ng-template>
-<ng-template #updateZoneBlock>Editar zona</ng-template>
+<ng-template #updateZoneBlock>Modificar zona</ng-template>
 <ng-template #addZoneParagraphBlock>Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para
   que aparezca en la lista de los vendedores al momento de configurar un método de envío.</ng-template>
 <ng-template #updateZoneParagraphBlock>Reemplaza el nombre de la zona existente o los códigos DANE configurados para la
@@ -58,7 +58,7 @@
           <!-- Fields container -->
           <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
             <!-- Name input Field -->
-            <mat-form-field [ngClass]="{'name-transport': dialogMode, 'name-transport-update': !dialogMode}" >
+            <mat-form-field [ngClass]="{'name-transport': dialogMode, 'name-transport-update': !dialogMode}">
               <mat-icon matPrefix>local_shipping</mat-icon>
               <input matInput formControlName="Name" placeholder="Nombre transportadora">
               <mat-error>Campo obligatorio </mat-error>

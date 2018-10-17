@@ -36,15 +36,13 @@ $modal: 72px;
         width: 70%;
       }
       .transport-dialog {
+        min-height: 500px;
         &.mat-form-field-wrapper {
           width: 100%;
         }
       }
       .select-transport {
         width: 100%;
-      }
-      .buttons-container{
-        padding: 2em;
       }
     }
   }
@@ -81,12 +79,22 @@ $modal: 72px;
   .mat-form-field-infix {
     width: 100%;
   }
+  .name-transport-update{
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) {
   article {
     width: 55%;
     height: 55%;
+  }
+
+  .select-transport {
+    width: 100%;
+  }
+  .name-transport-update{
+    width: 48%;
   }
 }
 
@@ -103,8 +111,4 @@ $modal: 72px;
 
 .name-transport{
   width: 100%;
-}
-
-.name-transport-update{
-  width: 48%;
 }
