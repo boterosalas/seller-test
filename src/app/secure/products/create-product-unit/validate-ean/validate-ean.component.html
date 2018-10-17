@@ -1,17 +1,3 @@
-<!-- 
-<div class="example-container">
-  <mat-form-field
-      [hideRequiredMarker]="options.value.hideRequired"
-      [floatLabel]="options.value.floatLabel">
-    <input matInput placeholder="EAN" required>
-  </mat-form-field>
-  <form [formGroup]="options">
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
-  </form>
-</div>
--->
-
-
 <div>
   <div>
     <p id="textCreateEan">
@@ -24,7 +10,7 @@
   </div>
   <div [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt" [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" required>
+      <input matInput placeholder="EAN" formControlName="eanCtrl" required (change)="getEanServices()">
     </mat-form-field>
     <div class="distanceComponetInt">
       <form [formGroup]="options">
@@ -34,6 +20,7 @@
   </div>
 
   <div class="buttonProcess">
-    <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+    <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!infox"
+    >Continuar</button>
   </div>
 </div>
