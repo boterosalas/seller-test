@@ -54,9 +54,6 @@ export class DownloadOrderModalComponent implements OnInit {
     this.limitLengthOrder = data.limit;
   }
 
-  /**
-   * @memberof DownloadOrderModalComponent
-   */
   ngOnInit() {
     this.getDataUser().then(data => {
       this.createForm();
@@ -68,7 +65,8 @@ export class DownloadOrderModalComponent implements OnInit {
   }
 
   /**
-   * Funcionalidad para cerrar el modal
+   * Funcionalidad para cerrar el modal.
+   *
    * @memberof DownloadOrderModalComponent
    */
   onNoClick(): void {
@@ -87,18 +85,19 @@ export class DownloadOrderModalComponent implements OnInit {
   }
 
   /**
-   * Método para realizar la descarga de las órdenes
+   * Método para realizar la descarga de las órdenes.
+   *
    * @param {any} form
    * @memberof DownloadOrderModalComponent
    */
-  downloadOrders(form) {
+  downloadOrders(form: any) {
     log.info(this.downloadOrderService.getCurrentFilterOrders());
     const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
     log.debug('parametros', currentFiltersOrders);
-    this.downloadOrderService.downloadOrders(this.user, currentFiltersOrders).subscribe(res => {
+    this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
       if (res != null) {
         this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
           'Cerrar', 10000);

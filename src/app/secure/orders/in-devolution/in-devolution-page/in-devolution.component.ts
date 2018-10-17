@@ -87,10 +87,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
 
   constructor(
     public shellComponent: ShellComponent,
-    private route: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
-    private zone: NgZone,
     private inDevolutionService: InDevolutionService,
     private componentsService: ComponentsService,
     public userParams: UserParametersService
@@ -146,7 +143,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @param {*} $event
    * @memberof InDevolutionComponent
    */
-  changeSizeOrderTable($event) {
+  changeSizeOrderTable($event: any) {
     log.info($event);
     this.dataSource.paginator = $event.paginator;
   }
@@ -164,7 +161,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       log.info('The modal comment order was closed');
     });
   }
@@ -175,13 +172,13 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof InDevolutionComponent
    */
-  getOrdersList($event) {
+  getOrdersList($event: any) {
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
+    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
 
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       // guardo el filtro actual para la paginación.
@@ -199,10 +196,10 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
-    }, err => {
-      this.orderListLength = true;
-      log.error('No se pudo cargar las órdenes');
-    });
+    }, () => {
+        this.orderListLength = true;
+        log.error('No se pudo cargar las órdenes');
+      });
   }
 
 
@@ -251,12 +248,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @memberof InDevolutionComponent
    */
   openModalDetailOrder(item): void {
-    const dialogRef = this.dialog.open(ProductDevolutionModalComponent, {
-      data: {
-        user: this.user,
-        order: item
-      },
-    });
   }
 
   /**
@@ -290,12 +281,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @memberof InDevolutionComponent
    */
   dialogAcceptDevolution() {
-    const dialogRef = this.dialog.open(ActionConfirmReceiptComponent, {
-      width: '300px',
-      data: {
-        user: this.user
-      },
-    });
   }
 
   /**

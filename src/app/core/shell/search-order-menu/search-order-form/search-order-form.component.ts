@@ -151,7 +151,7 @@ export class SearchOrderFormComponent implements OnInit {
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersFilter(this.user, 100, stringSearch).subscribe((res: any) => {
+      this.searchOrderMenuService.getOrdersFilter(100, stringSearch).subscribe((res: any) => {
 
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.

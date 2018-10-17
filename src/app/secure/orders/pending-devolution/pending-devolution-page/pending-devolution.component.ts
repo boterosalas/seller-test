@@ -163,7 +163,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
+    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
 
     this.pendingDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       // guardo el filtro actual para la paginación.

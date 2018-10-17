@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 
 @Injectable()
-
 export class SearchOrderMenuService {
 
   constructor(
@@ -30,7 +29,7 @@ export class SearchOrderMenuService {
    * @param {any} data
    * @memberof OrderService
    */
-  setCurrentFilterOrders(data) {
+  setCurrentFilterOrders(data: any) {
     localStorage.setItem('currentFilter', JSON.stringify(data));
   }
 
@@ -42,11 +41,9 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(user: any, limit, stringSearch): Observable<[{}]> {
-
-
+  getOrdersFilter(limit: any, stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
+      this.http.get(this.api.get('searchOrders', ['', limit + stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
@@ -62,9 +59,9 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersPendingDevolutionFilter(user: any, limit, stringSearch): Observable<[{}]> {
+  getOrdersPendingDevolutionFilter(limit: any, stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', [user.sellerId, limit + stringSearch])).subscribe((data: any) => {
+      this.http.get(this.api.get('searchPendingDevolution', ['', limit + stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
