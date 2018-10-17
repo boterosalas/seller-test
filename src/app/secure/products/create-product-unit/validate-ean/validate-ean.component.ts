@@ -15,18 +15,15 @@ export class ValidateEanComponent implements OnInit {
   public formatEan = /^(([a-zA-Z0-9]{7,12})|([0-9]{7,12}))$/;
   // constructor() { }
 
-  // metodo para chekeao el chechk box
+  // metodo para chekear el chechk box
   constructor(private fb: FormBuilder, private service: EanServicesService) {
-    this.options = fb.group({
-      hideRequired: false,
-      floatLabel: 'auto',
-    });
   }
-
   ngOnInit() {
     // metodo para validar el input del form
     this.eanGroup = this.fb.group({
-      eanCtrl: ['', Validators.pattern(this.formatEan)]
+      eanCtrl: ['', Validators.pattern(this.formatEan)],
+      associateEan: false,
+      floatLabel: 'auto',
     });
   }
 
