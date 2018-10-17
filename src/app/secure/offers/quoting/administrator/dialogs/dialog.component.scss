@@ -79,6 +79,9 @@ $modal: 72px;
   .mat-form-field-infix {
     width: 100%;
   }
+  .name-transport-update{
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -89,6 +92,9 @@ $modal: 72px;
 
   .select-transport {
     width: 100%;
+  }
+  .name-transport-update{
+    width: 48%;
   }
 }
 
@@ -105,8 +111,4 @@ $modal: 72px;
 
 .name-transport{
   width: 100%;
-}
-
-.name-transport-update{
-  width: 48%;
 }

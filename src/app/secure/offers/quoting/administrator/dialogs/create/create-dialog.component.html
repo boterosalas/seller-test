@@ -58,7 +58,7 @@
           <!-- Fields container -->
           <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center">
             <!-- Name input Field -->
-            <mat-form-field [ngClass]="{'name-transport': dialogMode, 'name-transport-update': !dialogMode}" class="select-transport">
+            <mat-form-field [ngClass]="{'name-transport': dialogMode, 'name-transport-update': !dialogMode}">
               <mat-icon matPrefix>local_shipping</mat-icon>
               <input matInput formControlName="Name" placeholder="Nombre transportadora">
               <mat-error>Campo obligatorio </mat-error>
