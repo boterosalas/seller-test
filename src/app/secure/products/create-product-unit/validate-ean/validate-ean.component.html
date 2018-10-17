@@ -10,7 +10,8 @@
   </div>
   <div [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt" [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" required (change)="getEanServices()">
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
+      <mat-error>Formato inv&aacute;lido de EAN (7-12 caraceteres alfan&uacute;mericos)</mat-error>
     </mat-form-field>
     <div class="distanceComponetInt">
       <form [formGroup]="options">
@@ -20,7 +21,6 @@
   </div>
 
   <div class="buttonProcess">
-    <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!infox"
-    >Continuar</button>
+    <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!infox">Continuar</button>
   </div>
 </div>

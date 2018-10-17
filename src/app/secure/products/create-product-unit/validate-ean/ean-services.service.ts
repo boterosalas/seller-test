@@ -10,8 +10,8 @@ export class EanServicesService {
 
    }
 
-   validateEan(){
-    let url = "https://jsonplaceholder.typicode.com/posts";
+   validateEan() {
+    const url = "https://jsonplaceholder.typicode.com/posts";
     const headers = new HttpHeaders({
       'Content-Type': 'application/json;charset=UTF-8'
       });
