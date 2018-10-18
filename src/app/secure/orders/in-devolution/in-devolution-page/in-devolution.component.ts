@@ -161,7 +161,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe(result => {
       log.info('The modal comment order was closed');
     });
   }
@@ -247,7 +247,13 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @param {any} item
    * @memberof InDevolutionComponent
    */
-  openModalDetailOrder(item): void {
+  openModalDetailOrder(item: any): void {
+    const dialogRef = this.dialog.open(ProductDevolutionModalComponent, {
+      data: {
+        user: this.user,
+        order: item
+      },
+    });
   }
 
   /**
@@ -281,6 +287,12 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @memberof InDevolutionComponent
    */
   dialogAcceptDevolution() {
+    const dialogRef = this.dialog.open(ActionConfirmReceiptComponent, {
+      width: '300px',
+      data: {
+        user: this.user
+      },
+    });
   }
 
   /**
