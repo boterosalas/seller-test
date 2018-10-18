@@ -13,6 +13,14 @@
         margin-right: 10px;
       }
     }
+
+    & .processing-string {
+      & mat-icon {
+        color:orange;
+        margin-right: 10px;
+      }
+    }
+
     & .error-string {
       & mat-icon {
         color: #F44336;
