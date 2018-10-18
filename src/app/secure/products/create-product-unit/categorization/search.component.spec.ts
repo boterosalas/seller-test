@@ -48,6 +48,12 @@ fdescribe('Probando componentes relacionados con la busqueda y seleccion de cate
     const searchService = <SearchService>{
         getCategories(): Observable<{}> {
             return of(structureJson);
+        },
+        getCategory(): Observable<any> {
+            return of(null); // functions empty
+        },
+        setCategory(category: string): void {
+            // functions empty
         }
     };
 

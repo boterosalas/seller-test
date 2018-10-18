@@ -24,6 +24,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     listCategories: CategoryModel[];
     finishCharge = false;
     openAllItems = false;
+    selectedCategory: string;
 
     /**
      * Creates an instance of ListCategorizationComponent.
@@ -39,6 +40,10 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      */
     ngOnInit() {
         this.getCategoriesList();
+        this.searchService.change.subscribe((result: any) => {
+            console.log(result);
+            this.selectedCategory = result;
+        });
     }
 
     /** When list changes need organized  */
