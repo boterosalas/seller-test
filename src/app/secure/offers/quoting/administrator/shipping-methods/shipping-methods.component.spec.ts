@@ -4,9 +4,10 @@ import { ShippingMethodsModel } from './shipping-methods.model';
 import { ShippingMethodsService } from './shipping-methods.service';
 import { QuotingAdminService } from '../quoting-administrator.service';
 import { LoadingService } from '@app/core';
-import { Observable, of  } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MaterialModule } from '@app/material.module';
+import { ModalService } from '@app/core';
 
 
 describe('ShippingMethodsComponent', () => {
@@ -21,11 +22,17 @@ describe('ShippingMethodsComponent', () => {
 
   const structureJson = {
     statusCode: 200,
-    body: JSON.stringify(({ Data:  shippingMethodsList }))
+    body: JSON.stringify(({ Data: shippingMethodsList }))
+  };
+
+  const modalService = <ModalService>{
+    showModal(type: string) {
+      return null;
+    }
   };
 
   const shippingService = <ShippingMethodsService>{
-    getShippingMethods():  Observable<any>  {
+    getShippingMethods(): Observable<any> {
       return of(structureJson);
     }
   };
@@ -41,16 +48,17 @@ describe('ShippingMethodsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShippingMethodsComponent ],
+      declarations: [ShippingMethodsComponent],
       providers: [
-        {provide: ShippingMethodsService, useValue: shippingService},
-        {provide: QuotingAdminService, useValue: quotingService},
-        {provide: LoadingService, useValue: loadingService}
+        { provide: ShippingMethodsService, useValue: shippingService },
+        { provide: QuotingAdminService, useValue: quotingService },
+        { provide: LoadingService, useValue: loadingService },
+        { provide: ModalService, useValue: modalService }
       ], imports: [
         MaterialModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
