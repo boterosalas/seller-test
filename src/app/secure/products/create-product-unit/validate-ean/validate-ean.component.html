@@ -11,7 +11,7 @@
   <form [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
       <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
-      <mat-error>Formato inv&aacute;lido de EAN (7-12 caraceteres alfan&uacute;mericos)</mat-error>
+      <mat-error>Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos)</mat-error>
     </mat-form-field>
     <div class="distanceComponetInt">
       <mat-checkbox formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
