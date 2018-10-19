@@ -22,6 +22,11 @@
   <mat-step [stepControl]="basicInfoFormGroup">
     <form [formGroup]="basicInfoFormGroup">
       <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
+      <app-basic-information></app-basic-information>
+      <div class="buttonProcess">
+        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="especificFormGroup">

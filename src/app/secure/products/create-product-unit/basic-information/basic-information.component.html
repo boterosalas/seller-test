@@ -1,0 +1,27 @@
+<!-- FORM CONTAINER -->
+<div fxFlex="100" fxLayout="column">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat tortor non risus auctor finibus. Aenean
+        eu
+        tristique nisl. Curabitur malesuada magna vel interdum maximus. Donec eros urna, viverra sed elementum eu,
+        dictum a
+        tellus. Nam blandit tempor velit, non suscipit.</p>
+
+    <!-- BASIC INFORMATION FORM-->
+    <form class="basic-info"  [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
+        <!-- NAME AND CATEGORY -->
+        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+
+            <mat-form-field class="name-product field">
+                <input matInput placeholder="Nombre del producto" class="input-name-producto" formControlName="Name">
+            </mat-form-field>
+
+            <mat-form-field class="category-product field">
+                <input matInput placeholder="Categoria" class="input-name-producto" formControlName="Category" disabled>
+            </mat-form-field>
+
+        </div>
+
+    </form>
+
+
+</div>

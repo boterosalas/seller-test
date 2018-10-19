@@ -1,0 +1,22 @@
+
+@media screen and (max-width: 600px) {
+    .basic-info{
+        .field{
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .basic-info{
+        .field{
+            width: 50%;
+            &.name-product {
+                padding-right: 1em;
+            }
+            &.category-product {
+                padding-left: 1em;
+            }
+        }
+    }
+}
