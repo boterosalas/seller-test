@@ -12,7 +12,7 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public infox;
-  public formatEan = /^(([a-zA-Z0-9]{7,12})|([0-9]{7,12}))$/;
+  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
   // constructor() { }
 
   // metodo para chekear el chechk box
@@ -29,8 +29,15 @@ export class ValidateEanComponent implements OnInit {
 
   // consumiendo servicio para validar si el EAN es valido
   getEanServices() {
-    this.infox = this.service.validateEan().subscribe(res => {
-      console.log('this.infox', this.infox);
-    }, error => {console.log('Servicio no funciona'); });
+    console.log('this.eanGroup: ', this.eanGroup);
+    console.log('this.controls: ', this.eanGroup.controls.eanCtrl.value);
+    this.infox = false;
+    this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
+      console.log('res: ', res);
+      this.infox = res['data'];
+    }, error => {
+      this.infox = false;
+      console.log('Servicio no funciona');
+    });
   }
 }

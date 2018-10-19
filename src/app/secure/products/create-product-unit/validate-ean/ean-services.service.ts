@@ -10,11 +10,11 @@ export class EanServicesService {
 
    }
 
-   validateEan() {
-    const url = 'https://jsonplaceholder.typicode.com/posts';
+   validateEan(codigoEan: any) {
+    const url = 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/' + codigoEan;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json;charset=UTF-8'
       });
-      return this.http.post(url, { headers: headers });
+      return this.http.get(url, { headers: headers });
     }
 }
