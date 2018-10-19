@@ -24,12 +24,23 @@ export class ProductBasicInfoComponent implements OnInit {
                 [
                     Validators.required
                 ]),
-            Category: new FormControl('Categoria',
+            Category: new FormControl({ value: 'Nancy', disabled: true },
                 [
                     Validators.required
-                ])
+                ]),
+            Model: new FormControl('',
+                [
+                    Validators.required
+                ]),
+            Brand: new FormControl('',
+                [
+                    Validators.required
+                ]),
+            Detail: new FormControl('',
+                [
+                    Validators.required
+                ]),
         });
-        console.log(this.formBasicInfo);
     }
 
     public saveBasicInfo(): void {

@@ -1,22 +1,67 @@
+$blue-page: #485AFA;
+$color-label: #bdbdbd;
+@mixin inputs-basic-info-form() {
+    padding-right: 1em;
+}
 
 @media screen and (max-width: 600px) {
-    .basic-info{
-        .field{
+    .basic-info {
+        .field {
             width: 100%;
         }
     }
 }
 
 @media screen and (min-width: 600px) {
-    .basic-info{
-        .field{
+    .basic-info {
+        .field {
             width: 50%;
             &.name-product {
-                padding-right: 1em;
+                @include inputs-basic-info-form();
             }
-            &.category-product {
-                padding-left: 1em;
+            &.category-product {}
+            &.brand-product {
+                @include inputs-basic-info-form();
+            }
+            &.model-product {}
+            &.detail-product {
+                @include inputs-basic-info-form();
+            }
+            &.shipping-product {
+                .label-shipping {
+                    width: 100%;
+                }
             }
         }
+    }
+}
+
+.shipping-slider {
+    width: 100%;
+    padding: 0px;
+    height: 25px;
+}
+
+.shipping-product {
+    .items-slider {
+        &-label {
+            color: $color-label;
+            font-size: 12px;
+        }
+    }
+}
+
+/* Sobre escribir */
+
+/deep/ mat-slider .mat-slider-wrapper {
+    top: 12px !important;
+    left: 0px !important;
+    right: 0px !important; //#485AFA
+    .mat-slider-thumb {
+        background-color: $blue-page !important;
+        border: none;
+    }
+    .mat-slider-track-fill {
+        background-color: $blue-page;
     }
 }

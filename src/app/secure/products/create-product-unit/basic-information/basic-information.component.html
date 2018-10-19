@@ -7,19 +7,50 @@
         tellus. Nam blandit tempor velit, non suscipit.</p>
 
     <!-- BASIC INFORMATION FORM-->
-    <form class="basic-info"  [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
+    <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
+
         <!-- NAME AND CATEGORY -->
         <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-
             <mat-form-field class="name-product field">
-                <input matInput placeholder="Nombre del producto" class="input-name-producto" formControlName="Name">
+                <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
             </mat-form-field>
 
             <mat-form-field class="category-product field">
-                <input matInput placeholder="Categoria" class="input-name-producto" formControlName="Category" disabled>
+                <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category">
+            </mat-form-field>
+        </div>
+
+        <!-- BRAND AND MODEL -->
+        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="brand-product field">
+                <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
             </mat-form-field>
 
+            <mat-form-field class="model-product field">
+                <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model">
+            </mat-form-field>
         </div>
+
+        <!-- DETAIL AND SHIPPING SIZE -->
+        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="detail-product field">
+                <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
+            </mat-form-field>
+
+            <div class="shipping-product field">
+                <label class="label-shipping">Shipping size</label>
+                <mat-slider min="1" max="5" step="1" tickInterval="true" class="shipping-slider"></mat-slider>
+                <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
+                    <label class="items-slider-label">1</label>
+                    <label class="items-slider-label">2</label>
+                    <label class="items-slider-label">3</label>
+                    <label class="items-slider-label">4</label>
+                    <label class="items-slider-label">5</label>
+                </div>
+            </div>
+        </div>
+
+
 
     </form>
 
