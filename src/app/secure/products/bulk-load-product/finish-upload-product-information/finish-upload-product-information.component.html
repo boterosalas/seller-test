@@ -1,37 +1,38 @@
-<div *ngIf="response.body.error !== 0 || response.body.successful !== 0">
-    <div class="error-list-content list-log">
-  
-      <h3 class="succes-string" mat-subheader *ngIf="response.body.successful !== 0 && response.body.error === 0">
-        <mat-icon>check</mat-icon>
-        {{response.successful}} Carga realizada con éxito
-      </h3>
-      <mat-divider *ngIf="response.successful != 0"></mat-divider>
-<!--
-  <h3 class="processing-string" mat-subheader *ngIf="response.body.processing !== 0 && response.body.error === 0">
-          <mat-icon>autorenew</mat-icon>
-          {{response.processing}} Carga en proceso
-        </h3>
-        <mat-divider *ngIf="response.processing != 0"></mat-divider>
- -->
-      
-  
-      <h4 class="error-string" mat-subheader *ngIf="response.body.error !== 0">
-        <mat-icon>warning</mat-icon>
-        Se han presentado {{response.body.error}} errores al momento de cargar los productos
-      </h4>
-      <mat-divider *ngIf="response.body.error !== 0"></mat-divider>
-  
-      <mat-nav-list *ngIf="response.body.error !== 0">
-        <mat-list-item *ngFor="let item of response.body.productNotifyViewModel">
-          <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-          <h4 matLine>EAN:{{item.ean}}</h4>
-          <p matLine>Error presentado: {{item.message}}</p>
-        </mat-list-item>
-      </mat-nav-list>
-    </div>
-    <mat-dialog-actions class="footer-dialog">
-      <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>
-      <button id="export-to-excel-button" *ngIf="response.body.error !== 0" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.productNotifyViewModel,'ProductsLogs')">Exportar Excel
-      </button>
-    </mat-dialog-actions>
+
+<div>
+  <div class="error-list-content list-log">
+
+    <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
+      <mat-icon>autorenew</mat-icon>
+      {{response.processing}} Carga en proceso
+    </h3>
+    <mat-divider *ngIf="response.processing != 0"></mat-divider>
+
+    <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status ===2">
+      <mat-icon>check</mat-icon>
+      {{response.successful}} Carga realizada con éxito
+    </h3>
+    <mat-divider *ngIf="response.successful != 0"></mat-divider>
+
+    <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
+      <mat-icon>warning</mat-icon>
+      Se han presentado {{response.body.error}} errores al momento de cargar los productos
+    </h4>
+    <mat-divider *ngIf="response.body.error !== 0"></mat-divider>
+
+    <mat-nav-list *ngIf="response.body.error !== 0">
+      <mat-list-item *ngFor="let item of response.body.data.response.ProductNotify">
+        <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+        <h4 matLine>EAN:{{item.Ean}}</h4>
+        <p matLine>Error presentado: {{item.Message}}</p>
+      </mat-list-item>
+    </mat-nav-list>
   </div>
+
+  <mat-dialog-actions class="footer-dialog">
+    <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>
+    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.data.response.ProductNotify,'ProductsLogs')">Exportar
+      Excel
+    </button>
+  </mat-dialog-actions>
+</div>

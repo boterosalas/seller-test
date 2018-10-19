@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CognitoUtil, EndpointService } from '@app/core';
 import { defaultVersion, endpoints } from '@root/api-endpoints';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable()
@@ -76,10 +76,9 @@ export class BulkLoadProductService {
     // params = params.append('date', this.currentDate);
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' } )
+      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
         .subscribe(
           data => {
-            console.log('data', data);
             observer.next(data);
           },
           error => {
@@ -98,17 +97,34 @@ export class BulkLoadProductService {
   getCargasMasivas(): Observable<{}> {
     return new Observable(observer => {
       this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
-      .subscribe(
-        data => {
-          console.log('data', data);
-          observer.next(data);
-        },
-        error => {
-          console.log('error', error);
-          observer.next(error);
-        }
-      );
+        .subscribe(
+          data => {
+            console.log('data estado: ', data);
+            observer.next(data);
+          },
+          error => {
+            console.log('error estado: ', error);
+            observer.next(error);
+          }
+        );
     });
+
+/*
+    return of(
+      {
+        body: {
+          'errors': [],
+          'data': {
+            'idSeller': 1,
+            'status': 3,
+            'response': '{\"TotalProcess\":1,\"Error\":1,\"Successful\":0,\"FileName\":\"\",\"ProductNotify\":[{\"Ean\":\"5555255555555\",\"Message\":\"Categoría no existe.\"}]}',
+            'checked': 'false'
+          },
+          'message': 'Operación realizada éxitosamente.'
+        }
+      }
+    );*/
+
   }
 
 }

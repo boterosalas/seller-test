@@ -74,6 +74,9 @@ export class BulkLoadProductComponent implements OnInit {
 
   public arrayNecessaryData: Array<any>;
 
+  /* Mirar el estado del progreso de la carga*/
+  public progressStatus = false;
+
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -108,6 +111,7 @@ export class BulkLoadProductComponent implements OnInit {
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.userService.isAuthenticated(this);
+    this.verifyStateCharge();
   }
 
   /**
@@ -1205,7 +1209,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
-    // this.loadingService.viewSpinner();
+    this.loadingService.viewSpinner();
     // call to the bulk load product service
     this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
       .subscribe(
@@ -1215,9 +1219,9 @@ export class BulkLoadProductComponent implements OnInit {
             log.info(data);
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
-                this.openDialogSendOrder(data);
-                // this.verifyStateCharge();
-                // this.getAvaliableLoads();
+                 // this.openDialogSendOrder(data);
+                 this.verifyStateCharge();
+                 this.getAvaliableLoads();
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1237,19 +1241,35 @@ export class BulkLoadProductComponent implements OnInit {
   /*
   Funcion para validar status de la carga
 */
+
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+      this.dialog.closeAll();
+    }
+  }
   verifyStateCharge() {
     this.BulkLoadProductS.getCargasMasivas()
       .subscribe(
         (result: any) => {
-          console.log('resul', result);
+          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+          if (result.body.data.response) {
+            result.body.data.response = JSON.parse(result.body.data.response);
+          }
           if (result.body.data.status === 0) {
-            console.log('status 0', status);
           } else if (result.body.data.status === 1) {
-            console.log('status 1', status);
+            setTimeout( () => {
+              this.verifyStateCharge();
+            }, 3000);
+            if (!this.progressStatus) {
+              this.openDialogSendOrder(result);
+            }
+            this.progressStatus = true;
           } else if (result.body.data.status === 2) {
-            console.log('status 2', status);
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
           } else if (result.body.data.status === 3) {
-            console.log('status 3', status);
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
           }
         }
       );
@@ -1266,6 +1286,7 @@ export class BulkLoadProductComponent implements OnInit {
   openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
+      disableClose: res.body.data.status === 1,
       data: {
         response: res
       },

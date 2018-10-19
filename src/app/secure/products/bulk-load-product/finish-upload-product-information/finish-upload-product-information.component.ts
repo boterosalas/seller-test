@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -32,6 +32,7 @@ export class FinishUploadProductInformationComponent {
     public dialogRef: MatDialogRef<FinishUploadProductInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+
     this.response = data.response;
   }
 
