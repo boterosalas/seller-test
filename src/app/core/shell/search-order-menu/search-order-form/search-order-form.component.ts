@@ -142,7 +142,7 @@ export class SearchOrderFormComponent implements OnInit {
     }
 
     if (data.value.processedOrder !== null && data.value.processedOrder !== '') {
-      stringSearch += `&ProcessedOrder=${data.value.processedOrder}`;
+      stringSearch += `&processedOrder=${data.value.processedOrder}`;
       objectSearch.processedOrder = data.value.processedOrder;
     }
 
