@@ -149,14 +149,14 @@ export class BulkLoadProductComponent implements OnInit {
    */
   getAvaliableLoads() {
     /*Se muestra el loading*/
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
     this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
       (result: any) => {
         /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-        if (result.status === 200 && result.body) {
+        if (result.status === 200 && result.body.data) {
           /*Se guardan los datos en una variable*/
-          this.dataAvaliableLoads = result.body;
+          this.dataAvaliableLoads = result.body.data;
         } else {
           /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
           this.modalService.showModal('errorService');
@@ -222,7 +222,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.loadingService.viewSpinner();
+      // this.loadingService.viewSpinner();
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
@@ -933,8 +933,8 @@ export class BulkLoadProductComponent implements OnInit {
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
       MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
-      ConversionFactor : res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
-      DrainedFactor : res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
+      ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
+      DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
       features: []
     };
 
@@ -1161,8 +1161,8 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
       this.arrayInformation[index].errorMeasurementUnit = false;
-      this.arrayInformation[index].errorConversionFactor  = false;
-      this.arrayInformation[index].errorDrainedFactor  = false;
+      this.arrayInformation[index].errorConversionFactor = false;
+      this.arrayInformation[index].errorDrainedFactor = false;
     }
   }
 
@@ -1205,7 +1205,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     // call to the bulk load product service
     this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
       .subscribe(
@@ -1216,7 +1216,8 @@ export class BulkLoadProductComponent implements OnInit {
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
                 this.openDialogSendOrder(data);
-                this.getAvaliableLoads();
+                // this.verifyStateCharge();
+                // this.getAvaliableLoads();
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1232,6 +1233,28 @@ export class BulkLoadProductComponent implements OnInit {
         }
       );
   }
+
+  /*
+  Funcion para validar status de la carga
+*/
+  verifyStateCharge() {
+    this.BulkLoadProductS.getCargasMasivas()
+      .subscribe(
+        (result: any) => {
+          console.log('resul', result);
+          if (result.body.data.status === 0) {
+            console.log('status 0', status);
+          } else if (result.body.data.status === 1) {
+            console.log('status 1', status);
+          } else if (result.body.data.status === 2) {
+            console.log('status 2', status);
+          } else if (result.body.data.status === 3) {
+            console.log('status 3', status);
+          }
+        }
+      );
+  }
+
 
   /**
    * Funcionalidad para desplegar el
@@ -1294,14 +1317,14 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'descUniMedida':
+        case 'descUniMedida':
           if ((inputtxt.match(formatDescUnidadMedida))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
-          case 'factConversion':
+        case 'factConversion':
           if ((inputtxt.match(formatFactConversion))) {
             if (inputtxt > 0) {
               valueReturn = true;
@@ -1313,7 +1336,7 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'factEscurrido':
+        case 'factEscurrido':
           if ((inputtxt.match(formatFactEscurrido))) {
             valueReturn = true;
           } else {

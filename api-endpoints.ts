@@ -51,7 +51,7 @@ export const endpoints = {
       getHistoricalOffersAdmin: 'https://rk6blagjy8.execute-api.us-east-1.amazonaws.com/OfferHistoricalAdmin/{params}',
       downloadHistoricalAdmin: 'https://vlaswi5ovd.execute-api.us-east-1.amazonaws.com/OfferDownloadHistoricalAdmin/{params}',
       // Products
-      products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
+      products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/{params}',
       // Quoting
       getSendMethod: 'https://bkafj0viij.execute-api.us-east-1.amazonaws.com/ShippingMethod',
       zones: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas',
@@ -66,7 +66,9 @@ export const endpoints = {
       getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
       getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       // Guardar logs en CloudWatch
-      setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs'
+      setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
+      // Estado de Carga
+      getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/'
     },
   },
   // Endpoints production

@@ -6,12 +6,14 @@
         {{response.successful}} Carga realizada con éxito
       </h3>
       <mat-divider *ngIf="response.successful != 0"></mat-divider>
-
-      <h3 class="processing-string" mat-subheader *ngIf="response.body.processing !== 0 && response.body.error === 0">
+<!--
+  <h3 class="processing-string" mat-subheader *ngIf="response.body.processing !== 0 && response.body.error === 0">
           <mat-icon>autorenew</mat-icon>
           {{response.processing}} Carga en proceso
         </h3>
         <mat-divider *ngIf="response.processing != 0"></mat-divider>
+ -->
+      
   
       <h4 class="error-string" mat-subheader *ngIf="response.body.error !== 0">
         <mat-icon>warning</mat-icon>

@@ -40,7 +40,7 @@ export class BulkLoadProductService {
       mm = '0' + mm;
     }
 
-    today = dd + '/' + mm + '/' + yyyy;
+    today = dd + '-' + mm + '-' + yyyy;
     return today;
   }
 
@@ -71,19 +71,43 @@ export class BulkLoadProductService {
    * @memberof BulkLoadProductService
    */
   getAmountAvailableLoads(): Observable<{}> {
-    let params = new HttpParams;
-    params = params.append('date', this.currentDate);
+    // tslint:disable-next-line:prefer-const
+    let params: any;
+    // params = params.append('date', this.currentDate);
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('products'), { observe: 'response', params: params } )
+      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' } )
         .subscribe(
           data => {
+            console.log('data', data);
             observer.next(data);
           },
           error => {
             observer.next(error);
           }
         );
+    });
+  }
+
+  /**
+   * @method getCargasMasicas()
+   * @returns {Observable}
+   * @description Método para obtener mirar el estado de las cargas
+   */
+
+  getCargasMasivas(): Observable<{}> {
+    return new Observable(observer => {
+      this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
+      .subscribe(
+        data => {
+          console.log('data', data);
+          observer.next(data);
+        },
+        error => {
+          console.log('error', error);
+          observer.next(error);
+        }
+      );
     });
   }
 
