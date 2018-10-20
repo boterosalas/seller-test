@@ -95,7 +95,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state) {
+  getOrderList(state: any) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
@@ -104,7 +104,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data) {
+  filterOrder(data: any) {
 
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
@@ -144,7 +144,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersPendingDevolutionFilter(this.user, 100, stringSearch).subscribe((res: any) => {
+      this.searchOrderMenuService.getOrdersPendingDevolutionFilter(100, stringSearch).subscribe((res: any) => {
 
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.

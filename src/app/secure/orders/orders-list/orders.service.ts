@@ -23,17 +23,17 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrderList(state: any, user: any, limit: any): Observable<[{}]> {
+  getOrderList(state: any, limit: any): Observable<[{}]> {
     return new Observable(observer => {
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
-        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
+        this.http.get<Order[]>(this.api.get('searchOrders', ['', limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
           observer.next(data);
         }, err => {
           observer.error(err);
         });
       } else {
-        this.http.get<Order[]>(this.api.get('searchOrders', [user.sellerId, limit]),
+        this.http.get<Order[]>(this.api.get('searchOrders', ['', limit]),
         ).subscribe((data: any) => {
           observer.next(data);
         }, error => {
@@ -51,9 +51,9 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(user: any, limit: any, stringSearch: any): Observable<[{}]> {
+  getOrdersFilter(limit: any, stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', [user.sellerId, limit + stringSearch]),
+      this.http.get(this.api.get('searchOrders', ['', limit + stringSearch]),
       ).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
@@ -109,7 +109,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getCarries(user): Observable<[{}]> {
+  getCarries(): Observable<[{}]> {
     return new Observable(observer => {
       this.http.get(this.api.get('carries')).subscribe((data: any) => {
         observer.next(data);
