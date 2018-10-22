@@ -1216,12 +1216,15 @@ export class BulkLoadProductComponent implements OnInit {
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result;
-            log.info(data);
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
                  // this.openDialogSendOrder(data);
+                 this.progressStatus = false;
                  this.verifyStateCharge();
                  this.getAvaliableLoads();
+                 if (result.body.error) {
+                  this.openDialogSendOrder(result);
+                 }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1255,11 +1258,8 @@ export class BulkLoadProductComponent implements OnInit {
           if (result.body.data.response) {
             result.body.data.response = JSON.parse(result.body.data.response);
           }
-          if (result.body.data.status === 0) {
+          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
           } else if (result.body.data.status === 1) {
-            setTimeout( () => {
-              this.verifyStateCharge();
-            }, 3000);
             if (!this.progressStatus) {
               this.openDialogSendOrder(result);
             }
@@ -1275,7 +1275,6 @@ export class BulkLoadProductComponent implements OnInit {
       );
   }
 
-
   /**
    * Funcionalidad para desplegar el
    * modal que permite visualizar la lista de
@@ -1284,6 +1283,14 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   openDialogSendOrder(res: any): void {
+    if ( !res.body.data) {
+      res.body.data = {};
+      res.body.data.status = 3;
+      res.productNotifyViewModel = res.body.productNotifyViewModel;
+    } else {
+      res.productNotifyViewModel = res.body.data.response.ProductNotify;
+      res.body.error = res.body.data.response.Error;
+    }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
       disableClose: res.body.data.status === 1,

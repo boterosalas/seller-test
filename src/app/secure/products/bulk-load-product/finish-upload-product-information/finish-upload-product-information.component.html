@@ -1,9 +1,8 @@
-
 <div>
   <div class="error-list-content list-log">
 
     <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
-      <mat-icon>autorenew</mat-icon>
+        <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
       {{response.processing}} Carga en proceso
     </h3>
     <mat-divider *ngIf="response.processing != 0"></mat-divider>
@@ -16,22 +15,29 @@
 
     <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
       <mat-icon>warning</mat-icon>
-      Se han presentado {{response.body.error}} errores al momento de cargar los productos
-    </h4>
-    <mat-divider *ngIf="response.body.error !== 0"></mat-divider>
+      Se {{response.body.error > 1 ? 'han': 'ha' }} presentado {{response.body.error}} {{response.body.error > 1 ? 'errores': 'error' }} al momento de cargar los 
 
-    <mat-nav-list *ngIf="response.body.error !== 0">
-      <mat-list-item *ngFor="let item of response.body.data.response.ProductNotify">
+productos
+    </h4>
+    <mat-divider *ngIf="response.body.data.status ===3"></mat-divider>
+
+    <mat-nav-list *ngIf="response.body.data.status ===3">
+      <mat-list-item *ngFor="let item of response.productNotifyViewModel">
         <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-        <h4 matLine>EAN:{{item.Ean}}</h4>
-        <p matLine>Error presentado: {{item.Message}}</p>
+        <h4 matLine>EAN:{{item.ean}}{{item.Ean}}</h4>
+        <p matLine>Error presentado: {{item.message}}{{item.Message}}</p>
       </mat-list-item>
     </mat-nav-list>
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <button id="close-finish-upload-button" mat-button mat-dialog-close>Cerrar</button>
-    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary" (click)="exportAsExcelFile(response.body.data.response.ProductNotify,'ProductsLogs')">Exportar
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">Refrescar</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" 
+
+mat-dialog-close>Home Seller Center</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>Cerrar</button>
+    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
+      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">Exportar
       Excel
     </button>
   </mat-dialog-actions>

@@ -96,18 +96,16 @@ export class BulkLoadProductService {
 
   getCargasMasivas(): Observable<{}> {
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
-        .subscribe(
-          data => {
-            console.log('data estado: ', data);
-            observer.next(data);
-          },
-          error => {
-            console.log('error estado: ', error);
-            observer.next(error);
-          }
-        );
-    });
+       this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
+         .subscribe(
+           data => {
+             observer.next(data);
+           },
+           error => {
+             observer.next(error);
+           }
+         );
+     });
 
 /*
     return of(

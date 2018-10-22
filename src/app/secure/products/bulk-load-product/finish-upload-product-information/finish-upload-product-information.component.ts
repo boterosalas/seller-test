@@ -44,6 +44,16 @@ export class FinishUploadProductInformationComponent {
     this.dialogRef.close(false);
   }
 
+  verifyStateCharge() {
+    this.dialogRef.close(true);
+  }
+
+  // Funcion para recargar la pagina.
+  reloadPage() {
+    window.location.reload();
+  }
+
+
   /**
    * Método que genera el dato json en el formato que emplea excel para.
    * @param {any[]} json
