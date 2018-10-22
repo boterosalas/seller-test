@@ -1,5 +1,5 @@
 <!-- FORM CONTAINER -->
-<div fxFlex="100" fxLayout="column">
+<div fxFlex="100" fxLayout="column" class="basic-info-container">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat tortor non risus auctor finibus. Aenean
         eu
         tristique nisl. Curabitur malesuada magna vel interdum maximus. Donec eros urna, viverra sed elementum eu,
@@ -50,9 +50,75 @@
             </div>
         </div>
 
+        <!-- PACKING AND PRODUCT SIZE -->
+        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
+            class="container-sub-forms">
+            <div class="sub-form" formGroupName="packing">
+                <label class="label-shipping">Empaque (cm/kg)</label>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking">
+                        </mat-form-field>
+                    </div>
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-form product-form" formGroupName="product">
+                <label class="label-shipping">Producto (cm/kg)</label>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct">
+                        </mat-form-field>
+                    </div>
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct">
+                        </mat-form-field>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+
+        <mat-form-field class="description-form">
+            <textarea matInput placeholder="Descripción" formControlName="Description"></textarea>
+        </mat-form-field>
 
     </form>
+
+    <!-- FORM KEYWORD-->
+    <form [formGroup]="formKeyword" (ngSubmit)="sabeKeyword()" class="form-keyword">
+        <mat-form-field class="keyword-field">
+            <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword">
+            <mat-icon matSuffix class="material-icons" (click)="sabeKeyword()" class="add-keyword-icon">
+                add_circle_outline
+            </mat-icon>
+            <mat-hint fxLayout="row">
+                <span *ngFor="let key of keywords">
+                    {{key}}, 
+                </span>
+            </mat-hint>
+        </mat-form-field>
+    </form>
+
 
 
 </div>

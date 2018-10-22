@@ -1,7 +1,12 @@
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
+
 @mixin inputs-basic-info-form() {
     padding-right: 1em;
+}
+
+@mixin form-padding() {
+    padding: 0.9em 0px;
 }
 
 @media screen and (max-width: 600px) {
@@ -10,12 +15,28 @@ $color-label: #bdbdbd;
             width: 100%;
         }
     }
+    .sub-form {
+        width: 100%;
+        .packing-sub-level {
+            width: 100%;
+            .packing-field {
+                width: 48%;
+            }
+        }
+    }
+    .description-form{
+        width: 100%;
+    }
+    .keyword-field{
+        width: 100%;
+    }
 }
 
 @media screen and (min-width: 600px) {
     .basic-info {
+        margin-top: 3em;
         .field {
-            width: 50%;
+            width: 46%;
             &.name-product {
                 @include inputs-basic-info-form();
             }
@@ -33,6 +54,27 @@ $color-label: #bdbdbd;
                 }
             }
         }
+        .sub-form {
+            width: 46%;
+            .packing-sub-level {
+                width: 49%;
+                .packing-field {
+                    width: 48%;
+                }
+            }
+            &.product-form {
+                width: 46%;
+            }
+        }
+        .description-form{
+            width: 100%;
+        }
+    }
+    .container-sub-forms{
+        @include form-padding();
+    }
+    .keyword-field{
+        width: 50%;
     }
 }
 
@@ -63,5 +105,24 @@ $color-label: #bdbdbd;
     }
     .mat-slider-track-fill {
         background-color: $blue-page;
+    }
+}
+
+.form-keyword{
+    .add-keyword-icon{
+        color: $color-label;
+        transition: width 2s;
+        width: 20px !important;
+    }
+    .add-keyword-icon:hover{
+        cursor: pointer;
+        width: 30px !important;
+
+    }
+}
+
+.basic-info-container{
+    mat-form-field {
+        @include form-padding();
     }
 }
