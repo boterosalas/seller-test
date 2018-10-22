@@ -54,7 +54,10 @@ export const endpoints = {
       products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
-      updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller'
+      updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
+
+      // Validar ean
+      getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/'
     },
   },
   // Endpoints production

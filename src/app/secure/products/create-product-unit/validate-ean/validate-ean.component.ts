@@ -34,9 +34,9 @@ export class ValidateEanComponent implements OnInit {
     this.infox = false;
     this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
       console.log('res: ', res);
-      this.infox = res['data'];
+      this.infox = !res['data'];
     }, error => {
-      this.infox = false;
+      this.infox = true;
       console.log('Servicio no funciona');
     });
   }
