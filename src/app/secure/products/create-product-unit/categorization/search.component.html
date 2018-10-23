@@ -1,0 +1,31 @@
+<p id="textCreateEan">
+    Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más
+    apropiada
+    para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si
+    necesitas
+    buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista
+    desplegable.
+</p>
+<div fxLayout="row" fxLayoutAlign="center center">
+
+    <form id="search-form" class="search mat-typography" (keydown)="keyDownFunction($event)">
+        <mat-form-field class="input-search">
+            <!-- Icon search -->
+            <mat-icon id="icon-search" class="icon-search" matPrefix>search</mat-icon>
+
+            <!-- Input search -->
+            <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)"
+                [formControl]="searchCategory" matInput [matAutocomplete]="auto">
+        </mat-form-field>
+
+        <!-- Autocomplete -->
+        <mat-autocomplete class="auto-complete" #auto="matAutocomplete">
+            <mat-option id="option-search-number-{{position}}" (click)="whatchValueInput(option)" class="autocomplete-list"
+                *ngFor="let option of filteredStates | async; let position = index" [value]="option.Name">
+                <mat-icon>store</mat-icon>
+                {{option.Name}}
+            </mat-option>
+        </mat-autocomplete>
+    </form>
+</div>
+<app-list-categorization [searchText]="searchText" *ngIf="chargueList"></app-list-categorization>
