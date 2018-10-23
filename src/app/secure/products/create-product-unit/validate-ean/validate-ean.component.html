@@ -1,17 +1,18 @@
 <div>
   <div>
     <p id="textCreateEan">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-      Curabitur malesuada magna vel interdum maximus.
-      Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-      Curabitur malesuada magna vel interdum maximus.
+      Primero debes ingresar un EAN o Código de Barras válido para tu producto. 
+      Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. 
+      Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres
+       ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. 
+       Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.
     </p>
   </div>
   <form [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
       <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
       <mat-error>Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos)</mat-error>
+      <mat-error *ngIf="res['data']">EL EAN introducido ya existe</mat-error>
     </mat-form-field>
     <div class="distanceComponetInt">
       <mat-checkbox formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
@@ -19,7 +20,7 @@
 
 
     <div class="buttonProcess">
-      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!infox">Continuar</button>
+      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!validateEanExist">Continuar</button>
     </div>
   </form>
 </div>

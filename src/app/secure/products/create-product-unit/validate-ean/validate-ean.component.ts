@@ -10,8 +10,9 @@ import { ErrorStateMatcher } from '@angular/material';
 })
 export class ValidateEanComponent implements OnInit {
   options: FormGroup;
+  public response: any;
   eanGroup: FormGroup;
-  public infox;
+  public validateEanExist;
   public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
   // constructor() { }
 
@@ -31,12 +32,12 @@ export class ValidateEanComponent implements OnInit {
   getEanServices() {
     console.log('this.eanGroup: ', this.eanGroup);
     console.log('this.controls: ', this.eanGroup.controls.eanCtrl.value);
-    this.infox = false;
+    this.validateEanExist = false;
     this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
       console.log('res: ', res);
-      this.infox = !res['data'];
+      this.validateEanExist = !res['data'];
     }, error => {
-      this.infox = true;
+      this.validateEanExist = true;
       console.log('Servicio no funciona');
     });
   }
