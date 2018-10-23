@@ -3,6 +3,14 @@ import { FormControl, FormGroup, Validators, FormBuilder, FormGroupDirective, Ng
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ErrorStateMatcher } from '@angular/material';
 
+// Error when invalid control is dirty, touched, or submitted.
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
   selector: 'app-validate-ean',
   templateUrl: './validate-ean.component.html',
@@ -30,12 +38,12 @@ export class ValidateEanComponent implements OnInit {
 
   // consumiendo servicio para validar si el EAN es valido
   getEanServices() {
-    console.log('this.eanGroup: ', this.eanGroup);
-    console.log('this.controls: ', this.eanGroup.controls.eanCtrl.value);
     this.validateEanExist = false;
     this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
-      console.log('res: ', res);
       this.validateEanExist = !res['data'];
+      if ( !this.validateEanExist ) {
+        this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': !this.validateEanExist});
+      }
     }, error => {
       this.validateEanExist = true;
       console.log('Servicio no funciona');
