@@ -142,7 +142,9 @@
         </div>
 
         <div class="field" fxLayout="row" fxLayoutAlign="space-between center">
-            <div *ngFor="let color of colorList" class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}">
+            <div class="container-color" *ngFor="let color of colorList">
+                <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}" (click)="selectColor(color)" [ngClass]="{'select-color': color.name === colorSelected}">
+                </div>
             </div>
         </div>
     </form>

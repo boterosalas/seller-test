@@ -1,11 +1,18 @@
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
+
+
 @mixin inputs-basic-info-form() {
     padding-right: 1em;
 }
 
 @mixin form-padding() {
     padding: 0.9em 0px;
+}
+
+@mixin color-size() {
+    height: 42px;
+    width: 42px;
 }
 
 @media screen and (max-width: 600px) {
@@ -126,17 +133,23 @@ $color-label: #bdbdbd;
     .add-son-button {
         color: #485AFA
     }
-
-    .color-round-picker {
-        width: 37px;
-        height: 37px;
-        border-radius: 25px;
-        border: 1px solid;
-        transition: width 2s;
-    }
-
-    .color-round-picker:hover {
-        width: 40px;
-        height: 40px;
+    .container-color {
+        @include color-size();
+        .color-round-picker {
+            width: 37px;
+            height: 37px;
+            border-radius: 25px;
+            border: 1px solid;
+            transition: width 0.1s, height 0.1s;
+        }
+        .color-round-picker:hover {
+            @include color-size();
+            cursor: pointer;
+        }
+        .select-color{
+            border-color: $blue-page !important;
+            border: 2px solid;
+            @include color-size();
+        }
     }
 }

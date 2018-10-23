@@ -15,6 +15,7 @@ export class ProductBasicInfoComponent implements OnInit {
     product: FormGroup;
     formKeyword: FormGroup;
     keywords: string[] = [];
+    colorSelected: string;
 
     /**
      *  Json  con los colores predefinidos.
@@ -112,5 +113,12 @@ export class ProductBasicInfoComponent implements OnInit {
             this.keywords.push(this.formKeyword.controls.Keyword.value);
             this.formKeyword.controls.Keyword.setValue(null);
         }
+    }
+    /**
+     * selectColor
+     */
+    public selectColor(color: any): void {
+        this.colorSelected = color.name;
+        console.log(color);
     }
 }
