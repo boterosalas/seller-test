@@ -33,8 +33,7 @@ export class SearchService {
      * @memberof SearchService
      */
     public getCategories(): Observable<{}> {
-        return of(this.jsonGet);
-        /*new Observable(observer => {
+        return new Observable(observer => {
             this.http.get(this.api.get('getSellerCommissionCategory'), { observe: 'response' })
                 .subscribe((data: any) => {
                     console.log(data);
@@ -44,7 +43,6 @@ export class SearchService {
                 }
                 );
         });
-        */
     }
 
     public getCategory(): Observable<any> {

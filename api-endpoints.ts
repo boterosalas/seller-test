@@ -62,16 +62,15 @@ export const endpoints = {
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
-
       // Validar ean
       getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/',
       // Dashboard
-      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
+      getSellsSummary: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
+      // Estado de Carga
+      getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
-      // Estado de Carga
-      getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/'
     },
   },
   // Endpoints production
@@ -123,9 +122,23 @@ export const endpoints = {
       downloadHistoricalAdmin: 'https://cb0d3nxi40.execute-api.us-east-1.amazonaws.com/offerdownloadhistoricaladmin-pdn/{params}',
       // Products
       products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+      // Quoting -->
+      getSendMethod: 'https://54k5wykbn7.execute-api.us-east-1.amazonaws.com/shippingmethod-pdn',
+      zones: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn',
+      getZone: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn/{params}',
+      transports: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn',
+      getTransport: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn/{params}',
+      // Seller
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
       getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
       updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
+      // Validar ean
+      getValidateEan: 'https://0ly35c82pa.execute-api.us-east-1.amazonaws.com/products-pdn/',
+      // Dashboard
+      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
+      getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
+      // Estado de Carga
+      getStateOfCharge: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs'
     }
