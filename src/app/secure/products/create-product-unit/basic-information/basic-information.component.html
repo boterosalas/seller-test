@@ -130,7 +130,7 @@
         </button>
     </div>
     <form>
-        <!-- NAME AND CATEGORY -->
+        <!-- EAN SON AND SIZE -->
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="name-product field">
                 <input matInput placeholder="Ean hijo" class="input-name-product">
@@ -141,13 +141,39 @@
             </mat-form-field>
         </div>
 
-        <div class="field" fxLayout="row" fxLayoutAlign="space-between center">
-            <div class="container-color" *ngFor="let color of colorList">
-                <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}" (click)="selectColor(color)" [ngClass]="{'select-color': color.name === colorSelected}">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="field" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="container-color" *ngFor="let color of colorList">
+                    <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}"
+                        (click)="selectColor(color)" [ngClass]="{'select-color': color.name === colorSelected}">
+                    </div>
                 </div>
             </div>
+            <mat-form-field class="field">
+                <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(colorPick), 'background-color': colorPick }"></mat-icon>
+                <input matInput placeholder="HexColorCodePDP" [value]="colorPick">
+                <mat-icon matSuffix class="material-icons color-icon-picker"
+                    [cpPosition]="'left'" [(colorPicker)]="colorPick" [style.background]="colorPick" [cpOutputFormat]="hex"
+                    [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+                    palette
+                </mat-icon>
+            </mat-form-field>
+
         </div>
+
+        <mat-form-field class="field">
+            <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(colorPick2), 'background-color': colorPick2 }"></mat-icon>
+            <input matInput placeholder="HexColorCodePDP" [value]="colorPick2">
+            <mat-icon matSuffix [ngStyle]="{'color': invertColor(colorPick2)}" class="material-icons color-icon-picker"
+                [cpPosition]="'left'" [(colorPicker)]="colorPick2" [style.background]="colorPick2" [cpOutputFormat]="hex"
+                [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+                palette
+            </mat-icon>
+        </mat-form-field>
+
+
     </form>
+
 
 
 

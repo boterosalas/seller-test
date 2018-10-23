@@ -15,6 +15,7 @@ import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
 import { ProductBasicInfoComponent  } from './basic-information/basic-information.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ProductBasicInfoComponent  } from './basic-information/basic-informatio
     BrowserAnimationsModule,
     UnitProductRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ColorPickerModule
   ],
   declarations: [
     CreateUnutaryProductComponent,

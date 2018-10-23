@@ -152,4 +152,11 @@ $color-label: #bdbdbd;
             @include color-size();
         }
     }
+    .color-icon-picker{
+        background: white !important;
+    }
+    .color-prefix-icon{
+        border-radius: 25px;
+        border: 1px solid;
+    }
 }
