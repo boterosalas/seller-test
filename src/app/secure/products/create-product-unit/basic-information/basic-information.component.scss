@@ -1,6 +1,5 @@
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
-
 @mixin inputs-basic-info-form() {
     padding-right: 1em;
 }
@@ -10,7 +9,7 @@ $color-label: #bdbdbd;
 }
 
 @media screen and (max-width: 600px) {
-    .basic-info {
+    .basic-info-container {
         .field {
             width: 100%;
         }
@@ -24,16 +23,16 @@ $color-label: #bdbdbd;
             }
         }
     }
-    .description-form{
+    .description-form {
         width: 100%;
     }
-    .keyword-field{
+    .keyword-field {
         width: 100%;
     }
 }
 
 @media screen and (min-width: 600px) {
-    .basic-info {
+    .basic-info-container {
         margin-top: 3em;
         .field {
             width: 46%;
@@ -66,15 +65,15 @@ $color-label: #bdbdbd;
                 width: 46%;
             }
         }
-        .description-form{
+        .description-form {
             width: 100%;
         }
     }
-    .container-sub-forms{
+    .container-sub-forms {
         @include form-padding();
     }
-    .keyword-field{
-        width: 50%;
+    .keyword-field {
+        width: 46%;
     }
 }
 
@@ -108,21 +107,36 @@ $color-label: #bdbdbd;
     }
 }
 
-.form-keyword{
-    .add-keyword-icon{
+.form-keyword {
+    .add-keyword-icon {
         color: $color-label;
         transition: width 2s;
         width: 20px !important;
     }
-    .add-keyword-icon:hover{
+    .add-keyword-icon:hover {
         cursor: pointer;
         width: 30px !important;
-
     }
 }
 
-.basic-info-container{
+.basic-info-container {
     mat-form-field {
         @include form-padding();
+    }
+    .add-son-button {
+        color: #485AFA
+    }
+
+    .color-round-picker {
+        width: 37px;
+        height: 37px;
+        border-radius: 25px;
+        border: 1px solid;
+        transition: width 2s;
+    }
+
+    .color-round-picker:hover {
+        width: 40px;
+        height: 40px;
     }
 }

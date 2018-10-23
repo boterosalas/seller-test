@@ -10,7 +10,7 @@
     <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
 
         <!-- NAME AND CATEGORY -->
-        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="name-product field">
                 <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
             </mat-form-field>
@@ -21,7 +21,7 @@
         </div>
 
         <!-- BRAND AND MODEL -->
-        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="brand-product field">
                 <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
             </mat-form-field>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- DETAIL AND SHIPPING SIZE -->
-        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="detail-product field">
                 <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
             </mat-form-field>
@@ -51,7 +51,7 @@
         </div>
 
         <!-- PACKING AND PRODUCT SIZE -->
-        <div fxLayout="row" fxLayoutAlign.lg="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
             class="container-sub-forms">
             <div class="sub-form" formGroupName="packing">
                 <label class="label-shipping">Empaque (cm/kg)</label>
@@ -113,10 +113,38 @@
             </mat-icon>
             <mat-hint fxLayout="row">
                 <span *ngFor="let key of keywords">
-                    {{key}}, 
+                    {{key}},
                 </span>
             </mat-hint>
         </mat-form-field>
+    </form>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+        </div>
+        <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button>
+            <mat-icon class="material-icons">
+                add_circle_outline
+            </mat-icon>
+            <span>Añadir hijo</span>
+        </button>
+    </div>
+    <form>
+        <!-- NAME AND CATEGORY -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="name-product field">
+                <input matInput placeholder="Ean hijo" class="input-name-product">
+            </mat-form-field>
+
+            <mat-form-field class="category-product field">
+                <input matInput placeholder="Escoge talla" class="input-category-product">
+            </mat-form-field>
+        </div>
+
+        <div class="field" fxLayout="row" fxLayoutAlign="space-between center">
+            <div *ngFor="let color of colorList" class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}">
+            </div>
+        </div>
     </form>
 
 

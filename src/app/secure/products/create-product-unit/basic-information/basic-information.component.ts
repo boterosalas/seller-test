@@ -16,6 +16,17 @@ export class ProductBasicInfoComponent implements OnInit {
     formKeyword: FormGroup;
     keywords: string[] = [];
 
+    /**
+     *  Json  con los colores predefinidos.
+     */
+    colorList = [
+        { name: 'Black', color: '#000000', border: '#000000' },
+        { name: 'White', color: '#FFFFFF', border: '#bdbdbd' },
+        { name: 'Red', color: '#F44336', border: '#c10000' },
+        { name: 'Yellow', color: '#FEEA3A', border: '#cece00'},
+        { name: 'Blue', color: '#03A9F4', border: '#8282f9' },
+        { name: 'Purple', color: '#6639B6', border: '#670167' }];
+
     constructor() {
         this.createForm();
     }
@@ -97,7 +108,7 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     public sabeKeyword(): void {
-        if ( this.formKeyword.controls.Keyword.value) {
+        if (this.formKeyword.controls.Keyword.value) {
             this.keywords.push(this.formKeyword.controls.Keyword.value);
             this.formKeyword.controls.Keyword.setValue(null);
         }
