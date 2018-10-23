@@ -133,7 +133,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof InValidationComponent
    */
-  changeSizeOrderTable($event) {
+  changeSizeOrderTable($event: any) {
     this.dataSource.paginator = $event.paginator;
   }
 
@@ -143,13 +143,13 @@ export class InValidationComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
-  getOrdersList($event) {
+  getOrdersList($event: any) {
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
 
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
       if (res != null) {
@@ -213,7 +213,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
    * @param {any} item
    * @memberof InValidationComponent
    */
-  openModalDetailOrder(item): void {
+  openModalDetailOrder(item: any): void {
     const dialogRef = this.dialog.open(InValidationModalComponent, {
       data: {
         user: this.user,

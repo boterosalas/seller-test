@@ -121,6 +121,7 @@ export class Const {
   static readonly NameOrderAsignado = 'Asignado';
   static readonly NameOrderEntregado = 'Entregado';
   static readonly NameOrderEnProcesoDeEnvio = 'EnProcesoDeEnvio';
+  static readonly NameOrderEnFacturadoEnviado = 'FacturadoEnviado';
 
 
   /**
@@ -133,6 +134,7 @@ export class Const {
   static readonly AppOrderEnviado = 'En envío';
   static readonly AppOrderAsignado = 'Asignado';
   static readonly AppOrderEntregado = 'Entregado';
+  static readonly AppOrderFacturadoEnviado = 'Facturado Enviado';
 
   // Constantes para los estados de las solicitudes de devolución
   static readonly StatusInDevolution = 9;

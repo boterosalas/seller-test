@@ -499,8 +499,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
         response: res
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The dialog was closed');
+    dialogRef.afterOpen().subscribe(result => {
       this.loadingService.closeSpinner();
     });
   }

@@ -15,7 +15,8 @@ export class DownloadOrderService {
   ) { }
 
   /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes
+   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
+   * 
    * @returns
    * @memberof OrderService
    */
@@ -25,7 +26,8 @@ export class DownloadOrderService {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando
+   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
+   * 
    * @param {any} data
    * @memberof OrderService
    */
@@ -34,13 +36,14 @@ export class DownloadOrderService {
   }
 
   /**
-   *  Método para realizar el consumo del servicio que permite enviar las órdenes al correo electronico del usuario
-   * @param {any} user
+   *  Método para realizar el consumo del servicio que permite enviar las órdenes
+   *  al correo electronico del usuario.
+   * 
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  downloadOrders(user, stringSearch): Observable<[{}]> {
+  downloadOrders(stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.post(this.api.get('downloadOrder'), stringSearch).subscribe((data: any) => {
         observer.next(data);

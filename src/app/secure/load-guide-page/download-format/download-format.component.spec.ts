@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DownloadFormatComponent } from './download-format.component';
 import { LoadGuideModule } from '../load-guide.module';
 
+/*
 describe('DownloadFormatComponent', () => {
   let component: DownloadFormatComponent;
   let fixture: ComponentFixture<DownloadFormatComponent>;
@@ -30,3 +31,4 @@ describe('DownloadFormatComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

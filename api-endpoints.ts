@@ -51,13 +51,27 @@ export const endpoints = {
       getHistoricalOffersAdmin: 'https://rk6blagjy8.execute-api.us-east-1.amazonaws.com/OfferHistoricalAdmin/{params}',
       downloadHistoricalAdmin: 'https://vlaswi5ovd.execute-api.us-east-1.amazonaws.com/OfferDownloadHistoricalAdmin/{params}',
       // Products
-      products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
+      products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/{params}',
+      // Quoting
+      getSendMethod: 'https://bkafj0viij.execute-api.us-east-1.amazonaws.com/ShippingMethod',
+      zones: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas',
+      getZone: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas/{params}',
+      transports: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters',
+      getTransport: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters/{params}',
+      // Seller
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
 
       // Validar ean
-      getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/'
+      getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/',
+      // Dashboard
+      getSellsSummary: 'https://69wivixev9.execute-api.us-east-1.amazonaws.com/OrdersSummarySales/{params}',
+      getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
+      // Guardar logs en CloudWatch
+      setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
+      // Estado de Carga
+      getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/'
     },
   },
   // Endpoints production
@@ -109,7 +123,11 @@ export const endpoints = {
       downloadHistoricalAdmin: 'https://cb0d3nxi40.execute-api.us-east-1.amazonaws.com/offerdownloadhistoricaladmin-pdn/{params}',
       // Products
       products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
-      updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn'
+      getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
+      getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
+      updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
+      // Guardar logs en CloudWatch
+      setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs'
     }
   }
 };

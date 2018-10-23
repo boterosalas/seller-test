@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ShellComponent } from '@core/shell/shell.component';
 import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
-import { RoutesConst, UserInformation } from '@app/shared';
+import { RoutesConst } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 import { Logger } from '@core/util/logger.service';

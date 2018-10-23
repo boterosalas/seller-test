@@ -1,0 +1,76 @@
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-gray1: #5D5D5D;
+$color-gray2: #909090;
+$color-gray3: #D3D3D3;
+$color-gray4: #BCBCBC;
+$color-gray5: #757474;
+$color-blue: #3d5afe;
+@mixin title-zones {
+  color: $color-gray5;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+:host ::ng-deep {
+  article#list-zones {
+    aside {
+      &.title-list-comp {
+        width: 100%;
+        p {
+          @include title-zones();
+        }
+      }
+      &.cont-list-comp {
+        border-top: 1px solid $color-gray3;
+        div {
+          &.info-zones {
+            width: 75%;
+            p {
+              color: $color-gray2;
+              font-size: 14px;
+            }
+          }
+          &.options-zones {
+            width: 25%;
+            button {
+              color: $color-gray2;
+            }
+          }
+        }
+      }
+      &.button-create {
+        border-top: 1px solid $color-gray3;
+        box-sizing: border-box;
+        padding: 20px 0;
+        button {
+          &:hover{
+            background-color: $color-blue;
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.title-zones{
+  @include title-zones();
+}
+
+@media (max-width: 768px) {
+  p{
+    margin: 0.2em 0px;
+  }
+  .cont-list-comp{
+    padding: 1em 0;
+  }
+}
+.no-items{
+  padding: 0.5em 0;
+  margin-bottom: 0.5em;
+  border-top: 1px solid #D3D3D3;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: #f3f0f0;
+}
