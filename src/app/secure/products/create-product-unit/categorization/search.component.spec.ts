@@ -86,7 +86,6 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
     });
 
     it('Deberia crear SearchCategorizationComponent', () => {
-        console.log('aqui', component);
         expect(component).toBeTruthy();
     });
 
@@ -149,7 +148,6 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
     });
 
     it('Deberia crear ListCategorizationComponent', () => {
-        console.log(componentList);
         expect(componentList).toBeTruthy();
     });
 
@@ -180,7 +178,6 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
     });
 
     it('Deberia abrir en el arbol el primer elemento.', () => {
-        console.log(componentTree);
         expect(componentTree).toBeTruthy();
         componentTree.treeData = treeData;
         componentTree.openSonClick(treeData[0]);
