@@ -74,6 +74,9 @@ export class BulkLoadProductComponent implements OnInit {
 
   public arrayNecessaryData: Array<any>;
 
+  /* Mirar el estado del progreso de la carga*/
+  public progressStatus = false;
+
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -108,6 +111,7 @@ export class BulkLoadProductComponent implements OnInit {
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.userService.isAuthenticated(this);
+    this.verifyStateCharge();
   }
 
   /**
@@ -149,14 +153,14 @@ export class BulkLoadProductComponent implements OnInit {
    */
   getAvaliableLoads() {
     /*Se muestra el loading*/
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
     this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
       (result: any) => {
         /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-        if (result.status === 200 && result.body) {
+        if (result.status === 200 && result.body.data) {
           /*Se guardan los datos en una variable*/
-          this.dataAvaliableLoads = result.body;
+          this.dataAvaliableLoads = result.body.data;
         } else {
           /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
           this.modalService.showModal('errorService');
@@ -222,7 +226,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.loadingService.viewSpinner();
+      // this.loadingService.viewSpinner();
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
@@ -933,8 +937,8 @@ export class BulkLoadProductComponent implements OnInit {
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
       MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
-      ConversionFactor : res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
-      DrainedFactor : res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
+      ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
+      DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
       features: []
     };
 
@@ -1161,8 +1165,8 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
       this.arrayInformation[index].errorMeasurementUnit = false;
-      this.arrayInformation[index].errorConversionFactor  = false;
-      this.arrayInformation[index].errorDrainedFactor  = false;
+      this.arrayInformation[index].errorConversionFactor = false;
+      this.arrayInformation[index].errorDrainedFactor = false;
     }
   }
 
@@ -1212,11 +1216,15 @@ export class BulkLoadProductComponent implements OnInit {
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result;
-            log.info(data);
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
-                this.openDialogSendOrder(data);
-                this.getAvaliableLoads();
+                 // this.openDialogSendOrder(data);
+                 this.progressStatus = false;
+                 this.verifyStateCharge();
+                 this.getAvaliableLoads();
+                 if (result.body.error) {
+                  this.openDialogSendOrder(result);
+                 }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1233,6 +1241,40 @@ export class BulkLoadProductComponent implements OnInit {
       );
   }
 
+  /*
+  Funcion para validar status de la carga
+*/
+
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+      this.dialog.closeAll();
+    }
+  }
+  verifyStateCharge() {
+    this.BulkLoadProductS.getCargasMasivas()
+      .subscribe(
+        (result: any) => {
+          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+          if (result.body.data.response) {
+            result.body.data.response = JSON.parse(result.body.data.response);
+          }
+          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+          } else if (result.body.data.status === 1) {
+            if (!this.progressStatus) {
+              this.openDialogSendOrder(result);
+            }
+            this.progressStatus = true;
+          } else if (result.body.data.status === 2) {
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
+          } else if (result.body.data.status === 3) {
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
+          }
+        }
+      );
+  }
+
   /**
    * Funcionalidad para desplegar el
    * modal que permite visualizar la lista de
@@ -1241,8 +1283,17 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   openDialogSendOrder(res: any): void {
+    if ( !res.body.data) {
+      res.body.data = {};
+      res.body.data.status = 3;
+      res.productNotifyViewModel = res.body.productNotifyViewModel;
+    } else {
+      res.productNotifyViewModel = res.body.data.response.ProductNotify;
+      res.body.error = res.body.data.response.Error;
+    }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
+      disableClose: res.body.data.status === 1,
       data: {
         response: res
       },
@@ -1294,14 +1345,14 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'descUniMedida':
+        case 'descUniMedida':
           if ((inputtxt.match(formatDescUnidadMedida))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
-          case 'factConversion':
+        case 'factConversion':
           if ((inputtxt.match(formatFactConversion))) {
             if (inputtxt > 0) {
               valueReturn = true;
@@ -1313,7 +1364,7 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'factEscurrido':
+        case 'factEscurrido':
           if ((inputtxt.match(formatFactEscurrido))) {
             valueReturn = true;
           } else {

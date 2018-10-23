@@ -1,23 +1,27 @@
-<!--
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="EAN">
-  </mat-form-field>
-  <mat-radio-group>
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
-  </mat-radio-group>
-</div>
--->
+<div>
+  <div>
+    <p id="textCreateEan">
+      Primero debes ingresar un EAN o Código de Barras válido para tu producto. 
+      Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. 
+      Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres
+       ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. 
+       Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.
+    </p>
+  </div>
+  <form [formGroup]="eanGroup">
+    <mat-form-field class="distanceComponetInt">
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off" [errorStateMatcher]="matcher">
+      <mat-error id="error-nit-exist" *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
+      <mat-error id="error-nit-exist" *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El nit ya existe.'"></mat-error>
+    </mat-form-field>
+   
+    <div class="distanceComponetInt">
+      <mat-checkbox formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
+    </div>
 
 
-
-<div class="example-container">
-  <mat-form-field
-      [hideRequiredMarker]="options.value.hideRequired"
-      [floatLabel]="options.value.floatLabel">
-    <input matInput placeholder="EAN" required>
-  </mat-form-field>
-  <form [formGroup]="options">
-    <mat-checkbox formControlName="hideRequired">No tengo EAN asociado</mat-checkbox>
+    <div class="buttonProcess">
+      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!validateEanExist">Continuar</button>
+    </div>
   </form>
 </div>
