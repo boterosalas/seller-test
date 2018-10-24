@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CognitoUtil, EndpointService } from '@app/core';
 import { defaultVersion, endpoints } from '@root/api-endpoints';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable()
@@ -40,7 +40,7 @@ export class BulkLoadProductService {
       mm = '0' + mm;
     }
 
-    today = dd + '/' + mm + '/' + yyyy;
+    today = dd + '-' + mm + '-' + yyyy;
     return today;
   }
 
@@ -71,11 +71,12 @@ export class BulkLoadProductService {
    * @memberof BulkLoadProductService
    */
   getAmountAvailableLoads(): Observable<{}> {
-    let params = new HttpParams;
-    params = params.append('date', this.currentDate);
+    // tslint:disable-next-line:prefer-const
+    let params: any;
+    // params = params.append('date', this.currentDate);
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('products'), { observe: 'response', params: params } )
+      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
@@ -85,6 +86,43 @@ export class BulkLoadProductService {
           }
         );
     });
+  }
+
+  /**
+   * @method getCargasMasicas()
+   * @returns {Observable}
+   * @description Método para obtener mirar el estado de las cargas
+   */
+
+  getCargasMasivas(): Observable<{}> {
+    return new Observable(observer => {
+       this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
+         .subscribe(
+           data => {
+             observer.next(data);
+           },
+           error => {
+             observer.next(error);
+           }
+         );
+     });
+
+/*
+    return of(
+      {
+        body: {
+          'errors': [],
+          'data': {
+            'idSeller': 1,
+            'status': 3,
+            'response': '{\"TotalProcess\":1,\"Error\":1,\"Successful\":0,\"FileName\":\"\",\"ProductNotify\":[{\"Ean\":\"5555255555555\",\"Message\":\"Categoría no existe.\"}]}',
+            'checked': 'false'
+          },
+          'message': 'Operación realizada éxitosamente.'
+        }
+      }
+    );*/
+
   }
 
 }

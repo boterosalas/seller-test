@@ -1,0 +1,71 @@
+<!--<button disabled="joseDisabled" mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<mat-horizontal-stepper [linear]="isLinear" #stepper class="process__container">
+  <mat-step [stepControl]="eanFormGroup">
+    <form [formGroup]="eanFormGroup">
+      <ng-template matStepLabel>EAN</ng-template>
+      <app-validate-ean></app-validate-ean>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="categoryFormGroup">
+    <form [formGroup]="categoryFormGroup">
+      <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
+      <app-search-categorization></app-search-categorization>
+      <div class="buttonProcess">
+        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="basicInfoFormGroup">
+    <form [formGroup]="basicInfoFormGroup">
+      <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="especificFormGroup">
+    <form [formGroup]="especificFormGroup">
+      <ng-template matStepLabel>Especificaciones</ng-template>
+      <div>
+        <p id="textCreateEan">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+        </p>
+      </div>
+      <div class="buttonProcess">
+        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="imageFormGroup">
+    <form [formGroup]="imageFormGroup">
+      <ng-template matStepLabel>Im&aacute;genes</ng-template>
+      <div>
+        <p id="textCreateEan">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
+          Curabitur malesuada magna vel interdum maximus.
+        </p>
+      </div>
+      <div class="buttonProcess">
+        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <!--<mat-step>
+    <ng-template matStepLabel>Terminado</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step> -->
+</mat-horizontal-stepper>

@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/secure/offers/list/components/filter/filter.model.ts</code>
+            <code>src/app/secure/offers/historical-admin/components/filter/filter.model.ts</code>
         </p>
 
 
@@ -90,41 +90,32 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Optional</span>
+                                <a href="#dateFinal">dateFinal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#dateInitial">dateInitial</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Optional</span>
                                 <a href="#ean">ean</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#IdSeller">IdSeller</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Optional</span>
                                 <a href="#limit">limit</a>
                             </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Optional</span>
-                                <a href="#product">product</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Optional</span>
-                                <a href="#stock">stock</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#clear">clear</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -140,12 +131,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(ean?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, product?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, stock?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, currentPage?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, limit?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>constructor(dateInitial?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, dateFinal?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, ean?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, currentPage?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, limit?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, IdSeller?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="1" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:1</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="1" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:1</a></div>
                             </td>
                         </tr>
 
@@ -163,34 +154,34 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
+                                                        <td>dateInitial</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dateFinal</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
                                                         <td>ean</td>
                                                   
                                                         <td>
-                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            Yes
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>product</td>
-                                                  
-                                                        <td>
-                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            Yes
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>stock</td>
-                                                  
-                                                        <td>
-                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -202,7 +193,7 @@
                                                         <td>currentPage</td>
                                                   
                                                         <td>
-                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -214,7 +205,19 @@
                                                         <td>limit</td>
                                                   
                                                         <td>
-                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>IdSeller</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -253,19 +256,91 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span><code>currentPage:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>currentPage:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:6</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:6</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateFinal"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                                <span class="modifier">Optional</span>
+                            dateFinal
+                            </b>
+                            <a href="#dateFinal"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dateFinal:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:4</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateInitial"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                                <span class="modifier">Optional</span>
+                            dateInitial
+                            </b>
+                            <a href="#dateInitial"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dateInitial:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:3</a></div>
                             </td>
                         </tr>
 
@@ -289,19 +364,55 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span><code>ean:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>ean:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:3</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:5</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="IdSeller"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                                <span class="modifier">Optional</span>
+                            IdSeller
+                            </b>
+                            <a href="#IdSeller"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>IdSeller:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -325,91 +436,19 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span><code>limit:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>limit:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:7</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="product"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                                <span class="modifier">Optional</span>
-                            product
-                            </b>
-                            <a href="#product"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span><code>product:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:4</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="stock"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                                <span class="modifier">Optional</span>
-                            stock
-                            </b>
-                            <a href="#stock"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span><code>stock:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:5</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/secure/offers/historical-admin/components/filter/filter.model.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -418,50 +457,6 @@
         </table>
 </section>
 
-            <section>
-    
-        <h3 id="methods">
-            Methods
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="clear"></a>
-                        <span class="name">
-                            <b>
-                            clear
-                            </b>
-                            <a href="#clear"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-<code>clear()</code>
-                    </td>
-                </tr>
-
-
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/secure/offers/list/components/filter/filter.model.ts:15</a></div>
-                            </td>
-                        </tr>
-
-
-                <tr>
-                    <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
 
 
@@ -473,26 +468,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class ModelFilter {
-    constructor(
-        public ean?: any,
-        public product?: any,
-        public stock?: any,
-        public currentPage?: any,
-        public limit?: any
-    ) { }
-
-    /**
-     * @description Metodo para limpiar los valores del array
-     * @method clear
-     * @memberof ModelFilter
-     */
-    clear() {
-        this.ean &#x3D; undefined;
-        this.product &#x3D; undefined;
-        this.stock &#x3D; undefined;
-        this.currentPage &#x3D; undefined;
-        this.limit &#x3D; undefined;
-    }
+  constructor(
+    public dateInitial?: string,
+    public dateFinal?: string,
+    public ean?: string,
+    public currentPage?: string,
+    public limit?: number,
+    public IdSeller?: string
+  ) { }
 }
 </code></pre>
     </div>

@@ -270,7 +270,7 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   getCarries() {
-    this.orderService.getCarries(this.user).subscribe((res: any) => {
+    this.orderService.getCarries().subscribe((res: any) => {
       this.Carries = res;
     });
   }
