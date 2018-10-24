@@ -10,7 +10,7 @@
   </div>
   <form [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off" [errorStateMatcher]="matcher">
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
       <mat-error id="error-nit-exist" *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
       <mat-error id="error-nit-exist" *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El nit ya existe.'"></mat-error>
     </mat-form-field>

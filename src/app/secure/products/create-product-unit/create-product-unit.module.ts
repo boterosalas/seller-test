@@ -43,7 +43,7 @@ import { TreeComponent  } from './categorization/list/tree.component';
   ],
   entryComponents: [
   ],
-  providers: [,
+  providers: [
     SearchService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
