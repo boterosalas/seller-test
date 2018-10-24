@@ -135,8 +135,8 @@ export const endpoints = {
       // Validar ean
       getValidateEan: 'https://0ly35c82pa.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Dashboard
-      getSellsSummary: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn{params}',
-      getOrdersStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn{params}',
+      getSellsSummary: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
+      getOrdersStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
       // Estado de Carga
       getStateOfCharge: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Guardar logs en CloudWatch
