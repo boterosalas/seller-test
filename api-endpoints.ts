@@ -121,7 +121,7 @@ export const endpoints = {
       getHistoricalOffersAdmin: 'https://0gt6matz9i.execute-api.us-east-1.amazonaws.com/offerhistoricaladmin-pdn/{params}',
       downloadHistoricalAdmin: 'https://cb0d3nxi40.execute-api.us-east-1.amazonaws.com/offerdownloadhistoricaladmin-pdn/{params}',
       // Products
-      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
       // Quoting -->
       getSendMethod: 'https://54k5wykbn7.execute-api.us-east-1.amazonaws.com/shippingmethod-pdn',
       zones: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn',
