@@ -68,7 +68,11 @@ export class ValidateEanComponent implements OnInit {
     }
   }
 
-// Metodo para deshabiliar boton continuar
+  /**
+   * Metodo para deshabiliar boton continuar
+   * disabledButtonUnitCreation
+   */
+
   disabledButtonUnitCreation() {
     this.activeButtonCreacionUnitaria = false;
   }
