@@ -23,5 +23,6 @@ export const environment = {
     sts_endpoint: '',
     dynamodb_endpoint: '',
     s3_endpoint: ''
-  }
+  },
+  domainImages: 'https://d2dctyer3ngjhx.cloudfront.net'
 };
