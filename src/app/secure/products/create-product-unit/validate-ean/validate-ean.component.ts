@@ -18,39 +18,38 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ValidateEanComponent implements OnInit {
   options: FormGroup;
-  public response: any;
   eanGroup: FormGroup;
   public validateEanExist;
   public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
   public activeButtonCreacionUnitaria: boolean;
-  // constructor() { }
+  public asignatedEan: boolean;
 
-  // metodo para chekear el chechk box
   constructor(private fb: FormBuilder, private service: EanServicesService) {
   }
   ngOnInit() {
     // metodo para validar el input del form
-    console.log('validateEanExist: ', this.validateEanExist);
     this.eanGroup = this.fb.group({
       eanCtrl: ['', Validators.pattern(this.formatEan)],
       associateEan: false,
       floatLabel: 'auto'
     });
     this.validateEanExist = true;
-    console.log('this.validateEanExist: ', this.eanGroup.controls.eanCtrl.value);
   }
 
-  // consumiendo servicio para validar si el EAN es valido
+  // validar estado de checkbox
+  onAsignatedEanChanged(value: boolean) {
+    this.asignatedEan = value;
+    console.log('asignatedEan: ', this.asignatedEan);
+  }
+
+  // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
   validateEanServices(validateEanExist: any) {
     this.activeButtonCreacionUnitaria = false;
-    console.log('input: ', this.eanGroup.value.eanCtrl);
     if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
-      console.log('this.eanGroup.value.eanCtrl: ', this.eanGroup.value.eanCtrl.length);
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
         if (!!(res['data'] === true || !!(res['data'] === false))) {
-          console.log('validateEanExist 2: ', this.validateEanExist);
           // throw new Error('Data not valid');
         }
         if (this.validateEanExist) {
@@ -68,7 +67,12 @@ export class ValidateEanComponent implements OnInit {
     }
   }
 
+  // Funcion para validar el estado de los campos del formulario para habilitar el boton.
+  permitContinue(): boolean {
+    return ( !this.activeButtonCreacionUnitaria && !this.asignatedEan ) || (this.activeButtonCreacionUnitaria && this.asignatedEan);
+  }
 
+  // Funcion mirar estado del boton continuar
   disabledButtonUnitCreation() {
     this.activeButtonCreacionUnitaria = false;
   }
