@@ -2,6 +2,7 @@ export class SpecificationModel {
 
     Id?: number;
     Name: string;
+    Value: string;
     Show: boolean;
     Sons: SpecificationModel[];
     IdParent?: number;
@@ -26,7 +27,7 @@ export class SpecificationModel {
      * @returns {SpecificationModel[]}
      * @memberof SpecificationModel
      */
-    public changeJsonToSpecificationModel(json: any): SpecificationModel[] {
+    changeJsonToSpecificationModel(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
 
         json.forEach(data => {
@@ -49,7 +50,7 @@ export class SpecificationModel {
         model = new SpecificationModel(
             specification.Name,
             false,
-            specification.Hijos,
+            specification.Sons,
             specification.Id
         );
         // this.getSons(json, specification.IdParent);

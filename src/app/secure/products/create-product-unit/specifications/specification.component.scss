@@ -1,0 +1,60 @@
+:host {
+    .specification-container {
+        .specification-item {
+            width: 100%;
+            .specification-title {
+                border-bottom: 1px solid gray;
+                padding: 0.5em 0px;
+                color: #5D5D5D;
+                .specification-name {
+                    padding-left: 1em;
+                }
+            }
+        }
+        .specification-group {
+            flex-wrap: wrap;
+            display: flex;
+            padding: 2.5em 1em;
+            .specification-son {
+                .specification-input {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .specification-son {
+        width: 36%;
+        padding: 1% 6%;
+    }
+    .specification-text{
+        text-align: justify;
+        margin: 2em 6em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .specification-son {
+        width: 100%;
+        padding: 0;
+    }
+    .specification-text{
+        text-align: justify;
+        margin: 1em;
+    }
+}
+
+.label-black {
+    color: black;
+    font-weight: bold;
+}
+
+.specification-create{
+    padding: 1em;
+    color: #485AFA;
+    span{
+        padding-left: 1em; 
+    }
+}

@@ -15,6 +15,8 @@ import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
 import { SpecificationProductComponent } from './specifications/specification.component';
+import { SpecificationService } from './specifications/specification.component.service';
+import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -33,7 +35,8 @@ import { SpecificationProductComponent } from './specifications/specification.co
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    SpecificationProductComponent
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -42,14 +45,15 @@ import { SpecificationProductComponent } from './specifications/specification.co
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    SpecificationProductComponent
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   entryComponents: [
+    SpecificationDialogComponent
   ],
   providers: [,
     SearchService,
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    SpecificationService
   ]
 })
 export class UnitProductModule {

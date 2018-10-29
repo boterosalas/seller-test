@@ -12,7 +12,7 @@ import { ListCategorizationComponent } from './list/list.component';
 import { TreeComponent } from './list/tree.component';
 
 
-fdescribe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
+describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
 
     let fixture: ComponentFixture<SearchCategorizationComponent>;
     let component: SearchCategorizationComponent;

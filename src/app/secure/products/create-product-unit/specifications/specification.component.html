@@ -1,1 +1,37 @@
-componente de especificaciones.
+<p class="specification-text">
+    En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás
+    las especificaciones que consideramos importantes para el tipo especifico de producto, si tu tipo de producto no
+    está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de
+    "Todas las especificaciones"
+</p>
+<div class="specification-container" *ngIf="chargeList">
+    <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
+            <span class="specification-name" [ngClass]="{'label-black': specification.Show}">{{specification.Name}}</span>
+            <button mat-icon-button (click)="toggleSpecification(specification)">
+                <mat-icon class="material-icons" *ngIf="!specification.Show">
+                    keyboard_arrow_down
+                </mat-icon>
+                <mat-icon class="material-icons" *ngIf="specification.Show">
+                    keyboard_arrow_up
+                </mat-icon>
+            </button>
+        </div>
+        <div class="specification-group" *ngIf="specification.Show">
+            <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
+                <mat-form-field class="specification-input">
+                    <input matInput placeholder="{{spec.Name}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="specification-create" class="specification-create" fxLayout="row" fxLayoutAlign="space-between center" >
+    <span></span>
+    <div fxLayout="row" fxLayoutAlign="center center" (click)="initCreateSpecification()">
+        <mat-icon class="material-icons">
+            add_circle_outline
+        </mat-icon>
+        <span>Agregar especificaciones</span>
+    </div>
+</div>
