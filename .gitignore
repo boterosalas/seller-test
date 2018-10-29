@@ -11,7 +11,7 @@
 /deploy/documentation/dist
 
 # dependencies
-/node_modules
+/node_modules*
 
 # IDEs and editors
 /.idea
@@ -49,3 +49,4 @@ Thumbs.db
 dist-server
 
 package-lock.json
+node_modules__

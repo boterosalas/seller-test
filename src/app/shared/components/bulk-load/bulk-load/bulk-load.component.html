@@ -1,0 +1,74 @@
+<div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+
+  <div fxFlex="100" class="light-content">
+    <!-- Barra de opciones -->
+    <mat-toolbar class="toolbar-orders-options-table" color="primary">
+      <mat-toolbar-row class="toolbar-options">
+
+        <div class="normal-theme toolbar-options-table">
+          <!-- Título del componente -->
+          <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
+            <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="sc-title title-toolbar"
+              [innerHTML]="config.title"></h3>
+          </div>
+
+          <!-- Botones de descargar e importar archivo -->
+          <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="60"
+            fXLayout="row wrap" fxLayoutAlign="center center">
+
+            <!-- Botón para descargar el formato -->
+            <a download class="sc-default-button" id="download-file-button" mat-button>
+              <mat-icon class="mat-18">file_download</mat-icon>
+              DESCARGAR FORMATO
+            </a>
+
+            <!-- Input para subir archivo de Excel -->
+            <input placeholder="file upload" hidden name="fileUploadInput" type="file" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            #fileUploadInput>
+
+            <!-- Botón para importar el archivo -->
+            <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadInput.click()"
+              mat-button>
+              <mat-icon class="mat-18 ">file_upload</mat-icon>
+              SELECCIONAR ARCHIVO PARA IMPORTAR
+            </button>
+          </div>
+
+          <!-- Menú de opciones para pantallas reducidas -->
+          <div fxShow.xs="true" fxShow.sm="true" fxShow.md="false" class="center-product-list" fxFlex="130px">
+            <button id="dropdown-options-load-guide" class="button-toolbar" mat-button [matMenuTriggerFor]="toolbarOptions">
+              <span>Opciones</span>
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu dense #toolbarOptions="matMenu">
+              <!-- Opciones del menú -->
+            </mat-menu>
+          </div>
+
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+
+  <!-- Contenido principal -->
+  <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="70" fxFlex.lg="60" fxFlex.xl="60" class="content-table-orders">
+    <div [@detailExpand] class="orders-no-data">
+      <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" class="content-icon-no-data">
+        <mat-icon id="icon-cloud-upload-file" (click)="fileUploadInput.click()" class="icon-not-found" color="primary">backup
+        </mat-icon>
+      </div>
+      <div class="content-information-no-data">
+        <p>Para importar archivos al Seller Center, primero debes
+          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()" class="link-text">Descargar
+            el formato
+          </a>, en este archivo podrás cargar ofertas
+        </p>
+        <p>
+          <span class="link-text" id="upload-file-guide-button" (click)="fileUploadInput.click()">Selecciona el
+            archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
+
+      </div>
+    </div>
+  </div>
+
+</div>
