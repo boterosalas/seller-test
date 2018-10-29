@@ -45,19 +45,7 @@
   <mat-step [stepControl]="imageFormGroup">
     <form [formGroup]="imageFormGroup">
       <ng-template matStepLabel>Im&aacute;genes</ng-template>
-      <div>
-        <p id="textCreateEan">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-        </p>
-      </div>
-      <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
-      </div>
+      <app-assign-images></app-assign-images>
     </form>
   </mat-step>
   <!--<mat-step>

@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
+import { AssignImagesComponent } from './assign-images/assign-images.component';
+
 
 @NgModule({
   imports: [
@@ -31,7 +33,8 @@ import { TreeComponent  } from './categorization/list/tree.component';
     ValidateEanComponent,
     SearchCategorizationComponent,
     ListCategorizationComponent,
-    TreeComponent
+    TreeComponent,
+    AssignImagesComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -39,7 +42,8 @@ import { TreeComponent  } from './categorization/list/tree.component';
     ValidateEanComponent,
     SearchCategorizationComponent,
     ListCategorizationComponent,
-    TreeComponent
+    TreeComponent,
+    AssignImagesComponent
   ],
   entryComponents: [
   ],
