@@ -6,6 +6,8 @@ import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserP
 import { RoutesConst } from '@app/shared';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ListService } from '../list.service';
+import { environment } from '@env/environment';
+
 
 
 @Component({
@@ -41,13 +43,16 @@ export class ListComponent implements OnInit, LoggedInCallback {
   public filterRemove: any;
 
   // Variable en la que se guarda la respuesta del servicio de listado de ofertas.
-  public listOffer: any;
+  public listOffer: any[];
 
   // Variable en la que se almacena cuantas páginas trae el servicio de listado de ofertas.
   public numberPages: any;
 
   // Variable que se le envia al toolbar para volver a ponerlo en la página 1.
   public currentPage: any;
+
+  // Domains images
+  public domainImages = environment.domainImages;
 
 
   constructor(
@@ -169,6 +174,7 @@ export class ListComponent implements OnInit, LoggedInCallback {
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
           this.listOffer = response.sellerOfferViewModels;
+          this.addDomainImages();
           this.loadingService.closeSpinner();
         } else {
           this.loadingService.closeSpinner();
@@ -176,6 +182,17 @@ export class ListComponent implements OnInit, LoggedInCallback {
         }
       }
     );
+  }
+
+  /**
+   * Agrega el dominio de imagenes a las ofertas nuevas.
+   */
+  addDomainImages() {
+    this.listOffer.map(el => {
+      if (el.imageUrl.indexOf('https') === -1) {
+        el.imageUrl = `${this.domainImages}${el.imageUrl}`;
+      }
+    });
   }
 
   /**

@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
         this._dashboard.getLastSales(this.user.sellerId, date)
             .subscribe((res: any[]) => {
                 this.loadingService.closeSpinner();
-                this.last_sales = this.parseLastSales(res.reverse());
+                this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
             }, err => {
                 this.loadingService.closeSpinner();
                 this.log.debug(err);

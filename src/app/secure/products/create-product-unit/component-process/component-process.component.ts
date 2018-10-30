@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
   styleUrls: ['./component-process.component.scss']
 })
 export class ComponentProcessComponent implements OnInit {
-  isLinear = false;
+   isLinear = false;
   /* eanCtrl: FormGroup;
   categoryCtrl: FormGroup;
   basicInfoCtrl: FormGroup;

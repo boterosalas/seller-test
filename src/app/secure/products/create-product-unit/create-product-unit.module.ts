@@ -51,7 +51,7 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
   entryComponents: [
     SpecificationDialogComponent
   ],
-  providers: [,
+  providers: [
     SearchService,
     SpecificationService
   ]
