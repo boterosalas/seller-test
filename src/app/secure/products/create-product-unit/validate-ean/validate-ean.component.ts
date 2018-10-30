@@ -17,7 +17,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./validate-ean.component.scss']
 })
 export class ValidateEanComponent implements OnInit {
-  disable = false;
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
@@ -40,7 +39,6 @@ export class ValidateEanComponent implements OnInit {
   // validar estado de checkbox
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
-    console.log('asignatedEan: ', this.asignatedEan);
      if (this.asignatedEan === true) {
           this.eanGroup.controls['eanCtrl'].disable();
     } else {
@@ -52,9 +50,7 @@ export class ValidateEanComponent implements OnInit {
   validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
     if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
-      console.log('this.eanGroup.controls.eanCtrl', this.eanGroup.controls.eanCtrl);
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
-        console.log('this.eanGroup.controls.eanCtrl.value: ', this.eanGroup.controls.eanCtrl.value);
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
         if (!!(res['data'] === true || !!(res['data'] === false))) {
