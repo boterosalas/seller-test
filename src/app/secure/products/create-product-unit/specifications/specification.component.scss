@@ -1,3 +1,16 @@
+$color-white: #FFFFFF;
+$modal: 72px;
+$color-gray: #BCBCBC;
+@mixin icon-border-gray {
+    border-radius: 40px;
+    background-color: $color-gray;
+    width: $modal;
+    height: $modal;
+    mat-icon {
+        color: $color-white;
+    }
+}
+
 :host {
     .specification-container {
         .specification-item {
@@ -29,9 +42,15 @@
         width: 36%;
         padding: 1% 6%;
     }
-    .specification-text{
+    .specification-text {
         text-align: justify;
         margin: 2em 6em;
+    }
+    .specification-form-field {
+        width: 46%;
+    }
+    .specification-dialog {
+        margin: 2em;
     }
 }
 
@@ -40,9 +59,12 @@
         width: 100%;
         padding: 0;
     }
-    .specification-text{
+    .specification-text {
         text-align: justify;
         margin: 1em;
+    }
+    .specification-form-field {
+        width: 100%;
     }
 }
 
@@ -51,10 +73,58 @@
     font-weight: bold;
 }
 
-.specification-create{
+.specification-create {
     padding: 1em;
     color: #485AFA;
-    span{
-        padding-left: 1em; 
+    span {
+        padding-left: 1em;
     }
+}
+
+.specification-create:hover {
+    cursor: pointer;
+}
+
+.specification-dialog {
+    .container-icon {
+        @include icon-border-gray();
+    }
+    .specification-form-container {
+        width: 100%;
+        .specification-form {
+            width: 100%;
+        }
+    }
+    .text {
+        text-align: justify;
+    }
+}
+
+.new-specs {
+    padding: 0 1em;
+    border-bottom: 1px solid gray;
+    mat-icon {
+        color: gray;
+    }
+    span {
+        width: 46%;
+        padding: 0.6em;
+    }
+    p {
+        color: gray;
+        font-size: 13px;
+    }
+}
+
+.new-specs-title {
+    padding: 0.5em;
+    border-bottom: 1px solid gray;
+    color: lightgray;
+    p {
+        width: 46%;
+    }
+}
+
+.no-show {
+    display: none !important;
 }

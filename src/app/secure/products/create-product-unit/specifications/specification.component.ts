@@ -16,6 +16,7 @@ export class SpecificationProductComponent implements OnInit {
     chargeList = false;
     specificationsGroups: SpecificationModel[] = [];
     specificationListToAdd: any[] = [];
+    ShowSpecTitle = false;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -24,24 +25,49 @@ export class SpecificationProductComponent implements OnInit {
      */
     constructor(private specificationService: SpecificationService,
         public dialog: MatDialog) { }
+
+    /**
+     * Inicializa el componente llamando la funcion para obtener las especificaciones.
+     *
+     * @memberof SpecificationProductComponent
+     */
     ngOnInit() {
         this.getAllSpecifications();
     }
 
+    /**
+     * Obtener todas las especificaciones del servicio de especificaciones.
+     *
+     * @memberof SpecificationProductComponent
+     */
     public getAllSpecifications(): void {
         this.specificationService.getSpecifications().subscribe(data => {
             this.specificationsGroups = data;
             this.chargeList = true;
         }, error => {
             this.chargeList = false;
-
         });
     }
 
-    public toggleSpecification(model: SpecificationModel): void {
+    /**
+     * Sirve para cerar o abrir las especificaciones de un grupo.
+     *
+     * @param {SpecificationModel} model
+     * @param {boolean} event
+     * @memberof SpecificationProductComponent
+     */
+    public toggleSpecification(model: SpecificationModel, event: boolean): void {
         model.Show = !model.Show;
     }
 
+    /**
+     * Verifica si debe agregar una especificacion o se modifico una ya existente.
+     *
+     * @param {SpecificationModel} model
+     * @param {number} indexParent
+     * @param {number} indexSon
+     * @memberof SpecificationProductComponent
+     */
     public specificationChange(model: SpecificationModel, indexParent: number, indexSon: number): void {
         const cont = this.verifyExist(model, indexParent, indexSon);
         if (cont === null) {
@@ -55,6 +81,16 @@ export class SpecificationProductComponent implements OnInit {
         }
     }
 
+    /**
+     * Verifica si una especificacion ya posee valor o debe crearse, usa una llave primaria creada por la
+     * suma del indice del grupo de especificacion y la posicion de esta, dentro del grupo.
+     *
+     * @param {SpecificationModel} model
+     * @param {number} indexParent
+     * @param {number} indexSon
+     * @returns {number}
+     * @memberof SpecificationProductComponent
+     */
     public verifyExist(model: SpecificationModel, indexParent: number, indexSon: number): number {
         let exist = null;
         const idCompare = indexParent + '-' + indexSon;
@@ -68,14 +104,35 @@ export class SpecificationProductComponent implements OnInit {
         return exist;
     }
 
+    /**
+     * Inicializa el modal para agregar una nueva especificacion.
+     *
+     * @memberof SpecificationProductComponent
+     */
     public initCreateSpecification(): void {
-
         const dialogRef = this.dialog.open(SpecificationDialogComponent, {
-            width: '250px',
+            width: '800px',
         });
-
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed', result);
+            if (result) {
+                this.ShowSpecTitle = true;
+                this.specificationListToAdd.push({
+                    Name: result.Name,
+                    Value: result.Value,
+                    Show: true
+                });
+            }
         });
+    }
+
+    /**
+     * Cuando remueve una especificacion de la lista ya agregadas.
+     *
+     * @param {number} index
+     * @memberof SpecificationProductComponent
+     */
+    public removeSpecification(index: number): void {
+        this.specificationListToAdd.splice(index, 1);
+        this.ShowSpecTitle = this.specificationListToAdd.length > 0;
     }
 }

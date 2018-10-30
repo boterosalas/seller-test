@@ -7,8 +7,10 @@
 <div class="specification-container" *ngIf="chargeList">
     <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
         <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-            <span class="specification-name" [ngClass]="{'label-black': specification.Show}">{{specification.Name}}</span>
-            <button mat-icon-button (click)="toggleSpecification(specification)">
+            <span class="specification-name" [ngClass]="{'label-black': specification.Show}">
+                {{specification.Name}}
+            </span>
+            <button mat-icon-button (click)="toggleSpecification(specification, true)">
                 <mat-icon class="material-icons" *ngIf="!specification.Show">
                     keyboard_arrow_down
                 </mat-icon>
@@ -17,21 +19,66 @@
                 </mat-icon>
             </button>
         </div>
-        <div class="specification-group" *ngIf="specification.Show">
+        <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
             <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
                 <mat-form-field class="specification-input">
-                    <input matInput placeholder="{{spec.Name}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)">
+                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
+                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" maxlength="200">
                 </mat-form-field>
             </div>
         </div>
     </div>
 </div>
-<div id="specification-create" class="specification-create" fxLayout="row" fxLayoutAlign="space-between center" >
+
+<div id="specification-create" class="specification-create" fxLayout="row" fxLayoutAlign="space-between center">
     <span></span>
     <div fxLayout="row" fxLayoutAlign="center center" (click)="initCreateSpecification()">
         <mat-icon class="material-icons">
             add_circle_outline
         </mat-icon>
         <span>Agregar especificaciones</span>
+    </div>
+</div>
+
+<div fxLayout="row" class="new-specs-title" *ngIf="ShowSpecTitle" fxHide.xs>
+    <p>
+        Especificaciones
+    </p>
+    <p>
+        Nombre
+    </p>
+</div>
+
+<div *ngFor="let spec of specificationListToAdd; let i = index">
+    <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
+        <p fxShow.xs>
+            Especificaciones
+        </p>
+        <span>
+            {{spec.Name}}
+        </span>
+        <span fxHide.xs>
+            {{spec.Value}}
+        </span>
+        <button mat-icon-button (click)="removeSpecification(i)" fxHide.xs>
+            <mat-icon class="material-icons">
+                delete
+            </mat-icon>
+        </button>
+        <div fxShow.xs fxLayout="column">
+            <p>
+                Nombre
+            </p>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    {{spec.Value}}
+                </span>
+                <button mat-icon-button (click)="removeSpecification(i)">
+                    <mat-icon class="material-icons">
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,1 +1,49 @@
-dialog
+<section fxLayout="column" class="specification-dialog" fxLayoutAlign="center center">
+    <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon class="material-icons">
+            assignment
+        </mat-icon>
+    </div>
+    <h1>
+        Agregar especificaciones
+    </h1>
+    <p class="text">
+        Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te
+        proveemos
+    </p>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-form-container">
+        <form #specification="ngForm" fxLayout="column" [formGroup]="formSpecification" (ngSubmit)="closeDialog(true)" class="specification-form">
+            <!-- Fields container -->
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                <!-- Name input Field -->
+                <mat-form-field class="specification-form-field">
+                    <input matInput formControlName="Name" placeholder="Nombre de especificación" (blur)="onBlur('Name')">
+                    <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.required">
+                        Campo obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.maxlength">
+                        Maximo 200 caracteres.
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Value Field -->
+                <mat-form-field class="specification-form-field">
+                    <input matInput formControlName="Value" placeholder="Especificación" (blur)="onBlur('Value')">
+                    <mat-error>Campo obligatorio </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+                <div fxFlex="46" fxLayout="row" fxLayoutAlign="end center">
+                    <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
+                        (click)="closeDialog(false)"></button>
+                </div>
+                <div fxFlex="46" fxLayout="row" fxLayoutAlign="start center">
+                    <button id="btn-create-transporter" [disabled]="!formSpecification.valid" mat-raised-button color="primary"
+                        [innerHTML]="'GUARDAR'">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
