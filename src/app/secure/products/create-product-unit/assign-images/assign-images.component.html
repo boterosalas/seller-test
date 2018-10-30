@@ -1,43 +1,55 @@
 <div>
   <p id="textCreateEan">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-    Curabitur malesuada magna vel interdum maximus.
-    Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-    Curabitur malesuada magna vel interdum maximus.
+    En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear.
+    Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1.
+    Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg,
+    y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg.
+    Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.
   </p>
 </div>
 <div>
-  <form class="example-form">
+  <form #createImageProductEan="ngForm" [formGroup]="createImage" class="example-form">
     <table class="example-full-width" cellspacing="2">
       <tr>
         <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image [src]="netImage">
+          </mat-card>
           <mat-form-field class="example-full-width">
-            <div class="createImagenPU"></div>
+            <input matInput formControlName="imageDad" value="URL">
+            <mat-error  *ngIf="createImage.get('imageDad').hasError('required')" >La primera imagen es obligatoria</mat-error>
+          </mat-form-field>
+        </td>
+     
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
+          <mat-form-field class="example-full-width">
             <input matInput placeholder="URL imagen">
           </mat-form-field>
         </td>
         <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
           <mat-form-field class="example-full-width">
-              <div class="createImagenPU"></div>
             <input matInput placeholder="URL imagen">
           </mat-form-field>
         </td>
         <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
           <mat-form-field class="example-full-width">
-              <div class="createImagenPU"></div>
             <input matInput placeholder="URL imagen">
           </mat-form-field>
         </td>
         <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
           <mat-form-field class="example-full-width">
-              <div class="createImagenPU"></div>
-            <input matInput placeholder="URL imagen">
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="example-full-width">
-              <div class="createImagenPU"></div>
             <input matInput placeholder="URL imagen">
           </mat-form-field>
         </td>

@@ -1,15 +1,21 @@
 .example-form {
-    // min-width: 150px;
-   //  max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 90%;
-  }
+  // min-width: 150px;
+  //  max-width: 500px;
+  width: 100%;
+}
 
-  .createImagenPU{
-    background-color: black;
-    width: 96px;
-    height: 88px;
-  }
+.example-full-width {
+  width: 90%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  height: 28px;
+}
+
+.createImagenPU {
+  width: 96px;
+  height: 88px;
+  color: #D3D3D3;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-bottom: 3%;
+}
