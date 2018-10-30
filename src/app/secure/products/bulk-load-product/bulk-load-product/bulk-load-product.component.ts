@@ -1256,6 +1256,7 @@ export class BulkLoadProductComponent implements OnInit {
         (result: any) => {
           // Convertimos el string que nos envia el response a JSON que es el formato que acepta
           if (result.body.data.response) {
+            console.log('result.body.data.response: ', result.body.data.response);
             result.body.data.response = JSON.parse(result.body.data.response);
           }
           if (result.body.data.status === 0 || result.body.data.checked === 'true') {
@@ -1322,7 +1323,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
+    const formatDesc = /^(((?!<script>|<SCRIPT>).)){0,500}$/;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
