@@ -136,7 +136,7 @@
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator'">
+    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator' && isProductionEnv || !isProductionEnv">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-docs">
           <mat-panel-title>

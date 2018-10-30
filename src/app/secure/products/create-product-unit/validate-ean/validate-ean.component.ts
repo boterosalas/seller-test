@@ -18,13 +18,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ValidateEanComponent implements OnInit {
   options: FormGroup;
-  public response: any;
   eanGroup: FormGroup;
   public validateEanExist;
   public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
-  // constructor() { }
+  public activeButtonCreacionUnitaria: boolean;
+  public asignatedEan: boolean;
 
-  // metodo para chekear el chechk box
   constructor(private fb: FormBuilder, private service: EanServicesService) {
   }
   ngOnInit() {
@@ -32,21 +31,49 @@ export class ValidateEanComponent implements OnInit {
     this.eanGroup = this.fb.group({
       eanCtrl: ['', Validators.pattern(this.formatEan)],
       associateEan: false,
-      floatLabel: 'auto',
+      floatLabel: 'auto'
     });
+    this.validateEanExist = true;
   }
 
-  // consumiendo servicio para validar si el EAN es valido
-  getEanServices() {
-    this.validateEanExist = false;
-    this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
-      this.validateEanExist = !res['data'];
-      if ( !this.validateEanExist ) {
-        this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': !this.validateEanExist});
-      }
-    }, error => {
-      this.validateEanExist = true;
-      console.log('Servicio no funciona');
-    });
+  // validar estado de checkbox
+  onAsignatedEanChanged(value: boolean) {
+    this.asignatedEan = value;
+    console.log('asignatedEan: ', this.asignatedEan);
+  }
+
+  // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
+  validateEanServices() {
+    this.activeButtonCreacionUnitaria = false;
+    if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
+      this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
+        // Validar si la data es un booleano
+        this.validateEanExist = (res['data']);
+        if (!!(res['data'] === true || !!(res['data'] === false))) {
+          // throw new Error('Data not valid');
+        }
+        if (this.validateEanExist) {
+          this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': this.validateEanExist });
+        }
+        if (!this.validateEanExist) {
+          this.activeButtonCreacionUnitaria = true;
+        }
+      }, error => {
+        // this.validateEanExist = true;
+        console.log('Servicio no funciona');
+      });
+    } else {
+      console.log('Campo invalido');
+    }
+  }
+
+  // Funcion para validar el estado de los campos del formulario para habilitar el boton.
+  permitContinue(): boolean {
+    return ( !this.activeButtonCreacionUnitaria && !this.asignatedEan ) || (this.activeButtonCreacionUnitaria && this.asignatedEan);
+  }
+
+  // Funcion mirar estado del boton continuar
+  disabledButtonUnitCreation() {
+    this.activeButtonCreacionUnitaria = false;
   }
 }

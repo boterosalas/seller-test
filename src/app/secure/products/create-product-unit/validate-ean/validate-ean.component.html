@@ -8,20 +8,22 @@
        Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.
     </p>
   </div>
-  <form [formGroup]="eanGroup">
+  <form #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="getEanServices()" autocomplete="off">
-      <mat-error id="error-nit-exist" *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
-      <mat-error id="error-nit-exist" *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El nit ya existe.'"></mat-error>
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="validateEanServices()" autocomplete="off" maxlength="13" minlength="7">
+      <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
+      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ya existe.'"></mat-error>
     </mat-form-field>
-   
-    <div class="distanceComponetInt">
-      <mat-checkbox formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
+ 
+  <div class="distanceComponetInt">
+      <mat-checkbox  #asignatedEanCheckBox 
+      [checked]="asignatedEan"
+      (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)"
+      formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
     </div>
 
-
     <div class="buttonProcess">
-      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!validateEanExist">Continuar</button>
+      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="permitContinue() || !createProductEan.form.valid">Continuar</button>
     </div>
   </form>
 </div>
