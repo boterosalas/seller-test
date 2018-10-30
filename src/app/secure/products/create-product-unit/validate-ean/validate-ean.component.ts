@@ -17,10 +17,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./validate-ean.component.scss']
 })
 export class ValidateEanComponent implements OnInit {
+  disable = false;
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
+  // public formatEan = /'(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)'/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
 
@@ -29,8 +30,8 @@ export class ValidateEanComponent implements OnInit {
   ngOnInit() {
     // metodo para validar el input del form
     this.eanGroup = this.fb.group({
-      eanCtrl: ['', Validators.pattern(this.formatEan)],
-      associateEan: false,
+      eanCtrl: ['', Validators.pattern('(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)')],
+      asignatedEan: false,
       floatLabel: 'auto'
     });
     this.validateEanExist = true;
@@ -40,13 +41,20 @@ export class ValidateEanComponent implements OnInit {
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
     console.log('asignatedEan: ', this.asignatedEan);
+     if (this.asignatedEan === true) {
+          this.eanGroup.controls['eanCtrl'].disable();
+    } else {
+      this.eanGroup.controls['eanCtrl'].enable();
+    }
   }
 
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
-  validateEanServices(validateEanExist: any) {
+  validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
     if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
+      console.log('this.eanGroup.controls.eanCtrl', this.eanGroup.controls.eanCtrl);
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
+        console.log('this.eanGroup.controls.eanCtrl.value: ', this.eanGroup.controls.eanCtrl.value);
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
         if (!!(res['data'] === true || !!(res['data'] === false))) {
