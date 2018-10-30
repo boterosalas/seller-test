@@ -16,6 +16,7 @@ import { BulkLoadComponent } from './bulk-load/bulk-load.component';
   ],
   exports: [
     BulkLoadComponent,
+    MaterialModule
   ],
   entryComponents: [],
   providers: []

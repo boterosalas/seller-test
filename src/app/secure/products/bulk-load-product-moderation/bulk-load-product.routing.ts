@@ -4,7 +4,7 @@ import { Route } from '@app/core';
 import { environment } from '@env/environment';
 
 import { RoutesConst } from './../../../shared';
-import { BulkLoadProductModerationComponent } from './bulk-load-product-moderation.component';
+import { BulkLoadProductModerationComponent } from './bulk-load-product-moderation/bulk-load-product-moderation.component';
 
 const isProductionEnv = environment.production;
 

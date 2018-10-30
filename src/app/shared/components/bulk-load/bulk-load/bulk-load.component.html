@@ -17,14 +17,14 @@
             fXLayout="row wrap" fxLayoutAlign="center center">
 
             <!-- Botón para descargar el formato -->
-            <a download class="sc-default-button" id="download-file-button" mat-button>
+            <button class="sc-default-button" id="download-file-button" mat-button (click)="downloadFile()">
               <mat-icon class="mat-18">file_download</mat-icon>
               DESCARGAR FORMATO
-            </a>
+            </button>
 
             <!-- Input para subir archivo de Excel -->
             <input placeholder="file upload" hidden name="fileUploadInput" type="file" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            #fileUploadInput>
+              #fileUploadInput (change)="fileUploadInputChanged($event)">
 
             <!-- Botón para importar el archivo -->
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadInput.click()"
@@ -42,6 +42,17 @@
             </button>
             <mat-menu dense #toolbarOptions="matMenu">
               <!-- Opciones del menú -->
+              <button id="upload-file-guide-button" (click)="fileUploadInput.click()" mat-menu-item>
+                <span>Cargar archivo</span>
+              </button>
+              <button id="download-file-guide-button" mat-menu-item (click)="downloadFile()">
+                Descargar Formato
+              </button>
+              <!-- <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
+                mat-menu-item>
+                <span>Limpiar datos actuales</span>
+              </button> -->
+              <button id="send-guide-button" color="accent" mat-menu-item>Enviar registro</button>
             </mat-menu>
           </div>
 
@@ -58,15 +69,8 @@
         </mat-icon>
       </div>
       <div class="content-information-no-data">
-        <p>Para importar archivos al Seller Center, primero debes
-          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()" class="link-text">Descargar
-            el formato
-          </a>, en este archivo podrás cargar ofertas
-        </p>
-        <p>
-          <span class="link-text" id="upload-file-guide-button" (click)="fileUploadInput.click()">Selecciona el
-            archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
-
+        <!-- Template para contenido principal -->
+        <ng-container *ngIf="config.mainContentTpl" [ngTemplateOutlet]="config.mainContentTpl"></ng-container>
       </div>
     </div>
   </div>

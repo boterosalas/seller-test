@@ -1,3 +1,29 @@
-<p>
-  bulk-load-product-moderation works!
-</p>
+<!-- Template para el contenido principal. -->
+<ng-template #mainContentTpl>
+  <p>
+    Para importar archivos al Seller Center, primero debes
+    <a (click)="requestMail()" class="link-text">Descargar el formato
+    </a>, en este archivo podrás cargar la validación de productos.
+  </p>
+  <p>
+    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()">Selecciona el archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.
+  </p>
+</ng-template>
+
+<!-- Template para la modal que solicita el correo. -->
+<ng-template #dialogMail>
+  <div mat-dialog-content>
+    <p>Por favor especifique el correo a donde se le enviara el formato.</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  </div>
+</ng-template>
+
+<!-- Componente que construye la mayor parte de la vista. -->
+<app-bulk-load #bulkLoadCmp [config]="config"></app-bulk-load>
+

@@ -1,7 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
 
 import { Logger } from '@app/core';
+
+import { ConfigBulkLoad, Event, TypeEvents } from '../models/bulk-load.model';
 
 // log component
 const log = new Logger('BulkLoadComponent(shared)');
@@ -19,10 +21,38 @@ const log = new Logger('BulkLoadComponent(shared)');
   ]
 })
 export class BulkLoadComponent implements OnInit {
-  @Input() config: ConfigBulkLoad;
+  @Input() config: ConfigBulkLoad = {
+    title: 'CARGA MASIVA',
+    mainContentTpl: null
+  };
+  @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
+
+  private event: EventEmitter<Event> = new EventEmitter();
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  }
+
+ downloadFile() {
+  this.event.emit({
+    type: TypeEvents.download
+  });
+  console.log('exportFile');
+ }
+
+ uploadFile() {
+  this.event.emit({
+    type: TypeEvents.upload
+  });
+  console.log('importFile');
+ }
+
+ fileUploadInputChanged(e: any) {
+  console.log('fileUploadInputChanged');
+ }
+
+  fileUploadInputClick() {
+    const el: HTMLElement = this.fileUploadInput.nativeElement as HTMLElement;
+    el.click();
   }
 
 }
