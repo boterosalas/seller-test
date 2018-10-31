@@ -10,20 +10,6 @@
   </p>
 </ng-template>
 
-<!-- Template para la modal que solicita el correo. -->
-<ng-template #dialogMail>
-  <div mat-dialog-content>
-    <p>Por favor especifique el correo a donde se le enviara el formato.</p>
-    <mat-form-field>
-      <input matInput [(ngModel)]="data.animal">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
-  </div>
-</ng-template>
-
 <!-- Componente que construye la mayor parte de la vista. -->
-<app-bulk-load #bulkLoadCmp [config]="config"></app-bulk-load>
+<app-bulk-load #bulkLoadCmp [config]="config" (event)="manageEvents($event)"></app-bulk-load>
 

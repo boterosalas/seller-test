@@ -12,14 +12,11 @@ import { BulkLoadComponent } from './bulk-load/bulk-load.component';
     MaterialModule
   ],
   declarations: [
-    BulkLoadComponent,
+    BulkLoadComponent
   ],
   exports: [
-    BulkLoadComponent,
-    MaterialModule
-  ],
-  entryComponents: [],
-  providers: []
+    BulkLoadComponent
+  ]
 })
 export class BulkLoadModule {
 }

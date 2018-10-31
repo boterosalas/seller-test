@@ -1,55 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+
 import { EndpointService } from '@app/core';
-import { Observable } from 'rxjs';
+
 
 @Injectable()
-/**
- * Clase OrderService
- */
 export class SendModerationFormatModalService {
 
-  constructor (
+  constructor(
     private http: HttpClient,
-    private api: EndpointService
-  ) { }
-
-  /**
-   * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
-   *
-   * @returns
-   * @memberof OrderService
-   */
-  getCurrentFilterOrders() {
-    const currentFilter = JSON.parse(localStorage.getItem('currentFilter'));
-    return currentFilter || {};
+    private api: EndpointService,
+    private snackBar: MatSnackBar
+  ) {
   }
 
   /**
-   * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
+   * Enviar la moderación al correo especificado.
    *
-   * @param {any} data
-   * @memberof OrderService
+   * @param {string} mail
+   * @returns {Observable<HttpResponse<Object>>}
    */
-  setCurrentFilterOrders(data) {
-    localStorage.setItem('currentFilter', JSON.stringify(data));
-  }
-
-  /**
-   *  Método para realizar el consumo del servicio que permite enviar las órdenes
-   *  al correo electronico del usuario.
-   *
-   * @param {any} stringSearch
-   * @returns {Observable<[{}]>}
-   * @memberof OrderService
-   */
-  downloadOrders(stringSearch: any): Observable<[{}]> {
-    return new Observable(observer => {
-      this.http.post(this.api.get('downloadOrder'), stringSearch).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-          observer.error(err);
+  sendModeration(mail: string) {
+    const request = this.http.post(this.api.get('sendProductModeration'), mail, {observe: 'response'});
+    request.subscribe(res => {
+      let message;
+      if (res.status === 200) {
+        message = 'Se ha enviado correctamente la moderación.';
+      } else {
+        message = 'Algo ocurrió, no se pudo enviar la moderación.';
+      }
+      this.snackBar.open(message, 'Cerrar', {
+        duration: 3000
       });
     });
+    return request;
   }
 }

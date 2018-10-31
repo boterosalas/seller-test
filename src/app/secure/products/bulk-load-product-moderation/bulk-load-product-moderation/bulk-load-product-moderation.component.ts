@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@root/node_modules/@angular/material';
-import { FinishUploadInformationComponent } from '@secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 import { SendModerationFormatModalComponent } from '@secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.component';
-import { ConfigBulkLoad } from '@shared/components/bulk-load/models/bulk-load.model';
+import { ConfigBulkLoad, Event, TypeEvents } from '@shared/components/bulk-load';
 
 @Component({
   selector: 'app-bulk-load-product-moderation',
@@ -10,8 +9,9 @@ import { ConfigBulkLoad } from '@shared/components/bulk-load/models/bulk-load.mo
   styleUrls: ['./bulk-load-product-moderation.component.scss']
 })
 export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit {
+  // Plantilla para configurar el contenido principal del componente 'bulk-load'.
   @ViewChild('mainContentTpl') private mainContentTpl: TemplateRef<any>;
-
+  // Configuración del componente 'bulk-load'.
   config: Partial<ConfigBulkLoad> = {
     title: 'VALIDACIÓN DE PRODUCTOS'
   };
@@ -25,8 +25,23 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
     this.config.mainContentTpl = this.mainContentTpl;
   }
 
+  /**
+   * Abre una modal y solicita el correo al cual se va enviar la moderación.
+   */
   requestMail() {
-    const dialogRef = this.dialog.open(SendModerationFormatModalComponent);
+    this.dialog.open(SendModerationFormatModalComponent);
+  }
+
+  /**
+   * Controla los eventos que ocurren en el componente 'bulk-load'.
+   *
+   * @param {Event} e
+   */
+  manageEvents(e: Event) {
+    // Descargar formato
+    if (e.type === TypeEvents.download) {
+      this.requestMail();
+    }
   }
 
 }

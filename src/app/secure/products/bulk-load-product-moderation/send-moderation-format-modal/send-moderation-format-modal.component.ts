@@ -6,6 +6,7 @@ import { Logger } from '@app/core';
 
 import { SendModerationFormatModalService } from './send-moderation-format-modal.service';
 
+
 const log = new Logger('SendModerationFormatModalComponent');
 
 
@@ -24,25 +25,37 @@ export class SendModerationFormatModalComponent implements OnInit {
     private service: SendModerationFormatModalService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.createForm();
   }
 
-
+  /**
+   * Cierra la modal.
+   */
   onNoClick(): void {
     this.dialogRef.close(false);
   }
 
+  /**
+   * Crea el formulario usado para solicitar el correo.
+   */
   createForm() {
     this.form = this.fb.group({
-      'email': [{ value: '' }, [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-
-  sendEmail() {
-    console.log(this.form.value);
+  /**
+   * Enviar la moderación al correo.
+   *
+   * @param data
+   */
+  sendEmail(data: any) {
+    this.service.sendModeration(data.email).subscribe(res => {
+      this.onNoClick();
+    });
   }
 }

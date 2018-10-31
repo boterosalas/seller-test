@@ -1,24 +1,13 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
-
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Logger } from '@app/core';
-
 import { ConfigBulkLoad, Event, TypeEvents } from '../models/bulk-load.model';
 
-// log component
 const log = new Logger('BulkLoadComponent(shared)');
 
 @Component({
   selector: 'app-bulk-load',
   templateUrl: './bulk-load.component.html',
   styleUrls: ['./bulk-load.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-      state('*', style({ height: '*', visibility: 'visible' })),
-      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
 })
 export class BulkLoadComponent implements OnInit {
   @Input() config: ConfigBulkLoad = {
@@ -26,30 +15,42 @@ export class BulkLoadComponent implements OnInit {
     mainContentTpl: null
   };
   @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
-
-  private event: EventEmitter<Event> = new EventEmitter();
+  @Output() event: EventEmitter<Event> = new EventEmitter();
 
   ngOnInit(): void {
   }
 
- downloadFile() {
-  this.event.emit({
-    type: TypeEvents.download
-  });
-  console.log('exportFile');
- }
+  /**
+   * Emite un evento cuando se quiere descargar el formato.
+   */
+  downloadFile() {
+    this.event.emit({
+      type: TypeEvents.download
+    });
+  }
 
- uploadFile() {
-  this.event.emit({
-    type: TypeEvents.upload
-  });
-  console.log('importFile');
- }
+  /**
+   * Emite un evento cuando se quiere importar el formato.
+   */
+  uploadFile() {
+    this.event.emit({
+      type: TypeEvents.upload
+    });
+    log.debug('importFile');
+  }
 
- fileUploadInputChanged(e: any) {
-  console.log('fileUploadInputChanged');
- }
+  /**
+   * Cuando cambia el input tupo file.
+   *
+   * @param e
+   */
+  fileUploadInputChanged(e: any) {
+    log.debug('fileUploadInputChanged');
+  }
 
+  /**
+   * Simula el evento click del input tipo file.
+   */
   fileUploadInputClick() {
     const el: HTMLElement = this.fileUploadInput.nativeElement as HTMLElement;
     el.click();

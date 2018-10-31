@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '@app/material.module';
-import { ToolbarOptionsModule } from './components/toolbar-options';
-import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
-import { StatesModule } from './components/states';
-import { CitiesModule } from './components/cities';
-import { ToolbarTittleModule } from './components/toolbar-tittle';
 import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
+
+import { CitiesModule } from './components/cities';
+import { StatesModule } from './components/states';
+import { ToolbarOptionsModule } from './components/toolbar-options';
+import { ToolbarTittleModule } from './components/toolbar-tittle';
+import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
     CdkDetailRowDirective,
     NoWhitespaceDirective,
     SearchSellerComponent,
+    ControlMessagesComponent
   ],
   exports: [
     MaterialModule,
@@ -32,7 +35,8 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
     StatesModule,
     CitiesModule,
     ToolbarTittleModule,
-    SearchSellerComponent
+    SearchSellerComponent,
+    ControlMessagesComponent
   ],
   providers: [
     EventEmitterSeller,

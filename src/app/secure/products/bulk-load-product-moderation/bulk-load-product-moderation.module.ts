@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { SharedModule } from '@app/shared/shared.module';
 import { BulkLoadModule } from '@shared/components/bulk-load/bulk-load.module';
 
 import { BulkLoadProductModerationComponent } from './bulk-load-product-moderation/bulk-load-product-moderation.component';
@@ -11,6 +13,8 @@ import { SendModerationFormatModalComponent } from './send-moderation-format-mod
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    SharedModule,
     BulkLoadModule,
     BulkLoadProductModerationRoutingModule
   ],

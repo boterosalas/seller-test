@@ -1,14 +1,14 @@
 <div *ngIf="form">
-  <h2 mat-dialog-title>Te enviaremos el formato de moderación al siguiente correo electrónico.</h2>
+  <h3 mat-dialog-title>Te enviaremos el formato de moderación al siguiente correo electrónico.</h3>
   <mat-dialog-content>
-    <form #f="ngForm" [formGroup]="form" class="form-login" (ngSubmit)="sendEmail()">
+    <form [formGroup]="form" class="form-login">
       <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout="row" fxFlex="100">
           <mat-form-field fxFlex="100" class="input-style">
-            <input name="email" [formControlName]="email" matInput placeholder="Correo electrónico" type="email" required>
-            <div *ngIf="f.errors && (f.touched || f.dirty)">
-              <mat-error *ngIf="f.errors?.required">El correo electrónico no puede estar en blanco.</mat-error>
-            </div>
+            <input matInput name="email" formControlName="email" placeholder="Correo electrónico" type="email" required>
+            <mat-error>
+              <app-control-messages [control]="form.get('email')"></app-control-messages>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -16,6 +16,6 @@
   </mat-dialog-content>
   <mat-dialog-actions class="dialog-buttons">
     <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
-    <button type="submit" class="sc-button" [disabled]="!f.form.valid" mat-raised-button color="accent">Enviar</button>
+    <button class="sc-button" [disabled]="!form.valid" mat-raised-button color="accent" (click)="sendEmail(form.value)">Enviar</button>
   </mat-dialog-actions>
 </div>
