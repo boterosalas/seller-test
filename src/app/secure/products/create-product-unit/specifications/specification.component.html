@@ -51,7 +51,7 @@
 
 <div *ngFor="let spec of specificationListToAdd; let i = index">
     <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
-        <p fxShow.xs>
+        <p fxShow.xs fxShow="false">
             Especificaciones
         </p>
         <span>
@@ -65,7 +65,7 @@
                 delete
             </mat-icon>
         </button>
-        <div fxShow.xs fxLayout="column">
+        <div fxShow.xs fxShow="false" fxLayout="column">
             <p>
                 Nombre
             </p>
