@@ -29,11 +29,9 @@ export class SpecificationModel {
      */
     changeJsonToSpecificationModel(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
-
         json.forEach(data => {
             specificationList.push(this.castingJsonToModel(data, json));
         });
-
         return specificationList;
     }
 
@@ -48,12 +46,11 @@ export class SpecificationModel {
     public castingJsonToModel(specification: any, json: any): SpecificationModel {
         let model: SpecificationModel;
         model = new SpecificationModel(
-            specification.Name,
+            specification.groupName,
             false,
-            specification.Sons,
-            specification.Id
+            this.getSons(specification.specs ),
+            specification.idGroup
         );
-        // this.getSons(json, specification.IdParent);
         return model;
     }
 
@@ -65,20 +62,18 @@ export class SpecificationModel {
      * @returns {SpecificationModel[]}
      * @memberof SpecificationModel
      */
-    public getSons(json: any, idParent: number): SpecificationModel[] {
+    public getSons(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
         json.forEach(data => {
-            if (data.IdParent === idParent) {
                 specificationList.push(
                     new SpecificationModel(
-                        data.Name,
+                        data.specName,
                         false,
-                        data.Hijos,
-                        data.Id
+                        null,
+                        data.idSpec
                     )
                 );
-            }
         });
-        return null;
+        return specificationList;
     }
 }

@@ -21,8 +21,8 @@ describe('SpecificationProductComponent', () => {
     const specificationModel = new SpecificationModel(null, null, null);
 
     const specificationService = <SpecificationService>{
-        getSpecifications(): Observable<SpecificationModel[]> {
-            return of( specificationModel.changeJsonToSpecificationModel(specification) );
+        getSpecifications(): Observable<any> {
+            return of( structureJson );
         }
     };
 
@@ -1322,7 +1322,7 @@ describe('SpecificationProductComponent', () => {
     const structureJson = {
         statusCode: 200,
         status: 200,
-        body: { body: '{ "Data": ' + specification + ' } ' }
+        body: { Data:  specification }
     };
 
     beforeEach(async(() => {

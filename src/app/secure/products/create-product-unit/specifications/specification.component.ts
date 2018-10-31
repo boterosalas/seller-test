@@ -3,6 +3,9 @@ import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { MatDialog } from '@angular/material';
+import { Logger } from '@app/core';
+
+const log = new Logger('SpecificationProductComponent');
 
 @Component({
     selector: 'app-specification-product',
@@ -17,13 +20,15 @@ export class SpecificationProductComponent implements OnInit {
     specificationsGroups: SpecificationModel[] = [];
     specificationListToAdd: any[] = [];
     ShowSpecTitle = false;
+    specificationModel = new SpecificationModel(null, null, null);
 
     /**
      * Creates an instance of SpecificationProductComponent.
      * @param {SpecificationService} specificationService
      * @memberof SpecificationProductComponent
      */
-    constructor(private specificationService: SpecificationService,
+    constructor(
+        private specificationService: SpecificationService,
         public dialog: MatDialog) { }
 
     /**
@@ -42,10 +47,13 @@ export class SpecificationProductComponent implements OnInit {
      */
     public getAllSpecifications(): void {
         this.specificationService.getSpecifications().subscribe(data => {
-            this.specificationsGroups = data;
+            if (data.status === 200) {
+                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
+            }
             this.chargeList = true;
         }, error => {
             this.chargeList = false;
+            log.error('Error al intentar obtener los metodos de envios');
         });
     }
 
