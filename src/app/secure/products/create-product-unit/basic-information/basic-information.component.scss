@@ -1,7 +1,11 @@
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
+$color-red: #f44336;
 
-
+.basic-info-error{
+    color: $color-red;
+    font-size: 13px;
+}
 @mixin inputs-basic-info-form() {
     padding-right: 1em;
 }
@@ -82,7 +86,10 @@ $color-label: #bdbdbd;
     .keyword-field {
         width: 46%;
     }
-}
+    .son-container{
+        padding: 2em;
+    }
+} // 
 
 .shipping-slider {
     width: 100%;
@@ -126,6 +133,12 @@ $color-label: #bdbdbd;
     }
 }
 
+.flex-container{
+    padding: 1em 0px;
+    flex-wrap: wrap;
+    display: flex;
+}
+
 .basic-info-container {
     mat-form-field {
         @include form-padding();
@@ -135,6 +148,7 @@ $color-label: #bdbdbd;
     }
     .container-color {
         @include color-size();
+        padding: 0.3em;
         .color-round-picker {
             width: 37px;
             height: 37px;
@@ -146,17 +160,21 @@ $color-label: #bdbdbd;
             @include color-size();
             cursor: pointer;
         }
-        .select-color{
+        .select-color {
             border-color: $blue-page !important;
             border: 2px solid;
             @include color-size();
         }
     }
-    .color-icon-picker{
+    .color-icon-picker {
         background: white !important;
     }
-    .color-prefix-icon{
+    .color-prefix-icon {
         border-radius: 25px;
         border: 1px solid;
     }
+}
+
+.border-bottom-gray {
+    border-bottom: 1px solid gray;
 }
