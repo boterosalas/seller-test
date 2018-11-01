@@ -70,7 +70,7 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Cotizador</h6>
         </mat-list-item>
-        
+
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Historico carga de ofertas</h6>
@@ -129,6 +129,22 @@
           <h6 matLine>Pagos</h6>
         </mat-list-item>
 
+      </mat-expansion-panel>
+    </div>
+
+    <div class="content-menu-list">
+      <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel-header id="matExpansion-item-button-products">
+          <mat-panel-title>
+            Parametrización
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamSpecs]">
+          <h6 matLine>Especificaciones</h6>
+        </mat-list-item>
+                                                                 
       </mat-expansion-panel>
     </div>
 

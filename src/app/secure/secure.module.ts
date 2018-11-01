@@ -10,6 +10,7 @@ import { RegisterModule, ManageModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import { DashboardModule } from '@app/secure/dashboard/dashboard.module';
+import { ParameterizeModule } from '@app/secure/parameterize/parameterize.module';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { DashboardModule } from '@app/secure/dashboard/dashboard.module';
         DashboardModule,
         HistoricalModuleAdmin,
         UnitProductModule,
+        ParameterizeModule
     ],
     providers: [],
 })
