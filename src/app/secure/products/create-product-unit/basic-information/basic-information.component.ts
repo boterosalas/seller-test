@@ -140,9 +140,9 @@ export class ProductBasicInfoComponent implements OnInit {
     /**
      * selectColor
      */
-    public selectColor(color: any): void {
-        this.colorSelected = color.Name;
-        console.log(color);
+    public selectColor(color: any, son: any): void {
+        son.colorSelected = color.Name;
+        console.log(son);
     }
 
 
@@ -221,7 +221,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.sonList[this.sonList.length - 1].form.controls.Size.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.HexColorCodePDP.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.HexColorCodeName.markAsDirty();
-                console.log(this.sonList[this.sonList.length - 1].form.controls.HexColorCodePDP);
+                this.sonList[this.sonList.length - 1].dirty = true;
+                this.sonList[this.sonList.length - 1].Show = true;
             }
             return this.sonList[this.sonList.length - 1].form.valid;
         } else {
@@ -232,6 +233,10 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public toggleSon(son: any): void {
         son.Show = !son.Show;
+    }
+
+    public deleteSon(index: number): void {
+        this.sonList.splice(index, 1);
     }
 
 }

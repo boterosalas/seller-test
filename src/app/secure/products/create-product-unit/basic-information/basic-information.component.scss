@@ -5,6 +5,8 @@ $color-red: #f44336;
 .basic-info-error{
     color: $color-red;
     font-size: 13px;
+    position: fixed;
+    padding-top: 1em;
 }
 @mixin inputs-basic-info-form() {
     padding-right: 1em;
@@ -177,4 +179,8 @@ $color-red: #f44336;
 
 .border-bottom-gray {
     border-bottom: 1px solid gray;
+}
+
+.text-right{
+    text-align: right;
 }
