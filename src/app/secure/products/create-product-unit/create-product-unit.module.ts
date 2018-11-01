@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
+import { SpecificationProductComponent } from './specifications/specification.component';
+import { SpecificationService } from './specifications/specification.component.service';
+import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -31,7 +34,9 @@ import { TreeComponent  } from './categorization/list/tree.component';
     ValidateEanComponent,
     SearchCategorizationComponent,
     ListCategorizationComponent,
-    TreeComponent
+    TreeComponent,
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -39,14 +44,16 @@ import { TreeComponent  } from './categorization/list/tree.component';
     ValidateEanComponent,
     SearchCategorizationComponent,
     ListCategorizationComponent,
-    TreeComponent
+    TreeComponent,
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   entryComponents: [
+    SpecificationDialogComponent
   ],
   providers: [
     SearchService,
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    SpecificationService
   ]
 })
 export class UnitProductModule {
