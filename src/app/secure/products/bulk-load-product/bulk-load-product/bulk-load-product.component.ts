@@ -577,7 +577,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion || j === iVal.iPalabrasClave) {
+            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion ) {
               const allChars = this.validFormat(res[i][j], 'formatAllChars');
               if (!allChars && allChars === false) {
                 this.countErrors += 1;
@@ -589,12 +589,29 @@ export class BulkLoadProductComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: j === iVal.iMarca ? 'Brand' : j === iVal.iMetaTitulo ? 'MetaTitle' : j === iVal.iMetaDescripcion ? 'MetaDescription' : j === iVal.iPalabrasClave ? 'KeyWords' : null
+                  dato: j === iVal.iMarca ? 'Brand' : j === iVal.iMetaTitulo ? 'MetaTitle' : j === iVal.iMetaDescripcion ? 'MetaDescription' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
+            } else if (j === iVal.iPalabrasClave) {
+              const allChars = this.validFormat(res[i][j], 'formatAllCharsKeyWords');
+              if (!allChars && allChars === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iPalabrasClave ? 'KeyWords' : null
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            }else if (j === iVal.iModelo || j === iVal.iDetalles) {
               const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
               if (!limitChars && limitChars === false) {
                 this.countErrors += 1;
@@ -1033,7 +1050,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
     // const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
-    if (featureValue.length > 200) {
+    if (featureValue.length > 500) {
       this.countErrors += 1;
       const itemLog = {
         row: this.arrayInformation.length,
@@ -1218,13 +1235,13 @@ export class BulkLoadProductComponent implements OnInit {
             const data = result;
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
-                 // this.openDialogSendOrder(data);
-                 this.progressStatus = false;
-                 this.verifyStateCharge();
-                 this.getAvaliableLoads();
-                 if (result.body.error) {
-                  this.openDialogSendOrder(result);
-                 }
+                // this.openDialogSendOrder(data);
+                this.progressStatus = false;
+                this.verifyStateCharge();
+                this.getAvaliableLoads();
+                // Validar que los errores existan para poder mostrar el modal. 
+                if (result.body.error > 0) {
+                  this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1254,9 +1271,9 @@ export class BulkLoadProductComponent implements OnInit {
     this.BulkLoadProductS.getCargasMasivas()
       .subscribe(
         (result: any) => {
+          console.log('result: ', result);
           // Convertimos el string que nos envia el response a JSON que es el formato que acepta
           if (result.body.data.response) {
-            console.log('result.body.data.response: ', result.body.data.response);
             result.body.data.response = JSON.parse(result.body.data.response);
           }
           if (result.body.data.status === 0 || result.body.data.checked === 'true') {
@@ -1284,13 +1301,18 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   openDialogSendOrder(res: any): void {
-    if ( !res.body.data) {
+    if (!res.body.data) {
       res.body.data = {};
       res.body.data.status = 3;
       res.productNotifyViewModel = res.body.productNotifyViewModel;
     } else {
-      res.productNotifyViewModel = res.body.data.response.ProductNotify;
-      res.body.error = res.body.data.response.Error;
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.body.data.response) {
+        console.log('res.body.data.response;: ', res.body.data.response);
+        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+      } else {
+      res.productNotifyViewModel = res.body.data.response.productNotifyViewModel;
+      }
     }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
@@ -1319,11 +1341,12 @@ export class BulkLoadProductComponent implements OnInit {
     const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
+    const formatAllCharsKeyWords = /^[\w\W\s\d]{1,200}$/;
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc = /^(((?!<script>|<SCRIPT>).)){0,500}$/;
+    const formatDesc =  /^((?!<script>|<SCRIPT>).)*$/igm;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
@@ -1388,6 +1411,13 @@ export class BulkLoadProductComponent implements OnInit {
           break;
         case 'formatAllChars':
           if ((inputtxt.match(formatAllChars))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'formatAllCharsKeyWords':
+          if ((inputtxt.match(formatAllCharsKeyWords))) {
             valueReturn = true;
           } else {
             valueReturn = false;
