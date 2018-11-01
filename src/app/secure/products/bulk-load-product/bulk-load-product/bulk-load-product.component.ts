@@ -1239,7 +1239,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.progressStatus = false;
                 this.verifyStateCharge();
                 this.getAvaliableLoads();
-                // Validar que los errores existan para poder mostrar el modal. 
+                // Validar que los errores existan para poder mostrar el modal.
                 if (result.body.error > 0) {
                   this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
@@ -1271,7 +1271,6 @@ export class BulkLoadProductComponent implements OnInit {
     this.BulkLoadProductS.getCargasMasivas()
       .subscribe(
         (result: any) => {
-          console.log('result: ', result);
           // Convertimos el string que nos envia el response a JSON que es el formato que acepta
           if (result.body.data.response) {
             result.body.data.response = JSON.parse(result.body.data.response);
@@ -1308,7 +1307,6 @@ export class BulkLoadProductComponent implements OnInit {
     } else {
       // Condicional apra mostrar errores mas profundos. ;
       if (res.body.data.response) {
-        console.log('res.body.data.response;: ', res.body.data.response);
         res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
       } else {
       res.productNotifyViewModel = res.body.data.response.productNotifyViewModel;
