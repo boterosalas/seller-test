@@ -1,5 +1,71 @@
+<!-- SPECIFICATIONS SECTION -->
 <section id="app-specifications" class="flexbox flex-wrap">
+    <!-- TOOLBAR WITH TITLE AND SUBTITLE-->
     <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'Parametrizar reglas'" subtitleBar="Parametrización de especificaciones"></app-toolbar-tittle>
+
+    <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+    <div id="addButton" class="container-group-add-button">
+        <!-- BUTTON TO ADD-->
+        <button mat-button (click)="addGroupSpec()">
+            <mat-icon class="material-icons">
+                control_point
+            </mat-icon>
+            Agregar grupo de especificaciones
+        </button>
+    </div>
+
+    <!-- SPECIFICATION LIST CONTAINER -->
+    <div class="container-list-specs" fxLayout="column">
+        <div *ngFor="let group of specificationsGroups; let i = index" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
+                <!-- SPECIFICATION NAME -->
+                <label [ngClass]="{'black': group.Show}" *ngIf="!group.EditMode">
+                    {{group.Name}}
+                </label>
+
+                <input class="spec-group-input" matInput placeholder="Nombre de grupo de especificaciones" [(ngModel)]="group.Name"
+                    *ngIf="group.EditMode" (blur)="blurInput(group)" #inputSpec autofocus>
+
+                <!-- SPECIFICATION MENU -->
+                <div id="menu-specs" class="specs-menu">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon class="material-icons">
+                            more_vert
+                        </mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="updateGroupSpec(group, i)">
+                            <mat-icon class="material-icons">
+                                edit
+                            </mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon class="material-icons">
+                                delete
+                            </mat-icon>
+                            <span>Eliminar</span>
+                        </button>
+                    </mat-menu>
+                    <button mat-icon-button *ngIf="!group.Show" (click)="toggleGroupSpecification(group)">
+                        <mat-icon class="material-icons">
+                            keyboard_arrow_down
+                        </mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="group.Show" (click)="toggleGroupSpecification(group)">
+                        <mat-icon class="material-icons">
+                            keyboard_arrow_up
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="group.Show" class="specs-container">
+                <div *ngFor="let spec of group.Sons" class="specs-items">
+                    {{spec.Name}}
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </section>

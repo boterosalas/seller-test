@@ -1,8 +1,102 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$modal: 72px;
+@mixin icon-border-gray {
+    border-radius: 40px;
+    background-color: $color-gray;
+    width: $modal;
+    height: $modal;
+    mat-icon {
+        color: $color-white;
+    }
+}
+
 :host {
-    section#app-specifications{
-        width: 100%;
-        .app-toolbar-title{
+    section#app-specifications {
+        .app-toolbar-title {
+            width: 100%;
+        }
+        .container-group-add-button {
+            text-align: right;
+            color: $blue;
+            width: 100%;
+            margin: 2%;
+        }
+        .container-list-specs {
+            width: 92%;
+            margin: 0 4%;
+            .item {
+                border-bottom: 1px solid #D3D3D3;
+                label {
+                    color: $gray;
+                    font-size: 14px;
+                }
+                mat-icon {
+                    color: $gray,
+                }
+            }
+            .specs-container {
+                flex-wrap: wrap;
+                width: 100%;
+                display: flex;
+                .specs-items {
+                    width: 46%;
+                    margin: 2%;
+                }
+            }
+        }
+    }
+    .black {
+        color: $black !important;
+        font-weight: bold;
+    }
+    .dialog-add-container {
+        .center-text {
+            text-align: center;
+        }
+        .container-icon {
+            @include icon-border-gray();
+        }
+        p {
+            text-align: justify;
+        }
+        h1 {
+            text-align: justify;
+        }
+    }
+    .spec-group-input {
+        width: 50%;
+        background: #EFEDED;
+        height: 35px;
+        border-radius: 5px;
+        padding: 0 11px;
+        color: #909090;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-add {
+        .input-add {
             width: 100%;
         }
     }
+}
+
+@media (min-width: 600px) {
+    .dialog-add-container {
+        padding: 2em;
+        .form-add {
+            .input-add {
+                width: 80%;
+            }
+        }
+    }
+}
+
+.hide{
+    display: none !important;
 }
