@@ -8,16 +8,32 @@
   </p>
 </div>
 
-<div>
+<div fxLayout="row">
   <app-compo-images (toPpal)="setParentArray($event)"></app-compo-images>
 </div>
 
 <mat-divider></mat-divider>
-
+<br>
+<br>
+<!--
 <div *ngFor="let hijo of hijosArrTmp; let i = index;">
-    <h4>hijo ^</h4>
-    <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
-  </div>
+  <h4>hijo ^</h4>
+  <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+</div>
+-->
+
+<mat-accordion  *ngFor="let hijo of hijosArrTmp; let i = index">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Hijo {{i + 1}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+        <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>
 <!--
 <div >
   <form #createImageProductEan="ngForm" [formGroup]="createImage" class="distancedivImage">
@@ -74,4 +90,3 @@
 -->
 
 <mat-divider></mat-divider>
-
