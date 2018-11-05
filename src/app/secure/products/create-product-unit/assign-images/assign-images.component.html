@@ -7,6 +7,18 @@
     Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.
   </p>
 </div>
+
+<div>
+  <app-compo-images (toPpal)="setParentArray($event)"></app-compo-images>
+</div>
+
+<mat-divider></mat-divider>
+
+<div *ngFor="let hijo of hijosArrTmp; let i = index;">
+    <h4>hijo ^</h4>
+    <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+  </div>
+<!--
 <div >
   <form #createImageProductEan="ngForm" [formGroup]="createImage" class="distancedivImage">
     <table cellspacing="2" fxLayout="row" fxFlex="20%" fxLayout.xs="column">
@@ -59,15 +71,7 @@
     </table>
   </form>
 </div>
+-->
 
 <mat-divider></mat-divider>
 
-
-<mat-step>
-  <ng-template matStepLabel>Terminado</ng-template>
-  You are now done.
-  <div>
-    <button mat-button matStepperPrevious>Back</button>
-    <button mat-button (click)="stepper.reset()">Reset</button>
-  </div>
-</mat-step>

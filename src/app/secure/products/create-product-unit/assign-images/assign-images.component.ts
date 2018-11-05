@@ -8,36 +8,27 @@ import { AsignateimageService } from '../assign-images/assign-images.component.s
   styleUrls: ['./assign-images.component.scss']
 })
 export class AssignImagesComponent implements OnInit {
-  createImage: FormGroup;
-  public netImage: any;
-  public formatImg: any;
-  public result: any;
-  public imageValidae;
-  valueImagenDad: any;
+  public hijos_size: any = 4;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
+  public hijosArrTmp  = new Array(this.hijos_size);
+  public parent_image_url_arrray: any = [];
+  public children_image_url_arrray: any = [];
+
   constructor(private fb: FormBuilder, private service: AsignateimageService) {
   }
 
   ngOnInit() {
-    this.createImage = this.fb.group({
-      imageDad: ['', Validators.required],
-    });
-  }
-
-  validateFormatImage() {
-    const formatImg = /^([^\s]+(\.jpg)$)/;
-    if (this.createImage.controls.imageDad.value.match(formatImg)) {
-      console.log('la imagen cumple con el formato.');
-      console.log('input value: ', this.createImage.controls.imageDad.value);
-      this.service.getvalidateImage(this.createImage.controls.imageDad.value).subscribe(res => {
-        // console.log('res', res);
-        // console.log('result: ', this.imageValidae);
-        this.valueImagenDad = this.createImage.controls.imageDad.value;
-      });
-    } else {
-      console.log('La imagen no es valida');
+    for (let i = 0; i < this.hijos_size; i++) {
+      this.children_image_url_arrray.push(['', '', '', '', '']);
     }
   }
+
+  setParentArray(dataParenArr: any) {
+    this.parent_image_url_arrray = dataParenArr;
+    console.log('AppComponent::setParentArray', this.parent_image_url_arrray);
+  }
+
+  setChildrenArray(dataChildArr: any, i: any) {
+    this.children_image_url_arrray[i] = dataChildArr;
+    console.log('AppComponent::setChildrenArray', this.children_image_url_arrray);
+  }
 }
-
-
-  // this.createImage.controls.imageDad.setErrors({ 'validFormatImage': this.validateimage });

@@ -16,6 +16,8 @@ import { ListCategorizationComponent  } from './categorization/list/list.compone
 import { TreeComponent  } from './categorization/list/tree.component';
 import { AssignImagesComponent } from './assign-images/assign-images.component';
 import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
+import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
+import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { AsignateimageService } from '@app/secure/products/create-product-unit/a
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    AssignImagesComponent
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -43,7 +47,9 @@ import { AsignateimageService } from '@app/secure/products/create-product-unit/a
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    AssignImagesComponent
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent
   ],
   entryComponents: [
   ],

@@ -1,0 +1,21 @@
+<div>
+  <!-- <form #createImageProductEan="ngForm" [formGroup]="createImage" class="distancedivImage">
+    <mat-card class="createImagenPU">
+      <img mat-card-image [src]="valueImagenDad">
+    </mat-card>
+    <mat-form-field class="example-full-width">
+      <input matInput formControlName="imageDad" value="URL" (change)="validateFormatImage()">
+      <mat-error *ngIf="createImage.get('imageDad').hasError('required')">La primera imagen es obligatoria</mat-error>
+      <mat-error *ngIf="createImage.controls.imageDad.errors &&  createImage.controls.imageDad.errors.validFormatImage">El
+        formato de la imagen es invalido</mat-error>
+    </mat-form-field>
+  </form> -->
+  <mat-card class="createImagenPU">
+    <img mat-card-image src={{imgUrl}}>
+  </mat-card>
+
+  <mat-form-field class="example-full-width">
+    <input matInput #inputImage placeholder="Img URL" (keyup)="sendChange(inputImage.value)">
+  </mat-form-field>
+
+</div>
