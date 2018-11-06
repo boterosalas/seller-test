@@ -14,7 +14,7 @@ constructor() {
 
     ngOnInit() {
     }
-
+    // Funcion para colocar los combos de las imagenes en grupos de 5.
     setImgUrl(dataImage: any) {
         console.log(dataImage);
         this.urlArrayDad[dataImage[0]] = dataImage[1];

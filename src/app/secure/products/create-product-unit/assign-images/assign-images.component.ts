@@ -9,14 +9,15 @@ import { AsignateimageService } from '../assign-images/assign-images.component.s
 })
 export class AssignImagesComponent implements OnInit {
   public hijos_size: any = 2;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
-  public hijosArrTmp  = new Array(this.hijos_size);
-  public parent_image_url_arrray: any = [];
-  public children_image_url_arrray: any = [];
+  public hijosArrTmp  = new Array(this.hijos_size); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
+  public parent_image_url_arrray: any = []; // Array principal de fotos
+  public children_image_url_arrray: any = []; // Array de fotos de los hijos.
 
   constructor(private fb: FormBuilder, private service: AsignateimageService) {
   }
 
   ngOnInit() {
+    // Se hace un ciclo para que se vallan llenando los hijos dependiendo a la cantidad creada.
     for (let i = 0; i < this.hijos_size; i++) {
       this.children_image_url_arrray.push(['', '', '', '', '']);
     }

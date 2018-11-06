@@ -23,7 +23,7 @@ export class ImageUrlComponent implements OnInit {
             imageDad: ['', Validators.required],
           }); */
     }
-
+    // Funcion para colocar valor de input en el src y cargar la imagen.
     sendChange(val: any) {
       this.imgUrl = val;
       console.log('combo:imgUrl', this.imgUrl);
