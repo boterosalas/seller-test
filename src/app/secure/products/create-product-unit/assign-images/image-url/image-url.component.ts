@@ -24,10 +24,23 @@ export class ImageUrlComponent implements OnInit {
           }); */
     }
     // Funcion para colocar valor de input en el src y cargar la imagen.
-    sendChange(val: any) {
+  /*  sendChange(val: any) {
       this.imgUrl = val;
       console.log('combo:imgUrl', this.imgUrl);
       this.imgUrlOut.emit([this.index, this.imgUrl]);
+    } */
+
+   // Funcion para colocar valor de input en el src y cargar la imagen y que sea .jpg
+    sendChange(val: any) {
+      this.imgUrl = val;
+      if( val.value.match(formatImg)) {
+        console.log('La imagen no es validal');
+        console.log('combo:imgUrl', this.imgUrl);
+        this.imgUrlOut.emit([this.index, this.imgUrl]);
+      } else{
+        console.log('La imagen no es valida');
+      }
+      
     }
 
     /*
