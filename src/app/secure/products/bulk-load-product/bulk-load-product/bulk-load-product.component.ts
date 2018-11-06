@@ -1050,7 +1050,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
     // const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
-    if (featureValue.length > 500) {
+    if (featureValue.length > 200) {
       this.countErrors += 1;
       const itemLog = {
         row: this.arrayInformation.length,
@@ -1342,7 +1342,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
-    const formatAllCharsKeyWords = /^[\w\W\s\d]{1,200}$/;
+    const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
