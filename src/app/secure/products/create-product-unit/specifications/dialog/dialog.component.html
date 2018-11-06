@@ -29,7 +29,12 @@
                 <!-- Value Field -->
                 <mat-form-field class="specification-form-field">
                     <input matInput formControlName="Value" placeholder="Especificación" (blur)="onBlur('Value')">
-                    <mat-error>Campo obligatorio </mat-error>
+                    <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.required">
+                        Campo obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.maxlength">
+                        Maximo 200 caracteres.
+                    </mat-error>
                 </mat-form-field>
             </div>
 
