@@ -43,7 +43,8 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     AssignImagesComponent,
     ImageUrlComponent,
     CompoImagesComponent,
-    SpecificationProductComponent
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -55,9 +56,11 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     AssignImagesComponent,
     ImageUrlComponent,
     CompoImagesComponent,
-    SpecificationProductComponent
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   entryComponents: [
+    SpecificationDialogComponent
   ],
   providers: [
     SearchService,
