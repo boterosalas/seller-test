@@ -36,16 +36,16 @@ export class ComponentProcessComponent implements OnInit {
       eanCtrl: ['1', Validators.required]
     });
     this.categoryFormGroup = this.fb.group({
-      categoryCtrl: ['', Validators.required]
+      categoryCtrl: ['1', Validators.required]
     });
     this.basicInfoFormGroup = this.fb.group({
-      basicInfoCtrl: ['', Validators.required]
+      basicInfoCtrl: ['1', Validators.required]
     });
     this.especificFormGroup = this.fb.group({
-      especificCtrl: ['', Validators.required]
+      especificCtrl: ['1', Validators.required]
     });
     this.imageFormGroup = this.fb.group({
-      imageCtrl: ['', Validators.required]
+      imageCtrl: ['1', Validators.required]
     });
     this.process.change.subscribe(data => {
       this.views = data;

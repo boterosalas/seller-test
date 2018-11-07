@@ -20,6 +20,7 @@ import { AssignImagesComponent } from './assign-images/assign-images.component';
 import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
 import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
 import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
+import { SpecificationProductComponent } from './specifications/specification.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { CompoImagesComponent } from '@app/secure/products/create-product-unit/a
     TreeComponent,
     AssignImagesComponent,
     ImageUrlComponent,
-    CompoImagesComponent
+    CompoImagesComponent,
+    SpecificationProductComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -51,7 +53,8 @@ import { CompoImagesComponent } from '@app/secure/products/create-product-unit/a
     TreeComponent,
     AssignImagesComponent,
     ImageUrlComponent,
-    CompoImagesComponent
+    CompoImagesComponent,
+    SpecificationProductComponent
   ],
   entryComponents: [
   ],
@@ -60,8 +63,6 @@ import { CompoImagesComponent } from '@app/secure/products/create-product-unit/a
     SpecificationService,
     ProcessService,
     AsignateimageService,
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class UnitProductModule {
