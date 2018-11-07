@@ -17,6 +17,7 @@ import { TreeComponent  } from './categorization/list/tree.component';
 import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationService } from './specifications/specification.component.service';
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
+import { ProcessService } from './component-process/component-process.service';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
   ],
   providers: [
     SearchService,
-    SpecificationService
+    SpecificationService,
+    ProcessService
   ]
 })
 export class UnitProductModule {

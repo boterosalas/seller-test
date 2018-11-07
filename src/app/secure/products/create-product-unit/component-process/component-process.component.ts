@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { ProcessService } from './component-process.service';
 
 @Component({
   selector: 'app-component-process',
@@ -7,7 +8,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
   styleUrls: ['./component-process.component.scss']
 })
 export class ComponentProcessComponent implements OnInit {
-   isLinear = false;
+  isLinear = false;
   /* eanCtrl: FormGroup;
   categoryCtrl: FormGroup;
   basicInfoCtrl: FormGroup;
@@ -19,17 +20,20 @@ export class ComponentProcessComponent implements OnInit {
   especificFormGroup: FormGroup;
   imageFormGroup: FormGroup;
   options: FormGroup;
+  isOptional = false;
+  views: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+      private process: ProcessService) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
-  });
-}
+    });
+  }
 
   ngOnInit() {
     this.eanFormGroup = this.fb.group({
-      eanCtrl: ['', Validators.required]
+      eanCtrl: ['1', Validators.required]
     });
     this.categoryFormGroup = this.fb.group({
       categoryCtrl: ['', Validators.required]
@@ -43,6 +47,23 @@ export class ComponentProcessComponent implements OnInit {
     this.imageFormGroup = this.fb.group({
       imageCtrl: ['', Validators.required]
     });
+    this.process.change.subscribe(data => {
+      this.views = data;
+      this.validateView();
+    });
+  }
+
+
+  public validateView(): void {
+    if ( this.views.showEan ) {
+      this.eanFormGroup.controls.eanCtrl.setValue('1');
+    } else if ( !this.views.showEan ) {
+      this.eanFormGroup.controls.eanCtrl.setValue(null);
+    }
+    if ( this.views.showCat ) {
+      this.categoryFormGroup.controls.categoryCtrl.setValue('1');
+    }
+
   }
 
 }
