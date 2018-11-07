@@ -28,18 +28,6 @@
     <form [formGroup]="especificFormGroup">
       <ng-template matStepLabel>Especificaciones</ng-template>
       <div>
-        <app-specification-product></app-specification-product>
-      </div>
-      <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="imageFormGroup">
-    <form [formGroup]="imageFormGroup">
-      <ng-template matStepLabel>Im&aacute;genes</ng-template>
-      <div>
         <p id="textCreateEan">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
@@ -52,6 +40,16 @@
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
         <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
       </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="imageFormGroup">
+    <form [formGroup]="imageFormGroup">
+      <ng-template matStepLabel>Im&aacute;genes</ng-template>
+      <app-assign-images></app-assign-images>
+      <div class="buttonProcess">
+          <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+          <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+        </div>
     </form>
   </mat-step>
   <!--<mat-step>

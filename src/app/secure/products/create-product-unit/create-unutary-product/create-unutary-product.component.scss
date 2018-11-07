@@ -1,9 +1,6 @@
 .tree-toolbar {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
-  position: sticky;
-  top: 64px;
-  z-index: 1;
 
   & .toolbar-options-table {
     align-items: center;
@@ -11,13 +8,6 @@
     width: 100%;
     padding-left: 20px;
   }
-}
-
-.process-container{
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20px 42px;
 }
 
 .tree-title {

@@ -21,7 +21,7 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  // public formatEan = /'(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)'/;
+  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
@@ -31,8 +31,8 @@ export class ValidateEanComponent implements OnInit {
   ngOnInit() {
     // metodo para validar el input del form
     this.eanGroup = this.fb.group({
-      eanCtrl: ['', Validators.pattern('(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)')],
-      asignatedEan: false,
+      eanCtrl: ['', Validators.pattern(this.formatEan)],
+      associateEan: false,
       floatLabel: 'auto'
     });
     this.validateEanExist = true;
@@ -73,7 +73,7 @@ export class ValidateEanComponent implements OnInit {
   }
 
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
-  validateEanServices() {
+  validateEanServices(validateEanExist: any) {
     this.activeButtonCreacionUnitaria = false;
     if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {

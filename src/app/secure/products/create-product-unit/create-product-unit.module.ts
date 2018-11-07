@@ -14,10 +14,12 @@ import { FormsModule } from '@angular/forms';
 import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
-import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationService } from './specifications/specification.component.service';
-import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 import { ProcessService } from './component-process/component-process.service';
+import { AssignImagesComponent } from './assign-images/assign-images.component';
+import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
+import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
+import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
 
 @NgModule({
   imports: [
@@ -36,8 +38,9 @@ import { ProcessService } from './component-process/component-process.service';
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    SpecificationProductComponent,
-    SpecificationDialogComponent
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -46,16 +49,19 @@ import { ProcessService } from './component-process/component-process.service';
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    SpecificationProductComponent,
-    SpecificationDialogComponent
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent
   ],
   entryComponents: [
-    SpecificationDialogComponent
   ],
   providers: [
     SearchService,
     SpecificationService,
-    ProcessService
+    ProcessService,
+    AsignateimageService,
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class UnitProductModule {
