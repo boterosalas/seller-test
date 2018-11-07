@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { OrderDetailModalComponent } from './order-detail-modal.component';
 import { OrdersModule } from '../orders.module';
 
-
+/*
 describe('OrderDetailModalComponent', () => {
   let component: OrderDetailModalComponent;
   let fixture: ComponentFixture<OrderDetailModalComponent>;
@@ -31,3 +31,4 @@ describe('OrderDetailModalComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

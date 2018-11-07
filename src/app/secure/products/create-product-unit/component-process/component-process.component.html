@@ -1,7 +1,7 @@
 <!--<button disabled="joseDisabled" mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
-<mat-horizontal-stepper [linear]="isLinear" #stepper class="process__container">
+<mat-horizontal-stepper linear #stepper class="process__container">
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
@@ -32,15 +32,7 @@
   <mat-step [stepControl]="especificFormGroup">
     <form [formGroup]="especificFormGroup">
       <ng-template matStepLabel>Especificaciones</ng-template>
-      <div>
-        <p id="textCreateEan">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-        </p>
-      </div>
+      <app-specification-product></app-specification-product>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
         <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
@@ -50,19 +42,11 @@
   <mat-step [stepControl]="imageFormGroup">
     <form [formGroup]="imageFormGroup">
       <ng-template matStepLabel>Im&aacute;genes</ng-template>
-      <div>
-        <p id="textCreateEan">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-          Etiam volutpat tortor non risus auctor finibus. Aenean eu tristique nisl.
-          Curabitur malesuada magna vel interdum maximus.
-        </p>
-      </div>
+      <app-assign-images></app-assign-images>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
-      </div>
+          <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
+          <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+        </div>
     </form>
   </mat-step>
   <!--<mat-step>

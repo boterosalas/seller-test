@@ -10,9 +10,10 @@ import { SearchCategorizationComponent } from './search.component';
 import { SearchService } from './search.component.service';
 import { ListCategorizationComponent } from './list/list.component';
 import { TreeComponent } from './list/tree.component';
+import { EventEmitter } from '@angular/core';
 
 
-fdescribe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
+describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
 
     let fixture: ComponentFixture<SearchCategorizationComponent>;
     let component: SearchCategorizationComponent;
@@ -22,6 +23,7 @@ fdescribe('Probando componentes relacionados con la busqueda y seleccion de cate
 
     let componentTree: TreeComponent;
     let fixtureTree: ComponentFixture<TreeComponent>;
+    const eventEmitter = new EventEmitter();
 
     const categories = '[{"Id":27316,"IdParent":27195,"Name":"A Gas","IdExito":"cat790026000","IdCarulla":"567_300030040000000","IdCatalogos":"k_900010000000000","IdMarketplace":"catmp1111000000","ProductType":"Technology"' +
         ',"SkuShippingSize":"5","Promisedelivery":"2 a 5","IsExitoShipping":true,"Commission":15.0},{"Id":27352,"IdParent":27231,"Name":"Abdominales","IdExito":"35_900120030040000","IdCarulla":"567_300030010060000","IdCatalogos":"k_900020020000000"' +
@@ -54,7 +56,8 @@ fdescribe('Probando componentes relacionados con la busqueda y seleccion de cate
         },
         setCategory(category: string): void {
             // functions empty
-        }
+        },
+        change: eventEmitter
     };
 
     beforeEach(async(() => {

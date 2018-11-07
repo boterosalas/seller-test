@@ -5,7 +5,7 @@ import { SharedModule } from '@shared/shared.module';
 import { SearchEnviosExitoFormComponent } from './search-envios-exito-form.component';
 import { SearchOrderMenuModule } from '../search-order-menu.module';
 
-
+/*
 describe('SearchEnviosExitoFormComponent', () => {
   let component: SearchEnviosExitoFormComponent;
   let fixture: ComponentFixture<SearchEnviosExitoFormComponent>;
@@ -26,7 +26,7 @@ describe('SearchEnviosExitoFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  /*it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/

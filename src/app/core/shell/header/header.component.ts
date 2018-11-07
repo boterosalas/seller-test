@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     if (this.user.sellerProfile === 'administrator') {
       this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
     } else if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+      this.router.navigate([`/${RoutesConst.secureSeller}`]);
     }
   }
 

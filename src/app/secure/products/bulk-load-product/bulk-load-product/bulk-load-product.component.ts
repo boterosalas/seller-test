@@ -74,6 +74,9 @@ export class BulkLoadProductComponent implements OnInit {
 
   public arrayNecessaryData: Array<any>;
 
+  /* Mirar el estado del progreso de la carga*/
+  public progressStatus = false;
+
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -108,6 +111,7 @@ export class BulkLoadProductComponent implements OnInit {
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.userService.isAuthenticated(this);
+    this.verifyStateCharge();
   }
 
   /**
@@ -149,14 +153,14 @@ export class BulkLoadProductComponent implements OnInit {
    */
   getAvaliableLoads() {
     /*Se muestra el loading*/
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
     this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
       (result: any) => {
         /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-        if (result.status === 200 && result.body) {
+        if (result.status === 200 && result.body.data) {
           /*Se guardan los datos en una variable*/
-          this.dataAvaliableLoads = result.body;
+          this.dataAvaliableLoads = result.body.data;
         } else {
           /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
           this.modalService.showModal('errorService');
@@ -222,7 +226,7 @@ export class BulkLoadProductComponent implements OnInit {
    */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.loadingService.viewSpinner();
+      // this.loadingService.viewSpinner();
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
@@ -373,7 +377,10 @@ export class BulkLoadProductComponent implements OnInit {
               iColor: this.arrayNecessaryData[0].indexOf('Color'),
               iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
               iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito')
+              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+              iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+              iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido')
             };
 
             /*
@@ -438,6 +445,63 @@ export class BulkLoadProductComponent implements OnInit {
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
+              }
+            } else if (j === iVal.iMeasurementUnit) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validformatDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
+                if (!validformatDescUnidadMedida && validformatDescUnidadMedida === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormatUnidad',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'MeasurementUnit'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iConversionFactor) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validformatFactConversion = this.validFormat(res[i][j], 'factConversion');
+                if (!validformatFactConversion && validformatFactConversion === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFortFact',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'ConversionFactor'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iDrainedFactor) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validformatFactEscurrido = this.validFormat(res[i][j], 'factEscurrido');
+                if (!validformatFactEscurrido && validformatFactEscurrido === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFortFact',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'DrainedFactor'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
               }
             } else if (j === iVal.iTipoDeProducto) {
               if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
@@ -513,7 +577,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion || j === iVal.iPalabrasClave) {
+            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion ) {
               const allChars = this.validFormat(res[i][j], 'formatAllChars');
               if (!allChars && allChars === false) {
                 this.countErrors += 1;
@@ -525,12 +589,29 @@ export class BulkLoadProductComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: j === iVal.iMarca ? 'Brand' : j === iVal.iMetaTitulo ? 'MetaTitle' : j === iVal.iMetaDescripcion ? 'MetaDescription' : j === iVal.iPalabrasClave ? 'KeyWords' : null
+                  dato: j === iVal.iMarca ? 'Brand' : j === iVal.iMetaTitulo ? 'MetaTitle' : j === iVal.iMetaDescripcion ? 'MetaDescription' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
+            } else if (j === iVal.iPalabrasClave) {
+              const allChars = this.validFormat(res[i][j], 'formatAllCharsKeyWords');
+              if (!allChars && allChars === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: j === iVal.iPalabrasClave ? 'KeyWords' : null
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
+            }else if (j === iVal.iModelo || j === iVal.iDetalles) {
               const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
               if (!limitChars && limitChars === false) {
                 this.countErrors += 1;
@@ -820,10 +901,10 @@ export class BulkLoadProductComponent implements OnInit {
 
       if (errorInCell) {
         this.addRowToTable(res, i, iVal, variant);
-        errorInCell = false;
       }
 
-      this.addInfoTosend(res, i, iVal, variant);
+      this.addInfoTosend(res, i, iVal, variant, errorInCell);
+      errorInCell = false;
     }
 
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
@@ -840,7 +921,7 @@ export class BulkLoadProductComponent implements OnInit {
    * @param {any} index
    * @memberof BulkLoadProductComponent
    */
-  addInfoTosend(res: any, i: any, iVal: any, variant?: any) {
+  addInfoTosend(res: any, i: any, iVal: any, variant?: any, errorInCell: boolean = false) {
     const regex = new RegExp('"', 'g');
 
     const newObjectForSend = {
@@ -872,6 +953,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl5: res[i][iVal.iURLDeImagen5] ? res[i][iVal.iURLDeImagen5].trim() : null,
       ModifyImage: res[i][iVal.iModificacionImagen] ? res[i][iVal.iModificacionImagen].trim() : null,
       IsLogisticsExito: res[i][iVal.iLogisticExito] ? res[i][iVal.iLogisticExito] : '0',
+      MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
+      ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
+      DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
       features: []
     };
 
@@ -914,7 +998,10 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iURLDeImagen4 &&
           k !== iVal.iURLDeImagen5 &&
           k !== iVal.iModificacionImagen &&
-          k !== iVal.iLogisticExito
+          k !== iVal.iLogisticExito &&
+          k !== iVal.iMeasurementUnit &&
+          k !== iVal.iConversionFactor &&
+          k !== iVal.iDrainedFactor
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -926,6 +1013,7 @@ export class BulkLoadProductComponent implements OnInit {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
+                this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
                 newObjectForSend.features.push(newFeatures);
               }
             }
@@ -933,6 +1021,7 @@ export class BulkLoadProductComponent implements OnInit {
             if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
               newFeatures['key'] = res[0][k].trim();
               newFeatures['value'] = res[i][k].trim();
+              this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
               newObjectForSend.features.push(newFeatures);
             }
           }
@@ -943,6 +1032,42 @@ export class BulkLoadProductComponent implements OnInit {
     }
 
     this.arrayInformationForSend.push(newObjectForSend);
+  }
+
+  /**
+   * Function to validate the required feature format.
+   * And introduce error in two list, one on them to show error position.
+   * And second one to show table with principal data.
+   * @author luis.echeverry
+   * @param {*} res
+   * @param {*} i
+   * @param {*} k
+   * @param {*} iVal
+   * @param {*} featureValue
+   * @param {*} [variant]
+   * @returns {boolean}
+   * @memberof BulkLoadProductComponent
+   */
+  validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
+    // const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
+    if (featureValue.length > 200) {
+      this.countErrors += 1;
+      const itemLog = {
+        row: this.arrayInformation.length,
+        column: i,
+        type: 'invalidFormat',
+        columna: k + 1,
+        fila: i + 1,
+        positionRowPrincipal: i,
+        dato: 'Feature'
+      };
+      this.listLog.push(itemLog);
+      if (!errorInCell) {
+        this.addRowToTable(res, i, iVal, variant);
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -988,6 +1113,9 @@ export class BulkLoadProductComponent implements OnInit {
       ImageUrl3: res[index][iVal.iURLDeImagen3],
       ImageUrl4: res[index][iVal.iURLDeImagen4],
       ImageUrl5: res[index][iVal.iURLDeImagen5],
+      MeasurementUnit: res[index][iVal.iMeasurementUnit],
+      ConversionFactor: res[index][iVal.iConversionFactor],
+      DrainedFactor: res[index][iVal.iDrainedFactor],
       isVariant: variant
     };
 
@@ -1053,6 +1181,9 @@ export class BulkLoadProductComponent implements OnInit {
       this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
+      this.arrayInformation[index].errorMeasurementUnit = false;
+      this.arrayInformation[index].errorConversionFactor = false;
+      this.arrayInformation[index].errorDrainedFactor = false;
     }
   }
 
@@ -1102,11 +1233,15 @@ export class BulkLoadProductComponent implements OnInit {
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result;
-            log.info(data);
             if (data.body !== null && data.body !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
-                this.openDialogSendOrder(data);
+                // this.openDialogSendOrder(data);
+                this.progressStatus = false;
+                this.verifyStateCharge();
                 this.getAvaliableLoads();
+                // Validar que los errores existan para poder mostrar el modal.
+                if (result.body.data.error > 0) {
+                  this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1123,6 +1258,40 @@ export class BulkLoadProductComponent implements OnInit {
       );
   }
 
+  /*
+  Funcion para validar status de la carga
+*/
+
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+      this.dialog.closeAll();
+    }
+  }
+  verifyStateCharge() {
+    this.BulkLoadProductS.getCargasMasivas()
+      .subscribe(
+        (result: any) => {
+          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+          if (result.body.data.response) {
+            result.body.data.response = JSON.parse(result.body.data.response);
+          }
+          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+          } else if (result.body.data.status === 1) {
+            if (!this.progressStatus) {
+              this.openDialogSendOrder(result);
+            }
+            this.progressStatus = true;
+          } else if (result.body.data.status === 2) {
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
+          } else if (result.body.data.status === 3) {
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
+          }
+        }
+      );
+  }
+
   /**
    * Funcionalidad para desplegar el
    * modal que permite visualizar la lista de
@@ -1131,8 +1300,24 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   openDialogSendOrder(res: any): void {
+    if (!res.body.data) {
+      res.body.data = {};
+      res.body.data.status = 3;
+      res.productNotifyViewModel = res.body.productNotifyViewModel;
+    } else {
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.body.data.response) {
+        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+      } else {
+        if (res.body.data.status === undefined) {
+          res.body.data.status = 3;
+          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+        }
+      }
+    }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
+      disableClose: res.body.data.status === 1,
       data: {
         response: res
       },
@@ -1157,16 +1342,21 @@ export class BulkLoadProductComponent implements OnInit {
     const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
+    const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
     const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
+    const formatDesc =  /^((?!<script>|<SCRIPT>).)*$/igm;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
+    const formatDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
+    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
+    // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1175,6 +1365,32 @@ export class BulkLoadProductComponent implements OnInit {
       switch (validation) {
         case 'ean':
           if ((inputtxt.match(formatEan))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'descUniMedida':
+          if ((inputtxt.match(formatDescUnidadMedida))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'factConversion':
+          if ((inputtxt.match(formatFactConversion))) {
+            if (inputtxt > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'factEscurrido':
+          if ((inputtxt.match(formatFactEscurrido))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1196,6 +1412,13 @@ export class BulkLoadProductComponent implements OnInit {
           break;
         case 'formatAllChars':
           if ((inputtxt.match(formatAllChars))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'formatAllCharsKeyWords':
+          if ((inputtxt.match(formatAllCharsKeyWords))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1356,7 +1579,10 @@ export class BulkLoadProductComponent implements OnInit {
       'URL de Imagen 3': undefined,
       'URL de Imagen 4': undefined,
       'URL de Imagen 5': undefined,
-      'Modificacion Imagen': undefined
+      'Modificacion Imagen': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Factor escurrido': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');

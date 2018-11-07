@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NoContentComponent } from './no-content.component';
 
+/*
 describe('NoContentComponent', () => {
   let component: NoContentComponent;
   let fixture: ComponentFixture<NoContentComponent>;
@@ -23,3 +24,4 @@ describe('NoContentComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

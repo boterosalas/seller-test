@@ -14,6 +14,7 @@ export class RoutesConst {
     static readonly securehome: any = 'securehome';
 
     static readonly seller: any = 'seller-center';
+    static readonly dashboard: any = 'dashboard';
     static readonly orders: any = 'ordenes';
     static readonly offers: any = 'ofertas';
     static readonly sellers: any = 'vendedores';
@@ -39,6 +40,7 @@ export class RoutesConst {
     static readonly shipmentsExitoPending: any = 'pendientes';
     static readonly shipmentsExitoReports: any = 'reportes';
     static readonly productBulkLoad: any = 'carga-masiva';
+    static readonly quoting: any = 'cotizador';
     static readonly createUnutaryProduct: any = 'creacion-unitaria';
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
@@ -48,6 +50,7 @@ export class RoutesConst {
 
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
+    static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
     static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;
     static readonly sellerCenterOffers: any =  RoutesConst.secureSeller + '/' + RoutesConst.offers;
     static readonly sellerCenterSellers: any =  RoutesConst.secureSeller + '/' + RoutesConst.sellers;
@@ -70,6 +73,8 @@ export class RoutesConst {
     static readonly sellerCenterIntOferHistoricalBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoad;
     static readonly sellerCenterIntOferHistoricalBulkLoadAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoadAdmin;
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
+    static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
+
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
     static readonly sellerCenterIntCreateUnutaryProduct: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.createUnutaryProduct;
 

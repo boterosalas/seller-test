@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SearchService } from '../search.component.service';
 import { Logger } from '@app/core';
 import { CategoryModel } from './category.model';
-
+import { ProcessService } from '../../component-process/component-process.service';
 
 // log component
 const log = new Logger('ListCategorizationComponent');
@@ -31,7 +31,8 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @param {SearchService} searchService
      * @memberof ListCategorizationComponent
      */
-    constructor(private searchService: SearchService) { }
+    constructor(private searchService: SearchService,
+                private process: ProcessService) { }
 
     /**
      * Initialize component get categories list.
@@ -41,8 +42,11 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.getCategoriesList();
         this.searchService.change.subscribe((result: any) => {
-            console.log(result);
             this.selectedCategory = result;
+            const data = {
+                CategorySelected: result
+            };
+            this.process.validaData(data);
         });
     }
 

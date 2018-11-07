@@ -295,7 +295,7 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
           category = $event.category;
         }
         this.currentEventPaginate = $event;
-        this.orderService.getOrderList(category, this.user, $event.lengthOrder).subscribe((res: any) => {
+        this.orderService.getOrderList(category, $event.lengthOrder).subscribe((res: any) => {
           this.addCheckOptionInProduct(res, $event.paginator);
         }, err => {
           this.orderListLength = true;

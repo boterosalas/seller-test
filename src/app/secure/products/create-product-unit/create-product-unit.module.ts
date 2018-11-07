@@ -16,6 +16,14 @@ import { ListCategorizationComponent  } from './categorization/list/list.compone
 import { TreeComponent  } from './categorization/list/tree.component';
 import { ProductBasicInfoComponent  } from './basic-information/basic-information.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { SpecificationService } from './specifications/specification.component.service';
+import { ProcessService } from './component-process/component-process.service';
+import { AssignImagesComponent } from './assign-images/assign-images.component';
+import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
+import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
+import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
+import { SpecificationProductComponent } from './specifications/specification.component';
+import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -35,7 +43,12 @@ import { ColorPickerModule } from 'ngx-color-picker';
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    ProductBasicInfoComponent
+    ProductBasicInfoComponent,
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent,
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -44,14 +57,21 @@ import { ColorPickerModule } from 'ngx-color-picker';
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
-    ProductBasicInfoComponent
+    ProductBasicInfoComponent,
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent,
+    SpecificationProductComponent,
+    SpecificationDialogComponent
   ],
   entryComponents: [
+    SpecificationDialogComponent
   ],
-  providers: [,
+  providers: [
     SearchService,
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    SpecificationService,
+    ProcessService,
+    AsignateimageService,
   ]
 })
 export class UnitProductModule {
