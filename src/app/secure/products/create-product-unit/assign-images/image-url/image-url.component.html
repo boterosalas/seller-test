@@ -16,7 +16,7 @@
   </mat-card>
 
   <mat-form-field class="example-full-width">
-    <input matInput #inputImage formControlName="inputImage" placeholder="Img URL" (keyup)="sendChange(inputImage.value)">
+    <input matInput #inputImage_ formControlName="inputImage" placeholder="Img URL" (keyup)="sendChange(inputImage_.value)">
     <mat-error  *ngIf="createImage.get('inputImage').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
     <mat-error  *ngIf="createImage.controls.inputImage.errors &&  createImage.controls.inputImage.errors.validFormatImage">La imagen no es v&aacute;lida</mat-error>
   </mat-form-field>

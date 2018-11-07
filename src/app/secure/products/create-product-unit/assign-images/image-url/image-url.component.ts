@@ -32,6 +32,7 @@ export class ImageUrlComponent implements OnInit {
       this.createImage = this.fb.group({
           inputImage: ['', Validators.pattern(this.formatImg)],
         });
+        this.imgUrl = 'novalido.jpg';
   }
   // Funcion para colocar valor de input en el src y cargar la imagen.
   /*  sendChange(val: any) {
