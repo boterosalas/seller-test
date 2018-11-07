@@ -1240,7 +1240,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.verifyStateCharge();
                 this.getAvaliableLoads();
                 // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.error > 0) {
+                if (result.body.data.error > 0) {
                   this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
@@ -1309,7 +1309,10 @@ export class BulkLoadProductComponent implements OnInit {
       if (res.body.data.response) {
         res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
       } else {
-      res.productNotifyViewModel = res.body.data.response.productNotifyViewModel;
+        if (res.body.data.status === undefined) {
+          res.body.data.status = 3;
+          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+        }
       }
     }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
@@ -1351,9 +1354,9 @@ export class BulkLoadProductComponent implements OnInit {
     const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
     const FormatTypeCategory = /^(Technology|Clothing)$/;
     const formatDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
-    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
+    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
     // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
-    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|([0-9]([0-9]{0,7}[,\.][0-9]{1,2})))?$/;
+    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;

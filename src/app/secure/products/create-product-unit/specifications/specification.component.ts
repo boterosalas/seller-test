@@ -141,6 +141,12 @@ export class SpecificationProductComponent implements OnInit {
      */
     public removeSpecification(index: number): void {
         this.specificationListToAdd.splice(index, 1);
-        this.ShowSpecTitle = this.specificationListToAdd.length > 0;
+        let cont = false;
+        for (let i = 0; i < this.specificationListToAdd.length; i++) {
+            if (this.specificationListToAdd[i].Show) {
+                cont = true;
+            }
+        }
+        this.ShowSpecTitle = cont;
     }
 }
