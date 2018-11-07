@@ -53,7 +53,7 @@ export class SpecificationProductComponent implements OnInit {
             this.chargeList = true;
         }, error => {
             this.chargeList = false;
-            log.error('Error al intentar obtener los metodos de envios');
+            log.error('Error al intentar obtener las especificaciones');
         });
     }
 

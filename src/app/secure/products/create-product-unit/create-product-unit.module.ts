@@ -21,6 +21,7 @@ import { AsignateimageService } from '@app/secure/products/create-product-unit/a
 import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
 import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
 import { SpecificationProductComponent } from './specifications/specification.component';
+import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 
 @NgModule({
   imports: [

@@ -72,7 +72,9 @@ export const endpoints = {
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
       // Validar formato imagen
-      getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',
+      getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',     
+      // Get specs
+      getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
     },
   },
   // Endpoints production
@@ -142,7 +144,10 @@ export const endpoints = {
       // Estado de Carga
       getStateOfCharge: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Guardar logs en CloudWatch
-      setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs'
+      setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs',
+      // Get specs
+      getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
+
     }
   }
 };
