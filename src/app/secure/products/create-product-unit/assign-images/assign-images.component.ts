@@ -8,7 +8,7 @@ import { AsignateimageService } from '../assign-images/assign-images.component.s
   styleUrls: ['./assign-images.component.scss']
 })
 export class AssignImagesComponent implements OnInit {
-  public hijos_size: any = 2;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
+  public hijos_size: any = 5;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
   public hijosArrTmp  = new Array(this.hijos_size); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
   public parent_image_url_arrray: any = []; // Array principal de fotos
   public children_image_url_arrray: any = []; // Array de fotos de los hijos.
