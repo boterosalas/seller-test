@@ -23,7 +23,7 @@ $modal: 72px;
             text-align: right;
             color: $blue;
             width: 100%;
-            margin: 2%;
+            margin: 1.4%;
         }
         .container-list-specs {
             width: 92%;
@@ -44,7 +44,6 @@ $modal: 72px;
                 display: flex;
                 .specs-items {
                     width: 46%;
-                    margin: 2%;
                 }
             }
         }
@@ -99,4 +98,12 @@ $modal: 72px;
 
 .hide{
     display: none !important;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.color-gray{
+    color: $color-gray;
 }

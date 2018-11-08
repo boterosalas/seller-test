@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, Renderer, Directive, OnChanges, Input } from '@angular/core';
 import { ParamSpecsService } from './specifications.component.service';
 import { LoadingService } from '@app/core';
 import { SpecificationModel } from '../../products/create-product-unit/specifications/specification.model';
@@ -29,6 +29,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
         public el: ElementRef,
+        private render: Renderer
     ) {
 
     }
@@ -67,13 +68,10 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public updateGroupSpec(group: any, index: any): void {
         group.EditMode = true;
         this.copyGroup = Object.assign({}, group);
-        console.log(this.copyGroup);
     }
 
-    public blurInput(group: any): void {
-        console.log(group);
-        console.log(this.copyGroup);
-        group.EditMode = false;
+    public blurInput(data: any, isGroup: boolean): void {
+        data.EditMode = false;
     }
 
     public openDialog(data: any): void {
@@ -83,10 +81,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed', result);
             this.saveGroupSpec(result);
         });
 
+    }
+
+    public toggleEdit(param: any, param2: any): void {
     }
 
     public saveGroupSpec(data: any): void {
@@ -127,5 +127,53 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         }
     }
 
+    public addSpec(data: any): void {
+        data.ShowNewSon = true;
+        const element = this.render.selectRootElement('#input1');
+    }
 
+    public onBlurMethod(group: any): void {
+        const dataToSend = group.newSpecification;
+        group.newSpecification = null;
+        group.ShowNewSon = false;
+        group.Sons.push({
+            Name: dataToSend,
+        });
+        this.snackBar.open('Agrego correctamente una especificación', 'Cerrar', {
+            duration: 3000,
+        });
+    }
+
+    public onKeydown(key: any, group: any) {
+        if (key.keyCode === 13) {
+            this.onBlurMethod(group);
+        }
+    }
+
+    public initUpdateSpec(group: any, spec: any): void {
+        spec.EditMode = true;
+    }
+
+    public deleteSpec(group: any, index: number): void {
+        console.log(group.Sons);
+        group.Sons.splice(index, 1);
+        console.log(group.Sons);
+    }
+
+}
+
+@Directive({
+    selector: '[appFocus]'
+})
+export class FocusDirective implements OnInit {
+    @Input('focus') focus: boolean;
+    constructor(private elementRef: ElementRef,
+        private renderer: Renderer) {
+            console.log('aqui');
+        setTimeout(function () {
+            elementRef.nativeElement.focus();
+        }, 300);
+    }
+    ngOnInit() {
+    }
 }

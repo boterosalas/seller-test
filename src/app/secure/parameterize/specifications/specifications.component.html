@@ -24,7 +24,11 @@
                 </label>
 
                 <input class="spec-group-input" matInput placeholder="Nombre de grupo de especificaciones" [(ngModel)]="group.Name"
-                    *ngIf="group.EditMode" (blur)="blurInput(group)" #inputSpec autofocus>
+                    *ngIf="group.EditMode" (blur)="blurInput(group, true)" appFocus>
+
+                <div *ngIf="group.EditMode">
+                    {{toggleEdit(group, this)}}
+                </div>
 
                 <!-- SPECIFICATION MENU -->
                 <div id="menu-specs" class="specs-menu">
@@ -60,8 +64,34 @@
                 </div>
             </div>
             <div *ngIf="group.Show" class="specs-container">
-                <div *ngFor="let spec of group.Sons" class="specs-items">
-                    {{spec.Name}}
+                <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" (click)="initUpdateSpec(group, spec)">
+                    <p *ngIf="!spec.EditMode">{{spec.Name}}</p>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field class="full-width" *ngIf="spec.EditMode">
+                            <input matInput [(ngModel)]="spec.Name" (blur)="blurInput(spec, false)" appFocus>
+                        </mat-form-field>
+                        <button mat-icon-button>
+                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="spec.EditMode">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="specs-items" *ngIf="group.ShowNewSon">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Escribe el nombre de la especificación" [(ngModel)]="group.newSpecification"
+                            (blur)="onBlurMethod(group)" (keydown)="onKeydown($event, group)" #input1>
+                    </mat-form-field>
+                </div>
+                <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+                <div id="addButton" class="container-group-add-button">
+                    <!-- BUTTON TO ADD-->
+                    <button mat-button (click)="addSpec(group)">
+                        <mat-icon class="material-icons">
+                            control_point
+                        </mat-icon>
+                        Agregar especificaciones
+                    </button>
                 </div>
             </div>
         </div>
