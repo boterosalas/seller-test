@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
 
 @Injectable()
-export class BasicInformationRegex {
+export class BasicInformationService {
 
     constructor(private http: HttpClient,
         private api: EndpointService) { }

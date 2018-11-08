@@ -1,5 +1,5 @@
 <!-- FORM CONTAINER -->
-<div fxFlex="100" fxLayout="column" class="basic-info-container">
+<div fxFlex="100" fxLayout="column" class="basic-info-container" *ngIf="formCreate">
     <p>En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos
         deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
         variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
@@ -12,6 +12,8 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="name-product field">
                 <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
+                <mat-error  *ngIf="formBasicInfo.get('Name').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
+                <mat-error  *ngIf="formBasicInfo.get('Name').hasError('required')">Este campo es obligatorio</mat-error>
             </mat-form-field>
 
             <mat-form-field class="category-product field">
@@ -23,10 +25,14 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="brand-product field">
                 <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
+                <mat-error  *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
+                <mat-error  *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
             </mat-form-field>
 
             <mat-form-field class="model-product field">
                 <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model">
+                <mat-error  *ngIf="formBasicInfo.get('Model').hasError('pattern')">El modelo ingresado no es v&aacute;lido</mat-error>
+                <mat-error  *ngIf="formBasicInfo.get('Model').hasError('required')">Este campo es obligatorio</mat-error>
             </mat-form-field>
         </div>
 
@@ -34,6 +40,8 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
             <mat-form-field class="detail-product field">
                 <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
+                <mat-error  *ngIf="formBasicInfo.get('Detail').hasError('pattern')">El detalle ingresado no es v&aacute;lido</mat-error>
+                <mat-error  *ngIf="formBasicInfo.get('Detail').hasError('required')">Este campo es obligatorio</mat-error>
             </mat-form-field>
 
             <div class="shipping-product field">
@@ -58,17 +66,21 @@
                     <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking">
+                        <!--<mat-error  *ngIf="packing.get('HighPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking">
+                            <!--<mat-error  *ngIf="packing.get('LongPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                     </div>
                     <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking">
+                            <!--<mat-error  *ngIf="packing.get('WidthPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking">
+                            <!--<mat-error  *ngIf="packing.get('WeightPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                     </div>
                 </div>
@@ -79,17 +91,21 @@
                     <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct">
+                            <!--<mat-error  *ngIf="product.get('HighProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct">
+                            <!--<mat-error  *ngIf="product.get('LongProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                     </div>
                     <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct">
+                            <!--<mat-error  *ngIf="product.get('WidthProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                         <mat-form-field class="packing-field">
                             <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct">
+                            <!--<mat-error  *ngIf="product.get('WeightProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
                         </mat-form-field>
                     </div>
                 </div>
@@ -99,6 +115,8 @@
 
         <mat-form-field class="description-form">
             <textarea matInput placeholder="Descripción" formControlName="Description"></textarea>
+            <mat-error  *ngIf="formBasicInfo.get('Description').hasError('pattern')">La descripción ingresada no es v&aacute;lido</mat-error>
+            <mat-error  *ngIf="formBasicInfo.get('Description').hasError('required')">Este campo es obligatorio</mat-error>
         </mat-form-field>
 
     </form>
@@ -168,11 +186,13 @@
                     <mat-form-field class="name-product field">
                         <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean">
                         <mat-error>Este campo es obligatorio</mat-error>
+                        <!--<mat-error  *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido</mat-error>-->
                     </mat-form-field>
 
                     <mat-form-field class="category-product field">
                         <input matInput placeholder="Escoge talla" class="input-category-product" formControlName="Size">
                         <mat-error>Este campo es obligatorio</mat-error>
+                        <!--<mat-error  *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lido</mat-error>-->
                     </mat-form-field>
                 </div>
 
@@ -208,6 +228,7 @@
                         palette
                     </mat-icon>
                     <div class="basic-info-error" *ngIf="!son.colorPick2 && son.dirty">Este campo es obligatorio</div>
+                    <!--<mat-error  *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es v&aacute;lido</mat-error>-->
 
                 </mat-form-field>
 
