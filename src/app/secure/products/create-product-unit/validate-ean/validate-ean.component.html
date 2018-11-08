@@ -8,18 +8,19 @@
        Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.
     </p>
   </div>
+
   <form #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="validateEanServices()" autocomplete="off" maxlength="13" minlength="7">
+      <input matInput placeholder="EAN" formControlName="eanCtrl"  (change)="validateEanServices()" autocomplete="off">
       <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
-      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ya existe.'"></mat-error>
+      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ingresado ya existe, por favor ofertarlo.'"></mat-error>
     </mat-form-field>
  
   <div class="distanceComponetInt">
       <mat-checkbox  #asignatedEanCheckBox 
       [checked]="asignatedEan"
       (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)"
-      formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
+      formControlName="asignatedEan">No cuento con un EAN para mi producto</mat-checkbox>
     </div>
 
     <div class="buttonProcess">
@@ -27,3 +28,4 @@
     </div>
   </form>
 </div>
+
