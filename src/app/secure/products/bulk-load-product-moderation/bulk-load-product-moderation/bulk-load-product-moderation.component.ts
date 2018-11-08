@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@root/node_modules/@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { SendModerationFormatModalComponent } from '@secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.component';
 import { ConfigBulkLoad, Event, TypeEvents } from '@shared/components/bulk-load';
 
@@ -15,6 +15,8 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
   config: Partial<ConfigBulkLoad> = {
     title: 'VALIDACIÓN DE PRODUCTOS'
   };
+  // Referencia de la modal
+  dialogRef: MatDialogRef<SendModerationFormatModalComponent>;
 
   constructor(private dialog: MatDialog) { }
 
@@ -29,7 +31,7 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
    * Abre una modal y solicita el correo al cual se va enviar la moderación.
    */
   requestMail() {
-    this.dialog.open(SendModerationFormatModalComponent);
+    this.dialogRef = this.dialog.open(SendModerationFormatModalComponent);
   }
 
   /**

@@ -1,10 +1,6 @@
-/* 3rd party components */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-/* our own custom components */
-import { DownloadOrderModalComponent } from './download-order-modal.component';
-import { DownloadOrderModalModule } from './download-order-modal.module';
 
 /*
 describe('DownloadOrderModalComponent', () => {
