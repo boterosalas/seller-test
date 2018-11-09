@@ -24,6 +24,9 @@ import { SendModerationFormatModalComponent } from './send-moderation-format-mod
   ],
   entryComponents: [
     SendModerationFormatModalComponent
+  ],
+  exports: [
+    SendModerationFormatModalComponent
   ]
 })
 export class BulkLoadProductModerationModule { }
