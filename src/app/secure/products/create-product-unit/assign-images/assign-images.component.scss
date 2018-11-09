@@ -1,0 +1,26 @@
+.example-form {
+  // min-width: 150px;
+  //  max-width: 500px;
+  width: 100%;
+}
+
+.panelHijos{
+  margin-top: 0.5%;
+}
+
+.imageParent{
+  margin: 2% 8% 2% 8%;
+}
+
+.imageChilds{
+  margin: 0 10% 3% 6%;
+}
+
+@media screen and (min-width: 600px) {
+  #textCreateImageResponsive {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 4% 8% 4% 8%;
+  }
+}
+

@@ -1,0 +1,94 @@
+<div>
+  <p id="textCreateImageResponsive">
+    En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear.
+    Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1.
+    Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg,
+    y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg.
+    Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.
+  </p>
+</div>
+
+<div class="imageParent">
+  <app-compo-images (toPpal)="setParentArray($event)"></app-compo-images>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+<br>
+<!--
+<div *ngFor="let hijo of hijosArrTmp; let i = index;">
+  <h4>hijo ^</h4>
+  <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+</div>
+-->
+<div class="imageChilds">
+  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Hijo {{i + 1}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+        <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
+
+<!--
+<div >
+  <form #createImageProductEan="ngForm" [formGroup]="createImage" class="distancedivImage">
+    <table cellspacing="2" fxLayout="row" fxFlex="20%" fxLayout.xs="column">
+      <tr>
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image [src]="valueImagenDad">
+          </mat-card>
+          <mat-form-field class="example-full-width">
+            <input matInput formControlName="imageDad" value="URL" (change)="validateFormatImage()">
+            <mat-error  *ngIf="createImage.get('imageDad').hasError('required')" >La primera imagen es obligatoria</mat-error>
+            <mat-error  *ngIf="createImage.controls.imageDad.errors &&  createImage.controls.imageDad.errors.validFormatImage">El formato de la imagen es invalido</mat-error>
+
+          </mat-form-field>
+        </td>
+     
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="URL imagen">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="URL imagen">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="URL imagen">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-card class="createImagenPU">
+            <img mat-card-image src="">
+          </mat-card>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="URL imagen">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+-->
+
+<mat-divider></mat-divider>

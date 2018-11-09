@@ -71,6 +71,8 @@ export const endpoints = {
       getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
+      // Validar formato imagen
+      getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',     
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
       // Enviar moderación de productos al correo

@@ -1,0 +1,219 @@
+<!-- FORM CONTAINER -->
+<div fxFlex="100" fxLayout="column" class="basic-info-container">
+    <p>En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos
+        deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
+        variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
+        sección</p>
+
+    <!-- BASIC INFORMATION FORM-->
+    <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
+
+        <!-- NAME AND CATEGORY -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="name-product field">
+                <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
+            </mat-form-field>
+
+            <mat-form-field class="category-product field">
+                <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category">
+            </mat-form-field>
+        </div>
+
+        <!-- BRAND AND MODEL -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="brand-product field">
+                <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
+            </mat-form-field>
+
+            <mat-form-field class="model-product field">
+                <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model">
+            </mat-form-field>
+        </div>
+
+        <!-- DETAIL AND SHIPPING SIZE -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+            <mat-form-field class="detail-product field">
+                <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
+            </mat-form-field>
+
+            <div class="shipping-product field">
+                <label class="label-shipping">Shipping size</label>
+                <mat-slider min="1" max="5" step="1" tickInterval="true" class="shipping-slider"></mat-slider>
+                <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
+                    <label class="items-slider-label">1</label>
+                    <label class="items-slider-label">2</label>
+                    <label class="items-slider-label">3</label>
+                    <label class="items-slider-label">4</label>
+                    <label class="items-slider-label">5</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- PACKING AND PRODUCT SIZE -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
+            class="container-sub-forms">
+            <div class="sub-form" formGroupName="packing">
+                <label class="label-shipping">Empaque (cm/kg)</label>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking">
+                        </mat-form-field>
+                    </div>
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-form product-form" formGroupName="product">
+                <label class="label-shipping">Producto (cm/kg)</label>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct">
+                        </mat-form-field>
+                    </div>
+                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct">
+                        </mat-form-field>
+                        <mat-form-field class="packing-field">
+                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <mat-form-field class="description-form">
+            <textarea matInput placeholder="Descripción" formControlName="Description"></textarea>
+        </mat-form-field>
+
+    </form>
+
+    <!-- FORM KEYWORD-->
+    <form [formGroup]="formKeyword" (ngSubmit)="sabeKeyword()" class="form-keyword">
+        <mat-form-field class="keyword-field">
+            <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword">
+            <mat-icon matSuffix class="material-icons" (click)="sabeKeyword()" class="add-keyword-icon">
+                add_circle_outline
+            </mat-icon>
+            <mat-hint fxLayout="row">
+                <span *ngFor="let key of keywords">
+                    {{key}}
+                </span>
+            </mat-hint>
+        </mat-form-field>
+    </form>
+    <mat-divider></mat-divider>
+
+    <!-- BUTTON TO ADD SONS -->
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+        </div>
+        <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
+            <mat-icon class="material-icons">
+                add_circle_outline
+            </mat-icon>
+            <span>Añadir hijo</span>
+        </button>
+    </div>
+
+    <!-- SON LIST -->
+    <div *ngFor="let son of sonList; let i = index" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="border-bottom-gray">
+            <label>
+                Agregar hijo {{i+1}}
+            </label>
+            <button mat-icon-button (click)="toggleSon(son)">
+                <mat-icon class="material-icons" *ngIf="son.Show">
+                    expand_less
+                </mat-icon>
+                <mat-icon class="material-icons" *ngIf="!son.Show">
+                    expand_more
+                </mat-icon>
+            </button>
+        </div>
+        <!-- SHOW FORM -->
+        <div *ngIf="son.Show" class="son-container">
+
+            <div class="text-right">
+                <button mat-icon-button matTooltip="Eliminar hijo" (click)="deleteSon(i)">
+                    <mat-icon class="material-icons">
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+
+            <!-- SON FORM -->
+            <form [formGroup]="son.form" (ngSubmit)="saveBasicInfo()">
+
+
+
+                <!-- EAN SON AND SIZE -->
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+                    <!-- EAN -->
+                    <mat-form-field class="name-product field">
+                        <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean">
+                        <mat-error>Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="category-product field">
+                        <input matInput placeholder="Escoge talla" class="input-category-product" formControlName="Size">
+                        <mat-error>Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+
+                    <div class="field flex-container">
+                        <div class="container-color" *ngFor="let color of colorList">
+                            <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}"
+                                [matTooltip]="color.Name" (click)="selectColor(color, son)" [ngClass]="{'select-color': color.Name === son.colorSelected}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <mat-form-field class="field">
+                        <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
+                        <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP">
+                        <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'"
+                            [(colorPicker)]="son.colorPick" [style.background]="colorPick" [cpOutputFormat]="hex"
+                            [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+                            palette
+                        </mat-icon>
+                        <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">Este campo es obligatorio</div>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field class="field">
+                    <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick2), 'background-color': son.colorPick2 }"></mat-icon>
+                    <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick2" formControlName="HexColorCodeName">
+                    <mat-icon matSuffix [ngStyle]="{'color': invertColor(colorPick2)}" class="material-icons color-icon-picker"
+                        [cpPosition]="'left'" [(colorPicker)]="son.colorPick2" [style.background]="colorPick2"
+                        [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+                        palette
+                    </mat-icon>
+                    <div class="basic-info-error" *ngIf="!son.colorPick2 && son.dirty">Este campo es obligatorio</div>
+
+                </mat-form-field>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
