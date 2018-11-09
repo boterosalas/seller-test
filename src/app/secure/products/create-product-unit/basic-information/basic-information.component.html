@@ -1,240 +1,253 @@
 <!-- FORM CONTAINER -->
 <div fxFlex="100" fxLayout="column" class="basic-info-container" *ngIf="formCreate">
-    <p>En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos
-        deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
-        variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
-        sección</p>
+  <p>En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos
+    deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
+    variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
+    sección</p>
 
-    <!-- BASIC INFORMATION FORM-->
-    <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
+  <!-- BASIC INFORMATION FORM-->
+  <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
 
-        <!-- NAME AND CATEGORY -->
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-            <mat-form-field class="name-product field">
-                <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
-                <mat-error  *ngIf="formBasicInfo.get('Name').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
-                <mat-error  *ngIf="formBasicInfo.get('Name').hasError('required')">Este campo es obligatorio</mat-error>
+    <!-- NAME AND CATEGORY -->
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+      <mat-form-field class="name-product field">
+        <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name">
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="category-product field">
+        <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category">
+      </mat-form-field>
+    </div>
+
+    <!-- BRAND AND MODEL -->
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+      <mat-form-field class="brand-product field">
+        <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="model-product field">
+        <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model">
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('pattern')">El modelo ingresado no es v&aacute;lido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- DETAIL AND SHIPPING SIZE -->
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+      <mat-form-field class="detail-product field">
+        <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('pattern')">El detalle ingresado no es v&aacute;lido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <div class="shipping-product field">
+        <label class="label-shipping">Shipping size</label>
+        <mat-slider min="1" max="5" step="1" tickInterval="true" class="shipping-slider"></mat-slider>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
+          <label class="items-slider-label">1</label>
+          <label class="items-slider-label">2</label>
+          <label class="items-slider-label">3</label>
+          <label class="items-slider-label">4</label>
+          <label class="items-slider-label">5</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACKING AND PRODUCT SIZE -->
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
+      class="container-sub-forms">
+      <div class="sub-form" formGroupName="packing">
+        <label class="label-shipping">Empaque (cm/kg)</label>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking">
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
             </mat-form-field>
-
-            <mat-form-field class="category-product field">
-                <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category">
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking">
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
             </mat-form-field>
+          </div>
+          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking">
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking">
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="sub-form product-form" formGroupName="product">
+        <label class="label-shipping">Producto (cm/kg)</label>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct">
+              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct">
+              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct">
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+            <mat-form-field class="packing-field">
+              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct">
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">La dimensión
+                ingresada no es válida v&aacute;lido</mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
-        <!-- BRAND AND MODEL -->
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-            <mat-form-field class="brand-product field">
-                <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand">
-                <mat-error  *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
-                <mat-error  *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
+      </div>
+    </div>
 
-            <mat-form-field class="model-product field">
-                <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model">
-                <mat-error  *ngIf="formBasicInfo.get('Model').hasError('pattern')">El modelo ingresado no es v&aacute;lido</mat-error>
-                <mat-error  *ngIf="formBasicInfo.get('Model').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
-        </div>
+    <mat-form-field class="description-form">
+      <textarea matInput placeholder="Descripción" formControlName="Description"></textarea>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">La descripción ingresada no es
+        v&aacute;lido</mat-error>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('required')">Este campo es obligatorio</mat-error>
+    </mat-form-field>
 
-        <!-- DETAIL AND SHIPPING SIZE -->
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-            <mat-form-field class="detail-product field">
-                <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail">
-                <mat-error  *ngIf="formBasicInfo.get('Detail').hasError('pattern')">El detalle ingresado no es v&aacute;lido</mat-error>
-                <mat-error  *ngIf="formBasicInfo.get('Detail').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
+  </form>
 
-            <div class="shipping-product field">
-                <label class="label-shipping">Shipping size</label>
-                <mat-slider min="1" max="5" step="1" tickInterval="true" class="shipping-slider"></mat-slider>
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
-                    <label class="items-slider-label">1</label>
-                    <label class="items-slider-label">2</label>
-                    <label class="items-slider-label">3</label>
-                    <label class="items-slider-label">4</label>
-                    <label class="items-slider-label">5</label>
-                </div>
-            </div>
-        </div>
+  <!-- FORM KEYWORD-->
+  <form [formGroup]="formKeyword" (ngSubmit)="sabeKeyword()" class="form-keyword">
+    <mat-form-field class="keyword-field">
+      <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword">
+      <mat-icon matSuffix class="material-icons" (click)="sabeKeyword()" class="add-keyword-icon">
+        add_circle_outline
+      </mat-icon>
+      <mat-hint fxLayout="row">
+        <span *ngFor="let key of keywords">
+          {{key}}
+        </span>
+      </mat-hint>
+    </mat-form-field>
+  </form>
+  <mat-divider></mat-divider>
 
-        <!-- PACKING AND PRODUCT SIZE -->
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
-            class="container-sub-forms">
-            <div class="sub-form" formGroupName="packing">
-                <label class="label-shipping">Empaque (cm/kg)</label>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking">
-                        <!--<mat-error  *ngIf="packing.get('HighPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking">
-                            <!--<mat-error  *ngIf="packing.get('LongPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                    </div>
-                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking">
-                            <!--<mat-error  *ngIf="packing.get('WidthPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking">
-                            <!--<mat-error  *ngIf="packing.get('WeightPacking').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="sub-form product-form" formGroupName="product">
-                <label class="label-shipping">Producto (cm/kg)</label>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct">
-                            <!--<mat-error  *ngIf="product.get('HighProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct">
-                            <!--<mat-error  *ngIf="product.get('LongProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                    </div>
-                    <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct">
-                            <!--<mat-error  *ngIf="product.get('WidthProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                        <mat-form-field class="packing-field">
-                            <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct">
-                            <!--<mat-error  *ngIf="product.get('WeightProduct').hasError('pattern')">La dimensión ingresada no es válida v&aacute;lido</mat-error>-->
-                        </mat-form-field>
-                    </div>
-                </div>
+  <!-- BUTTON TO ADD SONS -->
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+    </div>
+    <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
+      <mat-icon class="material-icons">
+        add_circle_outline
+      </mat-icon>
+      <span>Añadir hijo</span>
+    </button>
+  </div>
 
-            </div>
-        </div>
+  <!-- SON LIST -->
+  <div *ngFor="let son of sonList; let i = index" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="border-bottom-gray">
+      <label>
+        Agregar hijo {{i+1}}
+      </label>
+      <button mat-icon-button (click)="toggleSon(son)">
+        <mat-icon class="material-icons" *ngIf="son.Show">
+          expand_less
+        </mat-icon>
+        <mat-icon class="material-icons" *ngIf="!son.Show">
+          expand_more
+        </mat-icon>
+      </button>
+    </div>
+    <!-- SHOW FORM -->
+    <div *ngIf="son.Show" class="son-container">
 
-        <mat-form-field class="description-form">
-            <textarea matInput placeholder="Descripción" formControlName="Description"></textarea>
-            <mat-error  *ngIf="formBasicInfo.get('Description').hasError('pattern')">La descripción ingresada no es v&aacute;lido</mat-error>
-            <mat-error  *ngIf="formBasicInfo.get('Description').hasError('required')">Este campo es obligatorio</mat-error>
-        </mat-form-field>
-
-    </form>
-
-    <!-- FORM KEYWORD-->
-    <form [formGroup]="formKeyword" (ngSubmit)="sabeKeyword()" class="form-keyword">
-        <mat-form-field class="keyword-field">
-            <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword">
-            <mat-icon matSuffix class="material-icons" (click)="sabeKeyword()" class="add-keyword-icon">
-                add_circle_outline
-            </mat-icon>
-            <mat-hint fxLayout="row">
-                <span *ngFor="let key of keywords">
-                    {{key}}
-                </span>
-            </mat-hint>
-        </mat-form-field>
-    </form>
-    <mat-divider></mat-divider>
-
-    <!-- BUTTON TO ADD SONS -->
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div>
-        </div>
-        <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
-            <mat-icon class="material-icons">
-                add_circle_outline
-            </mat-icon>
-            <span>Añadir hijo</span>
+      <div class="text-right">
+        <button mat-icon-button matTooltip="Eliminar hijo" (click)="deleteSon(i)">
+          <mat-icon class="material-icons">
+            delete
+          </mat-icon>
         </button>
-    </div>
+      </div>
 
-    <!-- SON LIST -->
-    <div *ngFor="let son of sonList; let i = index" fxLayout="column">
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="border-bottom-gray">
-            <label>
-                Agregar hijo {{i+1}}
-            </label>
-            <button mat-icon-button (click)="toggleSon(son)">
-                <mat-icon class="material-icons" *ngIf="son.Show">
-                    expand_less
-                </mat-icon>
-                <mat-icon class="material-icons" *ngIf="!son.Show">
-                    expand_more
-                </mat-icon>
-            </button>
+      <!-- SON FORM -->
+      <form [formGroup]="son.form" (ngSubmit)="saveBasicInfo()">
+
+
+
+        <!-- EAN SON AND SIZE -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+          <!-- EAN -->
+          <div>
+          <mat-form-field class="name-product field">
+            <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (keyup)="validateEanSon()">
+            <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no esv&aacute;lido</mat-error>
+            <mat-error  *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El EAN ya existe.</mat-error>
+            <mat-error *ngIf="son.form.get('Ean').hasError('required')">El campo es obligatorio</mat-error>
+          </mat-form-field>
+          <div class="distanceComponetInt">
+            <mat-checkbox  #asignatedEanSonCheckBox 
+            [checked]="asignatedEanSon"
+            (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked)"
+            formControlName="associateEanSon">No tengo EAN asociado</mat-checkbox>
+          </div>
         </div>
-        <!-- SHOW FORM -->
-        <div *ngIf="son.Show" class="son-container">
 
-            <div class="text-right">
-                <button mat-icon-button matTooltip="Eliminar hijo" (click)="deleteSon(i)">
-                    <mat-icon class="material-icons">
-                        delete
-                    </mat-icon>
-                </button>
+          <mat-form-field class="category-product field">
+            <input matInput placeholder="Escoge talla" class="input-category-product" formControlName="Size">
+            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no esv&aacute;lido</mat-error>
+              <mat-error *ngIf="son.form.get('Size').hasError('required')">EL campo es obligatorio</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+
+          <div class="field flex-container">
+            <div class="container-color" *ngFor="let color of colorList">
+              <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}"
+                [matTooltip]="color.Name" (click)="selectColor(color, son)" [ngClass]="{'select-color': color.Name === son.colorSelected}">
+              </div>
             </div>
-
-            <!-- SON FORM -->
-            <form [formGroup]="son.form" (ngSubmit)="saveBasicInfo()">
+          </div>
 
 
-
-                <!-- EAN SON AND SIZE -->
-                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-                    <!-- EAN -->
-                    <mat-form-field class="name-product field">
-                        <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean">
-                        <mat-error>Este campo es obligatorio</mat-error>
-                        <!--<mat-error  *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido</mat-error>-->
-                    </mat-form-field>
-
-                    <mat-form-field class="category-product field">
-                        <input matInput placeholder="Escoge talla" class="input-category-product" formControlName="Size">
-                        <mat-error>Este campo es obligatorio</mat-error>
-                        <!--<mat-error  *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lido</mat-error>-->
-                    </mat-form-field>
-                </div>
-
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-
-                    <div class="field flex-container">
-                        <div class="container-color" *ngFor="let color of colorList">
-                            <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}"
-                                [matTooltip]="color.Name" (click)="selectColor(color, son)" [ngClass]="{'select-color': color.Name === son.colorSelected}">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <mat-form-field class="field">
-                        <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
-                        <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP">
-                        <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'"
-                            [(colorPicker)]="son.colorPick" [style.background]="colorPick" [cpOutputFormat]="hex"
-                            [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
-                            palette
-                        </mat-icon>
-                        <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">Este campo es obligatorio</div>
-                    </mat-form-field>
-                </div>
-
-                <mat-form-field class="field">
-                    <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick2), 'background-color': son.colorPick2 }"></mat-icon>
-                    <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick2" formControlName="HexColorCodeName">
-                    <mat-icon matSuffix [ngStyle]="{'color': invertColor(colorPick2)}" class="material-icons color-icon-picker"
-                        [cpPosition]="'left'" [(colorPicker)]="son.colorPick2" [style.background]="colorPick2"
-                        [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
-                        palette
-                    </mat-icon>
-                    <div class="basic-info-error" *ngIf="!son.colorPick2 && son.dirty">Este campo es obligatorio</div>
-                    <!--<mat-error  *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es v&aacute;lido</mat-error>-->
-
-                </mat-form-field>
-
-
-
-            </form>
+          <mat-form-field class="field">
+            <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
+            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP">
+            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'" [(colorPicker)]="son.colorPick"
+              [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+              palette
+            </mat-icon>
+            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">Este campo es obligatorio</div>
+          </mat-form-field>
         </div>
+
+        <mat-form-field class="field">
+          <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick2), 'background-color': son.colorPick2 }"></mat-icon>
+          <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick2" formControlName="HexColorCodeName">
+          <mat-icon matSuffix [ngStyle]="{'color': invertColor(colorPick2)}" class="material-icons color-icon-picker"
+            [cpPosition]="'left'" [(colorPicker)]="son.colorPick2" [style.background]="colorPick2" [cpOutputFormat]="hex"
+            [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+            palette
+          </mat-icon>
+          <div class="basic-info-error" *ngIf="!son.colorPick2 && son.dirty">Este campo es obligatorio</div>
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es v&aacute;lido</mat-error>
+        </mat-form-field>
+      </form>
     </div>
+  </div>
 </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
+import { EanServicesService } from '../validate-ean/ean-services.service';
+import { ProcessService } from '../component-process/component-process.service';
 
 @Component({
     selector: 'app-basic-information',
@@ -24,6 +26,7 @@ export class ProductBasicInfoComponent implements OnInit {
     ColorPDP: string = null;
     CodeName: string = null;
     formCreate = false;
+    public validateEanSonExist;
     /**
      *  Json  con los colores predefinidos.
      */
@@ -45,15 +48,25 @@ export class ProductBasicInfoComponent implements OnInit {
         { Name: 'MultiColor', color: '#FFB300', border: '#FFA000', hexColorCode: 986895 },
     ];
     validateRegex: any;
+    newForm: any;
+    valInputEan: any;
+    asignatedEanSon: boolean;
+    public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
 
     constructor(
         private snackBar: MatSnackBar,
-        private service: BasicInformationService
+        private service: BasicInformationService,
+        private serviceEanSon: EanServicesService,
+        private process: ProcessService
     ) {
     }
 
     ngOnInit() {
         this.valdiateInfoBasic();
+        this.validateEanSonExist = true;
+        this.process.change.subscribe(data => {
+            this.showButton = data.showEan;
+        });
     }
 
     public getValue(name: string): string {
@@ -209,7 +222,9 @@ export class ProductBasicInfoComponent implements OnInit {
                     HexColorCodeName: new FormControl('',
                         [
                             Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
-                        ])
+                        ]),
+                    associateEanSon: new FormControl(false
+                        )
                 }),
                 Show: true,
                 colorPick: null,
@@ -218,6 +233,8 @@ export class ProductBasicInfoComponent implements OnInit {
             let t = newForm.form.controls.HexColorCodePDP.disable();
             t = newForm.form.controls.HexColorCodeName.disable();
             this.sonList.push(newForm);
+            console.log('t: ', newForm.form.controls);
+            this.valInputEan = newForm.form.controls.Ean;
         } else {
             // error to show
 
@@ -260,5 +277,49 @@ export class ProductBasicInfoComponent implements OnInit {
             this.createForm(this.validateRegex.Data);
         });
 
+    }
+
+    /**
+     * Funcion para validar si el EAn del Hijo existe.
+     * @member of validateEanSon()
+     * @memberof ProductBasicInfoComponent
+     */
+    public validateEanSon(): void {
+        this.serviceEanSon.validateEan(this.valInputEan.value).subscribe(res => {
+            // Validar si la data es un booleano para validar si exiset el Ean del hijo
+            this.validateEanSonExist = (res['data']);
+            if (this.validateEanSonExist) {
+                this.valInputEan.setErrors({ 'validExistEanSonDB': this.validateEanSonExist });
+            }
+        });
+    }
+
+    onAsignatedEanSonChanged(value: boolean) {
+        this.asignatedEanSon = value;
+        if (this.asignatedEanSon === true) {
+            this.valInputEan.disable();
+            if (!this.valInputEan.value) {
+                const data = {
+                    AssignEan: this.asignatedEanSon
+                };
+                this.process.validaData(data);
+            } else {
+                this.process.unavailableEanView();
+            }
+        } else {
+            if (!this.valInputEan.value && !this.validateEanSonExist) {
+                this.process.unavailableEanView();
+            } else {
+                this.sendEanSon();
+            }
+            this.valInputEan.enable();
+        }
+    }
+
+    public sendEanSon(): void {
+        const data = {
+            Ean: this.valInputEan.value
+        };
+        this.process.validaData(data);
     }
 }
