@@ -193,7 +193,7 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
           <!-- EAN -->
           <div>
-          <mat-form-field class="name-product field">
+          <mat-form-field class="name-product field" id="inputValidEanSon">
             <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (keyup)="validateEanSon()">
             <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no esv&aacute;lido</mat-error>
             <mat-error  *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El EAN ya existe.</mat-error>
