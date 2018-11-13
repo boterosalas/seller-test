@@ -120,7 +120,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 ])
         });
 
-        console.log(this.formBasicInfo);
     }
 
     public saveBasicInfo(): void {
@@ -142,7 +141,6 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     public selectColor(color: any, son: any): void {
         son.colorSelected = color.Name;
-        console.log(son);
     }
 
 
