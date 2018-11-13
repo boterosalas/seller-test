@@ -79,7 +79,6 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     private createForm(patterns: any): void {
-        console.log('patterns.nameProduct: ', this.getValue('nameProduct'));
         this.formKeyword = new FormGroup({
             Keyword: new FormControl('', [])
         });
@@ -231,7 +230,6 @@ export class ProductBasicInfoComponent implements OnInit {
             let t = newForm.form.controls.HexColorCodePDP.disable();
             t = newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
-            console.log('t: ', newForm.form.controls);
             this.valInputEan = newForm.form.controls.Ean;
         } else {
             // error to show
@@ -271,7 +269,6 @@ export class ProductBasicInfoComponent implements OnInit {
         const param = ['productos', null];
         this.service.getRegexInformationBasic(param).subscribe(res => {
             this.validateRegex = JSON.parse(res.body.body);
-            console.log('validateRegex: ', this.validateRegex.Data);
             this.createForm(this.validateRegex.Data);
         });
 
