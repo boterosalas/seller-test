@@ -236,17 +236,24 @@
           </mat-form-field>
         </div>
 
-        <mat-form-field class="field">
+        <!--<mat-form-field class="field">
           <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick2), 'background-color': son.colorPick2 }"></mat-icon>
           <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick2" formControlName="HexColorCodeName">
           <mat-icon matSuffix [ngStyle]="{'color': invertColor(colorPick2)}" class="material-icons color-icon-picker"
             [cpPosition]="'left'" [(colorPicker)]="son.colorPick2" [style.background]="colorPick2" [cpOutputFormat]="hex"
             [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
             palette
-          </mat-icon>
+          </mat-icon> -->
+
+          <mat-form-field class="category-product field">
+            <input matInput placeholder="HexColorCodeName" formControlName="HexColorCodeName">
+            <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es v&aacute;lido</mat-error>
+            <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">EL campo es obligatorio</mat-error>
+          </mat-form-field>
+          <!--
           <div class="basic-info-error" *ngIf="!son.colorPick2 && son.dirty">Este campo es obligatorio</div>
           <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es v&aacute;lido</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
       </form>
     </div>
   </div>

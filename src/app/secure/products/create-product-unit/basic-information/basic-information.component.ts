@@ -231,7 +231,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 colorPick2: null,
             };
             let t = newForm.form.controls.HexColorCodePDP.disable();
-            t = newForm.form.controls.HexColorCodeName.disable();
+            t = newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             console.log('t: ', newForm.form.controls);
             this.valInputEan = newForm.form.controls.Ean;
