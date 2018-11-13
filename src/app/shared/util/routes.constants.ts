@@ -43,6 +43,7 @@ export class RoutesConst {
     static readonly quoting: any = 'cotizador';
     static readonly createUnutaryProduct: any = 'creacion-unitaria';
     static readonly paramSpecifications: any = 'especificaciones';
+    static readonly paramBrands: any = 'marcas';
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
     static readonly homeForgotPassword: any = RoutesConst.home + '/' + RoutesConst.forgotPassword;
@@ -62,6 +63,8 @@ export class RoutesConst {
     static readonly sellerCenterJwttokens: any = RoutesConst.securehome + '/' + RoutesConst.jwttokens;
     static readonly sellerCenterUserActivity: any = RoutesConst.securehome + '/' + RoutesConst.useractivity;
     static readonly sellerCenterProducts: any = RoutesConst.securehome + '/' + RoutesConst.products;
+    static readonly sellerCenterIntParamSpecs: any = RoutesConst.securehome + '/' + RoutesConst.paramSpecifications;
+    static readonly sellerCenterIntParamBrand: any = RoutesConst.securehome + '/' + RoutesConst.paramBrands;
 
     static readonly sellerCenterIntOrderLoadGuide: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
     static readonly sellerCenterIntOrdersState: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.ordersState;
@@ -75,7 +78,6 @@ export class RoutesConst {
     static readonly sellerCenterIntOferHistoricalBulkLoadAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoadAdmin;
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
     static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
-    static readonly sellerCenterIntParamSpecs: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.paramSpecifications;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
     static readonly sellerCenterIntCreateUnutaryProduct: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.createUnutaryProduct;
