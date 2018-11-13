@@ -67,7 +67,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
 
   public validateNameStorage(name: string): boolean {
-    const t = name.toLocaleLowerCase();
+    const t = name.toLocaleLowerCase().trim();
 
     if (!t.match(this.nameStoreRegex)) {
       this.validateFormRegister.controls.Name.setErrors(
