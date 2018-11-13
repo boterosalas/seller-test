@@ -1,10 +1,18 @@
 import { Injectable, Output, EventEmitter} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
+/**
+ * Interface que posee los datos de productos que van a ser enviados para guardar.
+ *
+ * @export
+ * @interface ProductModel
+ */
 export interface ProductModel {
     Ean: string;
     AssignEan: boolean;
     CategorySelected: string;
+    CategoryType: string;
 }
 
 /**
@@ -13,7 +21,7 @@ export interface ProductModel {
  * 1)   Interface que es la encargada de almacenar los datos del producto a medida que
  *      el usuario avanza en sus paso.
  * 2)   Modelo que almacena cual vista debe ser mostrada, en este caso por ejemplo showEan: cuando esta valido debe dejar pasar.
- * 3)   La funcion principal es "vaidData" la que recibe los datos de los componentes, los almacena para luego habilitar el siguiente paso.
+ * 3)   La funcion principal es "validData" la que recibe los datos de los componentes, los almacena para luego habilitar el siguiente paso.
  *
  * @export
  * @class ProcessService
@@ -27,7 +35,7 @@ export class ProcessService {
      * @type {ProductModel}
      * @memberof ProcessService
      */
-    productData: ProductModel = { Ean: null, AssignEan: null, CategorySelected: null};
+    productData: ProductModel = { Ean: null, AssignEan: null, CategorySelected: null, CategoryType: null};
 
     /**
      * Model para habilitar los menus de la creacion.
@@ -35,7 +43,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: true,
+        showEan: false,
         showCat: false,
         showInfo: false,
         showSpec: false,
@@ -98,6 +106,16 @@ export class ProcessService {
     }
 
     /**
+     * Obtener los datos almacenados.
+     *
+     * @returns {ProductModel}
+     * @memberof ProcessService
+     */
+    public getProductData(): ProductModel {
+        return this.productData;
+    }
+
+    /**
      * Ya que validacion ean necesita de varias validaciones para continuar fue necesario una funcion para inhabilitar este paso manualmente.
      *
      * @memberof ProcessService
@@ -107,7 +125,6 @@ export class ProcessService {
         this.productData.AssignEan = false;
         this.views.showEan = false;
         this.change.emit(this.views);
-
     }
 }
 

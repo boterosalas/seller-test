@@ -73,7 +73,7 @@ export class ValidateEanComponent implements OnInit {
   }
 
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
-  validateEanServices(validateEanExist: any) {
+  validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
     if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {

@@ -146,7 +146,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 ])
         });
         this.formCreate = true;
-        console.log(this.formBasicInfo);
     }
 
     public saveBasicInfo(): void {
@@ -168,7 +167,6 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     public selectColor(color: any, son: any): void {
         son.colorSelected = color.Name;
-        console.log(son);
     }
 
 

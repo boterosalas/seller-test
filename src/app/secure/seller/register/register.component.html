@@ -134,8 +134,8 @@
 
           <div fxFlex="50%">
             <mat-form-field class="register" style="width:100% !important;">
-              <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Name')" formControlName="Name" [errorStateMatcher]="matcher"
-                id="register-name-store" (ngModelChange)="activeButton = false" required>
+              <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Name', validateFormRegister.get('Name'))" formControlName="Name" [errorStateMatcher]="matcher"
+                id="register-name-store" (ngModelChange)="activeButton = false" required (change)="validateNameStorage(validateFormRegister.get('Name').value)">
               <mat-hint></mat-hint>
               <mat-error id="error-name-store-required" *ngIf="validateFormRegister.get('Name').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>
               <mat-error id="error-name-store-invalid" *ngIf="validateFormRegister.get('Name').hasError('pattern')" [innerHTML]="'El nombre de tienda no es v&aacute;lido.'"></mat-error>

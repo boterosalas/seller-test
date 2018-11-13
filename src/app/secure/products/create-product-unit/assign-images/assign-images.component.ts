@@ -25,11 +25,9 @@ export class AssignImagesComponent implements OnInit {
 
   setParentArray(dataParenArr: any) {
     this.parent_image_url_arrray = dataParenArr;
-    console.log('AppComponent::setParentArray', this.parent_image_url_arrray);
   }
 
   setChildrenArray(dataChildArr: any, i: any) {
     this.children_image_url_arrray[i] = dataChildArr;
-    console.log('AppComponent::setChildrenArray', this.children_image_url_arrray);
   }
 }
