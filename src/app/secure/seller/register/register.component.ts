@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst, UserInformation } from '@app/shared';
 import { RegisterService } from './register.service';
+import { TestRequest } from '@angular/common/http/testing';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -49,7 +50,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public daneCode: any;
   public disabledForService: boolean;
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
-  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
+  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!s\.a\.s$)(?!s\.a$)(?!s\.a\.$)(?!s\.a\.$)(?!sa\.s$)(?!sas$)(?!sa$)(?!ltda$)(?!ltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
 
@@ -63,6 +64,22 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     private router: Router,
     public userParams: UserParametersService
   ) { }
+
+
+  public validateNameStorage(name: string): boolean {
+    const t = name.toLocaleLowerCase();
+
+    if (!t.match(this.nameStoreRegex)) {
+      this.validateFormRegister.controls.Name.setErrors(
+        {
+          pattern: TestRequest
+        }
+      );
+    } else {
+      this.validateFormRegister.controls.Name.setErrors(null);
+    }
+    return true;
+  }
 
   ngOnInit() {
     this.userService.isAuthenticated(this);
@@ -97,8 +114,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
       Name: new FormControl
-        ('', [Validators.required,
-        Validators.pattern(this.nameStoreRegex)]),
+        ('', [Validators.required]),
       IsLogisticsExito: new FormControl(false),
       IsShippingExito: new FormControl(true),
       GotoExito: new FormControl(true),
@@ -171,10 +187,10 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
    * @param {*} event
    * @memberof RegisterSellerComponent
    */
-  validateExist(event: any, param: string) {
+  validateExist(event: any, param: string, name: any = '') {
     this.activeButton = false;
     const jsonExistParam = event.target.value;
-    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null && (!name || (name && name.valid))) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
