@@ -1,15 +1,21 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="dialog-add-container">
   <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
-    <mat-icon class="material-icons">
+    <mat-icon class="material-icons" *ngIf="!typeModel">
       assignment
     </mat-icon>
+    <mat-icon class="material-icons" *ngIf="typeModel">
+      turned_in
+    </mat-icon>
   </div>
-  <h1 mat-dialog-title>
+  <h1 mat-dialog-title *ngIf="!typeModel">
     Agregar grupo de especificaciones
   </h1>
-  <div mat-dialog-content  *ngIf="formSpecs">
+  <h1 mat-dialog-title *ngIf="typeModel">
+    Agregar una marca
+  </h1>
+  <div mat-dialog-content *ngIf="formSpecs">
     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-    <form fxLayout="column" fxLayoutAlign="center center" class="form-add"  [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
+    <form fxLayout="column" fxLayoutAlign="center center" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
       <mat-form-field class="input-add">
         <input formControlName="NameSpec" matInput placeholder="Nombre de especificación">
         <mat-error>Este campo es obligatorio</mat-error>
@@ -17,7 +23,8 @@
 
       <div fxLayout="row">
         <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
-        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'" [disabled]="!formSpecs.valid">
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+          [disabled]="!formSpecs.valid">
         </button>
       </div>
     </form>

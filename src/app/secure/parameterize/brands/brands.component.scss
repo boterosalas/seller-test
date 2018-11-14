@@ -1,7 +1,30 @@
+$blue: #485AFA;
+@mixin border {
+    border-bottom: 1px solid#EFEDED;
+}
+
 :host {
     section.brand-container {
         .app-toolbar-title {
             width: 100%;
+        }
+        .list {
+            margin: 2em;
+            .container-group-add-button {
+                text-align: right;
+                color: $blue;
+                padding: 10px 0px;
+                @include border();
+            }
+            .container-brand-list {
+                .brand-list {
+                    @include border();
+                    color: #5D5D5D;
+                    mat-icon {
+                        color: #909090;
+                    }
+                }
+            }
         }
     }
 }
