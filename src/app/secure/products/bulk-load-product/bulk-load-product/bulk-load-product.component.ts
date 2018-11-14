@@ -1286,7 +1286,12 @@ export class BulkLoadProductComponent implements OnInit {
             this.openDialogSendOrder(result);
           } else if (result.body.data.status === 3) {
             this.closeActualDialog();
-            this.openDialogSendOrder(result);
+            if (result.body.data.response.Errors['0']) {
+              this.modalService.showModal('errorService');
+            } else {
+              this.openDialogSendOrder(result);
+
+            }
           }
         }
       );
