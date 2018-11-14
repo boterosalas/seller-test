@@ -1,228 +1,275 @@
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
 $color-red: #f44336;
-
 .basic-info-error {
-  color: $color-red;
-  font-size: 13px;
-  position: fixed;
-  padding-top: 1em;
+    color: $color-red;
+    font-size: 13px;
+    position: fixed;
+    padding-top: 1em;
 }
 
 @mixin inputs-basic-info-form() {
-  padding-right: 1em;
+    padding-right: 1em;
 }
 
 @mixin form-padding() {
-  padding: 0.9em 0px;
+    padding: 0.9em 0px;
 }
 
 @mixin color-size() {
-  height: 42px;
-  width: 42px;
+    height: 42px;
+    width: 42px;
+}
+
+@mixin multi-co() {
+    border-radius: 46px;
+    width: 10px;
+    height: 10px;
+    margin: 3px;
 }
 
 @media screen and (max-width: 600px) {
-  .basic-info-container {
-    .field {
-      width: 100%;
+    .basic-info-container {
+        .field {
+            width: 100%;
+        }
     }
-  }
-
-  .sub-form {
-    width: 100%;
-
-    .packing-sub-level {
-      width: 100%;
-
-      .packing-field {
-        width: 48%;
-      }
+    .sub-form {
+        width: 100%;
+        .packing-sub-level {
+            width: 100%;
+            .packing-field {
+                width: 48%;
+            }
+        }
     }
-  }
-
-  .description-form {
-    width: 100%;
-  }
-
-  .keyword-field {
-    width: 100%;
-  }
+    .description-form {
+        width: 100%;
+    }
+    .keyword-field {
+        width: 100%;
+    }
 }
 
 @media screen and (min-width: 600px) {
-  .basic-info-container {
-    margin-top: 3em;
-
-    .field {
-      width: 46%;
-
-      &.name-product {
-        @include inputs-basic-info-form();
-      }
-
-      &.category-product {}
-
-      &.brand-product {
-        @include inputs-basic-info-form();
-      }
-
-      &.model-product {}
-
-      &.detail-product {
-        @include inputs-basic-info-form();
-      }
-
-      &.shipping-product {
-        .label-shipping {
-          width: 100%;
+    .basic-info-container {
+        margin-top: 3em;
+        .field {
+            width: 46%;
+            &.name-product {
+                @include inputs-basic-info-form();
+            }
+            &.category-product {}
+            &.brand-product {
+                @include inputs-basic-info-form();
+            }
+            &.model-product {}
+            &.detail-product {
+                @include inputs-basic-info-form();
+            }
+            &.shipping-product {
+                .label-shipping {
+                    width: 100%;
+                }
+            }
         }
-      }
+        .sub-form {
+            width: 46%;
+            .packing-sub-level {
+                width: 49%;
+                .packing-field {
+                    width: 48%;
+                }
+            }
+            &.product-form {
+                width: 46%;
+            }
+        }
+        .description-form {
+            width: 100%;
+        }
     }
-
-    .sub-form {
-      width: 46%;
-
-      .packing-sub-level {
-        width: 49%;
-
-        .packing-field {
-          width: 48%;
-        }
-      }
-
-      &.product-form {
+    .container-sub-forms {
+        @include form-padding();
+    }
+    .keyword-field {
         width: 46%;
-      }
     }
-
-    .description-form {
-      width: 100%;
+    .son-container {
+        padding: 2em;
     }
-  }
-
-  .container-sub-forms {
-    @include form-padding();
-  }
-
-  .keyword-field {
-    width: 46%;
-  }
-
-  .son-container {
-    padding: 2em;
-  }
 }
 
 // 
-
 .shipping-slider {
-  width: 100%;
-  padding: 0px;
-  height: 25px;
+    width: 100%;
+    padding: 0px;
+    height: 25px;
 }
 
 .shipping-product {
-  .items-slider {
-    &-label {
-      color: $color-label;
-      font-size: 12px;
+    .items-slider {
+        &-label {
+            color: $color-label;
+            font-size: 12px;
+        }
     }
-  }
 }
 
 /* Sobre escribir */
 
 /deep/ mat-slider .mat-slider-wrapper {
-  top: 12px !important;
-  left: 0px !important;
-  right: 0px !important; //#485AFA
-
-  .mat-slider-thumb {
-    background-color: $blue-page !important;
-    border: none;
-  }
-
-  .mat-slider-track-fill {
-    background-color: $blue-page;
-  }
+    top: 12px !important;
+    left: 0px !important;
+    right: 0px !important; //#485AFA
+    .mat-slider-thumb {
+        background-color: $blue-page !important;
+        border: none;
+    }
+    .mat-slider-track-fill {
+        background-color: $blue-page;
+    }
 }
 
 .form-keyword {
-  .add-keyword-icon {
-    color: $color-label;
-    transition: width 2s;
-    width: 20px !important;
-  }
-
-  .add-keyword-icon:hover {
-    cursor: pointer;
-    width: 30px !important;
-  }
+    .add-keyword-icon {
+        color: $color-label;
+        transition: width 2s;
+        width: 20px !important;
+    }
+    .add-keyword-icon:hover {
+        cursor: pointer;
+        width: 30px !important;
+    }
 }
 
 .flex-container {
-  padding: 1em 0px;
-  flex-wrap: wrap;
-  display: flex;
+    padding: 1em 0px;
+    flex-wrap: wrap;
+    display: flex;
 }
 
 .basic-info-container {
-  mat-form-field {
-    @include form-padding();
-  }
-
-  .add-son-button {
-    color: #485AFA
-  }
-
-  .container-color {
-    @include color-size();
-    padding: 0.3em;
-
-    .color-round-picker {
-      width: 37px;
-      height: 37px;
-      border-radius: 25px;
-      border: 1px solid;
-      transition: width 0.1s, height 0.1s;
+    mat-form-field {
+        @include form-padding();
     }
-
-    .color-round-picker:hover {
-      @include color-size();
-      cursor: pointer;
+    .add-son-button {
+        color: #485AFA
     }
-
-    .select-color {
-      border-color: $blue-page !important;
-      border: 2px solid;
-      @include color-size();
+    .container-color {
+        @include color-size();
+        padding: 0.3em;
+        .color-round-picker {
+            width: 37px;
+            height: 37px;
+            border-radius: 25px;
+            border: 1px solid;
+            transition: width 0.1s, height 0.1s;
+        }
+        .color-round-picker:hover {
+            @include color-size();
+            cursor: pointer;
+        }
+        .select-color {
+            border-color: $blue-page !important;
+            border: 2px solid;
+            @include color-size();
+        }
     }
-  }
-
-  .color-icon-picker {
-    background: white !important;
-  }
-
-  .color-prefix-icon {
-    border-radius: 25px;
-    border: 1px solid;
-  }
+    .color-icon-picker {
+        background: white !important;
+    }
+    .color-prefix-icon {
+        border-radius: 25px;
+        border: 1px solid;
+    }
 }
 
 .border-bottom-gray {
-  border-bottom: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
 
 .text-right {
-  text-align: right;
+    text-align: right;
 }
 
 .distanceComponetInt {
-  margin: -30px 0% 0 0%;
-  width: 50%;
+    margin: -30px 0% 0 0%;
+    width: 50%;
 }
 
 #inputValidEanSon {
-  width: 120%;
+    width: 120%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.label-color {
+    margin-top: 4%;
+    display: flex;
+    font-weight: bold;
+}
+
+.multi-one{
+    margin-top: 5px;
+    background-color: #f44336;
+    width: 13px;
+    height: 4px;
+    margin-left: 14px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+}
+
+.multi-two{
+    background-color: #ffeb3b;
+    width: 24px;
+    height: 4px;
+    margin-top: 3px;
+    margin-left: 8px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+}
+
+.multi-three{
+    background-color: #4caf50;
+    width: 33px;
+    height: 4px;
+    margin-top: 3px;
+    border-radius: 74px;
+    margin-left: 4px;
+}
+
+
+.multi-four{
+    background-color: #2196f3;
+    width: 24px;
+    height: 4px;
+    margin-top: 3px;
+    margin-left: 8px;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+
+.multi-five{
+    background-color: #9c27b0;
+    width: 13px;
+    height: 4px;
+    margin-top: 3px;
+    margin-left: 14px;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.multi-six{
+    background-color: gray;
+}
+
+
+.multi-color {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
 }

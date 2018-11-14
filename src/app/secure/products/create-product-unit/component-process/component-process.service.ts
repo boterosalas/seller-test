@@ -1,4 +1,4 @@
-import { Injectable, Output, EventEmitter} from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -13,6 +13,27 @@ export interface ProductModel {
     AssignEan: boolean;
     CategorySelected: string;
     CategoryType: string;
+    HasEAN: boolean;
+    Name: string;
+    Brand: string;
+    Details: string;
+    Model: string;
+    SkuShippingSize: string;
+    PackageWidth: number;
+    PackageHeight: number;
+    PackageLength: number;
+    PackageWeight: number;
+    ProductWidth: number;
+    ProductHeight: number;
+    ProductLength: number;
+    ProductWeight: number;
+    Description: string;
+    KeyWords: string;
+    Children: ProductModel[];
+    Size: string;
+    Color: string;
+    HexColourCodePDP: string;
+    HexColourName: string;
 }
 
 /**
@@ -35,7 +56,33 @@ export class ProcessService {
      * @type {ProductModel}
      * @memberof ProcessService
      */
-    productData: ProductModel = { Ean: null, AssignEan: null, CategorySelected: null, CategoryType: null};
+    productData: ProductModel = {
+        Ean: null,
+        AssignEan: null,
+        CategorySelected: null,
+        CategoryType: null,
+        HasEAN: false,
+        Name: null,
+        Brand: null,
+        Details: null,
+        Model: null,
+        SkuShippingSize: null,
+        PackageWidth: null,
+        PackageHeight: null,
+        PackageLength: null,
+        PackageWeight: null,
+        ProductWidth: null,
+        ProductHeight: null,
+        ProductLength: null,
+        ProductWeight: null,
+        Description: null,
+        KeyWords: null,
+        Children: null,
+        Size: null,
+        Color: null,
+        HexColourCodePDP: null,
+        HexColourName: null,
+    };
 
     /**
      * Model para habilitar los menus de la creacion.
@@ -46,7 +93,7 @@ export class ProcessService {
         showEan: false,
         showCat: false,
         showInfo: false,
-        showSpec: false,
+        showSpec: true,
         showImg: false,
     };
 
@@ -101,6 +148,31 @@ export class ProcessService {
         if (data.CategorySelected) {
             this.views.showCat = true;
             this.productData.CategorySelected = data.CategorySelected;
+            this.productData.CategoryType = data.CategoryType;
+        }
+        if (data.Name) {
+            this.views.showInfo = true;
+            this.productData.HasEAN = data.HasEAN;
+            this.productData.Name = data.Name;
+            this.productData.Brand = data.Brand;
+            this.productData.Details = data.Details;
+            this.productData.Model = data.Model;
+            this.productData.SkuShippingSize = data.SkuShippingSize;
+            this.productData.PackageWidth = data.PackageWidth;
+            this.productData.PackageHeight = data.PackageHeight;
+            this.productData.PackageLength = data.PackageLength;
+            this.productData.PackageWeight = data.PackageWeight;
+            this.productData.ProductWidth = data.ProductWidth;
+            this.productData.ProductHeight = data.ProductHeight;
+            this.productData.ProductLength = data.ProductLength;
+            this.productData.ProductWeight = data.ProductWeight;
+            this.productData.Description = data.Description;
+            this.productData.KeyWords = data.KeyWords;
+            this.productData.Children = data.Children;
+            this.productData.Size = data.Size;
+            this.productData.Color = data.Color;
+            this.productData.HexColourCodePDP = data.HexColourCodePDP;
+            this.productData.HexColourName = data.HexColourName;
         }
         this.change.emit(this.views);
     }

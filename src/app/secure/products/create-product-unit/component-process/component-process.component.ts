@@ -33,19 +33,19 @@ export class ComponentProcessComponent implements OnInit {
 
   ngOnInit() {
     this.eanFormGroup = this.fb.group({
-      eanCtrl: ['1', Validators.required]
+      eanCtrl: ['', Validators.required]
     });
     this.categoryFormGroup = this.fb.group({
-      categoryCtrl: ['1', Validators.required]
+      categoryCtrl: ['', Validators.required]
     });
     this.basicInfoFormGroup = this.fb.group({
-      basicInfoCtrl: ['1', Validators.required]
+      basicInfoCtrl: ['', Validators.required]
     });
     this.especificFormGroup = this.fb.group({
       especificCtrl: ['1', Validators.required]
     });
     this.imageFormGroup = this.fb.group({
-      imageCtrl: ['1', Validators.required]
+      imageCtrl: ['', Validators.required]
     });
     this.process.change.subscribe(data => {
       this.views = data;
@@ -63,7 +63,11 @@ export class ComponentProcessComponent implements OnInit {
     if ( this.views.showCat ) {
       this.categoryFormGroup.controls.categoryCtrl.setValue('1');
     }
-
+    if ( this.views.showInfo ) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
+    }else if ( !this.views.showInfo ) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
+    }
   }
 
 }

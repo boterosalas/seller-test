@@ -42,9 +42,11 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.getCategoriesList();
         this.searchService.change.subscribe((result: any) => {
-            this.selectedCategory = result;
+            console.log(result);
+            this.selectedCategory = result.Name;
             const data = {
-                CategorySelected: result
+                CategorySelected: result.Name,
+                CategoryType: result.ProductType
             };
             this.process.validaData(data);
         });

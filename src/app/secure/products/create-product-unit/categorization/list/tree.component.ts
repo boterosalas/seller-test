@@ -65,7 +65,7 @@ export class TreeComponent  implements OnInit {
    */
   public selectCategory(node: any): void {
     if (!node.Son.length) {
-       this.searchService.setCategory(node.Name);
+       this.searchService.setCategory(node);
     }
   }
 

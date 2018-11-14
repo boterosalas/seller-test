@@ -18,7 +18,7 @@ export class ProductBasicInfoComponent implements OnInit {
     packing: FormGroup;
     product: FormGroup;
     formKeyword: FormGroup;
-    keywords: string[] = [];
+    keywords = '';
     colorSelected: string;
     sonList = [];
     colorPick: string;
@@ -45,13 +45,14 @@ export class ProductBasicInfoComponent implements OnInit {
         { Name: 'Rojo', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
         { Name: 'Plata', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
         { Name: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
-        { Name: 'MultiColor', color: '#FFB300', border: '#FFA000', hexColorCode: 986895 },
+        { Name: 'MultiColor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
     validateRegex: any;
     newForm: any;
     valInputEan: any;
     asignatedEanSon: boolean;
-    public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
+    public showButton = false; // Variable que se conecta con el servicio que habilita los botones
+    public productData: any;
 
     constructor(
         private snackBar: MatSnackBar,
@@ -62,13 +63,34 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initComponent();
+    }
+
+    /**
+     * Funcion que inicializa el formulario con los datos necesario.
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    public initComponent(): void {
+        this.productData = this.process.getProductData();
         this.valdiateInfoBasic();
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
+            this.productData = this.process.getProductData();
+            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.CategorySelected) {
+                this.formBasicInfo.controls.Category.setValue(this.productData.CategorySelected);
+            }
             this.showButton = data.showEan;
         });
     }
 
+    /**
+     * Obtiene el valor de la regex
+     *
+     * @param {string} name
+     * @returns {string}
+     * @memberof ProductBasicInfoComponent
+     */
     public getValue(name: string): string {
         for (let i = 0; i < this.validateRegex.Data.length; i++) {
             if (this.validateRegex.Data[i].Identifier === name) {
@@ -78,6 +100,13 @@ export class ProductBasicInfoComponent implements OnInit {
         return null;
     }
 
+    /**
+     * Create formulario para informacion basica.
+     *
+     * @private
+     * @param {*} patterns
+     * @memberof ProductBasicInfoComponent
+     */
     private createForm(patterns: any): void {
         this.formKeyword = new FormGroup({
             Keyword: new FormControl('', [])
@@ -87,9 +116,12 @@ export class ProductBasicInfoComponent implements OnInit {
                 [
                     Validators.required, Validators.pattern(this.getValue('nameProduct'))
                 ]),
-            Category: new FormControl({ value: 'Nancy', disabled: true },
+            Category: new FormControl({ value: this.productData.CategorySelected, disabled: true },
                 [
                     Validators.required,
+                ]),
+            shippingSize: new FormControl(1,
+                [
                 ]),
             Model: new FormControl('',
                 [
@@ -145,30 +177,53 @@ export class ProductBasicInfoComponent implements OnInit {
                 ])
         });
         this.formCreate = true;
+        this.formBasicInfo.statusChanges.subscribe(data => {
+            if (data === 'INVALID') {
+                const views = this.process.getViews();
+                views.showInfo = false;
+                this.process.setViews(views);
+            }
+        });
     }
 
     public saveBasicInfo(): void {
     }
 
-    public sabeKeyword(): void {
+    /**
+     * Funcion que guarda las palabras claves en un arreglo con coma si no la posee.
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    public saveKeyword(): void {
         let word = this.formKeyword.controls.Keyword.value;
         if (word) {
             word = word.trim();
-            if (word[word.length] !== ',') {
+            if (word[word.length - 1] !== ',') {
                 word += ',';
             }
-            this.keywords.push(word);
+            this.keywords += word;
+            this.detectForm();
             this.formKeyword.controls.Keyword.setValue(null);
         }
     }
+
     /**
      * selectColor
      */
     public selectColor(color: any, son: any): void {
         son.colorSelected = color.Name;
+        this.detectForm();
     }
 
 
+    /**
+     * Functiones que validan si es un color oscuro para ponerle una clase de border en el selector de color.
+     *
+     * @param {string} str
+     * @param {number} [len=0]
+     * @returns
+     * @memberof ProductBasicInfoComponent
+     */
     public padZero(str: string, len: number = 0) {
         len = len || 2;
         const zeros = new Array(len).join('0');
@@ -221,7 +276,7 @@ export class ProductBasicInfoComponent implements OnInit {
                             Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
                         ]),
                     associateEanSon: new FormControl(false
-                        )
+                    )
                 }),
                 Show: true,
                 colorPick: null,
@@ -309,12 +364,91 @@ export class ProductBasicInfoComponent implements OnInit {
             }
             this.valInputEan.enable();
         }
+        this.detectForm();
     }
 
+    /**
+     * Envia ean para ser validado
+     *
+     * @memberof ProductBasicInfoComponent
+     */
     public sendEanSon(): void {
         const data = {
             Ean: this.valInputEan.value
         };
         this.process.validaData(data);
+    }
+
+    /**
+     * Detecta cambios en el formulario para asi cuando este, este valido, permita continuar con la creación.
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    public detectForm(): void {
+        if (this.formBasicInfo.valid && this.keywords) {
+            if ((this.productData.CategoryType === 'Clothing' && this.getValidSonsForm()) || (this.productData.CategoryType !== 'Clothing')) {
+                this.sendDataToService();
+            }
+        }
+    }
+
+    /** Enviar datos al servicio */
+    public sendDataToService(): void {
+        const packingData = this.formBasicInfo.controls.packing as FormGroup;
+        const productDateSize = this.formBasicInfo.controls.product as FormGroup;
+        const data = {
+            Name: this.formBasicInfo.controls.Name.value,
+            Brand: this.formBasicInfo.controls.Brand.value,
+            Details: this.formBasicInfo.controls.Detail.value,
+            Model: this.formBasicInfo.controls.Model.value,
+            SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
+            PackageWidth: packingData.controls.WidthPacking.value,
+            PackageHeight: packingData.controls.HighPacking.value,
+            PackageLength: packingData.controls.LongPacking.value,
+            PackageWeight: packingData.controls.WeightPacking.value,
+            ProductWidth: productDateSize.controls.WidthProduct.value,
+            ProductHeight: productDateSize.controls.HighProduct.value,
+            ProductLength: productDateSize.controls.LongProduct.value,
+            ProductWeight: productDateSize.controls.WeightProduct.value,
+            Description: this.formBasicInfo.controls.Description.value,
+            KeyWords: this.keywords.slice(0, this.keywords.length - 1),
+            Children: this.getSonData()
+        };
+        this.process.validaData(data);
+    }
+
+    public getSonData(): any {
+        const sonData = [];
+        for (let i = 0; i < this.sonList.length; i++) {
+            sonData.push({
+                Ean: this.sonList[i].form.controls.Ean.value,
+                HasEAN: !this.sonList[i].form.controls.associateEanSon.value,
+                Size: this.sonList[i].form.controls.Size.value,
+                Color: this.sonList[i].colorSelected,
+                HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
+                HexColourName: this.sonList[i].form.controls.HexColorCodeName.value
+            });
+        }
+        return sonData;
+    }
+
+    /**
+     * Valida si el producto es clothing y si posee hijos creados y validados en el formulario
+     *
+     * @returns {boolean}
+     * @memberof ProductBasicInfoComponent
+     */
+    public getValidSonsForm(): boolean {
+        let valid = true;
+        for (let i = 0; i < this.sonList.length; i++) {
+            if (!this.sonList[i].form.valid || !this.sonList[i].colorSelected ||
+                !this.sonList[i].colorPick) {
+                valid = false;
+            }
+        }
+        if (!this.sonList.length) {
+            valid = false;
+        }
+        return valid;
     }
 }
