@@ -22,9 +22,10 @@ export class ComponentProcessComponent implements OnInit {
   options: FormGroup;
   isOptional = false;
   views: any;
+  children_created:any = 0;
 
   constructor(private fb: FormBuilder,
-      private process: ProcessService) {
+    private process: ProcessService) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -53,21 +54,30 @@ export class ComponentProcessComponent implements OnInit {
     });
   }
 
-
-  public validateView(): void {
-    if ( this.views.showEan ) {
-      this.eanFormGroup.controls.eanCtrl.setValue('1');
-    } else if ( !this.views.showEan ) {
-      this.eanFormGroup.controls.eanCtrl.setValue(null);
-    }
-    if ( this.views.showCat ) {
-      this.categoryFormGroup.controls.categoryCtrl.setValue('1');
-    }
-    if ( this.views.showInfo ) {
-      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
-    }else if ( !this.views.showInfo ) {
-      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
-    }
+  private continue_after_basic_info(){
+    this.children_created = this.process.getProductData().Children.length;
   }
 
+
+  public validateView(): void {
+    if (this.views.showEan) {
+      this.eanFormGroup.controls.eanCtrl.setValue('1');
+    } else if (!this.views.showEan) {
+      this.eanFormGroup.controls.eanCtrl.setValue(null);
+    }
+    if (this.views.showCat) {
+      this.categoryFormGroup.controls.categoryCtrl.setValue('1');
+    }
+    if (this.views.showInfo) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
+    } else if (!this.views.showInfo) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
+    }
+    if (this.views.showImg) {
+      this.imageFormGroup.controls.imageCtrl.setValue('1');
+    } else if (!this.views.showImg) {
+      this.imageFormGroup.controls.imageCtrl.setValue(null);
+    }
+
+  }
 }

@@ -1,24 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AsignateimageService } from '../assign-images/assign-images.component.service';
+import { ProcessService } from '../component-process/component-process.service';
 
 @Component({
   selector: 'app-assign-images',
   templateUrl: './assign-images.component.html',
   styleUrls: ['./assign-images.component.scss']
 })
-export class AssignImagesComponent implements OnInit {
-  public hijos_size: any = 5;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
-  public hijosArrTmp  = new Array(this.hijos_size); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
+export class AssignImagesComponent implements OnInit, OnChanges {
+  @Input() children:any;
+  public hijos_size: any;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
+  public hijosArrTmp = new Array(this.hijos_size); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
   public parent_image_url_arrray: any = []; // Array principal de fotos
   public children_image_url_arrray: any = []; // Array de fotos de los hijos.
+  cantidadHijos: any;
+   
 
-  constructor(private fb: FormBuilder, private service: AsignateimageService) {
+  constructor(private fb: FormBuilder, private service: AsignateimageService, private serviceChildrens: ProcessService) {
   }
 
   ngOnInit() {
     // Se hace un ciclo para que se vallan llenando los hijos dependiendo a la cantidad creada.
-    for (let i = 0; i < this.hijos_size; i++) {
+    /*for (let i = 0; i < this.cantidadHijos; i++) {
+      this.children_image_url_arrray.push(['', '', '', '', '']);
+    }*/
+    console.log(`AssignIMages:: OnINit:: ${this.children}`);
+  }
+
+  ngOnChanges(): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log(`AssignIMages:: Onchanges:: ${this.children}`);
+    for (let i = 0; i < this.children; i++) {
+      console.log(`AssignIMages:: FOR loop:: ${i}`);
       this.children_image_url_arrray.push(['', '', '', '', '']);
     }
   }
@@ -28,6 +43,18 @@ export class AssignImagesComponent implements OnInit {
   }
 
   setChildrenArray(dataChildArr: any, i: any) {
+    if (this.cantidadHijos !== 0) {
+    // tslint:disable-next-line:no-shadowed-variable  
+    
+      for (let i = 0; i <= this.cantidadHijos; i++) {
+        this.children_image_url_arrray.push(['', '', '', '', '']);
+      }
+    }
     this.children_image_url_arrray[i] = dataChildArr;
+  }
+
+  getChildrensInfoBasic() {
+    this.cantidadHijos = this.serviceChildrens.getProductData().Children;
+    console.log('this.cantidadHijos: ', this.cantidadHijos);
   }
 }

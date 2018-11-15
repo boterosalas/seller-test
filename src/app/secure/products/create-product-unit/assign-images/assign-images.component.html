@@ -22,7 +22,7 @@
 </div>
 -->
 <div class="imageChilds">
-  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index">
+  <mat-accordion *ngFor="let hijo of children_image_url_arrray; let i = index">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -35,6 +35,8 @@
   </mat-expansion-panel>
 </mat-accordion>
 </div>
+
+<button (click)="getChildrensInfoBasic()">hijos</button>
 
 <!--
 <div >
