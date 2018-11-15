@@ -22,7 +22,7 @@ export class ComponentProcessComponent implements OnInit {
   options: FormGroup;
   isOptional = false;
   views: any;
-  children_created:any = 0;
+  children_created: any = 0;
 
   constructor(private fb: FormBuilder,
     private process: ProcessService) {
@@ -54,7 +54,7 @@ export class ComponentProcessComponent implements OnInit {
     });
   }
 
-  private continue_after_basic_info(){
+  private continue_after_basic_info() {
     this.children_created = this.process.getProductData().Children.length;
   }
 

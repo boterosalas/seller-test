@@ -11,13 +11,14 @@ import { ProcessService } from '../component-process/component-process.service';
 export class AssignImagesComponent implements OnInit, OnChanges {
   @Input() children: any;
   public hijos_size: any;  // cantidad de hijos dependiendo a los ingresados en informacion basica.
-  public hijosArrTmp = new Array(this.hijos_size); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
+  public hijosArrTmp = new Array(); // Temporal para que no se vallan seteando los hijos al momento de colocar la imagen y poderlos guardar al final
   public parent_image_url_arrray: any = []; // Array principal de fotos
   public children_image_url_arrray: any = []; // Array de fotos de los hijos.
   cantidadHijos: any;
 
   constructor(private fb: FormBuilder, private service: AsignateimageService, private serviceChildrens: ProcessService) {
   }
+
 
   ngOnInit() {
     // Se hace un ciclo para que se vallan llenando los hijos dependiendo a la cantidad creada.
@@ -27,6 +28,8 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.hijosArrTmp = new Array(this.children);
+    console.log('this.hijosArrTmp: ', this.hijosArrTmp);
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     for (let i = 0; i < this.children; i++) {
@@ -36,6 +39,7 @@ export class AssignImagesComponent implements OnInit, OnChanges {
 
   setParentArray(dataParenArr: any) {
     this.parent_image_url_arrray = dataParenArr;
+    console.log('this.parent_image_url_arrray: ', this.parent_image_url_arrray);
   }
 
   setChildrenArray(dataChildArr: any, i: any) {
