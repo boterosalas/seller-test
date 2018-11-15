@@ -13,6 +13,8 @@
   <h1 mat-dialog-title *ngIf="typeModel">
     Agregar una marca
   </h1>
+
+  <!-- CONTAINER FORM SPECS -->
   <div mat-dialog-content *ngIf="formSpecs">
     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
     <form fxLayout="column" fxLayoutAlign="center center" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
@@ -29,4 +31,23 @@
       </div>
     </form>
   </div>
+
+  <!-- CONTAINER FORM BRAND -->
+  <div mat-dialog-content *ngIf="formBrands">
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+    <form fxLayout="column" fxLayoutAlign="center center" class="form-add" [formGroup]="formBrands" (ngSubmit)="saveBrand()">
+        <mat-form-field class="input-add">
+          <input formControlName="NameBrand" matInput placeholder="Nombre de marca">
+          <mat-error>Este campo es obligatorio</mat-error>
+        </mat-form-field>
+  
+        <div fxLayout="row">
+          <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+          <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+            [disabled]="!formSpecs.valid">
+          </button>
+        </div>
+      </form>
+  </div>
+
 </div>
