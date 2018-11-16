@@ -6,7 +6,7 @@ import { SearchService } from '../search.component.service';
   template: `
   <div class="tree-categories">
     <div *ngFor="let node of treeData" [ngClass]="{'tree-item-selected' : !node.Son.length}">
-      <div class="tree-item-categories" fxLayout="row" fxLayoutAlign="start center" (click)="selectCategory(node) && !node.Son.length">
+      <div class="tree-item-categories" [ngClass]="{'tree-selected': (selectedNode && node.Id === selectedNode.Id)}" fxLayout="row" fxLayoutAlign="start center" (click)="selectCategory(node) && !node.Son.length">
         <i [ngStyle]="{'margin-left':getMargin()}" class="material-icons" (click)="openSonClick(node)" *ngIf="!node.Show && node.Son.length">
           add
         </i>
@@ -34,6 +34,7 @@ export class TreeComponent  implements OnInit {
   @Input() open: boolean;
   @Input() margin: number;
   openSon: boolean;
+  selectedNode: string;
 
   /** Constructor empty */
   constructor(private searchService: SearchService) {
@@ -66,6 +67,7 @@ export class TreeComponent  implements OnInit {
   public selectCategory(node: any): void {
     if (!node.Son.length) {
        this.searchService.setCategory(node);
+       this.selectedNode = node;
     }
   }
 

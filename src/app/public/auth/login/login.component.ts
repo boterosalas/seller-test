@@ -102,10 +102,19 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     this.loadingService.viewSpinner();
   }
 
+  public validCorrectMessage(msg: string): string {
+    if (msg !== null) {
+      switch (msg) {
+        case 'Incorrect username or password.': msg = 'Nombre de usuario o contraseña incorrecta';
+      }
+    }
+    return msg;
+  }
+
   async cognitoCallback(message: string, result: any) {
     if (message != null) { // error
       this.loadingService.closeSpinner();
-      this.errorMessage = message;
+      this.errorMessage = this.validCorrectMessage(message);
       log.error('result: ' + this.errorMessage);
       if (this.errorMessage === 'User is not confirmed.') {
         this.router.navigate([`/${this.consts.homeConfirmRegistration}`, this.awscognitogroup.controls.email.value]);
