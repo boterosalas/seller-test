@@ -34,6 +34,8 @@ export interface ProductModel {
     Color: string;
     HexColourCodePDP: string;
     HexColourName: string;
+    Image: string;
+    ImageChildren: ProductModel[];
 }
 
 /**
@@ -82,6 +84,8 @@ export class ProcessService {
         Color: null,
         HexColourCodePDP: null,
         HexColourName: null,
+        Image: null,
+        ImageChildren: null
     };
 
     /**
@@ -174,7 +178,13 @@ export class ProcessService {
             this.productData.HexColourCodePDP = data.HexColourCodePDP;
             this.productData.HexColourName = data.HexColourName;
         }
+        if (data.Image) {
+            this.views.showImg = true;
+            this.productData.Image = data.Image;
+            this.productData.ImageChildren = data.ImageChildren;
+        }
         this.change.emit(this.views);
+        console.log('data: ', this.views);
     }
 
     /**
@@ -184,6 +194,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getProductData(): ProductModel {
+        console.log('this.productDat: ', this.productData);
         return this.productData;
     }
 
