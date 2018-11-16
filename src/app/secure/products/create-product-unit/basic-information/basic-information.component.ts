@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
+import { ValidateEanComponent } from '../validate-ean/validate-ean.component';
 
 @Component({
     selector: 'app-basic-information',
@@ -27,6 +28,7 @@ export class ProductBasicInfoComponent implements OnInit {
     CodeName: string = null;
     formCreate = false;
     public validateEanSonExist;
+    public validAfter = false;
     /**
      *  Json  con los colores predefinidos.
      */
@@ -79,6 +81,7 @@ export class ProductBasicInfoComponent implements OnInit {
             this.productData = this.process.getProductData();
             if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.CategorySelected) {
                 this.formBasicInfo.controls.Category.setValue(this.productData.CategorySelected);
+                this.sonList = [];
             }
             this.showButton = data.showEan;
         });
@@ -184,9 +187,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.process.setViews(views);
             }
         });
-    }
-
-    public saveBasicInfo(): void {
     }
 
     /**
@@ -388,6 +388,11 @@ export class ProductBasicInfoComponent implements OnInit {
         if (this.formBasicInfo.valid && this.keywords) {
             if ((this.productData.CategoryType === 'Clothing' && this.getValidSonsForm()) || (this.productData.CategoryType !== 'Clothing')) {
                 this.sendDataToService();
+                this.validAfter = true;
+            } else if (this.validAfter && !this.getValidSonsForm()) {
+                const views = this.process.getViews();
+                views.showInfo = false;
+                this.process.setViews(views);
             }
         }
     }

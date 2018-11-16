@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatAutocompleteModule,
+  MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -46,6 +47,7 @@ import { MatTreeModule } from '@angular/material/tree';
   imports: [
     // Angular Material
     MatButtonModule,
+    MatBadgeModule,
     MatMenuModule,
     MatTabsModule,
     MatToolbarModule,
@@ -85,6 +87,7 @@ import { MatTreeModule } from '@angular/material/tree';
   exports: [
     // Angular Material
     MatButtonModule,
+    MatBadgeModule,
     MatMenuModule,
     MatTabsModule,
     MatToolbarModule,
