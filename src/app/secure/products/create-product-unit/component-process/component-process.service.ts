@@ -34,8 +34,8 @@ export interface ProductModel {
     Color: string;
     HexColourCodePDP: string;
     HexColourName: string;
-    Image: string;
-    ImageChildren: ProductModel[];
+    Image: Array<any>;
+    ImageChildren: ProductModel['Image'];
 }
 
 /**
