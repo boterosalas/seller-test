@@ -72,6 +72,7 @@ $color-selected: #efeded;
     padding-left: 6px !important;
     font-size: 18px !important;
     font-family: Arial;
+    padding: 0 !important;
 }
 
 @media screen and (max-width: 740px) {
@@ -118,4 +119,6 @@ $color-selected: #efeded;
 .tree-selected {
     background-color: $color-selected;
     font-weight: bold;
+    transform: scale(1.1);
+    transition: all .3s ease-in-out;
 }

@@ -25,6 +25,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     finishCharge = false;
     openAllItems = false;
     selectedCategory: string;
+    selectedIdCategory: number;
 
     /**
      * Creates an instance of ListCategorizationComponent.
@@ -43,6 +44,9 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
         this.getCategoriesList();
         this.searchService.change.subscribe((result: any) => {
             this.selectedCategory = result.Name;
+            if (this.selectedIdCategory !== result.Id) {
+                this.selectedIdCategory = result.Id;
+            }
             const data = {
                 CategorySelected: result.Name,
                 CategoryType: result.ProductType

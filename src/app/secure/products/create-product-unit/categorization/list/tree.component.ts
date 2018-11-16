@@ -6,7 +6,7 @@ import { SearchService } from '../search.component.service';
   template: `
   <div class="tree-categories">
     <div *ngFor="let node of treeData" [ngClass]="{'tree-item-selected' : !node.Son.length}">
-      <div class="tree-item-categories" [ngClass]="{'tree-selected': (selectedNode && node.Id === selectedNode.Id)}" fxLayout="row" fxLayoutAlign="start center" (click)="selectCategory(node) && !node.Son.length">
+      <div class="tree-item-categories" [ngClass]="{'tree-selected': node.Id === idSelected}" fxLayout="row" fxLayoutAlign="start center" (click)="selectCategory(node) && !node.Son.length">
         <i [ngStyle]="{'margin-left':getMargin()}" class="material-icons" (click)="openSonClick(node)" *ngIf="!node.Show && node.Son.length">
           add
         </i>
@@ -15,7 +15,7 @@ import { SearchService } from '../search.component.service';
         </i>
         <span class="tree-item" [innerHTML]="getName(node)" [ngClass]="{'tree-item-father' : !node.IdParent}"  [ngStyle]="{'margin-left':getMargin(node)}"></span>
       </div>
-      <app-tree [treeData]="node.Son" [open]="openSon" [margin]="margin" *ngIf="node.Show"></app-tree>
+      <app-tree [treeData]="node.Son" [idSelected]="idSelected"  [open]="openSon" [margin]="margin" *ngIf="node.Show"></app-tree>
     </div>
   </div>
   `,
@@ -33,6 +33,7 @@ export class TreeComponent  implements OnInit {
   @Input() treeData: any;
   @Input() open: boolean;
   @Input() margin: number;
+  @Input() idSelected: number;
   openSon: boolean;
   selectedNode: string;
 
