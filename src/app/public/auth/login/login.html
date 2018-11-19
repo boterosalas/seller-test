@@ -25,9 +25,9 @@
                 <mat-error>La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)</mat-error>
               </mat-form-field>
             </div>
-            <div fxFlex="100" fxLayout="row">
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
               <button id="login-button" [disabled]="!f.form.valid" (click)="onLogin()" type="submit" mat-raised-button
-                fxFlex="100" color="primary">INGRESAR</button>
+              color="primary">INGRESAR</button>
             </div>
             <div *ngIf="errorMessage!=null">
               <mat-error>{{ errorMessage }}</mat-error>

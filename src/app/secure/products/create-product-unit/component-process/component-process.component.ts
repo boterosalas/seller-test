@@ -22,9 +22,10 @@ export class ComponentProcessComponent implements OnInit {
   options: FormGroup;
   isOptional = false;
   views: any;
+  children_created: any = 0;
 
   constructor(private fb: FormBuilder,
-      private process: ProcessService) {
+    private process: ProcessService) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -33,19 +34,19 @@ export class ComponentProcessComponent implements OnInit {
 
   ngOnInit() {
     this.eanFormGroup = this.fb.group({
-      eanCtrl: ['1', Validators.required]
+      eanCtrl: ['', Validators.required]
     });
     this.categoryFormGroup = this.fb.group({
-      categoryCtrl: ['1', Validators.required]
+      categoryCtrl: ['', Validators.required]
     });
     this.basicInfoFormGroup = this.fb.group({
-      basicInfoCtrl: ['1', Validators.required]
+      basicInfoCtrl: ['', Validators.required]
     });
     this.especificFormGroup = this.fb.group({
       especificCtrl: ['1', Validators.required]
     });
     this.imageFormGroup = this.fb.group({
-      imageCtrl: ['1', Validators.required]
+      imageCtrl: ['', Validators.required]
     });
     this.process.change.subscribe(data => {
       this.views = data;
@@ -53,17 +54,30 @@ export class ComponentProcessComponent implements OnInit {
     });
   }
 
+  private continue_after_basic_info() {
+    this.children_created = this.process.getProductData().Children.length;
+  }
+
 
   public validateView(): void {
-    if ( this.views.showEan ) {
+    if (this.views.showEan) {
       this.eanFormGroup.controls.eanCtrl.setValue('1');
-    } else if ( !this.views.showEan ) {
+    } else if (!this.views.showEan) {
       this.eanFormGroup.controls.eanCtrl.setValue(null);
     }
-    if ( this.views.showCat ) {
+    if (this.views.showCat) {
       this.categoryFormGroup.controls.categoryCtrl.setValue('1');
+    }
+    if (this.views.showInfo) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
+    } else if (!this.views.showInfo) {
+      this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
+    }
+    if (this.views.showImg) {
+      this.imageFormGroup.controls.imageCtrl.setValue('1');
+    } else if (!this.views.showImg) {
+      this.imageFormGroup.controls.imageCtrl.setValue(null);
     }
 
   }
-
 }

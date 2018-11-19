@@ -40,7 +40,7 @@ export class SearchService {
         return of(this.categorySelected);
     }
 
-    public setCategory(category: string): void {
+    public setCategory(category: any): void {
         this.categorySelected = category;
         this.change.emit(category);
     }

@@ -48,23 +48,17 @@ export class ImageUrlComponent implements OnInit {
       this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
       this.service.getvalidateImage(this.valImage).subscribe(res => {
         this.formatimage = JSON.parse(res.body);
-        console.log('this.formatimage: ', this.formatimage);
         if (this.formatimage.Data.Error === false) {
-          console.log('this.formatimage 2: ', this.formatimage);
-          console.log('this.imgUrl: ' , this.imgUrl);
           this.imgUrlOut.emit([this.index, this.imgUrl]);
         } else {
           if ( this.imgUrl ) {
-            console.log('Voy por aqui');
             this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error});
-            console.log('La imagen NO es validal');
             this.imgUrl = 'novalido.jpg';
           }
         }
       });
     } else {
       this.imgUrl = 'novalido.jpg';
-      console.log('La imagen no es valida');
     }
   }
 

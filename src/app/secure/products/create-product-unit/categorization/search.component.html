@@ -1,4 +1,4 @@
-<p id="textCreateEan">
+<p id="textCreateCategorization">
     Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más
     apropiada
     para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si
@@ -9,13 +9,13 @@
 <div fxLayout="row" fxLayoutAlign="center center">
 
     <form id="search-form" class="search mat-typography" (keydown)="keyDownFunction($event)">
-        <mat-form-field class="input-search">
+        <mat-form-field class="input-search" floatLabel=never>
             <!-- Icon search -->
             <mat-icon id="icon-search" class="icon-search" matPrefix>search</mat-icon>
 
             <!-- Input search -->
             <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)"
-                [formControl]="searchCategory" matInput [matAutocomplete]="auto">
+                [formControl]="searchCategory" matInput [matAutocomplete]="auto" placeholder="Buscar categoría" >
         </mat-form-field>
 
         <!-- Autocomplete -->

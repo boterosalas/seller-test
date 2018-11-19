@@ -8,7 +8,7 @@
   </p>
 </div>
 
-<div class="imageParent">
+<div class="imageParent" *ngIf="children === 0">
   <app-compo-images (toPpal)="setParentArray($event)"></app-compo-images>
 </div>
 
@@ -90,5 +90,3 @@
   </form>
 </div>
 -->
-
-<mat-divider></mat-divider>

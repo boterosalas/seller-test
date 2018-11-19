@@ -24,6 +24,7 @@ import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assi
 import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
 import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
+import { BasicInformationService } from './basic-information/basic-information.component.service';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     SpecificationService,
     ProcessService,
     AsignateimageService,
+    BasicInformationService,
   ]
 })
 export class UnitProductModule {

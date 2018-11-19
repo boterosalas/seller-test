@@ -58,13 +58,13 @@
       </mat-menu>
 
 
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user?.sellerProfile === 'administrator'">
+      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="user?.sellerProfile === 'seller'">
         <mat-icon>arrow_drop_down</mat-icon>
         Productos
       </button>
       <mat-menu #products="matMenu">
-        <button mat-menu-item id="dropdown-button-builk-load-product" [routerLink]="['/'+ routes.sellerCenterIntProductBulkLoad]">
-          <span>Carga Masiva</span>
+        <button mat-menu-item id="dropdown-button-builk-load-product" [routerLink]="['/'+ routes.sellerCenterIntCreateUnutaryProduct]">
+          <span>Creaci&oacute;n unitaria</span>
         </button>
       </mat-menu>
 

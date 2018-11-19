@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { SearchCategorizationComponent } from './search.component';
 import { SearchService } from './search.component.service';
 import { ListCategorizationComponent } from './list/list.component';
+import { ProcessService } from '../component-process/component-process.service';
 import { TreeComponent } from './list/tree.component';
 import { EventEmitter } from '@angular/core';
 
@@ -60,6 +61,12 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         change: eventEmitter
     };
 
+    const processService = <ProcessService>{
+        validaData(data: any): void {
+            // nothing to do here
+        }
+    };
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -69,6 +76,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
             ],
             providers: [
                 { provide: SearchService, useValue: searchService },
+                { provide: ProcessService, useValue: processService },
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,

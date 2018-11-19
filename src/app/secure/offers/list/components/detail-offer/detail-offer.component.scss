@@ -62,12 +62,16 @@ $color-green: #6FB63E;
                 div {
                     &.container-data-offer {
                         width: 100%;
+                        p {
+                            font-weight: 100;
+                        }
                         .container-stock {
                             p {
                                 max-width: 230px;
                                 margin: 7px 3px;
                                 &.separator {
                                     position: relative;
+                                    padding-right: 1em;
                                     &::after {
                                         content: '';
                                         position: absolute;
@@ -78,6 +82,12 @@ $color-green: #6FB63E;
                                     }
                                 }
                             }
+                            .padding-left-one{
+                                padding-left: 1em;
+                            }
+                        }
+                        mat-icon{
+                            padding-right: 0.5em;
                         }
                     }
                     &.btn-edit-offer {
