@@ -1,0 +1,79 @@
+:host ::ng-deep {
+    .tree-toolbar {
+        background-color: #fff;
+        border-bottom: 1px solid #e0e0e0;
+        height: auto;
+        & .toolbar-options-table {
+            width: 100%;
+            padding: 0 20px;
+        }
+        .normal-theme{
+            width: 100%;
+        }
+    }
+    .tree-title {
+        font-size: 18px;
+        margin-left: 0;
+        color: #000000;
+    }
+    .sub-title {
+        color: #757474;
+        font-size: 18px;
+        padding-left: 5px;
+        font-weight: 400;
+    }
+    .buttn-toolbar-options {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        color: #757474;
+    }
+    .button-more-ver {
+        color: #757474 !important;
+    }
+}
+
+
+.icon-face {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    & mat-icon {
+        font-size: 120px;
+        color: #EFEDED;
+        height: 120px;
+        width: 120px;
+    }
+}
+
+.icon-face-text{
+    color: #757474;
+    font-size: 18px;
+    text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+    .tree-title{
+        width: 20%;
+    }
+        
+    .search-container{
+        width: 80%;
+        padding: 0.4em;
+    }
+}
+@media screen and (max-width: 600px) {
+    .tree-title{
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-container{
+        width: 100%;
+        padding: 0.4em;
+    }
+
+}
+

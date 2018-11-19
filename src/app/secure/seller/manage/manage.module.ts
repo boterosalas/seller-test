@@ -9,6 +9,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { ManageComponent } from './manage.component';
 import { ManageRoutingModule } from './manage.routing';
 import { ToolbarSellerComponent } from './toolbar-seller/toolbar-seller.component';
+import { AgreementComponent } from '../agreement/agreement.component';
+import { AgreementService } from '../agreement/agreement.component.service';
 
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
@@ -18,7 +20,8 @@ import { ManageSellerService } from './manage.service';
     declarations: [
         ManageComponent,
         ToolbarSellerComponent,
-        ManageSellerComponent
+        ManageSellerComponent,
+        AgreementComponent
     ],
     imports: [
         CommonModule,
