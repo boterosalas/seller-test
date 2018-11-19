@@ -380,7 +380,8 @@ export class BulkLoadProductComponent implements OnInit {
               iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
               iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
               iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
-              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido')
+              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
+              iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
             };
 
             /*
@@ -498,6 +499,25 @@ export class BulkLoadProductComponent implements OnInit {
                     fila: row,
                     positionRowPrincipal: i,
                     dato: 'DrainedFactor'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+              }
+            } else if (j === iVal.iEanCombo) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validformatEanCombo = this.validFormat(res[i][j], 'eanCombo');
+                if (!validformatEanCombo && validformatEanCombo === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'EanCombo'
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
@@ -956,6 +976,7 @@ export class BulkLoadProductComponent implements OnInit {
       MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
       ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
       DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
+      EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.EanCombo].trim() : null,
       features: []
     };
 
@@ -1001,7 +1022,8 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iLogisticExito &&
           k !== iVal.iMeasurementUnit &&
           k !== iVal.iConversionFactor &&
-          k !== iVal.iDrainedFactor
+          k !== iVal.iDrainedFactor &&
+          k !== iVal.iEanCombo
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -1116,6 +1138,7 @@ export class BulkLoadProductComponent implements OnInit {
       MeasurementUnit: res[index][iVal.iMeasurementUnit],
       ConversionFactor: res[index][iVal.iConversionFactor],
       DrainedFactor: res[index][iVal.iDrainedFactor],
+      EanCombo: res[index][iVal.iEanCombo],
       isVariant: variant
     };
 
@@ -1362,6 +1385,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
     // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
     const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
+    const formatEanCombo = /(((^((IZ)[0-9]{5,13})|^([0-9]{7,15}))+)+([,](([0-9]{7,15})|((IZ)[0-9]{5,13})))*)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1396,6 +1420,13 @@ export class BulkLoadProductComponent implements OnInit {
           break;
         case 'factEscurrido':
           if ((inputtxt.match(formatFactEscurrido))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'eanCombo':
+          if ((inputtxt.match(formatEanCombo))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1587,7 +1618,8 @@ export class BulkLoadProductComponent implements OnInit {
       'Modificacion Imagen': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Factor escurrido': undefined
+      'Factor escurrido': undefined,
+      'Grupo EAN Combo': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');

@@ -38,6 +38,7 @@ export class ModelProduct {
         public SonReference?: any,
         public ModifyImage?: any,
         public isVariant?: boolean,
+        public EanCombo?: any,
         public errorRow?: boolean,
         public errorEan?: boolean,
         public errorName?: boolean,
@@ -75,7 +76,8 @@ export class ModelProduct {
         public errorColor?: any,
         public errorHexColourCodePDP?: any,
         public errorHexColourName?: any,
-        public errorIsLogisticsExito?: any
+        public errorIsLogisticsExito?: any,
+        public errorEanCombo?: any
     ) { }
 }
 
