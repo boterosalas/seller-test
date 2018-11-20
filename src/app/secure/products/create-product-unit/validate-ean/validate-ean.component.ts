@@ -45,6 +45,7 @@ export class ValidateEanComponent implements OnInit {
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
      if (this.asignatedEan === true) {
+      this.sendEan();
       this.eanGroup.controls['eanCtrl'].disable();
       if (!this.eanGroup.controls.eanCtrl.value) {
         const data = {
@@ -66,8 +67,11 @@ export class ValidateEanComponent implements OnInit {
 
   public sendEan(): void {
     const data = {
-      Ean: this.eanGroup.controls.eanCtrl.value
+      Ean: this.eanGroup.controls.eanCtrl.value,
+      HasEan: this.eanGroup.controls.associateEan.value,
+      AssignEan: this.eanGroup.controls.associateEan.value,
     };
+    console.log('puro pelao marica el que hizo este componente',data);
     this.process.validaData(data);
 
   }
