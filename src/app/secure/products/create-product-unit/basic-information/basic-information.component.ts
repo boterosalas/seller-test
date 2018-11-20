@@ -400,7 +400,7 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     public detectForm(): void {
         if (this.formBasicInfo.valid && this.keywords.length) {
-            if ((this.productData.CategoryType === 'Clothing' && this.getValidSonsForm()) || (this.productData.CategoryType !== 'Clothing')) {
+            if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
                 this.validAfter = true;
             } else if (this.validAfter && !this.getValidSonsForm()) {

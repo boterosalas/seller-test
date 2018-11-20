@@ -39,6 +39,11 @@ export interface ProductModel {
     ConversionFactor: string;
     ImageChildren: ProductModel['Image'];
     Features: any;
+    ImageUrl1: string;
+    ImageUrl2: string;
+    ImageUrl3: string;
+    ImageUrl4: string;
+    ImageUrl5: string;
 }
 
 /**
@@ -92,6 +97,11 @@ export class ProcessService {
         ConversionFactor: null,
         MeasurementUnit: null,
         Features: null,
+        ImageUrl1: null,
+        ImageUrl2: null,
+        ImageUrl3: null,
+        ImageUrl4: null,
+        ImageUrl5: null,
     };
 
     /**
@@ -189,10 +199,24 @@ export class ProcessService {
         if (data.Features) {
             this.productData.Features = data.Features;
         }
-        if (data.Image) {
+        if (data.parent_image_url_arrray && data.parent_image_url_arrray.length) {
             this.views.showImg = true;
-            this.productData.Image = data.Image;
-            this.productData.ImageChildren = data.ImageChildren;
+            this.productData.ImageUrl1 = data.parent_image_url_arrray[0];
+            this.productData.ImageUrl2 = data.parent_image_url_arrray[1];
+            this.productData.ImageUrl3 = data.parent_image_url_arrray[2];
+            this.productData.ImageUrl4 = data.parent_image_url_arrray[3];
+            this.productData.ImageUrl5 = data.parent_image_url_arrray[4];
+        }
+        if (data.children_image_url_arrray && data.children_image_url_arrray.length) {
+            console.log(this.productData);
+            for (let i = 0; i < this.productData.Children.length; i++) {
+                this.productData.Children[i].ImageUrl1 = data.children_image_url_arrray[i][0];
+                this.productData.Children[i].ImageUrl2 = data.children_image_url_arrray[i][1];
+                this.productData.Children[i].ImageUrl3 = data.children_image_url_arrray[i][2];
+                this.productData.Children[i].ImageUrl4 = data.children_image_url_arrray[i][3];
+                this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
+            }
+            console.log(this.productData);
         }
         this.change.emit(this.views);
     }
@@ -204,7 +228,6 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getProductData(): ProductModel {
-        console.log('this.productDat: ', this.productData);
         return this.productData;
     }
 
