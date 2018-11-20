@@ -7482,6 +7482,10 @@ ng2-currency-mask@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/ng2-currency-mask/-/ng2-currency-mask-5.3.1.tgz#d73e27bf60ea423dfc0040106c8ea17316d07aab"
 
+ngx-color-picker@^6.7.0:
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-6.8.0.tgz#62eba8724f38ddae878468ca76f639fe20163297"
+
 nise@^1.2.0:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/nise/-/nise-1.4.6.tgz#76cc3915925056ae6c405dd8ad5d12bde570c19f"
