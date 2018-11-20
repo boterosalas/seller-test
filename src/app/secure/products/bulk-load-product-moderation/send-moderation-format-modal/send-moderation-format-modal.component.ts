@@ -54,7 +54,7 @@ export class SendModerationFormatModalComponent implements OnInit {
    * @param data
    */
   sendEmail(data: any) {
-    this.service.sendModeration(data.email).subscribe(res => {
+    this.service.sendModeration(data).subscribe(res => {
       this.onNoClick();
     });
   }

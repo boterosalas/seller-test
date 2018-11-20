@@ -21,8 +21,8 @@ export class SendModerationFormatModalService {
    * @param {string} mail
    * @returns {Observable<HttpResponse<Object>>}
    */
-  sendModeration(mail: string) {
-    const request = this.http.post(this.api.get('sendProductModeration'), mail, {observe: 'response'});
+  sendModeration(data: { email: string }) {
+    const request = this.http.post(this.api.get('sendProductModeration'), data, {observe: 'response'});
     request.subscribe(res => {
       let message;
       if (res.status === 200) {
