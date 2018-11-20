@@ -29,7 +29,6 @@ export class AssignImagesComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.hijosArrTmp = new Array(this.children);
-    console.log('this.hijosArrTmp: ', this.hijosArrTmp);
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     for (let i = 0; i < this.children; i++) {
@@ -57,7 +56,6 @@ export class AssignImagesComponent implements OnInit, OnChanges {
       children_image_url_arrray: this.children_image_url_arrray
     };
     this.serviceChildrens.validaData(data);
-    console.log(this.children_image_url_arrray);
   }
 
   getChildrensInfoBasic() {

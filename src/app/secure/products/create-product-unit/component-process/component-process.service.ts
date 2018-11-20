@@ -208,7 +208,6 @@ export class ProcessService {
             this.productData.ImageUrl5 = data.parent_image_url_arrray[4];
         }
         if (data.children_image_url_arrray && data.children_image_url_arrray.length) {
-            console.log(this.productData);
             for (let i = 0; i < this.productData.Children.length; i++) {
                 this.productData.Children[i].ImageUrl1 = data.children_image_url_arrray[i][0];
                 this.productData.Children[i].ImageUrl2 = data.children_image_url_arrray[i][1];
@@ -216,7 +215,6 @@ export class ProcessService {
                 this.productData.Children[i].ImageUrl4 = data.children_image_url_arrray[i][3];
                 this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
             }
-            console.log(this.productData);
         }
         this.change.emit(this.views);
     }
