@@ -76,9 +76,9 @@ export const endpoints = {
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
       // Enviar moderación de productos al correo
-      sendProductModeration: ''
+      sendProductModeration: '',
       // Get Regex
-      getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
+      getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}'
     },
   },
   // Endpoints production
@@ -151,10 +151,10 @@ export const endpoints = {
       setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs',
       // Get specs
       getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
-      // Get Regex
-      getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
       // Enviar moderación de productos al correo
-      sendProductModeration: ''
+      sendProductModeration: '',
+      // Get Regex
+      getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}'
     }
   }
 };
