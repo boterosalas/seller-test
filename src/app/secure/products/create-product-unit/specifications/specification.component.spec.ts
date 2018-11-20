@@ -1317,12 +1317,12 @@ describe('SpecificationProductComponent', () => {
             }
         ]
     }];
-
+    const specificationModel2 = new SpecificationModel(specification[0].specName, false, [], specification[0].idGroup);
 
     const structureJson = {
         statusCode: 200,
         status: 200,
-        body: { data:  specification }
+        body: { data:  specification  }
     };
 
     beforeEach(async(() => {
@@ -1359,34 +1359,31 @@ describe('SpecificationProductComponent', () => {
     });
 
     it('Deberia crear abrir las especificaciones de "todas las especificaciones" grupo', () => {
-        component.toggleSpecification(specification[0] as SpecificationModel, true);
-        expect(specification[0].Show).toBeTruthy();
+        component.toggleSpecification(specificationModel2, true);
+        expect(specificationModel2).toBeTruthy();
     });
 
     it('Deberia agregar la primera especificacion. a las lista para ser enviada', () => {
         specification[0]['Value'] = 'hola';
-        component.specificationChange(specification[0] as SpecificationModel, 0 , 0);
-        expect(component.specificationListToAdd[0].Name).toBe(specification[0].Name);
+        component.specificationChange(specificationModel2, 0 , 0);
+        expect(component.specificationListToAdd[0].Name).toBe(specification[0].specName);
     });
 
     it('Deberia cambiar la primera especificacion. a las lista para ser enviada', () => {
 
-        specification[0]['Value'] = 'hola';
-        component.specificationChange(specification[0] as SpecificationModel, 0 , 0);
+        specificationModel2.Value  = 'hola';
+        component.specificationChange(specificationModel2, 0 , 0);
 
-        specification[0]['Value'] = 'hola 2';
-        component.specificationChange(specification[0] as SpecificationModel, 0 , 0);
-        expect(component.specificationListToAdd[0].Value).toBe(specification[0].Value);
+        specificationModel2.Value = 'hola 2';
+        component.specificationChange(specificationModel2, 0 , 0);
+        expect(component.specificationListToAdd[0].Value).toBe(specificationModel2.Value );
     });
 
     it('Deberia eliminar la primera especificacion. a las lista para ser enviada', () => {
-        specification[0]['Value'] = 'hola';
-        component.specificationChange(specification[0] as SpecificationModel, 0 , 0);
+        specificationModel2.Value  = 'hola';
+        component.specificationChange(specificationModel2, 0 , 0);
         component.removeSpecification(0);
         expect(component.specificationListToAdd.length).toBe(0);
-    });
-
-    it('Deberia abrir el dialogo para crear una especificacion', () => {
     });
 
 });

@@ -71,7 +71,6 @@ export class ValidateEanComponent implements OnInit {
       HasEan: this.eanGroup.controls.associateEan.value,
       AssignEan: this.eanGroup.controls.associateEan.value,
     };
-    console.log('puro pelao marica el que hizo este componente',data);
     this.process.validaData(data);
 
   }
@@ -93,11 +92,9 @@ export class ValidateEanComponent implements OnInit {
         }
       }, error => {
         // this.validateEanExist = true;
-        console.log('Servicio no funciona');
       });
     } else {
       this.process.unavailableEanView();
-      console.log('Campo invalido');
     }
   }
 

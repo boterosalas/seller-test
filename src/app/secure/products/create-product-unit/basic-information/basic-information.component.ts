@@ -19,7 +19,7 @@ export class ProductBasicInfoComponent implements OnInit {
     packing: FormGroup;
     product: FormGroup;
     formKeyword: FormGroup;
-    keywords = '';
+    keywords = [];
     colorSelected: string;
     sonList = [];
     colorPick: string;
@@ -202,13 +202,23 @@ export class ProductBasicInfoComponent implements OnInit {
         let word = this.formKeyword.controls.Keyword.value;
         if (word) {
             word = word.trim();
-            if (word[word.length - 1] !== ',') {
-                word += ',';
+            if (word.search(',') === -1) {
+                this.keywords.push( word );
+            } else {
+                const counter = word.split(',');
+                counter.forEach(element => {
+                    if (element) {
+                        this.keywords.push( element );
+                    }
+                });
             }
-            this.keywords += word;
             this.detectForm();
             this.formKeyword.controls.Keyword.setValue(null);
         }
+    }
+
+    public deleteKeywork(indexOfValue: number): void {
+        this.keywords.splice(indexOfValue, 1);
     }
 
     /**
@@ -389,7 +399,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
-        if (this.formBasicInfo.valid && this.keywords) {
+        if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.CategoryType === 'Clothing' && this.getValidSonsForm()) || (this.productData.CategoryType !== 'Clothing')) {
                 this.sendDataToService();
                 this.validAfter = true;
@@ -422,7 +432,7 @@ export class ProductBasicInfoComponent implements OnInit {
             Description: this.formBasicInfo.controls.Description.value,
             MeasurementUnit: this.formBasicInfo.controls.MeasurementUnit.value,
             ConversionFactor: this.formBasicInfo.controls.ConversionFactor.value,
-            KeyWords: this.keywords.slice(0, this.keywords.length - 1),
+            KeyWords: this.keywords.join(),
             Children: this.getSonData()
         };
         this.process.validaData(data);

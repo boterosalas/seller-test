@@ -151,18 +151,25 @@
   <!-- FORM KEYWORD-->
   <form [formGroup]="formKeyword" (ngSubmit)="saveKeyword()" class="form-keyword">
     <mat-form-field class="keyword-field">
-      <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" (change)="detectForm()">
+      <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword">
       <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
         add_circle_outline
       </mat-icon>
-      <mat-hint fxLayout="row">
-        <span>
-          {{keywords}}
-        </span>
-      </mat-hint>
       <div class="basic-info-error" *ngIf="!keywords">Este campo es obligatorio</div>
     </mat-form-field>
   </form>
+  <div style="flex-wrap: wrap; display: flex;">
+    <div *ngFor="let key of keywords">
+      <span>
+        {{key}}
+      </span>
+      <button mat-icon-button (click)="deleteKeywork(in)">
+        <mat-icon class="material-icons">
+          close
+        </mat-icon>
+      </button>
+    </div>
+  </div>
   <mat-divider></mat-divider>
 
   <!-- BUTTON TO ADD SONS -->
