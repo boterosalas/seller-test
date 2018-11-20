@@ -16,9 +16,37 @@
     </mat-toolbar>
 </div>
 
-<div>
-    <div class="icon-face">
-        <mat-icon>face</mat-icon>
+<div class="list-container">
+    <div *ngIf="!sellerData && !agreementsSeller.length">
+        <div class="icon-face">
+            <mat-icon>face</mat-icon>
+        </div>
+        <p class="icon-face-text">Ingresa el nombre del vendedor en la barra de b&uacute;squeda para ver los datos.</p>
     </div>
-    <p class="icon-face-text">Ingresa el nombre del vendedor en la barra de b&uacute;squeda para ver los datos.</p>
+
+    <div *ngIf="sellerData && !agreementsSeller.length">
+        <div class="icon-face">
+            <mat-icon>insert_drive_file</mat-icon>
+        </div>
+        <p class="icon-face-text">No hay acuerdos asociados a este vendendor</p>
+    </div>
+
+    <div *ngIf="sellerData && agreementsSeller.length" class="agreement">
+        <div class="agreement-title">
+            <p>Nombre</p>
+        </div>
+        <div *ngFor="let agreement of agreementsSeller" fxLayout="row" fxLayoutAlign="space-between center" class="list-agreement">
+            <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+                <mat-icon class="material-icons" class="file-agreement">
+                    insert_drive_file
+                </mat-icon>
+                <p>{{agreement.Name}}</p>
+            </div>
+            <button mat-icon-button (click)="getPDF(agreement)">
+                <mat-icon class="material-icons">
+                    get_app
+                </mat-icon>
+            </button>
+        </div>
+    </div>
 </div>
