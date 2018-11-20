@@ -81,8 +81,8 @@ export class ProductBasicInfoComponent implements OnInit {
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
-            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.CategorySelected) {
-                this.formBasicInfo.controls.Category.setValue(this.productData.CategorySelected);
+            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category) {
+                this.formBasicInfo.controls.Category.setValue(this.productData.Category);
                 this.sonList = [];
             }
             this.showButton = data.showEan;
