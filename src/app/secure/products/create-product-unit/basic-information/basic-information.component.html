@@ -46,8 +46,7 @@
 
       <div class="shipping-product field">
         <label class="label-shipping">Shipping size</label>
-        <mat-slider min="1" max="5" tickInterval="true" class="shipping-slider" (change)="detectForm()"
-        formControlName="shippingSize"></mat-slider>
+        <mat-slider min="1" max="5" tickInterval="true" class="shipping-slider" (change)="detectForm()" formControlName="shippingSize"></mat-slider>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
           <label class="items-slider-label">1</label>
           <label class="items-slider-label">2</label>
@@ -118,8 +117,26 @@
             </mat-form-field>
           </div>
         </div>
-
       </div>
+    </div>
+
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+      <mat-form-field class="field">
+        <mat-select placeholder="Unidad de medida" formControlName="MeasurementUnit" (change)="detectForm()">
+          <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit">
+            {{unit}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formBasicInfo.get('MeasurementUnit').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <input matInput placeholder="Factor de conversión" class="input-packing-width" formControlName="ConversionFactor"
+          (change)="detectForm()">
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('required')">Este campo es obligatorio</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('pattern')">El formato no es válido</mat-error>
+      </mat-form-field>
     </div>
 
     <mat-form-field class="description-form">
@@ -194,7 +211,8 @@
           <!-- EAN -->
           <div>
             <mat-form-field class="name-product field" id="inputValidEanSon">
-              <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (keyup)="validateEanSon()" (change)="detectForm()">
+              <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (keyup)="validateEanSon()"
+                (change)="detectForm()">
               <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido</mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
                 EAN ya existe.</mat-error>
@@ -207,7 +225,8 @@
           </div>
 
           <mat-form-field class="category-product field">
-            <input matInput placeholder="Ingresa la talla" class="input-category-product" formControlName="Size" (change)="detectForm()">
+            <input matInput placeholder="Ingresa la talla" class="input-category-product" formControlName="Size"
+              (change)="detectForm()">
             <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lida</mat-error>
             <mat-error *ngIf="son.form.get('Size').hasError('required')">EL campo es obligatorio</mat-error>
           </mat-form-field>
@@ -238,8 +257,8 @@
           <mat-form-field class="field">
             <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
             <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP">
-            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'" [(colorPicker)]="son.colorPick" (colorPickerChange)="detectForm()"
-              [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'" [(colorPicker)]="son.colorPick"
+              (colorPickerChange)="detectForm()" [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
               palette
             </mat-icon>
             <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">Este campo es obligatorio</div>

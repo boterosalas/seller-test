@@ -11,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export interface ProductModel {
     Ean: string;
     AssignEan: boolean;
-    CategorySelected: string;
-    CategoryType: string;
+    Category: string;
+    ProductType: string;
     HasEAN: boolean;
     Name: string;
     Brand: string;
@@ -35,7 +35,10 @@ export interface ProductModel {
     HexColourCodePDP: string;
     HexColourName: string;
     Image: Array<any>;
+    MeasurementUnit: string;
+    ConversionFactor: string;
     ImageChildren: ProductModel['Image'];
+    Features: any;
 }
 
 /**
@@ -61,8 +64,8 @@ export class ProcessService {
     productData: ProductModel = {
         Ean: null,
         AssignEan: null,
-        CategorySelected: null,
-        CategoryType: null,
+        Category: null,
+        ProductType: null,
         HasEAN: false,
         Name: null,
         Brand: null,
@@ -85,7 +88,10 @@ export class ProcessService {
         HexColourCodePDP: null,
         HexColourName: null,
         Image: null,
-        ImageChildren: null
+        ImageChildren: null,
+        ConversionFactor: null,
+        MeasurementUnit: null,
+        Features: null,
     };
 
     /**
@@ -146,17 +152,17 @@ export class ProcessService {
     public validaData(data: any): void {
         if (data.Ean || data.AssignEan) {
             this.productData.Ean = data.Ean;
-            this.productData.AssignEan = data.AssginEan;
+            this.productData.AssignEan = !data.AssignEan;
+            this.productData.HasEAN = !data.AssignEan;
             this.views.showEan = true;
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
-            this.productData.CategorySelected = data.CategorySelected;
-            this.productData.CategoryType = data.CategoryType;
+            this.productData.Category = data.CategorySelected;
+            this.productData.ProductType = data.CategoryType;
         }
         if (data.Name) {
             this.views.showInfo = true;
-            this.productData.HasEAN = data.HasEAN;
             this.productData.Name = data.Name;
             this.productData.Brand = data.Brand;
             this.productData.Details = data.Details;
@@ -175,8 +181,13 @@ export class ProcessService {
             this.productData.Children = data.Children;
             this.productData.Size = data.Size;
             this.productData.Color = data.Color;
+            this.productData.MeasurementUnit = data.MeasurementUnit;
+            this.productData.ConversionFactor = data.ConversionFactor;
             this.productData.HexColourCodePDP = data.HexColourCodePDP;
             this.productData.HexColourName = data.HexColourName;
+        }
+        if (data.Features) {
+            this.productData.Features = data.Features;
         }
         if (data.Image) {
             this.views.showImg = true;
@@ -184,7 +195,6 @@ export class ProcessService {
             this.productData.ImageChildren = data.ImageChildren;
         }
         this.change.emit(this.views);
-        console.log('data: ', this.views);
     }
 
     /**
@@ -206,6 +216,7 @@ export class ProcessService {
     public unavailableEanView(): void {
         this.productData.Ean = null;
         this.productData.AssignEan = false;
+        this.productData.HasEAN = false;
         this.views.showEan = false;
         this.change.emit(this.views);
     }

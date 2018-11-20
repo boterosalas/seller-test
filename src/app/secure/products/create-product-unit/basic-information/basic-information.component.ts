@@ -49,6 +49,8 @@ export class ProductBasicInfoComponent implements OnInit {
         { Name: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
         { Name: 'MultiColor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
+
+    public UnitMeasurementList = ['Gramo', 'Mililitro', 'Metro', 'Unidad'];
     validateRegex: any;
     newForm: any;
     valInputEan: any;
@@ -138,6 +140,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 [
                     Validators.required, Validators.pattern(this.getValue('detailProduct'))
                 ]),
+            MeasurementUnit: new FormControl('', [Validators.required]),
+            ConversionFactor: new FormControl('', [Validators.required, Validators.pattern(this.getValue('factConversionProduct'))]),
             packing: new FormGroup({
                 HighPacking: new FormControl('',
                     [
@@ -416,6 +420,8 @@ export class ProductBasicInfoComponent implements OnInit {
             ProductLength: productDateSize.controls.LongProduct.value,
             ProductWeight: productDateSize.controls.WeightProduct.value,
             Description: this.formBasicInfo.controls.Description.value,
+            MeasurementUnit: this.formBasicInfo.controls.MeasurementUnit.value,
+            ConversionFactor: this.formBasicInfo.controls.ConversionFactor.value,
             KeyWords: this.keywords.slice(0, this.keywords.length - 1),
             Children: this.getSonData()
         };
