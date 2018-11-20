@@ -27,1293 +27,1293 @@ describe('SpecificationProductComponent', () => {
     };
 
     const specification = [{
-        Id: 1,
-        Name: 'Todas las Especificaciones',
+        idGroup: 1,
+        groupName: 'Todas las Especificaciones',
         Show: false,
         Value: null,
-        Sons: [
+        specs: [
             {
-                Id: 2,
-                Name: 'Lente'
+                idSpec: 2,
+                specName: 'Lente'
             }, {
-                Id: 3,
-                Name: 'Modelo'
+                idSpec: 3,
+                specName: 'Modelo'
             }, {
-                Id: 4,
-                Name: 'Resistencia'
+                idSpec: 4,
+                specName: 'Resistencia'
             }, {
-                Id: 5,
-                Name: 'Voltaje'
+                idSpec: 5,
+                specName: 'Voltaje'
             }, {
-                Id: 6,
-                Name: 'Tipo de Batería'
+                idSpec: 6,
+                specName: 'Tipo de Batería'
             }, {
-                Id: 7,
-                Name: 'Potencia'
+                idSpec: 7,
+                specName: 'Potencia'
             }, {
-                Name: 'Especificaciones',
-                Id: 0
+                specName: 'Especificaciones',
+                idSpec: 0
             },
             {
-                Name: 'Compatibilidad',
-                Id: 1
+                specName: 'Compatibilidad',
+                idSpec: 1
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 2
+                specName: 'Garantía proveedor',
+                idSpec: 2
             },
             {
-                Name: 'Entrada ',
-                Id: 3
+                specName: 'Entrada ',
+                idSpec: 3
             },
             {
-                Name: 'Conexión USB',
-                Id: 4
+                specName: 'Conexión USB',
+                idSpec: 4
             },
             {
-                Name: 'Conexión',
-                Id: 5
+                specName: 'Conexión',
+                idSpec: 5
             },
             {
-                Name: 'Unidad Óptica',
-                Id: 6
+                specName: 'Unidad Óptica',
+                idSpec: 6
             },
             {
-                Name: 'Sensor de imagen',
-                Id: 7
+                specName: 'Sensor de imagen',
+                idSpec: 7
             },
             {
-                Name: 'Sensibilidad ISO',
-                Id: 8
+                specName: 'Sensibilidad ISO',
+                idSpec: 8
             },
             {
-                Name: 'Tipo de obturador',
-                Id: 9
+                specName: 'Tipo de obturador',
+                idSpec: 9
             },
             {
-                Name: 'Velocidad del obturador',
-                Id: 10
+                specName: 'Velocidad del obturador',
+                idSpec: 10
             },
             {
-                Name: 'Diafragma',
-                Id: 11
+                specName: 'Diafragma',
+                idSpec: 11
             },
             {
-                Name: 'Flash',
-                Id: 12
+                specName: 'Flash',
+                idSpec: 12
             },
             {
-                Name: 'Temporizador',
-                Id: 13
+                specName: 'Temporizador',
+                idSpec: 13
             },
             {
-                Name: 'Distancia focal',
-                Id: 14
+                specName: 'Distancia focal',
+                idSpec: 14
             },
             {
-                Name: 'Material Principal',
-                Id: 15
+                specName: 'Material Principal',
+                idSpec: 15
             },
             {
-                Name: 'Sistema operativo',
-                Id: 16
+                specName: 'Sistema operativo',
+                idSpec: 16
             },
             {
-                Name: 'Rango de la cámara principal',
-                Id: 17
+                specName: 'Rango de la cámara principal',
+                idSpec: 17
             },
             {
-                Name: 'Rango del tamaño de la pantalla',
-                Id: 18
+                specName: 'Rango del tamaño de la pantalla',
+                idSpec: 18
             },
             {
-                Name: 'Capacidad',
-                Id: 19
+                specName: 'Capacidad',
+                idSpec: 19
             },
             {
-                Name: 'RAM',
-                Id: 20
+                specName: 'RAM',
+                idSpec: 20
             },
             {
-                Name: 'Memoria Interna',
-                Id: 21
+                specName: 'Memoria Interna',
+                idSpec: 21
             },
             {
-                Name: 'Modelo',
-                Id: 22
+                specName: 'Modelo',
+                idSpec: 22
             },
             {
-                Name: 'Resistencia',
-                Id: 23
+                specName: 'Resistencia',
+                idSpec: 23
             },
             {
-                Name: 'Voltaje',
-                Id: 24
+                specName: 'Voltaje',
+                idSpec: 24
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 25
+                specName: 'Tipo de Batería',
+                idSpec: 25
             },
             {
-                Name: 'Potencia',
-                Id: 26
+                specName: 'Potencia',
+                idSpec: 26
             },
             {
-                Name: 'Especificaciones',
-                Id: 27
+                specName: 'Especificaciones',
+                idSpec: 27
             },
             {
-                Name: 'Compatibilidad',
-                Id: 28
+                specName: 'Compatibilidad',
+                idSpec: 28
             },
             {
-                Name: 'Sistema de Audio',
-                Id: 29
+                specName: 'Sistema de Audio',
+                idSpec: 29
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 30
+                specName: 'Garantía proveedor',
+                idSpec: 30
             },
             {
-                Name: 'Entrada ',
-                Id: 31
+                specName: 'Entrada ',
+                idSpec: 31
             },
             {
-                Name: 'Conexión USB',
-                Id: 32
+                specName: 'Conexión USB',
+                idSpec: 32
             },
             {
-                Name: 'Dual Sim',
-                Id: 33
+                specName: 'Dual Sim',
+                idSpec: 33
             },
             {
-                Name: 'Conexión',
-                Id: 34
+                specName: 'Conexión',
+                idSpec: 34
             },
             {
-                Name: 'Cámara principal',
-                Id: 35
+                specName: 'Cámara principal',
+                idSpec: 35
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 36
+                specName: 'Tamaño de pantalla',
+                idSpec: 36
             },
             {
-                Name: 'Cámara frontal',
-                Id: 37
+                specName: 'Cámara frontal',
+                idSpec: 37
             },
             {
-                Name: 'Tipo de Sim',
-                Id: 38
+                specName: 'Tipo de Sim',
+                idSpec: 38
             },
             {
-                Name: 'Conectividad',
-                Id: 39
+                specName: 'Conectividad',
+                idSpec: 39
             },
             {
-                Name: 'Material Principal',
-                Id: 40
+                specName: 'Material Principal',
+                idSpec: 40
             },
             {
-                Name: 'Tamaño',
-                Id: 41
+                specName: 'Tamaño',
+                idSpec: 41
             },
             {
-                Name: 'Tipo',
-                Id: 42
+                specName: 'Tipo',
+                idSpec: 42
             },
             {
-                Name: 'Confort',
-                Id: 43
+                specName: 'Confort',
+                idSpec: 43
             },
             {
-                Name: 'Peso promedio por persona',
-                Id: 44
+                specName: 'Peso promedio por persona',
+                idSpec: 44
             },
             {
-                Name: 'Gama',
-                Id: 45
+                specName: 'Gama',
+                idSpec: 45
             },
             {
-                Name: 'Material Principal',
-                Id: 46
+                specName: 'Material Principal',
+                idSpec: 46
             },
             {
-                Name: 'Modelo',
-                Id: 47
+                specName: 'Modelo',
+                idSpec: 47
             },
             {
-                Name: 'Carga útil',
-                Id: 48
+                specName: 'Carga útil',
+                idSpec: 48
             },
             {
-                Name: 'Resistencia',
-                Id: 49
+                specName: 'Resistencia',
+                idSpec: 49
             },
             {
-                Name: 'Licencia',
-                Id: 50
+                specName: 'Licencia',
+                idSpec: 50
             },
             {
-                Name: 'Especificaciones',
-                Id: 51
+                specName: 'Especificaciones',
+                idSpec: 51
             },
             {
-                Name: 'Compatibilidad',
-                Id: 52
+                specName: 'Compatibilidad',
+                idSpec: 52
             },
             {
-                Name: 'Fabricante',
-                Id: 53
+                specName: 'Fabricante',
+                idSpec: 53
             },
             {
-                Name: 'Edades',
-                Id: 54
+                specName: 'Edades',
+                idSpec: 54
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 55
+                specName: 'Garantía proveedor',
+                idSpec: 55
             },
             {
-                Name: 'Información adicional',
-                Id: 56
+                specName: 'Información adicional',
+                idSpec: 56
             },
             {
-                Name: 'Brillo',
-                Id: 57
+                specName: 'Brillo',
+                idSpec: 57
             },
             {
-                Name: 'Material Principal',
-                Id: 58
+                specName: 'Material Principal',
+                idSpec: 58
             },
             {
-                Name: 'Especificaciones',
-                Id: 59
+                specName: 'Especificaciones',
+                idSpec: 59
             },
             {
-                Name: 'Compatibilidad',
-                Id: 60
+                specName: 'Compatibilidad',
+                idSpec: 60
             },
             {
-                Name: 'Fabricante',
-                Id: 61
+                specName: 'Fabricante',
+                idSpec: 61
             },
             {
-                Name: 'Edad',
-                Id: 62
+                specName: 'Edad',
+                idSpec: 62
             },
             {
-                Name: 'Modelo',
-                Id: 63
+                specName: 'Modelo',
+                idSpec: 63
             },
             {
-                Name: 'Resistencia',
-                Id: 64
+                specName: 'Resistencia',
+                idSpec: 64
             },
             {
-                Name: 'Voltaje',
-                Id: 65
+                specName: 'Voltaje',
+                idSpec: 65
             },
             {
-                Name: 'Potencia',
-                Id: 66
+                specName: 'Potencia',
+                idSpec: 66
             },
             {
-                Name: 'Especificaciones',
-                Id: 67
+                specName: 'Especificaciones',
+                idSpec: 67
             },
             {
-                Name: 'Compatibilidad',
-                Id: 68
+                specName: 'Compatibilidad',
+                idSpec: 68
             },
             {
-                Name: 'Tipo de Instrumento',
-                Id: 69
+                specName: 'Tipo de Instrumento',
+                idSpec: 69
             },
             {
-                Name: 'Información adicional',
-                Id: 70
+                specName: 'Información adicional',
+                idSpec: 70
             },
             {
-                Name: 'Conexión USB',
-                Id: 71
+                specName: 'Conexión USB',
+                idSpec: 71
             },
             {
-                Name: 'Capacidad',
-                Id: 72
+                specName: 'Capacidad',
+                idSpec: 72
             },
             {
-                Name: 'Tipo',
-                Id: 73
+                specName: 'Tipo',
+                idSpec: 73
             },
             {
-                Name: 'Estilo',
-                Id: 74
+                specName: 'Estilo',
+                idSpec: 74
             },
             {
-                Name: 'Referencia',
-                Id: 75
+                specName: 'Referencia',
+                idSpec: 75
             },
             {
-                Name: 'Beneficio',
-                Id: 76
+                specName: 'Beneficio',
+                idSpec: 76
             },
             {
-                Name: 'Tipo de panel',
-                Id: 77
+                specName: 'Tipo de panel',
+                idSpec: 77
             },
             {
-                Name: 'Peso Neto',
-                Id: 78
+                specName: 'Peso Neto',
+                idSpec: 78
             },
             {
-                Name: 'Peso Bruto',
-                Id: 79
+                specName: 'Peso Bruto',
+                idSpec: 79
             },
             {
-                Name: 'Voltaje',
-                Id: 80
+                specName: 'Voltaje',
+                idSpec: 80
             },
             {
-                Name: 'Material principal ',
-                Id: 81
+                specName: 'Material principal ',
+                idSpec: 81
             },
             {
-                Name: 'Genero',
-                Id: 82
+                specName: 'Genero',
+                idSpec: 82
             },
             {
-                Name: 'Color Marco',
-                Id: 83
+                specName: 'Color Marco',
+                idSpec: 83
             },
             {
-                Name: 'Color Lente',
-                Id: 84
+                specName: 'Color Lente',
+                idSpec: 84
             },
             {
-                Name: 'Ancho de Lente',
-                Id: 85
+                specName: 'Ancho de Lente',
+                idSpec: 85
             },
             {
-                Name: 'Largo de Puente',
-                Id: 86
+                specName: 'Largo de Puente',
+                idSpec: 86
             },
             {
-                Name: 'Largo de Varilla',
-                Id: 87
+                specName: 'Largo de Varilla',
+                idSpec: 87
             },
             {
-                Name: 'Peso Bruto',
-                Id: 88
+                specName: 'Peso Bruto',
+                idSpec: 88
             },
             {
-                Name: 'Peso Neto',
-                Id: 89
+                specName: 'Peso Neto',
+                idSpec: 89
             },
             {
-                Name: 'Color Principal',
-                Id: 90
+                specName: 'Color Principal',
+                idSpec: 90
             },
             {
-                Name: 'Formato',
-                Id: 91
+                specName: 'Formato',
+                idSpec: 91
             },
             {
-                Name: 'Material Principal',
-                Id: 92
+                specName: 'Material Principal',
+                idSpec: 92
             },
             {
-                Name: 'Estilo',
-                Id: 93
+                specName: 'Estilo',
+                idSpec: 93
             },
             {
-                Name: 'Beneficios',
-                Id: 94
+                specName: 'Beneficios',
+                idSpec: 94
             },
             {
-                Name: 'Material Principal',
-                Id: 95
+                specName: 'Material Principal',
+                idSpec: 95
             },
             {
-                Name: 'Modelo',
-                Id: 96
+                specName: 'Modelo',
+                idSpec: 96
             },
             {
-                Name: 'Carga útil',
-                Id: 97
+                specName: 'Carga útil',
+                idSpec: 97
             },
             {
-                Name: 'Resistencia',
-                Id: 98
+                specName: 'Resistencia',
+                idSpec: 98
             },
             {
-                Name: 'Licencia',
-                Id: 99
+                specName: 'Licencia',
+                idSpec: 99
             },
             {
-                Name: 'Especificaciones',
-                Id: 100
+                specName: 'Especificaciones',
+                idSpec: 100
             },
             {
-                Name: 'Compatibilidad',
-                Id: 101
+                specName: 'Compatibilidad',
+                idSpec: 101
             },
             {
-                Name: 'Fabricante',
-                Id: 102
+                specName: 'Fabricante',
+                idSpec: 102
             },
             {
-                Name: 'Edades',
-                Id: 103
+                specName: 'Edades',
+                idSpec: 103
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 104
+                specName: 'Garantía proveedor',
+                idSpec: 104
             },
             {
-                Name: 'Información adicional',
-                Id: 105
+                specName: 'Información adicional',
+                idSpec: 105
             },
             {
-                Name: 'Brillo',
-                Id: 106
+                specName: 'Brillo',
+                idSpec: 106
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 107
+                specName: 'Tamaño de pantalla',
+                idSpec: 107
             },
             {
-                Name: 'Resolución de pantalla',
-                Id: 108
+                specName: 'Resolución de pantalla',
+                idSpec: 108
             },
             {
-                Name: 'Familia de procesador',
-                Id: 109
+                specName: 'Familia de procesador',
+                idSpec: 109
             },
             {
-                Name: 'Sistema operativo',
-                Id: 110
+                specName: 'Sistema operativo',
+                idSpec: 110
             },
             {
-                Name: 'Capacidad de disco duro',
-                Id: 111
+                specName: 'Capacidad de disco duro',
+                idSpec: 111
             },
             {
-                Name: 'Memoria del sistema (RAM)',
-                Id: 112
+                specName: 'Memoria del sistema (RAM)',
+                idSpec: 112
             },
             {
-                Name: 'Modelo',
-                Id: 113
+                specName: 'Modelo',
+                idSpec: 113
             },
             {
-                Name: 'Resistencia',
-                Id: 114
+                specName: 'Resistencia',
+                idSpec: 114
             },
             {
-                Name: 'Voltaje',
-                Id: 115
+                specName: 'Voltaje',
+                idSpec: 115
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 116
+                specName: 'Tipo de Batería',
+                idSpec: 116
             },
             {
-                Name: 'Potencia',
-                Id: 117
+                specName: 'Potencia',
+                idSpec: 117
             },
             {
-                Name: 'Especificaciones',
-                Id: 118
+                specName: 'Especificaciones',
+                idSpec: 118
             },
             {
-                Name: 'Compatibilidad',
-                Id: 119
+                specName: 'Compatibilidad',
+                idSpec: 119
             },
             {
-                Name: 'Tipo de procesador',
-                Id: 120
+                specName: 'Tipo de procesador',
+                idSpec: 120
             },
             {
-                Name: 'Sistema de Audio',
-                Id: 121
+                specName: 'Sistema de Audio',
+                idSpec: 121
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 122
+                specName: 'Garantía proveedor',
+                idSpec: 122
             },
             {
-                Name: 'Entrada ',
-                Id: 123
+                specName: 'Entrada ',
+                idSpec: 123
             },
             {
-                Name: 'Conexión USB',
-                Id: 124
+                specName: 'Conexión USB',
+                idSpec: 124
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 125
+                specName: 'Tamaño de pantalla',
+                idSpec: 125
             },
             {
-                Name: 'Cámara frontal',
-                Id: 126
+                specName: 'Cámara frontal',
+                idSpec: 126
             },
             {
-                Name: 'Conectividad',
-                Id: 127
+                specName: 'Conectividad',
+                idSpec: 127
             },
             {
-                Name: 'Tarjeta de vídeo',
-                Id: 128
+                specName: 'Tarjeta de vídeo',
+                idSpec: 128
             },
             {
-                Name: 'Cámara web',
-                Id: 129
+                specName: 'Cámara web',
+                idSpec: 129
             },
             {
-                Name: 'Unidad Óptica',
-                Id: 130
+                specName: 'Unidad Óptica',
+                idSpec: 130
             },
             {
-                Name: 'Material Principal',
-                Id: 131
+                specName: 'Material Principal',
+                idSpec: 131
             },
             {
-                Name: 'Capacidad en libras',
-                Id: 132
+                specName: 'Capacidad en libras',
+                idSpec: 132
             },
             {
-                Name: 'Capacidad en Kilogramos',
-                Id: 133
+                specName: 'Capacidad en Kilogramos',
+                idSpec: 133
             },
             {
-                Name: 'Tipo de carga',
-                Id: 134
+                specName: 'Tipo de carga',
+                idSpec: 134
             },
             {
-                Name: 'Modelo',
-                Id: 135
+                specName: 'Modelo',
+                idSpec: 135
             },
             {
-                Name: 'Resistencia',
-                Id: 136
+                specName: 'Resistencia',
+                idSpec: 136
             },
             {
-                Name: 'Voltaje',
-                Id: 137
+                specName: 'Voltaje',
+                idSpec: 137
             },
             {
-                Name: 'Potencia',
-                Id: 138
+                specName: 'Potencia',
+                idSpec: 138
             },
             {
-                Name: 'Especificaciones',
-                Id: 139
+                specName: 'Especificaciones',
+                idSpec: 139
             },
             {
-                Name: 'Compatibilidad',
-                Id: 140
+                specName: 'Compatibilidad',
+                idSpec: 140
             },
             {
-                Name: 'Tipo de Instrumento',
-                Id: 141
+                specName: 'Tipo de Instrumento',
+                idSpec: 141
             },
             {
-                Name: 'Información adicional',
-                Id: 142
+                specName: 'Información adicional',
+                idSpec: 142
             },
             {
-                Name: 'Capacidad',
-                Id: 143
+                specName: 'Capacidad',
+                idSpec: 143
             },
             {
-                Name: 'Tipo',
-                Id: 144
+                specName: 'Tipo',
+                idSpec: 144
             },
             {
-                Name: 'Estilo',
-                Id: 145
+                specName: 'Estilo',
+                idSpec: 145
             },
             {
-                Name: 'Referencia',
-                Id: 146
+                specName: 'Referencia',
+                idSpec: 146
             },
             {
-                Name: 'Beneficio',
-                Id: 147
+                specName: 'Beneficio',
+                idSpec: 147
             },
             {
-                Name: 'Tipo de panel',
-                Id: 148
+                specName: 'Tipo de panel',
+                idSpec: 148
             },
             {
-                Name: 'Peso Neto',
-                Id: 149
+                specName: 'Peso Neto',
+                idSpec: 149
             },
             {
-                Name: 'Peso Bruto',
-                Id: 150
+                specName: 'Peso Bruto',
+                idSpec: 150
             },
             {
-                Name: 'Material principal ',
-                Id: 151
+                specName: 'Material principal ',
+                idSpec: 151
             },
             {
-                Name: 'Diámetro de Neumático',
-                Id: 152
+                specName: 'Diámetro de Neumático',
+                idSpec: 152
             },
             {
-                Name: 'Largo de Neumático',
-                Id: 153
+                specName: 'Largo de Neumático',
+                idSpec: 153
             },
             {
-                Name: 'Altura del Neumático',
-                Id: 154
+                specName: 'Altura del Neumático',
+                idSpec: 154
             },
             {
-                Name: 'Ancho (Llanta)',
-                Id: 155
+                specName: 'Ancho (Llanta)',
+                idSpec: 155
             },
             {
-                Name: 'Perfil (Llanta)',
-                Id: 156
+                specName: 'Perfil (Llanta)',
+                idSpec: 156
             },
             {
-                Name: 'Radial (Llanta)',
-                Id: 157
+                specName: 'Radial (Llanta)',
+                idSpec: 157
             },
             {
-                Name: 'Cilindraje (Litros)',
-                Id: 158
+                specName: 'Cilindraje (Litros)',
+                idSpec: 158
             },
             {
-                Name: 'Resistencia',
-                Id: 159
+                specName: 'Resistencia',
+                idSpec: 159
             },
             {
-                Name: 'Genero',
-                Id: 160
+                specName: 'Genero',
+                idSpec: 160
             },
             {
-                Name: 'Peso Bruto',
-                Id: 161
+                specName: 'Peso Bruto',
+                idSpec: 161
             },
             {
-                Name: 'Peso Neto',
-                Id: 162
+                specName: 'Peso Neto',
+                idSpec: 162
             },
             {
-                Name: 'Color Principal',
-                Id: 163
+                specName: 'Color Principal',
+                idSpec: 163
             },
             {
-                Name: 'Formato',
-                Id: 164
+                specName: 'Formato',
+                idSpec: 164
             },
             {
-                Name: 'Material Principal',
-                Id: 165
+                specName: 'Material Principal',
+                idSpec: 165
             },
             {
-                Name: 'Estilo',
-                Id: 166
+                specName: 'Estilo',
+                idSpec: 166
             },
             {
-                Name: 'Beneficios',
-                Id: 167
+                specName: 'Beneficios',
+                idSpec: 167
             },
             {
-                Name: 'Referencia',
-                Id: 168
+                specName: 'Referencia',
+                idSpec: 168
             },
             {
-                Name: 'Resistencia al Agua',
-                Id: 169
+                specName: 'Resistencia al Agua',
+                idSpec: 169
             },
             {
-                Name: 'Material De Pulso',
-                Id: 170
+                specName: 'Material De Pulso',
+                idSpec: 170
             },
             {
-                Name: 'Material de la Caja',
-                Id: 171
+                specName: 'Material de la Caja',
+                idSpec: 171
             },
             {
-                Name: 'Tipo de Hora',
-                Id: 172
+                specName: 'Tipo de Hora',
+                idSpec: 172
             },
             {
-                Name: 'INVIMA',
-                Id: 173
+                specName: 'INVIMA',
+                idSpec: 173
             },
             {
-                Name: 'Rango de litros',
-                Id: 174
+                specName: 'Rango de litros',
+                idSpec: 174
             },
             {
-                Name: 'Dispensador de agua',
-                Id: 175
+                specName: 'Dispensador de agua',
+                idSpec: 175
             },
             {
-                Name: 'Dispensador de hielo',
-                Id: 176
+                specName: 'Dispensador de hielo',
+                idSpec: 176
             },
             {
-                Name: 'Modelo',
-                Id: 177
+                specName: 'Modelo',
+                idSpec: 177
             },
             {
-                Name: 'Resistencia',
-                Id: 178
+                specName: 'Resistencia',
+                idSpec: 178
             },
             {
-                Name: 'Voltaje',
-                Id: 179
+                specName: 'Voltaje',
+                idSpec: 179
             },
             {
-                Name: 'Potencia',
-                Id: 180
+                specName: 'Potencia',
+                idSpec: 180
             },
             {
-                Name: 'Especificaciones',
-                Id: 181
+                specName: 'Especificaciones',
+                idSpec: 181
             },
             {
-                Name: 'Compatibilidad',
-                Id: 182
+                specName: 'Compatibilidad',
+                idSpec: 182
             },
             {
-                Name: 'Tipo de Instrumento',
-                Id: 183
+                specName: 'Tipo de Instrumento',
+                idSpec: 183
             },
             {
-                Name: 'Información adicional',
-                Id: 184
+                specName: 'Información adicional',
+                idSpec: 184
             },
             {
-                Name: 'Conexión USB',
-                Id: 185
+                specName: 'Conexión USB',
+                idSpec: 185
             },
             {
-                Name: 'Capacidad',
-                Id: 186
+                specName: 'Capacidad',
+                idSpec: 186
             },
             {
-                Name: 'Tipo',
-                Id: 187
+                specName: 'Tipo',
+                idSpec: 187
             },
             {
-                Name: 'Estilo',
-                Id: 188
+                specName: 'Estilo',
+                idSpec: 188
             },
             {
-                Name: 'Referencia',
-                Id: 189
+                specName: 'Referencia',
+                idSpec: 189
             },
             {
-                Name: 'Beneficio',
-                Id: 190
+                specName: 'Beneficio',
+                idSpec: 190
             },
             {
-                Name: 'Tipo de panel',
-                Id: 191
+                specName: 'Tipo de panel',
+                idSpec: 191
             },
             {
-                Name: 'Peso Neto',
-                Id: 192
+                specName: 'Peso Neto',
+                idSpec: 192
             },
             {
-                Name: 'Peso Bruto',
-                Id: 193
+                specName: 'Peso Bruto',
+                idSpec: 193
             },
             {
-                Name: 'Voltaje',
-                Id: 194
+                specName: 'Voltaje',
+                idSpec: 194
             },
             {
-                Name: 'Material principal ',
-                Id: 195
+                specName: 'Material principal ',
+                idSpec: 195
             },
             {
-                Name: 'Tamaño',
-                Id: 196
+                specName: 'Tamaño',
+                idSpec: 196
             },
             {
-                Name: 'Concentracion',
-                Id: 197
+                specName: 'Concentracion',
+                idSpec: 197
             },
             {
-                Name: 'Genero',
-                Id: 198
+                specName: 'Genero',
+                idSpec: 198
             },
             {
-                Name: 'Peso Bruto',
-                Id: 199
+                specName: 'Peso Bruto',
+                idSpec: 199
             },
             {
-                Name: 'Peso Neto',
-                Id: 200
+                specName: 'Peso Neto',
+                idSpec: 200
             },
             {
-                Name: 'Color Principal',
-                Id: 201
+                specName: 'Color Principal',
+                idSpec: 201
             },
             {
-                Name: 'Formato',
-                Id: 202
+                specName: 'Formato',
+                idSpec: 202
             },
             {
-                Name: 'Material Principal',
-                Id: 203
+                specName: 'Material Principal',
+                idSpec: 203
             },
             {
-                Name: 'Estilo',
-                Id: 204
+                specName: 'Estilo',
+                idSpec: 204
             },
             {
-                Name: 'Beneficios',
-                Id: 205
+                specName: 'Beneficios',
+                idSpec: 205
             },
             {
-                Name: 'Resistencia al Agua',
-                Id: 206
+                specName: 'Resistencia al Agua',
+                idSpec: 206
             },
             {
-                Name: 'Material De Pulso',
-                Id: 207
+                specName: 'Material De Pulso',
+                idSpec: 207
             },
             {
-                Name: 'Material de la Caja',
-                Id: 208
+                specName: 'Material de la Caja',
+                idSpec: 208
             },
             {
-                Name: 'Tipo de Hora',
-                Id: 209
+                specName: 'Tipo de Hora',
+                idSpec: 209
             },
             {
-                Name: 'Genero',
-                Id: 210
+                specName: 'Genero',
+                idSpec: 210
             },
             {
-                Name: 'Peso Bruto',
-                Id: 211
+                specName: 'Peso Bruto',
+                idSpec: 211
             },
             {
-                Name: 'Peso Neto',
-                Id: 212
+                specName: 'Peso Neto',
+                idSpec: 212
             },
             {
-                Name: 'Color Principal',
-                Id: 213
+                specName: 'Color Principal',
+                idSpec: 213
             },
             {
-                Name: 'Formato',
-                Id: 214
+                specName: 'Formato',
+                idSpec: 214
             },
             {
-                Name: 'Material Principal',
-                Id: 215
+                specName: 'Material Principal',
+                idSpec: 215
             },
             {
-                Name: 'Estilo',
-                Id: 216
+                specName: 'Estilo',
+                idSpec: 216
             },
             {
-                Name: 'Beneficios',
-                Id: 217
+                specName: 'Beneficios',
+                idSpec: 217
             },
             {
-                Name: 'Modelo',
-                Id: 218
+                specName: 'Modelo',
+                idSpec: 218
             },
             {
-                Name: 'Resistencia',
-                Id: 219
+                specName: 'Resistencia',
+                idSpec: 219
             },
             {
-                Name: 'Voltaje',
-                Id: 220
+                specName: 'Voltaje',
+                idSpec: 220
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 221
+                specName: 'Tipo de Batería',
+                idSpec: 221
             },
             {
-                Name: 'Potencia',
-                Id: 222
+                specName: 'Potencia',
+                idSpec: 222
             },
             {
-                Name: 'Especificaciones',
-                Id: 223
+                specName: 'Especificaciones',
+                idSpec: 223
             },
             {
-                Name: 'Compatibilidad',
-                Id: 224
+                specName: 'Compatibilidad',
+                idSpec: 224
             },
             {
-                Name: 'Tipo de procesador',
-                Id: 225
+                specName: 'Tipo de procesador',
+                idSpec: 225
             },
             {
-                Name: 'Sistema de Audio',
-                Id: 226
+                specName: 'Sistema de Audio',
+                idSpec: 226
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 227
+                specName: 'Garantía proveedor',
+                idSpec: 227
             },
             {
-                Name: 'Entrada ',
-                Id: 228
+                specName: 'Entrada ',
+                idSpec: 228
             },
             {
-                Name: 'Conexión USB',
-                Id: 229
+                specName: 'Conexión USB',
+                idSpec: 229
             },
             {
-                Name: 'Dual Sim',
-                Id: 230
+                specName: 'Dual Sim',
+                idSpec: 230
             },
             {
-                Name: 'Conexión',
-                Id: 231
+                specName: 'Conexión',
+                idSpec: 231
             },
             {
-                Name: 'Cámara principal',
-                Id: 232
+                specName: 'Cámara principal',
+                idSpec: 232
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 233
+                specName: 'Tamaño de pantalla',
+                idSpec: 233
             },
             {
-                Name: 'Cámara frontal',
-                Id: 234
+                specName: 'Cámara frontal',
+                idSpec: 234
             },
             {
-                Name: 'Tipo de Sim',
-                Id: 235
+                specName: 'Tipo de Sim',
+                idSpec: 235
             },
             {
-                Name: 'Conectividad',
-                Id: 236
+                specName: 'Conectividad',
+                idSpec: 236
             },
             {
-                Name: 'Tarjeta de vídeo',
-                Id: 237
+                specName: 'Tarjeta de vídeo',
+                idSpec: 237
             },
             {
-                Name: 'Cámara web',
-                Id: 238
+                specName: 'Cámara web',
+                idSpec: 238
             },
             {
-                Name: 'Unidad Óptica',
-                Id: 239
+                specName: 'Unidad Óptica',
+                idSpec: 239
             },
             {
-                Name: 'Sensor de imagen',
-                Id: 240
+                specName: 'Sensor de imagen',
+                idSpec: 240
             },
             {
-                Name: 'Sensibilidad ISO',
-                Id: 241
+                specName: 'Sensibilidad ISO',
+                idSpec: 241
             },
             {
-                Name: 'Tipo de obturador',
-                Id: 242
+                specName: 'Tipo de obturador',
+                idSpec: 242
             },
             {
-                Name: 'Velocidad del obturador',
-                Id: 243
+                specName: 'Velocidad del obturador',
+                idSpec: 243
             },
             {
-                Name: 'Diafragma',
-                Id: 244
+                specName: 'Diafragma',
+                idSpec: 244
             },
             {
-                Name: 'Flash',
-                Id: 245
+                specName: 'Flash',
+                idSpec: 245
             },
             {
-                Name: 'Temporizador',
-                Id: 246
+                specName: 'Temporizador',
+                idSpec: 246
             },
             {
-                Name: 'Distancia focal',
-                Id: 247
+                specName: 'Distancia focal',
+                idSpec: 247
             },
             {
-                Name: 'Lente',
-                Id: 248
+                specName: 'Lente',
+                idSpec: 248
             },
             {
-                Name: 'Material Principal',
-                Id: 249
+                specName: 'Material Principal',
+                idSpec: 249
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 250
+                specName: 'Tamaño de pantalla',
+                idSpec: 250
             },
             {
-                Name: 'Resolución de pantalla',
-                Id: 251
+                specName: 'Resolución de pantalla',
+                idSpec: 251
             },
             {
-                Name: 'Tecnología',
-                Id: 252
+                specName: 'Tecnología',
+                idSpec: 252
             },
             {
-                Name: 'Modelo',
-                Id: 253
+                specName: 'Modelo',
+                idSpec: 253
             },
             {
-                Name: 'Resistencia',
-                Id: 254
+                specName: 'Resistencia',
+                idSpec: 254
             },
             {
-                Name: 'Voltaje',
-                Id: 255
+                specName: 'Voltaje',
+                idSpec: 255
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 256
+                specName: 'Tipo de Batería',
+                idSpec: 256
             },
             {
-                Name: 'Potencia',
-                Id: 257
+                specName: 'Potencia',
+                idSpec: 257
             },
             {
-                Name: 'Especificaciones',
-                Id: 258
+                specName: 'Especificaciones',
+                idSpec: 258
             },
             {
-                Name: 'Compatibilidad',
-                Id: 259
+                specName: 'Compatibilidad',
+                idSpec: 259
             },
             {
-                Name: 'Sistema de Audio',
-                Id: 260
+                specName: 'Sistema de Audio',
+                idSpec: 260
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 261
+                specName: 'Garantía proveedor',
+                idSpec: 261
             },
             {
-                Name: 'Entrada ',
-                Id: 262
+                specName: 'Entrada ',
+                idSpec: 262
             },
             {
-                Name: 'Conexión USB',
-                Id: 263
+                specName: 'Conexión USB',
+                idSpec: 263
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 264
+                specName: 'Tamaño de pantalla',
+                idSpec: 264
             },
             {
-                Name: 'Conectividad',
-                Id: 265
+                specName: 'Conectividad',
+                idSpec: 265
             },
             {
-                Name: 'Material Principal',
-                Id: 266
+                specName: 'Material Principal',
+                idSpec: 266
             }
         ]
     }, {
-        Name: 'Cámaras',
-        Sons: [
+        specName: 'Cámaras',
+        specs: [
             {
-                Name: 'Lente',
-                Id: 0,
+                specName: 'Lente',
+                idSpec: 0,
             },
             {
-                Name: 'Modelo',
-                Id: 1,
+                specName: 'Modelo',
+                idSpec: 1,
             },
             {
-                Name: 'Resistencia',
-                Id: 2,
+                specName: 'Resistencia',
+                idSpec: 2,
             },
             {
-                Name: 'Voltaje',
-                Id: 3,
+                specName: 'Voltaje',
+                idSpec: 3,
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 4,
+                specName: 'Tipo de Batería',
+                idSpec: 4,
             },
             {
-                Name: 'Potencia',
-                Id: 5,
+                specName: 'Potencia',
+                idSpec: 5,
             },
             {
-                Name: 'Especificaciones',
-                Id: 6,
+                specName: 'Especificaciones',
+                idSpec: 6,
             },
             {
-                Name: 'Compatibilidad',
-                Id: 7,
+                specName: 'Compatibilidad',
+                idSpec: 7,
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 8,
+                specName: 'Garantía proveedor',
+                idSpec: 8,
             },
             {
-                Name: 'Entrada ',
-                Id: 9,
+                specName: 'Entrada ',
+                idSpec: 9,
             },
             {
-                Name: 'Conexión USB',
-                Id: 10,
+                specName: 'Conexión USB',
+                idSpec: 10,
             },
             {
-                Name: 'Conexión',
-                Id: 11,
+                specName: 'Conexión',
+                idSpec: 11,
             },
             {
-                Name: 'Unidad Óptica',
-                Id: 12,
+                specName: 'Unidad Óptica',
+                idSpec: 12,
             },
             {
-                Name: 'Sensor de imagen',
-                Id: 13,
+                specName: 'Sensor de imagen',
+                idSpec: 13,
             },
             {
-                Name: 'Sensibilidad ISO',
-                Id: 14,
+                specName: 'Sensibilidad ISO',
+                idSpec: 14,
             },
             {
-                Name: 'Tipo de obturador',
-                Id: 15,
+                specName: 'Tipo de obturador',
+                idSpec: 15,
             },
             {
-                Name: 'Velocidad del obturador',
-                Id: 16,
+                specName: 'Velocidad del obturador',
+                idSpec: 16,
             },
             {
-                Name: 'Diafragma',
-                Id: 17,
+                specName: 'Diafragma',
+                idSpec: 17,
             },
             {
-                Name: 'Flash',
-                Id: 18,
+                specName: 'Flash',
+                idSpec: 18,
             },
             {
-                Name: 'Temporizador',
-                Id: 19,
+                specName: 'Temporizador',
+                idSpec: 19,
             },
             {
-                Name: 'Distancia focal',
-                Id: 20,
+                specName: 'Distancia focal',
+                idSpec: 20,
             },
             {
-                Name: 'Material Principal',
-                Id: 21,
+                specName: 'Material Principal',
+                idSpec: 21,
             },
 
         ]
     }, {
-        Name: 'Celulares',
-        Sons: [
+        specName: 'Celulares',
+        specs: [
             {
-                Name: 'Sistema operativo',
-                Id: 0
+                specName: 'Sistema operativo',
+                idSpec: 0
             },
             {
-                Name: 'Rango de la cámara principal',
-                Id: 1
+                specName: 'Rango de la cámara principal',
+                idSpec: 1
             },
             {
-                Name: 'Rango del tamaño de la pantalla',
-                Id: 2
+                specName: 'Rango del tamaño de la pantalla',
+                idSpec: 2
             },
             {
-                Name: 'Capacidad',
-                Id: 3
+                specName: 'Capacidad',
+                idSpec: 3
             },
             {
-                Name: 'RAM',
-                Id: 4
+                specName: 'RAM',
+                idSpec: 4
             },
             {
-                Name: 'Memoria Interna',
-                Id: 5
+                specName: 'Memoria Interna',
+                idSpec: 5
             },
             {
-                Name: 'Modelo',
-                Id: 6
+                specName: 'Modelo',
+                idSpec: 6
             },
             {
-                Name: 'Resistencia',
-                Id: 7
+                specName: 'Resistencia',
+                idSpec: 7
             },
             {
-                Name: 'Voltaje',
-                Id: 8
+                specName: 'Voltaje',
+                idSpec: 8
             },
             {
-                Name: 'Tipo de Batería',
-                Id: 9
+                specName: 'Tipo de Batería',
+                idSpec: 9
             },
             {
-                Name: 'Potencia',
-                Id: 10
+                specName: 'Potencia',
+                idSpec: 10
             },
             {
-                Name: 'Especificaciones',
-                Id: 11
+                specName: 'Especificaciones',
+                idSpec: 11
             },
             {
-                Name: 'Compatibilidad',
-                Id: 12
+                specName: 'Compatibilidad',
+                idSpec: 12
             },
             {
-                Name: 'Sistema de Audio',
-                Id: 13
+                specName: 'Sistema de Audio',
+                idSpec: 13
             },
             {
-                Name: 'Garantía proveedor',
-                Id: 14
+                specName: 'Garantía proveedor',
+                idSpec: 14
             },
             {
-                Name: 'Entrada ',
-                Id: 15
+                specName: 'Entrada ',
+                idSpec: 15
             },
             {
-                Name: 'Conexión USB',
-                Id: 16
+                specName: 'Conexión USB',
+                idSpec: 16
             },
             {
-                Name: 'Dual Sim',
-                Id: 17
+                specName: 'Dual Sim',
+                idSpec: 17
             },
             {
-                Name: 'Conexión',
-                Id: 18
+                specName: 'Conexión',
+                idSpec: 18
             },
             {
-                Name: 'Cámara principal',
-                Id: 19
+                specName: 'Cámara principal',
+                idSpec: 19
             },
             {
-                Name: 'Tamaño de pantalla',
-                Id: 20
+                specName: 'Tamaño de pantalla',
+                idSpec: 20
             },
             {
-                Name: 'Cámara frontal',
-                Id: 21
+                specName: 'Cámara frontal',
+                idSpec: 21
             },
             {
-                Name: 'Tipo de Sim',
-                Id: 22
+                specName: 'Tipo de Sim',
+                idSpec: 22
             },
             {
-                Name: 'Conectividad',
-                Id: 23
+                specName: 'Conectividad',
+                idSpec: 23
             },
             {
-                Name: 'Material Principal',
-                Id: 24
+                specName: 'Material Principal',
+                idSpec: 24
             }
         ]
     }];
@@ -1322,7 +1322,7 @@ describe('SpecificationProductComponent', () => {
     const structureJson = {
         statusCode: 200,
         status: 200,
-        body: { Data:  specification }
+        body: { data:  specification }
     };
 
     beforeEach(async(() => {
@@ -1354,7 +1354,7 @@ describe('SpecificationProductComponent', () => {
         fixture.detectChanges();
     });
 
-    it('Deberia crear el componente', () => {
+    it('Deberia crear el componente SpecificationProductComponent', () => {
         expect(component).toBeTruthy();
     });
 
