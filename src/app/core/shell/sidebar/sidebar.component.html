@@ -20,8 +20,7 @@
             &Oacute;rdenes
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)"
-          (click)="toggleMenu()">
+        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item); toggleMenu();">
           <h6 matLine [innerHTML]="item.name"></h6>
         </mat-list-item>
 
@@ -70,7 +69,7 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Cotizador</h6>
         </mat-list-item>
-        
+
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Historico carga de ofertas</h6>
@@ -89,6 +88,10 @@
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntProductBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Carga masiva</h6>
+        </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
+          <h6 matLine>Moderación</h6>
         </mat-list-item>
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntCreateUnutaryProduct]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
@@ -110,7 +113,7 @@
           <h6 matLine>Registrar nuevo</h6>
         </mat-list-item>
 
-        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerManage]">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerManage]">
           <h6 matLine>Administrar</h6>
         </mat-list-item>
 
@@ -121,7 +124,7 @@
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-facturacion">
           <mat-panel-title>
-            Facturaci&Oacute;n
+            Facturación
           </mat-panel-title>
         </mat-expansion-panel-header>
 

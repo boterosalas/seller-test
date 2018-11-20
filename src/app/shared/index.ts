@@ -1,6 +1,7 @@
 // Components
 export * from './components/toolbar-options';
 export * from './components/confirm-alert/confirm-alert.component';
+export * from './components/bulk-load/bulk-load.module';
 
 // Models
 export * from './models/login.model';
@@ -16,4 +17,5 @@ export * from './services/eventEmitter-orders.service';
 export * from './util/constants';
 export * from './util/routes.constants';
 export * from './util/fakeData.model';
+export * from './util/static';
 
