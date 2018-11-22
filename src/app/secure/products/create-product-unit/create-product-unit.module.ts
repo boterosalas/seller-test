@@ -25,6 +25,8 @@ import { CompoImagesComponent } from '@app/secure/products/create-product-unit/a
 import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 import { BasicInformationService } from './basic-information/basic-information.component.service';
+import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
+import { SaveProcessErrorDialogComponent } from './component-process/dialogSaveError/dialogSaveError.component';
 
 @NgModule({
   imports: [
@@ -49,7 +51,9 @@ import { BasicInformationService } from './basic-information/basic-information.c
     ImageUrlComponent,
     CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent,
+    SaveProcessErrorDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -63,10 +67,14 @@ import { BasicInformationService } from './basic-information/basic-information.c
     ImageUrlComponent,
     CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent,
+    SaveProcessErrorDialogComponent
   ],
   entryComponents: [
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent,
+    SaveProcessErrorDialogComponent
   ],
   providers: [
     SearchService,

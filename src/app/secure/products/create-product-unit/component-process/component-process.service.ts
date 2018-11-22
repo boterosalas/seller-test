@@ -1,5 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { EndpointService } from '@app/core/http/endpoint.service';
 
 
 /**
@@ -130,7 +132,8 @@ export class ProcessService {
      * @param {HttpClient} http
      * @memberof ProcessService
      */
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+            private api: EndpointService) {
         this.productData.AssignEan = false;
     }
 
@@ -240,6 +243,17 @@ export class ProcessService {
         this.productData.HasEAN = false;
         this.views.showEan = false;
         this.change.emit(this.views);
+    }
+
+    /**
+     * Servicio que valida el guardado de la informacion de la creacion unitaria de producto.
+     *
+     * @param {*} params
+     * @returns {Observable<{}>}
+     * @memberof ProcessService
+     */
+    public saveInformationUnitreation(): Observable<{}> {
+        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 }
 

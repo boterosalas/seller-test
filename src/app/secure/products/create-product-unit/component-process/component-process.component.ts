@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
+import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
+import { MatDialog } from '@angular/material';
+import { SaveProcessErrorDialogComponent } from './dialogSaveError/dialogSaveError.component';
+import { Observable } from 'rxjs/Observable';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 @Component({
   selector: 'app-component-process',
@@ -25,7 +30,9 @@ export class ComponentProcessComponent implements OnInit {
   children_created: any = 0;
 
   constructor(private fb: FormBuilder,
-    private process: ProcessService) {
+    private loadingService: LoadingService,
+    private process: ProcessService,
+    public dialog: MatDialog) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -80,4 +87,24 @@ export class ComponentProcessComponent implements OnInit {
     }
 
   }
+
+  public saveInformationCreation(): void {
+    this.loadingService.viewSpinner();
+    this.process.saveInformationUnitreation().subscribe( res => {
+      const data = res;
+      console.log(data);
+    });
+    const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
+      width: '800px',
+      disableClose: true,
+     /* data: {
+        response: res
+      }, */
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+  }
 }
+

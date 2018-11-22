@@ -1,0 +1,21 @@
+<h4 id="dialogSave"  mat-subheader *ngIf="response.message === ''">La solicitud de creación de tu producto ha sido recibida con éxito.
+  El producto pasará a proceso de validación y te estaremos informando de manera oportuna
+  si el producto es aceptado y puede ofertarse o si es rechazado y debes corregir información.
+</h4>
+
+<h4 id="dialogSave">Se ha presentado errores al gaurdar la carga.
+  Intentelo nuevamente... Gracias
+</h4>
+
+<mat-divider *ngIf="response.message !== ''"></mat-divider>
+
+<mat-nav-list *ngIf="response.message !== ''">
+  <mat-list-item *ngFor="let item of response.error">
+    <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+    <h4 matLine>EAN:{{item.ean}}{{item.Ean}}</h4>
+    <p matLine>Error presentado: {{item.message}}{{item.Message}}</p>
+  </mat-list-item>
+
+<button mat-button  *ngIf="response.message === ''"(click)="onNoClick()" [routerLink]="['/securehome/seller-center']">Inicio</button>
+<button mat-button  *ngIf="response.message !== ''"(click)="onNoClick()">Reintentar</button>
+

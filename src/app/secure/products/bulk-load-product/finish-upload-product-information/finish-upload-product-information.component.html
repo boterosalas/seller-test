@@ -32,9 +32,7 @@ productos
 
   <mat-dialog-actions class="footer-dialog">
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">Refrescar</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" 
-
-mat-dialog-close>Home Seller Center</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>Home Seller Center</button>
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>Cerrar</button>
     <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
       (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">Exportar
