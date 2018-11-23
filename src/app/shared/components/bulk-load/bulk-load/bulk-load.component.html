@@ -62,7 +62,7 @@
   </div>
 
   <!-- Contenido principal -->
-  <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="70" fxFlex.lg="60" fxFlex.xl="60" class="content-table-orders">
+  <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="70" fxFlex.lg="60" fxFlex.xl="60" class="content-table-orders" *ngIf="!showErrorView && showPrincipalContain">
     <div class="orders-no-data">
       <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" class="content-icon-no-data">
         <mat-icon id="icon-cloud-upload-file" (click)="fileUploadInput.click()" class="icon-not-found" color="primary">backup
@@ -73,6 +73,10 @@
         <ng-container *ngIf="config.mainContentTpl" [ngTemplateOutlet]="config.mainContentTpl"></ng-container>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="showErrorView && dataToSend" class="width-100">
+    <app-show-errors [dataWithErrors]="dataToSend" [numberErrors]="counterErrors" [errorsPosition]="errorsPosition" [fileName]="fileName"></app-show-errors>
   </div>
 
 </div>
