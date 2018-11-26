@@ -1,0 +1,23 @@
+<div>
+  <h4 mat-subheader *ngIf="response.message === ''">
+    <mat-icon>check</mat-icon>
+   Solicitud creada exitosamente
+  </h4>
+
+  <h4  mat-subheader *ngIf="response.message !== ''"> Se {{response.errors > 1 ? 'han': 'ha' }} presentado
+    {{response.errors}} {{response.errors > 1 ? 'errores': 'error' }} al momento de crear
+    la solicitud. Intentelo nuevamente... Gracias
+  </h4>
+
+  <mat-divider *ngIf="response.message !== ''"></mat-divider>
+
+  <mat-nav-list *ngIf="response.message !== ''">
+    <mat-list-item *ngFor="let item of response.response.errors">
+      <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+      <h4 matLine>EAN:{{item.Name}}</h4>
+      <p matLine>Error presentado:{{item.Description}}</p>
+    </mat-list-item>
+  </mat-nav-list>
+</div>
+<button mat-raised-button color="primary" *ngIf="response.message === ''" (click)="onNoClick()">Inicio</button>
+<button mat-raised-button color="primary" *ngIf="response.message !== ''" (click)="onNoClick()">Reintentar</button>

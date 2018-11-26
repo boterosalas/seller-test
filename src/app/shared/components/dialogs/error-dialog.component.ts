@@ -2,15 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-    selector: 'app-dialog-shared',
-    templateUrl: 'dialog.component.html',
-    styleUrls: ['dialog.component.scss']
+    selector: 'app-error-dialog',
+    templateUrl: 'error-dialog.component.html',
+    styleUrls: ['error-dialog.component.scss']
 })
-export class DialogSharedComponent {
+export class ErrorDialogComponent {
     public response: any;
 
     constructor(
-        public dialogRef: MatDialogRef<DialogSharedComponent>,
+        public dialogRef: MatDialogRef<ErrorDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         this.response = data.response;
     }
