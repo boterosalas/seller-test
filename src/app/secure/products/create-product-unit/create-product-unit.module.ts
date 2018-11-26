@@ -26,7 +26,6 @@ import { SpecificationProductComponent } from './specifications/specification.co
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 import { BasicInformationService } from './basic-information/basic-information.component.service';
 import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
-import { SaveProcessErrorDialogComponent } from './component-process/dialogSaveError/dialogSaveError.component';
 
 @NgModule({
   imports: [
@@ -52,8 +51,7 @@ import { SaveProcessErrorDialogComponent } from './component-process/dialogSaveE
     CompoImagesComponent,
     SpecificationProductComponent,
     SpecificationDialogComponent,
-    SaveProcessDialogComponent,
-    SaveProcessErrorDialogComponent
+    SaveProcessDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -68,13 +66,11 @@ import { SaveProcessErrorDialogComponent } from './component-process/dialogSaveE
     CompoImagesComponent,
     SpecificationProductComponent,
     SpecificationDialogComponent,
-    SaveProcessDialogComponent,
-    SaveProcessErrorDialogComponent
+    SaveProcessDialogComponent
   ],
   entryComponents: [
     SpecificationDialogComponent,
-    SaveProcessDialogComponent,
-    SaveProcessErrorDialogComponent
+    SaveProcessDialogComponent
   ],
   providers: [
     SearchService,
