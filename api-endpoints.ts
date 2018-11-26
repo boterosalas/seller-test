@@ -80,7 +80,7 @@ export const endpoints = {
       // Get Regex
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
       // Post Guardar informacion creacion unitaria de producto
-      postSaveInformationUnitCreation: ''
+      postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products'
     },
   },
   // Endpoints production

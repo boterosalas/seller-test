@@ -88,23 +88,22 @@ export class ComponentProcessComponent implements OnInit {
 
   }
 
-  public saveInformationCreation(): void {
+  public saveInformationCreation(res: any): void {
     this.loadingService.viewSpinner();
-    this.process.saveInformationUnitreation().subscribe( res => {
-      const data = res;
-      console.log(data);
+    this.process.saveInformationUnitreation().subscribe(result => {
+      const data = result;
+      console.log('data:', data);
+      const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
+        width: '800px',
+        disableClose: true,
+        data: {
+          response: data
+        },
+      });
+       dialogRef.afterClosed().subscribe(resdialog => {
+        console.log('The dialog was closed');
+      });
     });
-    const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
-      width: '800px',
-      disableClose: true,
-     /* data: {
-        response: res
-      }, */
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-
   }
 }
 

@@ -14,11 +14,13 @@ export interface ProductModel {
     Ean: string;
     AssignEan: boolean;
     Category: string;
+    CategoryName: string;
     ProductType: string;
     HasEAN: boolean;
     Name: string;
     Brand: string;
     Details: string;
+    Seller: string;
     Model: string;
     SkuShippingSize: string;
     PackageWidth: number;
@@ -36,10 +38,10 @@ export interface ProductModel {
     Color: string;
     HexColourCodePDP: string;
     HexColourName: string;
-    Image: Array<any>;
+    // Image: Array<any>;
     MeasurementUnit: string;
     ConversionFactor: string;
-    ImageChildren: ProductModel['Image'];
+    // ImageChildren: ProductModel['Image'];
     Features: any;
     ImageUrl1: string;
     ImageUrl2: string;
@@ -72,11 +74,13 @@ export class ProcessService {
         Ean: null,
         AssignEan: null,
         Category: null,
+        CategoryName: null,
         ProductType: null,
         HasEAN: false,
         Name: null,
         Brand: null,
         Details: null,
+        Seller: 'Marketplace',
         Model: null,
         SkuShippingSize: null,
         PackageWidth: null,
@@ -94,8 +98,8 @@ export class ProcessService {
         Color: null,
         HexColourCodePDP: null,
         HexColourName: null,
-        Image: null,
-        ImageChildren: null,
+        // Image: null,
+        // ImageChildren: null,
         ConversionFactor: null,
         MeasurementUnit: null,
         Features: null,
@@ -171,6 +175,7 @@ export class ProcessService {
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
+            this.productData.CategoryName = data.CategoryName;
             this.productData.Category = data.CategorySelected;
             this.productData.ProductType = data.CategoryType;
         }
@@ -191,7 +196,7 @@ export class ProcessService {
             this.productData.ProductWeight = data.ProductWeight;
             this.productData.Description = data.Description;
             this.productData.KeyWords = data.KeyWords;
-            this.productData.Children = data.Children;
+            // this.productData.Children = data.Children;
             this.productData.Size = data.Size;
             this.productData.Color = data.Color;
             this.productData.MeasurementUnit = data.MeasurementUnit;
@@ -210,7 +215,7 @@ export class ProcessService {
             this.productData.ImageUrl4 = data.parent_image_url_arrray[3];
             this.productData.ImageUrl5 = data.parent_image_url_arrray[4];
         }
-        if (data.children_image_url_arrray && data.children_image_url_arrray.length) {
+        /*if (data.children_image_url_arrray && data.children_image_url_arrray.length) {
             for (let i = 0; i < this.productData.Children.length; i++) {
                 this.productData.Children[i].ImageUrl1 = data.children_image_url_arrray[i][0];
                 this.productData.Children[i].ImageUrl2 = data.children_image_url_arrray[i][1];
@@ -218,7 +223,7 @@ export class ProcessService {
                 this.productData.Children[i].ImageUrl4 = data.children_image_url_arrray[i][3];
                 this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
             }
-        }
+        }*/
         this.change.emit(this.views);
     }
 

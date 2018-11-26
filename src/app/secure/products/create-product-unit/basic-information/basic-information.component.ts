@@ -82,7 +82,7 @@ export class ProductBasicInfoComponent implements OnInit {
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
             if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category) {
-                this.formBasicInfo.controls.Category.setValue(this.productData.Category);
+                this.formBasicInfo.controls.Category.setValue(this.productData.CategoryName);
                 this.sonList = [];
             }
             this.showButton = data.showEan;
@@ -185,6 +185,7 @@ export class ProductBasicInfoComponent implements OnInit {
         });
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
+            console.log(data);
             if (data === 'INVALID') {
                 const views = this.process.getViews();
                 views.showInfo = false;
@@ -359,6 +360,7 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     onAsignatedEanSonChanged(value: boolean) {
+        console.log('cualquier cosa');
         this.asignatedEanSon = value;
         if (this.asignatedEanSon === true) {
             this.valInputEan.disable();

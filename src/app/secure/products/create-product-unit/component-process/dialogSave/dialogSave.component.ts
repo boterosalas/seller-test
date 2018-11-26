@@ -13,7 +13,7 @@ export class SaveProcessDialogComponent {
         public dialogRef: MatDialogRef<SaveProcessDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
       ) {
-        this.response = data.response;
+        this.response = data;
       }
 
     onNoClick(): void {
