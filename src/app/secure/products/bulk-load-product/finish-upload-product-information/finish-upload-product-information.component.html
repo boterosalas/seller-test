@@ -16,7 +16,6 @@
     <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
       <mat-icon>warning</mat-icon>
       Se {{response.body.error > 1 ? 'han': 'ha' }} presentado {{response.body.error}} {{response.body.error > 1 ? 'errores': 'error' }} al momento de cargar los 
-
 productos
     </h4>
     <mat-divider *ngIf="response.body.data.status ===3"></mat-divider>

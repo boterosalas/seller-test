@@ -4,7 +4,7 @@ import { Component, Inject } from '@angular/core';
 @Component({
     selector: 'app-dialog-save',
     templateUrl: 'dialogSave.component.html',
-    styleUrls: ['../component-process.component.scss']
+    styleUrls: ['dialogSave.component.scss']
 })
 
 export class SaveProcessDialogComponent {
@@ -14,6 +14,7 @@ export class SaveProcessDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: any
       ) {
         this.response = data;
+        console.log('resposne dialog: ', this.response);
       }
 
     onNoClick(): void {

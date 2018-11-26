@@ -81,7 +81,8 @@ export class ProductBasicInfoComponent implements OnInit {
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
-            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category) {
+            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category &&
+                this.formBasicInfo.controls.Category.value !== this.productData.CategoryName) {
                 this.formBasicInfo.controls.Category.setValue(this.productData.CategoryName);
                 this.sonList = [];
             }
@@ -185,7 +186,6 @@ export class ProductBasicInfoComponent implements OnInit {
         });
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
-            console.log(data);
             if (data === 'INVALID') {
                 const views = this.process.getViews();
                 views.showInfo = false;

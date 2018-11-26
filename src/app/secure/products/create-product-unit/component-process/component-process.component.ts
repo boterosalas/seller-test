@@ -89,7 +89,7 @@ export class ComponentProcessComponent implements OnInit {
   }
 
   public saveInformationCreation(res: any): void {
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     this.process.saveInformationUnitreation().subscribe(result => {
       const data = result;
       console.log('data:', data);
