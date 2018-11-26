@@ -10,7 +10,6 @@ import { MyProfileComponent } from './profile/myprofile.component';
 import { UseractivityComponent } from './useractivity/useractivity.component';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
 
-
 const routes: Routes = [
   Route.withShell([
     {
@@ -20,7 +19,7 @@ const routes: Routes = [
     },
     {
       path: `${RoutesConst.securehome}`,
-      component: SecureHomeComponent,
+      component: null,
       children: [
         { path: '', component: DashboardComponent },
         { path: `${RoutesConst.logout}`, component: LogoutComponent },
