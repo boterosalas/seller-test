@@ -12,7 +12,6 @@ phases:
 
   install:
     commands:
-      - npm install
       - echo Instalando Angular...
       - npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
@@ -45,6 +44,7 @@ phases:
          
       - |
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
+           npm install;
            ng build --configuration=production;
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
