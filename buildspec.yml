@@ -23,13 +23,6 @@ phases:
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-DEV"; then
            ng build --configuration=stage;
            echo Compilacion terminada.;
-           echo Generando documentacion.;
-           npm run compodoc;
-           echo Borrando archivos en bucket de documentacion...;
-           aws s3 rm s3://$S3_BUCKET_DOC --recursive;
-           echo Transfiriendo archivos al bucket de documentacion...;
-           aws s3 cp documentation s3://$S3_BUCKET_DOC --recursive;
-           echo Archivos de documentación transferidos.;
            echo Borrando archivos de front en bucket...;
            aws s3 rm s3://$S3_BUCKET_DEV --recursive;
            echo Archivos de front en bucket borrados.;
