@@ -22,6 +22,13 @@ phases:
     
       - echo Iniciando Unit Tests...
       - ng test
+      - echo Generando documentacion.
+      - npm run compodoc
+      - echo Borrando archivos en bucket de documentacion...
+      - aws s3 rm s3://$S3_BUCKET_DOC --recursive
+      - echo Transfiriendo archivos al bucket de documentacion...
+      - aws s3 cp documentation s3://$S3_BUCKET_DOC --recursive
+      - echo Archivos de documentación transferidos.
       
 artifacts:
   files:
