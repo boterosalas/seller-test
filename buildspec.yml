@@ -6,6 +6,7 @@ env:
     CLOUDFRONT_DISTRIBUTION_ID_DEV: "E3462U4NPR8XV7"
     S3_BUCKET_PROD: "sellercenterprod.exito.com.co"
     CLOUDFRONT_DISTRIBUTION_ID_PROD: "E34UHKF31PAFG2"
+    S3_BUCKET_DOC: "sellercenter.frontdoc.exito.com.co"
 
 phases:
 
@@ -22,12 +23,19 @@ phases:
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-DEV"; then
            ng build --configuration=stage;
            echo Compilacion terminada.;
-           echo Borrando archivos en bucket...;
+           echo Generando documentacion.;
+           npm run compodoc;
+           echo Borrando archivos en bucket de documentacion...;
+           aws s3 rm s3://$S3_BUCKET_DOC --recursive;
+           echo Transfiriendo archivos al bucket de documentacion...;
+           aws s3 cp documentation s3://$S3_BUCKET_DOC --recursive;
+           echo Archivos de documentación transferidos.;
+           echo Borrando archivos de front en bucket...;
            aws s3 rm s3://$S3_BUCKET_DEV --recursive;
-           echo Archivos en bucket borrados.;
-           echo Transfiriendo archivos al bucket...;
+           echo Archivos de front en bucket borrados.;
+           echo Transfiriendo archivos de front al bucket...;
            aws s3 cp deploy/dist s3://$S3_BUCKET_DEV --recursive;
-           echo Archivos transferidos.;
+           echo Archivos de front transferidos.;
            echo Borrando cache en CloudFront...;
            aws configure set preview.cloudfront true;
            aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_DEV --paths "/*";
@@ -38,12 +46,12 @@ phases:
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
            ng build --configuration=production;
            echo Compilacion terminada.;
-           echo Borrando archivos en bucket...;
+           echo Borrando archivos de front en bucket...;
            aws s3 rm s3://$S3_BUCKET_PROD --recursive;
-           echo Archivos en bucket borrados.;
-           echo Transfiriendo archivos al bucket...;
+           echo Archivos de front en bucket borrados.;
+           echo Transfiriendo archivos de front al bucket...;
            aws s3 cp deploy/dist s3://$S3_BUCKET_PROD --recursive;
-           echo Archivos transferidos.;
+           echo Archivos de front transferidos.;
            echo Borrando cache en CloudFront...;
            aws configure set preview.cloudfront true;
            aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_PROD --paths "/*";
@@ -54,5 +62,4 @@ artifacts:
   files:
     - '**/*'
   base-directory: deploy/dist
-  
   
