@@ -1,5 +1,5 @@
 <!-- Dialogo de angular material para mostrar el contrato de trabajo -->
-<div class="dialog-container">
+<div class="dialog-container" fxLayout="column">
     <h1 class="dialog-title" mat-dialog-title>
         Nuevo contrato de trabajo
     </h1>
@@ -12,12 +12,21 @@
         </p>
     </div>
     <form class="dialog-form" [formGroup]="formTerms" (ngSubmit)="saveTerms()">
-            <mat-form-field class="dialog-input">
-              <input matInput placeholder="Responsable" formControlName="responsable">
-            </mat-form-field>
-            <mat-form-field class="dialog-input">
-              <input matInput placeholder="Favorite food" formControlName="responsable">
-            </mat-form-field>
+        <mat-form-field class="dialog-input">
+            <mat-icon matPrefix class="material-icons">
+                person
+            </mat-icon>
+            <input matInput placeholder="Responsable" formControlName="responsable">
+        </mat-form-field>
+        <mat-form-field class="dialog-input">
+            <mat-icon matPrefix class="material-icons">
+                assignment_ind
+            </mat-icon>
+            <input matInput placeholder="Número de identificación" formControlName="identification">
+        </mat-form-field>
 
+        <mat-checkbox class="example-margin" formControlName="accept">
+            Acepto lor términos y condiciones del acuerdo de Marketplace            
+        </mat-checkbox>
     </form>
 </div>

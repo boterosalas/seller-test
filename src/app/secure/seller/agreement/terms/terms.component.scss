@@ -1,0 +1,9 @@
+.dialog-container{
+    width: 100%;
+    .dialog-text-container{
+        overflow: auto;
+        .dialog-text{
+            text-align: justify;
+        }
+    }
+}
