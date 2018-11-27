@@ -12,6 +12,7 @@ phases:
 
   install:
     commands:
+      - npm install
       - echo Instalando Angular...
       - npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
