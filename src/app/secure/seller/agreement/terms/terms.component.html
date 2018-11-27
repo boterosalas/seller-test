@@ -1,1 +1,23 @@
-Componente de terminos y condiciones
+<!-- Dialogo de angular material para mostrar el contrato de trabajo -->
+<div class="dialog-container">
+    <h1 class="dialog-title" mat-dialog-title>
+        Nuevo contrato de trabajo
+    </h1>
+    <h3 class="dialog-subtitle">
+        Apreciado cliente,
+    </h3>
+    <div class="dialog-text-container">
+        <p class="dialog-text">
+            {{textTerms}}
+        </p>
+    </div>
+    <form class="dialog-form" [formGroup]="formTerms" (ngSubmit)="saveTerms()">
+            <mat-form-field class="dialog-input">
+              <input matInput placeholder="Favorite food" value="Sushi">
+            </mat-form-field>
+            <mat-form-field class="dialog-input">
+              <input matInput placeholder="Favorite food" value="Sushi">
+            </mat-form-field>
+
+    </form>
+</div>

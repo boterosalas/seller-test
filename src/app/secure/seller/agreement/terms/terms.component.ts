@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroupName, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-terms',
@@ -7,6 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class TermsComponent implements OnInit {
-    constructor() {}
+
+    /**
+     * Se inicializan variables necesarias para el funcionamiento del componente de mostrar el dialogo de contrato de trabajo.
+     * @memberof TermsComponent
+     */
+    formTerms: FormGroup;
+
+
+
+    constructor() {
+    }
+
     ngOnInit() {}
+
+    createTermsForms(): void {
+        this.formTerms = new FormGroup({
+            responsable: new FormControl('', [
+                Validators.required
+            ]),
+            identification: new FormControl('', [
+                Validators.required
+            ]),
+            accept: new FormControl(false, [
+                Validators.requiredTrue
+            ])
+        });
+    }
 }

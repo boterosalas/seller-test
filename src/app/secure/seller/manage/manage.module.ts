@@ -15,13 +15,15 @@ import { AgreementService } from '../agreement/agreement.component.service';
 import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
 import { ManageSellerService } from './manage.service';
+import { TermsComponent } from '../agreement/terms/terms.component';
 
 @NgModule({
     declarations: [
         ManageComponent,
         ToolbarSellerComponent,
         ManageSellerComponent,
-        AgreementComponent
+        AgreementComponent,
+        TermsComponent
     ],
     imports: [
         CommonModule,
@@ -35,6 +37,9 @@ import { ManageSellerService } from './manage.service';
         SharedModule
     ],
     exports: [
+    ],
+    entryComponents: [
+        TermsComponent
     ],
     providers: [
         {
