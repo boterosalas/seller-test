@@ -1240,7 +1240,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.verifyStateCharge();
                 this.getAvaliableLoads();
                 // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.error > 0) {
+                if (result.body.data.errors > 0) {
                   this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
@@ -1353,7 +1353,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc =  /^((?!<script>|<SCRIPT>).)*$/;
+    const formatDesc =  /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
@@ -1474,7 +1474,7 @@ export class BulkLoadProductComponent implements OnInit {
           if ((inputtxt.match(formatDesc))) {
             valueReturn = true;
           } else {
-            valueReturn = true;
+            valueReturn = false;
           }
           break;
         case 'boolean':
