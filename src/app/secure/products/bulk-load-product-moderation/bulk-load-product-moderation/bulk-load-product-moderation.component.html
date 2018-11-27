@@ -1,0 +1,15 @@
+<!-- Template para el contenido principal. -->
+<ng-template #mainContentTpl>
+  <p>
+    Para importar archivos al Seller Center, primero debes
+    <a (click)="requestMail()" class="link-text">Descargar el formato
+    </a>, en este archivo podrás cargar la validación de productos.
+  </p>
+  <p>
+    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()">Selecciona el archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.
+  </p>
+</ng-template>
+
+<!-- Componente que construye la mayor parte de la vista. -->
+<app-bulk-load #bulkLoadCmp [config]="config" (event)="manageEvents($event)"></app-bulk-load>
+

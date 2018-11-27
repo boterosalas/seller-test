@@ -1,0 +1,3 @@
+<div  class="barraImages">
+  <app-image-url *ngFor="let i of [0,1,2,3,4]; let i = index" [index]="i" [imgUrl]=""   (imgUrlOut)="setImgUrl($event)"></app-image-url>
+</div>

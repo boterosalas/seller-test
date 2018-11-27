@@ -40,6 +40,7 @@ export class RoutesConst {
     static readonly shipmentsExitoPending: any = 'pendientes';
     static readonly shipmentsExitoReports: any = 'reportes';
     static readonly productBulkLoad: any = 'carga-masiva';
+    static readonly productModerationBulkLoad: any = 'moderacion-producto';
     static readonly quoting: any = 'cotizador';
     static readonly createUnutaryProduct: any = 'creacion-unitaria';
 
@@ -76,6 +77,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
+    static readonly sellerCenterProductModerationBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productModerationBulkLoad;
     static readonly sellerCenterIntCreateUnutaryProduct: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.createUnutaryProduct;
 
     static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
