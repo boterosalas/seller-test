@@ -44,6 +44,7 @@ phases:
          
       - |
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
+           npm install;
            ng build --configuration=production;
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
