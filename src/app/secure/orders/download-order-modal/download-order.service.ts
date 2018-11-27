@@ -52,4 +52,22 @@ export class DownloadOrderService {
       });
     });
   }
+
+  /**
+   *  Método para realizar el consumo del servicio que permite enviar las órdenes
+   *  al correo electronico del usuario.
+   * 
+   * @param {any} stringSearch
+   * @returns {Observable<[{}]>}
+   * @memberof OrderService
+   */
+  downloadBilling(stringSearch: any): Observable<[{}]> {
+    return new Observable(observer => {
+      this.http.post(this.api.get('exportBilling'), stringSearch).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+          observer.error(err);
+      });
+    });
+  }
 }

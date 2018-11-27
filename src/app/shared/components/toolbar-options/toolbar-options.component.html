@@ -12,10 +12,12 @@
         </button>
 
         <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false" fxShow.md="false"
-          fxShow="true" fxFlex="160px" class="sc-default-button" id="download-order-button" mat-button color="primary">
+          fxShow="true" fxFlex="160px" class="sc-default-button" id="download-order-button" mat-button color="primary" *ngIf="!billingType">
           <mat-icon>file_download</mat-icon>
           Descargar
         </button>
+
+        <div fxFlex="160px" *ngIf="billingType">-</div>
 
         <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="50%" class="toolbar-paginate">
 

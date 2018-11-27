@@ -12,6 +12,7 @@ import { StatesModule } from './components/states';
 import { ToolbarOptionsModule } from './components/toolbar-options';
 import { ToolbarTittleModule } from './components/toolbar-tittle';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
     CdkDetailRowDirective,
     NoWhitespaceDirective,
     SearchSellerComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    ErrorDialogComponent
   ],
   exports: [
     MaterialModule,
@@ -36,7 +38,11 @@ import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
     CitiesModule,
     ToolbarTittleModule,
     SearchSellerComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    ErrorDialogComponent
+  ],
+  entryComponents: [
+    ErrorDialogComponent
   ],
   providers: [
     EventEmitterSeller,

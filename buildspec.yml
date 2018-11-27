@@ -2,16 +2,15 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: "sellercenter.exito.com.co"
-    CLOUDFRONT_DISTRIBUTION_ID: "E3462U4NPR8XV7"
+    S3_BUCKET_DEV: "sellercenter.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID_DEV: "E3462U4NPR8XV7"
+    S3_BUCKET_PROD: "sellercenterprod.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID_PROD: "E34UHKF31PAFG2"
 
 phases:
 
   install:
     commands:
-      - echo Instalando npm...
-      - npm install
-      - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
       - npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
@@ -19,18 +18,37 @@ phases:
   build:
     commands:
       - echo Iniciando compilacion...
-      - ng build --configuration=stage
-      - echo Compilacion terminada.
-      - echo Borrando archivos en bucket...
-      - aws s3 rm s3://$S3_BUCKET --recursive
-      - echo Archivos en bucket borrados.
-      - echo Transfiriendo archivos al bucket...
-      - aws s3 cp deploy/dist s3://$S3_BUCKET --recursive
-      - echo Archivos transferidos.
-      - echo Borrando cache en CloudFront...
-      - aws configure set preview.cloudfront true
-      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
-      - echo Cache borrado.
+      - |
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-DEV"; then
+           ng build --configuration=stage;
+           echo Compilacion terminada.;
+           echo Borrando archivos en bucket...;
+           aws s3 rm s3://$S3_BUCKET_DEV --recursive;
+           echo Archivos en bucket borrados.;
+           echo Transfiriendo archivos al bucket...;
+           aws s3 cp deploy/dist s3://$S3_BUCKET_DEV --recursive;
+           echo Archivos transferidos.;
+           echo Borrando cache en CloudFront...;
+           aws configure set preview.cloudfront true;
+           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_DEV --paths "/*";
+           echo Cache borrado.;
+         fi
+         
+      - |
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
+           ng build --configuration=production;
+           echo Compilacion terminada.;
+           echo Borrando archivos en bucket...;
+           aws s3 rm s3://$S3_BUCKET_PROD --recursive;
+           echo Archivos en bucket borrados.;
+           echo Transfiriendo archivos al bucket...;
+           aws s3 cp deploy/dist s3://$S3_BUCKET_PROD --recursive;
+           echo Archivos transferidos.;
+           echo Borrando cache en CloudFront...;
+           aws configure set preview.cloudfront true;
+           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_PROD --paths "/*";
+           echo Cache borrado.;
+         fi
 
 artifacts:
   files:
