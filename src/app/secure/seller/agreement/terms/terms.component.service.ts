@@ -43,8 +43,8 @@ export class TermsService implements CanActivate {
 
     openDialog(): void {
         const dialogRef = this.dialog.open(TermsComponent, {
-          width: '70%',
-          height: '80%',
+          width: '80%',
+          height: '90%',
           data: null,
           disableClose: true
         });

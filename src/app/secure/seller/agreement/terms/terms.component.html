@@ -1,32 +1,57 @@
 <!-- Dialogo de angular material para mostrar el contrato de trabajo -->
-<div class="dialog-container" fxLayout="column">
-    <h1 class="dialog-title" mat-dialog-title>
+<div class="dialog-container" *ngIf="chargueView">
+    <h2 class="dialog-title">
         Nuevo contrato de trabajo
-    </h1>
-    <h3 class="dialog-subtitle">
+    </h2>
+    <h1 class="dialog-subtitle" mat-dialog-title>
         Apreciado cliente,
-    </h3>
-    <div class="dialog-text-container">
-        <p class="dialog-text">
-            {{textTerms}}
-        </p>
-    </div>
-    <form class="dialog-form" [formGroup]="formTerms" (ngSubmit)="saveTerms()">
-        <mat-form-field class="dialog-input">
-            <mat-icon matPrefix class="material-icons">
-                person
-            </mat-icon>
-            <input matInput placeholder="Responsable" formControlName="responsable">
-        </mat-form-field>
-        <mat-form-field class="dialog-input">
-            <mat-icon matPrefix class="material-icons">
-                assignment_ind
-            </mat-icon>
-            <input matInput placeholder="Número de identificación" formControlName="identification">
-        </mat-form-field>
+    </h1>
+    <div mat-dialog-content id="parrafo">
 
-        <mat-checkbox class="example-margin" formControlName="accept">
-            Acepto lor términos y condiciones del acuerdo de Marketplace            
-        </mat-checkbox>
-    </form>
+        <form class="dialog-form" [formGroup]="formTerms" (ngSubmit)="saveTerms()">
+            <p class="dialog-text">
+                {{textTerms}}
+            </p>
+
+            <mat-form-field class="dialog-input">
+                <mat-icon matPrefix class="material-icons">
+                    person
+                </mat-icon>
+                <input matInput placeholder="Responsable" formControlName="responsable">
+            </mat-form-field>
+            <mat-form-field class="dialog-input">
+                <mat-icon matPrefix class="material-icons">
+                    assignment_ind
+                </mat-icon>
+                <input matInput placeholder="Número de identificación" formControlName="identification">
+            </mat-form-field>
+
+            <div class="dialog-input dialog-check" fxLayout="row">
+                <mat-checkbox formControlName="accept">
+                </mat-checkbox>
+                Acepto los términos y condiciones del acuerdo de Marketplace
+            </div>
+
+        </form>
+    </div>
+    <!--https://s3.amazonaws.com/sellercenter.nuget/Logger/Acuerdo+Comercial+Marketplace+-+Actualizado+16-11-2018.pdf-->
+    <div style="height: 600px; overflow: auto;">
+        <iframe src="/agreement.pdf" style="width:600px; height:600px;" frameborder="0" id="iframeDoc" scrolling="no"></iframe>
+    </div>
+
+    <!-- Buttons SAVE and CANCEL -->
+    <div mat-dialog-actions>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
+                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'DESCARGAR'"
+                    (click)="closeDialog()"></button>
+            </div>
+            <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
+                <button id="btn-create-transporter" (click)="saveTerms()" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+                    [disabled]="!formTerms.valid">
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
