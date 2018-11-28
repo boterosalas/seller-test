@@ -3,7 +3,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options #toolbarOptions [informationToForm]="informationToForm" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options #toolbarOptions [billingType]="true" [informationToForm]="informationToForm" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 

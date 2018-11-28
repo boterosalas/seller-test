@@ -90,7 +90,7 @@
           <h6 matLine>Carga masiva</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator' && !isProductionEnv">
           <h6 matLine>Moderación</h6>
         </mat-list-item>
 

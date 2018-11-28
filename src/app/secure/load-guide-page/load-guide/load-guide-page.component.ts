@@ -471,7 +471,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    * @memberof LoadGuidePageComponent
    */
   sendJsonInformation() {
-
+    this.loadingService.viewSpinner();
     const jsonToSend = {
       sellerId: this.user.sellerId,
       // dateTime: datePipe.transform(new Date(), 'yyyy/MM/dd'),
@@ -479,9 +479,11 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     };
     this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
       this.openDialogSendOrder(res);
-
+      this.loadingService.closeSpinner();
     }, err => {
       this.componentService.openSnackBar('Se ha presentado un error al enviar la guía', 'Aceptar', 10000);
+      this.loadingService.closeSpinner();
+
     });
   }
 
