@@ -218,7 +218,7 @@
           <!-- EAN -->
           <div>
             <mat-form-field class="name-product field" id="inputValidEanSon">
-              <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (keyup)="validateEanSon()"
+              <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (blur)="validateEanSon()"
                 (change)="detectForm()" id="validateEanSonProduct">
               <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido</mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
