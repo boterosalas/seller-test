@@ -16,6 +16,7 @@ import { ManageSellerComponent } from './manage-seller/manage-seller.component';
 import { SharedModule } from '@shared/shared.module';
 import { ManageSellerService } from './manage.service';
 import { TermsComponent } from '../agreement/terms/terms.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { TermsComponent } from '../agreement/terms/terms.component';
         ManageRoutingModule,
         HttpClientModule,
         HttpClientJsonpModule,
-        SharedModule
+        SharedModule,
+        PdfViewerModule
     ],
     exports: [
     ],

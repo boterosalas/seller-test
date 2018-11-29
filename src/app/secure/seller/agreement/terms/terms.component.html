@@ -10,7 +10,8 @@
 
         <form class="dialog-form" [formGroup]="formTerms" (ngSubmit)="saveTerms()">
             <p class="dialog-text">
-                {{textTerms}}
+                <pdf-viewer [src]="textTerms" [fit-to-page]="true" [render-text]="false" [render-text-mode]="0"
+                    [show-all]="true" [autoresize]="true"></pdf-viewer>
             </p>
 
             <mat-form-field class="dialog-input">
@@ -27,16 +28,12 @@
             </mat-form-field>
 
             <div class="dialog-input dialog-check" fxLayout="row">
-                <mat-checkbox formControlName="accept">
+                <mat-checkbox formControlName="accept" class="dialog-accept">
                 </mat-checkbox>
                 Acepto los términos y condiciones del acuerdo de Marketplace
             </div>
 
         </form>
-    </div>
-    <!--https://s3.amazonaws.com/sellercenter.nuget/Logger/Acuerdo+Comercial+Marketplace+-+Actualizado+16-11-2018.pdf-->
-    <div style="height: 600px; overflow: auto;">
-        <iframe src="/agreement.pdf" style="width:600px; height:600px;" frameborder="0" id="iframeDoc" scrolling="no"></iframe>
     </div>
 
     <!-- Buttons SAVE and CANCEL -->
