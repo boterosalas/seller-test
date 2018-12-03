@@ -1232,8 +1232,9 @@ export class BulkLoadProductComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
+            console.log('Printing load');
             const data = result;
-            if (data.body !== null && data.body !== undefined) {
+            if (data.body.data !== null && data.body.data !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
                 // this.openDialogSendOrder(data);
                 this.progressStatus = false;
