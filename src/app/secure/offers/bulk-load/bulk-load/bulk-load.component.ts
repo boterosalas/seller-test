@@ -69,6 +69,8 @@ export class BulkLoadComponent implements OnInit {
 
   public arrayNecessaryData: Array<any>;
 
+  public EanArray: any = [];
+
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
@@ -213,6 +215,7 @@ export class BulkLoadComponent implements OnInit {
   validateDataFromFile(res: any, file: any) {
     if (res.length > 1) {
       let contEmptyRow = 0;
+      this.EanArray = [];
 
       for (let i = 0; i < res.length; i++) {
 
@@ -231,10 +234,22 @@ export class BulkLoadComponent implements OnInit {
             res[0][j] === 'Cotizador de Flete' ||
             res[0][j] === 'Garantia' ||
             res[0][j] === 'Logistica Exito' ||
-            res[0][j] === 'Actualizacion de Inventario') {
+            res[0][j] === 'Actualizacion de Inventario' ||
+            res[0][j] === 'Ean combo' ||
+            res[0][j] === 'Cantidad en combo') {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
 
+        }
+
+        if (i) {
+          let price = res[i][this.arrayNecessaryData[0].indexOf('Precio con Descuento')];
+          if (!price) { price = res[i][this.arrayNecessaryData[0].indexOf('Precio')]}
+          this.EanArray.push({
+              ean : res[i][this.arrayNecessaryData[0].indexOf('EAN')],
+              price:  price,
+              index: i
+            });
         }
       }
 
@@ -280,7 +295,9 @@ export class BulkLoadComponent implements OnInit {
             iCotFlete: this.arrayNecessaryData[0].indexOf('Cotizador de Flete'),
             iGarantia: this.arrayNecessaryData[0].indexOf('Garantia'),
             iLogisticaExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-            iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario')
+            iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario'),
+            iEanCombo: this.arrayNecessaryData[0].indexOf('Ean combo'),
+            iCantidadCombo: this.arrayNecessaryData[0].indexOf('Cantidad en combo')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -301,6 +318,25 @@ export class BulkLoadComponent implements OnInit {
     }
   }
 
+
+  validExistEan(ean: string, price: any, iVal: any): boolean {
+    let exist = false;
+    this.EanArray.forEach(element => {
+      element.iVal = iVal;
+      if (ean === element.ean) {
+        exist = true;
+        try {
+          element.totalPrice += parseFloat(price);
+        } catch (e) {
+          console.error('El precio del producto no es un numero', e);
+        }
+      }
+      if (!element.totalPrice) {
+        element.totalPrice = 0;
+      }
+    });
+    return exist;
+  }
   /**
    * Método que se encarga de crear la tabla.
    *
@@ -315,6 +351,46 @@ export class BulkLoadComponent implements OnInit {
 
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
+
+          // Validación de nuevos campos COMBO
+          if (j === iVal.iEanCombo ) {
+            const fast = this.validExistEan(res[i][iVal.iEanCombo], res[i][iVal.iPrecio], iVal);
+            // ERROR: ya que contiene ean combo pero no cantidad en combo.
+            if (res[i][iVal.iEanCombo] && !res[i][iVal.iCantidadCombo]) {
+              this.countErrors += 1;
+              const row = i + 1, column = j + 1;
+              const itemLog = {
+                row: this.arrayInformation.length,
+                column: j,
+                type: 'NumberFormat',
+                columna: column,
+                fila: row,
+                positionRowPrincipal: i,
+                dato: 'ComboQuantity'
+              };
+
+              this.listLog.push(itemLog);
+              errorInCell = true;
+            } else if (res[i][iVal.iEanCombo] === res[i][iVal.iEAN] || !fast && res[i][iVal.iEanCombo]) {
+              // ERROR: ya que el ean de combo es el mismo ean.
+              this.countErrors += 1;
+              const row = i + 1, column = j + 1;
+              const itemLog = {
+                row: this.arrayInformation.length,
+                column: j,
+                type: fast ?  'InvalidEanCombo' : 'InvalidExistEan',
+                columna: column,
+                msg: res[i][iVal.iEanCombo],
+                fila: row,
+                positionRowPrincipal: i,
+                dato: 'EanCombo'
+              };
+
+              this.listLog.push(itemLog);
+              errorInCell = true;
+
+            }
+          }
 
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
 
@@ -448,6 +524,7 @@ export class BulkLoadComponent implements OnInit {
 
       this.addInfoTosend(res, i, iVal);
     }
+    this.validatePrices();
 
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
@@ -455,6 +532,38 @@ export class BulkLoadComponent implements OnInit {
       this.sendJsonInformation();
     }
 
+
+  }
+
+  validatePrices(): void {
+    this.EanArray.forEach(element => {
+      let exist = false;
+      if (element.price !== element.totalPrice && element.price && element.totalPrice) {
+
+        this.arrayInformation.forEach(error => {
+          if (error.EAN === element.ean) {
+            exist = true;
+          }
+        });
+
+        const itemLog = {
+          row: this.arrayInformation.length,
+          column: element.index + 1,
+          columna: element.index + 1,
+          type: 'InvalidPriceCombo',
+          fila:  element.iVal.iPrecio,
+          positionRowPrincipal: element.index,
+          dato: 'Price'
+        };
+
+        this.listLog.push(itemLog);
+
+
+        if (!exist) {
+          this.addRowToTable(this.arrayNecessaryData, element.index, element.iVal);
+        }
+      }
+    });
   }
 
   /**
@@ -478,6 +587,8 @@ export class BulkLoadComponent implements OnInit {
       Warranty: res[index][iVal.iGarantia],
       IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
+      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '0',
+      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '0',
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -503,6 +614,8 @@ export class BulkLoadComponent implements OnInit {
       Warranty: res[index][iVal.iGarantia],
       IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
+      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '0',
+      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '0',
       errorRow: false
     };
 
@@ -545,6 +658,8 @@ export class BulkLoadComponent implements OnInit {
       this.arrayInformation[index].errorWarranty = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
       this.arrayInformation[index].errorIsUpdatedStock = false;
+      this.arrayInformation[index].errorEanCombo = false;
+      this.arrayInformation[index].errorComboQuantity = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -704,7 +819,9 @@ export class BulkLoadComponent implements OnInit {
       'Free Shipping': undefined,
       'Indicador Envios Exito': undefined,
       'Cotizador de Flete': undefined,
-      'Garantia': undefined
+      'Garantia': undefined,
+      'Ean combo': undefined,
+      'Cantidad en combo': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
