@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
 import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
 import { MatDialog } from '@angular/material';
-import { SaveProcessErrorDialogComponent } from './dialogSaveError/dialogSaveError.component';
 import { Observable } from 'rxjs/Observable';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 
@@ -28,6 +27,7 @@ export class ComponentProcessComponent implements OnInit {
   isOptional = false;
   views: any;
   children_created: any = 0;
+  modalService: any;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -88,6 +88,7 @@ export class ComponentProcessComponent implements OnInit {
 
   }
 
+  /*
   public saveInformationCreation(res: any): void {
     // this.loadingService.viewSpinner();
     this.process.saveInformationUnitreation().subscribe(result => {
@@ -103,6 +104,50 @@ export class ComponentProcessComponent implements OnInit {
        dialogRef.afterClosed().subscribe(resdialog => {
         console.log('The dialog was closed');
       });
+    });
+  } */
+  // //
+
+  saveInformationCreation() {
+    this.loadingService.viewSpinner();
+    // call to the bulk load product service
+    this.process.saveInformationUnitreation().subscribe(result => {
+      const data = result;
+      console.log('data:', data);
+      if (data['data'] !== null && data['data'] !== undefined) {
+        console.log('entra aqui');
+        console.log('data-data: ', data['data']);
+        this.openDialogSendOrder2(data);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+
+    });
+    this.loadingService.closeSpinner();
+  }
+
+  openDialogSendOrder2(res: any): void {
+    console.log('res: ', res);
+    if (!res.data) {
+      res.productNotifyViewModel = res.data.productNotify;
+      console.log('diferente de data dentro modal; ', res.productNotifyViewModel);
+    } else {
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.data) {
+        res.productNotifyViewModel = res.data.productNotify;
+        console.log('si hay data de data dentro modal; ', res.productNotifyViewModel);
+
+      }
+    }
+    const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
+      width: '95%',
+      disableClose: true,
+      data: {
+        response: res
+      },
+    });
+    dialogRef.afterClosed().subscribe(resdialog => {
+      console.log('The dialog was closed');
     });
   }
 }

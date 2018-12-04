@@ -1,26 +1,26 @@
-<div>
-  <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="response.message === ''">
+<div *ngIf="response">
+  <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="!response.response.data.error">
     <mat-icon>check</mat-icon>
     La solicitud de creación de tu producto ha sido recibida con éxito.
     El producto pasará a proceso de validación y te estaremos informando de manera oportuna
     si el producto es aceptado y puede ofertarse o si es rechazado y debes corregir información.
   </h4>
 
-  <h4 id="dialogSave" *ngIf="response.message !== ''"> Se {{response.errors > 1 ? 'han': 'ha' }} presentado
+  <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> Se {{response.errors > 1 ? 'han': 'ha' }} presentado
     {{response.errors}} {{response.errors > 1 ? 'errores': 'error' }} al momento de crear
     el producto. Intentelo nuevamente... Gracias
   </h4>
 
-  <mat-divider *ngIf="response.message !== ''"></mat-divider>
+  <mat-divider *ngIf="response.response.data.error > 0"></mat-divider>
 
-  <mat-nav-list *ngIf="response.message !== ''">
-    <mat-list-item *ngFor="let item of response.response.errors">
+  <mat-nav-list *ngIf="response.response.data.error > 0">
+    <mat-list-item *ngFor="let item of response.response.productNotifyViewModel">
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-      <h4 matLine>EAN:{{item.code}}{{item.Code}}</h4>
+      <h4 matLine>EAN:{{item.ean}}{{item.Ean}}</h4>
       <p matLine>Error presentado: {{item.message}}{{item.Message}}</p>
     </mat-list-item>
   </mat-nav-list>
 </div>
-<button mat-raised-button color="primary" *ngIf="response.message === ''" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']"
+<button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']"
   color="primary">Inicio</button>
-<button mat-raised-button color="primary" *ngIf="response.message !== ''" (click)="onNoClick()">Reintentar</button>
+<button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">Reintentar</button>

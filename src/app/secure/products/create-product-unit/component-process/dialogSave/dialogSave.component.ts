@@ -11,9 +11,9 @@ export class SaveProcessDialogComponent {
     public response: any;
     constructor(
         public dialogRef: MatDialogRef<SaveProcessDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any
+        @Inject(MAT_DIALOG_DATA) public res: any
       ) {
-        this.response = data;
+        this.response = res;
         console.log('resposne dialog: ', this.response);
       }
 
