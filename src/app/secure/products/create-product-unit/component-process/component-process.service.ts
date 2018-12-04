@@ -241,6 +241,10 @@ export class ProcessService {
         return this.productData;
     }
 
+    public setFeatures(Features: any): void {
+        this.productData.Features = Features;
+    }
+
     /**
      * Ya que validacion ean necesita de varias validaciones para continuar fue necesario una funcion para inhabilitar este paso manualmente.
      *
