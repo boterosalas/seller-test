@@ -48,6 +48,8 @@ export interface ProductModel {
     ImageUrl3: string;
     ImageUrl4: string;
     ImageUrl5: string;
+    MetaTitle: string;
+    MetaDescription:  string;
 }
 
 /**
@@ -108,6 +110,8 @@ export class ProcessService {
         ImageUrl3: null,
         ImageUrl4: null,
         ImageUrl5: null,
+        MetaTitle: null,
+        MetaDescription: null
     };
 
     /**
