@@ -6,6 +6,7 @@ import { MaterialModule } from '@app/material.module';
 import { BulkLoadComponent } from './bulk-load/bulk-load.component';
 import { ShowErrorsComponent } from './errors-load/errors-load.component';
 import { CommonService } from '@app/shared/services/common.service';
+import { SendModerationFormatModalService } from '@app/secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { CommonService } from '@app/shared/services/common.service';
     ShowErrorsComponent
   ],
   providers: [
-    CommonService
+    CommonService,
+    SendModerationFormatModalService
   ]
 })
 export class BulkLoadModule {

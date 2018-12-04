@@ -2,8 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { Logger } from '@app/core';
 import { ConfigBulkLoad, Event, TypeEvents } from '../models/bulk-load.model';
 import { CommonService } from '@app/shared/services/common.service';
-import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { MatSnackBar } from '@angular/material';
+import { SendModerationFormatModalService } from '@app/secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.service';
 
 const log = new Logger('BulkLoadComponent(shared)');
 
@@ -24,6 +25,7 @@ export class BulkLoadComponent implements OnInit {
   nameEan = 'EAN';
   nameReason = 'Motivo';
   nameComment = 'Observacion';
+  nameId = 'Id';
   nameIdpw = 'idpw';
   approved = 'Aprobado';
   rejected = 'Rechazado';
@@ -63,7 +65,8 @@ export class BulkLoadComponent implements OnInit {
   @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
   @Output() event: EventEmitter<Event> = new EventEmitter();
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,
+    private snackBar: MatSnackBar, private moderationService: SendModerationFormatModalService) { }
 
   ngOnInit(): void {
     this.getRegex();
@@ -105,10 +108,11 @@ export class BulkLoadComponent implements OnInit {
   }
 
   public initializePositions(): void {
-    this.positionModerate[this.nameEan] = 0;
-    this.positionModerate[this.nameResponse] = 0;
-    this.positionModerate[this.nameReason] = 0;
-    this.positionModerate[this.nameComment] = 0;
+    this.positionModerate[this.nameEan] = -1;
+    this.positionModerate[this.nameResponse] = -1;
+    this.positionModerate[this.nameReason] = -1;
+    this.positionModerate[this.nameComment] = -1;
+    this.positionModerate[this.nameId] = -1;
   }
   /**
    * Emite un evento cuando se quiere descargar el formato.
@@ -151,7 +155,7 @@ export class BulkLoadComponent implements OnInit {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
+          const ws: XLSX.WorkSheet = wb.Sheets[Object.keys(wb.Sheets)[0]];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
@@ -194,20 +198,31 @@ export class BulkLoadComponent implements OnInit {
       this.verifyModerationDataFromExcel(data);
       this.resetUploadFIle();
     }, error => {
-      log.error('Error al cargar archivo de validación de productos');
+      const msg = 'Error al cargar archivo de validación de productos';
+      log.error(msg);
+      this.showPrincipalContain = true;
+      this.snackBar.open(msg, 'Cerrar', {
+        duration: 3000
+      });
+
+      this.resetUploadFIle();
     });
   }
 
   public validateHeaders(data: any): void {
     for (let i = 0; i < data.length; i++) {
-      if (data[i] === this.nameEan) {
-        this.positionModerate[this.nameEan] = i;
-      } else if (data[i] === this.nameResponse) {
-        this.positionModerate[this.nameResponse] = i;
-      } else if (data[i] === this.nameComment) {
-        this.positionModerate[this.nameComment] = i;
-      } else if (data[i] === this.nameReason) {
-        this.positionModerate[this.nameReason] = i;
+      if (data[i]) {
+        if (data[i].trim() === this.nameEan) {
+          this.positionModerate[this.nameEan] = i;
+        } else if (data[i].trim() === this.nameResponse) {
+          this.positionModerate[this.nameResponse] = i;
+        } else if (data[i].trim() === this.nameComment) {
+          this.positionModerate[this.nameComment] = i;
+        } else if (data[i].trim() === this.nameReason) {
+          this.positionModerate[this.nameReason] = i;
+        }else if (data[i].trim() === this.nameId) {
+          this.positionModerate[this.nameId] = i;
+        }
       }
     }
   }
@@ -268,6 +283,13 @@ export class BulkLoadComponent implements OnInit {
           Value: value
         };
         break;
+      case this.nameId:
+        errorObject = {
+          Column: this.positionModerate[this.nameId],
+          Description: 'El ID es obligatorio',
+          Value: value
+        };
+        break;
     }
     errorObject.Row = row;
     return errorObject;
@@ -277,41 +299,47 @@ export class BulkLoadComponent implements OnInit {
   public verifyModerationDataFromExcel(data: any): void {
     this.validateHeaders(data[0]);
     for (let i = 1; i < data.length; i++) {
-      const validaData = { Ean: 0, Response: '', Reason: '', Comment: '', Errors: [] };
+      const validaData = { Ean: 0, Response: '', Reason: '', Comment: '', Errors: [], Idpw: 0};
 
       /** Posee doble if para darle un mejor manejo a los mensajes de error  */
       /** Valida si tiene ean y concuerda con la regex */
       if (data[i][this.positionModerate[this.nameEan]]) {
-        validaData.Ean = data[i][this.positionModerate[this.nameEan]];
-        if (!data[i][this.positionModerate[this.nameEan]].match(this.regexEan)) {
+        validaData.Ean = data[i][this.positionModerate[this.nameEan]].trim();
+        if (!data[i][this.positionModerate[this.nameEan]].trim().match(this.regexEan)) {
           validaData.Errors.push(this.getError(i, this.nameEan, false, this.nameEan)); // Error el ean no es valido
         }
       } else {
         validaData.Errors.push(this.getError(i, this.nameEan, true, this.nameEan)); // Error no posee ean
       }
 
+      if (data[i][this.positionModerate[this.nameId]]) {
+        validaData.Idpw =  data[i][this.positionModerate[this.nameId]].trim();
+      } else {
+        validaData.Errors.push(this.getError(i, this.nameId, true, this.nameId)); // Error no posee ean
+      }
+
       /** Valida si tiene validacion y concuerda con la regex */
       if (data[i][this.positionModerate[this.nameResponse]]) {
         validaData.Response = data[i][this.positionModerate[this.nameResponse]];
-        if (!data[i][this.positionModerate[this.nameResponse]].match(this.regexResponse)) {
+        if (!data[i][this.positionModerate[this.nameResponse]].trim().match(this.regexResponse)) {
           validaData.Errors.push(this.getError(i, this.nameResponse, false, this.nameResponse)); // Error la validacion no es valida
         }
       } else {
         validaData.Errors.push(this.getError(i, this.nameResponse, true, this.nameResponse)); // Error no posee validacion
       }
       /** Valida si tiene motivo y si la validacion fue rechazada y concuerda con la regex */
-      if (this.rejected === data[i][this.positionModerate[this.nameResponse]] && data[i][this.positionModerate[this.nameReason]]) {
-        validaData.Reason = data[i][this.positionModerate[this.nameReason]];
+      if (this.rejected === data[i][this.positionModerate[this.nameResponse]].trim() && data[i][this.positionModerate[this.nameReason]].trim()) {
+        validaData.Reason = data[i][this.positionModerate[this.nameReason]].trim();
         if (!data[i][this.positionModerate[this.nameReason]].match(this.regexReason)) {
           validaData.Errors.push(this.getError(i, this.nameReason, false, this.nameReason)); // Error el motivo no es valida
         }
-      } else if (this.rejected === data[i][this.positionModerate[this.nameResponse]] && !data[i][this.positionModerate[this.nameReason]]) {
+      } else if (this.rejected === data[i][this.positionModerate[this.nameResponse]] && !data[i][this.positionModerate[this.nameReason]].trim()) {
         validaData.Errors.push(this.getError(i, this.nameReason, true, this.nameReason)); // Error no posee motivo a pesar de que fue rechazado 'this.rejected'
       }
 
       /** Valida la observacion y si concuerda con la regex */
       if (data[i][this.positionModerate[this.nameComment]]) {
-        validaData.Comment = data[i][this.positionModerate[this.nameComment]];
+        validaData.Comment = data[i][this.positionModerate[this.nameComment]].trim();
         if (!data[i][this.positionModerate[this.nameComment]].match(this.regexComment)) {
           validaData.Errors.push(this.getError(i, this.nameComment, false, this.nameComment)); // Error el motivo no es valida
         }
@@ -330,7 +358,13 @@ export class BulkLoadComponent implements OnInit {
   public sendDataToValidate(): void {
     this.showPrincipalContain = true;
     // AQUI VA EL SERVICIO PARA GUARDAR LOS DATOS QUE SON:
-    this.dataToSend = this.dataToSend;
+    if (this.dataToSend.length) {
+      this.moderationService.sendModeration(this.dataToSend).subscribe(data => {
+
+      }, error => {
+        log.error('no pudo guardar el archivo', error);
+      });
+    }
   }
 
   /**
