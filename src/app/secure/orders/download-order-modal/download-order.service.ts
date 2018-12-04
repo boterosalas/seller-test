@@ -16,7 +16,6 @@ export class DownloadOrderService {
 
   /**
    * Método para obtener el filtro actual que el usuario ha aplicado a la consulta de órdenes.
-   * 
    * @returns
    * @memberof OrderService
    */
@@ -27,18 +26,16 @@ export class DownloadOrderService {
 
   /**
    * Metodo para setear el filtro actual que el usuario ha aplicado a las órdenes que esta visualizando.
-   * 
    * @param {any} data
    * @memberof OrderService
    */
-  setCurrentFilterOrders(data) {
+  setCurrentFilterOrders(data: any) {
     localStorage.setItem('currentFilter', JSON.stringify(data));
   }
 
   /**
    *  Método para realizar el consumo del servicio que permite enviar las órdenes
    *  al correo electronico del usuario.
-   * 
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService
@@ -56,7 +53,6 @@ export class DownloadOrderService {
   /**
    *  Método para realizar el consumo del servicio que permite enviar las órdenes
    *  al correo electronico del usuario.
-   * 
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
    * @memberof OrderService

@@ -11,6 +11,7 @@ import { SpecificationProductComponent } from './specification.component';
 import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
+import { ProcessService } from '../component-process/component-process.service';
 
 describe('SpecificationProductComponent', () => {
 
@@ -1325,6 +1326,11 @@ describe('SpecificationProductComponent', () => {
         body: { data:  specification  }
     };
 
+    const proccessService = <ProcessService>{
+        setFeatures(data: any): void {
+        }
+    };
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -1333,6 +1339,7 @@ describe('SpecificationProductComponent', () => {
             ],
             providers: [
                 { provide: SpecificationService, useValue: specificationService },
+                { provide: ProcessService, useValue: proccessService },
                 { provide: MatDialogRef, useValue: {} },
             ], imports: [
                 MaterialModule,

@@ -50,7 +50,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public daneCode: any;
   public disabledForService: boolean;
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
-  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!s\.a\.s$)(?!s\.a$)(?!s\.a\.$)(?!s\.a\.$)(?!sa\.s$)(?!sas$)(?!sa$)(?!ltda$)(?!ltda\.$).)*$/;
+  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
 
