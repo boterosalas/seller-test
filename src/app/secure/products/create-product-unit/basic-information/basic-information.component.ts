@@ -360,7 +360,6 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     onAsignatedEanSonChanged(value: boolean) {
-        console.log('cualquier cosa');
         this.asignatedEanSon = value;
         if (this.asignatedEanSon === true) {
             this.valInputEan.disable();

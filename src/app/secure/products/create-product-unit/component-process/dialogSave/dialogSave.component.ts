@@ -14,7 +14,6 @@ export class SaveProcessDialogComponent {
         @Inject(MAT_DIALOG_DATA) public res: any
       ) {
         this.response = res;
-        console.log('resposne dialog: ', this.response);
       }
 
     onNoClick(): void {

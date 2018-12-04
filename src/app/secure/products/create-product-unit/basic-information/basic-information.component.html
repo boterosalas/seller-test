@@ -226,7 +226,7 @@
               <mat-error *ngIf="son.form.get('Ean').hasError('required')">El campo es obligatorio</mat-error>
             </mat-form-field>
             <div class="distanceComponetInt">
-              <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon" (blur)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked)"
+              <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon" (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked)"
                 formControlName="associateEanSon">No tengo EAN asociado</mat-checkbox>
             </div>
           </div>

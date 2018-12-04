@@ -88,35 +88,17 @@ export class ComponentProcessComponent implements OnInit {
 
   }
 
-  /*
-  public saveInformationCreation(res: any): void {
-    // this.loadingService.viewSpinner();
-    this.process.saveInformationUnitreation().subscribe(result => {
-      const data = result;
-      console.log('data:', data);
-      const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
-        width: '800px',
-        disableClose: true,
-        data: {
-          response: data
-        },
-      });
-       dialogRef.afterClosed().subscribe(resdialog => {
-        console.log('The dialog was closed');
-      });
-    });
-  } */
-  // //
-
+  /**
+   * Funtion saveInformationCreation()
+   * Funcion para guardar la información de la creación unitaria.
+   * @memberof ComponentProcessComponent
+   */
   saveInformationCreation() {
     this.loadingService.viewSpinner();
     // call to the bulk load product service
     this.process.saveInformationUnitreation().subscribe(result => {
       const data = result;
-      console.log('data:', data);
       if (data['data'] !== null && data['data'] !== undefined) {
-        console.log('entra aqui');
-        console.log('data-data: ', data['data']);
         this.openDialogSendOrder2(data);
       } else {
         this.modalService.showModal('errorService');
@@ -126,17 +108,19 @@ export class ComponentProcessComponent implements OnInit {
     this.loadingService.closeSpinner();
   }
 
+  /**
+   * Funcion: openDialogSendOrder2
+   * Funcion para desplegar el modal de exitoso o con los errores del guardado de la creacion unitaria.
+   * @param {*} res
+   * @memberof ComponentProcessComponent
+   */
   openDialogSendOrder2(res: any): void {
-    console.log('res: ', res);
     if (!res.data) {
       res.productNotifyViewModel = res.data.productNotify;
-      console.log('diferente de data dentro modal; ', res.productNotifyViewModel);
     } else {
       // Condicional apra mostrar errores mas profundos. ;
       if (res.data) {
         res.productNotifyViewModel = res.data.productNotify;
-        console.log('si hay data de data dentro modal; ', res.productNotifyViewModel);
-
       }
     }
     const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
@@ -147,7 +131,6 @@ export class ComponentProcessComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe(resdialog => {
-      console.log('The dialog was closed');
     });
   }
 }
