@@ -49,7 +49,7 @@ export interface ProductModel {
     ImageUrl4: string;
     ImageUrl5: string;
     MetaTitle: string;
-    MetaDescription:  string;
+    MetaDescription: string;
 }
 
 /**
@@ -141,7 +141,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     constructor(private http: HttpClient,
-            private api: EndpointService) {
+        private api: EndpointService) {
         this.productData.AssignEan = false;
     }
 
@@ -255,6 +255,27 @@ export class ProcessService {
     }
 
     /**
+     * Funcion para validar campos metadescription y metatitulo
+     *
+     * @memberof ProcessService
+     */
+    public sendFieldMeta(): void {
+        if (this.productData.Name.match(this.productData.Brand) && this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else if (this.productData.Name.match(this.productData.Brand)) {
+            this.productData.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else if (this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else {
+            this.productData.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        }
+    }
+
+    /**
      * Servicio que valida el guardado de la informacion de la creacion unitaria de producto.
      *
      * @param {*} params
@@ -262,6 +283,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public saveInformationUnitreation(): Observable<{}> {
+        this.sendFieldMeta();
         return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 }

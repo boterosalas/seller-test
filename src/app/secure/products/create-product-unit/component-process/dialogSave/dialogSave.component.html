@@ -1,9 +1,9 @@
 <div *ngIf="response">
   <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="!response.response.data.error">
-    <mat-icon>check</mat-icon>
+    <mat-icon mat-list-icon class="icon-color-succes">check</mat-icon>
     La solicitud de creación de tu producto ha sido recibida con éxito.
     El producto pasará a proceso de validación y te estaremos informando de manera oportuna
-    si el producto es aceptado y puede ofertarse o si es rechazado y debes corregir información.
+    si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.
   </h4>
 
   <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> Se {{response.errors > 1 ? 'han': 'ha' }} presentado
@@ -21,6 +21,8 @@
     </mat-list-item>
   </mat-nav-list>
 </div>
-<button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']"
-  color="primary">Inicio</button>
-<button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">Reintentar</button>
+
+<mat-dialog-actions class="footer-Save">
+  <button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']">Inicio</button>
+  <button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">Reintentar</button>
+</mat-dialog-actions>
