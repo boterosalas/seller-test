@@ -1232,8 +1232,9 @@ export class BulkLoadProductComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
+            console.log('Printing load');
             const data = result;
-            if (data.body !== null && data.body !== undefined) {
+            if (data.body.data !== null && data.body.data !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
                 // this.openDialogSendOrder(data);
                 this.progressStatus = false;
@@ -1276,7 +1277,8 @@ export class BulkLoadProductComponent implements OnInit {
             result.body.data.response = JSON.parse(result.body.data.response);
           }
           if (result.body.data.status === 0 || result.body.data.checked === 'true') {
-          } else if (result.body.data.status === 1) {
+          } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+            result.body.data.status = 1;
             if (!this.progressStatus) {
               this.openDialogSendOrder(result);
             }
@@ -1352,7 +1354,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc =  /^((?!<script>|<SCRIPT>).)*$/igm;
+    const formatDesc =  /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;

@@ -79,6 +79,8 @@ export const endpoints = {
       productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
       // Get Regex
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
+      // Post Guardar informacion creacion unitaria de producto
+      postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     },
@@ -157,6 +159,8 @@ export const endpoints = {
       sendProductModeration: '',
       // Get Regex
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
+       // Post Guardar informacion creacion unitaria de producto
+       postSaveInformationUnitCreation: '',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     }

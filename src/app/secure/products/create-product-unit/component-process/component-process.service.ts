@@ -1,5 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { EndpointService } from '@app/core/http/endpoint.service';
 
 
 /**
@@ -12,11 +14,13 @@ export interface ProductModel {
     Ean: string;
     AssignEan: boolean;
     Category: string;
+    CategoryName: string;
     ProductType: string;
     HasEAN: boolean;
     Name: string;
     Brand: string;
     Details: string;
+    Seller: string;
     Model: string;
     SkuShippingSize: string;
     PackageWidth: number;
@@ -34,16 +38,18 @@ export interface ProductModel {
     Color: string;
     HexColourCodePDP: string;
     HexColourName: string;
-    Image: Array<any>;
+    // Image: Array<any>;
     MeasurementUnit: string;
     ConversionFactor: string;
-    ImageChildren: ProductModel['Image'];
+    // ImageChildren: ProductModel['Image'];
     Features: any;
     ImageUrl1: string;
     ImageUrl2: string;
     ImageUrl3: string;
     ImageUrl4: string;
     ImageUrl5: string;
+    MetaTitle: string;
+    MetaDescription: string;
 }
 
 /**
@@ -70,11 +76,13 @@ export class ProcessService {
         Ean: null,
         AssignEan: null,
         Category: null,
+        CategoryName: null,
         ProductType: null,
         HasEAN: false,
         Name: null,
         Brand: null,
         Details: null,
+        Seller: 'Marketplace',
         Model: null,
         SkuShippingSize: null,
         PackageWidth: null,
@@ -92,8 +100,8 @@ export class ProcessService {
         Color: null,
         HexColourCodePDP: null,
         HexColourName: null,
-        Image: null,
-        ImageChildren: null,
+        // Image: null,
+        // ImageChildren: null,
         ConversionFactor: null,
         MeasurementUnit: null,
         Features: null,
@@ -102,6 +110,8 @@ export class ProcessService {
         ImageUrl3: null,
         ImageUrl4: null,
         ImageUrl5: null,
+        MetaTitle: null,
+        MetaDescription: null
     };
 
     /**
@@ -130,7 +140,8 @@ export class ProcessService {
      * @param {HttpClient} http
      * @memberof ProcessService
      */
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        private api: EndpointService) {
         this.productData.AssignEan = false;
     }
 
@@ -168,6 +179,7 @@ export class ProcessService {
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
+            this.productData.CategoryName = data.CategoryName;
             this.productData.Category = data.CategorySelected;
             this.productData.ProductType = data.CategoryType;
         }
@@ -240,6 +252,39 @@ export class ProcessService {
         this.productData.HasEAN = false;
         this.views.showEan = false;
         this.change.emit(this.views);
+    }
+
+    /**
+     * Funcion para validar campos metadescription y metatitulo
+     *
+     * @memberof ProcessService
+     */
+    public sendFieldMeta(): void {
+        if (this.productData.Name.match(this.productData.Brand) && this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else if (this.productData.Name.match(this.productData.Brand)) {
+            this.productData.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else if (this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        } else {
+            this.productData.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ';
+        }
+    }
+
+    /**
+     * Servicio que valida el guardado de la informacion de la creacion unitaria de producto.
+     *
+     * @param {*} params
+     * @returns {Observable<{}>}
+     * @memberof ProcessService
+     */
+    public saveInformationUnitreation(): Observable<{}> {
+        this.sendFieldMeta();
+        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 }
 

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
+import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 @Component({
   selector: 'app-component-process',
@@ -23,9 +27,12 @@ export class ComponentProcessComponent implements OnInit {
   isOptional = false;
   views: any;
   children_created: any = 0;
+  modalService: any;
 
   constructor(private fb: FormBuilder,
-    private process: ProcessService) {
+    private loadingService: LoadingService,
+    private process: ProcessService,
+    public dialog: MatDialog) {
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -80,4 +87,51 @@ export class ComponentProcessComponent implements OnInit {
     }
 
   }
+
+  /**
+   * Funtion saveInformationCreation()
+   * Funcion para guardar la información de la creación unitaria.
+   * @memberof ComponentProcessComponent
+   */
+  saveInformationCreation() {
+    this.loadingService.viewSpinner();
+    // call to the bulk load product service
+    this.process.saveInformationUnitreation().subscribe(result => {
+      const data = result;
+      if (data['data'] !== null && data['data'] !== undefined) {
+        this.openDialogSendOrder2(data);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+
+    });
+    this.loadingService.closeSpinner();
+  }
+
+  /**
+   * Funcion: openDialogSendOrder2
+   * Funcion para desplegar el modal de exitoso o con los errores del guardado de la creacion unitaria.
+   * @param {*} res
+   * @memberof ComponentProcessComponent
+   */
+  openDialogSendOrder2(res: any): void {
+    if (!res.data) {
+      res.productNotifyViewModel = res.data.productNotify;
+    } else {
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.data) {
+        res.productNotifyViewModel = res.data.productNotify;
+      }
+    }
+    const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
+      width: '95%',
+      disableClose: true,
+      data: {
+        response: res
+      },
+    });
+    dialogRef.afterClosed().subscribe(resdialog => {
+    });
+  }
 }
+

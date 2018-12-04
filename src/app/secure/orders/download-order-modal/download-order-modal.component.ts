@@ -33,6 +33,7 @@ export class DownloadOrderModalComponent implements OnInit {
   public limitLengthOrder: any = 0;
   // Inicializa el modal de tipo de financial
   public billingType = false;
+  loadingService: any;
 
   /**
    * Creates an instance of DownloadOrderModalComponent.
