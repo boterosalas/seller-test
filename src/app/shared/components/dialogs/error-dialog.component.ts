@@ -12,7 +12,7 @@ export class ErrorDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ErrorDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.response = data.response;
+        this.response = data;
     }
 
     /**

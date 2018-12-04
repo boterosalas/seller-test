@@ -1,10 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Logger } from '@app/core';
+import { Logger, ModalService, LoadingService } from '@app/core';
 import { ConfigBulkLoad, Event, TypeEvents } from '../models/bulk-load.model';
 import { CommonService } from '@app/shared/services/common.service';
 import * as XLSX from 'xlsx';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { SendModerationFormatModalService } from '@app/secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.service';
+import { BulkLoadProductService } from '@app/secure/products/bulk-load-product/bulk-load-product.service';
+import { ErrorDialogComponent } from '../../dialogs/error-dialog.component';
 
 const log = new Logger('BulkLoadComponent(shared)');
 
@@ -64,8 +66,13 @@ export class BulkLoadComponent implements OnInit {
   };
   @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
   @Output() event: EventEmitter<Event> = new EventEmitter();
+  public progressStatus = false;
 
   constructor(private commonService: CommonService,
+    public dialog: MatDialog,
+    public BulkLoadProductS: BulkLoadProductService,
+    private modalService: ModalService,
+    private loadingService: LoadingService,
     private snackBar: MatSnackBar, private moderationService: SendModerationFormatModalService) { }
 
   ngOnInit(): void {
@@ -220,7 +227,7 @@ export class BulkLoadComponent implements OnInit {
           this.positionModerate[this.nameComment] = i;
         } else if (data[i].trim() === this.nameReason) {
           this.positionModerate[this.nameReason] = i;
-        }else if (data[i].trim() === this.nameId) {
+        } else if (data[i].trim() === this.nameId) {
           this.positionModerate[this.nameId] = i;
         }
       }
@@ -299,7 +306,7 @@ export class BulkLoadComponent implements OnInit {
   public verifyModerationDataFromExcel(data: any): void {
     this.validateHeaders(data[0]);
     for (let i = 1; i < data.length; i++) {
-      const validaData = { Ean: 0, Response: '', Reason: '', Comment: '', Errors: [], Idpw: 0};
+      const validaData = { Ean: 0, Response: '', Reason: '', Comment: '', Errors: [], Idpw: 0 };
 
       /** Posee doble if para darle un mejor manejo a los mensajes de error  */
       /** Valida si tiene ean y concuerda con la regex */
@@ -313,7 +320,7 @@ export class BulkLoadComponent implements OnInit {
       }
 
       if (data[i][this.positionModerate[this.nameId]]) {
-        validaData.Idpw =  data[i][this.positionModerate[this.nameId]].trim();
+        validaData.Idpw = data[i][this.positionModerate[this.nameId]].trim();
       } else {
         validaData.Errors.push(this.getError(i, this.nameId, true, this.nameId)); // Error no posee ean
       }
@@ -357,14 +364,106 @@ export class BulkLoadComponent implements OnInit {
 
   public sendDataToValidate(): void {
     this.showPrincipalContain = true;
+    this.loadingService.viewSpinner();
     // AQUI VA EL SERVICIO PARA GUARDAR LOS DATOS QUE SON:
     if (this.dataToSend.length) {
-      this.moderationService.sendModeration(this.dataToSend).subscribe(data => {
-
+      this.moderationService.sendModeration(this.dataToSend).subscribe((result: any) => {
+        console.log('result: ', result);
+        const errorsToShow = [];
+        if (result.data) {
+          console.log('hay data');
+          if (result.successful !== 0 || result.error !== 0) {
+            console.log('hay error');
+            if (result.data.productNotifyViewModel) {
+              console.log('hay productNotifyViewModel');
+              result.data.productNotifyViewModel.forEach(element => {
+                errorsToShow.push(
+                  {
+                    Name: element.ean,
+                    Description: element.message
+                  }
+                );
+              });
+              this.openDialogSendOrderPopUp({ errors: errorsToShow });
+            }
+            // this.openDialogSendOrder(data);
+            this.progressStatus = false;
+            this.verifyStateCharge2();
+            // Validar que los errores existan para poder mostrar el modal.
+          } else if (result.successful === 0 && result.error === 0) {
+            this.modalService.showModal('errorService');
+          }
+        } else {
+          this.modalService.showModal('errorService');
+        }
       }, error => {
         log.error('no pudo guardar el archivo', error);
       });
     }
+    this.loadingService.closeSpinner();
+  }
+
+
+  /**
+   * Funcion para validar el estado de la carga masiva.
+   *
+   * @memberof BulkLoadComponent
+   */
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+      this.dialog.closeAll();
+    }
+  }
+  verifyStateCharge2() {
+    const errorsToShow = [];
+    this.BulkLoadProductS.getCargasMasivas()
+      .subscribe(
+        (result: any) => {
+          console.log('resulta de getestado: ', result);
+          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+          if (result.body.data.response) {
+            result.body.data.response = JSON.parse(result.body.data.response);
+          }
+          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+          } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+            result.body.data.status = 1;
+            if (!this.progressStatus) {
+              this.openDialogSendOrderPopUp({ errors: errorsToShow });
+            }
+            this.progressStatus = true;
+          } else if (result.body.data.status === 2) {
+            console.log('estado de carga succesfully: ', result.body.data.status);
+            this.closeActualDialog();
+            this.openDialogSendOrderPopUp({ errors: errorsToShow });
+          } else if (result.body.data.status === 3) {
+            this.closeActualDialog();
+            if (result.body.data.response.Errors['0']) {
+              this.modalService.showModal('errorService');
+            } else {
+              this.openDialogSendOrderPopUp({ errors: errorsToShow });
+
+            }
+          }
+        }
+      );
+  }
+
+  /**
+   * Funcion para validar abrir el modal de errores.
+   *
+   * @param {*} res
+   * @memberof BulkLoadComponent
+   */
+  openDialogSendOrderPopUp(res: any): void {
+
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: '95%',
+      disableClose: true,
+      data: res,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The dialog was closed');
+    });
   }
 
   /**
