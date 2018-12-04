@@ -976,7 +976,7 @@ export class BulkLoadProductComponent implements OnInit {
       MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
       ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
       DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
-      EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.EanCombo].trim() : null,
+      EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.iEanCombo].trim() : null,
       features: []
     };
 
