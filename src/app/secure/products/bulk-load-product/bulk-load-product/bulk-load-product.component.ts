@@ -1232,15 +1232,16 @@ export class BulkLoadProductComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
+            console.log('Printing load');
             const data = result;
-            if (data.body !== null && data.body !== undefined) {
+            if (data.body.data !== null && data.body.data !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
                 // this.openDialogSendOrder(data);
                 this.progressStatus = false;
                 this.verifyStateCharge();
                 this.getAvaliableLoads();
                 // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.errors > 0) {
+                if (result.body.data.error > 0) {
                   this.openDialogSendOrder(data);                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
