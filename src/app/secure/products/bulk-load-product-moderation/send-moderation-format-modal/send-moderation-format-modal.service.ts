@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { EndpointService } from '@app/core';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -21,8 +22,8 @@ export class SendModerationFormatModalService {
    * @param {string} mail
    * @returns {Observable<HttpResponse<Object>>}
    */
-  sendModeration(data: { email: string }) {
-    const request = this.http.post(this.api.get('sendProductModeration'), data, {observe: 'response'});
+  getModeration(data: { email: string }) {
+    const request = this.http.get(this.api.get('productModeration', [data.email]), {observe: 'response'});
     request.subscribe(res => {
       let message;
       if (res.status === 200) {
@@ -36,4 +37,10 @@ export class SendModerationFormatModalService {
     });
     return request;
   }
+
+  sendModeration(data: any): Observable<any> {
+    return this.http.patch(this.api.get('productModeration'), data);
+  }
+
+
 }

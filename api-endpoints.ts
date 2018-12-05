@@ -77,7 +77,7 @@ export const endpoints = {
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
       // Enviar moderación de productos al correo
-      sendProductModeration: '',
+      productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
       // Get Regex
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
       // Post Guardar informacion creacion unitaria de producto
@@ -164,7 +164,7 @@ export const endpoints = {
       // Get Regex
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
        // Post Guardar informacion creacion unitaria de producto
-      postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+       postSaveInformationUnitCreation: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     }
