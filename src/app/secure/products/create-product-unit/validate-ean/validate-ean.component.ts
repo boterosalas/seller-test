@@ -56,7 +56,7 @@ export class ValidateEanComponent implements OnInit {
         this.process.unavailableEanView();
       }
     } else {
-      if (!this.eanGroup.controls.eanCtrl.value && !this.validateEanExist) {
+      if (!this.eanGroup.controls.eanCtrl.value && !value) {
         this.process.unavailableEanView();
       } else {
         this.sendEan();
