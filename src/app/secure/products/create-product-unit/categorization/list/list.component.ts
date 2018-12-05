@@ -48,7 +48,8 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                 this.selectedIdCategory = result.Id;
             }
             const data = {
-                CategorySelected: result.Name,
+                CategorySelected: result.Id,
+                CategoryName: result.Name,
                 CategoryType: result.ProductType
             };
             this.process.validaData(data);
