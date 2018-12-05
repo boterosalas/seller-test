@@ -394,11 +394,11 @@ export class BulkLoadComponent implements OnInit {
     // AQUI VA EL SERVICIO PARA GUARDAR LOS DATOS QUE SON:
     if (this.dataToSend.length) {
       this.moderationService.sendModeration(this.dataToSend).subscribe((result: any) => {
+        this.loadingService.closeSpinner();
         const errorsToShow = [];
-        this.verifyStateCharge();
         if (result.data) {
           if (result.successful !== 0 || result.error !== 0) {
-            if (result.data.productNotifyViewModel) {
+            if (result.data.productNotifyViewModel.length) {
               result.data.productNotifyViewModel.forEach(element => {
                 errorsToShow.push(
                   {
@@ -407,7 +407,6 @@ export class BulkLoadComponent implements OnInit {
                   }
                 );
               });
-              console.log(this.typeDialog);
               this.openDialogSendOrderPopUp({ errors: errorsToShow, type: this.typeDialog.Error });
             }
             // Validar que los errores existan para poder mostrar el modal.
@@ -419,9 +418,9 @@ export class BulkLoadComponent implements OnInit {
         }
       }, error => {
         log.error('no pudo guardar el archivo', error);
+        this.loadingService.closeSpinner();
       });
     }
-    this.loadingService.closeSpinner();
   }
 
 
@@ -495,7 +494,7 @@ export class BulkLoadComponent implements OnInit {
   openDialogSendOrderPopUp(res: any): void {
 
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
-      width: '95%',
+      width: '90%',
       disableClose: true,
       data: res,
     });

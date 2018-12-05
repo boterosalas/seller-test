@@ -23,7 +23,6 @@ export class ErrorDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private service: CommonService) {
         this.response = data;
-        console.log(this.response);
     }
 
     /**

@@ -1,34 +1,43 @@
-<div>
-  <h4 mat-subheader class="process-text" *ngIf="typeDialog.Success === response.type">
-    <mat-icon class="process-success">check</mat-icon>
-    Carga realizada exitosamente
-  </h4>
+ <h4 mat-dialog-title class="process-text" *ngIf="typeDialog.Success ===
+  response.type" fxLayout="row" fxLayoutAlign="start center">
+  <mat-icon class="process-success">check</mat-icon>
+  Carga realizada exitosamente
+</h4>
 
-  <h4 class="process-text" mat-subheader *ngIf="typeDialog.Process === response.type">
-    <mat-spinner class="process-charge" [diameter]="60"></mat-spinner>
-    {{response.processing}} Carga en proceso ...
-  </h4>
+<h4 mat-dialog-title class="process-text" mat-subheader
+  *ngIf="typeDialog.Process ===
+  response.type">
+  <mat-spinner class="process-charge" [diameter]="60"></mat-spinner>
+  {{response.processing}} Carga en proceso ...
+</h4>
 
-  <h4 mat-subheader *ngIf="typeDialog.Error === response.type"> Se {{response.errors.length > 1 ? 'han': 'ha' }}
-    presentado
-    {{response.errors.length}} {{response.errors.length > 1 ? 'errores': 'error' }} al momento de crear
-    la solicitud. Intentelo nuevamente... Gracias
-  </h4>
+<h4 mat-dialog-title *ngIf="typeDialog.Error === response.type"> Se
+  {{response.errors.length > 1 ? 'han': 'ha' }}
+  presentado
+  {{response.errors.length}} {{response.errors.length > 1 ? 'errores': 'error'
+  }} al momento de crear
+  la solicitud. Intentelo nuevamente... Gracias
+</h4>
 
-  <mat-divider *ngIf="typeDialog.Error === response.type"></mat-divider>
-  <mat-nav-list *ngIf="typeDialog.Error === response.type">
-    <mat-list-item *ngFor="let item of response.errors">
-      <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-      <h4 matLine>EAN:{{item.Name}}</h4>
-      <p matLine>Error presentado:{{item.Description}}</p>
-    </mat-list-item>
-  </mat-nav-list>
-</div>
+<mat-divider *ngIf="typeDialog.Error === response.type"></mat-divider>
+<mat-nav-list *ngIf="typeDialog.Error === response.type" mat-dialog-content>
+  <mat-list-item *ngFor="let item of response.errors">
+    <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+    <h4 matLine>EAN:{{item.Name}}</h4>
+    <p matLine>Error presentado:{{item.Description}}</p>
+  </mat-list-item>
+</mat-nav-list>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <button *ngIf="typeDialog.Process === response.type" mat-raised-button color="primary" (click)="chargeDialogAgain()">Refrescar</button>
-  <button *ngIf="typeDialog.Process === response.type" mat-raised-button color="primary" mat-dialog-close>Home Seller
+
+<div fxLayout="row" fxLayoutAlign="space-between center" mat-dialog-actions>
+  <div *ngIf="response.type !== typeDialog.Process"></div>
+  <button *ngIf="typeDialog.Process === response.type" mat-raised-button
+    color="primary" (click)="chargeDialogAgain()">Refrescar</button>
+  <button *ngIf="typeDialog.Process === response.type" mat-raised-button
+    color="primary" mat-dialog-close>Home Seller
     Center</button>
-  <button mat-raised-button color="primary" *ngIf="typeDialog.Success === response.type" (click)="onNoClick()">Inicio</button>
-  <button mat-raised-button color="primary" *ngIf="typeDialog.Error === response.type" (click)="onNoClick()">Reintentar</button>
+  <button mat-raised-button color="primary" *ngIf="typeDialog.Success ===
+    response.type" (click)="onNoClick()">Inicio</button>
+  <button mat-raised-button color="primary" *ngIf="typeDialog.Error ===
+    response.type" (click)="onNoClick()">Reintentar</button>
 </div>
