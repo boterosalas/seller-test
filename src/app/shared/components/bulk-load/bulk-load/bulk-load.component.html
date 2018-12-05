@@ -19,7 +19,7 @@
             <!-- Botón para descargar el formato -->
             <button class="sc-default-button" id="download-file-button" mat-button (click)="downloadFile()">
               <mat-icon class="mat-18">file_download</mat-icon>
-              DESCARGAR FORMATO
+              DESCARGAR ARCHIVO
             </button>
 
             <!-- Input para subir archivo de Excel -->
@@ -30,7 +30,7 @@
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadInput.click()"
               mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
-              SELECCIONAR ARCHIVO PARA IMPORTAR
+              SELECCIONAR ARCHIVO A IMPORTAR
             </button>
           </div>
 
@@ -46,7 +46,7 @@
                 <span>Cargar archivo</span>
               </button>
               <button id="download-file-guide-button" mat-menu-item (click)="downloadFile()">
-                Descargar Formato
+                Descargar archivo
               </button>
               <!-- <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
                 mat-menu-item>
