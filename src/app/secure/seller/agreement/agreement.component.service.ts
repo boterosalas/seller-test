@@ -20,7 +20,6 @@ export class AgreementService {
     constructor(private http: HttpClient) {}
 
     public  getAgreements(idSeller: number): Observable<any> {
-        console.log(idSeller);
         if (idSeller === 10011) {
             return of(this.objecto);
         } else {

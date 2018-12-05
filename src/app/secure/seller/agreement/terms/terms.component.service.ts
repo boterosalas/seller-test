@@ -47,7 +47,7 @@ export class TermsService implements CanActivate {
     getSellerAgreement(): any {
         of(this.json).subscribe( (data: any) => {
             if (data.data) {
-                this.openDialog(data.src);
+                // TODO: this.openDialog(data.src);
                 // this.router.navigate([`/${RoutesConst.error}`]);
             }
         }, error => {
@@ -69,7 +69,6 @@ export class TermsService implements CanActivate {
           disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
         });
       }
 

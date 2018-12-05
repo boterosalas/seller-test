@@ -39,7 +39,6 @@ export class AgreementComponent implements OnInit {
 
     public getPDF(model: any): void {
         this.agreementService.getPDF().subscribe(data => {
-            console.log(data);
         }, error => {
             log.error('Error al obtener los acuerdos:', error);
         });
