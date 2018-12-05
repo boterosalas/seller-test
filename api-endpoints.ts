@@ -160,7 +160,7 @@ export const endpoints = {
       // Get Regex
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
        // Post Guardar informacion creacion unitaria de producto
-       postSaveInformationUnitCreation: '',
+       postSaveInformationUnitCreation: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     }
