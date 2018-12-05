@@ -131,7 +131,7 @@ export class BulkLoadComponent implements OnInit {
         this.initComponent = true;
       }
     }, error => {
-      log.error(error);
+      log.error(error, 'regex');
     });
   }
 
@@ -192,7 +192,7 @@ export class BulkLoadComponent implements OnInit {
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
-            log.debug(data);
+            log.debug(data, 'este es el error');
             resolve(data);
           } else {
             reject(e);
@@ -411,7 +411,7 @@ export class BulkLoadComponent implements OnInit {
             }
             // Validar que los errores existan para poder mostrar el modal.
           } else if (result.successful === 0 && result.error === 0) {
-            this.verifyStateCharge();
+            this.verifyStateCharge(true);
           }
         } else {
           this.modalService.showModal('errorService');
@@ -440,7 +440,7 @@ export class BulkLoadComponent implements OnInit {
    *
    * @memberof BulkLoadComponent
    */
-  verifyStateCharge() {
+  verifyStateCharge(verifyState: boolean = false) {
     const errorsToShow = [];
     this.progressStatus = false;
     this.BulkLoadProductS.getCargasMasivas().subscribe((result: any) => {
@@ -450,7 +450,7 @@ export class BulkLoadComponent implements OnInit {
         if (typeof (result.body.data.response) === 'string') {
           result.body.data.response = JSON.parse(result.body.data.response);
         }
-        result.body.data.status = 2;
+
         // Verifica estados de la carga.
         // Estado 1 o 4 cuando la carga esta en progreso
         if (result.body.data.status === 1 || result.body.data.status === 4) {
@@ -459,7 +459,7 @@ export class BulkLoadComponent implements OnInit {
           this.progressStatus = true;
 
           // Estado 2 cuando la carga es exitosa.
-        } else if (result.body.data.status === 2) {
+        } else if (result.body.data.status === 2 && (!result.body.data.checked || verifyState)  ) {
 
           this.openDialogSendOrderPopUp({ type: this.typeDialog.Success });
 
