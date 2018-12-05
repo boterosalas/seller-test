@@ -1,17 +1,22 @@
 <div>
-  <h4 mat-subheader *ngIf="response.message === ''">
-    <mat-icon>check</mat-icon>
-   Carga realizada  exitosamente
+  <h4 mat-subheader class="process-text" *ngIf="typeDialog.Success === response.type">
+    <mat-icon class="process-success">check</mat-icon>
+    Carga realizada exitosamente
   </h4>
 
-  <h4  mat-subheader *ngIf="response.message !== ''"> Se {{response.errors.length > 1 ? 'han': 'ha' }} presentado
+  <h4 class="process-text" mat-subheader *ngIf="typeDialog.Process === response.type">
+    <mat-spinner class="process-charge" [diameter]="60"></mat-spinner>
+    {{response.processing}} Carga en proceso ...
+  </h4>
+
+  <h4 mat-subheader *ngIf="typeDialog.Error === response.type"> Se {{response.errors.length > 1 ? 'han': 'ha' }}
+    presentado
     {{response.errors.length}} {{response.errors.length > 1 ? 'errores': 'error' }} al momento de crear
     la solicitud. Intentelo nuevamente... Gracias
   </h4>
 
-  <mat-divider *ngIf="response.message !== ''"></mat-divider>
-
-  <mat-nav-list *ngIf="response.message !== ''">
+  <mat-divider *ngIf="typeDialog.Error === response.type"></mat-divider>
+  <mat-nav-list *ngIf="typeDialog.Error === response.type">
     <mat-list-item *ngFor="let item of response.errors">
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
       <h4 matLine>EAN:{{item.Name}}</h4>
@@ -19,5 +24,11 @@
     </mat-list-item>
   </mat-nav-list>
 </div>
-<button mat-raised-button color="primary" *ngIf="response.message === ''" (click)="onNoClick()">Inicio</button>
-<button mat-raised-button color="primary" *ngIf="response.message !== ''" (click)="onNoClick()">Reintentar</button>
+
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <button *ngIf="typeDialog.Process === response.type" mat-raised-button color="primary" (click)="chargeDialogAgain()">Refrescar</button>
+  <button *ngIf="typeDialog.Process === response.type" mat-raised-button color="primary" mat-dialog-close>Home Seller
+    Center</button>
+  <button mat-raised-button color="primary" *ngIf="typeDialog.Success === response.type" (click)="onNoClick()">Inicio</button>
+  <button mat-raised-button color="primary" *ngIf="typeDialog.Error === response.type" (click)="onNoClick()">Reintentar</button>
+</div>

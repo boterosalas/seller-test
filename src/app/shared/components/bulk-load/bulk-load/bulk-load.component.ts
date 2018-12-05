@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { SendModerationFormatModalService } from '@app/secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.service';
 import { BulkLoadProductService } from '@app/secure/products/bulk-load-product/bulk-load-product.service';
-import { ErrorDialogComponent } from '../../dialogs/error-dialog.component';
+import { ErrorDialogComponent, TypeDialog } from '../../dialogs/error-dialog.component';
 
 const log = new Logger('BulkLoadComponent(shared)');
 
@@ -43,6 +43,7 @@ export class BulkLoadComponent implements OnInit {
   showErrorView = false;
   errorsPosition = [this.nameEan, this.nameResponse, this.nameReason, this.nameComment];
   showPrincipalContain = true;
+  typeDialog = new TypeDialog();
 
   /** Mensajes con errores */
   ErrorMsgEan = 'El ean es obligatorio'; // Contiene el error en español de EAN.
@@ -64,21 +65,36 @@ export class BulkLoadComponent implements OnInit {
     title: 'CARGA MASIVA',
     mainContentTpl: null
   };
+
   @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
   @Output() event: EventEmitter<Event> = new EventEmitter();
   public progressStatus = false;
+
 
   constructor(private commonService: CommonService,
     public dialog: MatDialog,
     public BulkLoadProductS: BulkLoadProductService,
     private modalService: ModalService,
     private loadingService: LoadingService,
-    private snackBar: MatSnackBar, private moderationService: SendModerationFormatModalService) { }
+    private snackBar: MatSnackBar,
+    private moderationService: SendModerationFormatModalService) { }
 
   ngOnInit(): void {
     this.getRegex();
+    this.verifyStateCharge();
+    this.commonService.chargeAgain.subscribe(data => {
+      this.closeActualDialog();
+      this.verifyStateCharge();
+    });
   }
 
+  /**
+   * Valida las regex que obtiene del servicio y que son necesarias para el funcionamiento del componente.
+   * EAN, Validacion. Motivo, Descripcion.
+   *
+   * @param {*} data
+   * @memberof BulkLoadComponent
+   */
   public validateRegex(data: any): void {
     for (let i = 0; i < data.length; i++) {
       switch (data[i].Identifier) {
@@ -102,6 +118,11 @@ export class BulkLoadComponent implements OnInit {
     }
   }
 
+  /**
+   * Funcion para obtener las regex del servicio para luego ser validadas y almacenadas en variables para la manipulacion de estas.
+   *
+   * @memberof BulkLoadComponent
+   */
   public getRegex(): void {
     this.commonService.getAllRegex().subscribe(result => {
       if (result.status === 200) {
@@ -114,6 +135,11 @@ export class BulkLoadComponent implements OnInit {
     });
   }
 
+  /**
+   * Iniciaizacion de variables que almacenan la posicion de las cabeceras necesarias para la manipulacion de informacion.
+   *
+   * @memberof BulkLoadComponent
+   */
   public initializePositions(): void {
     this.positionModerate[this.nameEan] = -1;
     this.positionModerate[this.nameResponse] = -1;
@@ -368,14 +394,11 @@ export class BulkLoadComponent implements OnInit {
     // AQUI VA EL SERVICIO PARA GUARDAR LOS DATOS QUE SON:
     if (this.dataToSend.length) {
       this.moderationService.sendModeration(this.dataToSend).subscribe((result: any) => {
-        console.log('result: ', result);
         const errorsToShow = [];
+        this.verifyStateCharge();
         if (result.data) {
-          console.log('hay data');
           if (result.successful !== 0 || result.error !== 0) {
-            console.log('hay error');
             if (result.data.productNotifyViewModel) {
-              console.log('hay productNotifyViewModel');
               result.data.productNotifyViewModel.forEach(element => {
                 errorsToShow.push(
                   {
@@ -384,14 +407,12 @@ export class BulkLoadComponent implements OnInit {
                   }
                 );
               });
-              this.openDialogSendOrderPopUp({ errors: errorsToShow });
+              console.log(this.typeDialog);
+              this.openDialogSendOrderPopUp({ errors: errorsToShow, type: this.typeDialog.Error });
             }
-            // this.openDialogSendOrder(data);
-            this.progressStatus = false;
-            this.verifyStateCharge2();
             // Validar que los errores existan para poder mostrar el modal.
           } else if (result.successful === 0 && result.error === 0) {
-            this.modalService.showModal('errorService');
+            this.verifyStateCharge();
           }
         } else {
           this.modalService.showModal('errorService');
@@ -414,38 +435,55 @@ export class BulkLoadComponent implements OnInit {
       this.dialog.closeAll();
     }
   }
-  verifyStateCharge2() {
-    const errorsToShow = [];
-    this.BulkLoadProductS.getCargasMasivas()
-      .subscribe(
-        (result: any) => {
-          console.log('resulta de getestado: ', result);
-          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
-          if (result.body.data.response) {
-            result.body.data.response = JSON.parse(result.body.data.response);
-          }
-          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
-          } else if (result.body.data.status === 1 || result.body.data.status === 4) {
-            result.body.data.status = 1;
-            if (!this.progressStatus) {
-              this.openDialogSendOrderPopUp({ errors: errorsToShow });
-            }
-            this.progressStatus = true;
-          } else if (result.body.data.status === 2) {
-            console.log('estado de carga succesfully: ', result.body.data.status);
-            this.closeActualDialog();
-            this.openDialogSendOrderPopUp({ errors: errorsToShow });
-          } else if (result.body.data.status === 3) {
-            this.closeActualDialog();
-            if (result.body.data.response.Errors['0']) {
-              this.modalService.showModal('errorService');
-            } else {
-              this.openDialogSendOrderPopUp({ errors: errorsToShow });
 
-            }
+  /**
+   * Obtiene por medio de un servicio el estado de la cargar y muestra el modal dependiendo de este.
+   *
+   * @memberof BulkLoadComponent
+   */
+  verifyStateCharge() {
+    const errorsToShow = [];
+    this.progressStatus = false;
+    this.BulkLoadProductS.getCargasMasivas().subscribe((result: any) => {
+      // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+      try {
+        // Verifica que el response sea un string para proceder a convertirlo a JSON
+        if (typeof (result.body.data.response) === 'string') {
+          result.body.data.response = JSON.parse(result.body.data.response);
+        }
+        result.body.data.status = 2;
+        // Verifica estados de la carga.
+        // Estado 1 o 4 cuando la carga esta en progreso
+        if (result.body.data.status === 1 || result.body.data.status === 4) {
+
+          this.openDialogSendOrderPopUp({ type: this.typeDialog.Process });
+          this.progressStatus = true;
+
+          // Estado 2 cuando la carga es exitosa.
+        } else if (result.body.data.status === 2) {
+
+          this.openDialogSendOrderPopUp({ type: this.typeDialog.Success });
+
+          // Estado 3 cuando la carga posee errores
+        } else if (result.body.data.status === 3) {
+
+          if (result.body.data.response && result.body.data.response.Error) {
+            result.body.data.response.Error.forEach(element => {
+              errorsToShow.push({
+                Name: element.ean,
+                Description: element.message
+              });
+            });
+
+          } else {
+            this.modalService.showModal('errorService');
           }
         }
-      );
+      } catch (e) {
+        log.error('Error no identificado al obtener el estado de la carga');
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
@@ -462,7 +500,9 @@ export class BulkLoadComponent implements OnInit {
       data: res,
     });
     dialogRef.afterClosed().subscribe(result => {
-      log.info('The dialog was closed');
+      if (result) {
+        this.verifyStateCharge();
+      }
     });
   }
 

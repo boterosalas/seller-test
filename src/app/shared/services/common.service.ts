@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
+import { EventEmitter } from '@angular/core';
 
 @Injectable()
 export class CommonService {
@@ -11,11 +12,13 @@ export class CommonService {
     nameRegexEan = 'ean';
     nameRegexReason = 'validationImportReason';
     nameRegexComment = 'validationImportObservation';
-
     firstTime = true;
     allRegex: Observable<any>;
+    @Output() chargeAgain: EventEmitter<boolean> = new EventEmitter();
+
     constructor(private http: HttpClient,
         private api: EndpointService) { }
+
     /**
      * @param {*} params parametro del modulo
      * @returns {Observable<any>}
@@ -38,5 +41,9 @@ export class CommonService {
             this.allRegex =  this.http.get(this.api.get('getRegexBasic'), { observe: 'response' });
         }
         return this.allRegex;
+    }
+
+    public chargeAgainService(): void {
+        this.chargeAgain.emit(true);
     }
 }
