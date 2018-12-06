@@ -192,7 +192,7 @@ export class BulkLoadComponent implements OnInit {
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
-            log.debug(data, 'este es el error');
+            log.debug(data);
             resolve(data);
           } else {
             reject(e);
@@ -245,15 +245,15 @@ export class BulkLoadComponent implements OnInit {
   public validateHeaders(data: any): void {
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {
-        if (data[i].trim() === this.nameEan) {
+        if (this.validaTrim(data[i]) === this.nameEan) {
           this.positionModerate[this.nameEan] = i;
-        } else if (data[i].trim() === this.nameResponse) {
+        } else if (this.validaTrim(data[i]) === this.nameResponse) {
           this.positionModerate[this.nameResponse] = i;
-        } else if (data[i].trim() === this.nameComment) {
+        } else if (this.validaTrim(data[i]) === this.nameComment) {
           this.positionModerate[this.nameComment] = i;
-        } else if (data[i].trim() === this.nameReason) {
+        } else if (this.validaTrim(data[i]) === this.nameReason) {
           this.positionModerate[this.nameReason] = i;
-        } else if (data[i].trim() === this.nameId) {
+        } else if (this.validaTrim(data[i]) === this.nameId) {
           this.positionModerate[this.nameId] = i;
         }
       }
@@ -328,17 +328,31 @@ export class BulkLoadComponent implements OnInit {
     return errorObject;
   }
 
+  /**
+   * Funcion para realiza trim si posee valor
+   *
+   * @param {string} value
+   * @returns {*}
+   * @memberof BulkLoadComponent
+   */
+  public validaTrim(value: string): any {
+    if (value) {
+      return  value.trim();
+    }
+    return value;
+  }
+
 
   public verifyModerationDataFromExcel(data: any): void {
     this.validateHeaders(data[0]);
     for (let i = 1; i < data.length; i++) {
-      const validaData = { Ean: 0, Response: '', Reason: '', Comment: '', Errors: [], Idpw: 0 };
+      const validaData = { Ean: '', Response: '', Reason: '', Comment: '', Errors: [], Idpw: ''};
 
       /** Posee doble if para darle un mejor manejo a los mensajes de error  */
       /** Valida si tiene ean y concuerda con la regex */
       if (data[i][this.positionModerate[this.nameEan]]) {
-        validaData.Ean = data[i][this.positionModerate[this.nameEan]].trim();
-        if (!data[i][this.positionModerate[this.nameEan]].trim().match(this.regexEan)) {
+        validaData.Ean = this.validaTrim(data[i][this.positionModerate[this.nameEan]]);
+        if (! this.validaTrim(data[i][this.positionModerate[this.nameEan]]).match(this.regexEan)) {
           validaData.Errors.push(this.getError(i, this.nameEan, false, this.nameEan)); // Error el ean no es valido
         }
       } else {
@@ -346,7 +360,7 @@ export class BulkLoadComponent implements OnInit {
       }
 
       if (data[i][this.positionModerate[this.nameId]]) {
-        validaData.Idpw = data[i][this.positionModerate[this.nameId]].trim();
+        validaData.Idpw = this.validaTrim(data[i][this.positionModerate[this.nameId]]);
       } else {
         validaData.Errors.push(this.getError(i, this.nameId, true, this.nameId)); // Error no posee ean
       }
@@ -354,25 +368,25 @@ export class BulkLoadComponent implements OnInit {
       /** Valida si tiene validacion y concuerda con la regex */
       if (data[i][this.positionModerate[this.nameResponse]]) {
         validaData.Response = data[i][this.positionModerate[this.nameResponse]];
-        if (!data[i][this.positionModerate[this.nameResponse]].trim().match(this.regexResponse)) {
+        if (!this.validaTrim(data[i][this.positionModerate[this.nameResponse]]).match(this.regexResponse)) {
           validaData.Errors.push(this.getError(i, this.nameResponse, false, this.nameResponse)); // Error la validacion no es valida
         }
       } else {
         validaData.Errors.push(this.getError(i, this.nameResponse, true, this.nameResponse)); // Error no posee validacion
       }
       /** Valida si tiene motivo y si la validacion fue rechazada y concuerda con la regex */
-      if (this.rejected === data[i][this.positionModerate[this.nameResponse]].trim() && data[i][this.positionModerate[this.nameReason]].trim()) {
-        validaData.Reason = data[i][this.positionModerate[this.nameReason]].trim();
+      if (this.rejected === this.validaTrim(data[i][this.positionModerate[this.nameResponse]]) && this.validaTrim(data[i][this.positionModerate[this.nameReason]])) {
+        validaData.Reason = this.validaTrim(data[i][this.positionModerate[this.nameReason]]);
         if (!data[i][this.positionModerate[this.nameReason]].match(this.regexReason)) {
           validaData.Errors.push(this.getError(i, this.nameReason, false, this.nameReason)); // Error el motivo no es valida
         }
-      } else if (this.rejected === data[i][this.positionModerate[this.nameResponse]] && !data[i][this.positionModerate[this.nameReason]].trim()) {
+      } else if (this.rejected === data[i][this.positionModerate[this.nameResponse]] && !this.validaTrim(data[i][this.positionModerate[this.nameReason]])) {
         validaData.Errors.push(this.getError(i, this.nameReason, true, this.nameReason)); // Error no posee motivo a pesar de que fue rechazado 'this.rejected'
       }
 
       /** Valida la observacion y si concuerda con la regex */
       if (data[i][this.positionModerate[this.nameComment]]) {
-        validaData.Comment = data[i][this.positionModerate[this.nameComment]].trim();
+        validaData.Comment = this.validaTrim(data[i][this.positionModerate[this.nameComment]]);
         if (!data[i][this.positionModerate[this.nameComment]].match(this.regexComment)) {
           validaData.Errors.push(this.getError(i, this.nameComment, false, this.nameComment)); // Error el motivo no es valida
         }
