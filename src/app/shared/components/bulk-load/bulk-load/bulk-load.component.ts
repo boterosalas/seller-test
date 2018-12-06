@@ -484,7 +484,7 @@ export class BulkLoadComponent implements OnInit {
       // Convertimos el string que nos envia el response a JSON que es el formato que acepta
       try {
         // Verifica que el response sea un string para proceder a convertirlo a JSON
-        if (typeof (result.body.data.response) === 'string') {
+        if (result.body.data.response && typeof (result.body.data.response) === 'string') {
           result.body.data.response = JSON.parse(result.body.data.response);
         }
 
@@ -516,7 +516,7 @@ export class BulkLoadComponent implements OnInit {
           }
         }
       } catch (e) {
-        log.error('Error no identificado al obtener el estado de la carga');
+        log.error('Error no identificado al obtener el estado de la carga', e);
         this.modalService.showModal('errorService');
       }
     });
