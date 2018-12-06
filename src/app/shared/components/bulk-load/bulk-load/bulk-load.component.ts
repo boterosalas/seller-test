@@ -452,6 +452,7 @@ export class BulkLoadComponent implements OnInit {
           }
         } else {
           this.modalService.showModal('errorService');
+          log.error('no respondio el servicio de moderacion con datos validos');
         }
       }, error => {
         log.error('no pudo guardar el archivo', error);
