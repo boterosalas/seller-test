@@ -21,8 +21,10 @@
                 'hidden': !getShowError(e)}"
             fxLayout="row" fxLayoutAlign="space-between center">
             <p class="errors-text">
-                {{error.Description}}: En la columna
-                <span>#{{error.Column}}</span>
+                <label *ngIf="error.Column !== -1">{{error.Description}}: En la columna</label>
+                <label *ngIf="error.Column === -1">{{error.Description}}: La columna</label>
+                <span *ngIf="error.Column !== -1">#{{error.Column}}</span>
+                <span *ngIf="error.Column === -1"> no existe</span>
                 de la fila
                 <span>#{{error.Row}}</span>.
             </p>

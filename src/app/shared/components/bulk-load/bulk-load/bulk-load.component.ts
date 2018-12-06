@@ -224,6 +224,7 @@ export class BulkLoadComponent implements OnInit {
     log.debug('fileUploadInputChanged');
     this.showErrorView = false;
     this.showPrincipalContain = false;
+    this.initializePositions();
     this.readFileUpload(e).then(data => {
       log.debug(data, data.length);
       this.fileName = e.target.files[0].name;
@@ -267,6 +268,16 @@ export class BulkLoadComponent implements OnInit {
     }
   }
 
+  /**
+   * Funcion para obtener el error al validar la informacion ingresada en el excel
+   *
+   * @param {number} row
+   * @param {string} errorLocated
+   * @param {boolean} [isNull=false]
+   * @param {string} value
+   * @returns {*}
+   * @memberof BulkLoadComponent
+   */
   public getError(row: number, errorLocated: string, isNull: boolean = false, value: string): any {
     let errorObject: any;
     this.counterErrors++;
