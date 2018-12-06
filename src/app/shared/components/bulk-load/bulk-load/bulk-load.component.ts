@@ -457,6 +457,10 @@ export class BulkLoadComponent implements OnInit {
         log.error('no pudo guardar el archivo', error);
         this.loadingService.closeSpinner();
       });
+    } else {
+      this.snackBar.open('El archivo esta vacío', 'Cerrar', {
+        duration: 3000
+      });
     }
   }
 

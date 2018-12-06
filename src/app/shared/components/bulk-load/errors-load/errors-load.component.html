@@ -23,7 +23,7 @@
             <p class="errors-text">
                 <label *ngIf="error.Column !== -1">{{error.Description}}: En la columna</label>
                 <label *ngIf="error.Column === -1">{{error.Description}}: La columna</label>
-                <span *ngIf="error.Column !== -1">#{{error.Column}}</span>
+                <span *ngIf="error.Column !== -1"> #{{error.Column}}</span>
                 <span *ngIf="error.Column === -1"> no existe</span>
                 de la fila
                 <span>#{{error.Row}}</span>.
