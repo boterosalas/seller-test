@@ -433,8 +433,8 @@ export class BulkLoadComponent implements OnInit {
       this.moderationService.sendModeration(this.dataToSend).subscribe((result: any) => {
         this.loadingService.closeSpinner();
         const errorsToShow = [];
-        if (result.data) {
-          if (result.data.error !== 0) {
+        if (result) {
+          if (result.data && result.data.error !== 0) {
             if (result.data.productNotifyViewModel.length) {
               result.data.productNotifyViewModel.forEach(element => {
                 errorsToShow.push(
@@ -447,8 +447,14 @@ export class BulkLoadComponent implements OnInit {
               this.openDialogSendOrderPopUp({ errors: errorsToShow, type: this.typeDialog.Error });
             }
             // Validar que los errores existan para poder mostrar el modal.
-          } else if (result.data.error === 0) {
+          } else if (result.data && result.data.error === 0) {
             this.verifyStateCharge(true);
+          }
+
+          if (result.message) {
+            this.snackBar.open(result.message, 'Cerrar', {
+              duration: 3000
+            });
           }
         } else {
           this.modalService.showModal('errorService');
@@ -507,7 +513,7 @@ export class BulkLoadComponent implements OnInit {
           this.openDialogSendOrderPopUp({ type: this.typeDialog.Success });
 
           // Estado 3 cuando la carga posee errores
-        } else if (result.body.data.status === 3) {
+        } else if (result.body.data.status === 3 && result.body.data.checked === 'false') {
 
           if (result.body.data.response && result.body.data.response.Error) {
             result.body.data.response.Error.forEach(element => {
@@ -520,6 +526,7 @@ export class BulkLoadComponent implements OnInit {
 
           } else {
             this.modalService.showModal('errorService');
+            log.debug('Error no identificado al obtener los errores del servicio');
           }
         }
       } catch (e) {
