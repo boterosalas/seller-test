@@ -225,6 +225,7 @@ export class BulkLoadComponent implements OnInit {
     this.showErrorView = false;
     this.showPrincipalContain = false;
     this.readFileUpload(e).then(data => {
+      log.debug(data, data.length);
       this.fileName = e.target.files[0].name;
       this.dataToSend = [];
       this.counterErrors = 0;
@@ -232,7 +233,7 @@ export class BulkLoadComponent implements OnInit {
       this.resetUploadFIle();
     }, error => {
       const msg = 'Error al cargar archivo de validación de productos';
-      log.error(msg);
+      log.error(msg, error);
       this.showPrincipalContain = true;
       this.snackBar.open(msg, 'Cerrar', {
         duration: 3000
@@ -242,8 +243,14 @@ export class BulkLoadComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcion para obtener la cabecera del documento.
+   *
+   * @param {*} data
+   * @memberof BulkLoadComponent
+   */
   public validateHeaders(data: any): void {
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length ; i++) {
       if (data[i]) {
         if (this.validaTrim(data[i]) === this.nameEan) {
           this.positionModerate[this.nameEan] = i;
@@ -402,6 +409,11 @@ export class BulkLoadComponent implements OnInit {
     }
   }
 
+  /**
+   * Envia al servicio los datos procesados del excel.
+   *
+   * @memberof BulkLoadComponent
+   */
   public sendDataToValidate(): void {
     this.showPrincipalContain = true;
     this.loadingService.viewSpinner();
@@ -411,7 +423,7 @@ export class BulkLoadComponent implements OnInit {
         this.loadingService.closeSpinner();
         const errorsToShow = [];
         if (result.data) {
-          if (result.successful !== 0 || result.error !== 0) {
+          if (result.data.error !== 0) {
             if (result.data.productNotifyViewModel.length) {
               result.data.productNotifyViewModel.forEach(element => {
                 errorsToShow.push(
@@ -424,7 +436,7 @@ export class BulkLoadComponent implements OnInit {
               this.openDialogSendOrderPopUp({ errors: errorsToShow, type: this.typeDialog.Error });
             }
             // Validar que los errores existan para poder mostrar el modal.
-          } else if (result.successful === 0 && result.error === 0) {
+          } else if (result.data.error === 0) {
             this.verifyStateCharge(true);
           }
         } else {
@@ -468,7 +480,6 @@ export class BulkLoadComponent implements OnInit {
         // Verifica estados de la carga.
         // Estado 1 o 4 cuando la carga esta en progreso
         if (result.body.data.status === 1 || result.body.data.status === 4) {
-
           this.openDialogSendOrderPopUp({ type: this.typeDialog.Process });
           this.progressStatus = true;
 
@@ -487,6 +498,7 @@ export class BulkLoadComponent implements OnInit {
                 Description: element.message
               });
             });
+            this.openDialogSendOrderPopUp({ type: this.typeDialog.Error, errors: errorsToShow });
 
           } else {
             this.modalService.showModal('errorService');
