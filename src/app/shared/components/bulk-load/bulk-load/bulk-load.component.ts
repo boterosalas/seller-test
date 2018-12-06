@@ -483,6 +483,7 @@ export class BulkLoadComponent implements OnInit {
     this.BulkLoadProductS.getCargasMasivas().subscribe((result: any) => {
       // Convertimos el string que nos envia el response a JSON que es el formato que acepta
       try {
+
         // Verifica que el response sea un string para proceder a convertirlo a JSON
         if (result.body.data.response && typeof (result.body.data.response) === 'string') {
           result.body.data.response = JSON.parse(result.body.data.response);
@@ -495,7 +496,7 @@ export class BulkLoadComponent implements OnInit {
           this.progressStatus = true;
 
           // Estado 2 cuando la carga es exitosa.
-        } else if (result.body.data.status === 2 && (!result.body.data.checked || verifyState)  ) {
+        } else if (result.body.data.status === 2 && (result.body.data.checked === 'false' || verifyState)  ) {
 
           this.openDialogSendOrderPopUp({ type: this.typeDialog.Success });
 
