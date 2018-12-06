@@ -451,7 +451,7 @@ export class BulkLoadComponent implements OnInit {
             this.verifyStateCharge(true);
           }
 
-          if (result.message) {
+          if (result.message && !result.data) {
             this.snackBar.open(result.message, 'Cerrar', {
               duration: 3000
             });
