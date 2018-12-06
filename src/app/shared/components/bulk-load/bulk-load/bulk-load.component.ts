@@ -458,6 +458,7 @@ export class BulkLoadComponent implements OnInit {
         this.loadingService.closeSpinner();
       });
     } else {
+      this.loadingService.closeSpinner();
       this.snackBar.open('El archivo esta vacío', 'Cerrar', {
         duration: 3000
       });
