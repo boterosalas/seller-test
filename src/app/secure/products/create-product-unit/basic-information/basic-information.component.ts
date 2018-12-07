@@ -146,37 +146,37 @@ export class ProductBasicInfoComponent implements OnInit {
             packing: new FormGroup({
                 HighPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingHeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 LongPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingLengthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WidthPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWidthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WeightPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
             product: new FormGroup({
                 HighProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingHeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 LongProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingLengthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WidthProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWidthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WeightProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
             Description: new FormControl('',
