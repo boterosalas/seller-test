@@ -173,7 +173,7 @@
   <mat-divider></mat-divider>
 
   <!-- BUTTON TO ADD SONS -->
-  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'">
+  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'" class="sticky-position">
     <div>
     </div>
     <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
