@@ -21,7 +21,7 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
+  public formatEan = /^((IZ)[0-9]{5,14})$|^([0-9]{7,16})$/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
@@ -56,7 +56,7 @@ export class ValidateEanComponent implements OnInit {
         this.process.unavailableEanView();
       }
     } else {
-      if (!this.eanGroup.controls.eanCtrl.value && !this.validateEanExist) {
+      if (!this.eanGroup.controls.eanCtrl.value && !value) {
         this.process.unavailableEanView();
       } else {
         this.sendEan();

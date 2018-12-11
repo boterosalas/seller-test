@@ -21,6 +21,7 @@ export const endpoints = {
       getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
       getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
       searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
+      refuseOrAcceptDevolution: '',
       // Support message
       supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
       getreasonsrejection: 'https://g7n20mhxc4.execute-api.us-east-1.amazonaws.com/ReasonsRejection{stringParams}',
@@ -76,9 +77,11 @@ export const endpoints = {
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
       // Enviar moderación de productos al correo
-      sendProductModeration: '',
+      productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
       // Get Regex
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
+      // Post Guardar informacion creacion unitaria de producto
+      postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     },
@@ -95,6 +98,7 @@ export const endpoints = {
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?idSeller={sellerId}&limit={limit}',
       pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/search{stringParams}', // PENDIENTE
+      acceptOrDeniedDevolution: '', // TODO: Faltante en api end points
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       // Billing Mock
@@ -151,12 +155,16 @@ export const endpoints = {
       getStateOfCharge: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs',
+      // Validar formato imagen
+      getValidateImage: 'https://1kthuybvhi.execute-api.us-east-1.amazonaws.com/images-pdn/',
       // Get specs
       getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
       // Enviar moderación de productos al correo
       sendProductModeration: '',
       // Get Regex
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
+       // Post Guardar informacion creacion unitaria de producto
+       postSaveInformationUnitCreation: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     }

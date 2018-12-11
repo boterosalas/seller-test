@@ -34,14 +34,12 @@ export class ImageUrlComponent implements OnInit {
         });
         this.imgUrl = 'novalido.jpg';
   }
-  // Funcion para colocar valor de input en el src y cargar la imagen.
-  /*  sendChange(val: any) {
-      this.imgUrl = val;
-      console.log('combo:imgUrl', this.imgUrl);
-      this.imgUrlOut.emit([this.index, this.imgUrl]);
-    } */
 
-  // Funcion para colocar valor de input en el src y cargar la imagen y que sea .jpg
+/**
+ * Funcion sendChange()
+ * Funcion para colocar valor de input en el src y cargar la imagen y que sea .jpg
+ * @memberof ImageUrlComponent
+ */
   sendChange(val: any) {
     this.imgUrl = val;
     if (val.match(this.formatImg)) {
@@ -61,22 +59,6 @@ export class ImageUrlComponent implements OnInit {
       this.imgUrl = 'novalido.jpg';
     }
   }
-
-  /*
-  validateFormatImage() {
-      const formatImg = /^([^\s]+(\.jpg)$)/;
-      if (this.createImage.controls.imageDad.value.match(formatImg)) {
-        console.log('la imagen cumple con el formato.');
-        console.log('input value: ', this.createImage.controls.imageDad.value);
-        this.service.getvalidateImage(this.createImage.controls.imageDad.value).subscribe(res => {
-          // console.log('res', res);
-          // console.log('result: ', this.imageValidae);
-          this.valueImagenDad = this.createImage.controls.imageDad.value;
-        });
-      } else {
-        console.log('La imagen no es valida');
-      }
-    }*/
 }
 
 

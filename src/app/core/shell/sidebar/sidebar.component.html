@@ -90,11 +90,11 @@
           <h6 matLine>Carga masiva</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator' && !isProductionEnv">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Moderación</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntCreateUnutaryProduct]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntCreateUnutaryProduct]" *ngIf="user?.sellerProfile === 'seller'">
           <h6 matLine>Creación Unitaria</h6>
         </mat-list-item>
 
@@ -115,6 +115,10 @@
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerManage]">
           <h6 matLine>Administrar</h6>
+        </mat-list-item>
+
+        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerAgreements]" *ngIf="!isProductionEnv">
+          <h6 matLine>Acuerdos</h6>
         </mat-list-item>
 
       </mat-expansion-panel>

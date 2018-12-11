@@ -22,6 +22,14 @@ phases:
     
       - echo Iniciando Unit Tests...
       - ng test
+      - echo Generando documentación...
+      - npm run compodoc
+      - echo Borrando archivos de front en bucket...
+      - aws s3 rm s3://sellercenter.frontdoc.exito.com.co --recursive
+      - echo Archivos de front en bucket borrados.
+      - echo Transfiriendo archivos de front al bucket...
+      - aws s3 cp documentation s3://sellercenter.frontdoc.exito.com.co --recursive
+      - echo Archivos de front transferidos.
       
 artifacts:
   files:
