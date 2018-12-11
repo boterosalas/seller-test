@@ -160,11 +160,11 @@ export const endpoints = {
       // Get specs
       getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
       // Enviar moderación de productos al correo
-      sendProductModeration: '',
+      productModeration: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/{params}',
       // Get Regex
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
-       // Post Guardar informacion creacion unitaria de producto
-       postSaveInformationUnitCreation: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
+      // Post Guardar informacion creacion unitaria de producto
+      postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
     }
