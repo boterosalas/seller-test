@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Logger } from '../util/logger.service';
 import { RoutesConst } from '@app/shared/util/routes.constants';
 import { DialogTokenExpiredComponent } from './dialog-token-expired/dialog-token-expired';
+import { UserLoginService } from '../aws-cognito';
 
 
 const log = new Logger('ErrorHandlerInterceptor');
@@ -20,7 +21,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   public firstTime = true;
   public errorToken = 'The incoming token has expired'; // Error de AWS que indica la finalización del token.
-  constructor(private snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
+  constructor(private snackBar: MatSnackBar, private router: Router, public dialog: MatDialog,
+    public userService: UserLoginService) {
   }
 
   public changeFirstTime(): void {
@@ -32,6 +34,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
    * @memberof ErrorHandlerInterceptor
    */
   openDialog(): void {
+    this.userService.logout();
     const dialogRef = this.dialog.open(DialogTokenExpiredComponent, {
       width: '30%',
       disableClose: true,

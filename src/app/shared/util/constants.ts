@@ -154,4 +154,7 @@ export class Const {
 
   static readonly error = 'error';
   static readonly home = 'home';
+
+  readonly seller = 'seller';
+  readonly administrator = 'administrator';
 }
