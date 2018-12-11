@@ -38,8 +38,7 @@ phases:
       - |
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
            npm install;
-           node --max_old_space_size=4096 node_modules/acorn/dist/acorn.js;
-           ng build --configuration=production;
+           node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=production
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
            aws s3 rm s3://$S3_BUCKET_PROD --recursive;
