@@ -1,0 +1,43 @@
+$size: 260%;
+.logo {
+    width: 100%;
+    display: flex;
+    .container-logo {
+        background-color: #f4e000;
+        border-radius: 500px;
+        width: 80px;
+        height: 80px;
+        .material-icons {
+            font-size: $size;
+            display: contents;
+        }
+    }
+    .seller {
+        font-size: $size;
+    }
+    .point {
+        font-size: $size;
+        color: #a81a13;
+        font-weight: bold;
+    }
+    .load-file-gray {
+        font-size: $size;
+        color: #787777;
+        font-weight: 600;
+    }
+}
+
+.my-drop-zone { border: dotted 3px lightgray; }
+  /* Default class applied to drop zones on over */
+  .invalid-drag { border: dotted 3px red; }
+  .valid-drag { border: dotted 3px green; }
+  html, body { height: 100%; }
+  .previewIcon{
+    width:100px;height:100px;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  .inline-block{
+    display:inline-block;
+    margin:.2em;
+  }

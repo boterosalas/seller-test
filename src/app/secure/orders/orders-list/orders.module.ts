@@ -15,7 +15,9 @@ import { ProductDetailModalComponent } from './product-detail-modal/product-deta
 import { ProductsOrderComponent } from './products-order/products-order.component';
 import { FormProductComponent } from './send-order/form-product/form-product.component';
 import { SendOrderComponent } from './send-order/send-order.component';
-
+import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
+import { MaterialModule } from '@app/material.module';
+import { ngfModule } from 'angular-file';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { SendOrderComponent } from './send-order/send-order.component';
     FormsModule,
     SharedModule,
     ClientInformationModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    MaterialModule,
+    ngfModule
   ],
   declarations: [
     ConfirmAlertComponent,
@@ -34,13 +38,15 @@ import { SendOrderComponent } from './send-order/send-order.component';
     ProductDetailModalComponent,
     ProductsOrderComponent,
     SendOrderComponent,
-    FormProductComponent
+    FormProductComponent,
+    LoadFileComponent
   ],
   entryComponents: [
     ConfirmAlertComponent,
     SendOrderComponent,
     OrderDetailModalComponent,
-    ProductDetailModalComponent
+    ProductDetailModalComponent,
+    LoadFileComponent
   ],
   providers: [
     OrderService,
@@ -54,7 +60,8 @@ import { SendOrderComponent } from './send-order/send-order.component';
     ProductDetailModalComponent,
     ProductsOrderComponent,
     SendOrderComponent,
-    FormProductComponent
+    FormProductComponent,
+    LoadFileComponent
   ]
 })
 export class OrdersModule {

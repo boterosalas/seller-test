@@ -12,6 +12,7 @@ import { ShellComponent } from '@core/shell';
 import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 import { OrderService } from '../orders.service';
 import { SendOrderComponent } from '../send-order/send-order.component';
+import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -145,6 +146,24 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
       this.getOrdersListSinceFilterSearchOrder();
     }
   }
+
+  /**
+   * Abre el dialogo para carar un archivo, dependiendo del tipo
+   *
+   * @memberof OrdersListComponent
+   */
+  public openLoadFile(): void {
+
+    const dialogRef = this.dialog.open(LoadFileComponent, {
+      width: '60%',
+      data: 'PDF'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
 
   /**
    * Funcionalidad para remover las suscripciones creadas.

@@ -1,0 +1,42 @@
+<div class="load-file-container" fxLayout="column" fxLayoutAlign="space-around center">
+    <h1 mat-dialog-title>Adjuntar factura</h1>
+    <div mat-dialog-content>
+        <p>
+            La factura electrónica solo <strong>puede ser enviada 1 vez</strong>, Por favor verifique que éste
+            adjuntando el archivo correcto.
+        </p>
+        <p>Archivo PDF de máximo 3 Megabytes y que solo podrá ser enviado una vez.</p>
+
+        <div class="logo" fxLayout="row" fxLayoutAlign="center center">
+            <div class="container-logo" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="material-icons">
+                    shopping_cart
+                </mat-icon>
+            </div>
+            <span class="seller">
+                &nbsp;Seller
+            </span>
+            <span class="load-file-gray">
+                &nbsp;Center
+            </span>
+            <span class="point">
+                .
+            </span>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+
+        <div class="inline-block">
+            <div ngfDrop multiple="1" selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" accept="image/*"
+                [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone"
+                [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag" (filesChange)="lastFileAt=getDate()">
+                Combo drop/select <strong>image</strong> only zone
+            </div>
+            <strong>accept:</strong>
+            <div>
+                <input type="text" value="image/*" disabled readonly="" style="width:100%" />
+            </div>
+        </div>
+
+    </div>
+</div>
