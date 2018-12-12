@@ -12,7 +12,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterIntCreateUnutaryProduct}`,
-      component: !isProductionEnv ? CreateUnutaryProductComponent : ErrorPageComponent,
+      component: CreateUnutaryProductComponent,
       data: { title: 'Creación Unitaria' },
     }
   ])

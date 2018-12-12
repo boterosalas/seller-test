@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
 
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
@@ -11,8 +10,7 @@ export class SendModerationFormatModalService {
 
   constructor(
     private http: HttpClient,
-    private api: EndpointService,
-    private snackBar: MatSnackBar
+    private api: EndpointService
   ) {
   }
 
@@ -23,19 +21,7 @@ export class SendModerationFormatModalService {
    * @returns {Observable<HttpResponse<Object>>}
    */
   getModeration(data: { email: string }) {
-    const request = this.http.get(this.api.get('productModeration', [data.email]), {observe: 'response'});
-    request.subscribe(res => {
-      let message;
-      if (res.status === 200) {
-        message = 'Se ha enviado correctamente la moderación.';
-      } else {
-        message = 'Algo ocurrió, no se pudo enviar la moderación.';
-      }
-      this.snackBar.open(message, 'Cerrar', {
-        duration: 3000
-      });
-    });
-    return request;
+    return this.http.get(this.api.get('productModeration', [data.email]), {observe: 'response'});
   }
 
   sendModeration(data: any): Observable<any> {
