@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
-import { ValidateEanComponent } from '../validate-ean/validate-ean.component';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
     selector: 'app-basic-information',
@@ -57,6 +57,29 @@ export class ProductBasicInfoComponent implements OnInit {
     asignatedEanSon: boolean;
     public showButton = false; // Variable que se conecta con el servicio que habilita los botones
     public productData: any;
+    config: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: '15rem',
+        minHeight: '5rem',
+        placeholder: 'Escriba aquí la descripción...',
+        translate: 'no',
+        customClasses: [
+          {
+            name: 'quote',
+            class: 'quote',
+          },
+          {
+            name: 'redText',
+            class: 'redText'
+          },
+          {
+            name: 'titleText',
+            class: 'titleText',
+            tag: 'h1',
+          },
+        ]
+      };
 
     constructor(
         private snackBar: MatSnackBar,
@@ -203,18 +226,24 @@ export class ProductBasicInfoComponent implements OnInit {
         let word = this.formKeyword.controls.Keyword.value;
         if (word) {
             word = word.trim();
-            if (word.search(',') === -1) {
-                this.keywords.push( word );
+            if (this.keywords.length < 20) {
+                if (word.search(',') === -1) {
+                    this.keywords.push(word);
+                } else {
+                    const counter = word.split(',');
+                    counter.forEach(element => {
+                        if (element) {
+                            this.keywords.push(element);
+                        }
+                    });
+                }
+                this.detectForm();
+                this.formKeyword.controls.Keyword.setValue(null);
             } else {
-                const counter = word.split(',');
-                counter.forEach(element => {
-                    if (element) {
-                        this.keywords.push( element );
-                    }
+                this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
+                    duration: 3000,
                 });
             }
-            this.detectForm();
-            this.formKeyword.controls.Keyword.setValue(null);
         }
     }
 

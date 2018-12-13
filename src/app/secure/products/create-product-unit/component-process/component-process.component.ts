@@ -62,7 +62,9 @@ export class ComponentProcessComponent implements OnInit {
   }
 
   public continue_after_basic_info() {
+    if (this.process.getProductData().Children) {
     this.children_created = this.process.getProductData().Children.length;
+    }
   }
 
 
