@@ -16,6 +16,7 @@ import { HttpCacheService } from './http/http-cache.service';
 import { HttpService } from './http/http.service';
 import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
+import { DialogTokenExpiredComponent } from './http/dialog-token-expired/dialog-token-expired';
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -37,14 +38,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ],
   declarations: [
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   exports: [
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   entryComponents: [
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   providers: [
     HttpCacheService,
