@@ -19,7 +19,6 @@ export class LoadFileComponent implements OnInit {
     httpEvent: HttpEvent<Event>;
     lastFileAt: Date;
 
-
     /**
      * Inicialización de componente para cargar archivos.
      */
@@ -35,6 +34,14 @@ export class LoadFileComponent implements OnInit {
             console.log('cancelled');
             this.httpEmitter.unsubscribe();
         }
+    }
+
+    imprimir(esto: any) {
+        console.log(esto);
+    }
+
+    ngOnInit() {
+
     }
 
     uploadFiles(files: File[]): Subscription {
@@ -58,8 +65,5 @@ export class LoadFileComponent implements OnInit {
 
     getDate() {
         return new Date();
-    }
-    ngOnInit() {
-
     }
 }
