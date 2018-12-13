@@ -1,0 +1,12 @@
+<h1 mat-dialog-title fxLayout="column" fxLayoutAlign="center center" class="color-maroon">
+    <mat-icon class="material-icons icon-warning">
+        warning
+    </mat-icon>
+    La sesión ha expirado
+</h1>
+<div mat-dialog-content>
+    <p>La sesión ha expirado o caducado por inactividad prolongada. Por favor vuelva a ingresar.</p>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end end">
+    <button mat-button (click)="closeDialog()" cdkFocusInitial>Aceptar</button>
+</div>

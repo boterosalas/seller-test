@@ -4,7 +4,7 @@ $color-red: #f44336;
 .basic-info-error {
     color: $color-red;
     font-size: 13px;
-    position: fixed;
+    position: absolute;
     padding-top: 1em;
 }
 
@@ -86,7 +86,7 @@ $color-red: #f44336;
             }
         }
         .description-form {
-            width: 100%;
+            width: 50%;
         }
     }
     .container-sub-forms {
@@ -183,6 +183,9 @@ $color-red: #f44336;
         border-radius: 25px;
         border: 1px solid;
     }
+    p{
+        text-align: justify;
+    }
 }
 
 .border-bottom-gray {
@@ -212,7 +215,7 @@ $color-red: #f44336;
     font-weight: bold;
 }
 
-.multi-one{
+.multi-one {
     margin-top: 5px;
     background-color: #f44336;
     width: 13px;
@@ -222,7 +225,7 @@ $color-red: #f44336;
     border-top-right-radius: 100px;
 }
 
-.multi-two{
+.multi-two {
     background-color: #ffeb3b;
     width: 24px;
     height: 4px;
@@ -232,7 +235,7 @@ $color-red: #f44336;
     border-top-right-radius: 100px;
 }
 
-.multi-three{
+.multi-three {
     background-color: #4caf50;
     width: 33px;
     height: 4px;
@@ -241,8 +244,7 @@ $color-red: #f44336;
     margin-left: 4px;
 }
 
-
-.multi-four{
+.multi-four {
     background-color: #2196f3;
     width: 24px;
     height: 4px;
@@ -252,8 +254,7 @@ $color-red: #f44336;
     border-bottom-right-radius: 100px;
 }
 
-
-.multi-five{
+.multi-five {
     background-color: #9c27b0;
     width: 13px;
     height: 4px;
@@ -263,10 +264,9 @@ $color-red: #f44336;
     border-bottom-right-radius: 100px;
 }
 
-.multi-six{
+.multi-six {
     background-color: gray;
 }
-
 
 .multi-color {
     width: 40px;
@@ -274,8 +274,15 @@ $color-red: #f44336;
     font-size: 40px;
 }
 
-#textCreateBasicInfo{
+#textCreateBasicInfo {
     color: #757474;
     margin: 2% 0;
     line-height: 1.5em;
+}
+
+.sticky-position {
+    position: sticky;
+    top: 0;
+    background: #f9f7f7;
+    z-index: 10;
 }
