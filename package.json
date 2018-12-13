@@ -39,6 +39,7 @@
     "@angular/pwa": "^0.6.8",
     "@angular/router": "^6.1.6",
     "@angular/service-worker": "^6.1.6",
+    "@kolkov/angular-editor": "^0.13.1",
     "@nguniversal/express-engine": "^6.0.0",
     "@nguniversal/module-map-ngfactory-loader": "^6.0.0",
     "amazon-cognito-identity-js": "^1.31.0",

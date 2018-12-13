@@ -103,6 +103,10 @@ export class SpecificationProductComponent implements OnInit {
         this.processService.setFeatures(list);
     }
 
+    public showError(index: number, model: any): boolean {
+        return document.getElementById('specs-' + index) !== model;
+    }
+
     /**
      * Verifica si una especificacion ya posee valor o debe crearse, usa una llave primaria creada por la
      * suma del indice del grupo de especificacion y la posicion de esta, dentro del grupo.
