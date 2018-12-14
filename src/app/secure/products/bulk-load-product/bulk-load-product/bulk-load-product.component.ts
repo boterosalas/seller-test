@@ -77,6 +77,9 @@ export class BulkLoadProductComponent implements OnInit {
   /* Mirar el estado del progreso de la carga*/
   public progressStatus = false;
 
+  public eanComboArray: any[];
+
+  public eanComboPosition = -1;
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -103,6 +106,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.countRowUpload = 0;
     this.countErrors = 0;
     this.fileName = '';
+    this.eanComboArray = [];
   }
 
   /**
@@ -384,6 +388,8 @@ export class BulkLoadProductComponent implements OnInit {
               iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
             };
 
+            this.eanComboPosition = iVal.iEanCombo;
+
             /*
             * if si el número de registros es mayor al número de cargas permitidas no lo deja continuar
             * else if si el número de registros es mayor al maximo de cargas permitidas no lo deja continuar
@@ -521,6 +527,26 @@ export class BulkLoadProductComponent implements OnInit {
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
+                } else {
+                  const counterEanCombo = res[i][this.eanComboPosition].split(',');
+                  const uniqs = counterEanCombo.filter(function (item: any, index: any, array: any) {
+                    return array.indexOf(item) === index;
+                  });
+                  if (uniqs.length !== counterEanCombo.length) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'EanComboRepeatError',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'EanCombo'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
                 }
               }
             } else if (j === iVal.iTipoDeProducto) {
@@ -597,7 +623,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion ) {
+            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion) {
               const allChars = this.validFormat(res[i][j], 'formatAllChars');
               if (!allChars && allChars === false) {
                 this.countErrors += 1;
@@ -631,7 +657,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            }else if (j === iVal.iModelo || j === iVal.iDetalles) {
+            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
               const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
               if (!limitChars && limitChars === false) {
                 this.countErrors += 1;
@@ -1264,7 +1290,8 @@ export class BulkLoadProductComponent implements OnInit {
                 this.getAvaliableLoads();
                 // Validar que los errores existan para poder mostrar el modal.
                 if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);                }
+                  this.openDialogSendOrder(data);
+                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1375,7 +1402,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc =  /^((?!<script>|<SCRIPT>).)*$/igm;
+    const formatDesc = /^((?!<script>|<SCRIPT>).)*$/igm;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
@@ -1425,7 +1452,7 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'eanCombo':
+        case 'eanCombo':
           if ((inputtxt.match(formatEanCombo))) {
             valueReturn = true;
           } else {
@@ -1453,7 +1480,7 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'formatAllCharsKeyWords':
+        case 'formatAllCharsKeyWords':
           if ((inputtxt.match(formatAllCharsKeyWords))) {
             valueReturn = true;
           } else {

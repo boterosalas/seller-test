@@ -184,7 +184,6 @@ export class ProcessService {
             this.productData.ImageChildren = data.ImageChildren;
         }
         this.change.emit(this.views);
-        console.log('data: ', this.views);
     }
 
     /**
@@ -194,7 +193,6 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getProductData(): ProductModel {
-        console.log('this.productDat: ', this.productData);
         return this.productData;
     }
 
