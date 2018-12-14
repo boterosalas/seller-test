@@ -105,6 +105,16 @@ export class ComponentProcessComponent implements OnInit {
     }
   }
 
+  public stepClick(event: any): void {
+    try {
+      if (event && event.selectedIndex === 2) {
+        document.getElementsByClassName('mat-horizontal-content-container')[0].scrollTop = 0;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
 
   public validateView(): void {
     if (this.views.showEan) {
@@ -116,7 +126,6 @@ export class ComponentProcessComponent implements OnInit {
       this.categoryFormGroup.controls.categoryCtrl.setValue('1');
     }
     if (this.views.showInfo) {
-      document.getElementsByClassName('mat-horizontal-content-container')[0].scrollTop = 0;
       this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
     } else if (!this.views.showInfo) {
       this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
