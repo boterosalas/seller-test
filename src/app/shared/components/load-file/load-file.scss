@@ -47,38 +47,41 @@ $blue: #485AFA;
     background-repeat: no-repeat;
 }
 
-.mat-dialog-actions {
-    width: 100%;
+.load-file-container {
+    padding: 1em;
     .mat-dialog-actions {
         width: 100%;
-    }
-    .inline-block {
-        display: inline-block;
-        width: 100%;
-        .my-drop-zone {
-            border: dashed 2px $lightgray;
-            min-height: 150px;
-            color: $gray;
-            padding: 1em;
-            cursor: pointer;
-            mat-icon {
-                font-size: 60px;
-                height: 60px;
-                width: 60px;
+        .mat-dialog-actions {
+            width: 100%;
+        }
+        .inline-block {
+            display: inline-block;
+            width: 100%;
+            .my-drop-zone {
+                border: dashed 2px $lightgray;
+                min-height: 150px;
                 color: $gray;
-                margin: 0.2em;
-                &.check{
-                    color: green;
-                }
-            }
-            .button-fake {
-                border-radius: 4px;
-                width: 150px;
-                height: 37px;
-                font-size: 12px;
+                padding: 2em;
                 cursor: pointer;
-                background-color: $blue;
-                color: white;
+                mat-icon {
+                    font-size: 60px;
+                    height: 60px;
+                    width: 60px;
+                    color: $gray;
+                    margin: 0.2em;
+                    &.check {
+                        color: green;
+                    }
+                }
+                .button-fake {
+                    border-radius: 4px;
+                    width: 150px;
+                    height: 37px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    background-color: $blue;
+                    color: white;
+                }
             }
         }
     }
