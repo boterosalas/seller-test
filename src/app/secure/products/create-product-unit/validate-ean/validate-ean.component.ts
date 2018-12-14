@@ -25,6 +25,7 @@ export class ValidateEanComponent implements OnInit {
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
+  public copy = null;
 
   constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService) {
   }
@@ -44,6 +45,9 @@ export class ValidateEanComponent implements OnInit {
   // validar estado de checkbox
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
+    if (this.eanGroup.controls['eanCtrl'].errors) {
+      this.copy = Object.assign({}, {error: this.eanGroup.controls['eanCtrl'].errors});
+    }
      if (this.asignatedEan === true) {
       this.sendEan();
       this.eanGroup.controls['eanCtrl'].disable();
@@ -62,6 +66,8 @@ export class ValidateEanComponent implements OnInit {
         this.sendEan();
       }
       this.eanGroup.controls['eanCtrl'].enable();
+      this.eanGroup.controls['eanCtrl'].setErrors(this.copy.error);
+
     }
   }
 
@@ -78,7 +84,7 @@ export class ValidateEanComponent implements OnInit {
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
   validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
-    if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
+    if (this.eanGroup.value.eanCtrl.match(this.formatEan)) {
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
