@@ -1,4 +1,7 @@
 $size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485AFA;
 .logo {
     width: 100%;
     display: flex;
@@ -27,11 +30,6 @@ $size: 260%;
     }
 }
 
-.my-drop-zone {
-    border: dashed 2px lightgray;    
-    min-height: 150px;
-}
-
 /* Default class applied to drop zones on over */
 
 .invalid-drag {
@@ -41,8 +39,6 @@ $size: 260%;
 .valid-drag {
     border: dotted 3px green;
 }
-
-
 
 .previewIcon {
     width: 100px;
@@ -59,5 +55,31 @@ $size: 260%;
     .inline-block {
         display: inline-block;
         width: 100%;
+        .my-drop-zone {
+            border: dashed 2px $lightgray;
+            min-height: 150px;
+            color: $gray;
+            padding: 1em;
+            cursor: pointer;
+            mat-icon {
+                font-size: 60px;
+                height: 60px;
+                width: 60px;
+                color: $gray;
+                margin: 0.2em;
+                &.check{
+                    color: green;
+                }
+            }
+            .button-fake {
+                border-radius: 4px;
+                width: 150px;
+                height: 37px;
+                font-size: 12px;
+                cursor: pointer;
+                background-color: $blue;
+                color: white;
+            }
+        }
     }
 }

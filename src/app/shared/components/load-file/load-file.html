@@ -7,7 +7,7 @@
         </p>
         <p>Archivo PDF de máximo 3 Megabytes y que solo podrá ser enviado una vez.</p>
 
-        <div class="logo" fxLayout="row" fxLayoutAlign="center center">
+        <div class="logo" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
             <div class="container-logo" fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon class="material-icons">
                     shopping_cart
@@ -27,136 +27,31 @@
     <div mat-dialog-actions>
 
         <div class="inline-block">
-            <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" accept="application/pdf"
-                [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone"
+            <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [maxSize]="maxSize"
+                [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" fxLayoutAlign="center center" 
                 [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag" (filesChange)="lastFileAt=getDate()">
-                Combo drop/select <strong>image</strong> only zone
+               <strong *ngIf="!files.length">Arrastre y suelte el archivo aqui</strong>
+               <strong *ngIf="files.length">{{files[0].name}} - {{ files[0].size/1024/1024 | number:'.2' }} MB</strong>
+               <mat-icon class="material-icons" *ngIf="!files.length">
+                    attach_file
+                </mat-icon>
+                <mat-icon class="material-icons check" *ngIf="files.length">
+                    check_circle
+                 </mat-icon>
+                <div class="button-fake" fxLayout="column" fxLayoutAlign="center center">
+                    <span>
+                        ADJUNTAR ARCHIVO
+                    </span>
+                </div>
             </div>
         </div>
+        {{imprimir(files)}}
 
         <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData"></ngfFormData>
 
         <ngfUploadStatus [(percent)]="progress" [httpEvent]="httpEvent"></ngfUploadStatus>
 
 
-        <div class="inline-block">
-            <h3>Select Files</h3>
-
-            <div class="inline-block">
-                Multiple
-                <input ngfSelect multiple type="file" [(files)]="files" [accept]="accept" [maxSize]="maxSize"
-                    [(lastInvalids)]="lastInvalids" (filesChange)="lastFileAt=getDate()" />
-            </div>
-
-            <div class="inline-block">
-                Single
-                <input ngfSelect type="file" [(files)]="files" [accept]="accept" [maxSize]="maxSize" [(lastInvalids)]="lastInvalids"
-                    (filesChange)="lastFileAt=getDate()" />
-            </div>
-
-            <div class="inline-block">
-                Element
-                <div ngfSelect multiple="1" [accept]="accept" [maxSize]="maxSize" [(files)]="files" class="well my-drop-zone"
-                    style="border-style:groove;padding:0.5em;text-align:center;width:150px;" [(lastInvalids)]="lastInvalids"
-                    (filesChange)="lastFileAt=getDate()">
-                    Tap to Select
-                </div>
-            </div>
-
-            <div class="inline-block">
-                <strong>Images</strong> Only
-                <div ngfSelect accept="image/*" multiple="1" [maxSize]="maxSize" [(files)]="files" class="well my-drop-zone"
-                    style="border-style:groove;padding:0.5em;text-align:center;width:150px;" [(lastInvalids)]="lastInvalids"
-                    (filesChange)="lastFileAt=getDate()">
-                    Tap to Select
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h3>Drop Files</h3>
-            <div class="inline-block">
-                <div ngfDrop [(validDrag)]="baseDropValid" (fileOver)="hasBaseDropZoneOver=$event" [(files)]="files"
-                    [accept]="accept" [maxSize]="maxSize" [(dragFiles)]="dragFiles" [(lastInvalids)]="lastInvalids"
-                    class="well my-drop-zone" [class.invalid-drag]="baseDropValid===false" [class.valid-drag]="baseDropValid"
-                    (filesChange)="lastFileAt=getDate()">
-                    Base drop zone
-                </div>
-                <strong>accept:</strong>
-                <div>
-                    <input type="text" [(ngModel)]="accept" />
-                </div>
-            </div>
-
-            <div class="inline-block">
-                <div ngfDrop multiple="1" selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" accept="image/*"
-                    [maxSize]="maxSize" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone"
-                    [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag" (filesChange)="lastFileAt=getDate()">
-                    Combo drop/select <strong>image</strong> only zone
-                </div>
-                <strong>accept:</strong>
-                <div>
-                    <input type="text" value="image/*" disabled readonly="" style="width:100%" />
-                </div>
-            </div>
-
-            <div class="inline-block">
-                <strong>maxSize kb</strong>
-                <div>
-                    <input type="number" [(ngModel)]="maxSize" placeholder="1024 == 1mb" />
-                </div>
-            </div>
-        </div>
-
-
-        <div *ngIf="dragFiles">
-            <h3 style="margin:0">Drag Files</h3>
-            <p *ngIf="!dragFiles.length" style="color:red;">
-                This browser does NOT release metadata for files being dragged. All files will be considered valid
-                drags until dropped.
-            </p>
-            <pre>{{ dragFiles | json }}</pre>
-        </div>
-
-        <div class="bg-warning" *ngIf="lastInvalids?.length" style="margin-bottom: 40px">
-            <h3 style="color:red;">Last {{ lastInvalids.length }} Invalid Selected Files</h3>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Error</th>
-                        <th>Type</th>
-                        <th>Size</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of lastInvalids;let i=index">
-                        <td>
-                            <div *ngIf="['image/gif','image/png','image/jpeg'].indexOf(item.file.type)>=0">
-                                <div class="previewIcon" [ngfBackground]="item.File"></div>
-                            </div>
-                            <strong>{{ item.file.name }}</strong>
-                        </td>
-                        <td nowrap>
-                            {{ item.type }}
-                        </td>
-                        <td nowrap>
-                            {{ item.file.type }}
-                        </td>
-                        <td nowrap>
-                            {{ item.file.size/1024/1024 | number:'.2' }} MB
-                        </td>
-                        <td nowrap>
-                            <button type="button" class="btn btn-danger btn-xs" (click)="lastInvalids.splice(i,1)">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
         <div style="margin-bottom: 40px">
             <h3>{{ files.length }} Qued Files</h3>
@@ -172,7 +67,7 @@
                 <tbody>
                     <tr *ngFor="let item of files;let i=index">
                         <td>
-                            <div *ngIf="['image/gif','image/png','image/jpeg'].indexOf(item.type)>=0">
+                            <div>
                                 <div class="previewIcon" [ngfBackground]="item"></div>
                             </div>
                             <strong>{{ item.name }}</strong>

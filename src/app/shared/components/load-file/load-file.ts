@@ -37,7 +37,7 @@ export class LoadFileComponent implements OnInit {
     }
 
     imprimir(esto: any) {
-        console.log(esto);
+        console.log(esto, this.sendableFormData);
     }
 
     ngOnInit() {
