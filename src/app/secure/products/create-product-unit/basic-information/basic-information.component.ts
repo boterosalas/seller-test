@@ -29,6 +29,7 @@ export class ProductBasicInfoComponent implements OnInit {
     formCreate = false;
     public validateEanSonExist;
     public validAfter = false;
+    public descrip: string;
     /**
      *  Json  con los colores predefinidos.
      */
@@ -204,15 +205,25 @@ export class ProductBasicInfoComponent implements OnInit {
             }),
             Description: new FormControl('',
                 [
-                    Validators.required, Validators.pattern(this.getValue('descriptionProduct'))
+                    Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
         });
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
             if (data === 'INVALID') {
+                if (this.formBasicInfo.controls.Description.value !== this.descrip) {
+                    this.descrip = this.formBasicInfo.controls.Description.value;
+                }
                 const views = this.process.getViews();
                 views.showInfo = false;
                 this.process.setViews(views);
+            } else {
+                if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
+                    this.descrip = this.formBasicInfo.controls.Description.value;
+                    if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
+                        this.sendDataToService();
+                    }
+                }
             }
         });
     }
@@ -447,7 +458,7 @@ export class ProductBasicInfoComponent implements OnInit {
         const productDateSize = this.formBasicInfo.controls.product as FormGroup;
         const data = {
             Name: this.formBasicInfo.controls.Name.value,
-            Brand: this.formBasicInfo.controls.Brand.value,
+            Brand: this.formBasicInfo.controls.Brand.value.toUpperCase(),
             Details: this.formBasicInfo.controls.Detail.value,
             Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,

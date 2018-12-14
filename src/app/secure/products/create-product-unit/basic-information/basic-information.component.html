@@ -12,7 +12,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="name-product field">
         <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name" (change)="detectForm()"
-          id="nameProduct">
+          id="nameProduct" autofocus>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">Este campo es obligatorio</mat-error>
       </mat-form-field>
@@ -153,8 +153,10 @@
       </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column" style="width: 100%;">
-      <angular-editor formControlName="Description" [config]="config" style="width: 100%;"></angular-editor>
+    <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column" style="width: 100%;">
+      <angular-editor formControlName="Description" [config]="config" style="width: 100%;" (change)="detectForm()"></angular-editor>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">Este campo es obligatorio</mat-error>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">El formato no es válido</mat-error>
     </div>
   </form>
 
