@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
-import { ValidateEanComponent } from '../validate-ean/validate-ean.component';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
     selector: 'app-basic-information',
@@ -19,7 +19,7 @@ export class ProductBasicInfoComponent implements OnInit {
     packing: FormGroup;
     product: FormGroup;
     formKeyword: FormGroup;
-    keywords = '';
+    keywords = [];
     colorSelected: string;
     sonList = [];
     colorPick: string;
@@ -29,6 +29,7 @@ export class ProductBasicInfoComponent implements OnInit {
     formCreate = false;
     public validateEanSonExist;
     public validAfter = false;
+    public descrip: string;
     /**
      *  Json  con los colores predefinidos.
      */
@@ -49,12 +50,37 @@ export class ProductBasicInfoComponent implements OnInit {
         { Name: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
         { Name: 'MultiColor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
+
+    public UnitMeasurementList = ['Gramo', 'Mililitro', 'Metro', 'Unidad'];
     validateRegex: any;
     newForm: any;
     valInputEan: any;
     asignatedEanSon: boolean;
     public showButton = false; // Variable que se conecta con el servicio que habilita los botones
     public productData: any;
+    config: AngularEditorConfig = {
+        editable: true,
+        spellcheck: true,
+        height: '15rem',
+        minHeight: '5rem',
+        placeholder: 'Escriba aquí la descripción...',
+        translate: 'no',
+        customClasses: [
+          {
+            name: 'quote',
+            class: 'quote',
+          },
+          {
+            name: 'redText',
+            class: 'redText'
+          },
+          {
+            name: 'titleText',
+            class: 'titleText',
+            tag: 'h1',
+          },
+        ]
+      };
 
     constructor(
         private snackBar: MatSnackBar,
@@ -79,8 +105,9 @@ export class ProductBasicInfoComponent implements OnInit {
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
-            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.CategorySelected) {
-                this.formBasicInfo.controls.Category.setValue(this.productData.CategorySelected);
+            if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category &&
+                this.formBasicInfo.controls.Category.value !== this.productData.CategoryName) {
+                this.formBasicInfo.controls.Category.setValue(this.productData.CategoryName);
                 this.sonList = [];
             }
             this.showButton = data.showEan;
@@ -138,53 +165,65 @@ export class ProductBasicInfoComponent implements OnInit {
                 [
                     Validators.required, Validators.pattern(this.getValue('detailProduct'))
                 ]),
+            MeasurementUnit: new FormControl('', [Validators.required]),
+            ConversionFactor: new FormControl('', [Validators.required, Validators.pattern(this.getValue('factConversionProduct'))]),
             packing: new FormGroup({
                 HighPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingHeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 LongPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingLengthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WidthPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWidthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WeightPacking: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
             product: new FormGroup({
                 HighProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingHeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 LongProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingLengthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WidthProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWidthProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ]),
                 WeightProduct: new FormControl('',
                     [
-                        Validators.required, Validators.pattern(this.getValue('packingWeightProduct'))
+                        Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
             Description: new FormControl('',
                 [
-                    Validators.required, Validators.pattern(this.getValue('descriptionProduct'))
+                    Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
         });
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
             if (data === 'INVALID') {
+                if (this.formBasicInfo.controls.Description.value !== this.descrip) {
+                    this.descrip = this.formBasicInfo.controls.Description.value;
+                }
                 const views = this.process.getViews();
                 views.showInfo = false;
                 this.process.setViews(views);
+            } else {
+                if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
+                    this.descrip = this.formBasicInfo.controls.Description.value;
+                    if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
+                        this.sendDataToService();
+                    }
+                }
             }
         });
     }
@@ -198,13 +237,29 @@ export class ProductBasicInfoComponent implements OnInit {
         let word = this.formKeyword.controls.Keyword.value;
         if (word) {
             word = word.trim();
-            if (word[word.length - 1] !== ',') {
-                word += ',';
+            if (this.keywords.length < 20) {
+                if (word.search(',') === -1) {
+                    this.keywords.push(word);
+                } else {
+                    const counter = word.split(',');
+                    counter.forEach(element => {
+                        if (element) {
+                            this.keywords.push(element);
+                        }
+                    });
+                }
+                this.detectForm();
+                this.formKeyword.controls.Keyword.setValue(null);
+            } else {
+                this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
+                    duration: 3000,
+                });
             }
-            this.keywords += word;
-            this.detectForm();
-            this.formKeyword.controls.Keyword.setValue(null);
         }
+    }
+
+    public deleteKeywork(indexOfValue: number): void {
+        this.keywords.splice(indexOfValue, 1);
     }
 
     /**
@@ -385,8 +440,8 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
-        if (this.formBasicInfo.valid && this.keywords) {
-            if ((this.productData.CategoryType === 'Clothing' && this.getValidSonsForm()) || (this.productData.CategoryType !== 'Clothing')) {
+        if (this.formBasicInfo.valid && this.keywords.length) {
+            if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
                 this.validAfter = true;
             } else if (this.validAfter && !this.getValidSonsForm()) {
@@ -403,7 +458,7 @@ export class ProductBasicInfoComponent implements OnInit {
         const productDateSize = this.formBasicInfo.controls.product as FormGroup;
         const data = {
             Name: this.formBasicInfo.controls.Name.value,
-            Brand: this.formBasicInfo.controls.Brand.value,
+            Brand: this.formBasicInfo.controls.Brand.value.toUpperCase(),
             Details: this.formBasicInfo.controls.Detail.value,
             Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
@@ -416,7 +471,9 @@ export class ProductBasicInfoComponent implements OnInit {
             ProductLength: productDateSize.controls.LongProduct.value,
             ProductWeight: productDateSize.controls.WeightProduct.value,
             Description: this.formBasicInfo.controls.Description.value,
-            KeyWords: this.keywords.slice(0, this.keywords.length - 1),
+            MeasurementUnit: this.formBasicInfo.controls.MeasurementUnit.value,
+            ConversionFactor: this.formBasicInfo.controls.ConversionFactor.value,
+            KeyWords: this.keywords.join(),
             Children: this.getSonData()
         };
         this.process.validaData(data);

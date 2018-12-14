@@ -21,7 +21,7 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
+  public formatEan = /^((IZ)[0-9]{5,14})$|^([0-9]{7,16})$/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
@@ -45,6 +45,7 @@ export class ValidateEanComponent implements OnInit {
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
      if (this.asignatedEan === true) {
+      this.sendEan();
       this.eanGroup.controls['eanCtrl'].disable();
       if (!this.eanGroup.controls.eanCtrl.value) {
         const data = {
@@ -55,7 +56,7 @@ export class ValidateEanComponent implements OnInit {
         this.process.unavailableEanView();
       }
     } else {
-      if (!this.eanGroup.controls.eanCtrl.value && !this.validateEanExist) {
+      if (!this.eanGroup.controls.eanCtrl.value && !value) {
         this.process.unavailableEanView();
       } else {
         this.sendEan();
@@ -66,7 +67,9 @@ export class ValidateEanComponent implements OnInit {
 
   public sendEan(): void {
     const data = {
-      Ean: this.eanGroup.controls.eanCtrl.value
+      Ean: this.eanGroup.controls.eanCtrl.value,
+      HasEan: this.eanGroup.controls.associateEan.value,
+      AssignEan: this.eanGroup.controls.associateEan.value,
     };
     this.process.validaData(data);
 
@@ -89,11 +92,9 @@ export class ValidateEanComponent implements OnInit {
         }
       }, error => {
         // this.validateEanExist = true;
-        console.log('Servicio no funciona');
       });
     } else {
       this.process.unavailableEanView();
-      console.log('Campo invalido');
     }
   }
 

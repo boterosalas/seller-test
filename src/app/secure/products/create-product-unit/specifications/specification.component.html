@@ -22,8 +22,10 @@
         <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
             <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
                 <mat-form-field class="specification-input">
-                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
-                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" maxlength="200">
+                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)" name="specs" id="specs"
+                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
+                        <mat-error *ngIf="showError(e, spec.Value)">Maximo 200 caracteres, si continua esta especificación no se guardara</mat-error>
+                    
                 </mat-form-field>
             </div>
         </div>

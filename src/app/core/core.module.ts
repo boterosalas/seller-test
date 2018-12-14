@@ -5,6 +5,7 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@app/material.module';
 import { LoadingComponent, LoadingService, ModalComponent, ModalService } from '@core/global';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ng2-currency-mask/src/currency-mask.config';
 
 import { AwsUtil, CognitoUtil, DynamoDBService, UserLoginService, UserParametersService, UserRegistrationService } from './aws-cognito';
 import { AuthInterceptor } from './http/auth.interceptor';
@@ -15,8 +16,8 @@ import { HttpCacheService } from './http/http-cache.service';
 import { HttpService } from './http/http.service';
 import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { DialogTokenExpiredComponent } from './http/dialog-token-expired/dialog-token-expired';
+
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -37,14 +38,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ],
   declarations: [
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   exports: [
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   entryComponents: [
-    ModalComponent
+    ModalComponent,
+    DialogTokenExpiredComponent
   ],
   providers: [
     HttpCacheService,

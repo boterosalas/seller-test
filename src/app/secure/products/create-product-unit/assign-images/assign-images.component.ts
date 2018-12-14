@@ -38,6 +38,10 @@ export class AssignImagesComponent implements OnInit, OnChanges {
 
   setParentArray(dataParenArr: any) {
     this.parent_image_url_arrray = dataParenArr;
+    const data = {
+      parent_image_url_arrray: this.parent_image_url_arrray
+    };
+    this.serviceChildrens.validaData(data);
   }
 
   setChildrenArray(dataChildArr: any, i: any) {
@@ -48,6 +52,10 @@ export class AssignImagesComponent implements OnInit, OnChanges {
       }
     } */
     this.children_image_url_arrray[i] = dataChildArr;
+    const data = {
+      children_image_url_arrray: this.children_image_url_arrray
+    };
+    this.serviceChildrens.validaData(data);
   }
 
   getChildrensInfoBasic() {

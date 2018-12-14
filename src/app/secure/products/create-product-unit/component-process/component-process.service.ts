@@ -1,5 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { EndpointService } from '@app/core/http/endpoint.service';
 
 
 /**
@@ -11,12 +13,14 @@ import { HttpClient } from '@angular/common/http';
 export interface ProductModel {
     Ean: string;
     AssignEan: boolean;
-    CategorySelected: string;
-    CategoryType: string;
+    Category: string;
+    CategoryName: string;
+    ProductType: string;
     HasEAN: boolean;
     Name: string;
     Brand: string;
     Details: string;
+    Seller: string;
     Model: string;
     SkuShippingSize: string;
     PackageWidth: number;
@@ -34,8 +38,18 @@ export interface ProductModel {
     Color: string;
     HexColourCodePDP: string;
     HexColourName: string;
-    Image: Array<any>;
-    ImageChildren: ProductModel['Image'];
+    // Image: Array<any>;
+    MeasurementUnit: string;
+    ConversionFactor: string;
+    // ImageChildren: ProductModel['Image'];
+    Features: any;
+    ImageUrl1: string;
+    ImageUrl2: string;
+    ImageUrl3: string;
+    ImageUrl4: string;
+    ImageUrl5: string;
+    MetaTitle: string;
+    MetaDescription: string;
 }
 
 /**
@@ -61,12 +75,14 @@ export class ProcessService {
     productData: ProductModel = {
         Ean: null,
         AssignEan: null,
-        CategorySelected: null,
-        CategoryType: null,
+        Category: null,
+        CategoryName: null,
+        ProductType: null,
         HasEAN: false,
         Name: null,
         Brand: null,
         Details: null,
+        Seller: 'Marketplace',
         Model: null,
         SkuShippingSize: null,
         PackageWidth: null,
@@ -84,8 +100,18 @@ export class ProcessService {
         Color: null,
         HexColourCodePDP: null,
         HexColourName: null,
-        Image: null,
-        ImageChildren: null
+        // Image: null,
+        // ImageChildren: null,
+        ConversionFactor: null,
+        MeasurementUnit: null,
+        Features: null,
+        ImageUrl1: null,
+        ImageUrl2: null,
+        ImageUrl3: null,
+        ImageUrl4: null,
+        ImageUrl5: null,
+        MetaTitle: null,
+        MetaDescription: null
     };
 
     /**
@@ -114,7 +140,8 @@ export class ProcessService {
      * @param {HttpClient} http
      * @memberof ProcessService
      */
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        private api: EndpointService) {
         this.productData.AssignEan = false;
     }
 
@@ -146,17 +173,18 @@ export class ProcessService {
     public validaData(data: any): void {
         if (data.Ean || data.AssignEan) {
             this.productData.Ean = data.Ean;
-            this.productData.AssignEan = data.AssginEan;
+            this.productData.AssignEan = !data.AssignEan;
+            this.productData.HasEAN = !data.AssignEan;
             this.views.showEan = true;
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
-            this.productData.CategorySelected = data.CategorySelected;
-            this.productData.CategoryType = data.CategoryType;
+            this.productData.CategoryName = data.CategoryName;
+            this.productData.Category = data.CategorySelected;
+            this.productData.ProductType = data.CategoryType;
         }
         if (data.Name) {
             this.views.showInfo = true;
-            this.productData.HasEAN = data.HasEAN;
             this.productData.Name = data.Name;
             this.productData.Brand = data.Brand;
             this.productData.Details = data.Details;
@@ -175,13 +203,30 @@ export class ProcessService {
             this.productData.Children = data.Children;
             this.productData.Size = data.Size;
             this.productData.Color = data.Color;
+            this.productData.MeasurementUnit = data.MeasurementUnit;
+            this.productData.ConversionFactor = data.ConversionFactor;
             this.productData.HexColourCodePDP = data.HexColourCodePDP;
             this.productData.HexColourName = data.HexColourName;
         }
-        if (data.Image) {
+        if (data.Features) {
+            this.productData.Features = data.Features;
+        }
+        if (data.parent_image_url_arrray && data.parent_image_url_arrray.length) {
             this.views.showImg = true;
-            this.productData.Image = data.Image;
-            this.productData.ImageChildren = data.ImageChildren;
+            this.productData.ImageUrl1 = data.parent_image_url_arrray[0];
+            this.productData.ImageUrl2 = data.parent_image_url_arrray[1];
+            this.productData.ImageUrl3 = data.parent_image_url_arrray[2];
+            this.productData.ImageUrl4 = data.parent_image_url_arrray[3];
+            this.productData.ImageUrl5 = data.parent_image_url_arrray[4];
+        }
+        if (data.children_image_url_arrray && data.children_image_url_arrray.length) {
+            for (let i = 0; i < this.productData.Children.length; i++) {
+                this.productData.Children[i].ImageUrl1 = data.children_image_url_arrray[i][0];
+                this.productData.Children[i].ImageUrl2 = data.children_image_url_arrray[i][1];
+                this.productData.Children[i].ImageUrl3 = data.children_image_url_arrray[i][2];
+                this.productData.Children[i].ImageUrl4 = data.children_image_url_arrray[i][3];
+                this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
+            }
         }
         this.change.emit(this.views);
     }
@@ -196,6 +241,10 @@ export class ProcessService {
         return this.productData;
     }
 
+    public setFeatures(Features: any): void {
+        this.productData.Features = Features;
+    }
+
     /**
      * Ya que validacion ean necesita de varias validaciones para continuar fue necesario una funcion para inhabilitar este paso manualmente.
      *
@@ -204,8 +253,42 @@ export class ProcessService {
     public unavailableEanView(): void {
         this.productData.Ean = null;
         this.productData.AssignEan = false;
+        this.productData.HasEAN = false;
         this.views.showEan = false;
         this.change.emit(this.views);
+    }
+
+    /**
+     * Funcion para validar campos metadescription y metatitulo
+     *
+     * @memberof ProcessService
+     */
+    public sendFieldMeta(): void {
+        if (this.productData.Name.match(this.productData.Brand) && this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
+        } else if (this.productData.Name.match(this.productData.Brand)) {
+            this.productData.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
+        } else if (this.productData.Name.match(this.productData.Model)) {
+            this.productData.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
+        } else {
+            this.productData.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
+        }
+    }
+
+    /**
+     * Servicio que valida el guardado de la informacion de la creacion unitaria de producto.
+     *
+     * @param {*} params
+     * @returns {Observable<{}>}
+     * @memberof ProcessService
+     */
+    public saveInformationUnitreation(): Observable<{}> {
+        this.sendFieldMeta();
+        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 }
 

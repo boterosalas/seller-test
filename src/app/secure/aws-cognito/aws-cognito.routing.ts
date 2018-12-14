@@ -9,7 +9,7 @@ import { SecureHomeComponent } from './landing/securehome.component';
 import { MyProfileComponent } from './profile/myprofile.component';
 import { UseractivityComponent } from './useractivity/useractivity.component';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
-
+import { TermsService } from '../seller/agreement/terms/terms.component.service';
 
 const routes: Routes = [
   Route.withShell([
@@ -28,10 +28,12 @@ const routes: Routes = [
         { path: `${RoutesConst.myProfile}`, component: MyProfileComponent },
         { path: `${RoutesConst.useractivity}`, component: UseractivityComponent },
         { path: `${RoutesConst.seller}`, component: DashboardComponent }
-      ]
+      ],
+      canActivate: [TermsService]
     }
   ])
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
