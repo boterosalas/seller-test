@@ -91,11 +91,15 @@
         <mat-icon>arrow_drop_down</mat-icon>
         Vendedores
       </button>
+
       <mat-menu #sellers="matMenu">
         <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerRegister]">
           <span>Registrar</span>
         </button>
-      </mat-menu>
+        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerManage]">
+          <span>Administrar</span>
+        </button>
+      </mat-menu>      
 
     </div>
   </mat-toolbar-row>
