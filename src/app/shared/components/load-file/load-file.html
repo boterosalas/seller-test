@@ -2,7 +2,7 @@
     <h1 mat-dialog-title>Adjuntar factura</h1>
     <div mat-dialog-content>
         <p>
-            La factura electrónica solo <strong>puede ser enviada 1 vez</strong>, Por favor verifique que éste
+            La factura electrónica solo <strong>puede ser enviada una vez</strong>, Por favor verifique que éste
             adjuntando el archivo correcto.
         </p>
         <p>Archivo PDF de máximo 3 Megabytes y que solo podrá ser enviado una vez.</p>
@@ -30,7 +30,7 @@
                 fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
                 (filesChange)="lastFileAt=getDate()">
                 <strong *ngIf="!files.length && !lastInvalids?.length">Arrastre y suelte el archivo aqui</strong>
-                <strong *ngIf="files?.length && !lastInvalids?.length">{{files[0].name}} - {{ files[0].size/1024/1024 | number:'.2' }} MB</strong>
+                <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
                 <strong *ngIf="lastInvalids?.length">El archivo no posee un formato valido (Debe ser PDF maximo 3 MB)</strong>
                 <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
                     attach_file
