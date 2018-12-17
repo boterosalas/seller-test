@@ -1,0 +1,57 @@
+import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { LoadFileComponent } from './load-file';
+import { HttpClient } from '@angular/common/http';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MaterialModule } from '@app/material.module';
+import { ngfModule } from 'angular-file';
+
+describe('Probando componente para subir archivos.', () => {
+
+    let fixture: ComponentFixture<LoadFileComponent>;
+    let component: LoadFileComponent;
+
+    let httpClient: HttpClient;
+    httpClient = <HttpClient>{};
+
+    beforeEach(async() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                LoadFileComponent
+            ],
+            providers: [
+                { provide: HttpClient, useValue: httpClient },
+                { provide: MAT_DIALOG_DATA, useValue: {} },
+                { provide: MatDialogRef, useValue: {} },
+            ],
+            imports: [
+                MaterialModule,
+                ngfModule
+            ]
+        }).compileComponents();
+    });
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LoadFileComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('Deberia crear LoadFileComponent', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('Deberia cancelar la subida del documento', () => {
+        component.cancel();
+        expect(component.progress).toBe(0);
+    });
+
+    it('Deberia intentar guardar el archivo pero no hay archivo', () => {
+        component.saveFile();
+        expect(component.lastInvalids).toBeUndefined();
+    });
+
+    it('Deberia obtener la fecha actual', () => {
+        expect(component.getDate().getTime()).toBe(new Date().getTime());
+    });
+
+});

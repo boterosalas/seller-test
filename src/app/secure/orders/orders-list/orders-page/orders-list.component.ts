@@ -152,11 +152,11 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    *
    * @memberof OrdersListComponent
    */
-  public openLoadFile(): void {
+  public openLoadFile(body: any): void {
 
     const dialogRef = this.dialog.open(LoadFileComponent, {
       width: '60%',
-      data: 'PDF'
+      data: {type: 'PDF', body: body}
     });
 
     dialogRef.afterClosed().subscribe(result => {

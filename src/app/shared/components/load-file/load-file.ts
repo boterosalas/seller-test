@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpEvent, HttpRequest, HttpClient } from '@angular/common/http';
 import { HttpResponse } from 'aws-sdk/global';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
     selector: 'app-load-file',
@@ -10,6 +11,12 @@ import { HttpResponse } from 'aws-sdk/global';
 })
 
 export class LoadFileComponent implements OnInit {
+
+    /**
+     * Se inicialia los datos necesarios para hacer uso de la libreria para adjuntar archivos.
+     *
+     * @memberof LoadFileComponent
+     */
     accept = '*';
     files: File[] = [];
     progress: number;
@@ -18,6 +25,9 @@ export class LoadFileComponent implements OnInit {
     httpEmitter: Subscription;
     httpEvent: HttpEvent<Event>;
     lastFileAt: Date;
+    maxSize = 3145728;
+    lastInvalids: any;
+    dataToSend: any;
 
     /**
      * Inicialización de componente para cargar archivos.
@@ -26,25 +36,46 @@ export class LoadFileComponent implements OnInit {
     sendableFormData: FormData; // populated via ngfFormData directive
 
     // tslint:disable-next-line:no-shadowed-variable
-    constructor(public HttpClient: HttpClient) { }
+    constructor(public HttpClient: HttpClient,
+        public dialogRef: MatDialogRef<LoadFileComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+            this.dataToSend = data;
+        }
 
-    cancel() {
+    ngOnInit() {}
+
+    /**
+     * Si se necesita cancelar la subida de archivos a back.
+     * Aunque por ahora esta sin uso ...
+     *
+     * @memberof LoadFileComponent
+     */
+    public cancel(): void {
         this.progress = 0;
         if (this.httpEmitter) {
-            console.log('cancelled');
             this.httpEmitter.unsubscribe();
         }
     }
 
-    imprimir(esto: any) {
-        console.log(esto, this.sendableFormData);
+    /**
+     * Verifica aunque el boton esta bloqueado si no existen errores y hay archivos para cargar
+     *
+     * @memberof LoadFileComponent
+     */
+    public saveFile(): void {
+        if ( (!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
+            this.uploadFiles([this.files[this.files.length - 1]]);
+        }
     }
 
-    ngOnInit() {
-
-    }
-
-    uploadFiles(files: File[]): Subscription {
+    /**
+     * Funcion para enviar documento a back y guardarlo
+     *
+     * @param {File[]} files
+     * @returns {Subscription}
+     * @memberof LoadFileComponent
+     */
+    public uploadFiles(files: File[]): Subscription {
         const req = new HttpRequest<FormData>('POST', this.url, this.sendableFormData, {
             reportProgress: true// responseType: 'text';
         });
@@ -56,14 +87,20 @@ export class LoadFileComponent implements OnInit {
 
                     if (event instanceof HttpResponse) {
                         delete this.httpEmitter;
-                        console.log('request done', event);
+                        this.dialogRef.close(true);
                     }
                 },
                 error => console.log('Error Uploading', error)
             );
     }
 
-    getDate() {
+    /**
+     * Obitene la fecha actual
+     *
+     * @returns
+     * @memberof LoadFileComponent
+     */
+    public getDate(): Date {
         return new Date();
     }
 }
