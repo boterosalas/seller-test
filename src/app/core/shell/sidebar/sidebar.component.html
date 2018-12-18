@@ -13,7 +13,7 @@
 
     </mat-toolbar>
 
-    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'seller'">
+    <div class="content-menu-list">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
@@ -22,6 +22,11 @@
         </mat-expansion-panel-header>
         <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item); toggleMenu();">
           <h6 matLine [innerHTML]="item.name"></h6>
+        </mat-list-item>
+
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]" 
+          *ngIf="user?.sellerProfile === 'administrator'">
+          <h6 matLine>Factura electrónica</h6>
         </mat-list-item>
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInPendingDevolution]"
@@ -34,7 +39,7 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>En devolución</h6>
         </mat-list-item>
-        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderLoadGuide]">
+        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderLoadGuide]" *ngIf="user?.sellerProfile === 'seller'">
           <h6 matLine>Cargar guías</h6>
         </mat-list-item>
       </mat-expansion-panel>

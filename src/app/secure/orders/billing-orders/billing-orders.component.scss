@@ -1,0 +1,175 @@
+$color-gray: #757474;
+$color-light-gray: #9E9E9E;
+$color-light-gray2: #EFEDED;
+
+@mixin border-bottom {
+  border-bottom: 1px solid $color-light-gray2;
+}
+
+:host ::ng-deep {
+  .tree-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    height: auto;
+
+    & .toolbar-options-table {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .normal-theme {
+      width: 100%;
+    }
+  }
+
+  .tree-title {
+    font-size: 18px;
+    margin-left: 0;
+    color: #000000;
+  }
+
+  .sub-title {
+    color: #757474;
+    font-size: 18px;
+    padding-left: 5px;
+    font-weight: 400;
+  }
+
+  .buttn-toolbar-options {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: $color-gray;
+  }
+
+  .button-more-ver {
+    color: $color-gray !important;
+  }
+
+  .agreement {
+    .list-agreement {
+      color: $color-light-gray;
+      @include border-bottom();
+
+      .file-agreement {
+        margin: 0 1em;
+      }
+    }
+
+    .agreement-title {
+      p {
+        font-size: 14px;
+        color: $color-gray;
+        font-weight: bold;
+        margin-left: 1em;
+      }
+
+      @include border-bottom();
+    }
+  }
+}
+
+.list-container {
+  margin: 0.5em;
+
+  .seller-data {
+    text-align: center;
+  }
+
+  .icon-face {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+
+    & mat-icon {
+      font-size: 120px;
+      color: #EFEDED;
+      height: 120px;
+      width: 120px;
+    }
+  }
+}
+
+.icon-face-text {
+  color: #757474;
+  font-size: 18px;
+  text-align: center;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+@media screen and (min-width: 600px) {
+  .tree-title {
+    width: 25%;
+  }
+
+  .search-container {
+    width: 60%;
+    padding: 0.4em;
+  }
+
+  .list-container {
+    margin-top: 5em;
+  }
+
+  .agreement {
+    margin: 2em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .tree-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .search-container {
+    width: 100%;
+    padding: 0.4em;
+  }
+}
+
+$height-input: 25px;
+
+::ng-deep .search-store {
+  width: 40%;
+  padding: 0.4em;
+  padding: 10px;
+  background: #EFEDED;
+  border: 1px solid #fff;
+  height: $height-input;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px 4px 0 0;
+
+  .mat-form-field-infix {
+    top: -5px;
+  }
+}
+
+.icon-search {
+  color: gray;
+  padding-right: 1.2%;
+}
+
+.icon-search-all {
+  color: blue;
+  padding-right: 1.2%;
+}
+
+#downloadAll {
+  font-size: 12px;
+  font-weight: bold;
+  color: #485AFA;
+}
+
+.downloadAll {
+  display: flex;
+  padding: 1px;
+  margin-left: 8%;
+}
