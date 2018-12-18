@@ -98,7 +98,6 @@ export class LoadFileComponent implements OnInit {
                     Base64Pdf: data.slice(data.search('base64') + 7, data.length)
                 };
                 this.service.postBillOrders(bodyToSend).subscribe(result => {
-                    console.log(result.body, result.body.data);
                     if (result.body.data) {
                         // Success
                         this.snackBar.open(result.body.message, 'Cerrar', {
