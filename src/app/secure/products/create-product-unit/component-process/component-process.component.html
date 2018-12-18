@@ -1,8 +1,8 @@
 <!--<button disabled="joseDisabled" mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
-<div>
-<mat-horizontal-stepper linear #stepper class="process__container">
+<div class="height-full">
+<mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
