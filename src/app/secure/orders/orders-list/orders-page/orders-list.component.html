@@ -174,6 +174,10 @@
                   <mat-icon>label_outline</mat-icon>
                   <span>Imprimir rótulo</span>
                 </button>
+                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item [disabled]="element.billUrl">
+                  <mat-icon>note_add</mat-icon>
+                  <span>Adjuntar factura</span>
+                </button>
                 <button *ngIf="element.allowShipping == true && element.idStatusOrder == const.OrderAsignado" id="send-button-order-{{index}}"
                   (click)="openDialogSendOrder(element)" mat-menu-item>
                   <mat-icon>local_shipping</mat-icon>

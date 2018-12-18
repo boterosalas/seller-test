@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { endpoints } from '@root/api-endpoints';
 
 
-fdescribe('endpoints', () => {
+describe('endpoints', () => {
 
 
     beforeEach(() => {
