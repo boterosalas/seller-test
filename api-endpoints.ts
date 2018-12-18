@@ -83,7 +83,8 @@ export const endpoints = {
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
       // Download billing.
-      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
+      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
+      uploadBilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill',
     },
   },
   // Endpoints production
@@ -166,7 +167,8 @@ export const endpoints = {
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
       // Download billing.
-      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
+      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
+      uploadBilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
     }
   }
 };

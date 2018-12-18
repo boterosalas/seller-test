@@ -1,15 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { HttpEvent, HttpRequest, HttpClient } from '@angular/common/http';
-import { HttpResponse } from 'aws-sdk/global';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { HttpEvent, HttpClient } from '@angular/common/http';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { CommonService } from '@app/shared/services/common.service';
+import { Logger } from '@app/core';
 
+const log = new Logger('LoadFileComponent');
 @Component({
     selector: 'app-load-file',
     templateUrl: 'load-file.html',
     styleUrls: ['load-file.scss']
 })
-
 export class LoadFileComponent implements OnInit {
 
     /**
@@ -20,7 +21,6 @@ export class LoadFileComponent implements OnInit {
     accept = '*';
     files: File[] = [];
     progress: number;
-    url = 'https://evening-anchorage-3159.herokuapp.com/api/';
     hasBaseDropZoneOver = false;
     httpEmitter: Subscription;
     httpEvent: HttpEvent<Event>;
@@ -28,6 +28,7 @@ export class LoadFileComponent implements OnInit {
     maxSize = 3145728;
     lastInvalids: any;
     dataToSend: any;
+    showProgress = false;
 
     /**
      * Inicialización de componente para cargar archivos.
@@ -38,11 +39,13 @@ export class LoadFileComponent implements OnInit {
     // tslint:disable-next-line:no-shadowed-variable
     constructor(public HttpClient: HttpClient,
         public dialogRef: MatDialogRef<LoadFileComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-            this.dataToSend = data;
-        }
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private service: CommonService,
+        public snackBar: MatSnackBar) {
+        this.dataToSend = data;
+    }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     /**
      * Si se necesita cancelar la subida de archivos a back.
@@ -63,9 +66,18 @@ export class LoadFileComponent implements OnInit {
      * @memberof LoadFileComponent
      */
     public saveFile(): void {
-        if ( (!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
-            this.uploadFiles([this.files[this.files.length - 1]]);
+        if ((!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
+            this.uploadFiles();
         }
+    }
+
+    public getBase64(file: any): any {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     }
 
     /**
@@ -75,23 +87,44 @@ export class LoadFileComponent implements OnInit {
      * @returns {Subscription}
      * @memberof LoadFileComponent
      */
-    public uploadFiles(files: File[]): Subscription {
-        const req = new HttpRequest<FormData>('POST', this.url, this.sendableFormData, {
-            reportProgress: true// responseType: 'text';
-        });
-
-        return this.httpEmitter = this.HttpClient.request(req)
-            .subscribe(
-                event => {
-                    this.httpEvent = event as HttpEvent<Event>;
-
-                    if (event instanceof HttpResponse) {
-                        delete this.httpEmitter;
+    public uploadFiles(): void {
+        const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
+        const file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
+        this.showProgress = true;
+        this.getBase64(file).then(data => {
+            try {
+                const bodyToSend = {
+                    IdOrder: this.dataToSend.body.id,
+                    Base64Pdf: data.slice(data.search('base64') + 7, data.length)
+                };
+                this.service.postBillOrders(bodyToSend).subscribe(result => {
+                    console.log(result.body, result.body.data);
+                    if (result.body.data) {
+                        // Success
+                        this.snackBar.open(result.body.message, 'Cerrar', {
+                            duration: 3000,
+                        });
                         this.dialogRef.close(true);
+                    } else {
+                        // Error
+                        this.snackBar.open(result.body.message, 'Cerrar', {
+                            duration: 3000,
+                        });
                     }
-                },
-                error => console.log('Error Uploading', error)
-            );
+                    this.showProgress = false;
+                }, error => {
+                    // Error
+                    this.snackBar.open('No se pudo adjuntar el pdf, Algo ocurrió un error.', 'Cerrar', {
+                        duration: 3000,
+                    });
+                    log.error(error);
+                    this.showProgress = false;
+                });
+
+            } catch (e) {
+                log.error('error al intentar transformar el pdf', e);
+            }
+        });
     }
 
     /**

@@ -26,7 +26,7 @@
 
         <div class="inline-block">
             <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
-                [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column"
+                [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
                 fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
                 (filesChange)="lastFileAt=getDate()">
                 <strong *ngIf="!files.length && !lastInvalids?.length">Arrastre y suelte el archivo aqui</strong>
@@ -47,6 +47,7 @@
                     </span>
                 </div>
             </div>
+            <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
         </div>
 
         <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData"></ngfFormData>
@@ -54,7 +55,7 @@
     </div>
 
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button [mat-dialog-close]="null">CANCELAR</button>
-        <button mat-button (click)="saveFile()" [disabled]="!(files.length && !lastInvalids?.length)" cdkFocusInitial mat-raised-button color="primary">GUARDAR</button>
+        <button mat-button [mat-dialog-close]="null" [disabled]="showProgress">CANCELAR</button>
+        <button mat-button (click)="saveFile()" [disabled]="(!(files.length && !lastInvalids?.length) || showProgress)" cdkFocusInitial mat-raised-button color="primary">GUARDAR</button>
     </div>
 </div>

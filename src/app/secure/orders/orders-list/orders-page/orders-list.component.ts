@@ -153,15 +153,20 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    * @memberof OrdersListComponent
    */
   public openLoadFile(body: any): void {
+    if (!body.billUrl) {
+      const dialogRef = this.dialog.open(LoadFileComponent, {
+        width: '60%',
+        minWidth: '300px',
+        disableClose: true,
+        data: { type: 'PDF', body: body }
+      });
 
-    const dialogRef = this.dialog.open(LoadFileComponent, {
-      width: '60%',
-      data: {type: 'PDF', body: body}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          body.billUrl = result;
+        }
+      });
+    }
   }
 
 

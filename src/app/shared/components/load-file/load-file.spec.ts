@@ -1,9 +1,10 @@
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { LoadFileComponent } from './load-file';
 import { HttpClient } from '@angular/common/http';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { MaterialModule } from '@app/material.module';
 import { ngfModule } from 'angular-file';
+import { CommonService } from '@app/shared/services/common.service';
 
 describe('Probando componente para subir archivos.', () => {
 
@@ -22,6 +23,9 @@ describe('Probando componente para subir archivos.', () => {
                 { provide: HttpClient, useValue: httpClient },
                 { provide: MAT_DIALOG_DATA, useValue: {} },
                 { provide: MatDialogRef, useValue: {} },
+                { provide: MatDialogRef, useValue: {} },
+                { provide: CommonService, useValue: {} },
+                { provide: MatSnackBar, useValue: {} },
             ],
             imports: [
                 MaterialModule,
