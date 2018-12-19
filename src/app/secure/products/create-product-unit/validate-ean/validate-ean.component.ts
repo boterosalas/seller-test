@@ -45,11 +45,9 @@ export class ValidateEanComponent implements OnInit {
   // validar estado de checkbox
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
-    if (this.eanGroup.controls['eanCtrl'].errors) {
-      this.copy = Object.assign({}, {error: this.eanGroup.controls['eanCtrl'].errors});
-    }
-     if (this.asignatedEan === true) {
+    if (this.asignatedEan === true) {
       this.sendEan();
+      this.eanGroup.controls['eanCtrl'].setValue('');
       this.eanGroup.controls['eanCtrl'].disable();
       if (!this.eanGroup.controls.eanCtrl.value) {
         const data = {
@@ -66,7 +64,6 @@ export class ValidateEanComponent implements OnInit {
         this.sendEan();
       }
       this.eanGroup.controls['eanCtrl'].enable();
-      this.eanGroup.controls['eanCtrl'].setErrors(this.copy.error);
 
     }
   }

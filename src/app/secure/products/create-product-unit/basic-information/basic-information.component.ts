@@ -399,9 +399,10 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-    onAsignatedEanSonChanged(value: boolean) {
+    onAsignatedEanSonChanged(value: boolean, ean: any) {
         this.asignatedEanSon = value;
         if (this.asignatedEanSon === true) {
+            ean.setValue('');
             this.valInputEan.disable();
             if (!this.valInputEan.value) {
                 const data = {
