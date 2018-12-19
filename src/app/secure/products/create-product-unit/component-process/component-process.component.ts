@@ -32,6 +32,7 @@ export class ComponentProcessComponent implements OnInit {
   children_created: any = 0;
   modalService: any;
   constantes = new Const();
+  saving = false;
   public user: UserInformation;
 
   constructor(private fb: FormBuilder,
@@ -101,7 +102,7 @@ export class ComponentProcessComponent implements OnInit {
 
   public continue_after_basic_info() {
     if (this.process.getProductData().Children) {
-    this.children_created = this.process.getProductData().Children.length;
+      this.children_created = this.process.getProductData().Children.length;
     }
   }
 
@@ -146,16 +147,22 @@ export class ComponentProcessComponent implements OnInit {
   saveInformationCreation() {
     this.loadingService.viewSpinner();
     // call to the bulk load product service
-    this.process.saveInformationUnitreation().subscribe(result => {
-      const data = result;
-      if (data['data'] !== null && data['data'] !== undefined) {
-        this.openDialogSendOrder2(data);
-      } else {
-        this.modalService.showModal('errorService');
-      }
-
-    });
-    this.loadingService.closeSpinner();
+    if (!this.saving) {
+      this.saving = true;
+      this.process.saveInformationUnitreation().subscribe(result => {
+        const data = result;
+        this.loadingService.closeSpinner();
+        this.saving = false;
+        if (data['data'] !== null && data['data'] !== undefined) {
+          this.openDialogSendOrder2(data);
+        } else {
+          this.modalService.showModal('errorService');
+        }
+      }, error => {
+        this.saving = false;
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   /**
