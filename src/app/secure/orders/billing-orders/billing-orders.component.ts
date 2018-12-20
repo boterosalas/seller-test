@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BillingOrdersService, BillingOrders } from './billing-orders.service';
+import { BillingOrdersService } from './billing-orders.service';
 import { Logger } from '@core/util/logger.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 const log = new Logger('BillingOrderComponent');
 
@@ -12,27 +13,47 @@ const log = new Logger('BillingOrderComponent');
 
 export class BillingOrderComponent implements OnInit {
     sellerData: any;
-    billingOrdersSeller: BillingOrders[] = [];
+    billingGroup: FormGroup;
+    billingOrders: any[];
+    keysBilling: any;
+    keys: any;
+    // billingOrdersSeller: BillingOrders[] = [];
     constructor(
-        private billingOrdersService: BillingOrdersService
+        private billingOrdersService: BillingOrdersService,
+        private fb: FormBuilder,
     ) { }
     ngOnInit() {
+        // this.billingOrdersSeller = [];
+        this.billingGroup = this.fb.group({
+            billingOrderCtrl: ['', Validators.required],
+        });
+        this.billingOrders = [];
+        // this.chargeBillingOrders();
     }
 
-    public chargeBillingOrders(order: number): void {
-        this.billingOrdersService.getBillingOrders(order).subscribe(data => {
-            if (data) {
-                this.billingOrdersSeller = data as BillingOrders[];
+    public chargeBillingOrders(): void {
+        console.log('idOrder: ', this.billingGroup.controls.billingOrderCtrl.value);
+        this.billingOrdersService.getBillingOrders(this.billingGroup.controls.billingOrderCtrl.value).subscribe(result => {
+            this.sellerData = result.data;
+            console.log('data billin; ', result);
+            if (result.data) {
+                console.log('result billin en if; ', result);
+                this.keysBilling = result.data;
+                console.log('this.keysBilling: ', this.keysBilling);
+                // this.billingOrdersSeller = data as BillingOrders[];
             }
-        }, error => {
-            log.error('Error al obtener los acuerdos:', error);
         });
     }
-    public getPDF(model: any): void {
-        this.billingOrdersService.getPDFOrders().subscribe(data => {
-        }, error => {
-            log.error('Error al obtener los acuerdos:', error);
-        });
+
+    public viewPDF(billing: any): void {
+       // const link = document.createElement('a');
+        // link.href = billing.billUrl;
+        window.open(billing.billUrl, '_blank', 'fullscreen=yes, screenTop');
+        console.log('billing.bill: ', billing.billUrl);
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        // delete link;
     }
 
 

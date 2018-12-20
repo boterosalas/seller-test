@@ -8,28 +8,57 @@
         <small class="sub-title">| Buscar factura</small>
       </p>
       <!-- Componente para realizar la busqueda de una tienda -->
-      <div class="search-store">
-        <mat-icon class="icon-search" matPrefix>search</mat-icon>
-        <input matInput placeholder="Ingrese número de orden">
-      </div>
+      <form #getBillings="ngForm" [formGroup]="billingGroup" class="search-store">
+        <div>
+          <mat-icon class="icon-search" matPrefix>search</mat-icon>
+          <input matInput placeholder="Ingrese número de orden" formControlName="billingOrderCtrl" (change)="chargeBillingOrders()"
+            autocomplete="off">
+        </div>
+      </form>
+
       <div class="downloadAll">
-        <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon><span id="downloadAll">DESCARGAR TODAS</span> 
+        <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon><span id="downloadAll">DESCARGAR TODAS</span>
       </div>
     </div>
   </mat-toolbar>
 </div>
 <div class="list-container">
-  <div>
+  <div *ngIf="keysBilling === 0">
     <div class="icon-face">
       <mat-icon>face</mat-icon>
     </div>
     <p class="icon-face-text">Ingresa el número de orden en la barra de b&uacute;squeda para ver las facturas.</p>
   </div>
 
-  <div>
+  <div *ngIf="sellerData === null">
     <div class="icon-face">
       <mat-icon>insert_drive_file</mat-icon>
     </div>
     <p class="icon-face-text">No hay facturas asociados a esta orden.</p>
+  </div>
+
+
+  <div *ngIf="sellerData" class="agreement">
+    <div class="agreement-title">
+      <p>Orden: {{billingGroup.controls.billingOrderCtrl.value}}</p>
+    </div>
+    <div *ngFor="let billing of keysBilling; let i = index" fxLayout="row"  class="list-agreement">
+      <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+        <mat-icon class="material-icons" class="file-agreement">
+          insert_drive_file
+        </mat-icon>
+        <p>{{billing.sellerName}}    {{billing.billAtachedDate}}</p>
+      </div>
+      <button mat-icon-button (click)="getPDF()">
+        <mat-icon class="material-icons">
+          get_app
+        </mat-icon>
+      </button>
+      <button mat-icon-button (click)="viewPDF(billing)">
+        <mat-icon class="material-icons">
+          visibility
+        </mat-icon>
+      </button>
+    </div>
   </div>
 </div>
