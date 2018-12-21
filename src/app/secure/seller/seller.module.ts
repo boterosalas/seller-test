@@ -7,6 +7,7 @@ import { MaterialModule } from '@app/material.module';
 import { SellerListComponent } from './list/list-sellers.component';
 import { SellerRoutingModule } from './seller.routing';
 import { SellerService } from './seller.service';
+import { StoresService } from '../offers/stores/stores.service';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SellerService } from './seller.service';
     entryComponents: [
     ],
     providers: [
-        SellerService
+        SellerService,
+        StoresService
     ],
 })
 export class SellerModule { }

@@ -1,13 +1,97 @@
-.tree-toolbar {
-    background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    position: sticky;
-    top: 64px;
-    z-index: 1;
-    & .toolbar-options-table {
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
-        padding-left: 20px;
+$gray: #757474;
+$lightgray: #909090;
+$whitegray: #D3D3D3;
+.height-full {
+    width: 100%;
+    .seller-list-toolbar {
+        background-color: #fff;
+        border-bottom: 1px solid #e0e0e0;
+        position: sticky;
+        top: 64px;
+        z-index: 1;
+        & .toolbar-options-table {
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            padding-left: 20px;
+        }
     }
+    .list-container {
+        width: 96%;
+        margin: 2%;
+        .header-list {
+            font-size: 14px;
+            border-bottom: 1px solid $whitegray;
+            padding: 4px 0;
+            width: 100%;
+            flex-wrap: wrap;
+            display: flex;
+            .label-container {
+                padding: 0 1%;
+                .label-list {
+                    color: $gray;
+                    font-weight: bold;
+                }
+                .label-result{
+                    color: $lightgray;
+                }
+                &.id {
+                    width: 13%;
+                }
+                &.nit {
+                    width: 13%;
+                }
+                &.name {
+                    width: 28%;
+                }
+                &.date {
+                    width: 18%;
+                }
+                &.state {
+                    text-align: end;
+                    width: 18%;
+                }
+            }
+        }
+    }
+}
+
+.an {
+    transition: visibility 1s, opacity 2s linear, font-size 2s;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 15px;
+}
+
+.showBack {
+    transition: visibility 1s, opacity 2s linear, font-size 2s;
+    font-size: 15px;
+}
+
+.showBack:hover .an {
+    visibility: visible;
+    opacity: 1;
+    font-size: 25px;
+}
+
+.showBack:hover {
+    font-size: 25px;
+}
+
+.background-bar {
+    background: rgba(128, 128, 128, 0.22);
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba(72, 90, 250, .38) !important;
+}
+
+
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #485AFA !important;
+}
+
+::ng-deep .mat-form-field-wrapper{
+    position: initial;
 }
