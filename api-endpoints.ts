@@ -85,7 +85,9 @@ export const endpoints = {
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       // Billing orders visualize.
-      getBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}'
+      getBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}',
+      // Download Billing .
+      postBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}'
     },
   },
   // Endpoints production
@@ -170,7 +172,9 @@ export const endpoints = {
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       // Billing orders visualize.
-      getBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn'
+      getBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+       // Download Billing .
+       postBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn'
     }
   }
 };

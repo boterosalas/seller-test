@@ -17,7 +17,10 @@
       </form>
 
       <div class="downloadAll">
-        <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon><span id="downloadAll">DESCARGAR TODAS</span>
+          <button mat-icon-button (click)="downloadAllPDF(billingAll)" id="downloadAll">
+              <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon>DESCARGAR TODAS
+            </button>
+      <!--  <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon><span id="downloadAll">DESCARGAR TODAS</span>-->
       </div>
     </div>
   </mat-toolbar>
@@ -49,7 +52,7 @@
         </mat-icon>
         <p>{{billing.sellerName}}    {{billing.billAtachedDate}}</p>
       </div>
-      <button mat-icon-button (click)="getPDF()">
+      <button mat-icon-button (click)="downloadPDF(billing)">
         <mat-icon class="material-icons">
           get_app
         </mat-icon>
