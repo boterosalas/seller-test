@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { CreateUnutaryProductComponent } from './create-unutary-product/create-unutary-product.component';
@@ -26,6 +25,7 @@ import { SpecificationProductComponent } from './specifications/specification.co
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 import { BasicInformationService } from './basic-information/basic-information.component.service';
 import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   imports: [
@@ -36,7 +36,8 @@ import { SaveProcessDialogComponent } from './component-process/dialogSave/dialo
     UnitProductRoutingModule,
     MaterialModule,
     FormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AngularEditorModule
   ],
   declarations: [
     CreateUnutaryProductComponent,
