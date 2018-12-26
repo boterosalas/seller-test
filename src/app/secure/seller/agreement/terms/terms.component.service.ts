@@ -6,17 +6,15 @@ import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TermsComponent } from './terms.component';
+import { HttpClient } from '@angular/common/http';
+import { EndpointService } from '@app/core';
 
 @Injectable()
 export class TermsService implements CanActivate {
 
-    json = {
-            status: 200,
-            data: true,
-            src: 'https://s3.amazonaws.com/sellercenter.nuget/Logger/Acuerdo+Comercial+Marketplace+-+Actualizado+16-11-2018.pdf'
-        };
+    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/ContractDev/acuerdo_comercial_marketplace_-_actualizado_26-12-2018_versi__n_mostrar.pdf';
 
-    constructor(private router: Router, public dialog: MatDialog) {
+    constructor(private router: Router, public dialog: MatDialog, private http: HttpClient, private api: EndpointService) {
 
     }
 
@@ -45,8 +43,16 @@ export class TermsService implements CanActivate {
      * @memberof TermsService
      */
     getSellerAgreement(): any {
-        of(this.json).subscribe( (data: any) => {
-            if (data.data) {
+        this.http.get(this.api.get('getValidationTerms')).subscribe( (result: any) => {
+            if (result && result.body) {
+                try {
+                    const data  = JSON.parse(result.body);
+                    if (!data.Data) {
+                        this.openDialog(data.src);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
                 // TODO: this.openDialog(data.src);
                 // this.router.navigate([`/${RoutesConst.error}`]);
             }
@@ -62,10 +68,11 @@ export class TermsService implements CanActivate {
      * @memberof TermsService
      */
     openDialog(data: string): void {
+        console.log(this.srcPdf);
         const dialogRef = this.dialog.open(TermsComponent, {
           width: '80%',
           height: '90%',
-          data: data,
+          data: this.srcPdf,
           disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {

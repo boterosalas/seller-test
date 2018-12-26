@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { EndpointService } from '@app/core';
 
 export interface Agreement {
     Id: number;
@@ -17,15 +18,10 @@ export class AgreementService {
         Id: 1,
         Name: 'Acuerdo 2 10/15/2019'
     }];
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private api: EndpointService) {}
 
     public  getAgreements(idSeller: number): Observable<any> {
-        if (idSeller === 10011) {
-            return of(this.objecto);
-        } else {
-            return of(null);
-        }
-        // this.http.get();
+        return this.http.get(this.api.get('getTermsBySeller', [idSeller]));
     }
 
     public getPDF():  Observable<any> {

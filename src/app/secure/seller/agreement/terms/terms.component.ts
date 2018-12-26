@@ -26,6 +26,7 @@ export class TermsComponent implements OnInit {
         public dialogRef: MatDialogRef<TermsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         this.textTerms = data;
+        console.log(this.textTerms);
 
     }
 

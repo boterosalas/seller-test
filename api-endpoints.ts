@@ -90,6 +90,12 @@ export const endpoints = {
       postBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}',
       // Actualizar factura
       uploadBilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill',
+      // Obtener contratos por vendedor.
+      getTermsBySeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetContracts/{params}',
+      // Actualizar contrato del vendedor
+      updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
+      // Obtener si el vendedor ya acepto los terminos
+      getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
     },
   },
   // Endpoints production
