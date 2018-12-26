@@ -26,6 +26,7 @@ $color-light-gray2: #EFEDED;
     font-size: 18px;
     margin-left: 0;
     color: #000000;
+    font-weight: bold;
   }
 
   .sub-title {
@@ -109,7 +110,7 @@ $color-light-gray2: #EFEDED;
 
   .search-container {
     width: 60%;
-    padding: 0.4em;
+    // padding: 0.4em;
   }
 
   .list-container {
@@ -118,6 +119,10 @@ $color-light-gray2: #EFEDED;
 
   .agreement {
     margin: 2em;
+  }
+  .downloadAll {
+    display: flex;
+    margin-left: 8%;
   }
 }
 
@@ -129,7 +134,14 @@ $color-light-gray2: #EFEDED;
 
   .search-container {
     width: 100%;
-    padding: 0.4em;
+    // padding: 0.4em;
+  }
+  .search-store{
+    width: 100%;
+    margin-bottom: 2%;
+  }
+  .downloadAll{
+    display: contents;
   }
 }
 
@@ -162,14 +174,15 @@ $height-input: 25px;
   padding-right: 1.2%;
 }
 
-#downloadAll {
+#downloadAllStyle {
   font-size: 12px;
   font-weight: bold;
   color: #485AFA;
+  display: contents;
 }
 
 .downloadAll {
-  display: flex;
+  // display: flex;
   padding: 1px;
-  margin-left: 8%;
+  // margin-left: 8%;
 }

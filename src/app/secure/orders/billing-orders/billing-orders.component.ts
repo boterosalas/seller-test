@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BillingOrdersService } from './billing-orders.service';
 import { Logger } from '@core/util/logger.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoadingService } from '@app/core';
+import { ComponentsService } from '@app/shared';
 
 const log = new Logger('BillingOrderComponent');
 
@@ -22,6 +24,8 @@ export class BillingOrderComponent implements OnInit {
     constructor(
         private billingOrdersService: BillingOrdersService,
         private fb: FormBuilder,
+        private loadingService: LoadingService,
+        public componentsService: ComponentsService,
     ) { }
     ngOnInit() {
         // this.billingOrdersSeller = [];
@@ -38,12 +42,18 @@ export class BillingOrderComponent implements OnInit {
      * @memberof BillingOrderComponent
      */
     public chargeBillingOrders(): void {
+        if (this.billingGroup.controls.billingOrderCtrl.value === undefined || this.billingGroup.controls.billingOrderCtrl.value === null ||  this.billingGroup.controls.billingOrderCtrl.value === '') {
+            this.componentsService.openSnackBar('Debes de ingresar un número de orden para visualizar las facturas', 'Cerrar', 4000);
+        }else {
+        this.loadingService.viewSpinner();
         this.billingOrdersService.getBillingOrders(this.billingGroup.controls.billingOrderCtrl.value).subscribe(result => {
             this.sellerData = result.data;
             if (result.data) {
                 this.keysBilling = result.data;
             }
+            this.loadingService.closeSpinner();
         });
+    }
     }
 
     /**
@@ -63,9 +73,11 @@ export class BillingOrderComponent implements OnInit {
      * @memberof BillingOrderComponent
      */
     public downloadPDF(billing: any): void {
+        this.loadingService.viewSpinner();
         this.billingOrdersService.getDownnLoadBilling([billing.billUrl]).subscribe(result => {
             const data = result;
             this.showFile(result, (billing.sellerName), 'application/pdf');
+            this.loadingService.closeSpinner();
         });
     }
 

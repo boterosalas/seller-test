@@ -20,10 +20,11 @@
             &Oacute;rdenes
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <div *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
         <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item); toggleMenu();">
           <h6 matLine [innerHTML]="item.name"></h6>
         </mat-list-item>
-
+      </div>
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]" 
           *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Factura electrónica</h6>
