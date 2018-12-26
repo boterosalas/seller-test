@@ -53,6 +53,6 @@ export class CommonService {
      * @memberof BasicInformationRegex
      */
     public postBillOrders(body: any): Observable<any> {
-        return this.http.post(this.api.get('uploadBilling'), body, { observe: 'response' });
+        return this.http.patch(this.api.get('uploadBilling'), body, { observe: 'response' });
     }
 }
