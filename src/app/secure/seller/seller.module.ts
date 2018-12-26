@@ -8,11 +8,12 @@ import { SellerListComponent } from './list/list-sellers.component';
 import { SellerRoutingModule } from './seller.routing';
 import { SellerService } from './seller.service';
 import { StoresService } from '../offers/stores/stores.service';
+import { MatSidenav, MatSidenavModule } from '@angular/material';
 
 
 @NgModule({
     declarations: [
-        SellerListComponent
+        SellerListComponent,
     ],
     imports: [
         CommonModule,
@@ -20,7 +21,8 @@ import { StoresService } from '../offers/stores/stores.service';
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MaterialModule,
-        SellerRoutingModule
+        SellerRoutingModule,
+        MatSidenavModule
     ],
     exports: [
     ],

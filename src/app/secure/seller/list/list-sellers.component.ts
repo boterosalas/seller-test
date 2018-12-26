@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { Logger, LoadingService } from '@app/core';
-import { MatSnackBar, PageEvent } from '@angular/material';
+import { MatSnackBar, PageEvent, MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 
@@ -21,8 +21,9 @@ export class SellerListComponent implements OnInit {
     pageSize = 10;
     pageSizeOptions = [10, 20, 50, 100];
 
-     // MatPaginator Output
-  pageEvent: PageEvent;
+    // MatPaginator Output
+    pageEvent: PageEvent;
+    @ViewChild('sidenav') sidenav: MatSidenav;
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -33,6 +34,7 @@ export class SellerListComponent implements OnInit {
     ngOnInit() {
         this.loading.viewSpinner();
         this.getRequiredData();
+        // this.matDrawer.closedStart = tri
     }
 
 
@@ -47,6 +49,18 @@ export class SellerListComponent implements OnInit {
             }, 3000);
         });
     }
+
+    /**
+     * @method toggleMenu
+     * @memberof FilterComponent
+     * @description Metodo para abrir o cerrar el menu
+     */
+    toggleMenu() {
+        console.log(this.sidenav);
+        // this.sidenav.toggle();
+        this.sidenav.toggle();
+    }
+
 
     public showSeller(index: number): boolean {
         if (this.pageEvent) {
