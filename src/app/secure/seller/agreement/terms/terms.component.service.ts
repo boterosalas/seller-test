@@ -1,10 +1,10 @@
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import { RoutesConst, Const } from '@app/shared';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { TermsComponent } from './terms.component';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService, UserParametersService } from '@app/core';
@@ -36,7 +36,9 @@ export class TermsService implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        this.getSellerAgreement();
+        if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
+            this.getSellerAgreement();
+        }
         return true;
     }
 
@@ -101,7 +103,6 @@ export class TermsService implements CanActivate {
      * @memberof TermsService
      */
     openDialog(data: string): void {
-        console.log(this.srcPdf);
         const dialogRef = this.dialog.open(TermsComponent, {
             width: '80%',
             height: '90%',

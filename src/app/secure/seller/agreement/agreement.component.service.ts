@@ -10,22 +10,16 @@ export interface Agreement {
 
 @Injectable()
 export class AgreementService {
-
-    objecto = [{
-        Id: 1,
-        Name: 'Acuerdo 1 10/15/2018'
-    }, {
-        Id: 1,
-        Name: 'Acuerdo 2 10/15/2019'
-    }];
     constructor(private http: HttpClient, private api: EndpointService) {}
 
-    public  getAgreements(idSeller: number): Observable<any> {
+    /**
+     * Servicio para obtener los acuerdos por vendedor
+     *
+     * @param {number} idSeller
+     * @returns {Observable<any>}
+     * @memberof AgreementService
+     */
+    public getAgreements(idSeller: number): Observable<any> {
         return this.http.get(this.api.get('getTermsBySeller', [idSeller]));
     }
-
-    public getPDF():  Observable<any> {
-        return of('www.exito.com');
-    }
-
 }

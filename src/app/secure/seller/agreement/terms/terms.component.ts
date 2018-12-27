@@ -33,8 +33,10 @@ export class TermsComponent implements OnInit {
         private billingOrdersService: BillingOrdersService,
         private loadingService: LoadingService) {
         this.textTerms = data;
-        console.log(this.textTerms);
+    }
 
+    public chargePdf(charge: boolean): boolean {
+        return true;
     }
 
     /**
@@ -128,7 +130,6 @@ export class TermsComponent implements OnInit {
                 ip: this.navData.getIp(),
                 nameRepresentative: this.formTerms.controls.responsable.value,
             };
-            console.log(dataToSend);
             this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe(data => {
                 if (data) {
                     this.dialogRef.close();
