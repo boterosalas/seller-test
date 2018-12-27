@@ -20,7 +20,7 @@
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation" [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]"
-        *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">>
+        *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>En validación</span>
         </button>
         <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]"

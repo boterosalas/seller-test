@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroupName, FormGroup, FormControl, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NavData } from '@app/shared/util/getNavData';
+import { HttpClient } from '@angular/common/http';
+import { EndpointService, LoadingService } from '@app/core';
+import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
 
 @Component({
     selector: 'app-terms',
@@ -20,14 +23,65 @@ export class TermsComponent implements OnInit {
 
     // tslint:disable-next-line:max-line-length
     textTerms: string;
-
+    navData: NavData = new NavData();
 
     constructor(
         public dialogRef: MatDialogRef<TermsComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private http: HttpClient,
+        private api: EndpointService,
+        private billingOrdersService: BillingOrdersService,
+        private loadingService: LoadingService) {
         this.textTerms = data;
         console.log(this.textTerms);
 
+    }
+
+    /**
+     * Funcion downloadPDF(billing: any) para descargar las facturas formato pdf
+     *
+     * @param {*} billing
+     * @memberof BillingOrderComponent
+     */
+    public closeDialog2(): void {
+        this.loadingService.viewSpinner();
+        this.billingOrdersService.getDownnLoadBilling([this.textTerms]).subscribe(result => {
+            this.showFile(result, 'Terminos y condiciones', 'application/pdf');
+            this.loadingService.closeSpinner();
+        });
+    }
+
+    /**
+     * Funcion  showFile(blob: any, filename: string) que convierte el texto plano en archivo pdf
+     *
+     * @param {*} blob
+     * @param {string} filename
+     * @returns
+     * @memberof BillingOrderComponent
+     */
+    public showFile(blob: any, filename: string, type: string) {
+        // It is necessary to create a new blob object with mime-type
+        // explicitly set otherwise only Chrome works like it should
+        const newBlob = new Blob([blob], { type: type });
+
+        // IE doesn't allow using a blob object directly as link href
+        // instead it is necessary to use msSaveOrOpenBlob
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(newBlob);
+            return;
+        }
+
+        // For other browsers
+        // Create a link pointing to the ObjectURL containing the blob.
+        const data = window.URL.createObjectURL(newBlob);
+        const link = document.createElement('a');
+        link.href = data;
+        link.download = filename;
+        link.click();
+        setTimeout(() => {
+            // For Firefox it is necessary to delay revoking the ObjectURL
+            window.URL.revokeObjectURL(data);
+        }, 100);
     }
 
     ngOnInit() {
@@ -66,11 +120,20 @@ export class TermsComponent implements OnInit {
      */
     public saveTerms(): void {
         if (this.formTerms.valid) {
-            of(true).subscribe(data => {
+            const dataToSend = {
+                IdRepresentative: this.formTerms.controls.identification.value,
+                Ip: this.navData.getIp(),
+                NameRepresentative: this.formTerms.controls.responsable.value,
+                idRepresentative: this.formTerms.controls.identification.value,
+                ip: this.navData.getIp(),
+                nameRepresentative: this.formTerms.controls.responsable.value,
+            };
+            console.log(dataToSend);
+            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe(data => {
                 if (data) {
                     this.dialogRef.close();
                 }
-            /* }, error => {*/
+                /* }, error => {*/
             });
         }
     }

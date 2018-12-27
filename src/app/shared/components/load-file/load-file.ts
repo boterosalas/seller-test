@@ -113,7 +113,7 @@ export class LoadFileComponent implements OnInit {
                     this.showProgress = false;
                 }, error => {
                     // Error
-                    this.snackBar.open('No se pudo adjuntar el pdf, Algo ocurrió un error.', 'Cerrar', {
+                    this.snackBar.open('No se pudo adjuntar el PDF, ocurrió un error.', 'Cerrar', {
                         duration: 3000,
                     });
                     log.error(error);
