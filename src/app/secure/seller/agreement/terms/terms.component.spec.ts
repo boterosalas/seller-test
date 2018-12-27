@@ -6,6 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EndpointService, LoadingService } from '@app/core';
+import { HttpClient } from '@angular/common/http';
+import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
 
 
 describe('TermsComponent', () => {
@@ -20,11 +23,24 @@ describe('TermsComponent', () => {
                 TermsComponent,
             ],
             providers: [
-                { provide: MatDialogRef, useValue: {
-                    close: function() {
+                {
+                    provide: MatDialogRef, useValue: {
+                        close: function () {
+                        }
                     }
-                } },
+                },
                 { provide: MAT_DIALOG_DATA, useValue: 'https://s3.amazonaws.com/sellercenter.nuget/Logger/Acuerdo+Comercial+Marketplace+-+Actualizado+16-11-2018.pdf' },
+                { provide: HttpClient, useValue: {
+                } },
+                {
+                    provide: EndpointService, useValue: {
+                        get(): string {
+                            return null;
+                        }
+                    }
+                },
+                { provide: BillingOrdersService, useValue: {} },
+                { provide: LoadingService, useValue: {} },
             ], imports: [
                 ReactiveFormsModule,
                 MaterialModule,
@@ -57,8 +73,6 @@ describe('TermsComponent', () => {
         component.formTerms.controls.responsable.setValue('Luis Miguel E');
         component.formTerms.controls.identification.setValue('12345678');
         component.formTerms.controls.accept.setValue(true);
-        component.saveTerms();
-        component.closeDialog();
         expect(component.formTerms.valid).toBeTruthy();
     });
 

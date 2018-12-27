@@ -50,7 +50,7 @@ export class TermsService implements CanActivate {
      * @memberof TermsService
      */
     getSellerAgreement(): any {
-        this.http.get(this.api.get('getValidationTerms')).subscribe((result: any) => {
+        this.http.get(this.api.get('getValidationTerms'), { headers: { valid: 'hola'} }).subscribe((result: any) => {
             if (result && result.body) {
                 try {
                     const data = JSON.parse(result.body);

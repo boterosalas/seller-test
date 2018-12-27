@@ -185,6 +185,12 @@ export const endpoints = {
       postBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
       // Actualizar factura
       uploadBilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      // Obtener contratos por vendedor.
+      getTermsBySeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetContracts/{params}',
+      // Actualizar contrato del vendedor
+      updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
+      // Obtener si el vendedor ya acepto los terminos
+      getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
     }
   }
 };
