@@ -3,18 +3,23 @@ import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst, Const } from '@app/shared';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TermsComponent } from './terms.component';
 import { HttpClient } from '@angular/common/http';
-import { EndpointService } from '@app/core';
+import { EndpointService, UserParametersService } from '@app/core';
 
 @Injectable()
 export class TermsService implements CanActivate {
 
     srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/ContractDev/acuerdo_comercial_marketplace_-_actualizado_26-12-2018_versi__n_mostrar.pdf';
+    constantes = new Const();
 
-    constructor(private router: Router, public dialog: MatDialog, private http: HttpClient, private api: EndpointService) {
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private http: HttpClient,
+        private api: EndpointService,
+        private userParams: UserParametersService) {
 
     }
 
@@ -43,12 +48,16 @@ export class TermsService implements CanActivate {
      * @memberof TermsService
      */
     getSellerAgreement(): any {
-        this.http.get(this.api.get('getValidationTerms')).subscribe( (result: any) => {
+        this.http.get(this.api.get('getValidationTerms')).subscribe((result: any) => {
             if (result && result.body) {
                 try {
-                    const data  = JSON.parse(result.body);
+                    const data = JSON.parse(result.body);
                     if (!data.Data) {
-                        this.openDialog(data.src);
+                        this.getUserInfo().then(resultPromise => {
+                            if (resultPromise) {
+                                this.openDialog(data.src);
+                            }
+                        });
                     }
                 } catch (e) {
                     console.error(e);
@@ -62,6 +71,30 @@ export class TermsService implements CanActivate {
     }
 
     /**
+     * Funcion que verifica si el usuario que esta logeado puede ingresar a la pagina
+     * 1.   Verifica la URL a la que esta intentando ingresar para validar que tipo de usuario es,
+     *      si no es valido lo redirecciona a home
+     * @param {RouterStateSnapshot} state
+     * @returns {Promise<any>}
+     * @memberof SellerService
+     */
+    public getUserInfo(): Promise<any> {
+        try {
+            return new Promise((resolve, reject) => {
+                this.userParams.getUserData().then(data => {
+                    /**  Vista de lista de vendedores */
+                    if (data.sellerProfile === this.constantes.seller) {
+                        resolve(true);
+                    }
+                }, error => {
+                    reject(error);
+                });
+            });
+        } catch (e) {
+        }
+    }
+
+    /**
      * Abre el dialogo con la direccion del pdf a mostrar.
      *
      * @param {string} data
@@ -70,13 +103,13 @@ export class TermsService implements CanActivate {
     openDialog(data: string): void {
         console.log(this.srcPdf);
         const dialogRef = this.dialog.open(TermsComponent, {
-          width: '80%',
-          height: '90%',
-          data: this.srcPdf,
-          disableClose: true
+            width: '80%',
+            height: '90%',
+            data: this.srcPdf,
+            disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
         });
-      }
+    }
 
 }
