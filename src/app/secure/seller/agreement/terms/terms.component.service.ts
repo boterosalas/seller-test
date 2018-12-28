@@ -12,7 +12,7 @@ import { EndpointService, UserParametersService } from '@app/core';
 @Injectable()
 export class TermsService implements CanActivate {
 
-    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/ContractDev/acuerdo_comercial_marketplace_-_actualizado_26-12-2018_versi__n_mostrar.pdf';
+    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
     constantes = new Const();
 
     constructor(private router: Router,
