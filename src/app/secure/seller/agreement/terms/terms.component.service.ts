@@ -37,7 +37,7 @@ export class TermsService implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
         if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
-            this.getSellerAgreement();
+            this.getSellerAgreement(state);
         }
         return true;
     }
@@ -49,26 +49,28 @@ export class TermsService implements CanActivate {
      * @returns {*}
      * @memberof TermsService
      */
-    getSellerAgreement(): any {
-        this.http.get(this.api.get('getValidationTerms'), { headers: { valid: 'hola'} }).subscribe((result: any) => {
-            if (result && result.body) {
-                try {
-                    const data = JSON.parse(result.body);
-                    if (!data.Data) {
-                        this.getUserInfo().then(resultPromise => {
-                            if (resultPromise) {
-                                this.openDialog(data.src);
+    getSellerAgreement(state: RouterStateSnapshot): any {
+        this.getUserInfo().then(resultPromise => {
+            if (resultPromise) {
+                this.http.get(this.api.get('getValidationTerms'), { headers: { valid: 'hola' } }).subscribe((result: any) => {
+                    if (result && result.body) {
+                        try {
+                            const data = JSON.parse(result.body);
+                            if (!data.Data) {
+                                if (state.url !== '/' + RoutesConst.securehome) {
+                                    this.router.navigate(['/' + RoutesConst.securehome]);
+                                } else {
+                                    this.openDialog(data.src);
+                                }
                             }
-                        });
+                        } catch (e) {
+                            console.error(e);
+                        }
                     }
-                } catch (e) {
-                    console.error(e);
-                }
-                // TODO: this.openDialog(data.src);
-                // this.router.navigate([`/${RoutesConst.error}`]);
+                }, error => {
+                    this.router.navigate([`/${RoutesConst.error}`]);
+                });
             }
-        }, error => {
-            this.router.navigate([`/${RoutesConst.error}`]);
         });
     }
 

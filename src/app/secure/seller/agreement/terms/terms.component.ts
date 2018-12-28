@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { NavData } from '@app/shared/util/getNavData';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService, LoadingService } from '@app/core';
 import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
+import { Router, NavigationStart } from '@angular/router';
+import { RoutesConst } from '@app/shared';
 
 @Component({
     selector: 'app-terms',
@@ -12,7 +14,7 @@ import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-
     styleUrls: ['terms.component.scss']
 })
 
-export class TermsComponent implements OnInit {
+export class TermsComponent implements OnInit, OnDestroy {
 
     /**
      * Se inicializan variables necesarias para el funcionamiento del componente de mostrar el dialogo de contrato de trabajo.
@@ -24,6 +26,8 @@ export class TermsComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     textTerms: string;
     navData: NavData = new NavData();
+    showPage = false;
+    msgError = 'No se pudo guardar los términos';
 
     constructor(
         public dialogRef: MatDialogRef<TermsComponent>,
@@ -31,7 +35,9 @@ export class TermsComponent implements OnInit {
         private http: HttpClient,
         private api: EndpointService,
         private billingOrdersService: BillingOrdersService,
-        private loadingService: LoadingService) {
+        private loadingService: LoadingService,
+        private router: Router,
+        private snackBar: MatSnackBar) {
         this.textTerms = data;
     }
 
@@ -87,7 +93,16 @@ export class TermsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.router.events.forEach( (event: NavigationStart) => {
+            if (event.url !== '/' + RoutesConst.securehome && !this.showPage) {
+                window.location.replace('/' + RoutesConst.securehome);
+            }
+        });
         this.createTermsForms();
+    }
+
+    ngOnDestroy() {
+        this.showPage = true;
     }
 
     /** funcion para abrir nueva ventana con la url del documento pdf de terminos */
@@ -121,6 +136,7 @@ export class TermsComponent implements OnInit {
      * @memberof TermsComponent
      */
     public saveTerms(): void {
+        this.loadingService.viewSpinner();
         if (this.formTerms.valid) {
             const dataToSend = {
                 IdRepresentative: this.formTerms.controls.identification.value,
@@ -130,11 +146,18 @@ export class TermsComponent implements OnInit {
                 ip: this.navData.getIp(),
                 nameRepresentative: this.formTerms.controls.responsable.value,
             };
-            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe(data => {
-                if (data) {
+            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {
+                this.loadingService.closeSpinner();
+                if (data && ( data.statusCode === 200 || data.statusCode === 201 ) ) {
                     this.dialogRef.close();
+                } else {
+                    this.snackBar.open(this.msgError, 'Cerrar', {
+                      duration: 3000,
+                    });
                 }
                 /* }, error => {*/
+            }, error => {
+                this.loadingService.closeSpinner();
             });
         }
     }

@@ -1,4 +1,7 @@
-.dialog-container {
+.dialog-container {    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     .dialog-text-container {
         overflow: auto;
     }

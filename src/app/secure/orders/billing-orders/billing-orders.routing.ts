@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 
 import { RoutesConst } from './../../../shared';
 import { BillingOrderComponent } from './billing-orders.component';
+import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
 // const isProductionEnv = environment.production;
 
@@ -14,6 +15,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntOrderBillingOrders}`,
       component: BillingOrderComponent,
       data: { title: 'Factura electrónica' },
+      canActivate: [TermsService]
     },
   ])
 ];
