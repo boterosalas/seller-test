@@ -59,8 +59,8 @@ export class BillingComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Facturación',
-    title_for_search: 'Consultar órdenes',
-    btn_title: 'Consultar órdenes',
+    title_for_search: 'Consultar pagos',
+    btn_title: 'Consultar pagos',
     type_form: 'billing',
     information: new InformationToForm
   };
@@ -121,7 +121,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @param {any} item
    * @memberof BillingComponent
    */
-  openModalDetailOrder(item): void {
+  openModalDetailOrder(item: any): void {
     const dialogRef = this.dialog.open(OrderBillingDetailModalComponent, {
       data: {
         user: this.user,
@@ -166,7 +166,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof BillingComponent
    */
-  getOrdersList($event) {
+  getOrdersList($event: any) {
 
     if ($event == null) {
       $event = {
@@ -199,7 +199,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @param {any} pageSize
    * @memberof BillingComponent
    */
-  changeSizeOrderTable($event) {
+  changeSizeOrderTable($event: any) {
     this.dataSource.paginator = $event.paginator;
   }
 
