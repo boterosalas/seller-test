@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { BulkLoadComponent } from './bulk-load/bulk-load.component';
+import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
 
 const routes: Routes = [
@@ -12,11 +13,13 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterOffers}`,
       component: BulkLoadComponent,
       data: { title: 'Cargar masiva de Ofertas' },
+      canActivate: [TermsService]
     },
     {
       path: `${RoutesConst.sellerCenterIntOferBulkLoad}`,
       component: BulkLoadComponent,
       data: { title: 'Cargar masiva de Ofertas' },
+      canActivate: [TermsService]
     }
   ])
 ];

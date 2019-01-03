@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 
 import { RoutesConst } from './../../shared';
 import { BillingComponent } from './billing-page/billing.component';
+import { TermsService } from '../seller/agreement/terms/terms.component.service';
 
 const isProductionEnv = environment.production;
 
@@ -16,11 +17,13 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterBilling}`,
       component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
       data: { title: 'Facturación' },
+      canActivate: [TermsService]
     },
     {
       path: `${RoutesConst.sellerCenterIntBillingPayments}`,
       component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
       data: { title: 'Facturación' },
+      canActivate: [TermsService]
     }
   ])
 ];
