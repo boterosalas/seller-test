@@ -157,9 +157,6 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.dataSource.sort = this.sort;
           this.numberElements = this.dataSource.data.length;
         }
-        console.log('this.orderListLength: ', this.orderListLength);
-        console.log('data: ', data);
-
       });
   }
 
