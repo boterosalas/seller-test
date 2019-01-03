@@ -132,10 +132,10 @@ export class SearchBillingFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar('No se han encontrado pagos.', 'Cerrar', 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar('Se ha presentado un error al consultar los pagos.', 'Cerrar', 3000);
       });
     } else {
       this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);
