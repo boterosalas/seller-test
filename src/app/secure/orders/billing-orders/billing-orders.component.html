@@ -52,7 +52,7 @@
         </mat-icon>
         <p>{{billing.sellerName}} {{billing.billAtachedDate}}</p>
       </div>
-      <button mat-icon-button (click)="downloadPDF(billing)">
+      <button mat-icon-button (click)="downloadPDF(billing)" *ngIf="false">
         <mat-icon class="material-icons">
           get_app
         </mat-icon>
