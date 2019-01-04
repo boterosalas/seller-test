@@ -87,7 +87,7 @@ export class SearchBillingFormComponent implements OnInit {
    * @param {any} state
    * @memberof SearchOrderFormComponent
    */
-  getOrderList(state) {
+  getOrderList(state: any) {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
@@ -97,7 +97,7 @@ export class SearchBillingFormComponent implements OnInit {
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
-  filterOrder(data) {
+  filterOrder(data: any) {
     const datePipe = new DatePipe(this.locale);
 
     // Formatear la fechas.

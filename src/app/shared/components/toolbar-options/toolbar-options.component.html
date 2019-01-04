@@ -2,9 +2,14 @@
   <mat-toolbar-row class="toolbar-options">
     <div class="normal-theme toolbar-options-table">
       <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="toolbar-cont">
+        <!--
+        <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">{{informationToForm.title}}</h3>
 
-        <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="sc-title title-toolbar">{{informationToForm.title}}</h3>
+        <button (click)="getOrdersList($event)">Recargar</button> -->
 
+        <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">
+          {{informationToForm.title}}
+        </button>
         <!-- Opciones de la pagina ordern -->
         <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button" id="search-order-button"
           (click)="toggleMenuOrderSearch()" mat-button color="primary">

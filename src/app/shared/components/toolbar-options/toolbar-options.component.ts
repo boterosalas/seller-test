@@ -112,5 +112,9 @@ export class ToolbarOptionsComponent {
   getPaginator(): object {
     return this.paginator;
   }
+
+  reloadPage() {
+    window.location.reload();
+  }
 }
 
