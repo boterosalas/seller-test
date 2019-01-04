@@ -3,12 +3,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-import { Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService, UserLoginService } from '@app/core';
 import { Billing, ComponentsService, Const, InformationToForm, Order, SearchFormEntity, UserInformation } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { BillingService } from '../billing.service';
 import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -83,13 +85,16 @@ export class BillingComponent implements OnInit, OnDestroy {
     public billinService: BillingService,
     public component: ComponentsService,
     public shellComponent: ShellComponent,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    public router?: Router,
+    public userService?: UserLoginService,
   ) { }
 
   /**
    * @memberof BillingComponent
    */
   ngOnInit() {
+    this.userService.isAuthenticated(this);
     this.getDataUser();
   }
 
@@ -99,12 +104,28 @@ export class BillingComponent implements OnInit, OnDestroy {
     this.getOrdersListSinceFilterSearchOrder();
   }
 
+   /**
+    * @method getUserData
+    * @description Método que carga los datos del vendedor para obtener la sellerId.
+    * @memberof DashboardComponent
+    */
+   public async getUserData() {
+    this.user = await this.userParams.getUserData();
+
+    if (this.user.sellerProfile !== 'seller') {
+        this.router.navigate([`/${RoutesConst.securehome}`]);
+    } else {
+        this.getOrdersList(Event);
+        // this.getLastSales();
+    }
+}
+
   /**
    * Funcionalidad para remover las suscripciones creadas.
    * @memberof BillingComponent
    */
   ngOnDestroy() {
-    this.subFilterOrderBilling.unsubscribe();
+    // this.subFilterOrderBilling.unsubscribe();
   }
 
   /**
@@ -202,5 +223,20 @@ export class BillingComponent implements OnInit, OnDestroy {
   changeSizeOrderTable($event: any) {
     this.dataSource.paginator = $event.paginator;
   }
+
+  /* tslint:disable-next-line:jsdoc-format
+    * @method isLoggedIn
+    * @description Metodo para validar si el usuario esta logeado
+    * @param message
+    * @param isLoggedIn
+    * @memberof DashboardComponent
+    */
+   public isLoggedIn(message: string, isLoggedIn: boolean) {
+    if (!isLoggedIn) {
+        // this.router.navigate([`/${RoutesConst.home}`]);
+    } else {
+        this.getUserData();
+    }
+}
 
 }
