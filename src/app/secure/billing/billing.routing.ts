@@ -15,13 +15,13 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterBilling}`,
-      component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
+      component: BillingComponent,
       data: { title: 'Facturación' },
       canActivate: [TermsService]
     },
     {
       path: `${RoutesConst.sellerCenterIntBillingPayments}`,
-      component: !isProductionEnv ? BillingComponent : ErrorPageComponent,
+      component: BillingComponent,
       data: { title: 'Facturación' },
       canActivate: [TermsService]
     }
