@@ -180,9 +180,9 @@ export const endpoints = {
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
-      getBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      getBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/{params}',
       // Download Billing .
-      postBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      postBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/{params}',
       // Actualizar factura
       uploadBilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
       // Obtener contratos por vendedor.
