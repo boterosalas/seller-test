@@ -27,6 +27,7 @@ export class RoutesConst {
     static readonly orderInDevolution: any = 'en-devolucion';
     static readonly orderInValidation: any = 'en-validacion';
     static readonly orderInPendingDevolution: any = 'solicitudes-pendientes';
+    static readonly orderInBillingOrders: any = 'factura-electronica';
     static readonly oferList: any = 'listado-ofertas';
     static readonly oferBulkLoad: any = 'carga-masiva';
     static readonly oferHistoricalBulkLoad: any = 'historico-carga-ofertas';
@@ -69,6 +70,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOrderInDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInDevolution;
     static readonly sellerCenterIntOrderInValidation: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInValidation;
     static readonly sellerCenterIntOrderInPendingDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInPendingDevolution;
+    static readonly sellerCenterIntOrderBillingOrders: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInBillingOrders;
 
     static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
     static readonly sellerCenterIntOferBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferBulkLoad;

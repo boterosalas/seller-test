@@ -1,10 +1,10 @@
 <!-- Dialogo de angular material para mostrar el contrato de trabajo -->
 <div class="dialog-container" *ngIf="chargueView">
     <h2 class="dialog-title">
-        Nuevo contrato de trabajo
+        Acuerdo Comercial Marketplace
     </h2>
     <h1 class="dialog-subtitle" mat-dialog-title>
-        Apreciado cliente,
+        Apreciado vendedor,
     </h1>
     <div mat-dialog-content id="parrafo">
 
@@ -18,13 +18,13 @@
                 <mat-icon matPrefix class="material-icons">
                     person
                 </mat-icon>
-                <input matInput placeholder="Responsable" formControlName="responsable">
+                <input matInput placeholder="Nombre completo de representante legal" formControlName="responsable">
             </mat-form-field>
             <mat-form-field class="dialog-input">
                 <mat-icon matPrefix class="material-icons">
                     assignment_ind
                 </mat-icon>
-                <input matInput placeholder="Número de identificación" formControlName="identification">
+                <input matInput placeholder="Número de identificación representante legal" formControlName="identification">
             </mat-form-field>
 
             <div class="dialog-input dialog-check" fxLayout="row">

@@ -46,4 +46,13 @@ export class CommonService {
     public chargeAgainService(): void {
         this.chargeAgain.emit(true);
     }
+
+    /**
+     * @param {*} params parametro del modulo
+     * @returns {Observable<any>}
+     * @memberof BasicInformationRegex
+     */
+    public postBillOrders(body: any): Observable<any> {
+        return this.http.patch(this.api.get('uploadBilling'), body, { observe: 'response' });
+    }
 }

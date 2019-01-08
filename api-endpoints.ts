@@ -83,7 +83,19 @@ export const endpoints = {
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
       // Download billing.
-      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
+      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
+      // Billing orders visualize.
+      getBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}',
+      // Download Billing .
+      postBillingOrders: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/{params}',
+      // Actualizar factura
+      uploadBilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill',
+      // Obtener contratos por vendedor.
+      getTermsBySeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetContracts/{params}',
+      // Actualizar contrato del vendedor
+      updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
+      // Obtener si el vendedor ya acepto los terminos
+      getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
     },
   },
   // Endpoints production
@@ -166,7 +178,19 @@ export const endpoints = {
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
       // Download billing.
-      exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing'
+      exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
+      // Billing orders visualize.
+      getBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      // Download Billing .
+      postBillingOrders: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      // Actualizar factura
+      uploadBilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn',
+      // Obtener contratos por vendedor.
+      getTermsBySeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetContracts/{params}',
+      // Actualizar contrato del vendedor
+      updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
+      // Obtener si el vendedor ya acepto los terminos
+      getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
     }
   }
 };

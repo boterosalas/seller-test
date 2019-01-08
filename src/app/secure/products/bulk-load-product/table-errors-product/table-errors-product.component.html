@@ -61,13 +61,18 @@
           <p matLine *ngIf="item.type == 'invalidFormat'" style="white-space: normal;overflow: visible;">El dato
             en la
             <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido'.
+            <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido.
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormatExtraField'" style="white-space: normal;overflow: visible;">El campo opcional en la 
             <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido'.
+            <span class="error-string">fila #{{item.fila}}</span> no cumple con el formato requerido.
           </p>
+
+          <p matLine *ngIf="item.type == 'EanComboRepeatError'" style="white-space: normal;overflow: visible;">El dato en la 
+              <span class="error-string">columna #{{ item.columna }}</span> de la
+              <span class="error-string">fila #{{item.fila}}</span> tiene eanes repetidos.
+            </p>
           
         </mat-list-item>
       </mat-nav-list>

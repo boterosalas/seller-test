@@ -80,8 +80,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       }
       // Mostrar dialogo que el token expiro
       if (tokenExpired) {
-        // this.openDialog();
-        // this.firstTime = false;
+        this.openDialog();
+        this.firstTime = false;
       }
     } else {
       // Manejar errores del cliente (Angular Error, ReferenceError...)

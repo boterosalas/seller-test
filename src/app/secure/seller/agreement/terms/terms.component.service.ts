@@ -1,22 +1,25 @@
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
-import { RoutesConst } from '@app/shared';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { RoutesConst, Const } from '@app/shared';
+import { MatDialog } from '@angular/material';
 import { TermsComponent } from './terms.component';
+import { HttpClient } from '@angular/common/http';
+import { EndpointService, UserParametersService } from '@app/core';
 
 @Injectable()
 export class TermsService implements CanActivate {
 
-    json = {
-            status: 200,
-            data: true,
-            src: 'https://s3.amazonaws.com/sellercenter.nuget/Logger/Acuerdo+Comercial+Marketplace+-+Actualizado+16-11-2018.pdf'
-        };
+    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
+    constantes = new Const();
 
-    constructor(private router: Router, public dialog: MatDialog) {
+    constructor(private router: Router,
+        public dialog: MatDialog,
+        private http: HttpClient,
+        private api: EndpointService,
+        private userParams: UserParametersService) {
 
     }
 
@@ -33,7 +36,9 @@ export class TermsService implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        this.getSellerAgreement();
+        if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
+            this.getSellerAgreement(state);
+        }
         return true;
     }
 
@@ -44,15 +49,53 @@ export class TermsService implements CanActivate {
      * @returns {*}
      * @memberof TermsService
      */
-    getSellerAgreement(): any {
-        of(this.json).subscribe( (data: any) => {
-            if (data.data) {
-                // TODO: this.openDialog(data.src);
-                // this.router.navigate([`/${RoutesConst.error}`]);
+    getSellerAgreement(state: RouterStateSnapshot): any {
+        this.getUserInfo().then(resultPromise => {
+            if (resultPromise) {
+                this.http.get(this.api.get('getValidationTerms'), { headers: { valid: 'hola' } }).subscribe((result: any) => {
+                    if (result && result.body) {
+                        try {
+                            const data = JSON.parse(result.body);
+                            if (!data.Data) {
+                                if (state.url !== '/' + RoutesConst.securehome) {
+                                    this.router.navigate(['/' + RoutesConst.securehome]);
+                                } else {
+                                    this.openDialog(data.src);
+                                }
+                            }
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                }, error => {
+                    this.router.navigate([`/${RoutesConst.error}`]);
+                });
             }
-        }, error => {
-            this.router.navigate([`/${RoutesConst.error}`]);
         });
+    }
+
+    /**
+     * Funcion que verifica si el usuario que esta logeado puede ingresar a la pagina
+     * 1.   Verifica la URL a la que esta intentando ingresar para validar que tipo de usuario es,
+     *      si no es valido lo redirecciona a home
+     * @param {RouterStateSnapshot} state
+     * @returns {Promise<any>}
+     * @memberof SellerService
+     */
+    public getUserInfo(): Promise<any> {
+        try {
+            return new Promise((resolve, reject) => {
+                this.userParams.getUserData().then(data => {
+                    /**  Vista de lista de vendedores */
+                    if (data.sellerProfile === this.constantes.seller) {
+                        resolve(true);
+                    }
+                }, error => {
+                    reject(error);
+                });
+            });
+        } catch (e) {
+        }
     }
 
     /**
@@ -63,13 +106,13 @@ export class TermsService implements CanActivate {
      */
     openDialog(data: string): void {
         const dialogRef = this.dialog.open(TermsComponent, {
-          width: '80%',
-          height: '90%',
-          data: data,
-          disableClose: true
+            width: '80%',
+            height: '90%',
+            data: this.srcPdf,
+            disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
         });
-      }
+    }
 
 }
