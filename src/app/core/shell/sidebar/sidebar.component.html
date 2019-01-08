@@ -130,7 +130,7 @@
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list" *ngIf="!isProductionEnv">
+    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'seller'">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-facturacion">
           <mat-panel-title>

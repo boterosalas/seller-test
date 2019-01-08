@@ -90,7 +90,7 @@
         </button>
       </mat-menu>
 
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
+      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user?.sellerProfile === 'seller'">
         <mat-icon>arrow_drop_down</mat-icon>
         Facturación
       </button>
