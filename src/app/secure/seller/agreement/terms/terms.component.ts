@@ -146,6 +146,10 @@ export class TermsComponent implements OnInit, OnDestroy {
                 ip: this.navData.getIp(),
                 nameRepresentative: this.formTerms.controls.responsable.value,
             };
+            if (!dataToSend.Ip) {
+                dataToSend.Ip = '';
+                dataToSend.ip = '';
+            }
             this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {
                 this.loadingService.closeSpinner();
                 if (data && ( data.statusCode === 200 || data.statusCode === 201 ) ) {
