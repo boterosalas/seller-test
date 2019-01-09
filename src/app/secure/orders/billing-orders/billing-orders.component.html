@@ -1,0 +1,67 @@
+<!-- Web Desing -->
+<div>
+  <mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
+      <!-- Titulo del toolbar -->
+      <p class="tree-title">
+        Órdenes
+        <small class="sub-title">| Buscar factura</small>
+      </p>
+      <!-- Componente para realizar la busqueda de una tienda -->
+      <form #getBillings="ngForm" [formGroup]="billingGroup" class="search-store">
+        <div>
+          <mat-icon class="icon-search" matPrefix>search</mat-icon>
+          <input matInput placeholder="Ingrese número de orden" formControlName="billingOrderCtrl" (keyup.enter)="chargeBillingOrders()"
+            autocomplete="off">
+        </div>
+      </form>
+
+      <div class="downloadAll">
+        <button mat-icon-button (click)="downloadAllPDF(billingAll)" id="downloadAllStyle" *ngIf="false">
+          <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon>DESCARGAR TODAS
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>
+<div class="list-container">
+  <div *ngIf="!sellerData && sellerData !== null">
+    <div class="icon-face">
+      <mat-icon>mms</mat-icon>
+    </div>
+    <p class="icon-face-text">Ingresa el número de orden en la barra de b&uacute;squeda para encontrar una factura
+      específica.</p>
+  </div>
+
+  <div *ngIf="sellerData === null">
+    <div class="icon-face">
+      <mat-icon>insert_drive_file</mat-icon>
+    </div>
+    <p class="icon-face-text">No hay facturas asociados a esta orden.</p>
+  </div>
+
+
+  <div *ngIf="sellerData" class="agreement">
+    <div class="agreement-title">
+      <p>Orden: {{billingGroup.controls.billingOrderCtrl.value}}</p>
+    </div>
+    <div *ngFor="let billing of keysBilling; let i = index" fxLayout="row" class="list-agreement">
+      <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+        <mat-icon class="material-icons" class="file-agreement">
+          insert_drive_file
+        </mat-icon>
+        <p>{{billing.sellerName}} {{billing.billAtachedDate}}</p>
+      </div>
+      <button mat-icon-button (click)="downloadPDF(billing)" *ngIf="false">
+        <mat-icon class="material-icons">
+          get_app
+        </mat-icon>
+      </button>
+      <button mat-icon-button (click)="viewPDF(billing)">
+        <mat-icon class="material-icons">
+          visibility
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

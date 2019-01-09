@@ -29,6 +29,10 @@ export class LoadFileComponent implements OnInit {
     lastInvalids: any;
     dataToSend: any;
     showProgress = false;
+    validComboDrag = true;
+    dragFiles = true;
+    file = null;
+
 
     /**
      * Inicialización de componente para cargar archivos.
@@ -89,7 +93,10 @@ export class LoadFileComponent implements OnInit {
      */
     public uploadFiles(): void {
         const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
-        const file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
+        let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
+        if (!file) {
+            file = this.files[this.files.length - 1];
+        }
         this.showProgress = true;
         this.getBase64(file).then(data => {
             try {
@@ -113,7 +120,7 @@ export class LoadFileComponent implements OnInit {
                     this.showProgress = false;
                 }, error => {
                     // Error
-                    this.snackBar.open('No se pudo adjuntar el pdf, Algo ocurrió un error.', 'Cerrar', {
+                    this.snackBar.open('No se pudo adjuntar el PDF, ocurrió un error.', 'Cerrar', {
                         duration: 3000,
                     });
                     log.error(error);

@@ -1,26 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { Route } from '@app/core';
-import { ErrorPageComponent } from '@app/secure/error-page/error-page.component';
 import { environment } from '@env/environment';
 
 import { RoutesConst } from './../../../shared';
-import { InValidationComponent } from './in-validation-page/in-validation.component';
+import { BillingOrderComponent } from './billing-orders.component';
 import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
-const isProductionEnv = environment.production;
-
-
+// const isProductionEnv = environment.production;
 
 const routes: Routes = [
   Route.withShell([
     {
-      path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
-      component: !isProductionEnv ? InValidationComponent : ErrorPageComponent,
-      data: { title: 'En validación' },
-        canActivate: [TermsService]
-    }
+      path: `${RoutesConst.sellerCenterIntOrderBillingOrders}`,
+      component: BillingOrderComponent,
+      data: { title: 'Factura electrónica' },
+      canActivate: [TermsService]
+    },
   ])
 ];
 
@@ -29,5 +25,6 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class InValidationRoutingModule {
+
+export class BillingOrdersRoutingModule {
 }
