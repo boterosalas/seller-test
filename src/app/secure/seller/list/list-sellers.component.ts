@@ -1,9 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { Logger, LoadingService } from '@app/core';
-import { MatSnackBar, PageEvent, MatSidenav } from '@angular/material';
+import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
+import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
 
 
 const log = new Logger('ManageSellerComponent');
@@ -15,6 +23,13 @@ const log = new Logger('ManageSellerComponent');
 
 export class SellerListComponent implements OnInit {
 
+    public filterSeller: FormGroup;
+    public id: FormControl;
+    public sellerName: FormControl;
+    public nit: FormControl;
+    // public stateSeller: FormControl;
+    public matcher: MyErrorStateMatcher;
+    public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     showAn = true;
     sellerList: any;
     sellerLength = 0;
@@ -28,12 +43,15 @@ export class SellerListComponent implements OnInit {
     constructor(private storesService: StoresService,
         private loading: LoadingService,
         private snackBar: MatSnackBar,
-        private router: Router) {
+        private router: Router,
+        private fb: FormBuilder) {
     }
 
     ngOnInit() {
         this.loading.viewSpinner();
         this.getRequiredData();
+        this.createFormControls();
+        this.createForm();
         // this.matDrawer.closedStart = tri
     }
 
@@ -80,8 +98,10 @@ export class SellerListComponent implements OnInit {
     public getRequiredData(): void {
         this.storesService.getAllStoresFull(null).subscribe((result: any) => {
             if (result.status === 200) {
+                console.log('data: ', result);
                 const body = JSON.parse(result.body.body);
                 this.sellerList = body.Data;
+                console.log('this.sellerList: ', this.sellerList);
                 this.sellerLength = this.sellerList.length;
             } else {
                 log.error('Error al cargar los vendendores: ', result);
@@ -90,6 +110,24 @@ export class SellerListComponent implements OnInit {
         }, error => {
             log.error('Error al cargar los vendendores: ', error);
             this.loading.closeSpinner();
+        });
+    }
+
+    createFormControls() {
+        this.filterSeller = this.fb.group({
+        id: ['', Validators.pattern(this.regexNoSpaces)],
+        sellerName: [''],
+        nit: ['', Validators.pattern('^[0-9]*$')],
+        matcher: new MyErrorStateMatcher()
+        });
+    }
+
+    createForm() {
+        this.filterSeller = new FormGroup({
+            id: this.id,
+            sellerName: this.sellerName,
+            nit: this.nit,
+            // stateSeller: this.stateSeller
         });
     }
 }
