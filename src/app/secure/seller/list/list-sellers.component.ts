@@ -27,6 +27,9 @@ export class SellerListComponent implements OnInit {
     public id: FormControl;
     public sellerName: FormControl;
     public nit: FormControl;
+    idSeller: any;
+    nameSeller: any;
+    nitSeller: any;
     // public stateSeller: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
@@ -74,19 +77,57 @@ export class SellerListComponent implements OnInit {
      * @description Metodo para abrir o cerrar el menu
      */
     toggleMenu() {
-        console.log(this.sidenav);
         // this.sidenav.toggle();
         this.sidenav.toggle();
     }
 
+    public filterListSeller() {
+        this.idSeller = this.filterSeller.controls.id.value;
+        this.nameSeller = this.filterSeller.controls.sellerName.value;
+        this.nitSeller = this.filterSeller.controls.nit.value;
+        console.log(this.idSeller);
+    }
+
 
     public showSeller(index: number): boolean {
-        if (this.pageEvent) {
-            return index <= ((this.pageEvent.pageIndex + 1) * this.pageEvent.pageSize) - 1 &&
-                index >= ((this.pageEvent.pageIndex + 1) * this.pageEvent.pageSize) - this.pageEvent.pageSize;
+        const count = 3;
+        let accomp = 0;
+        if (this.idSeller) {
+            if (this.sellerList[index].IdSeller.toString().match(this.idSeller)) {
+                accomp++;
+            }
         } else {
-            return index <= this.pageSize - 1;
+            accomp++;
         }
+        if (this.nameSeller) {
+            if (this.sellerList[index].Name.match(this.nameSeller)) {
+                accomp++;
+            }
+        } else {
+            accomp++;
+        }
+        if (this.nitSeller) {
+            if (this.sellerList[index].Nit.toString().match(this.nitSeller)) {
+                accomp++;
+            }
+        } else {
+            accomp++;
+        }
+        if (accomp === count) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public paginatorSellerList(index: number): boolean {
+        if (this.pageEvent) {
+             return index <= ((this.pageEvent.pageIndex + 1) * this.pageEvent.pageSize) - 1 &&
+                 index >= ((this.pageEvent.pageIndex + 1) * this.pageEvent.pageSize) - this.pageEvent.pageSize;
+         } else {
+             return index <= this.pageSize - 1;
+         }
+
     }
 
     public redirectToSeller(idSeller: number): void {
@@ -98,10 +139,8 @@ export class SellerListComponent implements OnInit {
     public getRequiredData(): void {
         this.storesService.getAllStoresFull(null).subscribe((result: any) => {
             if (result.status === 200) {
-                console.log('data: ', result);
                 const body = JSON.parse(result.body.body);
                 this.sellerList = body.Data;
-                console.log('this.sellerList: ', this.sellerList);
                 this.sellerLength = this.sellerList.length;
             } else {
                 log.error('Error al cargar los vendendores: ', result);

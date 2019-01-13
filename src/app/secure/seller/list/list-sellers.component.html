@@ -27,9 +27,9 @@
           <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" [innerHTML]="'NIT invalido'"></mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-          <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
+          <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'" (click)="filterListSeller()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'"></button>
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListSeller()"></button>
         </div>
 
       </div>
@@ -49,8 +49,8 @@
           <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
             Listado de vendedores
           </p>
-          <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-          </mat-paginator>
+         <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+          </mat-paginator> -->
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
