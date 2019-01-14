@@ -49,7 +49,7 @@
           <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
             Listado de vendedores
           </p>
-         <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+          <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
           </mat-paginator> -->
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
@@ -60,18 +60,8 @@
 
       <!-- SELLER CONTAINER LIST-->
       <div class="list-container">
-        <label class="showBack" *ngIf="false">
-          <strong>B</strong>
-          <span class="an" *ngIf="showAn">aya&nbsp;</span>
-          <strong>A</strong>
-          <span class="an" *ngIf="showAn">&nbsp;que&nbsp;</span>
-          <strong>C</strong>
-          <span class="an" *ngIf="showAn">e lo&nbsp;</span>
-          <strong>K</strong>
-          <span class="an" *ngIf="showAn">uleen&nbsp;</span>
-        </label>
         <!-- SELLER HEADER LIST-->
-        <div id="header-list" class="header-list" fxShow [fxShow.xs]="false">
+        <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center">
           <div id="id" class="label-container id" style="width: 9%;
                 padding-left: 3%;">
             <label class="label-list">
@@ -88,11 +78,11 @@
               NIT
             </label>
           </div>
-          <div id="date" class="label-container date">
+          <!-- <div id="date" class="label-container date">
             <label class="label-list">
               Fecha de creación
             </label>
-          </div>
+          </div> -->
           <div id="state" class="label-container state">
             <label class="label-list">
               Estado
@@ -104,10 +94,10 @@
         <div *ngFor="let seller of sellerList; let i = index " [ngClass]="{'background-bar' : seller.block}">
           <mat-progress-bar mode="indeterminate" *ngIf="seller.block"></mat-progress-bar>
           <!-- SELLER HEADER LIST-->
-          <div id="header-list" class="header-list" fxShow [fxShow.xs]="false" fxLayout="row" fxLayoutAlign="start center"
-            *ngIf="showSeller(i)">
+          <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center" *ngIf="showSeller(i)">
             <div id="id" class="label-container id" fxLayout="row" fxLayoutAlign="start center">
-              <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)">
+              <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
+                fxShow [fxShow.xs]="false">
                 <mat-icon class="material-icons">
                   visibility
                 </mat-icon>
@@ -126,11 +116,11 @@
                 {{seller.Nit}}
               </label>
             </div>
-            <div id="date" class="label-container date">
+            <!-- <div id="date" class="label-container date">
               <label class="label-result">
                 22 de septiembre de 2016
               </label>
-            </div>
+            </div> -->
             <div id="state" class="label-container state">
               <label class="label-result">
                 <mat-slide-toggle (change)="changeSellerState(seller)" [disabled]="seller.block"></mat-slide-toggle>
@@ -140,9 +130,6 @@
         </div>
       </div>
     </div>
-
-
-
-    <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
+    <!--<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
   </mat-drawer-content>
 </mat-drawer-container>
