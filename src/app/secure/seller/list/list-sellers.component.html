@@ -27,7 +27,7 @@
           <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" [innerHTML]="'NIT invalido'"></mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-          <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'" (click)="filterListSeller()"></button>
+          <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
           <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListSeller()"></button>
         </div>

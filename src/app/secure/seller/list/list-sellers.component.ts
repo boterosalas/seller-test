@@ -54,7 +54,7 @@ export class SellerListComponent implements OnInit {
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
-        this.createForm();
+        // this.createForm();
         // this.matDrawer.closedStart = tri
     }
 
@@ -154,13 +154,14 @@ export class SellerListComponent implements OnInit {
 
     createFormControls() {
         this.filterSeller = this.fb.group({
-        id: ['', Validators.pattern(this.regexNoSpaces)],
-        sellerName: [''],
-        nit: ['', Validators.pattern('^[0-9]*$')],
+        id:  new FormControl('', [Validators.pattern(this.regexNoSpaces)]),
+        sellerName: new FormControl('', []),
+        nit: new FormControl('', [Validators.pattern('^[0-9]*$')]),
         matcher: new MyErrorStateMatcher()
         });
     }
 
+    /*
     createForm() {
         this.filterSeller = new FormGroup({
             id: this.id,
@@ -168,5 +169,10 @@ export class SellerListComponent implements OnInit {
             nit: this.nit,
             // stateSeller: this.stateSeller
         });
+    } */
+
+    public cleanFilter() {
+        this.filterSeller.reset();
+        this.filterListSeller();
     }
 }
