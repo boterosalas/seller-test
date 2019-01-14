@@ -5,19 +5,25 @@ export class SpecificationModel {
     Value: string;
     Show: boolean;
     Sons: SpecificationModel[];
+    List: SpecificationModel[];
     IdParent?: number;
-
+    Obligatory = false;
+    // Sons se refiere a las especificaciones ya que es un modelo
     constructor(
         Name: string,
         Show: boolean,
         Sons?: SpecificationModel[],
         Id?: number,
-        IdParent?: number) {
+        IdParent?: number,
+        List?: SpecificationModel[],
+        Obligatory?: boolean) {
         this.Id = Id;
         this.IdParent = IdParent;
         this.Show = Show;
         this.Sons = Sons;
+        this.List = List;
         this.Name = Name;
+        this.Obligatory = Obligatory;
     }
 
     /**
@@ -70,7 +76,10 @@ export class SpecificationModel {
                         data.specName,
                         false,
                         null,
-                        data.idSpec
+                        data.idSpec,
+                        null,
+                        data.list,
+                        data.obligatory
                     )
                 );
         });

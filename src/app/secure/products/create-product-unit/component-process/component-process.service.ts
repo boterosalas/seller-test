@@ -2,6 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
+import { of } from 'rxjs';
 
 
 /**
@@ -66,6 +67,52 @@ export interface ProductModel {
 @Injectable()
 export class ProcessService {
 
+
+    specificationList = [{
+        idGroup: 1,
+        groupName: 'Todas las Especificaciones',
+        Show: false,
+        Value: null,
+        specs: [
+            {
+                idSpec: 2,
+                specName: 'Lente',
+                obligatory: true,
+                list: [{
+                    name: 'Item 1'
+                }, {
+                    name: 'Item 2'
+                }, {
+                    name: 'Item 3'
+                }, {
+                    name: 'Item 4'
+                }
+                ]
+            }, {
+                idSpec: 3,
+                obligatory: true,
+                specName: 'Modelo'
+            }, {
+                idSpec: 4,
+                obligatory: true,
+                specName: 'Especificacion libre'
+            }]
+    }, {
+
+        idGroup: 2,
+        groupName: 'Banguera es km',
+        Show: false,
+        Value: null,
+        specs: [
+            {
+                idSpec: 2,
+                specName: 'hola',
+            }
+        ]
+    }];
+
+
+
     /**
      * Modelo tipo ProductModel que almacena los datos de producto para ser enviados por el servicio
      *
@@ -120,11 +167,11 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: false,
-        showCat: false,
-        showInfo: false,
+        showEan: true,
+        showCat: true,
+        showInfo: true,
         showSpec: true,
-        showImg: false,
+        showImg: true,
     };
 
     /**
@@ -134,6 +181,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     @Output() change: EventEmitter<any> = new EventEmitter();
+    @Output() specsByCategory: EventEmitter<any> = new EventEmitter();
 
     /**
      * Crea una instancia del servicio.
@@ -164,6 +212,24 @@ export class ProcessService {
         this.change.emit(this.views);
     }
 
+
+    /**
+     * Funcion para obtener las especificaciones dependiendo de la categoria,
+     * TODO:POR AHORA USA UN MOCK PARA PRUEBAS EN FRONT.
+     *
+     * @param {number} idCategory
+     * @memberof ProcessService
+     */
+    public getSpecsByCategories(idCategory: string): void {
+        of(this.specificationList).subscribe(data => {
+            if (data) {
+                this.specsByCategory.emit(data);
+            }
+        }, error => {
+            console.error(error);
+        });
+    }
+
     /**
      * Valida los datos enviados, y habilita menu.
      *
@@ -171,6 +237,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public validaData(data: any): void {
+        this.getSpecsByCategories(null);
         if (data.Ean || data.AssignEan) {
             this.productData.Ean = data.Ean;
             this.productData.AssignEan = !data.AssignEan;
@@ -182,6 +249,9 @@ export class ProcessService {
             this.productData.CategoryName = data.CategoryName;
             this.productData.Category = data.CategorySelected;
             this.productData.ProductType = data.CategoryType;
+            console.log(this.productData);
+            this.getSpecsByCategories(this.productData.Category);
+
         }
         if (data.Name) {
             this.views.showInfo = true;

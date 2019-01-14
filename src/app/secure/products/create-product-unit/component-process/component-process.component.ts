@@ -66,7 +66,7 @@ export class ComponentProcessComponent implements OnInit {
       basicInfoCtrl: ['', Validators.required]
     });
     this.especificFormGroup = this.fb.group({
-      especificCtrl: ['1', Validators.required]
+      especificCtrl: ['', Validators.required]
     });
     this.imageFormGroup = this.fb.group({
       imageCtrl: ['', Validators.required]
@@ -130,6 +130,11 @@ export class ComponentProcessComponent implements OnInit {
       this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
     } else if (!this.views.showInfo) {
       this.basicInfoFormGroup.controls.basicInfoCtrl.setValue(null);
+    }
+    if (this.views.showSpec) {
+      this.especificFormGroup.controls.especificCtrl.setValue('1');
+    } else if (!this.views.showSpec) {
+      this.especificFormGroup.controls.especificCtrl.setValue(null);
     }
     if (this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue('1');
