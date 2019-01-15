@@ -12,24 +12,28 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="ID" formControlName="id" [errorStateMatcher]="matcher">
+          <input matInput placeholder="ID" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterSeller.get('id').hasError('pattern')" [innerHTML]="'ID invalido'"></mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher">
+          <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher"
+            (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur">
           <!-- <mat-hint></mat-hint>
   <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="NIT" formControlName="nit" [errorStateMatcher]="matcher">
+          <input matInput placeholder="NIT" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" [innerHTML]="'NIT invalido'"></mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListSeller()"></button>
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle() && filterListSeller()"></button>
         </div>
 
       </div>
@@ -57,6 +61,18 @@
           <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
         </button>
       </mat-toolbar>
+
+      <!-- Resultado Filtro -->
+      <div class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let listFilterSeller of listFilterSellers" [selectable]="selectable" [removable]="removable" (removed)="remove(listFilterSeller)">
+            {{listFilterSeller.name}}
+            <mat-icon matChipRemove *ngIf="removable" (click)="cleanFilter()">cancel</mat-icon>
+          </mat-chip>
+          <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur" disabled>
+        </mat-chip-list>
+      </div>
 
       <!-- SELLER CONTAINER LIST-->
       <div class="list-container">
