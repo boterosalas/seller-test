@@ -9,6 +9,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 export interface ListFilterSeller {
     name: string;
+    value: string;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -103,6 +104,11 @@ export class SellerListComponent implements OnInit {
             this.nameSeller = this.nameSeller.trim().toLowerCase();
         }
         this.nitSeller = this.filterSeller.controls.nit.value;
+        const data = [];
+        data.push({ value: this.idSeller, name: 'idSeller' });
+        data.push({ value: this.nameSeller, name: 'nameSeller' });
+        data.push({ value: this.nitSeller, name: 'nitSeller' });
+        this.add(data);
     }
 
 
@@ -205,24 +211,29 @@ export class SellerListComponent implements OnInit {
 
     public cleanFilter() {
         this.filterSeller.reset();
-        this.filterListSeller();
     }
 
-    add(event: MatChipInputEvent): void {
-        const input = event.input;
-        const value = event.value;
+    add(data: any): void {
+        data.forEach(element => {
+            const value = element.value;
+            if (value) {
+                // Add our listFilterSellers
+                if ((value || '').trim()) {
+                    this.listFilterSellers.push({ name: value.trim(), value: element.name });
+                }
 
-        // Add our listFilterSellers
-        if ((value || '').trim()) {
-            this.listFilterSellers.push({ name: value.trim() });
-        }
+            }
+        });
+
     }
 
     remove(listFilterSeller: ListFilterSeller): void {
         const index = this.listFilterSellers.indexOf(listFilterSeller);
-
+        console.log(listFilterSeller);
         if (index >= 0) {
             this.listFilterSellers.splice(index, 1);
+            this[listFilterSeller.value] = '';
+            console.log(this[listFilterSeller.value], listFilterSeller.value);
         }
     }
 }
