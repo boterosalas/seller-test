@@ -62,7 +62,7 @@
           <span>Arbol de Categorias</span>
         </button>
 
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]">
+        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <span>Cotizador</span>
         </button>
       </mat-menu>
