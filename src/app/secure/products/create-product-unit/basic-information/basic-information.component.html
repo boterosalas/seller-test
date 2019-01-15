@@ -285,9 +285,9 @@
         </div>
 
         <mat-form-field class="category-product field">
-          <input matInput placeholder="HexColorCodeName" formControlName="HexColorCodeName" (change)="detectForm()" id="hexColorNameProduct">
-          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El HexColorName ingresado no es
-            v&aacute;lido</mat-error>
+          <input matInput placeholder="Nombre específico de color" formControlName="HexColorCodeName" (change)="detectForm()" id="hexColorNameProduct">
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El Nombre específico de color ingresado no es
+            v&aacute;lido, no debe tener espacios.</mat-error>
           <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">EL campo es obligatorio</mat-error>
         </mat-form-field>
 

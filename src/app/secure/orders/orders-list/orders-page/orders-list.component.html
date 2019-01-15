@@ -69,6 +69,8 @@
               <mat-icon matSuffix class="icon-forSend" [ngClass]="{'active': element.allowShipping && element.idStatusOrder == const.OrderAsignado}">
                 local_shipping
               </mat-icon>
+              <mat-icon matSuffix matTooltip="Con factura adjunta" *ngIf="element.billUrl" class="icon-forSend" aria-label="Example icon-button with a heart icon">description</mat-icon>
+              <mat-icon matSuffix matTooltip="Sin factura adjunta" *ngIf="!element.billUrl" class="icon-forSend active" aria-label="Example icon-button with a heart icon">description</mat-icon>
               {{element.orderNumber}}
             </p>
           </mat-cell>
