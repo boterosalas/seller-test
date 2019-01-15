@@ -109,8 +109,9 @@ export class SellerListComponent implements OnInit {
         data.push({ value: this.nameSeller, name: 'nameSeller' });
         data.push({ value: this.nitSeller, name: 'nitSeller' });
         this.add(data);
+        console.log('data: ', data);
+        console.log('data: ', data.length);
     }
-
 
     /**
      *  showSeller => Metodo para realizar el filtro de listado de vendedores.
@@ -176,9 +177,6 @@ export class SellerListComponent implements OnInit {
                 this.sellerListOrder = this.sellerList.sort(function (a: any, b: any) {
                     return a['IdSeller'] - b['IdSeller'];
                 });
-                console.log('ordenado: ', this.sellerListOrder);
-                console.log('sellerList: ', this.sellerList);
-                console.log('this.sellerList[index].toLowerCase().Name: ', this.sellerList.Name);
                 this.sellerLength = this.sellerList.length;
             } else {
                 log.error('Error al cargar los vendendores: ', result);
@@ -199,21 +197,17 @@ export class SellerListComponent implements OnInit {
         });
     }
 
-    /*
-    createForm() {
-        this.filterSeller = new FormGroup({
-            id: this.id,
-            sellerName: this.sellerName,
-            nit: this.nit,
-            // stateSeller: this.stateSeller
-        });
-    } */
-
     public cleanFilter() {
         this.filterSeller.reset();
     }
 
-    add(data: any): void {
+    /**
+     * Metodo para añadir los chips de los filtros
+     *
+     * @param {*} data
+     * @memberof SellerListComponent
+     */
+    public add(data: any): void {
         data.forEach(element => {
             const value = element.value;
             if (value) {
@@ -224,16 +218,19 @@ export class SellerListComponent implements OnInit {
 
             }
         });
-
     }
 
-    remove(listFilterSeller: ListFilterSeller): void {
+    /**
+     * Metodo para ir eliminando los filtros aplicados
+     *
+     * @param {ListFilterSeller} listFilterSeller
+     * @memberof SellerListComponent
+     */
+    public remove(listFilterSeller: ListFilterSeller): void {
         const index = this.listFilterSellers.indexOf(listFilterSeller);
-        console.log(listFilterSeller);
         if (index >= 0) {
             this.listFilterSellers.splice(index, 1);
             this[listFilterSeller.value] = '';
-            console.log(this[listFilterSeller.value], listFilterSeller.value);
         }
     }
 }
