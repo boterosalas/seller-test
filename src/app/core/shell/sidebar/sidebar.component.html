@@ -127,6 +127,10 @@
           <h6 matLine>Acuerdos</h6>
         </mat-list-item>
 
+        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerProfiles]" *ngIf="!isProductionEnv">
+          <h6 matLine>Perfiles</h6>
+        </mat-list-item>
+
       </mat-expansion-panel>
     </div>
 

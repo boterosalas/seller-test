@@ -152,6 +152,8 @@ export class Const {
     logisticsExito: 'Logistica Exito'
   };
 
+  static readonly ProfileTypes: any = ['Vendedor', 'Administrador'];
+
   static readonly error = 'error';
   static readonly home = 'home';
 

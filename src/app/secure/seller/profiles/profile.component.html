@@ -1,0 +1,18 @@
+<!-- Web Desing -->
+<div class="profile-container">
+    <mat-toolbar class="toolbar">
+            <!-- Titulo del toolbar -->
+            <p class="title">
+                Listado de perfiles
+            </p>
+    </mat-toolbar>
+
+    <!-- LISTA -->
+    <div class="profile-list-container">
+        <span>Nombre</span>
+    </div>
+
+    <div class="list" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let profile of profileList">
+        {{profile.Name}}
+    </div>
+</div>
