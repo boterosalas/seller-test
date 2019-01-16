@@ -109,8 +109,6 @@ export class SellerListComponent implements OnInit {
         data.push({ value: this.nameSeller, name: 'nameSeller' });
         data.push({ value: this.nitSeller, name: 'nitSeller' });
         this.add(data);
-        console.log('data: ', data);
-        console.log('data: ', data.length);
     }
 
     /**
