@@ -1,18 +1,46 @@
 <!-- Web Desing -->
 <div class="profile-container">
     <mat-toolbar class="toolbar">
-            <!-- Titulo del toolbar -->
-            <p class="title">
-                Listado de perfiles
-            </p>
+        <!-- Titulo del toolbar -->
+        <p class="title">
+            Listado de perfiles
+        </p>
     </mat-toolbar>
 
     <!-- LISTA -->
-    <div class="profile-list-container">
-        <span>Nombre</span>
-    </div>
+    <div class="profile-list-container" fxLayout="column">
+        <div fxLayout="row" class="header" fxLayoutAlign="space-between center">
+            <div fxLayout="column" class="title-container">
+                <label class="title">
+                    Nombre
+                </label>
+                <span class="subtitle-item">(Tipo de perfil)</span>
+            </div>
+            <button mat-raised-button color="primary" (click)="openDialogProfile()">
+                <mat-icon class="material-icons icon-profile">
+                    add
+                </mat-icon>
+                Agregar
+            </button>
+        </div>
+        <div class="list" *ngFor="let profile of profileList" fxLayout="row" fxLayoutAlign="space-between center"
+            fxLayoutAlign="space-between center">
+            <div class="item-list" fxLayout="row">
+                <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" matTooltip="Tipo administrador">
+                    person_outline
+                </mat-icon>
+                <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 0" matTooltip="Tipo vendedor">
+                    person
+                </mat-icon>
 
-    <div class="list" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let profile of profileList">
-        {{profile.Name}}
+                <div fxLayout="column">
+                    <span>{{profile.Name}}</span>
+                    <span class="subtitle-item">({{profile.TypeName}})</span>
+                </div>
+            </div>
+            <button mat-icon-button matTooltip="Editar">
+                <mat-icon class="material-icons">create</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

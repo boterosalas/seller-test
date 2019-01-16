@@ -1,12 +1,45 @@
 $color-white: white;
+@mixin border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+}
 
 .profile-container {
     .toolbar {
         background-color: $color-white;
         text-align: center;
-        border-bottom: 1px solid #e0e0e0;
+        @include border-bottom();
         .title {
             width: 100%;
         }
     }
+    .profile-list-container {
+        padding: 1em;
+        .list {
+            @include border-bottom();
+        }
+        .header {
+            @include border-bottom();
+            .title-container{
+                padding: 1em 0;
+            }
+            .title {
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+        .item-list {
+            padding: 1em 0;
+            .icon-profile {
+                height: 30px;
+                width: 30px;
+                font-size: 30px;
+                padding: 0 5px;
+            }
+        }
+    }
+}
+
+.subtitle-item {
+    font-size: 12px;
+    color: #afafaf;
 }
