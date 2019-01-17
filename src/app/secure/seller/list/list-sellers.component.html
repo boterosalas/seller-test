@@ -66,7 +66,7 @@
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let listFilterSeller of listFilterSellers" [selectable]="selectable" [removable]="removable" (removed)="remove(listFilterSeller)">
             {{listFilterSeller.name}}
-            <mat-icon matChipRemove *ngIf="removable" (click)="cleanFilter()">cancel</mat-icon>
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
              disabled>

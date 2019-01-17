@@ -10,6 +10,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 export interface ListFilterSeller {
     name: string;
     value: string;
+    nameFilter: string;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -114,9 +115,9 @@ export class SellerListComponent implements OnInit {
         }
         this.nitSeller = this.filterSeller.controls.nit.value;
         const data = [];
-        data.push({ value: this.idSeller, name: 'idSeller' });
-        data.push({ value: this.nameSeller, name: 'nameSeller' });
-        data.push({ value: this.nitSeller, name: 'nitSeller' });
+        data.push({ value: this.idSeller, name: 'idSeller', nameFilter: 'id' });
+        data.push({ value: this.nameSeller, name: 'nameSeller', nameFilter: 'sellerName' });
+        data.push({ value: this.nitSeller, name: 'nitSeller', nameFilter: 'nit' });
         this.add(data);
     }
 
@@ -221,7 +222,7 @@ export class SellerListComponent implements OnInit {
             if (value) {
                 // Add our listFilterSellers
                 if ((value || '').trim()) {
-                    this.listFilterSellers.push({ name: value.trim(), value: element.name });
+                    this.listFilterSellers.push({ name: value.trim(), value: element.name, nameFilter: element.nameFilter });
                 }
 
             }
@@ -239,6 +240,7 @@ export class SellerListComponent implements OnInit {
         if (index >= 0) {
             this.listFilterSellers.splice(index, 1);
             this[listFilterSeller.value] = '';
+            this.filterSeller.controls[listFilterSeller.nameFilter].setValue(null);
         }
     }
 }
