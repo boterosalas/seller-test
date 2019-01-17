@@ -103,6 +103,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * @memberof ShellComponent
    */
   openDialogSupport(): void {
+    console.log('aqui');
     this.loadingService.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
