@@ -10,6 +10,7 @@ import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.mod
 import { ShellComponent } from './shell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarLinkComponent } from './toolbar-link';
+import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 
 
 @NgModule({
@@ -24,13 +25,17 @@ import { ToolbarLinkComponent } from './toolbar-link';
     HeaderComponent,
     ShellComponent,
     SidebarComponent,
-    ToolbarLinkComponent
+    ToolbarLinkComponent,
+    SupportModalComponent
   ],
   exports: [
     HeaderComponent,
     ShellComponent,
     SidebarComponent
   ],
+  entryComponents: [
+    SupportModalComponent
+],
   providers: []
 })
 export class ShellModule {
