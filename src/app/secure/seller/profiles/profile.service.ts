@@ -12,19 +12,40 @@ export class ProfileService {
             idProfile: 1,
             nameProfile: 'Administrador',
             typeProfile: '1',
-            nameTypeProfile: 'Administrador'
+            nameTypeProfile: 'Administrador',
+            menu: [{
+                idMenu: 3,
+                nameMenu: 'Cotizador',
+                nameModule: 'Ordenes',
+                funcionalities: [{
+                    id: 1,
+                    name: 'Listar'
+                }, {
+                    id: 2,
+                    name: 'Editar'
+                }, {
+                    id: 3,
+                    name: 'Agregar'
+                }, {
+                    id: 4,
+                    name: 'Eliminar'
+                }]
+            }]
         }, {
             idProfile: 2,
             nameProfile: 'Envios Exito',
             typeProfile: '0',
+            menu: []
         }, {
             idProfile: 3,
             nameProfile: 'Vendedores',
             typeProfile: '1',
+            menu: []
         }, {
             idProfile: 3,
             nameProfile: 'Vendedores API solo aqui',
             typeProfile: '0',
+            menu: []
         }
     ];
 

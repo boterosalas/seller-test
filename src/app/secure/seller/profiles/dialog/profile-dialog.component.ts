@@ -21,9 +21,9 @@ export class DialogProfileComponent {
     constructor(
         public dialogRef: MatDialogRef<DialogProfileComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.dataToEdit = data.dataToEdit;
+        this.dataToEdit = data.data;
         this.menuList = data.menu;
-        this.createForm(null);
+        this.createForm(this.dataToEdit);
     }
 
     onNoClick(): void {
@@ -31,14 +31,24 @@ export class DialogProfileComponent {
     }
 
     public createForm(data: any): void {
+        let dataToEdit = {
+            Name: '',
+            Type: ''
+        };
+        if (data) {
+            dataToEdit = data;
+            this.menuAddList = data.Menus;
+        }
+
         this.profileForm = new FormGroup(
             {
-                Name: new FormControl('', Validators.required),
-                Type: new FormControl('', Validators.required),
+                Name: new FormControl(dataToEdit.Name, Validators.required),
+                Type: new FormControl(dataToEdit.Type, Validators.required),
                 Menu: new FormControl(''),
                 Funcionality: new FormControl(''),
             }
         );
+
     }
 
     public changeMenu(): void {

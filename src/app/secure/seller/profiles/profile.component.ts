@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
     idProfile = 'idProfile';
     typeProfile = 'typeProfile';
     nameTypeProfile = 'nameTypeProfile';
+    menuProfile = 'menu';
     typeProfileNumber = '1';
 
     /**
@@ -87,7 +88,8 @@ export class ProfileComponent implements OnInit {
                 data[this.idProfile],
                 data[this.nameProfile],
                 data[this.typeProfile],
-                data[this.nameTypeProfile]
+                data[this.nameTypeProfile],
+                this.classMenu.ValidateData(data[this.menuProfile])
             );
             if (!validateData.TypeName) {
                 validateData.TypeName = data[this.typeProfile] === this.typeProfileNumber ? Const.ProfileTypes[1] : Const.ProfileTypes[0];

@@ -249,7 +249,6 @@ export class ProcessService {
             this.productData.CategoryName = data.CategoryName;
             this.productData.Category = data.CategorySelected;
             this.productData.ProductType = data.CategoryType;
-            console.log(this.productData);
             this.getSpecsByCategories(this.productData.Category);
 
         }
