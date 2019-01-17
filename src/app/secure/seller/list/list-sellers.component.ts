@@ -96,7 +96,16 @@ export class SellerListComponent implements OnInit {
         this.sidenav.toggle();
     }
 
+    public cleanFilterListSeller(): void {
+        this.idSeller = null;
+        this.nameSeller = null;
+        this.nitSeller = null;
+        this.listFilterSellers = [];
+
+    }
+
     public filterListSeller() {
+        this.cleanFilterListSeller();
         this.idSeller = this.filterSeller.controls.id.value;
         this.nameSeller = this.filterSeller.controls.sellerName.value;
         // Resetea la variable siempre y cuando no sea nulla
@@ -197,6 +206,7 @@ export class SellerListComponent implements OnInit {
 
     public cleanFilter() {
         this.filterSeller.reset();
+        this.cleanFilterListSeller();
     }
 
     /**
