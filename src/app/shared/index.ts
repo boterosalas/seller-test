@@ -12,6 +12,7 @@ export * from './models/shipment.model';
 export * from './services/components.service';
 export * from './services/mat-table.config';
 export * from './services/eventEmitter-orders.service';
+export * from './services/common.service';
 
 // Util
 export * from './util/constants';

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { Logger } from '@app/core';
 
@@ -24,6 +24,7 @@ export class SendModerationFormatModalComponent implements OnInit {
     private dialogRef: MatDialogRef<SendModerationFormatModalComponent>,
     private service: SendModerationFormatModalService,
     private fb: FormBuilder,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -54,7 +55,16 @@ export class SendModerationFormatModalComponent implements OnInit {
    * @param data
    */
   sendEmail(data: any) {
-    this.service.sendModeration(data).subscribe(res => {
+    this.service.getModeration(data).subscribe(res => {
+      let message;
+      if (res.status === 200) {
+        message = 'Se ha enviado correctamente la moderación.';
+      } else {
+        message = 'Algo ocurrió, no se pudo enviar la moderación.';
+      }
+      this.snackBar.open(message, 'Cerrar', {
+        duration: 3000
+      });
       this.onNoClick();
     });
   }

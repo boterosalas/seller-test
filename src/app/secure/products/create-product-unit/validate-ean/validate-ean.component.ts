@@ -21,10 +21,11 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  public formatEan = /^(([a-zA-Z0-9]{7,13})|([0-9]{7,13}))$/;
+  public formatEan = /^((IZ)[0-9]{5,14})$|^([0-9]{7,16})$/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
+  public copy = null;
 
   constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService) {
   }
@@ -44,8 +45,9 @@ export class ValidateEanComponent implements OnInit {
   // validar estado de checkbox
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
-     if (this.asignatedEan === true) {
+    if (this.asignatedEan === true) {
       this.sendEan();
+      this.eanGroup.controls['eanCtrl'].setValue('');
       this.eanGroup.controls['eanCtrl'].disable();
       if (!this.eanGroup.controls.eanCtrl.value) {
         const data = {
@@ -56,12 +58,13 @@ export class ValidateEanComponent implements OnInit {
         this.process.unavailableEanView();
       }
     } else {
-      if (!this.eanGroup.controls.eanCtrl.value && !this.validateEanExist) {
+      if (!this.eanGroup.controls.eanCtrl.value && !value) {
         this.process.unavailableEanView();
       } else {
         this.sendEan();
       }
       this.eanGroup.controls['eanCtrl'].enable();
+
     }
   }
 
@@ -78,7 +81,7 @@ export class ValidateEanComponent implements OnInit {
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
   validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
-    if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
+    if (this.eanGroup.value.eanCtrl.match(this.formatEan)) {
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);

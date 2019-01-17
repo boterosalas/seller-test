@@ -77,6 +77,9 @@ export class BulkLoadProductComponent implements OnInit {
   /* Mirar el estado del progreso de la carga*/
   public progressStatus = false;
 
+  public eanComboArray: any[];
+
+  public eanComboPosition = -1;
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -103,6 +106,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.countRowUpload = 0;
     this.countErrors = 0;
     this.fileName = '';
+    this.eanComboArray = [];
   }
 
   /**
@@ -380,8 +384,11 @@ export class BulkLoadProductComponent implements OnInit {
               iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
               iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
               iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
-              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido')
+              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
+              iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
             };
+
+            this.eanComboPosition = iVal.iEanCombo;
 
             /*
             * if si el número de registros es mayor al número de cargas permitidas no lo deja continuar
@@ -503,6 +510,45 @@ export class BulkLoadProductComponent implements OnInit {
                   errorInCell = true;
                 }
               }
+            } else if (j === iVal.iEanCombo) {
+              if (res[i][j] !== undefined && res[i][j] !== '') {
+                const validformatEanCombo = this.validFormat(res[i][j], 'eanCombo');
+                if (!validformatEanCombo && validformatEanCombo === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'invalidFormat',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'EanCombo'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                } else {
+                  const counterEanCombo = res[i][this.eanComboPosition].split(',');
+                  const uniqs = counterEanCombo.filter(function (item: any, index: any, array: any) {
+                    return array.indexOf(item) === index;
+                  });
+                  if (uniqs.length !== counterEanCombo.length) {
+                    this.countErrors += 1;
+                    const row = i + 1, column = j + 1;
+                    const itemLog = {
+                      row: this.arrayInformation.length,
+                      column: j,
+                      type: 'EanComboRepeatError',
+                      columna: column,
+                      fila: row,
+                      positionRowPrincipal: i,
+                      dato: 'EanCombo'
+                    };
+                    this.listLog.push(itemLog);
+                    errorInCell = true;
+                  }
+                }
+              }
             } else if (j === iVal.iTipoDeProducto) {
               if (res[i][j] !== 'Clothing' && res[i][j] !== 'Technology') {
                 const validFormatCategory = this.validFormat(res[i][j], 'category');
@@ -577,7 +623,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion ) {
+            } else if (j === iVal.iMarca || j === iVal.iMetaTitulo || j === iVal.iMetaDescripcion) {
               const allChars = this.validFormat(res[i][j], 'formatAllChars');
               if (!allChars && allChars === false) {
                 this.countErrors += 1;
@@ -611,7 +657,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            }else if (j === iVal.iModelo || j === iVal.iDetalles) {
+            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
               const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
               if (!limitChars && limitChars === false) {
                 this.countErrors += 1;
@@ -956,6 +1002,7 @@ export class BulkLoadProductComponent implements OnInit {
       MeasurementUnit: res[i][iVal.iMeasurementUnit] ? res[i][iVal.iMeasurementUnit].trim() : null,
       ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
       DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
+      EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.iEanCombo].trim() : null,
       features: []
     };
 
@@ -1001,7 +1048,8 @@ export class BulkLoadProductComponent implements OnInit {
           k !== iVal.iLogisticExito &&
           k !== iVal.iMeasurementUnit &&
           k !== iVal.iConversionFactor &&
-          k !== iVal.iDrainedFactor
+          k !== iVal.iDrainedFactor &&
+          k !== iVal.iEanCombo
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -1116,6 +1164,7 @@ export class BulkLoadProductComponent implements OnInit {
       MeasurementUnit: res[index][iVal.iMeasurementUnit],
       ConversionFactor: res[index][iVal.iConversionFactor],
       DrainedFactor: res[index][iVal.iDrainedFactor],
+      EanCombo: res[index][iVal.iEanCombo],
       isVariant: variant
     };
 
@@ -1232,7 +1281,6 @@ export class BulkLoadProductComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
-            console.log('Printing load');
             const data = result;
             if (data.body.data !== null && data.body.data !== undefined) {
               if (data.body.successful !== 0 || data.body.error !== 0) {
@@ -1242,7 +1290,8 @@ export class BulkLoadProductComponent implements OnInit {
                 this.getAvaliableLoads();
                 // Validar que los errores existan para poder mostrar el modal.
                 if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);                }
+                  this.openDialogSendOrder(data);
+                }
               } else if (data.body.successful === 0 && data.body.error === 0) {
                 this.modalService.showModal('errorService');
               }
@@ -1364,6 +1413,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
     // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
     const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
+    const formatEanCombo = /(((^((IZ)[0-9]{5,13})|^([0-9]{7,15}))+)+([,](([0-9]{7,15})|((IZ)[0-9]{5,13})))*)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1403,6 +1453,13 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
+        case 'eanCombo':
+          if ((inputtxt.match(formatEanCombo))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
         case 'nameProd':
           if ((inputtxt.match(formatNameProd))) {
             valueReturn = true;
@@ -1424,7 +1481,7 @@ export class BulkLoadProductComponent implements OnInit {
             valueReturn = false;
           }
           break;
-          case 'formatAllCharsKeyWords':
+        case 'formatAllCharsKeyWords':
           if ((inputtxt.match(formatAllCharsKeyWords))) {
             valueReturn = true;
           } else {
@@ -1589,7 +1646,8 @@ export class BulkLoadProductComponent implements OnInit {
       'Modificacion Imagen': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Factor escurrido': undefined
+      'Factor escurrido': undefined,
+      'Grupo EAN Combo': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');

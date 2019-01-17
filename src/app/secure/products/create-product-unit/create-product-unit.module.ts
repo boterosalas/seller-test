@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { CreateUnutaryProductComponent } from './create-unutary-product/create-unutary-product.component';
@@ -25,6 +24,8 @@ import { CompoImagesComponent } from '@app/secure/products/create-product-unit/a
 import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
 import { BasicInformationService } from './basic-information/basic-information.component.service';
+import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { BasicInformationService } from './basic-information/basic-information.c
     UnitProductRoutingModule,
     MaterialModule,
     FormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AngularEditorModule
   ],
   declarations: [
     CreateUnutaryProductComponent,
@@ -49,7 +51,8 @@ import { BasicInformationService } from './basic-information/basic-information.c
     ImageUrlComponent,
     CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -63,10 +66,12 @@ import { BasicInformationService } from './basic-information/basic-information.c
     ImageUrlComponent,
     CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   entryComponents: [
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   providers: [
     SearchService,

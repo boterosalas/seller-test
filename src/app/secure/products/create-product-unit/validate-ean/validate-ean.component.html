@@ -10,11 +10,11 @@
   </div>
   <form #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (change)="validateEanServices()" autocomplete="off" maxlength="13" minlength="7">
-      <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-13 caraceteres alfan&uacute;mericos).'"></mat-error>
-      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ya existe.'"></mat-error>
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off" maxlength="16" minlength="7">
+      <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (7-16 caraceteres alfan&uacute;mericos).'"></mat-error>
+      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ya existe, por favor asocia una multioferta'"></mat-error>
     </mat-form-field>
- 
+
   <div class="distanceComponetInt">
       <mat-checkbox  #asignatedEanCheckBox 
       [checked]="asignatedEan"

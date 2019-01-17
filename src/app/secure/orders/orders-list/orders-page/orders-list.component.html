@@ -69,6 +69,8 @@
               <mat-icon matSuffix class="icon-forSend" [ngClass]="{'active': element.allowShipping && element.idStatusOrder == const.OrderAsignado}">
                 local_shipping
               </mat-icon>
+              <mat-icon matSuffix matTooltip="Con factura adjunta" *ngIf="element.billUrl" class="icon-forSend" aria-label="Example icon-button with a heart icon">description</mat-icon>
+              <mat-icon matSuffix matTooltip="Sin factura adjunta" *ngIf="!element.billUrl" class="icon-forSend active" aria-label="Example icon-button with a heart icon">description</mat-icon>
               {{element.orderNumber}}
             </p>
           </mat-cell>
@@ -173,6 +175,10 @@
                 <button id="print-rot-button-order-{{index}}" mat-menu-item>
                   <mat-icon>label_outline</mat-icon>
                   <span>Imprimir rótulo</span>
+                </button>
+                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item [disabled]="element.billUrl">
+                  <mat-icon>note_add</mat-icon>
+                  <span>Adjuntar factura</span>
                 </button>
                 <button *ngIf="element.allowShipping == true && element.idStatusOrder == const.OrderAsignado" id="send-button-order-{{index}}"
                   (click)="openDialogSendOrder(element)" mat-menu-item>

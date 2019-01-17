@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { OrdersListComponent } from './orders-page/orders-list.component';
+import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
 
 const routes: Routes = [
@@ -17,11 +18,13 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterOrders}`,
       component: OrdersListComponent,
       data: { title: 'Todas las órdenes' },
+      canActivate: [TermsService]
     },
     {
       path: `${RoutesConst.sellerCenterIntOrdersState}/:category`,
       component: OrdersListComponent,
       data: { title: 'Órdenes' },
+      canActivate: [TermsService]
     }
   ])
 ];

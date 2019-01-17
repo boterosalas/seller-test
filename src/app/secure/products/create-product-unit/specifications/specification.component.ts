@@ -4,6 +4,7 @@ import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { MatDialog } from '@angular/material';
 import { Logger } from '@app/core';
+import { ProcessService } from '../component-process/component-process.service';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -29,7 +30,8 @@ export class SpecificationProductComponent implements OnInit {
      */
     constructor(
         private specificationService: SpecificationService,
-        public dialog: MatDialog) { }
+        public dialog: MatDialog,
+        public processService: ProcessService) { }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
@@ -81,12 +83,28 @@ export class SpecificationProductComponent implements OnInit {
         if (cont === null) {
             this.specificationListToAdd.push({
                 Name: model.Name,
+                Key: model.Name,
                 Value: model.Value,
                 ExistId: indexParent + '-' + indexSon
             });
         } else {
             this.specificationListToAdd[cont].Value = model.Value;
         }
+        this.validFeatureData();
+    }
+
+    public validFeatureData(): void {
+        const list = [];
+        this.specificationListToAdd.forEach(element => {
+            if (element.Value) {
+                list.push(element);
+            }
+        });
+        this.processService.setFeatures(list);
+    }
+
+    public showError(index: number, model: any): boolean {
+        return document.getElementById('specs-' + index) !== model;
     }
 
     /**
@@ -126,9 +144,11 @@ export class SpecificationProductComponent implements OnInit {
                 this.ShowSpecTitle = true;
                 this.specificationListToAdd.push({
                     Name: result.Name,
+                    Key: result.Name,
                     Value: result.Value,
                     Show: true
                 });
+                this.validFeatureData();
             }
         });
     }
@@ -147,6 +167,7 @@ export class SpecificationProductComponent implements OnInit {
                 cont = true;
             }
         }
+        this.validFeatureData();
         this.ShowSpecTitle = cont;
     }
 }

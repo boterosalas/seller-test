@@ -1,7 +1,8 @@
 <!--<button disabled="joseDisabled" mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
-<mat-horizontal-stepper linear #stepper class="process__container">
+<div class="height-full">
+<mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
@@ -45,7 +46,7 @@
       <app-assign-images [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
-          <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">Guardar</button>
         </div>
     </form>
   </mat-step>
@@ -57,4 +58,4 @@
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step> -->
-</mat-horizontal-stepper>
+</mat-horizontal-stepper></div>

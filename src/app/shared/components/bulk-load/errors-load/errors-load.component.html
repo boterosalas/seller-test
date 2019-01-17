@@ -1,0 +1,63 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column">
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+    </mat-paginator>
+    <div fxLayout="column" class="header-errors">
+        <p>Archivo seleccionado:</p>
+        <strong>{{fileName}}</strong>
+    </div>
+</div>
+<div fxLayout="row" fxLayout.xs="column" class="container-errors">
+    <div fxLayout="column" fxFlex="50" class="error-table">
+        <div class="title-table" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="material-icons error-icon">
+                error
+            </mat-icon>
+            <label class="count-errors">{{numberErrors}}</label>
+            <label class="text-count">Errores detectados</label>
+        </div>
+        <label class="subtitle">Por favor corrige los errores en el archivo y vuelve a realizar la carga de las
+            validaciones</label>
+        <div *ngFor="let error of errorList; let e = index" class="errors-list" (click)="selectError(error)" [ngClass]="{'selected-error': selectedError === error.indexOf,
+                'hidden': !getShowError(e)}"
+            fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="errors-text">
+                <label *ngIf="error.Column !== -1">{{error.Description}}: En la columna</label>
+                <label *ngIf="error.Column === -1">{{error.Description}}: La columna</label>
+                <span *ngIf="error.Column !== -1"> #{{error.Column}}</span>
+                <span *ngIf="error.Column === -1"> no existe</span>
+                de la fila
+                <span>#{{error.Row}}</span>.
+            </p>
+            <mat-icon class="material-icons error-icon">
+                error
+            </mat-icon>
+        </div>
+    </div>
+    <div fxLayout="column" fxFlex="50" class="error-table">
+        <div class="title-table" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="material-icons error-icon">
+                error
+            </mat-icon>
+            <label class="count-errors">{{numberProductsErrors}}</label>
+            <label class="text-count">Registros encontrados, los siguientes cuentan con errores</label>
+        </div>
+        <div class="margin-bottom-1">
+            <div fxLayout="row" class="border-box">
+                <h5 class="subtitle-table" fxFlex="20">EAN</h5>
+                <h5 class="subtitle-table" fxFlex="20">Validación</h5>
+                <h5 class="subtitle-table" fxFlex="30">Motivo</h5>
+                <h5 class="subtitle-table" fxFlex="30">Observación</h5>
+            </div>
+            <div *ngFor="let products of dataWithErrors; let i = index" [ngClass]="{'border-box': products.Errors.length, 'hidden': !getShowProduct(products)}">
+                <div fxLayout="row" *ngIf="products.Errors.length">
+                    <p class="errors-text-product" fxFlex="20" [ngClass]="{'selected-error': selectedProductError === i && selectedTypeError === errorsPosition[0]}">
+                        <span *ngIf="products.Ean">{{products.Ean}}</span>
+                    </p>
+                    <p class="errors-text-product" fxFlex="20" [ngClass]="{'selected-error': selectedProductError === i && selectedTypeError === errorsPosition[1]}">{{products.Response}}</p>
+                    <p class="errors-text-product" fxFlex="30" [ngClass]="{'selected-error': selectedProductError === i && selectedTypeError === errorsPosition[2]}">{{products.Reason}}</p>
+                    <p class="errors-text-product" fxFlex="30" [ngClass]="{'selected-error': selectedProductError === i && selectedTypeError === errorsPosition[3]}">{{products.Comment}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

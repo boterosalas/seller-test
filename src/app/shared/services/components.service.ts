@@ -17,13 +17,12 @@ export class ComponentsService {
 
     /**
      * Método para desplegar el snackbar de material.
-     * 
      * @param {string} message
      * @param {string} action
      * @param {any} [duration]
      * @memberof ComponentsService
      */
-    openSnackBar(message: string, action: string, duration?) {
+    openSnackBar(message: string, action: string, duration?: any) {
         if (duration === null || duration === undefined) {
             duration = 2000;
         }
@@ -34,7 +33,6 @@ export class ComponentsService {
 
     /**
      * Método para despelgar el modal de confirmación.
-     * 
      * @param {string} title
      * @param {string} [description]
      * @returns
@@ -55,4 +53,5 @@ export class ComponentsService {
         });
         return promise;
     }
+
 }

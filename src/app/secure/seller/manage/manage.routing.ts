@@ -3,6 +3,7 @@ import { Route } from '@app/core';
 import { ManageComponent } from './manage.component';
 import { NgModule } from '@angular/core';
 import { RoutesConst } from './../../../shared';
+import { AgreementComponent } from '../agreement/agreement.component';
 
 const routes: Routes = [
     Route.withShell([
@@ -10,6 +11,10 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntSellerManage}`,
             component: ManageComponent ,
             data: { title: 'Administrar vendedor' },
+        }, {
+            path: `${RoutesConst.sellerCenterIntSellerAgreements}`,
+            component: AgreementComponent ,
+            data: { title: 'Acuerdos del vendedor' },
         }
     ])
 ];
