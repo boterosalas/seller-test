@@ -71,7 +71,6 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   }
 
   openDialogSupport(): void {
-    console.log('aqui');
     this.loadingService.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',

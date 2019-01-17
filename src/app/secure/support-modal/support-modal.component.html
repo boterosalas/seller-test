@@ -7,7 +7,7 @@
     <mat-icon (click)="onNoClick()">close</mat-icon>
   </a>
 </div>
-<form #f="ngForm" [formGroup]="myform">
+<form #f="ngForm" [formGroup]="myform" *ngIf="user">
 
   <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start" fxLayout="row wrap"
     class="example-form">
