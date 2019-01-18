@@ -23,7 +23,7 @@
                 Agregar
             </button>
         </div>
-        <div class="list" *ngFor="let profile of profileList" fxLayout="row" fxLayoutAlign="space-between center"
+        <div class="list" *ngFor="let profile of profileList; let i = index" fxLayout="row" fxLayoutAlign="space-between center"
             fxLayoutAlign="space-between center">
             <div class="item-list" fxLayout="row">
                 <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" matTooltip="Tipo administrador">
@@ -34,7 +34,7 @@
                 </mat-icon>
 
                 <div fxLayout="column">
-                    <span>{{profile.Name}}</span>
+                    <span id="name-i">{{profile.Name}}</span>
                     <span class="subtitle-item">({{profile.TypeName}})</span>
                 </div>
             </div>

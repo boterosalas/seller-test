@@ -52,7 +52,8 @@ export class ProfileComponent implements OnInit {
         private profileService: ProfileService,
         private loadingService: LoadingService,
         public dialog: MatDialog
-    ) { }
+    ) {
+    }
 
     /**
      * Llama a la funcion que inicializa lo requerido para iniciar el componente.
@@ -76,12 +77,12 @@ export class ProfileComponent implements OnInit {
     /**
      * Funcion que valida los datos para enviar o recibir de lista de perfiles.
      *
-     * @private
+     * @public
      * @param {*} data
      * @returns {*}
      * @memberof ProfileComponent
      */
-    private validateData(data: any): any {
+    public validateData(data: any): any {
         let validateData = null;
         if (data) {
             validateData = new ProfileModel(
@@ -118,6 +119,11 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion que verifica si todos los rest poseen ya respuesta para cargar todo el componente.
+     *
+     * @memberof ProfileComponent
+     */
     public verifyChargue(): void {
         this.countServices ++;
         if (this.countServices >= this.numberServices) {
@@ -125,6 +131,13 @@ export class ProfileComponent implements OnInit {
         }
     }
 
+    /**
+     * Obtiene los menus del servicio.
+     *
+     * @private
+     * @returns {Promise<Boolean>}
+     * @memberof ProfileComponent
+     */
     private getMenus(): Promise<Boolean> {
         return new Promise((resolve, rej) => {
             this.profileService.getMenus().subscribe(data => {
@@ -141,6 +154,13 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    /**
+     * Obtiene la lista de perfiles por medio del servicio.
+     *
+     * @private
+     * @returns {Promise<Boolean>}
+     * @memberof ProfileComponent
+     */
     private getProfileList(): Promise<Boolean> {
         return new Promise((resolve, rej) => {
             this.profileService.getProfileList().subscribe(data => {
@@ -159,7 +179,13 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    openDialogProfile(dataToEdit: ProfileModel): void {
+    /**
+     * Abre el dialogo de perfiles.
+     *
+     * @param {ProfileModel} dataToEdit
+     * @memberof ProfileComponent
+     */
+    public openDialogProfile(dataToEdit: ProfileModel): void {
         const dialogRef = this.dialog.open(DialogProfileComponent, {
             minWidth: '360px',
             width: '80%',
