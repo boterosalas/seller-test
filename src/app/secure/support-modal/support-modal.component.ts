@@ -49,6 +49,14 @@ export class SupportModalComponent implements OnInit {
    * @memberof SupportModalComponent
    */
   ngOnInit() {
+    this.getInfoSeller();
+    /*this.userParams.getUserData().then(data => {
+      this.user = data;
+      this.createForm(data);
+    });*/
+  }
+
+  public getInfoSeller(): void {
     this.userParams.getUserData().then(data => {
       this.user = data;
       this.createForm(data);
