@@ -59,6 +59,7 @@ export class SupportModalComponent implements OnInit {
   public getInfoSeller(): void {
     this.userParams.getUserData().then(data => {
       this.user = data;
+      console.log('this.user: ', this.user);
       this.createForm(data);
     });
   }
@@ -80,7 +81,7 @@ export class SupportModalComponent implements OnInit {
       nit: new FormControl(user.sellerNit, Validators.compose([Validators.required])),
       caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])),
       account: new FormControl(user.sellerName, Validators.compose([Validators.required])),
-      emailContact: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      emailContact: new FormControl(user.sellerEmail, Validators.compose([Validators.required, Validators.email])),
       typeOfRequirement: new FormControl('', Validators.compose([Validators.required])),
       reason: new FormControl('', Validators.compose([Validators.required])),
       description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])),
@@ -101,6 +102,7 @@ export class SupportModalComponent implements OnInit {
       contact: form.value.contact,
       description: form.value.description,
       emailContact: form.value.emailContact,
+      // emailContact: this.user.sellerEmail,
       caseMarketplaceName: form.value.caseMarketplaceName,
       account: this.user.sellerName,
       nit: this.user.sellerNit,

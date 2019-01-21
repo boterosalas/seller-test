@@ -1,7 +1,8 @@
 <div class="title-page">
   <div class="title">
     <h2 class="sc-title mat-h2">Crea tu caso</h2>
-    <h4 class="description-title mat-h4">Registra aqu&iacute; la informaci&oacute;n para registrar un caso a nuestro equipo de soporte</h4>
+    <h4 class="description-title mat-h4">Registra aqu&iacute; la informaci&oacute;n para registrar un caso a nuestro
+      equipo de soporte</h4>
   </div>
   <a id="close-finish-send-order" matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
     <mat-icon (click)="onNoClick()">close</mat-icon>
@@ -9,8 +10,8 @@
 </div>
 <form #f="ngForm" [formGroup]="myform" *ngIf="user">
 
-  <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start" fxLayout="row wrap"
-    class="example-form">
+  <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start"
+    fxLayout="row wrap" class="example-form">
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
 
 
@@ -33,7 +34,9 @@
       <mat-form-field class="example-full-width">
         <input id="suport-modal-input-contact" required matInput formControlName="contact" placeholder="Contacto">
         <mat-icon matPrefix class="icon-support-modal">import_contacts</mat-icon>
-        <mat-icon color="primary" matSuffix matTooltip="Ingresa el nombre de la persona que registra el requerimiento." matTooltipPosition="below">help_outline</mat-icon>
+        <mat-icon color="primary" matSuffix matTooltip="Ingresa el nombre de la persona que registra el requerimiento."
+          matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('contact').hasError('required')">Este campo es obligatorio.</mat-error>
       </mat-form-field>
 
       <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
@@ -68,7 +71,9 @@
             <span id="option-reason-9">Logistica éxito</span>
           </mat-option>
         </mat-select>
-        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el motivo del requerimiento" matTooltipPosition="below">help_outline</mat-icon>
+        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el motivo del requerimiento"
+          matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('reason').hasError('required')">Este campo es obligatorio.</mat-error>
       </mat-form-field>
 
     </div>
@@ -76,10 +81,13 @@
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
 
       <mat-form-field class="example-full-width">
-        <input id="suport-modal-input-caseMarketplaceName" required matInput formControlName="caseMarketplaceName" placeholder="Nombre del requerimiento">
+        <input id="suport-modal-input-caseMarketplaceName" required matInput formControlName="caseMarketplaceName"
+          placeholder="Nombre del requerimiento">
         <mat-icon matPrefix class="icon-support-modal">mode_edit</mat-icon>
         <mat-icon color="primary" matSuffix matTooltip="Ingresa un título para tu requerimiento. Este campo tiene un límite de 120 caracteres"
           matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">Este campo es obligatorio.</mat-error>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">Este campo contiene máximo 120 caracteres.</mat-error>
       </mat-form-field>
 
 
@@ -102,7 +110,9 @@
             <span id="typeOfRequirement-5">Sugerencia</span>
           </mat-option>
         </mat-select>
-        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el tipo de requerimiento" matTooltipPosition="below">help_outline</mat-icon>
+        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el tipo de requerimiento"
+          matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('typeOfRequirement').hasError('required')">Este campo es obligatorio.</mat-error>
       </mat-form-field>
 
 
@@ -111,6 +121,7 @@
         <input id="suport-modal-input-emailContact" required matInput formControlName="emailContact" placeholder="Correo contacto">
         <mat-icon color="primary" matSuffix matTooltip="Ingresa un correo para contactarte. Si el correo diligenciado esta errado por favor corrígelo. IMPORTANTE: A este correo llegará la respuesta del caso"
           matTooltipPosition="below">help_outline</mat-icon>
+          <mat-error *ngIf="myform.get('emailContact').hasError('email')">El correo electrónico no es válido.</mat-error>
       </mat-form-field>
 
 
@@ -119,14 +130,16 @@
         <textarea id="suport-modal-textarea-description" formControlName="description" matInput placeholder="Descripción"></textarea>
         <mat-icon color="primary" matSuffix matTooltip="Ingresa una descripción con el mayor detalle posible de la incidencia. Este campo tiene un límite de 2.000 caracteres"
           matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('description').hasError('required')">Este campo es obligatorio.</mat-error>
+        <mat-error *ngIf="myform.get('description').hasError('maxlength')">Este campo contiene máximo 2000 caracteres.</mat-error>
       </mat-form-field>
-
     </div>
 
     <mat-dialog-actions fxFlex="100" class="footer-dialog normal-theme dialog-buttons">
       <button id="suport-modal-button-close-modal" class="sc-button" (click)="clearForm()" mat-button>
         <mat-icon>clear_all</mat-icon>
-        Limpiar</button>
+        Limpiar
+      </button>
       <button id="suport-modal-button-sendInformation" class="sc-button" [disabled]="!f.form.valid" (click)="sendSupportMessage(myform)"
         type="submit" mat-raised-button color="primary">Enviar</button>
 
