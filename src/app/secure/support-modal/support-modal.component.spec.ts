@@ -19,7 +19,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { of, Observable } from 'rxjs';
 
 
-fdescribe('SupportModalComponent', () => {
+describe('SupportModalComponent', () => {
   let component: SupportModalComponent;
   let fixture: ComponentFixture<SupportModalComponent>;
 
