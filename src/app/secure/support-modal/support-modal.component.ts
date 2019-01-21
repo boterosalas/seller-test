@@ -59,7 +59,6 @@ export class SupportModalComponent implements OnInit {
   public getInfoSeller(): void {
     this.userParams.getUserData().then(data => {
       this.user = data;
-      console.log('this.user: ', this.user);
       this.createForm(data);
     });
   }
