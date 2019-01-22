@@ -8,6 +8,7 @@ import { ComponentsService } from '@shared/services/components.service';
 
 import { SupportService } from './support.service';
 import { UserInformation } from '@app/shared';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -43,7 +44,8 @@ export class SupportModalComponent implements OnInit {
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public loadingService: LoadingService
   ) { }
 
   /**
@@ -111,10 +113,13 @@ export class SupportModalComponent implements OnInit {
       caseOrigin: 'Sitio web marketplace',
       caseMarketplaceOwner: 'Soporte MarketPlace'
     };
+    this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
+      this.loadingService.closeSpinner();
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
       this.onNoClick();
     }, err => {
+      this.loadingService.closeSpinner();
       this.COMPONENT.openSnackBar('Se ha presentado un error al enviar el mensaje de soporte', 'Aceptar', 10000);
     });
   }

@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsService, UserInformation } from '@app/shared';
 import { SupportService } from './support.service';
-import { UserParametersService, EndpointService } from '@app/core';
+import { UserParametersService, EndpointService, LoadingService } from '@app/core';
 import { ShellModule } from '@app/core/shell/shell.module';
 import { MaterialModule } from '@app/material.module';
 import { CommonModule } from '@angular/common';
@@ -46,6 +46,9 @@ describe('SupportModalComponent', () => {
   const endpointService = <EndpointService>{
   };
 
+  const loadingService = <LoadingService>{
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -57,6 +60,7 @@ describe('SupportModalComponent', () => {
         { provide: ComponentsService, useValue: COMPONENT },
         { provide: SupportService, useValue: SUPPORT },
         { provide: UserParametersService, useValue: userParams },
+        { provide: LoadingService, useValue: loadingService },
         { provide: EndpointService, useValue: endpointService },
         { provide: MatDialogRef, useValue: {} },
       ],
