@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
 import { UserParametersService } from '@app/core/aws-cognito';
@@ -49,12 +49,20 @@ export class SupportModalComponent implements OnInit {
    * @memberof SupportModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
+    this.getInfoSeller();
+    /*this.userParams.getUserData().then(data => {
+      this.user = data;
+      this.createForm(data);
+    });*/
   }
 
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
+  public getInfoSeller(): void {
+    this.userParams.getUserData().then(data => {
+      this.user = data;
+      this.createForm(data);
+    });
   }
+
   /**
    * Funcionalidad para cerrar el modal actual de envio
    * @memberof SupportModalComponent
@@ -67,16 +75,16 @@ export class SupportModalComponent implements OnInit {
    * Método para crear el formulario
    * @memberof SupportModalComponent
    */
-  createForm() {
+  createForm(user: any) {
     this.myform = this.fb.group({
-      'nit': [this.user.sellerNit, Validators.compose([Validators.required])],
-      'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
-      'account': [this.user.sellerName, Validators.compose([Validators.required])],
-      'emailContact': [this.user.sellerEmail, Validators.compose([Validators.required, Validators.email])],
-      'typeOfRequirement': [null, Validators.compose([Validators.required])],
-      'reason': [null, Validators.compose([Validators.required])],
-      'description': [null, Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])],
-      'contact': [null, Validators.compose([Validators.required])],
+      nit: new FormControl(user.sellerNit, Validators.compose([Validators.required])),
+      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])),
+      account: new FormControl(user.sellerName, Validators.compose([Validators.required])),
+      emailContact: new FormControl(user.sellerEmail, Validators.compose([Validators.required, Validators.email])),
+      typeOfRequirement: new FormControl('', Validators.compose([Validators.required])),
+      reason: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])),
+      contact: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
@@ -93,12 +101,14 @@ export class SupportModalComponent implements OnInit {
       contact: form.value.contact,
       description: form.value.description,
       emailContact: form.value.emailContact,
+      // emailContact: this.user.sellerEmail,
       caseMarketplaceName: form.value.caseMarketplaceName,
-      account: form.value.account,
-      nit: form.value.nit,
+      account: this.user.sellerName,
+      nit: this.user.sellerNit,
       reason: form.value.reason,
       typeOfRequirement: form.value.typeOfRequirement,
-      caseOrigin: 'Sitio web marketplace'
+      caseOrigin: 'Sitio web marketplace',
+      caseMarketplaceOwner: 'Soporte MarketPlace'
     };
     this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
@@ -114,6 +124,6 @@ export class SupportModalComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
-    this.createForm();
+    this.createForm(this.user);
   }
 }
