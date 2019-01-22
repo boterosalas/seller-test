@@ -418,7 +418,7 @@ export class BulkLoadComponent implements OnInit {
 
                 const isBoolean = this.validFormat(res[i][j], 'boolean');
 
-                if (!isBoolean && isBoolean === false) { 
+                if (!isBoolean && isBoolean === false) {
                   this.countErrors += 1;
 
                   const row = i + 1, column = j + 1;
@@ -509,7 +509,7 @@ export class BulkLoadComponent implements OnInit {
 
               }
             }
-          } else if (j === iVal.iEAN || (j === iVal.iInv && !res[i][iVal.iEanCombo] ) || j === iVal.iPrecio) {
+          } else if (j === iVal.iEAN || (j === iVal.iInv && !res[i][iVal.iEanCombo]) || j === iVal.iPrecio) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
               this.countErrors += 1;
               const row = i + 1, column = j + 1;
