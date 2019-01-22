@@ -476,7 +476,7 @@ export class BulkLoadComponent implements OnInit {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : null
+                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
                   };
 
                   this.listLog.push(itemLog);
