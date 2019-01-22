@@ -86,6 +86,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     }
 
+
     public toggleEdit(param: any, param2: any): void {
     }
 
