@@ -64,6 +64,11 @@
             <span class="error-string">fila #{{item.fila}}</span> El precio de este producto combo debe ser la sumatoria de sus componentes
           </p>
 
+          <p matLine *ngIf="item.type == 'InvalidPriceOfferCombo'" style="white-space: normal;overflow: visible;">El dato en la
+              <span class="error-string">columna #{{ item.columna }}</span> de la
+              <span class="error-string">fila #{{item.fila}}</span> El precio con descuento de este producto combo debe ser la sumatoria de sus componentes
+            </p>
+
 
         </mat-list-item>
       </mat-nav-list>

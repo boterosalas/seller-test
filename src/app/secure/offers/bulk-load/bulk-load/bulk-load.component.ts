@@ -244,12 +244,17 @@ export class BulkLoadComponent implements OnInit {
 
         if (i) {
           let price = res[i][this.arrayNecessaryData[0].indexOf('Precio con Descuento')];
-          if (!price) { price = res[i][this.arrayNecessaryData[0].indexOf('Precio')]}
+          let priceError = 'DiscountPrice';
+          if (!price) {
+            price = res[i][this.arrayNecessaryData[0].indexOf('Precio')];
+            priceError = 'Price';
+          }
           this.EanArray.push({
-              ean : res[i][this.arrayNecessaryData[0].indexOf('EAN')],
-              price:  price,
-              index: i
-            });
+            ean: res[i][this.arrayNecessaryData[0].indexOf('EAN')],
+            price: price,
+            index: i,
+            error: priceError
+          });
         }
       }
 
@@ -318,15 +323,24 @@ export class BulkLoadComponent implements OnInit {
     }
   }
 
-
-  validExistEan(ean: string, price: any, iVal: any): boolean {
+  /**
+   * funcion para validar precios del combo
+   *
+   * @param {string} ean
+   * @param {*} price
+   * @param {*} iVal
+   * @param {*} cantidadCombo
+   * @returns {boolean}
+   * @memberof BulkLoadComponent
+   */
+  validExistEan(ean: string, price: any, iVal: any, cantidadCombo: any): boolean {
     let exist = false;
     this.EanArray.forEach(element => {
       element.iVal = iVal;
       if (ean === element.ean) {
         exist = true;
         try {
-          element.totalPrice += parseFloat(price);
+          element.totalPrice += (parseFloat(price) * parseFloat(cantidadCombo));
         } catch (e) {
           console.error('El precio del producto no es un numero', e);
         }
@@ -337,6 +351,7 @@ export class BulkLoadComponent implements OnInit {
     });
     return exist;
   }
+
   /**
    * Método que se encarga de crear la tabla.
    *
@@ -353,8 +368,12 @@ export class BulkLoadComponent implements OnInit {
         for (let j = 0; j < numCol; j++) {
 
           // Validación de nuevos campos COMBO
-          if (j === iVal.iEanCombo ) {
-            const fast = this.validExistEan(res[i][iVal.iEanCombo], res[i][iVal.iPrecio], iVal);
+          if (j === iVal.iEanCombo) {
+            let priceCombo = res[i][iVal.iPrecDesc];
+            if (!priceCombo) {
+              priceCombo = res[i][iVal.iPrecio];
+            }
+            const fast = this.validExistEan(res[i][iVal.iEanCombo], priceCombo, iVal, res[i][iVal.iCantidadCombo]);
             // ERROR: ya que contiene ean combo pero no cantidad en combo.
             if (res[i][iVal.iEanCombo] && !res[i][iVal.iCantidadCombo]) {
               this.countErrors += 1;
@@ -378,7 +397,7 @@ export class BulkLoadComponent implements OnInit {
               const itemLog = {
                 row: this.arrayInformation.length,
                 column: j,
-                type: fast ?  'InvalidEanCombo' : 'InvalidExistEan',
+                type: fast ? 'InvalidEanCombo' : 'InvalidExistEan',
                 columna: column,
                 msg: res[i][iVal.iEanCombo],
                 fila: row,
@@ -399,8 +418,7 @@ export class BulkLoadComponent implements OnInit {
 
                 const isBoolean = this.validFormat(res[i][j], 'boolean');
 
-                if (!isBoolean && isBoolean === false) {
-
+                if (!isBoolean && isBoolean === false) { 
                   this.countErrors += 1;
 
                   const row = i + 1, column = j + 1;
@@ -491,10 +509,9 @@ export class BulkLoadComponent implements OnInit {
 
               }
             }
-          } else if (j === iVal.iEAN || j === iVal.iInv || j === iVal.iPrecio) {
+          } else if (j === iVal.iEAN || (j === iVal.iInv && !res[i][iVal.iEanCombo] ) || j === iVal.iPrecio) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
               this.countErrors += 1;
-
               const row = i + 1, column = j + 1;
 
               const itemLog = {
@@ -535,11 +552,21 @@ export class BulkLoadComponent implements OnInit {
 
   }
 
+  /**
+   * Valida el precio del producto combo con sus componentes.
+   *
+   * @memberof BulkLoadComponent
+   */
   validatePrices(): void {
     this.EanArray.forEach(element => {
       let exist = false;
-      if (element.price !== element.totalPrice && element.price && element.totalPrice) {
-
+      let priceMF = element.price;
+      try {
+        priceMF = parseFloat(element.price);
+      } catch (e) {
+        console.error(e);
+      }
+      if (priceMF !== element.totalPrice && element.price && element.totalPrice) {
         this.arrayInformation.forEach(error => {
           if (error.EAN === element.ean) {
             exist = true;
@@ -551,15 +578,16 @@ export class BulkLoadComponent implements OnInit {
           column: element.index + 1,
           columna: element.index + 1,
           type: 'InvalidPriceCombo',
-          fila:  element.iVal.iPrecio,
+          fila: element.iVal.iPrecio,
           positionRowPrincipal: element.index,
-          dato: 'Price'
+          dato: element.error
         };
-
+        // InvalidPriceOfferCombo DiscountPrice
         this.listLog.push(itemLog);
 
 
         if (!exist) {
+          this.countErrors++;
           this.addRowToTable(this.arrayNecessaryData, element.index, element.iVal);
         }
       }
@@ -587,8 +615,8 @@ export class BulkLoadComponent implements OnInit {
       Warranty: res[index][iVal.iGarantia],
       IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
-      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '0',
-      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '0',
+      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
+      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -614,8 +642,8 @@ export class BulkLoadComponent implements OnInit {
       Warranty: res[index][iVal.iGarantia],
       IsLogisticsExito: res[index][iVal.iLogisticaExito] ? res[index][iVal.iLogisticaExito] : '0',
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
-      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '0',
-      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '0',
+      ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
+      EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
       errorRow: false
     };
 
