@@ -1,19 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ListProductsComponent } from './list-products.component';
 import { ListProductRoutingModule } from './list-products.routing';
+import { MaterialModule } from '@app/material.module';
+import { ToolbarComponent } from '@app/secure/offers/historical/components/toolbar/toolbar.component';
+import { ComboProductComponent } from './comboProduct/comboProduct.component';
 
 @NgModule({
     imports: [
       CommonModule,
       ReactiveFormsModule,
-      ListProductRoutingModule
+      ListProductRoutingModule,
+      MaterialModule,
+      FormsModule
     ],
     declarations: [
-      ListProductsComponent
+      ListProductsComponent,
+      ComboProductComponent
     ],
     exports: [
+      ComboProductComponent
     ],
     entryComponents: [
 

@@ -1,1 +1,37 @@
-HOLAAAAAAAAAAAAAA
+<div class="height-full" fxLayout="column">
+  <mat-toolbar class="seller-list-toolbar">
+    <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+      <!--  Titulo del toolbar -->
+      <p class="seller-list-title" fxShow [fxShow.xs]="false">
+        Productos
+        <small class="sub-title">| Listado de productos</small>
+      </p>
+      <!--  Titulo del toolbar -->
+      <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+        Listado de productos
+      </p>
+      <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+      </mat-paginator>
+    </div>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      <mat-icon>filter_list</mat-icon>
+      <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+    </button>
+  </mat-toolbar>
+</div>
+
+-----------------------------------------------------------------------------------------------------------------------------
+<div>
+  <div class="card-offer">
+    <app-combo-product></app-combo-product>
+  </div>
+  <div class="card-offer">
+    <app-combo-product></app-combo-product>
+  </div>
+  <div class="card-offer">
+    <app-combo-product></app-combo-product>
+  </div>
+  <div class="card-offer">
+    <app-combo-product></app-combo-product>
+  </div>
+</div>

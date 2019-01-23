@@ -1,0 +1,14 @@
+$color-gray3: #D3D3D3;
+
+.card-offer {
+  border: 1px solid $color-gray3;
+  width: 240px;
+  height: 350px;
+  margin: 3% 3%;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 6px 18px $color-gray3;
+  }
+}
