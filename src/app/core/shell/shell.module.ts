@@ -10,7 +10,7 @@ import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.mod
 import { ShellComponent } from './shell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarLinkComponent } from './toolbar-link';
-import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
+import { SupportModule } from '@app/secure/support-modal/support-modal.module';
 
 
 @NgModule({
@@ -19,14 +19,14 @@ import { SupportModalComponent } from '@app/secure/support-modal/support-modal.c
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
-    SearchOrderMenuModule
+    SearchOrderMenuModule,
+    SupportModule
   ],
   declarations: [
     HeaderComponent,
     ShellComponent,
     SidebarComponent,
-    ToolbarLinkComponent,
-    SupportModalComponent
+    ToolbarLinkComponent
   ],
   exports: [
     HeaderComponent,
@@ -34,7 +34,6 @@ import { SupportModalComponent } from '@app/secure/support-modal/support-modal.c
     SidebarComponent
   ],
   entryComponents: [
-    SupportModalComponent
 ],
   providers: []
 })
