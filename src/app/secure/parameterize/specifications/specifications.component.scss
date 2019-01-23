@@ -3,6 +3,7 @@ $gray: #5D5D5D;
 $black: black;
 $color-white: #FFFFFF;
 $color-gray: #BCBCBC;
+$color-maroon: maroon;
 $modal: 72px;
 @mixin icon-border-gray {
     border-radius: 40px;
@@ -12,6 +13,12 @@ $modal: 72px;
     mat-icon {
         color: $color-white;
     }
+}
+
+@mixin border_round_gray {
+    padding: 1%;
+    border: 1px solid $color-gray;
+    border-radius: 5px;
 }
 
 :host {
@@ -75,10 +82,57 @@ $modal: 72px;
         color: #909090;
         font-size: 14px;
     }
+    .form-container {
+        width: 100%;
+        .add-category {
+            cursor: pointer;
+            color: $gray;
+        }
+    }
+    .container-categories {
+        background: #f9f9f9;
+        display: flex;
+        flex-wrap: wrap;
+        @include border_round_gray();
+        margin: 1%;
+        opacity: 1;
+        -webkit-transition: all 1s ease;
+        -moz-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        transition: all 2s linear;
+        &_items {
+            background: white;
+            @include border_round_gray();
+            border: none;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            width: 10%;
+            padding: 5px;
+            width: 100px;
+            margin: 1%;
+            &_text {
+                font-size: 14px;
+                margin: 0;
+            }
+            &_delete {
+                color: maroon;
+            }
+        }
+        &_items:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+        }
+    }
+    .progress-category {
+        margin-top: 7px;
+        position: absolute;
+        width: 106%;
+    }
 }
 
 @media (max-width: 600px) {
     .form-add {
+        width: 100%;
         .input-add {
             width: 100%;
         }
@@ -87,23 +141,29 @@ $modal: 72px;
 
 @media (min-width: 600px) {
     .dialog-add-container {
-        padding: 2em;
+        padding: 1em;
         .form-add {
+            width: 100%;
             .input-add {
-                width: 80%;
+                width: 48%;
             }
         }
     }
 }
 
-.hide{
+.hide {
     display: none !important;
+    opacity: 0;
 }
 
-.full-width{
+.transition-category{
+    height: 1px;
+}
+
+.full-width {
     width: 100%;
 }
 
-.color-gray{
+.color-gray {
     color: $color-gray;
 }

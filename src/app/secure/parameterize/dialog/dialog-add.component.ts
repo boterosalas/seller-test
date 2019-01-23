@@ -34,6 +34,8 @@ export class AddDialogComponent implements OnInit {
     formSpecs: FormGroup;
     formBrands: FormGroup;
     listCategories: any[] = [];
+    categoriesAdded = [];
+    showCategoriesAdded = true;
 
     /**
      * Creates an instance of AddDialogComponent.
@@ -73,12 +75,41 @@ export class AddDialogComponent implements OnInit {
         this.dialogRef.close();
     }
 
+    public toogleCategories(change: boolean): void {
+        console.log('here', change);
+        this.showCategoriesAdded = !this.showCategoriesAdded;
+    }
+
 
     public createAddBrandFrom(): void {
         this.formBrands = new FormGroup({
-            NameBrand: new FormControl('', Validators.required),
-            Categories: new FormControl('')
+            NameBrand: new FormControl('', Validators.required)
         });
+    }
+
+    public addCategory(): void {
+        console.log('oe oe oe oe ', this.formSpecs.controls.Categories.value);
+        const value = this.formSpecs.controls.Categories.value;
+        if (value) {
+            const resultado = this.listCategories.find(element => element.Id === this.formSpecs.controls.Categories.value);
+            if (resultado) {
+                this.setCategoryError(false);
+                this.formSpecs.controls.Categories.setValue('');
+                this.categoriesAdded.push(resultado);
+            } else {
+                this.setCategoryError(true);
+            }
+        }
+    }
+
+    public setCategoryError(show: boolean): void {
+        if (show) {
+            this.formSpecs.controls.Categories.setErrors({
+                noExist: show
+            });
+        } else {
+            this.formSpecs.controls.Categories.setErrors(null);
+        }
     }
 
 
@@ -101,7 +132,7 @@ export class AddDialogComponent implements OnInit {
                     this.listCategories.push(element);
                 }
             });
-            console.log(this.listCategories);
+            this.formSpecs.controls.Categories.enable();
             // this.loadingService.closeSpinner();
         }
     }
@@ -138,7 +169,8 @@ export class AddDialogComponent implements OnInit {
         this.formSpecs = new FormGroup({
             NameSpec: new FormControl(name, [
                 Validators.required
-            ])
+            ]),
+            Categories: new FormControl({ value: '', disabled: true })
         });
     }
 
@@ -151,5 +183,10 @@ export class AddDialogComponent implements OnInit {
         if (this.formSpecs.valid) {
             this.dialogRef.close(this.formSpecs.value);
         }
+    }
+
+    public deleteCategory(i: number): void {
+        console.log(i);
+        this.categoriesAdded.splice(i, 1);
     }
 }

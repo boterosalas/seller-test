@@ -15,22 +15,55 @@
   </h1>
 
   <!-- CONTAINER FORM SPECS -->
-  <div mat-dialog-content *ngIf="formSpecs">
+  <div mat-dialog-content *ngIf="formSpecs" class="form-container" fxLayout="column" fxLayoutAlign="center center">
     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-    <form fxLayout.xs="column" fxLayout="row" fxLayoutAlign="center center" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
-      <mat-form-field class="input-add">
-        <input formControlName="NameSpec" matInput placeholder="Nombre de especificación">
-        <mat-error>Este campo es obligatorio</mat-error>
-      </mat-form-field>
+    <form fxLayout="column" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
 
-      <mat-form-field class="input-categories">
-        <input matInput placeholder="Categoria"  formControlName="Categories">
-        <mat-icon matSuffix>
-          
-        </mat-icon>
-      </mat-form-field>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <mat-form-field class="input-add">
+          <input formControlName="NameSpec" matInput placeholder="Nombre de especificación">
+          <mat-error>Este campo es obligatorio</mat-error>
+        </mat-form-field>
 
-      <div fxLayout="row">
+        <mat-form-field class="input-add">
+          <input matInput placeholder="Categoria" type="number" formControlName="Categories" (keyup.enter)="addCategory()">
+          <mat-icon matSuffix class="add-category" (click)="addCategory()">
+            add_circle_outline
+          </mat-icon>
+
+          <mat-error *ngIf="formSpecs.controls.Categories.hasError('noExist')">
+            Esta categoría ({{formSpecs.controls.Categories.value}}) no existe.
+          </mat-error>
+          <mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <label *ngIf="categoriesAdded.length">
+          Categorías asociadas
+        </label>
+        <button mat-icon-button color="primary" type="button" (click)="toogleCategories(true)">
+          <mat-icon class="material-icons" *ngIf="!showCategoriesAdded && categoriesAdded.length">
+            expand_less
+          </mat-icon>
+          <mat-icon class="material-icons" *ngIf="showCategoriesAdded && categoriesAdded.length">
+            expand_more
+          </mat-icon>
+        </button>
+      </div>
+      <div class="container-categories" [ngClass]="{'transition-category': showCategoriesAdded}">
+        <div class="container-categories_items" *ngFor="let category of categoriesAdded; let i = index" matTooltip="{{category.Name}}"
+          fxLayout="row" fxLayoutAlign="space-between center">
+          <p class="container-categories_items_text">
+            {{category.Id}}
+          </p>
+          <mat-icon class="material-icons container-categories_items_delete" (click)="deleteCategory(i)">
+            cancel
+          </mat-icon>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
         <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
         <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
           [disabled]="!formSpecs.valid">

@@ -6,6 +6,7 @@ import { Logger } from '@app/core';
 import { AddDialogComponent } from '../dialog/dialog-add.component';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
+import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -23,10 +24,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     specificationsGroups: SpecificationModel[] = [];
     modeSave = false;
     copyGroup: any;
+    listCategories: any[] = [];
     constructor(
         private specificationService: ParamSpecsService,
         private loadingService: LoadingService,
         public dialog: MatDialog,
+        private searchService: SearchService,
         public snackBar: MatSnackBar,
         public el: ElementRef,
         private render: Renderer
@@ -47,6 +50,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         this.specificationService.getSpecifications().subscribe(data => {
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
+                this.getCategoriesList();
             }
             this.loadingService.closeSpinner();
         }, error => {
@@ -75,8 +79,10 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public openDialog(data: any): void {
+        // data.categories = this.listCategories;
         const dialogRef = this.dialog.open(AddDialogComponent, {
-            width: '600px',
+            width: '90%',
+            maxWidth: '1000px',
             data: data
         });
 
@@ -84,6 +90,41 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             this.saveGroupSpec(result);
         });
 
+    }
+
+
+
+    public organizeCategoiesList(data: any): void {
+        if (data && data.length) {
+            data.forEach(element => {
+                let exist = false;
+                data.forEach(sons => {
+                    if (element.Id === sons.IdParent) {
+                        exist = true;
+                    }
+                });
+                if (!exist) {
+                    this.listCategories.push(element);
+                }
+            });
+        }
+    }
+
+    /**
+     * Get categories from service, and storage in list categories.
+     *
+     * @memberof SearchCategorizationComponent
+     */
+    public getCategoriesList(): void {
+        this.searchService.getCategories().subscribe((result: any) => {
+            // guardo el response
+            if (result.status === 200) {
+                const body = JSON.parse(result.body.body);
+                this.organizeCategoiesList(body.Data);
+            } else {
+                log.debug('SearchCategorizationComponent:' + result.message);
+            }
+        });
     }
 
 
@@ -156,9 +197,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public deleteSpec(group: any, index: number): void {
-        console.log(group.Sons);
         group.Sons.splice(index, 1);
-        console.log(group.Sons);
     }
 
 }
@@ -170,7 +209,6 @@ export class FocusDirective implements OnInit {
     @Input('focus') focus: boolean;
     constructor(private elementRef: ElementRef,
         private renderer: Renderer) {
-            console.log('aqui');
         setTimeout(function () {
             elementRef.nativeElement.focus();
         }, 300);
