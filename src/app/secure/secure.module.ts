@@ -12,6 +12,7 @@ import { BulkLoadProductModerationModule, BulkLoadProductModule, UnitProductModu
 import { ManageModule, RegisterModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
+import { ListProductModule } from './products/list-products/list-products.module';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { BillingOrdersModule } from './orders/billing-orders/billing-orders.modu
     HistoricalModuleAdmin,
     UnitProductModule,
     BulkLoadProductModerationModule,
-    BillingOrdersModule
+    BillingOrdersModule,
+    ListProductModule
   ],
   providers: [],
 })
