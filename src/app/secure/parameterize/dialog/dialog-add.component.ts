@@ -36,7 +36,8 @@ export class AddDialogComponent implements OnInit {
     listCategories: any[] = [];
     categoriesAdded = [];
     showCategoriesAdded = false;
-
+    categoriesError = [];
+    categoriesAddedError = [];
     /**
      * Creates an instance of AddDialogComponent.
      * @param {MatDialogRef<AddDialogComponent>} dialogRef
@@ -76,7 +77,6 @@ export class AddDialogComponent implements OnInit {
     }
 
     public toogleCategories(change: boolean): void {
-        console.log('here', change);
         this.showCategoriesAdded = !this.showCategoriesAdded;
     }
 
@@ -87,26 +87,57 @@ export class AddDialogComponent implements OnInit {
         });
     }
 
-    public addCategory(): void {
-        console.log('oe oe oe oe ', this.formSpecs.controls.Categories.value);
-        const value = this.formSpecs.controls.Categories.value;
+    public addCategory(word: string): boolean {
+        const value = word;
         if (value) {
-            const resultado = this.listCategories.find(element => element.Id === this.formSpecs.controls.Categories.value);
+            console.log(value);
+            const resultado = this.listCategories.find(element => element.Id === value);
+            const resultadoAdd = this.categoriesAdded.find(element => element.Id === value);
+            console.log(resultado, this.listCategories);
+            console.log(resultadoAdd, this.categoriesAdded);
             if (resultado) {
                 this.setCategoryError(false);
-                this.formSpecs.controls.Categories.setValue('');
-                this.categoriesAdded.push(resultado);
+                if (!resultadoAdd) {
+                    this.categoriesAdded.push(resultado);
+                    this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(value, ''));
+                } else {
+                    // this.setCategoryError(true, true); repetidos
+                    this.categoriesAddedError.push(value);
+                    return true;
+                }
             } else {
-                this.setCategoryError(true);
+                // this.setCategoryError(true); no existe la categoria
+                this.categoriesError.push(value);
+                return false;
             }
         }
     }
 
-    public setCategoryError(show: boolean): void {
+    public getCategories(): any {
+        const word = this.formSpecs.controls.Categories.value;
+        console.log(word);
+        if (word) {
+            this.categoriesAddedError = [];
+            this.categoriesError = [];
+            let errors = false;
+            if (word.search(',') === -1) {
+                errors = this.addCategory(word);
+            } else {
+                const counter = word.split(',');
+                counter.forEach(element => {
+                    if (element) {
+                        errors = errors === false ? this.addCategory(element) : true;
+                    }
+                });
+            }
+            this.setCategoryError(errors);
+        }
+    }
+
+    public setCategoryError(show: boolean, secondError: boolean = false): void {
+        const error = secondError === false ? { noExist: show } : { existAdded: show };
         if (show) {
-            this.formSpecs.controls.Categories.setErrors({
-                noExist: show
-            });
+            this.formSpecs.controls.Categories.setErrors(error);
         } else {
             this.formSpecs.controls.Categories.setErrors(null);
         }

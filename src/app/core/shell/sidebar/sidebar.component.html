@@ -150,7 +150,6 @@
       </mat-expansion-panel>
     </div>
 
-<<<<<<< HEAD
     <div class="content-menu-list">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-products">
@@ -167,15 +166,12 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamBrand]">
           <h6 matLine>Marcas</h6>
         </mat-list-item>
-                           
-                                                                 
+
+
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator' && isProductionEnv || !isProductionEnv">
-=======
     <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator'">
->>>>>>> develop
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-docs">
           <mat-panel-title>

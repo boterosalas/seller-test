@@ -26,13 +26,16 @@
         </mat-form-field>
 
         <mat-form-field class="input-add">
-          <input matInput placeholder="Categoria" type="number" formControlName="Categories" (keyup.enter)="addCategory()">
-          <mat-icon matSuffix class="add-category" (click)="addCategory()">
+          <input matInput placeholder="Categoria" formControlName="Categories" (keyup.enter)="getCategories()">
+          <mat-icon matSuffix class="add-category" (click)="getCategories()">
             add_circle_outline
           </mat-icon>
 
           <mat-error *ngIf="formSpecs.controls.Categories.hasError('noExist')">
-            Esta categoría ({{formSpecs.controls.Categories.value}}) no existe.
+            Esta categoría ({{categoriesAddedError}}) no existe.
+          </mat-error>
+          <mat-error *ngIf="formSpecs.controls.Categories.hasError('existAdded')">
+            Esta categoría ({{categoriesError}}) ya esta agregada.
           </mat-error>
           <mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>
         </mat-form-field>
