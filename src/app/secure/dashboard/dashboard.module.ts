@@ -11,6 +11,7 @@ import { DashboardService } from './services/dashboard.service';
 import { SharedModule } from '@shared/shared.module';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
 import { DashboardRoutingModule } from '@app/secure/dashboard/dashboard.routing';
+import { TermsService } from '../seller/agreement/terms/terms.component.service';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { DashboardRoutingModule } from '@app/secure/dashboard/dashboard.routing'
         {
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher
-        }
+        },
+        TermsService
     ],
 })
 export class DashboardModule { }

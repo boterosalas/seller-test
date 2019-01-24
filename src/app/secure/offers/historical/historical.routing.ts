@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { HistoricalComponent } from './historical/historical.component';
+import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
 const routes: Routes = [
   Route.withShell([
@@ -13,6 +14,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntOferHistoricalBulkLoad}`,
         component: HistoricalComponent,
         data: {title: 'Histórico de Carga de Ofertas'},
+        canActivate: [TermsService]
     }
   ])
 ];

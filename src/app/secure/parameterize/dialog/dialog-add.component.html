@@ -38,8 +38,8 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <label *ngIf="categoriesAdded.length">
+      <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="categoriesAdded.length">
+        <label>
           Categorías asociadas
         </label>
         <button mat-icon-button color="primary" type="button" (click)="toogleCategories(true)">
@@ -51,7 +51,7 @@
           </mat-icon>
         </button>
       </div>
-      <div class="container-categories" [ngClass]="{'transition-category': showCategoriesAdded}">
+      <div class="container-categories" [ngClass]="{'transition-category': showCategoriesAdded}" *ngIf="categoriesAdded.length">
         <div class="container-categories_items" *ngFor="let category of categoriesAdded; let i = index" matTooltip="{{category.Name}}"
           fxLayout="row" fxLayoutAlign="space-between center">
           <p class="container-categories_items_text">

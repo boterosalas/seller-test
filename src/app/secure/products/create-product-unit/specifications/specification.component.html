@@ -1,6 +1,6 @@
 <p class="specification-text">
     En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás
-    las especificaciones que consideramos importantes para el tipo especifico de producto, si tu tipo de producto no
+    las especificaciones que consideramos importantes para el tipo específico de producto, si tu tipo de producto no
     está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de
     "Todas las especificaciones"
 </p>
@@ -22,8 +22,10 @@
         <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
             <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
                 <mat-form-field class="specification-input">
-                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
-                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" maxlength="200">
+                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)" name="specs" id="specs"
+                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
+                        <mat-error *ngIf="showError(e, spec.Value)">Maximo 200 caracteres, si continua esta especificación no se guardara</mat-error>
+                    
                 </mat-form-field>
             </div>
         </div>
@@ -51,7 +53,7 @@
 
 <div *ngFor="let spec of specificationListToAdd; let i = index">
     <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
-        <p fxShow.xs>
+        <p fxShow.xs fxShow="false">
             Especificaciones
         </p>
         <span>
@@ -65,7 +67,7 @@
                 delete
             </mat-icon>
         </button>
-        <div fxShow.xs fxLayout="column">
+        <div fxShow.xs fxShow="false" fxLayout="column">
             <p>
                 Nombre
             </p>

@@ -26,6 +26,7 @@ export class ToolbarOptionsComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;
+  @Input() billingType: boolean;
 
 
   // Boolean que indica si hay órdenes o no
@@ -67,6 +68,7 @@ export class ToolbarOptionsComponent {
     const dialogRef = this.dialog.open(DownloadOrderModalComponent, {
       data: {
         limit: this.lengthOrder,
+        billingType: this.billingType
       },
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { CreateUnutaryProductComponent } from './create-unutary-product/create-unutary-product.component';
@@ -14,9 +13,19 @@ import { FormsModule } from '@angular/forms';
 import { SearchService } from './categorization/search.component.service';
 import { ListCategorizationComponent  } from './categorization/list/list.component';
 import { TreeComponent  } from './categorization/list/tree.component';
-import { SpecificationProductComponent } from './specifications/specification.component';
+import { ProductBasicInfoComponent  } from './basic-information/basic-information.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { SpecificationService } from './specifications/specification.component.service';
+import { ProcessService } from './component-process/component-process.service';
+import { AssignImagesComponent } from './assign-images/assign-images.component';
+import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
+import { ImageUrlComponent } from '@app/secure/products/create-product-unit/assign-images/image-url/image-url.component';
+import { CompoImagesComponent } from '@app/secure/products/create-product-unit/assign-images/compo-images/compo-images.component';
+import { SpecificationProductComponent } from './specifications/specification.component';
 import { SpecificationDialogComponent } from './specifications/dialog/dialog.component';
+import { BasicInformationService } from './basic-information/basic-information.component.service';
+import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   imports: [
@@ -26,7 +35,9 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     BrowserAnimationsModule,
     UnitProductRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ColorPickerModule,
+    AngularEditorModule
   ],
   declarations: [
     CreateUnutaryProductComponent,
@@ -35,8 +46,13 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
+    ProductBasicInfoComponent,
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   exports: [
     CreateUnutaryProductComponent,
@@ -45,15 +61,24 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
     SearchCategorizationComponent,
     ListCategorizationComponent,
     TreeComponent,
+    ProductBasicInfoComponent,
+    AssignImagesComponent,
+    ImageUrlComponent,
+    CompoImagesComponent,
     SpecificationProductComponent,
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   entryComponents: [
-    SpecificationDialogComponent
+    SpecificationDialogComponent,
+    SaveProcessDialogComponent
   ],
   providers: [
     SearchService,
-    SpecificationService
+    SpecificationService,
+    ProcessService,
+    AsignateimageService,
+    BasicInformationService,
   ]
 })
 export class UnitProductModule {

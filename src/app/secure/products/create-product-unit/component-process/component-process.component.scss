@@ -3,7 +3,6 @@
   &__container {
     // display: flex;
     justify-content: space-around;
-    margin: 3em 5%;
   }
 /*
   &__circle {
@@ -135,4 +134,13 @@
   font-size: 12px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.height-full{
+  height: 100%;
+}
+
+/deep/ mat-horizontal-stepper .mat-horizontal-content-container {
+    height: 80%;
+    overflow: auto;
 }

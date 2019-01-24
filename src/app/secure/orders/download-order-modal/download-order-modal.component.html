@@ -1,5 +1,8 @@
 <div *ngIf="myform">
-  <h2 mat-dialog-title>Te enviaremos las &oacute;rdenes al siguiente correo electrónico.</h2>
+  <h2 mat-dialog-title>Te enviaremos las
+    <span *ngIf="!billingType"> &oacute;rdenes </span>
+    <span *ngIf="billingType"> facturas </span>
+    al siguiente correo electrónico.</h2>
   <mat-dialog-content>
     <form #f="ngForm" [formGroup]="myform" class="form-login">
       <div fxLayout="column" fxLayoutGap="20px">
@@ -23,8 +26,9 @@
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
     <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
 
-    <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">Enviar
-      &oacute;rdenes
+    <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">
+      <span *ngIf="!billingType">Enviar &oacute;rdenes </span>
+      <span *ngIf="billingType">Enviar facturas </span>
     </button>
   </mat-dialog-actions>
 </div>

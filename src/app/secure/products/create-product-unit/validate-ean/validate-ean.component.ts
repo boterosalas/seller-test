@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ErrorStateMatcher } from '@angular/material';
+import { ProcessService } from '../component-process/component-process.service';
 
 // Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,60 +21,89 @@ export class ValidateEanComponent implements OnInit {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  // public formatEan = /'(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)'/;
+  public formatEan = /^((IZ)[0-9]{5,14})$|^([0-9]{7,16})$/;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
+  public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
+  public copy = null;
 
-  constructor(private fb: FormBuilder, private service: EanServicesService) {
+  constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService) {
   }
   ngOnInit() {
     // metodo para validar el input del form
     this.eanGroup = this.fb.group({
-      eanCtrl: ['', Validators.pattern('(^((IZ)[0-9]{5,11})$|^([0-9]{7,13})$)')],
-      asignatedEan: false,
+      eanCtrl: ['', Validators.pattern(this.formatEan)],
+      associateEan: false,
       floatLabel: 'auto'
     });
     this.validateEanExist = true;
+    this.process.change.subscribe(data => {
+      this.showButton = data.showEan;
+    });
   }
 
   // validar estado de checkbox
   onAsignatedEanChanged(value: boolean) {
     this.asignatedEan = value;
-     if (this.asignatedEan === true) {
-          this.eanGroup.controls['eanCtrl'].disable();
+    if (this.asignatedEan === true) {
+      this.sendEan();
+      this.eanGroup.controls['eanCtrl'].setValue('');
+      this.eanGroup.controls['eanCtrl'].disable();
+      if (!this.eanGroup.controls.eanCtrl.value) {
+        const data = {
+          AssignEan: this.asignatedEan
+        };
+        this.process.validaData(data);
+      } else {
+        this.process.unavailableEanView();
+      }
     } else {
+      if (!this.eanGroup.controls.eanCtrl.value && !value) {
+        this.process.unavailableEanView();
+      } else {
+        this.sendEan();
+      }
       this.eanGroup.controls['eanCtrl'].enable();
+
     }
+  }
+
+  public sendEan(): void {
+    const data = {
+      Ean: this.eanGroup.controls.eanCtrl.value,
+      HasEan: this.eanGroup.controls.associateEan.value,
+      AssignEan: this.eanGroup.controls.associateEan.value,
+    };
+    this.process.validaData(data);
+
   }
 
   // Consumiendo servicio para validar si el EAN es valido y si existe en la base de datos
   validateEanServices() {
     this.activeButtonCreacionUnitaria = false;
-    if (this.eanGroup.value.eanCtrl.length >= 7 && this.eanGroup.value.eanCtrl.length <= 13) {
+    if (this.eanGroup.value.eanCtrl.match(this.formatEan)) {
       this.service.validateEan(this.eanGroup.controls.eanCtrl.value).subscribe(res => {
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
-        if (!!(res['data'] === true || !!(res['data'] === false))) {
-          // throw new Error('Data not valid');
-        }
         if (this.validateEanExist) {
           this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': this.validateEanExist });
+          this.process.unavailableEanView();
         }
         if (!this.validateEanExist) {
           this.activeButtonCreacionUnitaria = true;
+          this.sendEan();
         }
       }, error => {
         // this.validateEanExist = true;
-        console.log('Servicio no funciona');
       });
     } else {
-      console.log('Campo invalido');
+      this.process.unavailableEanView();
     }
   }
 
   // Funcion para validar el estado de los campos del formulario para habilitar el boton.
   permitContinue(): boolean {
-    return ( !this.activeButtonCreacionUnitaria && !this.asignatedEan ) || (this.activeButtonCreacionUnitaria && this.asignatedEan);
+    return !this.showButton;
   }
 
   // Funcion mirar estado del boton continuar

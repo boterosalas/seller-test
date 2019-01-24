@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
 import { UserParametersService } from '@app/core/aws-cognito';
@@ -8,6 +8,7 @@ import { ComponentsService } from '@shared/services/components.service';
 
 import { SupportService } from './support.service';
 import { UserInformation } from '@app/shared';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -36,25 +37,35 @@ export class SupportModalComponent implements OnInit {
   myform: FormGroup;
   // user info
   public user: UserInformation;
+  public regexNoSpaces = /((?!\s+)^[\s\S]*)$/;
 
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SupportModalComponent>,
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public loadingService: LoadingService
   ) { }
 
   /**
    * @memberof SupportModalComponent
    */
   ngOnInit() {
-    this.getDataUser();
+    this.getInfoSeller();
+    /*this.userParams.getUserData().then(data => {
+      this.user = data;
+      this.createForm(data);
+    });*/
   }
 
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
+  public getInfoSeller(): void {
+    this.userParams.getUserData().then(data => {
+      this.user = data;
+      this.createForm(data);
+    });
   }
+
   /**
    * Funcionalidad para cerrar el modal actual de envio
    * @memberof SupportModalComponent
@@ -67,16 +78,16 @@ export class SupportModalComponent implements OnInit {
    * Método para crear el formulario
    * @memberof SupportModalComponent
    */
-  createForm() {
+  createForm(user: any) {
     this.myform = this.fb.group({
-      'nit': [this.user.sellerNit, Validators.compose([Validators.required])],
-      'caseMarketplaceName': [null, Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1)])],
-      'account': [this.user.sellerName, Validators.compose([Validators.required])],
-      'emailContact': [this.user.sellerEmail, Validators.compose([Validators.required, Validators.email])],
-      'typeOfRequirement': [null, Validators.compose([Validators.required])],
-      'reason': [null, Validators.compose([Validators.required])],
-      'description': [null, Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1)])],
-      'contact': [null, Validators.compose([Validators.required])],
+      nit: new FormControl(user.sellerNit, Validators.compose([Validators.required])),
+      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1), Validators.pattern(this.regexNoSpaces)])),
+      account: new FormControl(user.sellerName, Validators.compose([Validators.required])),
+      emailContact: new FormControl(user.sellerEmail, Validators.compose([Validators.required, Validators.email])),
+      typeOfRequirement: new FormControl('', Validators.compose([Validators.required])),
+      reason: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1), Validators.pattern(this.regexNoSpaces)])),
+      contact: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
     });
   }
 
@@ -90,20 +101,25 @@ export class SupportModalComponent implements OnInit {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
     const messageSupport = {
-      contact: form.value.contact,
-      description: form.value.description,
+      contact: form.value.contact.trim(),
+      description: form.value.description.trim(),
       emailContact: form.value.emailContact,
+      // emailContact: this.user.sellerEmail,
       caseMarketplaceName: form.value.caseMarketplaceName,
-      account: form.value.account,
-      nit: form.value.nit,
+      account: this.user.sellerName,
+      nit: this.user.sellerNit,
       reason: form.value.reason,
-      typeOfRequirement: form.value.typeOfRequirement,
-      caseOrigin: 'Sitio web marketplace'
+      typeOfRequirement: form.value.typeOfRequirement.trim(),
+      caseOrigin: 'Sitio web marketplace',
+      caseMarketplaceOwner: 'Soporte MarketPlace'
     };
+    this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
+      this.loadingService.closeSpinner();
       this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
       this.onNoClick();
     }, err => {
+      this.loadingService.closeSpinner();
       this.COMPONENT.openSnackBar('Se ha presentado un error al enviar el mensaje de soporte', 'Aceptar', 10000);
     });
   }
@@ -114,6 +130,6 @@ export class SupportModalComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
-    this.createForm();
+    this.createForm(this.user);
   }
 }

@@ -31,6 +31,9 @@ export class DownloadOrderModalComponent implements OnInit {
   public user: UserInformation;
   // Limite de registros para descargar
   public limitLengthOrder: any = 0;
+  // Inicializa el modal de tipo de financial
+  public billingType = false;
+  loadingService: any;
 
   /**
    * Creates an instance of DownloadOrderModalComponent.
@@ -52,6 +55,7 @@ export class DownloadOrderModalComponent implements OnInit {
   ) {
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
+    this.billingType = true ? data.billingType : false;
   }
 
   ngOnInit() {
@@ -97,6 +101,18 @@ export class DownloadOrderModalComponent implements OnInit {
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
     log.debug('parametros', currentFiltersOrders);
+    if (!this.billingType) {
+      this.downloadOrdersByService(currentFiltersOrders);
+    } else {
+      this.downBillingByService(currentFiltersOrders);
+    }
+  }
+
+  /**
+   * Metodo para enviar al back el correo por el cual desea obtener las facturas
+   * @param currentFiltersOrders
+   */
+  downloadOrdersByService(currentFiltersOrders: any): void {
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
       if (res != null) {
         this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
@@ -109,5 +125,25 @@ export class DownloadOrderModalComponent implements OnInit {
       this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
       this.onNoClick();
     });
+  }
+
+  /**
+   * Metodo para enviar al back el correo por el cual desea obtener las facturas
+   * @param currentFiltersOrders
+   */
+  downBillingByService(currentFiltersOrders: any): void {
+    this.downloadOrderService.downloadBilling(currentFiltersOrders).subscribe(res => {
+      if (res != null) {
+        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
+          'Cerrar', 10000);
+      } else {
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      }
+      this.onNoClick();
+    }, err => {
+      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      this.onNoClick();
+    });
+
   }
 }

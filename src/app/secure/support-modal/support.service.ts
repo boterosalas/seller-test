@@ -24,7 +24,7 @@ export class SupportService {
      * @returns
      * @memberof SupportService
      */
-    sendSupportMessage(user, supportMessage) {
+    sendSupportMessage(user: any, supportMessage: any) {
         return new Observable(observer => {
             this.http.post(this.api.get('supporMessage'), supportMessage).subscribe((data: any) => {
                 observer.next(data);

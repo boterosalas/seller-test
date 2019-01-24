@@ -44,7 +44,9 @@ $color-gray: #BCBCBC;
     }
     .specification-text {
         text-align: justify;
-        margin: 2em 6em;
+        color: #757474;
+        margin: 2% 0;
+        line-height: 1.5em;
     }
     .specification-form-field {
         width: 46%;
@@ -119,7 +121,7 @@ $color-gray: #BCBCBC;
 .new-specs-title {
     padding: 0.5em;
     border-bottom: 1px solid gray;
-    color: lightgray;
+    color: gray;
     p {
         width: 46%;
     }

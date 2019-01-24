@@ -2,16 +2,16 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: "sellercenter.exito.com.co"
-    CLOUDFRONT_DISTRIBUTION_ID: "E3462U4NPR8XV7"
+    S3_BUCKET_DEV: "sellercenter.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID_DEV: "E3462U4NPR8XV7"
+    S3_BUCKET_PROD: "sellercenterprod.exito.com.co"
+    CLOUDFRONT_DISTRIBUTION_ID_PROD: "E34UHKF31PAFG2"
+    S3_BUCKET_DOC: "sellercenter.frontdoc.exito.com.co"
 
 phases:
 
   install:
     commands:
-      - echo Instalando npm...
-      - npm install
-      - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
       - npm install -g @angular/cli
       - echo Instalacion de Angular finalizada.
@@ -19,22 +19,41 @@ phases:
   build:
     commands:
       - echo Iniciando compilacion...
-      - ng build --configuration=stage
-      - echo Compilacion terminada.
-      - echo Borrando archivos en bucket...
-      - aws s3 rm s3://$S3_BUCKET --recursive
-      - echo Archivos en bucket borrados.
-      - echo Transfiriendo archivos al bucket...
-      - aws s3 cp deploy/dist s3://$S3_BUCKET --recursive
-      - echo Archivos transferidos.
-      - echo Borrando cache en CloudFront...
-      - aws configure set preview.cloudfront true
-      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
-      - echo Cache borrado.
+      - |
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-DEV"; then
+           node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=stage;
+           echo Compilacion terminada.;
+           echo Borrando archivos de front en bucket...;
+           aws s3 rm s3://$S3_BUCKET_DEV --recursive;
+           echo Archivos de front en bucket borrados.;
+           echo Transfiriendo archivos de front al bucket...;
+           aws s3 cp deploy/dist s3://$S3_BUCKET_DEV --recursive;
+           echo Archivos de front transferidos.;
+           echo Borrando cache en CloudFront...;
+           aws configure set preview.cloudfront true;
+           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_DEV --paths "/*";
+           echo Cache borrado.;
+         fi
+         
+      - |
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-PROD"; then
+           npm install;
+           node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=production;
+           echo Compilacion terminada.;
+           echo Borrando archivos de front en bucket...;
+           aws s3 rm s3://$S3_BUCKET_PROD --recursive;
+           echo Archivos de front en bucket borrados.;
+           echo Transfiriendo archivos de front al bucket...;
+           aws s3 cp deploy/dist s3://$S3_BUCKET_PROD --recursive;
+           echo Archivos de front transferidos.;
+           echo Borrando cache en CloudFront...;
+           aws configure set preview.cloudfront true;
+           aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID_PROD --paths "/*";
+           echo Cache borrado.;
+         fi
 
 artifacts:
   files:
     - '**/*'
   base-directory: deploy/dist
-  
   

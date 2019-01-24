@@ -35,7 +35,7 @@ export class AddDialogComponent implements OnInit {
     formBrands: FormGroup;
     listCategories: any[] = [];
     categoriesAdded = [];
-    showCategoriesAdded = true;
+    showCategoriesAdded = false;
 
     /**
      * Creates an instance of AddDialogComponent.

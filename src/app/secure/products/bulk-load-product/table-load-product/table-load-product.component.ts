@@ -63,7 +63,8 @@ export class TableLoadProductComponent implements OnInit {
     'IsLogisticsExito',
     'MeasurementUnit',
     'ConversionFactor',
-    'DrainedFactor'
+    'DrainedFactor',
+    'EanCombo'
   ];
 
   /**

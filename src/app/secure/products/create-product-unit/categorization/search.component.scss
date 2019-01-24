@@ -1,6 +1,5 @@
 $height-input: 25px;
 $color-selected: #efeded;
-
 ::ng-deep .search {
     padding: 10px;
     background: #EFEDED;
@@ -73,6 +72,7 @@ $color-selected: #efeded;
     padding-left: 6px !important;
     font-size: 18px !important;
     font-family: Arial;
+    padding: 0 !important;
 }
 
 @media screen and (max-width: 740px) {
@@ -86,27 +86,47 @@ $color-selected: #efeded;
     .tree-item {
         padding-top: 2px;
         color: #757474;
-        &-father{
+        &-father {
             color: black;
         }
     }
-    
     .tree-item-categories {
         padding: 0.5em 0;
         border-bottom: 1px solid #e0e0e0;
     }
-    .tree-item-selected .tree-item{
+    .tree-item-selected .tree-item {
         margin-left: 1em;
     }
-    .tree-item-selected:hover { 
+    .tree-item-selected:hover {
         background-color: $color-selected;
         cursor: pointer;
     }
-    .material-icons{
+    .material-icons {
         cursor: pointer;
     }
-    .selected-item{
+    .selected-item {
         background-color: $color-selected;
         font-weight: bold;
     }
+}
+
+#textCreateCategorization {
+    color: #757474;
+    margin: 2% 0;
+    line-height: 1.5em;
+}
+
+.tree-selected {
+    background-color: $color-selected;
+    font-weight: bold;
+    transform: scale(1.1);
+    transition: all .3s ease-in-out;
+}
+
+.sticky-position{
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+    text-align: justify;
 }
