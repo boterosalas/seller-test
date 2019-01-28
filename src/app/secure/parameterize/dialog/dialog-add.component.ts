@@ -88,34 +88,39 @@ export class AddDialogComponent implements OnInit {
     }
 
     public addCategory(word: string): boolean {
-        const value = word;
-        if (value) {
-            console.log(value);
-            const resultado = this.listCategories.find(element => element.Id === value);
-            const resultadoAdd = this.categoriesAdded.find(element => element.Id === value);
-            console.log(resultado, this.listCategories);
-            console.log(resultadoAdd, this.categoriesAdded);
-            if (resultado) {
-                this.setCategoryError(false);
-                if (!resultadoAdd) {
-                    this.categoriesAdded.push(resultado);
-                    this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(value, ''));
+        try {
+            const value = word;
+            if (value) {
+                console.log(value);
+                const resultado = this.listCategories.find(element => element.Id === parseFloat(value));
+                const resultadoAdd = this.categoriesAdded.find(element => element.Id === parseFloat(value));
+                console.log(resultado, this.listCategories);
+                console.log(resultadoAdd, this.categoriesAdded);
+                if (resultado) {
+                    this.setCategoryError(false);
+                    if (!resultadoAdd) {
+                        this.categoriesAdded.push(resultado);
+                        this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(value, ''));
+                        return false;
+                    } else {
+                        // this.setCategoryError(true, true); // repetidos
+                        this.categoriesAddedError.push(value);
+                        return true;
+                    }
                 } else {
-                    // this.setCategoryError(true, true); repetidos
-                    this.categoriesAddedError.push(value);
+                    // this.setCategoryError(true); // no existe la categoria
+                    this.categoriesError.push(value);
+                    console.log(this.categoriesError);
                     return true;
                 }
-            } else {
-                // this.setCategoryError(true); no existe la categoria
-                this.categoriesError.push(value);
-                return false;
             }
+        } catch (e) {
+            return true;
         }
     }
 
     public getCategories(): any {
         const word = this.formSpecs.controls.Categories.value;
-        console.log(word);
         if (word) {
             this.categoriesAddedError = [];
             this.categoriesError = [];
@@ -124,23 +129,37 @@ export class AddDialogComponent implements OnInit {
                 errors = this.addCategory(word);
             } else {
                 const counter = word.split(',');
+                console.log(counter);
                 counter.forEach(element => {
+                    const errorFrom = this.addCategory(element);
                     if (element) {
-                        errors = errors === false ? this.addCategory(element) : true;
+                        errors = errors === false ? errorFrom : true;
                     }
                 });
             }
+            console.log(errors);
             this.setCategoryError(errors);
         }
     }
 
-    public setCategoryError(show: boolean, secondError: boolean = false): void {
-        const error = secondError === false ? { noExist: show } : { existAdded: show };
+    public setCategoryError(show: boolean): void {
+        const ErrorAdded = this.categoriesAddedError.length > 0;
+        const ErrorNoExist = this.categoriesError.length > 0;
         if (show) {
-            this.formSpecs.controls.Categories.setErrors(error);
+            console.log(ErrorAdded, ErrorNoExist);
+
+            if (ErrorAdded && ErrorNoExist) {
+                this.formSpecs.controls.Categories.setErrors({ existAdded: show, noExist: show });
+            } else if (ErrorAdded) {
+                this.formSpecs.controls.Categories.setErrors({ existAdded: show });
+            } else if (ErrorNoExist) {
+                console.log('entrooo');
+                this.formSpecs.controls.Categories.setErrors({ noExist: show });
+            }
         } else {
             this.formSpecs.controls.Categories.setErrors(null);
         }
+        console.log(this.formSpecs.controls.Categories);
     }
 
 
