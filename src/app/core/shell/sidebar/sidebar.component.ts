@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
 import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
+import { Modules, MenuModel, ProfileTypes } from '@app/secure/auth/auth.consts';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -27,6 +28,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   // Lista de categorías de las órdenes
   categoryList: any;
   public routes = RoutesConst;
+  public modules = Modules;
   prueba = 'solicitudes-pendientes';
 
   constructor(
@@ -42,6 +44,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
     this.userService.isAuthenticated(this);
+    console.log(this.modules, Modules);
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -69,5 +72,23 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
     } else {
       this.route.navigate([category.root]);
     }
+  }
+
+  /**
+   * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
+   *
+   * @param {MenuModel} menu
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  showMenu(menu: MenuModel): boolean {
+    // if(this.user?.sellerProfile === 'administrator')
+    // console.log(menu);
+    // console.log(menu.NameMenu, menu.ShowMenu && ( this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType));
+    return menu.ShowMenu && ( this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType);
+  }
+
+  validateUserType(profileType: number): boolean {
+    return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
   }
 }

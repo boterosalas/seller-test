@@ -13,6 +13,7 @@ import { ManageModule, RegisterModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
 import { SellerModule } from './seller/seller.module';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
+import { AuthService } from './auth/auth.routing';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { BillingOrdersModule } from './orders/billing-orders/billing-orders.modu
     SellerModule,
     BillingOrdersModule
   ],
-  providers: [],
+  providers: [AuthService],
 })
 export class SecureModule {
 }

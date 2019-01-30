@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { RegisterSellerComponent } from './register.component';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntSellerRegister}`,
       component: RegisterSellerComponent,
       data: { title: 'Registrar vendedor' },
+      // canActivate: [AuthService]
     }
   ])
 ];

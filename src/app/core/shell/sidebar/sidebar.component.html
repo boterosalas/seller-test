@@ -13,8 +13,27 @@
 
     </mat-toolbar>
 
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user">
+      <div *ngFor="let module of modules">
+        <mat-expansion-panel class="expansion-menu-list" expanded="false">
+          <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+            <mat-panel-title>
+              {{module.NameModule}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let menu of module.Menus">
+            <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+              <h6 matLine>{{menu.NameMenu}}</h6>
+            </mat-list-item>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
+
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
+
+
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
             &Oacute;rdenes
@@ -68,6 +87,7 @@
           <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
 
+        <!-- PARAMETRIZACION -->
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Arbol de categorías</h6>
         </mat-list-item>
@@ -75,10 +95,11 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Cotizador</h6>
         </mat-list-item>
+        <!-- PARAMETRIZACION -->
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
-          <h6 matLine>Historico carga de ofertas</h6>
+          <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
       </mat-expansion-panel>
     </div>
