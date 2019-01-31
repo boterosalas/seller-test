@@ -7,6 +7,7 @@ import { AddDialogComponent } from '../dialog/dialog-add.component';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
+import { AddDialogSpecsComponent } from '../dialogAddSpecs/dialog-add-specs.component';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -92,6 +93,20 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     }
 
+    public openDialogAddSpecs(data: any): void {
+        // data.categories = this.listCategories;
+        const dialogRef = this.dialog.open(AddDialogSpecsComponent, {
+            width: '90%',
+            maxWidth: '1000px',
+            data: data
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            // this.saveGroupSpec(result);
+        });
+
+    }
+
 
 
     public organizeCategoiesList(data: any): void {
@@ -170,8 +185,11 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public addSpec(data: any): void {
+        this.modeSave = true;
+        this.openDialogAddSpecs(null);
+        /*
         data.ShowNewSon = true;
-        const element = this.render.selectRootElement('#input1');
+        const element = this.render.selectRootElement('#input1'); */
     }
 
     public onBlurMethod(group: any): void {

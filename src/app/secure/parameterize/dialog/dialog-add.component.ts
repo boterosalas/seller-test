@@ -65,6 +65,7 @@ export class AddDialogComponent implements OnInit {
     ngOnInit() {
         // this.loadingService.viewSpinner();
         this.getCategoriesList();
+        console.log('this.this.listCategories: ', this.listCategories);
     }
 
     /**

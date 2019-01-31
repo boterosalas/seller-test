@@ -8,13 +8,15 @@ import { AddDialogComponent } from './dialog/dialog-add.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrandsComponent } from './brands/brands.component';
 import { BrandService } from './brands/brands.component.service';
+import { AddDialogSpecsComponent } from './dialogAddSpecs/dialog-add-specs.component';
 
 @NgModule({
   declarations: [
     SpecificationsParamComponent,
     AddDialogComponent,
     BrandsComponent,
-    FocusDirective
+    FocusDirective,
+    AddDialogSpecsComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { BrandService } from './brands/brands.component.service';
     BrandService
   ],
   entryComponents: [
-    AddDialogComponent
+    AddDialogComponent,
+    AddDialogSpecsComponent
   ]
 })
 export class ParameterizeModule { }

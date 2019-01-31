@@ -37,7 +37,7 @@
           <mat-error *ngIf="formSpecs.controls.Categories.hasError('existAdded')">
             Esta categoría ({{categoriesAddedError}}) ya esta agregada.
           </mat-error>
-          <mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>
+          <!--<mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>-->
         </mat-form-field>
       </div>
 
@@ -75,7 +75,7 @@
     </form>
   </div>
 
-  <!-- CONTAINER FORM BRAND -->
+  <!-- CONTAINER FORM BRAND 
   <div mat-dialog-content *ngIf="formBrands">
     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
     <form fxLayout="column" fxLayoutAlign="center center" class="form-add" [formGroup]="formBrands" (ngSubmit)="saveBrand()">
@@ -91,6 +91,6 @@
         </button>
       </div>
     </form>
-  </div>
+  </div> -->
 
 </div>

@@ -1,0 +1,80 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="dialog-add-container">
+  <h1 mat-dialog-title *ngIf="!typeModel">
+    Agregar de especificaciones
+  </h1>
+</div>
+
+<div mat-dialog-content class="form-container" fxLayout="column" fxLayoutAlign="center center">
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+  <form fxLayout="column" [formGroup]="formAddSpecs" class="form-add">
+
+    <div fxFlex="50%" id="divs-specs">
+      <mat-form-field class="input-add">
+        <input matInput placeholder="Nombre de especificación">
+      </mat-form-field>
+      <h3 fxFlex="50%"> Visualización del vendedor</h3>
+    </div>
+
+    <div fxFlex="100%" id="divs-specs">
+      <div fxFlex="50%">
+        <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
+      </div>
+      <div fxFlex="50%">
+        <mat-radio-group formControlName="optionSpec" [(ngModel)]="optionSpecs">
+          <mat-radio-button value="text">Texto</mat-radio-button>
+          <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+<div class="addoption">
+    <div class="widthOption" *ngFor="let opc of listOptions" fxFlex="50%">
+            <mat-form-field class="widthOption">
+          <input matInput [(ngModel)]="opc.option" placeholder="Ingresa opción">
+        </mat-form-field>
+    </div>
+</div>
+    <!--
+    <div>
+      <div id="input-add-options">
+        <mat-form-field fxFlex="50%" id="divs-specs">
+          <input matInput placeholder="Opción 1">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%" id="divs-specs">
+          <input matInput placeholder="Opción 2">
+        </mat-form-field>
+      </div>
+
+      <div id="input-add-options">
+        <mat-form-field fxFlex="50%" id="divs-specs">
+          <input matInput placeholder="Opción 3">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%" id="divs-specs">
+          <input matInput placeholder="Opción 4">
+        </mat-form-field>
+      </div>
+    </div> -->
+
+    <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+    <div id="addButton" class="container-group-add-button">
+      <!--BUTTON TO ADD-->
+      <button type="button" mat-button (click)="addOption()">
+        <mat-icon class="material-icons">
+          control_point
+        </mat-icon>
+        Agregar opción
+      </button>
+    </div>
+
+
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'">
+      </button>
+    </div>
+
+
+
+  </form>
+</div>

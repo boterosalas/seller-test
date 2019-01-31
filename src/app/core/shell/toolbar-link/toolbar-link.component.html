@@ -122,6 +122,17 @@
           <span>Listado de vendedores</span>
         </button>
       </mat-menu>
+
+      <button class="button-toolbar" mat-button [matMenuTriggerFor]="parameterization" *ngIf="user?.sellerProfile === 'administrator'">
+        <mat-icon>arrow_drop_down</mat-icon>
+        Parametrización
+      </button>
+
+      <mat-menu #parameterization="matMenu">
+        <button mat-menu-item [routerLink]="['/' + routes?.sellerCenterIntParamSpecs]">
+          <span>Especificaciones</span>
+        </button>
+      </mat-menu>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

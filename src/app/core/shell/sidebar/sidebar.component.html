@@ -150,7 +150,7 @@
       </mat-expansion-panel>
     </div>
 
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user?.sellerProfile === 'administrator'">
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
         <mat-expansion-panel-header id="matExpansion-item-button-products">
           <mat-panel-title>
@@ -163,9 +163,9 @@
           <h6 matLine>Especificaciones</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamBrand]">
+        <!--<mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamBrand]">
           <h6 matLine>Marcas</h6>
-        </mat-list-item>
+        </mat-list-item> -->
 
 
       </mat-expansion-panel>
