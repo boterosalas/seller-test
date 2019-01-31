@@ -9,10 +9,10 @@ const log = new Logger('SearchCategorizationComponent');
 // Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      const isSubmitted = form && form.submitted;
-      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
-  }
+}
 
 
 /**
@@ -42,21 +42,26 @@ export class AddDialogSpecsComponent implements OnInit {
     public listOptions = [];
 
     constructor(
+        private fb: FormBuilder,
         public dialogRef: MatDialogRef<AddDialogSpecsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        }
-
-    ngOnInit() {
-
     }
 
-    public createAddBrandFrom(): void {
-        this.formAddSpecs = new FormGroup({
+    ngOnInit() {
+        this.createAddSpecsFrom();
+    }
+
+    public createAddSpecsFrom(): void {
+        this.formAddSpecs = this.fb.group({
             nameSpec: new FormControl('', Validators.required),
             requiredSpec: new FormControl('', Validators.required),
             optionSpec: new FormControl('', Validators.required),
         });
         this.matcher = new MyErrorStateMatcher();
+    }
+
+    public stateSpec() {
+        console.log('radio_ ', this.formAddSpecs.controls.optionSpec.value);
     }
 
     /**
@@ -68,6 +73,11 @@ export class AddDialogSpecsComponent implements OnInit {
         this.dialogRef.close();
     }
 
+    /**
+     * Agregar opcion para lista deplegable
+     *
+     * @memberof AddDialogSpecsComponent
+     */
     public addOption(): void {
         this.listOptions.push({
             'option': ''
