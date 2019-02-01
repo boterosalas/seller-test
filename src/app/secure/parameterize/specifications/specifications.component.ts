@@ -117,7 +117,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
      * @param {*} data
      * @memberof SpecificationsParamComponent
      */
-    public openDialogDeleteSpecs(data: any): void {
+    public openDialogDeleteSpecsandGroupSpec(data: any): void {
         // data.categories = this.listCategories;
         const dialogRef = this.dialog.open(DeleteDialogSpecsComponent, {
             width: '90%',
@@ -129,8 +129,9 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             if (result) {
                 this.loadingService.viewSpinner();
                 if (this.groupDelete) {
-                    this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(result => {
+                    this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(res => {
                         console.log(result);
+                        res = result;
                         this.groupDelete = '';
                         if (result.status === 200 && result.body) {
                             this.snackBar.open('Has eliminado correctamente un grupo de especificaciones', 'Cerrar', {
@@ -146,7 +147,27 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                         log.error('Error al intentar eliminar un grupo de especificaciones');
                         this.getCategoriesList();
                     });
-                }
+                } else
+                    if (this.specDelete) {
+                        this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(res => {
+                            console.log(result);
+                            res = result;
+                            this.groupDelete = '';
+                            if (result.status === 200 && result.body) {
+                                this.snackBar.open('Has eliminado correctamente una especificación', 'Cerrar', {
+                                    duration: 3000,
+                                });
+                                this.getCategoriesList();
+                            } else {
+                                log.error('Error al intentar eliminar una especificación');
+                            }
+                            this.loadingService.closeSpinner();
+                        }, error => {
+                            this.loadingService.closeSpinner();
+                            log.error('Error al intentar eliminar una especificación');
+                            this.getCategoriesList();
+                        });
+                    }
             }
             // this.saveGroupSpec(result);
         });
@@ -239,7 +260,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     public removeSpec(data: any): void {
         this.modeSave = true;
-        this.openDialogDeleteSpecs(null);
+        this.openDialogDeleteSpecsandGroupSpec(null);
         this.groupDelete = data;
         /*
         data.ShowNewSon = true;
