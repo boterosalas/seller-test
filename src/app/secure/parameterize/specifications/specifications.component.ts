@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
 import { AddDialogSpecsComponent } from '../dialogAddSpecs/dialog-add-specs.component';
+import { DeleteDialogSpecsComponent } from '../dialogDelete/dialog-delete.component';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -49,6 +50,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     public getSpecifications(): void {
         this.specificationService.getSpecifications().subscribe(data => {
+            console.log('data: ', data);
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
                 this.getCategoriesList();
@@ -107,6 +109,20 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     }
 
+    public openDialogDeleteSpecs(data: any): void {
+        // data.categories = this.listCategories;
+        const dialogRef = this.dialog.open(DeleteDialogSpecsComponent, {
+            width: '90%',
+            maxWidth: '1000px',
+            data: data
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            // this.saveGroupSpec(result);
+        });
+
+    }
+
 
 
     public organizeCategoiesList(data: any): void {
@@ -133,6 +149,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
+            console.log('result: ', result);
             if (result.status === 200) {
                 const body = JSON.parse(result.body.body);
                 this.organizeCategoiesList(body.Data);
@@ -191,6 +208,16 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         data.ShowNewSon = true;
         const element = this.render.selectRootElement('#input1'); */
     }
+
+    public removeSpec(data: any): void {
+        this.modeSave = true;
+        this.openDialogDeleteSpecs(null);
+        /*
+        data.ShowNewSon = true;
+        const element = this.render.selectRootElement('#input1'); */
+    }
+
+
 
     public onBlurMethod(group: any): void {
         const dataToSend = group.newSpecification;

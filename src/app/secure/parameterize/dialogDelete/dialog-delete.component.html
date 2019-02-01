@@ -1,0 +1,60 @@
+<!-- GROUP SPECS TEXT DIALOG -->
+<ng-template #deleteMsgTransporter>
+  ¿Estás seguro que deseas eliminar este grupo de especificaciones? Este cambio
+  no será reversible y
+  es posible que afecte las configuraciones de los vendedores que utilicen este grupo para sus productos.
+</ng-template>
+<ng-template #deleteTitleTransporter>
+  <h3>¿Desea eliminar grupo de especificaciones?</h3>
+</ng-template>
+
+<!-- SPECS TEXT DIALOG -->
+<ng-template #deleteTitleZone>
+  <h3>¿Desea eliminar la especificación?</h3>
+</ng-template>
+<ng-template #deleteMsgZone>
+  ¿Estás seguro que deseas eliminar esta configuración de especificación? Este cambio no será reversible y es posible que
+  afecte
+  las configuraciones de los vendedores que utilicen esta especificación para sus productos.
+</ng-template>
+
+
+<!-- Deletes dialog -->
+<section class="delete-dialog">
+  <div class="transport-dialog">
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+      <div class="container-transport-icon" fxLayout="column" fxLayoutAlign="center center">
+        <i class="material-icons">
+          delete
+        </i>
+      </div>
+
+      <span *ngIf="typeDeleteZone === typeDeleteDialog; then deleteTitleZone; else deleteTitleTransporter">
+      </span>
+
+      <!-- Description form -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <p fxFlex="85" class="text-dialog-transporter">
+          <span *ngIf="typeDeleteZone === typeDeleteDialog; then deleteMsgZone; else deleteMsgTransporter">
+          </span>
+        </p>
+      </div>
+      <!-- Buttons SAVE and CANCEL -->
+      <div class="form-transporter-container">
+        <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">
+          <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
+              <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
+                (click)="closeDialog(false)"></button>
+            </div>
+            <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
+              <button id="btn-create-transporter" type="button" (click)="closeDialog(true)" mat-raised-button color="primary"
+                [innerHTML]="'ELIMINAR'">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
