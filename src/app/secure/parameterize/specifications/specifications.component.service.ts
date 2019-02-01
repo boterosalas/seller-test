@@ -32,16 +32,38 @@ export class ParamSpecsService {
     // this.http.patch(this.api.get('getProductSpecs'), model);
   }
 
-  public deleteSpecification(id: number): Observable<{}> {
-    return this.http.delete(this.api.get('getProductSpecs', [id]), { observe: 'response' });
-  }
-
   public updateSpecification(model: any): Observable<any> {
     return of({
       status: 200,
       body: true
     });
     // return this.http.post(this.api.get('getProductSpecs'), model);
+  }
+
+  /**
+   * ELiminar grupo de especificacion
+   *
+   * @param {*} model
+   * @returns {Observable<any>}
+   * @memberof ParamSpecsService
+   */
+  public deleteGroupSpecification(model: any): Observable<any> {
+    return of({
+      status: 200,
+      body: true
+    });
+    // this.http.patch(this.api.get('getProductSpecs'), model);
+  }
+
+  /**
+   * Eliminar especificacion
+   *
+   * @param {number} id
+   * @returns {Observable<{}>}
+   * @memberof ParamSpecsService
+   */
+  public deleteSpecification(id: number): Observable<{}> {
+    return this.http.delete(this.api.get('getProductSpecs', [id]), { observe: 'response' });
   }
 
 }

@@ -27,6 +27,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     modeSave = false;
     copyGroup: any;
     listCategories: any[] = [];
+    groupDelete: any;
+    specDelete: any;
     constructor(
         private specificationService: ParamSpecsService,
         private loadingService: LoadingService,
@@ -109,6 +111,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     }
 
+    /**
+     * Dialog para eliminar grupo de specs
+     *
+     * @param {*} data
+     * @memberof SpecificationsParamComponent
+     */
     public openDialogDeleteSpecs(data: any): void {
         // data.categories = this.listCategories;
         const dialogRef = this.dialog.open(DeleteDialogSpecsComponent, {
@@ -118,12 +126,32 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.loadingService.viewSpinner();
+                if (this.groupDelete) {
+                    this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(result => {
+                        console.log(result);
+                        this.groupDelete = '';
+                        if (result.status === 200 && result.body) {
+                            this.snackBar.open('Has eliminado correctamente un grupo de especificaciones', 'Cerrar', {
+                                duration: 3000,
+                            });
+                            this.getCategoriesList();
+                        } else {
+                            log.error('Error al intentar eliminar un grupo de especificaciones');
+                        }
+                        this.loadingService.closeSpinner();
+                    }, error => {
+                        this.loadingService.closeSpinner();
+                        log.error('Error al intentar eliminar un grupo de especificaciones');
+                        this.getCategoriesList();
+                    });
+                }
+            }
             // this.saveGroupSpec(result);
         });
 
     }
-
-
 
     public organizeCategoiesList(data: any): void {
         if (data && data.length) {
@@ -212,6 +240,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public removeSpec(data: any): void {
         this.modeSave = true;
         this.openDialogDeleteSpecs(null);
+        this.groupDelete = data;
         /*
         data.ShowNewSon = true;
         const element = this.render.selectRootElement('#input1'); */
