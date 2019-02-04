@@ -96,6 +96,8 @@ export const endpoints = {
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
+      // Obtener lista de productos
+      getProductList: 'https://mp22msp1mi.execute-api.us-east-1.amazonaws.com/products-statusload-dev/{params}',
     },
   },
   // Endpoints production

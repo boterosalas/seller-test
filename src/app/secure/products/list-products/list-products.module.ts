@@ -6,6 +6,7 @@ import { ListProductRoutingModule } from './list-products.routing';
 import { MaterialModule } from '@app/material.module';
 import { ToolbarComponent } from '@app/secure/offers/historical/components/toolbar/toolbar.component';
 import { ComboProductComponent } from './comboProduct/comboProduct.component';
+import { ListProductService } from './list-products.service';
 
 @NgModule({
     imports: [
@@ -20,12 +21,13 @@ import { ComboProductComponent } from './comboProduct/comboProduct.component';
       ComboProductComponent
     ],
     exports: [
-      ComboProductComponent
+      ComboProductComponent,
     ],
     entryComponents: [
 
     ],
     providers: [
+      ListProductService
     ]
   })
   export class ListProductModule {
