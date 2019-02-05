@@ -751,6 +751,7 @@ export class BulkLoadComponent implements OnInit {
       );
   }
 
+
   /**
    * Funcionalidad para desplegar el
    * modal que permite visualizar la lista de

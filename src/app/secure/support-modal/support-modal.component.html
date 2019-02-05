@@ -8,12 +8,11 @@
     <mat-icon >close</mat-icon>
   </a>
 </div>
-<form #f="ngForm" [formGroup]="myform" *ngIf="user">
+<form #f="ngForm" [formGroup]="myform" *ngIf="myform">
 
   <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start"
     fxLayout="row wrap" class="example-form">
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
-
 
       <mat-form-field class="example-full-width">
         <input readonly id="suport-modal-input-nit" required matInput formControlName="nit" placeholder="Nit">
@@ -22,14 +21,11 @@
           matTooltipPosition="below">help_outline</mat-icon> -->
       </mat-form-field>
 
-
       <mat-form-field class="example-full-width">
         <input readonly id="suport-modal-input-account" required matInput formControlName="account" placeholder="Vendedor">
         <mat-icon matPrefix class="icon-support-modal">account_balance</mat-icon>
         <!-- <mat-icon color="primary" matSuffix matTooltip="Lorem" matTooltipPosition="below">help_outline</mat-icon> -->
       </mat-form-field>
-
-
 
       <mat-form-field class="example-full-width">
         <input id="suport-modal-input-contact" required matInput formControlName="contact" placeholder="Contacto">

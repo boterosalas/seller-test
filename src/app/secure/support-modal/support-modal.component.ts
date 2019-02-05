@@ -9,6 +9,7 @@ import { ComponentsService } from '@shared/services/components.service';
 import { SupportService } from './support.service';
 import { UserInformation } from '@app/shared';
 import { LoadingService } from '@app/core/global/loading/loading.service';
+import { BasicInformationService } from '../products/create-product-unit/basic-information/basic-information.component.service';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -38,6 +39,7 @@ export class SupportModalComponent implements OnInit {
   // user info
   public user: UserInformation;
   public regexNoSpaces = /((?!\s+)^[\s\S]*)$/;
+  validateRegex: any;
 
   constructor(
     private fb: FormBuilder,
@@ -62,7 +64,7 @@ export class SupportModalComponent implements OnInit {
   public getInfoSeller(): void {
     this.userParams.getUserData().then(data => {
       this.user = data;
-      this.createForm(data);
+      this.valdiateFormSupport();
     });
   }
 
@@ -74,22 +76,49 @@ export class SupportModalComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
+
   /**
    * Método para crear el formulario
    * @memberof SupportModalComponent
    */
   createForm(user: any) {
-    this.myform = this.fb.group({
+    this.myform = new FormGroup({
       nit: new FormControl(user.sellerNit, Validators.compose([Validators.required])),
-      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(1), Validators.pattern(this.regexNoSpaces)])),
+      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('nameCaseOrders'))])),
       account: new FormControl(user.sellerName, Validators.compose([Validators.required])),
       emailContact: new FormControl(user.sellerEmail, Validators.compose([Validators.required, Validators.email])),
       typeOfRequirement: new FormControl('', Validators.compose([Validators.required])),
       reason: new FormControl('', Validators.compose([Validators.required])),
-      description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(2000), Validators.minLength(1), Validators.pattern(this.regexNoSpaces)])),
-      contact: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('descriptionOrders'))])),
+      contact: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('contactOrders'))])),
     });
   }
+
+  /**
+   * Obtiene la regex de Dynamo
+   *
+   * @memberof SupportModalComponent
+   */
+  public valdiateFormSupport(): void {
+    const param = ['orders', null];
+    this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
+      this.validateRegex = JSON.parse(res.body.body);
+      this.createForm(this.user);
+    });
+
+  }
+
+  public getValue(name: string): string {
+    if (this.validateRegex && this.validateRegex.Data.length) {
+      for (let i = 0; i < this.validateRegex.Data.length; i++) {
+        if (this.validateRegex.Data[i].Identifier === name) {
+          return this.validateRegex.Data[i].Value;
+        }
+      }
+      return null;
+    }
+  }
+
 
 
   /**
