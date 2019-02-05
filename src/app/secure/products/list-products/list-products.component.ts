@@ -4,6 +4,7 @@ import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 
 export interface ListFilterProducts {
@@ -39,15 +40,21 @@ export class ListProductsComponent implements OnInit {
     finalDateList: any;
     listFilterProducts: ListFilterProducts[] = [
     ];
+    validateRegex: any;
     constructor(
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
         private modalService?: ModalService,
-        private fb?: FormBuilder
+        private fb?: FormBuilder,
+        public SUPPORT?: SupportService,
     ) { }
     ngOnInit() {
+        this.validateFormSupport();
+        this.getInfoProducts();
+    }
+
+    public getInfoProducts(): void {
         this.getListProducts();
-        this.createFormControls();
     }
 
     getListProducts(params?: any) {
@@ -74,8 +81,8 @@ export class ListProductsComponent implements OnInit {
      */
     createFormControls() {
         this.filterProduts = this.fb.group({
-            product: new FormControl('', []),
-            ean: new FormControl('', []), /*
+            product: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
+            ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])), /*
             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
             initialDate: new FormControl('', []),
             finalDate: new FormControl('', []),
@@ -97,6 +104,29 @@ export class ListProductsComponent implements OnInit {
     public cleanFilter() {
         this.filterProduts.reset();
         this.cleanFilterListProducts();
+    }
+
+    public validateFormSupport(): void {
+        const param = ['productos', null];
+        this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
+            console.log('res: ', res);
+            this.validateRegex = JSON.parse(res.body.body);
+            console.log('this.validateRegex: ', this.validateRegex);
+            this.createFormControls();
+        });
+    }
+
+    /**
+     * Obtiene el valor de la regex
+     *
+     */
+    public getValue(name: string): string {
+        for (let i = 0; i < this.validateRegex.Data.length; i++) {
+            if (this.validateRegex.Data[i].Identifier === name) {
+                return this.validateRegex.Data[i].Value;
+            }
+        }
+        return null;
     }
 
 
