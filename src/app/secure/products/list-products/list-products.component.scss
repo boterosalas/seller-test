@@ -1,4 +1,5 @@
 $color-gray3: #D3D3D3;
+
 /*
 .card-offer {
   border: 1px solid $color-gray3;
@@ -13,7 +14,7 @@ $color-gray3: #D3D3D3;
   }
 }
 */
-.prodList{
+.prodList {
   display: flex;
   flex-wrap: wrap;
   padding-left: 2.5%;
@@ -22,7 +23,8 @@ $color-gray3: #D3D3D3;
 }
 
 .example-sidenav {
-  width: 37%;
+  width: 30%;
+
   @media only screen and (max-width: 600px) {
     width: 80%;
   }
@@ -33,4 +35,32 @@ $color-gray3: #D3D3D3;
   padding-right: 8%;
   padding-left: 8%;
   padding-bottom: 5%;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(72, 90, 250) !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(72, 90, 250) !important;
+}
+
+.radioDate {
+  padding-top: 4.25%;
+  padding-bottom: 4.25%;
+  font-size: 15px !important;
+}
+
+.buttonsSend {
+  padding-top: 4.25%;
+  padding-bottom: 4.25%;
+}
+
+.classDatapicker {
+  width: 150px;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar {
+  width: 200px !important;
+  height: 230px !important;
 }

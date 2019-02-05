@@ -10,7 +10,7 @@
 
     <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field color="primary">
-        <input matInput placeholder="Producto" formControlName="product" [errorStateMatcher]="matcher"
+        <input matInput placeholder="Nombre de producto" formControlName="product" [errorStateMatcher]="matcher"
           (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
         <mat-hint></mat-hint>
         <!--<mat-error *ngIf="filterProduts.get('product').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>-->
@@ -22,36 +22,31 @@
         <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
       </mat-form-field>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-radio-group formControlName="optionDate" [(ngModel)]="optionDates" (change)="stateDate()">
+      <div>
+        <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" (change)="stateDate()" fxLayout="row"
+          fxLayoutAlign="space-between center" class="radioDate">
           <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
           <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
         </mat-radio-group>
       </div>
-      <!-- <mat-form-field color="primary">
-        <input matInput [matDatepicker]="picker1" placeholder="Fecha de creación" formControlName="creationDate">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field color="primary">
-        <input matInput [matDatepicker]="picker2" placeholder="Fecha de modificación" formControlName="updateDate">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field> -->
-
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field color="primary">
-          <input matInput [matDatepicker]="picker3" placeholder="De" formControlName="initialDate">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+        <mat-form-field class="classDatapicker">
+          <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field color="primary">
-          <input matInput [matDatepicker]="picker4" placeholder="Hasta" formControlName="finalDate">
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
+        <mat-form-field class="classDatapicker">
+          <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+        <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+        <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+        <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle()"></button>
       </div>
     </div>
   </form>
