@@ -66,6 +66,7 @@ export class ListProductsComponent implements OnInit {
             updateDate: new FormControl('', []),
             initialDate: new FormControl('', []),
             finalDate: new FormControl('', []),
+            optionDate: new FormControl('', Validators.required),
             matcher: new MyErrorStateMatcher()
         });
     }

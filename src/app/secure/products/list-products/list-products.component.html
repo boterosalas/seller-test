@@ -22,12 +22,12 @@
         <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-radio-group>
-          <mat-radio-button value="1">Fecha de creación</mat-radio-button>
-          <mat-radio-button value="2">Fecha de modificación</mat-radio-button>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-radio-group formControlName="optionDate" [(ngModel)]="optionDates" (change)="stateDate()">
+          <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
+          <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
         </mat-radio-group>
-      </mat-form-field>
+      </div>
       <!-- <mat-form-field color="primary">
         <input matInput [matDatepicker]="picker1" placeholder="Fecha de creación" formControlName="creationDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
