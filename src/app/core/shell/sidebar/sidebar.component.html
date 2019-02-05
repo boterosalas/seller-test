@@ -15,7 +15,7 @@
 
     <div class="content-menu-list" *ngIf="user">
       <div *ngFor="let module of modules">
-        <mat-expansion-panel class="expansion-menu-list" expanded="false">
+        <mat-expansion-panel class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
           <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
             <mat-panel-title>
               {{module.NameModule}}

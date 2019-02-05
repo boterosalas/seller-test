@@ -29,6 +29,7 @@ export class StatesComponent implements OnInit {
   public matcher: MyErrorStateMatcher;
   @Output() idStateEvent = new EventEmitter<number>();
   @Input() elementLoad: any;
+  @Input() disabledComponent: boolean;
 
   constructor(
     @Inject(StatesService)
@@ -46,7 +47,7 @@ export class StatesComponent implements OnInit {
    */
   ngOnInit() {
     this.validateFormRegister = new FormGroup({
-      statesFormControl: new FormControl('', [Validators.required])
+      statesFormControl: new FormControl({value: '', disabled: this.disabledComponent}, [Validators.required])
     });
     this.matcher = new MyErrorStateMatcher();
 

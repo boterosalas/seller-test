@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
 import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
-import { Modules, MenuModel, ProfileTypes } from '@app/secure/auth/auth.consts';
+import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -30,6 +30,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   public routes = RoutesConst;
   public modules = Modules;
   prueba = 'solicitudes-pendientes';
+  modulesRouting: ModuleModel[] = null;
 
   constructor(
     private route: Router,
@@ -44,7 +45,6 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
     this.userService.isAuthenticated(this);
-    console.log(this.modules, Modules);
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -66,11 +66,9 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    * @param {CategoryList} category
    * @memberof SidebarComponent
    */
-  goToRoot(category: CategoryList) {
-    if (category.id !== '') {
-      this.route.navigate([category.root, category.id]);
-    } else {
-      this.route.navigate([category.root]);
+  goToRoot(category: MenuModel) {
+    if (category.Id !== '') {
+      this.route.navigate([category.UrlRedirect, category.Id]);
     }
   }
 
@@ -81,14 +79,30 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    * @returns {boolean}
    * @memberof SidebarComponent
    */
-  showMenu(menu: MenuModel): boolean {
-    // if(this.user?.sellerProfile === 'administrator')
-    // console.log(menu);
-    // console.log(menu.NameMenu, menu.ShowMenu && ( this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType));
+  public showMenu(menu: MenuModel): boolean {
     return menu.ShowMenu && ( this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType);
   }
 
-  validateUserType(profileType: number): boolean {
+  /**
+   * Verifica si debe mostrar el modulo.
+   *
+   * @param {ModuleModel} module
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showModule(moduleR: ModuleModel): boolean {
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType) ));
+    return menu !== undefined;
+  }
+
+  /**
+   * Verifica que debe de mostrar.
+   *
+   * @param {number} profileType
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public validateUserType(profileType: number): boolean {
     return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
   }
 }

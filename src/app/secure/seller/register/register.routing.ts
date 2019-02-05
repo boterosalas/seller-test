@@ -12,12 +12,13 @@ const routes: Routes = [
     {
       path: `${RoutesConst.sellerCenterSellers}`,
       component: RegisterSellerComponent,
+      canActivate: [AuthService]
     },
     {
       path: `${RoutesConst.sellerCenterIntSellerRegister}`,
       component: RegisterSellerComponent,
       data: { title: 'Registrar vendedor' },
-      // canActivate: [AuthService]
+      canActivate: [AuthService]
     }
   ])
 ];

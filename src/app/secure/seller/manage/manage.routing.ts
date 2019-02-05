@@ -4,6 +4,7 @@ import { ManageComponent } from './manage.component';
 import { NgModule } from '@angular/core';
 import { RoutesConst } from './../../../shared';
 import { AgreementComponent } from '../agreement/agreement.component';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const routes: Routes = [
     Route.withShell([
@@ -11,10 +12,12 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntSellerManage}`,
             component: ManageComponent ,
             data: { title: 'Administrar vendedor' },
+            canActivate: [AuthService]
         }, {
             path: `${RoutesConst.sellerCenterIntSellerAgreements}`,
             component: AgreementComponent ,
             data: { title: 'Acuerdos del vendedor' },
+            canActivate: [AuthService]
         }
     ])
 ];

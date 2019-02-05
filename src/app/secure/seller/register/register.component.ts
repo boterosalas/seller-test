@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Router } from '@angular/router';
 
-import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { RoutesConst, UserInformation } from '@app/shared';
+import { LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { UserInformation } from '@app/shared';
 import { RegisterService } from './register.service';
 import { TestRequest } from '@angular/common/http/testing';
+import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -25,7 +26,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit, LoggedInCallback {
+export class RegisterSellerComponent implements OnInit {
 
   public imagesRegister: Array<any> = [
     {
@@ -54,6 +55,10 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public user: UserInformation;
   public activeButton: boolean;
 
+  // Variables con los permisos que este componente posee
+  permissionComponent: MenuModel;
+  create = createFunctionality;
+  disabledComponent = false;
 
   constructor(
     @Inject(RegisterService)
@@ -61,8 +66,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public userService: UserLoginService,
-    private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) { }
 
 
@@ -81,63 +86,61 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     return true;
   }
 
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof BulkLoadProductModerationComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
+  }
+
   ngOnInit() {
-    this.userService.isAuthenticated(this);
+    this.permissionComponent = this.authService.getMenu(registerName);
+    const disabledForm = !this.getFunctionality(this.create);
+    this.disabledComponent = disabledForm;
     this.validateFormRegister = new FormGroup({
-      Nit: new FormControl('', [
+      Nit: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
       ]),
       Rut: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
         ]),
       ContactName: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
         ]),
       Email: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.pattern(this.emailRegex)
         ]),
       PhoneNumber: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
       Address: new FormControl
-        ('', [Validators.required]),
+        ({ value: '', disabled: disabledForm }, [Validators.required]),
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
       Name: new FormControl
-        ('', [Validators.required]),
-      IsLogisticsExito: new FormControl(false),
-      IsShippingExito: new FormControl(true),
-      GotoExito: new FormControl(true),
-      GotoCarrulla: new FormControl(false),
-      GotoCatalogo: new FormControl(true)
+        ({ value: '', disabled: disabledForm }, [Validators.required]),
+      IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
+      IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
+      GotoExito: new FormControl({ value: true, disabled: disabledForm }),
+      GotoCarrulla: new FormControl({ value: false, disabled: disabledForm }),
+      GotoCatalogo: new FormControl({ value: true, disabled: disabledForm })
     });
     this.matcher = new MyErrorStateMatcher();
-  }
-
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-
-  }
-
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
-    }
   }
 
   /**

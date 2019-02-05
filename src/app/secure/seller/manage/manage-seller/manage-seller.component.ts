@@ -12,6 +12,8 @@ import { RegisterService } from '@app/secure/seller/register/register.service';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
+import { MenuModel, updateFunctionality, readFunctionality, administrateName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const log = new Logger('ManageSellerComponent');
 
@@ -83,6 +85,12 @@ export class ManageSellerComponent implements OnInit {
   public firstEmit = true;
   public idSeller: string;
 
+  // Variables con los permisos que este componente posee
+  permissionComponent: MenuModel;
+  read = readFunctionality;
+  update = updateFunctionality;
+  disabledComponent = false;
+
   /**
    * Creates an instance of ManageSellerComponent.
    * @param {EventEmitterSeller} eventsSeller
@@ -102,12 +110,26 @@ export class ManageSellerComponent implements OnInit {
     private registerService: RegisterService,
     public userService: UserLoginService,
     private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
     this.user = {};
     this.activeButton = true;
+  }
+
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**
@@ -116,8 +138,11 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(administrateName);
     this.userService.isAuthenticated(this);
-    this.createFormControls();
+    const disabledForm = !this.getFunctionality(this.update);
+    this.disabledComponent = disabledForm;
+    this.createFormControls(disabledForm);
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.elementStateLoad = null;
@@ -162,44 +187,44 @@ export class ManageSellerComponent implements OnInit {
    *
    * @memberof ManageSellerComponent
    */
-  createFormControls() {
-    this.nit = new FormControl('', [
+  createFormControls(disable: boolean) {
+    this.nit = new FormControl({value: '', disabled: disable}, [
       Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
     ]);
     this.rut = new FormControl
-      ('', [Validators.required,
+      ({value: '', disabled: disable}, [Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
       ]);
     this.contactName = new FormControl
-      ('', [Validators.required,
+      ({value: '', disabled: disable}, [Validators.required,
       Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
       ]);
     this.email = new FormControl
-      ('', [Validators.required,
+      ({value: '', disabled: disable}, [Validators.required,
       Validators.pattern(this.emailRegex)
       ]);
     this.phoneNumber = new FormControl
-      ('', [Validators.required,
+      ({value: '', disabled: disable}, [Validators.required,
       Validators.minLength(7),
       Validators.maxLength(10),
       Validators.pattern('^[0-9]*$')]);
     this.address = new FormControl
-      ('', [Validators.required]);
-    this.state = new FormControl();
-    this.city = new FormControl();
-    this.daneCode = new FormControl();
-    this.sincoDaneCode = new FormControl();
+      ({value: '', disabled: disable}, [Validators.required]);
+    this.state = new FormControl({value: '', disabled: disable});
+    this.city = new FormControl({value: '', disabled: disable});
+    this.daneCode = new FormControl({value: '', disabled: disable});
+    this.sincoDaneCode = new FormControl({value: '', disabled: disable});
     this.name = new FormControl
-      ('', [Validators.required,
+      ({value: '', disabled: disable}, [Validators.required,
       Validators.pattern(this.nameStoreRegex)]);
-    this.isLogisticsExito = new FormControl();
-    this.isShippingExito = new FormControl();
-    this.gotoExito = new FormControl();
-    this.gotoCarrulla = new FormControl();
-    this.gotoCatalogo = new FormControl();
+    this.isLogisticsExito = new FormControl({value: '', disabled: disable});
+    this.isShippingExito = new FormControl({value: '', disabled: disable});
+    this.gotoExito = new FormControl({value: '', disabled: disable});
+    this.gotoCarrulla = new FormControl({value: '', disabled: disable});
+    this.gotoCatalogo = new FormControl({value: '', disabled: disable});
     this.createForm();
   }
 

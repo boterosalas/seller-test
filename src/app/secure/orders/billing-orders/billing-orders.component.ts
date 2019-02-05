@@ -4,6 +4,8 @@ import { Logger } from '@core/util/logger.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingService } from '@app/core';
 import { ComponentsService } from '@app/shared';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { onlineBillName, MenuModel, readFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
 
 const log = new Logger('BillingOrderComponent');
 
@@ -20,20 +22,37 @@ export class BillingOrderComponent implements OnInit {
     keysBilling: any = [];
     xhr = new XMLHttpRequest();
     keys: any;
-    // billingOrdersSeller: BillingOrders[] = [];
+
+    // Variables con los permisos que este componente posee
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+    download = downloadFunctionality;
+
     constructor(
         private billingOrdersService: BillingOrdersService,
         private fb: FormBuilder,
         private loadingService: LoadingService,
         public componentsService: ComponentsService,
+        public authService: AuthService
     ) { }
     ngOnInit() {
-        // this.billingOrdersSeller = [];
+        this.permissionComponent = this.authService.getMenu(onlineBillName);
         this.billingGroup = this.fb.group({
-            billingOrderCtrl: ['', Validators.required],
+            billingOrderCtrl: [{ value: '', disabled: !this.getFunctionality(this.read) }, Validators.required],
         });
         this.billingOrders = [];
-        // this.chargeBillingOrders();
+    }
+
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof BillingOrderComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
     }
 
     /**

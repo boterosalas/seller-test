@@ -128,25 +128,8 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    * @memberof OrdersListComponent
    */
   ngOnInit() {
-    this.userService.isAuthenticated(this);
-  }
-
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-  }
-
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-    } else if (this.user.sellerProfile === 'seller') {
-      this.getOrdersListSinceCurrentUrl();
-      this.getOrdersListSinceFilterSearchOrder();
-    }
+    this.getOrdersListSinceCurrentUrl();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
   /**
