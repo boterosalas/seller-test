@@ -1,3 +1,62 @@
+<mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav">
+  <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h3>Filtro productos</h3>
+      <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+        mat-icon-button mat-button (click)="drawer.toggle()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+      <mat-form-field color="primary">
+        <input matInput placeholder="Producto" formControlName="product" [errorStateMatcher]="matcher"
+          (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('product').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>-->
+      </mat-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-radio-group>
+          <mat-radio-button value="1">Fecha de creación</mat-radio-button>
+          <mat-radio-button value="2">Fecha de modificación</mat-radio-button>
+        </mat-radio-group>
+      </mat-form-field>
+      <!-- <mat-form-field color="primary">
+        <input matInput [matDatepicker]="picker1" placeholder="Fecha de creación" formControlName="creationDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field color="primary">
+        <input matInput [matDatepicker]="picker2" placeholder="Fecha de modificación" formControlName="updateDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field> -->
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field color="primary">
+          <input matInput [matDatepicker]="picker3" placeholder="De" formControlName="initialDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field color="primary">
+          <input matInput [matDatepicker]="picker4" placeholder="Hasta" formControlName="finalDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-drawer>
+
 <div class="height-full" fxLayout="column">
   <mat-toolbar class="seller-list-toolbar">
     <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
@@ -21,6 +80,9 @@
 </div>
 
 
-<div fxLayout.xs="column" fxLayoutAlign.xs="space-between center">
-    <app-combo-product class="prodList" ></app-combo-product>
+
+<div class="prodList">
+  <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+    <app-combo-product [products]="products"></app-combo-product>
+  </div>
 </div>

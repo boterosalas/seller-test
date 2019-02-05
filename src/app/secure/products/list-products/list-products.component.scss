@@ -18,4 +18,19 @@ $color-gray3: #D3D3D3;
   flex-wrap: wrap;
   padding-left: 2.5%;
   padding-right: 2.5%;
+  margin: 0.25em;
+}
+
+.example-sidenav {
+  width: 37%;
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.seller-filter-sidenav {
+  padding-top: 5%;
+  padding-right: 8%;
+  padding-left: 8%;
+  padding-bottom: 5%;
 }

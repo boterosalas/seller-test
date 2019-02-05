@@ -97,7 +97,7 @@ export const endpoints = {
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
       // Obtener lista de productos
-      getProductList: 'https://mp22msp1mi.execute-api.us-east-1.amazonaws.com/products-statusload-dev/{params}',
+      getProductList: 'https://mp22msp1mi.execute-api.us-east-1.amazonaws.com/products-list-dev/{params}',
     },
   },
   // Endpoints production
@@ -193,6 +193,8 @@ export const endpoints = {
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
+      // Obtener lista de productos
+      getProductList: 'https://mp22msp1mi.execute-api.us-east-1.amazonaws.com/products-list-pdn/{params}',
     }
   }
 };

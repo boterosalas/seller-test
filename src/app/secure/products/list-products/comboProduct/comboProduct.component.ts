@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from '../list-products.service';
@@ -15,29 +15,11 @@ const log = new Logger('ComboProductComponent');
 })
 export class ComboProductComponent implements OnInit {
   productsList: any;
+  @Input() products: any;
+
   constructor(
-    private loadingService?: LoadingService,
-    private productsService?: ListProductService,
-    private modalService?: ModalService,
   ) { }
   ngOnInit() {
-    this.getListProducts();
-  }
 
-  getListProducts(params?: any) {
-    this.loadingService.viewSpinner();
-    this.productsService.getListProducts(params).subscribe((result: any) => {
-      console.log('result: ', result);
-      if (result.data !== undefined) {
-        // const body = JSON.parse(result.data);
-        this.productsList = result.data.list;
-        console.log('productsList: ', this.productsList);
-        // const response = result.body.data;
-        this.loadingService.closeSpinner();
-      } else {
-        this.loadingService.closeSpinner();
-        this.modalService.showModal('errorService');
-      }
-    });
   }
 }
