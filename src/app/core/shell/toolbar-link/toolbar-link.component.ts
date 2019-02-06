@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggedInCallback, UserLoginService, UserParametersService } from '@app/core/aws-cognito';
 import { CategoryList } from '@app/shared/models/order.model';
@@ -6,6 +6,8 @@ import { RoutesConst } from '@app/shared/util/routes.constants';
 import { environment } from '@env/environment';
 import { UserInformation } from '@app/shared/models';
 import { Logger } from '@app/core';
+import { ModuleModel, MenuModel, ProfileTypes } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const log = new Logger('ToolbarLinkComponent');
 
@@ -23,14 +25,15 @@ const log = new Logger('ToolbarLinkComponent');
   templateUrl: './toolbar-link.component.html',
   styleUrls: ['./toolbar-link.component.scss'],
 })
-export class ToolbarLinkComponent implements OnInit, LoggedInCallback {
+export class ToolbarLinkComponent implements OnInit {
 
   public routes: any;
-  public user: UserInformation;
+  @Input() user: UserInformation;
   // Estructura para la categoría
   categoryEstructure = {
     root: 'home'
   };
+  modules: ModuleModel[] = null;
 
   // Lista de categorías
   public categoryList: any;
@@ -45,18 +48,15 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback {
   constructor(
     private route: Router,
     public userService: UserLoginService,
-    public userParams: UserParametersService
-  ) { }
-
-  ngOnInit() {
-    this.userService.isAuthenticated(this);
-    this.getCategory();
+    public userParams: UserParametersService,
+    public authService: AuthService
+  ) {
+    console.log(this.user);
   }
 
-  async isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.user = await this.userParams.getUserData();
-    }
+  ngOnInit() {
+    this.getCategory();
+    this.modules = this.authService.getModules();
   }
 
   /**
@@ -78,6 +78,53 @@ export class ToolbarLinkComponent implements OnInit, LoggedInCallback {
       this.route.navigate([category.root, category.id]);
     } else {
       this.route.navigate([category.root]);
+    }
+  }
+
+  /**
+   * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
+   *
+   * @param {MenuModel} menu
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showMenu(menu: MenuModel): boolean {
+    return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType);
+  }
+
+  /**
+   * Verifica si debe mostrar el modulo.
+   *
+   * @param {ModuleModel} module
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showModule(moduleR: ModuleModel): boolean {
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
+    return menu !== undefined;
+  }
+
+  /**
+   * Retorna el menu solo con la primera en mayuscula.
+   *
+   * @param {string} name
+   * @returns {string}
+   * @memberof ToolbarLinkComponent
+   */
+  public getPersonalityName(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
+
+  /**
+   * Verifica que debe de mostrar.
+   *
+   * @param {number} profileType
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public validateUserType(profileType: number): boolean {
+    if (this.user) {
+      return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
     }
   }
 }

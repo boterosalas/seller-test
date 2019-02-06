@@ -8,6 +8,7 @@ import { LoggedInCallback, UserLoginService, UserParametersService } from '@core
 import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -18,7 +19,7 @@ const log = new Logger('SideBarComponent');
   styleUrls: ['./sidebar.component.scss']
 })
 
-export class SidebarComponent implements OnInit, LoggedInCallback {
+export class SidebarComponent implements OnInit {
   // Sidenav principal
   @Input() sidenav;
   // Información del usuario
@@ -28,15 +29,15 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   // Lista de categorías de las órdenes
   categoryList: any;
   public routes = RoutesConst;
-  public modules = Modules;
   prueba = 'solicitudes-pendientes';
-  modulesRouting: ModuleModel[] = null;
+  modules: ModuleModel[] = null;
 
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) { }
 
   /**
@@ -44,13 +45,7 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
-    this.userService.isAuthenticated(this);
-  }
-
-  async isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.user = await this.userParams.getUserData();
-    }
+    this.modules = this.authService.getModules();
   }
 
   /**

@@ -131,7 +131,7 @@ const showAll = true;
  * 3. Enviadas.
  * 4. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sended = 'Enviadas', onlineBillName = 'Factura Electrónica';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -140,27 +140,39 @@ export const createFunctionality = 'Crear';
 export const visualizeFunctionality = 'Visualizar';
 export const enableFunctionality = 'Habilitar';
 export const deleteFunctionality = 'Eliminar';
+export const attachmentFunctionality = 'Adjuntar';
+export const sendFunctionality = 'Enviar';
+export const idSended = '170';
+export const idToSend = '35';
 
 const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCase(), [
     // 1. Todas (Consultar, Descargar).
     new MenuModel(allName, showAll, allName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality),
-        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality)
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
     ], RoutesConst.sellerCenterOrders),
     // 2. Por enviar (Consultar, Descargar).
     new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality),
-        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality)
-    ], RoutesConst.sellerCenterIntOrdersState + '/35', '35'),
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
+    ], RoutesConst.sellerCenterIntOrdersState + '/' + idToSend, idToSend),
     // 3. Enviadas (Consultar, Descargar).
-    new MenuModel(sended, showAll, sended.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality),
-        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality)
-    ], RoutesConst.sellerCenterIntOrdersState + '/170', '170'),
+    new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
+    ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
     // 4. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
     ], RoutesConst.sellerCenterIntOrderBillingOrders)
 ]);
 
@@ -347,6 +359,6 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
 
 export const Modules = [
     OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule
-];
+]; // Lista de modelo, menus a mostrar.
 
 

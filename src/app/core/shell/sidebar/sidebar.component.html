@@ -29,8 +29,9 @@
           </div>
         </mat-expansion-panel>
       </div>
+    </div>
 
-
+      <!--
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
 
 
@@ -87,7 +88,6 @@
           <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
 
-        <!-- PARAMETRIZACION -->
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferTreeCategory]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Arbol de categorías</h6>
         </mat-list-item>
@@ -95,7 +95,6 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Cotizador</h6>
         </mat-list-item>
-        <!-- PARAMETRIZACION -->
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
@@ -190,6 +189,7 @@
 
       </mat-expansion-panel>
     </div>
+  -->
 
     <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
       <h6 matLine>Soporte Marketplace</h6>

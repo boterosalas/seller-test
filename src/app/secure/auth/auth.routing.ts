@@ -20,32 +20,26 @@ export class AuthService implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        console.log(state);
+        console.warn('AuthService', state);
+        console.warn('AuthService', route);
         // Promesa para verificar estados del usuario y la ruta a la que intenta entrar
         return new Promise((resolve, reject) => {
             const moduleSelected = this.validateModule(state.url); // Verfica a que menu desea ingresar
-            console.log(moduleSelected);
+            console.warn('AuthService', moduleSelected);
             this.verifyLog(); // Verifica si esta logueado
             if (moduleSelected) { // Verifica si si esta ingresando a un menu mapeado.
-                if (!this.userData) {// Verifica si hay datos del usuario.
-                    this.userParams.getUserData().then(data => {
-                        this.userData = data;
-                        console.log(this.userData);
-                        // Valida si al menu que intenta ingresar posee el tipo del usuario.
-                        const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
-                        resolve(result);
-                        console.log(result, moduleSelected);
-                        this.redirectToHome(result);
-                    }, error => {
-                        reject(false);
-                        this.redirectToHome(false);
-                    });
-                } else { // Si ya hay datos del usuario procede a realizar la validacion.
-                    console.log(this.userData);
+                this.userParams.getUserData().then(data => {
+                    this.userData = data;
+                    console.warn('AuthService', this.userData);
+                    // Valida si al menu que intenta ingresar posee el tipo del usuario.
                     const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
                     resolve(result);
                     this.redirectToHome(result);
-                }
+                }, error => {
+                    console.error(error);
+                    reject(false);
+                    this.redirectToHome(false);
+                });
             } else {
                 this.redirectToHome(false);
                 return false;
@@ -61,6 +55,7 @@ export class AuthService implements CanActivate {
      */
     public redirectToHome(result: boolean): void {
         if (!result) {
+            console.log('aqui');
             // this.router.navigate([`/${RoutesConst.home}`]);
         }
     }
@@ -138,7 +133,7 @@ export class AuthService implements CanActivate {
         if (moduleSelected && moduleSelected.ShowMenu) {
             return moduleSelected;
         } else {
-          return null;
+            return null;
         }
     }
 

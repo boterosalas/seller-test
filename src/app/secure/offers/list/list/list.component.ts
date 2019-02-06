@@ -7,6 +7,8 @@ import { RoutesConst } from '@app/shared';
 import { ModelFilter } from '../components/filter/filter.model';
 import { ListService } from '../list.service';
 import { environment } from '@env/environment';
+import { MenuModel, readFunctionality, updateFunctionality, offerListName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 
@@ -16,7 +18,7 @@ import { environment } from '@env/environment';
   styleUrls: ['./list.component.scss']
 })
 
-export class ListComponent implements OnInit, LoggedInCallback {
+export class ListComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro.
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -55,13 +57,20 @@ export class ListComponent implements OnInit, LoggedInCallback {
   public domainImages = environment.domainImages;
 
 
+  // Variables con los permisos que este componente posee.
+  permissionComponent: MenuModel;
+  read = readFunctionality;
+  update = updateFunctionality;
+  updatePermission: boolean;
+  readPermission: boolean;
+  // Fin de variables de permisos.
+
+
   constructor(
     private loadingService?: LoadingService,
     private modalService?: ModalService,
-    private userService?: UserLoginService,
-    private router?: Router,
     private offerService?: ListService,
-    private userParams?: UserParametersService
+    public authService?: AuthService
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
@@ -73,36 +82,23 @@ export class ListComponent implements OnInit, LoggedInCallback {
    * @memberof ListComponent
    */
   ngOnInit() {
-    this.userService.isAuthenticated(this);
+    this.getListOffers();
+    // offerListName
+    this.permissionComponent = this.authService.getMenu(offerListName);
+    this.updatePermission = this.getFunctionality(this.update);
+    this.readPermission = this.getFunctionality(this.read);
   }
 
   /**
-   * @method isLoggedIn
-   * @description Método para validar si el usuario esta logeado
-   * @param message
-   * @param isLoggedIn
-   * @memberof ListComponent
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
    */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-  }
-
-  /**
-   * @method getDataUser
-   * @description Método para ir al servicio de userParams y obtener los datos del usuario
-   * @memberof ListComponent
-   */
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-    } else {
-      this.getListOffers();
-    }
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**
