@@ -5,6 +5,7 @@ import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { ModelFilterProducts } from './listFilter/filter-products.model';
 
 
 export interface ListFilterProducts {
@@ -33,7 +34,8 @@ export class ListProductsComponent implements OnInit {
     productsList: any;
     public filterProduts: FormGroup;
     public matcher: MyErrorStateMatcher;
-    productList: any;
+    public paramsData: ModelFilterProducts;
+    nameProductList: any;
     eanList: any;
     creationDateList: any;
     initialDateList: any;
@@ -57,23 +59,6 @@ export class ListProductsComponent implements OnInit {
         this.getListProducts();
     }
 
-    getListProducts(params?: any) {
-        this.loadingService.viewSpinner();
-        this.productsService.getListProducts(params).subscribe((result: any) => {
-            console.log('result: ', result);
-            if (result.data !== undefined) {
-                // const body = JSON.parse(result.data);
-                this.productsList = result.data.list;
-                console.log('productsList: ', this.productsList);
-                // const response = result.body.data;
-                this.loadingService.closeSpinner();
-            } else {
-                this.loadingService.closeSpinner();
-                this.modalService.showModal('errorService');
-            }
-        });
-    }
-
     /**
      * Crear formualrio de filtro
      *
@@ -81,18 +66,19 @@ export class ListProductsComponent implements OnInit {
      */
     createFormControls() {
         this.filterProduts = this.fb.group({
-            product: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
+            productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])), /*
             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
             initialDate: new FormControl('', []),
             finalDate: new FormControl('', []),
-            creationDate: new FormControl('', Validators.required),
+            creationDate: new FormControl('', []),
             matcher: new MyErrorStateMatcher()
         });
     }
 
+    // Funcion para limpiar formulario
     public cleanFilterListProducts(): void {
-        this.productList = null;
+        this.nameProductList = null;
         this.eanList = null;
         this.creationDateList = null;
         this.initialDateList = null;
@@ -101,11 +87,13 @@ export class ListProductsComponent implements OnInit {
 
     }
 
+    // Funcion para limpiar formulario
     public cleanFilter() {
         this.filterProduts.reset();
         this.cleanFilterListProducts();
     }
 
+    // Funcion para cargar datos de regex
     public validateFormSupport(): void {
         const param = ['productos', null];
         this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
@@ -129,5 +117,70 @@ export class ListProductsComponent implements OnInit {
         return null;
     }
 
+    getListProducts(params?: any) {
+        this.loadingService.viewSpinner();
+        this.productsService.getListProducts(params).subscribe((result: any) => {
+            console.log('result: ', result);
+            if (result.data !== undefined) {
+                // const body = JSON.parse(result.data);
+                this.productsList = result.data.list;
+                console.log('productsList: ', this.productsList);
+                // const response = result.body.data;
+                this.loadingService.closeSpinner();
+            } else {
+                this.loadingService.closeSpinner();
+                this.modalService.showModal('errorService');
+            }
+        });
+    }
 
+    public filterProducts() {
+        this.cleanFilterListProducts();
+    }
+
+    public filterListProducts(params?: any) {
+        // let urlParams: any;
+        let urlParams2: any;
+        let countFilter = 0;
+
+        this.nameProductList = this.filterProduts.controls.productName.value || null;
+        this.eanList = this.filterProduts.controls.ean.value || null;
+
+        const initialDate = '04-02-2019';
+        const finalDate = '05-02-2019';
+        const ean = null;
+        const creationDate = null;
+        const page = 0;
+        const limit = 30;
+
+        // urlParams =  this.filterProduts.controls.productName.value;
+        // urlParams =  this.filterProduts.controls.ean.value;
+
+        if (this.nameProductList !== null) {
+            countFilter++;
+        } else
+        if (this.eanList !== null ) {
+            countFilter++;
+         }
+
+         if (countFilter) {
+            urlParams2 = `${initialDate}/${finalDate}/${this.eanList}/${this.nameProductList}/${creationDate}/${page}/${limit}/`;
+         }
+
+        console.log('urlParams2: ', urlParams2);
+        this.loadingService.viewSpinner();
+        this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
+            console.log('res: ', result);
+            if (result.data !== undefined) {
+                // const body = JSON.parse(result.data);
+                this.productsList = result.data.list;
+                console.log('productsList: ', this.productsList);
+                // const response = result.body.data;
+            } else {
+                this.modalService.showModal('errorService');
+            }
+            this.loadingService.closeSpinner();
+        });
+
+    }
 }

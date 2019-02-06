@@ -27,7 +27,8 @@ export class ListProductService {
    * @memberof ListProductService
    */
   public getListProducts(params?: any): Observable<{}> {
-    return this.http.get(this.api.get('getProductList', ['04-02-2019/05-02-2019/null/null/null/0/30']));
+    console.log('params: ', params);
+    return this.http.get(this.api.get('getProductList', [params]));
   }
 
   public getListProductsFilter(params?: any): Observable<{}> {
@@ -43,7 +44,7 @@ export class ListProductService {
 
     urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit;
 
-    return this.http.get(this.api.get('getProductList', ['04-02-2019/05-02-2019/null/null/null/0/30']));
+    return this.http.get(this.api.get('getProductList', urlParams));
   }
 
 

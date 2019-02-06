@@ -1,81 +1,84 @@
-<mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav">
-  <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav" *ngIf="filterProduts">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <h3>Filtro productos</h3>
-      <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
-        mat-icon-button mat-button (click)="drawer.toggle()">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </div>
-
-    <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-      <mat-form-field color="primary">
-        <input matInput placeholder="Nombre de producto" formControlName="product" [errorStateMatcher]="matcher">
-        <mat-hint></mat-hint>
-        <mat-error *ngIf="filterProduts.get('product').hasError('pattern')" [innerHTML]="'Nombre de producto invalido'"></mat-error>
-      </mat-form-field>
-      <mat-form-field color="primary">
-        <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
-        <mat-hint></mat-hint>
-        <mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
-      </mat-form-field>
-
-      <div>
-        <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row"
-          fxLayoutAlign="space-between center" class="radioDate">
-          <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
-          <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
-        </mat-radio-group>
-      </div>
+<mat-drawer-container class="drawer-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav">
+    <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
+      *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field class="classDatapicker">
-          <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field class="classDatapicker">
-          <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        <h3>Filtro productos</h3>
+        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+          mat-icon-button mat-button (click)="drawer.toggle()">
+          <mat-icon>clear</mat-icon>
+        </button>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-        <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
-        <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-        <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle()"></button>
+      <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+        <mat-form-field color="primary">
+          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')" [innerHTML]="'Nombre de producto invalido'"></mat-error>
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
+        </mat-form-field>
+
+        <div>
+          <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row" fxLayoutAlign="space-between center"
+            class="radioDate">
+            <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
+            <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field class="classDatapicker">
+            <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="classDatapicker">
+            <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+          <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+          <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle() && filterListProducts()"></button>
+        </div>
       </div>
-    </div>
-  </form>
-</mat-drawer>
+    </form>
+  </mat-drawer>
 
-<div class="height-full" fxLayout="column">
-  <mat-toolbar class="seller-list-toolbar">
-    <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
-      <!--  Titulo del toolbar -->
-      <p class="seller-list-title" fxShow [fxShow.xs]="false">
-        Productos
-        <small class="sub-title">| Listado de productos</small>
-      </p>
-      <!--  Titulo del toolbar -->
-      <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-        Listado de productos
-      </p>
-      <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-      </mat-paginator>
-    </div>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      <mat-icon>filter_list</mat-icon>
-      <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
-    </button>
-  </mat-toolbar>
-</div>
-
-
-
-<div class="prodList">
-  <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-    <app-combo-product [products]="products"></app-combo-product>
+  <div class="height-full" fxLayout="column">
+    <mat-toolbar class="seller-list-toolbar">
+      <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+        <!--  Titulo del toolbar -->
+        <p class="seller-list-title" fxShow [fxShow.xs]="false">
+          Productos
+          <small class="sub-title">| Listado de productos</small>
+        </p>
+        <!--  Titulo del toolbar -->
+        <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+          Listado de productos
+        </p>
+        <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+        </mat-paginator>
+      </div>
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+      </button>
+    </mat-toolbar>
   </div>
-</div>
+
+
+
+  <div class="prodList">
+    <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+      <app-combo-product [products]="products"></app-combo-product>
+    </div>
+  </div>
+</mat-drawer-container>
