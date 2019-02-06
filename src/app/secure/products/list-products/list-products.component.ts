@@ -145,6 +145,9 @@ export class ListProductsComponent implements OnInit {
 
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
+        this.creationDateList = this.filterProduts.controls.creationDate.value || null;
+        this.initialDateList = this.filterProduts.controls.initialDate.value || null;
+        this.finalDateList = this.filterProduts.controls.finalDate.value || null;
 
         const initialDate = '04-02-2019';
         const finalDate = '05-02-2019';
@@ -156,16 +159,31 @@ export class ListProductsComponent implements OnInit {
         // urlParams =  this.filterProduts.controls.productName.value;
         // urlParams =  this.filterProduts.controls.ean.value;
 
-        if (this.nameProductList !== null) {
+        if (this.nameProductList) {
             countFilter++;
-        } else
-        if (this.eanList !== null ) {
+        } else {
             countFilter++;
-         }
+        }
+        if (this.eanList) {
+            countFilter++;
+        } else {
+            countFilter++;
+        } if (this.creationDateList === null) {
+        } else if (this.creationDateList === 'createDate') {
+            this.creationDateList = true;
+            this.initialDateList = this.initialDateList;
+            this.finalDateList = this.finalDateList;
+            countFilter++;
+        } else {
+            this.creationDateList = false;
+            this.initialDateList = this.initialDateList;
+            this.finalDateList = this.finalDateList;
+            countFilter++;
+        }
 
-         if (countFilter) {
-            urlParams2 = `${initialDate}/${finalDate}/${this.eanList}/${this.nameProductList}/${creationDate}/${page}/${limit}/`;
-         }
+        if (countFilter) {
+            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
+        }
 
         console.log('urlParams2: ', urlParams2);
         this.loadingService.viewSpinner();
