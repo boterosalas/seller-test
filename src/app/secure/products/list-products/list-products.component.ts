@@ -40,6 +40,10 @@ export class ListProductsComponent implements OnInit {
     creationDateList: any;
     initialDateList: any;
     finalDateList: any;
+    visible = true;
+    selectable = true;
+    removable = true;
+    addOnBlur = true;
     listFilterProducts: ListFilterProducts[] = [
     ];
     validateRegex: any;
@@ -134,9 +138,20 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-    public filterProducts() {
-        this.cleanFilterListProducts();
+    public getDate(date: any): any {
+        const day = this.addsZeroDate(date.getDate().toString());
+        const months =  this.addsZeroDate( (date.getMonth() + 1).toString());
+        const year = date.getFullYear();
+
+        return day + '-' + months + '-' + year;
     }
+
+    public addsZeroDate(param: any): any {
+        if (param.length < 2) {
+            return '0' + param;
+        }
+        return param;
+        }
 
     public filterListProducts(params?: any) {
         // let urlParams: any;
@@ -146,13 +161,9 @@ export class ListProductsComponent implements OnInit {
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
-        this.initialDateList = this.filterProduts.controls.initialDate.value || null;
-        this.finalDateList = this.filterProduts.controls.finalDate.value || null;
+        this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value)) || null;
+        this.finalDateList =  this.getDate(new Date(this.filterProduts.controls.finalDate.value)) || null;
 
-        const initialDate = '04-02-2019';
-        const finalDate = '05-02-2019';
-        const ean = null;
-        const creationDate = null;
         const page = 0;
         const limit = 30;
 
@@ -200,5 +211,59 @@ export class ListProductsComponent implements OnInit {
             this.loadingService.closeSpinner();
         });
 
+        this.filterProducts();
+        console.log('filter: ', this.filterProducts());
+    }
+
+    public filterProducts() {
+        this.cleanFilterListProducts();
+        this.nameProductList = this.filterProduts.controls.productName.value || null;
+        this.eanList = this.filterProduts.controls.ean.value || null;
+        this.creationDateList = this.filterProduts.controls.creationDate.value || null;
+        this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
+        this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
+
+        const data = [];
+        data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
+        data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+        data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
+        data.push({ value: this.initialDateList, name: 'initialDateList', nameFilter: 'initialDate' });
+        data.push({ value: this.finalDateList, name: 'finalDateList', nameFilter: 'finalDate' });
+        this.add(data);
+
+    }
+    // Metodo para añadir los chips de los filtros
+
+    public add(data: any): void {
+        data.forEach(element => {
+            const value = element.value;
+            if (value) {
+                /* Add our listFilterSellers
+                if ((value || '').trim()) { */
+                if ((value || '')) {
+                    this.listFilterProducts.push({ name, value: element.name, nameFilter: element.nameFilter });
+                }
+
+            }
+        });
+    }
+
+    // Metodo para ir eliminando los filtros aplicados
+    public remove(productsFilter: ListFilterProducts): void {
+        const index = this.listFilterProducts.indexOf(productsFilter);
+        if (index >= 0) {
+            this.listFilterProducts.splice(index, 1);
+            this[productsFilter.value] = '';
+            console.log('form aqui mirar: ', this.filterProduts);
+            console.log('form aqui mirar 2: ', productsFilter);
+            this.filterProduts.controls[productsFilter.nameFilter].setValue(null);
+        }
+        console.log('aqui');
+        this.filterListProducts();
+    }
+
+    public mirarfecha() {
+        console.log('inicial: ',  this.initialDateList);
+       // console.log('inicial: ',  this.initialDateList);
     }
 }
