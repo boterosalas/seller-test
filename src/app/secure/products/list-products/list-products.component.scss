@@ -14,6 +14,32 @@ $color-gray3: #D3D3D3;
   }
 }
 */
+.no-products{
+  background-color: lightgray;
+  border-radius: 5px;
+  border: 1px solid gray;
+  label{
+    padding: 5px;
+  }
+}
+
+.example-chip-list {
+  margin: 1%;
+}
+
+.tree-toolbar {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  & .toolbar-options-table {
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      padding-left: 20px;
+  }
+}
 
 .drawer-container {
   height: 100%;
@@ -67,4 +93,8 @@ $color-gray3: #D3D3D3;
 ::ng-deep .mat-datepicker-content .mat-calendar {
   width: 200px !important;
   height: 230px !important;
+}
+
+.height-full {
+  height: 5%;
 }

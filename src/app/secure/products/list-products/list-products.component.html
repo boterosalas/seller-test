@@ -29,19 +29,22 @@
             <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
           </mat-radio-group>
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-form-field class="classDatapicker">
-            <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate" (change)= " mirarfecha()">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+        <div *ngIf="optionDates">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field class="classDatapicker">
+              <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate" (change)=" mirarfecha()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-          <mat-form-field class="classDatapicker">
-            <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
+            <mat-form-field class="classDatapicker">
+              <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
+
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
           <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
@@ -52,8 +55,8 @@
     </form>
   </mat-drawer>
 
-  <div class="height-full" fxLayout="column">
-    <mat-toolbar class="seller-list-toolbar">
+  <div class="height-full">
+    <mat-toolbar class="tree-toolbar">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow [fxShow.xs]="false">
@@ -71,24 +74,34 @@
         <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
       </button>
     </mat-toolbar>
-
-    <div class="example-chip-list">
-        <mat-chip-list #chipList>
-          <mat-chip *ngFor="let productsFilter of listFilterProducts" [selectable]="selectable" [removable]="removable" (removed)="remove(productsFilter)">
-            {{productsFilter.name}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             disabled>
-        </mat-chip-list>
-      </div>
   </div>
+  <div fxLayout="column">
+    <div class="example-chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let productsFilter of listFilterProducts" [selectable]="selectable" [removable]="removable"
+          (removed)="remove(productsFilter)">
+          {{productsFilter.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
+      </mat-chip-list>
+    </div>
 
-
-
-  <div class="prodList">
-    <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-      <app-combo-product [products]="products"></app-combo-product>
+    <div class="prodList">
+      <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+        <app-combo-product [products]="products"></app-combo-product>
+      </div>
+      <div class="no-products" *ngIf="!products && !products.length">
+          <div class="material-icons">
+              <mat-icon>layers_clear</mat-icon>
+          </div>
+        <label>
+          No hay prodductos
+        </label>
+      </div>
     </div>
   </div>
+
+
+
 </mat-drawer-container>

@@ -170,12 +170,18 @@ export class ListProductsComponent implements OnInit {
         // let urlParams: any;
         let urlParams2: any;
         let countFilter = 0;
-
+        this.initialDateList = null;
+        this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
-        this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value)) || null;
-        this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value)) || null;
+        if (this.filterProduts.controls.initialDate.value) {
+            this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
+        }
+        if (this.filterProduts.controls.finalDate.value) {
+            this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
+
+        }
 
         const page = this.pagepaginator;
         const limit = this.pageSize;
@@ -186,6 +192,14 @@ export class ListProductsComponent implements OnInit {
             countFilter++;
         }
         if (this.nameProductList) {
+            countFilter++;
+        } else {
+            countFilter++;
+        } if (this.initialDateList) {
+            countFilter++;
+        } else {
+            countFilter++;
+        } if (this.finalDateList) {
             countFilter++;
         } else {
             countFilter++;
@@ -235,6 +249,8 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
+        console.log('radio: ', this.filterProduts.controls.creationDate.value);
+
         const data = [];
         data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
@@ -250,8 +266,14 @@ export class ListProductsComponent implements OnInit {
             if (value) {
                 /* Add our listFilterSellers
                 if ((value || '').trim()) { */
+                console.log(element);
                 if ((value || '')) {
-                    this.listFilterProducts.push({ name, value: element.name, nameFilter: element.nameFilter });
+                    if (element.value === 'createDate') {
+                        element.value = 'Fecha de creación';
+                    } else if (element.value === 'updateDate') {
+                        element.value = 'Fecha de modificación';
+                    }
+                    this.listFilterProducts.push({ name: element.value, value: element.name, nameFilter: element.nameFilter });
                 }
 
             }
@@ -261,11 +283,13 @@ export class ListProductsComponent implements OnInit {
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
         console.log('list 1: ', this.listFilterProducts);
-        console.log('list 1: ', productsFilter);
+        console.log('products ', this.filterProduts.controls);
         if (productsFilter.nameFilter === 'creationDate') {
+            console.log('initialDate ', this.filterProduts.controls.initialDate);
+            console.log('finallDate ', this.filterProduts.controls.finallDate);
             this.filterProduts.controls.initialDate.setValue(null);
-            this.filterProduts.controls.finallDate.setValue(null);
-         }
+            this.filterProduts.controls.finalDate.setValue(null);
+        }
         const index = this.listFilterProducts.indexOf(productsFilter);
         if (index >= 0) {
             this.listFilterProducts.splice(index, 1);
