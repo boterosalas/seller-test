@@ -26,12 +26,17 @@
             <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
               <h6 matLine>{{menu.NameMenu}}</h6>
             </mat-list-item>
+
+            <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
+              target="_blank">
+              <h3 matLine style="margin-left:50px;">{{menu.NameMenu}}</h3>
+            </a>
           </div>
         </mat-expansion-panel>
       </div>
     </div>
 
-      <!--
+    <!--
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
 
 

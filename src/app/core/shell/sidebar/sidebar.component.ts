@@ -74,8 +74,23 @@ export class SidebarComponent implements OnInit {
    * @returns {boolean}
    * @memberof SidebarComponent
    */
-  public showMenu(menu: MenuModel): boolean {
-    return menu.ShowMenu && ( this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType);
+  public showMenu(menu: MenuModel, showUrlRedirect: boolean = false): boolean {
+    if (showUrlRedirect) {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
+    } else {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
+    }
+  }
+
+  /**
+   * 
+   *
+   * @param {string} url
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showOnlyLocalMenus(url: string): boolean {
+    return url.search('http') === -1;
   }
 
   /**
@@ -86,7 +101,7 @@ export class SidebarComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showModule(moduleR: ModuleModel): boolean {
-    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType) ));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
     return menu !== undefined;
   }
 

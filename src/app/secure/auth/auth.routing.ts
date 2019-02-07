@@ -34,14 +34,14 @@ export class AuthService implements CanActivate {
                     // Valida si al menu que intenta ingresar posee el tipo del usuario.
                     const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
                     resolve(result);
-                    this.redirectToHome(result);
+                    this.redirectToHome(result, state);
                 }, error => {
                     console.error(error);
                     reject(false);
-                    this.redirectToHome(false);
+                    this.redirectToHome(false, state);
                 });
             } else {
-                this.redirectToHome(false);
+                this.redirectToHome(false, state);
                 return false;
             }
         });
@@ -53,10 +53,10 @@ export class AuthService implements CanActivate {
      * @param {boolean} result
      * @memberof AuthService
      */
-    public redirectToHome(result: boolean): void {
+    public redirectToHome(result: boolean, state: RouterStateSnapshot): void {
         if (!result) {
-            console.log('aqui');
-            // this.router.navigate([`/${RoutesConst.home}`]);
+            console.log('aqui', state);
+            this.router.navigate([`/${RoutesConst.home}`]);
         }
     }
 
