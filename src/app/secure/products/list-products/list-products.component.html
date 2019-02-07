@@ -64,8 +64,7 @@
         <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
           Listado de productos
         </p>
-        <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-        </mat-paginator>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
