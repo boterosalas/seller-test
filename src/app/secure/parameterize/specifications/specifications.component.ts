@@ -51,10 +51,10 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
 
     public getSpecifications(): void {
-        this.specificationService.getSpecifications().subscribe(data => {
-            console.log('data: ', data);
+        this.specificationService.getConfigSpecifications().subscribe(data => {
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
+                console.log('data: ', this.specificationsGroups);
                 this.getCategoriesList();
             }
             this.loadingService.closeSpinner();
@@ -129,11 +129,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             if (result) {
                 this.loadingService.viewSpinner();
                 if (this.groupDelete) {
-                    this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(res => {
+                    this.specificationService.deleteConfigSpecifications(this.groupDelete.Id).subscribe(res => {
                         console.log(result);
                         res = result;
                         this.groupDelete = '';
                         if (result.status === 200 && result.body) {
+                            this.getSpecifications();
                             this.snackBar.open('Has eliminado correctamente un grupo de especificaciones', 'Cerrar', {
                                 duration: 3000,
                             });
@@ -215,8 +216,17 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public saveGroupSpec(data: any): void {
         if (data) {
             this.loadingService.viewSpinner();
+            const dataToSend = {
+                GroupName: data.NameSpec,
+                Specs: [],
+                ListCategories: []
+            };
+            data.Categories.forEach(element => {
+                dataToSend.ListCategories.push(element.Id.toString());
+            });
+            console.log(dataToSend);
             if (this.modeSave) {
-                this.specificationService.addSpecification(data).subscribe(result => {
+                this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
                     if (result.status === 200 && result.body) {
                         this.snackBar.open('Agrego correctamente un grupo de especificaciones', 'Cerrar', {
                             duration: 3000,

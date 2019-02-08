@@ -6,18 +6,20 @@ export class SpecificationModel {
     Show: boolean;
     Sons: SpecificationModel[];
     IdParent?: number;
-
+    List?: [];
     constructor(
         Name: string,
         Show: boolean,
         Sons?: SpecificationModel[],
         Id?: number,
-        IdParent?: number) {
+        IdParent?: number,
+        List?: []) {
         this.Id = Id;
         this.IdParent = IdParent;
         this.Show = Show;
         this.Sons = Sons;
         this.Name = Name;
+        this.List = List;
     }
 
     /**
@@ -48,7 +50,7 @@ export class SpecificationModel {
         model = new SpecificationModel(
             specification.groupName,
             false,
-            this.getSons(specification.specs ),
+            this.getSons(specification.specs),
             specification.idGroup
         );
         return model;
@@ -65,14 +67,20 @@ export class SpecificationModel {
     public getSons(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
         json.forEach(data => {
-                specificationList.push(
-                    new SpecificationModel(
-                        data.specName,
-                        false,
-                        null,
-                        data.idSpec
-                    )
-                );
+            let values = null;
+            if (data.values) {
+                values = JSON.parse(data.values);
+            }
+            specificationList.push(
+                new SpecificationModel(
+                    data.specName,
+                    false,
+                    null,
+                    data.idSpec,
+                    null,
+                    values
+                )
+            );
         });
         return specificationList;
     }

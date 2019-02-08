@@ -232,6 +232,8 @@ export class AddDialogComponent implements OnInit {
      */
     public saveSpecGroup(): void {
         if (this.formSpecs.valid) {
+            const data = this.formSpecs.value;
+            data.Categories = this.categoriesAdded;
             this.dialogRef.close(this.formSpecs.value);
         }
     }

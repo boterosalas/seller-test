@@ -64,15 +64,24 @@
                 </div>
             </div>
             <div *ngIf="group.Show" class="specs-container">
-                <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" (click)="initUpdateSpec(group, spec)">
+                <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" (click)="initUpdateSpec(group, spec)" fxLayout="row">
+                    <mat-icon *ngIf="spec.List.length">
+                        list
+                    </mat-icon>
+                    <mat-icon *ngIf="!spec.List.length">
+                        text_fields
+                    </mat-icon>
                     <p *ngIf="!spec.EditMode">{{spec.Name}}</p>
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <mat-form-field class="full-width" *ngIf="spec.EditMode">
-                            <input matInput [(ngModel)]="spec.Name" (blur)="blurInput(spec, false)" appFocus>
+                            <label  [(ngModel)]="spec.Name" (blur)="blurInput(spec, false)" appFocus></label>
                         </mat-form-field>
                         <button mat-icon-button>
                             <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="spec.EditMode">delete</mat-icon>
                         </button>
+                        <button mat-icon-button>
+                                <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="spec.EditMode">edit</mat-icon>
+                            </button>
                     </div>
                 </div>
 
