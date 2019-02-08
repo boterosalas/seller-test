@@ -27,7 +27,6 @@ export class ListProductService {
    * @memberof ListProductService
    */
   public getListProducts(params?: any): Observable<{}> {
-    console.log('params: ', params);
     // return this.http.get(this.api.get('getProductList', [params]));
     return this.http.get(this.api.get('getProductList', [params]));
   }

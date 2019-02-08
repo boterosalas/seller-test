@@ -91,12 +91,12 @@
       <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
         <app-combo-product [products]="products"></app-combo-product>
       </div>
-      <div class="no-products" *ngIf="!products && !products.length">
-          <div class="material-icons">
-              <mat-icon>layers_clear</mat-icon>
-          </div>
-        <label>
-          No hay prodductos
+      <div *ngIf="!productsList.length" fxLayout="column" class="no-products"> 
+        <div class="icon-face"  >
+          <mat-icon class="mat-18">layers_clear</mat-icon>
+        </div>
+        <label class="icon-face-text">
+          No hay productos cargados
         </label>
       </div>
     </div>

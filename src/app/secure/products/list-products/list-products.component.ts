@@ -31,7 +31,7 @@ const log = new Logger('ListProductsComponent');
 })
 
 export class ListProductsComponent implements OnInit {
-    productsList: any;
+    productsList: any = [];
     public filterProduts: FormGroup;
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -104,6 +104,7 @@ export class ListProductsComponent implements OnInit {
         this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
             this.validateRegex = JSON.parse(res.body.body);
             this.createFormControls();
+            this.filterListProducts();
         });
     }
 
@@ -132,24 +133,6 @@ export class ListProductsComponent implements OnInit {
         this.pagepaginator = param.pageIndex;
         this.filterListProducts();
     }
-    /*
-       getListProducts(params?: any) {
-           this.loadingService.viewSpinner();
-           this.productsService.getListProducts(params).subscribe((result: any) => {
-               console.log('result: ', result);
-               if (result.data !== undefined) {
-                   // const body = JSON.parse(result.data);
-                   this.productsList = result.data.list;
-                   this.length = this.productsList.length;
-                   console.log('productsList: ', this.productsList);
-                   // const response = result.body.data;
-                   this.loadingService.closeSpinner();
-               } else {
-                   this.loadingService.closeSpinner();
-                   this.modalService.showModal('errorService');
-               }
-           });
-       } */
 
     public getDate(date: any): any {
         const day = this.addsZeroDate(date.getDate().toString());
@@ -230,7 +213,7 @@ export class ListProductsComponent implements OnInit {
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);
                 this.productsList = result.data.list;
-                this.length = this.productsList.length;
+                this.length = result.data.total;
                 // const response = result.body.data;
             } else {
                 this.modalService.showModal('errorService');
@@ -249,8 +232,6 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
-        console.log('radio: ', this.filterProduts.controls.creationDate.value);
-
         const data = [];
         data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
@@ -264,9 +245,6 @@ export class ListProductsComponent implements OnInit {
         data.forEach(element => {
             const value = element.value;
             if (value) {
-                /* Add our listFilterSellers
-                if ((value || '').trim()) { */
-                console.log(element);
                 if ((value || '')) {
                     if (element.value === 'createDate') {
                         element.value = 'Fecha de creación';
@@ -282,11 +260,7 @@ export class ListProductsComponent implements OnInit {
 
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
-        console.log('list 1: ', this.listFilterProducts);
-        console.log('products ', this.filterProduts.controls);
         if (productsFilter.nameFilter === 'creationDate') {
-            console.log('initialDate ', this.filterProduts.controls.initialDate);
-            console.log('finallDate ', this.filterProduts.controls.finallDate);
             this.filterProduts.controls.initialDate.setValue(null);
             this.filterProduts.controls.finalDate.setValue(null);
         }
