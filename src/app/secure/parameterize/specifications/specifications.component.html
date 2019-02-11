@@ -19,16 +19,9 @@
         <div *ngFor="let group of specificationsGroups; let i = index" fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
                 <!-- SPECIFICATION NAME -->
-                <label [ngClass]="{'black': group.Show}" *ngIf="!group.EditMode">
+                <label [ngClass]="{'black': group.Show}">
                     {{group.Name}}
                 </label>
-
-                <input class="spec-group-input" matInput placeholder="Nombre de grupo de especificaciones" [(ngModel)]="group.Name"
-                    *ngIf="group.EditMode" (blur)="blurInput(group, true)" appFocus>
-
-                <div *ngIf="group.EditMode">
-                    {{toggleEdit(group, this)}}
-                </div>
 
                 <!-- SPECIFICATION MENU -->
                 <div id="menu-specs" class="specs-menu">
@@ -64,27 +57,26 @@
                 </div>
             </div>
             <div *ngIf="group.Show" class="specs-container">
-                <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" (click)="initUpdateSpec(group, spec)" fxLayout="row">
-                    <mat-icon *ngIf="spec.List.length">
-                        list
-                    </mat-icon>
-                    <mat-icon *ngIf="!spec.List.length">
-                        text_fields
-                    </mat-icon>
-                    <p *ngIf="!spec.EditMode">{{spec.Name}}</p>
+                <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="type-spec" *ngIf="spec.List.length" matTooltip="Especificación de tipo lista">
+                            list
+                        </mat-icon>
+                        <mat-icon class="type-spec" *ngIf="!spec.List.length" matTooltip="Especificación de tipo texto">
+                            text_fields
+                        </mat-icon>
+                        <p>{{spec.Name}}</p>
+                    </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-form-field class="full-width" *ngIf="spec.EditMode">
-                            <label  [(ngModel)]="spec.Name" (blur)="blurInput(spec, false)" appFocus></label>
-                        </mat-form-field>
+                        
                         <button mat-icon-button>
-                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="spec.EditMode">delete</mat-icon>
+                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)">delete</mat-icon>
                         </button>
                         <button mat-icon-button>
-                                <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="spec.EditMode">edit</mat-icon>
-                            </button>
+                            <mat-icon class="material-icons color-gray" (click)="editSpec(group, e)">edit</mat-icon>
+                        </button>
                     </div>
                 </div>
-
 
                 <div class="specs-items" *ngIf="group.ShowNewSon">
                     <mat-form-field class="full-width">

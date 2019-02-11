@@ -1,18 +1,18 @@
 <!-- GROUP SPECS TEXT DIALOG -->
-<ng-template #deleteMsgTransporter>
+<ng-template #deleteMsgSpecGroup>
   ¿Estás seguro que deseas eliminar este grupo de especificaciones? Este cambio
   no será reversible y
   es posible que afecte las configuraciones de los vendedores que utilicen este grupo para sus productos.
 </ng-template>
-<ng-template #deleteTitleTransporter>
+<ng-template #deleteTitleSpecGroup>
   <h3>¿Desea eliminar grupo de especificaciones?</h3>
 </ng-template>
 
 <!-- SPECS TEXT DIALOG -->
-<ng-template #deleteTitleZone>
+<ng-template #deleteTitleSpec>
   <h3>¿Desea eliminar la especificación?</h3>
 </ng-template>
-<ng-template #deleteMsgZone>
+<ng-template #deleteMsgSpec>
   ¿Estás seguro que deseas eliminar esta configuración de especificación? Este cambio no será reversible y es posible que
   afecte
   las configuraciones de los vendedores que utilicen esta especificación para sus productos.
@@ -29,13 +29,13 @@
         </i>
       </div>
 
-      <span *ngIf="typeDeleteZone === typeDeleteDialog; then deleteTitleZone; else deleteTitleTransporter">
+      <span *ngIf="typeSpecsDelete; then deleteTitleSpec; else deleteTitleSpecGroup">
       </span>
 
       <!-- Description form -->
       <div fxLayout="row" fxLayoutAlign="center center">
         <p fxFlex="85" class="text-dialog-transporter">
-          <span *ngIf="typeDeleteZone === typeDeleteDialog; then deleteMsgZone; else deleteMsgTransporter">
+          <span *ngIf="typeSpecsDelete; then deleteMsgSpec; else deleteMsgSpecGroup">
           </span>
         </p>
       </div>

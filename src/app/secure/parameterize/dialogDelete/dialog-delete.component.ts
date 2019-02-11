@@ -11,12 +11,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class DeleteDialogSpecsComponent implements OnInit {
 
-  public typeDeleteTransport: number;
-  public typeDeleteZone: number;
+  public typeSpecsDelete: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogSpecsComponent>,
-    @Inject(MAT_DIALOG_DATA) public typeDeleteDialog: number) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.typeSpecsDelete = (data !== null);
+  }
 
   ngOnInit() {
   }

@@ -40,28 +40,37 @@ export class AddDialogSpecsComponent implements OnInit {
     public matcher: MyErrorStateMatcher;
     list = false;
     public listOptions = [];
-
+    dataToEdit: any;
     constructor(
         private fb: FormBuilder,
         public dialogRef: MatDialogRef<AddDialogSpecsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.dataToEdit = data;
+        console.log(data);
     }
 
     ngOnInit() {
         this.createAddSpecsFrom();
+        console.log(this.dataToEdit);
+
     }
 
     public createAddSpecsFrom(): void {
         this.formAddSpecs = this.fb.group({
-            nameSpec: new FormControl('', Validators.required),
-            requiredSpec: new FormControl('', Validators.required),
-            optionSpec: new FormControl('', Validators.required),
+            nameSpec: new FormControl(this.dataToEdit.Name, Validators.required),
+            requiredSpec: new FormControl(this.dataToEdit.Required),
+            optionSpec: new FormControl(this.dataToEdit.ValueList, Validators.required),
         });
         this.matcher = new MyErrorStateMatcher();
     }
 
-    public stateSpec() {
-        console.log('radio_ ', this.formAddSpecs.controls.optionSpec.value);
+    public saveSpec(): void {
+        if (this.formAddSpecs.valid) {
+            const data = this.formAddSpecs.value;
+            data.idSpec = this.dataToEdit.Id;
+            console.log(data);
+            this.dialogRef.close(data);
+        }
     }
 
     /**
@@ -80,7 +89,10 @@ export class AddDialogSpecsComponent implements OnInit {
      */
     public addOption(): void {
         this.listOptions.push({
-            'option': ''
+            option: '',
+            formControl: new FormControl('', Validators.required),
+            name: 'option' + this.listOptions.length
         });
+        this.formAddSpecs.addControl(this.listOptions[this.listOptions.length - 1].name, this.listOptions[this.listOptions.length - 1].formControl);
     }
 }

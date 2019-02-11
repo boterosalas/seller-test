@@ -6,20 +6,26 @@ export class SpecificationModel {
     Show: boolean;
     Sons: SpecificationModel[];
     IdParent?: number;
-    List?: [];
+    List?: String[];
+    Categories?: String[];
+    Required?: boolean;
     constructor(
         Name: string,
         Show: boolean,
         Sons?: SpecificationModel[],
         Id?: number,
         IdParent?: number,
-        List?: []) {
+        List?: String[],
+        Categories?: String[],
+        Required?: boolean) {
         this.Id = Id;
         this.IdParent = IdParent;
         this.Show = Show;
         this.Sons = Sons;
         this.Name = Name;
         this.List = List;
+        this.Categories = Categories;
+        this.Required = Required;
     }
 
     /**
@@ -47,11 +53,19 @@ export class SpecificationModel {
      */
     public castingJsonToModel(specification: any, json: any): SpecificationModel {
         let model: SpecificationModel;
+        let categories = null;
+        if (specification.categories) {
+            categories = JSON.parse(specification.categories);
+        }
         model = new SpecificationModel(
             specification.groupName,
             false,
             this.getSons(specification.specs),
-            specification.idGroup
+            specification.idGroup,
+            null,
+            null,
+            categories,
+            specification.required
         );
         return model;
     }

@@ -51,6 +51,9 @@ $modal: 72px;
                 display: flex;
                 .specs-items {
                     width: 46%;
+                    p{
+                        font-size: 14px;
+                    }
                 }
             }
         }
@@ -156,7 +159,7 @@ $modal: 72px;
     opacity: 0;
 }
 
-.transition-category{
+.transition-category {
     display: none !important;
 }
 
@@ -166,4 +169,9 @@ $modal: 72px;
 
 .color-gray {
     color: $color-gray;
+}
+
+.type-spec {
+    font-size: 20px;
+    color: gray;
 }

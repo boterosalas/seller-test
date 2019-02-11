@@ -5,8 +5,11 @@
 </div>
 
 <div mat-dialog-content class="form-container" fxLayout="column" fxLayoutAlign="center center">
-  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-  <form fxLayout="column" [formGroup]="formAddSpecs" class="form-add">
+  <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
+    determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de
+    ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger,
+    puedes agregar más opciones de ser necesario.</p>
+  <form fxLayout="column" [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
 
     <div fxFlex="50%" id="divs-specs">
       <mat-form-field class="input-add">
@@ -20,7 +23,7 @@
         <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
       </div>
       <div fxFlex="50%">
-        <mat-radio-group formControlName="optionSpec" [(ngModel)]="optionSpecs" (change)="stateSpec()">
+        <mat-radio-group formControlName="optionSpec" [(ngModel)]="optionSpecs">
           <mat-radio-button value="text">Texto</mat-radio-button>
           <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
         </mat-radio-group>
@@ -30,7 +33,8 @@
     <div class="addoption">
       <div class="widthOption" *ngFor="let opc of listOptions" fxFlex="50%">
         <mat-form-field class="widthOption">
-          <input matInput [(ngModel)]="opc.option" placeholder="Ingresa opción">
+          <input matInput [formControlName]="opc.name" placeholder="Ingresa opción">
+          <mat-error>Este campo es obligatorio</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -39,7 +43,7 @@
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div class="container-group-add-button" *ngIf="formAddSpecs.controls.optionSpec.value === 'list'">
       <!--BUTTON TO ADD-->
-      <button type="button" mat-button (click)="addOption()" >
+      <button type="button" mat-button (click)="addOption()">
         <mat-icon class="material-icons">
           control_point
         </mat-icon>

@@ -34,8 +34,8 @@ export class ParamSpecsService {
     return this.http.post(this.api.get('configSpecs'), param, { observe: 'response' });
   }
 
-  public updateConfigSpecifications(): Observable<any> {
-    return this.http.patch(this.api.get('configSpecs'), { observe: 'response' });
+  public updateConfigSpecifications(data: any): Observable<any> {
+    return this.http.patch(this.api.get('configSpecs'), data, { observe: 'response' });
   }
 
   public deleteConfigSpecifications(param: any): Observable<any> {
@@ -43,7 +43,7 @@ export class ParamSpecsService {
   }
 
   public getSpecification(id: number): Observable<{}> {
-    return this.http.get(this.api.get('getProductSpecs', [id]), { observe: 'response' });
+    return this.http.get(this.api.get('getProductSpecs', [id]));
   }
 
   public addSpecification(model: any): Observable<any> {

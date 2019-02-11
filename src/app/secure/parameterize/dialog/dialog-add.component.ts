@@ -38,6 +38,7 @@ export class AddDialogComponent implements OnInit {
     showCategoriesAdded = false;
     categoriesError = [];
     categoriesAddedError = [];
+    dataToEdit: any;
     /**
      * Creates an instance of AddDialogComponent.
      * @param {MatDialogRef<AddDialogComponent>} dialogRef
@@ -47,25 +48,24 @@ export class AddDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AddDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private searchService: SearchService,
-        private loadingService: LoadingService) {
-        this.modeDialog = data !== null;
-        if (data) {
-            this.typeModel = data.type;
-            this.createAddBrandFrom();
+        private searchService: SearchService) {
+        this.modeDialog = data !== null && data.Categories;
+        console.log(data);
+        this.dataToEdit = data;
+        this.listCategories =  data.listCategories;
+        if (!this.modeDialog) {
+            this.createAddSpecForm(null);
         } else {
-            if (!this.modeDialog) {
-                this.createAddSpecForm(null);
-            } else {
-                this.createAddSpecForm(data);
-            }
+            this.createAddSpecForm(data);
+            data.Categories.forEach(element => {
+                this.addCategory(element);
+            });
         }
+        console.log(this.listCategories);
+        this.formSpecs.controls.Categories.enable();
     }
 
     ngOnInit() {
-        // this.loadingService.viewSpinner();
-        this.getCategoriesList();
-        console.log('this.this.listCategories: ', this.listCategories);
     }
 
     /**
@@ -92,11 +92,8 @@ export class AddDialogComponent implements OnInit {
         try {
             const value = word;
             if (value) {
-                console.log(value);
                 const resultado = this.listCategories.find(element => element.Id === parseFloat(value));
                 const resultadoAdd = this.categoriesAdded.find(element => element.Id === parseFloat(value));
-                console.log(resultado, this.listCategories);
-                console.log(resultadoAdd, this.categoriesAdded);
                 if (resultado) {
                     this.setCategoryError(false);
                     if (!resultadoAdd) {
@@ -111,7 +108,6 @@ export class AddDialogComponent implements OnInit {
                 } else {
                     // this.setCategoryError(true); // no existe la categoria
                     this.categoriesError.push(value);
-                    console.log(this.categoriesError);
                     return true;
                 }
             }
@@ -130,7 +126,6 @@ export class AddDialogComponent implements OnInit {
                 errors = this.addCategory(word);
             } else {
                 const counter = word.split(',');
-                console.log(counter);
                 counter.forEach(element => {
                     const errorFrom = this.addCategory(element);
                     if (element) {
@@ -138,7 +133,6 @@ export class AddDialogComponent implements OnInit {
                     }
                 });
             }
-            console.log(errors);
             this.setCategoryError(errors);
         }
     }
@@ -147,20 +141,17 @@ export class AddDialogComponent implements OnInit {
         const ErrorAdded = this.categoriesAddedError.length > 0;
         const ErrorNoExist = this.categoriesError.length > 0;
         if (show) {
-            console.log(ErrorAdded, ErrorNoExist);
 
             if (ErrorAdded && ErrorNoExist) {
                 this.formSpecs.controls.Categories.setErrors({ existAdded: show, noExist: show });
             } else if (ErrorAdded) {
                 this.formSpecs.controls.Categories.setErrors({ existAdded: show });
             } else if (ErrorNoExist) {
-                console.log('entrooo');
                 this.formSpecs.controls.Categories.setErrors({ noExist: show });
             }
         } else {
             this.formSpecs.controls.Categories.setErrors(null);
         }
-        console.log(this.formSpecs.controls.Categories);
     }
 
 
@@ -231,15 +222,15 @@ export class AddDialogComponent implements OnInit {
      * @memberof AddDialogComponent
      */
     public saveSpecGroup(): void {
-        if (this.formSpecs.valid) {
+        if (this.formSpecs.valid && !this.formSpecs.controls.Categories.value) {
             const data = this.formSpecs.value;
             data.Categories = this.categoriesAdded;
-            this.dialogRef.close(this.formSpecs.value);
+            data.Id = this.dataToEdit.Id;
+            this.dialogRef.close(data);
         }
     }
 
     public deleteCategory(i: number): void {
-        console.log(i);
         this.categoriesAdded.splice(i, 1);
     }
 }

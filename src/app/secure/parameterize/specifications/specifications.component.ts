@@ -29,6 +29,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     listCategories: any[] = [];
     groupDelete: any;
     specDelete: any;
+    groupSpecToAdd: any;
     constructor(
         private specificationService: ParamSpecsService,
         private loadingService: LoadingService,
@@ -43,24 +44,35 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.loadingService.viewSpinner();
-        this.getSpecifications();
+        this.getSpecifications(true);
     }
 
     ngAfterViewInit() {
     }
 
-
-    public getSpecifications(): void {
+    /**
+     * Obtiene las especificaciones y las categories.
+     * Posee una variable para indicar que no debe obtener las categorias.
+     *
+     * @param {boolean} [getCategories=true]
+     * @memberof SpecificationsParamComponent
+     */
+    public getSpecifications(getCategories: boolean = false): void {
         this.specificationService.getConfigSpecifications().subscribe(data => {
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
-                console.log('data: ', this.specificationsGroups);
+            }
+            if (getCategories) {
                 this.getCategoriesList();
+            } else {
+                this.loadingService.closeSpinner();
+            }
+        }, error => {
+            if (!getCategories) {
+                this.loadingService.closeSpinner();
             }
             this.loadingService.closeSpinner();
-        }, error => {
-            this.loadingService.closeSpinner();
-            log.error('Error al intentar obtener los grupos de especificaciones');
+            log.error('Error al intentar obtener los grupos de especificaciones', error);
         });
     }
 
@@ -75,8 +87,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public updateGroupSpec(group: any, index: any): void {
-        group.EditMode = true;
-        this.copyGroup = Object.assign({}, group);
+        this.modeSave = false;
+        this.openDialog(group);
     }
 
     public blurInput(data: any, isGroup: boolean): void {
@@ -85,6 +97,13 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     public openDialog(data: any): void {
         // data.categories = this.listCategories;
+        if (data) {
+            data.listCategories = this.listCategories;
+        } else {
+            data = {
+                listCategories: this.listCategories
+            };
+        }
         const dialogRef = this.dialog.open(AddDialogComponent, {
             width: '90%',
             maxWidth: '1000px',
@@ -97,19 +116,81 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     }
 
-    public openDialogAddSpecs(data: any): void {
+    public openDialogAddSpecs(data: any, index?: number): void {
         // data.categories = this.listCategories;
+        let dataToEdit = null;
+        if (index) {
+            dataToEdit = data.Sons[index];
+        }
         const dialogRef = this.dialog.open(AddDialogSpecsComponent, {
             width: '90%',
             maxWidth: '1000px',
-            data: data
+            data: dataToEdit
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            // this.saveGroupSpec(result);
+        dialogRef.afterClosed().subscribe(res => {
+            let dataToSend = null;
+            dataToSend = {
+                Specs: [],
+                ListCategories: [],
+                GroupName: this.groupSpecToAdd.Name,
+                IdGroup: this.groupSpecToAdd.Id,
+            };
+            dataToSend.Specs.push({
+                SpecName: res.nameSpec,
+                Required: res.requiredSpec === true ? 'true' : 'false',
+                ListValues: [],
+                IdSpec: res.idSpec
+            });
+            if (!data) {
+                this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
+                    if (result.status === 200 && result.body) {
+                        this.snackBar.open('Agrego correctamente', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    } else {
+                        log.error('Error al intentar guardar una especificacion o un grupo');
+                    }
+                    this.getSpecifications();
+                }, error => {
+                    this.getSpecifications();
+                    log.error('Error al intentar guardar una especificacion o un grupo');
+                });
+            } else {
+                this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
+                    if (result.status === 200 && result.body) {
+                        this.snackBar.open('Actualizó correctamente', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    } else {
+                        log.error('Error al intentar guardar una especificacion o un grupo');
+                    }
+                    this.getSpecifications();
+                }, error => {
+                    this.getSpecifications();
+                    log.error('Error al intentar guardar una especificacion o un grupo');
+                });
+            }
         });
-
     }
+
+
+    /**
+     * Se eliminar de la lista de grupos de especificaciones, la especificación seleccionada por el usuario.
+     *
+     * @param {*} data
+     * @memberof SpecificationsParamComponent
+     */
+    public deleteSpecFromList(data: any): void {
+        this.specificationsGroups.forEach((element, i) => {
+            element.Sons.forEach((spec, e) => {
+                if (spec.Id === data.Id) {
+                    this.specificationsGroups[i].Sons.splice(e, 1);
+                }
+            });
+        });
+    }
+
 
     /**
      * Dialog para eliminar grupo de specs
@@ -125,56 +206,42 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             data: data
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
+        dialogRef.afterClosed().subscribe(res => {
+            if (res) {
                 this.loadingService.viewSpinner();
-                if (this.groupDelete) {
-                    this.specificationService.deleteConfigSpecifications(this.groupDelete.Id).subscribe(res => {
-                        console.log(result);
-                        res = result;
-                        this.groupDelete = '';
-                        if (result.status === 200 && result.body) {
-                            this.getSpecifications();
+                this.specificationService.deleteConfigSpecifications(this.groupDelete.Id).subscribe(result => {
+                    this.groupDelete = '';
+                    if (result.status === 200 && result.body) {
+                        if (!data) {
                             this.snackBar.open('Has eliminado correctamente un grupo de especificaciones', 'Cerrar', {
                                 duration: 3000,
                             });
-                            this.getCategoriesList();
+                            this.getSpecifications();
                         } else {
-                            log.error('Error al intentar eliminar un grupo de especificaciones');
+                            this.snackBar.open('Has eliminado correctamente una especificación', 'Cerrar', {
+                                duration: 3000,
+                            });
+                            this.deleteSpecFromList(data);
+                            this.loadingService.closeSpinner();
                         }
-                        this.loadingService.closeSpinner();
-                    }, error => {
-                        this.loadingService.closeSpinner();
-                        log.error('Error al intentar eliminar un grupo de especificaciones');
-                        this.getCategoriesList();
-                    });
-                } else
-                    if (this.specDelete) {
-                        this.specificationService.deleteGroupSpecification(this.groupDelete).subscribe(res => {
-                            console.log(result);
-                            res = result;
-                            this.groupDelete = '';
-                            if (result.status === 200 && result.body) {
-                                this.snackBar.open('Has eliminado correctamente una especificación', 'Cerrar', {
-                                    duration: 3000,
-                                });
-                                this.getCategoriesList();
-                            } else {
-                                log.error('Error al intentar eliminar una especificación');
-                            }
-                            this.loadingService.closeSpinner();
-                        }, error => {
-                            this.loadingService.closeSpinner();
-                            log.error('Error al intentar eliminar una especificación');
-                            this.getCategoriesList();
-                        });
+                    } else {
+                        log.error('Error al intentar eliminar');
                     }
+                }, error => {
+                    log.error('Error al intentar eliminar');
+                    this.getSpecifications();
+                });
             }
-            // this.saveGroupSpec(result);
         });
 
     }
 
+    /**
+     * Organiza la lista de especificaciones ya que solo debe poder asociar a los grupos solo aquellas que no posee.
+     *
+     * @param {*} data
+     * @memberof SpecificationsParamComponent
+     */
     public organizeCategoiesList(data: any): void {
         if (data && data.length) {
             data.forEach(element => {
@@ -199,14 +266,17 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
-            console.log('result: ', result);
             if (result.status === 200) {
                 const body = JSON.parse(result.body.body);
                 this.organizeCategoiesList(body.Data);
             } else {
                 log.debug('SearchCategorizationComponent:' + result.message);
             }
+            this.loadingService.closeSpinner();
+        }, error => {
+            this.loadingService.closeSpinner();
         });
+        this.loadingService.closeSpinner();
     }
 
 
@@ -219,49 +289,53 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             const dataToSend = {
                 GroupName: data.NameSpec,
                 Specs: [],
-                ListCategories: []
+                ListCategories: [],
+                IdGroup: null
             };
             data.Categories.forEach(element => {
                 dataToSend.ListCategories.push(element.Id.toString());
             });
-            console.log(dataToSend);
             if (this.modeSave) {
                 this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
                     if (result.status === 200 && result.body) {
-                        this.snackBar.open('Agrego correctamente un grupo de especificaciones', 'Cerrar', {
+                        this.snackBar.open('Agrego correctamente', 'Cerrar', {
                             duration: 3000,
                         });
-                        this.getSpecifications();
                     } else {
-                        log.error('Error al intentar guardar un grupo de especificaciones');
+                        log.error('Error al intentar guardar una especificacion o un grupo');
                     }
-                    this.loadingService.closeSpinner();
+                    this.getSpecifications();
                 }, error => {
-                    this.loadingService.closeSpinner();
-                    log.error('Error al intentar guardar un grupo de especificaciones');
+                    this.getSpecifications();
+                    log.error('Error al intentar guardar una especificacion o un grupo');
                 });
             } else {
-                this.selectedGroup.Name = data.NameSpec;
-                this.specificationService.updateSpecification(data).subscribe(result => {
+                dataToSend.IdGroup = data.Id;
+                this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
                     if (result.status === 200 && result.body) {
-                        this.snackBar.open('Actualizo correctamente el grupo de especificaciones', 'Cerrar', {
+                        this.snackBar.open('Actualizo correctamente', 'Cerrar', {
                             duration: 3000,
                         });
-                        this.getSpecifications();
                     } else {
-                        log.error('Error al intentar guardar un grupo de especificaciones');
+                        log.error('Error al intentar actualizar una especificacion o un grupo');
                     }
-                    this.loadingService.closeSpinner();
+                    this.getSpecifications();
                 }, error => {
-                    this.loadingService.closeSpinner();
-                    log.error('Error al intentar guardar un grupo de especificaciones');
+                    this.getSpecifications();
+                    log.error('Error al intentar actualizar una especificacion o un grupo');
                 });
             }
         }
     }
 
+    public editSpec(data: any, index: number): void {
+        this.groupSpecToAdd = data;
+        this.openDialogAddSpecs(data, index);
+    }
+
     public addSpec(data: any): void {
         this.modeSave = true;
+        this.groupSpecToAdd = data;
         this.openDialogAddSpecs(null);
         /*
         data.ShowNewSon = true;
@@ -302,7 +376,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public deleteSpec(group: any, index: number): void {
-        group.Sons.splice(index, 1);
+        this.groupDelete = group.Sons[index];
+        this.openDialogDeleteSpecsandGroupSpec(this.groupDelete);
     }
 
 }
