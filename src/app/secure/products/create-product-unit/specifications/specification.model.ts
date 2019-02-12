@@ -54,7 +54,7 @@ export class SpecificationModel {
         model = new SpecificationModel(
             specification.groupName,
             false,
-            this.getSons(specification.specs ),
+            this.getSons(specification.specs),
             specification.idGroup
         );
         return model;
@@ -71,17 +71,18 @@ export class SpecificationModel {
     public getSons(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
         json.forEach(data => {
-                specificationList.push(
-                    new SpecificationModel(
-                        data.specName,
-                        false,
-                        null,
-                        data.idSpec,
-                        null,
-                        data.list,
-                        data.obligatory
-                    )
-                );
+            const list = JSON.parse(data.values);
+            specificationList.push(
+                new SpecificationModel(
+                    data.specName,
+                    false,
+                    null,
+                    data.idSpec,
+                    null,
+                    list.length !== 0 ? list : null,
+                    data.required
+                )
+            );
         });
         return specificationList;
     }

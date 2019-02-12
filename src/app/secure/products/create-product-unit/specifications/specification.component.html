@@ -38,8 +38,8 @@
                     <mat-form-field *ngIf="spec.List" class="specification-input">
                         <mat-select [(ngModel)]="spec.Value" [required]="spec.Obligatory" placeholder="{{spec.Name}}"
                             id="specs{{e}}" name="specs{{e}}" (change)="specificationChange(spec, i, e)">
-                            <mat-option *ngFor="let item of spec.List" [value]="item.name">
-                                {{item.name}}
+                            <mat-option *ngFor="let item of spec.List" [value]="item">
+                                {{item}}
                             </mat-option>
                         </mat-select>
                         <mat-error>
