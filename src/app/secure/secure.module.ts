@@ -15,6 +15,7 @@ import { SellerModule } from './seller/seller.module';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
 import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
+import { ListProductModule } from './products/list-products/list-products.module';
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import { BulkLoadProductModerationModule } from './products/bulk-load-product-mo
     HistoricalModuleAdmin,
     UnitProductModule,
     BulkLoadProductModerationModule,
+    BillingOrdersModule,
+    ListProductModule,
     SellerModule,
     BillingOrdersModule,
     ParameterizeModule

@@ -540,4 +540,17 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
   setTitleToolbar() {
     this.informationToForm.title = `${this.currentCategory.name} ${this.numberElements}`;
   }
+
+  /**
+   * Se crea funcion para transformar fecha dependiendo de la zona horaria. (getTimezoneOffset)
+   *
+   * @param {*} date
+   * @returns {*}
+   * @memberof OrdersListComponent
+   */
+  public getDateWithOutGMT(date: any): any {
+    const timezone = new Date().getTimezoneOffset();
+    const time = new Date(date).getTime(); // new Date('2019-02-03T00:42:06.177+00:00').getTime();
+    return new Date( time + (timezone * 60 * 1000) );
+  }
 }

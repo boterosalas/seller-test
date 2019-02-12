@@ -1,0 +1,20 @@
+<div>
+  <mat-card class="example-card">
+    <div class="container-card-img flexbox align-center justify-center">
+      <img src="{{products.urlImage}}">
+      <!--<img mat-card-image src="https://d2dctyer3ngjhx.cloudfront.net/images/products/002/MP02730000000002/SKUMP02730000002_bg_a.jpg">-->
+    </div>
+    <mat-card-content>
+      <div class="container-desc-card flexbox flex-wrap align-center">
+        <h3>EAN: {{products.ean}}</h3>
+        <p class="name">{{products.name}}n</p>
+        <p> Fecha de creacion: {{products.createdDate}}</p>
+        <p> Fecha de modificación: {{products.updatedDate}}</p>
+      </div>
+    </mat-card-content>
+    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
+        <p> Mejor oferta</p> {{products.bestOffer}}
+    </div>
+  </mat-card>
+
+</div>

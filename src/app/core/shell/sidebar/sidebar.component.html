@@ -105,6 +105,10 @@
           <h6 matLine>Creación Unitaria</h6>
         </mat-list-item>
 
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes.sellerCenterIntListProducts]">
+          <h6 matLine>Listado de productos</h6>
+        </mat-list-item>
+
       </mat-expansion-panel>
     </div>
 

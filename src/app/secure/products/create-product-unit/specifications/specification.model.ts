@@ -9,6 +9,8 @@ export class SpecificationModel {
     List?: String[];
     Categories?: String[];
     Required?: boolean;
+    Obligatory = false;
+    // Sons se refiere a las especificaciones ya que es un modelo
     constructor(
         Name: string,
         Show: boolean,
@@ -22,13 +24,12 @@ export class SpecificationModel {
         this.IdParent = IdParent;
         this.Show = Show;
         this.Sons = Sons;
-        this.Name = Name;
         this.List = List;
+        this.Name = Name;
         this.Categories = Categories;
         this.Required = Required;
-    }
-
-    /**
+        }
+    /*
      * Funcion para obtener del JSON el model con las especificaciones
      *
      * @param {*} json

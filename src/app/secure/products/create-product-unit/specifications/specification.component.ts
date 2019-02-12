@@ -5,6 +5,7 @@ import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { MatDialog } from '@angular/material';
 import { Logger } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
+import { FormControl } from '@angular/forms';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -22,6 +23,8 @@ export class SpecificationProductComponent implements OnInit {
     specificationListToAdd: any[] = [];
     ShowSpecTitle = false;
     specificationModel = new SpecificationModel(null, null, null);
+    specsForm: FormControl;
+    changeForm = false;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -39,7 +42,34 @@ export class SpecificationProductComponent implements OnInit {
      * @memberof SpecificationProductComponent
      */
     ngOnInit() {
-        this.getAllSpecifications();
+        this.specsForm = new FormControl();
+        if (this.processService.specsByCategory) {
+            this.processService.specsByCategory.subscribe(result => {
+                if (result && result.data) {
+                    this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+                }
+                this.chargeList = true;
+            });
+        }
+    }
+
+    public validateObligatoryGroup(group: any): boolean {
+        let hasSon = false;
+        group.Sons.forEach(element => {
+            if (element.Obligatory && !element.Value) {
+                hasSon = true;
+            }
+        });
+        return hasSon;
+    }
+
+    public validForm(form: any): void {
+        if (form !== this.changeForm) {
+            this.changeForm = form;
+            const views = this.processService.getViews();
+            views.showSpec = !form;
+            this.processService.setViews(views);
+        }
     }
 
     /**
@@ -103,8 +133,25 @@ export class SpecificationProductComponent implements OnInit {
         this.processService.setFeatures(list);
     }
 
-    public showError(index: number, model: any): boolean {
-        return document.getElementById('specs-' + index) !== model;
+    public showError(index: number, form: any): string {
+        try {
+            if (form.controls['specs' + index] && form.controls['specs' + index].errors && form.controls['specs' + index].dirty) {
+                const errors = Object.keys(form.controls['specs' + index].errors);
+                switch (errors[0]) {
+                    case 'required':
+                        return 'Este campo es obligatorio.';
+                        break;
+                    case 'pattern':
+                        return 'Maximo 200 caracteres.';
+                        break;
+                    default:
+                        return 'Error en el campo.';
+                }
+            }
+        } catch (e) {
+            return null;
+        }
+        return null;
     }
 
     /**

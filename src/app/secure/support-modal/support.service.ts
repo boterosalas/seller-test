@@ -31,5 +31,9 @@ export class SupportService {
             });
         });
     }
+
+    public getRegexFormSupport(params: any): Observable<any> {
+        return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
+    }
 }
 
