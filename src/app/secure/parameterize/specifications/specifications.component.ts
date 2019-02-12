@@ -61,7 +61,6 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         this.specificationService.getConfigSpecifications().subscribe(data => {
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
-                console.log(this.specificationsGroups);
             }
             if (getCategories) {
                 this.getCategoriesList();
@@ -120,7 +119,6 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public openDialogAddSpecs(data: any, index?: number): void {
         // data.categories = this.listCategories;
         let dataToEdit = null;
-        console.log(index);
         if (index !== null && index !== undefined) {
             dataToEdit = data.Sons[index];
         }

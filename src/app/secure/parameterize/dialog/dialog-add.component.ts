@@ -50,7 +50,6 @@ export class AddDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private searchService: SearchService) {
         this.modeDialog = data !== null && data.Categories;
-        console.log(data);
         this.dataToEdit = data;
         this.listCategories =  data.listCategories;
         if (!this.modeDialog) {
@@ -61,7 +60,6 @@ export class AddDialogComponent implements OnInit {
                 this.addCategory(element);
             });
         }
-        console.log(this.listCategories);
         this.formSpecs.controls.Categories.enable();
     }
 

@@ -66,7 +66,6 @@ export class AddDialogSpecsComponent implements OnInit {
     public removeOpt(opc: any, index: number): void {
         this.formAddSpecs.removeControl(opc.name);
         this.listOptions.splice(index, 1);
-        console.log(this.formAddSpecs, this.listOptions);
     }
 
     public createAddSpecsFrom(): void {

@@ -1,28 +1,24 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="dialog-add-container">
-  <h1 mat-dialog-title *ngIf="!typeModel">
-    Agregar de especificaciones
-  </h1>
-</div>
+<h1 mat-dialog-title *ngIf="!typeModel">
+  Agregar de especificaciones
+</h1>
 
-<div mat-dialog-content class="form-container" fxLayout="column" fxLayoutAlign="center center">
-  <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
-    determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de
-    ser de <strong class="special" [ngClass]="{'transition': showErrorMin}">lista desplegable debes ingresar también como mínimo 2 opciones</strong> de las cuales el vendedor pueda escoger,
-    puedes agregar más opciones de ser necesario.</p>
-  <form fxLayout="column" [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
-
-    <div fxFlex="50%" id="divs-specs">
-      <mat-form-field class="input-add">
-        <input matInput formControlName="nameSpec" placeholder="Nombre de especificación">
-      </mat-form-field>
-      <h3 fxFlex="50%"> Visualización del vendedor</h3>
-    </div>
-
-    <div fxFlex="100%" id="divs-specs">
-      <div fxFlex="50%">
+<form [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
+  <div mat-dialog-content class="form-container">
+    <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
+      determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso
+      de
+      ser de <strong class="special" [ngClass]="{'transition': showErrorMin}">lista desplegable debes ingresar también
+        como mínimo 2 opciones</strong> de las cuales el vendedor pueda escoger,
+      puedes agregar más opciones de ser necesario.</p>
+    <div fxLayout="row" style="width: 100%;" fxLayout.xs="column" fxLayoutAlign="space-between start">
+      <div class="container-form" fxLayout="column">
+        <mat-form-field class="input-add">
+          <input matInput formControlName="nameSpec" placeholder="Nombre de especificación">
+        </mat-form-field>
         <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
       </div>
-      <div fxFlex="50%">
+      <div class=<div class="container-form vis" fxLayout="column">
+        <h3 class="title"> Visualización del vendedor</h3>
         <mat-radio-group formControlName="optionSpec">
           <mat-radio-button value="text">Texto</mat-radio-button>
           <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
@@ -31,8 +27,8 @@
     </div>
 
     <div class="addoption">
-      <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxFlex="50%" fxLayout="row" fxLayoutAlign="start center">
-        <mat-form-field class="widthOption">
+      <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field class="width-full">
           <input matInput [formControlName]="opc.name" placeholder="Ingresa opción">
           <mat-error>Este campo es obligatorio</mat-error>
         </mat-form-field>
@@ -45,8 +41,11 @@
       </div>
     </div>
 
-
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+
+  </div>
+
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
     <div class="container-group-add-button" *ngIf="formAddSpecs.controls.optionSpec.value === 'list'">
       <!--BUTTON TO ADD-->
       <button type="button" mat-button (click)="addOption()">
@@ -56,12 +55,8 @@
         Agregar opción
       </button>
     </div>
-
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'">
-      </button>
-    </div>
-
-  </form>
-</div>
+    <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+    <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'">
+    </button>
+  </div>
+</form>
