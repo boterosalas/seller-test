@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ShellComponent } from '@core/shell/shell.component';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 
@@ -10,10 +10,12 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 })
 export class ToolbarSellerComponent implements OnInit {
 
+  @Input() name: string;
   constructor(
     public storesService: StoresService,
     public shell: ShellComponent) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
 }

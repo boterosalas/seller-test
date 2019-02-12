@@ -11,6 +11,7 @@ import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolution
 import { BulkLoadProductModerationModule, BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
 import { ManageModule, RegisterModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
+import { SellerModule } from './seller/seller.module';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
 
 
@@ -42,6 +43,7 @@ import { BillingOrdersModule } from './orders/billing-orders/billing-orders.modu
     HistoricalModuleAdmin,
     UnitProductModule,
     BulkLoadProductModerationModule,
+    SellerModule,
     BillingOrdersModule
   ],
   providers: [],
