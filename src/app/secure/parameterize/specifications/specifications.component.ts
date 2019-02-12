@@ -61,6 +61,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         this.specificationService.getConfigSpecifications().subscribe(data => {
             if (data.status === 200 && data.body) {
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
+                console.log(this.specificationsGroups);
             }
             if (getCategories) {
                 this.getCategoriesList();
@@ -119,7 +120,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public openDialogAddSpecs(data: any, index?: number): void {
         // data.categories = this.listCategories;
         let dataToEdit = null;
-        if (index) {
+        console.log(index);
+        if (index !== null && index !== undefined) {
             dataToEdit = data.Sons[index];
         }
         const dialogRef = this.dialog.open(AddDialogSpecsComponent, {
@@ -129,47 +131,49 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe(res => {
-            let dataToSend = null;
-            dataToSend = {
-                Specs: [],
-                ListCategories: [],
-                GroupName: this.groupSpecToAdd.Name,
-                IdGroup: this.groupSpecToAdd.Id,
-            };
-            dataToSend.Specs.push({
-                SpecName: res.nameSpec,
-                Required: res.requiredSpec === true ? 'true' : 'false',
-                ListValues: [],
-                IdSpec: res.idSpec
-            });
-            if (!data) {
-                this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
-                    if (result.status === 200 && result.body) {
-                        this.snackBar.open('Agrego correctamente', 'Cerrar', {
-                            duration: 3000,
-                        });
-                    } else {
-                        log.error('Error al intentar guardar una especificacion o un grupo');
-                    }
-                    this.getSpecifications();
-                }, error => {
-                    this.getSpecifications();
-                    log.error('Error al intentar guardar una especificacion o un grupo');
+            if (res) {
+                let dataToSend = null;
+                dataToSend = {
+                    Specs: [],
+                    ListCategories: [],
+                    GroupName: this.groupSpecToAdd.Name,
+                    IdGroup: this.groupSpecToAdd.Id,
+                };
+                dataToSend.Specs.push({
+                    SpecName: res.nameSpec,
+                    Required: res.requiredSpec === true ? 'true' : 'false',
+                    ListValues: res.ListValues,
+                    IdSpec: res.idSpec
                 });
-            } else {
-                this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
-                    if (result.status === 200 && result.body) {
-                        this.snackBar.open('Actualizó correctamente', 'Cerrar', {
-                            duration: 3000,
-                        });
-                    } else {
+                if (!data) {
+                    this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
+                        if (result.status === 200 && result.body) {
+                            this.snackBar.open('Agrego correctamente', 'Cerrar', {
+                                duration: 3000,
+                            });
+                        } else {
+                            log.error('Error al intentar guardar una especificacion o un grupo');
+                        }
+                        this.getSpecifications();
+                    }, error => {
+                        this.getSpecifications();
                         log.error('Error al intentar guardar una especificacion o un grupo');
-                    }
-                    this.getSpecifications();
-                }, error => {
-                    this.getSpecifications();
-                    log.error('Error al intentar guardar una especificacion o un grupo');
-                });
+                    });
+                } else {
+                    this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
+                        if (result.status === 200 && result.body) {
+                            this.snackBar.open('Actualizó correctamente', 'Cerrar', {
+                                duration: 3000,
+                            });
+                        } else {
+                            log.error('Error al intentar guardar una especificacion o un grupo');
+                        }
+                        this.getSpecifications();
+                    }, error => {
+                        this.getSpecifications();
+                        log.error('Error al intentar guardar una especificacion o un grupo');
+                    });
+                }
             }
         });
     }

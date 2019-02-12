@@ -64,8 +64,7 @@ export class SpecificationModel {
             specification.idGroup,
             null,
             null,
-            categories,
-            specification.required
+            categories
         );
         return model;
     }
@@ -92,7 +91,9 @@ export class SpecificationModel {
                     null,
                     data.idSpec,
                     null,
-                    values
+                    values,
+                    null,
+                    data.required
                 )
             );
         });

@@ -7,7 +7,7 @@
 <div mat-dialog-content class="form-container" fxLayout="column" fxLayoutAlign="center center">
   <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
     determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de
-    ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger,
+    ser de <strong class="special" [ngClass]="{'transition': showErrorMin}">lista desplegable debes ingresar también como mínimo 2 opciones</strong> de las cuales el vendedor pueda escoger,
     puedes agregar más opciones de ser necesario.</p>
   <form fxLayout="column" [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
 
@@ -23,7 +23,7 @@
         <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
       </div>
       <div fxFlex="50%">
-        <mat-radio-group formControlName="optionSpec" [(ngModel)]="optionSpecs">
+        <mat-radio-group formControlName="optionSpec">
           <mat-radio-button value="text">Texto</mat-radio-button>
           <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
         </mat-radio-group>
@@ -31,11 +31,17 @@
     </div>
 
     <div class="addoption">
-      <div class="widthOption" *ngFor="let opc of listOptions" fxFlex="50%">
+      <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxFlex="50%" fxLayout="row" fxLayoutAlign="start center">
         <mat-form-field class="widthOption">
           <input matInput [formControlName]="opc.name" placeholder="Ingresa opción">
           <mat-error>Este campo es obligatorio</mat-error>
         </mat-form-field>
+
+        <button mat-icon-button (click)="removeOpt(opc, i)" type="button">
+          <mat-icon class="material-icons">
+            clear
+          </mat-icon>
+        </button>
       </div>
     </div>
 

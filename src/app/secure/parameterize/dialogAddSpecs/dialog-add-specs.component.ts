@@ -41,36 +41,104 @@ export class AddDialogSpecsComponent implements OnInit {
     list = false;
     public listOptions = [];
     dataToEdit: any;
+    typeList = 'list';
+    typeText = 'text';
+    optionNumber = 0;
+    showErrorMin = false;
     constructor(
         private fb: FormBuilder,
         public dialogRef: MatDialogRef<AddDialogSpecsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         this.dataToEdit = data;
-        console.log(data);
     }
 
     ngOnInit() {
         this.createAddSpecsFrom();
-        console.log(this.dataToEdit);
+    }
 
+    /**
+     * Remover opciones de la vista.
+     *
+     * @param {*} opc
+     * @param {number} index
+     * @memberof AddDialogSpecsComponent
+     */
+    public removeOpt(opc: any, index: number): void {
+        this.formAddSpecs.removeControl(opc.name);
+        this.listOptions.splice(index, 1);
+        console.log(this.formAddSpecs, this.listOptions);
     }
 
     public createAddSpecsFrom(): void {
+        let optionData = null;
+        if (this.dataToEdit) {
+            optionData = this.dataToEdit.List.length !== 0 ? this.typeList : this.typeText;
+            this.optionNumber = this.dataToEdit.List.length;
+        }
         this.formAddSpecs = this.fb.group({
-            nameSpec: new FormControl(this.dataToEdit.Name, Validators.required),
-            requiredSpec: new FormControl(this.dataToEdit.Required),
-            optionSpec: new FormControl(this.dataToEdit.ValueList, Validators.required),
+            nameSpec: new FormControl(this.dataToEdit !== null ? this.dataToEdit.Name : null, Validators.required),
+            requiredSpec: new FormControl(this.dataToEdit !== null ? this.dataToEdit.Required : null),
+            optionSpec: new FormControl(optionData, Validators.required),
         });
+
+        if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length) {
+            this.dataToEdit.List.forEach(element => {
+                this.listOptions.push({
+                    option: element,
+                    formControl: new FormControl(element, Validators.required),
+                    name: 'option' + this.listOptions.length
+                });
+                this.formAddSpecs.addControl(this.listOptions[this.listOptions.length - 1].name, this.listOptions[this.listOptions.length - 1].formControl);
+            });
+        }
+        this.formAddSpecs.controls.optionSpec.setValue(optionData);
         this.matcher = new MyErrorStateMatcher();
     }
 
+    /**
+     * Valida si el formularioes valido y si esta seleccionada la opcion tipo lista que todos sus componentes tengan valores.
+     *
+     * @memberof AddDialogSpecsComponent
+     */
     public saveSpec(): void {
-        if (this.formAddSpecs.valid) {
+        if (this.formAddSpecs.valid && ((this.validOptions() && this.formAddSpecs.controls.optionSpec.value === this.typeList) || this.formAddSpecs.controls.optionSpec.value === this.typeText)) {
             const data = this.formAddSpecs.value;
-            data.idSpec = this.dataToEdit.Id;
-            console.log(data);
+            data.idSpec = this.dataToEdit !== null ? this.dataToEdit.Id : null;
+            if (this.listOptions.length && this.formAddSpecs.controls.optionSpec.value === this.typeList) {
+                data.ListValues = [];
+                this.listOptions.forEach(element => {
+                    data.ListValues.push(element.formControl.value);
+                });
+            }
             this.dialogRef.close(data);
         }
+    }
+
+    /**
+     * Valida que las opciones esten todas llenas
+     *
+     * @returns {boolean}
+     * @memberof AddDialogSpecsComponent
+     */
+    public validOptions(): boolean {
+        let changes = true;
+        if (this.listOptions.length) {
+            if (this.listOptions.length > 1) {
+                this.listOptions.forEach(element => {
+                    if (!element.formControl.value) {
+                        changes = false;
+                        return changes;
+                    }
+                });
+            } else {
+                changes = false;
+                this.showErrorMin = true;
+            }
+        } else {
+            changes = false;
+            this.showErrorMin = true;
+        }
+        return changes;
     }
 
     /**
@@ -88,10 +156,11 @@ export class AddDialogSpecsComponent implements OnInit {
      * @memberof AddDialogSpecsComponent
      */
     public addOption(): void {
+        this.optionNumber ++;
         this.listOptions.push({
             option: '',
             formControl: new FormControl('', Validators.required),
-            name: 'option' + this.listOptions.length
+            name: 'option' + this.optionNumber
         });
         this.formAddSpecs.addControl(this.listOptions[this.listOptions.length - 1].name, this.listOptions[this.listOptions.length - 1].formControl);
     }
