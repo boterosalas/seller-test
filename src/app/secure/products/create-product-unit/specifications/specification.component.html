@@ -5,31 +5,51 @@
     "Todas las especificaciones"
 </p>
 <div class="specification-container" *ngIf="chargeList">
-    <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-            <span class="specification-name" [ngClass]="{'label-black': specification.Show}">
-                {{specification.Name}}
-            </span>
-            <button mat-icon-button (click)="toggleSpecification(specification, true)">
-                <mat-icon class="material-icons" *ngIf="!specification.Show">
-                    keyboard_arrow_down
-                </mat-icon>
-                <mat-icon class="material-icons" *ngIf="specification.Show">
-                    keyboard_arrow_up
-                </mat-icon>
-            </button>
-        </div>
-        <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
-            <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
-                <mat-form-field class="specification-input">
-                    <input matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)" name="specs" id="specs"
-                        [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
-                        <mat-error *ngIf="showError(e, spec.Value)">Maximo 200 caracteres, si continua esta especificación no se guardara</mat-error>
-                    
-                </mat-form-field>
+    {{validForm(specsForm.invalid)}}
+    <form name="specsForm" #specsForm="ngForm">
+        <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
+                <span class="specification-name" matTooltip="Este grupo posee especificaciones obligatorias" [ngClass]="{'label-black': specification.Show}"
+                    fxLayout="row" fxLayoutAlign="start center">
+                    {{specification.Name}}
+                    <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
+                        info
+                    </mat-icon>
+                </span>
+                <button mat-icon-button (click)="toggleSpecification(specification, true)">
+                    <mat-icon class="material-icons" *ngIf="!specification.Show">
+                        keyboard_arrow_down
+                    </mat-icon>
+                    <mat-icon class="material-icons" *ngIf="specification.Show">
+                        keyboard_arrow_up
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
+                <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
+                    <mat-form-field *ngIf="!spec.List" class="specification-input">
+                        <input [required]="spec.Obligatory" matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
+                            name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)"
+                            pattern="^[\w\W\s\d]{1,200}$">
+                        <mat-error>
+                            {{showError(e, specsForm)}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="spec.List" class="specification-input">
+                        <mat-select [(ngModel)]="spec.Value" [required]="spec.Obligatory" placeholder="{{spec.Name}}"
+                            id="specs{{e}}" name="specs{{e}}" (change)="specificationChange(spec, i, e)">
+                            <mat-option *ngFor="let item of spec.List" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            {{showError(e, specsForm)}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <div id="specification-create" class="specification-create" fxLayout="row" fxLayoutAlign="space-between center">

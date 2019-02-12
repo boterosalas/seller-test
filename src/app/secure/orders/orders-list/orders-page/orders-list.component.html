@@ -4,7 +4,8 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
@@ -16,25 +17,27 @@
 
         <!-- Check column -->
         <ng-container matColumnDef="select">
-          <mat-header-cell fxShow="{{optionCheckInTable}}" class="center-product-list" fxFlex="40px" fxFlex.lg="100px" fxFlex.xl="250px"
-            *matHeaderCellDef>
-            <mat-checkbox class="sc-check-personal" [disabled]="orderListLength" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()">
+          <mat-header-cell fxShow="{{optionCheckInTable}}" class="center-product-list" fxFlex="40px" fxFlex.lg="100px"
+            fxFlex.xl="250px" *matHeaderCellDef>
+            <mat-checkbox class="sc-check-personal" [disabled]="orderListLength" (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
             </mat-checkbox>
           </mat-header-cell>
-          <mat-cell fxShow="{{optionCheckInTable}}" fxFlex="40px" fxFlex.lg="100px" *matCellDef="let row;let index=index" class="center-product-list">
-            <mat-checkbox class="sc-check-personal" id="check-option-order-{{index}}" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)">
+          <mat-cell fxShow="{{optionCheckInTable}}" fxFlex="40px" fxFlex.lg="100px" *matCellDef="let row;let index=index"
+            class="center-product-list">
+            <mat-checkbox class="sc-check-personal" id="check-option-order-{{index}}" (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
             </mat-checkbox>
           </mat-cell>
         </ng-container>
 
         <!-- expand Column -->
         <ng-container matColumnDef="expand">
-          <mat-header-cell fxFlex.lg="40px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px"
-            *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxFlex.lg="40px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
+            fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
           </mat-header-cell>
-          <mat-cell fxFlex="70px" fxFlex.lg="40px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false" fxShow="true" *matCellDef="let element;let index=index">
+          <mat-cell fxFlex="70px" fxFlex.lg="40px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false" fxShow="true"
+            *matCellDef="let element;let index=index">
             <button id="expand-row-number-{{index}}" mat-icon-button>
               <mat-icon style="font-weight: bold;" color="primary">expand_more</mat-icon>
             </button>
@@ -43,8 +46,8 @@
 
         <!-- Flag Column -->
         <ng-container matColumnDef="flag">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="130px" fxFlex.sm="10"
-            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="130px"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef>
             <div class="center-product-list"></div>
           </mat-header-cell>
           <mat-cell fxFlex.xl="250px" fxFlex.lg="130px" fxFlex.sm="60px" fxFlex.md="110px" fxFlex.xs="60px" *matCellDef="let element;let index=index">
@@ -61,7 +64,8 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" fxFlex.xl="250px"
+            *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Orden</span>
           </mat-header-cell>
           <mat-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" fxFlex.xl="250px" *matCellDef="let element">
@@ -79,8 +83,8 @@
 
         <!-- dateOrder Column -->
         <ng-container matColumnDef="dateOrder">
-          <mat-header-cell fxFlex.sm="120px" fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
-            fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxFlex.sm="120px" fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xs="70" fxShow.xs="false"
+            fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Fecha pedido</span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.sm="120px" fxFlex.md="110px" fxFlex.lg="140px"
@@ -91,24 +95,24 @@
 
         <!-- dateMaxDeliveryOrder Column -->
         <ng-container matColumnDef="dateMaxDeliveryOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="110px"
-            fxFlex.lg="140px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
+            fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Fecha max entrega </span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="110px"
-            fxFlex.lg="140px" fxFlex.xl="250px" fxFlex.xs="70" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
+            fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xl="250px" fxFlex.xs="70" *matCellDef="let element">
             <p class="sc-date-content-table">{{element.dateMaxDeliveryOrder | date}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- statusOrder Column -->
         <ng-container matColumnDef="statusOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px" fxFlex.md="160px"
-            fxFlex.lg="160px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px"
+            fxFlex.md="160px" fxFlex.lg="160px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Estado</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px" fxFlex.md="160px"
-            fxFlex.lg="160px" fxFlex.xs="150px" fxFlex.xl="250px" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px"
+            fxFlex.md="160px" fxFlex.lg="160px" fxFlex.xs="150px" fxFlex.xl="250px" *matCellDef="let element">
             <div class="mat-icon-status-order">
 
               <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderAsignado">
@@ -144,23 +148,25 @@
 
         <!-- channel Column -->
         <ng-container matColumnDef="channel">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
-            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef
+            mat-sort-header>
             <span class="title-table-header">Canal</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
-            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matCellDef="let element">
             <p class="sc-text-normal">{{element.channel}}</p>
           </mat-cell>
         </ng-container>
 
         <!-- Acciones Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="110px" fxFlex.sm="110px" fxFlex.md="110px" fxFlex.xs="110px" fxFlex.xl="250px"
-            *matHeaderCellDef mat-sort-header>
+          <mat-header-cell class="center-product-list" fxFlex.lg="110px" fxFlex.sm="110px" fxFlex.md="110px" fxFlex.xs="110px"
+            fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Acciones</span>
           </mat-header-cell>
-          <mat-cell fxFlex.lg="130px" fxFlex.sm="140px" fxFlex.md="130px" fxFlex.xl="250px" fxFlex.xs="130px" *matCellDef="let element;let index=index">
+          <mat-cell fxFlex.lg="130px" fxFlex.sm="140px" fxFlex.md="130px" fxFlex.xl="250px" fxFlex.xs="130px"
+            *matCellDef="let element;let index=index">
             <div class="center-product-list">
               <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)" class="sc-button-toolbar button-toolbar"
                 mat-button [matMenuTriggerFor]="orderOptions">
@@ -176,7 +182,8 @@
                   <mat-icon>label_outline</mat-icon>
                   <span>Imprimir rótulo</span>
                 </button>
-                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item [disabled]="element.billUrl">
+                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item
+                  [disabled]="element.billUrl">
                   <mat-icon>note_add</mat-icon>
                   <span>Adjuntar factura</span>
                 </button>
@@ -185,8 +192,8 @@
                   <mat-icon>local_shipping</mat-icon>
                   <span>Enviar</span>
                 </button>
-                <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" (click)="openModalDetailOrder(element)"
-                  mat-menu-item>
+                <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false"
+                  fxShow="false" (click)="openModalDetailOrder(element)" mat-menu-item>
                   <mat-icon>more_vert</mat-icon>
                   <span>Ver detalle</span>
                 </button>
@@ -200,8 +207,8 @@
         <!-- Creación de las filas para la tabla -->
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
 
-        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;" matRipple class="element-row personal-row-table"
-          [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;"
+          matRipple class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
         </mat-row>
 
       </mat-table>
@@ -212,7 +219,8 @@
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
         <p>No se han encontrado &oacute;rdenes
         </p>
-        <button id="load-all-orders-button" (click)="getAllOrderList();getOrdersList(currentEventPaginate);" mat-button color="primary">
+        <button id="load-all-orders-button" (click)="getAllOrderList();getOrdersList(currentEventPaginate);" mat-button
+          color="primary">
           Cargar todas las &oacute;rdenes
         </button>
       </div>
