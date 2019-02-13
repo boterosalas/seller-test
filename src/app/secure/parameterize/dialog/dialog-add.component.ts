@@ -105,6 +105,7 @@ export class AddDialogComponent implements OnInit {
                     if (!resultadoAdd) {
                         this.categoriesAdded.push(resultado);
                         this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(value, ''));
+                        this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(',', ''));
                         return false;
                     } else {
                         // this.setCategoryError(true, true); // repetidos
