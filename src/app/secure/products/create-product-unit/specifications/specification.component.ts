@@ -56,7 +56,7 @@ export class SpecificationProductComponent implements OnInit {
     public validateObligatoryGroup(group: any): boolean {
         let hasSon = false;
         group.Sons.forEach(element => {
-            if (element.Obligatory && !element.Value) {
+            if (element.Required && !element.Value) {
                 hasSon = true;
             }
         });

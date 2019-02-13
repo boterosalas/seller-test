@@ -59,16 +59,18 @@
             <div *ngIf="group.Show" class="specs-container">
                 <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-icon class="type-spec" *ngIf="spec.List.length" matTooltip="Especificación de tipo lista">
-                            list
-                        </mat-icon>
-                        <mat-icon class="type-spec" *ngIf="!spec.List.length" matTooltip="Especificación de tipo texto">
-                            text_fields
-                        </mat-icon>
+                        <div  fxLayout="row" fxLayoutAlign="center center" class="icon-container">
+                            <mat-icon class="type-spec" *ngIf="spec.List.length" matTooltip="Especificación de tipo lista">
+                                list
+                            </mat-icon>
+                            <mat-icon class="type-spec" *ngIf="!spec.List.length" matTooltip="Especificación de tipo texto">
+                                text_fields
+                            </mat-icon>
+                        </div>
                         <p>{{spec.Name}}</p>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        
+
                         <button mat-icon-button>
                             <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)">delete</mat-icon>
                         </button>
@@ -97,6 +99,4 @@
             </div>
         </div>
     </div>
-
-
 </section>
