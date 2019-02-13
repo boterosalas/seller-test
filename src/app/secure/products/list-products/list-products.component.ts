@@ -3,9 +3,10 @@ import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
+import { CustomPaginator } from './listFilter/paginatorList';
 
 
 export interface ListFilterProducts {
@@ -27,7 +28,10 @@ const log = new Logger('ListProductsComponent');
 @Component({
     selector: 'app-list-products',
     styleUrls: ['list-products.component.scss'],
-    templateUrl: 'list-products.component.html'
+    templateUrl: 'list-products.component.html',
+    providers: [
+        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+    ]
 })
 
 export class ListProductsComponent implements OnInit {
@@ -74,8 +78,8 @@ export class ListProductsComponent implements OnInit {
             productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])), /*
             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
-            initialDate: new FormControl('', []),
-            finalDate: new FormControl('', []),
+            initialDate: { disabled: true, value: '' },
+            finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
             matcher: new MyErrorStateMatcher()
         });
@@ -96,6 +100,7 @@ export class ListProductsComponent implements OnInit {
     public cleanFilter() {
         this.filterProduts.reset();
         this.cleanFilterListProducts();
+        this.filterListProducts();
     }
 
     // Funcion para cargar datos de regex
@@ -150,9 +155,11 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any) {
+
         // let urlParams: any;
         let urlParams2: any;
         let countFilter = 0;
+        let fecha = 0;
         this.initialDateList = null;
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
@@ -178,7 +185,7 @@ export class ListProductsComponent implements OnInit {
             countFilter++;
         } else {
             countFilter++;
-        } if (this.initialDateList) {
+        } /*if (this.initialDateList && this.finalDateList) {
             countFilter++;
         } else {
             countFilter++;
@@ -186,7 +193,7 @@ export class ListProductsComponent implements OnInit {
             countFilter++;
         } else {
             countFilter++;
-        }
+        } */
         if (this.eanList) {
             countFilter++;
         } else {
@@ -196,32 +203,61 @@ export class ListProductsComponent implements OnInit {
             this.creationDateList = true;
             this.initialDateList = this.initialDateList;
             this.finalDateList = this.finalDateList;
-            countFilter++;
+            if (this.initialDateList && this.finalDateList) {
+                if (this.finalDateList < this.initialDateList) {
+                    fecha++;
+                    alert('La fecha inicial NO debe ser mayor a la fecha final');
+                }
+                countFilter++;
+            } else {
+                fecha++;
+                alert('Debes igresar fecha inicial y final para realizar filtro');
+            }
         } else {
             this.creationDateList = false;
             this.initialDateList = this.initialDateList;
             this.finalDateList = this.finalDateList;
-            countFilter++;
+            if (this.initialDateList && this.finalDateList) {
+                if (this.finalDateList < this.initialDateList) {
+                    fecha++;
+                    alert('La fecha inicial NO debe ser mayor a la fecha final');
+                }
+                countFilter++;
+            } else {
+                fecha++;
+                alert('Debes igresar fecha inicial y final para realizar filtro');
+            }
         }
+
 
         if (countFilter) {
             urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
         }
 
         this.loadingService.viewSpinner();
-        this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
-            if (result.data !== undefined) {
-                // const body = JSON.parse(result.data);
-                this.productsList = result.data.list;
-                this.length = result.data.total;
-                // const response = result.body.data;
-            } else {
-                this.modalService.showModal('errorService');
+        if (fecha === 0) {
+            if (params) {
+                params.toggle();
             }
+            this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
+                if (result.data !== undefined) {
+                    // const body = JSON.parse(result.data);
+                    this.productsList = result.data.list;
+                    this.length = result.data.total;
+                    // const response = result.body.data;
+                } else {
+                    this.modalService.showModal('errorService');
+                }
+                this.loadingService.closeSpinner();
+            }, error => {
+                this.loadingService.closeSpinner();
+            });
             this.loadingService.closeSpinner();
-        });
-
-        this.filterProducts();
+            this.filterProducts();
+        } else {
+            this.loadingService.closeSpinner();
+        }
+        this.loadingService.closeSpinner();
     }
 
     public filterProducts() {
@@ -271,5 +307,26 @@ export class ListProductsComponent implements OnInit {
             this.filterProduts.controls[productsFilter.nameFilter].setValue(null);
         }
         this.filterListProducts();
+    }
+
+    mirarfecha(): void {
+        console.log('aqui');
+        const final = this.finalDateList;
+        const inicial = this.initialDateList;
+        if (new Date(final) < new Date(inicial)) {
+        }
+    }
+
+    public setCategoryError(show: boolean): void {
+        const inicial = new Date(this.initialDateList);
+        const final = new Date(this.finalDateList);
+        if (show) {
+
+            if (final < inicial) {
+                this.filterProduts.controls.creationDate.setErrors({ date: show });
+            }
+        } else {
+            this.filterProduts.controls.creationDate.setErrors(null);
+        }
     }
 }

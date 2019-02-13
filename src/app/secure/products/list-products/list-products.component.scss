@@ -22,6 +22,7 @@ $color-gray3: #D3D3D3;
 
 .example-chip-list {
   margin: 1%;
+  padding-top: 3%;
 }
 
 .tree-toolbar {
@@ -111,7 +112,7 @@ $color-gray3: #D3D3D3;
 
 ::ng-deep .mat-datepicker-content .mat-calendar {
   width: 200px !important;
-  height: 230px !important;
+  height: 255px !important;
 }
 
 .height-full {

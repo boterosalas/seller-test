@@ -7,14 +7,13 @@
     <mat-card-content>
       <div class="container-desc-card flexbox flex-wrap align-center">
         <h3>EAN: {{products.ean}}</h3>
-        <p class="name">{{products.name}}n</p>
+        <p class="name">{{products.name}}</p>
         <p> Fecha de creacion: {{products.createdDate}}</p>
         <p> Fecha de modificación: {{products.updatedDate}}</p>
       </div>
     </mat-card-content>
-    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
-        <p> Mejor oferta</p> {{products.bestOffer}}
+    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== 0">
+      <p> Mejor oferta</p> {{products.bestOffer}}
     </div>
   </mat-card>
-
 </div>

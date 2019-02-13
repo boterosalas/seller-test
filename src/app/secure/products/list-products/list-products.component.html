@@ -12,7 +12,8 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher">
+          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher"
+            autocomplete="off">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')" [innerHTML]="'Nombre de producto invalido'"></mat-error>
         </mat-form-field>
@@ -28,19 +29,22 @@
             <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
             <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
           </mat-radio-group>
+          <mat-error *ngIf="filterProduts.controls.creationDate.hasError('date')">
+            La fecha final NO debe ser menor a la fecha inicial.
+          </mat-error>
         </div>
         <div *ngIf="optionDates">
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="classDatapicker">
-              <input matInput [matDatepicker]="picker" placeholder="De" formControlName="initialDate" (change)=" mirarfecha()">
+              <input matInput [matDatepicker]="picker" placeholder="De" disabled formControlName="initialDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field class="classDatapicker">
-              <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="finalDate">
+              <input matInput [matDatepicker]="picker1" placeholder="Hasta" disabled formControlName="finalDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
+              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -49,7 +53,7 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
           <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle() && filterListProducts()"></button>
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListProducts(drawer)"></button>
         </div>
       </div>
     </form>
@@ -91,8 +95,8 @@
       <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
         <app-combo-product [products]="products"></app-combo-product>
       </div>
-      <div *ngIf="!productsList.length" fxLayout="column" class="no-products"> 
-        <div class="icon-face"  >
+      <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
+        <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>
         </div>
         <label class="icon-face-text">
