@@ -12,8 +12,7 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher"
-            autocomplete="off">
+          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')" [innerHTML]="'Nombre de producto invalido'"></mat-error>
         </mat-form-field>
@@ -51,7 +50,7 @@
 
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
           <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListProducts(drawer)"></button>
         </div>

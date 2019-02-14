@@ -35,6 +35,7 @@ const log = new Logger('ListProductsComponent');
 })
 
 export class ListProductsComponent implements OnInit {
+    value = '';
     productsList: any = [];
     public filterProduts: FormGroup;
     public matcher: MyErrorStateMatcher;
@@ -67,7 +68,9 @@ export class ListProductsComponent implements OnInit {
         this.validateFormSupport();
     }
 
-
+    onEnter(value: string) {
+        this.value = value;
+    }
     /**
      * Crear formualrio de filtro
      *
@@ -155,7 +158,6 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any) {
-
         // let urlParams: any;
         let urlParams2: any;
         let countFilter = 0;
@@ -310,7 +312,6 @@ export class ListProductsComponent implements OnInit {
     }
 
     mirarfecha(): void {
-        console.log('aqui');
         const final = this.finalDateList;
         const inicial = this.initialDateList;
         if (new Date(final) < new Date(inicial)) {
