@@ -21,6 +21,18 @@ $modal: 72px;
     border-radius: 5px;
 }
 
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba(72, 90, 250, .38) !important;
+}
+
+.padding-slide {
+    padding-top: 12px;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #485AFA !important;
+}
+
 :host {
     section#app-specifications {
         .app-toolbar-title {
@@ -49,9 +61,13 @@ $modal: 72px;
                 flex-wrap: wrap;
                 width: 100%;
                 display: flex;
+                background-color: #fdfdfd;
                 .specs-items {
                     width: 46%;
-                    p{
+                    margin: 5px 2%;
+                    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+                    background: white;
+                    p {
                         font-size: 14px;
                     }
                 }
@@ -97,6 +113,8 @@ $modal: 72px;
         display: flex;
         flex-wrap: wrap;
         @include border_round_gray();
+        max-height: 200px;
+        overflow: auto;
         margin: 1%;
         opacity: 1;
         -webkit-transition: all 1s ease;
@@ -140,6 +158,9 @@ $modal: 72px;
             width: 100%;
         }
     }
+    .specs-items {
+        width: 100% !important;
+    }
 }
 
 @media (min-width: 600px) {
@@ -171,7 +192,17 @@ $modal: 72px;
     color: $color-gray;
 }
 
-.type-spec {
-    font-size: 20px;
-    color: gray;
+.icon-container {
+    height: 44px;
+    width: 44px;
+    background-color: whitesmoke;
+    margin-right: 3px;
+    .type-spec {
+        font-size: 22px;
+        color: gray;
+    }
+}
+
+.padding-button {
+    padding: 1%;
 }

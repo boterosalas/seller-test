@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
-import { Logger, LoadingService } from '@app/core';
+import { Logger } from '@app/core';
 
 /* log component */
 const log = new Logger('SearchCategorizationComponent');
@@ -51,7 +51,7 @@ export class AddDialogComponent implements OnInit {
         private searchService: SearchService) {
         this.modeDialog = data !== null && data.Categories;
         this.dataToEdit = data;
-        this.listCategories =  data.listCategories;
+        this.listCategories = data.listCategories;
         if (!this.modeDialog) {
             this.createAddSpecForm(null);
         } else {
@@ -79,6 +79,14 @@ export class AddDialogComponent implements OnInit {
         this.showCategoriesAdded = !this.showCategoriesAdded;
     }
 
+    public changeSlider(event: any): void {
+        this.categoriesAdded = [];
+        if (event.checked) {
+            this.listCategories.forEach(element => {
+                this.categoriesAdded.push(element);
+            });
+        }
+    }
 
     public createAddBrandFrom(): void {
         this.formBrands = new FormGroup({
@@ -97,6 +105,7 @@ export class AddDialogComponent implements OnInit {
                     if (!resultadoAdd) {
                         this.categoriesAdded.push(resultado);
                         this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(value, ''));
+                        this.formSpecs.controls.Categories.setValue(this.formSpecs.controls.Categories.value.replace(',', ''));
                         return false;
                     } else {
                         // this.setCategoryError(true, true); // repetidos

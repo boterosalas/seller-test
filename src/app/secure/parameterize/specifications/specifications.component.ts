@@ -125,6 +125,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         const dialogRef = this.dialog.open(AddDialogSpecsComponent, {
             width: '90%',
             maxWidth: '1000px',
+            minHeight: '50%',
             data: dataToEdit
         });
 
@@ -140,7 +141,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 dataToSend.Specs.push({
                     SpecName: res.nameSpec,
                     Required: res.requiredSpec === true ? 'true' : 'false',
-                    ListValues: res.ListValues,
+                    ListValues: !res.ListValues ?  [] : res.ListValues ,
                     IdSpec: res.idSpec
                 });
                 if (!data) {

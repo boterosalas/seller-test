@@ -16,7 +16,9 @@
 
   <!-- CONTAINER FORM SPECS -->
   <div mat-dialog-content *ngIf="formSpecs" class="form-container" fxLayout="column" fxLayoutAlign="center center">
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+    <p>Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se
+      deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas
+      separadas por coma. Recuerda que las categorías deben ser válidas para continuar.</p>
     <form fxLayout="column" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
@@ -29,6 +31,7 @@
           <mat-icon matSuffix class="add-category" (click)="getCategories()">
             add_circle_outline
           </mat-icon>
+          <mat-hint>Para agregar es necesario, dar clic en (+).</mat-hint>
 
           <mat-error *ngIf="formSpecs.controls.Categories.hasError('noExist')">
             Esta categoría ({{categoriesError}}) no existe.
@@ -38,6 +41,15 @@
           </mat-error>
           <!--<mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>-->
         </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <div class="input-add">
+        </div>
+
+        <div class="input-add padding-slide">
+          <mat-slide-toggle color="primary" (change)="changeSlider($event)">Agregar todos</mat-slide-toggle>
+        </div>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="categoriesAdded.length">
@@ -65,7 +77,7 @@
         </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="padding-button" fxLayout="row" fxLayoutAlign="center center">
         <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
         <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
           [disabled]="!formSpecs.valid">

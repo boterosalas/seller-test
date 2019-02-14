@@ -1,11 +1,36 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$color-maroon: maroon;
+$modal: 72px;
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  mat-icon {
+      color: $color-white;
+  }
+}
+
 .form-add {
   width: 100%;
+}
+
+.center-text{
+  text-align: center;
 }
 
 @media screen and (min-width: 600px) {
   .input-add {
     width: 100%;
   }
+}
+
+.container-icon {
+  @include icon-border-gray();
 }
 
 @media screen and (max-width: 600px) {
@@ -52,6 +77,8 @@ mat-radio-button {
 .addoption {
   display: flex;
   flex-wrap: wrap;
+  max-height: 200px;
+  overflow: auto;
 }
 
 
@@ -79,6 +106,10 @@ p {
   width: 100%;
 }
 
+.form-container{
+  overflow: hidden !important;
+}
+
 @media screen and (max-width: 600px) {
   .container-form {
     width: 100%;
@@ -99,4 +130,8 @@ p {
     width: 45%;
     padding: 0.15em;
   }
+}
+
+.padding-dialog{
+  
 }
