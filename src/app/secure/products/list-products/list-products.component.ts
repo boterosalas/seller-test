@@ -115,8 +115,7 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterApply(param: any) {
-        this.applyFilter = true;
-        this.filterListProducts(param);
+        this.filterListProducts(param, true);
     }
 
     // Funcion para limpiar formulario
@@ -177,7 +176,7 @@ export class ListProductsComponent implements OnInit {
         return param;
     }
 
-    public filterListProducts(params?: any) {
+    public filterListProducts(params?: any, activeFilter?: any) {
         // this.applyFilter = true;
         // let urlParams: any;
         let urlParams2: any;
@@ -273,6 +272,9 @@ export class ListProductsComponent implements OnInit {
         if (fecha === 0) {
             if (params) {
                 params.toggle();
+            }
+            if (activeFilter) {
+                this.applyFilter = true;
             }
             this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
                 if (result.data !== undefined) {
