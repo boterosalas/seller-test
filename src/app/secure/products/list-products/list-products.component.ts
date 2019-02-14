@@ -3,10 +3,11 @@ import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
+import { ReturnStatement } from '@angular/compiler';
 
 
 export interface ListFilterProducts {
@@ -49,6 +50,7 @@ export class ListProductsComponent implements OnInit {
     selectable = true;
     removable = true;
     addOnBlur = true;
+    applyFilter = false;
     length = 0;
     pageSize = 30;
     pagepaginator = 0;
@@ -63,6 +65,7 @@ export class ListProductsComponent implements OnInit {
         private modalService?: ModalService,
         private fb?: FormBuilder,
         public SUPPORT?: SupportService,
+        public snackBar?: MatSnackBar,
     ) { }
     ngOnInit() {
         this.validateFormSupport();
@@ -88,6 +91,8 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
+
+
     // Funcion para limpiar formulario
     public cleanFilterListProducts(): void {
         this.nameProductList = null;
@@ -97,6 +102,21 @@ export class ListProductsComponent implements OnInit {
         this.finalDateList = null;
         this.listFilterProducts = [];
 
+    }
+
+    /**
+     * Funcion para limpiar filtros
+     *
+     * @memberof ListProductsComponent
+     */
+    public cleanAllFilter() {
+        this.applyFilter = false;
+        this.cleanFilter();
+    }
+
+    public filterApply(param: any) {
+        this.applyFilter = true;
+        this.filterListProducts(param);
     }
 
     // Funcion para limpiar formulario
@@ -158,6 +178,7 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any) {
+        // this.applyFilter = true;
         // let urlParams: any;
         let urlParams2: any;
         let countFilter = 0;
@@ -208,12 +229,18 @@ export class ListProductsComponent implements OnInit {
             if (this.initialDateList && this.finalDateList) {
                 if (this.finalDateList < this.initialDateList) {
                     fecha++;
-                    alert('La fecha inicial NO debe ser mayor a la fecha final');
+                    // alert('La fecha inicial NO debe ser mayor a la fecha final');
+                    this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        duration: 3000,
+                    });
                 }
                 countFilter++;
             } else {
                 fecha++;
-                alert('Debes igresar fecha inicial y final para realizar filtro');
+                // alert('Debes igresar fecha inicial y final para realizar filtro');
+                this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    duration: 3000,
+                });
             }
         } else {
             this.creationDateList = false;
@@ -222,12 +249,18 @@ export class ListProductsComponent implements OnInit {
             if (this.initialDateList && this.finalDateList) {
                 if (this.finalDateList < this.initialDateList) {
                     fecha++;
-                    alert('La fecha inicial NO debe ser mayor a la fecha final');
+                    // alert('La fecha inicial NO debe ser mayor a la fecha final');
+                    this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        duration: 3000,
+                    });
                 }
                 countFilter++;
             } else {
                 fecha++;
-                alert('Debes igresar fecha inicial y final para realizar filtro');
+                // alert('Debes igresar fecha inicial y final para realizar filtro');
+                this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    duration: 3000,
+                });
             }
         }
 
@@ -276,6 +309,12 @@ export class ListProductsComponent implements OnInit {
         data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         this.add(data);
 
+    }
+
+    public closeFilter() {
+        if (!this.applyFilter) {
+            this.cleanFilter();
+        }
     }
     // Metodo para añadir los chips de los filtros
 

@@ -5,7 +5,7 @@
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3>Filtro productos</h3>
         <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
-          mat-icon-button mat-button (click)="drawer.toggle()">
+          mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
@@ -50,9 +50,9 @@
 
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'" (click)="cleanAllFilter()"></button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterListProducts(drawer)"></button>
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterApply(drawer)"></button>
         </div>
       </div>
     </form>
