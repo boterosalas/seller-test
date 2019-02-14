@@ -54,6 +54,7 @@ export class ListProductsComponent implements OnInit {
     length = 0;
     pageSize = 30;
     pagepaginator = 0;
+    separatorKeysCodes: number[] = [];
     pageSizeOptions: number[] = [30, 60, 120, 600];
     pageEvent: PageEvent;
     listFilterProducts: ListFilterProducts[] = [
