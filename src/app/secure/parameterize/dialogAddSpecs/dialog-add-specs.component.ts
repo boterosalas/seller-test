@@ -75,7 +75,7 @@ export class AddDialogSpecsComponent implements OnInit {
             this.optionNumber = this.dataToEdit.List.length;
         }
         this.formAddSpecs = this.fb.group({
-            nameSpec: new FormControl(this.dataToEdit !== null ? this.dataToEdit.Name : null, Validators.required),
+            nameSpec: new FormControl(this.dataToEdit !== null ? this.dataToEdit.Name : null, [Validators.required, Validators.maxLength(200)]),
             requiredSpec: new FormControl(this.dataToEdit !== null ? this.dataToEdit.Required : null),
             optionSpec: new FormControl(optionData, Validators.required),
         });

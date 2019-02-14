@@ -23,7 +23,9 @@
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
         <mat-form-field class="input-add">
-          <input formControlName="NameSpec" matInput placeholder="Nombre de especificación">
+          <input formControlName="NameSpec" matInput placeholder="Nombre de especificación" >
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
         </mat-form-field>
 
         <mat-form-field class="input-add">

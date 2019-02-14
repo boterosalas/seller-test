@@ -25,6 +25,8 @@
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
             <input matInput formControlName="nameSpec" placeholder="Nombre de especificación">
+            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
+          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
           </mat-form-field>
           <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
         </div>

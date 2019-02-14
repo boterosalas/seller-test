@@ -217,7 +217,8 @@ export class AddDialogComponent implements OnInit {
         }
         this.formSpecs = new FormGroup({
             NameSpec: new FormControl(name, [
-                Validators.required
+                Validators.required,
+                Validators.maxLength(200)
             ]),
             Categories: new FormControl({ value: '', disabled: true })
         });
