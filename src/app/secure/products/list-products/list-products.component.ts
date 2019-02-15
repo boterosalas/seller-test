@@ -226,8 +226,10 @@ export class ListProductsComponent implements OnInit {
             this.creationDateList = true;
             this.initialDateList = this.initialDateList;
             this.finalDateList = this.finalDateList;
+            const inicial = new Date(this.initialDateList);
+            const final = new Date(this.finalDateList);
             if (this.initialDateList && this.finalDateList) {
-                if (this.finalDateList < this.initialDateList) {
+                if (final < inicial) {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
@@ -246,8 +248,10 @@ export class ListProductsComponent implements OnInit {
             this.creationDateList = false;
             this.initialDateList = this.initialDateList;
             this.finalDateList = this.finalDateList;
+            const inicial = new Date(this.initialDateList);
+            const final = new Date(this.finalDateList);
             if (this.initialDateList && this.finalDateList) {
-                if (this.finalDateList < this.initialDateList) {
+                if (final < inicial) {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
