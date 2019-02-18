@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-manage',
@@ -6,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
-    constructor() { }
 
-    ngOnInit(): void { }
+    parameters: any;
+    chargueView = false;
+
+    constructor(
+        private route: ActivatedRoute) { }
+
+    ngOnInit(): void {
+        this.route.params.subscribe(data => {
+            if (data && data.id) {
+                this.parameters = { IdSeller: data.id };
+            }
+            this.chargueView = true;
+        });
+    }
 }

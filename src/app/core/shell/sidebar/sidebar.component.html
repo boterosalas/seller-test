@@ -13,20 +13,44 @@
 
     </mat-toolbar>
 
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user">
+      <div *ngFor="let module of modules">
+        <mat-expansion-panel class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
+          <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+            <mat-panel-title>
+              {{module.NameModule}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let menu of module.Menus">
+            <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+              <h6 matLine>{{menu.NameMenu}}</h6>
+            </mat-list-item>
+
+            <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
+              target="_blank">
+              <h3 matLine style="margin-left:50px;">{{menu.NameMenu}}</h3>
+            </a>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </div>
+
+    <!--
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
+
+
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
             &Oacute;rdenes
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
-        <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item); toggleMenu();">
-          <h6 matLine [innerHTML]="item.name"></h6>
-        </mat-list-item>
-      </div>
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]" 
-          *ngIf="user?.sellerProfile === 'administrator'">
+          <mat-list-item id="matlist-item-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item); toggleMenu();">
+            <h6 matLine [innerHTML]="item.name"></h6>
+          </mat-list-item>
+        </div>
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]" *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Factura electrónica</h6>
         </mat-list-item>
 
@@ -40,7 +64,8 @@
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderInDevolution]" *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <h6 matLine>En devolución</h6>
         </mat-list-item>
-        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderLoadGuide]" *ngIf="user?.sellerProfile === 'seller'">
+        <mat-list-item id="matlist-item-button-cargar-guias" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOrderLoadGuide]"
+          *ngIf="user?.sellerProfile === 'seller'">
           <h6 matLine>Cargar guías</h6>
         </mat-list-item>
       </mat-expansion-panel>
@@ -78,7 +103,7 @@
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
-          <h6 matLine>Historico carga de ofertas</h6>
+          <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
       </mat-expansion-panel>
     </div>
@@ -96,7 +121,8 @@
           <h6 matLine>Carga masiva</h6>
         </mat-list-item>
 
-        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]" *ngIf="user?.sellerProfile === 'administrator'">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]"
+          *ngIf="user?.sellerProfile === 'administrator'">
           <h6 matLine>Moderación</h6>
         </mat-list-item>
 
@@ -127,8 +153,8 @@
           <h6 matLine>Acuerdos</h6>
         </mat-list-item>
 
-        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerProfiles]" *ngIf="!isProductionEnv">
-          <h6 matLine>Perfiles</h6>
+        <mat-list-item id="matlist-item-button-seller-register" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntSellerList]">
+          <h6 matLine>Listado de vendedores</h6>
         </mat-list-item>
 
       </mat-expansion-panel>
@@ -168,6 +194,7 @@
 
       </mat-expansion-panel>
     </div>
+  -->
 
     <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
       <h6 matLine>Soporte Marketplace</h6>

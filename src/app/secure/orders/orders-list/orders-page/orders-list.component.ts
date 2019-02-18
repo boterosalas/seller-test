@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService, } from '@app/core';
+import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, } from '@app/core';
 import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, UserInformation, } from '@app/shared';
 import { ShellComponent } from '@core/shell';
 
@@ -13,6 +13,8 @@ import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-mo
 import { OrderService } from '../orders.service';
 import { SendOrderComponent } from '../send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
+import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -44,7 +46,7 @@ const log = new Logger('OrdersListComponent');
 /**
  *  Component que permite cargar las órdenes
  */
-export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback {
+export class OrdersListComponent implements OnInit, OnDestroy {
 
   // Constantes
   public const = Const;
@@ -78,6 +80,19 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     name: 'Todas las órdenes',
     id: ''
   };
+
+  // Variables con los permisos que este componente posee.
+  permissionComponent: MenuModel;
+  read = readFunctionality;
+  download = downloadFunctionality;
+  attachment = attachmentFunctionality;
+  send = sendFunctionality;
+  readPermission: boolean;
+  downloadPermission: boolean;
+  sendPermission: boolean;
+  attachmentPermission: boolean;
+  // Fin de variables de permisos.
+
   // varialbe que almacena el número de órdenes obtenidas
   orderListLength = false;
   // suscriptions vars
@@ -120,7 +135,8 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
     public awsUtil: AwsUtil,
     public userService: UserLoginService,
     public cognito: CognitoUtil,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) { }
 
   /**
@@ -128,25 +144,51 @@ export class OrdersListComponent implements OnInit, OnDestroy, LoggedInCallback 
    * @memberof OrdersListComponent
    */
   ngOnInit() {
-    this.userService.isAuthenticated(this);
+    this.getMenuSelected();
   }
 
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-  }
-
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-    } else if (this.user.sellerProfile === 'seller') {
+  /**
+   * Funcion para verificar el menu y los permisos que este posee.
+   * Verifica si la ruta posee ID (esto indica que debe tener las ordenes de ese tipo)
+   * y si no posee id trae todos los estados.
+   * @memberof OrdersListComponent
+   */
+  public getMenuSelected(): void {
+    this.route.params.subscribe(params => {
+      this.currentRootPage = params['category'];
+      const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
+      // Mediante la categoria obtiene el menu al cual desea apuntar
+      if (!category[0]) {
+        this.permissionComponent = this.authService.getMenu(allName);
+      } else {
+        const selected = category[0].id;
+        if (selected.toString() === idSended) {
+          this.permissionComponent = this.authService.getMenu(sendedName);
+        } else if (selected.toString() === idToSend) {
+          this.permissionComponent = this.authService.getMenu(toSendName);
+        }
+      }
+      // Logica para cargar el componente
       this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
-    }
+      // Permisos del componente.
+      this.readPermission = this.getFunctionality(this.read);
+      this.downloadPermission = this.getFunctionality(this.download);
+      this.sendPermission = this.getFunctionality(this.send);
+      this.attachmentPermission = this.getFunctionality(this.attachment);
+    });
+  }
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**

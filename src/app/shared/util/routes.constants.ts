@@ -38,6 +38,7 @@ export class RoutesConst {
     static readonly sellerManage: any = 'administrar';
     static readonly sellerAgreement: any = 'acuerdos';
     static readonly sellerProfiles: any = 'perfiles';
+    static readonly sellerList: any = 'lista';
     static readonly shipmentsExitoHist: any = 'historico';
     static readonly shipmentsExitoOffice: any = 'despacho';
     static readonly shipmentsExitoPending: any = 'pendientes';
@@ -90,6 +91,7 @@ export class RoutesConst {
     static readonly sellerCenterIntSellerManage: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerManage;
     static readonly sellerCenterIntSellerAgreements: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerAgreement;
     static readonly sellerCenterIntSellerProfiles: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerProfiles;
+    static readonly sellerCenterIntSellerList: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerList;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

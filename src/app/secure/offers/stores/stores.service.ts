@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { EndpointService } from '@app/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { StoreModel } from './models/store.model';
 
@@ -58,6 +58,10 @@ export class StoresService {
           }
         );
     });
+  }
+
+  public changeStateSeller(idSeller: Number): Observable<any> {
+      return of(true);
   }
 
 

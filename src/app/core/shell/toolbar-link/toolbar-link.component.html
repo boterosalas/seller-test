@@ -3,24 +3,38 @@
   <mat-toolbar-row class="toolbar-orders-list">
     <div class="content-options-toolbar">
 
+      <div *ngFor="let module of modules">
+        <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="showModule(module)">
+          <mat-icon>arrow_drop_down</mat-icon>
+          {{getPersonalityName(module.NameModule)}}
+        </button>
+        <mat-menu #orders="matMenu">
+          <div *ngFor="let menu of module.Menus">
+            <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+              <span>{{menu.NameMenu}}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+      <!-- MENU VERSION 0.1
       <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
         <mat-icon>arrow_drop_down</mat-icon>
         &Oacute;rdenes
       </button>
 
       <mat-menu #orders="matMenu">
-        <div  *ngIf="user?.sellerProfile === 'seller'">
-        <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
-          <span>{{item.name}}</span>
-        </button>
-      </div>
+        <div *ngIf="user?.sellerProfile === 'seller'">
+          <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
+            <span>{{item.name}}</span>
+          </button>
+        </div>
 
         <button mat-menu-item id="dropdown-button-pending-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]"
           *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>Solicitudes pendientes</span>
         </button>
         <button mat-menu-item id="dropdown-button-in-validation" [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]"
-        *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
+          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
           <span>En validación</span>
         </button>
         <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]"
@@ -32,9 +46,9 @@
           <span>Cargar guías</span>
         </button>
         <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]"
-        *ngIf="user?.sellerProfile === 'administrator'">
-        <span>Factura electrónica</span>
-      </button>
+          *ngIf="user?.sellerProfile === 'administrator'">
+          <span>Factura electrónica</span>
+        </button>
 
       </mat-menu>
 
@@ -62,7 +76,7 @@
           <span>Arbol de Categorias</span>
         </button>
 
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]">
+        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
           <span>Cotizador</span>
         </button>
       </mat-menu>
@@ -104,6 +118,7 @@
         <mat-icon>arrow_drop_down</mat-icon>
         Vendedores
       </button>
+
       <mat-menu #sellers="matMenu">
         <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerRegister]">
           <span>Registrar</span>
@@ -112,14 +127,17 @@
         <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerManage]">
           <span>Administrar</span>
         </button>
-        
+
         <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerAgreements]">
           <span>Acuerdos</span>
         </button>
+
+        <button mat-menu-item [routerLink]="['/' + routes?.sellerCenterIntSellerList]">
+          <span>Listado de vendedores</span>
+        </button>
       </mat-menu>
-
-      
-
+    </div>
+  -->
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

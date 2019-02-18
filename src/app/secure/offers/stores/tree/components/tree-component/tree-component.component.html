@@ -10,7 +10,7 @@
           <p class="tree-child-col" [innerHTML]="node.filename"></p>
         </div>
         <div class="badge-tree-cateogry" matBadgePosition="before">
-          <app-input-commision [inputValue]="node" [currenTree]="current_tree"></app-input-commision>
+          <app-input-commision [updateFunction]="updateFunction" [inputValue]="node" [currenTree]="current_tree"></app-input-commision>
           <p class="sing-input">%</p>
         </div>
       </div>
@@ -28,7 +28,7 @@
           <p>{{node.comision}}</p>
         </div>
         <div class="badge-tree-cateogry" matBadgePosition="before">
-          <app-input-commision [inputValue]="node" [currenTree]="current_tree"></app-input-commision>
+          <app-input-commision [updateFunction]="updateFunction" [inputValue]="node" [currenTree]="current_tree"></app-input-commision>
           <p class="sing-input">%</p>
         </div>
       </div>

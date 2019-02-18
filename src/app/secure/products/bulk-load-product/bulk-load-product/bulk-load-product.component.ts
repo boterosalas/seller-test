@@ -12,6 +12,8 @@ import { uniq, isEqual, uniqWith } from 'lodash';
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
 import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
+import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -81,6 +83,10 @@ export class BulkLoadProductComponent implements OnInit {
 
   public eanComboPosition = -1;
 
+  // Variables con los permisos que este componente posee
+  permissionComponent: MenuModel;
+  load = loadFunctionality;
+
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
@@ -91,9 +97,9 @@ export class BulkLoadProductComponent implements OnInit {
     public dialog: MatDialog,
     private loadingService: LoadingService,
     public userService: UserLoginService,
-    private router: Router,
     public userParams: UserParametersService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    public authService: AuthService
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -114,41 +120,23 @@ export class BulkLoadProductComponent implements OnInit {
    */
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
-    this.userService.isAuthenticated(this);
+    this.permissionComponent = this.authService.getMenu(bulkLoadProductName);
+    if (this.getFunctionality(this.load)) {
+      this.getAvaliableLoads();
+    }
     this.verifyStateCharge();
   }
 
   /**
-   * @method isLoggedIn
-   * @description Metodo para validar si el usuario esta logeado
-   * @param {string} message
-   * @param {boolean} isLoggedIn
-   * @memberof BulkLoadProductComponent
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
    */
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    /*Valida si esta logeado*/
-    if (isLoggedIn) {
-      /*Se llama el metodo que obtiene los datos del usuario logeado*/
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      /*Si no esta logeado se redirecciona al home*/
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-
-  }
-
-  /**
-   * @method getDataUser
-   * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
-   * @memberof BulkLoadProductComponent
-   */
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
-    } else {
-      this.getAvaliableLoads();
-    }
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**
@@ -1403,7 +1391,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatImg = /\bJPG$|\bjpg$/;
     const formatSkuShippingSize = /^[1-5]{1}$/;
     const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc =  /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
+    const formatDesc = /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
     const formatSize = /^[^\s]{1,10}$/;
     const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
     const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;

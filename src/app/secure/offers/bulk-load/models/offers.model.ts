@@ -24,6 +24,10 @@ export class ModelOffers {
         public errorIsFreightCalculator?: boolean,
         public errorWarranty?: boolean,
         public errorIsLogisticsExito?: boolean,
-        public errorIsUpdatedStock?: boolean
+        public errorIsUpdatedStock?: boolean,
+        public ComboQuantity?: any,
+        public EanCombo?: any,
+        public errorEanCombo?: boolean,
+        public errorComboQuantity?: boolean,
     ) { }
 }

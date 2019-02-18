@@ -6,6 +6,8 @@ import { Logger } from '@app/core/util/logger.service';
 import { ModelFilter } from './../filter/filter.model';
 import { DownloadHistoricalModalComponent } from '@secure/offers/historical-admin/download-historical-modal/download-historical-modal.component';
 import { HistoricalAdminComponent } from '@app/secure/offers/historical-admin/historical-admin/historicalAdmin.component';
+import { MenuModel, readFunctionality, bulkLoadHistoryNameAdmin, downloadFunctionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('ToolbarOptionsComponent');
@@ -80,6 +82,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   // Limite de registros por petición
   lengthHistorical = null;
 
+   // Variables con los permisos que este componente posee
+   permissionComponent: MenuModel;
+   read = readFunctionality;
+   download = downloadFunctionality;
+
   /**
    * Creates an instance of ToolbarComponent.
    * @param {HistoricalComponent} list
@@ -89,7 +96,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
   constructor(
     public list: HistoricalAdminComponent,
     private cdRef: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public authService: AuthService
   ) {
     this.dataPaginate = new ModelFilter();
     this.dataPaginate.limit = 100;
@@ -103,7 +111,20 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * @memberof ToolbarComponent
    */
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(bulkLoadHistoryNameAdmin);
     this.numberPages = this.numberPages === undefined ? 0 : this.numberPages;
+  }
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**

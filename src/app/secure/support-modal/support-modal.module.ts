@@ -28,6 +28,9 @@ import { SupportService } from './support.service';
   providers: [
     SupportService,
     {provide: MatDialogRef, useValue: {}}
+  ],
+  entryComponents: [
+    SupportModalComponent
   ]
 })
 export class SupportModule {

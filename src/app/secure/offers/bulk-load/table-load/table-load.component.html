@@ -238,6 +238,46 @@
           </td>
         </ng-container>
 
+
+        <!-- EanCombo Column -->
+        <ng-container matColumnDef="EanCombo">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Ean Combo
+              </p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorEanCombo == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.EanCombo != undefined && element.EanCombo != ''">
+              <p class="sc-text-normal">{{element.EanCombo}}</p>
+            </div>
+            <div class="information" *ngIf="element.EanCombo == undefined || element.EanCombo == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+
+        <!-- Cantidad en combo Column -->
+        <ng-container matColumnDef="ComboQuantity">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Cantidad en combo
+              </p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorComboQuantity == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.ComboQuantity != undefined && element.ComboQuantity != ''">
+              <p class="sc-text-normal">{{element.ComboQuantity}}</p>
+            </div>
+            <div class="information" *ngIf="element.ComboQuantity == undefined || element.ComboQuantity == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.EAN}}" *matRowDef="let index=index;let row; columns: displayedColumns;"

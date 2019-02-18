@@ -1,0 +1,150 @@
+<mat-drawer-container class="drawer-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav">
+    <!-- Formulario para realizar filtro de listado de vendedores -->
+    <form class="basic-info" #createfilterSeller="ngForm" [formGroup]="filterSeller" class="seller-filter-sidenav">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Filtro vendedores</h3>
+        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+          mat-icon-button mat-button (click)="drawer.toggle()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
+        <mat-form-field color="primary">
+          <input matInput placeholder="ID" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterSeller.get('id').hasError('pattern')" [innerHTML]="'ID invalido'"></mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher"
+            (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            >
+          <!-- <mat-hint></mat-hint>
+  <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="NIT" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" [innerHTML]="'NIT invalido'"></mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+          <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle() && filterListSeller()"></button>
+        </div>
+
+      </div>
+    </form>
+  </mat-drawer>
+  <mat-drawer-content>
+
+    <div class="height-full" fxLayout="column">
+      <mat-toolbar class="seller-list-toolbar">
+        <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+          <!--  Titulo del toolbar -->
+          <p class="seller-list-title" fxShow [fxShow.xs]="false">
+            Vendedores
+            <small class="sub-title">| Listado de vendedores</small>
+          </p>
+          <!--  Titulo del toolbar -->
+          <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+            Listado de vendedores
+          </p>
+          <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+          </mat-paginator> -->
+        </div>
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        </button>
+      </mat-toolbar>
+      <!-- Resultado Filtro -->
+      <div class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let listFilterSeller of listFilterSellers" [selectable]="selectable" [removable]="removable" (removed)="remove(listFilterSeller)">
+            {{listFilterSeller.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             disabled>
+        </mat-chip-list>
+      </div>
+
+      <!-- SELLER CONTAINER LIST-->
+      <div class="list-container" *ngIf="getFunctionality(read)">
+        <!-- SELLER HEADER LIST-->
+        <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center">
+          <div id="id" class="label-container id" style="width: 9%;
+                padding-left: 3%;">
+            <label class="label-list">
+              ID
+            </label>
+          </div>
+          <div id="name" class="label-container name">
+            <label class="label-list">
+              Nombre del vendedor
+            </label>
+          </div>
+          <div id="nit" class="label-container nit">
+            <label class="label-list">
+              NIT
+            </label>
+          </div>
+          <!-- <div id="date" class="label-container date">
+            <label class="label-list">
+              Fecha de creación
+            </label>
+          </div> -->
+          <div id="state" class="label-container state">
+            <label class="label-list">
+              Estado
+            </label>
+          </div>
+        </div>
+
+        <!-- SELLER BODY LIST-->
+        <div *ngFor="let seller of sellerList; let i = index " [ngClass]="{'background-bar' : seller.block}">
+          <mat-progress-bar mode="indeterminate" *ngIf="seller.block"></mat-progress-bar>
+          <!-- SELLER HEADER LIST-->
+          <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center" *ngIf="showSeller(i)">
+            <div id="id" class="label-container id" fxLayout="row" fxLayoutAlign="start center">
+              <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
+                fxShow [fxShow.xs]="false">
+                <mat-icon class="material-icons" *ngIf="getFunctionality(visualize)">
+                  visibility
+                </mat-icon>
+              </button>
+              <label class="label-result">
+                {{seller.IdSeller}}
+              </label>
+            </div>
+            <div id="name" class="label-container name">
+              <label class="label-result">
+                {{seller.Name}}
+              </label>
+            </div>
+            <div id="nit" class="label-container nit">
+              <label class="label-result">
+                {{seller.Nit}}
+              </label>
+            </div>
+            <!-- <div id="date" class="label-container date">
+              <label class="label-result">
+                22 de septiembre de 2016
+              </label>
+            </div> -->
+            <div id="state" class="label-container state">
+              <label class="label-result" *ngIf="getFunctionality(enable)">
+                <mat-slide-toggle (change)="changeSellerState(seller)" [disabled]="seller.block"></mat-slide-toggle>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
+  </mat-drawer-content>
+</mat-drawer-container>
