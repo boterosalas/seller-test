@@ -181,12 +181,7 @@
                   <mat-icon>label_outline</mat-icon>
                   <span>Imprimir rótulo</span>
                 </button>
-<<<<<<< HEAD
-                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item
-                  [disabled]="element.billUrl">
-=======
                 <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item [disabled]="element.billUrl" *ngIf="attachmentPermission">
->>>>>>> feature/Sprint-18/Profile-auth-security
                   <mat-icon>note_add</mat-icon>
                   <span>Adjuntar factura</span>
                 </button>
