@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { Logger, LoadingService } from '@app/core';
 import { ProfileModel } from './models/profile.model';
-import { Const } from '@app/shared';
 import { MatDialog } from '@angular/material';
 import { DialogProfileComponent } from './dialog/profile-dialog.component';
-import { reject } from 'q';
 import { MenuModel } from './models/menu.model';
 
 
@@ -30,17 +28,17 @@ export class ProfileComponent implements OnInit {
     profileTypes: Object[];
     profileList: ProfileModel[] = [];
     menuList: MenuModel[] = [];
-    classMenu = new MenuModel(null, null, null, null);
+    classMenu = new MenuModel(null, null, null, null, null);
     numberServices = 3;
     countServices = 0;
 
     /** Variables que contienen respuesta de modelo de servicio */
-    nameProfile = 'nameProfile';
+    nameProfile = 'Name';
     idProfile = 'idProfile';
     typeProfile = 'typeProfile';
-    nameTypeProfile = 'nameTypeProfile';
-    menuProfile = 'menu';
-    typeProfileNumber = '1';
+    nameTypeProfile = 'ProfileType';
+    menuProfile = 'Modules';
+    typeProfileNumber = 'Shop';
 
     /**
      * Servicios y componentes necesarios para iniciar el funcionamiento del componente.
@@ -92,8 +90,8 @@ export class ProfileComponent implements OnInit {
                 data[this.nameTypeProfile],
                 this.classMenu.ValidateData(data[this.menuProfile])
             );
-            if (!validateData.TypeName) {
-                validateData.TypeName = data[this.typeProfile] === this.typeProfileNumber ? Const.ProfileTypes[1] : Const.ProfileTypes[0];
+            if (!validateData.Type) {
+                validateData.Type = data[this.nameTypeProfile] === this.typeProfileNumber ? 1 : 0;
             }
         }
         return validateData;
@@ -113,6 +111,9 @@ export class ProfileComponent implements OnInit {
         this.verifyChargue();
         this.getProfileList().then(result => {
             this.verifyChargue();
+        }, error => {
+            this.verifyChargue();
+            log.error('Error al cargar los perfiles', error);
         });
         this.getMenus().then(result => {
             this.verifyChargue();
@@ -140,9 +141,12 @@ export class ProfileComponent implements OnInit {
      */
     private getMenus(): Promise<Boolean> {
         return new Promise((resolve, rej) => {
-            this.profileService.getMenus().subscribe(data => {
-                if (data && data.length) {
-                    this.menuList = this.classMenu.ValidateData(data);
+            this.profileService.getMenus().subscribe(result => {
+                if (result && result.body) {
+                    const data = JSON.parse(result.body);
+                    console.log(data.Data);
+                    this.menuList = this.classMenu.ValidateData(data.Data);
+                    console.log(this.menuList);
                     resolve(true);
                 } else {
                     log.error('Fallo al intentar obtener la lista de perfiles');
@@ -163,11 +167,14 @@ export class ProfileComponent implements OnInit {
      */
     private getProfileList(): Promise<Boolean> {
         return new Promise((resolve, rej) => {
-            this.profileService.getProfileList().subscribe(data => {
-                if (data && data.length) {
-                    data.forEach(element => {
+            this.profileService.getProfileList().subscribe(result => {
+                if (result && result.body) {
+                    const data = JSON.parse(result.body);
+                    console.log(data.Data);
+                    data.Data.forEach(element => {
                         this.profileList.push(this.validateData(element));
                     });
+                    console.log(this.profileList);
                     resolve(true);
                 } else {
                     log.error('Fallo al intentar obtener la lista de perfiles');
@@ -193,6 +200,7 @@ export class ProfileComponent implements OnInit {
             data: { menu: this.menuList, data: dataToEdit }
         });
         dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
         });
     }
 }

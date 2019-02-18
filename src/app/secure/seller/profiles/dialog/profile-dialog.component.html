@@ -5,7 +5,7 @@
 <h1 mat-dialog-title *ngIf="dataToEdit">
     Editar perfil
 </h1>
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" name="profileForm" class="profileForm">
+<form [formGroup]="profileForm" (ngSubmit)="saveProfile()" name="profileForm" class="profileForm">
     <div mat-dialog-content fxLayout="column">
         <!-- INPUT NAME -->
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
@@ -25,29 +25,34 @@
             </mat-radio-group>
         </div>
         <mat-divider></mat-divider>
-        <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
-            <mat-form-field class="select-form">
-                <mat-select placeholder="Seleccione el menu" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
-                    <mat-option *ngFor="let menu of menuList" [value]="menu" [ngClass]="{'no-show': showMenu(menu)}">
-                        {{menu.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <div class="select-to-add" fxLayout="row" fxLayoutAlign="start center">
-                <mat-form-field class="select-form-full">
-                    <mat-select placeholder="Seleccione la funcionalidad" formControlName="Funcionality" name="Funcionality"
-                        multiple (selectionChange)="changeFunctionality()">
-                        <mat-option *ngFor="let functionality of functionalitiesList" [value]="functionality">
-                            {{functionality.Name}}
-                        </mat-option>
+        <div>
+            <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
+                <mat-form-field class="select-form">
+                    <mat-select placeholder="Seleccione el menu" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
+                        <mat-optgroup *ngFor="let module of menuShowList" [label]="module.Name">
+                            <mat-option *ngFor="let menu of module.Menus" [value]="menu" [ngClass]="{'no-show': showMenu(menu)}">
+                                {{menu.Name}}
+                            </mat-option>
+                        </mat-optgroup>
                     </mat-select>
                 </mat-form-field>
-                <button mat-icon-button (click)="addMenu()" type="button">
-                    <mat-icon class="material-icons color-green">
-                        add_box
-                    </mat-icon>
-                </button>
+                <div class="select-to-add" fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field class="select-form-full">
+                        <mat-select placeholder="Seleccione la funcionalidad" formControlName="Funcionality" name="Funcionality"
+                            multiple (selectionChange)="changeFunctionality()">
+                            <mat-option *ngFor="let functionality of functionalitiesList" [value]="functionality">
+                                {{functionality.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-icon-button (click)="addMenu()" type="button">
+                        <mat-icon class="material-icons color-green">
+                            add_box
+                        </mat-icon>
+                    </button>
+                </div>
             </div>
+
         </div>
         <div *ngFor="let menu of menuAddList; let i = index" fxLayout="row" fxLayoutAlign="space-between center" class="menu-added">
             <div class="list-add-menu">
@@ -66,7 +71,7 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <div  fxLayout="row" fxLayoutAlign="end center"  mat-dialog-actions>
+    <div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
         <button mat-raised-button color="secondary" type="button" mat-button (click)="onNoClick()">CANCELAR</button>
         <button mat-raised-button color="primary" mat-button type="submit" cdkFocusInitial>GUARDAR</button>
     </div>

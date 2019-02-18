@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { Const } from '@app/shared';
+import { HttpClient } from '@angular/common/http';
+import { EndpointService } from '@app/core';
 
 @Injectable()
 export class ProfileService {
 
-    constructor() { }
+    constructor(private http: HttpClient,
+        private api: EndpointService) { }
 
     listProfiles = [
         {
@@ -99,7 +102,8 @@ export class ProfileService {
     ];
 
     public getProfileList(): Observable<any> {
-        return of(this.listProfiles);
+        // return of(this.listProfiles);
+        return this.http.get(this.api.get('getAllProfiles'));
     }
 
     public getProfileTypes(): any {
@@ -107,6 +111,15 @@ export class ProfileService {
     }
 
     public getMenus(): Observable<any> {
-        return of(this.listMenus);
+        // return of(this.listMenus);
+        return this.http.get(this.api.get('getAllModule'));
+    }
+
+    public createProfile(data: any): Observable<any> {
+        return this.http.post(this.api.get('createProfile'), data);
+    }
+
+    public updateProfile(data: any): Observable<any> {
+        return this.http.post(this.api.get('updateProfile'), data);
     }
 }

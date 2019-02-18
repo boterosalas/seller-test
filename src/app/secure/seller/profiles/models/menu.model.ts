@@ -5,47 +5,65 @@ export class MenuModel {
     Name: string;
     Functionalities: FunctionalityModel[];
     NameModule: string;
+    ProfileType: string;
     constructor(id: string,
-                name: string,
-                functionalities: FunctionalityModel[],
-                nameModule: string) {
+        name: string,
+        functionalities: FunctionalityModel[],
+        nameModule: string,
+        profileType: string) {
         this.Id = id;
         this.Name = name;
         this.Functionalities = functionalities;
         this.NameModule = nameModule;
+        this.ProfileType = profileType;
     }
 
-    ValidateData(data: any): MenuModel[] {
+    ValidateData(data: any): any {
         let validateData: MenuModel[];
-        validateData = [];
-        data.forEach(element => {
-            validateData.push(this.dataMenuFromService(element));
-        });
-        return validateData;
+        const modulesData = [];
+        if (data) {
+            data.forEach(element => {
+                validateData = [];
+                if (element && element.Menus) {
+                    element.Menus.forEach(menu => {
+                        validateData.push(this.dataMenuFromService(menu, element.Name));
+                    });
+                }
+                modulesData.push({
+                    Name: element.Name,
+                    Menus: validateData,
+                    ProfileType: element.ProfileType
+                });
+            });
+        }
+        return modulesData;
     }
 
-    private dataMenuFromService(data: any): MenuModel {
+    private dataMenuFromService(data: any, nameModule: string): MenuModel {
         return new MenuModel(
             data.idMenu,
-            data.nameMenu,
-            this.ValidateFunctionalityData(data.funcionalities),
-            data.nameModule
+            data.Name,
+            this.ValidateFunctionalityData(data.Actions),
+            nameModule,
+            data.ProfileType
         );
     }
 
     public ValidateFunctionalityData(data: any): FunctionalityModel[] {
         let validateData: FunctionalityModel[];
         validateData = [];
-        data.forEach(element => {
-            validateData.push( this.dataFunctionalityFromService(element) );
-        });
+        if (data) {
+            data.forEach(element => {
+                validateData.push(this.dataFunctionalityFromService(element));
+            });
+        }
         return validateData;
     }
 
     private dataFunctionalityFromService(data: any): FunctionalityModel {
         return new FunctionalityModel(
             data.id,
-            data.name
+            data
         );
     }
 }
