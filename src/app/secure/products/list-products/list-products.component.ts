@@ -46,6 +46,8 @@ export class ListProductsComponent implements OnInit {
     creationDateList: any;
     initialDateList: any;
     finalDateList: any;
+    fechaInicial: any;
+    fechaFinal: any;
     visible = true;
     selectable = true;
     removable = true;
@@ -189,9 +191,13 @@ export class ListProductsComponent implements OnInit {
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         if (this.filterProduts.controls.initialDate.value) {
+            // Se declara esta variable para comparar las fechas.
+            this.fechaInicial = new Date(this.filterProduts.controls.initialDate.value);
             this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
         }
         if (this.filterProduts.controls.finalDate.value) {
+            // Se declara esta variable para comparar las fechas.
+            this.fechaFinal = new Date(this.filterProduts.controls.finalDate.value);
             this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
 
         }
@@ -199,8 +205,6 @@ export class ListProductsComponent implements OnInit {
         const page = this.pagepaginator;
         const limit = this.pageSize;
 
-        // urlParams =  this.filterProduts.controls.productName.value;
-        // urlParams =  this.filterProduts.controls.ean.value;
         if (page || limit) {
             countFilter++;
         }
@@ -208,15 +212,7 @@ export class ListProductsComponent implements OnInit {
             countFilter++;
         } else {
             countFilter++;
-        } /*if (this.initialDateList && this.finalDateList) {
-            countFilter++;
-        } else {
-            countFilter++;
-        } if (this.finalDateList) {
-            countFilter++;
-        } else {
-            countFilter++;
-        } */
+        }
         if (this.eanList) {
             countFilter++;
         } else {
@@ -224,14 +220,12 @@ export class ListProductsComponent implements OnInit {
         } if (this.creationDateList === null) {
         } else if (this.creationDateList === 'createDate') {
             this.creationDateList = true;
-            this.initialDateList = this.initialDateList;
-            this.finalDateList = this.finalDateList;
-            const inicial = new Date(this.initialDateList);
-            const final = new Date(this.finalDateList);
+            const inicial = this.fechaInicial.getTime();
+            const final = this.fechaFinal.getTime();
+
             if (this.initialDateList && this.finalDateList) {
                 if (final < inicial) {
                     fecha++;
-                    // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
                         duration: 3000,
                     });
@@ -239,17 +233,14 @@ export class ListProductsComponent implements OnInit {
                 countFilter++;
             } else {
                 fecha++;
-                // alert('Debes igresar fecha inicial y final para realizar filtro');
                 this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
                     duration: 3000,
                 });
             }
         } else {
             this.creationDateList = false;
-            this.initialDateList = this.initialDateList;
-            this.finalDateList = this.finalDateList;
-            const inicial = new Date(this.initialDateList);
-            const final = new Date(this.finalDateList);
+            const inicial = this.fechaInicial.getTime();
+            const final = this.fechaFinal.getTime();
             if (this.initialDateList && this.finalDateList) {
                 if (final < inicial) {
                     fecha++;

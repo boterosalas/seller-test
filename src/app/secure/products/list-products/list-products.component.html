@@ -1,5 +1,5 @@
 <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
