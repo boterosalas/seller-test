@@ -48,6 +48,12 @@ export class ListProductsComponent implements OnInit {
     finalDateList: any;
     fechaInicial: any;
     fechaFinal: any;
+
+    eanVariable = false;
+    nameVariable = false;
+    fechaInicialVariable = false;
+    fechaFinalVariable = false;
+
     visible = true;
     selectable = true;
     removable = true;
@@ -161,7 +167,7 @@ export class ListProductsComponent implements OnInit {
     public changePaginatorProducts(param: any): any {
         this.pageSize = param.pageSize;
         this.pagepaginator = param.pageIndex;
-        this.filterListProducts();
+        this.filterListProducts('', false, false);
     }
 
     public getDate(date: any): any {
@@ -179,7 +185,11 @@ export class ListProductsComponent implements OnInit {
         return param;
     }
 
-    public filterListProducts(params?: any, activeFilter?: any) {
+    public changeDates(): void {
+        this.applyFilter = false;
+    }
+
+    public filterListProducts(params?: any, activeFilter?: any, showErrors: boolean = true) {
         // this.applyFilter = true;
         // let urlParams: any;
         let urlParams2: any;
@@ -201,7 +211,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
 
         }
-
+        this.fechaFinalVariable = false;
         const page = this.pagepaginator;
         const limit = this.pageSize;
 
@@ -210,94 +220,110 @@ export class ListProductsComponent implements OnInit {
         }
         if (this.nameProductList) {
             countFilter++;
+            this.nameVariable = true;
         } else {
+            this.nameVariable = false;
             countFilter++;
         }
         if (this.eanList) {
+            this.eanVariable = true;
             countFilter++;
         } else {
+            this.eanVariable = false;
             countFilter++;
         } if (this.creationDateList === null) {
         } else if (this.creationDateList === 'createDate') {
+            this.fechaFinalVariable = true;
             this.creationDateList = true;
-            const inicial = this.fechaInicial.getTime();
-            const final = this.fechaFinal.getTime();
-
             if (this.initialDateList && this.finalDateList) {
+                const inicial = this.fechaInicial.getTime();
+                const final = this.fechaFinal.getTime();
                 if (final < inicial) {
                     fecha++;
-                    this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
-                        duration: 3000,
-                    });
+                    if (showErrors) {
+                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
                 }
                 countFilter++;
             } else {
                 fecha++;
-                this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
-                    duration: 3000,
-                });
+                if (showErrors) {
+                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                        duration: 3000,
+                    });
+                }
             }
         } else {
+            this.fechaFinalVariable = true;
             this.creationDateList = false;
-            const inicial = this.fechaInicial.getTime();
-            const final = this.fechaFinal.getTime();
             if (this.initialDateList && this.finalDateList) {
+                const inicial = this.fechaInicial.getTime();
+                const final = this.fechaFinal.getTime();
                 if (final < inicial) {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
-                    this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
-                        duration: 3000,
-                    });
+                    if (showErrors) {
+                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
                 }
                 countFilter++;
             } else {
                 fecha++;
-                // alert('Debes igresar fecha inicial y final para realizar filtro');
-                this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
-                    duration: 3000,
-                });
+                if (showErrors) {
+                    // alert('Debes igresar fecha inicial y final para realizar filtro');
+                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                        duration: 3000,
+                    });
+                }
             }
         }
 
+        if (fecha > 0) {
+            this.initialDateList = null;
+            this.finalDateList = null;
+        }
 
         if (countFilter) {
             urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
         }
 
         this.loadingService.viewSpinner();
-        if (fecha === 0) {
-            if (params) {
-                params.toggle();
-            }
-            if (activeFilter) {
-                this.applyFilter = true;
-            }
-            this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
-                if (result.data !== undefined) {
-                    // const body = JSON.parse(result.data);
-                    this.productsList = result.data.list;
-                    this.length = result.data.total;
-                    // const response = result.body.data;
-                } else {
-                    this.modalService.showModal('errorService');
-                }
-                this.loadingService.closeSpinner();
-            }, error => {
-                this.loadingService.closeSpinner();
-            });
-            this.loadingService.closeSpinner();
-            this.filterProducts();
-        } else {
-            this.loadingService.closeSpinner();
+        if (params && !fecha) {
+            params.toggle();
         }
+        if (activeFilter) {
+            this.applyFilter = true;
+        }
+        this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
+            if (result.data !== undefined) {
+                // const body = JSON.parse(result.data);
+                this.productsList = result.data.list;
+                this.length = result.data.total;
+                // const response = result.body.data;
+            } else {
+                this.modalService.showModal('errorService');
+            }
+            this.loadingService.closeSpinner();
+        }, error => {
+            this.loadingService.closeSpinner();
+        });
+        this.loadingService.closeSpinner();
+        this.filterProducts(fecha);
+
         this.loadingService.closeSpinner();
     }
 
-    public filterProducts() {
+    public filterProducts(fecha?: any) {
         this.cleanFilterListProducts();
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
-        this.creationDateList = this.filterProduts.controls.creationDate.value || null;
+        if (!fecha) {
+            this.creationDateList = this.filterProduts.controls.creationDate.value || null;
+        }
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
@@ -311,8 +337,25 @@ export class ListProductsComponent implements OnInit {
 
     public closeFilter() {
         if (!this.applyFilter) {
-            this.cleanFilter();
+            // this.cleanFilter();
         }
+        if (!this.eanVariable) {
+            this.filterProduts.controls.ean.setValue('');
+            this.eanList = null;
+        }
+        if (!this.nameVariable) {
+            this.filterProduts.controls.productName.setValue('');
+            this.nameProductList = null;
+        }
+        if (!this.fechaFinalVariable) {
+            this.filterProduts.controls.finalDate.setValue('');
+            this.filterProduts.controls.initialDate.setValue('');
+            this.filterProduts.controls.creationDate.setValue('');
+            this.creationDateList = null;
+            this.initialDateList = null;
+            this.finalDateList = null;
+        }
+        this.filterListProducts(null, false, false);
     }
     // Metodo para añadir los chips de los filtros
 

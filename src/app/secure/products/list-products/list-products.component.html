@@ -24,7 +24,7 @@
 
         <div>
           <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row" fxLayoutAlign="space-between center"
-            class="radioDate">
+            class="radioDate" (change)="changeDates()">
             <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
             <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
           </mat-radio-group>
