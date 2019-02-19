@@ -1,0 +1,35 @@
+<section class="brand-container">
+    <!-- TOOLBAR WITH TITLE AND SUBTITLE-->
+    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'Parametrizar reglas'" subtitleBar="Parametrización de marcas"></app-toolbar-tittle>
+    <div class="list">
+        <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+        <div id="addButton" class="container-group-add-button">
+            <!-- BUTTON TO ADD-->
+            <button mat-button (click)="addBrand()">
+                <mat-icon class="material-icons">
+                    control_point
+                </mat-icon>
+                Agregar una marca
+            </button>
+        </div>
+        <div class="container-brand-list">
+            <div *ngFor="let brand of brandList" fxLayout="row" fxLayoutAlign="space-between center" class="brand-list">
+                <span>
+                    {{brand.brandName}}
+                </span>
+                <div>
+                    <button mat-icon-button>
+                        <mat-icon class="material-icons">
+                            edit
+                        </mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon class="material-icons">
+                            delete
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

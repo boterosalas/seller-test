@@ -221,7 +221,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getSpecsByCategories(idCategory: string): void {
-        of(this.specificationList).subscribe(data => {
+        this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
             if (data) {
                 this.specsByCategory.emit(data);
             }
@@ -237,7 +237,6 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public validaData(data: any): void {
-        this.getSpecsByCategories(null);
         if (data.Ean || data.AssignEan) {
             this.productData.Ean = data.Ean;
             this.productData.AssignEan = !data.AssignEan;
@@ -250,7 +249,6 @@ export class ProcessService {
             this.productData.Category = data.CategorySelected;
             this.productData.ProductType = data.CategoryType;
             this.getSpecsByCategories(this.productData.Category);
-
         }
         if (data.Name) {
             this.views.showInfo = true;

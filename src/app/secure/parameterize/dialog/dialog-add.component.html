@@ -1,0 +1,109 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="dialog-add-container">
+  <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
+    <mat-icon class="material-icons" *ngIf="!typeModel">
+      assignment
+    </mat-icon>
+    <mat-icon class="material-icons" *ngIf="typeModel">
+      turned_in
+    </mat-icon>
+  </div>
+  <h1 mat-dialog-title *ngIf="!typeModel">
+    Agregar grupo de especificaciones
+  </h1>
+  <h1 mat-dialog-title *ngIf="typeModel">
+    Agregar una marca
+  </h1>
+
+  <!-- CONTAINER FORM SPECS -->
+  <div mat-dialog-content *ngIf="formSpecs" class="form-container" fxLayout="column" fxLayoutAlign="center center">
+    <p>Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se
+      deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas
+      separadas por coma. Recuerda que las categorías deben ser válidas para continuar.</p>
+    <form fxLayout="column" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <mat-form-field class="input-add">
+          <input formControlName="NameSpec" matInput placeholder="Nombre de especificación" >
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input-add">
+          <input matInput placeholder="Categoria" formControlName="Categories" (keyup.enter)="getCategories()">
+          <mat-icon matSuffix class="add-category" (click)="getCategories()">
+            add_circle_outline
+          </mat-icon>
+          <mat-hint>Para agregar es necesario, dar clic en (+).</mat-hint>
+
+          <mat-error *ngIf="formSpecs.controls.Categories.hasError('noExist')">
+            Esta categoría ({{categoriesError}}) no existe.
+          </mat-error>
+          <mat-error *ngIf="formSpecs.controls.Categories.hasError('existAdded')">
+            Esta categoría ({{categoriesAddedError}}) ya esta agregada.
+          </mat-error>
+          <!--<mat-progress-bar class="progress-category" *ngIf="!listCategories.length" mode="indeterminate"></mat-progress-bar>-->
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <div class="input-add">
+        </div>
+
+        <div class="input-add padding-slide">
+          <mat-slide-toggle color="primary" (change)="changeSlider($event)">Agregar todos</mat-slide-toggle>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="categoriesAdded.length">
+        <label>
+          Categorías asociadas
+        </label>
+        <button mat-icon-button color="primary" type="button" (click)="toogleCategories(true)">
+          <mat-icon class="material-icons" *ngIf="!showCategoriesAdded && categoriesAdded.length">
+            expand_less
+          </mat-icon>
+          <mat-icon class="material-icons" *ngIf="showCategoriesAdded && categoriesAdded.length">
+            expand_more
+          </mat-icon>
+        </button>
+      </div>
+      <div class="container-categories" [ngClass]="{'transition-category': showCategoriesAdded}" *ngIf="categoriesAdded.length">
+        <div class="container-categories_items" *ngFor="let category of categoriesAdded; let i = index" matTooltip="{{category.Name}}"
+          fxLayout="row" fxLayoutAlign="space-between center">
+          <p class="container-categories_items_text">
+            {{category.Id}}
+          </p>
+          <mat-icon class="material-icons container-categories_items_delete" (click)="deleteCategory(i)">
+            cancel
+          </mat-icon>
+        </div>
+      </div>
+
+      <div class="padding-button" fxLayout="row" fxLayoutAlign="center center">
+        <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+          [disabled]="!formSpecs.valid">
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- CONTAINER FORM BRAND 
+  <div mat-dialog-content *ngIf="formBrands">
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+    <form fxLayout="column" fxLayoutAlign="center center" class="form-add" [formGroup]="formBrands" (ngSubmit)="saveBrand()">
+      <mat-form-field class="input-add">
+        <input formControlName="NameBrand" matInput placeholder="Nombre de marca">
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row">
+        <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+          [disabled]="!formSpecs.valid">
+        </button>
+      </div>
+    </form>
+  </div> -->
+
+</div>

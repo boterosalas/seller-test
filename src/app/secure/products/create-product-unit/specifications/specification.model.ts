@@ -5,8 +5,10 @@ export class SpecificationModel {
     Value: string;
     Show: boolean;
     Sons: SpecificationModel[];
-    List: SpecificationModel[];
     IdParent?: number;
+    List?: String[];
+    Categories?: String[];
+    Required?: boolean;
     Obligatory = false;
     // Sons se refiere a las especificaciones ya que es un modelo
     constructor(
@@ -15,18 +17,19 @@ export class SpecificationModel {
         Sons?: SpecificationModel[],
         Id?: number,
         IdParent?: number,
-        List?: SpecificationModel[],
-        Obligatory?: boolean) {
+        List?: String[],
+        Categories?: String[],
+        Required?: boolean) {
         this.Id = Id;
         this.IdParent = IdParent;
         this.Show = Show;
         this.Sons = Sons;
         this.List = List;
         this.Name = Name;
-        this.Obligatory = Obligatory;
-    }
-
-    /**
+        this.Categories = Categories;
+        this.Required = Required;
+        }
+    /*
      * Funcion para obtener del JSON el model con las especificaciones
      *
      * @param {*} json
@@ -51,11 +54,18 @@ export class SpecificationModel {
      */
     public castingJsonToModel(specification: any, json: any): SpecificationModel {
         let model: SpecificationModel;
+        let categories = null;
+        if (specification.categories) {
+            categories = JSON.parse(specification.categories);
+        }
         model = new SpecificationModel(
             specification.groupName,
             false,
-            this.getSons(specification.specs ),
-            specification.idGroup
+            this.getSons(specification.specs),
+            specification.idGroup,
+            null,
+            null,
+            categories
         );
         return model;
     }
@@ -71,17 +81,22 @@ export class SpecificationModel {
     public getSons(json: any): SpecificationModel[] {
         const specificationList: SpecificationModel[] = [];
         json.forEach(data => {
-                specificationList.push(
-                    new SpecificationModel(
-                        data.specName,
-                        false,
-                        null,
-                        data.idSpec,
-                        null,
-                        data.list,
-                        data.obligatory
-                    )
-                );
+            let values = null;
+            if (data.values) {
+                values = JSON.parse(data.values);
+            }
+            specificationList.push(
+                new SpecificationModel(
+                    data.specName,
+                    false,
+                    null,
+                    data.idSpec,
+                    null,
+                    values,
+                    null,
+                    data.required
+                )
+            );
         });
         return specificationList;
     }

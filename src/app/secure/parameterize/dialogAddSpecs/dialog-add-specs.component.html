@@ -1,0 +1,76 @@
+<div class="padding-dialog">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
+      <mat-icon class="material-icons">
+        assignment
+      </mat-icon>
+    </div>
+  </div>
+
+  <h1 class="center-text" mat-dialog-title>
+    Agregar de especificaciones
+  </h1>
+
+  <form [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
+    <div mat-dialog-content class="form-container">
+      <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
+        determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En
+        caso
+        de
+        ser de <strong class="special" [ngClass]="{'transition': showErrorMin}">lista desplegable debes ingresar
+          también
+          como mínimo 2 opciones</strong> de las cuales el vendedor pueda escoger,
+        puedes agregar más opciones de ser necesario.</p>
+      <div fxLayout="row" style="width: 100%;" fxLayout.xs="column" fxLayoutAlign="space-between start">
+        <div class="container-form" fxLayout="column">
+          <mat-form-field class="input-add">
+            <input matInput formControlName="nameSpec" placeholder="Nombre de especificación">
+            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
+          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
+          </mat-form-field>
+          <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
+        </div>
+        <div class="container-form vis" fxLayout="column">
+          <h3 class="title"> Visualización del vendedor</h3>
+          <mat-radio-group formControlName="optionSpec">
+            <mat-radio-button value="text">Texto</mat-radio-button>
+            <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="addoption">
+        <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field class="width-full">
+            <input matInput [formControlName]="opc.name" placeholder="Ingresa opción">
+            <mat-error>Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+          <button mat-icon-button (click)="removeOpt(opc, i)" type="button">
+            <mat-icon class="material-icons">
+              clear
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+
+    </div>
+
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+      <div class="container-group-add-button" *ngIf="formAddSpecs.controls.optionSpec.value === 'list'">
+        <!--BUTTON TO ADD-->
+        <button type="button" mat-button (click)="addOption()">
+          <mat-icon class="material-icons">
+            control_point
+          </mat-icon>
+          Agregar opción
+        </button>
+      </div>
+      <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'">
+      </button>
+    </div>
+  </form>
+</div>

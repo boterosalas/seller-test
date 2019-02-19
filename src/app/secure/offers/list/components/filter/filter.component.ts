@@ -69,7 +69,7 @@ export class FilterComponent implements OnInit, OnChanges {
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
 
     /**
-     *Creates an instance of FilterComponent.
+     * Creates an instance of FilterComponent.
      * @param {ListComponent} list
      * @memberof FilterComponent
      */
