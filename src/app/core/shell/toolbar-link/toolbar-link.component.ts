@@ -51,7 +51,6 @@ export class ToolbarLinkComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService
   ) {
-    console.log(this.user);
   }
 
   ngOnInit() {

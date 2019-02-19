@@ -36,14 +36,11 @@ export class AuthService implements CanActivate {
             return new Promise((resolve, reject) => {
                 this.getModulesFromService().then(resultModule => {
                     this.modulesBack = resultModule;
-                    console.log(resultModule);
                     const moduleSelected = this.validateModule(state.url); // Verfica a que menu desea ingresar
-                    console.warn('AuthService', moduleSelected);
                     this.verifyLog(); // Verifica si esta logueado
                     if (moduleSelected) { // Verifica si si esta ingresando a un menu mapeado.
                         this.userParams.getUserData().then(data => {
                             this.userData = data;
-                            console.warn('AuthService', this.userData, moduleSelected);
                             // Valida si al menu que intenta ingresar posee el tipo del usuario.
                             const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
                             resolve(result);
@@ -54,7 +51,6 @@ export class AuthService implements CanActivate {
                             this.redirectToHome(false, state);
                         });
                     } else {
-                        console.log('aqui');
                         this.redirectToHome(false, state);
                         reject(true);
                     }
@@ -76,7 +72,6 @@ export class AuthService implements CanActivate {
                         const data = JSON.parse(result.body);
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
-                            console.log(data.Data);
                             data.Data.Profile.Modules.forEach(moduleItem => {
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;
@@ -88,7 +83,6 @@ export class AuthService implements CanActivate {
                                                     showModule = true;
                                                     menu.Functionalities.forEach(functions => {
                                                         element.Actions.forEach(actions => {
-                                                            console.log(functions.NameFunctionality.toLowerCase(), actions.toLowerCase());
                                                             if (functions.NameFunctionality.toLowerCase() === actions.toLowerCase()) {
                                                                 functions.ShowFunctionality = true;
                                                             }
