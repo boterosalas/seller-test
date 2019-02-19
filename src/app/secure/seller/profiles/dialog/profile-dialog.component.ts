@@ -21,6 +21,7 @@ export class DialogProfileComponent {
     profileForm: FormGroup;
     profileTypes = Const.ProfileTypesBack;
     menuShowList = [];
+    editMode = false;
 
     /**
      * Creates an instance of DialogProfileComponent.
@@ -65,16 +66,22 @@ export class DialogProfileComponent {
                     this.menuAddList.push(menu);
                 });
             });
+            this.menuList.forEach(element => {
+                if (element.ProfileType === this.profileTypes[1]) {
+                    this.menuShowList.push(element);
+                }
+            });
+            this.editMode = true;
         }
+
         this.profileForm = new FormGroup(
             {
-                Name: new FormControl(dataToEdit.Name, Validators.required),
+                Name: new FormControl({value: dataToEdit.Name, disabled: this.editMode}, Validators.required),
                 Type: new FormControl(dataToEdit.Type + '', Validators.required),
                 Menu: new FormControl(''),
                 Funcionality: new FormControl(''),
             }
         );
-
     }
 
     /**
@@ -156,18 +163,17 @@ export class DialogProfileComponent {
             Modules: this.validModulesToSend()
         };
 
-        console.log(dataToSend, this.dataToEdit);
         if (!this.dataToEdit) {
             this.profileService.createProfile(dataToSend).subscribe(data => {
-                console.log(data);
+                this.onNoClick();
             }, error => {
-                console.log(error);
+                console.error(error);
             });
         } else {
             this.profileService.updateProfile(dataToSend).subscribe(data => {
-                console.log(data);
+                this.onNoClick();
             }, error => {
-                console.log(error);
+                console.error(error);
             });
         }
     }

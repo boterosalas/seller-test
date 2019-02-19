@@ -116,7 +116,7 @@ export const ProfileTypes = {
     Todos: 2
 };
 
-const showAll = true;
+const showAll = false;
 
 
 /**
@@ -277,7 +277,7 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
     // 2. Administrar.
     new MenuModel(administrateName, showAll, administrateName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-        new FunctionalitiesModel(updateFunctionality, false, updateFunctionality) // Editar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar
     ], RoutesConst.sellerCenterIntSellerManage),
     // 3. Acuerdos.
     new MenuModel(agreementName, showAll, agreementName.toLowerCase(), ProfileTypes.Administrador, [

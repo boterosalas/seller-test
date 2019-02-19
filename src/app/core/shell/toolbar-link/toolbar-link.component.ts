@@ -56,7 +56,11 @@ export class ToolbarLinkComponent implements OnInit {
 
   ngOnInit() {
     this.getCategory();
-    this.modules = this.authService.getModules();
+    this.authService.getModules().then( data => {
+      this.modules = data;
+    }, error => {
+      console.error(error);
+    });
   }
 
   /**
@@ -89,7 +93,7 @@ export class ToolbarLinkComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showMenu(menu: MenuModel): boolean {
-    return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType);
+    return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv);
   }
 
   /**
@@ -100,7 +104,7 @@ export class ToolbarLinkComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showModule(moduleR: ModuleModel): boolean {
-    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true));
     return menu !== undefined;
   }
 

@@ -45,7 +45,11 @@ export class SidebarComponent implements OnInit {
    */
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
-    this.modules = this.authService.getModules();
+    this.authService.getModules().then( data => {
+      this.modules = data;
+    }, error => {
+      console.error(error);
+    });
   }
 
   /**
@@ -75,15 +79,16 @@ export class SidebarComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showMenu(menu: MenuModel, showUrlRedirect: boolean = false): boolean {
+    // return menu.ShowMenu && menu.ShowMenuProduction;
     if (showUrlRedirect) {
-      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
     } else {
-      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && this.validateUserType(menu.ProfileType) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
     }
   }
 
   /**
-   * 
+   * dasd
    *
    * @param {string} url
    * @returns {boolean}
@@ -101,7 +106,8 @@ export class SidebarComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showModule(moduleR: ModuleModel): boolean {
-    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
+    // const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true ));
     return menu !== undefined;
   }
 

@@ -167,9 +167,7 @@ export class ProfileComponent implements OnInit {
             this.profileService.getMenus().subscribe(result => {
                 if (result && result.body) {
                     const data = JSON.parse(result.body);
-                    console.log(data.Data);
                     this.menuList = this.classMenu.ValidateData(data.Data);
-                    console.log(this.menuList);
                     resolve(true);
                 } else {
                     log.error('Fallo al intentar obtener la lista de perfiles');
@@ -193,11 +191,9 @@ export class ProfileComponent implements OnInit {
             this.profileService.getProfileList().subscribe(result => {
                 if (result && result.body) {
                     const data = JSON.parse(result.body);
-                    console.log(data.Data);
                     data.Data.forEach(element => {
                         this.profileList.push(this.validateData(element));
                     });
-                    console.log(this.profileList);
                     resolve(true);
                 } else {
                     log.error('Fallo al intentar obtener la lista de perfiles');
@@ -223,7 +219,6 @@ export class ProfileComponent implements OnInit {
             data: { menu: this.menuList, data: dataToEdit }
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
         });
     }
 }

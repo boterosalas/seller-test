@@ -9,7 +9,7 @@ export class AuthRoutingService {
     constructor(private http: HttpClient,
         private api: EndpointService) { }
 
-    public getRegexInformationBasic(params: any): Observable<any> {
+    public getPermissions(): Observable<any> {
         return this.http.get(this.api.get('getPermissions'));
         // return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
     }
