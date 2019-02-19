@@ -180,15 +180,16 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * Actualizado: 29-01-2019 - lecheverry.
  * @version 1.0 (Creación del archivo).
  *
- * Para incluir un menu en el modulo de ofertas o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
+ * Para incluir un menu en el modulo de ofertas un menu o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
  * Modulo de ofertas que posee menus:
  * 1. Listado de ofertas.
  * 2. Carga masiva.
  * 3. Histórico de ofertas. (Tipo vendedor)
  * 4. Histórico de ofertas. (Tipo Administrador)
+ * 5. Banguera.
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas', banguera = 'banguera';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -203,12 +204,12 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
     new MenuModel(bulkLoadHistoryName, showAll, bulkLoadHistoryName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality)// Descargar
-    ], RoutesConst.sellerCenterIntOferBulkLoad),
+    ], RoutesConst.sellerCenterIntOferHistoricalBulkLoad),
     // 4. Histórico de ofertas. (Tipo Administrador)
     new MenuModel(bulkLoadHistoryNameAdmin, showAll, bulkLoadHistoryNameAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterIntOferHistoricalBulkLoadAdmin)
+    ], RoutesConst.sellerCenterIntOferHistoricalBulkLoadAdmin),
 ]);
 
 /**
@@ -276,7 +277,7 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
     // 2. Administrar.
     new MenuModel(administrateName, showAll, administrateName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar
+        new FunctionalitiesModel(updateFunctionality, false, updateFunctionality) // Editar
     ], RoutesConst.sellerCenterIntSellerManage),
     // 3. Acuerdos.
     new MenuModel(agreementName, showAll, agreementName.toLowerCase(), ProfileTypes.Administrador, [
@@ -332,8 +333,10 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * Modulo de documentación que posee menus:
  * 1. Cotizador.
  * 2. Especificaciones.
+ * 3. Arbol de categorias.
+ * 4. Perfiles.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Arbol de Categorías';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Arbol de Categorías', profileName = 'Perfiles';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
@@ -350,11 +353,17 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
     new MenuModel(specsName, showAll, specsName.toLowerCase(), ProfileTypes.Administrador, [
         // TODO: Funcionalidades.
     ], 'TODO: url especificaciones', null, false),
-    // 2. Especificaciones.
+    // 3. Arbol de categorias.
     new MenuModel(categoriesTreeName, showAll, categoriesTreeName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar.
-    ], RoutesConst.sellerCenterIntOferTreeCategory, null, false)
+    ], RoutesConst.sellerCenterIntOferTreeCategory, null, false),
+    // 4. Perfiles.
+    new MenuModel(profileName, showAll, profileName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Agregar.
+    ], RoutesConst.sellerCenterIntSellerProfiles, null, false)
 ]);
 
 export const Modules = [

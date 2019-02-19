@@ -10,7 +10,7 @@ export class AuthRoutingService {
         private api: EndpointService) { }
 
     public getRegexInformationBasic(params: any): Observable<any> {
-        return of(true);
+        return this.http.get(this.api.get('getPermissions'));
         // return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
     }
 }

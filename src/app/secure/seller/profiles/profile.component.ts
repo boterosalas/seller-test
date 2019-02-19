@@ -5,6 +5,8 @@ import { ProfileModel } from './models/profile.model';
 import { MatDialog } from '@angular/material';
 import { DialogProfileComponent } from './dialog/profile-dialog.component';
 import { MenuModel } from './models/menu.model';
+import { MenuModel as menuMode, readFunctionality, updateFunctionality, createFunctionality, profileName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 const log = new Logger('ProfileComponent');
@@ -40,6 +42,12 @@ export class ProfileComponent implements OnInit {
     menuProfile = 'Modules';
     typeProfileNumber = 'Shop';
 
+    // Variables con los permisos que este componente posee
+    permissionComponent: menuMode;
+    read = readFunctionality;
+    update = updateFunctionality;
+    create = createFunctionality;
+
     /**
      * Servicios y componentes necesarios para iniciar el funcionamiento del componente.
      * @param {ProfileService} profileService
@@ -49,7 +57,8 @@ export class ProfileComponent implements OnInit {
     constructor(
         private profileService: ProfileService,
         private loadingService: LoadingService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        public authService: AuthService
     ) {
     }
 
@@ -59,7 +68,21 @@ export class ProfileComponent implements OnInit {
      * @memberof ProfileComponent
      */
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(profileName);
         this.initializeComponent();
+    }
+
+
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof ToolbarComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
     }
 
     /**
@@ -126,7 +149,7 @@ export class ProfileComponent implements OnInit {
      * @memberof ProfileComponent
      */
     public verifyChargue(): void {
-        this.countServices ++;
+        this.countServices++;
         if (this.countServices >= this.numberServices) {
             this.loadingService.closeSpinner();
         }
@@ -165,7 +188,7 @@ export class ProfileComponent implements OnInit {
      * @returns {Promise<Boolean>}
      * @memberof ProfileComponent
      */
-    private getProfileList(): Promise<Boolean> {
+    private getProfileList(): Promise<Boolean> {
         return new Promise((resolve, rej) => {
             this.profileService.getProfileList().subscribe(result => {
                 if (result && result.body) {

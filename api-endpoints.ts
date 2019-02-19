@@ -104,6 +104,8 @@ export const endpoints = {
       updateProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/UpdateProfile',
       // Obtener todos los modulos.
       getAllModule: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllModules',
+      // Obtener todos los permisos.
+      getPermissions: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetUserPerminsions',
     },
   },
   // Endpoints production
@@ -207,6 +209,8 @@ export const endpoints = {
       updateProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/UpdateProfile',
       // Obtener todos los modulos.
       getAllModule: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllModules',
+      // Obtener todos los permisos.
+      getPermissions: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetUserPerminsions',
     }
   }
 };

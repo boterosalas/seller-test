@@ -21,6 +21,14 @@ export class DialogProfileComponent {
     profileForm: FormGroup;
     profileTypes = Const.ProfileTypesBack;
     menuShowList = [];
+
+    /**
+     * Creates an instance of DialogProfileComponent.
+     * @param {MatDialogRef<DialogProfileComponent>} dialogRef
+     * @param {*} data
+     * @param {ProfileService} profileService
+     * @memberof DialogProfileComponent
+     */
     constructor(
         public dialogRef: MatDialogRef<DialogProfileComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,15 +39,25 @@ export class DialogProfileComponent {
         this.createForm(this.dataToEdit);
     }
 
+    /**
+     * Cerrar el dialogo.
+     */
     onNoClick(): void {
         this.dialogRef.close();
     }
 
+    /**
+     * Crear formulario.
+     *
+     * @param {*} data
+     * @memberof DialogProfileComponent
+     */
     public createForm(data: any): void {
         let dataToEdit = {
             Name: '',
             Type: ''
         };
+        // Si posee datos se inicia el modo de edicion.
         if (data) {
             dataToEdit = data;
             data.Menus.forEach(element => {
@@ -48,7 +66,6 @@ export class DialogProfileComponent {
                 });
             });
         }
-
         this.profileForm = new FormGroup(
             {
                 Name: new FormControl(dataToEdit.Name, Validators.required),
@@ -60,6 +77,11 @@ export class DialogProfileComponent {
 
     }
 
+    /**
+     * Change event: se ejecuta cuando se cambia una opcion en el menu.
+     *
+     * @memberof DialogProfileComponent
+     */
     public changeMenu(): void {
         if (this.profileForm.controls.Menu.value) {
             this.dataToEdit = this.profileForm.controls.Menu.value.Id;
@@ -161,7 +183,7 @@ export class DialogProfileComponent {
         this.menuList.forEach((menu: any) => {
             menu.Menus.forEach(item => {
                 this.menuAddList.forEach((element: any) => {
-                    if (item.Name === element.Name) {
+                    if (item.Name === element.Name && menu.ProfileType === Const.ProfileTypesBack[this.profileForm.value.Type]) {
                         let existModule = false;
                         let indexModule = 0;
                         element.Actions = [];
@@ -177,7 +199,8 @@ export class DialogProfileComponent {
                         if (!existModule) {
                             modules.push({
                                 Name: menu.Name,
-                                Menus: [element]
+                                Menus: [element],
+                                ProfileType: Const.ProfileTypesBack[this.profileForm.value.Type]
                             });
                         } else {
                             modules[indexModule].Menus.push(element);
