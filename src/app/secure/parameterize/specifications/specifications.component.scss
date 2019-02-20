@@ -1,0 +1,208 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$color-maroon: maroon;
+$modal: 72px;
+@mixin icon-border-gray {
+    border-radius: 40px;
+    background-color: $color-gray;
+    width: $modal;
+    height: $modal;
+    mat-icon {
+        color: $color-white;
+    }
+}
+
+@mixin border_round_gray {
+    padding: 1%;
+    border: 1px solid $color-gray;
+    border-radius: 5px;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba(72, 90, 250, .38) !important;
+}
+
+.padding-slide {
+    padding-top: 12px;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #485AFA !important;
+}
+
+:host {
+    section#app-specifications {
+        .app-toolbar-title {
+            width: 100%;
+        }
+        .container-group-add-button {
+            text-align: right;
+            color: $blue;
+            width: 100%;
+            margin: 1.4%;
+        }
+        .container-list-specs {
+            width: 92%;
+            margin: 0 4%;
+            .item {
+                border-bottom: 1px solid #D3D3D3;
+                label {
+                    color: $gray;
+                    font-size: 14px;
+                }
+                mat-icon {
+                    color: $gray,
+                }
+            }
+            .specs-container {
+                flex-wrap: wrap;
+                width: 100%;
+                display: flex;
+                background-color: #fdfdfd;
+                .specs-items {
+                    width: 46%;
+                    margin: 5px 2%;
+                    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+                    background: white;
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+    .black {
+        color: $black !important;
+        font-weight: bold;
+    }
+    .dialog-add-container {
+        .center-text {
+            text-align: center;
+        }
+        .container-icon {
+            @include icon-border-gray();
+        }
+        p {
+            text-align: justify;
+        }
+        h1 {
+            text-align: justify;
+        }
+    }
+    .spec-group-input {
+        width: 50%;
+        background: #EFEDED;
+        height: 35px;
+        border-radius: 5px;
+        padding: 0 11px;
+        color: #909090;
+        font-size: 14px;
+    }
+    .form-container {
+        width: 100%;
+        .add-category {
+            cursor: pointer;
+            color: $gray;
+        }
+    }
+    .container-categories {
+        background: #f9f9f9;
+        display: flex;
+        flex-wrap: wrap;
+        @include border_round_gray();
+        max-height: 200px;
+        overflow: auto;
+        margin: 1%;
+        opacity: 1;
+        -webkit-transition: all 1s ease;
+        -moz-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        transition: all 2s linear;
+        &_items {
+            background: white;
+            @include border_round_gray();
+            border: none;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            width: 10%;
+            padding: 5px;
+            width: 100px;
+            margin: 1%;
+            &_text {
+                font-size: 14px;
+                margin: 0;
+            }
+            &_delete {
+                color: maroon;
+            }
+        }
+        &_items:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+        }
+    }
+    .progress-category {
+        margin-top: 7px;
+        position: absolute;
+        width: 106%;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-add {
+        width: 100%;
+        .input-add {
+            width: 100%;
+        }
+    }
+    .specs-items {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 600px) {
+    .dialog-add-container {
+        padding: 1em;
+        .form-add {
+            width: 100%;
+            .input-add {
+                width: 48%;
+            }
+        }
+    }
+}
+
+.hide {
+    display: none !important;
+    opacity: 0;
+}
+
+.transition-category {
+    display: none !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.color-gray {
+    color: $color-gray;
+}
+
+.icon-container {
+    height: 44px;
+    width: 44px;
+    background-color: whitesmoke;
+    margin-right: 3px;
+    .type-spec {
+        font-size: 22px;
+        color: gray;
+    }
+}
+
+.padding-button {
+    padding: 1%;
+}

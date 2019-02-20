@@ -1,0 +1,137 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$color-maroon: maroon;
+$modal: 72px;
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  mat-icon {
+      color: $color-white;
+  }
+}
+
+.form-add {
+  width: 100%;
+}
+
+.center-text{
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .input-add {
+    width: 100%;
+  }
+}
+
+.container-icon {
+  @include icon-border-gray();
+}
+
+@media screen and (max-width: 600px) {
+  .input-add {
+    width: 100%;
+  }
+}
+
+.input-add-options {
+  width: 100%;
+  // padding: 1.25em;
+}
+
+
+mat-radio-button {
+  padding: 0.25em;
+}
+
+#divs-specs {
+  height: 70px;
+  padding: 0.15em;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgb(72, 90, 250) !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(72, 90, 250) !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(72, 90, 250) !important;
+}
+
+.container-group-add-button {
+  text-align: right;
+  color: rgb(72, 90, 250) !important;
+  width: 100%;
+  margin: 1.4%;
+}
+
+.addoption {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+
+.special {
+  transition: all 2s;
+}
+
+.transition {
+  font-size: 18px;
+  color: maroon;
+}
+
+p {
+  text-align: justify;
+}
+
+.container-form {
+  .title {
+    margin: 0;
+  }
+}
+
+.width-full{
+  width: 100%;
+}
+
+.form-container{
+  overflow: hidden !important;
+}
+
+@media screen and (max-width: 600px) {
+  .container-form {
+    width: 100%;
+  }
+  .widthOption {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .container-form {
+    width: 49%;
+    &.vis {
+      padding: 1.25em;
+    }
+  }
+  .widthOption {
+    width: 45%;
+    padding: 0.15em;
+  }
+}
+
+.padding-dialog{
+  
+}

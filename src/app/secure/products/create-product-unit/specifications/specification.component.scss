@@ -130,3 +130,11 @@ $color-gray: #BCBCBC;
 .no-show {
     display: none !important;
 }
+
+.badge-obligatory{
+    color: maroon;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}

@@ -52,7 +52,7 @@ export const endpoints = {
       getHistoricalOffersAdmin: 'https://rk6blagjy8.execute-api.us-east-1.amazonaws.com/OfferHistoricalAdmin/{params}',
       downloadHistoricalAdmin: 'https://vlaswi5ovd.execute-api.us-east-1.amazonaws.com/OfferDownloadHistoricalAdmin/{params}',
       // Products
-      products: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/{params}',
+      products: 'https://0vmlis29mk.execute-api.us-east-1.amazonaws.com/products-loads-dev/{params}',
       // Quoting
       getSendMethod: 'https://bkafj0viij.execute-api.us-east-1.amazonaws.com/ShippingMethod',
       zones: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas',
@@ -69,13 +69,14 @@ export const endpoints = {
       getSellsSummary: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       getOrdersStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       // Estado de Carga
-      getStateOfCharge: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/',
+      getStateOfCharge: 'https://0vmlis29mk.execute-api.us-east-1.amazonaws.com/products-loads-dev/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
       // Validar formato imagen
       getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
+      configSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
       // Enviar moderación de productos al correo
       productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
       // Get Regex
@@ -96,6 +97,10 @@ export const endpoints = {
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
+      // Obtener lista de productos
+      getProductList: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/{params}',
+      // Obtener especificaciones por categoria
+      getSpecByCategory: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/{params}',
     },
   },
   // Endpoints production
@@ -114,8 +119,8 @@ export const endpoints = {
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       // Billing Mock
-      getBilling: 'http://localhost:3000/financials/getbilling{stringParams}',
-      searchBilling: 'http://localhost:3000/financials/getbilling?idSeller={sellerId}&limit={limit}',
+      getBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn{stringParams}',
+      searchBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn?idSeller={sellerId}&limit={limit}',
       refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
@@ -147,7 +152,7 @@ export const endpoints = {
       getHistoricalOffersAdmin: 'https://0gt6matz9i.execute-api.us-east-1.amazonaws.com/offerhistoricaladmin-pdn/{params}',
       downloadHistoricalAdmin: 'https://cb0d3nxi40.execute-api.us-east-1.amazonaws.com/offerdownloadhistoricaladmin-pdn/{params}',
       // Products
-      products: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
+      products: 'https://pnjswhgf60.execute-api.us-east-1.amazonaws.com/products-loads-pdn/{params}',
       // Quoting -->
       getSendMethod: 'https://54k5wykbn7.execute-api.us-east-1.amazonaws.com/shippingmethod-pdn',
       zones: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn',
@@ -164,13 +169,14 @@ export const endpoints = {
       getSellsSummary: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
       getOrdersStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
       // Estado de Carga
-      getStateOfCharge: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/',
+      getStateOfCharge: 'https://pnjswhgf60.execute-api.us-east-1.amazonaws.com/products-loads-pdn/',
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://kakj4pzzd9.execute-api.us-east-1.amazonaws.com/prod/logs',
       // Validar formato imagen
       getValidateImage: 'https://1kthuybvhi.execute-api.us-east-1.amazonaws.com/images-pdn/',
       // Get specs
       getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
+      getConfigSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-pdn/allspecs',
       // Enviar moderación de productos al correo
       productModeration: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/{params}',
       // Get Regex
@@ -191,6 +197,10 @@ export const endpoints = {
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
+      // Obtener lista de productos
+      getProductList: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
+      // Obtener especificaciones por categoria
+      getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
     }
   }
 };
