@@ -76,7 +76,7 @@ export const endpoints = {
       getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
-      configSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
+      getConfigSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
       // Enviar moderación de productos al correo
       productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
       // Get Regex
