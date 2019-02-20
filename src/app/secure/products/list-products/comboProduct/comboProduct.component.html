@@ -13,7 +13,8 @@
       </div>
     </mat-card-content>
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== 0">
-      <p> Mejor oferta</p> {{products.bestOffer}}
+      <p> Mejor oferta</p> 
+      <p [innerHTML]="products.bestOffer | currency: '$' : 'symbol' : '1.0-0'"> </p>
     </div>
   </mat-card>
 </div>
