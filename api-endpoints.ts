@@ -75,7 +75,7 @@ export const endpoints = {
       // Validar formato imagen
       getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',
       // Get specs
-      getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/ProductsSpecs',
+      getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
       getConfigSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
       // Enviar moderación de productos al correo
       productModeration: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/{params}',
@@ -176,7 +176,7 @@ export const endpoints = {
       getValidateImage: 'https://1kthuybvhi.execute-api.us-east-1.amazonaws.com/images-pdn/',
       // Get specs
       getProductSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
-      getConfigSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-pdn/allspecs',
+      getConfigSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn',
       // Enviar moderación de productos al correo
       productModeration: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/{params}',
       // Get Regex
