@@ -147,16 +147,16 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 if (!data) {
                     this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
                         if (result.status === 200 && result.body) {
-                            this.snackBar.open('Agrego correctamente', 'Cerrar', {
+                            this.snackBar.open('Agregó correctamente', 'Cerrar', {
                                 duration: 3000,
                             });
                         } else {
-                            log.error('Error al intentar guardar una especificacion o un grupo');
+                            log.error('Error al intentar guardar una especificación o un grupo');
                         }
                         this.getSpecifications();
                     }, error => {
                         this.getSpecifications();
-                        log.error('Error al intentar guardar una especificacion o un grupo');
+                        log.error('Error al intentar guardar una especificación o un grupo');
                     });
                 } else {
                     this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
@@ -165,12 +165,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                                 duration: 3000,
                             });
                         } else {
-                            log.error('Error al intentar guardar una especificacion o un grupo');
+                            log.error('Error al intentar guardar una especificación o un grupo');
                         }
                         this.getSpecifications();
                     }, error => {
                         this.getSpecifications();
-                        log.error('Error al intentar guardar una especificacion o un grupo');
+                        log.error('Error al intentar guardar una especificación o un grupo');
                     });
                 }
             }
@@ -302,16 +302,16 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
             if (this.modeSave) {
                 this.specificationService.createConfigSpecifications(dataToSend).subscribe(result => {
                     if (result.status === 200 && result.body) {
-                        this.snackBar.open('Agrego correctamente', 'Cerrar', {
+                        this.snackBar.open('Agregó correctamente', 'Cerrar', {
                             duration: 3000,
                         });
                     } else {
-                        log.error('Error al intentar guardar una especificacion o un grupo');
+                        log.error('Error al intentar guardar una especificación o un grupo');
                     }
                     this.getSpecifications();
                 }, error => {
                     this.getSpecifications();
-                    log.error('Error al intentar guardar una especificacion o un grupo');
+                    log.error('Error al intentar guardar una especificación o un grupo');
                 });
             } else {
                 dataToSend.IdGroup = data.Id;
@@ -322,12 +322,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                             duration: 3000,
                         });
                     } else {
-                        log.error('Error al intentar actualizar una especificacion o un grupo');
+                        log.error('Error al intentar actualizar una especificación o un grupo');
                     }
                     this.getSpecifications();
                 }, error => {
                     this.getSpecifications();
-                    log.error('Error al intentar actualizar una especificacion o un grupo');
+                    log.error('Error al intentar actualizar una especificación o un grupo');
                 });
             }
         }
@@ -365,7 +365,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         group.Sons.push({
             Name: dataToSend,
         });
-        this.snackBar.open('Agrego correctamente una especificación', 'Cerrar', {
+        this.snackBar.open('Agregó correctamente una especificación', 'Cerrar', {
             duration: 3000,
         });
     }
