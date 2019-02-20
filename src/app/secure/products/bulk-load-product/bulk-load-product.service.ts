@@ -52,7 +52,7 @@ export class BulkLoadProductService {
    */
   setProducts(params: {}): Observable<{}> {
     return new Observable(observer => {
-      this.http.patch<any>(this.api.get('products'), params, { observe: 'response' })
+      this.http.patch<any>(this.api.get('postSaveInformationUnitCreation'), params, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);
