@@ -27,19 +27,19 @@ export class ParamSpecsService {
    * @memberof ParamSpecsService
    */
   public getConfigSpecifications(): Observable<any> {
-    return this.http.get(this.api.get('configSpecs'), { observe: 'response' });
+    return this.http.get(this.api.get('getConfigSpecs'), { observe: 'response' });
   }
 
   public createConfigSpecifications(param: any): Observable<any> {
-    return this.http.post(this.api.get('configSpecs'), param, { observe: 'response' });
+    return this.http.post(this.api.get('getConfigSpecs'), param, { observe: 'response' });
   }
 
   public updateConfigSpecifications(data: any): Observable<any> {
-    return this.http.patch(this.api.get('configSpecs'), data, { observe: 'response' });
+    return this.http.patch(this.api.get('getConfigSpecs'), data, { observe: 'response' });
   }
 
   public deleteConfigSpecifications(param: any): Observable<any> {
-    return this.http.delete(this.api.get('configSpecs') + '/' + param, { observe: 'response' });
+    return this.http.delete(this.api.get('getConfigSpecs') + '/' + param, { observe: 'response' });
   }
 
   public getSpecification(id: number): Observable<{}> {
