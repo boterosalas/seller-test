@@ -293,7 +293,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 GroupName: data.NameSpec,
                 Specs: [],
                 ListCategories: [],
-                IdGroup: null
+                IdGroup: null,
+                Id: null
             };
             data.Categories.forEach(element => {
                 dataToSend.ListCategories.push(element.Id.toString());
@@ -314,6 +315,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 });
             } else {
                 dataToSend.IdGroup = data.Id;
+                dataToSend.Id = data.Id;
                 this.specificationService.updateConfigSpecifications(dataToSend).subscribe(result => {
                     if (result.status === 200 && result.body) {
                         this.snackBar.open('Actualizo correctamente', 'Cerrar', {
