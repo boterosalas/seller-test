@@ -91,8 +91,9 @@ export class ListProductsComponent implements OnInit {
     createFormControls() {
         this.filterProduts = this.fb.group({
             productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
-            ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])), /*
+           /* ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])),
             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
+            ean: new FormControl(''),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
