@@ -17,6 +17,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+export interface Food {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -54,6 +59,13 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
+  public selectedValue: string;
+
+  foods: Food[] = [
+    { value: 'Admin', viewValue: 'Admin' },
+    { value: 'Seller', viewValue: 'Seller' },
+    { value: 'Atencion cliente', viewValue: 'Atencion cliente' }
+  ];
 
 
   constructor(
@@ -120,11 +132,13 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
       IsShippingExito: new FormControl(true),
       GotoExito: new FormControl(true),
       GotoCarrulla: new FormControl(false),
-      GotoCatalogo: new FormControl(true)
+      GotoCatalogo: new FormControl(true),
+      Profile: new FormControl
+      ('', [Validators.required]),
     });
     this.matcher = new MyErrorStateMatcher();
 
-    this.validateFormRegisterAdmin =  new FormGroup({
+    this.validateFormRegisterAdmin = new FormGroup({
       NitAdmin: new FormControl('', [
         Validators.required,
         Validators.maxLength(20),
@@ -134,10 +148,13 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
         ('', [Validators.required,
         Validators.pattern(this.emailRegex)
         ]),
-        NameAdmin: new FormControl
+      NameAdmin: new FormControl
         ('', [Validators.required]),
+      Profile: new FormControl
+      ('', [Validators.required]),
     });
   }
+
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
@@ -230,17 +247,17 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
-                  case 'NameAdmin':
+                case 'NameAdmin':
                   if (this.existValueInDB) {
                     this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
-                  case 'EmailAdmin':
+                case 'EmailAdmin':
                   if (this.existValueInDB) {
                     this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
-                  case 'NitAdmin':
+                case 'NitAdmin':
                   if (this.existValueInDB) {
                     this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }

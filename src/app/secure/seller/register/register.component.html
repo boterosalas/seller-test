@@ -19,6 +19,15 @@
 
           <form #registerSeller="ngForm" [formGroup]="validateFormRegister" (ngSubmit)="submitSellerRegistrationForm()"
             autocomplete="off" id="register-form-seller">
+            <h4>Selecciona tipo de perfil</h4>
+            <mat-form-field>
+              <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName = "Profile">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                  {{food.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p> Seleccionaste el perfil: {{selectedValue}} </p>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap.md="10%"
               fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
@@ -231,7 +240,18 @@
             Éxito. Los administradores tendrán acceso al Seller
             Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico.
             Se recomienda seguir las recomendaciones del manual de uso al momento de registrar administrador.</p>
+
+       
           <form #registerAdmin="ngForm" [formGroup]="validateFormRegisterAdmin" autocomplete="off" id="register-form-seller">
+              <h4>Selecciona tipo de perfil</h4>
+              <mat-form-field>
+                <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName = "Profile">
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p> Seleccionaste el perfil: {{selectedValue}} </p>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between" fxLayoutGap.md="10%"
               fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
@@ -243,7 +263,7 @@
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
                   <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('NitAdmin').hasError('required')">
-                      Este campo es requerido.</mat-error>
+                    Este campo es requerido.</mat-error>
                 </mat-form-field>
               </div>
               <div fxFlex="50%">
