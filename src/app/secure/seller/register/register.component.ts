@@ -46,6 +46,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public existValueInDB: boolean;
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
+  public validateFormRegisterAdmin: FormGroup;
   public idState: number;
   public daneCode: any;
   public disabledForService: boolean;
@@ -122,6 +123,20 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
       GotoCatalogo: new FormControl(true)
     });
     this.matcher = new MyErrorStateMatcher();
+
+    this.validateFormRegisterAdmin =  new FormGroup({
+      NitAdmin: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('^[0-9]*$')
+      ]),
+      EmailAdmin: new FormControl
+        ('', [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+        NameAdmin: new FormControl
+        ('', [Validators.required]),
+    });
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -213,6 +228,21 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
                 case 'Name':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                  case 'NameAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                  case 'EmailAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                  case 'NitAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
               }
