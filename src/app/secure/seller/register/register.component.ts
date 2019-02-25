@@ -17,9 +17,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-export interface Food {
+export interface Profile {
   value: string;
-  viewValue: string;
 }
 
 @Component({
@@ -61,11 +60,9 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public activeButton: boolean;
   public selectedValue: string;
 
-  foods: Food[] = [
-    { value: 'Admin', viewValue: 'Admin' },
-    { value: 'Seller', viewValue: 'Seller' },
-    { value: 'Atencion cliente', viewValue: 'Atencion cliente' }
-  ];
+  profileSeller: Profile[] = [];
+  profileAdmin: Profile[] = [];
+
 
 
   constructor(
@@ -95,6 +92,10 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   }
 
   ngOnInit() {
+    this.getProfile();
+    console.log('//: ', this.profileSeller);
+    console.log('//: ', this.profileAdmin);
+
     this.userService.isAuthenticated(this);
     this.validateFormRegister = new FormGroup({
       Nit: new FormControl('', [
@@ -134,7 +135,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
       GotoCarrulla: new FormControl(false),
       GotoCatalogo: new FormControl(true),
       Profile: new FormControl
-      ('', [Validators.required]),
+        (this.profileSeller, [Validators.required]),
     });
     this.matcher = new MyErrorStateMatcher();
 
@@ -151,7 +152,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
       NameAdmin: new FormControl
         ('', [Validators.required]),
       Profile: new FormControl
-      ('', [Validators.required]),
+        (this.profileAdmin, [Validators.required]),
     });
   }
 
@@ -193,6 +194,35 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
     this.registerService.registerUser(this.validateFormRegister.value)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal('success');
+            } else if (!data.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+
+          this.disabledForService = false;
+          this.loadingService.closeSpinner();
+
+        }
+      );
+  }
+
+  /**
+   *
+   * @method submitAdminRegistrationForm para registrar al administrador
+   * @memberof RegisterSellerComponent
+   */
+  public submitAdminRegistrationForm() {
+    this.loadingService.viewSpinner();
+    this.disabledForService = true;
+    this.registerService.registerUser(this.validateFormRegisterAdmin.value)
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
@@ -307,6 +337,38 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
   disabledButton() {
     this.activeButton = false;
+  }
+
+  public getProfile(): void {
+    this.registerService.typeProfile()
+      .subscribe(
+        (result: any) => {
+          console.log(result.body);
+          console.log(JSON.parse(result.body));
+          console.log(JSON.parse(result.body).Data);
+          const data = JSON.parse(result.body).Data;
+          if (data[1].ProfileType === 'Tienda') {
+            console.log('SI HAY DATOS');
+            const sellersData = data[1].Profiles;
+            // console.log('sellersData: ', sellersData);
+            data.forEach(element => {
+              console.log('sellersData: ', sellersData);
+              // Add our listFilterSellers
+              this.profileSeller.push({ value: sellersData });
+              console.log('aqui: ', this.profileSeller);
+            });
+          } if (data[0].ProfileType === 'Exito') {
+            console.log('SI HAY DATOS');
+            const sellersData2 = data[0].Profiles;
+            // console.log('sellersData: ', sellersData);
+            data.forEach(element => {
+              console.log('sellersData2: ', sellersData2);
+              // Add our listFilterSellers
+              this.profileAdmin.push({ value: sellersData2 });
+              console.log('aqui: ', this.profileAdmin);
+            });
+          }
+        });
   }
 }
 
