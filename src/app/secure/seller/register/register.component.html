@@ -22,8 +22,8 @@
             <h4>Selecciona tipo de perfil</h4>
             <mat-form-field>
               <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName = "Profile">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                  {{food.viewValue}}
+                <mat-option *ngFor="let Seller of profileSeller" [value]="Seller">
+                  {{Seller}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -242,12 +242,13 @@
             Se recomienda seguir las recomendaciones del manual de uso al momento de registrar administrador.</p>
 
        
-          <form #registerAdmin="ngForm" [formGroup]="validateFormRegisterAdmin" autocomplete="off" id="register-form-seller">
+          <form #registerAdmin="ngForm" [formGroup]="validateFormRegisterAdmin" autocomplete="off" id="register-form-seller"
+          (ngSubmit)="submitAdminRegistrationForm()">
               <h4>Selecciona tipo de perfil</h4>
               <mat-form-field>
                 <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName = "Profile">
-                  <mat-option *ngFor="let profileSeller of profileSellers" [value]="profileSeller.value">
-                    {{profileSeller.viewValue}}
+                  <mat-option *ngFor="let Admin of profileAdmin" [value]="Admin">
+                    {{Admin}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -258,26 +259,26 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
-                  <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="NitAdmin"
+                  <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="Nit"
                     autocomplete="off" (blur)="validateExist($event, 'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
-                  <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('NitAdmin').hasError('required')">
+                  <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">
                     Este campo es requerido.</mat-error>
                 </mat-form-field>
               </div>
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="Correo electr&oacute;nico" formControlName="EmailAdmin"
+                  <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
                     [errorStateMatcher]="matcher" (blur)="validateExist($event, 'Email')" id="register-email"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
 
-                  <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('EmailAdmin').hasError('required')">
+                  <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('Email').hasError('required')">
                     Este campo es requerido.</mat-error>
-                  <mat-error id="error-email-invalid" *ngIf="validateFormRegisterAdmin.get('EmailAdmin').hasError('pattern')">
+                  <mat-error id="error-email-invalid" *ngIf="validateFormRegisterAdmin.get('Email').hasError('pattern')">
                     El correo electrónico no es válido.</mat-error>
-                  <mat-error id="error-email-exist" *ngIf="validateFormRegisterAdmin.get('EmailAdmin').hasError('validExistEmailDB')">
+                  <mat-error id="error-email-exist" *ngIf="validateFormRegisterAdmin.get('Email').hasError('validExistEmailDB')">
                     El correo electrónico ya existe.</mat-error>
                 </mat-form-field>
               </div>
@@ -287,20 +288,23 @@
               <div fxFlex="45%">
                 <mat-form-field class="register" style="width:100% !important;">
                   <input matInput placeholder="Nombre" (blur)="validateExist($event, 'Name', validateFormRegisterAdmin.get('Name'))"
-                    formControlName="NameAdmin" [errorStateMatcher]="matcher" id="register-name-store" (ngModelChange)="activeButton = false"
+                    formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store" (ngModelChange)="activeButton = false"
                     required (change)="validateNameStorage(validateFormRegisterAdmin.get('Name').value)">
                   <mat-hint></mat-hint>
-                  <mat-error id="error-name-store-required" *ngIf="validateFormRegisterAdmin.get('NameAdmin').hasError('required')">
+                  <mat-error id="error-name-store-required" *ngIf="validateFormRegisterAdmin.get('Name').hasError('required')">
                     Este campo es requerido.</mat-error>
-                  <mat-error id="error-name-store-invalid" *ngIf="validateFormRegisterAdmin.get('NameAdmin').hasError('pattern')">
+                  <mat-error id="error-name-store-invalid" *ngIf="validateFormRegisterAdmin.get('Name').hasError('pattern')">
                     El nombre no es válido.</mat-error>
-                  <mat-error id="error-name-store-exist" *ngIf="validateFormRegisterAdmin.get('NameAdmin').hasError('validExistNameDB')">
+                  <mat-error id="error-name-store-exist" *ngIf="validateFormRegisterAdmin.get('Name').hasError('validExistNameDB')">
                     El nombre ya existe.</mat-error>
                 </mat-form-field>
               </div>
 
             </div>
-
+            <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary"
+              [disabled]="!registerAdmin.form.valid || disabledForService || !activeButton">REGISTRAR</button>
+            </div>
           </form>
         </div>
       </div>

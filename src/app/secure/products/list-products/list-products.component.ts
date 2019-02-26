@@ -299,6 +299,7 @@ export class ListProductsComponent implements OnInit {
         if (activeFilter) {
             this.applyFilter = true;
         }
+        this.loadingService.viewSpinner();
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);

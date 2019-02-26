@@ -7,6 +7,7 @@ import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserP
 import { RoutesConst, UserInformation } from '@app/shared';
 import { RegisterService } from './register.service';
 import { TestRequest } from '@angular/common/http/testing';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -15,10 +16,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
-}
-
-export interface Profile {
-  value: string;
 }
 
 @Component({
@@ -60,8 +57,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public activeButton: boolean;
   public selectedValue: string;
 
-  profileSeller: Profile[] = [];
-  profileAdmin: Profile[] = [];
+  profileSeller: string[] = [];
+  profileAdmin: string[] = [];
 
 
 
@@ -93,9 +90,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
   ngOnInit() {
     this.getProfile();
-    console.log('//: ', this.profileSeller);
-    console.log('//: ', this.profileAdmin);
-
     this.userService.isAuthenticated(this);
     this.validateFormRegister = new FormGroup({
       Nit: new FormControl('', [
@@ -140,16 +134,16 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     this.matcher = new MyErrorStateMatcher();
 
     this.validateFormRegisterAdmin = new FormGroup({
-      NitAdmin: new FormControl('', [
+      Nit: new FormControl('', [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
       ]),
-      EmailAdmin: new FormControl
+      Email: new FormControl
         ('', [Validators.required,
         Validators.pattern(this.emailRegex)
         ]),
-      NameAdmin: new FormControl
+        Name: new FormControl
         ('', [Validators.required]),
       Profile: new FormControl
         (this.profileAdmin, [Validators.required]),
@@ -193,6 +187,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
+    const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
+    this.validateFormRegister.controls.Profile.setValue(profile);
     this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
@@ -222,6 +218,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public submitAdminRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
+    const profile = `Exito|${this.validateFormRegisterAdmin.controls.Profile.value}`;
+    this.validateFormRegisterAdmin.controls.Profile.setValue(profile);
     this.registerService.registerUser(this.validateFormRegisterAdmin.value)
       .subscribe(
         (result: any) => {
@@ -238,7 +236,6 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
           this.disabledForService = false;
           this.loadingService.closeSpinner();
-
         }
       );
   }
@@ -343,30 +340,13 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     this.registerService.typeProfile()
       .subscribe(
         (result: any) => {
-          console.log(result.body);
-          console.log(JSON.parse(result.body));
-          console.log(JSON.parse(result.body).Data);
-          const data = JSON.parse(result.body).Data;
-          if (data[1].ProfileType === 'Tienda') {
-            console.log('SI HAY DATOS');
-            const sellersData = data[1].Profiles;
-            // console.log('sellersData: ', sellersData);
-            data.forEach(element => {
-              console.log('sellersData: ', sellersData);
-              // Add our listFilterSellers
-              this.profileSeller.push({ value: sellersData });
-              console.log('aqui: ', this.profileSeller);
-            });
-          } if (data[0].ProfileType === 'Exito') {
-            console.log('SI HAY DATOS');
-            const sellersData2 = data[0].Profiles;
-            // console.log('sellersData: ', sellersData);
-            data.forEach(element => {
-              console.log('sellersData2: ', sellersData2);
-              // Add our listFilterSellers
-              this.profileAdmin.push({ value: sellersData2 });
-              console.log('aqui: ', this.profileAdmin);
-            });
+          const datas = JSON.parse(result.body).Data;
+          for (const data of datas) {
+            if (data.ProfileType === 'Exito') {
+              this.profileAdmin = data.Profiles;
+            } else if (data.ProfileType === 'Tienda') {
+              this.profileSeller = data.Profiles;
+            }
           }
         });
   }
