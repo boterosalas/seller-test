@@ -15,7 +15,7 @@ export class AuthService implements CanActivate {
     userData: any;
     admin = 'administrator';
     adminType = 1;
-    types = ['Shop', 'Exito'];
+    types = ['Tienda', 'Exito'];
     getData = false;
 
     constructor(public userParams: UserParametersService,
@@ -73,6 +73,7 @@ export class AuthService implements CanActivate {
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
                             data.Data.Profile.Modules.forEach(moduleItem => {
+                                console.log(moduleItem, profileTye);
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;
                                     if (item.NameModule.toLowerCase() === moduleItem.Name.toLowerCase()) {
@@ -97,6 +98,7 @@ export class AuthService implements CanActivate {
                                     }
                                 });
                             });
+                            console.log(this.modulesRouting);
                             resolve(this.modulesRouting);
                         }
                     }
