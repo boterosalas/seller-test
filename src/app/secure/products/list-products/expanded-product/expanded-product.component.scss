@@ -1,14 +1,134 @@
 .tree-toolbar {
-    border-bottom: 0.001em solid #D3D3D3;
-    padding: 0 25px;
-    position: fixed;
-    z-index: 1;
-    background-color: white;
-  
-    & .toolbar-options-table {
-      align-items: center;
-      justify-content: flex-start;
-      width: 100%;
-      padding-left: 20px;
+  border-bottom: 0.001em solid #D3D3D3;
+  padding: 0 25px;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+
+  & .toolbar-options-table {
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 20px;
+  }
+}
+
+
+.cont-product {
+  font-family: Arial;
+  padding: 5%;
+
+  .cont-images {
+    display: flex;
+  }
+
+  .info-product {
+    text-align: left;
+    font-size: 14px;
+    color: #5D5D5D;
+
+    .title {
+      font-size: 26px;
+      color: #000000;
+      padding-bottom: 31px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #5D5D5D;
+      padding-bottom: 18px;
+    }
+
+    .text {
+      padding-bottom: 5px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    i {
+      font-size: 14px;
+    }
+
+    .color-product {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      border-radius: 10px;
+      margin: 0 10px;
+    }
+
+    .divider-one {
+      padding-bottom: 30px;
+    }
+
+    .divider-two {
+      padding-bottom: 10px;
+    }
+
+    .best-offer {
+      color: #fff;
+      background: #5D5D5D;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+
+      .price {
+        font-size: 22px;
+        float: right;
+
+      }
     }
   }
+
+  .imageXs {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #D3D3D3;
+  }
+
+  .imageXs {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #D3D3D3;
+  }
+
+  .imageXl {
+    padding-left: 4%;
+  }
+
+  .smallImages {
+    display: flex;
+    flex-wrap: wrap;
+    width: min-content;
+    padding-top: 1%;
+  }
+
+}
+
+.expanded-information-product {
+  padding: 2% 10%;
+  text-align: justify;
+
+  .description-product {
+    margin-top: 3%;
+  }
+
+  .keywords-products {
+    margin-right: 1%;
+
+    .mat-chip {
+      margin-top: 3% !important;
+    }
+  }
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: black;
+}
+
+.mat-chip.mat-standard-chip{
+  margin-right: 1%;
+}

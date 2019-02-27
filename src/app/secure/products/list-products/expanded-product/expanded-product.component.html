@@ -1,0 +1,111 @@
+<div class="height-full">
+  <mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+      <!--  Titulo del toolbar -->
+      <p class="seller-list-title" fxShow [fxShow.xs]="false">
+        Productos
+        <small class="sub-title">| Listado de productos</small>
+      </p>
+      <!--  Titulo del toolbar -->
+      <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+        Listado de productos
+      </p>
+    </div>
+  </mat-toolbar>
+</div>
+<hr>
+
+<div class="cont-product" fxLayout="row" fxLayoutAlign="space-around center">
+  <div class="cont-images">
+    <div class="smallImages">
+      <mat-card class="imageXs">
+        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      </mat-card>
+      <mat-card class="imageXs">
+        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      </mat-card>
+      <mat-card class="imageXs">
+        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      </mat-card>
+      <mat-card class="imageXs">
+        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      </mat-card>
+      <mat-card class="imageXs">
+        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      </mat-card>
+    </div>
+    <div>
+      <div class="imageXl">
+        <img src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_lrg_a.jpg">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
+    <div class="subtitle divider-two"> EAN 80337790305753 </div>
+    <div class="title divider-two"> Huawei P20 lite Dual sim 64GB </div>
+    <div class="divider-one">
+      Fecha de creación: <label> 22/08/2018 </label>
+      |
+      Fecha de modificacíon: <label> 22/08/2018 </label>
+    </div>
+
+    <div class="text"> Categoría: <label> Tecnología </label></div>
+    <div class="text"> Marca: <label> Huawei </label></div>
+    <div class="divider-one"> Modelo: <label> P20 lite </label></div>
+
+
+    <div class="text">
+      <i class="material-icons"> color_lens </i>
+      Color:
+      <div class="color-product" style="background: #000;"></div>
+    </div>
+
+    <div class="text">
+      <i class="material-icons"> shopping_basket </i>
+      Producto:
+      <label> Alto-20cm ancho-10cm largo-15cm peso-15kg </label>
+    </div>
+
+    <div class="text">
+      <i class="material-icons"> local_shipping </i>
+      Producto:
+      <label> Alto-20cm ancho-10cm largo-15cm peso-15kg </label>
+    </div>
+
+    <div class="best-offer">
+      Mejor oferta
+      <div class="price"> 1.000.250.000 </div>
+    </div>
+  </div>
+</div>
+
+<div class="expanded-information-product">
+  <mat-tab-group>
+    <mat-tab label="Descripción">
+      <p class="description-product">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+        make
+        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged.</p>
+    </mat-tab>
+    <mat-tab label="Palabras claves">
+        <div class="description-product">
+            <mat-chip>Lucho</mat-chip>
+            <mat-chip>Paola</mat-chip>
+            <mat-chip>Czar</mat-chip>
+            <mat-chip>Tú</mat-chip>
+          </div>
+    </mat-tab>
+    <mat-tab label="Espesificaciones">
+      <p class="keywords-products">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+        make
+        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged.</p>
+    </mat-tab>
+  </mat-tab-group>
+</div>
