@@ -10,6 +10,7 @@ import { MyProfileComponent } from './profile/myprofile.component';
 import { UseractivityComponent } from './useractivity/useractivity.component';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
 import { TermsService } from '../seller/agreement/terms/terms.component.service';
+import { AuthService } from '../auth/auth.routing';
 
 const routes: Routes = [
   Route.withShell([
@@ -23,11 +24,16 @@ const routes: Routes = [
       component: SecureHomeComponent,
       children: [
         { path: '', component: DashboardComponent },
-        { path: `${RoutesConst.logout}`, component: LogoutComponent },
+        {
+          path: `${RoutesConst.logout}`, component: LogoutComponent,
+          canActivate: [AuthService]
+        },
         { path: `${RoutesConst.jwttokens}`, component: JwtComponent },
         { path: `${RoutesConst.myProfile}`, component: MyProfileComponent },
         { path: `${RoutesConst.useractivity}`, component: UseractivityComponent },
-        { path: `${RoutesConst.seller}`, component: DashboardComponent }
+        {
+          path: `${RoutesConst.seller}`, component: DashboardComponent
+        }
       ],
       canActivate: [TermsService]
     }

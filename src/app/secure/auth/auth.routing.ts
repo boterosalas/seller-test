@@ -31,7 +31,6 @@ export class AuthService implements CanActivate {
         console.warn('AuthService', state);
         console.warn('AuthService', route);
         // Promesa para verificar estados del usuario y la ruta a la que intenta entrar
-
         if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
             return new Promise((resolve, reject) => {
                 this.getModulesFromService().then(resultModule => {
@@ -51,16 +50,47 @@ export class AuthService implements CanActivate {
                             this.redirectToHome(false, state);
                         });
                     } else {
-                        this.redirectToHome(false, state);
-                        reject(true);
+                        if (state.url === '/' + RoutesConst.sellerCenterIntDashboard) {
+                            this.userParams.getUserData().then(data => {
+                                this.userData = data;
+                                // Valida si al menu que intenta ingresar posee el tipo del usuario.
+                                resolve(true);
+                            }, error => {
+                                console.error(error);
+                                reject(false);
+                                this.redirectToHome(false, state);
+                            });
+                        } else {
+                            this.redirectToHome(false, state);
+                            reject(true);
+                        }
                     }
                 }, error => {
 
                 });
             });
         } else {
+            this.modulesBack = null;
+            this.cleanModules();
             return true;
         }
+    }
+
+    /**
+     * Limpiar modulos.
+     *
+     * @memberof AuthService
+     */
+    public cleanModules(): void {
+        this.modulesRouting.forEach(item => {
+            item.ShowModule = false;
+            item.Menus.forEach(menu => {
+                menu.ShowMenu = false;
+                menu.Functionalities.forEach(functions => {
+                    functions.ShowFunctionality = false;
+                });
+            });
+        });
     }
 
     public getModulesFromService(): any {
@@ -73,7 +103,6 @@ export class AuthService implements CanActivate {
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
                             data.Data.Profile.Modules.forEach(moduleItem => {
-                                console.log(moduleItem, profileTye);
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;
                                     if (item.NameModule.toLowerCase() === moduleItem.Name.toLowerCase()) {
@@ -98,7 +127,6 @@ export class AuthService implements CanActivate {
                                     }
                                 });
                             });
-                            console.log(this.modulesRouting);
                             resolve(this.modulesRouting);
                         }
                     }

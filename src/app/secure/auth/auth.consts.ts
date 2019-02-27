@@ -57,6 +57,7 @@ export class MenuModel {
      * @param {FunctionalitiesModel[]} functionalities Lista de funcionalidades.
      * @param {string} urlRedirect Url que muestra el componente (mirar constante de RoutesConst).
      * @param {string} [id] id del menu.
+     * @param {string} [showMenuProduction] Mostrar en produccion.
      * @memberof MenuModel
      */
     constructor(
@@ -112,8 +113,7 @@ export class FunctionalitiesModel {
 // 1, Administrador 0. Vendedor.
 export const ProfileTypes = {
     Vendedor: 0,
-    Administrador: 1,
-    Todos: 2
+    Administrador: 1
 };
 
 const showAll = false;
@@ -130,8 +130,9 @@ const showAll = false;
  * 2. Por enviar.
  * 3. Enviadas.
  * 4. Facturación electronica.
+ * 5. Dashboard
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -352,18 +353,22 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
     // 2. Especificaciones.
     new MenuModel(specsName, showAll, specsName.toLowerCase(), ProfileTypes.Administrador, [
         // TODO: Funcionalidades.
-    ], 'TODO: url especificaciones', null, false),
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality), // Eliminar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Agregar
+    ], RoutesConst.sellerCenterIntParamSpecs),
     // 3. Arbol de categorias.
     new MenuModel(categoriesTreeName, showAll, categoriesTreeName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar.
-    ], RoutesConst.sellerCenterIntOferTreeCategory, null, false),
+    ], RoutesConst.sellerCenterIntOferTreeCategory),
     // 4. Perfiles.
     new MenuModel(profileName, showAll, profileName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Agregar.
-    ], RoutesConst.sellerCenterIntSellerProfiles, null, false)
+    ], RoutesConst.sellerCenterIntSellerProfiles)
 ]);
 
 export const Modules = [
