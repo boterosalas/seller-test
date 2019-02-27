@@ -84,6 +84,14 @@ export class DetailOfferComponent {
   @Input() dataOffer;
 
   /**
+   * Variable para definir si el componente puede inicializarse para edicion.
+   *
+   * @type {boolean}
+   * @memberof DetailOfferComponent
+   */
+  @Input() canEdit: boolean;
+
+  /**
    * @description Variable que almancena un booleano que se le envia al listado de ofertas para volver a consumir el servicio
    * de listado de ofertas.
    * @type {EventEmitter<boolean>}

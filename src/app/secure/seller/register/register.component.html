@@ -114,7 +114,7 @@
           fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
           <div fxFlex="50%">
-            <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+            <app-states-data (idStateEvent)="receiveDataState($event)" [disabledComponent]='disabledComponent'></app-states-data>
           </div>
 
           <div fxFlex="50%">

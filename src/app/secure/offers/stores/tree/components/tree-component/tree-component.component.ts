@@ -158,6 +158,7 @@ export class TreeComponentComponent implements OnInit {
   @ViewChild('tree') treeElement;
   // arbol
   @Input() arbol: any;
+  @Input() updateFunction: boolean;
 
   @Output() currentTreeOutput = new EventEmitter<any>();
 

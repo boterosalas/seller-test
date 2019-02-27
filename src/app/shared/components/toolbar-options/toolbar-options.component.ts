@@ -27,6 +27,7 @@ export class ToolbarOptionsComponent {
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;
+  @Input() downloadPermission: boolean;
 
 
   // Boolean que indica si hay órdenes o no

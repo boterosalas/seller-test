@@ -17,6 +17,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ManageSellerService } from './manage.service';
 import { TermsComponent } from '../agreement/terms/terms.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ProfileModule } from '../profiles/profile.module';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
         HttpClientModule,
         HttpClientJsonpModule,
         SharedModule,
-        PdfViewerModule
+        PdfViewerModule,
+        ProfileModule
     ],
     exports: [
     ],

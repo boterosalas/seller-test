@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { QuotingComponent } from './quoting.component';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntOfferQuoting}`,
       component: QuotingComponent,
       data: { title: 'Cotizador' },
+      canActivate: [AuthService]
     }
   ])
 ];
