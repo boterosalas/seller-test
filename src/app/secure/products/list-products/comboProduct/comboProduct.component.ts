@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
-import { LoadingService, ModalService } from '@app/core';
-import { ListProductService } from '../list-products.service';
 
 const log = new Logger('ComboProductComponent');
 
