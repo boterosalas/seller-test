@@ -18,25 +18,15 @@
 <div class="cont-product" fxLayout="row" fxLayoutAlign="space-around center">
   <div class="cont-images">
     <div class="smallImages">
-      <mat-card class="imageXs">
-        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
-      </mat-card>
-      <mat-card class="imageXs">
-        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
-      </mat-card>
-      <mat-card class="imageXs">
-        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
-      </mat-card>
-      <mat-card class="imageXs">
-        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
-      </mat-card>
-      <mat-card class="imageXs">
-        <img mat-card-image src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg">
+      <!-- for que contiene el arreglo de las imagenes -->
+      <mat-card class="imageXs" *ngFor="let img of images">
+        <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
+        <img mat-card-image [src]="img.min" (click)="changeImage(img.max)">
       </mat-card>
     </div>
     <div>
       <div class="imageXl">
-        <img src="https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_lrg_a.jpg">
+        <img [src]="imageMax">
       </div>
     </div>
 
