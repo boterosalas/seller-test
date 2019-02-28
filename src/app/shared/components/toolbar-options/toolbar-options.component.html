@@ -19,7 +19,7 @@
 
         <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false"
           fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button" id="download-order-button"
-          mat-button color="primary" *ngIf="!billingType">
+          mat-button color="primary" *ngIf="!billingType && downloadPermission">
           <mat-icon>file_download</mat-icon>
           Descargar
         </button>

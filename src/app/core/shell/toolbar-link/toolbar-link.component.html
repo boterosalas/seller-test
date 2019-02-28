@@ -3,6 +3,20 @@
   <mat-toolbar-row class="toolbar-orders-list">
     <div class="content-options-toolbar">
 
+      <div *ngFor="let module of modules">
+        <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="showModule(module)">
+          <mat-icon>arrow_drop_down</mat-icon>
+          {{getPersonalityName(module.NameModule)}}
+        </button>
+        <mat-menu #orders="matMenu">
+          <div *ngFor="let menu of module.Menus">
+            <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+              <span>{{menu.NameMenu}}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+      <!-- MENU VERSION 0.1
       <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
         <mat-icon>arrow_drop_down</mat-icon>
         &Oacute;rdenes
@@ -137,6 +151,8 @@
           <span>Especificaciones</span>
         </button>
       </mat-menu>
+    </div>
+  -->
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

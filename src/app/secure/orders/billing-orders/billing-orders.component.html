@@ -9,10 +9,10 @@
       </p>
       <!-- Componente para realizar la busqueda de una tienda -->
       <form #getBillings="ngForm" [formGroup]="billingGroup" class="search-store">
-        <div>
+        <div fxLayout="row" fxLayoutAlign=" center">
           <mat-icon class="icon-search" matPrefix>search</mat-icon>
-          <input matInput placeholder="Ingrese número de orden" formControlName="billingOrderCtrl" (keyup.enter)="chargeBillingOrders()"
-            autocomplete="off">
+          <input matInput placeholder="Ingrese número de orden" class="search-input" formControlName="billingOrderCtrl" (keyup.enter)="chargeBillingOrders()"
+            autocomplete="off" *ngIf="getFunctionality(read)">
         </div>
       </form>
 
@@ -57,7 +57,7 @@
           get_app
         </mat-icon>
       </button>
-      <button mat-icon-button (click)="viewPDF(billing)">
+      <button mat-icon-button (click)="viewPDF(billing)" *ngIf="getFunctionality(download)">
         <mat-icon class="material-icons">
           visibility
         </mat-icon>

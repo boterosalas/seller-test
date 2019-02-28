@@ -74,7 +74,7 @@
       </div>
 
       <!-- SELLER CONTAINER LIST-->
-      <div class="list-container">
+      <div class="list-container" *ngIf="getFunctionality(read)">
         <!-- SELLER HEADER LIST-->
         <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center">
           <div id="id" class="label-container id" style="width: 9%;
@@ -113,7 +113,7 @@
             <div id="id" class="label-container id" fxLayout="row" fxLayoutAlign="start center">
               <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
                 fxShow [fxShow.xs]="false">
-                <mat-icon class="material-icons">
+                <mat-icon class="material-icons" *ngIf="getFunctionality(visualize)">
                   visibility
                 </mat-icon>
               </button>
@@ -137,7 +137,7 @@
               </label>
             </div> -->
             <div id="state" class="label-container state">
-              <label class="label-result">
+              <label class="label-result" *ngIf="getFunctionality(enable)">
                 <mat-slide-toggle (change)="changeSellerState(seller)" [disabled]="seller.block"></mat-slide-toggle>
               </label>
             </div>

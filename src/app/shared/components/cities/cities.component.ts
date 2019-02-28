@@ -31,6 +31,7 @@ export class CitiesComponent implements OnInit, OnChanges {
   @Input() idState: number;
   @Output() daneCodeEvent = new EventEmitter<number>();
   @Input() elementLoad: string;
+  @Input() disabledComponent: boolean;
 
   constructor(
     @Inject(CitiesServices)
@@ -96,12 +97,14 @@ export class CitiesComponent implements OnInit, OnChanges {
           const data_response = JSON.parse(result.body.body);
           const data = data_response.Data;
           this.listItems = data;
-          this.validateFormRegister.get('citiesFormControl').enable();
+          if (!this.disabledComponent) {
+            this.validateFormRegister.get('citiesFormControl').enable();
+          }
           this.loadingService.closeSpinner();
           if (this.elementLoad) {
             const citySelected = this.validateElementLoaded(this.elementLoad);
             if (citySelected) {
-              this.validateFormRegister.controls['citiesFormControl'].setValue(citySelected.Id, {onlySelf: true});
+              this.validateFormRegister.controls['citiesFormControl'].setValue(citySelected.Id, { onlySelf: true });
             }
           }
         } else {

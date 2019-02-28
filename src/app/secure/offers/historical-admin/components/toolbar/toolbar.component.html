@@ -7,7 +7,7 @@
         <small class="sub-title">| {{subtitleBar}}</small>
       </p>
       <div class="seller-search">
-        <app-search-seller [isFullSearch]="false"></app-search-seller>
+        <app-search-seller  *ngIf="getFunctionality(read)" [isFullSearch]="false"></app-search-seller>
       </div>
 
       <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
@@ -28,7 +28,7 @@
         <!-- /Paginator next icon -->
 
         <!-- Download button -->
-        <button [disabled]="historicalOfferLength" mat-icon-button (click)="openModalDownloadHistoricalOffer()">
+        <button [disabled]="historicalOfferLength" mat-icon-button (click)="openModalDownloadHistoricalOffer()"  *ngIf="getFunctionality(download)">
           <mat-icon>archive</mat-icon>
         </button>
         <!-- /Download button -->

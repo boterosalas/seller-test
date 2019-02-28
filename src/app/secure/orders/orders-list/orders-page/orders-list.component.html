@@ -4,8 +4,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
-        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
@@ -13,7 +12,7 @@
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="content-table-orders">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table #table [dataSource]="dataSource" matSort *ngIf="readPermission">
 
         <!-- Check column -->
         <ng-container matColumnDef="select">
@@ -182,12 +181,11 @@
                   <mat-icon>label_outline</mat-icon>
                   <span>Imprimir rótulo</span>
                 </button>
-                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item
-                  [disabled]="element.billUrl">
+                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item [disabled]="element.billUrl" *ngIf="attachmentPermission">
                   <mat-icon>note_add</mat-icon>
                   <span>Adjuntar factura</span>
                 </button>
-                <button *ngIf="element.allowShipping == true && element.idStatusOrder == const.OrderAsignado" id="send-button-order-{{index}}"
+                <button *ngIf="element.allowShipping == true && element.idStatusOrder == const.OrderAsignado && sendPermission" id="send-button-order-{{index}}"
                   (click)="openDialogSendOrder(element)" mat-menu-item>
                   <mat-icon>local_shipping</mat-icon>
                   <span>Enviar</span>

@@ -1,0 +1,81 @@
+$viewport: 600px;
+$maroon: maroon;
+$green: green;
+.color-red {
+    color: $maroon;
+}
+
+.color-green {
+    color: $green;
+}
+
+::ng-deep .mat-radio-label {
+    padding-right: 20px;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: blue;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: blue;
+}
+
+
+
+.profileForm {
+    .profile-radio-group {
+        padding-bottom: 15px;
+    }
+    .select-form-full {
+        width: 100%;
+    }
+    .menu-added {
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 15px;
+        ul {
+            margin: 0;
+        }
+    }
+}
+
+.no-show {
+    display: none;
+}
+
+@media screen and (max-width: $viewport) {
+    .profileForm {
+        .select-form {
+            width: 100%;
+        }
+        .select-to-add {
+            width: 100%;
+        }
+        .list-add-menu {
+            width: 50%;
+        }
+        .name-form {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: $viewport) {
+    .profileForm {
+        .name-form {
+            width: 50%;
+            padding-right: 2%;
+        }
+        .select-form {
+            width: 48%;
+        }
+        .select-to-add {
+            width: 48%;
+        }
+        .list-add-menu {
+            width: 50%;
+        }
+    }
+}

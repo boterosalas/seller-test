@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-manage',
@@ -12,6 +10,7 @@ export class ManageComponent implements OnInit {
 
     parameters: any;
     chargueView = false;
+
     constructor(
         private route: ActivatedRoute) { }
 

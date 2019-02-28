@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName } from '@app/secure/auth/auth.consts';
 
 export interface ListFilterSeller {
     name: string;
@@ -58,22 +60,38 @@ export class SellerListComponent implements OnInit {
     pageEvent: PageEvent;
     @ViewChild('sidenav') sidenav: MatSidenav;
     nameSellerListFilter: any;
+    // Variables con los permisos que este componente posee
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+    visualize = visualizeFunctionality;
+    enable = enableFunctionality;
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
         private snackBar: MatSnackBar,
         private router: Router,
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        public authService: AuthService) {
     }
 
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
-        // this.createForm();
-        // this.matDrawer.closedStart = tri
     }
 
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof ToolbarComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
+    }
 
     public changeSellerState(sellerData: any): void {
         sellerData.block = true;
