@@ -60,7 +60,8 @@ export class StoresService {
     });
   }
 
-  public changeStateSeller(idSeller: Number): Observable<any> {
+  public changeStateSeller(idSeller: Number, body: any): Observable<any> {
+      //return this.http.patch('url', body);
       return of(true);
   }
 

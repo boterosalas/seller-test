@@ -1,3 +1,5 @@
+import { Validator, AbstractControl, ValidationErrors } from "@angular/forms";
+
 export const validationMessages = {
   required: 'Este campo es necesario.',
   minLength: 'El campo es muy corto.',
@@ -6,4 +8,8 @@ export const validationMessages = {
   number: 'Este campo debe ser numérico.'
 };
 
-
+  
+export function trimField(control: AbstractControl): ValidationErrors | null {
+  const value = control.value
+  return !!value.toString().trim() ? null : {trim: true}
+}

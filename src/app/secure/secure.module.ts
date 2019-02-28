@@ -16,6 +16,7 @@ import { BillingOrdersModule } from './orders/billing-orders/billing-orders.modu
 import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
 import { ListProductModule } from './products/list-products/list-products.module';
+import { DialogWithFormComponent } from './seller/list/dialog-with-form/dialog-with-form.component';
 
 
 @NgModule({

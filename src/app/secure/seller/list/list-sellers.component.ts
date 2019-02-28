@@ -1,11 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { Logger, LoadingService } from '@app/core';
-import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent } from '@angular/material';
+import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { DialogWithFormComponent } from './dialog-with-form/dialog-with-form.component';
+import { BehaviorSubject } from 'rxjs';
+import { trimField } from '../../../shared/util/validation-messages'
+
 
 export interface ListFilterSeller {
     name: string;
@@ -37,7 +41,6 @@ export class SellerListComponent implements OnInit {
     idSeller: any;
     nameSeller: any;
     nitSeller: any;
-    // public stateSeller: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?!\s+).)*$/;
     showAn = true;
@@ -53,6 +56,9 @@ export class SellerListComponent implements OnInit {
     separatorKeysCodes: number[] = [];
     listFilterSellers: ListFilterSeller[] = [
     ];
+    public needFormStates$: BehaviorSubject<string> = new BehaviorSubject(null);
+    @ViewChild('dialogContent') content: TemplateRef<any>;
+    stateForm: FormGroup;
 
     // MatPaginator Output
     pageEvent: PageEvent;
@@ -63,7 +69,8 @@ export class SellerListComponent implements OnInit {
         private loading: LoadingService,
         private snackBar: MatSnackBar,
         private router: Router,
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -75,7 +82,53 @@ export class SellerListComponent implements OnInit {
     }
 
 
-    public changeSellerState(sellerData: any): void {
+    public changeSellerState(sellerData: any, status: String): void {
+        let message = "";
+        let title = "";
+        let icon = "";
+        if(status=="enabled"){
+            message = "¿Estas seguro que deseas activar este vendedor?";
+            icon = null;
+            title = "Activación";
+        } else if (status == "disabled") {
+            message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
+            icon = null;
+            title= "Desactivación";
+            this.needFormStates$.next(status.toString());
+        } else if(status == "vacation") {
+            title = "Vacaciones";
+            message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
+            icon = "local_airport"
+            this.needFormStates$.next(status.toString());
+        }
+
+        const dialogData = {title, message, icon}        
+
+        this.stateForm = this.fb.group({
+            reason: ['', Validators.compose([Validators.maxLength(200), trimField, Validators.required])],
+            observation: ['', Validators.compose([Validators.maxLength(2000), trimField, Validators.required])]
+        })
+
+        setTimeout(() => {
+            const dialogRef = this.dialog.open(DialogWithFormComponent, {
+                data: dialogData
+            })
+
+            const dialogInstance = dialogRef.componentInstance; 
+            dialogInstance.content = this.content;
+            dialogInstance.confirmation = () => {
+                return this.storesService.changeStateSeller(sellerData.id, status);
+            }
+    
+            dialogRef.afterClosed().subscribe(() => {
+                this.needFormStates$.next(null);
+            })
+
+            this.stateForm.statusChanges.subscribe(val => {
+                dialogRef.componentInstance.valid = val;
+            })
+        }, 100)
+        /*
         sellerData.block = true;
         this.storesService.changeStateSeller(sellerData.idSeller).subscribe(data => {
             setTimeout(() => {
@@ -85,6 +138,7 @@ export class SellerListComponent implements OnInit {
                 });
             }, 3000);
         });
+        */
     }
 
     /**
@@ -93,7 +147,6 @@ export class SellerListComponent implements OnInit {
      * @description Metodo para abrir o cerrar el menu
      */
     toggleMenu() {
-        // this.sidenav.toggle();
         this.sidenav.toggle();
     }
 
@@ -186,6 +239,25 @@ export class SellerListComponent implements OnInit {
                     return a['IdSeller'] - b['IdSeller'];
                 });
                 this.sellerLength = this.sellerList.length;
+                let i = 0;
+                this.sellerList.forEach(seller => {
+                    if(i < 3) {
+                        i++;
+                    } else {
+                        i = 1;
+                    }
+                    switch (i) {
+                        case 1:
+                        seller.status = 'enabled';
+                        break;
+                        case 2:
+                        seller.status = 'disabled';
+                        break;
+                        case 3:
+                        seller.status = 'vacation';
+                        break;
+                    }
+                });
             } else {
                 log.error('Error al cargar los vendendores: ', result);
             }
@@ -242,5 +314,13 @@ export class SellerListComponent implements OnInit {
             this[listFilterSeller.value] = '';
             this.filterSeller.controls[listFilterSeller.nameFilter].setValue(null);
         }
+    }
+
+    get reason(): FormControl{
+        return this.stateForm.get('reason') as FormControl;
+    }
+
+    get observation(): FormControl{
+        return this.stateForm.get('observation') as FormControl;
     }
 }

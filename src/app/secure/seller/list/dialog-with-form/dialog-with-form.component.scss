@@ -1,0 +1,40 @@
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$modal: 72px;
+
+@mixin icon-border-gray {
+    border-radius: 40px;
+    background-color: $color-gray;
+    width: $modal;
+    height: $modal;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-icon {
+        color: $color-white;
+    }
+  }
+
+:host {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    & .mat-dialog-actions {
+        justify-content: center;
+        text-align: center;
+    }
+
+    & .container-icon {
+        @include icon-border-gray();
+    }
+
+    & .mat-dialog-content{
+        padding: 0 50px;
+        margin-bottom: 20px;
+    }
+
+    & .mat-dialog-title {
+        text-align: center;
+    }
+}
