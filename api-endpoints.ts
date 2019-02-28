@@ -223,6 +223,8 @@ export const endpoints = {
       getProductList: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
       // Obtener especificaciones por categoria
       getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
+      // Obtener tipo de perfil
+      getTypeProfileAndProfile: '',
     }
   }
 };
