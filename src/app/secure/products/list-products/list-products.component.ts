@@ -7,7 +7,6 @@ import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar } from '@an
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
-import { ReturnStatement } from '@angular/compiler';
 
 
 export interface ListFilterProducts {
@@ -68,6 +67,7 @@ export class ListProductsComponent implements OnInit {
     listFilterProducts: ListFilterProducts[] = [
     ];
     validateRegex: any;
+    productsProductExpanded: any = [];
     constructor(
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
@@ -303,6 +303,7 @@ export class ListProductsComponent implements OnInit {
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);
                 this.productsList = result.data.list;
+                console.log('aqui: ', this.productsList);
                 this.length = result.data.total;
                 // const response = result.body.data;
             } else {
@@ -316,6 +317,8 @@ export class ListProductsComponent implements OnInit {
         this.filterProducts(fecha);
 
         this.loadingService.closeSpinner();
+        this.productExpanded();
+
     }
 
     public filterProducts(fecha?: any) {
@@ -410,5 +413,15 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.filterProduts.controls.creationDate.setErrors(null);
         }
+    }
+
+
+    public productExpanded(params?: any): void {
+        console.log('this.productsList: ',  this.productsList);
+        this.productsService.getListProductsExpanded(JSON.parse(this.productsList[0].ean)).subscribe((result: any) => {
+            console.log('result: ', result);
+            this.productsProductExpanded = result.data.list;
+            console.log('this.productsProductExpanded: ', this.productsProductExpanded);
+        });
     }
 }

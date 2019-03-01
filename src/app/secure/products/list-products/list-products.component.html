@@ -105,6 +105,9 @@
     </div>
   </div>
 
-  <app-expanded-product></app-expanded-product>
+  <div *ngFor="let productsExpanded of productsProductExpanded; let i = index ">
+    <app-expanded-product [productsExpanded]="productsExpanded"></app-expanded-product>
+  </div>
 
+  
 </mat-drawer-container>

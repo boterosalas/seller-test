@@ -48,4 +48,14 @@ export class ListProductService {
   }
 
 
+
+  /*
+  * Funcion para obtener informacion del producto expandido.
+  */
+  public getListProductsExpanded(params?: any): Observable<{}> {
+    // return this.http.get(this.api.get('getProductList', [params]));
+    return this.http.get(this.api.get('getProductExpanded', [params]));
+  }
+
+
 }

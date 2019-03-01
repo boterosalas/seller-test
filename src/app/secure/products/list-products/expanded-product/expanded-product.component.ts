@@ -10,6 +10,8 @@ const log = new Logger('ExpandedProductComponent');
 })
 export class ExpandedProductComponent implements OnInit {
 
+  @Input() productsExpanded: any;
+
     /* arreglo q contiene las imagenes grandes y pequeñas */
     private images: any;
 
