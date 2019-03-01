@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Facturación electronica.
  * 5. Dashboard
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideCharges = 'Cargar guías';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -168,7 +168,12 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
-    // 4. Facturación electronica (Consultar, Descargar).
+    // 4. Cargar guias (Consultar, Descargar).
+    new MenuModel(guideCharges, showAll, guideCharges.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+    ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
+    // 5. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
