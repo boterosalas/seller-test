@@ -93,7 +93,7 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  sendAllProductInOrder(orders, orderId): Observable<[{}]> {
+  sendAllProductInOrder(orders: any, orderId: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.patch(this.api.get('sendAllProductInOrder', [orderId]), orders).subscribe((data: any) => {
         observer.next(data);
@@ -155,7 +155,7 @@ export class OrderService {
    * @param {any} data
    * @memberof OrderService
    */
-  setCurrentFilterOrders(data) {
+  setCurrentFilterOrders(data: any) {
     localStorage.setItem('currentFilter', JSON.stringify(data));
   }
 }

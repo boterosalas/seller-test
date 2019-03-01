@@ -120,8 +120,8 @@ const showAll = false;
 
 
 /**
- * Actualizado: 29-01-2019 - lecheverry.
- * @version 1.0 (Creación del archivo).
+ * Actualizado: 29-01-2019 - lecheverry. 01-03-2019 jbanguera
+ * @version 1.1 (Creación del archivo).
  *
  * Para incluir un menu en el modulo de ordenes o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
@@ -129,10 +129,10 @@ const showAll = false;
  * 1. Todas.
  * 2. Por enviar.
  * 3. Enviadas.
- * 4. Facturación electronica.
- * 5. Dashboard
+ * 4. Cargar guias
+ * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideCharges = 'Cargar guías';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guias';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -143,6 +143,7 @@ export const enableFunctionality = 'Habilitar';
 export const deleteFunctionality = 'Eliminar';
 export const attachmentFunctionality = 'Adjuntar';
 export const sendFunctionality = 'Enviar';
+export const marketFuncionality = 'Marcar';
 export const idSended = '170';
 export const idToSend = '35';
 
@@ -152,34 +153,37 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
-        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
+        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterOrders),
     // 2. Por enviar (Consultar, Descargar).
     new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
-        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
+        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idToSend, idToSend),
     // 3. Enviadas (Consultar, Descargar).
     new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
-        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
+        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
-    // 4. Cargar guias (Consultar, Descargar).
-    new MenuModel(guideCharges, showAll, guideCharges.toLowerCase(), ProfileTypes.Vendedor, [
+    // 4. Cargar guias (Cargar, Descargar).
+    new MenuModel(guideChargesName, showAll, guideChargesName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
-    ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
+    ], RoutesConst.sellerCenterIntOrderLoadGuide),
     // 5. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
-    ], RoutesConst.sellerCenterIntOrderBillingOrders)
+    ], RoutesConst.sellerCenterIntOrderBillingOrders),
 ]);
 
 /**

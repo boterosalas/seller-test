@@ -13,7 +13,7 @@ import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-mo
 import { OrderService } from '../orders.service';
 import { SendOrderComponent } from '../send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
-import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName, marketFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
@@ -87,10 +87,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   download = downloadFunctionality;
   attachment = attachmentFunctionality;
   send = sendFunctionality;
+  market = marketFuncionality;
   readPermission: boolean;
   downloadPermission: boolean;
   sendPermission: boolean;
   attachmentPermission: boolean;
+  marketPermission: boolean;
   // Fin de variables de permisos.
 
   // varialbe que almacena el número de órdenes obtenidas
@@ -176,6 +178,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.downloadPermission = this.getFunctionality(this.download);
       this.sendPermission = this.getFunctionality(this.send);
       this.attachmentPermission = this.getFunctionality(this.attachment);
+      this.marketPermission = this.getFunctionality(this.market);
     });
   }
 
@@ -544,14 +547,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   recordProcesSedOrder(orderId: any, currentValue: any) {
-
     if (currentValue === true) {
       currentValue = false;
     } else {
       currentValue = true;
     }
     const data = {
-      sellerId: this.user.sellerId,
       idOrder: orderId,
       value: currentValue,
     };
