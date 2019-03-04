@@ -42,7 +42,7 @@
                 </mat-icon>
                 <p>{{agreement.ContractName}}</p>
             </div>
-            <button mat-icon-button (click)="getPDF(agreement)" *ngIf="getFunctionality(download)">
+            <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
                 <mat-icon class="material-icons">
                     get_app
                 </mat-icon>

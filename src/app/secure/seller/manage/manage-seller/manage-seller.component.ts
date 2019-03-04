@@ -151,6 +151,7 @@ export class ManageSellerComponent implements OnInit {
         this.idSeller = seller.IdSeller;
         this.firstEmit = true;
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
+          console.log('res editar: ', res);
           if (res.status === 200) {
             const body = JSON.parse(res.body.body);
             this.currentSellerSelect = body.Data;
