@@ -72,7 +72,7 @@
     </section>
     <section *ngIf="viewDetailOffer && viewDetailOffer == true">
         <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)" [canEdit]="updatePermission"></app-detail-offer>
-      <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer>
+     <!-- <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer> -->
     </section>
 
     <mat-sidenav #sidenav mode="over" position="end">

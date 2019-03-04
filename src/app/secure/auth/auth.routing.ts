@@ -36,6 +36,7 @@ export class AuthService implements CanActivate {
                 this.getModulesFromService().then(resultModule => {
                     this.modulesBack = resultModule;
                     const moduleSelected = this.validateModule(state.url); // Verfica a que menu desea ingresar
+                    console.log(moduleSelected);
                     this.verifyLog(); // Verifica si esta logueado
                     if (moduleSelected) { // Verifica si si esta ingresando a un menu mapeado.
                         this.userParams.getUserData().then(data => {
@@ -188,7 +189,8 @@ export class AuthService implements CanActivate {
     }
 
     /**
-     * Valida los menus y los modulos.
+     * Valida el menu al que intenta acceder, con la URL y verifica con el ShowMenu,
+     * si puede acceder como usuario o no. retorna null, si no posee permisos.
      *
      * @param {*} state
      * @returns {MenuModel}
@@ -197,17 +199,13 @@ export class AuthService implements CanActivate {
     public validateModule(url: any): MenuModel {
         let moduleSelected: MenuModel;
         Modules.forEach(item => {
-            const resultado = item.Menus.find(menu => url === '/' + menu.UrlRedirect);
-            if (resultado) {
-                moduleSelected = resultado;
-                return true;
-            }
+            item.Menus.forEach(menu => {
+                if (url === '/' + menu.UrlRedirect && menu.ShowMenu) {
+                    moduleSelected = menu;
+                }
+            });
         });
-        if (moduleSelected && moduleSelected.ShowMenu) {
-            return moduleSelected;
-        } else {
-            return null;
-        }
+        return moduleSelected;
     }
 
     /**

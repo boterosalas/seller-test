@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Cargar guias
  * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guias';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -197,9 +197,8 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 2. Carga masiva.
  * 3. Histórico de ofertas. (Tipo vendedor)
  * 4. Histórico de ofertas. (Tipo Administrador)
- * 5. Banguera.
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas', banguera = 'banguera';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -232,8 +231,10 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * 1. Creación unitaria.
  * 2. Carga masiva de productos.
  * 3. Moderación.
+ * 4. Listado de productos Admin
+ * 5. Listado de productos Seller
  */
-export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación';
+export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos';
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
     // 1. Creación unitaria.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -246,7 +247,15 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 3. Moderación.
     new MenuModel(moderateName, showAll, moderateName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
-    ], RoutesConst.sellerCenterProductModerationBulkLoad)
+    ], RoutesConst.sellerCenterProductModerationBulkLoad),
+    // 4. Listado de productos. (Tipo vendedor)
+    new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntListProducts),
+    // 5. Listado de productos. (Tipo administrador)
+    new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntListProducts),
 ]);
 
 /**
@@ -296,9 +305,9 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
     ], RoutesConst.sellerCenterIntSellerAgreements),
     // 4. Listado de Vendedores.
     new MenuModel(sellerListName, showAll, sellerListName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality),
-        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality),
-        new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality)
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
+        new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality) // Habilitar
     ], RoutesConst.sellerCenterIntSellerList),
 ]);
 
