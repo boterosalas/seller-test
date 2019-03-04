@@ -317,8 +317,6 @@ export class ListProductsComponent implements OnInit {
         this.filterProducts(fecha);
 
         this.loadingService.closeSpinner();
-        this.productExpanded();
-
     }
 
     public filterProducts(fecha?: any) {
@@ -413,15 +411,5 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.filterProduts.controls.creationDate.setErrors(null);
         }
-    }
-
-
-    public productExpanded(params?: any): void {
-        console.log('this.productsList: ',  this.productsList);
-        this.productsService.getListProductsExpanded(JSON.parse(this.productsList[0].ean)).subscribe((result: any) => {
-            console.log('result: ', result);
-            this.productsProductExpanded = result.data.list;
-            console.log('this.productsProductExpanded: ', this.productsProductExpanded);
-        });
     }
 }

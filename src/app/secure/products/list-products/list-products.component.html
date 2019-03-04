@@ -91,9 +91,7 @@
     </div>
 
     <div class="prodList">
-      <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-        <app-combo-product [products]="products"></app-combo-product>
-      </div>
+        <app-combo-product [productsList]="productsList"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>
@@ -104,10 +102,4 @@
       </div>
     </div>
   </div>
-
-  <div *ngFor="let productsExpanded of productsProductExpanded; let i = index ">
-    <app-expanded-product [productsExpanded]="productsExpanded"></app-expanded-product>
-  </div>
-
-  
 </mat-drawer-container>

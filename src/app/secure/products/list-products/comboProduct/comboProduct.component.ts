@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
+import { ListProductService } from '../list-products.service';
 
 const log = new Logger('ComboProductComponent');
 
@@ -12,12 +13,27 @@ const log = new Logger('ComboProductComponent');
   styleUrls: ['comboProduct.component.scss'],
 })
 export class ComboProductComponent implements OnInit {
-  productsList: any;
-  @Input() products: any;
+ // productsList: any;
+  @Input() productsList: any;
+
+
+  public productsExpanded: any;
+
 
   constructor(
+    private productsService?: ListProductService,
+
   ) { }
   ngOnInit() {
 
   }
+
+
+
+  public openInformation(params?: any): void {
+    console.log('parametro', params);
+    this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
+        this.productsExpanded = result.data.list;
+    });
+}
 }
