@@ -5,7 +5,7 @@ import { Logger } from '@core/util/logger.service';
 import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
 import { LoadingService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality, readFunctionality } from '@app/secure/auth/auth.consts';
 
 const log = new Logger('AgreementComponent');
 
@@ -24,6 +24,7 @@ export class AgreementComponent implements OnInit {
     permissionComponent: MenuModel;
     visualize = visualizeFunctionality;
     download = downloadFunctionality;
+    read = readFunctionality;
 
     constructor(private emitterSeller: EventEmitterSeller,
         private agreementService: AgreementService,

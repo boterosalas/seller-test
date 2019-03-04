@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit {
   }
 
   /**
-   * dasd
+   * Solo abre nuevas pestañas de rutas que no poseen http en la cabecera.
    *
    * @param {string} url
    * @returns {boolean}

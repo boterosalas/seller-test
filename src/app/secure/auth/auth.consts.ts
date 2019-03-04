@@ -301,7 +301,8 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
     // 3. Acuerdos.
     new MenuModel(agreementName, showAll, agreementName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality) // Visualizar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
     ], RoutesConst.sellerCenterIntSellerAgreements),
     // 4. Listado de Vendedores.
     new MenuModel(sellerListName, showAll, sellerListName.toLowerCase(), ProfileTypes.Administrador, [

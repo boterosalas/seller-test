@@ -26,7 +26,7 @@ export class QuotingAdministratorComponent implements OnInit {
   updateTransportFunction: boolean;
   deleteTransportFunction: boolean;
   readZoneFunction: boolean;
-  creatZoneFunction: boolean;
+  createZoneFunction: boolean;
   updateZoneFunction: boolean;
   deleteZoneFunction: boolean;
 
@@ -35,12 +35,14 @@ export class QuotingAdministratorComponent implements OnInit {
 
   ngOnInit(): void {
     this.permissionComponent = this.authService.getMenu(quoteName);
+    // Cuando ud necesite ver el menu con las funciones imprime esto:
+    console.log(this.permissionComponent);
     this.readTransportFunction = this.getFunctionality(this.readTransport);
     this.createTransportFunction = this.getFunctionality(this.createTransport);
     this.updateTransportFunction = this.getFunctionality(this.updateTransport);
     this.deleteTransportFunction = this.getFunctionality(this.deleteTransport);
     this.readZoneFunction = this.getFunctionality(this.readZone);
-    this.creatZoneFunction = this.getFunctionality(this.creatZone);
+    this.createZoneFunction = this.getFunctionality(this.creatZone);
     this.updateZoneFunction = this.getFunctionality(this.updateZone);
     this.deleteZoneFunction = this.getFunctionality(this.deleteZone);
     if (!this.readZoneFunction) {

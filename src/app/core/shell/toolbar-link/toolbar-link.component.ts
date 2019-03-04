@@ -55,7 +55,7 @@ export class ToolbarLinkComponent implements OnInit {
 
   ngOnInit() {
     this.getCategory();
-    this.authService.getModules().then( data => {
+    this.authService.getModules().then(data => {
       this.modules = data;
     }, error => {
       console.error(error);
@@ -82,17 +82,6 @@ export class ToolbarLinkComponent implements OnInit {
     } else {
       this.route.navigate([category.root]);
     }
-  }
-
-  /**
-   * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
-   *
-   * @param {MenuModel} menu
-   * @returns {boolean}
-   * @memberof SidebarComponent
-   */
-  public showMenu(menu: MenuModel): boolean {
-    return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv);
   }
 
   /**
@@ -128,6 +117,33 @@ export class ToolbarLinkComponent implements OnInit {
   public validateUserType(profileType: number): boolean {
     if (this.user) {
       return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
+    }
+  }
+
+ /**
+  * Solo abre nuevas pestañas de rutas que no poseen http en la cabecera.
+  *
+  * @param {string} url
+  * @returns {boolean}
+  * @memberof SidebarComponent
+  */
+  public showOnlyLocalMenus(url: string): boolean {
+    return url.search('http') === -1;
+  }
+
+  /*
+  * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
+  *
+  * @param {MenuModel} menu
+  * @returns {boolean}
+  * @memberof SidebarComponent
+  */
+  public showMenu(menu: MenuModel, showUrlRedirect: boolean = false): boolean {
+    // return menu.ShowMenu && menu.ShowMenuProduction;
+    if (showUrlRedirect) {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
+    } else {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
     }
   }
 }
