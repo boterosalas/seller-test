@@ -34,6 +34,7 @@ export class ComboProductComponent implements OnInit {
     console.log('parametro', params);
     this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
         this.productsExpanded = result.data.list;
+        console.log('info: ', this.productsExpanded);
     });
 }
 }

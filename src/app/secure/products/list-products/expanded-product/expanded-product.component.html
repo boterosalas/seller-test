@@ -33,17 +33,20 @@
   </div>
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
-    <div class="subtitle divider-two"> EAN 80337790305753 </div>
-    <div class="title divider-two"> Huawei P20 lite Dual sim 64GB </div>
+    <div class="subtitle divider-two"> 
+      <h3>EAN: {{productsExpanded.ean}}</h3>
+    </div>
+    <div class="title divider-two">
+      <p class="name">{{productsExpanded.name}}</p>
+    </div>
     <div class="divider-one">
-      Fecha de creación: <label> 22/08/2018 </label>
-      |
-      Fecha de modificacíon: <label> 22/08/2018 </label>
+      <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
+      <p> Fecha de modificación: {{productsExpanded.updatedDate}}</p>
     </div>
 
-    <div class="text"> Categoría: <label> Tecnología </label></div>
-    <div class="text"> Marca: <label> Huawei </label></div>
-    <div class="divider-one"> Modelo: <label> P20 lite </label></div>
+    <div class="text"> Categoría: <label> {{productsExpanded.category}} </label></div>
+    <div class="text"> Marca: <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Modelo: <label> {{productsExpanded.brand}} </label></div>
 
 
     <div class="text">
@@ -55,29 +58,20 @@
     <div class="text">
       <i class="material-icons"> shopping_basket </i>
       Producto:
-      <label> Alto-20cm ancho-10cm largo-15cm peso-15kg </label>
+      <label> Alto-{{productsExpanded.package_height}}cm ancho-{{productsExpanded.package_width}}cm largo-{{productsExpanded.package_length}}cm peso-{{productsExpanded.package_weight}}kg </label>
     </div>
 
     <div class="text">
       <i class="material-icons"> local_shipping </i>
       Producto:
-      <label> Alto-20cm ancho-10cm largo-15cm peso-15kg </label>
+      <label>Alto-{{productsExpanded.item_height}}cm ancho-{{productsExpanded.item_width}}cm largo-{{productsExpanded.item_length}}cm peso-{{productsExpanded.item_weight}}kg </label>
     </div>
 
-    <div class="best-offer">
-      Mejor oferta
-      <div class="price"> 1.000.250.000 </div>
+    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
+      <p> Mejor oferta</p>
+      <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.0-0'"> </p>
     </div>
   </div>
-
-  <mat-card-content>
-    <div class="container-desc-card flexbox flex-wrap align-center">
-      <h3>EAN: {{productsExpanded.ean}}</h3>
-      <p class="name">{{productsExpanded.name}}</p>
-      <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
-      <p> Fecha de modificación: {{productsExpanded.updatedDate}}</p>
-    </div>
-  </mat-card-content>
 </div>
 
 <div class="expanded-information-product">
