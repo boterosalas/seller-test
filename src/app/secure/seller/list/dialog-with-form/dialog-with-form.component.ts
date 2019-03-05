@@ -15,7 +15,7 @@ interface DialogData {
   templateUrl: './dialog-with-form.component.html',
   styleUrls: ['./dialog-with-form.component.scss']
 })
-export class DialogWithFormComponent implements OnInit {
+export class DialogWithFormComponent {
 
   content: TemplateRef<any>;
   valid: boolean = true;
@@ -28,12 +28,9 @@ export class DialogWithFormComponent implements OnInit {
 
      }
 
-  ngOnInit() {
-  }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  confirmation:() => Observable<any>;
+  confirmation: () => void;
 }

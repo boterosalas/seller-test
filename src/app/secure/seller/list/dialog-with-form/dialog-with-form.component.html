@@ -19,5 +19,5 @@
 </div>
 <div mat-dialog-actions>
     <button id="btn-cancel" type="button" mat-button color="primary" (click)="onNoClick()">CANCELAR</button>
-    <button id="btn-confirmation" type="submit" mat-raised-button color="primary" (click)="confirmation()" [disabled]="!valid">ACEPTAR</button>
+    <button id="btn-confirmation" type="submit" mat-raised-button color="primary" (click)="confirmation()" [disabled]="data.form && data.form.invalid">ACEPTAR</button>
 </div>

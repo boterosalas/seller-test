@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy} from '@angular/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { Logger, LoadingService } from '@app/core';
-import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent, MatDialog } from '@angular/material';
+import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent, MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DialogWithFormComponent } from './dialog-with-form/dialog-with-form.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages'
 
 
@@ -32,7 +32,7 @@ const log = new Logger('ManageSellerComponent');
     styleUrls: ['list-sellers.component.scss']
 })
 
-export class SellerListComponent implements OnInit {
+export class SellerListComponent implements OnInit, OnDestroy {
 
     public filterSeller: FormGroup;
     public id: FormControl;
@@ -56,14 +56,21 @@ export class SellerListComponent implements OnInit {
     separatorKeysCodes: number[] = [];
     listFilterSellers: ListFilterSeller[] = [
     ];
+
     public needFormStates$: BehaviorSubject<string> = new BehaviorSubject(null);
     @ViewChild('dialogContent') content: TemplateRef<any>;
-    stateForm: FormGroup;
+    statusForm: FormGroup;
+    @ViewChild('intialPicker') initialPicker;
+    @ViewChild('endPicker') endPicker;
+    subs: Subscription[] = []
 
     // MatPaginator Output
     pageEvent: PageEvent;
     @ViewChild('sidenav') sidenav: MatSidenav;
     nameSellerListFilter: any;
+    
+
+
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -73,61 +80,106 @@ export class SellerListComponent implements OnInit {
         private dialog: MatDialog) {
     }
 
+    get reason(): FormControl{
+        return this.statusForm.get('Reasons') as FormControl;
+    }
+
+    get observation(): FormControl{
+        return this.statusForm.get('Observations') as FormControl;
+    }
+
+    get startDateVacation(): FormControl{
+        return this.statusForm.get('StartDateVacation') as FormControl;
+    }
+
+    get endDateVacation(): FormControl{
+        return this.statusForm.get('EndDateVacation') as FormControl;
+    }
+
     ngOnInit() {
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
+        this.initStatusForm();
         // this.createForm();
         // this.matDrawer.closedStart = tri
     }
 
-
-    public changeSellerState(sellerData: any, status: String): void {
-        let message = "";
-        let title = "";
-        let icon = "";
-        if(status=="enabled"){
-            message = "¿Estas seguro que deseas activar este vendedor?";
-            icon = null;
-            title = "Activación";
-        } else if (status == "disabled") {
-            message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
-            icon = null;
-            title= "Desactivación";
-            this.needFormStates$.next(status.toString());
-        } else if(status == "vacation") {
-            title = "Vacaciones";
-            message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
-            icon = "local_airport"
-            this.needFormStates$.next(status.toString());
-        }
-
-        const dialogData = {title, message, icon}        
-
-        this.stateForm = this.fb.group({
-            reason: ['', Validators.compose([Validators.maxLength(200), trimField, Validators.required])],
-            observation: ['', Validators.compose([Validators.maxLength(2000), trimField, Validators.required])]
+    /**
+     * Method that create the statusForm
+     */
+    initStatusForm(){
+        this.statusForm = this.fb.group({
+            IdSeller : ['', Validators.required]
         })
+        this.subs.push(this.needFormStates$.subscribe(status => {
+            this.putComplementDataInStatusForm(status);
+        }));
+    }
 
-        setTimeout(() => {
-            const dialogRef = this.dialog.open(DialogWithFormComponent, {
-                data: dialogData
-            })
+    /**
+     * Method that open a specific datePicker at click an input
+     * @param pos Pos of datepicker to open;
+     */
+    openPicker(pos: number){
+        switch (pos) {
+            case 1:
+            this.initialPicker.open();
+            break;
+            case 2: 
+            this.endPicker.open();
+            break;
+        }
+    }
 
-            const dialogInstance = dialogRef.componentInstance; 
-            dialogInstance.content = this.content;
-            dialogInstance.confirmation = () => {
-                return this.storesService.changeStateSeller(sellerData.id, status);
-            }
-    
-            dialogRef.afterClosed().subscribe(() => {
-                this.needFormStates$.next(null);
-            })
+    /**
+     * Method that build the statusForm dynamic
+     * @param status Status to change
+     */
+    putComplementDataInStatusForm(status: string) {
+        if(status == 'disabled') {
+            this.statusForm.addControl('Reasons', new FormControl('', Validators.compose([Validators.maxLength(120), trimField, Validators.required])));
+            this.statusForm.addControl('Observations', new FormControl('', Validators.compose([Validators.maxLength(2000), trimField, Validators.required])));
+            !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
+            !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
+        } else if(status == 'vacation'){
+            this.statusForm.addControl('StartDateVacation',new FormControl('', Validators.compose([Validators.required])));
+            this.statusForm.addControl('EndDateVacation',new FormControl('', Validators.compose([Validators.required])))
+            !!this.reason ? this.statusForm.removeControl('Reasons') : null;
+            !!this.observation ? this.statusForm.removeControl('Observations') : null;
+        } else {
+            !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
+            !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
+            !!this.reason ? this.statusForm.removeControl('Reasons') : null;
+            !!this.observation ? this.statusForm.removeControl('Observations') : null;
+        }
+    }
 
-            this.stateForm.statusChanges.subscribe(val => {
-                dialogRef.componentInstance.valid = val;
+    /**
+     * Method that change the date format to DD/MM/YYYY
+     * @param date Date to change the format
+     */
+    setFormatDate(date: Date){
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
+
+    /**
+     * Method that open the dialog to confirmation change status
+     * @param sellerData 
+     * @param status 
+     */
+    public changeSellerStatus(sellerData: any, status: string): void {
+        const dataDialog = this.setDataChangeStatusDialog(sellerData, status);
+        const dialogRef = this.dialog.open(DialogWithFormComponent, {
+            width: '55%',
+            minWidth: '280px',
+            data: dataDialog
+        });
+        if(!!dataDialog) {
+            setTimeout(() => {
+                this.configDataDialog(dialogRef);
             })
-        }, 100)
+        }
         /*
         sellerData.block = true;
         this.storesService.changeStateSeller(sellerData.idSeller).subscribe(data => {
@@ -139,6 +191,59 @@ export class SellerListComponent implements OnInit {
             }, 3000);
         });
         */
+    }
+
+    /**
+     * Config the Confirmation, afterclose actions and the content to render in the dialog
+     * @param dialog Dialog to confirm the change status
+     */
+    configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>){
+        const dialogInstance = dialog.componentInstance; 
+        dialogInstance.content = this.content;
+        dialogInstance.confirmation = () => {
+            const form = this.statusForm.value;
+            if(form.StartDateVacation && form.EndDateVacation) {
+                form.StartDateVacation = this.setFormatDate(form.StartDateVacation);
+                form.EndDateVacation = this.setFormatDate(form.EndDateVacation);
+            }
+            this.loading.viewSpinner();
+            this.subs.push(this.storesService.changeStateSeller(form).subscribe(val => {
+                this.loading.closeSpinner();
+            }));
+        };
+
+        this.subs.push(dialog.afterClosed().subscribe(() => {
+            this.needFormStates$.next(null);
+        }));
+    }
+    /**
+     * Method that build the data for Dialog Confirmation at change status
+     * @param sellerData Seller's data to change status
+     * @param status statatus to change
+     */
+    setDataChangeStatusDialog(sellerData: any, status: string){
+        let message = "";
+        let title = "";
+        let icon = "";
+        let form = null;
+        if(status=="enabled" && sellerData.status != 'enabled'){
+            message = "¿Estas seguro que deseas activar este vendedor?";
+            icon = null;
+            title = "Activación";
+        } else if (status == "disabled" && sellerData.status != 'disabled') {
+            message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
+            icon = null;
+            title= "Desactivación";
+            this.needFormStates$.next(status.toString());
+        } else if(status == "vacation" && sellerData.status != 'disabled') {
+            title = "Vacaciones";
+            message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
+            icon = "local_airport"
+            this.needFormStates$.next(status.toString());
+        }
+        this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
+        form = this.statusForm;
+        return {title, message, icon, form}
     }
 
     /**
@@ -239,25 +344,6 @@ export class SellerListComponent implements OnInit {
                     return a['IdSeller'] - b['IdSeller'];
                 });
                 this.sellerLength = this.sellerList.length;
-                let i = 0;
-                this.sellerList.forEach(seller => {
-                    if(i < 3) {
-                        i++;
-                    } else {
-                        i = 1;
-                    }
-                    switch (i) {
-                        case 1:
-                        seller.status = 'enabled';
-                        break;
-                        case 2:
-                        seller.status = 'disabled';
-                        break;
-                        case 3:
-                        seller.status = 'vacation';
-                        break;
-                    }
-                });
             } else {
                 log.error('Error al cargar los vendendores: ', result);
             }
@@ -316,11 +402,9 @@ export class SellerListComponent implements OnInit {
         }
     }
 
-    get reason(): FormControl{
-        return this.stateForm.get('reason') as FormControl;
-    }
-
-    get observation(): FormControl{
-        return this.stateForm.get('observation') as FormControl;
+    ngOnDestroy() {
+        this.subs && this.subs.forEach(sub => {
+            sub.unsubscribe();
+        })
     }
 }

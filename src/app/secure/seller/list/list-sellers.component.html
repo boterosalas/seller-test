@@ -127,24 +127,27 @@
                     </label>
                   </div>
                 <div id="status" class="label-container status">
-                    <button mat-mini-fab color="primary" 
-                    (click) = "changeSellerState(seller, 'enabled')" 
+                    <button mat-mini-fab 
+                    id ="btn-enabled-seller"
+                    (click) = "changeSellerStatus(seller, 'enabled')" 
                     [ngClass]="seller.status == 'enabled' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
-                    [disabled]="seller.status == 'enabled'">
+                    [disabled]="!seller.status || seller.status == 'enabled'">
                       <mat-icon aria-label="active status of seller">
                         check
                       </mat-icon>
                     </button>
-                    <button mat-mini-fab color="warn" 
-                    (click) = "changeSellerState(seller, 'disabled')"
+                    <button mat-mini-fab
+                    id="btn-disabled-seller"
+                    (click) = "changeSellerStatus(seller, 'disabled')"
                     [ngClass]="seller.status == 'disabled' ? 'warnColor' : 'grayBackgroundButton' " 
                     [disabled]="seller.status == 'disabled'">
                       <mat-icon aria-label="inactive status of seller">
                         block
                       </mat-icon>
                     </button>
-                    <button mat-mini-fab color="primary" 
-                    (click) = "changeSellerState(seller, 'vacation')"
+                    <button mat-mini-fab
+                    id="btn-vacation-seller" 
+                    (click) = "changeSellerStatus(seller, 'vacation')"
                     [ngClass]="seller.status == 'vacation' ? 'primaryColor' : 'grayBackgroundButton' " 
                     [disabled]="seller.status == 'vacation' || seller.status == 'disabled'">
                       <mat-icon aria-label="vacation status of seller">
@@ -179,17 +182,31 @@
 
 <ng-template #dialogContent *ngIf="needFormStates$ | async as status">
   <ng-container *ngIf="status == 'vacation'">
-    vacation
+      <br/>
+    <form [formGroup]="statusForm" class="full-width space-between">
+      <mat-form-field class="half-width">
+        <input matInput [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+        <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
+        <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+  </form>
   </ng-container>  
   <ng-container *ngIf="status == 'disabled'">
-    <form [formGroup]="stateForm">
+    <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Motivo" autocomplete="false" formControlName="reason">
+          <input matInput placeholder="Motivo" autocomplete="false" formControlName="Reasons">
           <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
           <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Observación" autocomplete="false" formControlName="observation"></textarea>
+          <textarea matInput placeholder="Observación" autocomplete="false" formControlName="Observations"></textarea>
           <mat-error *ngIf="observation.hasError('maxlength')">El nombre no debe superar los 2000 caracteres.</mat-error>
           <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>

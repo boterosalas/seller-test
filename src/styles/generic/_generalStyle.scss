@@ -88,13 +88,6 @@
     border-radius: 5px !important;
 }
 
-.cdk-overlay-pane{
-    width: 55% !important;
-    @media screen and (max-width: 768px) {
-        width: 90% !important;
-    }
-}
-
 .in-process {
     flex-wrap: wrap;
     display: flex;

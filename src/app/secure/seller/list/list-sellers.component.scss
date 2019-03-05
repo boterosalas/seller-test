@@ -201,6 +201,15 @@ $color-primary: #3d5afe;
   width: 100%
 }
 
+.half-width{
+  width: 45%;
+}
+
+.space-between{
+  display: inline-flex;
+  justify-content: space-between;
+}
+
 .title-list{
   display: none;
   @media screen and (max-width: 600px){
