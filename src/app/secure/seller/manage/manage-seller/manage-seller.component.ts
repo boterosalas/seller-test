@@ -52,6 +52,7 @@ export class ManageSellerComponent implements OnInit {
 
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
+  public validateFormRegisterAdmin: FormGroup;
 
   public nit: FormControl;
   public rut: FormControl;
@@ -69,6 +70,12 @@ export class ManageSellerComponent implements OnInit {
   public gotoExito: FormControl;
   public gotoCarrulla: FormControl;
   public gotoCatalogo: FormControl;
+  public profile: FormControl;
+  profileSeller: string[] = [];
+  profileAdmin: string[] = [];
+  public showUpdate: boolean;
+
+
 
   // variable que almacena el nombre de la tienda seleccionada
   public currentSellerSelect: StoreModel;
@@ -139,6 +146,7 @@ export class ManageSellerComponent implements OnInit {
    */
   ngOnInit() {
     this.permissionComponent = this.authService.getMenu(administrateName);
+    this.getProfile();
     this.userService.isAuthenticated(this);
     const disabledForm = !this.getFunctionality(this.update);
     this.disabledComponent = disabledForm;
@@ -153,32 +161,51 @@ export class ManageSellerComponent implements OnInit {
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
           console.log('res editar: ', res);
           if (res.status === 200) {
+            this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
+            console.log('body: ', body);
             this.currentSellerSelect = body.Data;
-            this.nit.setValue(this.currentSellerSelect.Nit);
-            this.rut.setValue(this.currentSellerSelect.Rut);
-            this.contactName.setValue(this.currentSellerSelect.ContactName);
-            this.email.setValue(this.currentSellerSelect.Email);
-            this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
-            this.state.setValue(this.currentSellerSelect.State);
-            this.city.setValue(this.currentSellerSelect.City);
-            this.address.setValue(this.currentSellerSelect.Address);
-            this.daneCode.setValue(this.currentSellerSelect.DaneCode);
-            this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
-            this.name.setValue(this.currentSellerSelect.Name);
-            this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
-            this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
-            this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
-            this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
-            this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
-            this.noValidateData = Object.assign({}, {
-              email: this.currentSellerSelect.Email,
-              name: this.currentSellerSelect.Name
-            });
-            this.elementStateLoad = this.currentSellerSelect.State;
-            this.elementCityLoad = this.currentSellerSelect.City;
+            if (this.currentSellerSelect.City) {
+              this.showUpdate = true;
+              console.log('si trae city');
+              // this.currentSellerSelect = body.Data;
+              console.log('this.currentSellerSelect: ', this.currentSellerSelect);
+              this.nit.setValue(this.currentSellerSelect.Nit);
+              this.rut.setValue(this.currentSellerSelect.Rut);
+              this.contactName.setValue(this.currentSellerSelect.ContactName);
+              this.email.setValue(this.currentSellerSelect.Email);
+              this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
+              this.state.setValue(this.currentSellerSelect.State);
+              this.city.setValue(this.currentSellerSelect.City);
+              this.address.setValue(this.currentSellerSelect.Address);
+              this.daneCode.setValue(this.currentSellerSelect.DaneCode);
+              this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
+              this.name.setValue(this.currentSellerSelect.Name);
+              this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
+              this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
+              this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
+              this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
+              this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+              this.profile.setValue(this.currentSellerSelect.Profile);
+              this.noValidateData = Object.assign({}, {
+                email: this.currentSellerSelect.Email,
+              });
+              this.elementStateLoad = this.currentSellerSelect.State;
+              this.elementCityLoad = this.currentSellerSelect.City;
+            } else {
+              this.showUpdate = false;
+              console.log('No tiene city');
+              this.nit.setValue(this.currentSellerSelect.Nit);
+              this.email.setValue(this.currentSellerSelect.Email);
+              this.name.setValue(this.currentSellerSelect.Name);
+              this.noValidateData = Object.assign({}, {
+                email: this.currentSellerSelect.Email,
+              });
+            }
           }
+          this.loadingService.closeSpinner();
         });
+        this.loadingService.closeSpinner();
       }
     });
   }
@@ -189,43 +216,44 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   createFormControls(disable: boolean) {
-    this.nit = new FormControl({value: '', disabled: disable}, [
+    this.nit = new FormControl({ value: '', disabled: disable }, [
       Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
     ]);
     this.rut = new FormControl
-      ({value: '', disabled: disable}, [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
       ]);
     this.contactName = new FormControl
-      ({value: '', disabled: disable}, [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
       ]);
     this.email = new FormControl
-      ({value: '', disabled: disable}, [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.emailRegex)
       ]);
     this.phoneNumber = new FormControl
-      ({value: '', disabled: disable}, [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.minLength(7),
       Validators.maxLength(10),
       Validators.pattern('^[0-9]*$')]);
     this.address = new FormControl
-      ({value: '', disabled: disable}, [Validators.required]);
-    this.state = new FormControl({value: '', disabled: disable});
-    this.city = new FormControl({value: '', disabled: disable});
-    this.daneCode = new FormControl({value: '', disabled: disable});
-    this.sincoDaneCode = new FormControl({value: '', disabled: disable});
+      ({ value: '', disabled: disable }, [Validators.required]);
+    this.state = new FormControl({ value: '', disabled: disable });
+    this.city = new FormControl({ value: '', disabled: disable });
+    this.daneCode = new FormControl({ value: '', disabled: disable });
+    this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
     this.name = new FormControl
-      ({value: '', disabled: disable}, [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.nameStoreRegex)]);
-    this.isLogisticsExito = new FormControl({value: '', disabled: disable});
-    this.isShippingExito = new FormControl({value: '', disabled: disable});
-    this.gotoExito = new FormControl({value: '', disabled: disable});
-    this.gotoCarrulla = new FormControl({value: '', disabled: disable});
-    this.gotoCatalogo = new FormControl({value: '', disabled: disable});
+    this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
+    this.isShippingExito = new FormControl({ value: '', disabled: disable });
+    this.gotoExito = new FormControl({ value: '', disabled: disable });
+    this.gotoCarrulla = new FormControl({ value: '', disabled: disable });
+    this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
+    this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.createForm();
   }
 
@@ -252,7 +280,13 @@ export class ManageSellerComponent implements OnInit {
       IsShippingExito: this.isShippingExito,
       GotoExito: this.gotoExito,
       GotoCarrulla: this.gotoCarrulla,
-      GotoCatalogo: this.gotoCatalogo
+      GotoCatalogo: this.gotoCatalogo,
+      Profile: this.profile
+    });
+    this.validateFormRegisterAdmin = new FormGroup({
+      Nit: this.nit,
+      Email: this.email,
+      Name: this.name
     });
   }
 
@@ -348,10 +382,52 @@ export class ManageSellerComponent implements OnInit {
     if (this.validateFormRegister.valid) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
+      const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
+      this.validateFormRegister.controls.Profile.setValue(profile);
       const values = this.validateFormRegister.value;
+      values.id = this.idSeller;
+      console.log('values: ', values);
+      this.manageSeller.updateSeller(values).subscribe(
+        (result: any) => {
+          console.log('result submit: ', result);
+          console.log('this.validateFormRegister: ', this.validateFormRegister);
+          if (result.status === 201 || result.status === 200) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal('successUpdate');
+            } else if (!data.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+
+          this.disabledForService = false;
+          this.loadingService.closeSpinner();
+
+        }
+      );
+    }
+  }
+
+
+  /**
+   * Funcion para enviar registro de administrador editado
+   * por: Jose Banguera
+   * @memberof ManageSellerComponent
+   */
+  submitUpdateAdmin(): void {
+    if (this.validateFormRegisterAdmin.valid) {
+      this.loadingService.viewSpinner();
+      this.disabledForService = true;
+      const profile = `Exito|${this.validateFormRegisterAdmin.controls.Profile.value}`;
+      this.validateFormRegisterAdmin.controls.Profile.setValue(profile);
+      const values = this.validateFormRegisterAdmin.value;
       values.id = this.idSeller;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
+          console.log('result submit: ', result);
+          console.log('this.validateFormRegisterAdmin: ', this.validateFormRegisterAdmin);
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
@@ -395,5 +471,25 @@ export class ManageSellerComponent implements OnInit {
       return null;
     }
     return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  /**
+   * Cargar datos para seleccionar tipo de perfil
+   *
+   * @memberof ManageSellerComponent
+   */
+  public getProfile(): void {
+    this.registerService.typeProfile()
+      .subscribe(
+        (result: any) => {
+          const datas = JSON.parse(result.body).Data;
+          for (const data of datas) {
+            if (data.ProfileType === 'Exito') {
+              this.profileAdmin = data.Profiles;
+            } else if (data.ProfileType === 'Tienda') {
+              this.profileSeller = data.Profiles;
+            }
+          }
+        });
   }
 }
