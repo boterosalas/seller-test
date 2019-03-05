@@ -14,6 +14,7 @@ import { By } from "@angular/platform-browser";
 import { of, Observable } from "rxjs";
 import { SellerRoutingModule } from "../seller.routing";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
+import { componentFactoryName } from "@angular/compiler";
 
 export const constSellerList = [
     {
@@ -57,7 +58,7 @@ export const constSellerList = [
     }
 ]; 
 
-fdescribe('List Seller Component',() => {
+describe('List Seller Component',() => {
 
     //Create a Mock Services
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
@@ -131,6 +132,10 @@ fdescribe('List Seller Component',() => {
             mockDialog.open.and.returnValue(mockDialogRef);
             mockDialogRef.componentInstance.and.returnValue(dialogComponent);
             mockDialogRef.afterClosed.and.returnValue(new Observable<any>());
+            mockDialog.open.calls.reset();
+            mockStoresService.getAllStoresFull.calls.reset();
+            mockDialogRef.componentInstance.calls.reset();
+            mockDialogRef.afterClosed.calls.reset();
         })); 
 
         it('Should be exist btn status',() => {
@@ -145,7 +150,7 @@ fdescribe('List Seller Component',() => {
             }
         });
 
-        it('Should net be exist btn status', () => {
+        it('Should not be exist btn status', () => {
             sellerListComponent.sellerList = [];
             const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller'));
             const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller'));
@@ -153,52 +158,165 @@ fdescribe('List Seller Component',() => {
             expect(btnDisabledSeller).toBeNull();
             expect(btnEnabledSeller).toBeNull();
             expect(btnVacationSeller).toBeNull();
-        })
-
-        it('should be activate a disabled seller', async(() => {
-            const listOfSeller = sellerListComponent.sellerList;
-            console.log(11, dialogComponent);
-            sellerListComponent.changeSellerState(listOfSeller[1],'enabled');
-            fixture.detectChanges();
-            dialogFixture.detectChanges();
-            console.log(22, dialogComponent);
-
-            expect();
-        }));
-
-        /*
-        it('should not be activate an enabled seller', () => {
-            
         });
 
-        it('should be activate a seller in vacation', () => {
-            
+        it('should be build form for dialog to disabled status', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('disabled');
+            expect(stateForm.get('Reasons')).toBeTruthy();
+            expect(stateForm.get('Observations')).toBeTruthy();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
         });
 
-        it('should be disabled a enabled seller', () => {
-            
+        it('should be build form for dialog to vacation status', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('vacation');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeTruthy();
+            expect(stateForm.get('StartDateVacation')).toBeTruthy();
         });
 
-        it('should not be disabled a disabled seller', () => {
-            
+        it('Should be build form for dialog to enabled status', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('enabled');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
         });
 
-        it('should be disabled a seller in vacation', () => {
-            
+        it('should be build status form for change from disabled to vacation', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('disabled');
+            expect(stateForm.get('Reasons')).toBeTruthy();
+            expect(stateForm.get('Observations')).toBeTruthy();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
+            sellerListComponent.putComplementDataInStatusForm('vacation');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeTruthy();
+            expect(stateForm.get('StartDateVacation')).toBeTruthy();
         });
 
-        it('should be program a vacation of enabled seller', () => {
-            
+        it('should be build status form for change from vacation to disabled', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('vacation');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeTruthy();
+            expect(stateForm.get('StartDateVacation')).toBeTruthy();
+            sellerListComponent.putComplementDataInStatusForm('disabled');
+            expect(stateForm.get('Reasons')).toBeTruthy();
+            expect(stateForm.get('Observations')).toBeTruthy();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
         });
 
-        it('should not be program a vacation of disabled seller', () => {
-            
+        it('should be build status form for change from vacation to enabled', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('vacation');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeTruthy();
+            expect(stateForm.get('StartDateVacation')).toBeTruthy();
+            sellerListComponent.putComplementDataInStatusForm('enabled');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
+
         });
 
-        it('should be reprogram a vacation of seller in vacation', () => {
-            
+        it('should be build status form for change from disabled to enabled', () => {
+            sellerListComponent.initStatusForm();
+            const stateForm = sellerListComponent.statusForm;
+            sellerListComponent.putComplementDataInStatusForm('disabled');
+            expect(stateForm.get('Reasons')).toBeTruthy();
+            expect(stateForm.get('Observations')).toBeTruthy();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
+            sellerListComponent.putComplementDataInStatusForm('enabled');
+            expect(stateForm.get('Reasons')).toBeNull();
+            expect(stateForm.get('Observations')).toBeNull();
+            expect(stateForm.get('EndDateVacation')).toBeNull();
+            expect(stateForm.get('StartDateVacation')).toBeNull();
         });
-        */
+
+        it('should be transform a specific date to a date with format DD/MM/YYYY', () => {
+            const date = new Date();
+            const resultDate = sellerListComponent.setFormatDate(date);
+            expect(resultDate).toEqual(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+        });
+
+        it('should be return a data for enabled Dialog of an disabled Seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[1], 'enabled', 1);
+            expect(resultData.title).toEqual('Activación');
+        });
+
+        it('should be return a data for enabled Dialog of an disabled Seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[2], 'enabled', 2);
+            expect(resultData.title).toEqual('Activación');
+        });
+
+        it('should be return a data for disabled Dialog of an enabled Seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[0], 'disabled', 0);
+            expect(resultData.title).toEqual('Desactivación');
+        });
+
+        it('should be return a data for disabled Dialog of an vacation Seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[2], 'disabled', 2);
+            expect(resultData.title).toEqual('Desactivación');
+        });
+
+        it('should be return a data for vacation Dialog of an enabled Seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[0], 'vacation', 0);
+            expect(resultData.title).toEqual('Vacaciones');
+        });
+
+        it('Should not be return a data for enabled dialog of an enabled seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[0], 'enabled', 0);
+            expect(resultData.title).toEqual('');
+        });
+
+        it('Should not be return a data for disabled dialog of an disabled seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[1], 'disabled', 1);
+            expect(resultData.title).toEqual('');
+        });
+
+        it('Should not be return a data for vacation dialog of a disabled seller', () => {
+            sellerListComponent.initStatusForm();
+            const resultData = sellerListComponent.setDataChangeStatusDialog(constSellerList[1], 'vacation', 1);
+            expect(resultData.title).toEqual('');
+        });
+
+        it('should be active a disabled seller dialog', () => {
+            sellerListComponent.initStatusForm();
+            sellerListComponent.changeSellerStatus(constSellerList[0], 'disabled', 0);
+            expect(mockDialog.open).toHaveBeenCalled();
+        });
+
+        it('should not be active a active seller dialog', () => {
+            sellerListComponent.initStatusForm();
+            sellerListComponent.changeSellerStatus(constSellerList[0], 'enabled', 0);
+            expect(mockDialog.open).toHaveBeenCalledTimes(0);
+        });
+
     });
 
 });

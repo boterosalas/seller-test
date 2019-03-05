@@ -57,7 +57,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     listFilterSellers: ListFilterSeller[] = [
     ];
 
-    public needFormStates$: BehaviorSubject<string> = new BehaviorSubject(null);
+    public needFormStates$: BehaviorSubject<{posSeller: number, status: string}> = new BehaviorSubject({posSeller: 0, status: null});
     @ViewChild('dialogContent') content: TemplateRef<any>;
     statusForm: FormGroup;
     @ViewChild('intialPicker') initialPicker;
@@ -113,7 +113,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             IdSeller : ['', Validators.required]
         })
         this.subs.push(this.needFormStates$.subscribe(status => {
-            this.putComplementDataInStatusForm(status);
+            !!status ? this.putComplementDataInStatusForm(status.status): this.putComplementDataInStatusForm(null);
         }));
     }
 
@@ -137,17 +137,21 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * @param status Status to change
      */
     putComplementDataInStatusForm(status: string) {
-        if(status == 'disabled') {
+
+        switch (status) {
+            case 'disabled': 
             this.statusForm.addControl('Reasons', new FormControl('', Validators.compose([Validators.maxLength(120), trimField, Validators.required])));
             this.statusForm.addControl('Observations', new FormControl('', Validators.compose([Validators.maxLength(2000), trimField, Validators.required])));
             !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
             !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
-        } else if(status == 'vacation'){
+            break;
+            case 'vacation': 
             this.statusForm.addControl('StartDateVacation',new FormControl('', Validators.compose([Validators.required])));
             this.statusForm.addControl('EndDateVacation',new FormControl('', Validators.compose([Validators.required])))
             !!this.reason ? this.statusForm.removeControl('Reasons') : null;
             !!this.observation ? this.statusForm.removeControl('Observations') : null;
-        } else {
+            break;
+            case 'enabled':
             !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
             !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
             !!this.reason ? this.statusForm.removeControl('Reasons') : null;
@@ -165,17 +169,17 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
     /**
      * Method that open the dialog to confirmation change status
-     * @param sellerData 
-     * @param status 
+     * @param sellerData seller to change the status
+     * @param status new status
      */
-    public changeSellerStatus(sellerData: any, status: string): void {
-        const dataDialog = this.setDataChangeStatusDialog(sellerData, status);
-        const dialogRef = this.dialog.open(DialogWithFormComponent, {
-            width: '55%',
-            minWidth: '280px',
-            data: dataDialog
-        });
-        if(!!dataDialog) {
+    public changeSellerStatus(sellerData: any, status: string, index: number): void {
+        const dataDialog = this.setDataChangeStatusDialog(sellerData, status, index);
+        if(!!dataDialog && !!dataDialog.title) {
+            const dialogRef = this.dialog.open(DialogWithFormComponent, {
+                width: '55%',
+                minWidth: '280px',
+                data: dataDialog
+            });
             setTimeout(() => {
                 this.configDataDialog(dialogRef);
             })
@@ -208,6 +212,15 @@ export class SellerListComponent implements OnInit, OnDestroy {
             }
             this.loading.viewSpinner();
             this.subs.push(this.storesService.changeStateSeller(form).subscribe(val => {
+                const body = val.body;
+                if(body.statusCode == 201) {
+                    const resultData = JSON.parse(body.body);
+                    if(resultData && resultData.Message) {
+                        const status = this.needFormStates$.getValue();
+                        this.updateSeller(status);
+                    }
+                }
+                dialogInstance.onNoClick();
                 this.loading.closeSpinner();
             }));
         };
@@ -216,12 +229,29 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.needFormStates$.next(null);
         }));
     }
+
+    updateSeller(value: {posSeller: number, status: string}) {
+        switch (value.status) {
+            case null: 
+            this.sellerList[value.posSeller].Status = 'Enable';
+            break;
+            case 'disabled': 
+            this.sellerList[value.posSeller].Status = 'Disable';
+            break;
+            case 'vacation':
+            this.sellerList[value.posSeller].Status = 'Vacations';
+            break;
+        }
+        this.snackBar.open('Actualizado correctamente: ' + this.sellerList[value.posSeller].Name, 'Cerrar', {
+            duration: 3000,
+        });
+    }
     /**
      * Method that build the data for Dialog Confirmation at change status
      * @param sellerData Seller's data to change status
      * @param status statatus to change
      */
-    setDataChangeStatusDialog(sellerData: any, status: string){
+    setDataChangeStatusDialog(sellerData: any, status: string, index: number){
         let message = "";
         let title = "";
         let icon = "";
@@ -230,16 +260,17 @@ export class SellerListComponent implements OnInit, OnDestroy {
             message = "¿Estas seguro que deseas activar este vendedor?";
             icon = null;
             title = "Activación";
+            this.needFormStates$.next({posSeller: index, status: null});
         } else if (status == "disabled" && sellerData.status != 'disabled') {
             message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
             icon = null;
             title= "Desactivación";
-            this.needFormStates$.next(status.toString());
+            this.needFormStates$.next({posSeller: index, status: status.toString()});
         } else if(status == "vacation" && sellerData.status != 'disabled') {
             title = "Vacaciones";
             message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
             icon = "local_airport"
-            this.needFormStates$.next(status.toString());
+            this.needFormStates$.next({posSeller: index, status: status.toString()});
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
@@ -344,6 +375,17 @@ export class SellerListComponent implements OnInit, OnDestroy {
                     return a['IdSeller'] - b['IdSeller'];
                 });
                 this.sellerLength = this.sellerList.length;
+                this.sellerList.forEach(seller => {
+                    const startDate = new Date(seller.StartVacations);
+                    const endDate = new Date(seller.EndVacations);
+                    if(startDate.getFullYear() == 1 || endDate.getFullYear() == 1) {
+                        seller.StartVacations = null;
+                        seller.EndVacations = null;
+                    } else {
+                        seller.StartVacations = this.setFormatDate(startDate);
+                        seller.EndVacations = this.setFormatDate(endDate);
+                    }
+                });
             } else {
                 log.error('Error al cargar los vendendores: ', result);
             }

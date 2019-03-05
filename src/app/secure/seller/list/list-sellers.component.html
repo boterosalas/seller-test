@@ -123,33 +123,40 @@
                         Nombre
                       </p>
                     <label class="label-result">
-                      {{seller.Name}} - {{seller.status}}
+                      {{seller.Name}}
                     </label>
                   </div>
                 <div id="status" class="label-container status">
                     <button mat-mini-fab 
                     id ="btn-enabled-seller"
-                    (click) = "changeSellerStatus(seller, 'enabled')" 
-                    [ngClass]="seller.status == 'enabled' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
-                    [disabled]="!seller.status || seller.status == 'enabled'">
+                    (click) = "changeSellerStatus(seller, 'enabled', i)" 
+                    [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
+                    [disabled]="!seller.Status || seller.Status == 'Enable'">
                       <mat-icon aria-label="active status of seller">
                         check
                       </mat-icon>
                     </button>
                     <button mat-mini-fab
                     id="btn-disabled-seller"
-                    (click) = "changeSellerStatus(seller, 'disabled')"
-                    [ngClass]="seller.status == 'disabled' ? 'warnColor' : 'grayBackgroundButton' " 
-                    [disabled]="seller.status == 'disabled'">
+                    (click) = "changeSellerStatus(seller, 'disabled', i)"
+                    [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'grayBackgroundButton' " 
+                    [disabled]="!seller.Status || seller.Status == 'Disable'">
                       <mat-icon aria-label="inactive status of seller">
                         block
                       </mat-icon>
                     </button>
+                    <!-- <button mat-mini-fab
+                    id="btn-vacation-seller" 
+                    (click) = "changeSellerStatus(seller, 'vacation', i)"
+                    [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
+                    [disabled]=" !seller.Status || seller.Status == 'Vacations' || seller.Status == 'Disable'">
+                      <mat-icon aria-label="vacation status of seller">
+                        local_airport
+                      </mat-icon>
+                    </button> -->
                     <button mat-mini-fab
                     id="btn-vacation-seller" 
-                    (click) = "changeSellerStatus(seller, 'vacation')"
-                    [ngClass]="seller.status == 'vacation' ? 'primaryColor' : 'grayBackgroundButton' " 
-                    [disabled]="seller.status == 'vacation' || seller.status == 'disabled'">
+                    [disabled]="true">
                       <mat-icon aria-label="vacation status of seller">
                         local_airport
                       </mat-icon>
@@ -159,17 +166,15 @@
                     <p class="title-list">
                       Vacacaiones
                     </p>
-                    <label class="label-result">
-                      <!-- <div> -->
-                          <strong>Inicio:</strong>99/99/9999 <br class="testBreak"/>
-                          <strong>Fin:</strong> 99/99/9999
-                      <!-- </div> -->
-                      <!-- <div  style="width:8%">
-                            <mat-icon aria-label="vacation status of seller">
-                              cancel
-                            </mat-icon>
-                      </div> -->
+                    <label class="label-result" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
+                          <strong>Inicio:</strong>{{seller.StartVacations}}<br class="testBreak"/>
+                          <strong>Fin:</strong>{{seller.EndVacations}}
                     </label>
+                    <ng-template #ProgramDate>
+                        <label class="label-result">
+                            Programar Vacaciones
+                      </label>                     
+                    </ng-template>
                   </div>
           </div>
         </div>
@@ -181,7 +186,7 @@
 
 
 <ng-template #dialogContent *ngIf="needFormStates$ | async as status">
-  <ng-container *ngIf="status == 'vacation'">
+  <ng-container *ngIf="status.status == 'vacation'">
       <br/>
     <form [formGroup]="statusForm" class="full-width space-between">
       <mat-form-field class="half-width">
@@ -198,7 +203,7 @@
 
   </form>
   </ng-container>  
-  <ng-container *ngIf="status == 'disabled'">
+  <ng-container *ngIf="status.status == 'disabled'">
     <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
           <input matInput placeholder="Motivo" autocomplete="false" formControlName="Reasons">

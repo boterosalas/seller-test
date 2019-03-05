@@ -4,6 +4,7 @@ import { MaterialModule } from '@app/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 describe('DialogWithFormComponent', () => {
   let component: DialogWithFormComponent;
@@ -55,13 +56,15 @@ describe('DialogWithFormComponent', () => {
   });
 
   it('Should not valid the confirmation button', () => {
+    const formGroup = new FormGroup({});
+    formGroup.addControl('IdSeller', new FormControl('', Validators.required))
+    component.data.form = formGroup;
     const confirmationButton = fixture.debugElement.query(By.css('#btn-confirmation')).nativeElement;
     fixture.detectChanges();
     expect(confirmationButton.disabled).toBeTruthy();
   });
 
   it('Should valid the confirmation button', () => {
-    component.valid = true;
     const confirmationButton = fixture.debugElement.query(By.css('#btn-confirmation')).nativeElement;
     confirmationButton.click();
     fixture.detectChanges();
