@@ -225,7 +225,7 @@
 
           <h4>Selecciona tipo de perfil</h4>
           <mat-form-field>
-            <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
+            <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="adminList" formControlName="Profile">
               <mat-option *ngFor="let Admin of profileAdmin" [value]="Admin">
                 {{Admin}}
               </mat-option>

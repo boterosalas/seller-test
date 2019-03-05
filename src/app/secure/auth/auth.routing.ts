@@ -48,7 +48,7 @@ export class AuthService implements CanActivate {
                         }, error => {
                             console.error(error);
                             reject(false);
-                            this.redirectToHome(false, state);
+                            this.redirectToHome(false, state, true);
                         });
                     } else {
                         if (state.url === '/' + RoutesConst.sellerCenterIntDashboard) {
@@ -59,7 +59,7 @@ export class AuthService implements CanActivate {
                             }, error => {
                                 console.error(error);
                                 reject(false);
-                                this.redirectToHome(false, state);
+                                this.redirectToHome(false, state, true);
                             });
                         } else {
                             this.redirectToHome(false, state);
@@ -142,12 +142,16 @@ export class AuthService implements CanActivate {
 
     /**
      * Redirecciona a la pagina principal.
+     * no puedo hablar mucho entonces:
+     * lo que hice fue que verificara si el usuario esta logeado, lo mande para el home (la primera vista de la lista),
+     * pero si no esta logeado redirectLog, lo mande para el logout;
      *
      * @param {boolean} result
      * @memberof AuthService
      */
-    public redirectToHome(result: boolean, state: RouterStateSnapshot): void {
-        if (!result) {
+    public redirectToHome(result: boolean, state: RouterStateSnapshot, redirectLog: boolean = false): void {
+        console.log(redirectLog, 'result' + result);
+        if (!result && !redirectLog) {
             let redirect = false;
             this.modulesRouting.forEach(element => {
                 if (element.ShowModule) {
@@ -160,9 +164,10 @@ export class AuthService implements CanActivate {
                 }
             });
             if (!redirect) {
-                this.router.navigate([`/${RoutesConst.logout}`]);
+                this.router.navigate([`/${RoutesConst.sellerCenterLogout}`]);
             }
-            // this.router.navigate([`/${RoutesConst.home}`]);
+        } else if (redirectLog) {
+            this.router.navigate([`/${RoutesConst.sellerCenterLogout}`]);
         }
     }
 

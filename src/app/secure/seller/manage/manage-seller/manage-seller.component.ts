@@ -91,6 +91,7 @@ export class ManageSellerComponent implements OnInit {
   public elementCityLoad: string;
   public firstEmit = true;
   public idSeller: string;
+  public selectedValue: string;
 
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
@@ -187,6 +188,7 @@ export class ManageSellerComponent implements OnInit {
               this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
               this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
               this.profile.setValue(this.currentSellerSelect.Profile);
+              this.selectedValue = this.currentSellerSelect.Profile;
               this.noValidateData = Object.assign({}, {
                 email: this.currentSellerSelect.Email,
               });
@@ -194,10 +196,12 @@ export class ManageSellerComponent implements OnInit {
               this.elementCityLoad = this.currentSellerSelect.City;
             } else {
               this.showUpdate = false;
-              console.log('No tiene city');
+              console.log('No tiene city', this.profileAdmin, this.currentSellerSelect.Profile);
               this.nit.setValue(this.currentSellerSelect.Nit);
               this.email.setValue(this.currentSellerSelect.Email);
               this.name.setValue(this.currentSellerSelect.Name);
+              this.profile.setValue(this.currentSellerSelect.Profile);
+              this.selectedValue = this.currentSellerSelect.Profile;
               this.noValidateData = Object.assign({}, {
                 email: this.currentSellerSelect.Email,
               });
@@ -286,7 +290,8 @@ export class ManageSellerComponent implements OnInit {
     this.validateFormRegisterAdmin = new FormGroup({
       Nit: this.nit,
       Email: this.email,
-      Name: this.name
+      Name: this.name,
+      Profile: this.profile
     });
   }
 

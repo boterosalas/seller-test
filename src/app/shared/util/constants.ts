@@ -153,7 +153,7 @@ export class Const {
   };
 
   static readonly ProfileTypes: any = ['Vendedor', 'Administrador'];
-  static readonly ProfileTypesBack: any = ['Exito', 'Shop'];
+  static readonly ProfileTypesBack: any = ['Exito', 'Tienda'];
 
   static readonly error = 'error';
   static readonly home = 'home';

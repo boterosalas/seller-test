@@ -18,6 +18,7 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntSellerAgreements}`,
             component: AgreementComponent ,
             data: { title: 'Acuerdos del vendedor' },
+            canActivate: [AuthService]
         }, {
             path: `${RoutesConst.sellerCenterIntSellerProfiles}`,
             component: ProfileComponent,
