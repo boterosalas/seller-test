@@ -9,6 +9,8 @@ import * as XLSX from 'xlsx';
 import { DownloadFormatComponent } from '../download-format/download-format.component';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { LoadGuideService } from '../load-guide.service';
+import { MenuModel, guideChargesName, loadFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('LoadGuideComponent');
@@ -64,6 +66,12 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
   public fileName: any = '';
   // Sort para la tabla
   public sort: any;
+
+  // Permisos otorgados al componente.
+  permissionComponent: MenuModel; // Menu componentes.
+  load = loadFunctionality; // Cargar.
+  download = downloadFunctionality; // Descargar.
+
   // Input file que carga el archivo
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
@@ -75,7 +83,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     private loadingService: LoadingService,
     public userService: UserLoginService,
     private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) {
     this.user = {};
   }
@@ -84,7 +93,20 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    * @memberof LoadGuidePageComponent
    */
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(guideChargesName);
     this.userService.isAuthenticated(this);
+  }
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {

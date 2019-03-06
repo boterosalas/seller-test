@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { ListProductsComponent } from './list-products.component';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const routes: Routes = [
   Route.withShell([
@@ -11,6 +12,7 @@ const routes: Routes = [
       component: ListProductsComponent,
       data: { title: 'Listado de productos' },
       // canActivate: [TermsService]
+      canActivate: [AuthService]
     }
   ])
 ];

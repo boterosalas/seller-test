@@ -157,7 +157,7 @@ $height-input: 25px;
   // display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 4px 0 0;
+  border-radius: 6px;
 
   .mat-form-field-infix {
     top: -5px;
@@ -185,4 +185,8 @@ $height-input: 25px;
   // display: flex;
   padding: 1px;
   // margin-left: 8%;
+}
+
+.search-input:disabled{
+  background-color: #404040;
 }

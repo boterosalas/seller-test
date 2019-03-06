@@ -20,7 +20,8 @@ export class StoreModel {
         public PhoneNumber?: string,
         public State?: string,
         public City?: string,
-        public SincoDaneCode?: string
+        public SincoDaneCode?: string,
+        public Profile?: string
     ) { }
 }
 

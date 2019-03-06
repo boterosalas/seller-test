@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material';
 import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
 import { AddDialogSpecsComponent } from '../dialogAddSpecs/dialog-add-specs.component';
 import { DeleteDialogSpecsComponent } from '../dialogDelete/dialog-delete.component';
+import { MenuModel, readFunctionality, deleteFunctionality, updateFunctionality, createFunctionality, specsName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -30,6 +32,13 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     groupDelete: any;
     specDelete: any;
     groupSpecToAdd: any;
+    // Variables con los permisos que este componente posee
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+    delete = deleteFunctionality;
+    update = updateFunctionality;
+    create = createFunctionality;
+
     constructor(
         private specificationService: ParamSpecsService,
         private loadingService: LoadingService,
@@ -37,14 +46,28 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         private searchService: SearchService,
         public snackBar: MatSnackBar,
         public el: ElementRef,
-        private render: Renderer
+        private render: Renderer,
+        public authService: AuthService
     ) {
 
     }
 
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(specsName);
         this.loadingService.viewSpinner();
         this.getSpecifications(true);
+    }
+
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof ToolbarComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
     }
 
     ngAfterViewInit() {

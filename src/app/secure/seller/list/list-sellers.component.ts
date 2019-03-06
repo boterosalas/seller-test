@@ -10,6 +10,8 @@ import { DialogWithFormComponent } from './dialog-with-form/dialog-with-form.com
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages'
 
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName } from '@app/secure/auth/auth.consts';
 
 export interface ListFilterSeller {
     name: string;
@@ -70,16 +72,20 @@ export class SellerListComponent implements OnInit, OnDestroy {
     pageEvent: PageEvent;
     @ViewChild('sidenav') sidenav: MatSidenav;
     nameSellerListFilter: any;
-    
 
-
+    // Variables con los permisos que este componente posee
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+    visualize = visualizeFunctionality;
+    enable = enableFunctionality;
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
         private snackBar: MatSnackBar,
         private router: Router,
         private fb: FormBuilder,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        public authService: AuthService) {
     }
 
     get reason(): FormControl{
@@ -99,12 +105,11 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
         this.initStatusForm();
-        // this.createForm();
-        // this.matDrawer.closedStart = tri
     }
 
     /**
@@ -117,6 +122,18 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.subs.push(this.needFormStates$.subscribe(status => {
             !!status && this.putComplementDataInStatusForm(status.status);
         }));
+    }
+
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof ToolbarComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
     }
 
     /**
@@ -402,7 +419,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     public redirectToSeller(idSeller: number): void {
-        this.router.navigate([`/${RoutesConst.sellerCenterIntSellerManage}`, { id: idSeller }]);
+        this.router.navigate([`/${RoutesConst.sellerCenterIntSellerManage}` , { id: idSeller }]);
         // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ListTransporterService } from './list-transporter.service';
 import { Logger } from '@app/core';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -35,6 +35,11 @@ const log = new Logger('ListTransporterComponent');
 })
 
 export class ListTransporterComponent implements OnInit {
+
+  // Opcines parametrizables desde el llamado del componente.
+  @Input() canEdit: boolean;
+  @Input() canDelete: boolean;
+  @Input() canCreate: boolean;
 
   /** Initialize required variables   */
   public listTransporters: Array<TransportModel> = [];

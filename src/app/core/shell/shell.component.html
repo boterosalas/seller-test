@@ -13,7 +13,7 @@
   <mat-sidenav-content class="over-hidden">
     <!-- Componente Header de la página -->
     <app-header [sidenav]="sidenav" [user]="user"></app-header>
-    <app-toolbar-link class="light-content" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
+    <app-toolbar-link [user]="user" class="light-content" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>
     <!-- Render módulos-->
     <router-outlet></router-outlet>
 

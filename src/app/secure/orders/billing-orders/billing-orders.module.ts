@@ -7,7 +7,6 @@ import { BillingOrderComponent } from './billing-orders.component';
 import { BillingOrdersRoutingModule } from './billing-orders.routing';
 import { MatToolbarModule } from '@angular/material';
 import { MaterialModule } from '@app/material.module';
-import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { BillingOrdersService } from './billing-orders.service';
 

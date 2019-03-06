@@ -8,7 +8,8 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
 import { ReturnStatement } from '@angular/compiler';
-
+import { MenuModel, listProductsName, readFunctionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 export interface ListFilterProducts {
     name: string;
@@ -68,6 +69,9 @@ export class ListProductsComponent implements OnInit {
     listFilterProducts: ListFilterProducts[] = [
     ];
     validateRegex: any;
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+
     constructor(
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
@@ -75,9 +79,25 @@ export class ListProductsComponent implements OnInit {
         private fb?: FormBuilder,
         public SUPPORT?: SupportService,
         public snackBar?: MatSnackBar,
+        public authService?: AuthService
+
     ) { }
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(listProductsName);
+       // this.permissionComponent = this.authService.getMenu(listProductsNameAdmin);
         this.validateFormSupport();
+    }
+
+    /*
+    Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
     }
 
     onEnter(value: string) {
@@ -91,8 +111,8 @@ export class ListProductsComponent implements OnInit {
     createFormControls() {
         this.filterProduts = this.fb.group({
             productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
-           /* ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])),
-            nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
+            /* ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])),
+             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
             ean: new FormControl(''),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
@@ -299,6 +319,7 @@ export class ListProductsComponent implements OnInit {
         if (activeFilter) {
             this.applyFilter = true;
         }
+        this.loadingService.viewSpinner();
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);

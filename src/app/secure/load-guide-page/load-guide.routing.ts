@@ -5,6 +5,7 @@ import { Route } from '@app/core';
 import { RoutesConst } from './../../shared';
 import { LoadGuidePageComponent } from './load-guide/load-guide-page.component';
 import { TermsService } from '../seller/agreement/terms/terms.component.service';
+import { AuthService } from '../auth/auth.routing';
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntOrderLoadGuide}`,
       component: LoadGuidePageComponent,
       data: { title: 'Cargar de guías' },
-      canActivate: [TermsService]
+      canActivate: [TermsService, AuthService]
+      // canActivate: [TermsService]
     }
   ])
 ];

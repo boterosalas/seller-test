@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angul
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SendModerationFormatModalComponent } from '@secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.component';
 import { ConfigBulkLoad, Event, TypeEvents } from '@shared/components/bulk-load';
+import { MenuModel, loadFunctionality, moderateName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 @Component({
   selector: 'app-bulk-load-product-moderation',
@@ -18,14 +20,36 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
   // Referencia de la modal
   dialogRef: MatDialogRef<SendModerationFormatModalComponent>;
 
-  constructor(private dialog: MatDialog) { }
+   // Variables con los permisos que este componente posee
+   permissionComponent: MenuModel;
+   load = loadFunctionality;
+   disabledLoad = false;
+
+  constructor(private dialog: MatDialog,
+    public authService: AuthService) { }
 
   ngOnInit() {
+     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
+     this.permissionComponent = this.authService.getMenu(moderateName);
+     this.disabledLoad = !this.getFunctionality(this.load);
   }
 
   ngAfterViewInit() {
     this.config.mainContentTpl = this.mainContentTpl;
   }
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof BulkLoadProductModerationComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
+  }
+
 
   /**
    * Abre una modal y solicita el correo al cual se va enviar la moderación.

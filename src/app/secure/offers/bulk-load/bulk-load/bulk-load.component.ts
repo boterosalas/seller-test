@@ -102,23 +102,6 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   ngOnInit() {
-    this.userService.isAuthenticated(this);
-  }
-
-  isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.getDataUser();
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
-
-  }
-
-  async getDataUser() {
-    this.user = await this.userParams.getUserData();
-    if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-    }
   }
 
   /**
