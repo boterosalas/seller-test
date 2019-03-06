@@ -139,7 +139,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * @param status Status to change
      */
     putComplementDataInStatusForm(status: string) {
-        console.log(status);
         switch (status) {
             case 'disabled': 
             this.statusForm.addControl('Reasons', new FormControl('', Validators.compose([Validators.maxLength(120), trimField, Validators.required])));
@@ -470,7 +469,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
             }
         });
-        console.log(this.listFilterSellers);
         this.filterSellerList();
     }
 
