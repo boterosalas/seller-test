@@ -13,9 +13,9 @@
             <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
               <span>{{menu.NameMenu}}</span>
             </button>
-            <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
+            <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
               target="_blank">
-              <h3 matLine style="margin-left:50px;">{{menu.NameMenu}}</h3>
+              <h3 matLine>{{menu.NameMenu}}</h3>
             </a>
           </div>
         </mat-menu>

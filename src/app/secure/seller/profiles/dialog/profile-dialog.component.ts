@@ -113,11 +113,10 @@ export class DialogProfileComponent {
 
     public changeRadio(): void {
         this.menuAddList = [];
+        this.menuShowList = [];
         this.functionalitiesList = [];
-        console.log(this.profileForm.value);
-        if (this.profileForm.value.Type === '0') {
+        if (this.profileForm.value.Type !== '0') {
             this.menuList.forEach(element => {
-                console.log(element.ProfileType, this.profileTypes[1] );
                 if (element.ProfileType === this.profileTypes[1]) {
                     this.menuShowList.push(element);
                 }

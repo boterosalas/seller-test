@@ -36,7 +36,6 @@ export class QuotingAdministratorComponent implements OnInit {
   ngOnInit(): void {
     this.permissionComponent = this.authService.getMenu(quoteName);
     // Cuando ud necesite ver el menu con las funciones imprime esto:
-    console.log(this.permissionComponent);
     this.readTransportFunction = this.getFunctionality(this.readTransport);
     this.createTransportFunction = this.getFunctionality(this.createTransport);
     this.updateTransportFunction = this.getFunctionality(this.updateTransport);

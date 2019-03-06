@@ -113,7 +113,7 @@
             <div id="id" class="label-container id" fxLayout="row" fxLayoutAlign="start center">
               <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
                 fxShow [fxShow.xs]="false">
-                <mat-icon class="material-icons" *ngIf="getFunctionality(visualize)">
+                <mat-icon class="material-icons" *ngIf="visualize">
                   visibility
                 </mat-icon>
               </button>

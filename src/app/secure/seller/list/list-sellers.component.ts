@@ -190,7 +190,7 @@ export class SellerListComponent implements OnInit {
     }
 
     public redirectToSeller(idSeller: number): void {
-        this.router.navigate([`/${RoutesConst.sellerCenterIntSellerManage}`, { id: idSeller }]);
+        this.router.navigate([`/${RoutesConst.sellerCenterIntSellerManage}` , { id: idSeller }]);
         // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
     }
 

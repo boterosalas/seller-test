@@ -36,7 +36,6 @@ export class AuthService implements CanActivate {
                 this.getModulesFromService().then(resultModule => {
                     this.modulesBack = resultModule;
                     const moduleSelected = this.validateModule(state.url); // Verfica a que menu desea ingresar
-                    console.log(moduleSelected);
                     this.verifyLog(); // Verifica si esta logueado
                     if (moduleSelected) { // Verifica si si esta ingresando a un menu mapeado.
                         this.userParams.getUserData().then(data => {
@@ -150,7 +149,6 @@ export class AuthService implements CanActivate {
      * @memberof AuthService
      */
     public redirectToHome(result: boolean, state: RouterStateSnapshot, redirectLog: boolean = false): void {
-        console.log(redirectLog, 'result' + result);
         if (!result && !redirectLog) {
             let redirect = false;
             this.modulesRouting.forEach(element => {

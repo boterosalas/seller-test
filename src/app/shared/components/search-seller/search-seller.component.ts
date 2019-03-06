@@ -117,7 +117,6 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public filter(val: string): string[] {
         if (val !== null && this.listSellers) {
-            console.log(this.listSellers);
             return this.listSellers.filter(option =>
                option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
         }

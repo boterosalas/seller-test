@@ -160,17 +160,13 @@ export class ManageSellerComponent implements OnInit {
         this.idSeller = seller.IdSeller;
         this.firstEmit = true;
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
-          console.log('res editar: ', res);
           if (res.status === 200) {
             this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
-            console.log('body: ', body);
             this.currentSellerSelect = body.Data;
             if (this.currentSellerSelect.City) {
               this.showUpdate = true;
-              console.log('si trae city');
               // this.currentSellerSelect = body.Data;
-              console.log('this.currentSellerSelect: ', this.currentSellerSelect);
               this.nit.setValue(this.currentSellerSelect.Nit);
               this.rut.setValue(this.currentSellerSelect.Rut);
               this.contactName.setValue(this.currentSellerSelect.ContactName);
@@ -196,7 +192,6 @@ export class ManageSellerComponent implements OnInit {
               this.elementCityLoad = this.currentSellerSelect.City;
             } else {
               this.showUpdate = false;
-              console.log('No tiene city', this.profileAdmin, this.currentSellerSelect.Profile);
               this.nit.setValue(this.currentSellerSelect.Nit);
               this.email.setValue(this.currentSellerSelect.Email);
               this.name.setValue(this.currentSellerSelect.Name);
@@ -391,11 +386,8 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls.Profile.setValue(profile);
       const values = this.validateFormRegister.value;
       values.id = this.idSeller;
-      console.log('values: ', values);
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
-          console.log('result submit: ', result);
-          console.log('this.validateFormRegister: ', this.validateFormRegister);
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
@@ -431,8 +423,6 @@ export class ManageSellerComponent implements OnInit {
       values.id = this.idSeller;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
-          console.log('result submit: ', result);
-          console.log('this.validateFormRegisterAdmin: ', this.validateFormRegisterAdmin);
           if (result.status === 201 || result.status === 200) {
             const data = JSON.parse(result.body.body);
             if (data.Data) {
