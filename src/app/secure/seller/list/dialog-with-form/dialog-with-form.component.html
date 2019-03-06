@@ -8,7 +8,7 @@
 <ng-container class="title-container" *ngIf="!!data.title">
         <h1 mat-dialog-title><strong>{{data.title}}</strong></h1>
 </ng-container>
-<div mat-dialog-content>
+<div mat-dialog-content [ngClass]="data.messageCenter ? 'text-center' : 'text-justify'">
     <ng-container *ngIf="!!data.message">
         {{data.message}}
     </ng-container>

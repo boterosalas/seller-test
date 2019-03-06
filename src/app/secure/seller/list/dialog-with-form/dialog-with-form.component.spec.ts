@@ -41,6 +41,7 @@ describe('DialogWithFormComponent', () => {
       icon: 'cancel',
       title: 'El titulo',
       message: 'el mensaje',
+      messageCenter: false,
       form: null
     };
 

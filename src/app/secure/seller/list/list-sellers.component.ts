@@ -38,13 +38,14 @@ export class SellerListComponent implements OnInit, OnDestroy {
     public id: FormControl;
     public sellerName: FormControl;
     public nit: FormControl;
-    idSeller: any;
-    nameSeller: any;
-    nitSeller: any;
+    // idSeller: any;
+    // nameSeller: any;
+    // nitSeller: any;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?!\s+).)*$/;
     showAn = true;
     sellerList: any;
+    totalSellerList: any[] = [];
     sellerListOrder: any;
     sellerLength = 0;
     pageSize = 10;
@@ -137,7 +138,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * @param status Status to change
      */
     putComplementDataInStatusForm(status: string) {
-
         switch (status) {
             case 'disabled': 
             this.statusForm.addControl('Reasons', new FormControl('', Validators.compose([Validators.maxLength(120), trimField, Validators.required])));
@@ -227,6 +227,11 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
         this.subs.push(dialog.afterClosed().subscribe(() => {
             this.needFormStates$.next(null);
+            if(!!this.reason) {
+                this.statusForm.reset({IdSeller: '', Reasons: '', Observations: ''})
+            } else {
+                this.statusForm.reset({IdSeller: '', EndDateVacation: '', StartDateVacation: ''})
+            }
         }));
     }
 
@@ -256,10 +261,12 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let title = "";
         let icon = "";
         let form = null;
+        let messageCenter = false;
         if(status=="enabled" && sellerData.status != 'enabled'){
             message = "¿Estas seguro que deseas activar este vendedor?";
             icon = null;
             title = "Activación";
+            messageCenter = true;
             this.needFormStates$.next({posSeller: index, status: null});
         } else if (status == "disabled" && sellerData.status != 'disabled') {
             message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
@@ -274,7 +281,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
-        return {title, message, icon, form}
+        return {title, message, icon, form, messageCenter}
     }
 
     /**
@@ -287,68 +294,94 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     public cleanFilterListSeller(): void {
-        this.idSeller = null;
-        this.nameSeller = null;
-        this.nitSeller = null;
+        // this.idSeller = null;
+        // this.nameSeller = null;
+        // this.nitSeller = null;
         this.listFilterSellers = [];
-
+        this.sellerList = this.totalSellerList;
     }
 
     public filterListSeller() {
         this.cleanFilterListSeller();
-        this.idSeller = this.filterSeller.controls.id.value;
-        this.nameSeller = this.filterSeller.controls.sellerName.value;
-        // Resetea la variable siempre y cuando no sea nulla
-        if (this.nameSeller !== null) {
-            this.nameSeller = this.nameSeller.trim().toLowerCase();
-        }
-        this.nitSeller = this.filterSeller.controls.nit.value;
+        // this.idSeller = this.filterSeller.controls.id.value;
+        // this.nameSeller = this.filterSeller.controls.sellerName.value;
+        // // Resetea la variable siempre y cuando no sea nulla
+        // if (this.nameSeller !== null) {
+        //     this.nameSeller = this.nameSeller.trim().toLowerCase();
+        // }
+        // this.nitSeller = this.filterSeller.controls.nit.value;
         const data = [];
-        data.push({ value: this.idSeller, name: 'idSeller', nameFilter: 'id' });
-        data.push({ value: this.nameSeller, name: 'nameSeller', nameFilter: 'sellerName' });
-        data.push({ value: this.nitSeller, name: 'nitSeller', nameFilter: 'nit' });
+        data.push({ value: this.filterSeller.controls.id.value, name: 'idSeller', nameFilter: 'id' });
+        data.push({ value: this.filterSeller.controls.sellerName.value, name: 'nameSeller', nameFilter: 'sellerName' });
+        data.push({ value: this.filterSeller.controls.nit.value, name: 'nitSeller', nameFilter: 'nit' });
         this.add(data);
     }
 
-    /**
-     *  showSeller => Metodo para realizar el filtro de listado de vendedores.
-     *
-     * @param {number} index
-     * @returns {boolean}
-     * @memberof SellerListComponent
-     */
-    public showSeller(index: number): boolean {
-        const count = 3;
-        let accomp = 0;
-        if (this.idSeller) {
-            if (this.sellerList[index].IdSeller.toString().match(this.idSeller)) {
-                accomp++;
+
+    filterSellerList(){
+        const filterList = this.totalSellerList.filter((element) => {
+            let trueId = true;
+            let trueNameSeller = true;
+            let trueNit = true;
+            this.listFilterSellers.forEach(filterElement => {
+                switch (filterElement.value) {
+                    case 'idSeller':
+                        trueId = element.IdSeller.toString().match(filterElement.name);
+                        break;
+                    case 'nameSeller':
+                        trueNameSeller = element.Name.toLowerCase().match(filterElement.name.toLowerCase());
+                        break;
+                    case 'nitSeller':
+                        trueNit = element.Nit.toString().match(filterElement.name);
+                        break;
+                }
+            });            
+            if(trueId && trueNameSeller && trueNit) {
+                return element;
             }
-        } else {
-            accomp++;
-        }
-        if (this.nameSeller) {
-            this.nameSellerListFilter = this.sellerList[index].Name;
-            this.nameSellerListFilter = this.nameSellerListFilter.toLowerCase();
-            if (this.nameSellerListFilter.match(this.nameSeller)) {
-                accomp++;
-            }
-        } else {
-            accomp++;
-        }
-        if (this.nitSeller) {
-            if (this.sellerList[index].Nit.toString().match(this.nitSeller)) {
-                accomp++;
-            }
-        } else {
-            accomp++;
-        }
-        if (accomp === count) {
-            return true;
-        } else {
-            return false;
-        }
+        });
+        this.sellerList = filterList;
     }
+
+    // /**
+    //  *  showSeller => Metodo para realizar el filtro de listado de vendedores.
+    //  *
+    //  * @param {number} index
+    //  * @returns {boolean}
+    //  * @memberof SellerListComponent
+    //  */
+    // public showSeller(index: number): boolean {
+    //     const count = 3;
+    //     let accomp = 0;
+    //     if (this.idSeller) {
+    //         if (this.sellerList[index].IdSeller.toString().match(this.idSeller)) {
+    //             accomp++;
+    //         }
+    //     } else {
+    //         accomp++;
+    //     }
+    //     if (this.nameSeller) {
+    //         this.nameSellerListFilter = this.sellerList[index].Name;
+    //         this.nameSellerListFilter = this.nameSellerListFilter.toLowerCase();
+    //         if (this.nameSellerListFilter.match(this.nameSeller)) {
+    //             accomp++;
+    //         }
+    //     } else {
+    //         accomp++;
+    //     }
+    //     if (this.nitSeller) {
+    //         if (this.sellerList[index].Nit.toString().match(this.nitSeller)) {
+    //             accomp++;
+    //         }
+    //     } else {
+    //         accomp++;
+    //     }
+    //     if (accomp === count) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public paginatorSellerList(index: number): boolean {
         if (this.pageEvent) {
@@ -386,6 +419,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
                         seller.EndVacations = this.setFormatDate(endDate);
                     }
                 });
+                this.totalSellerList = this.sellerList;
             } else {
                 log.error('Error al cargar los vendendores: ', result);
             }
@@ -427,6 +461,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
             }
         });
+        console.log(this.listFilterSellers);
+        this.filterSellerList();
     }
 
     /**
@@ -442,6 +478,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this[listFilterSeller.value] = '';
             this.filterSeller.controls[listFilterSeller.nameFilter].setValue(null);
         }
+        this.filterSellerList();
     }
 
     ngOnDestroy() {

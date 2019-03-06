@@ -232,6 +232,11 @@ $color-primary: #3d5afe;
     display: inline-flex;
     justify-content: center;
   }
+
+  & #id {
+    padding-left: 0 !important;
+    padding-right: 2%;
+  }
 }
 
 .testBreak{

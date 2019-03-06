@@ -103,7 +103,7 @@
         <div *ngFor="let seller of sellerList; let i = index " [ngClass]="{'background-bar' : seller.block}">
           <mat-progress-bar mode="indeterminate" *ngIf="seller.block"></mat-progress-bar>
           <!-- SELLER HEADER LIST-->
-          <div id="body-list" class="header-list" *ngIf="showSeller(i)">
+          <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
                     <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
                       fxShow [fxShow.xs]="false">
@@ -190,13 +190,13 @@
       <br/>
     <form [formGroup]="statusForm" class="full-width space-between">
       <mat-form-field class="half-width">
-        <input matInput [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
         <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
+        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker disabled="false"></mat-datepicker>
       </mat-form-field>
@@ -206,12 +206,12 @@
   <ng-container *ngIf="status.status == 'disabled'">
     <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Motivo" autocomplete="false" formControlName="Reasons">
-          <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
+          <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
+          <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>
           <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Observación" autocomplete="false" formControlName="Observations"></textarea>
+          <textarea matInput id="inputObservation" placeholder="Observación" autocomplete="false" formControlName="Observations"></textarea>
           <mat-error *ngIf="observation.hasError('maxlength')">El nombre no debe superar los 2000 caracteres.</mat-error>
           <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>

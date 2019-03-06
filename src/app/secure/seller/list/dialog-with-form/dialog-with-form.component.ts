@@ -7,6 +7,7 @@ interface DialogData {
   title: string;
   message: string;
   form: FormGroup;
+  messageCenter: boolean;
   icon: string;
 }
 
