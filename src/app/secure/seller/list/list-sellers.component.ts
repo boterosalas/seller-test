@@ -224,6 +224,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.loading.viewSpinner();
             this.subs.push(this.storesService.changeStateSeller(form).subscribe(val => {
                 const body = val.body;
+                console.log(98, body);
                 if(body.statusCode == 201) {
                     const resultData = JSON.parse(body.body);
                     if(resultData && resultData.Message) {
@@ -247,8 +248,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     updateSeller(value: {posSeller: number, status: string}) {
+        console.log(55, `voy a actualizar ${value.status}`);
         switch (value.status) {
-            case null: 
+            case 'enabled': 
             this.sellerList[value.posSeller].Status = 'Enable';
             break;
             case 'disabled': 

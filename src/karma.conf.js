@@ -35,10 +35,10 @@ module.exports = function (config) {
           '--remote-debugging-port=9222',
         ]
       }
-    },/*
+    },
     browsers: ['ChromeHeadless'],
-    singleRun: true*/
-    browsers: ['Chrome'],
-    singleRun: false
+    singleRun: true
+    // browsers: ['Chrome'],
+    // singleRun: false
   });
 };

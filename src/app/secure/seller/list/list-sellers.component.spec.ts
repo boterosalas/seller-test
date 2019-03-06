@@ -15,6 +15,7 @@ import { of, Observable } from "rxjs";
 import { SellerRoutingModule } from "../seller.routing";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 import { componentFactoryName } from "@angular/compiler";
+import { AuthService } from "@app/secure/auth/auth.routing";
 
 export const constSellerList = [
     {
@@ -65,6 +66,7 @@ describe('List Seller Component',() => {
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+    const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu'])
     const data = {
         title: '',
         message: '',
@@ -80,6 +82,7 @@ describe('List Seller Component',() => {
     let matDialog: MatDialog;
     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
     let dialogComponent: DialogWithFormComponent;
+    let authService: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -96,7 +99,8 @@ describe('List Seller Component',() => {
                 {provide: StoresService, useValue: mockStoresService},
                 {provide: MatDialog, useValue: mockDialog},
                 {provide: MAT_DIALOG_DATA, useValue: data},
-                {provide: MatDialogRef, useValue: mockDialogRef}
+                {provide: MatDialogRef, useValue: mockDialogRef},
+                {provide: AuthService, useValue: mockAuthService}
             ]
         }).compileComponents();
 
