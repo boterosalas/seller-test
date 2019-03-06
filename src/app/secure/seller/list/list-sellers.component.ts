@@ -63,7 +63,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
     statusForm: FormGroup;
     @ViewChild('intialPicker') initialPicker;
     @ViewChild('endPicker') endPicker;
-    subs: Subscription[] = []
+    subs: Subscription[] = [];
+    InitialDateSubscription: Subscription;
 
     // MatPaginator Output
     pageEvent: PageEvent;
@@ -114,7 +115,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             IdSeller : ['', Validators.required]
         })
         this.subs.push(this.needFormStates$.subscribe(status => {
-            !!status ? this.putComplementDataInStatusForm(status.status): this.putComplementDataInStatusForm(null);
+            !!status && this.putComplementDataInStatusForm(status.status);
         }));
     }
 
@@ -138,24 +139,32 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * @param status Status to change
      */
     putComplementDataInStatusForm(status: string) {
+        console.log(status);
         switch (status) {
             case 'disabled': 
             this.statusForm.addControl('Reasons', new FormControl('', Validators.compose([Validators.maxLength(120), trimField, Validators.required])));
             this.statusForm.addControl('Observations', new FormControl('', Validators.compose([Validators.maxLength(2000), trimField, Validators.required])));
-            !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
-            !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
+            !!this.InitialDateSubscription && this.InitialDateSubscription.unsubscribe();
+            !!this.startDateVacation && this.statusForm.removeControl('StartDateVacation');
+            !!this.endDateVacation && this.statusForm.removeControl('EndDateVacation');
             break;
             case 'vacation': 
             this.statusForm.addControl('StartDateVacation',new FormControl('', Validators.compose([Validators.required])));
-            this.statusForm.addControl('EndDateVacation',new FormControl('', Validators.compose([Validators.required])))
-            !!this.reason ? this.statusForm.removeControl('Reasons') : null;
-            !!this.observation ? this.statusForm.removeControl('Observations') : null;
+            this.statusForm.addControl('EndDateVacation',new FormControl('', Validators.compose([Validators.required])));
+            this.InitialDateSubscription = this.startDateVacation.valueChanges.subscribe((val) => {
+                if(!!val) {
+                    this.endDateVacation.reset(null);
+                }
+            })
+            !!this.reason && this.statusForm.removeControl('Reasons');
+            !!this.observation && this.statusForm.removeControl('Observations');
             break;
             case 'enabled':
-            !!this.startDateVacation ? this.statusForm.removeControl('StartDateVacation') : null;
-            !!this.endDateVacation ? this.statusForm.removeControl('EndDateVacation') : null;
-            !!this.reason ? this.statusForm.removeControl('Reasons') : null;
-            !!this.observation ? this.statusForm.removeControl('Observations') : null;
+            !!this.InitialDateSubscription && this.InitialDateSubscription.unsubscribe();
+            !!this.startDateVacation && this.statusForm.removeControl('StartDateVacation');
+            !!this.endDateVacation && this.statusForm.removeControl('EndDateVacation');
+            !!this.reason && this.statusForm.removeControl('Reasons');
+            !!this.observation && this.statusForm.removeControl('Observations');
         }
     }
 
@@ -267,7 +276,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             icon = null;
             title = "Activación";
             messageCenter = true;
-            this.needFormStates$.next({posSeller: index, status: null});
+            this.needFormStates$.next({posSeller: index, status: 'enabled'});
         } else if (status == "disabled" && sellerData.status != 'disabled') {
             message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
             icon = null;
