@@ -40,9 +40,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
     public id: FormControl;
     public sellerName: FormControl;
     public nit: FormControl;
-    // idSeller: any;
-    // nameSeller: any;
-    // nitSeller: any;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?!\s+).)*$/;
     showAn = true;
@@ -209,17 +206,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 this.configDataDialog(dialogRef);
             })
         }
-        /*
-        sellerData.block = true;
-        this.storesService.changeStateSeller(sellerData.idSeller).subscribe(data => {
-            setTimeout(() => {
-                sellerData.block = false;
-                this.snackBar.open('Actualizado correctamente: ' + sellerData.Name, 'Cerrar', {
-                    duration: 3000,
-                });
-            }, 3000);
-        });
-        */
     }
 
     /**
@@ -319,22 +305,12 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     public cleanFilterListSeller(): void {
-        // this.idSeller = null;
-        // this.nameSeller = null;
-        // this.nitSeller = null;
         this.listFilterSellers = [];
         this.sellerList = this.totalSellerList;
     }
 
     public filterListSeller() {
         this.cleanFilterListSeller();
-        // this.idSeller = this.filterSeller.controls.id.value;
-        // this.nameSeller = this.filterSeller.controls.sellerName.value;
-        // // Resetea la variable siempre y cuando no sea nulla
-        // if (this.nameSeller !== null) {
-        //     this.nameSeller = this.nameSeller.trim().toLowerCase();
-        // }
-        // this.nitSeller = this.filterSeller.controls.nit.value;
         const data = [];
         data.push({ value: this.filterSeller.controls.id.value, name: 'idSeller', nameFilter: 'id' });
         data.push({ value: this.filterSeller.controls.sellerName.value, name: 'nameSeller', nameFilter: 'sellerName' });
@@ -344,69 +320,33 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
 
     filterSellerList(){
-        const filterList = this.totalSellerList.filter((element) => {
-            let trueId = true;
-            let trueNameSeller = true;
-            let trueNit = true;
-            this.listFilterSellers.forEach(filterElement => {
-                switch (filterElement.value) {
-                    case 'idSeller':
-                        trueId = element.IdSeller.toString().match(filterElement.name);
-                        break;
-                    case 'nameSeller':
-                        trueNameSeller = element.Name.toLowerCase().match(filterElement.name.toLowerCase());
-                        break;
-                    case 'nitSeller':
-                        trueNit = element.Nit.toString().match(filterElement.name);
-                        break;
+        if(this.listFilterSellers.length > 0){
+            const filterList = this.totalSellerList.filter((element) => {
+                let trueId = true;
+                let trueNameSeller = true;
+                let trueNit = true;
+                this.listFilterSellers.forEach(filterElement => {
+                    switch (filterElement.value) {
+                        case 'idSeller':
+                            trueId = element.IdSeller.toString().match(filterElement.name);
+                            break;
+                        case 'nameSeller':
+                            trueNameSeller = element.Name.toLowerCase().match(filterElement.name.toLowerCase());
+                            break;
+                        case 'nitSeller':
+                            trueNit = element.Nit.toString().match(filterElement.name);
+                            break;
+                    }
+                });            
+                if(trueId && trueNameSeller && trueNit) {
+                    return element;
                 }
-            });            
-            if(trueId && trueNameSeller && trueNit) {
-                return element;
-            }
-        });
-        this.sellerList = filterList;
+            });
+            this.sellerList = filterList;
+        } else {
+            this.sellerList = this.totalSellerList;
+        }
     }
-
-    // /**
-    //  *  showSeller => Metodo para realizar el filtro de listado de vendedores.
-    //  *
-    //  * @param {number} index
-    //  * @returns {boolean}
-    //  * @memberof SellerListComponent
-    //  */
-    // public showSeller(index: number): boolean {
-    //     const count = 3;
-    //     let accomp = 0;
-    //     if (this.idSeller) {
-    //         if (this.sellerList[index].IdSeller.toString().match(this.idSeller)) {
-    //             accomp++;
-    //         }
-    //     } else {
-    //         accomp++;
-    //     }
-    //     if (this.nameSeller) {
-    //         this.nameSellerListFilter = this.sellerList[index].Name;
-    //         this.nameSellerListFilter = this.nameSellerListFilter.toLowerCase();
-    //         if (this.nameSellerListFilter.match(this.nameSeller)) {
-    //             accomp++;
-    //         }
-    //     } else {
-    //         accomp++;
-    //     }
-    //     if (this.nitSeller) {
-    //         if (this.sellerList[index].Nit.toString().match(this.nitSeller)) {
-    //             accomp++;
-    //         }
-    //     } else {
-    //         accomp++;
-    //     }
-    //     if (accomp === count) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
     public paginatorSellerList(index: number): boolean {
         if (this.pageEvent) {
@@ -458,7 +398,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     createFormControls() {
         this.filterSeller = this.fb.group({
             id: new FormControl('', [Validators.compose([Validators.pattern(this.regexNoSpaces)])]),
-            sellerName: new FormControl('', [trimField]),
+            sellerName: new FormControl('', []),
             nit: new FormControl('', [Validators.compose([Validators.pattern('^[0-9]*$')])]),
             matcher: new MyErrorStateMatcher()
         });
