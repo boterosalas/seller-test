@@ -416,7 +416,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
                     return a['IdSeller'] - b['IdSeller'];
                 });
                 this.sellerLength = this.sellerList.length;
-                this.sellerList.forEach(seller => {
+                this.sellerList.map(seller => {
                     const startDate = new Date(seller.StartVacations);
                     const endDate = new Date(seller.EndVacations);
                     if(startDate.getFullYear() == 1 || endDate.getFullYear() == 1) {
@@ -440,9 +440,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
     createFormControls() {
         this.filterSeller = this.fb.group({
-            id: new FormControl('', [Validators.pattern(this.regexNoSpaces)]),
-            sellerName: new FormControl('', []),
-            nit: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+            id: new FormControl('', [Validators.compose([Validators.pattern(this.regexNoSpaces)])]),
+            sellerName: new FormControl('', [trimField]),
+            nit: new FormControl('', [Validators.compose([Validators.pattern('^[0-9]*$')])]),
             matcher: new MyErrorStateMatcher()
         });
     }

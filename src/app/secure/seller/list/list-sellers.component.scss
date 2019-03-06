@@ -61,20 +61,28 @@ $color-primary: #3d5afe;
           }
 
           &.id {
-            width: 15%;
+            width: 10%;
             @media screen and (max-width: 600px) {
               width: 37.5%;
               display: flex;
             }
           }
 
+          &.nit {
+            width: 10%;
+            @media screen and (max-width: 600px) {
+              display: none;
+            }
+          }
+
           &.vacations {
             text-align: right;
-            width: 30%;
+            width: 25%;
             @media screen and (max-width: 600px) {
               width: 55.5%;
               display: flex;
               align-items: flex-end;
+              text-align: right;
             }
             & .label-result {
               flex-direction: row;
@@ -86,7 +94,7 @@ $color-primary: #3d5afe;
           }
 
           &.name {
-            width: 25%;
+            width: 20%;
             @media screen and (max-width: 600px) {
               width: 55.5%;
               display: flex;

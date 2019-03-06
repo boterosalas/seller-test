@@ -21,6 +21,7 @@
           <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher"
             (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             >
+            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">Nombre invalido</mat-error>
           <!-- <mat-hint></mat-hint>
   <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
@@ -82,6 +83,11 @@
               ID
             </label>
           </div>
+          <div id="nit" class="label-container nit">
+              <label class="label-list">
+                Nit
+              </label>
+            </div>
           <div id="name" class="label-container name">
             <label class="label-list">
               Nombre del vendedor
@@ -116,6 +122,14 @@
                     </p>
                     <label class="label-result">
                       {{seller.IdSeller}}
+                    </label>
+                  </div>
+                  <div id="nit" class="label-container nit">
+                      <p class="title-list">
+                        Nit
+                      </p>
+                    <label class="label-result">
+                      {{seller.Nit}}
                     </label>
                   </div>
                   <div id="name" class="label-container name">
