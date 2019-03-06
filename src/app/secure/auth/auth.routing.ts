@@ -201,6 +201,8 @@ export class AuthService implements CanActivate {
      */
     public validateModule(url: any): MenuModel {
         let moduleSelected: MenuModel;
+        // a litle machete here because navigate with params give that params with ';'
+        url = url.search(';') > -1 ? url.slice(0, url.search(';')) : url;
         Modules.forEach(item => {
             item.Menus.forEach(menu => {
                 if (url === '/' + menu.UrlRedirect && menu.ShowMenu) {
