@@ -4,8 +4,9 @@
     <h4 class="description-title mat-h4">Registra aqu&iacute; la informaci&oacute;n para registrar un caso a nuestro
       equipo de soporte</h4>
   </div>
+
   <a id="close-finish-send-order" matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button (click)="onNoClick()">
-    <mat-icon >close</mat-icon>
+    <mat-icon>close</mat-icon>
   </a>
 </div>
 <form #f="ngForm" [formGroup]="myform" *ngIf="myform">
@@ -84,7 +85,8 @@
         <mat-icon color="primary" matSuffix matTooltip="Ingresa un título para tu caso. Este campo tiene un límite de 120 caracteres"
           matTooltipPosition="below">help_outline</mat-icon>
         <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">Este campo es obligatorio.</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">Este campo contiene máximo 120 caracteres.</mat-error>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">Este campo contiene máximo 120
+          caracteres.</mat-error>
         <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('pattern')">Campo inválido.</mat-error>
       </mat-form-field>
 
@@ -119,7 +121,7 @@
         <input id="suport-modal-input-emailContact" required matInput formControlName="emailContact" placeholder="Correo contacto">
         <mat-icon color="primary" matSuffix matTooltip="Ingresa un correo para contactarte. Si el correo diligenciado esta errado por favor corrígelo. IMPORTANTE: A este correo llegará la respuesta del caso"
           matTooltipPosition="below">help_outline</mat-icon>
-          <mat-error *ngIf="myform.get('emailContact').hasError('email')">El correo electrónico no es válido.</mat-error>
+        <mat-error *ngIf="myform.get('emailContact').hasError('email')">El correo electrónico no es válido.</mat-error>
       </mat-form-field>
 
 
@@ -136,13 +138,18 @@
     </div>
 
     <mat-dialog-actions fxFlex="100" class="footer-dialog normal-theme dialog-buttons">
+      <div class="class-tutorial" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-icon>video_library</mat-icon>
+        <a href="https://www.youtube.com/channel/UCxCSSIsUl92fe7iqKH4nqPg/videos?view_as=subscriber" rel="noopener"
+          target="_blank" id="id-color-tutorial">
+          TUTORIALES</a>
+      </div>
       <button id="suport-modal-button-close-modal" class="sc-button" (click)="clearForm()" mat-button>
         <mat-icon>clear_all</mat-icon>
         Limpiar
       </button>
       <button id="suport-modal-button-sendInformation" class="sc-button" [disabled]="!f.form.valid" (click)="sendSupportMessage(myform)"
         type="submit" mat-raised-button color="primary">Enviar</button>
-
     </mat-dialog-actions>
   </div>
 
