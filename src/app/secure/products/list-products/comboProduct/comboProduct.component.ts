@@ -50,13 +50,11 @@ export class ComboProductComponent implements OnInit, OnChanges {
 
 
   public openInformation(params?: any): void {
-    console.log('parametro', params);
     this.loadingService.viewSpinner();
     this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
       this.loadingService.closeSpinner();
       this.showImage = true;
       this.productsExpanded = result.data.list;
-      console.log('info: ', this.productsExpanded);
     });
   }
 }

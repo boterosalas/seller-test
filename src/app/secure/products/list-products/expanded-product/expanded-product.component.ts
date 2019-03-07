@@ -27,13 +27,11 @@ export class ExpandedProductComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('list: ', this.productsExpanded);
         this.createArrayImages();
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
     changeImage(image: any) {
-        console.log('aca entro', image);
         this.imageMax = image;
     }
 
