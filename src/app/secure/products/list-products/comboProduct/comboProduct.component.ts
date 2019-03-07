@@ -18,6 +18,8 @@ export class ComboProductComponent implements OnInit {
 
 
   public productsExpanded: any;
+  public showImage = false;
+
 
 
   constructor(
@@ -31,6 +33,7 @@ export class ComboProductComponent implements OnInit {
 
 
   public openInformation(params?: any): void {
+    this.showImage = true;
     console.log('parametro', params);
     this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
         this.productsExpanded = result.data.list;

@@ -17,6 +17,7 @@
 .cont-product {
   font-family: Arial;
   padding: 5%;
+  width: 100%;
 
   .cont-images {
     display: flex;
@@ -110,6 +111,7 @@
 .expanded-information-product {
   padding: 2% 10%;
   text-align: justify;
+  width: 100%;
 
   .description-product {
     margin-top: 3%;
@@ -131,4 +133,8 @@
 
 .mat-chip.mat-standard-chip{
   margin-right: 1%;
+}
+
+::ng-deep .mat-tab-body-content{
+  display: flex;
 }

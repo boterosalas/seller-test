@@ -10,39 +10,48 @@ const log = new Logger('ExpandedProductComponent');
 })
 export class ExpandedProductComponent implements OnInit {
 
-  @Input() productsExpanded: any;
+    @Input() productsExpanded: any;
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
-    private images: any;
+    private images = [];
+    public listKeywords = [];
 
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
-
     constructor(
     ) {
         /* creo el arreglo con las variables en JSon */
-        this.images = [
-            {
-                min: 'https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_xs_a.jpg',
-                max: 'https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_lrg_a.jpg'
-            },
-            {
-                min: 'https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_sm_c.jpg',
-                max: 'https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/845/PMK0000006095845/MK00000006095845_lrg_c.jpg'
-            }
-        ];
 
         /* asigno la 1 imagen grande del arreglo */
-        this.imageMax = this.images[0]['max'];
     }
 
 
     ngOnInit() {
-
+        console.log('list: ', this.productsExpanded);
+        this.createArrayImages();
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
     changeImage(imageUrlMax: string) {
         this.imageMax = imageUrlMax;
+    }
+
+    public createArrayImages(): void {
+        const minImages: any[] = this.productsExpanded.smallImage;
+        const maxImages: any[] = this.productsExpanded.mediumImage;
+        let i = 0;
+        for (i; i < this.productsExpanded.mediumImage.length; i++) {
+            const min = minImages[i];
+            const max = maxImages[i];
+            this.images.push({ min, max });
+        }
+        this.imageMax = this.images[0]['max'];
+        console.log(this.images);
+        this.changeHtmlToString();
+        this.listKeywords = this.productsExpanded.keyword;
+        console.log('list key: ', this.listKeywords);
+    }
+
+    changeHtmlToString(): void {
     }
 }

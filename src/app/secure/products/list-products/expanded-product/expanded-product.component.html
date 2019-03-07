@@ -77,23 +77,15 @@
 <div class="expanded-information-product">
   <mat-tab-group>
     <mat-tab label="Descripción">
-      <p class="description-product">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-        make
-        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged.</p>
+      <p class="description-product" [innerHtml]="productsExpanded.description"></p>
     </mat-tab>
-    <mat-tab label="Palabras claves">
-        <div class="description-product">
-            <mat-chip>Lucho</mat-chip>
-            <mat-chip>Paola</mat-chip>
-            <mat-chip>Czar</mat-chip>
-            <mat-chip>Tú</mat-chip>
+    <mat-tab label="Palabras claves" class="flex">
+        <div class="keywords-products" *ngFor="let keywords of listKeywords">
+            <mat-chip>{{keywords}}</mat-chip>
           </div>
     </mat-tab>
     <mat-tab label="Espesificaciones">
-      <p class="keywords-products">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+      <p class="specs-products">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
         Ipsum has been the industry's
         standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
         make
