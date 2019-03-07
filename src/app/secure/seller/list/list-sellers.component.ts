@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy} from '@angular/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
-import { Logger, LoadingService } from '@app/core';
+import { Logger, LoadingService, ModalService } from '@app/core';
 import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent, MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
@@ -82,7 +82,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
         private router: Router,
         private fb: FormBuilder,
         private dialog: MatDialog,
-        public authService: AuthService) {
+        public authService: AuthService,
+        private modalService: ModalService) {
     }
 
     get reason(): FormControl{
@@ -224,13 +225,14 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.loading.viewSpinner();
             this.subs.push(this.storesService.changeStateSeller(form).subscribe(val => {
                 const body = val.body;
-                console.log(98, body);
-                if(body.statusCode == 201) {
+                if( body && body.statusCode && body.statusCode == 201) {
                     const resultData = JSON.parse(body.body);
                     if(resultData && resultData.Message) {
                         const status = this.needFormStates$.getValue();
                         this.updateSeller(status);
                     }
+                } else {
+                    this.modalService.showModal('errorService');
                 }
                 dialogInstance.onNoClick();
                 this.loading.closeSpinner();
@@ -248,7 +250,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     updateSeller(value: {posSeller: number, status: string}) {
-        console.log(55, `voy a actualizar ${value.status}`);
         switch (value.status) {
             case 'enabled': 
             this.sellerList[value.posSeller].Status = 'Enable';

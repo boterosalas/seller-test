@@ -3,7 +3,7 @@ import { SellerModule } from "../seller.module";
 import { SellerListComponent } from "./list-sellers.component";
 import { DialogWithFormComponent } from "./dialog-with-form/dialog-with-form.component";
 import { MaterialModule } from "@app/material.module";
-import { LoadingService } from "@app/core";
+import { LoadingService, ModalService } from "@app/core";
 import { StoresService } from "@app/secure/offers/stores/stores.service";
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
@@ -66,7 +66,8 @@ describe('List Seller Component',() => {
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-    const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu'])
+    const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
+    const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
     const data = {
         title: '',
         message: '',
@@ -100,7 +101,8 @@ describe('List Seller Component',() => {
                 {provide: MatDialog, useValue: mockDialog},
                 {provide: MAT_DIALOG_DATA, useValue: data},
                 {provide: MatDialogRef, useValue: mockDialogRef},
-                {provide: AuthService, useValue: mockAuthService}
+                {provide: AuthService, useValue: mockAuthService},
+                {provide: ModalService, useValue: mockDialogError}
             ]
         }).compileComponents();
 
