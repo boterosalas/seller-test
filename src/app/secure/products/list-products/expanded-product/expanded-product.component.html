@@ -2,10 +2,11 @@
 
 <div class="cont-product">
 
-  <div class="subtitle divider-two" fxShow.xs="true" fxShow="false">
-    <h3>EAN: {{productsExpanded.ean}}</h3>
-  
-    <p class="title divider-two" >{{productsExpanded.name}}</p>
+  <div class="info-product" fxShow.xs="true" fxShow="false">
+    <div class="subtitle divider-two">
+      <h3>{{productsExpanded.name}}</h3>  
+      <p class="title divider-two" >EAN: {{productsExpanded.ean}}</p>
+    </div>
   </div>
 
   <div class="cont-images">
@@ -24,6 +25,8 @@
       </div>
     </div>
   </div>
+
+  <mat-divider vertical="true"></mat-divider>
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two" fxShow.xs="false">

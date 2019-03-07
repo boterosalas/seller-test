@@ -17,20 +17,22 @@
 .cont-product {
   font-family: Arial;
   padding: 5%;
-  width: 100%;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: center;
   display: flex;
   @media screen and (max-width: 600px){
     flex-direction: column;
     padding: 0;
+    width: 100%;
   }
 
   .cont-images {
     display: flex;
+    width: 45%;
     @media screen and (max-width: 600px) {
       flex-direction: column-reverse;
+      width: 100%;
     }
   }
 
@@ -38,6 +40,11 @@
     text-align: left;
     font-size: 14px;
     color: #5D5D5D;
+    padding-left: 5%;
+    width: 45%;
+    @media screen and (max-width: 600px){
+      width: 100%;
+    }
 
     .title {
       font-size: 26px;
@@ -226,4 +233,9 @@
 
 .mobile-no-show{
   display: none;
+}
+
+mat-divider{
+  border-color: grey;
+  border-right-width: 2px;
 }
