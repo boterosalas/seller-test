@@ -1,18 +1,3 @@
-<div class="height-full">
-  <mat-toolbar class="tree-toolbar">
-    <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
-      <!--  Titulo del toolbar -->
-      <p class="seller-list-title" fxShow [fxShow.xs]="false">
-        Productos
-        <small class="sub-title">| Listado de productos</small>
-      </p>
-      <!--  Titulo del toolbar -->
-      <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-        Listado de productos
-      </p>
-    </div>
-  </mat-toolbar>
-</div>
 <hr>
 
 <div class="cont-product" fxLayout="row" fxLayoutAlign="space-around center">
@@ -33,7 +18,7 @@
   </div>
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
-    <div class="subtitle divider-two"> 
+    <div class="subtitle divider-two">
       <h3>EAN: {{productsExpanded.ean}}</h3>
     </div>
     <div class="title divider-two">
@@ -58,13 +43,15 @@
     <div class="text">
       <i class="material-icons"> shopping_basket </i>
       Producto:
-      <label> Alto-{{productsExpanded.package_height}}cm ancho-{{productsExpanded.package_width}}cm largo-{{productsExpanded.package_length}}cm peso-{{productsExpanded.package_weight}}kg </label>
+      <label> Alto-{{productsExpanded.package_height}}cm ancho-{{productsExpanded.package_width}}cm
+        largo-{{productsExpanded.package_length}}cm peso-{{productsExpanded.package_weight}}kg </label>
     </div>
 
     <div class="text">
       <i class="material-icons"> local_shipping </i>
       Producto:
-      <label>Alto-{{productsExpanded.item_height}}cm ancho-{{productsExpanded.item_width}}cm largo-{{productsExpanded.item_length}}cm peso-{{productsExpanded.item_weight}}kg </label>
+      <label>Alto-{{productsExpanded.item_height}}cm ancho-{{productsExpanded.item_width}}cm
+        largo-{{productsExpanded.item_length}}cm peso-{{productsExpanded.item_weight}}kg </label>
     </div>
 
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
@@ -80,17 +67,24 @@
       <p class="description-product" [innerHtml]="productsExpanded.description"></p>
     </mat-tab>
     <mat-tab label="Palabras claves" class="flex">
-        <div class="keywords-products" *ngFor="let keywords of listKeywords">
-            <mat-chip>{{keywords}}</mat-chip>
-          </div>
+      <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
+        <mat-chip>{{keywords}}</mat-chip>
+      </div>
     </mat-tab>
-    <mat-tab label="Espesificaciones">
-      <p class="specs-products">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-        make
-        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged.</p>
+    <mat-tab label="Especificaciones">
+      <span class="no-specs" *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
+        No hay elementos de especificaciones.
+      </span>
+      <div class="container">
+        <div class="container-sub" *ngFor="let spec of productsExpanded.features">
+          <div class="container-specs_title">
+            {{spec.key}}
+          </div>
+          <div class="container-specs_value">
+            {{spec.value}}
+          </div>
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

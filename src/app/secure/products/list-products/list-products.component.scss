@@ -22,7 +22,11 @@ $color-gray3: #D3D3D3;
 
 .example-chip-list {
   margin: 1%;
-  padding-top: 3%;
+  position: sticky;
+  top: 64px;
+  background: white;
+  z-index: 10000;
+  padding: 1%;
 }
 
 .tree-toolbar {
@@ -129,7 +133,7 @@ $color-gray3: #D3D3D3;
   z-index: 1;
 } */
 
-.listCombo{
+.listCombo {
   display: flex;
   flex-wrap: wrap;
   width: 100%;

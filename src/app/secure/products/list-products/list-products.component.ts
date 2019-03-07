@@ -47,6 +47,7 @@ export class ListProductsComponent implements OnInit {
     finalDateList: any;
     fechaInicial: any;
     fechaFinal: any;
+    showProducts = false;
 
     eanVariable = false;
     nameVariable = false;
@@ -292,18 +293,22 @@ export class ListProductsComponent implements OnInit {
             urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
         }
 
-        this.loadingService.viewSpinner();
+        this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
             params.toggle();
         }
         if (activeFilter) {
             this.applyFilter = true;
         }
+        // sigue el hilo de ejecucion, sin esperar a nadie
+        this.showProducts = false;
+
+        // osea aqui se puede demorar 1 seg o 10 segundos
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
+            this.showProducts = true;
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);
                 this.productsList = result.data.list;
-                console.log('aqui: ', this.productsList);
                 this.length = result.data.total;
                 // const response = result.body.data;
             } else {
@@ -313,10 +318,8 @@ export class ListProductsComponent implements OnInit {
         }, error => {
             this.loadingService.closeSpinner();
         });
-        this.loadingService.closeSpinner();
-        this.filterProducts(fecha);
-
-        this.loadingService.closeSpinner();
+        // esto lo hace primero que lo de arriba por que JS crea un hilo de ejecucion en la peticion.
+        this.filterProducts(fecha); // esto lo hace asi la peticion no haya traido nada
     }
 
     public filterProducts(fecha?: any) {

@@ -109,9 +109,9 @@
 }
 
 .expanded-information-product {
-  padding: 2% 10%;
+  padding: 2% 6%;
   text-align: justify;
-  width: 100%;
+  width: 90%;
 
   .description-product {
     margin-top: 3%;
@@ -131,10 +131,39 @@
   background-color: black;
 }
 
-.mat-chip.mat-standard-chip{
+.mat-chip.mat-standard-chip {
   margin-right: 1%;
 }
 
-::ng-deep .mat-tab-body-content{
+::ng-deep .mat-tab-body-content {
   display: flex;
+}
+
+.container {
+  width: 100%;
+
+  &-sub {
+    width: 100%;
+    display: flex;
+  }
+
+  &-specs {
+    &_title {
+      width: 34%;
+      min-width: 300px;
+      padding: 2% 4%;
+      font-weight: bold;
+    }
+
+    &_value {
+      width: 50%;
+      padding: 2% 4%;
+    }
+  }
+}
+
+.container {
+  &-sub:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
 }

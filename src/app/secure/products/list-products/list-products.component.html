@@ -1,4 +1,4 @@
-<mat-drawer-container class="drawer-container" [hasBackdrop]="true">
+<mat-drawer-container style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
@@ -91,7 +91,7 @@
     </div>
 
     <div class="prodList">
-        <app-combo-product [productsList]="productsList" class="listCombo"></app-combo-product>
+      <app-combo-product [showProducts]="showProducts" [productsList]="productsList" class="listCombo"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>

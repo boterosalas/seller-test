@@ -1,3 +1,9 @@
+<button mat-icon-button *ngIf="productsExpanded && showProducts"  (click)="backTolist()">
+  <mat-icon class="material-icons">
+    arrow_back
+  </mat-icon>
+  Volver
+</button>
 
 <div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
   <div (click)="openInformation(products.ean)" *ngIf="showImage === false">
@@ -25,5 +31,5 @@
 
 
 <div class="full-width">
-  <app-expanded-product *ngIf="productsExpanded" [productsExpanded]="productsExpanded"></app-expanded-product>
+  <app-expanded-product *ngIf="productsExpanded && showProducts" [productsExpanded]="productsExpanded"></app-expanded-product>
 </div>

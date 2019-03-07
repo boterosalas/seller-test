@@ -46,10 +46,7 @@ export class ExpandedProductComponent implements OnInit {
             this.images.push({ min, max });
         }
         this.imageMax = this.images[0]['max'];
-        console.log(this.images);
-        this.changeHtmlToString();
-        this.listKeywords = this.productsExpanded.keyword;
-        console.log('list key: ', this.listKeywords);
+
     }
 
     changeHtmlToString(): void {
