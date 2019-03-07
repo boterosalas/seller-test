@@ -71,4 +71,15 @@ export class RegisterService {
         );
       });
   }
+
+  /**
+   * Metodo para validar el perfil de registro, Seller o Admin
+   *
+   * @param {*} params
+   * @returns {Observable<any>}
+   * @memberof RegisterService
+   */
+  public typeProfile(): Observable<any> {
+    return this.http.get(this.api.get('getTypeProfileAndProfile'));
+  }
 }

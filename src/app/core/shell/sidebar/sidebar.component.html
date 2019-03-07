@@ -13,8 +13,33 @@
 
     </mat-toolbar>
 
-    <div class="content-menu-list">
+    <div class="content-menu-list" *ngIf="user">
+      <div *ngFor="let module of modules">
+        <mat-expansion-panel class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
+          <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+            <mat-panel-title>
+              {{module.NameModule}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let menu of module.Menus">
+            <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+              <h6 matLine>{{menu.NameMenu}}</h6>
+            </mat-list-item>
+
+            <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
+              target="_blank">
+              <h3 matLine style="margin-left:50px;">{{menu.NameMenu}}</h3>
+            </a>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </div>
+
+    <!--
       <mat-expansion-panel class="expansion-menu-list" expanded="false">
+
+
         <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
           <mat-panel-title>
             &Oacute;rdenes
@@ -78,7 +103,7 @@
 
         <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoadAdmin]"
           *ngIf="user?.sellerProfile === 'administrator'">
-          <h6 matLine>Historico carga de ofertas</h6>
+          <h6 matLine>Histórico de Carga de Ofertas</h6>
         </mat-list-item>
       </mat-expansion-panel>
     </div>
@@ -167,9 +192,9 @@
           <h6 matLine>Especificaciones</h6>
         </mat-list-item>
 
-        <!--<mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamBrand]">
+        <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntParamBrand]">
           <h6 matLine>Marcas</h6>
-        </mat-list-item> -->
+        </mat-list-item>
 
 
       </mat-expansion-panel>
@@ -194,6 +219,7 @@
 
       </mat-expansion-panel>
     </div>
+  -->
 
     <!--<mat-list-item id="matlist-item-button-soporte" (click)="toggleMenu();shellComponent.openDialogSupport()">
       <h6 matLine>Soporte Marketplace</h6>

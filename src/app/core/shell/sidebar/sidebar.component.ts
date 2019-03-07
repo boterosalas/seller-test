@@ -7,6 +7,8 @@ import { environment } from '@env/environment';
 import { LoggedInCallback, UserLoginService, UserParametersService } from '@core/aws-cognito';
 import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
+import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -17,7 +19,7 @@ const log = new Logger('SideBarComponent');
   styleUrls: ['./sidebar.component.scss']
 })
 
-export class SidebarComponent implements OnInit, LoggedInCallback {
+export class SidebarComponent implements OnInit {
   // Sidenav principal
   @Input() sidenav;
   // Información del usuario
@@ -28,12 +30,14 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
   categoryList: any;
   public routes = RoutesConst;
   prueba = 'solicitudes-pendientes';
+  modules: ModuleModel[] = null;
 
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) { }
 
   /**
@@ -41,13 +45,11 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
-    this.userService.isAuthenticated(this);
-  }
-
-  async isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.user = await this.userParams.getUserData();
-    }
+    this.authService.getModules().then( data => {
+      this.modules = data;
+    }, error => {
+      console.error(error);
+    });
   }
 
   /**
@@ -63,11 +65,60 @@ export class SidebarComponent implements OnInit, LoggedInCallback {
    * @param {CategoryList} category
    * @memberof SidebarComponent
    */
-  goToRoot(category: CategoryList) {
-    if (category.id !== '') {
-      this.route.navigate([category.root, category.id]);
-    } else {
-      this.route.navigate([category.root]);
+  goToRoot(category: MenuModel) {
+    if (category.Id !== '') {
+      this.route.navigate([category.UrlRedirect, category.Id]);
     }
+  }
+
+  /**
+   * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
+   *
+   * @param {MenuModel} menu
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showMenu(menu: MenuModel, showUrlRedirect: boolean = false): boolean {
+    // return menu.ShowMenu && menu.ShowMenuProduction;
+    if (showUrlRedirect) {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
+    } else {
+      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
+    }
+  }
+
+  /**
+   * Solo abre nuevas pestañas de rutas que no poseen http en la cabecera.
+   *
+   * @param {string} url
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showOnlyLocalMenus(url: string): boolean {
+    return url.search('http') === -1;
+  }
+
+  /**
+   * Verifica si debe mostrar el modulo.
+   *
+   * @param {ModuleModel} module
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public showModule(moduleR: ModuleModel): boolean {
+    // const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true ));
+    return menu !== undefined;
+  }
+
+  /**
+   * Verifica que debe de mostrar.
+   *
+   * @param {number} profileType
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
+  public validateUserType(profileType: number): boolean {
+    return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
   }
 }

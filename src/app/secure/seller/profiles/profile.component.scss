@@ -1,0 +1,61 @@
+$color-white: white;
+$color-gray: #909090;
+$color-light-gray: #ebebeb;
+@mixin border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-container {
+    .toolbar {
+        background-color: $color-white;
+        @include border-bottom();
+        .title {
+            width: 100%;
+            .sub-title{
+                color: #909090;
+            }
+        }
+    }
+    .profile-list-container {
+        padding: 1em;
+        .list {
+            @include border-bottom();
+        }
+        .header {
+            @include border-bottom();
+            .title-container {
+                padding: 1em 0;
+            }
+            .title {
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+        .item-list {
+            padding: 1em 0;
+            .account-circle {
+                border-radius: 20px;
+                background: $color-light-gray;
+                margin: 0 10px;
+                .icon-profile {
+                    height: 25px;
+                    width: 25px;
+                    font-size: 25px;
+                    padding: 2px 4px;
+                    color: $color-gray;
+                }
+            }
+            .account-title{
+                font-weight: bold;
+            }
+        }
+    }
+}
+.edit-profile{
+    color: $color-gray;
+}
+
+.subtitle-item {
+    font-size: 12px;
+    color: $color-gray;
+}

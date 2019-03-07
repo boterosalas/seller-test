@@ -63,6 +63,7 @@ export const endpoints = {
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
+      changeStatusSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/SetSellerAvaibality',
       // Validar ean
       getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/',
       // Dashboard
@@ -97,12 +98,24 @@ export const endpoints = {
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
+      // Obtener todos los perfiles.
+      getAllProfiles: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllProfiles',
+      // Agregar perfiles.
+      createProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/CreateProfile',
+      // Editar perfiles.
+      updateProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/UpdateProfile',
+      // Obtener todos los modulos.
+      getAllModule: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllModules',
+      // Obtener todos los permisos.
+      getPermissions: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetUserPerminsions',
       // Obtener lista de productos
       getProductList: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/{params}',
       // Obtener especificaciones por categoria
       getSpecByCategory: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/{params}',
       // Obtener lista producto expandido
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
+      // Obtener tipo de perfil
+      getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
     },
   },
   // Endpoints production
@@ -117,7 +130,7 @@ export const endpoints = {
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?idSeller={sellerId}&limit={limit}',
       pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/search{stringParams}', // PENDIENTE
-      acceptOrDeniedDevolution: '', // TODO: Faltante en api end points
+      acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       // Billing Mock
@@ -165,6 +178,7 @@ export const endpoints = {
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
       getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
       updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
+      changeStatusSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/SetSellerAvaibality',
       // Validar ean
       getValidateEan: 'https://0ly35c82pa.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Dashboard
@@ -199,12 +213,24 @@ export const endpoints = {
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
+      // Obtener todos los perfiles.
+      getAllProfiles: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllProfiles',
+      // Agregar perfiles.
+      createProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/CreateProfile',
+      // Editar perfiles.
+      updateProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/UpdateProfile',
+      // Obtener todos los modulos.
+      getAllModule: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllModules',
+      // Obtener todos los permisos.
+      getPermissions: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetUserPerminsions',
       // Obtener lista de productos
       getProductList: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
       // Obtener especificaciones por categoria
       getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
       // Obtener lista producto expandido
       getProductExpanded: '',
+      // Obtener tipo de perfil
+      getTypeProfileAndProfile: '',
     }
   }
 };

@@ -17,14 +17,14 @@
 
             <!-- Input para subir archivo Excel -->
 
-            <a download class="sc-default-button" id="download-file-button" (click)="openModalDownloadFormat()" mat-button>
+            <a *ngIf="getFunctionality(download)" download class="sc-default-button" id="download-file-button" (click)="openModalDownloadFormat()" mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
               DESCARGAR FORMATO</a>
 
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)" multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #fileUploadOption>
-            <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()" mat-button>
+            <button *ngIf="getFunctionality(load)" color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()" mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
               SELECCIONAR ARCHIVO PARA IMPORTAR
             </button>
@@ -37,10 +37,10 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu dense #toolbarOptions="matMenu">
-              <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
+              <button *ngIf="getFunctionality(load)" id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
                 <span>Cargar archivo</span>
               </button>
-              <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
+              <a  *ngIf="getFunctionality(download)" download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
                 Descargar Formato</a>
               <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button" mat-menu-item>
                 <span>Limpiar datos actuales</span>

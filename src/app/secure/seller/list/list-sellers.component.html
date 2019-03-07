@@ -21,6 +21,7 @@
           <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher"
             (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             >
+            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">Nombre invalido</mat-error>
           <!-- <mat-hint></mat-hint>
   <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
@@ -74,33 +75,32 @@
       </div>
 
       <!-- SELLER CONTAINER LIST-->
-      <div class="list-container">
+      <div class="list-container" *ngIf="getFunctionality(read)">
         <!-- SELLER HEADER LIST-->
-        <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center">
-          <div id="id" class="label-container id" style="width: 9%;
-                padding-left: 3%;">
+        <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center"  fxHide.xs>
+          <div id="id" class="label-container id">
             <label class="label-list">
               ID
             </label>
           </div>
+          <div id="nit" class="label-container nit">
+              <label class="label-list">
+                Nit
+              </label>
+            </div>
           <div id="name" class="label-container name">
             <label class="label-list">
               Nombre del vendedor
             </label>
           </div>
-          <div id="nit" class="label-container nit">
-            <label class="label-list">
-              NIT
-            </label>
-          </div>
-          <!-- <div id="date" class="label-container date">
-            <label class="label-list">
-              Fecha de creación
-            </label>
-          </div> -->
-          <div id="state" class="label-container state">
+          <div id="status" class="label-container status">
             <label class="label-list">
               Estado
+            </label>
+          </div>
+          <div id="vacations" class="label-container vacations">
+            <label class="label-list">
+              Vacaciones
             </label>
           </div>
         </div>
@@ -109,38 +109,87 @@
         <div *ngFor="let seller of sellerList; let i = index " [ngClass]="{'background-bar' : seller.block}">
           <mat-progress-bar mode="indeterminate" *ngIf="seller.block"></mat-progress-bar>
           <!-- SELLER HEADER LIST-->
-          <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center" *ngIf="showSeller(i)">
-            <div id="id" class="label-container id" fxLayout="row" fxLayoutAlign="start center">
-              <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
-                fxShow [fxShow.xs]="false">
-                <mat-icon class="material-icons">
-                  visibility
-                </mat-icon>
-              </button>
-              <label class="label-result">
-                {{seller.IdSeller}}
-              </label>
-            </div>
-            <div id="name" class="label-container name">
-              <label class="label-result">
-                {{seller.Name}}
-              </label>
-            </div>
-            <div id="nit" class="label-container nit">
-              <label class="label-result">
-                {{seller.Nit}}
-              </label>
-            </div>
-            <!-- <div id="date" class="label-container date">
-              <label class="label-result">
-                22 de septiembre de 2016
-              </label>
-            </div> -->
-            <div id="state" class="label-container state">
-              <label class="label-result">
-                <mat-slide-toggle (change)="changeSellerState(seller)" [disabled]="seller.block"></mat-slide-toggle>
-              </label>
-            </div>
+          <div id="body-list" class="header-list">
+                <div id="id" class="label-container id">
+                    <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
+                      fxShow [fxShow.xs]="false">
+                      <mat-icon class="material-icons">
+                        visibility
+                      </mat-icon>
+                    </button>
+                    <p class="title-list" >
+                      ID
+                    </p>
+                    <label class="label-result">
+                      {{seller.IdSeller}}
+                    </label>
+                  </div>
+                  <div id="nit" class="label-container nit">
+                      <p class="title-list">
+                        Nit
+                      </p>
+                    <label class="label-result">
+                      {{seller.Nit}}
+                    </label>
+                  </div>
+                  <div id="name" class="label-container name">
+                      <p class="title-list">
+                        Nombre
+                      </p>
+                    <label class="label-result">
+                      {{seller.Name}}
+                    </label>
+                  </div>
+                <div id="status" class="label-container status">
+                    <button mat-mini-fab 
+                    id ="btn-enabled-seller"
+                    (click) = "changeSellerStatus(seller, 'enabled', i)" 
+                    [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
+                    [disabled]="!seller.Status || seller.Status == 'Enable'">
+                      <mat-icon aria-label="active status of seller">
+                        check
+                      </mat-icon>
+                    </button>
+                    <button mat-mini-fab
+                    id="btn-disabled-seller"
+                    (click) = "changeSellerStatus(seller, 'disabled', i)"
+                    [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'grayBackgroundButton' " 
+                    [disabled]="!seller.Status || seller.Status == 'Disable'">
+                      <mat-icon aria-label="inactive status of seller">
+                        block
+                      </mat-icon>
+                    </button>
+                    <!-- <button mat-mini-fab
+                    id="btn-vacation-seller" 
+                    (click) = "changeSellerStatus(seller, 'vacation', i)"
+                    [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
+                    [disabled]=" !seller.Status || seller.Status == 'Vacations' || seller.Status == 'Disable'">
+                      <mat-icon aria-label="vacation status of seller">
+                        local_airport
+                      </mat-icon>
+                    </button> -->
+                    <button mat-mini-fab
+                    id="btn-vacation-seller" 
+                    [disabled]="true">
+                      <mat-icon aria-label="vacation status of seller">
+                        local_airport
+                      </mat-icon>
+                    </button>
+                  </div>
+                  <div id="vacations" class="label-container vacations">
+                    <p class="title-list">
+                      Vacacaiones
+                    </p>
+                    <label class="label-result" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
+                          <strong>Inicio:</strong>{{seller.StartVacations}}<br class="testBreak"/>
+                          <strong>Fin:</strong>{{seller.EndVacations}}
+                    </label>
+                    <ng-template #ProgramDate>
+                        <label class="label-result">
+                            Programar Vacaciones
+                      </label>                     
+                    </ng-template>
+                  </div>
           </div>
         </div>
       </div>
@@ -148,3 +197,38 @@
     <!--<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
   </mat-drawer-content>
 </mat-drawer-container>
+
+
+<ng-template #dialogContent *ngIf="needFormStates$ | async as status">
+  <ng-container *ngIf="status.status == 'vacation'">
+      <br/>
+    <form [formGroup]="statusForm" class="full-width space-between">
+      <mat-form-field class="half-width">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+        <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
+        <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+  </form>
+  </ng-container>  
+  <ng-container *ngIf="status.status == 'disabled'">
+    <form [formGroup]="statusForm">
+        <mat-form-field class="full-width">
+          <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
+          <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>
+          <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <textarea matInput id="inputObservation" placeholder="Observación" autocomplete="false" formControlName="Observations"></textarea>
+          <mat-error *ngIf="observation.hasError('maxlength')">El nombre no debe superar los 2000 caracteres.</mat-error>
+          <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">Este campo es obligatorio.</mat-error>  
+        </mat-form-field>
+    </form>
+  </ng-container>  
+</ng-template>

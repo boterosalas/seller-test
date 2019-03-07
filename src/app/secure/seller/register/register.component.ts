@@ -1,12 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Router } from '@angular/router';
 
-import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { RoutesConst, UserInformation } from '@app/shared';
+import { LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { UserInformation, RoutesConst } from '@app/shared';
 import { RegisterService } from './register.service';
 import { TestRequest } from '@angular/common/http/testing';
+import { forEach } from '@angular/router/src/utils/collection';
+import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { Router } from '@angular/router';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -25,7 +28,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 
-export class RegisterSellerComponent implements OnInit, LoggedInCallback {
+export class RegisterSellerComponent implements OnInit {
 
   public imagesRegister: Array<any> = [
     {
@@ -46,6 +49,7 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public existValueInDB: boolean;
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
+  public validateFormRegisterAdmin: FormGroup;
   public idState: number;
   public daneCode: any;
   public disabledForService: boolean;
@@ -53,7 +57,16 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
+  public selectedValue: string;
 
+  profileSeller: string[] = [];
+  profileAdmin: string[] = [];
+
+
+  // Variables con los permisos que este componente posee
+  permissionComponent: MenuModel;
+  create = createFunctionality;
+  disabledComponent = false;
 
   constructor(
     @Inject(RegisterService)
@@ -61,8 +74,9 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public userService: UserLoginService,
+    public userParams: UserParametersService,
+    public authService: AuthService,
     private router: Router,
-    public userParams: UserParametersService
   ) { }
 
 
@@ -81,48 +95,82 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
     return true;
   }
 
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof BulkLoadProductModerationComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
+  }
+
   ngOnInit() {
+    this.getProfile();
     this.userService.isAuthenticated(this);
+    this.permissionComponent = this.authService.getMenu(registerName);
+    const disabledForm = !this.getFunctionality(this.create);
+    this.disabledComponent = disabledForm;
     this.validateFormRegister = new FormGroup({
-      Nit: new FormControl('', [
+      Nit: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
       ]),
       Rut: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.maxLength(20),
         Validators.pattern('^[0-9]*$')
         ]),
       ContactName: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
         ]),
       Email: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.pattern(this.emailRegex)
         ]),
       PhoneNumber: new FormControl
-        ('', [Validators.required,
+        ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.minLength(7),
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$')]),
       Address: new FormControl
-        ('', [Validators.required]),
+        ({ value: '', disabled: disabledForm }, [Validators.required]),
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
-      Name: new FormControl
-        ('', [Validators.required]),
-      IsLogisticsExito: new FormControl(false),
-      IsShippingExito: new FormControl(true),
-      GotoExito: new FormControl(true),
-      GotoCarrulla: new FormControl(false),
-      GotoCatalogo: new FormControl(true)
+      Name: new FormControl({ value: '', disabled: disabledForm }, [Validators.required]),
+      IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
+      IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
+      GotoExito: new FormControl({ value: true, disabled: disabledForm }),
+      GotoCarrulla: new FormControl({ value: false, disabled: disabledForm }),
+      GotoCatalogo: new FormControl({ value: true, disabled: disabledForm }),
+      Profile: new FormControl
+        (this.profileSeller, [Validators.required]),
     });
     this.matcher = new MyErrorStateMatcher();
+
+    this.validateFormRegisterAdmin = new FormGroup({
+      Nit: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('^[0-9]*$')
+      ]),
+      Email: new FormControl
+        ('', [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+      Name: new FormControl
+        ('', [Validators.required]),
+      Profile: new FormControl
+        (this.profileAdmin, [Validators.required]),
+    });
   }
+
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
@@ -160,6 +208,8 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
+    const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
+    this.validateFormRegister.controls.Profile.setValue(profile);
     this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
@@ -177,6 +227,36 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
           this.disabledForService = false;
           this.loadingService.closeSpinner();
 
+        }
+      );
+  }
+
+  /**
+   *
+   * @method submitAdminRegistrationForm para registrar al administrador
+   * @memberof RegisterSellerComponent
+   */
+  public submitAdminRegistrationForm() {
+    this.loadingService.viewSpinner();
+    this.disabledForService = true;
+    const profile = `Exito|${this.validateFormRegisterAdmin.controls.Profile.value}`;
+    this.validateFormRegisterAdmin.controls.Profile.setValue(profile);
+    this.registerService.registerUser(this.validateFormRegisterAdmin.value)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal('success');
+            } else if (!data.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+
+          this.disabledForService = false;
+          this.loadingService.closeSpinner();
         }
       );
   }
@@ -213,6 +293,21 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
                 case 'Name':
                   if (this.existValueInDB) {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                case 'NameAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                case 'EmailAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                  }
+                  break;
+                case 'NitAdmin':
+                  if (this.existValueInDB) {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
               }
@@ -260,6 +355,21 @@ export class RegisterSellerComponent implements OnInit, LoggedInCallback {
 
   disabledButton() {
     this.activeButton = false;
+  }
+
+  public getProfile(): void {
+    this.registerService.typeProfile()
+      .subscribe(
+        (result: any) => {
+          const datas = JSON.parse(result.body).Data;
+          for (const data of datas) {
+            if (data.ProfileType === 'Exito') {
+              this.profileAdmin = data.Profiles;
+            } else if (data.ProfileType === 'Tienda') {
+              this.profileSeller = data.Profiles;
+            }
+          }
+        });
   }
 }
 

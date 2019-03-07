@@ -13,9 +13,11 @@ import { ManageModule, RegisterModule } from '@app/secure/seller';
 import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
 import { SellerModule } from './seller/seller.module';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
+import { AuthService } from './auth/auth.routing';
 import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
 import { ListProductModule } from './products/list-products/list-products.module';
+import { DialogWithFormComponent } from './seller/list/dialog-with-form/dialog-with-form.component';
 
 
 @NgModule({
@@ -52,7 +54,7 @@ import { ListProductModule } from './products/list-products/list-products.module
     BillingOrdersModule,
     ParameterizeModule
   ],
-  providers: [],
+  providers: [AuthService],
 })
 export class SecureModule {
 }

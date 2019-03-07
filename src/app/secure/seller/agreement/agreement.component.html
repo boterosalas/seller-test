@@ -10,7 +10,7 @@
 
             <!-- Componente para realizar la busqueda de una tienda -->
             <div class="search-container">
-                <app-search-seller id="contet-searc-store" class="search-content"></app-search-seller>
+                <app-search-seller id="contet-searc-store" class="search-content" *ngIf="getFunctionality(visualize)"></app-search-seller>
             </div>
         </div>
     </mat-toolbar>
@@ -42,7 +42,7 @@
                 </mat-icon>
                 <p>{{agreement.ContractName}}</p>
             </div>
-            <button mat-icon-button (click)="getPDF(agreement)">
+            <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
                 <mat-icon class="material-icons">
                     get_app
                 </mat-icon>

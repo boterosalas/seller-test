@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ListZonesService } from './list-zones.service';
 import { Logger } from '@app/core';
 import { EventEmitterDialogs } from './../events/eventEmitter-dialogs.service';
@@ -36,6 +36,11 @@ export class ListZonesComponent implements OnInit {
   public openModalCreate: boolean;
   public typeDialog = 0;
   public idToEdit: number;
+
+  // Opcines parametrizables desde el llamado del componente.
+  @Input() canEdit: boolean;
+  @Input() canDelete: boolean;
+  @Input() canCreate: boolean;
 
   constructor(
     private service: ListZonesService,

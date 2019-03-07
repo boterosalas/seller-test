@@ -9,7 +9,7 @@ export class InputCommisionComponent implements OnInit {
 
   @Input() inputValue;
   @Input() currenTree: any;
-
+  @Input() updateFunction: boolean;
   public parameters: Array<{}> = [];
   public searchStore: any;
   public idSeller: any;

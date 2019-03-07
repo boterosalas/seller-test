@@ -3,7 +3,7 @@ import { Route } from '@app/core';
 import { NgModule } from '@angular/core';
 import { SellerListComponent } from './list/list-sellers.component';
 import { RoutesConst } from '@app/shared';
-import { SellerService } from './seller.service';
+import { AuthService } from '../auth/auth.routing';
 
 const routes: Routes = [
     Route.withShell([
@@ -11,7 +11,7 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntSellerList}`,
             component:  SellerListComponent,
             data: { title: 'Administrar vendedores' },
-            canActivate: [SellerService]
+            canActivate: [AuthService]
         }
     ])
 ];

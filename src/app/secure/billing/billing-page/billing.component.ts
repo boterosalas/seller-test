@@ -115,7 +115,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (this.user.sellerProfile !== 'seller') {
         this.router.navigate([`/${RoutesConst.securehome}`]);
     } else {
-        this.getOrdersList(Event);
+        // this.getOrdersList(Event);
         // this.getLastSales();
     }
 }

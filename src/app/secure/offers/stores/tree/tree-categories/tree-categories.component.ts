@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Logger, UserParametersService } from '@app/core';
 
 import { EventEmitterStore } from '../../events/eventEmitter-store.service';
@@ -28,6 +28,7 @@ export class TreeCategoriesComponent implements OnInit {
   public user: UserInformation;
 
   @Output() currentTreeOutput = new EventEmitter<any>();
+  @Input() updateFunction: boolean;
 
   public curret_tree: any;
 
