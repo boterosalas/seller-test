@@ -18,7 +18,7 @@ import { QuotingAdminService } from './quoting-administrator.service';
     BrowserAnimationsModule,
     ShippingMethodsModule,
     ListTransporterModule,
-    ListZonesModule
+    ListZonesModule,
   ],
   exports: [
     QuotingAdministratorComponent

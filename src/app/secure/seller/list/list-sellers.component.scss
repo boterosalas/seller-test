@@ -1,6 +1,15 @@
 $gray: #757474;
 $lightgray: #909090;
 $whitegray: #D3D3D3;
+$color-gray5: #757474;
+$color-warn:#f44336;
+$color-primary: #3d5afe;
+
+@mixin title-table {
+  color: $color-gray5;
+  font-weight: bold;
+  font-size: 14px;
+}
 
 .drawer-container {
   height: 100%;
@@ -23,8 +32,9 @@ $whitegray: #D3D3D3;
     }
 
     .list-container {
-      width: 96%;
-      margin: 2%;
+      width: 91%;
+      margin: 2% auto;
+      //vertical-align: middle;
 
       .header-list {
         font-size: 14px;
@@ -33,6 +43,10 @@ $whitegray: #D3D3D3;
         width: 100%;
         flex-wrap: wrap;
         display: flex;
+        //justify-content: center;
+        @media screen and (max-width: 600px) {
+          flex-direction: row;
+        }
 
         .label-container {
           padding: 0 1%;
@@ -47,24 +61,55 @@ $whitegray: #D3D3D3;
           }
 
           &.id {
-            width: 13%;
+            width: 10%;
+            @media screen and (max-width: 600px) {
+              width: 37.5%;
+              display: flex;
+            }
           }
 
           &.nit {
-            width: 13%;
+            width: 10%;
+            @media screen and (max-width: 600px) {
+              display: none;
+            }
+          }
+
+          &.vacations {
+            text-align: right;
+            width: 25%;
+            @media screen and (max-width: 600px) {
+              width: 55.5%;
+              display: flex;
+              align-items: flex-end;
+              text-align: right;
+            }
+            & .label-result {
+              flex-direction: row;
+              flex-wrap: wrap;
+              @media screen and (max-width: 600px) {
+              flex-direction: column;
+              }
+            }
           }
 
           &.name {
-            width: 28%;
+            width: 20%;
+            @media screen and (max-width: 600px) {
+              width: 55.5%;
+              display: flex;
+              align-items: flex-end;
+            }
           }
 
-          &.date {
-            width: 18%;
-          }
-
-          &.state {
-            text-align: end;
-            width: 18%;
+          &.status {
+            width: 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @media screen and (max-width: 600px) {
+              width: 37.5%;
+            }
           }
         }
       }
@@ -129,4 +174,82 @@ $whitegray: #D3D3D3;
   margin-top: 1.5%;
   margin-right: 3%;
   margin-left: 5%;
+}
+
+.mat-mini-fab{
+  height: 30px;
+  width: 30px;
+  font-size: 14px;
+  line-height: 14px; 
+  &::ng-deep .mat-button-wrapper{
+    line-height: 14px;
+    padding: 0 0 0 0.5px; 
+    & .mat-icon{
+      color: white !important;
+    }
+  }
+}
+
+.enabledSellerButton{
+  background-color: green !important;
+}
+
+.grayBackgroundButton {
+  background: grey !important;
+}
+.primaryColor {
+  background: $color-primary !important;
+}
+
+.warnColor {
+  background: $color-warn !important;
+}
+
+.full-width {
+  width: 100%
+}
+
+.half-width{
+  width: 45%;
+}
+
+.space-between{
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.title-list{
+  display: none;
+  @media screen and (max-width: 600px){
+    display: flex;
+    @include title-table();
+  }
+}
+
+#id, #name, #vacations{
+  @media screen and (max-width: 600px){
+    flex-direction: column;
+  }
+}
+
+#body-list{
+  justify-content: space-around;
+  align-items: center;
+  @media screen and (max-width: 600px){
+    flex-direction: row;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  & #id {
+    padding-left: 0 !important;
+    padding-right: 2%;
+  }
+}
+
+.testBreak{
+  display: none;
+  @media screen and (max-width: 600px){
+    display: flex;
+  }
 }
