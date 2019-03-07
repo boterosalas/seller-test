@@ -32,8 +32,9 @@ export class ExpandedProductComponent implements OnInit {
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
-    changeImage(imageUrlMax: string) {
-        this.imageMax = imageUrlMax;
+    changeImage(image: any) {
+        console.log('aca entro', image);
+        this.imageMax = image;
     }
 
     public createArrayImages(): void {

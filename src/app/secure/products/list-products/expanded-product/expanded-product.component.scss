@@ -18,9 +18,20 @@
   font-family: Arial;
   padding: 5%;
   width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  display: flex;
+  @media screen and (max-width: 600px){
+    flex-direction: column;
+    padding: 0;
+  }
 
   .cont-images {
     display: flex;
+    @media screen and (max-width: 600px) {
+      flex-direction: column-reverse;
+    }
   }
 
   .info-product {
@@ -87,16 +98,53 @@
     width: 28px;
     height: 28px;
     border: 1px solid #D3D3D3;
+    @media screen and (max-width: 600px) {
+      width: 6px;
+      height: 6px;
+      background: gray;
+      border-radius: 50%;
+      padding: 0;
+    }
+
+    img {
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
+    }
   }
 
-  .imageXs {
-    width: 28px;
-    height: 28px;
-    border: 1px solid #D3D3D3;
+  .activeImage {
+    @media screen and (max-width: 600px) {
+      width: 9px;
+      height: 9px;
+      background: blue;
+      border-radius: 50%;
+      padding: 0;
+    }
+  }
+
+  .image-card{
+    @media screen and (max-width: 600px) {
+      padding: 0;
+      width: min-content;
+      height: min-content;
+      border-radius: 50%;
+    }
   }
 
   .imageXl {
     padding-left: 4%;
+    @media screen and (max-width: 600px) {
+      padding: 0;
+    }
+    & img{
+      @media screen and (max-width: 600px) {
+        width: min-content;
+        min-width: 300px;
+        max-width: 80%;
+        height: auto;
+      }
+    }
   }
 
   .smallImages {
@@ -104,6 +152,14 @@
     flex-wrap: wrap;
     width: min-content;
     padding-top: 1%;
+    @media screen and (max-width: 600px) {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      width: 40%;
+      align-items: center;
+      margin: 0 auto;
+    }
   }
 
 }
@@ -166,4 +222,8 @@
   &-sub:nth-child(odd) {
     background-color: #f2f2f2;
   }
+}
+
+.mobile-no-show{
+  display: none;
 }

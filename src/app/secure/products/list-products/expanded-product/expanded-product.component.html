@@ -1,12 +1,21 @@
 <hr>
 
-<div class="cont-product" fxLayout="row" fxLayoutAlign="space-around center">
+<div class="cont-product">
+
+  <div class="subtitle divider-two" fxShow.xs="true" fxShow="false">
+    <h3>EAN: {{productsExpanded.ean}}</h3>
+  
+    <p class="title divider-two" >{{productsExpanded.name}}</p>
+  </div>
+
   <div class="cont-images">
     <div class="smallImages">
       <!-- for que contiene el arreglo de las imagenes -->
-      <mat-card class="imageXs" *ngFor="let img of images">
+      <mat-card class="image-card" *ngFor="let img of images">
         <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
-        <img mat-card-image [src]="img.min" (click)="changeImage(img.max)">
+        <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
+            <img mat-card-image [src]="img.max">
+        </div>
       </mat-card>
     </div>
     <div>
@@ -14,14 +23,13 @@
         <img [src]="imageMax">
       </div>
     </div>
-
   </div>
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
-    <div class="subtitle divider-two">
+    <div class="subtitle divider-two" fxShow.xs="false">
       <h3>EAN: {{productsExpanded.ean}}</h3>
     
-      <p class="title divider-two">{{productsExpanded.name}}</p>
+      <p class="title divider-two" >{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
       <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
