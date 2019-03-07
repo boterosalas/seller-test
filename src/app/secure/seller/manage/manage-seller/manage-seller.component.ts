@@ -164,7 +164,7 @@ export class ManageSellerComponent implements OnInit {
             this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
             this.currentSellerSelect = body.Data;
-            if (this.currentSellerSelect.City) {
+            if (this.currentSellerSelect && this.currentSellerSelect.City) {
               this.showUpdate = true;
               // this.currentSellerSelect = body.Data;
               this.nit.setValue(this.currentSellerSelect.Nit);
@@ -383,9 +383,15 @@ export class ManageSellerComponent implements OnInit {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
       const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
-      this.validateFormRegister.controls.Profile.setValue(profile);
       const values = this.validateFormRegister.value;
       values.id = this.idSeller;
+      values.Name = this.validateFormRegister.controls.Name.value;
+      values.City = this.validateFormRegister.controls.City.value;
+      values.ContactName = this.validateFormRegister.controls.ContactName.value;
+      values.Email = this.validateFormRegister.controls.Email.value;
+      values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
+      values.State = this.validateFormRegister.controls.State.value;
+      values.Profile = profile;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {

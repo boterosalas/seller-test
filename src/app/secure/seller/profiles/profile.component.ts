@@ -181,12 +181,14 @@ export class ProfileComponent implements OnInit {
 
     /**
      * Obtiene la lista de perfiles por medio del servicio.
-     *
+     * // falta el lopading? sisas pongalo pero ese // asi?   oeoe
      * @private
      * @returns {Promise<Boolean>}
      * @memberof ProfileComponent
      */
     private getProfileList(): Promise<Boolean> {
+        this.loadingService.viewSpinner();
+        this.profileList = [];
         return new Promise((resolve, rej) => {
             this.profileService.getProfileList().subscribe(result => {
                 if (result && result.body) {
@@ -198,7 +200,9 @@ export class ProfileComponent implements OnInit {
                 } else {
                     log.error('Fallo al intentar obtener la lista de perfiles');
                 }
+                this.loadingService.closeSpinner();
             }, error => {
+                this.loadingService.closeSpinner();
                 console.error(error);
                 rej(false);
             });
@@ -219,6 +223,7 @@ export class ProfileComponent implements OnInit {
             data: { menu: this.menuList, data: dataToEdit }
         });
         dialogRef.afterClosed().subscribe(result => {
+            this.getProfileList();
         });
     }
 }
