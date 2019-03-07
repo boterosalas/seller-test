@@ -386,11 +386,11 @@ export class ManageSellerComponent implements OnInit {
       const values = this.validateFormRegister.value;
       values.id = this.idSeller;
       values.Name = this.validateFormRegister.controls.Name.value;
-      values.Name = this.validateFormRegister.controls.City.value;
-      values.Name = this.validateFormRegister.controls.ContactName.value;
-      values.Name = this.validateFormRegister.controls.Email.value;
-      values.Name = this.validateFormRegister.controls.PhoneNumber.value;
-      values.Name = this.validateFormRegister.controls.State.value;
+      values.City = this.validateFormRegister.controls.City.value;
+      values.ContactName = this.validateFormRegister.controls.ContactName.value;
+      values.Email = this.validateFormRegister.controls.Email.value;
+      values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
+      values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
