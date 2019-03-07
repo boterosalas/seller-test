@@ -20,9 +20,8 @@
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two">
       <h3>EAN: {{productsExpanded.ean}}</h3>
-    </div>
-    <div class="title divider-two">
-      <p class="name">{{productsExpanded.name}}</p>
+    
+      <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
       <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
@@ -37,7 +36,7 @@
     <div class="text">
       <i class="material-icons"> color_lens </i>
       Color:
-      <div class="color-product" style="background: #000;"></div>
+      <div class="color-product" [ngStyle]="{'background': '#'+productsExpanded.colour}"></div>
     </div>
 
     <div class="text">
