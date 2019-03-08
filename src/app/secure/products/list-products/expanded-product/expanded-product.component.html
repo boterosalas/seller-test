@@ -4,18 +4,18 @@
 
   <div class="info-product" fxShow.xs="true" fxShow="false">
     <div class="subtitle divider-two">
-      <h3>{{productsExpanded.name}}</h3>  
-      <p class="title divider-two" >EAN: {{productsExpanded.ean}}</p>
+      <h3>{{productsExpanded.name}}</h3>
+      <p class="title divider-two">EAN: {{productsExpanded.ean}}</p>
     </div>
   </div>
 
   <div class="cont-images">
-    <div class="smallImages">
+    <div >
       <!-- for que contiene el arreglo de las imagenes -->
       <mat-card class="image-card" *ngFor="let img of images">
         <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
         <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
-            <img mat-card-image [src]="img.max" alt="X">
+          <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-blue' : ''">
         </div>
       </mat-card>
     </div>
@@ -31,8 +31,8 @@
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two" fxShow.xs="false">
       <h3>EAN: {{productsExpanded.ean}}</h3>
-    
-      <p class="title divider-two" >{{productsExpanded.name}}</p>
+
+      <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
       <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
@@ -42,17 +42,25 @@
     <div class="text"> Categoría: <label> {{productsExpanded.category}} </label></div>
     <div class="text"> Marca: <label> {{productsExpanded.brand}} </label></div>
     <div class="divider-one"> Modelo: <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Shipping-size: <label> {{productsExpanded.shipping_size}} </label></div>
 
 
-    <div class="text">
-      <i class="material-icons"> color_lens </i>
-      Color:
-      <div class="color-product" [ngStyle]="{'background': '#'+productsExpanded.colour}"></div>
+    <div class="text" fxLayout="row">
+      <div *ngIf="productsExpanded.colour.length !== 0">
+        <i class="material-icons"> color_lens </i>
+        Color:
+        <div class="color-product" [ngStyle]="{'background': '#'+productsExpanded.colour}"></div>
+      </div>
+      <div *ngIf="productsExpanded.colour.length !== 0">
+        <i class="material-icons"> style </i>
+        Talla:
+        <label> {{productsExpanded.size}}</label>
+      </div>
     </div>
 
     <div class="text">
       <i class="material-icons"> shopping_basket </i>
-      Producto:
+      Empaque:
       <label> Alto-{{productsExpanded.package_height}}cm ancho-{{productsExpanded.package_width}}cm
         largo-{{productsExpanded.package_length}}cm peso-{{productsExpanded.package_weight}}kg </label>
     </div>
@@ -66,7 +74,7 @@
 
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
       <p> Mejor oferta</p>
-      <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.0-0'"> </p>
+      <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.0-0'" *ngIf="productsExpanded.bestOffer !== 0"> </p>
     </div>
   </div>
 </div>

@@ -18,6 +18,7 @@ export class ExpandedProductComponent implements OnInit {
 
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
+    imageLength: number;
     constructor(
     ) {
         /* creo el arreglo con las variables en JSon */
@@ -45,7 +46,7 @@ export class ExpandedProductComponent implements OnInit {
             this.images.push({ min, max });
         }
         this.imageMax = this.images[0]['max'];
-
+        this.imageLength = this.images.length;
     }
 
     changeHtmlToString(): void {

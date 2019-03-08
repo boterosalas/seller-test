@@ -21,7 +21,8 @@
   justify-content: space-between;
   align-content: center;
   display: flex;
-  @media screen and (max-width: 600px){
+
+  @media screen and (max-width: 600px) {
     flex-direction: column;
     padding: 0;
     width: 100%;
@@ -30,6 +31,7 @@
   .cont-images {
     display: flex;
     width: 45%;
+
     @media screen and (max-width: 600px) {
       flex-direction: column-reverse;
       width: 100%;
@@ -42,7 +44,8 @@
     color: #5D5D5D;
     padding-left: 5%;
     width: 45%;
-    @media screen and (max-width: 600px){
+
+    @media screen and (max-width: 600px) {
       width: 100%;
     }
 
@@ -67,7 +70,7 @@
     }
 
     i {
-      font-size: 14px;
+      font-size: 18px;
     }
 
     .color-product {
@@ -80,10 +83,6 @@
 
     .divider-one {
       padding-bottom: 30px;
-    }
-
-    .divider-two {
-      // adding-bottom: 10px;
     }
 
     .best-offer {
@@ -105,6 +104,13 @@
     width: 28px;
     height: 28px;
     border: 1px solid #D3D3D3;
+
+    &:hover{
+      border: 3px solid green;
+
+    }
+
+
     @media screen and (max-width: 600px) {
       width: 6px;
       height: 6px;
@@ -130,7 +136,9 @@
     }
   }
 
-  .image-card{
+  .image-card {
+    // width: 77px;
+    // height: 77px;
     @media screen and (max-width: 600px) {
       padding: 0;
       width: min-content;
@@ -141,10 +149,12 @@
 
   .imageXl {
     padding-left: 4%;
+
     @media screen and (max-width: 600px) {
       padding: 0;
     }
-    & img{
+
+    & img {
       @media screen and (max-width: 600px) {
         width: min-content;
         min-width: 300px;
@@ -155,10 +165,11 @@
   }
 
   .smallImages {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
     width: min-content;
     padding-top: 1%;
+
     @media screen and (max-width: 600px) {
       flex-direction: row;
       flex-wrap: nowrap;
@@ -199,7 +210,12 @@
 }
 
 ::ng-deep .mat-tab-body-content {
+  // display: flex;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .container {
@@ -231,11 +247,29 @@
   }
 }
 
-.mobile-no-show{
+.mobile-no-show {
   display: none;
 }
 
-mat-divider{
+mat-divider {
   border-color: grey;
   border-right-width: 2px;
+}
+
+.flex {
+  padding: 1%;
+}
+
+mat-card{
+  // width: 77px;
+  height: 58px;
+/*
+  &:hover,
+  &:active {
+    border: 1px solid blue;
+  }*/
+}
+
+.border-blue{
+  border: 1px solid blue;
 }
