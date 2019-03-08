@@ -13,6 +13,8 @@ import { RegisterComponent } from './auth/register/registration.component';
 import { ResendCodeComponent } from './auth/resend/resendCode.component';
 import { AboutComponent, HomeComponent, HomeLandingComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
+import { AuthRoutingService } from '@app/secure/auth/auth.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 @NgModule({
@@ -38,7 +40,7 @@ import { HomeRoutingModule } from './home.routing';
     HomeComponent,
   ],
   exports: [],
-  providers: []
+  providers: [AuthService, AuthRoutingService]
 })
 export class HomeModule {
 }

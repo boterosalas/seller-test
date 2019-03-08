@@ -7,6 +7,8 @@ import { ChallengeParameters, CognitoCallback, DynamoDBService, LoadingService, 
 import { RoutesConst, UserInformation } from '@app/shared';
 import { environment } from '@env/environment';
 import { Logger } from '@core/util/logger.service';
+import { AuthRoutingService } from '@app/secure/auth/auth.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const log = new Logger('LoginComponent');
 
@@ -70,7 +72,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private userService: UserLoginService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    private authService: AuthService,
+    private authRoutingService: AuthRoutingService
   ) {
     this.userService.isAuthenticated(this);
   }
@@ -131,12 +135,24 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    this.loadingService.closeSpinner();
-    if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
-    } else if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${this.consts.sellerCenterIntSellerRegister}`]);
-    }
+    this.authRoutingService.getPermissions().subscribe((response) => {
+      const result = JSON.parse(response.body);
+      const modules = result.Data.Profile.Modules;
+      const firstModule = modules[0].Menus[0].Name;
+      const moduleName = modules[0].Name;
+      this.authService.getModules().then(data => {
+        const menu = data.find(menu => menu.NameModule.toLowerCase() == moduleName.toLowerCase());
+        const subMenu = menu.Menus.find(subMenu => subMenu.NameMenu.toLowerCase() == firstModule.toLowerCase())
+        const url = subMenu.UrlRedirect;
+        this.loadingService.closeSpinner();
+        if (this.user.sellerProfile === 'seller') {
+          this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
+        } else {
+          this.router.navigate([`/${url}`]);
+        }
+        this.loadingService.closeSpinner();
+      });
+    })
   }
 
   handleMFAStep(challengeName: string, challengeParameters: ChallengeParameters, callback: (confirmationCode: string) => any): void {
