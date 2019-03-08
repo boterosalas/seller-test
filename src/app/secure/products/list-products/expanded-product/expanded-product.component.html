@@ -15,13 +15,13 @@
       <mat-card class="image-card" *ngFor="let img of images">
         <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
         <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
-            <img mat-card-image [src]="img.max">
+            <img mat-card-image [src]="img.max" alt="X">
         </div>
       </mat-card>
     </div>
     <div>
       <div class="imageXl">
-        <img [src]="imageMax">
+        <img [src]="imageMax" alt="Imagen no disponible">
       </div>
     </div>
   </div>

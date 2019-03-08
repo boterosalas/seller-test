@@ -86,6 +86,12 @@ $color-gray3: #D3D3D3;
   }
 }
 
+.hide-page{
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
 .seller-filter-sidenav {
   padding-top: 5%;
   padding-right: 8%;
