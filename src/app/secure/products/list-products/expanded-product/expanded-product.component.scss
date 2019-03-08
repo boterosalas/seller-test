@@ -105,7 +105,7 @@
     height: 28px;
     // border: 1px solid #D3D3D3;
 
-    &:hover{
+    &:hover {
       border: 3px solid green;
 
     }
@@ -137,6 +137,7 @@
   }
 
   .image-card {
+
     // width: 77px;
     // height: 77px;
     @media screen and (max-width: 600px) {
@@ -260,16 +261,21 @@ mat-divider {
   padding: 1%;
 }
 
-mat-card{
+mat-card {
   // width: 77px;
   height: 58px;
-/*
+  /*
   &:hover,
   &:active {
     border: 1px solid blue;
   }*/
 }
 
-.border-blue{
+.border-blue {
   border: 1px solid blue;
+}
+
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 0px 0px 0px rgba(255, 253, 253, 0.2), 0 0px 0px 0 rgba(0, 0, 0, .14), 0 0px 0px 0 rgba(0, 0, 0, .12);
 }
