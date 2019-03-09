@@ -31,8 +31,8 @@ export class AuthService implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
         // Console solo para verificar ruta y estado de la misma.
-        // console.warn('AuthService', state);
-        // console.warn('AuthService', route);
+        console.warn('AuthService', state);
+        console.warn('AuthService', route);
         // Promesa para verificar estados del usuario y la ruta a la que intenta entrar
         if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
             return new Promise((resolve, reject) => {
@@ -158,11 +158,13 @@ export class AuthService implements CanActivate {
     public redirectToHome(result: boolean, state: RouterStateSnapshot, redirectLog: boolean = false): void {
         if (!result && !redirectLog) {
             let redirect = false;
+            let oneTime = true;
             this.modulesRouting.forEach(element => {
                 if (element.ShowModule) {
                     element.Menus.forEach(menu => {
-                        if (menu.ShowMenu) {
+                        if (menu.ShowMenu && oneTime) {
                             redirect = true;
+                            oneTime = false;
                             this.router.navigate([`/${menu.UrlRedirect}`]);
                         }
                     });
