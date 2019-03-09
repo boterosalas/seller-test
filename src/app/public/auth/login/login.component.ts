@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 import { Logger } from '@core/util/logger.service';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { Subscription } from 'rxjs';
 
 const log = new Logger('LoginComponent');
 
@@ -51,7 +52,7 @@ const log = new Logger('LoginComponent');
     ])
   ]
 })
-export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit {
+export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit, OnDestroy {
   // Contiene la estructura del formulario del login
   awscognitogroup: FormGroup;
   // Define si la app esta en un entorno de producción.
@@ -65,6 +66,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     callback: null
   };
   public user: UserInformation;
+
+  subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -135,7 +138,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    this.authRoutingService.getPermissions().subscribe((response) => {
+    this.subscription = this.authRoutingService.getPermissions().subscribe((response) => {
       const result = JSON.parse(response.body);
       const modules = result.Data.Profile.Modules;
       const firstModule = modules[0].Menus[0].Name;
@@ -150,7 +153,6 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         } else {
           this.router.navigate([`/${url}`]);
         }
-        this.loadingService.closeSpinner();
       });
     })
   }
@@ -187,5 +189,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
    */
   viewErrorMessageLogin(err?: any) {
     this.loadingService.closeProgressBar();
+  }
+
+  ngOnDestroy(){
+    this.subscription && this.subscription.unsubscribe();
   }
 }

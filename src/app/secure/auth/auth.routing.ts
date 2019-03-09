@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Modules, ModuleModel, MenuModel, ProfileTypes } from './auth.consts';
-import { UserParametersService, CognitoUtil, UserLoginService, EndpointService } from '@app/core';
-import { RoutesConst, Const } from '@app/shared';
-import { AuthRoutingService } from './auth.service';
+import { UserParametersService, UserLoginService, EndpointService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -18,6 +17,8 @@ export class AuthService implements CanActivate {
     types = ['Tienda', 'Exito'];
     getData = false;
     profileTypeGlobal = null;
+
+    availableModules;
 
     constructor(public userParams: UserParametersService,
         public router: Router,
@@ -106,6 +107,7 @@ export class AuthService implements CanActivate {
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
                             this.profileTypeGlobal = profileTye;
+                            this.availableModules = data.Data.Profile.Modules;
                             data.Data.Profile.Modules.forEach(moduleItem => {
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;
@@ -264,6 +266,18 @@ export class AuthService implements CanActivate {
      */
     public setModules(modules: ModuleModel[]): void {
         this.modulesRouting = modules;
+    }
+
+    private validationModuleSelected(selectedModule: any): void {
+        let find;
+        this.availableModules.forEach(menu => {
+            menu.Menus.forEach(subMenu => {
+                if (subMenu.Name.toLowerCase().trim() === selectedModule.NameMenu.toLowerCase().trim()) {
+                    find = true;
+                }
+            });
+        });
+        return find;
     }
 
 
