@@ -18,6 +18,8 @@ export class AuthService implements CanActivate {
     types = ['Tienda', 'Exito'];
     getData = false;
 
+    availableModules;
+
     constructor(public userParams: UserParametersService,
         public router: Router,
         public userService: UserLoginService,
@@ -42,13 +44,9 @@ export class AuthService implements CanActivate {
                         this.userParams.getUserData().then(data => {
                             this.userData = data;
                             // Valida si al menu que intenta ingresar posee el tipo del usuario.
-                            const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
+                            const result = this.validationModuleSelected(moduleSelected);
                             resolve(result);
                             this.redirectToHome(result, state);
-                        }, error => {
-                            console.error(error);
-                            reject(false);
-                            this.redirectToHome(false, state, true);
                         });
                     } else {
                         if (state.url === '/' + RoutesConst.sellerCenterIntDashboard) {
@@ -103,6 +101,7 @@ export class AuthService implements CanActivate {
                         const data = JSON.parse(result.body);
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
+                            this.availableModules = data.Data.Profile.Modules;
                             data.Data.Profile.Modules.forEach(moduleItem => {
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;
@@ -261,6 +260,18 @@ export class AuthService implements CanActivate {
      */
     public setModules(modules: ModuleModel[]): void {
         this.modulesRouting = modules;
+    }
+
+    private validationModuleSelected(selectedModule){
+        let find;
+        this.availableModules.forEach(menu => {
+            menu.Menus.forEach(subMenu => {
+                if(subMenu.Name.toLowerCase().trim() == selectedModule.NameMenu.toLowerCase().trim()){
+                    find = true;
+                }
+            })
+        });
+        return find;
     }
 
 
