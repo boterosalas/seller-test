@@ -56,7 +56,8 @@ export class DialogProfileComponent {
     public createForm(data: any): void {
         let dataToEdit = {
             Name: '',
-            Type: ''
+            Type: '',
+            TypeName: ''
         };
         // Si posee datos se inicia el modo de edicion.
         if (data) {
@@ -67,16 +68,15 @@ export class DialogProfileComponent {
                 });
             });
             this.menuList.forEach(element => {
-                if (element.ProfileType === this.profileTypes[1]) {
+                if (element.ProfileType === dataToEdit.TypeName) {
                     this.menuShowList.push(element);
                 }
             });
             this.editMode = true;
         }
-
         this.profileForm = new FormGroup(
             {
-                Name: new FormControl({value: dataToEdit.Name, disabled: this.editMode}, Validators.required),
+                Name: new FormControl({ value: dataToEdit.Name, disabled: this.editMode }, Validators.required),
                 Type: new FormControl(dataToEdit.Type + '', Validators.required),
                 Menu: new FormControl(''),
                 Funcionality: new FormControl(''),
@@ -111,10 +111,12 @@ export class DialogProfileComponent {
         return exist;
     }
 
-    public changeRadio(): void {
-        this.menuAddList = [];
-        this.menuShowList = [];
-        this.functionalitiesList = [];
+    public changeRadio(editMode: boolean = true): void {
+        if (editMode) {
+            this.menuAddList = [];
+            this.menuShowList = [];
+            this.functionalitiesList = [];
+        }
         if (this.profileForm.value.Type !== '0') {
             this.menuList.forEach(element => {
                 if (element.ProfileType === this.profileTypes[1]) {
@@ -159,7 +161,7 @@ export class DialogProfileComponent {
      */
     public saveProfile(): void {
         const dataToSend = {
-            Name: this.profileForm.value.Name,
+            Name: this.profileForm.controls.Name.value,
             ProfileType: Const.ProfileTypesBack[this.profileForm.value.Type],
             Modules: this.validModulesToSend()
         };

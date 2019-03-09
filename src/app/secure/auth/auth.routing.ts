@@ -17,6 +17,7 @@ export class AuthService implements CanActivate {
     adminType = 1;
     types = ['Tienda', 'Exito'];
     getData = false;
+    profileTypeGlobal = null;
 
     constructor(public userParams: UserParametersService,
         public router: Router,
@@ -42,9 +43,9 @@ export class AuthService implements CanActivate {
                         this.userParams.getUserData().then(data => {
                             this.userData = data;
                             // Valida si al menu que intenta ingresar posee el tipo del usuario.
-                            const result = this.userData.sellerProfile === this.admin ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
+                            const result = this.profileTypeGlobal === this.types[1] ? moduleSelected.ProfileType === ProfileTypes.Administrador : moduleSelected.ProfileType === ProfileTypes.Vendedor;
                             resolve(result);
-                            this.redirectToHome(result, state);
+                            // this.redirectToHome(result, state);
                         }, error => {
                             console.error(error);
                             reject(false);
@@ -92,6 +93,7 @@ export class AuthService implements CanActivate {
                 });
             });
         });
+        this.getData = false;
     }
 
     public getModulesFromService(): any {
@@ -103,6 +105,7 @@ export class AuthService implements CanActivate {
                         const data = JSON.parse(result.body);
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
+                            this.profileTypeGlobal = profileTye;
                             data.Data.Profile.Modules.forEach(moduleItem => {
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;

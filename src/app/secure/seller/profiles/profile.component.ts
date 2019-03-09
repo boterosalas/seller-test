@@ -7,6 +7,7 @@ import { DialogProfileComponent } from './dialog/profile-dialog.component';
 import { MenuModel } from './models/menu.model';
 import { MenuModel as menuMode, readFunctionality, updateFunctionality, createFunctionality, profileName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { Const } from '@app/shared';
 
 
 const log = new Logger('ProfileComponent');
@@ -40,7 +41,7 @@ export class ProfileComponent implements OnInit {
     typeProfile = 'typeProfile';
     nameTypeProfile = 'ProfileType';
     menuProfile = 'Modules';
-    typeProfileNumber = 'Shop';
+    typeProfileNumber = Const.ProfileTypesBack[1];
 
     // Variables con los permisos que este componente posee
     permissionComponent: menuMode;
