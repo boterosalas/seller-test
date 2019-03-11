@@ -74,7 +74,8 @@
 
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
       <p> Mejor oferta</p>
-      <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.0-0'" *ngIf="productsExpanded.bestOffer !== 0"> </p>
+      <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.0-0'" *ngIf="productsExpanded.bestOffer !== 0">
+      </p>
     </div>
   </div>
 </div>
@@ -105,4 +106,50 @@
       </div>
     </mat-tab>
   </mat-tab-group>
+</div>
+
+<div class="expanded-information-product2">
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Descripción
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <p class="description-product" [innerHtml]="productsExpanded.description"></p>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Palabras claves
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
+      <mat-chip>{{keywords}}</mat-chip>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Especificaciones
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <span  *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
+        No hay elementos de especificaciones.
+      </span>
+      <div class="container">
+        <div class="container-sub" *ngFor="let spec of productsExpanded.features">
+          <div class="container-specs_title">
+            {{spec.key}}
+          </div>
+          <div class="container-specs_value">
+            {{spec.value}}
+          </div>
+        </div>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>
 </div>
