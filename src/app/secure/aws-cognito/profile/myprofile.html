@@ -7,16 +7,28 @@
             </mat-form-field>
             <mat-form-field class="full-width">
                 <input matInput placeholder="Nit" autocomplete="false" formControlName="Nit">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="StoreName">
             </mat-form-field>        
             <mat-form-field class="full-width">
                 <input matInput placeholder="Correo" autocomplete="false" formControlName="Email">
             </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="StoreName">
-            </mat-form-field>
         </form>
     </div>
     <div class="sub-content">
-        <button mat-stroked-button color="primary">PROGRAMAR VACACIONES</button>
+        <ng-container *ngIf="isInVacation; else programVacations">
+            <mat-card>
+                <mat-card-title>
+                    
+                </mat-card-title>
+                <mat-card-content>
+                    
+                </mat-card-content>
+            </mat-card>
+        </ng-container>
+        <ng-template #programVacations>
+            <button mat-stroked-button color="primary">PROGRAMAR VACACIONES</button>
+        </ng-template>
     </div>
 </div>

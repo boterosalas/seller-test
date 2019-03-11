@@ -15,6 +15,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public cognitoId: String;
     public user: any;
     form: FormGroup;
+    isInVacation: boolean = true;
 
     constructor(
         public router: Router,
