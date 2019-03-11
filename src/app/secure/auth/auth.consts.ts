@@ -356,7 +356,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 3. Arbol de categorias.
  * 4. Perfiles.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Arbol de Categorías', profileName = 'Perfiles';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
