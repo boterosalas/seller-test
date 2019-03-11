@@ -1,15 +1,22 @@
-<h1 class="page-header">Mi Perfil</h1>
-
-<div class="table-responsive">
-    <table class="table table-hover table-striped">
-        <tr>
-            <th><strong>Atributo</strong></th>
-            <th><strong>Descripci&oacute;n</strong></th>
-        </tr>
-        <tr *ngFor="let parameter of parameters" class="active">
-            <td>{{ parameter.name }}</td>
-            <td>{{ parameter.value }}</td>
-        </tr>
-
-    </table>
+<h1 class="text-center">Mi Perfil</h1>
+<div class="profile-content">
+    <div class="sub-content">
+        <form [formGroup]="form">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Id seller" autocomplete="false" formControlName="SellerId">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Nit" autocomplete="false" formControlName="Nit">
+            </mat-form-field>        
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Correo" autocomplete="false" formControlName="Email">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="StoreName">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="sub-content">
+        <button mat-stroked-button color="primary">PROGRAMAR VACACIONES</button>
+    </div>
 </div>
