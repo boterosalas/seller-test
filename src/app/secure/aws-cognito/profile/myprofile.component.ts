@@ -24,6 +24,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     vacationForm: FormGroup;
     today = new Date();
     @ViewChild('dialogTemplate') content: TemplateRef<any>;
+    @ViewChild('intialPicker') initialPicker;
+    @ViewChild('endPicker') endPicker;
 
     constructor(
         public router: Router,
@@ -51,10 +53,28 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         });
     }
 
+    /**
+     * Method that open a specific datePicker at click an input
+     * @param pos Pos of datepicker to open;
+     */
+    openPicker(pos: number){
+        switch (pos) {
+            case 1:
+            this.initialPicker.open();
+            break;
+            case 2: 
+            this.endPicker.open();
+            break;
+        }
+    }
+
     private initVacationForm(){
         this.vacationForm = this.fb.group({
             StartDateVacation: ['', Validators.compose([Validators.required])],
             EndDateVacation : ['', Validators.compose([Validators.required])]
+        });
+        this.startDateVacation.valueChanges.subscribe(val => {
+            if(!!val) this.endDateVacation.reset(null);
         });
     }
 
