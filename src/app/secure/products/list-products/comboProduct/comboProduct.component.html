@@ -5,7 +5,7 @@
   Volver
 </button>
 
-<div style="padding-bottom: 30px;" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+<div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
   <div (click)="openInformation(products.ean)" *ngIf="showImage === false">
 
     <mat-card class="example-card">

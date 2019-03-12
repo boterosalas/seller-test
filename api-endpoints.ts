@@ -214,23 +214,23 @@ export const endpoints = {
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener todos los perfiles.
-      getAllProfiles: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllProfiles',
+      getAllProfiles: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetAllProfiles',
       // Agregar perfiles.
-      createProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/CreateProfile',
+      createProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/CreateProfile',
       // Editar perfiles.
-      updateProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/UpdateProfile',
+      updateProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/UpdateProfile',
       // Obtener todos los modulos.
-      getAllModule: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllModules',
+      getAllModule: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetAllModules',
       // Obtener todos los permisos.
-      getPermissions: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetUserPerminsions',
+      getPermissions: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetUserPerminsions',
       // Obtener lista de productos
       getProductList: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/{params}',
       // Obtener especificaciones por categoria
       getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
       // Obtener lista producto expandido
-      getProductExpanded: '',
+      getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
       // Obtener tipo de perfil
-      getTypeProfileAndProfile: '',
+      getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
     }
   }
 };
