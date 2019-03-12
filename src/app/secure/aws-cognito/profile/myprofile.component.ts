@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
+import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
@@ -29,10 +29,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         public router: Router,
         public userService: UserLoginService,
         public userParams: UserParametersService,
-        public cognitoUtil: CognitoUtil,
         private fb: FormBuilder,
         private sotreService: StoresService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private loading: LoadingService,
+        private modalService: ModalService) {
         this.userService.isAuthenticated(this);
     }
     
@@ -70,6 +71,31 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         });
         const dialoginstance = dialogRef.componentInstance;
         dialoginstance.content = this.content;
+        dialoginstance.confirmation = () => {
+            const form = this.vacationForm.value;
+            if(form.StartDateVacation && form.EndDateVacation) {
+                form.StartDateVacation = this.setFormatDate(form.StartDateVacation);
+                form.EndDateVacation = this.setFormatDate(form.EndDateVacation);
+            }
+            this.loading.viewSpinner();
+            this.sotreService.changeStateSeller(form).subscribe(response => {
+                const body = response.body;
+                if( body && body.statusCode && body.statusCode == 201) {
+                    const resultData = JSON.parse(body.body);
+                    if(resultData && resultData.Message) {
+                        console.log(resultData.Message);
+                    }
+                } else {
+                    this.modalService.showModal('errorService');
+                }
+                dialoginstance.onNoClick();
+                this.loading.closeSpinner();                
+            });
+        };
+    }
+
+    setFormatDate(date: Date){
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     }
 
     async isLoggedIn(message: string, isLoggedIn: boolean) {
