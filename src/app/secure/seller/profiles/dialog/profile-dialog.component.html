@@ -1,0 +1,78 @@
+<h1 mat-dialog-title *ngIf="!dataToEdit">
+    Agregar perfil
+</h1>
+
+<h1 mat-dialog-title *ngIf="dataToEdit">
+    Editar perfil
+</h1>
+<form [formGroup]="profileForm" (ngSubmit)="saveProfile()" name="profileForm" class="profileForm">
+    <div mat-dialog-content >
+        <!-- INPUT NAME -->
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+            <mat-form-field class="name-form input-form">
+                <input matInput formControlName="Name" placeholder="Nombre del perfil">
+                <mat-error *ngIf="profileForm.get('Name').hasError('required')">
+                    Este campo es requerido.
+                </mat-error>
+            </mat-form-field>
+            <!-- RADIO BUTTON TYPE -->
+            <mat-radio-group class="profile-radio-group" color="primary" (change)="changeRadio()" formControlName="Type">
+                <mat-radio-button value="0">
+                    Exito
+                </mat-radio-button>
+                <mat-radio-button value="1">
+                    Tienda</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+            <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
+                <mat-form-field class="select-form">
+                    <mat-select placeholder="Seleccione el menu" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
+                        <mat-optgroup *ngFor="let module of menuShowList" [label]="module.Name">
+                            <mat-option *ngFor="let menu of module.Menus" [value]="menu" [ngClass]="{'no-show': showMenu(menu)}">
+                                {{menu.Name}}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+                <div class="select-to-add" fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field class="select-form-full">
+                        <mat-select placeholder="Seleccione la funcionalidad" formControlName="Funcionality" name="Funcionality"
+                            multiple (selectionChange)="changeFunctionality()">
+                            <mat-option *ngFor="let functionality of functionalitiesList" [value]="functionality">
+                                {{functionality.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-icon-button (click)="addMenu()" type="button">
+                        <mat-icon class="material-icons color-green">
+                            add_box
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div *ngFor="let menu of menuAddList; let i = index" fxLayout="row" fxLayoutAlign="space-between center" class="menu-added">
+            <div class="list-add-menu">
+                {{menu.Name}}
+            </div>
+            <ul fxLayout="column" class="list-add-menu">
+                <li *ngFor="let functionality of menu.Functionalities">
+                    {{functionality.Name}}
+                </li>
+            </ul>
+            <button mat-icon-button class="remove-menu" (click)="removeMenu(i)" type="button">
+                <mat-icon class="material-icons color-red">
+                    clear
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button mat-raised-button color="secondary" type="button" mat-button (click)="onNoClick()">CANCELAR</button>
+        <button mat-raised-button color="primary" mat-button type="submit" cdkFocusInitial>GUARDAR</button>
+    </div>
+</form>

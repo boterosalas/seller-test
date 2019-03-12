@@ -20,6 +20,15 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
   }
 }
 
+.cardImageAling {
+  padding-bottom: 30px;
+
+  @media screen and (max-width: 600px) {
+    padding-left: 50px;
+    padding-bottom: 1px;
+  }
+}
+
 .example-card {
   border: 1px solid #D3D3D3;
   width: 240px;
@@ -29,7 +38,7 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   padding-left: 0px;
   padding-right: 0px;
- // padding-bottom: 0px;
+  // padding-bottom: 0px;
 }
 
 .container-desc-card {
@@ -100,4 +109,8 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
       }
     }
   }
+}
+
+.full-width {
+  width: 100%;
 }

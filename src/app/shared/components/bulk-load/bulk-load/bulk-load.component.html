@@ -27,7 +27,7 @@
               #fileUploadInput (change)="fileUploadInputChanged($event)">
 
             <!-- Botón para importar el archivo -->
-            <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadInput.click()"
+            <button color="primary" class="sc-default-button" [ngClass]="{'block-link' : disabledLoad}" id="load-file-button" (click)="fileUploadInput.click()"
               mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
               SELECCIONAR ARCHIVO A IMPORTAR

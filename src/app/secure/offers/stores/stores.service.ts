@@ -60,8 +60,14 @@ export class StoresService {
     });
   }
 
-  public changeStateSeller(idSeller: Number): Observable<any> {
-      return of(true);
+  public changeStateSeller(body: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.patch(this.api.get('changeStatusSeller'), body, { observe: 'response' }).subscribe((data) => {
+        observer.next(data);
+      }, error => {
+        observer.next(error);
+      })
+    });
   }
 
 

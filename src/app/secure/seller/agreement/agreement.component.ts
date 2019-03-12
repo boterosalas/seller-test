@@ -4,6 +4,8 @@ import { AgreementService, Agreement } from './agreement.component.service';
 import { Logger } from '@core/util/logger.service';
 import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
 import { LoadingService } from '@app/core';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality, readFunctionality } from '@app/secure/auth/auth.consts';
 
 const log = new Logger('AgreementComponent');
 
@@ -18,12 +20,20 @@ export class AgreementComponent implements OnInit {
 
     sellerData: any;
     agreementsSeller: Agreement[] = [];
+    // Variables con los permisos que este componente posee
+    permissionComponent: MenuModel;
+    visualize = visualizeFunctionality;
+    download = downloadFunctionality;
+    read = readFunctionality;
+
     constructor(private emitterSeller: EventEmitterSeller,
         private agreementService: AgreementService,
         private billingOrdersService: BillingOrdersService,
-        private loadingService: LoadingService) { }
+        private loadingService: LoadingService,
+        public authService: AuthService) { }
 
     ngOnInit() {
+        this.permissionComponent = this.authService.getMenu(agreementName);
         this.emitterSeller.eventSearchSeller.subscribe(data => {
             this.sellerData = data;
             this.agreementsSeller = [];
@@ -31,6 +41,23 @@ export class AgreementComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion que verifica si la funcion del modulo posee permisos
+     *
+     * @param {string} functionality
+     * @returns {boolean}
+     * @memberof ToolbarComponent
+     */
+    public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
+    }
+
+    /**
+     * Cargar acuerdos.
+     *
+     * @memberof AgreementComponent
+     */
     public chargeAgreements(): void {
         this.loadingService.viewSpinner();
         this.agreementService.getAgreements(this.sellerData.IdSeller).subscribe(data => {

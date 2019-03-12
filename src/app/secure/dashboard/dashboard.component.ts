@@ -80,8 +80,9 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     ngOnInit(): void {
-        this.userService.isAuthenticated(this);
+        // this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
+        this.getUserData();
     }
 
     /**
@@ -91,13 +92,15 @@ export class DashboardComponent implements OnInit {
      */
     private async getUserData() {
         this.user = await this.userParams.getUserData();
-
+        this.getOrdersData();
+        this.getLastSales();
+        /*
         if (this.user.sellerProfile !== 'seller') {
             this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
         } else {
             this.getOrdersData();
             this.getLastSales();
-        }
+        } */
     }
 
     /**

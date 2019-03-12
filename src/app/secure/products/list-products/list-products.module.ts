@@ -7,6 +7,7 @@ import { MaterialModule } from '@app/material.module';
 import { ToolbarComponent } from '@app/secure/offers/historical/components/toolbar/toolbar.component';
 import { ComboProductComponent } from './comboProduct/comboProduct.component';
 import { ListProductService } from './list-products.service';
+import { ExpandedProductComponent } from './expanded-product/expanded-product.component';
 
 @NgModule({
     imports: [
@@ -18,10 +19,12 @@ import { ListProductService } from './list-products.service';
     ],
     declarations: [
       ListProductsComponent,
-      ComboProductComponent
+      ComboProductComponent,
+      ExpandedProductComponent
     ],
     exports: [
       ComboProductComponent,
+      ExpandedProductComponent
     ],
     entryComponents: [
 

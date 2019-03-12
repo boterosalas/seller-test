@@ -66,6 +66,8 @@ export class BulkLoadComponent implements OnInit {
     mainContentTpl: null
   };
 
+  @Input() disabledLoad: boolean;
+
   @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
   @Output() event: EventEmitter<Event> = new EventEmitter();
   public progressStatus = false;
@@ -77,7 +79,8 @@ export class BulkLoadComponent implements OnInit {
     private modalService: ModalService,
     private loadingService: LoadingService,
     private snackBar: MatSnackBar,
-    private moderationService: SendModerationFormatModalService) { }
+    private moderationService: SendModerationFormatModalService) {
+  }
 
   ngOnInit(): void {
     this.getRegex();
@@ -251,7 +254,7 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   public validateHeaders(data: any): void {
-    for (let i = 0; i < data.length ; i++) {
+    for (let i = 0; i < data.length; i++) {
       if (data[i]) {
         if (this.validaTrim(data[i]) === this.nameEan) {
           this.positionModerate[this.nameEan] = i;
@@ -355,7 +358,7 @@ export class BulkLoadComponent implements OnInit {
    */
   public validaTrim(value: string): any {
     if (value) {
-      return  value.trim();
+      return value.trim();
     }
     return value;
   }
@@ -364,13 +367,13 @@ export class BulkLoadComponent implements OnInit {
   public verifyModerationDataFromExcel(data: any): void {
     this.validateHeaders(data[0]);
     for (let i = 1; i < data.length; i++) {
-      const validaData = { Ean: '', Response: '', Reason: '', Comment: '', Errors: [], Idpw: ''};
+      const validaData = { Ean: '', Response: '', Reason: '', Comment: '', Errors: [], Idpw: '' };
 
       /** Posee doble if para darle un mejor manejo a los mensajes de error  */
       /** Valida si tiene ean y concuerda con la regex */
       if (data[i][this.positionModerate[this.nameEan]]) {
         validaData.Ean = this.validaTrim(data[i][this.positionModerate[this.nameEan]]);
-        if (! this.validaTrim(data[i][this.positionModerate[this.nameEan]]).match(this.regexEan)) {
+        if (!this.validaTrim(data[i][this.positionModerate[this.nameEan]]).match(this.regexEan)) {
           validaData.Errors.push(this.getError(i, this.nameEan, false, this.nameEan)); // Error el ean no es valido
         }
       } else {
@@ -508,7 +511,7 @@ export class BulkLoadComponent implements OnInit {
           this.progressStatus = true;
 
           // Estado 2 cuando la carga es exitosa.
-        } else if (result.body.data.status === 2 && (result.body.data.checked === 'false' || verifyState)  ) {
+        } else if (result.body.data.status === 2 && (result.body.data.checked === 'false' || verifyState)) {
 
           this.openDialogSendOrderPopUp({ type: this.typeDialog.Success });
 

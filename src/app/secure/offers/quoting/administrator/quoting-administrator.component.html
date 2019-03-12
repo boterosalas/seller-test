@@ -1,3 +1,3 @@
 <app-shipping-methods></app-shipping-methods>
-<app-list-transporter></app-list-transporter>
-<app-list-zones></app-list-zones>
+<app-list-transporter *ngIf="readTransportFunction" [canEdit]="updateTransportFunction" [canDelete]="deleteTransportFunction" [canCreate]="createTransportFunction"></app-list-transporter>
+<app-list-zones *ngIf="readZoneFunction" [canEdit]="updateZoneFunction" [canDelete]="deleteZoneFunction" [canCreate]="createZoneFunction"></app-list-zones>

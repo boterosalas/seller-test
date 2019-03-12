@@ -12,6 +12,8 @@ import { RegisterService } from '@app/secure/seller/register/register.service';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
+import { MenuModel, updateFunctionality, readFunctionality, administrateName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const log = new Logger('ManageSellerComponent');
 
@@ -50,6 +52,7 @@ export class ManageSellerComponent implements OnInit {
 
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
+  public validateFormRegisterAdmin: FormGroup;
 
   public nit: FormControl;
   public rut: FormControl;
@@ -67,6 +70,12 @@ export class ManageSellerComponent implements OnInit {
   public gotoExito: FormControl;
   public gotoCarrulla: FormControl;
   public gotoCatalogo: FormControl;
+  public profile: FormControl;
+  profileSeller: string[] = [];
+  profileAdmin: string[] = [];
+  public showUpdate: boolean;
+
+
 
   // variable que almacena el nombre de la tienda seleccionada
   public currentSellerSelect: StoreModel;
@@ -82,6 +91,13 @@ export class ManageSellerComponent implements OnInit {
   public elementCityLoad: string;
   public firstEmit = true;
   public idSeller: string;
+  public selectedValue: string;
+
+  // Variables con los permisos que este componente posee
+  permissionComponent: MenuModel;
+  read = readFunctionality;
+  update = updateFunctionality;
+  disabledComponent = false;
 
   /**
    * Creates an instance of ManageSellerComponent.
@@ -102,12 +118,26 @@ export class ManageSellerComponent implements OnInit {
     private registerService: RegisterService,
     public userService: UserLoginService,
     private router: Router,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    public authService: AuthService
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
     this.user = {};
     this.activeButton = true;
+  }
+
+
+  /**
+   * Funcion que verifica si la funcion del modulo posee permisos
+   *
+   * @param {string} functionality
+   * @returns {boolean}
+   * @memberof ToolbarComponent
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**
@@ -116,8 +146,12 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(administrateName);
+    this.getProfile();
     this.userService.isAuthenticated(this);
-    this.createFormControls();
+    const disabledForm = !this.getFunctionality(this.update);
+    this.disabledComponent = disabledForm;
+    this.createFormControls(disabledForm);
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.elementStateLoad = null;
@@ -127,32 +161,50 @@ export class ManageSellerComponent implements OnInit {
         this.firstEmit = true;
         this.manageSeller.getSpecificSeller(seller.IdSeller, '1').subscribe((res: any) => {
           if (res.status === 200) {
+            this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
             this.currentSellerSelect = body.Data;
-            this.nit.setValue(this.currentSellerSelect.Nit);
-            this.rut.setValue(this.currentSellerSelect.Rut);
-            this.contactName.setValue(this.currentSellerSelect.ContactName);
-            this.email.setValue(this.currentSellerSelect.Email);
-            this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
-            this.state.setValue(this.currentSellerSelect.State);
-            this.city.setValue(this.currentSellerSelect.City);
-            this.address.setValue(this.currentSellerSelect.Address);
-            this.daneCode.setValue(this.currentSellerSelect.DaneCode);
-            this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
-            this.name.setValue(this.currentSellerSelect.Name);
-            this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
-            this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
-            this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
-            this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
-            this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
-            this.noValidateData = Object.assign({}, {
-              email: this.currentSellerSelect.Email,
-              name: this.currentSellerSelect.Name
-            });
-            this.elementStateLoad = this.currentSellerSelect.State;
-            this.elementCityLoad = this.currentSellerSelect.City;
+            if (this.currentSellerSelect && this.currentSellerSelect.City) {
+              this.showUpdate = true;
+              // this.currentSellerSelect = body.Data;
+              this.nit.setValue(this.currentSellerSelect.Nit);
+              this.rut.setValue(this.currentSellerSelect.Rut);
+              this.contactName.setValue(this.currentSellerSelect.ContactName);
+              this.email.setValue(this.currentSellerSelect.Email);
+              this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
+              this.state.setValue(this.currentSellerSelect.State);
+              this.city.setValue(this.currentSellerSelect.City);
+              this.address.setValue(this.currentSellerSelect.Address);
+              this.daneCode.setValue(this.currentSellerSelect.DaneCode);
+              this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
+              this.name.setValue(this.currentSellerSelect.Name);
+              this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
+              this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
+              this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
+              this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
+              this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
+              this.profile.setValue(this.currentSellerSelect.Profile);
+              this.selectedValue = this.currentSellerSelect.Profile;
+              this.noValidateData = Object.assign({}, {
+                email: this.currentSellerSelect.Email,
+              });
+              this.elementStateLoad = this.currentSellerSelect.State;
+              this.elementCityLoad = this.currentSellerSelect.City;
+            } else {
+              this.showUpdate = false;
+              this.nit.setValue(this.currentSellerSelect.Nit);
+              this.email.setValue(this.currentSellerSelect.Email);
+              this.name.setValue(this.currentSellerSelect.Name);
+              this.profile.setValue(this.currentSellerSelect.Profile);
+              this.selectedValue = this.currentSellerSelect.Profile;
+              this.noValidateData = Object.assign({}, {
+                email: this.currentSellerSelect.Email,
+              });
+            }
           }
+          this.loadingService.closeSpinner();
         });
+        this.loadingService.closeSpinner();
       }
     });
   }
@@ -162,44 +214,45 @@ export class ManageSellerComponent implements OnInit {
    *
    * @memberof ManageSellerComponent
    */
-  createFormControls() {
-    this.nit = new FormControl('', [
+  createFormControls(disable: boolean) {
+    this.nit = new FormControl({ value: '', disabled: disable }, [
       Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
     ]);
     this.rut = new FormControl
-      ('', [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.maxLength(20),
       Validators.pattern('^[0-9]*$')
       ]);
     this.contactName = new FormControl
-      ('', [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
       ]);
     this.email = new FormControl
-      ('', [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.emailRegex)
       ]);
     this.phoneNumber = new FormControl
-      ('', [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.minLength(7),
       Validators.maxLength(10),
       Validators.pattern('^[0-9]*$')]);
     this.address = new FormControl
-      ('', [Validators.required]);
-    this.state = new FormControl();
-    this.city = new FormControl();
-    this.daneCode = new FormControl();
-    this.sincoDaneCode = new FormControl();
+      ({ value: '', disabled: disable }, [Validators.required]);
+    this.state = new FormControl({ value: '', disabled: disable });
+    this.city = new FormControl({ value: '', disabled: disable });
+    this.daneCode = new FormControl({ value: '', disabled: disable });
+    this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
     this.name = new FormControl
-      ('', [Validators.required,
+      ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.nameStoreRegex)]);
-    this.isLogisticsExito = new FormControl();
-    this.isShippingExito = new FormControl();
-    this.gotoExito = new FormControl();
-    this.gotoCarrulla = new FormControl();
-    this.gotoCatalogo = new FormControl();
+    this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
+    this.isShippingExito = new FormControl({ value: '', disabled: disable });
+    this.gotoExito = new FormControl({ value: '', disabled: disable });
+    this.gotoCarrulla = new FormControl({ value: '', disabled: disable });
+    this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
+    this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.createForm();
   }
 
@@ -226,7 +279,14 @@ export class ManageSellerComponent implements OnInit {
       IsShippingExito: this.isShippingExito,
       GotoExito: this.gotoExito,
       GotoCarrulla: this.gotoCarrulla,
-      GotoCatalogo: this.gotoCatalogo
+      GotoCatalogo: this.gotoCatalogo,
+      Profile: this.profile
+    });
+    this.validateFormRegisterAdmin = new FormGroup({
+      Nit: this.nit,
+      Email: this.email,
+      Name: this.name,
+      Profile: this.profile
     });
   }
 
@@ -322,7 +382,50 @@ export class ManageSellerComponent implements OnInit {
     if (this.validateFormRegister.valid) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
+      const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
       const values = this.validateFormRegister.value;
+      values.id = this.idSeller;
+      values.Name = this.validateFormRegister.controls.Name.value;
+      values.City = this.validateFormRegister.controls.City.value;
+      values.ContactName = this.validateFormRegister.controls.ContactName.value;
+      values.Email = this.validateFormRegister.controls.Email.value;
+      values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
+      values.State = this.validateFormRegister.controls.State.value;
+      values.Profile = profile;
+      this.manageSeller.updateSeller(values).subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const data = JSON.parse(result.body.body);
+            if (data.Data) {
+              this.modalService.showModal('successUpdate');
+            } else if (!data.Data) {
+              this.modalService.showModal('error');
+            }
+          } else {
+            this.modalService.showModal('errorService');
+          }
+
+          this.disabledForService = false;
+          this.loadingService.closeSpinner();
+
+        }
+      );
+    }
+  }
+
+
+  /**
+   * Funcion para enviar registro de administrador editado
+   * por: Jose Banguera
+   * @memberof ManageSellerComponent
+   */
+  submitUpdateAdmin(): void {
+    if (this.validateFormRegisterAdmin.valid) {
+      this.loadingService.viewSpinner();
+      this.disabledForService = true;
+      const profile = `Exito|${this.validateFormRegisterAdmin.controls.Profile.value}`;
+      this.validateFormRegisterAdmin.controls.Profile.setValue(profile);
+      const values = this.validateFormRegisterAdmin.value;
       values.id = this.idSeller;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
@@ -369,5 +472,25 @@ export class ManageSellerComponent implements OnInit {
       return null;
     }
     return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  /**
+   * Cargar datos para seleccionar tipo de perfil
+   *
+   * @memberof ManageSellerComponent
+   */
+  public getProfile(): void {
+    this.registerService.typeProfile()
+      .subscribe(
+        (result: any) => {
+          const datas = JSON.parse(result.body).Data;
+          for (const data of datas) {
+            if (data.ProfileType === 'Exito') {
+              this.profileAdmin = data.Profiles;
+            } else if (data.ProfileType === 'Tienda') {
+              this.profileSeller = data.Profiles;
+            }
+          }
+        });
   }
 }
