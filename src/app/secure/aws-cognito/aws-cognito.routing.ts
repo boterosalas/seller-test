@@ -23,7 +23,8 @@ const routes: Routes = [
       path: `${RoutesConst.securehome}`,
       component: SecureHomeComponent,
       children: [
-        { path: '', component: DashboardComponent },
+        { path: '', component: DashboardComponent,
+        canActivate: [AuthService] },
         {
           path: `${RoutesConst.logout}`, component: LogoutComponent,
           canActivate: [AuthService]
