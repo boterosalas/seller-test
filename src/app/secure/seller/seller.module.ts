@@ -9,13 +9,13 @@ import { SellerRoutingModule } from './seller.routing';
 import { SellerService } from './seller.service';
 import { StoresService } from '../offers/stores/stores.service';
 import { MatSidenav, MatSidenavModule } from '@angular/material';
-import { DialogWithFormComponent } from './list/dialog-with-form/dialog-with-form.component';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
     declarations: [
         SellerListComponent,
-        DialogWithFormComponent
     ],
     imports: [
         CommonModule,
@@ -24,13 +24,12 @@ import { DialogWithFormComponent } from './list/dialog-with-form/dialog-with-for
         ReactiveFormsModule,
         MaterialModule,
         SellerRoutingModule,
-        MatSidenavModule
+        MatSidenavModule,
+        SharedModule
     ],
     exports: [
-        DialogWithFormComponent
     ],
     entryComponents: [
-        DialogWithFormComponent
     ],
     providers: [
         SellerService,

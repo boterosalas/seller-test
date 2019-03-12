@@ -159,18 +159,11 @@
                         block
                       </mat-icon>
                     </button>
-                    <!-- <button mat-mini-fab
+                    <button mat-mini-fab
                     id="btn-vacation-seller" 
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
                     [disabled]=" !seller.Status || seller.Status == 'Vacations' || seller.Status == 'Disable'">
-                      <mat-icon aria-label="vacation status of seller">
-                        local_airport
-                      </mat-icon>
-                    </button> -->
-                    <button mat-mini-fab
-                    id="btn-vacation-seller" 
-                    [disabled]="true">
                       <mat-icon aria-label="vacation status of seller">
                         local_airport
                       </mat-icon>
@@ -194,7 +187,6 @@
         </div>
       </div>
     </div>
-    <!--<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
   </mat-drawer-content>
 </mat-drawer-container>
 

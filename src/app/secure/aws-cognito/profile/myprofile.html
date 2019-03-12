@@ -16,19 +16,51 @@
             </mat-form-field>
         </form>
     </div>
-    <div class="sub-content">
+    <div *ngIf="!isAdmin" class="sub-content">
         <ng-container *ngIf="isInVacation; else programVacations">
-            <mat-card>
-                <mat-card-title>
-                    
-                </mat-card-title>
-                <mat-card-content>
-                    
-                </mat-card-content>
+            <mat-card class="mat card">
+                <div class="edit">
+                    <mat-icon>
+                        edit
+                    </mat-icon>
+                </div>
+                <div class="icon-container">
+                    <mat-icon>
+                        local_airport
+                    </mat-icon>
+                </div>
+                <div class="content-contaienr">
+                    <mat-card-title>
+                        <p class="title-text">
+                            <strong>Vacaciones</strong>
+                        </p>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <label class="label-result">
+                                <strong>Inicio:</strong>99/99/9999 - <strong>Fin:</strong>99/99/9999
+                            </label>
+                    </mat-card-content>
+                </div>
             </mat-card>
         </ng-container>
         <ng-template #programVacations>
-            <button mat-stroked-button color="primary">PROGRAMAR VACACIONES</button>
+            <button mat-stroked-button color="primary" (click)="openDialog()">PROGRAMAR VACACIONES</button>
         </ng-template>
     </div>
 </div>
+
+<ng-template #dialogTemplate>
+    <form [formGroup]="vacationForm" class="full-width space-between">
+        <mat-form-field class="half-width">
+            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+            <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
+            <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+            <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </form>
+</ng-template>

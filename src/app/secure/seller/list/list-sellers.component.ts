@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { DialogWithFormComponent } from './dialog-with-form/dialog-with-form.component';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages'
 
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName } from '@app/secure/auth/auth.consts';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
 export interface ListFilterSeller {
     name: string;

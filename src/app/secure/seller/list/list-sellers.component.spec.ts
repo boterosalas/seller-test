@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { SellerModule } from "../seller.module";
 import { SellerListComponent } from "./list-sellers.component";
-import { DialogWithFormComponent } from "./dialog-with-form/dialog-with-form.component";
 import { MaterialModule } from "@app/material.module";
 import { LoadingService, ModalService } from "@app/core";
 import { StoresService } from "@app/secure/offers/stores/stores.service";
@@ -16,6 +15,7 @@ import { SellerRoutingModule } from "../seller.routing";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 import { componentFactoryName } from "@angular/compiler";
 import { AuthService } from "@app/secure/auth/auth.routing";
+import { DialogWithFormComponent } from "@app/shared/components/dialog-with-form/dialog-with-form.component";
 
 export const constSellerList = [
     {

@@ -3,10 +3,12 @@ $color-gray: #BCBCBC;
 $modal: 72px;
 
 @mixin icon-border-gray {
+    height: 30px;
+    width: 30px;
+    font-size: 14px;
+    line-height: 14px; 
     border-radius: 40px;
     background-color: $color-gray;
-    width: $modal;
-    height: $modal;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -14,7 +16,14 @@ $modal: 72px;
     mat-icon {
         color: $color-white;
     }
-  }
+    &::ng-deep .mat-button-wrapper{
+        line-height: 14px;
+        padding: 0 0 0 0.5px;
+    } 
+    & .mat-icon{
+    color: white !important;
+    }
+}
 
 :host {
     justify-content: center;

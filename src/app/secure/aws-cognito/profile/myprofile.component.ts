@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MatDialog } from '@angular/material';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { fbind } from 'q';
 
 @Component({
     selector: 'app-awscognito',
@@ -15,28 +19,57 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public cognitoId: String;
     public user: any;
     form: FormGroup;
-    isInVacation: boolean = true;
+    isInVacation: boolean = false;
+    isAdmin = false;
+    vacationForm: FormGroup;
+    today = new Date();
+    @ViewChild('dialogTemplate') content: TemplateRef<any>;
 
     constructor(
         public router: Router,
         public userService: UserLoginService,
         public userParams: UserParametersService,
         public cognitoUtil: CognitoUtil,
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        private sotreService: StoresService,
+        private dialog: MatDialog) {
         this.userService.isAuthenticated(this);
     }
     
     ngOnInit(){
-        this.initForm();
+        this.initUserForm();
+        this.initVacationForm();
     }
 
-    private initForm() {
+    private initUserForm() {
         this.form = this.fb.group({
             Nit: [''],
             Email: [''],
             SellerId: [''],
             StoreName: ['']                        
         });
+    }
+
+    private initVacationForm(){
+        this.vacationForm = this.fb.group({
+            StartDateVacation: ['', Validators.compose([Validators.required])],
+            EndDateVacation : ['', Validators.compose([Validators.required])]
+        });
+    }
+
+    openDialog() {
+        const title = "Vacaciones";
+        const message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
+        const icon = "local_airport"
+        const form = this.form;
+        const value = {title, message, icon, form}
+        const dialogRef = this.dialog.open( DialogWithFormComponent, {
+            data: value,
+            width: '55%',
+            minWidth: '280px'
+        });
+        const dialoginstance = dialogRef.componentInstance;
+        dialoginstance.content = this.content;
     }
 
     async isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -74,6 +107,14 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
 
     get SellerId(): FormControl {
         return this.form.get('SellerId') as FormControl;
+    }
+
+    get startDateVacation(): FormControl{
+        return this.vacationForm.get('StartDateVacation') as FormControl;
+    }
+
+    get endDateVacation(): FormControl{
+        return this.vacationForm.get('EndDateVacation') as FormControl;
     }
 }
 
