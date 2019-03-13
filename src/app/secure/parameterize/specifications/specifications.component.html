@@ -72,10 +72,10 @@
                     <div fxLayout="row" fxLayoutAlign="center center">
 
                         <button mat-icon-button>
-                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)">delete</mat-icon>
+                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="getFunctionality(delete)">delete</mat-icon>
                         </button>
                         <button mat-icon-button>
-                            <mat-icon class="material-icons color-gray" (click)="editSpec(group, e)">edit</mat-icon>
+                            <mat-icon class="material-icons color-gray" (click)="editSpec(group, e)" *ngIf="getFunctionality(update)">edit</mat-icon>
                         </button>
                     </div>
                 </div>
