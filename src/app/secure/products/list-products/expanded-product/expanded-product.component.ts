@@ -13,7 +13,7 @@ export class ExpandedProductComponent implements OnInit {
     @Input() productsExpanded: any;
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
-    private images = [];
+    public images = [];
     public listKeywords = [];
 
     /* variable que contiene la ruta de la imagen grande */
@@ -45,7 +45,7 @@ export class ExpandedProductComponent implements OnInit {
             const max = maxImages[i];
             this.images.push({ min, max });
         }
-        this.imageMax = this.images[0]['max'];
+        this.imageMax = this.images[0] && this.images[0]['max'];
         this.imageLength = this.images.length;
     }
 

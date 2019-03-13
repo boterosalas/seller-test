@@ -31,10 +31,10 @@ export class AuthService implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
         // Console solo para verificar ruta y estado de la misma.
-        console.warn('AuthService', state);
-        console.warn('AuthService', route);
+        // console.warn('AuthService', state);
+        // console.warn('AuthService', route);
         // Promesa para verificar estados del usuario y la ruta a la que intenta entrar
-        if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
+        if (state.url !== '/' + RoutesConst.sellerCenterLogout && state.url) {
             return new Promise((resolve, reject) => {
                 this.getModulesFromService().then(resultModule => {
                     this.modulesBack = resultModule;
@@ -53,11 +53,15 @@ export class AuthService implements CanActivate {
                             this.redirectToHome(false, state, true);
                         });
                     } else {
-                        if (state.url === '/' + RoutesConst.sellerCenterIntDashboard) {
+                        if (state.url === '/' + RoutesConst.sellerCenterIntDashboard || state.url === '/' + RoutesConst.securehome) {
                             this.userParams.getUserData().then(data => {
                                 this.userData = data;
-                                // Valida si al menu que intenta ingresar posee el tipo del usuario.
-                                resolve(true);
+                                // Valida si es vendedor e intenta ver el dahsboard.
+                                const Seller = this.profileTypeGlobal === this.types[0];
+                                if (!Seller) {
+                                    this.redirectToHome(false, null);
+                                }
+                                resolve(Seller);
                             }, error => {
                                 console.error(error);
                                 reject(false);

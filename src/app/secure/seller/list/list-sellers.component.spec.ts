@@ -15,7 +15,7 @@ import { SellerRoutingModule } from "../seller.routing";
 import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 import { componentFactoryName } from "@angular/compiler";
 import { AuthService } from "@app/secure/auth/auth.routing";
-import { DialogWithFormComponent } from "@app/shared/components/dialog-with-form/dialog-with-form.component";
+import { MenuModel } from "../profiles/models/menu.model";
 
 export const constSellerList = [
     {
@@ -58,6 +58,38 @@ export const constSellerList = [
         status: 'vacation'
     }
 ]; 
+
+export const  sellerListMenu = {
+    Id: undefined,
+    NameMenu: "Listado de Vendedores",
+    NameMenuBack: "listado de vendedores",
+    ProfileType: 1,
+    ShowMenu: true,
+    ShowMenuProduction: true,
+    UrlRedirect: "securehome/seller-center/vendedores/lista",
+    Functionalities: [
+        {
+            NameFunctionality: "Consultar",
+            ShowFunctionality: true,
+            nameFunctionalityBack: "Consultar"
+        },
+        {
+            NameFunctionality: "Visualizar",
+            ShowFunctionality: true,
+            nameFunctionalityBack: "Visualizar"
+        },
+        {
+            NameFunctionality: "Habilitar",
+            ShowFunctionality: true,
+            nameFunctionalityBack: "Habilitar"
+        },
+        {
+            NameFunctionality: "Deshabilitar",
+            ShowFunctionality: true,
+            nameFunctionalityBack: "Deshabilitar"
+        }
+    ]
+}
 
 describe('List Seller Component',() => {
 
@@ -102,7 +134,7 @@ describe('List Seller Component',() => {
                 {provide: MAT_DIALOG_DATA, useValue: data},
                 {provide: MatDialogRef, useValue: mockDialogRef},
                 {provide: AuthService, useValue: mockAuthService},
-                {provide: ModalService, useValue: mockDialogError}
+                {provide: ModalService, useValue: mockDialogError},
             ]
         }).compileComponents();
 
@@ -121,6 +153,10 @@ describe('List Seller Component',() => {
         matDialog = TestBed.get(MatDialog);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
+        sellerListComponent.canDisabled = true;
+        sellerListComponent.canEnabled = true;
+        sellerListComponent.canVisualize = true;
+        mockAuthService.getMenu.and.returnValue(sellerListMenu);
     });
 
     it('should create seller list component', () => {

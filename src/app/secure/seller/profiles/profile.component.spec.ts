@@ -131,8 +131,34 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
     };
 
     const authService = <any>{
-        getMenu(param: any): MenuModel {
-            return null;
+        getMenu(param: any) {
+            return {
+                Id: undefined,
+                NameMenu: "Perfiles",
+                NameMenuBack: "perfiles",
+                ProfileType: 1,
+                ShowMenu: true,
+                ShowMenuProduction: true,
+                UrlRedirect: "securehome/seller-center/vendedores/perfiles",
+                Functionalities: 
+                [
+                    {
+                        NameFunctionality: "Consultar",
+                    ShowFunctionality: true,
+                    nameFunctionalityBack: "Consultar",
+                    },
+                    {
+                        NameFunctionality: "Editar",
+                    ShowFunctionality: true,
+                    nameFunctionalityBack: "Editar",
+                    },
+                    {
+                        NameFunctionality: "Crear",
+                    ShowFunctionality: true,
+                    nameFunctionalityBack: "Crear",
+                    }
+                ]
+            };
         }
     };
 
@@ -174,6 +200,7 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
     beforeEach(() => {
         fixture = TestBed.createComponent(ProfileComponent);
         component = fixture.componentInstance;
+        component.permissionComponent = authService.getMenu()
         fixture.detectChanges();
     });
 
