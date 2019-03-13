@@ -92,7 +92,7 @@ export const  sellerListMenu = {
     ]
 }
 
-fdescribe('List Seller Component',() => {
+describe('List Seller Component',() => {
 
     //Create a Mock Services
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
