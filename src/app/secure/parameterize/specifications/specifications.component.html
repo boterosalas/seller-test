@@ -6,7 +6,7 @@
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
         <!-- BUTTON TO ADD-->
-        <button mat-button (click)="addGroupSpec()">
+        <button mat-button (click)="addGroupSpec()" *ngIf="getFunctionality(create)">
             <mat-icon class="material-icons">
                 control_point
             </mat-icon>
@@ -31,13 +31,13 @@
                         </mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="updateGroupSpec(group, i)">
+                        <button mat-menu-item (click)="updateGroupSpec(group, i)" *ngIf="getFunctionality(update)">
                             <mat-icon class="material-icons">
                                 edit
                             </mat-icon>
                             <span>Editar</span>
                         </button>
-                        <button mat-menu-item (click)="removeSpec(group)">
+                        <button mat-menu-item (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
                             <mat-icon class="material-icons">
                                 delete
                             </mat-icon>
@@ -89,7 +89,7 @@
                 <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
                 <div id="addButton" class="container-group-add-button">
                     <!-- BUTTON TO ADD-->
-                    <button mat-button (click)="addSpec(group)">
+                    <button mat-button (click)="addSpec(group)" *ngIf="getFunctionality(create)">
                         <mat-icon class="material-icons">
                             control_point
                         </mat-icon>
