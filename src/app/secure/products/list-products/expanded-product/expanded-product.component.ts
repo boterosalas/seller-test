@@ -13,7 +13,7 @@ export class ExpandedProductComponent implements OnInit {
     @Input() productsExpanded: any;
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
-    private images = [];
+    public images = [];
     public listKeywords = [];
 
     /* variable que contiene la ruta de la imagen grande */
