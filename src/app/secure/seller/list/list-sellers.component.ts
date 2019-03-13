@@ -112,7 +112,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.createFormControls();
         this.initStatusForm();
         this.canDisabled = this.getFunctionality(this.disable);
-        this.canEnabled = this.getFunctionality(this.enable);   
+        this.canEnabled = this.getFunctionality(this.enable);
     }
 
     /**
