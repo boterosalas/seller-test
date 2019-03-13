@@ -156,6 +156,7 @@ fdescribe('List Seller Component',() => {
         dialogComponent = dialogFixture.componentInstance;
         sellerListComponent.canDisabled = true;
         sellerListComponent.canEnabled = true;
+        sellerListComponent.canVisualize = true;
         mockAuthService.getMenu.and.returnValue(sellerListMenu);
     });
 

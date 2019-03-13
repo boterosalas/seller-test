@@ -112,7 +112,7 @@
           <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
                     <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
-                      fxShow [fxShow.xs]="false">
+                      fxShow [fxShow.xs]="false" *ngIf="canVisualize">
                       <mat-icon class="material-icons">
                         visibility
                       </mat-icon>

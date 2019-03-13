@@ -78,6 +78,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     disable = disableFunctionality;
     canEnabled: boolean;
     canDisabled: boolean;
+    canVisualize: boolean;
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -113,6 +114,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.initStatusForm();
         this.canDisabled = this.getFunctionality(this.disable);
         this.canEnabled = this.getFunctionality(this.enable);
+        this.canVisualize = this.getFunctionality(this.visualize);
     }
 
     /**
