@@ -1,0 +1,39 @@
+<form #createOfertExpandetProduct="ngForm" [formGroup]="ofertProduct" *ngIf="ofertProduct">
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+    <mat-form-field color="primary" fxFlex="28%" class="icon-control">
+      <input matInput placeholder="Inventario" formControlName="ofertStock" [errorStateMatcher]="matcher">
+      <mat-icon class="material-icons icon-warning">
+            list_alt
+        </mat-icon>
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Inventario invalido'"></mat-error>-->
+    </mat-form-field>
+    <mat-form-field color="primary" fxFlex="28%">
+      <input matInput placeholder="Precio" formControlName="ofertPrice" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+    </mat-form-field>
+    <mat-form-field color="primary" fxFlex="28%">
+      <input matInput placeholder="Precio con descuento" formControlName="ofertPriceDiscount" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+    <mat-form-field color="primary" fxFlex="28%">
+      <input matInput placeholder="Promesa de entrega" formControlName="ofertPromiseDelivery" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Promesa de entrega invalido'"></mat-error>-->
+    </mat-form-field>
+    <mat-form-field color="primary" fxFlex="28%">
+      <input matInput placeholder="Costo flete" formControlName="ofertShippingCost" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+    </mat-form-field>
+    <mat-form-field color="primary" fxFlex="28%">
+      <input matInput placeholder="Garantia" formControlName="ofertWarranty" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+    </mat-form-field>
+  </div>
+</form>

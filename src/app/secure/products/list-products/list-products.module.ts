@@ -8,6 +8,7 @@ import { ToolbarComponent } from '@app/secure/offers/historical/components/toolb
 import { ComboProductComponent } from './comboProduct/comboProduct.component';
 import { ListProductService } from './list-products.service';
 import { ExpandedProductComponent } from './expanded-product/expanded-product.component';
+import { OfertExpandedProductComponent } from './ofert-product/ofert-product.component';
 
 @NgModule({
     imports: [
@@ -15,16 +16,18 @@ import { ExpandedProductComponent } from './expanded-product/expanded-product.co
       ReactiveFormsModule,
       ListProductRoutingModule,
       MaterialModule,
-      FormsModule
+      FormsModule,
     ],
     declarations: [
       ListProductsComponent,
       ComboProductComponent,
-      ExpandedProductComponent
+      ExpandedProductComponent,
+      OfertExpandedProductComponent
     ],
     exports: [
       ComboProductComponent,
-      ExpandedProductComponent
+      ExpandedProductComponent,
+      OfertExpandedProductComponent
     ],
     entryComponents: [
 
