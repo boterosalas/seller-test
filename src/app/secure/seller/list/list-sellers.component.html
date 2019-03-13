@@ -143,7 +143,7 @@
                 <div id="status" class="label-container status">
                     <button mat-mini-fab 
                     id ="btn-enabled-seller"
-                    (click) = "changeSellerStatus(seller, 'enabled', i)" 
+                    (click) = "changeSellerStatus(seller, 'enabled', i)"
                     [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
                       <mat-icon aria-label="active status of seller">

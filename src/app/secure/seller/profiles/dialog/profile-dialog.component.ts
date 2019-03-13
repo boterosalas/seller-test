@@ -22,6 +22,7 @@ export class DialogProfileComponent {
     profileTypes = Const.ProfileTypesBack;
     menuShowList = [];
     editMode = false;
+    canUpdate: boolean;
 
     /**
      * Creates an instance of DialogProfileComponent.
@@ -37,6 +38,7 @@ export class DialogProfileComponent {
     ) {
         this.dataToEdit = data.data;
         this.menuList = data.menu;
+        this.canUpdate = data.canUpdate;
         this.createForm(this.dataToEdit);
     }
 

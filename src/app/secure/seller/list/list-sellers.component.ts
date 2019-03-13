@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages'
 
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality } from '@app/secure/auth/auth.consts';
 
 export interface ListFilterSeller {
     name: string;
@@ -75,6 +75,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
     read = readFunctionality;
     visualize = visualizeFunctionality;
     enable = enableFunctionality;
+    disable = disableFunctionality;
+    canEnabled: boolean;
+    canDisabled: boolean;
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -108,6 +111,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.getRequiredData();
         this.createFormControls();
         this.initStatusForm();
+        this.canDisabled = this.getFunctionality(this.disable);
+        this.canEnabled = this.getFunctionality(this.enable);   
     }
 
     /**
@@ -276,13 +281,13 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let icon = "";
         let form = null;
         let messageCenter = false;
-        if(status=="enabled" && sellerData.status != 'enabled'){
+        if(status=="enabled" && sellerData.status != 'enabled' && this.canEnabled){
             message = "¿Estas seguro que deseas activar este vendedor?";
             icon = null;
             title = "Activación";
             messageCenter = true;
             this.needFormStates$.next({posSeller: index, status: 'enabled'});
-        } else if (status == "disabled" && sellerData.status != 'disabled') {
+        } else if (status == "disabled" && sellerData.status != 'disabled' && this.canDisabled) {
             message = "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.";
             icon = null;
             title= "Desactivación";

@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
     update = updateFunctionality;
     create = createFunctionality;
 
+    canCreate: boolean;
+    canUpdate: boolean;
     /**
      * Servicios y componentes necesarios para iniciar el funcionamiento del componente.
      * @param {ProfileService} profileService
@@ -71,6 +73,8 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
         this.permissionComponent = this.authService.getMenu(profileName);
         this.initializeComponent();
+        this.canCreate = this.getFunctionality(this.create);
+        this.canUpdate = this.getFunctionality(this.update);
     }
 
 
@@ -221,7 +225,7 @@ export class ProfileComponent implements OnInit {
             minWidth: '360px',
             width: '80%',
             maxWidth: '800px',
-            data: { menu: this.menuList, data: dataToEdit }
+            data: { menu: this.menuList, data: dataToEdit, canUpdate: this.canUpdate }
         });
         dialogRef.afterClosed().subscribe(result => {
             this.getProfileList();
