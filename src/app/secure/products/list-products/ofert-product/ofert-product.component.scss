@@ -1,3 +1,56 @@
-.icon-control{
-display: flex;
+.form-ofert {
+  display: grid !important;
+}
+
+.ofert-information {
+  @media screen and (max-width: 600px) {
+    width: 100%
+  }
+}
+
+.icon-control {
+  display: flex;
+}
+
+::ng-deep .mat-form-field-label-wrapper {
+  left: 5px !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon {
+  color: #909090;
+}
+
+::ng-deep .mat-input-element {
+  padding-bottom: 5px;
+}
+
+.ofert-option {
+  margin: 2.2%;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+
+    & mat-radio-group {
+      display: grid;
+    }
+  }
+}
+
+.radio-ofert {
+  padding-left: 3%;
+  padding-right: 3%;
+
+  @media screen and (max-width: 600px) {
+    padding-bottom: 3%;
+  }
+}
+
+.buttonsSend {
+  padding-top: 4.25%;
+  padding-bottom: 4.25%;
+
+  & button {
+    margin-left: 20px;
+  }
 }

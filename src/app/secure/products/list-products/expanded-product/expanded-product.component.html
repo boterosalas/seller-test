@@ -82,10 +82,13 @@
   </div>
 </div>
 
-<mat-expansion-panel hideToggle="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      Aplicar oferta
+<mat-expansion-panel hideToggle="true" class="ofert-expanded">
+  <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-panel-title class="title-ofert">
+      <h3>
+        <mat-icon matPrefix>add</mat-icon>
+        Agregar oferta
+      </h3>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <app-ofert-expanded-product class="ofertProductExpanded"></app-ofert-expanded-product>

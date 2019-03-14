@@ -1,39 +1,76 @@
-<form #createOfertExpandetProduct="ngForm" [formGroup]="ofertProduct" *ngIf="ofertProduct">
+<form #createOfertExpandetProduct="ngForm" [formGroup]="ofertProduct" *ngIf="ofertProduct" 
+fxLayout.xs="column" class="form-ofert"> 
   <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-    <mat-form-field color="primary" fxFlex="28%" class="icon-control">
-      <input matInput placeholder="Inventario" formControlName="ofertStock" [errorStateMatcher]="matcher">
-      <mat-icon class="material-icons icon-warning">
-            list_alt
-        </mat-icon>
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Inventario invalido'"></mat-error>-->
-    </mat-form-field>
-    <mat-form-field color="primary" fxFlex="28%">
-      <input matInput placeholder="Precio" formControlName="ofertPrice" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
-    </mat-form-field>
-    <mat-form-field color="primary" fxFlex="28%">
-      <input matInput placeholder="Precio con descuento" formControlName="ofertPriceDiscount" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
-    </mat-form-field>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>list_alt</mat-icon>
+        <input matInput placeholder="Inventario" formControlName="ofertStock" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Inventario invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>attach_money</mat-icon>
+        <input matInput placeholder="Precio" formControlName="ofertPrice" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>attach_money</mat-icon>
+        <input matInput placeholder="Precio con descuento" formControlName="ofertPriceDiscount" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-    <mat-form-field color="primary" fxFlex="28%">
-      <input matInput placeholder="Promesa de entrega" formControlName="ofertPromiseDelivery" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Promesa de entrega invalido'"></mat-error>-->
-    </mat-form-field>
-    <mat-form-field color="primary" fxFlex="28%">
-      <input matInput placeholder="Costo flete" formControlName="ofertShippingCost" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
-    </mat-form-field>
-    <mat-form-field color="primary" fxFlex="28%">
-      <input matInput placeholder="Garantia" formControlName="ofertWarranty" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
-    </mat-form-field>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>local_shipping</mat-icon>
+        <input matInput placeholder="Promesa de entrega" formControlName="ofertPromiseDelivery" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Promesa de entrega invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>attach_money</mat-icon>
+        <input matInput placeholder="Costo flete" formControlName="ofertShippingCost" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>beenhere</mat-icon>
+        <input matInput placeholder="Garantia" formControlName="ofertWarranty" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="ofert-option">
+    <div style="width: 100%">
+      <mat-radio-group formControlName="floatLabel">
+        <mat-radio-button value="auto" class="radio-ofert">Free Shiping</mat-radio-button>
+        <mat-radio-button value="always" class="radio-ofert">Indicador Envíos Éxito</mat-radio-button>
+        <mat-radio-button value="never" class="radio-ofert">Cotizador flete</mat-radio-button>
+        <mat-radio-button value="never" class="radio-ofert">Logística Éxito</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div style="padding-right: 100px;">
+      <mat-slide-toggle>
+        Actualización de inventario
+      </mat-slide-toggle>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
+    <button mat-stroked-button color="primary" type="button" [innerHTML]="'Cancelar'"></button>
+    <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"></button>
   </div>
 </form>

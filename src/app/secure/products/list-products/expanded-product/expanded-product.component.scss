@@ -189,6 +189,7 @@
   @media screen and (max-width: 600px) {
     display: none;
   }
+
   padding: 2% 6%;
   text-align: justify;
   width: 90%;
@@ -211,6 +212,7 @@
   @media screen and (min-width: 600px) {
     display: none;
   }
+
   padding: 10% 4%;
   text-align: justify;
   width: 95%;
@@ -273,6 +275,7 @@
 .container {
   &-sub:nth-child(odd) {
     background-color: #f2f2f2;
+
     @media screen and (max-width: 600px) {
       display: flex;
       flex-wrap: wrap;
@@ -319,12 +322,33 @@ mat-card {
 
 ::ng-deep .mat-expansion-panel-body {
   padding: 8px 24px 16px;
-  display: flex;
+  // display: flex;
   flex-wrap: wrap;
 }
 
-.ofertProductExpanded{
+.ofertProductExpanded {
   width: 100%;
   padding-left: 3%;
   padding-right: 3%;
+}
+
+.title-ofert {
+  flex-grow: 1 !important;
+  margin-right: 16px !important;
+  text-align: center !important;
+  display: block !important;
+
+  & h3 {
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+  & mat-icon {
+    font-size: 30px;
+  }
+}
+
+.ofert-expanded {
+  width: 90%;
+  margin: 6%;
 }
