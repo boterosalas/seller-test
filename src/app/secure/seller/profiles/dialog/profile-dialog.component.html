@@ -16,7 +16,7 @@
                 </mat-error>
             </mat-form-field>
             <!-- RADIO BUTTON TYPE -->
-            <mat-radio-group class="profile-radio-group" color="primary" (change)="changeRadio()" formControlName="Type">
+            <mat-radio-group class="profile-radio-group" color="primary" (change)="changeRadio()" formControlName="Type" [disabled]="(editMode && !canUpdate)">
                 <mat-radio-button value="0">
                     Exito
                 </mat-radio-button>
@@ -25,7 +25,7 @@
             </mat-radio-group>
         </div>
         <mat-divider></mat-divider>
-        <div>
+        <div *ngIf="(editMode && canUpdate)|| !editMode">
             <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
                 <mat-form-field class="select-form">
                     <mat-select placeholder="Seleccione el menu" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
@@ -63,7 +63,7 @@
                     {{functionality.Name}}
                 </li>
             </ul>
-            <button mat-icon-button class="remove-menu" (click)="removeMenu(i)" type="button">
+            <button mat-icon-button class="remove-menu" (click)="removeMenu(i)" type="button" *ngIf="(editMode && canUpdate)|| !editMode">
                 <mat-icon class="material-icons color-red">
                     clear
                 </mat-icon>
@@ -71,7 +71,7 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+    <div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions *ngIf="(editMode && canUpdate)|| !editMode">
         <button mat-raised-button color="secondary" type="button" mat-button (click)="onNoClick()">CANCELAR</button>
         <button mat-raised-button color="primary" mat-button type="submit" cdkFocusInitial>GUARDAR</button>
     </div>

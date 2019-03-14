@@ -112,7 +112,7 @@
           <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
                     <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
-                      fxShow [fxShow.xs]="false">
+                      fxShow [fxShow.xs]="false" *ngIf="canVisualize">
                       <mat-icon class="material-icons">
                         visibility
                       </mat-icon>
@@ -143,7 +143,7 @@
                 <div id="status" class="label-container status">
                     <button mat-mini-fab 
                     id ="btn-enabled-seller"
-                    (click) = "changeSellerStatus(seller, 'enabled', i)" 
+                    (click) = "changeSellerStatus(seller, 'enabled', i)"
                     [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
                       <mat-icon aria-label="active status of seller">

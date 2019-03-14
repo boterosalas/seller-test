@@ -45,7 +45,7 @@ export class ExpandedProductComponent implements OnInit {
             const max = maxImages[i];
             this.images.push({ min, max });
         }
-        this.imageMax = this.images[0]['max'];
+        this.imageMax = this.images[0] && this.images[0]['max'];
         this.imageLength = this.images.length;
     }
 

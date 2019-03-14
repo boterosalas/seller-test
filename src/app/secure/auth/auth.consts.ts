@@ -140,6 +140,7 @@ export const loadFunctionality = 'Cargar';
 export const createFunctionality = 'Crear';
 export const visualizeFunctionality = 'Visualizar';
 export const enableFunctionality = 'Habilitar';
+export const disableFunctionality = 'Deshabilitar';
 export const deleteFunctionality = 'Eliminar';
 export const attachmentFunctionality = 'Adjuntar';
 export const sendFunctionality = 'Enviar';
@@ -308,7 +309,8 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
     new MenuModel(sellerListName, showAll, sellerListName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
-        new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality) // Habilitar
+        new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
+        new FunctionalitiesModel(disableFunctionality, showAll, disableFunctionality) // Deshabilitar
     ], RoutesConst.sellerCenterIntSellerList),
 ]);
 
