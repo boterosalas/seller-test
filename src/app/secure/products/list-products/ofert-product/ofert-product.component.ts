@@ -25,6 +25,9 @@ export class OfertExpandedProductComponent implements OnInit {
     public ofertProduct: FormGroup;
     public matcher: MyErrorStateMatcher;
 
+    @Input() applyOffer: any;
+
+
 
     constructor(
         private loadingService?: LoadingService,
@@ -37,6 +40,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     ngOnInit() {
         this.createFormControls();
+        console.log('applyOffer: ', this.applyOffer);
     }
 
     createFormControls() {
@@ -47,6 +51,9 @@ export class OfertExpandedProductComponent implements OnInit {
             ofertPromiseDelivery: new FormControl(''),
             ofertShippingCost: new FormControl(''),
             ofertWarranty: new FormControl(''),
+            ofertOption: new FormControl(''),
+            ofertPriceComponet: new FormControl(''),
+            ofertQuantityComponent: new FormControl(''),
             matcher: new MyErrorStateMatcher()
         });
     }

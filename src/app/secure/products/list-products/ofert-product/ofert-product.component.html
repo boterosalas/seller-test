@@ -1,5 +1,4 @@
-<form #createOfertExpandetProduct="ngForm" [formGroup]="ofertProduct" *ngIf="ofertProduct" 
-fxLayout.xs="column" class="form-ofert"> 
+<form #createOfertExpandetProduct="ngForm" [formGroup]="ofertProduct" *ngIf="ofertProduct" fxLayout.xs="column" class="form-ofert">
   <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
@@ -55,11 +54,11 @@ fxLayout.xs="column" class="form-ofert">
 
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="ofert-option">
     <div style="width: 100%">
-      <mat-radio-group formControlName="floatLabel">
-        <mat-radio-button value="auto" class="radio-ofert">Free Shiping</mat-radio-button>
-        <mat-radio-button value="always" class="radio-ofert">Indicador Envíos Éxito</mat-radio-button>
-        <mat-radio-button value="never" class="radio-ofert">Cotizador flete</mat-radio-button>
-        <mat-radio-button value="never" class="radio-ofert">Logística Éxito</mat-radio-button>
+      <mat-radio-group formControlName="ofertOption">
+        <mat-radio-button value="shiping" class="radio-ofert">Free Shiping</mat-radio-button>
+        <mat-radio-button value="indicator" class="radio-ofert">Indicador Envíos Éxito</mat-radio-button>
+        <mat-radio-button value="flete" class="radio-ofert">Cotizador flete</mat-radio-button>
+        <mat-radio-button value="logistics" class="radio-ofert">Logística Éxito</mat-radio-button>
       </mat-radio-group>
     </div>
     <div style="padding-right: 100px;">
@@ -68,6 +67,38 @@ fxLayout.xs="column" class="form-ofert">
       </mat-slide-toggle>
     </div>
   </div>
+
+  <!--Aqui van los componentes del producto si es Combo-->
+  <div class="container"  fxLayout.xs="column" fxLayoutAlign.xs="space-around center">
+      <div class="ofert-component">
+          <div class="container-sub" *ngFor="let comp of applyOffer.eanesCombos">
+            <div class="info-product" fxShow.xs="true">
+              <div>
+                <h3>{{comp.nameCombo}}</h3>
+              </div>
+      
+              <div class="ofert-information">
+                <mat-form-field color="primary">
+                  <mat-icon matPrefix>attach_money</mat-icon>
+                  <input matInput placeholder="Precio" formControlName="ofertPriceComponet" [errorStateMatcher]="matcher">
+                  <mat-hint></mat-hint>
+                  <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
+                </mat-form-field>
+              </div>
+              <div class="ofert-information">
+                <mat-form-field color="primary">
+                  <mat-icon matPrefix>add_shopping_cart</mat-icon>
+                  <input matInput placeholder="Cantidad en combo" formControlName="ofertQuantityComponent" [errorStateMatcher]="matcher">
+                  <mat-hint></mat-hint>
+                  <!--<mat-error *ngIf="filterProduts.get('ofertStock').hasError('pattern')" [innerHTML]="'Inventario invalido'"></mat-error>-->
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+
   <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
     <button mat-stroked-button color="primary" type="button" [innerHTML]="'Cancelar'"></button>
     <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->

@@ -16,6 +16,8 @@ export class ExpandedProductComponent implements OnInit {
     public images = [];
     public listKeywords = [];
 
+    public applyOffer: any;
+
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
     imageLength: number;
@@ -29,6 +31,7 @@ export class ExpandedProductComponent implements OnInit {
 
     ngOnInit() {
         this.createArrayImages();
+        this.applyOffert();
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
@@ -49,6 +52,7 @@ export class ExpandedProductComponent implements OnInit {
         this.imageLength = this.images.length;
     }
 
-    changeHtmlToString(): void {
+    applyOffert(): void {
+        this.applyOffer = this.productsExpanded;
     }
 }
