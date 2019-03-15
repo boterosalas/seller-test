@@ -37,7 +37,7 @@ class CognitoAttribute {
         this.Value = value;
     }
 
-    getCognitoAttribute(){
+    getCognitoAttribute() {
         const Name = this.Name;
         const Value = this.Value;
         return {Name, Value};
@@ -67,7 +67,7 @@ fdescribe('My Profile', () => {
         message: '',
         icon: '',
         form: null
-    }
+    };
 
     let fixture: ComponentFixture<MyProfileComponent>;
     let component: MyProfileComponent;
@@ -131,7 +131,7 @@ fdescribe('My Profile', () => {
 
     it('should create my profile component', () => {
         expect(component).toBeTruthy();
-    })
+    });
 
     describe('user admin login', () => {
         beforeEach(() => {

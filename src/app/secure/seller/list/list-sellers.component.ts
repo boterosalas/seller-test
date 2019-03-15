@@ -7,7 +7,7 @@ import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { trimField } from '../../../shared/util/validation-messages'
+import { trimField } from '../../../shared/util/validation-messages';
 
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality } from '@app/secure/auth/auth.consts';
@@ -124,10 +124,10 @@ export class SellerListComponent implements OnInit, OnDestroy {
     /**
      * Metodo que crea el formulario de estado
      */
-    initStatusForm(){
+    initStatusForm() {
         this.statusForm = this.fb.group({
             IdSeller : ['', Validators.required]
-        })
+        });
         this.subs.push(this.needFormStates$.subscribe(status => {
             !!status && this.putComplementDataInStatusForm(status);
         }));
@@ -149,12 +149,12 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * Metodo que abre el dialogo de fecha de a cuerdo al campo clickeado
      * @param pos Posición del dialogo a abrir;
      */
-    openPicker(pos: number){
+    openPicker(pos: number) {
         switch (pos) {
             case 1:
             this.initialPicker.open();
             break;
-            case 2: 
+            case 2:
             this.endPicker.open();
             break;
         }
@@ -174,8 +174,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
             !!this.endDateVacation && this.statusForm.removeControl('EndDateVacation');
             break;
             case 'vacation':
-            this.statusForm.addControl('StartDateVacation',new FormControl('', Validators.compose([Validators.required])));
-            this.statusForm.addControl('EndDateVacation',new FormControl('', Validators.compose([Validators.required])));
+            this.statusForm.addControl('StartDateVacation', new FormControl('', Validators.compose([Validators.required])));
+            this.statusForm.addControl('EndDateVacation', new FormControl('', Validators.compose([Validators.required])));
             if (!!this.sellerList[status.posSeller].StartVacations && !!this.sellerList[status.posSeller].EndVacations) {
                 this.startDateVacation.setValue(DateService.stringToDate(this.sellerList[status.posSeller].StartVacations));
                 this.endDateVacation.setValue(DateService.stringToDate(this.sellerList[status.posSeller].EndVacations));
@@ -184,7 +184,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 if (!!val) {
                     this.endDateVacation.reset(null);
                 }
-            })
+            });
             !!this.reason && this.statusForm.removeControl('Reasons');
             !!this.observation && this.statusForm.removeControl('Observations');
             break;
@@ -204,7 +204,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
      */
     public changeSellerStatus(sellerData: any, status: string, index: number): void {
         const dataDialog = this.setDataChangeStatusDialog(sellerData, status, index);
-        if(!!dataDialog && !!dataDialog.title) {
+        if (!!dataDialog && !!dataDialog.title) {
             const dialogRef = this.dialog.open(DialogWithFormComponent, {
                 width: '55%',
                 minWidth: '280px',
@@ -212,29 +212,48 @@ export class SellerListComponent implements OnInit, OnDestroy {
             });
             setTimeout(() => {
                 this.configDataDialog(dialogRef);
-            })
+            });
         }
+    }
+
+    public openCancelVacationDialog() {
+        const dataForm = this.setDataCancelVacationsDialog();
+        const dialogRef = this.dialog.open(DialogWithFormComponent, {
+            data: dataForm,
+            width: '55%',
+            minWidth: '280px'
+        });
+        // const dialogInstance = dialogRef.componentInstance;
+    }
+
+    private setDataCancelVacationsDialog() {
+        const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
+        const title = 'Cancelar vacaciones';
+        const icon = 'local_airport';
+        const form = null;
+        const messageCenter = false;
+        return {message, title, icon, form, messageCenter};
     }
 
     /**
      * Metodo que configura el dialogo
      * @param dialog Dialogo de cambio de estado
      */
-    configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>){
-        const dialogInstance = dialog.componentInstance; 
+    configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
+        const dialogInstance = dialog.componentInstance;
         dialogInstance.content = this.content;
         dialogInstance.confirmation = () => {
             const form = this.statusForm.value;
-            if(form.StartDateVacation && form.EndDateVacation) {
+            if (form.StartDateVacation && form.EndDateVacation) {
                 form.StartDateVacation = DateService.getDateFormatToRequest(form.StartDateVacation);
                 form.EndDateVacation = DateService.getDateFormatToRequest(form.EndDateVacation);
             }
             this.loading.viewSpinner();
             this.subs.push(this.storesService.changeStateSeller(form).subscribe(val => {
                 const body = val.body;
-                if( body && body.statusCode && body.statusCode === 201) {
+                if ( body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
-                    if(resultData && resultData.Message) {
+                    if (resultData && resultData.Message) {
                         const status = this.needFormStates$.getValue();
                         this.updateSeller(status);
                     }
@@ -248,10 +267,10 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
         this.subs.push(dialog.afterClosed().subscribe(() => {
             this.needFormStates$.next(null);
-            if(!!this.reason) {
-                this.statusForm.reset({IdSeller: '', Reasons: '', Observations: ''})
+            if (!!this.reason) {
+                this.statusForm.reset({IdSeller: '', Reasons: '', Observations: ''});
             } else {
-                this.statusForm.reset({IdSeller: '', EndDateVacation: '', StartDateVacation: ''})
+                this.statusForm.reset({IdSeller: '', EndDateVacation: '', StartDateVacation: ''});
             }
         }));
     }
@@ -262,10 +281,10 @@ export class SellerListComponent implements OnInit, OnDestroy {
      */
     updateSeller(value: {posSeller: number, status: string}) {
         switch (value.status) {
-            case 'enabled': 
+            case 'enabled':
             this.sellerList[value.posSeller].Status = 'Enable';
             break;
-            case 'disabled': 
+            case 'disabled':
             this.sellerList[value.posSeller].Status = 'Disable';
             break;
             case 'vacation':
@@ -282,13 +301,13 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * @param sellerData La información del vendedor
      * @param status Estado a cambiar
      */
-    setDataChangeStatusDialog(sellerData: any, status: string, index: number){
+    setDataChangeStatusDialog(sellerData: any, status: string, index: number) {
         let message = '';
         let title = '';
         let icon = '';
         let form = null;
         let messageCenter = false;
-        if (status === 'enabled' && sellerData.status !== 'enabled' && this.canEnabled){
+        if (status === 'enabled' && sellerData.status !== 'enabled' && this.canEnabled) {
             message = '¿Estas seguro que deseas activar este vendedor?';
             icon = null;
             title = 'Activación';
@@ -307,7 +326,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
-        return {title, message, icon, form, messageCenter}
+        return {title, message, icon, form, messageCenter};
     }
 
     /**
@@ -334,8 +353,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
 
-    filterSellerList(){
-        if(this.listFilterSellers.length > 0){
+    filterSellerList() {
+        if (this.listFilterSellers.length > 0) {
             const filterList = this.totalSellerList.filter((element) => {
                 let trueId = true;
                 let trueNameSeller = true;
@@ -353,7 +372,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
                             break;
                     }
                 });
-                if(trueId && trueNameSeller && trueNit) {
+                if (trueId && trueNameSeller && trueNit) {
                     return element;
                 }
             });
@@ -391,7 +410,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 this.sellerList.map(seller => {
                     const startDate = new Date(seller.StartVacations);
                     const endDate = new Date(seller.EndVacations);
-                    if(startDate.getFullYear() == 1 || endDate.getFullYear() == 1) {
+                    if (startDate.getFullYear() === 1 || endDate.getFullYear() === 1) {
                         seller.StartVacations = null;
                         seller.EndVacations = null;
                     } else {

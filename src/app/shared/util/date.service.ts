@@ -9,7 +9,7 @@ export class DateService {
 
     static getDateFormatToShow(date: Date): string {
         const format = 'DD/MM/YYYY';
-        const stringDate = moment(date).utc().format(format).toString()
+        const stringDate = moment(date).utc().format(format).toString();
         return stringDate;
     }
 

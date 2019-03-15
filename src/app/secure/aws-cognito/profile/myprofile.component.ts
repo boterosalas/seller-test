@@ -21,7 +21,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public cognitoId: String;
     public user: any;
     form: FormGroup;
-    isInVacation: boolean = true;
+    isInVacation: boolean;
     isAdmin = true;
     vacationForm: FormGroup;
     today = new Date();
@@ -45,7 +45,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             this.loading.viewSpinner();
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
@@ -64,7 +64,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Method that open a specific datePicker at click an input
      * @param pos Pos of datepicker to open;
      */
-    openPicker(pos: number){
+    openPicker(pos: number) {
         switch (pos) {
             case 1:
             this.initialPicker.open();
@@ -75,7 +75,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         }
     }
 
-    private initVacationForm(){
+    private initVacationForm() {
         this.vacationForm = this.fb.group({
             StartDateVacation: ['', Validators.compose([Validators.required])],
             EndDateVacation : ['', Validators.compose([Validators.required])]
@@ -100,16 +100,16 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         dialoginstance.content = this.content;
         dialoginstance.confirmation = () => {
             const vacationForm = this.vacationForm.value;
-            if(vacationForm.StartDateVacation && vacationForm.EndDateVacation) {
+            if (vacationForm.StartDateVacation && vacationForm.EndDateVacation) {
                 vacationForm.StartDateVacation = DateService.getDateFormatToRequest(vacationForm.StartDateVacation);
                 vacationForm.EndDateVacation = DateService.getDateFormatToRequest(vacationForm.EndDateVacation);
             }
             this.loading.viewSpinner();
             this.sotreService.changeStateSeller(form).subscribe(response => {
                 const body = response.body;
-                if( body && body.statusCode && body.statusCode == 201) {
+                if ( body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
-                    if(resultData && resultData.Message) {
+                    if (resultData && resultData.Message) {
                         console.log(resultData.Message);
                     }
                 } else {
@@ -126,7 +126,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             this.router.navigate([`/${RoutesConst.homeLogin}`]);
         } else {
             const user = await this.profileService.getUser().toPromise().then(res => {
-                const body : any = res.body;
+                const body: any = res.body;
                 const response = JSON.parse(body.body);
                 const userData = response.Data;
                 return userData;
@@ -140,7 +140,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.user = Object.assign(user);
         this.isAdmin = !this.user.City;
         this.isInVacation = (!!this.user.StartVacations && !!this.user.EndVacations);
-        if(this.isInVacation) {
+        if (this.isInVacation) {
             this.setVacationForm();
             this.user.StartVacations = DateService.getDateFormatToShow(new Date(this.user.StartVacations));
             this.user.EndVacations = DateService.getDateFormatToShow(new Date(this.user.EndVacations));
@@ -162,9 +162,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     }
 
-
     private setUserForm(values: any) {
-        if(!!this.form) {
+        if (!!this.form) {
             this.form.patchValue(values);
             this.Nit.disable();
             this.Email.disable();
@@ -172,6 +171,25 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             this.StoreName.disable();
         }
         this.loading.closeSpinner();
+    }
+
+    public openCancelVacationDialog() {
+        const dataForm = this.setDataCancelVacationsDialog();
+        const dialogRef = this.dialog.open(DialogWithFormComponent, {
+            data: dataForm,
+            width: '55%',
+            minWidth: '280px'
+        });
+        // const dialogInstance = dialogRef.componentInstance;
+    }
+
+    private setDataCancelVacationsDialog() {
+        const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
+        const title = 'Cancelar vacaciones';
+        const icon = 'local_airport';
+        const form = null;
+        const messageCenter = false;
+        return {message, title, icon, form, messageCenter};
     }
 
     get Nit(): FormControl {

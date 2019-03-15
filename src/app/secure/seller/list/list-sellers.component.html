@@ -178,7 +178,7 @@
                             <strong>Inicio:</strong>{{seller.StartVacations}}<br/>
                             <strong>Fin:</strong>{{seller.EndVacations}}
                          </div>
-                          <mat-icon>
+                          <mat-icon (click)="openCancelVacationDialog()">
                             cancel
                           </mat-icon>
                     </label>
