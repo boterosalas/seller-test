@@ -173,9 +173,14 @@
                     <p class="title-list">
                       Vacacaiones
                     </p>
-                    <label class="label-result" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
-                          <strong>Inicio:</strong>{{seller.StartVacations}}<br class="testBreak"/>
-                          <strong>Fin:</strong>{{seller.EndVacations}}
+                    <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
+                         <div>
+                            <strong>Inicio:</strong>{{seller.StartVacations}}<br/>
+                            <strong>Fin:</strong>{{seller.EndVacations}}
+                         </div>
+                          <mat-icon>
+                            cancel
+                          </mat-icon>
                     </label>
                     <ng-template #ProgramDate>
                         <label class="label-result">

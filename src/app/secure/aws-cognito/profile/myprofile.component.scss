@@ -69,11 +69,14 @@ $modal: 72px;
     }
 }
 
-.edit{
+.options{
     position: absolute;
     right: 10px;
     top: 10px;
     color: $color-gray;
+    & mat-icon:hover{
+        cursor: pointer;
+    }
 }
 
 .title-text{

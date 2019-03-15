@@ -3,13 +3,13 @@
     <div class="sub-content">
         <form [formGroup]="form">
             <mat-form-field class="full-width">
-                <input matInput placeholder="Id seller" autocomplete="false" formControlName="SellerId">
+                <input matInput placeholder="Id seller" autocomplete="false" formControlName="IdSeller">
             </mat-form-field>
             <mat-form-field class="full-width">
                 <input matInput placeholder="Nit" autocomplete="false" formControlName="Nit">
             </mat-form-field>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="StoreName">
+                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="Name">
             </mat-form-field>        
             <mat-form-field class="full-width">
                 <input matInput placeholder="Correo" autocomplete="false" formControlName="Email">
@@ -19,9 +19,12 @@
     <div *ngIf="!isAdmin" class="sub-content">
         <ng-container *ngIf="isInVacation; else programVacations">
             <mat-card class="mat card">
-                <div class="edit">
-                    <mat-icon>
+                <div class="options">
+                    <mat-icon (click)="openVacationDialog()">
                         edit
+                    </mat-icon>
+                    <mat-icon>
+                        cancel
                     </mat-icon>
                 </div>
                 <div class="icon-container">
@@ -37,14 +40,14 @@
                     </mat-card-title>
                     <mat-card-content>
                         <label class="label-result">
-                                <strong>Inicio:</strong>99/99/9999 - <strong>Fin:</strong>99/99/9999
+                                <strong>Inicio:</strong>{{user.StartVacations}} - <strong>Fin:</strong>{{user.EndVacations}}
                             </label>
                     </mat-card-content>
                 </div>
             </mat-card>
         </ng-container>
         <ng-template #programVacations>
-            <button mat-stroked-button color="primary" (click)="openDialog()">PROGRAMAR VACACIONES</button>
+            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="openVacationDialog()">PROGRAMAR VACACIONES</button>
         </ng-template>
     </div>
 </div>

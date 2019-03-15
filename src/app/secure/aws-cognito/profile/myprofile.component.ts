@@ -6,7 +6,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { MatDialog } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { fbind } from 'q';
+import { MyProfileService } from './myprofile.service';
+import { map } from 'rxjs/operators';
+import { DateService } from '@app/shared/util/date.service';
 
 @Component({
     selector: 'app-awscognito',
@@ -19,13 +21,16 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public cognitoId: String;
     public user: any;
     form: FormGroup;
-    isInVacation: boolean = false;
-    isAdmin = false;
+    isInVacation: boolean = true;
+    isAdmin = true;
     vacationForm: FormGroup;
     today = new Date();
+    role: string;
     @ViewChild('dialogTemplate') content: TemplateRef<any>;
     @ViewChild('intialPicker') initialPicker;
     @ViewChild('endPicker') endPicker;
+
+    otherUser: any;
 
     constructor(
         public router: Router,
@@ -35,21 +40,23 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private sotreService: StoresService,
         private dialog: MatDialog,
         private loading: LoadingService,
-        private modalService: ModalService) {
-        this.userService.isAuthenticated(this);
+        private modalService: ModalService,
+        private profileService: MyProfileService) {
+            this.loading.viewSpinner();
     }
-    
+
     ngOnInit(){
         this.initUserForm();
         this.initVacationForm();
+        this.userService.isAuthenticated(this);
     }
 
     private initUserForm() {
         this.form = this.fb.group({
             Nit: [''],
             Email: [''],
-            SellerId: [''],
-            StoreName: ['']                        
+            IdSeller: [''],
+            Name: ['']
         });
     }
 
@@ -62,7 +69,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             case 1:
             this.initialPicker.open();
             break;
-            case 2: 
+            case 2:
             this.endPicker.open();
             break;
         }
@@ -74,16 +81,16 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             EndDateVacation : ['', Validators.compose([Validators.required])]
         });
         this.startDateVacation.valueChanges.subscribe(val => {
-            if(!!val) this.endDateVacation.reset(null);
+            !!val && this.endDateVacation.reset(null);
         });
     }
 
-    openDialog() {
-        const title = "Vacaciones";
-        const message = "Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.";
-        const icon = "local_airport"
-        const form = this.form;
-        const value = {title, message, icon, form}
+    openVacationDialog() {
+        const title = 'Vacaciones';
+        const message = 'Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+        const icon = 'local_airport';
+        const form = this.vacationForm;
+        const value = {title, message, icon, form};
         const dialogRef = this.dialog.open( DialogWithFormComponent, {
             data: value,
             width: '55%',
@@ -92,10 +99,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const dialoginstance = dialogRef.componentInstance;
         dialoginstance.content = this.content;
         dialoginstance.confirmation = () => {
-            const form = this.vacationForm.value;
-            if(form.StartDateVacation && form.EndDateVacation) {
-                form.StartDateVacation = this.setFormatDate(form.StartDateVacation);
-                form.EndDateVacation = this.setFormatDate(form.EndDateVacation);
+            const vacationForm = this.vacationForm.value;
+            if(vacationForm.StartDateVacation && vacationForm.EndDateVacation) {
+                vacationForm.StartDateVacation = DateService.getDateFormatToRequest(vacationForm.StartDateVacation);
+                vacationForm.EndDateVacation = DateService.getDateFormatToRequest(vacationForm.EndDateVacation);
             }
             this.loading.viewSpinner();
             this.sotreService.changeStateSeller(form).subscribe(response => {
@@ -109,34 +116,62 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                     this.modalService.showModal('errorService');
                 }
                 dialoginstance.onNoClick();
-                this.loading.closeSpinner();                
+                this.loading.closeSpinner();
             });
         };
-    }
-
-    setFormatDate(date: Date){
-        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     }
 
     async isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate([`/${RoutesConst.homeLogin}`]);
         } else {
-            this.user = await this.userParams.getParameters(true);
-            const Nit = this.user.find(element => element.Name == 'custom:Nit').Value;
-            const Email = this.user.find(element => element.Name == 'email').Value;
-            const SellerId = this.user.find(element => element.Name == "custom:SellerId").Value;
-            const StoreName = this.user.find(element => element.Name == "name").Value;
-            this.setForm({Nit, Email, SellerId, StoreName});
+            const user = await this.profileService.getUser().toPromise().then(res => {
+                const body : any = res.body;
+                const response = JSON.parse(body.body);
+                const userData = response.Data;
+                return userData;
+            });
+            this.setUserData(user);
         }
     }
-    
-    private setForm(values: any) {
-        this.form.patchValue(values);
-        this.Nit.disable();
-        this.Email.disable();
-        this.SellerId.disable();
-        this.StoreName.disable();
+
+
+    setUserData(user: any) {
+        this.user = Object.assign(user);
+        this.isAdmin = !this.user.City;
+        this.isInVacation = (!!this.user.StartVacations && !!this.user.EndVacations);
+        if(this.isInVacation) {
+            this.setVacationForm();
+            this.user.StartVacations = DateService.getDateFormatToShow(new Date(this.user.StartVacations));
+            this.user.EndVacations = DateService.getDateFormatToShow(new Date(this.user.EndVacations));
+        }
+        this.setUserForm(this.user);
+    }
+
+    setVacationForm() {
+        if (!this.vacationForm) {
+            this.initVacationForm();
+        }
+        const startDate = new Date(this.user.StartVacations);
+        const endDate = new Date(this.user.EndVacations);
+        this.startDateVacation.setValue(startDate);
+        this.endDateVacation.setValue(endDate);
+    }
+
+    getFormatDate(date: Date) {
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
+
+
+    private setUserForm(values: any) {
+        if(!!this.form) {
+            this.form.patchValue(values);
+            this.Nit.disable();
+            this.Email.disable();
+            this.SellerId.disable();
+            this.StoreName.disable();
+        }
+        this.loading.closeSpinner();
     }
 
     get Nit(): FormControl {
@@ -148,11 +183,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     get StoreName(): FormControl {
-        return this.form.get('StoreName') as FormControl;
+        return this.form.get('Name') as FormControl;
     }
 
     get SellerId(): FormControl {
-        return this.form.get('SellerId') as FormControl;
+        return this.form.get('IdSeller') as FormControl;
     }
 
     get startDateVacation(): FormControl{

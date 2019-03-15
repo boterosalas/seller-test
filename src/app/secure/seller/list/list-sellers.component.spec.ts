@@ -1,21 +1,22 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { SellerModule } from "../seller.module";
-import { SellerListComponent } from "./list-sellers.component";
-import { MaterialModule } from "@app/material.module";
-import { LoadingService, ModalService } from "@app/core";
-import { StoresService } from "@app/secure/offers/stores/stores.service";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { RouterModule, Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { By } from "@angular/platform-browser";
-import { of, Observable } from "rxjs";
-import { SellerRoutingModule } from "../seller.routing";
-import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
-import { componentFactoryName } from "@angular/compiler";
-import { AuthService } from "@app/secure/auth/auth.routing";
-import { MenuModel } from "../profiles/models/menu.model";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SellerModule } from '../seller.module';
+import { SellerListComponent } from './list-sellers.component';
+import { MaterialModule } from '@app/material.module';
+import { LoadingService, ModalService } from '@app/core';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { of, Observable } from 'rxjs';
+import { SellerRoutingModule } from '../seller.routing';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { componentFactoryName } from '@angular/compiler';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel } from '../profiles/models/menu.model';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
 export const constSellerList = [
     {
@@ -61,32 +62,37 @@ export const constSellerList = [
 
 export const  sellerListMenu = {
     Id: undefined,
-    NameMenu: "Listado de Vendedores",
-    NameMenuBack: "listado de vendedores",
+    NameMenu: 'Listado de Vendedores',
+    NameMenuBack: 'listado de vendedores',
     ProfileType: 1,
     ShowMenu: true,
     ShowMenuProduction: true,
-    UrlRedirect: "securehome/seller-center/vendedores/lista",
+    UrlRedirect: 'securehome/seller-center/vendedores/lista',
     Functionalities: [
         {
-            NameFunctionality: "Consultar",
+            NameFunctionality: 'Consultar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Consultar"
+            nameFunctionalityBack: 'Consultar'
         },
         {
-            NameFunctionality: "Visualizar",
+            NameFunctionality: 'Visualizar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Visualizar"
+            nameFunctionalityBack: 'Visualizar'
         },
         {
-            NameFunctionality: "Habilitar",
+            NameFunctionality: 'Habilitar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Habilitar"
+            nameFunctionalityBack: 'Habilitar'
         },
         {
-            NameFunctionality: "Deshabilitar",
+            NameFunctionality: 'Deshabilitar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Deshabilitar"
+            nameFunctionalityBack: 'Deshabilitar'
+        },
+        {
+            NameFunctionality: 'Vacaciones',
+            ShowFunctionality: true,
+            nameFunctionalityBack: 'Vacaciones'
         }
     ]
 }
@@ -115,7 +121,6 @@ describe('List Seller Component',() => {
     let matDialog: MatDialog;
     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
     let dialogComponent: DialogWithFormComponent;
-    let authService: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -156,6 +161,7 @@ describe('List Seller Component',() => {
         sellerListComponent.canDisabled = true;
         sellerListComponent.canEnabled = true;
         sellerListComponent.canVisualize = true;
+        sellerListComponent.canPutInVacation = true;
         mockAuthService.getMenu.and.returnValue(sellerListMenu);
     });
 
@@ -178,17 +184,17 @@ describe('List Seller Component',() => {
             mockStoresService.getAllStoresFull.calls.reset();
             mockDialogRef.componentInstance.calls.reset();
             mockDialogRef.afterClosed.calls.reset();
-        })); 
+        }));
 
-        it('Should be exist btn status',() => {
+        it('Should be exist btn status', () => {
             () => {
                 expect(sellerListComponent.sellerList.length).toEqual(3);
-                const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller')).nativeElement;
-                const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller')).nativeElement;
-                const btnVacationSeller = fixture.debugElement.query(By.css('#btn-vacation-seller')).nativeElement;
-                expect(btnDisabledSeller).toBeTruthy();
-                expect(btnEnabledSeller).toBeTruthy();
-                expect(btnVacationSeller).toBeTruthy();
+            const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller')).nativeElement;
+            const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller')).nativeElement;
+            const btnVacationSeller = fixture.debugElement.query(By.css('#btn-vacation-seller')).nativeElement;
+            expect(btnDisabledSeller).toBeTruthy();
+            expect(btnEnabledSeller).toBeTruthy();
+            expect(btnVacationSeller).toBeTruthy();
             }
         });
 
@@ -293,10 +299,10 @@ describe('List Seller Component',() => {
             expect(stateForm.get('StartDateVacation')).toBeNull();
         });
 
-        it('should be transform a specific date to a date with format DD/MM/YYYY', () => {
+        it('should be transform a specific date to a date with format MM/DD/YYYY', () => {
             const date = new Date();
             const resultDate = sellerListComponent.setFormatDate(date);
-            expect(resultDate).toEqual(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+            expect(resultDate).toEqual(`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`);
         });
 
         it('should be return a data for enabled Dialog of an disabled Seller', () => {
