@@ -57,19 +57,21 @@
 
 .ofert-component {
   width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    @media screen and (max-width: 600px) {
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 600px) {
     display: block;
-    }
+  }
 }
 
 .info-product {
-  margin: 5%;
+  margin: 1%;
   text-align: left;
   font-size: 14px;
   color: #5D5D5D;
-  width: 100%;
+  display: block;
+  width: 23%;
 
   @media screen and (max-width: 600px) {
     width: 90%;
@@ -86,12 +88,15 @@
 }
 
 .container {
-  padding-left: 5%;
-  padding-right: 5%;
+  // padding-left: 5%;
+  // padding-right: 5%;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 
   &-sub {
     width: 23%;
+
     @media screen and (max-width: 600px) {
       width: 90%;
     }
@@ -101,6 +106,7 @@
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: rgba(72, 90, 250, .38) !important;
 }
+
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #485AFA !important;
 }
