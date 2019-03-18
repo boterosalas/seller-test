@@ -430,7 +430,7 @@ describe('List Seller Component', () => {
         });
 
         it('should be send to open dialog cancel vacations', () => {
-            sellerListComponent.sendToOpenCancelVacationDialog();
+            sellerListComponent.sendToOpenCancelVacationDialog(2);
             expect(mockDialog.open).toHaveBeenCalled();
             expect(mockDialog.open).toHaveBeenCalledTimes(1);
         });
