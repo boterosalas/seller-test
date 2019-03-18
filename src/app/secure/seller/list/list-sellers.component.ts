@@ -82,6 +82,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canDisabled: boolean;
     canVisualize: boolean;
     canPutInVacation: boolean;
+    tomorrow = DateService.getTomorrowDate();
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -219,9 +220,38 @@ export class SellerListComponent implements OnInit, OnDestroy {
     /**
      * Metodo que orquesta la creación del dialogo de cancelar vacaciones
      */
-    public sendToOpenCancelVacationDialog() {
+    public sendToOpenCancelVacationDialog(index: number) {
         const dataForm = this.setDataCancelVacationsDialog();
         const dialogInstance = this.openCancelVacationDialog(dataForm);
+        this.configCancelDialog(dialogInstance, index);
+    }
+
+    /**
+     * metodo que gestiona la confimación del dialogo
+     * @param dialog dialogo de cancelación de vacaciones
+     * @param index posición del vendedor
+     */
+    configCancelDialog(dialog: DialogWithFormComponent, index: number){
+        dialog.confirmation = () => {
+            this.loading.viewSpinner();
+            this.storesService.cancelVacation({IdSeller: this.sellerList[index].IdSeller}).subscribe(val => {
+                if (val.status === 200) {
+                    const body = val.body.body;
+                    const message = JSON.parse(body);
+                    if (body && message) {
+                        this.sellerList[index].StartVacations = null;
+                        this.sellerList[index].EndVacations = null;
+                        this.snackBar.open('Actualizado correctamente: ' + this.sellerList[index].Name, 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
+                } else {
+                    this.modalService.showModal('errorService');
+                }
+                dialog.onNoClick();
+                this.loading.closeSpinner();
+            });
+        };
     }
 
     /**

@@ -17,4 +17,9 @@ export class DateService {
         const dateFormat = moment(date, format);
         return dateFormat.toDate();
     }
+
+    static getTomorrowDate(): Date {
+        const tomorrow =  moment().utc().add(1, 'days').format('DD/MM/YYYY');
+        return this.stringToDate(tomorrow);
+    }
 }

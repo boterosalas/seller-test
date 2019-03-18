@@ -4,7 +4,7 @@ import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService,
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { MyProfileService } from './myprofile.service';
 import { map } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     isInVacation: boolean;
     isAdmin: boolean;
     vacationForm: FormGroup;
-    today = new Date();
+    tomorrow = DateService.getTomorrowDate();
     role: string;
     @ViewChild('dialogTemplate') content: TemplateRef<any>;
     @ViewChild('intialPicker') initialPicker;
@@ -40,7 +40,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private dialog: MatDialog,
         private loading: LoadingService,
         private modalService: ModalService,
-        private profileService: MyProfileService) {
+        private profileService: MyProfileService,
+        private snackBar: MatSnackBar) {
             this.loading.viewSpinner();
     }
 
@@ -198,10 +199,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Metodo que actualiza la información de las vacaciones programadas para reProgramar las vacaciones
      */
     setVacationForm() {
-        const startDate = new Date(this.user.StartVacations);
-        const endDate = new Date(this.user.EndVacations);
-        this.startDateVacation.setValue(startDate);
-        this.endDateVacation.setValue(endDate);
+        const startDate = DateService.getDateFormatToShow(this.user.StartVacations);
+        const endDate = DateService.getDateFormatToShow(this.user.EndVacations);
+        this.startDateVacation.setValue(DateService.stringToDate(startDate));
+        this.endDateVacation.setValue(DateService.stringToDate(endDate));
     }
 
     /**
@@ -223,8 +224,42 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public sendToOpenCancelVacationDialog() {
         const dataForm = this.setDataCancelVacationsDialog();
         const dialogInstance = this.openCancelVacationDialog(dataForm);
+        this.configCancelDialog(dialogInstance);
     }
 
+    /**
+     * metodo que gestiona la confimación del dialogo
+     * @param dialog dialogo de cancelación de vacaciones
+     * @param index posición del vendedor
+     */
+    configCancelDialog(dialog: DialogWithFormComponent){
+        dialog.confirmation = () => {
+            this.loading.viewSpinner();
+            this.sotreService.cancelVacation({IdSeller: this.user.IdSeller}).subscribe(val => {
+                if (val.status === 200) {
+                    const body = val.body.body;
+                    const message = JSON.parse(body);
+                    if (body && message) {
+                        this.user.StartVacations = null;
+                        this.user.EndVacations = null;
+                        this.isInVacation = false;
+                        this.snackBar.open('Actualizado correctamente: ' + this.user.Name, 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
+                } else {
+                    this.modalService.showModal('errorService');
+                }
+                dialog.onNoClick();
+                this.loading.closeSpinner();
+            });
+        };
+    }
+
+    /**
+     * MEtodo que abre el dialogo con al data enviada por parametro
+     * @param dataForm data a mostrar en el dialogo
+     */
     openCancelVacationDialog(dataForm: any) {
         const dialogRef = this.dialog.open(DialogWithFormComponent, {
             data: dataForm,

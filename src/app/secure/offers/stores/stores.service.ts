@@ -70,6 +70,9 @@ export class StoresService {
     });
   }
 
+  cancelVacation(body: any): Observable<any> {
+    return this.http.patch(this.api.get('cancelVacationSeller'), body, {observe: 'response'});
+  }
 
   /**
    * Servicio que permite obtener la lista de comisiones de acuerdo al seller.
