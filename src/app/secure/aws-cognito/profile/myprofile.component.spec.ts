@@ -204,7 +204,7 @@ describe('My Profile', () => {
             component.sendToOpenCancelVacationDialog();
             expect(mockDialog.open).toHaveBeenCalled();
             expect(mockDialog.open).toHaveBeenCalledTimes(1);
-        })
+        });
     });
 
     describe('User seller Login without vacations', () => {

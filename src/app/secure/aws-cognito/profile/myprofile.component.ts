@@ -156,7 +156,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     /**
      *  Metodo que verifica si el usuario esta logeado o no, de estar logeado, obtiene la información del usuario
      * @param message
-     * @param isLoggedIn 
+     * @param isLoggedIn
      */
     async isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
@@ -206,7 +206,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
 
     /**
      * Metodo que actualiza el formulario de usuario con la data del usuario logeado
-     * @param values 
+     * @param values
      */
     private setUserForm(values: any) {
         this.form.patchValue(values);

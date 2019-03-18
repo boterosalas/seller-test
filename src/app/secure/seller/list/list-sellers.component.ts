@@ -228,7 +228,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * metodo encargado de abrir el dialog
      * @param dataForm Data para abrir la modal
      */
-    openCancelVacationDialog(dataForm: any){
+    openCancelVacationDialog(dataForm: any) {
         const dialogRef = this.dialog.open(DialogWithFormComponent, {
             data: dataForm,
             width: '55%',

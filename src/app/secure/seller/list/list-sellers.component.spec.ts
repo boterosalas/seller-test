@@ -436,7 +436,7 @@ describe('List Seller Component', () => {
         });
 
         it('should be update a seller disabled to enabled', () => {
-            const response: any = {
+            const response = {
                 posSeller: 1,
                 status: 'enabled'
             };
