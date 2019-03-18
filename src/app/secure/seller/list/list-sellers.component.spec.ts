@@ -436,6 +436,7 @@ describe('List Seller Component', () => {
         });
 
         it('should be update a seller disabled to enabled', () => {
+// tslint:disable-next-line: no-shadowed-variable
             const response = {
                 posSeller: 1,
                 status: 'enabled'
@@ -446,6 +447,7 @@ describe('List Seller Component', () => {
         });
 
         it('should be update a seller enabled to disabled', () => {
+// tslint:disable-next-line: no-shadowed-variable
             const response: any = {
                 posSeller: 0,
                 status: 'disabled'
@@ -456,6 +458,7 @@ describe('List Seller Component', () => {
         });
 
         it('should be update a seller enabled to programVacation', () => {
+// tslint:disable-next-line: no-shadowed-variable
             const response: any = {
                 posSeller: 0,
                 status: 'vacation'
