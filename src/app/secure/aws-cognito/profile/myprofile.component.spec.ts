@@ -28,40 +28,35 @@ import { SearchOrderFormComponent } from '@app/core/shell/search-order-menu/sear
 import { SearchBillingFormComponent } from '@app/core/shell/search-order-menu/search-billing-form/search-billing-form.component';
 import { SearchPendingDevolutionFormComponent } from '@app/core/shell/search-order-menu/search-pending-devolution-form/search-pending-devolution-form.component';
 import { SearchEnviosExitoFormComponent } from '@app/core/shell/search-order-menu/search-envios-exito-form/search-envios-exito-form.component';
+import { MyProfileService } from './myprofile.service';
+import { of } from 'rxjs';
 
-class CognitoAttribute {
-    Name: string;
-    Value: string;
-    constructor(name: string, value: string) {
-        this.Name = name;
-        this.Value = value;
-    }
+const userData = {
+    Address: 'calle falsa de algun lugar de este mundo',
+    City: 'Sabaneta',
+    DaneCode: '05440000',
+    Email: 'ccbustamante2@misena.edu.co',
+    EndVacations: '30/04/2019',
+    GotoCarrulla: true,
+    GotoCatalogo: true,
+    GotoExito: true,
+    IdSeller: 11618,
+    IsLogisticsExito: true,
+    IsShippingExito: true,
+    Name: 'La Tienda De Cristian 2019 Vs 4',
+    Nit: '1128438122',
+    StartVacations: '15/04/2019',
+    Status: 'Enable'
+};
 
-    getCognitoAttribute() {
-        const Name = this.Name;
-        const Value = this.Value;
-        return {Name, Value};
-    }
-}
-
-const userData = [
-    new CognitoAttribute('sub', '1657563xc-as564asd3').getCognitoAttribute(),
-    new CognitoAttribute('email_verified', 'true').getCognitoAttribute(),
-    new CognitoAttribute('custom:SellerId', '11618').getCognitoAttribute(),
-    new CognitoAttribute('custom:Roles', 'seller').getCognitoAttribute(),
-    new CognitoAttribute('name', 'Pruebas Cristian').getCognitoAttribute(),
-    new CognitoAttribute('custom:Nit', '1593578462').getCognitoAttribute(),
-    new CognitoAttribute('email', 'prueba@prueba.com').getCognitoAttribute()
-];
-
-fdescribe('My Profile', () => {
+describe('My Profile', () => {
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const userMockService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
-    const userParametersService = jasmine.createSpyObj('UserParametersService', ['getParameters']);
+    const mockProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
     const data = {
         title: '',
         message: '',
@@ -108,7 +103,7 @@ fdescribe('My Profile', () => {
             ],
             providers: [
                 {provide: UserLoginService, useValue: userMockService},
-                {provide: UserParametersService, useValue: userParametersService},
+                {provide: MyProfileService, useValue: mockProfileService},
                 {provide: LoadingService, useValue: mockLoadingService},
                 {provide: StoresService, useValue: mockStoresService},
                 {provide: MatDialog, useValue: mockDialog},
@@ -127,6 +122,11 @@ fdescribe('My Profile', () => {
         matDialog = TestBed.get(MatDialog);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
+        mockDialog.open.and.returnValue(mockDialogRef);
+        mockDialogRef.componentInstance.and.returnValue(dialogComponent);
+        mockDialog.open.calls.reset();
+        mockDialogRef.componentInstance.calls.reset();
+        component.ngOnInit();
     });
 
     it('should create my profile component', () => {
@@ -134,32 +134,119 @@ fdescribe('My Profile', () => {
     });
 
     describe('user admin login', () => {
-        beforeEach(() => {
-            const userAdmin = userData;
-            userAdmin.map(res => res.Name === 'custom:Roles' ? res.Value = 'admin' : null);
-            userParametersService.getParameters.and.returnValue(userData);
-            userMockService.isAuthenticated.and.returnValue(null);
+        beforeEach( async () => {
+            const mockUser = Object.assign({}, userData);
+            mockUser.City = null;
+            const responseGetUser = {
+                body: {
+                    body: JSON.stringify({Data: mockUser})
+                }
+            };
+            mockProfileService.getUser.and.returnValue(of(responseGetUser));
+            await component.isLoggedIn('', true);
+        });
+
+        it('Should be admin', () => {
+            expect(component.isAdmin).toBeTruthy();
         });
 
         it('should not be exist programVacations', () => {
             const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation'));
             expect(btnProgramVacation).toBeNull();
         });
+
+        it('should not be exist Info of Vacation', () => {
+            const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
+            expect(btnProgramVacation).toBeNull();
+        });
     });
 
-    describe('User seller Login', () => {
-        beforeEach(async(() => {
-            const userAdmin = userData;
-            userAdmin.map(res => res.Name === 'custom:Roles' ? res.Value = 'seller' : null);
-            userParametersService.getParameters.and.returnValue(userData);
-            component.isInVacation = false;
-            component.isLoggedIn('', true);
-        }));
+    describe('User seller Login With vacations', () => {
+        beforeEach(async () => {
+            const responseGetUser = {
+                body: {
+                    body: JSON.stringify({Data: userData})
+                }
+            };
+            mockProfileService.getUser.and.returnValue(of(responseGetUser));
+            await component.isLoggedIn('', true);
+        });
 
-        it('should be exist programVacations', async(() => {
+        it('Should be seller', () => {
+            expect(component.isAdmin).toBeFalsy();
+        });
+
+        it('should not be exist programVacations', () => {
+            const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation'));
+            expect(btnProgramVacation).toBeNull();
+        });
+
+        it('should be exist Info of Vacation', () => {
             fixture.detectChanges();
+            expect(component.isInVacation).toBeTruthy();
+            const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
+            expect(btnProgramVacation).toBeTruthy();
+        });
+
+        it('should be return data for cancel vacation dialog', () => {
+            const dataDialog = component.setDataCancelVacationsDialog();
+            expect(dataDialog.title).toEqual('Cancelar vacaciones');
+        });
+
+        it('should be open dialog cancel vacations', () => {
+            const dataDialog = component.setDataCancelVacationsDialog();
+            const dialogInstance = component.openCancelVacationDialog(dataDialog);
+            expect(mockDialog.open).toHaveBeenCalled();
+            expect(mockDialog.open).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be send to open dialog cancel vacations', () => {
+            component.sendToOpenCancelVacationDialog();
+            expect(mockDialog.open).toHaveBeenCalled();
+            expect(mockDialog.open).toHaveBeenCalledTimes(1);
+        })
+    });
+
+    describe('User seller Login without vacations', () => {
+        beforeEach( async () => {
+            const mockUser = Object.assign({}, userData);
+            mockUser.StartVacations = '0001-01-01T00:00:00';
+            mockUser.EndVacations = '0001-01-01T00:00:00';
+            const responseGetUser = {
+                body: {
+                    body: JSON.stringify({Data: mockUser})
+                }
+            };
+            mockProfileService.getUser.and.returnValue(of(responseGetUser));
+            await component.isLoggedIn('', true);
+        });
+
+        it('Should be seller', () => {
+            expect(component.isAdmin).toBeFalsy();
+        });
+
+        it('should be exist programVacations', () => {
+            fixture.detectChanges();
+            expect(component.isInVacation).toBeFalsy();
             const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation')).nativeElement;
             expect(btnProgramVacation).toBeTruthy();
-        }));
+        });
+
+        it('should not be exist Info of Vacation', () => {
+            const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
+            expect(btnProgramVacation).toBeNull();
+        });
+
+        it('Should be set data to program vacations', () => {
+            const dataDialog = component.setDataVacationsDialog();
+            expect(dataDialog.title).toEqual('Vacaciones');
+        });
+
+        it('should be open a dialog to prgram vacations', () => {
+            component.sendToOpenVacationDialog();
+            fixture.detectChanges();
+            expect(mockDialog.open).toHaveBeenCalled();
+            expect(mockDialog.open).toHaveBeenCalledTimes(1);
+        });
     });
 });

@@ -18,12 +18,12 @@
     </div>
     <div *ngIf="!isAdmin" class="sub-content">
         <ng-container *ngIf="isInVacation; else programVacations">
-            <mat-card class="mat card">
+            <mat-card id="info-vacation" class="mat card">
                 <div class="options">
-                    <mat-icon (click)="openVacationDialog()">
+                    <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()">
                         edit
                     </mat-icon>
-                    <mat-icon (click)="openCancelVacationDialog()">
+                    <mat-icon id="btn-cancel-vacations"(click)="sendToOpenCancelVacationDialog()">
                         cancel
                     </mat-icon>
                 </div>
@@ -47,13 +47,13 @@
             </mat-card>
         </ng-container>
         <ng-template #programVacations>
-            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="openVacationDialog()">PROGRAMAR VACACIONES</button>
+            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="sendToOpenVacationDialog()">PROGRAMAR VACACIONES</button>
         </ng-template>
     </div>
 </div>
 
 <ng-template #dialogTemplate>
-    <form [formGroup]="vacationForm" class="full-width space-between">
+    <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
         <mat-form-field class="half-width">
             <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
             <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>

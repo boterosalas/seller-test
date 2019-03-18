@@ -18,10 +18,74 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel } from '../profiles/models/menu.model';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
-export const constSellerList = [
+export const response = {
+    status: 200,
+    body: {
+        body: JSON.stringify({
+            Data: [
+                {
+                    Address: 'Direccion A',
+                    City: 'Marinilla',
+                    DaneCode: '123456',
+                    Email: 'asdb@ajj.com',
+                    EndVacations: '0001-01-01T00:00:00',
+                    GotoCarrulla: true,
+                    GotoCatalogo: true,
+                    GotoExito: true,
+                    IdSeller: 51278,
+                    IsLogisticsExito: false,
+                    IsShippingExito: true,
+                    Name: 'test 1',
+                    Nit: '18026014',
+                    StartVacations: '0001-01-01T00:00:00',
+                    Status: 'Enable'
+                },
+                {
+                    Address: 'Direccion B',
+                    City: 'Marinilla',
+                    DaneCode: '123455',
+                    Email: 'asdb@ajj.com',
+                    EndVacations: '0001-01-01T00:00:00',
+                    GotoCarrulla: true,
+                    GotoCatalogo: true,
+                    GotoExito: true,
+                    IdSeller: 9876547,
+                    IsLogisticsExito: false,
+                    IsShippingExito: true,
+                    Name: 'test 2',
+                    Nit: '18026013',
+                    StartVacations: '0001-01-01T00:00:00',
+                    Status: 'Disable'
+                },
+                {
+                    Address: 'Direccion C',
+                    City: 'Marinilla',
+                    DaneCode: '123457',
+                    Email: 'asdb@ajj.com',
+                    EndVacations: new Date(new Date().getDate() + 2).toString(),
+                    GotoCarrulla: true,
+                    GotoCatalogo: true,
+                    GotoExito: true,
+                    IdSeller: 36589962,
+                    IsLogisticsExito: false,
+                    IsShippingExito: true,
+                    Name: 'test 3',
+                    Nit: '18026015',
+                    StartVacations: new Date(new Date().getDate() - 1 ).toString(),
+                    Status: 'Vacation'
+                }
+            ]
+        })
+    }
+};
+
+const constSellerList = [
     {
         Address: 'Direccion A',
+        City: 'Marinilla',
         DaneCode: '123456',
+        Email: 'asdb@ajj.com',
+        EndVacations: null,
         GotoCarrulla: true,
         GotoCatalogo: true,
         GotoExito: true,
@@ -30,11 +94,15 @@ export const constSellerList = [
         IsShippingExito: true,
         Name: 'test 1',
         Nit: '18026014',
-        status: 'enabled'
+        StartVacations: null,
+        Status: 'Enable'
     },
     {
         Address: 'Direccion B',
+        City: 'Marinilla',
         DaneCode: '123455',
+        Email: 'asdb@ajj.com',
+        EndVacations: null,
         GotoCarrulla: true,
         GotoCatalogo: true,
         GotoExito: true,
@@ -43,11 +111,15 @@ export const constSellerList = [
         IsShippingExito: true,
         Name: 'test 2',
         Nit: '18026013',
-        status: 'disabled'
+        StartVacations: null,
+        Status: 'Disable'
     },
     {
         Address: 'Direccion C',
+        City: 'Marinilla',
         DaneCode: '123457',
+        Email: 'asdb@ajj.com',
+        EndVacations: new Date(new Date().getDate() + 2),
         GotoCarrulla: true,
         GotoCatalogo: true,
         GotoExito: true,
@@ -56,9 +128,10 @@ export const constSellerList = [
         IsShippingExito: true,
         Name: 'test 3',
         Nit: '18026015',
-        status: 'vacation'
+        StartVacations: new Date(new Date().getDate() - 1 ),
+        Status: 'vacation'
     }
-]; 
+];
 
 export const  sellerListMenu = {
     Id: undefined,
@@ -95,11 +168,11 @@ export const  sellerListMenu = {
             nameFunctionalityBack: 'Vacaciones'
         }
     ]
-}
+};
 
-describe('List Seller Component',() => {
+describe('List Seller Component', () => {
 
-    //Create a Mock Services
+    // Create a Mock Services
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
@@ -111,9 +184,9 @@ describe('List Seller Component',() => {
         message: '',
         icon: '',
         form: null
-    }
+    };
 
-    //Create Variables for services and component
+    // Create Variables for services and component
     let fixture: ComponentFixture<SellerListComponent>;
     let sellerListComponent: SellerListComponent;
     let loadingService: LoadingService;
@@ -132,7 +205,7 @@ describe('List Seller Component',() => {
                 RouterTestingModule,
                 BrowserAnimationsModule
             ],
-            providers:[
+            providers: [
                 {provide: LoadingService, useValue: mockLoadingService},
                 {provide: StoresService, useValue: mockStoresService},
                 {provide: MatDialog, useValue: mockDialog},
@@ -147,7 +220,7 @@ describe('List Seller Component',() => {
             set: {
                 entryComponents: [DialogWithFormComponent]
             }
-        })
+        });
     });
 
     beforeEach(() => {
@@ -158,10 +231,6 @@ describe('List Seller Component',() => {
         matDialog = TestBed.get(MatDialog);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
-        sellerListComponent.canDisabled = true;
-        sellerListComponent.canEnabled = true;
-        sellerListComponent.canVisualize = true;
-        sellerListComponent.canPutInVacation = true;
         mockAuthService.getMenu.and.returnValue(sellerListMenu);
     });
 
@@ -171,12 +240,11 @@ describe('List Seller Component',() => {
         expect(loadingService).toBeTruthy();
     });
 
-    describe('List with data',() => {
+    describe('List with data', () => {
 
-        beforeEach(async(() => {
-            sellerListComponent.sellerList = constSellerList;
-            sellerListComponent.sellerLength = constSellerList.length;
-            mockStoresService.getAllStoresFull.and.returnValue(of(JSON.stringify(constSellerList)));
+        beforeEach(() => {
+            const responseGetAllUsers = Object.assign({}, response);
+            mockStoresService.getAllStoresFull.and.returnValue(of(responseGetAllUsers));
             mockDialog.open.and.returnValue(mockDialogRef);
             mockDialogRef.componentInstance.and.returnValue(dialogComponent);
             mockDialogRef.afterClosed.and.returnValue(new Observable<any>());
@@ -184,34 +252,24 @@ describe('List Seller Component',() => {
             mockStoresService.getAllStoresFull.calls.reset();
             mockDialogRef.componentInstance.calls.reset();
             mockDialogRef.afterClosed.calls.reset();
-        }));
+            sellerListComponent.ngOnInit();
+        });
 
         it('Should be exist btn status', () => {
-            () => {
-                expect(sellerListComponent.sellerList.length).toEqual(3);
+            fixture.detectChanges();
+            expect(sellerListComponent.sellerList.length).toEqual(3);
             const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller')).nativeElement;
             const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller')).nativeElement;
             const btnVacationSeller = fixture.debugElement.query(By.css('#btn-vacation-seller')).nativeElement;
             expect(btnDisabledSeller).toBeTruthy();
             expect(btnEnabledSeller).toBeTruthy();
             expect(btnVacationSeller).toBeTruthy();
-            }
-        });
-
-        it('Should not be exist btn status', () => {
-            sellerListComponent.sellerList = [];
-            const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller'));
-            const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller'));
-            const btnVacationSeller = fixture.debugElement.query(By.css('#btn-vacation-seller'));
-            expect(btnDisabledSeller).toBeNull();
-            expect(btnEnabledSeller).toBeNull();
-            expect(btnVacationSeller).toBeNull();
         });
 
         it('should be build form for dialog to disabled status', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('disabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'disabled', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeTruthy();
             expect(stateForm.get('Observations')).toBeTruthy();
             expect(stateForm.get('EndDateVacation')).toBeNull();
@@ -221,7 +279,7 @@ describe('List Seller Component',() => {
         it('should be build form for dialog to vacation status', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('vacation');
+            sellerListComponent.putComplementDataInStatusForm({status: 'vacation', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeTruthy();
@@ -231,7 +289,7 @@ describe('List Seller Component',() => {
         it('Should be build form for dialog to enabled status', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('enabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'enabled', posSeller: 1});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeNull();
@@ -241,12 +299,12 @@ describe('List Seller Component',() => {
         it('should be build status form for change from disabled to vacation', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('disabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'disabled', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeTruthy();
             expect(stateForm.get('Observations')).toBeTruthy();
             expect(stateForm.get('EndDateVacation')).toBeNull();
             expect(stateForm.get('StartDateVacation')).toBeNull();
-            sellerListComponent.putComplementDataInStatusForm('vacation');
+            sellerListComponent.putComplementDataInStatusForm({status: 'vacation', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeTruthy();
@@ -256,12 +314,12 @@ describe('List Seller Component',() => {
         it('should be build status form for change from vacation to disabled', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('vacation');
+            sellerListComponent.putComplementDataInStatusForm({status: 'vacation', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeTruthy();
             expect(stateForm.get('StartDateVacation')).toBeTruthy();
-            sellerListComponent.putComplementDataInStatusForm('disabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'disabled', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeTruthy();
             expect(stateForm.get('Observations')).toBeTruthy();
             expect(stateForm.get('EndDateVacation')).toBeNull();
@@ -271,12 +329,12 @@ describe('List Seller Component',() => {
         it('should be build status form for change from vacation to enabled', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('vacation');
+            sellerListComponent.putComplementDataInStatusForm({status: 'vacation', posSeller: 2});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeTruthy();
             expect(stateForm.get('StartDateVacation')).toBeTruthy();
-            sellerListComponent.putComplementDataInStatusForm('enabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'enabled', posSeller: 2});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeNull();
@@ -287,22 +345,16 @@ describe('List Seller Component',() => {
         it('should be build status form for change from disabled to enabled', () => {
             sellerListComponent.initStatusForm();
             const stateForm = sellerListComponent.statusForm;
-            sellerListComponent.putComplementDataInStatusForm('disabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'disabled', posSeller: 2});
             expect(stateForm.get('Reasons')).toBeTruthy();
             expect(stateForm.get('Observations')).toBeTruthy();
             expect(stateForm.get('EndDateVacation')).toBeNull();
             expect(stateForm.get('StartDateVacation')).toBeNull();
-            sellerListComponent.putComplementDataInStatusForm('enabled');
+            sellerListComponent.putComplementDataInStatusForm({status: 'enabled', posSeller: 0});
             expect(stateForm.get('Reasons')).toBeNull();
             expect(stateForm.get('Observations')).toBeNull();
             expect(stateForm.get('EndDateVacation')).toBeNull();
             expect(stateForm.get('StartDateVacation')).toBeNull();
-        });
-
-        it('should be transform a specific date to a date with format MM/DD/YYYY', () => {
-            const date = new Date();
-            const resultDate = sellerListComponent.setFormatDate(date);
-            expect(resultDate).toEqual(`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`);
         });
 
         it('should be return a data for enabled Dialog of an disabled Seller', () => {
@@ -363,6 +415,92 @@ describe('List Seller Component',() => {
             sellerListComponent.initStatusForm();
             sellerListComponent.changeSellerStatus(constSellerList[0], 'enabled', 0);
             expect(mockDialog.open).toHaveBeenCalledTimes(0);
+        });
+
+        it('should be return data for cancel vacation dialog', () => {
+            const dataDialog = sellerListComponent.setDataCancelVacationsDialog();
+            expect(dataDialog.title).toEqual('Cancelar vacaciones');
+        });
+
+        it('should be open dialog cancel vacations', () => {
+            const dataDialog = sellerListComponent.setDataCancelVacationsDialog();
+            const dialogInstance = sellerListComponent.openCancelVacationDialog(dataDialog);
+            expect(mockDialog.open).toHaveBeenCalled();
+            expect(mockDialog.open).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be send to open dialog cancel vacations', () => {
+            sellerListComponent.sendToOpenCancelVacationDialog();
+            expect(mockDialog.open).toHaveBeenCalled();
+            expect(mockDialog.open).toHaveBeenCalledTimes(1);
+        });
+
+        it('should be update a seller disabled to enabled', () => {
+            const response: any = {
+                posSeller: 1,
+                status: 'enabled'
+            };
+            expect(sellerListComponent.sellerList[1].Status).toEqual('Disable');
+            sellerListComponent.updateSeller(response);
+            expect(sellerListComponent.sellerList[1].Status).toEqual('Enable');
+        });
+
+        it('should be update a seller enabled to disabled', () => {
+            const response: any = {
+                posSeller: 0,
+                status: 'disabled'
+            };
+            expect(sellerListComponent.sellerList[0].Status).toEqual('Enable');
+            sellerListComponent.updateSeller(response);
+            expect(sellerListComponent.sellerList[0].Status).toEqual('Disable');
+        });
+
+        it('should be update a seller enabled to programVacation', () => {
+            const response: any = {
+                posSeller: 0,
+                status: 'vacation'
+            };
+            const list = sellerListComponent.sellerList;
+            sellerListComponent.setDataChangeStatusDialog(list[0], 'vacation', 0);
+            sellerListComponent.startDateVacation.setValue(new Date());
+            sellerListComponent.endDateVacation.setValue(new Date(new Date().getDate() + 5));
+            expect(list[0].StartVacations).toBeNull();
+            expect(list[0].EndVacations).toBeNull();
+            sellerListComponent.updateSeller(response);
+            expect(list[0].StartVacations).not.toBeNull();
+            expect(list[0].EndVacations).not.toBeNull();
+        });
+    });
+
+    describe('List without data', () => {
+        beforeEach(() => {
+            const newResponse = {
+                status: 200,
+                body: {
+                    body: JSON.stringify({
+                        Data: []
+                    })
+                }
+            };
+            mockStoresService.getAllStoresFull.and.returnValue(of(newResponse));
+            mockDialog.open.and.returnValue(mockDialogRef);
+            mockDialogRef.componentInstance.and.returnValue(dialogComponent);
+            mockDialogRef.afterClosed.and.returnValue(new Observable<any>());
+            mockDialog.open.calls.reset();
+            mockStoresService.getAllStoresFull.calls.reset();
+            mockDialogRef.componentInstance.calls.reset();
+            mockDialogRef.afterClosed.calls.reset();
+            sellerListComponent.ngOnInit();
+        });
+
+        it('Should not be exist btn status', () => {
+            fixture.detectChanges();
+            const btnEnabledSeller = fixture.debugElement.query(By.css('#btn-enabled-seller'));
+            const btnDisabledSeller = fixture.debugElement.query(By.css('#btn-disabled-seller'));
+            const btnVacationSeller = fixture.debugElement.query(By.css('#btn-vacation-seller'));
+            expect(btnDisabledSeller).toBeNull();
+            expect(btnEnabledSeller).toBeNull();
+            expect(btnVacationSeller).toBeNull();
         });
 
     });

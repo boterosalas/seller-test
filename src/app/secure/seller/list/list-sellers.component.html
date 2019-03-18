@@ -178,7 +178,7 @@
                             <strong>Inicio:</strong>{{seller.StartVacations}}<br/>
                             <strong>Fin:</strong>{{seller.EndVacations}}
                          </div>
-                          <mat-icon (click)="openCancelVacationDialog()">
+                          <mat-icon (click)="sendToOpenCancelVacationDialog()">
                             cancel
                           </mat-icon>
                     </label>
@@ -199,7 +199,7 @@
 <ng-template #dialogContent *ngIf="needFormStates$ | async as status">
   <ng-container *ngIf="status.status == 'vacation'">
       <br/>
-    <form [formGroup]="statusForm" class="full-width space-between">
+    <form [formGroup]="statusForm" class="full-width space-between margin-top__15">
       <mat-form-field class="half-width">
         <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
@@ -215,7 +215,7 @@
   </form>
   </ng-container>  
   <ng-container *ngIf="status.status == 'disabled'">
-    <form [formGroup]="statusForm">
+    <form [formGroup]="statusForm" class="margin-top__15">
         <mat-form-field class="full-width">
           <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
           <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>

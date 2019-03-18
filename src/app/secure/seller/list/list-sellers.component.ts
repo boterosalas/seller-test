@@ -216,17 +216,31 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
     }
 
-    public openCancelVacationDialog() {
+    /**
+     * Metodo que orquesta la creación del dialogo de cancelar vacaciones
+     */
+    public sendToOpenCancelVacationDialog() {
         const dataForm = this.setDataCancelVacationsDialog();
+        const dialogInstance = this.openCancelVacationDialog(dataForm);
+    }
+
+    /**
+     * metodo encargado de abrir el dialog
+     * @param dataForm Data para abrir la modal
+     */
+    openCancelVacationDialog(dataForm: any){
         const dialogRef = this.dialog.open(DialogWithFormComponent, {
             data: dataForm,
             width: '55%',
             minWidth: '280px'
         });
-        // const dialogInstance = dialogRef.componentInstance;
+        return dialogRef.componentInstance;
     }
 
-    private setDataCancelVacationsDialog() {
+    /**
+     * Metodo encargado de cambiar la data del dialogo para cancelar vacaciones
+     */
+    setDataCancelVacationsDialog() {
         const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
         const title = 'Cancelar vacaciones';
         const icon = 'local_airport';
@@ -307,18 +321,18 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let icon = '';
         let form = null;
         let messageCenter = false;
-        if (status === 'enabled' && sellerData.status !== 'enabled' && this.canEnabled) {
+        if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
             message = '¿Estas seguro que deseas activar este vendedor?';
             icon = null;
             title = 'Activación';
             messageCenter = true;
             this.needFormStates$.next({posSeller: index, status: 'enabled'});
-        } else if (status === 'disabled' && sellerData.status !== 'disabled' && this.canDisabled) {
+        } else if (status === 'disabled' && sellerData.Status !== 'Disable' && this.canDisabled) {
             message = 'Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.';
             icon = null;
             title = 'Desactivación';
             this.needFormStates$.next({posSeller: index, status: status.toString()});
-        } else if (status === 'vacation' && sellerData.status !== 'disabled' && this.canPutInVacation) {
+        } else if (status === 'vacation' && sellerData.Status !== 'Disable' && this.canPutInVacation) {
             title = 'Vacaciones';
             message = 'Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
             icon = 'local_airport';

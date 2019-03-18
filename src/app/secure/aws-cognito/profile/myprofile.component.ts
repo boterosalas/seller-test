@@ -22,7 +22,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public user: any;
     form: FormGroup;
     isInVacation: boolean;
-    isAdmin = true;
+    isAdmin: boolean;
     vacationForm: FormGroup;
     today = new Date();
     role: string;
@@ -35,7 +35,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     constructor(
         public router: Router,
         public userService: UserLoginService,
-        public userParams: UserParametersService,
         private fb: FormBuilder,
         private sotreService: StoresService,
         private dialog: MatDialog,
@@ -51,6 +50,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.userService.isAuthenticated(this);
     }
 
+    /**
+     * Formulario para la información del usuario
+     */
     private initUserForm() {
         this.form = this.fb.group({
             Nit: [''],
@@ -61,8 +63,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     /**
-     * Method that open a specific datePicker at click an input
-     * @param pos Pos of datepicker to open;
+     * Metodo que abre el datepicker al cual se le da click
+     * @param pos Posición del datePicker a abrir;
      */
     openPicker(pos: number) {
         switch (pos) {
@@ -75,6 +77,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         }
     }
 
+    /**
+     * Genera el formulario para programar vacaciones
+     */
     private initVacationForm() {
         this.vacationForm = this.fb.group({
             StartDateVacation: ['', Validators.compose([Validators.required])],
@@ -85,42 +90,74 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         });
     }
 
-    openVacationDialog() {
-        const title = 'Vacaciones';
-        const message = 'Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
-        const icon = 'local_airport';
-        const form = this.vacationForm;
-        const value = {title, message, icon, form};
-        const dialogRef = this.dialog.open( DialogWithFormComponent, {
-            data: value,
-            width: '55%',
-            minWidth: '280px'
-        });
-        const dialoginstance = dialogRef.componentInstance;
-        dialoginstance.content = this.content;
-        dialoginstance.confirmation = () => {
+    /**
+     * Metodo que orquesta la creación del dialogo de programar vacaciones
+     */
+    sendToOpenVacationDialog() {
+        const data = this.setDataVacationsDialog();
+        const dialogInstance = this.openDialogVacation(data);
+        this.setConfigVacationDialog(dialogInstance);
+    }
+
+    /**
+     * Metodo que setea la configuración del dialogo
+     */
+    setConfigVacationDialog(dialogInstance: DialogWithFormComponent) {
+        dialogInstance.content = this.content;
+        dialogInstance.confirmation = () => {
             const vacationForm = this.vacationForm.value;
             if (vacationForm.StartDateVacation && vacationForm.EndDateVacation) {
                 vacationForm.StartDateVacation = DateService.getDateFormatToRequest(vacationForm.StartDateVacation);
                 vacationForm.EndDateVacation = DateService.getDateFormatToRequest(vacationForm.EndDateVacation);
             }
             this.loading.viewSpinner();
-            this.sotreService.changeStateSeller(form).subscribe(response => {
+            this.sotreService.changeStateSeller(vacationForm).subscribe(response => {
                 const body = response.body;
                 if ( body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
                     if (resultData && resultData.Message) {
-                        console.log(resultData.Message);
+                        this.user.StartVacations = DateService.getDateFormatToShow(this.startDateVacation.value);
+                        this.user.EndVacations = DateService.getDateFormatToShow(this.endDateVacation.value);
+                        this.isInVacation = true;
                     }
                 } else {
                     this.modalService.showModal('errorService');
                 }
-                dialoginstance.onNoClick();
+                dialogInstance.onNoClick();
                 this.loading.closeSpinner();
             });
         };
     }
 
+    /**
+     * Metodo que abre el dialogo de vacaciones
+     * @param data Data del dialogo
+     */
+    openDialogVacation(data: any) {
+        const dialogRef = this.dialog.open( DialogWithFormComponent, {
+            data: data,
+            width: '55%',
+            minWidth: '280px'
+        });
+        return dialogRef.componentInstance;
+    }
+
+    /**
+     * Metodo que retorna la data del dialogo de programar vacaciones
+     */
+    setDataVacationsDialog() {
+        const title = 'Vacaciones';
+        const message = 'Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+        const icon = 'local_airport';
+        const form = this.vacationForm;
+        return {title, message, icon, form};
+    }
+
+    /**
+     *  Metodo que verifica si el usuario esta logeado o no, de estar logeado, obtiene la información del usuario
+     * @param message
+     * @param isLoggedIn 
+     */
     async isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
             this.router.navigate([`/${RoutesConst.homeLogin}`]);
@@ -135,9 +172,18 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         }
     }
 
-
+    /**
+     * Metodo que mapea la información de un usuario
+     * @param user información del usuario
+     */
     setUserData(user: any) {
-        this.user = Object.assign(user);
+        const startDate = new Date(user.StartVacations);
+        const endDate = new Date(user.EndVacations);
+        if (startDate.getFullYear() === 1 || endDate.getFullYear() === 1) {
+            user.StartVacations = null;
+            user.EndVacations = null;
+        }
+        this.user = Object.assign({}, user);
         this.isAdmin = !this.user.City;
         this.isInVacation = (!!this.user.StartVacations && !!this.user.EndVacations);
         if (this.isInVacation) {
@@ -148,42 +194,50 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.setUserForm(this.user);
     }
 
+    /**
+     * Metodo que actualiza la información de las vacaciones programadas para reProgramar las vacaciones
+     */
     setVacationForm() {
-        if (!this.vacationForm) {
-            this.initVacationForm();
-        }
         const startDate = new Date(this.user.StartVacations);
         const endDate = new Date(this.user.EndVacations);
         this.startDateVacation.setValue(startDate);
         this.endDateVacation.setValue(endDate);
     }
 
-    getFormatDate(date: Date) {
-        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    }
-
+    /**
+     * Metodo que actualiza el formulario de usuario con la data del usuario logeado
+     * @param values 
+     */
     private setUserForm(values: any) {
-        if (!!this.form) {
-            this.form.patchValue(values);
-            this.Nit.disable();
-            this.Email.disable();
-            this.SellerId.disable();
-            this.StoreName.disable();
-        }
+        this.form.patchValue(values);
+        this.Nit.disable();
+        this.Email.disable();
+        this.SellerId.disable();
+        this.StoreName.disable();
         this.loading.closeSpinner();
     }
 
-    public openCancelVacationDialog() {
+    /**
+     * Metodo que orquesta la creación del dialogo de cancelar vacaciones
+     */
+    public sendToOpenCancelVacationDialog() {
         const dataForm = this.setDataCancelVacationsDialog();
+        const dialogInstance = this.openCancelVacationDialog(dataForm);
+    }
+
+    openCancelVacationDialog(dataForm: any) {
         const dialogRef = this.dialog.open(DialogWithFormComponent, {
             data: dataForm,
             width: '55%',
             minWidth: '280px'
         });
-        // const dialogInstance = dialogRef.componentInstance;
+        return dialogRef.componentInstance;
     }
 
-    private setDataCancelVacationsDialog() {
+    /**
+     * Metodo que setea la data del formulario de cancelación de vacaciones programadas
+     */
+    setDataCancelVacationsDialog() {
         const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
         const title = 'Cancelar vacaciones';
         const icon = 'local_airport';
@@ -192,26 +246,44 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         return {message, title, icon, form, messageCenter};
     }
 
+    /**
+     * retorna el campo nit del formulario de usuario
+     */
     get Nit(): FormControl {
         return this.form.get('Nit') as FormControl;
     }
 
+    /**
+     * retorna el campo Email del formulario de usuario
+     */
     get Email(): FormControl {
         return this.form.get('Email') as FormControl;
     }
 
+    /**
+     * retorna el campo del nombre de la tienda del formulario de usuario
+     */
     get StoreName(): FormControl {
         return this.form.get('Name') as FormControl;
     }
 
+    /**
+     * retorna el campo de identificación del vendedor del formulario de usuario
+     */
     get SellerId(): FormControl {
         return this.form.get('IdSeller') as FormControl;
     }
 
+    /**
+     * retorna el campo de inicio de vacaciones del formulario de vacaciones
+     */
     get startDateVacation(): FormControl{
         return this.vacationForm.get('StartDateVacation') as FormControl;
     }
 
+    /**
+     * retorna el campo de fin de vacaciones del formulario de vacaciones
+     */
     get endDateVacation(): FormControl{
         return this.vacationForm.get('EndDateVacation') as FormControl;
     }
