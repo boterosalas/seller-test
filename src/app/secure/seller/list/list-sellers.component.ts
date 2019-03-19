@@ -238,12 +238,14 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 if (val.status === 200) {
                     const body = val.body.body;
                     const message = JSON.parse(body);
-                    if (body && message) {
+                    if (body && message.Message && message.Message === 'El usuario ha sido actualizado éxitosamente.') {
                         this.sellerList[index].StartVacations = null;
                         this.sellerList[index].EndVacations = null;
                         this.snackBar.open('Actualizado correctamente: ' + this.sellerList[index].Name, 'Cerrar', {
                             duration: 3000,
                         });
+                    } else {
+                        this.getRequiredData();
                     }
                 } else {
                     this.modalService.showModal('errorService');
@@ -297,9 +299,11 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 const body = val.body;
                 if ( body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
-                    if (resultData && resultData.Message) {
+                    if (resultData && resultData.Message && resultData.Messate === 'El usuario ha sido actualizado éxitosamente.') {
                         const status = this.needFormStates$.getValue();
                         this.updateSeller(status);
+                    } else {
+                        this.getRequiredData();
                     }
                 } else {
                     this.modalService.showModal('errorService');

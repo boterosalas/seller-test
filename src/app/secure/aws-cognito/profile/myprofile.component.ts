@@ -116,10 +116,17 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                 const body = response.body;
                 if ( body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
-                    if (resultData && resultData.Message) {
+                    if (resultData && resultData.Message && resultData.Message === 'El usuario ha sido actualizado éxitosamente.') {
                         this.user.StartVacations = DateService.getDateFormatToShow(this.startDateVacation.value);
                         this.user.EndVacations = DateService.getDateFormatToShow(this.endDateVacation.value);
                         this.isInVacation = true;
+                    } else {
+                        this.profileService.getUser().toPromise().then(res => {
+                            const body: any = res.body;
+                            const response = JSON.parse(body.body);
+                            const userData = response.Data;
+                            this.setUserData(userData);
+                        });
                     }
                 } else {
                     this.modalService.showModal('errorService');
@@ -239,12 +246,19 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                 if (val.status === 200) {
                     const body = val.body.body;
                     const message = JSON.parse(body);
-                    if (body && message) {
+                    if (body && message && message.Message && message.Message === 'El usuario ha sido actualizado éxitosamente.') {
                         this.user.StartVacations = null;
                         this.user.EndVacations = null;
                         this.isInVacation = false;
                         this.snackBar.open('Actualizado correctamente: ' + this.user.Name, 'Cerrar', {
                             duration: 3000,
+                        });
+                    } else {
+                        this.profileService.getUser().toPromise().then(res => {
+                            const body: any = res.body;
+                            const response = JSON.parse(body.body);
+                            const userData = response.Data;
+                            this.setUserData(userData);
                         });
                     }
                 } else {
