@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from '../list-products.service';
@@ -35,9 +35,11 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public formatNumber = /^[0-9]+$/;
     public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
+    public valuePrice: any;
 
     constructor(
         private loadingService?: LoadingService,
+        public snackBar?: MatSnackBar,
         private productsService?: ListProductService,
         private modalService?: ModalService,
         private fb?: FormBuilder,
@@ -49,8 +51,6 @@ export class OfertExpandedProductComponent implements OnInit {
 
     ngOnInit() {
         this.createFormControls();
-        console.log('applyOffer: ', this.applyOffer);
-        console.log('hola', this.ofertProduct.value);
     }
 
 
@@ -61,12 +61,18 @@ export class OfertExpandedProductComponent implements OnInit {
      */
     createFormControls() {
         this.ofertProduct = this.fb.group({
-            Stock: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
-            Price: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
+            Stock: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.formatNumber)
+            ]),
+            Price: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.formatNumber),
+
+            ]),
             DiscountPrice: new FormControl('', [
-                Validators.pattern(this.formatNumber)]),
+                Validators.pattern(this.formatNumber)
+            ]),
             PromiseDelivery: new FormControl('', [Validators.required,
             Validators.pattern(this.formatPromEntrega)]),
             IsFreightCalculator: new FormControl('', [Validators.required,
@@ -74,7 +80,7 @@ export class OfertExpandedProductComponent implements OnInit {
             Warranty: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
             ofertOption: new FormControl(''),
-            IsUpdatedStock: new FormControl({ value: true }),
+            IsUpdatedStock: new FormControl(''),
             Combos: this.fb.array([]), /*
             ofertPriceComponet: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),
@@ -84,10 +90,8 @@ export class OfertExpandedProductComponent implements OnInit {
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
         this.applyOffer.eanesCombos.forEach((element: any) => {
-            this.addItem(element.nameCombo);
+            this.addItem(element.nameCombo, element.ean);
         });
-        console.log(44, this.Combos);
-
     }
 
 
@@ -97,12 +101,14 @@ export class OfertExpandedProductComponent implements OnInit {
      * @param {string} nameCombo
      * @memberof OfertExpandedProductComponent
      */
-    addItem(nameCombo: string): void {
+    addItem(nameCombo: string, ean?: number, EanCombo?: number): void {
         const comboForm = this.fb.group({
             ofertPriceComponet: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
             ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.formatNumber)])],
-            nameCombo: [nameCombo]
+            nameCombo: [nameCombo],
+            EAN: [ean],
+            EanCombo: this.applyOffer.ean
         });
         this.Combos.push(comboForm);
     }
@@ -126,15 +132,77 @@ export class OfertExpandedProductComponent implements OnInit {
      */
     getPriceDescount() {
         let total = 0;
-        // tslint:disable-next-line:no-shadowed-variable
-        this.Combos.controls.forEach((element: any) => {
-            console.log(element);
-            total += (element.value.ofertPriceComponet * element.value.ComboQuantity);
+        this.Combos.controls.forEach((price: any) => {
+            total += (price.value.ofertPriceComponet * price.value.ComboQuantity);
         });
-        console.log(total);
+
+        /* Agrege los valores a los imputs tiene q crear una regla donde compare si son iguales OK,
+        pero si son diferentes q precio sea mayor eso lo hace en el validate del control */
+
+        this.ofertProduct.controls.DiscountPrice.setValue(total);
+        // this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
 
         return total;
     }
+
+    /**
+     * Funcion para validar que el precio no sea mneor al precio con descuento.
+     *
+     * @param {boolean} [showErrors=true]
+     * @memberof OfertExpandedProductComponent
+     */
+    getVerifyPrice(showErrors: boolean = true, total?: number) {
+        let errors = true;
+        if (this.ofertProduct.controls.DiscountPrice.value) {
+            if (this.ofertProduct.controls.DiscountPrice.value && this.ofertProduct.controls.DiscountPrice.value >= 8000) {
+                errors = false;
+                if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+                    if (showErrors) {
+                        this.snackBar.open('El precio no debe ser menor que el precio con descuento', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
+                } if (this.ofertProduct.controls.DiscountPrice.value !== total && this.applyOffer.eanesCombos.length !== 0) {
+                    if (showErrors) {
+                        this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
+                            duration: 3000,
+                        });
+                    }
+                }
+            } else {
+                this.setCategoryError(errors);
+
+            }
+        } else {
+            if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
+                errors = false;
+            } else {
+                this.setCategoryErrorPrice(errors);
+            }
+        }
+    }
+
+
+    public setCategoryError(show: boolean): void {
+        if (show) {
+            if (this.ofertProduct.controls.DiscountPrice.value.match(this.formatPromEntrega) <= 8000) {
+                this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
+            }
+        } else {
+            this.ofertProduct.controls.DiscountPrice.setErrors(null);
+        }
+    }
+
+    public setCategoryErrorPrice(show: boolean): void {
+        if (show) {
+            if (this.ofertProduct.controls.Price.value.match(this.formatPromEntrega) <= 8000) {
+                this.ofertProduct.controls.Price.setErrors({ priceReal: show });
+            }
+        } else {
+            this.ofertProduct.controls.Price.setErrors(null);
+        }
+    }
+
 
     /**
      * Metodo para crear el arreglo de componentes de eanes combo
@@ -146,7 +214,19 @@ export class OfertExpandedProductComponent implements OnInit {
         const result = [];
         this.Combos.controls.forEach((children: any) => {
             console.log(children);
-            result.push([{ ofertPrice: children.value.ofertPriceComponet, quantity: children.value.ComboQuantity }]);
+            result.push({
+                EanCombo: children.value.EanCombo,
+                Price: children.value.ofertPriceComponet,
+                ComboQuantity: parseInt(children.value.ComboQuantity, 16),
+                EAN: children.value.EAN,
+                Stock: null,
+                AverageFreightCost: null,
+                IsEnviosExito: null,
+                IsFreeShipping: null,
+                IsFreightCalculator: null,
+                PromiseDelivery: null,
+                IsLogisticsExito: 0
+            });
         });
         return result;
     }
@@ -158,6 +238,8 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(): void {
+        this.getVerifyPrice(true);
+        this.getPriceDescount();
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
@@ -166,66 +248,31 @@ export class OfertExpandedProductComponent implements OnInit {
             AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
             PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
             Warranty: this.ofertProduct.controls.Warranty.value,
-            IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping',
-            IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito',
-            IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator',
-            IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito',
-            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value,
+            IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
+            IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
+            IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
+            IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
+            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
         };
 
-        let aryOfAry = [[data]];
+        let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(aryOfAry)
-            .subscribe(
+        this.bulkLoadService.setOffers(aryOfAry).subscribe(
                 (result: any) => {
                     if (result.status === 200) {
-                        const dataResult = result;
-                        log.info(data);
-                        if (dataResult.body.successful !== 0 || dataResult.body.error !== 0) {
-                        } else if (dataResult.body.successful === 0 && dataResult.body.error === 0) {
-                            this.modalService.showModal('errorService');
-                        }
+                        this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
+                            duration: 3000,
+                        });
                     } else {
+                        log.error('Error al intentar aplicar una oferta');
                         this.modalService.showModal('errorService');
                     }
                     this.loadingService.closeSpinner();
                 }
             );
-    }
-
-    /**
-     * Metodo que permite enviar la aoferta para aplicar.
-     *
-     * @memberof OfertExpandedProductComponent
-     */
-    sendJsonInformation() {
-        console.log(this.sendDataToService);
-        this.getPriceDescount();
-        console.log(this.ofertProduct.value);
-        this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(this.sendDataToService)
-            .subscribe(
-                (result: any) => {
-                    if (result.status === 200) {
-                        const data = result;
-                        log.info(data);
-                        if (data.body.successful !== 0 || data.body.error !== 0) {
-                        } else if (data.body.successful === 0 && data.body.error === 0) {
-                            this.modalService.showModal('errorService');
-                        }
-                    } else {
-                        this.modalService.showModal('errorService');
-                    }
-                    this.loadingService.closeSpinner();
-                }
-            );
-    }
-
-    public getPrice(): any {
-
     }
 }
