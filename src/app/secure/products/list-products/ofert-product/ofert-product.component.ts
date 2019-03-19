@@ -9,6 +9,7 @@ import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { QuickSight } from 'aws-sdk/clients/all';
 import { element } from '@angular/core/src/render3/instructions';
+import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -42,14 +43,14 @@ export class OfertExpandedProductComponent implements OnInit {
         private fb?: FormBuilder,
         public authService?: AuthService,
         public bulkLoadService?: BulkLoadService,
-
+        private process?: ProcessService
 
     ) { }
 
     ngOnInit() {
         this.createFormControls();
         console.log('applyOffer: ', this.applyOffer);
-        console.log(this.ofertProduct.value);
+        console.log('hola', this.ofertProduct.value);
     }
 
 
@@ -73,7 +74,7 @@ export class OfertExpandedProductComponent implements OnInit {
             Warranty: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
             ofertOption: new FormControl(''),
-            UpdatedStock: new FormControl({ value: true }),
+            IsUpdatedStock: new FormControl({ value: true }),
             Combos: this.fb.array([]), /*
             ofertPriceComponet: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),
@@ -91,7 +92,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
 
     /**
-     *  instancia de elementos es una matriz o arreglo de formulario en lugar de un control de formulario
+     *  Instancia de elementos es una matriz o arreglo de formulario en lugar de un control de formulario
      *
      * @param {string} nameCombo
      * @memberof OfertExpandedProductComponent
@@ -117,12 +118,6 @@ export class OfertExpandedProductComponent implements OnInit {
         return this.ofertProduct.get('Combos') as FormArray;
     }
 
-    getInfoOfert() {
-        const data = [
-            this.ofertProduct.controls.ofertPrice.value,
-        ];
-    }
-
 
     /**
      * Obtiene el precio de descuento si tiene ean combos.
@@ -137,6 +132,69 @@ export class OfertExpandedProductComponent implements OnInit {
             total += (element.value.ofertPriceComponet * element.value.ComboQuantity);
         });
         console.log(total);
+
+        return total;
+    }
+
+    /**
+     * Metodo para crear el arreglo de componentes de eanes combo
+     *
+     * @returns {Array<any>}
+     * @memberof OfertExpandedProductComponent
+     */
+    getChildrenData(): Array<any> {
+        const result = [];
+        this.Combos.controls.forEach((children: any) => {
+            console.log(children);
+            result.push([{ ofertPrice: children.value.ofertPriceComponet, quantity: children.value.ComboQuantity }]);
+        });
+        return result;
+    }
+
+
+    /**
+     * Metodo para concatenar todo el arreglo y enviar la data
+     *
+     * @memberof OfertExpandedProductComponent
+     */
+    public sendDataToService(): void {
+        const data = {
+            EAN: this.applyOffer.ean,
+            Stock: this.ofertProduct.controls.Stock.value,
+            Price: this.ofertProduct.controls.Price.value,
+            DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
+            AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
+            PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
+            Warranty: this.ofertProduct.controls.Warranty.value,
+            IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping',
+            IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito',
+            IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator',
+            IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito',
+            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value,
+            // ComboQuantity: this.Combos.controls.ComboQuantity.value,
+            // EanCombo: this.ofertProduct.controls.EanCombo.value,
+        };
+
+        let aryOfAry = [[data]];
+        aryOfAry = aryOfAry.concat(this.getChildrenData());
+        this.process.validaData(aryOfAry);
+        this.loadingService.viewSpinner();
+        this.bulkLoadService.setOffers(aryOfAry)
+            .subscribe(
+                (result: any) => {
+                    if (result.status === 200) {
+                        const dataResult = result;
+                        log.info(data);
+                        if (dataResult.body.successful !== 0 || dataResult.body.error !== 0) {
+                        } else if (dataResult.body.successful === 0 && dataResult.body.error === 0) {
+                            this.modalService.showModal('errorService');
+                        }
+                    } else {
+                        this.modalService.showModal('errorService');
+                    }
+                    this.loadingService.closeSpinner();
+                }
+            );
     }
 
     /**
@@ -145,10 +203,11 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     sendJsonInformation() {
+        console.log(this.sendDataToService);
         this.getPriceDescount();
         console.log(this.ofertProduct.value);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(this.ofertProduct.value)
+        this.bulkLoadService.setOffers(this.sendDataToService)
             .subscribe(
                 (result: any) => {
                     if (result.status === 200) {
@@ -164,5 +223,9 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.loadingService.closeSpinner();
                 }
             );
+    }
+
+    public getPrice(): any {
+
     }
 }
