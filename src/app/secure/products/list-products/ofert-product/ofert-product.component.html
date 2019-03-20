@@ -114,6 +114,6 @@
 
   <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
     <button mat-stroked-button color="primary" type="button" [innerHTML]="'Cancelar'"></button>
-    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'" (click)="sendDataToService()"></button>
+    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"  [disabled]="!createOfertExpandetProduct.form.valid" (click)="sendDataToService()"></button>
   </div>
 </form>

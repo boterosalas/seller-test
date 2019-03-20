@@ -7,9 +7,9 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
-import { QuickSight } from 'aws-sdk/clients/all';
-import { element } from '@angular/core/src/render3/instructions';
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,11 +31,13 @@ export class OfertExpandedProductComponent implements OnInit {
     public matcher: MyErrorStateMatcher;
 
     @Input() applyOffer: any;
-
+    @Input() productsExpanded: any;
 
     public formatNumber = /^[0-9]+$/;
     public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     public valuePrice: any;
+    public totalCombo: any;
+    public showImage = false;
 
     constructor(
         private loadingService?: LoadingService,
@@ -45,12 +47,18 @@ export class OfertExpandedProductComponent implements OnInit {
         private fb?: FormBuilder,
         public authService?: AuthService,
         public bulkLoadService?: BulkLoadService,
-        private process?: ProcessService
+        private process?: ProcessService,
+        private router?: Router,
 
     ) { }
 
     ngOnInit() {
         this.createFormControls();
+    }
+
+    public backTolist(): void {
+        this.productsExpanded = null;
+        this.showImage = false;
     }
 
 
@@ -141,7 +149,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         // this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
-
+        this.totalCombo = total;
         return total;
     }
 
@@ -162,7 +170,7 @@ export class OfertExpandedProductComponent implements OnInit {
                             duration: 3000,
                         });
                     }
-                } if (this.ofertProduct.controls.DiscountPrice.value !== total && this.applyOffer.eanesCombos.length !== 0) {
+                } if (parseInt(this.ofertProduct.controls.DiscountPrice.value, 16) !== parseInt(this.totalCombo, 16) && this.applyOffer.eanesCombos.length !== 0) {
                     if (showErrors) {
                         this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
                             duration: 3000,
@@ -213,7 +221,6 @@ export class OfertExpandedProductComponent implements OnInit {
     getChildrenData(): Array<any> {
         const result = [];
         this.Combos.controls.forEach((children: any) => {
-            console.log(children);
             result.push({
                 EanCombo: children.value.EanCombo,
                 Price: children.value.ofertPriceComponet,
@@ -238,8 +245,8 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(): void {
-        this.getVerifyPrice(true);
-        this.getPriceDescount();
+        // this.getVerifyPrice(true);
+        // this.getPriceDescount();
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
@@ -262,17 +269,19 @@ export class OfertExpandedProductComponent implements OnInit {
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
         this.bulkLoadService.setOffers(aryOfAry).subscribe(
-                (result: any) => {
-                    if (result.status === 200) {
-                        this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
-                            duration: 3000,
-                        });
-                    } else {
-                        log.error('Error al intentar aplicar una oferta');
-                        this.modalService.showModal('errorService');
-                    }
-                    this.loadingService.closeSpinner();
+            (result: any) => {
+                if (result.status === 200 || result.status === 201) {
+                    this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
+                        duration: 3000,
+                    });
+                    // this.router.navigate([`/${RoutesConst.home}`]);
+                    this.backTolist();
+                } else {
+                    log.error('Error al intentar aplicar una oferta');
+                    this.modalService.showModal('errorService');
                 }
-            );
+                this.loadingService.closeSpinner();
+            }
+        );
     }
 }
