@@ -231,29 +231,12 @@ export class BulkLoadComponent implements OnInit {
             priceDiscountIndex = j;
           }
 
-
-          if (res[0][j] === 'Precio') {
-            priceIndex = j;
-          }
-
-          if (res[0][j] === 'Precio con Descuento') {
-            priceDiscountIndex = j;
-          }
-
         }
 
         if (i) {
-<<<<<<< HEAD
           let price = res[i][priceDiscountIndex];
           let priceError = 'DiscountPrice';
           if (!price) {
-=======
-          // let price = res[i][this.arrayNecessaryData[0].indexOf('Precio con Descuento')];
-          let price = res[i][priceDiscountIndex];
-          let priceError = 'DiscountPrice';
-          if (!price) {
-            // price = res[i][this.arrayNecessaryData[0].indexOf('Precio')];
->>>>>>> fixErrorPriceCombo
             price = res[i][priceIndex];
             priceError = 'Price';
           }
