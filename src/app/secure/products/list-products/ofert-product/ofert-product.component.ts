@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
@@ -10,6 +10,7 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { RoutesConst, UserInformation } from '@app/shared';
+import { EventEmitter } from 'protractor';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -48,7 +49,8 @@ export class OfertExpandedProductComponent implements OnInit {
         public authService?: AuthService,
         public bulkLoadService?: BulkLoadService,
         private process?: ProcessService,
-        private router?: Router
+        private router?: Router,
+        private listService?: ListProductService
     ) { }
 
     ngOnInit() {
@@ -268,8 +270,8 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
                         duration: 3000,
                     });
-                    // this.ofertProduct.reset();
-                    this.router.navigate([`/${RoutesConst.home}`]);
+                    // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
+                    this.listService.changeEmitter();
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');

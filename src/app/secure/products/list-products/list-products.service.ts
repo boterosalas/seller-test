@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { CognitoUtil, EndpointService } from '@app/core';
-import { defaultVersion, endpoints } from '@root/api-endpoints';
 import { Observable, of } from 'rxjs';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
+import { EventEmitter } from '@angular/core';
 
 
 @Injectable()
 export class ListProductService {
   public headers: any;
   public paramsData: ModelFilterProducts;
+  @Output() change: EventEmitter<boolean> = new EventEmitter();
 
 
   constructor(
@@ -17,6 +18,15 @@ export class ListProductService {
     private api: EndpointService
   ) {
     this.paramsData = new ModelFilterProducts();
+  }
+
+  /**
+   * Volver
+   *
+   * @memberof ListProductService
+   */
+  public changeEmitter(): void {
+    this.change.emit(false); // Todo el que este subscrito a esta variable va a obtener el cambio de la misma
   }
 
   /**

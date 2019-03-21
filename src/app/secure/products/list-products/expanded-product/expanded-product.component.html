@@ -82,7 +82,7 @@
   </div>
 </div>
 
-<mat-expansion-panel hideToggle="true" class="ofert-expanded" *ngIf="showOfer === false">
+<mat-expansion-panel hideToggle="true" class="ofert-expanded" *ngIf="!offerPermission">
   <mat-expansion-panel-header >
     <mat-panel-title class="title-ofert" fxLayout="row" fxLayoutAlign="center center">
       <mat-icon matPrefix>add</mat-icon>

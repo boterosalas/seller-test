@@ -145,6 +145,7 @@ export const deleteFunctionality = 'Eliminar';
 export const attachmentFunctionality = 'Adjuntar';
 export const sendFunctionality = 'Enviar';
 export const marketFuncionality = 'Marcar';
+export const offerFuncionality = 'Ofertar';
 export const idSended = '170';
 export const idToSend = '35';
 
@@ -252,6 +253,7 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 4. Listado de productos. (Tipo vendedor)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(offerFuncionality, showAll, offerFuncionality), // Ofertar
     ], RoutesConst.sellerCenterIntListProducts),
     // 5. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
