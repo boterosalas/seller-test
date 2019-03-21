@@ -13,6 +13,7 @@ import { ToolbarOptionsModule } from './components/toolbar-options';
 import { ToolbarTittleModule } from './components/toolbar-tittle';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
+import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog.componen
     NoWhitespaceDirective,
     SearchSellerComponent,
     ControlMessagesComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    DialogWithFormComponent
   ],
   exports: [
     MaterialModule,
@@ -39,10 +41,12 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog.componen
     ToolbarTittleModule,
     SearchSellerComponent,
     ControlMessagesComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    DialogWithFormComponent
   ],
   entryComponents: [
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    DialogWithFormComponent
   ],
   providers: [
     EventEmitterSeller,

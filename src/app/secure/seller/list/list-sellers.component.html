@@ -159,18 +159,11 @@
                         block
                       </mat-icon>
                     </button>
-                    <!-- <button mat-mini-fab
+                    <button mat-mini-fab
                     id="btn-vacation-seller" 
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
                     [disabled]=" !seller.Status || seller.Status == 'Vacations' || seller.Status == 'Disable'">
-                      <mat-icon aria-label="vacation status of seller">
-                        local_airport
-                      </mat-icon>
-                    </button> -->
-                    <button mat-mini-fab
-                    id="btn-vacation-seller" 
-                    [disabled]="true">
                       <mat-icon aria-label="vacation status of seller">
                         local_airport
                       </mat-icon>
@@ -180,9 +173,14 @@
                     <p class="title-list">
                       Vacacaiones
                     </p>
-                    <label class="label-result" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
-                          <strong>Inicio:</strong>{{seller.StartVacations}}<br class="testBreak"/>
-                          <strong>Fin:</strong>{{seller.EndVacations}}
+                    <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
+                         <div>
+                            <strong>Inicio:</strong>{{seller.StartVacations}}<br/>
+                            <strong>Fin:</strong>{{seller.EndVacations}}
+                         </div>
+                          <mat-icon (click)="sendToOpenCancelVacationDialog(i)">
+                            cancel
+                          </mat-icon>
                     </label>
                     <ng-template #ProgramDate>
                         <label class="label-result">
@@ -194,7 +192,6 @@
         </div>
       </div>
     </div>
-    <!--<button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
   </mat-drawer-content>
 </mat-drawer-container>
 
@@ -202,9 +199,9 @@
 <ng-template #dialogContent *ngIf="needFormStates$ | async as status">
   <ng-container *ngIf="status.status == 'vacation'">
       <br/>
-    <form [formGroup]="statusForm" class="full-width space-between">
+    <form [formGroup]="statusForm" class="full-width space-between margin-top__15">
       <mat-form-field class="half-width">
-        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
         <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
       </mat-form-field>
@@ -218,7 +215,7 @@
   </form>
   </ng-container>  
   <ng-container *ngIf="status.status == 'disabled'">
-    <form [formGroup]="statusForm">
+    <form [formGroup]="statusForm" class="margin-top__15">
         <mat-form-field class="full-width">
           <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
           <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>
