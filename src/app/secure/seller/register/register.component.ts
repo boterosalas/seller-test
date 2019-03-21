@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -10,6 +10,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Router } from '@angular/router';
+import { trimField } from '@app/shared/util/validation-messages';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -30,6 +31,26 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class RegisterSellerComponent implements OnInit {
 
+  countries = [
+    {
+      name: 'Colombia',
+      tel: '57'
+    },
+    {
+      name: 'Costa rica',
+      tel: '506'
+    },
+    {
+      name: 'Repulica dominicana',
+      tel: '1'
+    },
+    {
+      name: 'Ecuador',
+      tel: '593'
+    }
+  ];
+
+  isColombiaSelect = true;
   public imagesRegister: Array<any> = [
     {
       checked: '../../../../../assets/seller-register/logo_exito_check.jpg',
@@ -77,23 +98,8 @@ export class RegisterSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private router: Router,
+    private fb: FormBuilder
   ) { }
-
-
-  public validateNameStorage(name: string): boolean {
-    const t = name.toLocaleLowerCase().trim();
-
-    if (!t.match(this.nameStoreRegex)) {
-      this.validateFormRegister.controls.Name.setErrors(
-        {
-          pattern: TestRequest
-        }
-      );
-    } else {
-      this.validateFormRegister.controls.Name.setErrors(null);
-    }
-    return true;
-  }
 
   /**
    * Funcion que verifica si la funcion del modulo posee permisos
@@ -107,12 +113,43 @@ export class RegisterSellerComponent implements OnInit {
     return permission && permission.ShowFunctionality;
   }
 
+  /**
+   * Agregar FormBuilder y cambiar el formulario
+   */
   ngOnInit() {
     this.getProfile();
     this.userService.isAuthenticated(this);
     this.permissionComponent = this.authService.getMenu(registerName);
     const disabledForm = !this.getFunctionality(this.create);
     this.disabledComponent = disabledForm;
+    this.initSellerForm(disabledForm);
+    this.matcher = new MyErrorStateMatcher();
+    this.initAdminForm();
+  }
+
+  initAdminForm() {
+    this.validateFormRegisterAdmin = new FormGroup({
+      Nit: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('^[0-9]*$')
+      ]),
+      Email: new FormControl
+        ('', [Validators.required,
+        Validators.pattern(this.emailRegex)
+        ]),
+      Name: new FormControl
+        ('', [
+          Validators.required,
+          trimField,
+          Validators.pattern(this.nameStoreRegex)
+        ]),
+      Profile: new FormControl
+        (this.profileAdmin, [Validators.required]),
+    });
+  }
+
+  initSellerForm(disabledForm: boolean) {
     this.validateFormRegister = new FormGroup({
       Nit: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
@@ -139,11 +176,16 @@ export class RegisterSellerComponent implements OnInit {
         Validators.pattern('^[0-9]*$')]),
       Address: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required]),
+      Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
-      Name: new FormControl({ value: '', disabled: disabledForm }, [Validators.required]),
+      Name: new FormControl({ value: '', disabled: disabledForm }, [
+        Validators.required,
+        trimField,
+        Validators.pattern(this.nameStoreRegex)
+      ]),
       IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
       IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
       GotoExito: new FormControl({ value: true, disabled: disabledForm }),
@@ -152,25 +194,49 @@ export class RegisterSellerComponent implements OnInit {
       Profile: new FormControl
         (this.profileSeller, [Validators.required]),
     });
-    this.matcher = new MyErrorStateMatcher();
+    this.disabledFiledsSellerForm();
+    this.addValidationsSellerForm();
+    this.putColombiaByDefault();
+  }
 
-    this.validateFormRegisterAdmin = new FormGroup({
-      Nit: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(20),
-        Validators.pattern('^[0-9]*$')
-      ]),
-      Email: new FormControl
-        ('', [Validators.required,
-        Validators.pattern(this.emailRegex)
-        ]),
-      Name: new FormControl
-        ('', [Validators.required]),
-      Profile: new FormControl
-        (this.profileAdmin, [Validators.required]),
+  disabledFiledsSellerForm() {
+    this.State.disable();
+    this.City.disable();
+    this.PostalCode.disable();
+    this.PhoneNumber.disable();
+    this.Nit.disable();
+    this.Rut.disable();
+  }
+
+  addValidationsSellerForm() {
+    this.Country.valueChanges.subscribe(val => {
+      if (!!val) {
+        this.isColombiaSelect = val === 'Colombia';
+      }
+      this.State.reset({value: '', disabled: false});
+      const selectedCountry = this.countries.find(element => element.name === val);
+      this.PhoneNumber.reset({value: selectedCountry.tel, disabled: true});
+      this.City.reset({value: null, disabled: this.isColombiaSelect});
+      this.PostalCode.reset(null);
+      this.PostalCode.enable();
+      this.PhoneNumber.enable();
+      this.Nit.reset({value: null, disabled: false});
+      this.Rut.enable();
     });
   }
 
+  validationsForNotColombiaSelectSellerForm() {
+    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('^[0-9a-zA-Z-]*$')]));
+    this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60)]));
+    this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60)]));
+    this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern('^[0-9a-zA-Z]*$')]));
+    this.PhoneNumber.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern('^[0-9+-\s]*$')]));
+  }
+
+  putColombiaByDefault() {
+    const colombia = this.countries.find(element => element.name === 'Colombia');
+    if (!!colombia) this.Country.setValue(colombia.name);
+  }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
@@ -371,5 +437,49 @@ export class RegisterSellerComponent implements OnInit {
           }
         });
   }
+
+  get Country(): FormControl {
+    return this.validateFormRegister.get('Country') as FormControl;
+  }
+
+  get State(): FormControl {
+    return this.validateFormRegister.get('State') as FormControl;
+  }
+
+  get City(): FormControl {
+    return this.validateFormRegister.get('City') as FormControl;
+  }
+
+  get PostalCode(): FormControl {
+    return this.validateFormRegister.get('DaneCode') as FormControl;
+  }
+
+  get Nit(): FormControl {
+    return this.validateFormRegister.get('Nit') as FormControl;
+  }
+
+  get Rut(): FormControl {
+    return this.validateFormRegister.get('Rut') as FormControl;
+  }
+
+  get ContactName(): FormControl {
+    return this.validateFormRegister.get('ContactName') as FormControl;
+  }
+
+  get Email(): FormControl {
+    return this.validateFormRegister.get('Email') as FormControl;
+  }
+
+  get PhoneNumber(): FormControl {
+    return this.validateFormRegister.get('PhoneNumber') as FormControl;
+  }
+  get Address(): FormControl {
+    return this.validateFormRegister.get('Address') as FormControl;
+  }
+
+  get Name(): FormControl {
+    return this.validateFormRegister.get('Name') as FormControl;
+  }
+
 }
 

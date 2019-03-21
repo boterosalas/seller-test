@@ -134,10 +134,9 @@ export class ProductBasicInfoComponent implements OnInit {
      * Create formulario para informacion basica.
      *
      * @private
-     * @param {*} patterns
      * @memberof ProductBasicInfoComponent
      */
-    private createForm(patterns: any): void {
+    private createForm(): void {
         this.formKeyword = new FormGroup({
             Keyword: new FormControl('', [])
         });
@@ -379,7 +378,7 @@ export class ProductBasicInfoComponent implements OnInit {
         const param = ['productos', null];
         this.service.getRegexInformationBasic(param).subscribe(res => {
             this.validateRegex = JSON.parse(res.body.body);
-            this.createForm(this.validateRegex.Data);
+            this.createForm();
         });
 
     }

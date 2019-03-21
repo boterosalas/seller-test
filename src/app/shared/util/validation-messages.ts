@@ -8,7 +8,6 @@ export const validationMessages = {
   number: 'Este campo debe ser numérico.'
 };
 
-  
 export function trimField(control: AbstractControl): ValidationErrors | null {
   const value = control.value
   return !!value.toString().trim() ? null : {trim: true}
