@@ -203,6 +203,8 @@ export class BulkLoadComponent implements OnInit {
       for (let i = 0; i < res.length; i++) {
 
         this.arrayNecessaryData.push([]);
+        let priceDiscountIndex = 0;
+        let priceIndex = 0;
 
         for (let j = 0; j < res[0].length; j++) {
 
@@ -223,13 +225,21 @@ export class BulkLoadComponent implements OnInit {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
 
+          if (res[0][j] === 'Precio') {
+            priceIndex = j;
+          }
+
+          if (res[0][j] === 'Precio con Descuento') {
+            priceDiscountIndex = j;
+          }
+
         }
 
         if (i) {
-          let price = res[i][this.arrayNecessaryData[0].indexOf('Precio con Descuento')];
+          let price = res[i][priceDiscountIndex];
           let priceError = 'DiscountPrice';
           if (!price) {
-            price = res[i][this.arrayNecessaryData[0].indexOf('Precio')];
+            price = res[i][priceIndex];
             priceError = 'Price';
           }
           this.EanArray.push({
@@ -328,7 +338,8 @@ export class BulkLoadComponent implements OnInit {
           console.error('El precio del producto no es un numero', e);
         }
       }
-      if (!!element.totalPrice) {
+      // si viene vacio o alguna letra lo convierte a numero 0 para queno explote.
+      if (!element.totalPrice) {
         element.totalPrice = 0;
       }
     });
