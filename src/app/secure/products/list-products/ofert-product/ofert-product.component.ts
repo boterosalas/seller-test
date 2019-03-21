@@ -166,7 +166,7 @@ export class OfertExpandedProductComponent implements OnInit {
                             duration: 3000,
                         });
                     }
-                } if (parseInt(this.ofertProduct.controls.DiscountPrice.value, 16) !== parseInt(this.totalCombo, 16) && this.applyOffer.eanesCombos.length !== 0) {
+                } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                     if (showErrors) {
                         this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
                             duration: 3000,
@@ -178,6 +178,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
             }
         } else {
+            this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
