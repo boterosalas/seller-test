@@ -328,7 +328,7 @@ export class BulkLoadComponent implements OnInit {
           console.error('El precio del producto no es un numero', e);
         }
       }
-      if (!element.totalPrice) {
+      if (!!element.totalPrice) {
         element.totalPrice = 0;
       }
     });
