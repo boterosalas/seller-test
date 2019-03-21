@@ -4,12 +4,12 @@ import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst, UserInformation } from '@app/shared';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -39,27 +39,21 @@ export class OfertExpandedProductComponent implements OnInit {
     public totalCombo: any;
     public showImage = false;
 
+
     constructor(
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
-        private productsService?: ListProductService,
         private modalService?: ModalService,
         private fb?: FormBuilder,
         public authService?: AuthService,
         public bulkLoadService?: BulkLoadService,
         private process?: ProcessService,
-        private router?: Router,
-
+        private router?: Router
     ) { }
 
     ngOnInit() {
         this.createFormControls();
-    }
-
-    public backTolist(): void {
-        this.productsExpanded = null;
-        this.showImage = false;
-    }
+  }
 
 
     /**
@@ -274,8 +268,8 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
                         duration: 3000,
                     });
-                    // this.router.navigate([`/${RoutesConst.home}`]);
-                    this.backTolist();
+                    // this.ofertProduct.reset();
+                    this.router.navigate([`/${RoutesConst.home}`]);
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');
