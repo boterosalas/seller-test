@@ -89,8 +89,8 @@
 
               <div fxFlex="50%" [ngStyle]="{'padding-right': (isColombiaSelect ? '5%' : '0')}">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="Tel&eacute;fono" pattern="^[0-9]*$" maxlength="10" minlength="7"
-                    formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event)" id="register-phone-number"
+                  <input matInput placeholder="Tel&eacute;fono" [pattern]="sellerRegex.PhoneNumber" maxlength="20" minlength="7"
+                    formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'PhoneNumber')" id="register-phone-number"
                     required>
                   <mat-hint></mat-hint>
 
