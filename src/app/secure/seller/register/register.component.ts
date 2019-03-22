@@ -281,6 +281,7 @@ export class RegisterSellerComponent implements OnInit {
     if ( inputName === 'Nit' || inputName === ' Rut' || inputName === 'PostalCode') {
       inputName = this.isColombiaSelect ? `Colombian${inputName}` : `International${inputName}`;
     }
+    // This part have a error TODO
     const pattern = new RegExp(this.sellerRegex[inputName]);
     const inputChar = String.fromCharCode(event.charCode);
     console.log(pattern.test(inputChar));
