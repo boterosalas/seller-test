@@ -26,6 +26,7 @@ const log = new Logger('OfertExpandedProductComponent');
 })
 export class OfertExpandedProductComponent implements OnInit {
     public ofertProduct: FormGroup;
+    public comboForm: FormGroup;
     // public Combos: FormArray;
     public matcher: MyErrorStateMatcher;
 
@@ -82,7 +83,7 @@ export class OfertExpandedProductComponent implements OnInit {
             Validators.pattern(this.formatNumber)]),
             Warranty: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
-            ofertOption: new FormControl('IsFreeShipping'),
+            ofertOption: new FormControl(''),
             IsUpdatedStock: new FormControl(''),
             Combos: this.fb.array([]), /*
             ofertPriceComponet: new FormControl('', [Validators.required,
@@ -105,7 +106,7 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     addItem(nameCombo: string, ean?: number, EanCombo?: number): void {
-        const comboForm = this.fb.group({
+        this.comboForm = this.fb.group({
             ofertPriceComponet: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
             ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.formatNumber)])],
@@ -113,7 +114,7 @@ export class OfertExpandedProductComponent implements OnInit {
             EAN: [ean],
             EanCombo: this.applyOffer.ean
         });
-        this.Combos.push(comboForm);
+        this.Combos.push(this.comboForm);
     }
 
     /**
@@ -143,7 +144,7 @@ export class OfertExpandedProductComponent implements OnInit {
         pero si son diferentes q precio sea mayor eso lo hace en el validate del control */
 
         this.ofertProduct.controls.DiscountPrice.setValue(total);
-        // this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
+        this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
         return total;
     }
@@ -190,7 +191,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value.match(this.formatPromEntrega) <= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000) {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -200,7 +201,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryErrorPrice(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.Price.value.match(this.formatPromEntrega) <= 8000) {
+            if (this.ofertProduct.controls.Price.value <= 8000) {
                 this.ofertProduct.controls.Price.setErrors({ priceReal: show });
             }
         } else {
@@ -288,6 +289,16 @@ export class OfertExpandedProductComponent implements OnInit {
         } else {
             this.showButton = false;
             // this.sendDataToService();
+        }
+    }
+
+    public abc() {
+        if (this.comboForm.controls.ComboQuantity.value !== 0) {
+            if (this.applyOffer.eanesCombos.length !== 0) {
+                if (this.ofertProduct.controls.DiscountPrice.value === null || this.ofertProduct.controls.DiscountPrice.value === '') {
+                    this.ofertProduct.controls.Price.setValue(this.totalCombo);
+                }
+            }
         }
     }
 
