@@ -53,7 +53,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     ngOnInit() {
         this.createFormControls();
-  }
+    }
 
 
     /**
@@ -176,12 +176,21 @@ export class OfertExpandedProductComponent implements OnInit {
 
             }
         } else {
-            this.ofertProduct.controls.Price.setValue(this.totalCombo);
+            // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
                 this.setCategoryErrorPrice(errors);
             }
+        }
+    }
+
+    public getPrice(total: any) {
+        if (this.applyOffer.eanesCombos.length !== 0 && (this.ofertProduct.controls.DiscountPrice.value === 0 || this.ofertProduct.controls.DiscountPrice.value === null)) {
+            console.log('si hay y no es cero');
+            this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
+        } else {
+            console.log('es cero');
         }
     }
 
@@ -239,7 +248,7 @@ export class OfertExpandedProductComponent implements OnInit {
      *
      * @memberof OfertExpandedProductComponent
      */
-    public sendDataToService(): void {
+    public sendDataToService(total: any): void {
         // this.getVerifyPrice(true);
         // this.getPriceDescount();
         const data = {
@@ -259,24 +268,42 @@ export class OfertExpandedProductComponent implements OnInit {
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
         };
 
+        this.getVerifyPrice();
+        this.getPrice(total);
         let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(aryOfAry).subscribe(
-            (result: any) => {
-                if (result.status === 200 || result.status === 201) {
-                    this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
-                        duration: 3000,
-                    });
-                    // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
-                    this.listService.changeEmitter();
-                } else {
-                    log.error('Error al intentar aplicar una oferta');
-                    this.modalService.showModal('errorService');
+        if (this.getVerifyPrice) {
+            console.log('hay error');
+        } else {
+            console.log('NO error');
+            this.bulkLoadService.setOffers(aryOfAry).subscribe(
+                (result: any) => {
+                    if (result.status === 200 || result.status === 201) {
+                        this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
+                            duration: 3000,
+                        });
+                        // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
+                        this.listService.changeEmitter();
+                    } else {
+                        log.error('Error al intentar aplicar una oferta');
+                        this.modalService.showModal('errorService');
+                    }
+                    this.loadingService.closeSpinner();
                 }
-                this.loadingService.closeSpinner();
-            }
-        );
+            );
+        }
+    }
+
+    public cleanFilterListProducts(result: any) {
+        result = null;
+    }
+
+    // Funcion para limpiar formulario
+    public cleanFilter(result?: any) {
+        this.ofertProduct.reset();
+        this.cleanFilterListProducts(result);
+        // this.ofertProduct = null;
     }
 }
