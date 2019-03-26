@@ -12,7 +12,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
+        <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (keyup)="getVerifyPrice()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')" [innerHTML]="'Precio inválido'"></mat-error>
         <mat-error *ngIf="ofertProduct.get('Price').hasError('required')" [innerHTML]="'Precio es campo obligatorio'"></mat-error>
@@ -24,7 +24,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput placeholder="Precio con descuento" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
+        <input matInput placeholder="Precio con descuento" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (keyup)="getVerifyPrice()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Precio con descuento inválido'"></mat-error>
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">
@@ -100,7 +100,7 @@
             <div class="ofert-information">
               <mat-form-field color="primary">
                 <mat-icon matPrefix>add_shopping_cart</mat-icon>
-                <input (change)="getPriceDescount()" matInput placeholder="Cantidad en combo" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
+                <input (change)="getPriceDescount()" matInput placeholder="Cantidad en combo" (change)="getVerifyPrice()" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
                 <mat-hint></mat-hint>
                 <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')" [innerHTML]="'Cantidad EAN combo inválida'"></mat-error>
                 <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')" [innerHTML]="'Cantidad EAN combo inválida'"></mat-error>
@@ -114,6 +114,6 @@
 
   <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
     <button mat-stroked-button color="primary" type="button" [innerHTML]="'Cancelar'" (click)="cleanFilter()"></button>
-    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"  [disabled]="!createOfertExpandetProduct.form.valid" (click)="sendDataToService()"></button>
+    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"  [disabled]="!createOfertExpandetProduct.form.valid || showButton === true" (click)="sendDataToService()"></button>
   </div>
 </form>

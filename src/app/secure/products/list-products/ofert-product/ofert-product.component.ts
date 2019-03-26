@@ -37,6 +37,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public valuePrice: any;
     public totalCombo: any;
     public showImage = false;
+    public showButton = true;
 
 
     constructor(
@@ -81,7 +82,7 @@ export class OfertExpandedProductComponent implements OnInit {
             Validators.pattern(this.formatNumber)]),
             Warranty: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
-            ofertOption: new FormControl(''),
+            ofertOption: new FormControl('IsFreeShipping'),
             IsUpdatedStock: new FormControl(''),
             Combos: this.fb.array([]), /*
             ofertPriceComponet: new FormControl('', [Validators.required,
@@ -183,15 +184,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 this.setCategoryErrorPrice(errors);
             }
         }
-    }
-
-    public getPrice(total: any) {
-        if (this.applyOffer.eanesCombos.length !== 0 && (this.ofertProduct.controls.DiscountPrice.value === 0 || this.ofertProduct.controls.DiscountPrice.value === null)) {
-            console.log('si hay y no es cero');
-            this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
-        } else {
-            console.log('es cero');
-        }
+        this.sendArray();
     }
 
 
@@ -248,7 +241,7 @@ export class OfertExpandedProductComponent implements OnInit {
      *
      * @memberof OfertExpandedProductComponent
      */
-    public sendDataToService(total: any): void {
+    public sendDataToService(): void {
         // this.getVerifyPrice(true);
         // this.getPriceDescount();
         const data = {
@@ -268,31 +261,33 @@ export class OfertExpandedProductComponent implements OnInit {
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
         };
 
-        this.getVerifyPrice();
-        this.getPrice(total);
         let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        if (this.getVerifyPrice) {
-            console.log('hay error');
-        } else {
-            console.log('NO error');
-            this.bulkLoadService.setOffers(aryOfAry).subscribe(
-                (result: any) => {
-                    if (result.status === 200 || result.status === 201) {
-                        this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
-                            duration: 3000,
-                        });
-                        // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
-                        this.listService.changeEmitter();
-                    } else {
-                        log.error('Error al intentar aplicar una oferta');
-                        this.modalService.showModal('errorService');
-                    }
-                    this.loadingService.closeSpinner();
+        this.bulkLoadService.setOffers(aryOfAry).subscribe(
+            (result: any) => {
+                if (result.status === 200 || result.status === 201) {
+                    this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
+                        duration: 3000,
+                    });
+                    // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
+                    this.listService.changeEmitter();
+                } else {
+                    log.error('Error al intentar aplicar una oferta');
+                    this.modalService.showModal('errorService');
                 }
-            );
+                this.loadingService.closeSpinner();
+            }
+        );
+    }
+
+    public sendArray() {
+        if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+            this.showButton = true;
+        } else {
+            this.showButton = false;
+            // this.sendDataToService();
         }
     }
 
