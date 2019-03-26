@@ -76,7 +76,9 @@ export class RegisterSellerComponent implements OnInit {
     InternationalNit: /^[0-9a-zA-Z-]*$/,
     InternationalRut: /^[0-9a-zA-Z-]*$/,
     InternationalPostalCode: /^[0-9a-zA-Z]*$/,
-    Payoneer: /^[\w_\-\.\^@!\? ""]+$/
+    Payoneer: /^[\w_\-\.\^@!\? ""]+$/,
+    State: /^([^\\/])*$/,
+    City: /^([^\\/])*$/
   };
 
   public values = '';
