@@ -1,22 +1,22 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { SellerModule } from "../seller.module";
-import { SellerListComponent } from "./list-sellers.component";
-import { DialogWithFormComponent } from "./dialog-with-form/dialog-with-form.component";
-import { MaterialModule } from "@app/material.module";
-import { LoadingService, ModalService } from "@app/core";
-import { StoresService } from "@app/secure/offers/stores/stores.service";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { RouterModule, Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { By } from "@angular/platform-browser";
-import { of, Observable } from "rxjs";
-import { SellerRoutingModule } from "../seller.routing";
-import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
-import { componentFactoryName } from "@angular/compiler";
-import { AuthService } from "@app/secure/auth/auth.routing";
-import { MenuModel } from "../profiles/models/menu.model";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SellerModule } from '../seller.module';
+import { SellerListComponent } from './list-sellers.component';
+import { DialogWithFormComponent } from './dialog-with-form/dialog-with-form.component';
+import { MaterialModule } from '@app/material.module';
+import { LoadingService, ModalService } from '@app/core';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { of, Observable } from 'rxjs';
+import { SellerRoutingModule } from '../seller.routing';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { componentFactoryName } from '@angular/compiler';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel } from '../profiles/models/menu.model';
 
 export const constSellerList = [
     {
@@ -58,43 +58,43 @@ export const constSellerList = [
         Nit: '18026015',
         status: 'vacation'
     }
-]; 
+];
 
 export const  sellerListMenu = {
     Id: undefined,
-    NameMenu: "Listado de Vendedores",
-    NameMenuBack: "listado de vendedores",
+    NameMenu: 'Listado de Vendedores',
+    NameMenuBack: 'listado de vendedores',
     ProfileType: 1,
     ShowMenu: true,
     ShowMenuProduction: true,
-    UrlRedirect: "securehome/seller-center/vendedores/lista",
+    UrlRedirect: 'securehome/seller-center/vendedores/lista',
     Functionalities: [
         {
-            NameFunctionality: "Consultar",
+            NameFunctionality: 'Consultar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Consultar"
+            nameFunctionalityBack: 'Consultar'
         },
         {
-            NameFunctionality: "Visualizar",
+            NameFunctionality: 'Visualizar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Visualizar"
+            nameFunctionalityBack: 'Visualizar'
         },
         {
-            NameFunctionality: "Habilitar",
+            NameFunctionality: 'Habilitar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Habilitar"
+            nameFunctionalityBack: 'Habilitar'
         },
         {
-            NameFunctionality: "Deshabilitar",
+            NameFunctionality: 'Deshabilitar',
             ShowFunctionality: true,
-            nameFunctionalityBack: "Deshabilitar"
+            nameFunctionalityBack: 'Deshabilitar'
         }
     ]
-}
+};
 
-describe('List Seller Component',() => {
+describe('List Seller Component', () => {
 
-    //Create a Mock Services
+    // Create a Mock Services
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
@@ -106,9 +106,9 @@ describe('List Seller Component',() => {
         message: '',
         icon: '',
         form: null
-    }
+    };
 
-    //Create Variables for services and component
+    // Create Variables for services and component
     let fixture: ComponentFixture<SellerListComponent>;
     let sellerListComponent: SellerListComponent;
     let loadingService: LoadingService;
@@ -128,7 +128,7 @@ describe('List Seller Component',() => {
                 RouterTestingModule,
                 BrowserAnimationsModule
             ],
-            providers:[
+            providers: [
                 {provide: LoadingService, useValue: mockLoadingService},
                 {provide: StoresService, useValue: mockStoresService},
                 {provide: MatDialog, useValue: mockDialog},
@@ -143,7 +143,7 @@ describe('List Seller Component',() => {
             set: {
                 entryComponents: [DialogWithFormComponent]
             }
-        })
+        });
     });
 
     beforeEach(() => {
@@ -166,7 +166,7 @@ describe('List Seller Component',() => {
         expect(loadingService).toBeTruthy();
     });
 
-    describe('List with data',() => {
+    describe('List with data', () => {
 
         beforeEach(async(() => {
             sellerListComponent.sellerList = constSellerList;

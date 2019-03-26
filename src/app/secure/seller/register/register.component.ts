@@ -67,15 +67,16 @@ export class RegisterSellerComponent implements OnInit {
   ];
 
   sellerRegex = {
-    PhoneNumber: `^[0-9+-\s]*$`,
-    ContactName: `^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$`,
+    PhoneNumber: /^[0-9+-\s]*$/,
+    ContactName: /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/,
     Email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/,
     NameStore: /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/,
-    ColombianNit: `^[0-9]*$`,
-    ColombianRut: `^[0-9]*$`,
-    InternationalNit: `^[0-9a-zA-Z-]*$`,
-    InternationalRut: `^[0-9a-zA-Z-]*$`,
-    InternationalPostalCode: `^[0-9a-zA-Z]*$`
+    ColombianNit: /^[0-9]*$/,
+    ColombianRut: /^[0-9]*$/,
+    InternationalNit: /^[0-9a-zA-Z-]*$/,
+    InternationalRut: /^[0-9a-zA-Z-]*$/,
+    InternationalPostalCode: /^[0-9a-zA-Z]*$/,
+    Payoneer: /^[\w_\-\.\^@!\? ""]+$/
   };
 
   public values = '';
@@ -86,8 +87,8 @@ export class RegisterSellerComponent implements OnInit {
   public idState: number;
   public daneCode: any;
   public disabledForService: boolean;
-  public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
-  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
+  //public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
+  //public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
   public selectedValue: string;
@@ -102,7 +103,6 @@ export class RegisterSellerComponent implements OnInit {
   disabledComponent = false;
 
   constructor(
-    @Inject(RegisterService)
     private registerService: RegisterService,
     private loadingService: LoadingService,
     private modalService: ModalService,
@@ -206,6 +206,7 @@ export class RegisterSellerComponent implements OnInit {
       Profile: new FormControl
         (this.profileSeller, [Validators.required]),
     });
+    console.log(this.validateFormRegister);
     this.disabledFiledsSellerForm();
     this.addValidationsSellerForm();
     this.putColombiaByDefault();
@@ -228,12 +229,14 @@ export class RegisterSellerComponent implements OnInit {
       this.State.reset({value: '', disabled: false});
       const selectedCountry = this.countries.find(element => element.name === val);
       this.PhoneNumber.reset({value: selectedCountry.tel, disabled: true});
-      this.City.reset({value: null, disabled: this.isColombiaSelect});
+      this.City.reset(null);
       this.PostalCode.reset(null);
+      this.City.enable();
       this.PostalCode.enable();
       this.PhoneNumber.enable();
       this.Nit.reset({value: null, disabled: false});
       this.Rut.enable();
+      this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
     });
   }
 
@@ -278,13 +281,12 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   keyPress(event: any, inputName: string) {
-    if ( inputName === 'Nit' || inputName === ' Rut' || inputName === 'PostalCode') {
+    if ( inputName === 'Nit' || inputName === 'Rut' || inputName === 'PostalCode') {
       inputName = this.isColombiaSelect ? `Colombian${inputName}` : `International${inputName}`;
     }
-    // This part have a error TODO
     const pattern = new RegExp(this.sellerRegex[inputName]);
+    console.log(inputName);
     const inputChar = String.fromCharCode(event.charCode);
-    console.log(pattern.test(inputChar));
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
