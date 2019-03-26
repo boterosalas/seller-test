@@ -236,8 +236,9 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * 3. Moderación.
  * 4. Listado de productos Admin
  * 5. Listado de productos Seller
+ * 6. Carga masiva de moderación
  */
-export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos';
+export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos', chargeModeration = 'Carga masiva moderación';
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
     // 1. Creación unitaria.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -259,6 +260,9 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 5. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntListProducts),
+    new MenuModel(chargeModeration, showAll, chargeModeration.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterIntListProducts),
 ]);
 
