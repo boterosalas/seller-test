@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages';
 
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
 
@@ -78,10 +78,12 @@ export class SellerListComponent implements OnInit, OnDestroy {
     enable = enableFunctionality;
     disable = disableFunctionality;
     vacation = vacationFunctionality;
+    cancelVacation = cancelVacacionFunctionality;
     canEnabled: boolean;
     canDisabled: boolean;
     canVisualize: boolean;
     canPutInVacation: boolean;
+    canCancelVacation: boolean;
     tomorrow = DateService.getTomorrowDate();
 
     constructor(private storesService: StoresService,
@@ -120,6 +122,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.canEnabled = this.getFunctionality(this.enable);
         this.canVisualize = this.getFunctionality(this.visualize);
         this.canPutInVacation = this.getFunctionality(this.vacation);
+        this.canCancelVacation = this.getFunctionality(this.cancelVacation);
     }
 
     /**
