@@ -11,6 +11,7 @@ import { SharedModule } from '@shared/shared.module';
 import { RegisterSellerComponent } from './register.component';
 import { RegisterRoutingModule } from './register.routing';
 import { RegisterService } from './register.service';
+import { PayoneerService } from './payoneer.service';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { RegisterService } from './register.service';
       provide: ErrorStateMatcher,
       useClass: ShowOnDirtyErrorStateMatcher
     },
+    PayoneerService,
     RegisterService
   ]
 })

@@ -11,6 +11,7 @@ import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/a
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Router } from '@angular/router';
 import { trimField } from '@app/shared/util/validation-messages';
+import { PayoneerService } from './payoneer.service';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -112,7 +113,7 @@ export class RegisterSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private payoneerService: PayoneerService
   ) { }
 
   /**
@@ -208,7 +209,6 @@ export class RegisterSellerComponent implements OnInit {
       Profile: new FormControl
         (this.profileSeller, [Validators.required]),
     });
-    console.log(this.validateFormRegister);
     this.disabledFiledsSellerForm();
     this.addValidationsSellerForm();
     this.putColombiaByDefault();
@@ -259,6 +259,14 @@ export class RegisterSellerComponent implements OnInit {
   putColombiaByDefault() {
     const colombia = this.countries.find(element => element.name === 'Colombia');
     if (!!colombia) this.Country.setValue(colombia.name);
+  }
+
+  validateExitPayoneerUser(event) {
+    const value = event.target.value;
+    console.log(value);
+    this.payoneerService.getStatusById(value).subscribe(val => {
+      console.log(val);
+    });
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {

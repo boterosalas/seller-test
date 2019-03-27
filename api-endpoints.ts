@@ -116,6 +116,8 @@ export const endpoints = {
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://api.sandbox.payoneer.com/v2/programs/100101100',
     },
   },
   // Endpoints production
@@ -231,6 +233,8 @@ export const endpoints = {
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://api.payoneer.com/v2/programs/100101100',
     }
   }
 };

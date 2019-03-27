@@ -111,8 +111,8 @@
 
               <div *ngIf="!isColombiaSelect" fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                    <input matInput placeholder="Payoneer" pattern="^[0-9]*$" maxlength="10" minlength="7"
-                    [errorStateMatcher]="matcher" (keypress)="keyPress($event)" id="register-phone-number"
+                    <input matInput placeholder="Payoneer" [pattern]="sellerRegex.Payoneer" maxlength="50" (blur)="validateExitPayoneerUser($event)"
+                    [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'Payoneer')" id="register-phone-number"
                     required>
                 </mat-form-field>
               </div>
