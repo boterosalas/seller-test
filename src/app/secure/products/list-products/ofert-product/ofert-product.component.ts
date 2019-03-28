@@ -167,7 +167,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 errors = false;
                 if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
                     if (showErrors) {
-                        this.snackBar.open('El precio no debe ser menor que el precio con descuento', 'Cerrar', {
+                        this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
                             duration: 3000,
                         });
                     }
