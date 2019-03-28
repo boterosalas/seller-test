@@ -146,6 +146,11 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
+        if (total <= 8000) {
+            this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
+                duration: 3000,
+            });
+        }
         return total;
     }
 
@@ -274,6 +279,8 @@ export class OfertExpandedProductComponent implements OnInit {
                     });
                     // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
+                    window.location.reload();
+
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');

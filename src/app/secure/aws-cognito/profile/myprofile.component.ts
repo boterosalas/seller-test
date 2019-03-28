@@ -66,7 +66,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     getPermissions() {
         this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
             if (!!data) {
-                console.log(data);
                 const modules = data.find(mod => mod.Name === this.profile);
                 const menu = modules && modules.Menus.find(menu => menu.Name === this.profile );
                 const actions = menu && menu.Actions;
