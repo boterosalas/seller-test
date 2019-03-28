@@ -335,7 +335,7 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('skuShippingsize')) {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
               this.iVal = {
                 iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
@@ -367,7 +367,7 @@ export class BulkLoadProductComponent implements OnInit {
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                 iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
                 iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
-                iSize: this.arrayNecessaryData[0].indexOf('Talla'),
+                iSize: this.arrayNecessaryData[0].indexOf('Size'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                 iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
@@ -377,7 +377,6 @@ export class BulkLoadProductComponent implements OnInit {
                 iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
                 iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
               };
-              console.log('ival: ', this.iVal);
               // this.eanComboPosition = this.iVal.iEanCombo;
             } else {
               /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
@@ -421,7 +420,6 @@ export class BulkLoadProductComponent implements OnInit {
                 iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
                 iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
               };
-              console.log('ival: ', this.iVal);
             }
             this.eanComboPosition = this.iVal.iEanCombo;
 
@@ -836,7 +834,7 @@ export class BulkLoadProductComponent implements OnInit {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+                this.componentService.openSnackBar('Se ha presentado un error al cargar la información 88', 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
