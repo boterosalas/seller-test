@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
 import { RoutesConst } from '@app/shared';
@@ -7,8 +7,11 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { MyProfileService } from './myprofile.service';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { DateService } from '@app/shared/util/date.service';
+import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 @Component({
     selector: 'app-awscognito',
@@ -17,6 +20,7 @@ import { DateService } from '@app/shared/util/date.service';
 })
 export class MyProfileComponent implements LoggedInCallback, OnInit {
 
+    profile = 'Perfil';
     public parameters: Array<Parameters> = [];
     public cognitoId: String;
     public user: any;
@@ -30,6 +34,13 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     @ViewChild('intialPicker') initialPicker;
     @ViewChild('endPicker') endPicker;
 
+    // Permisos
+    vacation = vacationFunctionality;
+    cancelVacation = cancelVacacionFunctionality;
+    canVacation: boolean;
+    canCancelVacation: boolean;
+    permissionComponent: MenuModel;
+
     otherUser: any;
 
     constructor(
@@ -41,6 +52,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private loading: LoadingService,
         private modalService: ModalService,
         private profileService: MyProfileService,
+        public authService: AuthService,
         private snackBar: MatSnackBar) {
             this.loading.viewSpinner();
     }
@@ -49,6 +61,18 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
+    }
+
+    getPermissions() {
+        this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
+            if (!!data) {
+                const modules = data.find(mod => mod.Name === this.profile);
+                const menu = modules && modules.Menus.find(menu => menu.Name === this.profile );
+                const actions = menu && menu.Actions;
+                this.canVacation = actions && !!(actions.find(action => action === this.vacation));
+                this.canCancelVacation = actions && !!(actions.find(action => action === this.cancelVacation));
+            }
+        });
     }
 
     /**
@@ -223,6 +247,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.SellerId.disable();
         this.StoreName.disable();
         this.loading.closeSpinner();
+        this.getPermissions();
     }
 
     /**

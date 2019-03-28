@@ -178,8 +178,8 @@
                             <strong>Inicio:</strong>{{seller.StartVacations}}<br/>
                             <strong>Fin:</strong>{{seller.EndVacations}}
                          </div>
-                          <mat-icon (click)="sendToOpenCancelVacationDialog(i)">
-                            cancel
+                          <mat-icon *ngIf="canCancelVacation" (click)="sendToOpenCancelVacationDialog(i)">
+                            delete
                           </mat-icon>
                     </label>
                     <ng-template #ProgramDate>

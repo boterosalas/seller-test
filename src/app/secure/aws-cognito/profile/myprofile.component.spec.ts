@@ -29,7 +29,8 @@ import { SearchBillingFormComponent } from '@app/core/shell/search-order-menu/se
 import { SearchPendingDevolutionFormComponent } from '@app/core/shell/search-order-menu/search-pending-devolution-form/search-pending-devolution-form.component';
 import { SearchEnviosExitoFormComponent } from '@app/core/shell/search-order-menu/search-envios-exito-form/search-envios-exito-form.component';
 import { MyProfileService } from './myprofile.service';
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const userData = {
     Address: 'calle falsa de algun lugar de este mundo',
@@ -57,6 +58,11 @@ describe('My Profile', () => {
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const userMockService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
     const mockProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
+    let availableModules = [{Name: 'Perfil', Menus: [{Actions: ['Vacaciones', 'Cancelar Vacaciones'], Name: 'Perfil'}], ProfileType: 'Seller'}]
+    const mockAuthService = {
+        availableModules: availableModules,
+        availableModules$: new BehaviorSubject(availableModules)
+    }
     const data = {
         title: '',
         message: '',
@@ -71,6 +77,7 @@ describe('My Profile', () => {
     let matDialog: MatDialog;
     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
     let dialogComponent: DialogWithFormComponent;
+    let authService: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -110,6 +117,7 @@ describe('My Profile', () => {
                 {provide: MAT_DIALOG_DATA, useValue: data},
                 {provide: MatDialogRef, useValue: mockDialogRef},
                 {provide: ModalService, useValue: mockDialogError},
+                {provide: AuthService, useValue: mockAuthService}
             ]
         }).compileComponents();
     });
@@ -120,6 +128,7 @@ describe('My Profile', () => {
         loadingService = TestBed.get(LoadingService);
         storeService = TestBed.get(StoresService);
         matDialog = TestBed.get(MatDialog);
+        authService = TestBed.get(AuthService);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
         mockDialog.open.and.returnValue(mockDialogRef);
@@ -137,6 +146,7 @@ describe('My Profile', () => {
         beforeEach( async () => {
             const mockUser = Object.assign({}, userData);
             mockUser.City = null;
+            availableModules = [];
             const responseGetUser = {
                 body: {
                     body: JSON.stringify({Data: mockUser})
@@ -163,6 +173,7 @@ describe('My Profile', () => {
 
     describe('User seller Login With vacations', () => {
         beforeEach(async () => {
+            availableModules = [{Name: 'Perfil', Menus: [{Actions: ['Vacaciones', 'Cancelar Vacaciones'], Name: 'Perfil'}], ProfileType: 'Seller'}];
             const responseGetUser = {
                 body: {
                     body: JSON.stringify({Data: userData})

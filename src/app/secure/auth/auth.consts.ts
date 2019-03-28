@@ -142,6 +142,7 @@ export const visualizeFunctionality = 'Visualizar';
 export const enableFunctionality = 'Habilitar';
 export const disableFunctionality = 'Deshabilitar';
 export const vacationFunctionality = 'Vacaciones';
+export const cancelVacacionFunctionality = 'Cancelar Vacaciones';
 export const deleteFunctionality = 'Eliminar';
 export const attachmentFunctionality = 'Adjuntar';
 export const sendFunctionality = 'Enviar';
@@ -319,7 +320,8 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
         new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
         new FunctionalitiesModel(disableFunctionality, showAll, disableFunctionality), // Deshabilitar
-        new FunctionalitiesModel(vacationFunctionality, showAll, vacationFunctionality) // vacaciones
+        new FunctionalitiesModel(vacationFunctionality, showAll, vacationFunctionality), // vacaciones
+        new FunctionalitiesModel(cancelVacacionFunctionality, showAll, cancelVacacionFunctionality) // Cancelar vacaciones
     ], RoutesConst.sellerCenterIntSellerList),
 ]);
 

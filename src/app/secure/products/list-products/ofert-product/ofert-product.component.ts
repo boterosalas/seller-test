@@ -26,6 +26,7 @@ const log = new Logger('OfertExpandedProductComponent');
 })
 export class OfertExpandedProductComponent implements OnInit {
     public ofertProduct: FormGroup;
+    public comboForm: FormGroup;
     // public Combos: FormArray;
     public matcher: MyErrorStateMatcher;
 
@@ -37,6 +38,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public valuePrice: any;
     public totalCombo: any;
     public showImage = false;
+    public showButton = true;
 
 
     constructor(
@@ -53,7 +55,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     ngOnInit() {
         this.createFormControls();
-  }
+    }
 
 
     /**
@@ -104,7 +106,7 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     addItem(nameCombo: string, ean?: number, EanCombo?: number): void {
-        const comboForm = this.fb.group({
+        this.comboForm = this.fb.group({
             ofertPriceComponet: new FormControl('', [Validators.required,
             Validators.pattern(this.formatNumber)]),
             ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.formatNumber)])],
@@ -112,7 +114,7 @@ export class OfertExpandedProductComponent implements OnInit {
             EAN: [ean],
             EanCombo: this.applyOffer.ean
         });
-        this.Combos.push(comboForm);
+        this.Combos.push(this.comboForm);
     }
 
     /**
@@ -142,8 +144,13 @@ export class OfertExpandedProductComponent implements OnInit {
         pero si son diferentes q precio sea mayor eso lo hace en el validate del control */
 
         this.ofertProduct.controls.DiscountPrice.setValue(total);
-        // this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
+        this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
+        if (total <= 8000) {
+            this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
+                duration: 3000,
+            });
+        }
         return total;
     }
 
@@ -160,7 +167,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 errors = false;
                 if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
                     if (showErrors) {
-                        this.snackBar.open('El precio no debe ser menor que el precio con descuento', 'Cerrar', {
+                        this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
                             duration: 3000,
                         });
                     }
@@ -176,19 +183,20 @@ export class OfertExpandedProductComponent implements OnInit {
 
             }
         } else {
-            this.ofertProduct.controls.Price.setValue(this.totalCombo);
+            // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
                 this.setCategoryErrorPrice(errors);
             }
         }
+        this.sendArray();
     }
 
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value.match(this.formatPromEntrega) <= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000) {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -198,7 +206,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryErrorPrice(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.Price.value.match(this.formatPromEntrega) <= 8000) {
+            if (this.ofertProduct.controls.Price.value <= 8000) {
                 this.ofertProduct.controls.Price.setErrors({ priceReal: show });
             }
         } else {
@@ -271,6 +279,8 @@ export class OfertExpandedProductComponent implements OnInit {
                     });
                     // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
+                    window.location.reload();
+
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');
@@ -278,5 +288,35 @@ export class OfertExpandedProductComponent implements OnInit {
                 this.loadingService.closeSpinner();
             }
         );
+    }
+
+    public sendArray() {
+        if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+            this.showButton = true;
+        } else {
+            this.showButton = false;
+            // this.sendDataToService();
+        }
+    }
+
+    public abc() {
+        if (this.comboForm.controls.ComboQuantity.value !== 0) {
+            if (this.applyOffer.eanesCombos.length !== 0) {
+                if (this.ofertProduct.controls.DiscountPrice.value === null || this.ofertProduct.controls.DiscountPrice.value === '') {
+                    this.ofertProduct.controls.Price.setValue(this.totalCombo);
+                }
+            }
+        }
+    }
+
+    public cleanFilterListProducts(result: any) {
+        result = null;
+    }
+
+    // Funcion para limpiar formulario
+    public cleanFilter(result?: any) {
+        this.ofertProduct.reset();
+        this.cleanFilterListProducts(result);
+        // this.ofertProduct = null;
     }
 }

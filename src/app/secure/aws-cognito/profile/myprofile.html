@@ -16,15 +16,15 @@
             </mat-form-field>
         </form>
     </div>
-    <div *ngIf="!isAdmin" class="sub-content">
+    <div *ngIf="canVacation" class="sub-content">
         <ng-container *ngIf="isInVacation; else programVacations">
             <mat-card id="info-vacation" class="mat card">
                 <div class="options">
                     <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()">
                         edit
                     </mat-icon>
-                    <mat-icon id="btn-cancel-vacations"(click)="sendToOpenCancelVacationDialog()">
-                        cancel
+                    <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations"(click)="sendToOpenCancelVacationDialog()">
+                        delete
                     </mat-icon>
                 </div>
                 <div class="icon-container">
