@@ -147,7 +147,6 @@ export class BulkLoadProductComponent implements OnInit {
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    console.log(this.user);
     if (this.user.sellerProfile === 'seller') {
         this.showCharge = true;
     } else {
@@ -160,7 +159,6 @@ export class BulkLoadProductComponent implements OnInit {
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
    */
   getAvaliableLoads() {
-    console.log('aqui');
     /*Se muestra el loading*/
     // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
