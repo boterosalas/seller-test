@@ -85,6 +85,8 @@ export class BulkLoadProductComponent implements OnInit {
 
   public iVal: any;
 
+  public showCharge: boolean;
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
@@ -123,10 +125,12 @@ export class BulkLoadProductComponent implements OnInit {
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.permissionComponent = this.authService.getMenu(bulkLoadProductName);
-    if (this.getFunctionality(this.load)) {
-      this.getAvaliableLoads();
-    }
+    // if (this.getFunctionality(this.load)) {
+    //   this.getAvaliableLoads();
+    // }
+    this.getAvaliableLoads();
     this.verifyStateCharge();
+    this.getDataUser();
   }
 
   /**
@@ -141,11 +145,22 @@ export class BulkLoadProductComponent implements OnInit {
     return permission && permission.ShowFunctionality;
   }
 
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    console.log(this.user);
+    if (this.user.sellerProfile === 'seller') {
+        this.showCharge = true;
+    } else {
+      this.showCharge = false;
+    }
+}
+
   /**
    * @method getAvaliableLoads
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
    */
   getAvaliableLoads() {
+    console.log('aqui');
     /*Se muestra el loading*/
     // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
