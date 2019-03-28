@@ -77,8 +77,8 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="C&oacute;digo Postal" [pattern]="sellerRegex.InternationalPostalCode" [readonly]="isColombiaSelect" formControlName="DaneCode"
-                  (keypress)="keyPress($event, 'PostalCode')" id="register-postal-code"
+                  <input matInput placeholder="C&oacute;digo Postal" [readonly]="isColombiaSelect" formControlName="DaneCode"
+                  (keypress)="keyPress($event, 'postalCode')" id="register-postal-code"
                     required>
                     <mat-hint></mat-hint>
                     <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('maxlength') || PostalCode.hasError('minlength') || PostalCode.hasError('pattern')">
@@ -97,8 +97,8 @@
 
               <div fxFlex="50%" [ngStyle]="{'padding-right': (isColombiaSelect ? '5%' : '0')}">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="Tel&eacute;fono" [pattern]="sellerRegex.PhoneNumber" maxlength="20"
-                    formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'PhoneNumber')" id="register-phone-number"
+                  <input matInput placeholder="Tel&eacute;fono" maxlength="20"
+                    formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'phoneNumber')" id="register-phone-number"
                     required>
                   <mat-hint></mat-hint>
 
@@ -111,8 +111,8 @@
 
               <div *ngIf="!isColombiaSelect" fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                    <input matInput placeholder="Payoneer" [pattern]="sellerRegex.Payoneer" maxlength="50" (blur)="validateExitPayoneerUser($event)"
-                    [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'Payoneer')" id="register-phone-number"
+                    <input matInput placeholder="Payoneer" [pattern]="sellerRegex.payoneer" maxlength="50" (blur)="validateExitPayoneerUser($event)"
+                    [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'payoneer')" id="register-phone-number"
                     required>
                 </mat-form-field>
               </div>
@@ -123,7 +123,7 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
-                  <input matInput placeholder="NIT" (keypress)="keyPress($event, 'Nit')" [maxlength]="isColombiaSelect ? 20 : 30" formControlName="Nit"
+                  <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')" [maxlength]="isColombiaSelect ? 20 : 30" formControlName="Nit"
                     autocomplete="off" (blur)="validateExist($event, 'Nit')" [errorStateMatcher]="matcher" id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
@@ -141,7 +141,7 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="RUT" (keypress)="keyPress($event, 'Rut')" maxlength="isColombiaSelect ? 20 : 30" formControlName="Rut"
+                  <input matInput placeholder="RUT" (keypress)="keyPress($event, 'rut')" maxlength="isColombiaSelect ? 20 : 30" formControlName="Rut"
                     [errorStateMatcher]="matcher" id="register-rut" required>
                   <mat-hint></mat-hint>
 

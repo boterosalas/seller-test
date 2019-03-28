@@ -12,6 +12,7 @@ import { RegisterSellerComponent } from './register.component';
 import { RegisterRoutingModule } from './register.routing';
 import { RegisterService } from './register.service';
 import { PayoneerService } from './payoneer.service';
+import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PayoneerService } from './payoneer.service';
       useClass: ShowOnDirtyErrorStateMatcher
     },
     PayoneerService,
-    RegisterService
+    RegisterService,
+    BasicInformationService
   ]
 })
 export class RegisterModule {
