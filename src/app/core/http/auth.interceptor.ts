@@ -36,8 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
       const base = username + ':' + password;
       const buffer = new Buffer(base);
       const auth = buffer.toString('base64');
-      const headers = new HttpHeaders({'authorization': `Basic ${auth}`});
-      console.log(headers);
+      const headers = new HttpHeaders({'authorization': `Basic ${auth}`, 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS'});
       const authReq = req.clone({
         headers: headers
       });

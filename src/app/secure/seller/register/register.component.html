@@ -36,8 +36,8 @@
                 <mat-form-field class="register full-width">
                   <mat-label>Pais</mat-label>
                   <mat-select formControlName="Country">
-                    <mat-option *ngFor="let country of countries" [value]="country.name">
-                      {{country.name}}
+                    <mat-option *ngFor="let country of countries" [value]="country.CountryName">
+                      {{country.CountryName}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -51,8 +51,14 @@
                 <div fxFlex="50%">
                   <mat-form-field class="register full-width">
                       <input matInput placeholder="Departamento" formControlName="State"
-                      autocomplete="off" [errorStateMatcher]="matcher" id="register-state" required>
+                      autocomplete="off" [errorStateMatcher]="matcher" id="register-state" (keypress)="keyPress($event, 'state')" required>
                       <mat-hint></mat-hint>
+                      <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('maxlength') || State.hasError('minlength') || State.hasError('pattern')">
+                        El departamento no es inválido
+                      </mat-error>
+                      <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('required')">
+                        El departamento es requerido
+                      </mat-error>
                   </mat-form-field>
                 </div>
               </ng-template>
@@ -69,8 +75,14 @@
                   <div fxFlex="50%">
                     <mat-form-field class="register full-width">
                         <input matInput placeholder="Ciudad" formControlName="City"
-                        autocomplete="off" [errorStateMatcher]="matcher" id="register-city"required>
+                        autocomplete="off" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'city')" id="register-city"required>
                         <mat-hint></mat-hint>
+                        <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('maxlength') || City.hasError('minlength') || City.hasError('pattern')">
+                          La ciudad no es inválido
+                        </mat-error>
+                        <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('required')">
+                          La ciudad es requerido
+                        </mat-error>
                     </mat-form-field>
                   </div>
                 </ng-template>

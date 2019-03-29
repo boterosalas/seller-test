@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { trimField } from '@app/shared/util/validation-messages';
 import { PayoneerService } from './payoneer.service';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { countries } from './countries';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -33,25 +34,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class RegisterSellerComponent implements OnInit {
 
-  countries = [
-    {
-      name: 'Colombia',
-      tel: '57'
-    },
-    {
-      name: 'Costa rica',
-      tel: '506'
-    },
-    {
-      name: 'Repulica dominicana',
-      tel: '1'
-    },
-    {
-      name: 'Ecuador',
-      tel: '593'
-    }
-  ];
-
+  countries = countries;
+  colombia = 'COLOMBIA';
   isColombiaSelect = true;
   public imagesRegister: Array<any> = [
     {
@@ -79,8 +63,6 @@ export class RegisterSellerComponent implements OnInit {
     internationalRut: '',
     internationalPostalCode: '',
     payoneer: '',
-    state: '',
-    city: '',
     internationalState: '',
     internationalCity: '',
     daneCode: '',
@@ -158,7 +140,6 @@ export class RegisterSellerComponent implements OnInit {
             this.sellerRegex[val] = element && `${element.Value}`;
           }
         }
-        console.log(this.sellerRegex);
         this.initAdminForm();
         this.initSellerForm(this.disabledComponent);
     });
@@ -248,11 +229,11 @@ export class RegisterSellerComponent implements OnInit {
   addValidationsSellerForm() {
     this.Country.valueChanges.subscribe(val => {
       if (!!val) {
-        this.isColombiaSelect = val === 'Colombia';
+        this.isColombiaSelect = val === this.colombia;
       }
       this.State.reset({value: '', disabled: false});
-      const selectedCountry = this.countries.find(element => element.name === val);
-      this.PhoneNumber.reset({value: selectedCountry.tel, disabled: true});
+      const selectedCountry = this.countries.find(element => element.CountryName === val);
+      this.PhoneNumber.reset({value: selectedCountry.CountryIndicative, disabled: true});
       this.City.reset(null);
       this.PostalCode.reset(null);
       this.City.enable();
@@ -281,16 +262,15 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   putColombiaByDefault() {
-    const colombia = this.countries.find(element => element.name === 'Colombia');
-    if (!!colombia) this.Country.setValue(colombia.name);
+    const colombia = this.countries.find(element => element.CountryName === this.colombia);
+    if (!!colombia) this.Country.setValue(colombia.CountryName);
   }
 
   validateExitPayoneerUser(event) {
     const value = event.target.value;
-    console.log(value);
-    this.payoneerService.getStatusById(value).subscribe(val => {
-      console.log(val);
-    });
+    // this.payoneerService.getStatusById(value).subscribe(val => {
+
+    // });
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -315,13 +295,12 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   keyPress(event: any, inputName: string) {
-    if ( inputName === 'nit' || inputName === 'rut') {
+    if ( inputName === 'nit' || inputName === 'rut' || inputName === 'city' || inputName === 'state') {
       inputName = this.isColombiaSelect ? `${inputName}` : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
     }
     if (inputName === 'postalCode') {
       inputName = this.isColombiaSelect ? 'daneCode' : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
     }
-    console.log(inputName, this.sellerRegex[inputName]);
     const pattern = new RegExp(this.sellerRegex[inputName]);
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
