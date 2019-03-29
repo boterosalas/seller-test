@@ -167,11 +167,11 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: false,
+        showEan: true,
         showCat: false,
-        showInfo: false,
-        showSpec: false,
-        showImg: false,
+        showInfo: true,
+        showSpec: true,
+        showImg: true,
     };
 
     /**
@@ -400,11 +400,7 @@ export class ProcessService {
             MetaTitle: null,
             MetaDescription: null
         };
-        for (const prop in this.views) {
-            if (prop) {
-                this.views[prop] = false;
-            }
-        }
+        this.views.showCat = false;
     }
 }
 
