@@ -125,6 +125,8 @@ export class ComponentProcessComponent implements OnInit {
     }
     if (this.views.showCat) {
       this.categoryFormGroup.controls.categoryCtrl.setValue('1');
+    } else if (!this.views.showCat) {
+      this.categoryFormGroup.controls.categoryCtrl.setValue(null);
     }
     if (this.views.showInfo) {
       this.basicInfoFormGroup.controls.basicInfoCtrl.setValue('1');
@@ -159,7 +161,12 @@ export class ComponentProcessComponent implements OnInit {
         this.loadingService.closeSpinner();
         this.saving = false;
         if (data['data'] !== null && data['data'] !== undefined) {
-          this.openDialogSendOrder2(data);
+          if (data['data'].error === 0) {
+            this.process.resetProduct();
+            this.openDialogSendOrder2(data);
+          } else {
+            this.modalService.showModal('errorService');
+          }
         } else {
           this.modalService.showModal('errorService');
         }

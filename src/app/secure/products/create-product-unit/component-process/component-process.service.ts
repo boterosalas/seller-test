@@ -167,11 +167,11 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: true,
-        showCat: true,
-        showInfo: true,
-        showSpec: true,
-        showImg: true,
+        showEan: false,
+        showCat: false,
+        showInfo: false,
+        showSpec: false,
+        showImg: false,
     };
 
     /**
@@ -356,6 +356,55 @@ export class ProcessService {
     public saveInformationUnitreation(): Observable<{}> {
         this.sendFieldMeta();
         return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
+    }
+
+    resetProduct() {
+        this.productData = {
+            Ean: null,
+            AssignEan: null,
+            Category: null,
+            CategoryName: null,
+            ProductType: null,
+            HasEAN: false,
+            Name: null,
+            Brand: null,
+            Details: null,
+            Seller: 'Marketplace',
+            Model: null,
+            SkuShippingSize: null,
+            PackageWidth: null,
+            PackageHeight: null,
+            PackageLength: null,
+            PackageWeight: null,
+            ProductWidth: null,
+            ProductHeight: null,
+            ProductLength: null,
+            ProductWeight: null,
+            Description: null,
+            KeyWords: null,
+            Children: null,
+            Size: null,
+            Color: null,
+            HexColourCodePDP: null,
+            HexColourName: null,
+            // Image: null,
+            // ImageChildren: null,
+            ConversionFactor: null,
+            MeasurementUnit: null,
+            Features: null,
+            ImageUrl1: null,
+            ImageUrl2: null,
+            ImageUrl3: null,
+            ImageUrl4: null,
+            ImageUrl5: null,
+            MetaTitle: null,
+            MetaDescription: null
+        };
+        for (const prop in this.views) {
+            if (prop) {
+                this.views[prop] = false;
+            }
+        }
     }
 }
 
