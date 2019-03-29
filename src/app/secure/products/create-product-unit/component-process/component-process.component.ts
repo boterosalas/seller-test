@@ -163,10 +163,8 @@ export class ComponentProcessComponent implements OnInit {
         if (data['data'] !== null && data['data'] !== undefined) {
           if (data['data'].error === 0) {
             this.process.resetProduct();
-            this.openDialogSendOrder2(data);
-          } else {
-            this.modalService.showModal('errorService');
           }
+          this.openDialogSendOrder2(data);
         } else {
           this.modalService.showModal('errorService');
         }
