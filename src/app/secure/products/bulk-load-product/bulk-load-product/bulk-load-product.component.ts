@@ -14,6 +14,7 @@ import { FinishUploadProductInformationComponent, } from '../finish-upload-produ
 import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
 import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -93,6 +94,7 @@ export class BulkLoadProductComponent implements OnInit {
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
+  isAdmin: boolean;
 
 
   constructor(
@@ -148,11 +150,11 @@ export class BulkLoadProductComponent implements OnInit {
   async getDataUser() {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
-        this.showCharge = true;
+      this.showCharge = true;
     } else {
       this.showCharge = false;
     }
-}
+  }
 
   /**
    * @method getAvaliableLoads
@@ -162,20 +164,26 @@ export class BulkLoadProductComponent implements OnInit {
     /*Se muestra el loading*/
     // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
-    this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
-      (result: any) => {
-        /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-        if (result.status === 200 && result.body.data) {
-          /*Se guardan los datos en una variable*/
-          this.dataAvaliableLoads = result.body.data;
-        } else {
-          /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
-          this.modalService.showModal('errorService');
-        }
-        /*Se oculta el loading*/
-        this.loadingService.closeSpinner();
+
+    this.authService.profileType$.pipe(distinctUntilChanged()).subscribe(type => {
+      this.isAdmin = type !== 'Tienda';
+      if (this.isAdmin) {
+        this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+          (result: any) => {
+            /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
+            if (result.status === 200 && result.body.data) {
+              /*Se guardan los datos en una variable*/
+              this.dataAvaliableLoads = result.body.data;
+            } else {
+              /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
+              this.modalService.showModal('errorService');
+            }
+            /*Se oculta el loading*/
+            this.loadingService.closeSpinner();
+          }
+        );
       }
-    );
+    });
   }
 
   /**
@@ -247,7 +255,7 @@ export class BulkLoadProductComponent implements OnInit {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
+          const ws: XLSX.WorkSheet = !!wb.Sheets['Productos'] ? wb.Sheets['Productos'] : wb.Sheets['Products'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
@@ -276,10 +284,10 @@ export class BulkLoadProductComponent implements OnInit {
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
     */
-    if (this.dataAvaliableLoads.amountAvailableLoads <= 0) {
+    if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
-    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+    } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
       * else el archino no tiene datos y no lo deja continuar*/
@@ -429,24 +437,29 @@ export class BulkLoadProductComponent implements OnInit {
                 iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                 iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
                 iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
-                iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion || Conversion Factor'),
+                iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
                 iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
                 iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
               };
             }
             this.eanComboPosition = this.iVal.iEanCombo;
 
-            /*
+            if (this.isAdmin) {
+              /*
             * if si el número de registros es mayor al número de cargas permitidas no lo deja continuar
             * else if si el número de registros es mayor al maximo de cargas permitidas no lo deja continuar
             * else se obtiene el nombre del archivo y se llama la funcion de crear tabla
             */
-            if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
-              this.loadingService.closeSpinner();
-              this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
-            } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
-              this.loadingService.closeSpinner();
-              this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+              if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
+                this.loadingService.closeSpinner();
+                this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+              } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
+                this.loadingService.closeSpinner();
+                this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+              } else {
+                this.fileName = file.target.files[0].name;
+                this.createTable(this.arrayNecessaryData, this.iVal, numCol);
+              }
             } else {
               this.fileName = file.target.files[0].name;
               this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -1740,7 +1753,7 @@ export class BulkLoadProductComponent implements OnInit {
       'Combo EAN Group': undefined
     }];
     log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Massive Products Upload Format');
+    this.exportAsExcelFileInternacional(emptyFile, 'Massive Products Upload Format');
   }
 
   /**
@@ -1756,6 +1769,13 @@ export class BulkLoadProductComponent implements OnInit {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
+  exportAsExcelFileInternacional(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Products': worksheet }, SheetNames: ['Products'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+    this.saveAsExcelFileInternacioanl(excelBuffer, excelFileName);
+  }
+
   /**
    * Método que permite generar el excel con los datos pasados.
    * @param {*} buffer
@@ -1763,6 +1783,13 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([this.s2ab(buffer)], {
+      type: ''
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  saveAsExcelFileInternacioanl(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
     });

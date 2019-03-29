@@ -73,7 +73,7 @@ export class BulkLoadProductService {
     por ello se compara directamente con el tipo de perfil*/
     if (this.profileTypeGlobal === 'Tienda') {
       return new Observable(observer => {
-        this.http.patch<any>(this.api.get('postSaveInformationModerationSeller'), params, { observe: 'response' })
+        this.http.post<any>(this.api.get('postSaveInformationModerationSeller'), params, { observe: 'response' })
           .subscribe(
             data => {
               observer.next(data);
@@ -109,18 +109,21 @@ export class BulkLoadProductService {
     // tslint:disable-next-line:prefer-const
     let params: any;
     // params = params.append('date', this.currentDate);
-
-    return new Observable(observer => {
-      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+    if (this.profileTypeGlobal === 'Tienda') {
+      return new Observable(null);
+    } else {
+      return new Observable(observer => {
+        this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
+          .subscribe(
+            data => {
+              observer.next(data);
+            },
+            error => {
+              observer.next(error);
+            }
+          );
+      });
+    }
   }
 
   /**
