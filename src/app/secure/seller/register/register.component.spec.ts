@@ -13,7 +13,22 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-
+export const registerRegex = {
+  phoneNumber: '',
+  contactName: '',
+  email: '',
+  nameStore: '',
+  nit: '',
+  rut: '',
+  internationalNit: '',
+  internationalRut: '',
+  internationalPostalCode: '',
+  payoneer: '',
+  internationalState: '',
+  internationalCity: '',
+  daneCode: '',
+  address: '',
+};
 
 fdescribe('RegisterSellerComponent', () => {
   // Mock Services
@@ -79,6 +94,13 @@ fdescribe('RegisterSellerComponent', () => {
   });
 
   describe('Admin login', () => {
-      
+      beforeEach(() => {
+        mockBasicInformationService.getRegexInformationBasic.and.returnValue(JSON.stringify({body: { body: { Data: registerRegex}}}));
+        component.ngOnInit();
+      });
+
+      it('sould be charge regex', () => {
+
+      });
   });
 });

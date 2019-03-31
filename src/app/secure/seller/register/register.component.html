@@ -125,6 +125,7 @@
                 <mat-form-field class="register" style="width:100% !important;">
                     <input matInput placeholder="Payoneer" [pattern]="sellerRegex.payoneer" maxlength="50" (blur)="validateExitPayoneerUser($event)"
                     [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'payoneer')" id="register-phone-number"
+                    formControlName="Payoneer"
                     required>
                 </mat-form-field>
               </div>

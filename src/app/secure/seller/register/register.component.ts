@@ -203,6 +203,7 @@ export class RegisterSellerComponent implements OnInit {
         trimField,
         Validators.pattern(this.sellerRegex.nameStore)
       ]),
+      Payoneer: new FormControl({value: '', disabled: this.isColombiaSelect}),
       IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
       IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
       GotoExito: new FormControl({ value: true, disabled: disabledForm }),
@@ -250,6 +251,8 @@ export class RegisterSellerComponent implements OnInit {
     this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalState)]));
     this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalCity)]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
+    this.Payoneer.enable();
+    this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
 
   validationsForColombiaSelectSellerForm() {
@@ -258,6 +261,7 @@ export class RegisterSellerComponent implements OnInit {
     this.State.setValidators(null);
     this.City.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
+    this.Payoneer.disable();
   }
 
   putColombiaByDefault() {
@@ -524,5 +528,8 @@ export class RegisterSellerComponent implements OnInit {
     return this.validateFormRegister.get('Name') as FormControl;
   }
 
+  get Payoneer(): FormControl {
+    return this.validateFormRegister.get('Payoneer') as FormControl;
+  }
 }
 
