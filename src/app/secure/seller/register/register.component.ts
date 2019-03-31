@@ -69,7 +69,6 @@ export class RegisterSellerComponent implements OnInit {
     address: '',
   };
 
-  dataSellerRegex;
   public values = '';
   public existValueInDB: boolean;
   public matcher: MyErrorStateMatcher;
@@ -99,7 +98,7 @@ export class RegisterSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private router: Router,
-    private payoneerService: PayoneerService,
+    // private payoneerService: PayoneerService,
     private regexService: BasicInformationService
   ) { }
 
@@ -122,7 +121,7 @@ export class RegisterSellerComponent implements OnInit {
     this.getProfile();
     this.userService.isAuthenticated(this);
     this.permissionComponent = this.authService.getMenu(registerName);
-    this.disabledComponent =!this.getFunctionality(this.create);
+    this.disabledComponent = !this.getFunctionality(this.create);
     this.initSellerForm(this.disabledComponent);
     this.matcher = new MyErrorStateMatcher();
     this.initAdminForm();
@@ -130,7 +129,7 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   getRegex() {
-    const param = ['productos', null];
+    const param = ['vendedores', null];
     this.regexService.getRegexInformationBasic(param).subscribe(res => {
         let dataSellerRegex = JSON.parse(res.body.body);
         dataSellerRegex = dataSellerRegex.Data.filter(data => data.Module === 'vendedores');
@@ -315,8 +314,11 @@ export class RegisterSellerComponent implements OnInit {
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
-    const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
+    const profile = !this.validateFormRegister.controls.Profile.value.includes('Tienda') ? `Tienda|${this.validateFormRegister.controls.Profile.value}` : this.validateFormRegister.controls.Profile.value;
     this.validateFormRegister.controls.Profile.setValue(profile);
+    this.City.setValue(this.City.value.toString().toUpperCase());
+    this.State.setValue(this.State.value.toString().toUpperCase());
+    console.log(this.validateFormRegister.value);
     this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
