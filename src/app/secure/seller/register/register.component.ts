@@ -214,10 +214,10 @@ export class RegisterSellerComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
-            const data = JSON.parse(result.body.body);
-            if (data.Data) {
+            const data = result && result.body && result.body.body && JSON.parse(result.body.body);
+            if (!!data && data.Data) {
               this.modalService.showModal('success');
-            } else if (!data.Data) {
+            } else if (!data || !data.Data) {
               this.modalService.showModal('error');
             }
           } else {
@@ -245,16 +245,15 @@ export class RegisterSellerComponent implements OnInit {
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
-            const data = JSON.parse(result.body.body);
-            if (data.Data) {
+            const data = result && result.body && result.body.body && JSON.parse(result.body.body);
+            if (!!data && data.Data) {
               this.modalService.showModal('success');
-            } else if (!data.Data) {
+            } else if (!data || !data.Data) {
               this.modalService.showModal('error');
             }
           } else {
             this.modalService.showModal('errorService');
           }
-
           this.disabledForService = false;
           this.loadingService.closeSpinner();
         }
