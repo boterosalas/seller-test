@@ -129,8 +129,7 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   getRegex() {
-    const param = ['vendedores', null];
-    this.regexService.getRegexInformationBasic(param).subscribe(res => {
+    this.regexService.getRegexInformationBasic(null).subscribe(res => {
         let dataSellerRegex = JSON.parse(res.body.body);
         dataSellerRegex = dataSellerRegex.Data.filter(data => data.Module === 'vendedores');
         for (const val in this.sellerRegex) {
