@@ -71,31 +71,33 @@ export class BulkLoadProductService {
   setProducts(params: {}): Observable<{}> {
     /* Tienda (Vendedores) Raramente la clase constantes crea una dependencia circular
     por ello se compara directamente con el tipo de perfil*/
-    if (this.profileTypeGlobal === 'Tienda') {
-      return new Observable(observer => {
-        this.http.post<any>(this.api.get('postSaveInformationModerationSeller'), params, { observe: 'response' })
-          .subscribe(
-            data => {
-              observer.next(data);
-            },
-            error => {
-              observer.next(error);
-            }
-          );
-      });
-    } else { // Exito (Administrador)
-      return new Observable(observer => {
-        this.http.patch<any>(this.api.get('postSaveInformationUnitCreation'), params, { observe: 'response' })
-          .subscribe(
-            data => {
-              observer.next(data);
-            },
-            error => {
-              observer.next(error);
-            }
-          );
-      });
-    }
+    return new Observable(observer => {
+      this.http.patch<any>(this.api.get('postSaveInformationUnitCreation'), params, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+  setProductsModeration(params: {}): Observable<{}> {
+    /* Tienda (Vendedores) Raramente la clase constantes crea una dependencia circular
+    por ello se compara directamente con el tipo de perfil*/
+    return new Observable(observer => {
+      this.http.post<any>(this.api.get('postSaveInformationModerationSeller'), params, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
   }
 
 
@@ -109,21 +111,17 @@ export class BulkLoadProductService {
     // tslint:disable-next-line:prefer-const
     let params: any;
     // params = params.append('date', this.currentDate);
-    if (this.profileTypeGlobal === 'Tienda') {
-      return new Observable(null);
-    } else {
-      return new Observable(observer => {
-        this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
-          .subscribe(
-            data => {
-              observer.next(data);
-            },
-            error => {
-              observer.next(error);
-            }
-          );
-      });
-    }
+    return new Observable(observer => {
+      this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
   }
 
   /**
