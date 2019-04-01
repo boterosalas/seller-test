@@ -35,7 +35,7 @@
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
                   <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="Nit"
-                    autocomplete="off" (blur)="validateExist($event, 'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
+                    autocomplete="off" (blur)="validateExist($event, 'Seller' ,'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
 
@@ -89,7 +89,7 @@
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
                   <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email" [errorStateMatcher]="matcher"
-                    (blur)="validateExist($event, 'Email')" id="register-email" (ngModelChange)="activeButton = false"
+                    (blur)="validateExist($event, 'Seller', 'Email')" id="register-email" (ngModelChange)="activeButton = false"
                     required>
                   <mat-hint></mat-hint>
 
@@ -157,7 +157,7 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Name', validateFormRegister.get('Name'))"
+                  <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Seller', 'Name', validateFormRegister.get('Name'))"
                     formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store" (ngModelChange)="activeButton = false"
                     required (change)="validateNameStorage(validateFormRegister.get('Name').value)">
                   <mat-hint></mat-hint>
@@ -269,17 +269,19 @@
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
                   <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="Nit"
-                    autocomplete="off" (blur)="validateExist($event, 'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
+                    autocomplete="off" (blur)="validateExist($event,'Admin' ,'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
-                  <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">
+                  <mat-error id="error-nit-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">
                     Este campo es requerido.</mat-error>
+                    <mat-error id="error-nit-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('validExistNitDB')">
+                      El nit ya existe.</mat-error>
                 </mat-form-field>
               </div>
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
                   <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email" [errorStateMatcher]="matcher"
-                    (blur)="validateExist($event, 'Email')" id="register-email" (ngModelChange)="activeButton = false"
+                    (blur)="validateExist($event,'Admin', 'Email')" id="register-email" (ngModelChange)="activeButton = false"
                     required>
                   <mat-hint></mat-hint>
 
@@ -296,7 +298,7 @@
               fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
               <div fxFlex="45%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput placeholder="Nombre" (blur)="validateExist($event, 'Name', validateFormRegisterAdmin.get('Name'))"
+                  <input matInput placeholder="Nombre" (blur)="validateExist($event, 'Admin' ,'Name', validateFormRegisterAdmin.get('Name'))"
                     formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store" (ngModelChange)="activeButton = false"
                     required (change)="validateNameStorage(validateFormRegisterAdmin.get('Name').value)">
                   <mat-hint></mat-hint>

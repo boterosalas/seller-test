@@ -266,7 +266,7 @@ export class RegisterSellerComponent implements OnInit {
    * @param {*} event
    * @memberof RegisterSellerComponent
    */
-  validateExist(event: any, param: string, name: any = '') {
+  validateExist(event: any, form: string, param: string, name: any = '') {
     this.activeButton = false;
     const jsonExistParam = event.target.value;
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null && (!name || (name && name.valid))) {
@@ -280,32 +280,23 @@ export class RegisterSellerComponent implements OnInit {
               this.existValueInDB = data_response.Data;
               switch (param) {
                 case 'Nit':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && form === 'Seller') {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
+                  } else if (this.existValueInDB && form === 'Admin') {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNitDB': data_response.Data });
                   }
                   break;
                 case 'Email':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && form === 'Seller') {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
+                  } else if (this.existValueInDB && form === 'Admin') {
+                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
                   }
                   break;
                 case 'Name':
-                  if (this.existValueInDB) {
+                  if (this.existValueInDB && form === 'Seller') {
                     this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
-                  }
-                  break;
-                case 'NameAdmin':
-                  if (this.existValueInDB) {
-                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
-                  }
-                  break;
-                case 'EmailAdmin':
-                  if (this.existValueInDB) {
-                    this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
-                  }
-                  break;
-                case 'NitAdmin':
-                  if (this.existValueInDB) {
+                  } else if (this.existValueInDB && form === 'Admin') {
                     this.validateFormRegisterAdmin.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
                   }
                   break;
