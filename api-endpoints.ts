@@ -240,7 +240,7 @@ export const endpoints = {
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
       // Servicio carga masiva moderación productos Seller
-      postSaveInformationModerationSeller: '',
+      postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
     }
   }
 };
