@@ -95,6 +95,7 @@ export class BulkLoadProductComponent implements OnInit {
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
   isAdmin: boolean;
+  profileTypeLoad: any;
 
 
   constructor(
@@ -166,6 +167,7 @@ export class BulkLoadProductComponent implements OnInit {
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
 
     this.authService.profileType$.pipe(distinctUntilChanged()).subscribe(type => {
+      this.profileTypeLoad = type;
       this.isAdmin = type !== 'Tienda';
       if (this.isAdmin) {
         this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
@@ -1336,7 +1338,8 @@ export class BulkLoadProductComponent implements OnInit {
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
     // call to the bulk load product service
-    this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
+    if (this.profileTypeLoad === 'Tienda') {
+      this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
@@ -1365,6 +1368,37 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
         }
       );
+    } else {
+      this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
+      .subscribe(
+        (result: any) => {
+          if (result.status === 201 || result.status === 200) {
+            const data = result;
+            if (data.body.data !== null && data.body.data !== undefined) {
+              if (data.body.successful !== 0 || data.body.error !== 0) {
+                // this.openDialogSendOrder(data);
+                this.progressStatus = false;
+                this.verifyStateCharge();
+                this.getAvaliableLoads();
+                // Validar que los errores existan para poder mostrar el modal.
+                if (result.body.data.error > 0) {
+                  this.openDialogSendOrder(data);
+                }
+              } else if (data.body.successful === 0 && data.body.error === 0) {
+                this.modalService.showModal('errorService');
+              }
+            } else {
+              this.modalService.showModal('errorService');
+            }
+
+          } else {
+            this.modalService.showModal('errorService');
+          }
+          this.resetVariableUploadFile();
+          this.loadingService.closeSpinner();
+        }
+      );
+    }
   }
 
   /*
