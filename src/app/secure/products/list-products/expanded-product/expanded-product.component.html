@@ -82,6 +82,18 @@
   </div>
 </div>
 
+<mat-expansion-panel hideToggle="true" class="ofert-expanded" *ngIf="offerPermission">
+  <mat-expansion-panel-header >
+    <mat-panel-title class="title-ofert" fxLayout="row" fxLayoutAlign="center center">
+      <mat-icon matPrefix>add</mat-icon>
+      <h3>
+        Agregar oferta
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <app-ofert-expanded-product [productsExpanded]="productsExpanded" *ngIf="applyOffer" class="ofertProductExpanded" [applyOffer]="applyOffer"></app-ofert-expanded-product>
+</mat-expansion-panel>
+
 <div class="expanded-information-product">
   <mat-tab-group>
     <mat-tab label="Descripción">
@@ -111,35 +123,35 @@
 </div>
 
 <div class="expanded-information-product2">
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Descripción
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-form-field>
-      <p class="description-product" [innerHtml]="productsExpanded.description"></p>
-      <input matInput placeholder="Age">
-    </mat-form-field>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Palabras claves
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
-      <mat-chip>{{keywords}}</mat-chip>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Especificaciones
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-      <span  *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Descripción
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field>
+        <p class="description-product" [innerHtml]="productsExpanded.description"></p>
+        <input matInput placeholder="Age">
+      </mat-form-field>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Palabras claves
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
+        <mat-chip>{{keywords}}</mat-chip>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Especificaciones
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
         No hay elementos de especificaciones.
       </span>
       <div class="container">
@@ -152,6 +164,6 @@
           </div>
         </div>
       </div>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

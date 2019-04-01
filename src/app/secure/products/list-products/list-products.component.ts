@@ -9,7 +9,7 @@ import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
 
 import { ReturnStatement } from '@angular/compiler';
-import { MenuModel, listProductsName, readFunctionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, listProductsName, readFunctionality, offerFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 
 export interface ListFilterProducts {
@@ -74,6 +74,8 @@ export class ListProductsComponent implements OnInit {
     productsProductExpanded: any = [];
     permissionComponent: MenuModel;
     read = readFunctionality;
+    offer = offerFuncionality;
+    offerPermission = false;
 
     constructor(
         private loadingService?: LoadingService,
@@ -89,6 +91,7 @@ export class ListProductsComponent implements OnInit {
         this.permissionComponent = this.authService.getMenu(listProductsName);
        // this.permissionComponent = this.authService.getMenu(listProductsNameAdmin);
         this.validateFormSupport();
+        this.offerPermission = this.getFunctionality(this.offer);
     }
 
     /*

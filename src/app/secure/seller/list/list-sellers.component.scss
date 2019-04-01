@@ -253,3 +253,25 @@ $color-primary: #3d5afe;
     display: flex;
   }
 }
+
+.flex-end-center {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: row !important;
+  }
+
+  & mat-icon {
+    margin-left: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.margin-top__15{
+  margin-top: 15px;
+}

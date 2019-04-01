@@ -14,6 +14,7 @@ import { FinishUploadProductInformationComponent, } from '../finish-upload-produ
 import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
 import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -83,12 +84,17 @@ export class BulkLoadProductComponent implements OnInit {
 
   public eanComboPosition = -1;
 
+  public iVal: any;
+
+  public showCharge: boolean;
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
+  isAdmin: boolean;
 
 
   constructor(
@@ -121,10 +127,12 @@ export class BulkLoadProductComponent implements OnInit {
   ngOnInit() {
     /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/
     this.permissionComponent = this.authService.getMenu(bulkLoadProductName);
-    if (this.getFunctionality(this.load)) {
-      this.getAvaliableLoads();
-    }
+    // if (this.getFunctionality(this.load)) {
+    //   this.getAvaliableLoads();
+    // }
+    this.getAvaliableLoads();
     this.verifyStateCharge();
+    this.getDataUser();
   }
 
   /**
@@ -139,6 +147,15 @@ export class BulkLoadProductComponent implements OnInit {
     return permission && permission.ShowFunctionality;
   }
 
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.showCharge = true;
+    } else {
+      this.showCharge = false;
+    }
+  }
+
   /**
    * @method getAvaliableLoads
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
@@ -147,20 +164,26 @@ export class BulkLoadProductComponent implements OnInit {
     /*Se muestra el loading*/
     // this.loadingService.viewSpinner();
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
-    this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
-      (result: any) => {
-        /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-        if (result.status === 200 && result.body.data) {
-          /*Se guardan los datos en una variable*/
-          this.dataAvaliableLoads = result.body.data;
-        } else {
-          /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
-          this.modalService.showModal('errorService');
-        }
-        /*Se oculta el loading*/
-        this.loadingService.closeSpinner();
+
+    this.authService.profileType$.pipe(distinctUntilChanged()).subscribe(type => {
+      this.isAdmin = type !== 'Tienda';
+      if (this.isAdmin) {
+        this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+          (result: any) => {
+            /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
+            if (result.status === 200 && result.body.data) {
+              /*Se guardan los datos en una variable*/
+              this.dataAvaliableLoads = result.body.data;
+            } else {
+              /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
+              this.modalService.showModal('errorService');
+            }
+            /*Se oculta el loading*/
+            this.loadingService.closeSpinner();
+          }
+        );
       }
-    );
+    });
   }
 
   /**
@@ -232,7 +255,7 @@ export class BulkLoadProductComponent implements OnInit {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          const ws: XLSX.WorkSheet = wb.Sheets['Productos'];
+          const ws: XLSX.WorkSheet = !!wb.Sheets['Productos'] ? wb.Sheets['Productos'] : wb.Sheets['Products'];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
@@ -261,10 +284,10 @@ export class BulkLoadProductComponent implements OnInit {
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
     */
-    if (this.dataAvaliableLoads.amountAvailableLoads <= 0) {
+    if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
-    } else if (this.dataAvaliableLoads.amountAvailableLoads > 0) {
+    } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
       * else el archino no tiene datos y no lo deja continuar*/
@@ -333,65 +356,113 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto')) {
-            /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
-            const iVal = {
-              iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-              iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
-              iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
-              iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
-              iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
-              iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
-              iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
-              iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
-              iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
-              iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
-              iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
-              ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
-              iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
-              iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
-              iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
-              iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
-              iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
-              iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
-              iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
-              iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
-              iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Tipo de Producto'),
-              iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
-              iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
-              iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
-              iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
-              iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
-              iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-              iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-              iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
-              iSize: this.arrayNecessaryData[0].indexOf('Talla'),
-              iColor: this.arrayNecessaryData[0].indexOf('Color'),
-              iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
-              iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-              iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-              iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
-              iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
-              iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
-              iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
-            };
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
+            if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
+              this.iVal = {
+                iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
+                iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
+                iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
+                iModelo: this.arrayNecessaryData[0].indexOf('Model'),
+                iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
+                iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
+                iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
+                iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
+                iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
+                iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
+                ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
+                iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
+                iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
+                iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
+                iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
+                iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
+                iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
+                iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Product Type'),
+                iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
+                iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
+                iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
+                iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
+                iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
+                iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                iSize: this.arrayNecessaryData[0].indexOf('Size'),
+                iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
+                iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
+                iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
+                iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
+              };
+              // this.eanComboPosition = this.iVal.iEanCombo;
+            } else {
+              /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
+              this.iVal = {
+                iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
+                iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
+                iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
+                iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
+                iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
+                iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
+                iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
+                iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
+                iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
+                iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
+                ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
+                iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
+                iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
+                iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
+                iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
+                iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
+                iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
+                iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Tipo de Producto'),
+                iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
+                iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
+                iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
+                iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
+                iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
+                iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                iSize: this.arrayNecessaryData[0].indexOf('Talla'),
+                iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+                iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+                iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
+                iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
+              };
+            }
+            this.eanComboPosition = this.iVal.iEanCombo;
 
-            this.eanComboPosition = iVal.iEanCombo;
-
-            /*
+            if (this.isAdmin) {
+              /*
             * if si el número de registros es mayor al número de cargas permitidas no lo deja continuar
             * else if si el número de registros es mayor al maximo de cargas permitidas no lo deja continuar
             * else se obtiene el nombre del archivo y se llama la funcion de crear tabla
             */
-            if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
-              this.loadingService.closeSpinner();
-              this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
-            } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
-              this.loadingService.closeSpinner();
-              this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+              if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
+                this.loadingService.closeSpinner();
+                this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+              } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
+                this.loadingService.closeSpinner();
+                this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+              } else {
+                this.fileName = file.target.files[0].name;
+                this.createTable(this.arrayNecessaryData, this.iVal, numCol);
+              }
             } else {
               this.fileName = file.target.files[0].name;
-              this.createTable(this.arrayNecessaryData, iVal, numCol);
+              this.createTable(this.arrayNecessaryData, this.iVal, numCol);
             }
           } else {
             this.loadingService.closeSpinner();
@@ -789,7 +860,7 @@ export class BulkLoadProductComponent implements OnInit {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+                this.componentService.openSnackBar('Se ha presentado un error al cargar la información 88', 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
@@ -1641,6 +1712,50 @@ export class BulkLoadProductComponent implements OnInit {
     this.exportAsExcelFile(emptyFile, 'Formato de Carga Masiva de Productos');
   }
 
+
+  /**
+   * Método para descargar el formato de excel para carga masiva de productos internaciona
+   *
+   * @memberof BulkLoadProductComponent
+   */
+  downloadFormatMassiveOfferLoadinternacional() {
+    const emptyFile = [{
+      'EAN': undefined,
+      'Product Name': undefined,
+      'Category': undefined,
+      'Brand': undefined,
+      'Model': undefined,
+      'Product Details': undefined,
+      'Description': undefined,
+      'Meta Title': undefined,
+      'Meta Description': undefined,
+      'Keywords': undefined,
+      'Package Height': undefined,
+      'Package Lenght': undefined,
+      'Package Width': undefined,
+      'Package Weight': undefined,
+      'skuShippingsize': undefined,
+      'Item Height': undefined,
+      'Item Leght': undefined,
+      'Item Width': undefined,
+      'Item Weight': undefined,
+      'Seller': undefined,
+      'Product Type': undefined,
+      'Image URL 1': undefined,
+      'Image URL 2': undefined,
+      'Image URL 3': undefined,
+      'Image URL 4': undefined,
+      'Image URL 5': undefined,
+      'Image Modification': undefined,
+      'Measuring Unit': undefined,
+      'Conversion Factor': undefined,
+      'Drained Factor': undefined,
+      'Combo EAN Group': undefined
+    }];
+    log.info(emptyFile);
+    this.exportAsExcelFileInternacional(emptyFile, 'Massive Products Upload Format');
+  }
+
   /**
    * Método que genera el dato json en el formato que emplea excel para.
    * @param {any[]} json
@@ -1654,6 +1769,13 @@ export class BulkLoadProductComponent implements OnInit {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
+  exportAsExcelFileInternacional(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Products': worksheet }, SheetNames: ['Products'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+    this.saveAsExcelFileInternacioanl(excelBuffer, excelFileName);
+  }
+
   /**
    * Método que permite generar el excel con los datos pasados.
    * @param {*} buffer
@@ -1661,6 +1783,13 @@ export class BulkLoadProductComponent implements OnInit {
    * @memberof BulkLoadProductComponent
    */
   saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([this.s2ab(buffer)], {
+      type: ''
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  saveAsExcelFileInternacioanl(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
     });

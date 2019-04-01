@@ -64,6 +64,7 @@ export const endpoints = {
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
       updateSeller: 'https://tyss52sgm6.execute-api.us-east-1.amazonaws.com/UpdateSeller',
       changeStatusSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/SetSellerAvaibality',
+      cancelVacationSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/CancelVacation',
       // Validar ean
       getValidateEan: 'https://g5a9j4ahbd.execute-api.us-east-1.amazonaws.com/Products/',
       // Dashboard
@@ -98,6 +99,8 @@ export const endpoints = {
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
+      // Obtener los datos del vendedor
+      getSellerData: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetSellerData',
       // Obtener todos los perfiles.
       getAllProfiles: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetAllProfiles',
       // Agregar perfiles.
@@ -118,6 +121,8 @@ export const endpoints = {
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
       // Payoneer
       payoneer: 'https://api.sandbox.payoneer.com/v2/programs/100101100',
+      // Servicio carga masiva moderación productos Seller
+      postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
     },
   },
   // Endpoints production
@@ -181,6 +186,7 @@ export const endpoints = {
       getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
       updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
       changeStatusSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/SetSellerAvaibality',
+      cancelVacationSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/CancelVacation',
       // Validar ean
       getValidateEan: 'https://0ly35c82pa.execute-api.us-east-1.amazonaws.com/products-pdn/',
       // Dashboard
@@ -215,6 +221,8 @@ export const endpoints = {
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
+      // Obtener los datos del vendedor
+      getSellerData: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       // Obtener todos los perfiles.
       getAllProfiles: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetAllProfiles',
       // Agregar perfiles.
@@ -235,6 +243,8 @@ export const endpoints = {
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
       // Payoneer
       payoneer: 'https://api.payoneer.com/v2/programs/100101100',
+      // Servicio carga masiva moderación productos Seller
+      postSaveInformationModerationSeller: '',
     }
   }
 };
