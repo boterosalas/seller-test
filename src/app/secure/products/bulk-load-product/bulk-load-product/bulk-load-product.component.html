@@ -113,8 +113,8 @@
     <div [@detailExpand] class="orders-no-data" *ngIf="countRowUpload == 0">
       <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
         class="content-icon-no-data">
-        <mat-icon id="icon-cloud-upload-file" (click)="dataAvaliableLoads ? fileUploadOption.click() : ''"
-          [class.no-data-avaliable]="!dataAvaliableLoads" class="icon-not-found" color="primary">backup
+        <mat-icon id="icon-cloud-upload-file" (click)="fileUploadOption.click()"
+          [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" class="icon-not-found" color="primary">backup
         </mat-icon>
       </div>
       <div class="content-information-no-data">
