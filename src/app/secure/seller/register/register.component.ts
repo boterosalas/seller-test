@@ -254,7 +254,6 @@ export class RegisterSellerComponent implements OnInit {
           } else {
             this.modalService.showModal('errorService');
           }
-
           this.disabledForService = false;
           this.loadingService.closeSpinner();
         }
