@@ -7,8 +7,8 @@
 
         <div class="normal-theme toolbar-options-table">
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
-            <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="sc-title title-toolbar"
-              [innerHTML]="'CARGA MASIVA DE PRODUCTOS'"></h3>
+            <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+              class="sc-title title-toolbar" [innerHTML]="'CARGA MASIVA DE PRODUCTOS'"></h3>
           </div>
 
           <!-- Paginación de la tabla -->
@@ -16,8 +16,8 @@
             fXLayout="row wrap" fxLayoutAlign="center center">
 
             <!-- Input para subir archivo Excel -->
-            <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoadinternacional()"
-              mat-button>
+            <a download class="sc-default-button" id="download-file-button"
+              (click)="downloadFormatMassiveOfferLoadinternacional()" mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
               DOWNLOAD FORMAT
             </a>
@@ -30,7 +30,8 @@
 
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
-              multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              multiple="false"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-button>
@@ -40,9 +41,10 @@
 
           </div>
 
-          <div fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false" class="center-product-list"
-            fxFlex="130px">
-            <button id="dropdown-options-load-guide" class="button-toolbar" mat-button [matMenuTriggerFor]="toolbarOptions">
+          <div fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false"
+            class="center-product-list" fxFlex="130px">
+            <button id="dropdown-options-load-guide" class="button-toolbar" mat-button
+              [matMenuTriggerFor]="toolbarOptions">
               <span>Opciones</span>
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -56,8 +58,8 @@
                 mat-menu-item>
                 <span>Limpiar datos actuales</span>
               </button>
-              <button id="send-guide-button" (click)="sendJsonInformation()" [disabled]="countErrors != 0 || countRowUpload == 0"
-                color="accent" mat-menu-item>Enviar registro
+              <button id="send-guide-button" (click)="sendJsonInformation()"
+                [disabled]="countErrors != 0 || countRowUpload == 0" color="accent" mat-menu-item>Enviar registro
               </button>
             </mat-menu>
           </div>
@@ -86,14 +88,19 @@
 
   <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="70" fxFlex.lg="60" fxFlex.xl="60" class="content-table-orders">
     <div *ngIf="showCharge === false">
-      <aside class="flexbox align-center justify-center orders-no-data" *ngIf="countRowUpload == 0 && dataAvaliableLoads">
+      <aside class="flexbox align-center justify-center orders-no-data"
+        *ngIf="countRowUpload == 0 && dataAvaliableLoads">
         <div class="flexbox align-center justify-center">
           <mat-icon>get_app</mat-icon>
-          <p [innerHTML]="'Cargas permitidas por día: <strong>' + dataAvaliableLoads.maximumAmountAvailableLoads + '</strong>'"></p>
+          <p
+            [innerHTML]="'Cargas permitidas por día: <strong>' + dataAvaliableLoads.maximumAmountAvailableLoads + '</strong>'">
+          </p>
         </div>
         <div class="flexbox align-center justify-center">
           <mat-icon>check_circle</mat-icon>
-          <p [innerHTML]="'Cargas éxitosas realizadas hoy: <strong>' + dataAvaliableLoads.amountSuccessfulLoads + '</strong>'"></p>
+          <p
+            [innerHTML]="'Cargas éxitosas realizadas hoy: <strong>' + dataAvaliableLoads.amountSuccessfulLoads + '</strong>'">
+          </p>
         </div>
         <div class="flexbox align-center justify-center">
           <mat-icon>priority_hight</mat-icon>
@@ -104,19 +111,23 @@
 
 
     <div [@detailExpand] class="orders-no-data" *ngIf="countRowUpload == 0">
-      <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="content-icon-no-data">
+      <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+        class="content-icon-no-data">
         <mat-icon id="icon-cloud-upload-file" (click)="dataAvaliableLoads ? fileUploadOption.click() : ''"
           [class.no-data-avaliable]="!dataAvaliableLoads" class="icon-not-found" color="primary">backup
         </mat-icon>
       </div>
       <div class="content-information-no-data">
         <p>Para importar archivos al Seller Center, primero debes
-          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()" class="link-text">Descargar
+          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
+            class="link-text">Descargar
             el formato
-          </a>, en este archivo podrás cargar productos
+          </a> <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoadinternacional()"
+            class="link-text">(Download format)</a>, en este archivo podrás cargar productos
         </p>
         <p>
-          <span class="link-text" id="upload-file-guide-button" (click)="dataAvaliableLoads ? fileUploadOption.click() : ''"
+          <span class="link-text" id="upload-file-guide-button"
+            (click)="dataAvaliableLoads ? fileUploadOption.click() : ''"
             [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">Selecciona el archivo</span>
           que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
 
