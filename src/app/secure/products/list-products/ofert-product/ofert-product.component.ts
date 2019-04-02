@@ -96,6 +96,8 @@ export class OfertExpandedProductComponent implements OnInit {
         this.applyOffer.eanesCombos.forEach((element: any) => {
             this.addItem(element.nameCombo, element.ean);
         });
+        this.ofertProduct.controls.IsUpdatedStock.disable();
+        this.disableUpdate();
     }
 
 
@@ -128,6 +130,21 @@ export class OfertExpandedProductComponent implements OnInit {
         return this.ofertProduct.get('Combos') as FormArray;
     }
 
+    /**
+     * Funcion para activar o desactivar toogle de actualizar inventario
+     *
+     * @memberof OfertExpandedProductComponent
+     */
+    public disableUpdate(): void {
+        this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
+            if (val === 'IsLogisticsExito') {
+                this.ofertProduct.controls.IsUpdatedStock.enable();
+            } else {
+                this.ofertProduct.controls.IsUpdatedStock.setValue(false);
+                this.ofertProduct.controls.IsUpdatedStock.disable();
+            }
+        });
+    }
 
     /**
      * Obtiene el precio de descuento si tiene ean combos.
@@ -163,9 +180,9 @@ export class OfertExpandedProductComponent implements OnInit {
     getVerifyPrice(showErrors: boolean = true, total?: number) {
         let errors = true;
         if (this.ofertProduct.controls.DiscountPrice.value) {
-            if (this.ofertProduct.controls.DiscountPrice.value && this.ofertProduct.controls.DiscountPrice.value >= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value && parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= 8000) {
                 errors = false;
-                if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+                if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                     if (showErrors) {
                         this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
                             duration: 3000,

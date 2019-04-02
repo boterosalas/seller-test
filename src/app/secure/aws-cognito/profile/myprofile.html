@@ -55,7 +55,7 @@
 <ng-template #dialogTemplate>
     <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
         <mat-form-field class="half-width">
-            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
             <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
             <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
         </mat-form-field>
