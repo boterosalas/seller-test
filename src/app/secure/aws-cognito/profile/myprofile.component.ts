@@ -28,7 +28,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     isInVacation: boolean;
     isAdmin: boolean;
     vacationForm: FormGroup;
-    tomorrow = DateService.getTomorrowDate();
+    today = DateService.getToday();
     role: string;
     @ViewChild('dialogTemplate') content: TemplateRef<any>;
     @ViewChild('intialPicker') initialPicker;
@@ -230,9 +230,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Metodo que actualiza la información de las vacaciones programadas para reProgramar las vacaciones
      */
     setVacationForm() {
-        const startDate = DateService.getDateFormatToShow(this.user.StartVacations);
         const endDate = DateService.getDateFormatToShow(this.user.EndVacations);
-        this.startDateVacation.setValue(DateService.stringToDate(startDate));
+        this.startDateVacation.setValue(this.today);
         this.endDateVacation.setValue(DateService.stringToDate(endDate));
     }
 

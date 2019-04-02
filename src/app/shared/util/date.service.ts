@@ -22,4 +22,9 @@ export class DateService {
         const tomorrow =  moment().utc().add(1, 'days').format('DD/MM/YYYY');
         return this.stringToDate(tomorrow);
     }
+
+    static getToday(): Date {
+        const tomorrow =  moment().utc().format('DD/MM/YYYY');
+        return this.stringToDate(tomorrow);
+    }
 }

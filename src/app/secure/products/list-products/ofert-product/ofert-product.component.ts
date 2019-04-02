@@ -137,11 +137,9 @@ export class OfertExpandedProductComponent implements OnInit {
      */
     public disableUpdate(): void {
         this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
-            console.log(val);
             if (val === 'IsLogisticsExito') {
                 this.ofertProduct.controls.IsUpdatedStock.enable();
             } else {
-                console.log('false', val);
                 this.ofertProduct.controls.IsUpdatedStock.setValue(false);
                 this.ofertProduct.controls.IsUpdatedStock.disable();
             }

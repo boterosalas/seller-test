@@ -84,7 +84,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canVisualize: boolean;
     canPutInVacation: boolean;
     canCancelVacation: boolean;
-    tomorrow = DateService.getTomorrowDate();
+    tomorrow = DateService.getToday();
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -376,6 +376,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.needFormStates$.next({posSeller: index, status: status.toString()});
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
+        !!this.startDateVacation.value && this.startDateVacation.setValue(this.tomorrow);
+        !!this.endDateVacation && this.endDateVacation.setValue(DateService.stringToDate(this.sellerList[index].EndVacations));
         form = this.statusForm;
         return {title, message, icon, form, messageCenter};
     }
