@@ -84,7 +84,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canVisualize: boolean;
     canPutInVacation: boolean;
     canCancelVacation: boolean;
-    tomorrow = DateService.getTomorrowDate();
+    today = DateService.getToday();
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -371,11 +371,13 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.needFormStates$.next({posSeller: index, status: status.toString()});
         } else if (status === 'vacation' && sellerData.Status !== 'Disable' && this.canPutInVacation) {
             title = 'Vacaciones';
-            message = 'Para programar la tienda en estado de vacaciones debes ingresar una fecha inicial y una fecha final para el periodo, y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+            message = 'Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
             icon = 'local_airport';
             this.needFormStates$.next({posSeller: index, status: status.toString()});
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
+        !!this.startDateVacation.value && this.startDateVacation.setValue(this.today);
+        !!this.endDateVacation && this.endDateVacation.setValue(DateService.stringToDate(this.sellerList[index].EndVacations));
         form = this.statusForm;
         return {title, message, icon, form, messageCenter};
     }

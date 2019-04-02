@@ -12,7 +12,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (keyup)="getVerifyPrice()">
+        <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">Precio inválido</mat-error>
         <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">Precio es campo obligatorio</mat-error>
@@ -24,7 +24,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput placeholder="Precio con descuento" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (keyup)="getVerifyPrice()">
+        <input matInput placeholder="Precio con descuento" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">Precio con descuento inválido</mat-error>
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">

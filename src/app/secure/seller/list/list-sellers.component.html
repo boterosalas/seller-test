@@ -163,7 +163,7 @@
                     id="btn-vacation-seller" 
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
-                    [disabled]=" !seller.Status || seller.Status == 'Vacations' || seller.Status == 'Disable'">
+                    [disabled]=" !seller.Status || seller.Status == 'Disable'">
                       <mat-icon aria-label="vacation status of seller">
                         local_airport
                       </mat-icon>
@@ -201,7 +201,7 @@
       <br/>
     <form [formGroup]="statusForm" class="full-width space-between margin-top__15">
       <mat-form-field class="half-width">
-        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
         <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
       </mat-form-field>
