@@ -244,7 +244,7 @@ export const endpoints = {
       // Payoneer
       payoneer: 'https://api.payoneer.com/v2/programs/100101100',
       // Servicio carga masiva moderación productos Seller
-      postSaveInformationModerationSeller: '',
+      postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
     }
   }
 };
