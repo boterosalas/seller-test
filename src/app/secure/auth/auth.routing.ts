@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Modules, ModuleModel, MenuModel, ProfileTypes } from './auth.consts';
 import { UserParametersService, UserLoginService, EndpointService } from '@app/core';
 import { RoutesConst } from '@app/shared';
@@ -18,7 +18,12 @@ export class AuthService implements CanActivate {
     getData = false;
     profileTypeGlobal = null;
 
+    // Modulos habilitados del usuario logeado
     availableModules;
+
+    // Subject que devuelve los modulos habiitados
+    availableModules$ = new BehaviorSubject(null);
+    profileType$ = new BehaviorSubject(null);
 
     constructor(public userParams: UserParametersService,
         public router: Router,
@@ -111,7 +116,9 @@ export class AuthService implements CanActivate {
                         if (data.Data && data.Data.Profile) {
                             const profileTye = data.Data.Profile.ProfileType;
                             this.profileTypeGlobal = profileTye;
+                            this.profileType$.next(this.profileTypeGlobal);
                             this.availableModules = data.Data.Profile.Modules;
+                            this.availableModules$.next(this.availableModules);
                             data.Data.Profile.Modules.forEach(moduleItem => {
                                 this.modulesRouting.forEach(item => {
                                     let showModule = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { ListProductService } from '../list-products.service';
 import { LoadingService } from '@app/core';
@@ -13,10 +13,11 @@ const log = new Logger('ComboProductComponent');
   templateUrl: 'comboProduct.component.html',
   styleUrls: ['comboProduct.component.scss'],
 })
-export class ComboProductComponent implements OnInit, OnChanges {
+export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   // productsList: any;
   @Input() productsList: any;
   @Input() showProducts: boolean;
+  @Input() offerPermission: boolean;
 
   public productsExpanded: any;
   public showImage = false;
@@ -28,7 +29,18 @@ export class ComboProductComponent implements OnInit, OnChanges {
     private loadingService?: LoadingService
 
   ) { }
+
   ngOnInit() {
+    // Esto se ejecuta cuando alguien cambia el change del servicio
+    this.productsService.change.subscribe(data => {
+      if (!data) {
+        this.backTolist();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.productsService.change.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

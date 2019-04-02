@@ -141,10 +141,13 @@ export const createFunctionality = 'Crear';
 export const visualizeFunctionality = 'Visualizar';
 export const enableFunctionality = 'Habilitar';
 export const disableFunctionality = 'Deshabilitar';
+export const vacationFunctionality = 'Vacaciones';
+export const cancelVacacionFunctionality = 'Cancelar Vacaciones';
 export const deleteFunctionality = 'Eliminar';
 export const attachmentFunctionality = 'Adjuntar';
 export const sendFunctionality = 'Enviar';
 export const marketFuncionality = 'Marcar';
+export const offerFuncionality = 'Ofertar';
 export const idSended = '170';
 export const idToSend = '35';
 
@@ -231,9 +234,10 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * Modulo de productos que posee menus:
  * 1. Creación unitaria.
  * 2. Carga masiva de productos.
- * 3. Moderación.
- * 4. Listado de productos Admin
- * 5. Listado de productos Seller
+ * 3. Carga masiva Moderacion Seller Internacional
+ * 4. Moderación.
+ * 5. Listado de productos Admin
+ * 6. Listado de productos Seller
  */
 export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos';
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
@@ -241,22 +245,27 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear
     ], RoutesConst.sellerCenterIntCreateUnutaryProduct),
-    // 2. Carga masiva de productos.
+    // 2. Carga masiva de productos administrador.
     new MenuModel(bulkLoadProductName, showAll, bulkLoadProductName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterIntProductBulkLoad),
-    // 3. Moderación.
+    // 3. Carga masiva de productos vendedor.
+    new MenuModel(bulkLoadProductName, showAll, bulkLoadProductName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
+    ], RoutesConst.sellerCenterIntProductBulkLoad),
+    // 4. Moderación.
     new MenuModel(moderateName, showAll, moderateName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterProductModerationBulkLoad),
-    // 4. Listado de productos. (Tipo vendedor)
+    // 5. Listado de productos. (Tipo vendedor)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(offerFuncionality, showAll, offerFuncionality), // Ofertar
     ], RoutesConst.sellerCenterIntListProducts),
-    // 5. Listado de productos. (Tipo administrador)
+    // 6. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-    ], RoutesConst.sellerCenterIntListProducts),
+    ], RoutesConst.sellerCenterIntListProducts)
 ]);
 
 /**
@@ -310,7 +319,9 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
         new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
-        new FunctionalitiesModel(disableFunctionality, showAll, disableFunctionality) // Deshabilitar
+        new FunctionalitiesModel(disableFunctionality, showAll, disableFunctionality), // Deshabilitar
+        new FunctionalitiesModel(vacationFunctionality, showAll, vacationFunctionality), // vacaciones
+        new FunctionalitiesModel(cancelVacacionFunctionality, showAll, cancelVacacionFunctionality) // Cancelar vacaciones
     ], RoutesConst.sellerCenterIntSellerList),
 ]);
 

@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CognitoUtil, EndpointService } from '@app/core';
-import { defaultVersion, endpoints } from '@root/api-endpoints';
+import { EndpointService } from '@app/core';
 import { Observable, of } from 'rxjs';
 
 
@@ -11,13 +10,14 @@ export class BulkLoadProductService {
   public idToken: any;
   public headers: any;
   public currentDate: any;
-
+  public seller: any;
+  public profileTypeGlobal: string;
   constructor(
     private http: HttpClient,
-    public cognitoUtil: CognitoUtil,
-    private api: EndpointService
+    private api: EndpointService,
   ) {
     this.currentDate = this.getDate();
+    this.getTypeUser();
   }
 
   /**
@@ -44,6 +44,24 @@ export class BulkLoadProductService {
     return today;
   }
 
+  // Obtiene el tipo de perfil
+  public getTypeUser(): void {
+    if (!this.profileTypeGlobal) {
+      this.http.get(this.api.get('getPermissions')).subscribe((result: any) => {
+        if (result.body) {
+          const data = JSON.parse(result.body);
+          if (data.Data && data.Data.Profile) {
+            const profileTye = data.Data.Profile.ProfileType;
+            this.profileTypeGlobal = profileTye;
+          }
+        }
+      }, error => {
+        this.profileTypeGlobal = null;
+        console.error(error);
+      });
+    }
+  }
+
   /**
    * Método para cerrar sesión.
    *
@@ -51,6 +69,8 @@ export class BulkLoadProductService {
    * @memberof BulkLoadProductService
    */
   setProducts(params: {}): Observable<{}> {
+    /* Tienda (Vendedores) Raramente la clase constantes crea una dependencia circular
+    por ello se compara directamente con el tipo de perfil*/
     return new Observable(observer => {
       this.http.patch<any>(this.api.get('postSaveInformationUnitCreation'), params, { observe: 'response' })
         .subscribe(
@@ -64,6 +84,23 @@ export class BulkLoadProductService {
     });
   }
 
+  setProductsModeration(params: {}): Observable<{}> {
+    /* Tienda (Vendedores) Raramente la clase constantes crea una dependencia circular
+    por ello se compara directamente con el tipo de perfil*/
+    return new Observable(observer => {
+      this.http.post<any>(this.api.get('postSaveInformationModerationSeller'), params, { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+  }
+
+
   /**
    * @method getAmountAvailableLoads()
    * @returns {Observable}
@@ -74,7 +111,6 @@ export class BulkLoadProductService {
     // tslint:disable-next-line:prefer-const
     let params: any;
     // params = params.append('date', this.currentDate);
-
     return new Observable(observer => {
       this.http.get<any>(this.api.get('products', [this.currentDate]), { observe: 'response' })
         .subscribe(
@@ -96,32 +132,32 @@ export class BulkLoadProductService {
 
   getCargasMasivas(): Observable<{}> {
     return new Observable(observer => {
-       this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
-         .subscribe(
-           data => {
-             observer.next(data);
-           },
-           error => {
-             observer.next(error);
-           }
-         );
-     });
-
-/*
-    return of(
-      {
-        body: {
-          'errors': [],
-          'data': {
-            'idSeller': 1,
-            'status': 3,
-            'response': '{\"TotalProcess\":1,\"Error\":1,\"Successful\":0,\"FileName\":\"\",\"ProductNotify\":[{\"Ean\":\"5555255555555\",\"Message\":\"Categoría no existe.\"}]}',
-            'checked': 'false'
+      this.http.get<any>(this.api.get('getStateOfCharge'), { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
           },
-          'message': 'Operación realizada éxitosamente.'
-        }
-      }
-    );*/
+          error => {
+            observer.next(error);
+          }
+        );
+    });
+
+    /*
+        return of(
+          {
+            body: {
+              'errors': [],
+              'data': {
+                'idSeller': 1,
+                'status': 3,
+                'response': '{\"TotalProcess\":1,\"Error\":1,\"Successful\":0,\"FileName\":\"\",\"ProductNotify\":[{\"Ean\":\"5555255555555\",\"Message\":\"Categoría no existe.\"}]}',
+                'checked': 'false'
+              },
+              'message': 'Operación realizada éxitosamente.'
+            }
+          }
+        );*/
 
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
+import { UserInformation } from '@app/shared';
+import { UserParametersService } from '@app/core';
 
 const log = new Logger('ExpandedProductComponent');
 
@@ -11,24 +13,37 @@ const log = new Logger('ExpandedProductComponent');
 export class ExpandedProductComponent implements OnInit {
 
     @Input() productsExpanded: any;
+    @Input() offerPermission: boolean;
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
     public images = [];
     public listKeywords = [];
 
+    public applyOffer: any;
+
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
     imageLength: number;
-    constructor(
-    ) {
-        /* creo el arreglo con las variables en JSon */
+    public user: UserInformation;
+    public showOfer: boolean;
 
-        /* asigno la 1 imagen grande del arreglo */
-    }
+    constructor(
+        private userParams?: UserParametersService,
+
+    ) {}
 
 
     ngOnInit() {
         this.createArrayImages();
+        this.applyOffert();
+        this.getDataUser();
+    }
+
+    async getDataUser() {
+        this.user = await this.userParams.getUserData();
+        if (this.user.sellerProfile === 'seller') {
+            this.showOfer = false;
+        }
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
@@ -49,6 +64,7 @@ export class ExpandedProductComponent implements OnInit {
         this.imageLength = this.images.length;
     }
 
-    changeHtmlToString(): void {
+    applyOffert(): void {
+        this.applyOffer = this.productsExpanded;
     }
 }

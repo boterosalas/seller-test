@@ -231,7 +231,6 @@ export class BulkLoadComponent implements OnInit {
             priceDiscountIndex = j;
           }
 
-
         }
 
         if (i) {
@@ -337,6 +336,7 @@ export class BulkLoadComponent implements OnInit {
           console.error('El precio del producto no es un numero', e);
         }
       }
+      // si viene vacio o alguna letra lo convierte a numero 0 para queno explote.
       if (!element.totalPrice) {
         element.totalPrice = 0;
       }

@@ -8,13 +8,16 @@ import { JwtComponent } from './jwttokens/jwt.component';
 import { SecureHomeComponent } from './landing/securehome.component';
 import { MyProfileComponent } from './profile/myprofile.component';
 import { UseractivityComponent } from './useractivity/useractivity.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MyProfileService } from './profile/myprofile.service';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    AwsCognitoRoutingModule
+    AwsCognitoRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [
     UseractivityComponent,
@@ -24,7 +27,8 @@ import { UseractivityComponent } from './useractivity/useractivity.component';
   ],
   exports: [],
   providers: [
-    MyProfileComponent
+    MyProfileComponent,
+    MyProfileService
   ],
 })
 export class AwsCognitoModule {
