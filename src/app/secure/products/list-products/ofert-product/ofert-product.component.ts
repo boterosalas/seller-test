@@ -308,7 +308,7 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
     public sendArray() {
-        if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+        if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
             this.showButton = true;
         } else {
             this.showButton = false;
