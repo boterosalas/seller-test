@@ -773,6 +773,7 @@ export class BulkLoadComponent implements OnInit {
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     const formatNumber = /^[0-9]+$/;
+    const eanRegex = /^([A-Za-z0-9]{0,16})$/;
     const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -783,7 +784,11 @@ export class BulkLoadComponent implements OnInit {
           if ((inputtxt.match(formatNumber))) {
             valueReturn = true;
           } else {
-            valueReturn = false;
+            if ((inputtxt.match(eanRegex))) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
           }
           break;
         case 'boolean':
