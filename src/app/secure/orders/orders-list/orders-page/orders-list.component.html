@@ -100,7 +100,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
             fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xl="250px" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.dateMaxDeliveryOrder | date}} </p>
+            <p class="sc-date-content-table">{{getDateWithOutGMT(element.dateMaxDeliveryOrder) | date}} </p>
           </mat-cell>
         </ng-container>
 
