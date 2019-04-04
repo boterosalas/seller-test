@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RegisterSellerComponent } from './register.component';
 import { MaterialModule } from '@app/material.module';
 import { RegisterService } from './register.service';
@@ -55,6 +55,7 @@ fdescribe('RegisterSellerComponent', () => {
   // Components and fixtures
   let component: RegisterSellerComponent;
   let fixture: ComponentFixture<RegisterSellerComponent>;
+  let spyValidateNotColombia;
 
   // Services
   let cityService: CitiesServices;
@@ -159,19 +160,250 @@ fdescribe('RegisterSellerComponent', () => {
 
     describe('is Colombian Select', () => {
       beforeEach(() => {
+        component.ngOnInit();
         component.isColombiaSelect = true;
         fixture.detectChanges();
       });
 
-      it('should be fail nit with number', () => {
+      it('should be pass nit with number', () => {
         const nitField = fixture.debugElement.query(By.css('#register-nit'));
         expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('Should be fail nit with characters', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123kkcld4533';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
+
+      it('Should be pass Nit with length <= 20', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '12345674530987432345';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('Should be fail Nit with length > 20', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123456745323459875431';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
+
+      it('should be pass nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('should be fail nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
+
+      it('Should be pass rut with numbers', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutFieldElement = rutField.nativeElement;
+        rutFieldElement.value = '123456789';
+        rutFieldElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('Should be fail rut with characters', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeelement = rutField.nativeElement;
+        rutNativeelement.value = '13245lakjdfasdf';
+        rutNativeelement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
+
+      it('Should be pass Rut with length <= 20', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '12345674530987432345';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('Should be fail Rut with length > 20', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '123456745323459875431';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
+
+      it('should be pass Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '1234567453';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('should be fail Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
       });
     });
 
     describe('is not Colombia Select', () => {
       beforeEach(() => {
+        component.ngOnInit();
+        spyValidateNotColombia = spyOn(component, 'validationsForNotColombiaSelectSellerForm');
+        component.Country.setValue('CHINA');
+        fixture.detectChanges();
+      });
 
+      it('Should be call validationsForNotColombiaSelectSellerForm', () => {
+        expect(spyValidateNotColombia).toHaveBeenCalled();
+      });
+
+      it('should be pass nit with number', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('Should be pass nit with characters', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123kkcld4533';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('Should be pass Nit with length <= 30', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123456745309874323459834234321';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('Should be fail Nit with length > 30', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453234598754319098437645';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
+
+      it('should be pass nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
+
+      it('should be fail nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
+
+      it('Should be pass rut with numbers', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutFieldElement = rutField.nativeElement;
+        rutFieldElement.value = '123456789';
+        rutFieldElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('Should be pass rut with characters', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeelement = rutField.nativeElement;
+        rutNativeelement.value = '13245lakjdfasdf';
+        rutNativeelement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('Should be pass Rut with length <= 30', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '123456745309874323453123412324';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('Should be fail Rut with length > 30', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '1234567453234598754313430939222';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
+
+      it('should be pass Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '1234567453';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
+
+      it('should be fail Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
       });
     });
   });
