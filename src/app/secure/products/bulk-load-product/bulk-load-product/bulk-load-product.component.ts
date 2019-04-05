@@ -358,7 +358,7 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
+          if (this.arrayNecessaryData[0].includes('Categoria') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('Category') && this.arrayNecessaryData[0].includes('Product Type')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
               this.iVal = {
                 iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
@@ -1488,7 +1488,7 @@ export class BulkLoadProductComponent implements OnInit {
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     const filterNumber = /^[0-9]+$/;
-    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
+    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$|0{1}$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
     const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
