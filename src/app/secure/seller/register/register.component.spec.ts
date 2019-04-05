@@ -14,6 +14,7 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { detectChanges } from '@angular/core/src/render3';
 
 export const registerRegex = [
   {Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores'},
@@ -32,7 +33,7 @@ export const registerRegex = [
   {Identifier: 'address', Value: '^([^\/])*$', Module: 'vendedores'},
 ];
 
-fdescribe('RegisterSellerComponent', () => {
+describe('RegisterSellerComponent', () => {
   const userData = {sellerProfile: 'administrator'};
   const registerMenu = {
     Functionalities: [{
@@ -87,11 +88,13 @@ fdescribe('RegisterSellerComponent', () => {
         { provide: BasicInformationService, useValue: mockBasicInformationService },
         EndpointService
       ],
+      // No_Errors_schema (Evita errores de importación de otros Componentes)
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
   beforeEach(() => {
+    // Injección de servicios por medio de TestBed
     registerService = TestBed.get(RegisterService);
     cityService = TestBed.get(CitiesServices);
     stateService = TestBed.get(StatesService);
@@ -107,22 +110,30 @@ fdescribe('RegisterSellerComponent', () => {
   });
 
   describe('Admin login', () => {
+    // BeforeEach asincrono debido a la ejecución del metodo de logeo
     beforeEach(async () => {
+      // clona el modelo de respuesta de un usuario
       const mockUser = Object.assign({}, userData);
+      // construccion del modelo de respuesta del regex del servicio
       const responseRegex = {
         body: {
           body: JSON.stringify({Data: registerRegex })
         }
       };
+      // Define la respuesta del servicio de regex
       mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(responseRegex));
+      // Construcción del modelo de respuesta de la información de un usario
       const responseGetUser = {
         body: {
           body: JSON.stringify({ Data: mockUser })
         }
       };
+      // Define la respuesta del metodo getMenu
       mockAuthService.getMenu.and.returnValue(registerMenu);
+      // Define la respuesta de la información de un usuario
       mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
       mockUserLoginService.isAuthenticated.and.returnValue(true);
+      // espera la respuesta del metodo isLoggedIn para continuar
       await component.isLoggedIn('', true);
     });
 
@@ -166,12 +177,19 @@ fdescribe('RegisterSellerComponent', () => {
       });
 
       it('should be pass nit with number', () => {
+        // consulta del HTML el elemento con el id register-nit
         const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        // Verifica que exista el elemento
         expect(nitField).toBeTruthy();
+        // construlle el elemento de manera nativa
         const nitNativeElement = nitField.nativeElement;
+        // se le asigna el valor al elemento nativo
         nitNativeElement.value = '1234567453';
+        // Se ejecuta el evento input (para simular la escritura del valor previamente definido del input)
         nitNativeElement.dispatchEvent(new Event('input'));
+        // se detectan lso cambios
         fixture.detectChanges();
+        // se valida la existancia de errores dentro del formulario correspondiente al campo
         expect(component.Nit.errors).toBeNull();
       });
 
@@ -280,17 +298,42 @@ fdescribe('RegisterSellerComponent', () => {
       });
     });
 
+    it('Sohoul be submiter a National seller', () => {
+      component.Country.setValue('COLOMBIA');
+      component.State.setValue('Antioquia');
+      component.City.setValue('');
+      component.submitSellerRegistrationForm();
+    });
+
+    it('Should be submiter a admin', () => {
+
+    });
+
     describe('is not Colombia Select', () => {
-      beforeEach(() => {
+      beforeEach( () => {
         component.ngOnInit();
+        // se genera un Spy para saber si el metodo validationsForNotColombiaSelectSellerForm es llamado
         spyValidateNotColombia = spyOn(component, 'validationsForNotColombiaSelectSellerForm');
+        // se cambia el valor del formulario en el campo Country a uno diferente de colombia
         component.Country.setValue('CHINA');
+        // se detectan los cambios
         fixture.detectChanges();
       });
 
       it('Should be call validationsForNotColombiaSelectSellerForm', () => {
+        // se verifica el llamado del metodo validationsForNotColombiaSelectSellerForm
         expect(spyValidateNotColombia).toHaveBeenCalled();
       });
+
+      it('Should be exist payoneer field', () => {
+        component.validationsForNotColombiaSelectSellerForm();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.Payoneer).toBeTruthy();
+          expect(component.Payoneer.enabled).toBeTruthy();
+        })
+      })
 
       it('should be pass nit with number', () => {
         const nitField = fixture.debugElement.query(By.css('#register-nit'));
@@ -303,23 +346,33 @@ fdescribe('RegisterSellerComponent', () => {
       });
 
       it('Should be pass nit with characters', () => {
-        const nitField = fixture.debugElement.query(By.css('#register-nit'));
-        expect(nitField).toBeTruthy();
-        const nitNativeElement = nitField.nativeElement;
-        nitNativeElement.value = '123kkcld4533';
-        nitNativeElement.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(component.Nit.errors).toBeNull();
+        // promesa que se ejecuta una vez se termina la detección de los cambios
+        fixture.whenStable().then(() => {
+          // metodo que da una corta espera (setTimeout)
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const nitField = fixture.debugElement.query(By.css('#register-nit'));
+          expect(nitField).toBeTruthy();
+          const nitNativeElement = nitField.nativeElement;
+          nitNativeElement.value = '123kkcld4533';
+          nitNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.Nit.errors).toBeNull();
+        });
       });
 
       it('Should be pass Nit with length <= 30', () => {
-        const nitField = fixture.debugElement.query(By.css('#register-nit'));
-        expect(nitField).toBeTruthy();
-        const nitNativeElement = nitField.nativeElement;
-        nitNativeElement.value = '123456745309874323459834234321';
-        nitNativeElement.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(component.Nit.errors).toBeNull();
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const nitField = fixture.debugElement.query(By.css('#register-nit'));
+          expect(nitField).toBeTruthy();
+          const nitNativeElement = nitField.nativeElement;
+          nitNativeElement.value = '123456745309874323459834234321';
+          nitNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.Nit.errors).toBeNull();
+        });
       });
 
       it('Should be fail Nit with length > 30', () => {
@@ -360,23 +413,31 @@ fdescribe('RegisterSellerComponent', () => {
       });
 
       it('Should be pass rut with characters', () => {
-        const rutField = fixture.debugElement.query(By.css('#register-rut'));
-        expect(rutField).toBeTruthy();
-        const rutNativeelement = rutField.nativeElement;
-        rutNativeelement.value = '13245lakjdfasdf';
-        rutNativeelement.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(component.Rut.errors).toBeNull();
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const rutField = fixture.debugElement.query(By.css('#register-rut'));
+          expect(rutField).toBeTruthy();
+          const rutNativeelement = rutField.nativeElement;
+          rutNativeelement.value = '13245lakjdfasdf';
+          rutNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.Rut.errors).toBeNull();
+        });
       });
 
       it('Should be pass Rut with length <= 30', () => {
-        const rutField = fixture.debugElement.query(By.css('#register-rut'));
-        expect(rutField).toBeTruthy();
-        const rutNativeElement = rutField.nativeElement;
-        rutNativeElement.value = '123456745309874323453123412324';
-        rutNativeElement.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(component.Rut.errors).toBeNull();
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const rutField = fixture.debugElement.query(By.css('#register-rut'));
+          expect(rutField).toBeTruthy();
+          const rutNativeElement = rutField.nativeElement;
+          rutNativeElement.value = '123456745309874323453123412324';
+          rutNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.Rut.errors).toBeNull();
+        });
       });
 
       it('Should be fail Rut with length > 30', () => {
@@ -404,6 +465,207 @@ fdescribe('RegisterSellerComponent', () => {
         expect(rutField).toBeTruthy();
         fixture.detectChanges();
         expect(component.Rut.errors).toBeTruthy();
+      });
+
+      it('Should be pass PostalCode with numbers', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+          expect(postalCodeField).toBeTruthy();
+          const postalCodeNativeElement = postalCodeField.nativeElement;
+          postalCodeNativeElement.value = '87654637';
+          postalCodeNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.PostalCode.errors).toBeNull();
+        });
+      });
+
+      it('Should be pass PostalCode with lowercase characters', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+          expect(postalCodeField).toBeTruthy();
+          const postalCodeNativeElement = postalCodeField.nativeElement;
+          postalCodeNativeElement.value = 'plofjske';
+          postalCodeNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.PostalCode.errors).toBeNull();
+        });
+      });
+
+      it('Should be pass PostalCode with uppercase characters', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+          expect(postalCodeField).toBeTruthy();
+          const postalCodeNativeElement = postalCodeField.nativeElement;
+          postalCodeNativeElement.value = 'POLIKSJD';
+          postalCodeNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.PostalCode.errors).toBeNull();
+        });
+      });
+
+      it('Should be fail PostalCode with less than 4 characters', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+          expect(postalCodeField).toBeTruthy();
+          const postalCodeNativeElement = postalCodeField.nativeElement;
+          postalCodeNativeElement.value = 'sj6';
+          postalCodeNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.PostalCode.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail PostalCode with more than 8 characters', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+          expect(postalCodeField).toBeTruthy();
+          const postalCodeNativeElement = postalCodeField.nativeElement;
+          postalCodeNativeElement.value = '98543564r';
+          postalCodeNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.PostalCode.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail PostalCode required', () => {
+        const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+        expect(postalCodeField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.PostalCode.errors).toBeTruthy();
+      });
+
+      it('Should be pass PostalCode required', () => {
+        const postalCodeField = fixture.debugElement.query(By.css('#register-postal-code'));
+        expect(postalCodeField).toBeTruthy();
+        const postalCodeNativeElement = postalCodeField.nativeElement;
+        postalCodeNativeElement.value = '98543564';
+        postalCodeNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.PostalCode.errors).toBeNull();
+      });
+
+      it('Should be pass Satate with length <= 60', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const stateField = fixture.debugElement.query(By.css('#register-state'));
+          expect(stateField).toBeTruthy();
+          const stateNativeelement = stateField.nativeElement;
+          stateNativeelement.value = 'Departamento de una ciudad muy larga342 54234 *vasdf_ asdlka';
+          stateNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.State.errors).toBeNull();
+        });
+      });
+
+      it('Should be fail State with lenfth > 60', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const stateField = fixture.debugElement.query(By.css('#register-state'));
+          expect(stateField).toBeTruthy();
+          const stateNativeelement = stateField.nativeElement;
+          stateNativeelement.value = 'Departamento de una ciudad muy larga342 54234 *vasdf_ asdlkasd';
+          stateNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.State.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail State with /', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const stateField = fixture.debugElement.query(By.css('#register-state'));
+          expect(stateField).toBeTruthy();
+          const stateNativeelement = stateField.nativeElement;
+          stateNativeelement.value = 'Departamento de una ciudad /';
+          stateNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.State.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail State with \\', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const stateField = fixture.debugElement.query(By.css('#register-state'));
+          expect(stateField).toBeTruthy();
+          const stateNativeelement = stateField.nativeElement;
+          stateNativeelement.value = 'Departamento de una ciudad \\';
+          stateNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.State.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be pass City with length <= 60', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const cityField = fixture.debugElement.query(By.css('#register-city'));
+          expect(cityField).toBeTruthy();
+          const cityNativeelement = cityField.nativeElement;
+          cityNativeelement.value = 'Departamento de una ciudad muy larga342 54234 *vasdf_ asdlka';
+          cityNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.City.errors).toBeNull();
+        });
+      });
+
+      it('Should be fail City with lenfth > 60', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const cityField = fixture.debugElement.query(By.css('#register-city'));
+          expect(cityField).toBeTruthy();
+          const cityNativeelement = cityField.nativeElement;
+          cityNativeelement.value = 'Departamento de una ciudad muy larga342 54234 *vasdf_ asdlkasd';
+          cityNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.City.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail City with /', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const cityField = fixture.debugElement.query(By.css('#register-city'));
+          expect(cityField).toBeTruthy();
+          const cityNativeelement = cityField.nativeElement;
+          cityNativeelement.value = 'Departamento de una ciudad /';
+          cityNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.City.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be fail City with \\', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const cityField = fixture.debugElement.query(By.css('#register-city'));
+          expect(cityField).toBeTruthy();
+          const cityNativeelement = cityField.nativeElement;
+          cityNativeelement.value = 'Departamento de una ciudad \\';
+          cityNativeelement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.City.errors).toBeTruthy();
+        });
+      });
+
+      it('Should be submiter a International Seller', () => {
+
       });
     });
   });
