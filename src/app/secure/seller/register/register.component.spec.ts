@@ -301,7 +301,19 @@ describe('RegisterSellerComponent', () => {
     it('Sohoul be submiter a National seller', () => {
       component.Country.setValue('COLOMBIA');
       component.State.setValue('Antioquia');
-      component.City.setValue('');
+      component.City.setValue('Sabaneta');
+      component.PostalCode.setValue('05631000');
+      component.PhoneNumber.setValue('3124567823');
+      component.Nit.setValue('8473645323');
+      component.Rut.setValue('8473645323');
+      component.ContactName.setValue('cristian bustamante');
+      component.Email.setValue('probando@test.com');
+      component.Name.setValue('La tienda de cristian bustamante');
+      component.Address.setValue('asdfvasd');
+      component.Exito.setValue(true);
+      component.LogisticExito.setValue(true);
+      component.Profile.setValue('seller');
+      component.Carulla.setValue(true);
       component.submitSellerRegistrationForm();
     });
 

@@ -532,17 +532,16 @@ export class RegisterSellerComponent implements OnInit {
   get Carulla(): FormControl {
     return this.validateFormRegister.get('GotoCarulla') as FormControl;
   }
+  get Catalogo(): FormControl {
+    return this.validateFormRegister.get('GotoCatalogo') as FormControl;
+  }
 
   get LogisticExito() : FormControl {
     return this.validateFormRegister.get('IsLogisticsExito') as FormControl;
   }
 
-  // get 
-
-  // IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
-  //     IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
-  //     GotoExito: new FormControl({ value: true, disabled: disabledForm }),
-  //     GotoCarrulla: new FormControl({ value: false, disabled: disabledForm }),
-  //     GotoCatalogo: new FormControl({ value: true, disabled: disabledForm }),
+  get ShippingExito(): FormControl{
+    return this.validateFormRegister.get('IsShippingExito') as FormControl;
+  }
 }
 
