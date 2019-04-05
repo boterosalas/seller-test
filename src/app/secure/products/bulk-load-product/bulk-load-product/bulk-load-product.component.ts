@@ -496,7 +496,7 @@ export class BulkLoadProductComponent implements OnInit {
         }
         for (let j = 0; j < numCol; j++) {
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
-            /*if (j === iVal.iEAN) {
+            if (j === iVal.iEAN) {
               const validFormatEan = this.validFormat(res[i][j], 'ean');
               if (!validFormatEan && validFormatEan === false) {
                 this.countErrors += 1;
@@ -514,8 +514,7 @@ export class BulkLoadProductComponent implements OnInit {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
-            } else */
-            if (j === iVal.iMeasurementUnit) {
+            } else if (j === iVal.iMeasurementUnit) {
               if (res[i][j] !== undefined && res[i][j] !== '') {
                 const validformatDescUnidadMedida = this.validFormat(res[i][j], 'descUniMedida');
                 if (!validformatDescUnidadMedida && validformatDescUnidadMedida === false) {
@@ -1489,7 +1488,7 @@ export class BulkLoadProductComponent implements OnInit {
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     const filterNumber = /^[0-9]+$/;
-    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
+    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$|0{1}/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
     const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;

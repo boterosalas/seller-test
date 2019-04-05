@@ -202,7 +202,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 3. Histórico de ofertas. (Tipo vendedor)
  * 4. Histórico de ofertas. (Tipo Administrador)
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
