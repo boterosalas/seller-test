@@ -6,6 +6,7 @@ import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal
 
 import { SearchFormEntity } from '@shared/models';
 import { getDutchPaginatorIntl } from '@shared/services';
+import { DownloadBillingpayModalComponent } from '../../../secure/billing/download-billingpay-modal/download-billingpay-modal.component';
 
 
 // log component
@@ -28,7 +29,7 @@ export class ToolbarOptionsComponent {
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
-
+  @Input() downloadBillingPay: boolean;
 
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
@@ -39,7 +40,7 @@ export class ToolbarOptionsComponent {
   // Limite de registros
   lengthOrder = 100;
   // Numero de paginas por defecto
-  pageSizeOrder = 5;
+  pageSizeOrder = 50;
 
   /**
    * Creates an instance of ToolbarOptionsComponent.
@@ -74,6 +75,18 @@ export class ToolbarOptionsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       log.info('The modal detail order was closed');
+    });
+  }
+
+  openModalDownloadBillPay(): void {
+    const dialogRef = this.dialog.open(DownloadBillingpayModalComponent, {
+      data: {
+        limit: this.lengthOrder,
+        billingType: this.billingType
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail billing was closed');
     });
   }
 

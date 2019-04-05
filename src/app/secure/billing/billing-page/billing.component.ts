@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
-import { Logger, UserParametersService, UserLoginService } from '@app/core';
+import { Logger, UserParametersService, UserLoginService, LoadingService } from '@app/core';
 import { Billing, ComponentsService, Const, InformationToForm, Order, SearchFormEntity, UserInformation } from '@app/shared';
 import { ShellComponent } from '@core/shell/shell.component';
 
@@ -43,9 +43,12 @@ export class BillingComponent implements OnInit, OnDestroy {
     'concept',
     'paymentDate',
     'commission',
+    'iva',
     'valueToPay',
     'detailOrder'
   ];
+  //permiso de descarga
+  downloadPermission: boolean;
   //  Creo el elemento que se empleara para la tabla
   public dataSource: MatTableDataSource<Billing>;
   // Creo el elemento que permite añadir el check a la tabla
@@ -66,6 +69,9 @@ export class BillingComponent implements OnInit, OnDestroy {
     type_form: 'billing',
     information: new InformationToForm
   };
+
+  public iva = (100 / 19);
+
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
   // Método que permite crear la fila de detalle de la tabla
@@ -88,6 +94,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     private userParams: UserParametersService,
     public router?: Router,
     public userService?: UserLoginService,
+    private loadingService?: LoadingService,
   ) { }
 
   /**
@@ -161,7 +168,6 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
     this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
       (data: any) => {
         if (data != null) {
@@ -171,7 +177,7 @@ export class BillingComponent implements OnInit, OnDestroy {
             this.orderListLength = false;
           }
           this.dataSource = new MatTableDataSource(data);
-
+          
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
           this.dataSource.paginator = paginator;
@@ -195,7 +201,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       };
     }
     const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}`;
-
+    this.loadingService.viewSpinner();
     this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
       if (res != null) {
         if (res.length === 0) {
@@ -204,6 +210,7 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.orderListLength = false;
         }
       }
+      this.loadingService.closeSpinner();
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
       // this.paginator.pageIndex = 0;
@@ -211,6 +218,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
     }, err => {
+      this.loadingService.closeSpinner();
       this.orderListLength = true;
     });
   }
