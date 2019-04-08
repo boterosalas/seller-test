@@ -609,6 +609,7 @@ export class BulkLoadComponent implements OnInit {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
+      Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -723,6 +724,7 @@ export class BulkLoadComponent implements OnInit {
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
+    console.log(this.arrayInformationForSend);
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
