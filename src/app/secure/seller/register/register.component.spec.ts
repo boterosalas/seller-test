@@ -33,7 +33,7 @@ export const registerRegex = [
   {Identifier: 'address', Value: '^([^\/])*$', Module: 'vendedores'},
 ];
 
-describe('RegisterSellerComponent', () => {
+fdescribe('RegisterSellerComponent', () => {
   const userData = {sellerProfile: 'administrator'};
   const registerMenu = {
     Functionalities: [{
@@ -172,8 +172,15 @@ describe('RegisterSellerComponent', () => {
     describe('is Colombian Select', () => {
       beforeEach(() => {
         component.ngOnInit();
-        component.isColombiaSelect = true;
+        component.putColombiaByDefault();
         fixture.detectChanges();
+        const response = {
+          status: 200,
+          body: {
+            body: JSON.stringify({Data: 'Success'})
+          }
+        };
+        mockRegisterService.registerUser.and.returnValue(of(response));
       });
 
       it('should be pass nit with number', () => {
@@ -299,6 +306,7 @@ describe('RegisterSellerComponent', () => {
     });
 
     it('Sohoul be submiter a National seller', () => {
+      component.ngOnInit();
       component.Country.setValue('COLOMBIA');
       component.State.setValue('Antioquia');
       component.City.setValue('Sabaneta');
@@ -315,6 +323,7 @@ describe('RegisterSellerComponent', () => {
       component.Profile.setValue('seller');
       component.Carulla.setValue(true);
       component.submitSellerRegistrationForm();
+      expect(mockRegisterService.registerUser).toHaveBeenCalled();
     });
 
     it('Should be submiter a admin', () => {
@@ -344,8 +353,8 @@ describe('RegisterSellerComponent', () => {
           tick();
           expect(component.Payoneer).toBeTruthy();
           expect(component.Payoneer.enabled).toBeTruthy();
-        })
-      })
+        });
+      });
 
       it('should be pass nit with number', () => {
         const nitField = fixture.debugElement.query(By.css('#register-nit'));

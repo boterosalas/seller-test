@@ -256,7 +256,7 @@ export class RegisterSellerComponent implements OnInit {
 
   validationsForColombiaSelectSellerForm() {
     this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.nit)]));
-    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]))
+    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]));
     this.State.setValidators(null);
     this.City.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
@@ -271,7 +271,6 @@ export class RegisterSellerComponent implements OnInit {
   validateExitPayoneerUser(event) {
     const value = event.target.value;
     // this.payoneerService.getStatusById(value).subscribe(val => {
-
     // });
   }
 
@@ -321,7 +320,6 @@ export class RegisterSellerComponent implements OnInit {
     this.validateFormRegister.controls.Profile.setValue(profile);
     this.City.setValue(this.City.value.toString().toUpperCase());
     this.State.setValue(this.State.value.toString().toUpperCase());
-    console.log(this.validateFormRegister.value);
     this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
@@ -536,11 +534,11 @@ export class RegisterSellerComponent implements OnInit {
     return this.validateFormRegister.get('GotoCatalogo') as FormControl;
   }
 
-  get LogisticExito() : FormControl {
+  get LogisticExito(): FormControl {
     return this.validateFormRegister.get('IsLogisticsExito') as FormControl;
   }
 
-  get ShippingExito(): FormControl{
+  get ShippingExito(): FormControl {
     return this.validateFormRegister.get('IsShippingExito') as FormControl;
   }
 }
