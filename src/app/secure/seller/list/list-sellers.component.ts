@@ -13,6 +13,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
+import * as moment from 'moment';
 
 export interface ListFilterSeller {
     name: string;
@@ -113,6 +114,10 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        const drawer: any = document.querySelector('.mat-drawer-content.mat-sidenav-content');
+        drawer.classList.remove('mat-drawer-content');
+        const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
+        drawerContainer.classList.add('height_seller-list');
         this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
@@ -375,7 +380,12 @@ export class SellerListComponent implements OnInit, OnDestroy {
             icon = 'local_airport';
             this.needFormStates$.next({posSeller: index, status: status.toString()});
             if (this.sellerList[index].StartVacations && this.sellerList[index].EndVacations) {
-                !!this.startDateVacation && this.startDateVacation.setValue(this.today);
+                const startDateVacationsSeller = DateService.stringToDate(this.sellerList[index].StartVacations);
+                if (moment(this.today).diff(moment(startDateVacationsSeller)) > 0) {
+                    !!this.startDateVacation && this.startDateVacation.setValue(this.today);
+                } else {
+                    !!this.startDateVacation && this.startDateVacation.setValue(startDateVacationsSeller);
+                }
                 !!this.endDateVacation && this.endDateVacation.setValue(DateService.stringToDate(this.sellerList[index].EndVacations));
             }
         }
@@ -536,5 +546,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subs && this.subs.forEach(sub => sub.unsubscribe());
+        const drawer = document.querySelector('mat-sidenav-content');
+        drawer.classList.add('mat-drawer-content');
+        const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
+        drawerContainer.classList.remove('height_seller-list');
     }
 }

@@ -15,18 +15,21 @@
           <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="60"
             fXLayout="row wrap" fxLayoutAlign="center center">
 
-            <!-- Input para subir archivo Excel -->
-            <a download class="sc-default-button" id="download-file-button"
-              (click)="downloadFormatMassiveOfferLoadinternacional()" mat-button>
-              <mat-icon class="mat-18">file_download</mat-icon>
-              DOWNLOAD FORMAT
-            </a>
+            <!-- Se esconde formato de cargas, ticket 725 -->
+            <div *ngIf="false">
+              <!-- Input para subir archivo Excel -->
+              <a download class="sc-default-button" id="download-file-button"
+                (click)="downloadFormatMassiveOfferLoadinternacional()" mat-button>
+                <mat-icon class="mat-18">file_download</mat-icon>
+                DOWNLOAD FORMAT
+              </a>
 
-            <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()"
-              mat-button>
-              <mat-icon class="mat-18">file_download</mat-icon>
-              DESCARGAR FORMATO
-            </a>
+              <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()"
+                mat-button>
+                <mat-icon class="mat-18">file_download</mat-icon>
+                DESCARGAR FORMATO
+              </a>
+            </div>
 
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
@@ -48,19 +51,26 @@
               <span>Opciones</span>
               <mat-icon>more_vert</mat-icon>
             </button>
+
             <mat-menu dense #toolbarOptions="matMenu">
+
+
               <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
                 <span>Cargar archivo</span>
               </button>
-              <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
-                Descargar Formato</a>
-              <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
-                mat-menu-item>
-                <span>Limpiar datos actuales</span>
-              </button>
-              <button id="send-guide-button" (click)="sendJsonInformation()"
-                [disabled]="countErrors != 0 || countRowUpload == 0" color="accent" mat-menu-item>Enviar registro
-              </button>
+              <!-- Se esconde formato de cargas, ticket 725 -->
+              <div *ngIf="false">
+                <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
+                  Descargar Formato</a>
+                <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
+                  mat-menu-item>
+                  <span>Limpiar datos actuales</span>
+                </button>
+
+                <button id="send-guide-button" (click)="sendJsonInformation()"
+                  [disabled]="countErrors != 0 || countRowUpload == 0" color="accent" mat-menu-item>Enviar registro
+                </button>
+              </div>
             </mat-menu>
           </div>
           <!-- Paginación de la tabla -->
@@ -109,27 +119,53 @@
       </aside>
     </div>
 
-
-    <div [@detailExpand] class="orders-no-data" *ngIf="countRowUpload == 0">
-      <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-        class="content-icon-no-data">
-        <mat-icon id="icon-cloud-upload-file" (click)="fileUploadOption.click()"
-          [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" class="icon-not-found" color="primary">backup
-        </mat-icon>
+    <!-- Se cambia texto y botones, ticket 725 -->
+    <div *ngIf="showCharge === false">
+      <div [@detailExpand] class="orders-no-data" *ngIf="countRowUpload == 0">
+        <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+          class="content-icon-no-data">
+          <mat-icon id="icon-cloud-upload-file" (click)="fileUploadOption.click()"
+            [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" class="icon-not-found" color="primary">backup
+          </mat-icon>
+        </div>
+        <div class="content-information-no-data">
+          <p>Para importar archivos al Seller Center, primero debes
+            <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
+              class="link-text">Descargar
+              el formato
+            </a> <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoadinternacional()"
+              class="link-text">(Download format)</a>, en este archivo podrás cargar productos
+          </p>
+          <p>
+            <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()"
+              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">Selecciona el archivo</span>
+            que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
+        </div>
       </div>
-      <div class="content-information-no-data">
-        <p>Para importar archivos al Seller Center, primero debes
-          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
-            class="link-text">Descargar
-            el formato
-          </a> <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoadinternacional()"
-            class="link-text">(Download format)</a>, en este archivo podrás cargar productos
-        </p>
-        <p>
-          <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()"
-            [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">Selecciona el archivo</span>
-          que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
+    </div>
 
+    <div *ngIf="showCharge === true">
+      <div [@detailExpand] class="orders-no-data" *ngIf="countRowUpload == 0">
+        <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+          class="content-icon-no-data">
+          <mat-icon id="icon-cloud-upload-file" (click)="fileUploadOption.click()"
+            [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" class="icon-not-found" color="primary">backup
+          </mat-icon>
+        </div>
+        <div class="content-information-no-data">
+          <p>
+            Para importar los productos al Seller Center podrás utilizar las plantillas de creación actualizadas que te
+            fueron enviadas previamente, si no tienes las plantillas, primero debes solicitarlas al responsable de tu
+            cuenta. Recuerda llenar la plantilla de la categoría correspondiente a tus productos completamente y
+            revisando las restricciones de cada campo. En caso de que tus productos no tengan EAN, debes enviar el campo
+            con un <b>cero (0)</b> en la plantilla.
+          </p>
+          <p>
+            <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()"
+              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">Selecciona el archivo</span>
+            que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
+
+        </div>
       </div>
     </div>
   </div>

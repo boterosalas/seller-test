@@ -12,6 +12,7 @@ import { DateService } from '@app/shared/util/date.service';
 import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-awscognito',
@@ -231,7 +232,12 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      */
     setVacationForm() {
         const endDate = DateService.getDateFormatToShow(this.user.EndVacations);
-        this.startDateVacation.setValue(this.today);
+        const startDateVacationsSeller = DateService.stringToDate(DateService.getDateFormatToShow(this.user.StartVacations));
+        if (moment(this.today).diff(moment(startDateVacationsSeller)) > 0) {
+            !!this.startDateVacation && this.startDateVacation.setValue(this.today);
+        } else {
+            !!this.startDateVacation && this.startDateVacation.setValue(startDateVacationsSeller);
+        }
         this.endDateVacation.setValue(DateService.stringToDate(endDate));
     }
 
@@ -273,6 +279,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                     if (body && message && message.Message && message.Message === 'El usuario ha sido actualizado éxitosamente.') {
                         this.user.StartVacations = null;
                         this.user.EndVacations = null;
+                        this.startDateVacation.reset(null);
+                        this.endDateVacation.reset(null);
                         this.isInVacation = false;
                         this.snackBar.open('Actualizado correctamente: ' + this.user.Name, 'Cerrar', {
                             duration: 3000,

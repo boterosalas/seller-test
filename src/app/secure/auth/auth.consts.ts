@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Cargar guias
  * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías', devolutionName = 'Devoluciones', validationName = 'Validaciones';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -181,7 +181,23 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
     ], RoutesConst.sellerCenterIntOrderLoadGuide),
-    // 5. Facturación electronica (Consultar, Descargar).
+    // 5. Devolucoines (Consultar, Descargar, Adjuntar, Enviar, Marcar)
+    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
+        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
+    ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // 6. Validaciónes (Consultar, Descargar, Adjuntar, Enviar, Marcar)
+    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
+        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
+        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
+    ], RoutesConst.sellerCenterIntOrderInValidation),
+    // 7. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
@@ -202,7 +218,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 3. Histórico de ofertas. (Tipo vendedor)
  * 4. Histórico de ofertas. (Tipo Administrador)
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
