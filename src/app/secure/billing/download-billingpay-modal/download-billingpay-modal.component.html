@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Te enviaremos el hist&oacute;rico de ofertas al siguiente correo electrónico.</h2>
+<h2 mat-dialog-title>Te enviaremos los pagos al siguiente correo electrónico.</h2>
 <mat-dialog-content>
 
   <form #f="ngForm" [formGroup]="myform" class="form-login">
@@ -49,7 +49,7 @@
   <button
     class="sc-button"
     [disabled]="!f.form.valid"
-
+    (click)="downloadBillingPay(myform)"
     mat-raised-button color="accent">Enviar pagos
   </button>
   <!-- /Send historical button -->

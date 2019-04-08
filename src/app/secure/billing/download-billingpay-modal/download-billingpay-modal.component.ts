@@ -6,6 +6,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 // our own custom components
 import { UserInformation, ComponentsService } from '@app/shared';
 import {Logger, UserParametersService } from '@app/core';
+import { BillingService } from '../billing.service';
+// import { DownloadBillingPayService } from './download-billingpay.service';
 
 
 @Component({
@@ -23,12 +25,12 @@ export class DownloadBillingpayModalComponent implements OnInit {
   public user: UserInformation;
 
   // Limite de registros para descargar
-  public limitLengthHistorical: any = 0;
+  public limitLengthBillingpay: any = 0;
 
   /**
    * Creates an instance of DownloadBillingpayModalComponent.
    * @param {MatDialogRef<DownloadBillingpayModalComponent>} dialogRef
-   * @param {DownloadHistoricalService} DownloadHistoricalService
+   * @param {DownloadBillingpayService} DownloadBillingpayService
    * @param {ComponentsService} componentsService
    * @param {FormBuilder} fb
    * @param {*} data
@@ -39,14 +41,16 @@ export class DownloadBillingpayModalComponent implements OnInit {
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
+    public billService: BillingService,
+    // public downloadBillingpayService: DownloadBillingPayService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // Capturo el limite de registros indicados por el usuario
-    this.limitLengthHistorical = data.limit;
+    this.limitLengthBillingpay = data.limit;
   }
 
   /**
-   * @memberof DownloadHistoricalModalComponent
+   * @memberof DownloadBillingpayModalComponent
    */
   ngOnInit() {
     this.createForm();
@@ -61,7 +65,7 @@ export class DownloadBillingpayModalComponent implements OnInit {
   /**
    * @method onNoClick
    * @description Funcionalidad para cerrar el modal
-   * @memberof DownloadHistoricalModalComponent
+   * @memberof DownloadBillingpayModalComponent
    */
   onNoClick(): void {
     this.dialogRef.close(false);
@@ -70,7 +74,7 @@ export class DownloadBillingpayModalComponent implements OnInit {
   /**
    * @method createForm
    * @description Funcionalidad para crear el formulario
-   * @memberof DownloadHistoricalModalComponent
+   * @memberof DownloadBillingpayModalComponent
    */
   createForm() {
     this.myform = new FormGroup({
@@ -81,5 +85,31 @@ export class DownloadBillingpayModalComponent implements OnInit {
     });
   }
 
-
+   /**
+   * @method downloadHistorical
+   * @description Método para realizar la descarga de los pagos
+   * @param {any} form
+   * @memberof DownloadBillingPayModalComponent
+   */
+  downloadBillingPay(form: any) {
+    // log.debug(this.downloadHistoricalService.getCurrentFilterHistorical());
+    const email = form.get('email').value;
+    this.billService.downloadBillingPay(email)
+      .subscribe(
+        res => {
+          console.log(res);
+          if (res != null) {
+            this.componentsService.openSnackBar('Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico',
+              'Cerrar', 10000);
+          } else {
+            this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga de los pagos', 'Cerrar', 5000);
+          }
+          this.onNoClick();
+        },
+        err => {
+          this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga de los pagos', 'Cerrar', 5000);
+          this.onNoClick();
+        }
+      );
+  }
 }

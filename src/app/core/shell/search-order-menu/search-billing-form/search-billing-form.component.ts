@@ -125,6 +125,7 @@ export class SearchBillingFormComponent implements OnInit {
     if (!isEmpty(stringSearch)) {
       // Guardar filtro aplicado por el usuario.
       this.billingService.setCurrentFilterOrders(objectSearch);
+      this.billingService.setCurrentBillingPay(objectSearch.paymentDateInitial, objectSearch.paymentDateFinal, objectSearch.billingNumber);
       // Obtener las órdenes con el filtro indicado.
       this.billingService.getOrdersBillingFilter(this.user, 100, stringSearch).subscribe((res) => {
         if (res) {

@@ -18,6 +18,7 @@ import { BillingService } from './billing.service';
 import { OrderBillingDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
 import { ProductDetailBillingModalComponent } from './product-detail-modal/product-detail-modal.component';
 import { DownloadBillingpayModalComponent } from './download-billingpay-modal/download-billingpay-modal.component';
+// import { DownloadBillingPayService } from './download-billingpay-modal/download-billingpay.service';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { DownloadBillingpayModalComponent } from './download-billingpay-modal/do
     ComponentsService,
     ShellComponent,
     EventEmitterOrders,
+    // DownloadBillingPayService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} },
     CognitoUtil
