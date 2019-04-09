@@ -358,7 +358,6 @@ export class BulkLoadComponent implements OnInit {
     for (let i = 0; i < res.length; i++) {
 
       let errorInCell = false;
-
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
 
@@ -382,7 +381,6 @@ export class BulkLoadComponent implements OnInit {
                 positionRowPrincipal: i,
                 dato: 'ComboQuantity'
               };
-
               this.listLog.push(itemLog);
               errorInCell = true;
             } else if (res[i][iVal.iEanCombo] === res[i][iVal.iEAN] || !fast && res[i][iVal.iEanCombo]) {
@@ -407,7 +405,6 @@ export class BulkLoadComponent implements OnInit {
           }
 
           if (res[i][j] !== undefined && res[i][j] !== '' && res[i][j] !== null) {
-
             if (j !== iVal.iEAN && j !== iVal.iPromEntrega) {
               if (j === iVal.iFreeShiping || j === iVal.iIndEnvExito || j === iVal.iCotFlete || j === iVal.iLogisticaExito || j === iVal.iActInventario) {
 
@@ -426,6 +423,27 @@ export class BulkLoadComponent implements OnInit {
                     fila: row,
                     positionRowPrincipal: i,
                     dato: j === iVal.iFreeShiping ? 'IsFreeShipping' : j === iVal.iIndEnvExito ? 'IsEnviosExito' : j === iVal.iCotFlete ? 'IsFreightCalculator' : j === iVal.iLogisticaExito ? 'IsLogisticsExito' : j === iVal.iActInventario ? 'IsUpdatedStock' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iCurrency) {
+                  const isCurrency = this.validFormat(res[i][j], 'currency');
+                if (!isCurrency && isCurrency === false) {
+                  this.countErrors += 1;
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidFormatCurrency',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iCurrency ? 'Currency' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -473,7 +491,6 @@ export class BulkLoadComponent implements OnInit {
                     positionRowPrincipal: i,
                     dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
                   };
-
                   this.listLog.push(itemLog);
                   errorInCell = true;
 
@@ -497,30 +514,6 @@ export class BulkLoadComponent implements OnInit {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: 'PromiseDelivery'
-                };
-
-                this.listLog.push(itemLog);
-                errorInCell = true;
-
-              }
-            } else if (j === iVal.Currency) {
-
-              const validFormatCurrency = this.validFormat(res[i][j], 'currency');
-
-              if (!validFormatCurrency && validFormatCurrency === false) {
-
-                this.countErrors += 1;
-
-                const row = i + 1, column = j + 1;
-
-                const itemLog = {
-                  row: this.arrayInformation.length,
-                  column: j,
-                  type: 'InvalidFormatCurrency',
-                  columna: column,
-                  fila: row,
-                  positionRowPrincipal: i,
-                  dato: 'Currency'
                 };
 
                 this.listLog.push(itemLog);
@@ -636,6 +629,7 @@ export class BulkLoadComponent implements OnInit {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
+      // Currency: res[index][iVal.iCurrency]
       Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
@@ -753,7 +747,6 @@ export class BulkLoadComponent implements OnInit {
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
-    console.log(this.arrayInformationForSend);
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
@@ -826,7 +819,11 @@ export class BulkLoadComponent implements OnInit {
           break;
         case 'currency':
           if ((inputtxt.match(formatCurrency))) {
-            valueReturn = true;
+            if (inputtxt === 'COP' || inputtxt === 'USD') {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
           } else {
             valueReturn = false;
           }
@@ -894,6 +891,27 @@ export class BulkLoadComponent implements OnInit {
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
   }
 
+  /* Massive offer load*/
+  downloadFormatMassiveOfferLoadInternational() {
+    const emptyFile = [{
+      'EAN': undefined,
+      'Stock': undefined,
+      'Price': undefined,
+      'Discount Price': undefined,
+      'Shipping Cost': undefined,
+      'Delivery Terms': undefined,
+      'Free Shipping': undefined,
+      'Envios Exito Indicator': undefined,
+      'Freight Calculator': undefined,
+      'Warranty': undefined,
+      'Ean combo': undefined,
+      'Amount in combo': undefined,
+      'Currency': undefined
+    }];
+    log.info(emptyFile);
+    this.exportAsExcelFile(emptyFile, 'Offer upload format');
+  }
+
   /**
    * Método que genera el dato json en el formato que emplea excel para.
    * @param {any[]} json
@@ -907,6 +925,13 @@ export class BulkLoadComponent implements OnInit {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
+  exportAsExcelFileInternational(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Offerts': worksheet }, SheetNames: ['Offerts'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+    this.saveAsExcelFileInternational(excelBuffer, excelFileName);
+  }
+
   /**
    * Método que permite generar el excel con los datos pasados.
    * @param {*} buffer
@@ -914,6 +939,13 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([this.s2ab(buffer)], {
+      type: ''
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  saveAsExcelFileInternational(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
     });
