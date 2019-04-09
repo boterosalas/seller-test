@@ -49,6 +49,11 @@
             <span class="error-string">fila #{{item.fila}}</span> debería tener el formato (# a #), los números deben ser mayores a 0.
           </p>
 
+          <p matLine *ngIf="item.type == 'InvalidFormatCurrency'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> El tipo de moneda debe ser COP o USD.
+          </p>
+
           <p matLine *ngIf="item.type == 'InvalidEanCombo'" style="white-space: normal;overflow: visible;">El dato en la
             <span class="error-string">columna #{{ item.columna }}</span> de la
             <span class="error-string">fila #{{item.fila}}</span> debería ser diferente al EAN propio

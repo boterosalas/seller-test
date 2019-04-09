@@ -221,7 +221,9 @@ export class BulkLoadComponent implements OnInit {
             res[0][j] === 'Logistica Exito' ||
             res[0][j] === 'Actualizacion de Inventario' ||
             res[0][j] === 'Ean combo' ||
-            res[0][j] === 'Cantidad en combo') {
+            res[0][j] === 'Cantidad en combo' ||
+            res[0][j] === 'Tipo de moneda'
+          ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
           if (res[0][j] === 'Precio') {
@@ -293,7 +295,8 @@ export class BulkLoadComponent implements OnInit {
             iLogisticaExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
             iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario'),
             iEanCombo: this.arrayNecessaryData[0].indexOf('Ean combo'),
-            iCantidadCombo: this.arrayNecessaryData[0].indexOf('Cantidad en combo')
+            iCantidadCombo: this.arrayNecessaryData[0].indexOf('Cantidad en combo'),
+            iCurrency: this.arrayNecessaryData[0].indexOf('Tipo de moneda')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -500,6 +503,30 @@ export class BulkLoadComponent implements OnInit {
                 errorInCell = true;
 
               }
+            } else if (j === iVal.Currency) {
+
+              const validFormatCurrency = this.validFormat(res[i][j], 'currency');
+
+              if (!validFormatCurrency && validFormatCurrency === false) {
+
+                this.countErrors += 1;
+
+                const row = i + 1, column = j + 1;
+
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'InvalidFormatCurrency',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: 'Currency'
+                };
+
+                this.listLog.push(itemLog);
+                errorInCell = true;
+
+              }
             }
           } else if (j === iVal.iEAN || (j === iVal.iInv && !res[i][iVal.iEanCombo]) || j === iVal.iPrecio) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
@@ -637,6 +664,7 @@ export class BulkLoadComponent implements OnInit {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
+      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : '',
       errorRow: false
     };
 
@@ -681,6 +709,7 @@ export class BulkLoadComponent implements OnInit {
       this.arrayInformation[index].errorIsUpdatedStock = false;
       this.arrayInformation[index].errorEanCombo = false;
       this.arrayInformation[index].errorComboQuantity = false;
+      this.arrayInformation[index].errorCurrency = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -777,6 +806,8 @@ export class BulkLoadComponent implements OnInit {
     const formatNumber = /^[0-9]+$/;
     const eanRegex = /^([A-Za-z0-9]{0,16})$/;
     const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
+    const formatCurrency = /^(COP|USD)$/;
+
     if (inputtxt === undefined) {
       valueReturn = false;
     } else if (inputtxt !== undefined) {
@@ -791,6 +822,13 @@ export class BulkLoadComponent implements OnInit {
             } else {
               valueReturn = false;
             }
+          }
+          break;
+        case 'currency':
+          if ((inputtxt.match(formatCurrency))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
           }
           break;
         case 'boolean':
@@ -849,7 +887,8 @@ export class BulkLoadComponent implements OnInit {
       'Cotizador de Flete': undefined,
       'Garantia': undefined,
       'Ean combo': undefined,
-      'Cantidad en combo': undefined
+      'Cantidad en combo': undefined,
+      'Tipo de moneda': undefined
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
