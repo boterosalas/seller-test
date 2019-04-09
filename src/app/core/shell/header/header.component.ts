@@ -8,6 +8,8 @@ import { UserInformation } from '@app/shared';
 import { MatDialog } from '@angular/material';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { LoadingService } from '@app/core/global';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AVAILABLE_LENGUAGES } from '@app/core/language.service';
 
 
 // log component
@@ -31,6 +33,8 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public sellerName: any;
   public sellerId: any;
   public routes: any;
+  public form: FormGroup;
+  public languages = AVAILABLE_LENGUAGES;
 
   constructor(
     private userService: UserLoginService,
@@ -38,6 +42,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     private router: Router,
     private loadingService: LoadingService,
     public dialog: MatDialog,
+    private fb: FormBuilder
   ) { }
 
   /**
@@ -45,6 +50,13 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
+    this.initForm();
+  }
+
+  private initForm() {
+    this.form = this.fb.group({
+      language: ['', Validators.required]
+    });
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {

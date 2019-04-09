@@ -17,6 +17,7 @@ import { HttpService } from './http/http.service';
 import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
 import { DialogTokenExpiredComponent } from './http/dialog-token-expired/dialog-token-expired';
+import { LanguageService } from './language.service';
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -34,7 +35,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CommonModule,
     MaterialModule,
     ShellModule,
-    RouterModule
+    RouterModule,
   ],
   declarations: [
     LoadingComponent,
@@ -55,6 +56,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AuthInterceptor,
     ErrorHandlerInterceptor,
     CacheInterceptor,
+    LanguageService,
     {
       provide: HttpClient,
       useClass: HttpService

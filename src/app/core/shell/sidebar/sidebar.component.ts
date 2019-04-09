@@ -9,6 +9,8 @@ import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AVAILABLE_LENGUAGES } from '@app/core/language.service';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -32,12 +34,17 @@ export class SidebarComponent implements OnInit {
   prueba = 'solicitudes-pendientes';
   modules: ModuleModel[] = null;
 
+  form: FormGroup;
+
+  public languages = AVAILABLE_LENGUAGES;
+
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private fb: FormBuilder
   ) { }
 
   /**
@@ -49,6 +56,13 @@ export class SidebarComponent implements OnInit {
       this.modules = data;
     }, error => {
       console.error(error);
+    });
+    this.initForm();
+  }
+
+  private initForm() {
+    this.form = this.fb.group({
+      language: ['', Validators.required]
     });
   }
 

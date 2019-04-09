@@ -10,6 +10,18 @@
       <span class="sc-header-name-seller">ID: {{user?.sellerId}}</span>
     </p>
     <span class="spacer-content"></span>
+    <ng-container>
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>idioma</mat-label>
+            <mat-select formControlName="language">
+              <mat-option *ngFor="let language of languages" [value]="language.id">
+                {{language.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </form>
+    </ng-container>
     <div fxLayoutGap="10px">
       <!--<button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
         (click)="shellComponent.goToEnviosExito()" id="envios-exito-button" mat-button color="accent">
