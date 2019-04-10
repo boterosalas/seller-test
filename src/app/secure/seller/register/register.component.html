@@ -21,7 +21,7 @@
             autocomplete="off" id="register-form-seller">
             <h4>Selecciona tipo de perfil</h4>
             <mat-form-field>
-              <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
+              <mat-select placeholder="Tipo de perfil" id="register-profile" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
                 <mat-option *ngFor="let Seller of profileSeller" [value]="Seller">
                   {{Seller}}
                 </mat-option>
@@ -127,6 +127,11 @@
                     [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'payoneer')" id="register-phone-number"
                     formControlName="Payoneer"
                     required>
+                    <mat-hint></mat-hint>
+                    <mat-error id="error-phone-number-invalid" *ngIf="validateFormRegister.get('Payoneer').hasError('payoneer')"
+                    [innerHTML]="'El usuario no es valido.'"></mat-error>
+                    <mat-error id="error-phone-number-invalid" *ngIf="validateFormRegister.get('Payoneer').hasError('required')"
+                    [innerHTML]="'El campo es requerido.'"></mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -322,7 +327,7 @@
             (ngSubmit)="submitAdminRegistrationForm()">
             <h4>Selecciona tipo de perfil</h4>
             <mat-form-field>
-              <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
+              <mat-select placeholder="Tipo de perfil" id="register-profile" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
                 <mat-option *ngFor="let Admin of profileAdmin" [value]="Admin">
                   {{Admin}}
                 </mat-option>

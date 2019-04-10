@@ -98,7 +98,7 @@ export class RegisterSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private router: Router,
-    // private payoneerService: PayoneerService,
+    private payoneerService: PayoneerService,
     private regexService: BasicInformationService
   ) { }
 
@@ -265,13 +265,21 @@ export class RegisterSellerComponent implements OnInit {
 
   putColombiaByDefault() {
     const colombia = this.countries.find(element => element.CountryName === this.colombia);
-    if (!!colombia) this.Country.setValue(colombia.CountryName);
+    if (!!colombia) this.Country.reset({value: colombia.CountryName, disabled: true});
   }
 
   validateExitPayoneerUser(event) {
     const value = event.target.value;
-    // this.payoneerService.getStatusById(value).subscribe(val => {
-    // });
+    if ( !!value) {
+      this.loadingService.viewSpinner();
+      this.payoneerService.getStatusById(value).subscribe((val: any) => {
+        const body = JSON.parse(val.body.body);
+        if(body && !body.Data) {
+          this.Payoneer.setErrors({payoneer: true});
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {

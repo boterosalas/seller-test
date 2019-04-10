@@ -18,8 +18,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const isPeyoneerRequest = req.url.includes('payoneer');
-    if (!isPeyoneerRequest) {
       const idToken = this.cognitoUtil.getTokenLocalStorage();
       const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
@@ -30,17 +28,5 @@ export class AuthInterceptor implements HttpInterceptor {
       });
 
       return next.handle(authReq);
-    } else {
-      const username = 'GrupoExito1100';
-      const password = 'Sellercenter890';
-      const base = username + ':' + password;
-      const buffer = new Buffer(base);
-      const auth = buffer.toString('base64');
-      const headers = new HttpHeaders({'authorization': `Basic ${auth}`, 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS'});
-      const authReq = req.clone({
-        headers: headers
-      });
-      return next.handle(authReq);
-    }
   }
 }
