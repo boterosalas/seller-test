@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 // log component
 const log = new Logger('BulkLoadComponent');
@@ -71,6 +72,10 @@ export class BulkLoadComponent implements OnInit {
 
   public EanArray: any = [];
 
+  // Validación de las regex
+  validateRegex: any;
+
+
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
 
@@ -83,7 +88,9 @@ export class BulkLoadComponent implements OnInit {
     private router: Router,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    public SUPPORT: SupportService,
+
   ) {
     this.user = {};
     this.arrayInformation = [];
@@ -430,7 +437,7 @@ export class BulkLoadComponent implements OnInit {
                 }
 
               } else if (j === iVal.iCurrency) {
-                  const isCurrency = this.validFormat(res[i][j], 'currency');
+                const isCurrency = this.validFormat(res[i][j], 'currency');
                 if (!isCurrency && isCurrency === false) {
                   this.countErrors += 1;
                   this.countErrors += 1;
@@ -891,7 +898,7 @@ export class BulkLoadComponent implements OnInit {
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
   }
 
-  /* Massive offer load*/
+  /* Massive offer load Internacional*/
   downloadFormatMassiveOfferLoadInternational() {
     const emptyFile = [{
       'EAN': undefined,
@@ -925,6 +932,12 @@ export class BulkLoadComponent implements OnInit {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
+  /**
+   * Método que genera el dato json en el formato que emplea excel Internacional
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof BulkLoadComponent
+   */
   exportAsExcelFileInternational(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = { Sheets: { 'Offerts': worksheet }, SheetNames: ['Offerts'] };
@@ -945,6 +958,13 @@ export class BulkLoadComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+  /**
+   * Método que permite generar el excel con los datos pasados en ingles para Internacional
+   *
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof BulkLoadComponent
+   */
   saveAsExcelFileInternational(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
@@ -966,6 +986,29 @@ export class BulkLoadComponent implements OnInit {
       view[i] = s.charCodeAt(i) & 0xFF;
     }
     return buf;
+  }
+
+  // Funcion para cargar datos de regex
+  public validateFormSupport(): void {
+    const param = ['productos', null];
+    this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
+      this.validateRegex = JSON.parse(res.body.body);
+    });
+  }
+
+  /**
+   * Obtiene el valor de la regex
+   * @param {string} name
+   * @returns {string}
+   * @memberof BulkLoadComponent
+   */
+  public getValue(name: string): string {
+    for (let i = 0; i < this.validateRegex.Data.length; i++) {
+      if (this.validateRegex.Data[i].Identifier === name) {
+        return this.validateRegex.Data[i].Value;
+      }
+    }
+    return null;
   }
 
 }
