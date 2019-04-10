@@ -75,6 +75,12 @@ export class BulkLoadComponent implements OnInit {
   // Validación de las regex
   validateRegex: any;
 
+  offertRegex = {
+    formatNumber: '',
+    promiseDelivery: '',
+    currency: ''
+  };
+
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -109,6 +115,7 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   ngOnInit() {
+    this.validateFormSupport();
   }
 
   /**
@@ -803,10 +810,10 @@ export class BulkLoadComponent implements OnInit {
    */
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
-    const formatNumber = /^[0-9]+$/;
+    // const formatNumber = /^[0-9]+$/;
     const eanRegex = /^([A-Za-z0-9]{0,16})$/;
-    const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-    const formatCurrency = /^(COP|USD)$/;
+    // const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
+    // const formatCurrency = /^(COP|USD)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -814,7 +821,7 @@ export class BulkLoadComponent implements OnInit {
       inputtxt = inputtxt.trim();
       switch (validation) {
         case 'alphanumeric':
-          if ((inputtxt.match(formatNumber))) {
+          if ((inputtxt.match(this.offertRegex.formatNumber))) {
             valueReturn = true;
           } else {
             if ((inputtxt.match(eanRegex))) {
@@ -825,7 +832,7 @@ export class BulkLoadComponent implements OnInit {
           }
           break;
         case 'currency':
-          if ((inputtxt.match(formatCurrency))) {
+          if ((inputtxt.match(this.offertRegex.currency))) {
             if (inputtxt === 'COP' || inputtxt === 'USD') {
               valueReturn = true;
             } else {
@@ -836,7 +843,7 @@ export class BulkLoadComponent implements OnInit {
           }
           break;
         case 'boolean':
-          if ((inputtxt.match(formatNumber))) {
+          if ((inputtxt.match(this.offertRegex.formatNumber))) {
             if (inputtxt === '1' || inputtxt === '0') {
               valueReturn = true;
             } else {
@@ -847,7 +854,7 @@ export class BulkLoadComponent implements OnInit {
           }
           break;
         case 'greaterThanZero':
-          if ((inputtxt.match(formatNumber))) {
+          if ((inputtxt.match(this.offertRegex.formatNumber))) {
             const num = parseInt(inputtxt, 10);
             if (num > 0) {
               valueReturn = true;
@@ -859,7 +866,7 @@ export class BulkLoadComponent implements OnInit {
           }
           break;
         case 'formatPromEntrega':
-          if ((inputtxt.match(formatPromEntrega))) {
+          if ((inputtxt.match(this.offertRegex.promiseDelivery))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -990,25 +997,16 @@ export class BulkLoadComponent implements OnInit {
 
   // Funcion para cargar datos de regex
   public validateFormSupport(): void {
-    const param = ['productos', null];
-    this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
-      this.validateRegex = JSON.parse(res.body.body);
-    });
-  }
-
-  /**
-   * Obtiene el valor de la regex
-   * @param {string} name
-   * @returns {string}
-   * @memberof BulkLoadComponent
-   */
-  public getValue(name: string): string {
-    for (let i = 0; i < this.validateRegex.Data.length; i++) {
-      if (this.validateRegex.Data[i].Identifier === name) {
-        return this.validateRegex.Data[i].Value;
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      for (const val in this.offertRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.offertRegex[val] = element && `${element.Value}`;
+        }
       }
-    }
-    return null;
+    });
   }
 
 }
