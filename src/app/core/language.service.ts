@@ -3,12 +3,10 @@ import { BehaviorSubject } from "rxjs";
 
 export const AVAILABLE_LENGUAGES = [
         {
-          name: 'Español',
-          id: 'es'
+          id: 'Es'
         },
         {
-          name: 'Inglés',
-          id: 'en'
+          id: 'En'
         }
       ];
 
@@ -18,6 +16,14 @@ export class LanguageService {
     lenguage$ = new BehaviorSubject('es');
 
     constructor() {
+    }
+
+    setLenguage(lenguageId: string) {
+      const lenguage = AVAILABLE_LENGUAGES.find(leng => leng.id === lenguageId);
+      !!lenguage && this.lenguage$.next(lenguage.id);
+    }
+
+    getValue(key: string) {
 
     }
-};
+}
