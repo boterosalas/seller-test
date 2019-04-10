@@ -289,9 +289,7 @@
               <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary"
                 [innerHTML]="'REGISTRAR'" [disabled]="!registerSeller.form.valid || disabledForService || !activeButton"></button>
             </div>
-            <pre>
-              {{validateFormRegister.value | json}}
-            </pre>
+           
             <!-- <div fxFlex="50%">
             <app-states-data (idStateEvent)="receiveDataState($event)" [disabledComponent]='disabledComponent'></app-states-data>
           </div>
