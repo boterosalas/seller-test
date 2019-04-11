@@ -139,9 +139,12 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     private createForm(patterns: any): void {
         this.formKeyword = new FormGroup({
-            Keyword: new FormControl('', [])
+            
         });
         this.formBasicInfo = new FormGroup({
+            Keyword: new FormControl('', [
+                Validators.required
+            ]),
             Name: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('nameProduct'))
@@ -234,7 +237,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public saveKeyword(): void {
-        let word = this.formKeyword.controls.Keyword.value;
+        let word =  this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
             if (this.keywords.length < 20) {
@@ -249,18 +252,30 @@ export class ProductBasicInfoComponent implements OnInit {
                     });
                 }
                 this.detectForm();
-                this.formKeyword.controls.Keyword.setValue(null);
+                this.formBasicInfo.controls.Keyword.setValue(null);
             } else {
                 this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
                     duration: 3000,
                 });
             }
         }
+        if ( this.keywords.length >0) {
+            this.formBasicInfo.controls.Keyword.setValidators(null)
+        }else{
+            this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
+
+        }
     }
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
-    }
+        if ( this.keywords.length >0) {
+            this.formBasicInfo.controls.Keyword.setErrors(null)
+        }else{
+            this.formBasicInfo.controls.Keyword.setErrors({require:true})
+        }
+        debugger
+    }TextTrackCueList
 
     /**
      * selectColor

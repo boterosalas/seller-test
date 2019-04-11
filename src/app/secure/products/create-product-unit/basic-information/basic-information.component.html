@@ -158,18 +158,20 @@
       <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">Este campo es obligatorio</mat-error>
       <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">El formato no es válido</mat-error>
     </div>
+
+    <mat-form-field class="keyword-field">
+        <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct">
+        <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
+          add_circle_outline
+        </mat-icon>
+        <div class="basic-info-error" *ngIf="!keywords.length">Este campo es obligatorio</div>
+      </mat-form-field>
   </form>
 
   <!-- FORM KEYWORD-->
-  <form [formGroup]="formKeyword" (ngSubmit)="saveKeyword()" class="form-keyword">
-    <mat-form-field class="keyword-field">
-      <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct">
-      <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
-        add_circle_outline
-      </mat-icon>
-      <div class="basic-info-error" *ngIf="!keywords.length">Este campo es obligatorio</div>
-    </mat-form-field>
-  </form>
+  <!-- <form [formGroup]="formKeyword" (ngSubmit)="saveKeyword()" class="form-keyword">
+  
+  </form> -->
   <div style="flex-wrap: wrap; display: flex;">
     <div *ngFor="let key of keywords; let i = index">
       <span>
