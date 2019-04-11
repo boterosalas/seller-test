@@ -17,6 +17,8 @@ export class BillingService {
    // Variable para almacenar el bill del filtro
    public bill: string;
 
+   public sellerId;
+
   constructor(
     private http: HttpClient,
     private api: EndpointService,
@@ -32,6 +34,8 @@ export class BillingService {
    */
   getBilling(user, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
+      // Id del vendedor.
+      this.sellerId = user.sellerId;
       this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, error => {
@@ -52,9 +56,9 @@ export class BillingService {
   getOrdersBillingFilter(user: any, limit, stringSearch): Observable<Billing[]> {
     return new Observable(observer => {
       // Id del vendedor.
-      const sellerId = user.sellerId;
+      this.sellerId = user.sellerId;
 
-      this.http.get<Billing[]>(this.api.get('searchBilling', [sellerId, limit + stringSearch])).subscribe((data) => {
+      this.http.get<Billing[]>(this.api.get('searchBilling', [this.sellerId, limit + stringSearch])).subscribe((data) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
@@ -114,18 +118,18 @@ export class BillingService {
     downloadBillingPay(email: string): Observable<[{}]> {
     const paramsFilter = this.getCurrentFilterPay();
 
-    let urlFilterParams: any;
+    const exportData = {
+      PaymentDateInitial: paramsFilter.dateInitial === undefined ? null: paramsFilter.dateInitial,
+      PaymentDateFinal: paramsFilter.dateFinal === undefined ? null: paramsFilter.dateFinal,
+      IdSeller: this.sellerId,
+      BillingNumber: paramsFilter.bill === undefined ? null: paramsFilter.bill,
+      Email: email
+    }
 
-    // Valida los datos antes de enviar la petición
-    this.dateInitial = paramsFilter.dateInitial === undefined ? null : this.datePipe.transform(paramsFilter.dateInitial, 'yyyy-MM-dd');
-    this.dateFinal = paramsFilter.dateFinal === undefined ? null : this.datePipe.transform(paramsFilter.dateFinal, 'yyyy-MM-dd');
-    this.bill = paramsFilter.bill === undefined || paramsFilter.bill === '' ? null : paramsFilter.bill;
-
-    // Arma la ulr con los datos de la petición
-    urlFilterParams = this.dateInitial + '/' + this.dateFinal + '/' + this.bill + '/' + email;
+    console.log(exportData);
 
     return new Observable(observer => {
-      this.http.get<any>(this.api.get('postBillingOrders', [urlFilterParams]), { observe: 'response'})
+      this.http.post<any>(this.api.get('exportBillingPays'), exportData)
       .subscribe((data: any) => {
         observer.next(data);
       }, err => {

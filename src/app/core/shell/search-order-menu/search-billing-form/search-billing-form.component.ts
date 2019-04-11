@@ -7,6 +7,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 import { BillingService } from '@secure/billing/billing.service';
 import { isEmpty } from 'lodash';
 import { UserParametersService } from '@app/core/aws-cognito/user-parameters.service';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -31,7 +32,8 @@ export class SearchBillingFormComponent implements OnInit {
     private billingService: BillingService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    private loadingService?: LoadingService
   ) {
   }
 
@@ -127,7 +129,9 @@ export class SearchBillingFormComponent implements OnInit {
       this.billingService.setCurrentFilterOrders(objectSearch);
       this.billingService.setCurrentBillingPay(objectSearch.paymentDateInitial, objectSearch.paymentDateFinal, objectSearch.billingNumber);
       // Obtener las órdenes con el filtro indicado.
+      this.loadingService.viewSpinner();
       this.billingService.getOrdersBillingFilter(this.user, 100, stringSearch).subscribe((res) => {
+        this.loadingService.closeSpinner();
         if (res) {
           // Indicar los elementos que esten suscriptos al evento.
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);

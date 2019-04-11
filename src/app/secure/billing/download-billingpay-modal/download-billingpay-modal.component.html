@@ -12,6 +12,7 @@
             formControlName="email"
             matInput placeholder="Correo electrónico"
             type="email"
+            id="emailPago"
             required>
           <!-- /Email imput -->
 
@@ -49,7 +50,7 @@
   <button
     class="sc-button"
     [disabled]="!f.form.valid"
-    (click)="downloadBillingPay(myform)"
+    (click)="downloadPay(myform)"
     mat-raised-button color="accent">Enviar pagos
   </button>
   <!-- /Send historical button -->

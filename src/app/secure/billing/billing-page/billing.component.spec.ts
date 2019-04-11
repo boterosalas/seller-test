@@ -5,28 +5,34 @@ import { RouterTestingModule } from '@angular/router/testing';
 /* our own custom components */
 import { BillingModule } from '../billing.module';
 import { BillingComponent } from './billing.component';
+import { ShellComponent } from '@app/core/shell';
+import { MatSidenavModule } from '@angular/material';
 
-/*
-describe('BillingComponent', () => {
-  let component: BillingComponent;
-  let fixture: ComponentFixture<BillingComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BillingModule
-      ]
-    }).compileComponents();
-  }));
+// fdescribe('BillingComponent', () => {
+//   let component: BillingComponent;
+//   let fixture: ComponentFixture<BillingComponent>;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BillingComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       imports: [
+//         RouterTestingModule,
+//         BillingModule,
+//         MatSidenavModule
+//       ],
+//       declarations: [
+//         ShellComponent,
+//       ]
+//     }).compileComponents();
+//   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});*/
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(BillingComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

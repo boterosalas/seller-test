@@ -5,7 +5,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 // our own custom components
 import { UserInformation, ComponentsService } from '@app/shared';
-import {Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService, LoadingService } from '@app/core';
 import { BillingService } from '../billing.service';
 // import { DownloadBillingPayService } from './download-billingpay.service';
 
@@ -42,6 +42,7 @@ export class DownloadBillingpayModalComponent implements OnInit {
     private fb: FormBuilder,
     public userParams: UserParametersService,
     public billService: BillingService,
+    private loadingService: LoadingService,
     // public downloadBillingpayService: DownloadBillingPayService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -91,13 +92,13 @@ export class DownloadBillingpayModalComponent implements OnInit {
    * @param {any} form
    * @memberof DownloadBillingPayModalComponent
    */
-  downloadBillingPay(form: any) {
-    // log.debug(this.downloadHistoricalService.getCurrentFilterHistorical());
+  downloadPay(form: any) {
     const email = form.get('email').value;
+    this.loadingService.viewSpinner();
     this.billService.downloadBillingPay(email)
-      .subscribe(
-        res => {
-          console.log(res);
+    .subscribe(
+      res => {
+        this.loadingService.closeSpinner();
           if (res != null) {
             this.componentsService.openSnackBar('Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico',
               'Cerrar', 10000);

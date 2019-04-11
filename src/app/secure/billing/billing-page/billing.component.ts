@@ -103,6 +103,13 @@ export class BillingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.isAuthenticated(this);
     this.getDataUser();
+
+    // remove storage from export billing pay when refresh page
+
+    if ( performance.navigation.type == 1) {
+      localStorage.removeItem('currentFilterBillingPay');
+    }
+
   }
 
   async getDataUser() {
@@ -168,8 +175,10 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
+    this.loadingService.viewSpinner();
     this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
       (data: any) => {
+        this.loadingService.closeSpinner();
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;

@@ -6,7 +6,7 @@ import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal
 
 import { SearchFormEntity } from '@shared/models';
 import { getDutchPaginatorIntl } from '@shared/services';
-import { DownloadBillingpayModalComponent } from '../../../secure/billing/download-billingpay-modal/download-billingpay-modal.component';
+import { DownloadBillingpayModalComponent } from '@secure/billing/download-billingpay-modal/download-billingpay-modal.component';
 
 
 // log component
