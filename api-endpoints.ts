@@ -119,6 +119,8 @@ export const endpoints = {
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://jokht2xtxh.execute-api.us-east-1.amazonaws.com/payoneer-dev/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
     },
@@ -239,6 +241,8 @@ export const endpoints = {
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://fi27yra105.execute-api.us-east-1.amazonaws.com/payoneer-pdn/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
     }
