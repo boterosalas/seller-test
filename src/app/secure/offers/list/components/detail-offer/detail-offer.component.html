@@ -72,6 +72,10 @@
                 <mat-icon>beenhere</mat-icon>
                 <p [innerHTML]="'Garantía: <strong>' + dataOffer.warranty + ' meses </strong>'"></p>
             </span>
+            <span class="flexbox align-center">
+                <mat-icon>attach_money</mat-icon>
+                <p [innerHTML]="'Tipo de moneda: <strong>' + (dataOffer.currency | currency: '$' : 'symbol' : '1.0-0') + '  </strong>'"></p>
+            </span>
 
             <aside class="flexbox align-center justify-center flex-wrap">
                 <div class="flexbox align-center justify-center sep-right" [ngClass]="{'check' : dataOffer.isFreeShipping}">
@@ -109,10 +113,11 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input currencyMask matInput placeholder="Precio" formControlName="Price" (keypress)="onlyNumber($event)" (blur)="validInput('Price')"
+                    <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
                     <mat-error *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
                         [innerHTML]="'Precio invalido, el valor debe ser mayor o igual a 8.000'"></mat-error>
                     <mat-error *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanDiscPrice')"
@@ -120,16 +125,19 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input currencyMask matInput placeholder="Precio con Descuento" formControlName="DiscountPrice" (keypress)="onlyNumber($event)" (blur)="validInput('DiscountPrice')">
+                    <!-- <input matInput placeholder="Precio con Descuento" formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')"> -->
+                    <input matInput placeholder="Precio con Descuento" [errorStateMatcher]="matcher" formControlName="DiscountPrice">
                     <mat-hint></mat-hint>
+                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser mayor o igual a 8.000'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser menor a Precio'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input currencyMask matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost" (keypress)="onlyNumber($event)"
+                    <input matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost" [errorStateMatcher]="matcher" 
                         required>
                     <mat-hint></mat-hint>
+                    <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
 
@@ -143,13 +151,19 @@
                         formUpdateOffer.get('PromiseDelivery').hasError('isInvalidEnd')" [innerHTML]="'La promesa de entrega no es v&aacute;lida'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
-
                 <mat-form-field>
                     <input matInput placeholder="Garantía" formControlName="Warranty" required (keypress)="onlyNumber($event)">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Warranty').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
-
+                <mat-form-field>
+                    <mat-label>Tipo de moneda</mat-label>
+                    <mat-select name="Currrency" formControlName="Currrency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="false" >
+                          <mat-option value="USD">USD</mat-option>
+                          <mat-option value="COP">COP</mat-option>
+                    </mat-select>
+                </mat-form-field>
+             
                 <mat-slide-toggle color="primary" formControlName="IsFreeShipping" (change)="checkSlide($event, 'isFreeShipping')">Free
                     Shipping
                 </mat-slide-toggle>

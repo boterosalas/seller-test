@@ -33,12 +33,16 @@ export class OfertExpandedProductComponent implements OnInit {
     @Input() applyOffer: any;
     @Input() productsExpanded: any;
 
+    public isTypeCurrency = false;
     public formatNumber = /^[0-9]+$/;
     public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     public valuePrice: any;
     public totalCombo: any;
     public showImage = false;
     public showButton = true;
+    public OptionMasck = {
+        precision : 0
+    };
 
 
     constructor(
@@ -71,18 +75,19 @@ export class OfertExpandedProductComponent implements OnInit {
             ]),
             Price: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.formatNumber),
-
             ]),
-            DiscountPrice: new FormControl('', [
+            DiscountPrice: new FormControl(''),
+            PromiseDelivery: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.formatPromEntrega)
+            ]),
+            IsFreightCalculator: new FormControl('', [
+                Validators.required,
+            ]),
+            Warranty: new FormControl('', [
+                Validators.required,
                 Validators.pattern(this.formatNumber)
             ]),
-            PromiseDelivery: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatPromEntrega)]),
-            IsFreightCalculator: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
-            Warranty: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
             ofertOption: new FormControl(''),
             IsUpdatedStock: new FormControl(''),
             Combos: this.fb.array([]), /*
@@ -90,6 +95,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
+            Currrency: new FormControl('COP')
         });
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
@@ -197,14 +203,19 @@ export class OfertExpandedProductComponent implements OnInit {
                 }
             } else {
                 this.setCategoryError(errors);
-
             }
         } else {
             // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                this.setCategoryErrorPrice(errors);
+                if(this.ofertProduct.controls.Currrency.value == 'COP'){
+                    this.setCategoryErrorPrice(errors);
+                } else {
+                    errors = false;
+                    // this.ofertProduct.controls.Price.reset(0);
+                    this.setCategoryErrorPrice(errors);
+                }
             }
         }
         this.sendArray();
@@ -213,7 +224,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value <= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currrency.value == 'COP') {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -282,6 +293,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
+            Currrency: this.ofertProduct.controls.Currrency.value,
         };
 
         let aryOfAry = [data];
@@ -336,4 +348,38 @@ export class OfertExpandedProductComponent implements OnInit {
         this.cleanFilterListProducts(result);
         // this.ofertProduct = null;
     }
+
+    /**
+   * @method onlyNumber que permite solo el ingreso de números.
+   * @param event
+   * @memberof DetailOfferComponent
+   */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+        }
+  }
+
+  changeTypeCurrency(event) {
+    
+    if (event == 'USD'){
+        this.OptionMasck ={
+            precision: 2
+        }
+       
+    } else {
+        this.OptionMasck ={
+            precision: 0
+        } 
+    }
+    this.setCategoryError(false);
+    this.ofertProduct.controls.Price.reset(0);
+    this.ofertProduct.controls.DiscountPrice.reset(0)
+    this.ofertProduct.controls.IsFreightCalculator.reset(0);
+    this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+      duration: 3000,
+    });
+  }
 }
