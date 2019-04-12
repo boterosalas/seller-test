@@ -367,10 +367,25 @@ export class OfertExpandedProductComponent implements OnInit {
 
     // Funcion para limpiar formulario
     public cleanFilter(result?: any) {
-        this.ofertProduct.reset();
-        this.ofertProduct.controls.Currrency.setValue('COP')
+        this.ofertProduct.controls.Stock.reset();
+        this.ofertProduct.controls.Price.reset();
+        this.ofertProduct.controls.DiscountPrice.reset();
+        this.ofertProduct.controls.PromiseDelivery.reset();
+        this.ofertProduct.controls.IsFreightCalculator.reset();
+        this.ofertProduct.controls.Warranty.reset();
+        this.ofertProduct.controls.ofertOption.reset();
+        this.ofertProduct.controls.IsUpdatedStock.reset();
+        if (this.applyOffer.eanesCombos.length !== 0) {
+            this.Combos.controls.forEach((price: any) => {
+                price.controls.ofertPriceComponet.reset("");
+                price.controls.ComboQuantity.reset("");
+            });
+        }
+
+        if (this.ofertProduct.controls.Currrency.value !== 'COP') {
+            this.ofertProduct.controls.Currrency.setValue('COP')
+        }
         this.cleanFilterListProducts(result);
-        // this.ofertProduct = null;
     }
 
     /**
@@ -401,6 +416,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
             duration: 3000,
         });
+
         if (this.applyOffer.eanesCombos.length !== 0) {
             this.Combos.controls.forEach((price: any) => {
                 price.controls.ofertPriceComponet.reset("");
