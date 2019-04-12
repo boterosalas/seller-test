@@ -113,31 +113,30 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
+                    <input  matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
-                    <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
                     <mat-error *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
-                        [innerHTML]="'Precio invalido, el valor debe ser mayor o igual a 8.000'"></mat-error>
+                        [innerHTML]="'Precio inválido, el valor debe ser mayor o igual a 8.000'"></mat-error>
                     <mat-error *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanDiscPrice')"
-                        [innerHTML]="'Precio invalido, el valor debe ser mayor a Precio con Descuento'"></mat-error>
+                        [innerHTML]="'Precio inválido, el valor debe ser mayor a Precio con Descuento'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <!-- <input matInput placeholder="Precio con Descuento" formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')"> -->
-                    <input matInput placeholder="Precio con Descuento" [errorStateMatcher]="matcher" formControlName="DiscountPrice">
+                    <input matInput placeholder="Precio con Descuento" [errorStateMatcher]="matcher"  formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')">
                     <mat-hint></mat-hint>
-                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
-                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser mayor o igual a 8.000'"></mat-error>
-                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')" [innerHTML]="'Precio con Descuento invalido, el valor debe ser menor a Precio'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')" [innerHTML]="'Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')" [innerHTML]="'Precio con Descuento inválido, el valor debe ser menor a Precio'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
                     <input matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost" [errorStateMatcher]="matcher" 
                         required>
                     <mat-hint></mat-hint>
-                    <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')" [innerHTML]="'Formato invalido'"></mat-error>
+                    <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
                     <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
 

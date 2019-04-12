@@ -18,6 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+
 /**
  *
  * @export
@@ -116,6 +117,8 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   public isProductionEnv = environment.production;
+
+  @ViewChild('discountPrinceView') discountPrinceView: ElementRef
 
   constructor(
     public list: ListComponent,
@@ -389,15 +392,16 @@ export class DetailOfferComponent {
     );
   }
 
-  changeTypeCurrency(event) {
-    // if (event == 'USD') {
-    //   this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.discountPrice)]);
 
-    // } else {
-    //   this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-    // }
+/**
+ * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
+ * y limpias las variables
+ * @param event 
+ */
+
+  changeTypeCurrency(event) {
     this.formUpdateOffer.controls['Price'].reset("");
-    this.formUpdateOffer.controls['DiscountPrice'].reset(0);
+    this.formUpdateOffer.controls['DiscountPrice'].reset("");
     this.formUpdateOffer.controls['AverageFreightCost'].reset("");
     this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
       duration: 3000,
