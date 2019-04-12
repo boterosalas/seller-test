@@ -3,7 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { distinctUntilChanged } from "rxjs/operators";
 import { MatSnackBar } from "@angular/material";
-import { LoadingService } from "./global";
+import { LoadingService } from "../global";
 
 export const AVAILABLE_LANGUAGES = [
         {

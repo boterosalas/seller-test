@@ -17,8 +17,7 @@ import { HttpService } from './http/http.service';
 import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
 import { DialogTokenExpiredComponent } from './http/dialog-token-expired/dialog-token-expired';
-import { LanguageService } from './language.service';
-
+import { LanguageService } from './translate/language.service';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',

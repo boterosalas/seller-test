@@ -10,7 +10,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/language.service';
+import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/translate/language.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 // log component

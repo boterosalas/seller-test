@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { LoadingService } from '@app/core/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/language.service';
+import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/translate/language.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 

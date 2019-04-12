@@ -14,7 +14,7 @@ import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionali
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
 import * as moment from 'moment';
-import { LanguageService } from '@app/core/language.service';
+import { LanguageService } from '@app/core/translate/language.service';
 
 export interface ListFilterSeller {
     name: string;
