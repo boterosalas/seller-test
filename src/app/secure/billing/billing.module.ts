@@ -17,6 +17,7 @@ import { BillingRoutingModule } from './billing.routing';
 import { BillingService } from './billing.service';
 import { OrderBillingDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
 import { ProductDetailBillingModalComponent } from './product-detail-modal/product-detail-modal.component';
+import { DownloadBillingpayModalComponent } from './download-billingpay-modal/download-billingpay-modal.component';
 
 
 @NgModule({
@@ -33,17 +34,20 @@ import { ProductDetailBillingModalComponent } from './product-detail-modal/produ
     BillingProductsOrderComponent,
     OrderBillingDetailModalComponent,
     ProductDetailBillingModalComponent,
-    BillingFulfillmentDetailComponent
+    BillingFulfillmentDetailComponent,
+    DownloadBillingpayModalComponent
   ],
   exports: [
     BillingComponent,
     BillingProductsOrderComponent,
     OrderBillingDetailModalComponent,
-    ProductDetailBillingModalComponent
+    ProductDetailBillingModalComponent,
+    DownloadBillingpayModalComponent
   ],
   entryComponents: [
     OrderBillingDetailModalComponent,
-    ProductDetailBillingModalComponent
+    ProductDetailBillingModalComponent,
+    DownloadBillingpayModalComponent
   ],
   providers: [
     BillingService,

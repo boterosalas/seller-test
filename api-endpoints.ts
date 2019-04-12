@@ -20,6 +20,7 @@ export const endpoints = {
       recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
       getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
       getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
+      exportBillingPays: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
       refuseOrAcceptDevolution: '',
       // Support message
@@ -119,6 +120,8 @@ export const endpoints = {
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://jokht2xtxh.execute-api.us-east-1.amazonaws.com/payoneer-dev/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
     },
@@ -140,6 +143,7 @@ export const endpoints = {
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       // Billing Mock
       getBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn{stringParams}',
+      exportBillingPays: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn?idSeller={sellerId}&limit={limit}',
       refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
@@ -239,6 +243,8 @@ export const endpoints = {
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
+      // Payoneer
+      payoneer: 'https://fi27yra105.execute-api.us-east-1.amazonaws.com/payoneer-pdn/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
     }

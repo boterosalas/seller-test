@@ -95,3 +95,19 @@ $amber: mat-palette($mat-amber);
     padding-right: 0px;
   }
 }
+
+@media only screen and (max-width: 1279px) {
+
+  .toolbar-paginate{
+    max-width: initial !important;
+  }
+
+  .toolbar-paginate{
+    justify-content: flex-end;
+  }
+  
+  .toolbar-cont{
+    flex: initial !important;
+    place-content: center flex-end !important;
+  }
+}

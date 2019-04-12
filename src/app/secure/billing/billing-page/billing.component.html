@@ -3,7 +3,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para los pagos -->
-      <app-toolbar-options #toolbarOptions [billingType]="true" [informationToForm]="informationToForm" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options #toolbarOptions [billingType]="true" [informationToForm]="informationToForm" [downloadBillingPay]="true" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para los pagos -->
     </div>
 
@@ -90,6 +90,18 @@
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
             <p class="sc-text-normal sc-commission-text">${{ element.commission | number }}</p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Iva Column -->
+        <ng-container matColumnDef="iva">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
+            fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header"> IVA </span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
+            fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
+            <p class="sc-text-normal sc-commission-text">-${{ iva | number }}</p>
           </mat-cell>
         </ng-container>
 
