@@ -14,7 +14,7 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">Precio inválido</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
         <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">Precio es campo obligatorio</mat-error>
         <mat-error *ngIf="ofertProduct.controls.Price.hasError('priceReal')">
           El precio debe ser mayor igual a 8000.
@@ -26,7 +26,7 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput placeholder="Precio con descuento" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">Precio con descuento inválido</mat-error>
+        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">
           El precio con descuento debe ser mayor igual a 8000.
         </mat-error>
@@ -48,7 +48,7 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput placeholder="Costo flete" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">Costo de flete inválido</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
         <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">Costo de flete es campo obligatorio</mat-error>
       </mat-form-field>
     </div>
@@ -61,6 +61,19 @@
         <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">Garantía es campo obligatorio</mat-error>
       </mat-form-field>
     </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-label>Tipo de moneda</mat-label>
+        <mat-select name="Currrency" formControlName="Currrency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="false" >
+              <mat-option value="USD">USD</mat-option>
+              <mat-option value="COP">COP</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information"></div>
+    <div fxFlex="28%" class="ofert-information"></div>
   </div>
 
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="ofert-option">

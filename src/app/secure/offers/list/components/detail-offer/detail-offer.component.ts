@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -6,6 +6,8 @@ import { LoadingService, ModalService } from '@app/core';
 import { environment } from '@env/environment';
 import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
+import { MatSnackBar } from '@angular/material';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -15,6 +17,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
 
 /**
  *
@@ -62,6 +65,15 @@ export class DetailOfferComponent {
   public Warranty: FormControl;
   public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
+  public Currrency: FormControl;
+
+  offertRegex = {
+    formatNumber: '',
+    promiseDelivery: '',
+    currency: '',
+    isUpdatedStock:'',
+    discountPrice:''
+  };
 
   /**
    * @description Variable para controlar los errores de los inputs.
@@ -106,15 +118,24 @@ export class DetailOfferComponent {
    */
   public isProductionEnv = environment.production;
 
+  @ViewChild('discountPrinceView') discountPrinceView: ElementRef
 
   constructor(
     public list: ListComponent,
     public loadOfferService: BulkLoadService,
     private loadingService: LoadingService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    public SUPPORT: SupportService,
+    public snackBar?: MatSnackBar,
+
   ) {
     this.isUpdateOffer = false;
     this.params = [];
+  }
+
+  ngOnInit() {
+    this.validateFormSupport();
+    this.createValidators();
   }
 
   /**
@@ -172,17 +193,18 @@ export class DetailOfferComponent {
     const formatBoolean = /^[0-1]$/;
 
     this.Ean = new FormControl(this.dataOffer.ean);
-    this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(formatNumber)]);
-    this.Price = new FormControl(this.dataOffer.price);
-    this.DiscountPrice = new FormControl({ value: this.dataOffer.discountPrice, disabled: this.Price.value < 8000 ? true : false });
-    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost);
-    this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(formatPromEntrega)]);
+    this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.DiscountPrice = new FormControl({ value: this.dataOffer.discountPrice, disabled: this.Price.value < 8000 ? true : false }, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
-    this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(formatBoolean)]);
+    this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
+    this.Currrency = new FormControl('COP')
   }
 
   /**
@@ -203,7 +225,8 @@ export class DetailOfferComponent {
       IsFreightCalculator: this.IsFreightCalculator,
       Warranty: this.Warranty,
       IsLogisticsExito: this.IsLogisticsExito,
-      IsUpdatedStock: this.IsUpdatedStock
+      IsUpdatedStock: this.IsUpdatedStock,
+      Currrency: this.Currrency
     });
   }
 
@@ -300,17 +323,20 @@ export class DetailOfferComponent {
       case 'Price':
         // this.DiscountPrice.reset(); Se elimina linea, con error al siempre hacer unfocus en precio borraba el precio de descuento.
         if (this.Price.value === '') {
-        } else if (parseInt(this.Price.value, 10) < 8000) {
+        } else if (parseInt(this.Price.value, 10) < 8000 && this.Currrency.value == 'COP') {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
         } else if (parseInt(this.Price.value, 10) <= parseInt(this.DiscountPrice.value, 10)) {
-          this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
+          if (this.Currrency.value == 'COP') {
+            this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
+          }
+
         } else {
           this.DiscountPrice.enable();
         }
         break;
       case 'DiscountPrice':
         if (this.DiscountPrice.value !== '') {
-          if (parseInt(this.DiscountPrice.value, 10) < 8000) {
+          if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currrency.value == 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
@@ -352,14 +378,49 @@ export class DetailOfferComponent {
             this.loadingService.closeSpinner();
             this.goToListOffers();
             this.consumeServiceList.emit(true);
+            this.params = [];
           } else if (data.body.successful === 0 && data.body.error === 0) {
             this.modalService.showModal('errorService');
+            this.params = [];
           }
         } else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
+          this.params = [];
         }
       }
     );
+  }
+
+
+/**
+ * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
+ * y limpias las variables
+ * @param event 
+ */
+
+  changeTypeCurrency(event) {
+    this.formUpdateOffer.controls['Price'].reset("");
+    this.formUpdateOffer.controls['DiscountPrice'].reset("");
+    this.formUpdateOffer.controls['AverageFreightCost'].reset("");
+    this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+      duration: 3000,
+    });
+  }
+
+
+  // Funcion para cargar datos de regex
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      for (const val in this.offertRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.offertRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createValidators();
+    });
   }
 }
