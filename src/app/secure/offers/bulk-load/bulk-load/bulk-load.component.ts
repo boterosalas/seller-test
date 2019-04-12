@@ -643,8 +643,8 @@ export class BulkLoadComponent implements OnInit {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
-      // Currency: res[index][iVal.iCurrency]
-      Currency: 'COP'
+      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
+      // Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
