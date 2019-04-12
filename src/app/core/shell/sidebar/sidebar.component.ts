@@ -10,7 +10,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AVAILABLE_LENGUAGES, LanguageService } from '@app/core/language.service';
+import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/language.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 // log component
@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
 
   form: FormGroup;
 
-  public languages = AVAILABLE_LENGUAGES;
+  public languages = AVAILABLE_LANGUAGES;
 
   constructor(
     private route: Router,
@@ -71,7 +71,8 @@ export class SidebarComponent implements OnInit {
       this.form.get('language').setValue(val);
     });
     this.form.get('language').valueChanges.subscribe((idLeng) => {
-      this.languageService.setLenguage(idLeng);
+      if(this.languageService.lenguage$.getValue() !== idLeng)
+      this.languageService.setLanguage(idLeng);
     });
   }
 

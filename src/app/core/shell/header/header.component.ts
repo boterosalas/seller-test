@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { LoadingService } from '@app/core/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AVAILABLE_LENGUAGES, LanguageService } from '@app/core/language.service';
+import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/language.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public sellerId: any;
   public routes: any;
   public form: FormGroup;
-  public languages = AVAILABLE_LENGUAGES;
+  public languages = AVAILABLE_LANGUAGES;
   selectedLenguage: any;
   matSelect;
 
@@ -64,20 +64,12 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
       language: ['', Validators.required]
     });
     this.languageService.lenguage$.pipe(distinctUntilChanged()).subscribe((val) => {
-      if (this.form.get('language').value !== val) {
-        
-      }
-        this.form.get('language').setValue(val); 
-        this.selectedLenguage = AVAILABLE_LENGUAGES.find(leng => leng.id === val);
-        const spanValie = this.matSelect && this.matSelect.querySelector('.mat-select-value-text>span');
-        console.log(spanValie, typeof spanValie);
-        if (spanValie && this.selectedLenguage) {
-          spanValie.setAttribute('text', this.selectedLenguage.render)
-        }
+      if (this.form.get('language').value !== val)
+      this.form.get('language').setValue(val);
     });
     this.form.get('language').valueChanges.subscribe((idLeng) => {
-      this.languageService.setLenguage(idLeng);
-      this.selectedLenguage = AVAILABLE_LENGUAGES.find(leng => leng.id === idLeng);
+      if(this.languageService.lenguage$.getValue() !== idLeng)
+      this.languageService.setLanguage(idLeng);
     });
   }
 
