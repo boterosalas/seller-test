@@ -1488,7 +1488,7 @@ export class BulkLoadProductComponent implements OnInit {
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     const filterNumber = /^[0-9]+$/;
-    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$/;
+    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$|0{1}$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
     const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
