@@ -368,6 +368,7 @@ export class OfertExpandedProductComponent implements OnInit {
     // Funcion para limpiar formulario
     public cleanFilter(result?: any) {
         this.ofertProduct.reset();
+        this.ofertProduct.controls.Currrency.setValue('COP')
         this.cleanFilterListProducts(result);
         // this.ofertProduct = null;
     }

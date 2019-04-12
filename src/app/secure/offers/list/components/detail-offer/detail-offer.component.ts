@@ -332,6 +332,7 @@ export class DetailOfferComponent {
         }
         break;
       case 'DiscountPrice':
+    
         if (this.DiscountPrice.value !== '') {
           if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currrency.value == 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
@@ -340,6 +341,9 @@ export class DetailOfferComponent {
           } else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
           }
+        } else {
+          console.log(this.DiscountPrice.value)
+          this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
       case 'PromiseDelivery':
