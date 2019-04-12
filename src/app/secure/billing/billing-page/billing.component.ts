@@ -113,7 +113,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   async getDataUser() {
-    this.user = await this.userParams.getUserData();
+    this.user =  !!this.user ? this.user : await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }
@@ -124,7 +124,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     * @memberof DashboardComponent
     */
    public async getUserData() {
-    this.user = await this.userParams.getUserData();
+    this.user =  !!this.user ? this.user : await this.userParams.getUserData();
 
     if (this.user.sellerProfile !== 'seller') {
         this.router.navigate([`/${RoutesConst.securehome}`]);
@@ -132,7 +132,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         // this.getOrdersList(Event);
         // this.getLastSales();
     }
-}
+  }
 
   /**
    * Funcionalidad para remover las suscripciones creadas.

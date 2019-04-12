@@ -82,6 +82,18 @@ $blue: mat-palette($mat-indigo);
   padding-right: 10px;
 }
 
-.toolbar-paginate{
-  justify-content: flex-end;
+@media only screen and (max-width: 1279px) {
+
+  .toolbar-paginate{
+    max-width: initial !important;
+  }
+
+  .toolbar-paginate{
+    justify-content: flex-end;
+  }
+  
+  .toolbar-cont{
+    flex: initial !important;
+    place-content: center flex-end !important;
+  }
 }

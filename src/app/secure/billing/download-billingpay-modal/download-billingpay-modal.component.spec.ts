@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBarModule, MatFormFieldControl, MatInputModule } from '@angular/material';
 import { DownloadBillingpayModalComponent } from './download-billingpay-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ describe('DownloadBillingpayModalComponent', () => {
   let component: DownloadBillingpayModalComponent;
   let fixture: ComponentFixture<DownloadBillingpayModalComponent>;
 
-  const userData = {sellerProfile: 'administrator'}; 
+  const userData = {sellerProfile: 'seller'}; 
    // Mock Services 
    const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']); 
    const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']); 
@@ -71,7 +71,7 @@ describe('DownloadBillingpayModalComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+      expect(component).toBeTruthy();
   });
 
   it('valid email', ()=> {
