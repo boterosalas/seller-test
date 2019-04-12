@@ -117,9 +117,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         const drawer: any = document.querySelector('.mat-drawer-content.mat-sidenav-content');
-        drawer.classList.remove('mat-drawer-content');
+        !!drawer && drawer.classList.remove('mat-drawer-content');
         const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
-        drawerContainer.classList.add('height_seller-list');
+        !!drawerContainer && drawerContainer.classList.add('height_seller-list');
         this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
@@ -549,8 +549,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subs && this.subs.forEach(sub => sub.unsubscribe());
         const drawer = document.querySelector('mat-sidenav-content');
-        drawer.classList.add('mat-drawer-content');
+        !!drawer && drawer.classList.add('mat-drawer-content');
         const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
-        drawerContainer.classList.remove('height_seller-list');
+        !!drawer && drawerContainer.classList.remove('height_seller-list');
     }
 }

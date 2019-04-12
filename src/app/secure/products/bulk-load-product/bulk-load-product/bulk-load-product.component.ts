@@ -358,7 +358,7 @@ export class BulkLoadProductComponent implements OnInit {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('Categoria') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('Category') && this.arrayNecessaryData[0].includes('Product Type')) {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
               this.iVal = {
                 iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
