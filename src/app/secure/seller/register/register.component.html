@@ -141,7 +141,7 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
-                  <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')" maxlength="20" formControlName="Nit"
+                  <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')" maxlength="isColombiaSelect ? 20 : 30" formControlName="Nit"
                     autocomplete="off" (blur)="validateExist($event, 'Seller' ,'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>

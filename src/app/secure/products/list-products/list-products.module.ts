@@ -9,6 +9,7 @@ import { ComboProductComponent } from './comboProduct/comboProduct.component';
 import { ListProductService } from './list-products.service';
 import { ExpandedProductComponent } from './expanded-product/expanded-product.component';
 import { OfertExpandedProductComponent } from './ofert-product/ofert-product.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { OfertExpandedProductComponent } from './ofert-product/ofert-product.com
       ListProductRoutingModule,
       MaterialModule,
       FormsModule,
+      CurrencyMaskModule
     ],
     declarations: [
       ListProductsComponent,

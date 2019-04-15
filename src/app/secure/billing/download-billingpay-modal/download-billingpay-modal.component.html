@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Te enviaremos los pagos al siguiente correo electrónico.</h2>
+<mat-dialog-content>
+
+  <form #f="ngForm" [formGroup]="myform" class="form-login">
+    <div fxLayout="column" fxLayoutGap="20px">
+      <div fxLayout="row" fxFlex="100">
+        <mat-form-field fxFlex="100" class="input-style">
+
+          <!-- Email imput -->
+          <input
+            name="email"
+            formControlName="email"
+            matInput placeholder="Correo electrónico"
+            type="email"
+            id="emailPago"
+            required>
+          <!-- /Email imput -->
+
+          <!-- Clean email input -->
+          <button
+            disabled="{{!f.form.dirty}}"
+            matSuffix
+            type="button"
+            color="primary"
+            mat-icon-button
+            (click)="createForm()">            
+            <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>
+              autorenew
+            </mat-icon>
+          </button>
+          <!-- Clean email input -->
+          
+          <!-- Error message -->
+          <mat-error>El correo electrónico no puede estar en blanco</mat-error>
+          <!-- /Error message -->
+
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-buttons">
+
+  <!-- Cancel button -->
+  <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
+  <!-- /Cancel button -->
+
+  <!-- Send historical button -->
+  <button
+    class="sc-button"
+    [disabled]="!f.form.valid"
+    (click)="downloadPay(myform)"
+    mat-raised-button color="accent">Enviar pagos
+  </button>
+  <!-- /Send historical button -->
+
+</mat-dialog-actions>

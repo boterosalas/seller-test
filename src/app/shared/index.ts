@@ -1,5 +1,5 @@
 // Components
-export * from './components/toolbar-options';
+// export * from './components/toolbar-options';
 export * from './components/confirm-alert/confirm-alert.component';
 export * from './components/bulk-load/bulk-load.module';
 

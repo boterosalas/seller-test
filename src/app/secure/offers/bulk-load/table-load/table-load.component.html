@@ -278,6 +278,24 @@
           </td>
         </ng-container>
 
+         <!--Tipo de moneda -->
+         <ng-container matColumnDef="Currency">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>Tipo de moneda</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorCurrency == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Currency != undefined && element.Currency != ''">
+              <p class="sc-text-normal">{{element.Currency}}</p>
+            </div>
+            <div class="information" *ngIf="element.Currency == undefined || element.Currency == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.EAN}}" *matRowDef="let index=index;let row; columns: displayedColumns;"
