@@ -28,7 +28,10 @@ export class LanguageService {
         this.esData = data;
         this.http.get('./assets/locale/en.json').subscribe(dataEn => {
           this.enData = dataEn;
-          this.setLanguage('Es');
+          const currentLanguage = this.getLanguageLocalStorage();
+          if (!currentLanguage || this.lenguage$.getValue() !== currentLanguage) {
+            !!this.lenguage$.getValue() ? this.setLanguage(this.lenguage$.getValue()) : this.setLanguage('Es');
+          }
         });
       });
     }
@@ -36,7 +39,10 @@ export class LanguageService {
     setLanguage(languageId: string) {
       this.loadingService.viewProgressBar();
       const language = AVAILABLE_LANGUAGES.find(lang => lang.id === languageId);
-      !!language && this.lenguage$.next(language.id);
+      if (!!language) {
+        this.lenguage$.next(language.id);
+        this.setLanguageLocalSotrage(language.id);
+      }
       this.loadingService.closeProgressBar();
       if (languageId === 'Es') {
         this.snackBar.open(`${this.getValue('change_language')} ${this.getValue('spanish')}`, 'Cerrar', {
@@ -56,5 +62,13 @@ export class LanguageService {
         return past[current];
       }, (val === 'Es' ? this.esData : this.enData));
       return !!value ? value : key;
+    }
+
+    setLanguageLocalSotrage(language: string) {
+      localStorage.setItem('Language', language);
+    }
+
+    getLanguageLocalStorage(): string {
+      return localStorage.getItem('Language');
     }
 }
