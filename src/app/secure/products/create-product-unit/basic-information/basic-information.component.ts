@@ -258,13 +258,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
-<<<<<<< HEAD
-        if ( this.keywords.length >0) {
-            this.formBasicInfo.controls.Keyword.setValidators(null)
-=======
         if ( this.keywords.length > 0) {
             this.formBasicInfo.controls.Keyword.setErrors(null)
->>>>>>> fixValidatorsHideButton
         }else{
             this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
 
