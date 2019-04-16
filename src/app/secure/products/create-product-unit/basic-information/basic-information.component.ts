@@ -274,7 +274,7 @@ export class ProductBasicInfoComponent implements OnInit {
             this.formBasicInfo.controls.Keyword.setErrors({require:true})
         }
         
-    }TextTrackCueList
+    }
 
     /**
      * selectColor
