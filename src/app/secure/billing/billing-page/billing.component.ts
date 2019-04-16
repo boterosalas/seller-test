@@ -140,6 +140,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     // this.subFilterOrderBilling.unsubscribe();
+      localStorage.removeItem('currentFilterBillingPay');
   }
 
   /**
