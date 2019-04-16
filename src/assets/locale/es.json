@@ -1,0 +1,42 @@
+{
+    "change_language": "El lenguaje ha cambiado satisfactoriamente a ",
+    "english": "Inglés",
+    "spanish": "Español",
+    "errors": {
+        "required": "Este cambio es obligatorio",
+        "invalid_name": "Nombre invalido",
+        "invalid_nit": "Nit invalido",
+        "invalid_id": "Id invalido",
+        "reason_max_length": "El motivo no debe superar los 120 caracteres",
+        "observation_max_length": "La observación no debe superar los 2000 caracteres" 
+    },
+    "filters": {
+        "crear": "Limpiar",
+        "filter": "Filtrar"
+    },
+    "secure": {
+        "seller": {
+            "list": {
+                "enabled_title_modal": "Activación",
+                "disabled_title_modal": "Desactivación",
+                "vacation_title_modal": "Vacaciones",
+                "enabled_message_modal": "¿Estas seguro que deseas activar este vendedor?.",
+                "disabled_message_modal": "Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.",
+                "vacation_message_modal": "Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.",
+                "program_vacation": "Programar vacaciones",
+                "id": "ID",
+                "nit": "Nit",
+                "seller_name": "Nombre del vendedor",
+                "status": "Estado",
+                "vacations": "vacaciones",
+                "reason": "Motivo",
+                "observtion": "Observación",
+                "start_date": "Fecha inicio",
+                "end_date": "Fecha final",
+                "seller_filter": "Filtro vendedores",
+                "toolbar_title": "Vendedores",
+                "toolbar_subtitle": "Listado de vendedores"
+            }
+        }
+    }
+}

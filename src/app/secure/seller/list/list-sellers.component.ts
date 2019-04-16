@@ -14,6 +14,7 @@ import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionali
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
 import * as moment from 'moment';
+import { LanguageService } from '@app/core/translate/language.service';
 
 export interface ListFilterSeller {
     name: string;
@@ -94,7 +95,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private dialog: MatDialog,
         public authService: AuthService,
-        private modalService: ModalService) {
+        private modalService: ModalService,
+        private languageService: LanguageService) {
     }
 
     get reason(): FormControl{
@@ -364,19 +366,19 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let form = null;
         let messageCenter = false;
         if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
-            message = '¿Estas seguro que deseas activar este vendedor?';
+            message = this.languageService.getValue('secure.seller.list.enabled_message_modal');
             icon = null;
-            title = 'Activación';
+            title = this.languageService.getValue('secure.seller.list.enabled_title_modal');
             messageCenter = true;
             this.needFormStates$.next({posSeller: index, status: 'enabled'});
         } else if (status === 'disabled' && sellerData.Status !== 'Disable' && this.canDisabled) {
-            message = 'Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.';
+            message = this.languageService.getValue('secure.seller.list.disabled_message_modal');
             icon = null;
-            title = 'Desactivación';
+            title = this.languageService.getValue('secure.seller.list.disabled_title_modal');
             this.needFormStates$.next({posSeller: index, status: status.toString()});
         } else if (status === 'vacation' && sellerData.Status !== 'Disable' && this.canPutInVacation) {
-            title = 'Vacaciones';
-            message = 'Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+            title =  this.languageService.getValue('secure.seller.list.vacation_title_modal');
+            message = this.languageService.getValue('secure.seller.list.vacation_message_modal');
             icon = 'local_airport';
             this.needFormStates$.next({posSeller: index, status: status.toString()});
             if (this.sellerList[index].StartVacations && this.sellerList[index].EndVacations) {

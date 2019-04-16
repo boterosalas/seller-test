@@ -184,7 +184,7 @@
                     </label>
                     <ng-template #ProgramDate>
                         <label class="label-result">
-                            Programar Vacaciones
+                            {{ ('secure.seller.list.program_vacation' | translate) | async}}
                       </label>                     
                     </ng-template>
                   </div>
@@ -218,14 +218,14 @@
     <form [formGroup]="statusForm" class="margin-top__15">
         <mat-form-field class="full-width">
           <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
-          <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>
+          <mat-error *ngIf="reason.hasError('maxlength')">El motivo no debe superar los 120 caracteres.</mat-error>
           <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
           <textarea matInput id="inputObservation" placeholder="Observación" autocomplete="false" formControlName="Observations"></textarea>
-          <mat-error *ngIf="observation.hasError('maxlength')">El nombre no debe superar los 2000 caracteres.</mat-error>
+          <mat-error *ngIf="observation.hasError('maxlength')">La observación no debe superar los 2000 caracteres.</mat-error>
           <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">Este campo es obligatorio.</mat-error>  
         </mat-form-field>
     </form>
-  </ng-container>  
+  </ng-container>
 </ng-template>
