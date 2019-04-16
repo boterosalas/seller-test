@@ -11,7 +11,7 @@
         "observation_max_length": "La observación no debe superar los 2000 caracteres" 
     },
     "filters": {
-        "crear": "Limpiar",
+        "clear": "Limpiar",
         "filter": "Filtrar"
     },
     "secure": {
@@ -35,7 +35,8 @@
                 "end_date": "Fecha final",
                 "seller_filter": "Filtro vendedores",
                 "toolbar_title": "Vendedores",
-                "toolbar_subtitle": "Listado de vendedores"
+                "toolbar_subtitle": "| Listado de vendedores",
+                "toolbar_title_phone": "Listado de vendedores"
             }
         }
     }

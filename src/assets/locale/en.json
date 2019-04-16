@@ -2,6 +2,18 @@
     "change_language": "Change language successfull to ",
     "english": "English",
     "spanish": "Spanish",
+    "errors": {
+        "required": "Field required",
+        "invalid_name": "Invalid name",
+        "invalid_nit": "Invalid nit",
+        "invalid_id": "Invalid id",
+        "reason_max_length": "The reason must not exceed 120 characters",
+        "observation_max_length": "The observation must not exceed 2000 characters" 
+    },
+    "filters": {
+        "clear": "Clear",
+        "filter": "Filter"
+    },
     "secure": {
         "seller": {
             "list": {
@@ -11,7 +23,20 @@
                 "enabled_message_modal": "Are you sure you want to activate this account?",
                 "disabled_message_modal": "To inactivate this account you must first input a reason and an observation that will explain to the Seller the reason for which their store is being inactivated. Once entered you may clic the ACCEPT button.",
                 "vacation_message_modal": "To program a vacation period for this account, you must first insert an inicial date, a final date and clic the PROGRAM button. The effects will only be in place once the period has started. Remember that you must make a full offer update once the period has finished, otherwise your offers will not be able to be seen in the site.",
-                "program_vacation": "Program vacations"
+                "program_vacation": "Program vacations",
+                "id": "ID",
+                "nit": "Nit",
+                "seller_name": "Seller name",
+                "status": "Status",
+                "vacations": "Vacations",
+                "reason": "Reason",
+                "observtion": "Observation",
+                "start_date": "Start date",
+                "end_date": "End date",
+                "seller_filter": "Seller filter",
+                "toolbar_title": "Sellers",
+                "toolbar_subtitle": "| Seller list",
+                "toolbar_title_phone": "Seller list"
             }
         }
     }
