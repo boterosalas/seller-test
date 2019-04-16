@@ -78,16 +78,6 @@ describe('SearchBillingFormComponent', () => {
       ]
     })
       .compileComponents();
-    const mockUser = Object.assign({}, userData);
-    const responseGetUser = {
-      body: {
-        body: JSON.stringify({ Data: mockUser })
-      }
-    };
-    // Define la respuesta de la información de un usuario 
-    mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
-    mockUserLoginService.isAuthenticated.and.returnValue(true);
-    mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
   }));
 
   beforeEach(() => {
@@ -100,64 +90,81 @@ describe('SearchBillingFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('valid initial date', ()=> {
-    const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
-    expect(initialDate).toBeTruthy();
-    const initialDateNativeElement = initialDate.nativeElement;
-    initialDateNativeElement.value = '01/02/2019';
-    initialDateNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
-  });
+  describe('User log in', () => {
 
-  it('invalid initial date', ()=> {
-    const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
-    expect(initialDate).toBeTruthy();
-    const initialDateNativeElement = initialDate.nativeElement;
-    initialDateNativeElement.value = 'test';
-    initialDateNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
-  });
+    beforeEach(() => {
+      const mockUser = Object.assign({}, userData);
+      const responseGetUser = {
+        body: {
+          body: JSON.stringify({ Data: mockUser })
+        }
+      };
+      // Define la respuesta de la información de un usuario 
+      mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
+      mockUserLoginService.isAuthenticated.and.returnValue(true);
+      mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
+    });
 
-  it('valid final date', ()=> {
-    const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
-    expect(paymentDateFinal).toBeTruthy();
-    const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
-    paymentDateFinalNativeElement.value = '01/02/2019';
-    paymentDateFinalNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
-  });
+    it('valid initial date', ()=> {
+      const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
+      expect(initialDate).toBeTruthy();
+      const initialDateNativeElement = initialDate.nativeElement;
+      initialDateNativeElement.value = '01/02/2019';
+      initialDateNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
+    });
+  
+    it('invalid initial date', ()=> {
+      const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
+      expect(initialDate).toBeTruthy();
+      const initialDateNativeElement = initialDate.nativeElement;
+      initialDateNativeElement.value = 'test';
+      initialDateNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
+    });
+  
+    it('valid final date', ()=> {
+      const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
+      expect(paymentDateFinal).toBeTruthy();
+      const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
+      paymentDateFinalNativeElement.value = '01/02/2019';
+      paymentDateFinalNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
+    });
+  
+    it('invalid final date', ()=> {
+      const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
+      expect(paymentDateFinal).toBeTruthy();
+      const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
+      paymentDateFinalNativeElement.value = 'test';
+      paymentDateFinalNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
+    });
+  
+    it('valid bill', ()=> {
+      const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
+      expect(bill).toBeTruthy();
+      const billNativeElement = bill.nativeElement;
+      billNativeElement.value = '123456789';
+      billNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.billingNumber.errors).toBeNull();
+    });
+  
+    it('invalid bill', ()=> {
+      const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
+      expect(bill).toBeTruthy();
+      const billNativeElement = bill.nativeElement;
+      billNativeElement.value = 'hola';
+      billNativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.myform.controls.billingNumber.errors).toBeTruthy();
+    });
 
-  it('invalid final date', ()=> {
-    const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
-    expect(paymentDateFinal).toBeTruthy();
-    const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
-    paymentDateFinalNativeElement.value = 'test';
-    paymentDateFinalNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
-  });
-
-  it('valid bill', ()=> {
-    const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
-    expect(bill).toBeTruthy();
-    const billNativeElement = bill.nativeElement;
-    billNativeElement.value = '123456789';
-    billNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.billingNumber.errors).toBeNull();
-  });
-
-  it('invalid bill', ()=> {
-    const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
-    expect(bill).toBeTruthy();
-    const billNativeElement = bill.nativeElement;
-    billNativeElement.value = 'hola';
-    billNativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.myform.controls.billingNumber.errors).toBeTruthy();
   });
 
 });

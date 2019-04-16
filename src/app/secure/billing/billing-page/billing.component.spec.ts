@@ -86,33 +86,40 @@ describe('BillingComponent', () => {
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
-        const mockUser = Object.assign({}, userData);
-        const responseGetUser = { 
-          body: { 
-            body: JSON.stringify({ Data: mockUser }) 
-          } 
-        }; 
-        // Define la respuesta de la información de un pagos
-        mockUserParameterService.getUserData.and.returnValue(of(responseGetUser)); 
-        mockUserLoginService.isAuthenticated.and.returnValue(true); 
-        mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
 
     }));
 
-    beforeEach(async () => {
+    beforeEach(() => {
         fixture = TestBed.createComponent(BillingComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        await component.isLoggedIn('', true);
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    it('response getBilling', () => {
-        // component.getOrdersList(event);
-        expect(mockBillingService.getBilling).toHaveBeenCalled();
+    describe('user log in', () => {
+
+        beforeEach(() => {
+            const mockUser = Object.assign({}, userData);
+            const responseGetUser = { 
+              body: { 
+                body: JSON.stringify({ Data: mockUser }) 
+              } 
+            }; 
+            // Define la respuesta de la información de un pagos
+            mockUserParameterService.getUserData.and.returnValue(of(responseGetUser)); 
+            mockUserLoginService.isAuthenticated.and.returnValue(true); 
+            mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
+        });
+        
+        // it('response getBilling',() => {
+        //     component.user = userInfo;
+        //     component.getOrdersList(null);
+        //     expect(mockBillingService.getBilling).toHaveBeenCalled();
+        // });
+
     });
 
 });
