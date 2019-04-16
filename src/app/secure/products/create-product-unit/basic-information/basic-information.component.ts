@@ -258,8 +258,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
-        if ( this.keywords.length > 0) {
-            this.formBasicInfo.controls.Keyword.setErrors(null)
+        if ( this.keywords.length >0) {
+            this.formBasicInfo.controls.Keyword.setValidators(null)
         }else{
             this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
 
@@ -273,7 +273,7 @@ export class ProductBasicInfoComponent implements OnInit {
         }else{
             this.formBasicInfo.controls.Keyword.setErrors({require:true})
         }
-        debugger
+        
     }TextTrackCueList
 
     /**
