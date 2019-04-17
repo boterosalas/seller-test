@@ -133,8 +133,6 @@ export class BillingService {
       SellerName: this.sellerName
     }
 
-    console.log(exportData);
-
     return new Observable(observer => {
       this.http.post<any>(this.api.get('exportBillingPays'), exportData)
       .subscribe((data: any) => {
