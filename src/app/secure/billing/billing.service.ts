@@ -17,7 +17,11 @@ export class BillingService {
    // Variable para almacenar el bill del filtro
    public bill: string;
 
+   // Variable del id del vendedor
    public sellerId;
+
+   // Variable del id del vendedor
+   public sellerName;
 
   constructor(
     private http: HttpClient,
@@ -36,6 +40,7 @@ export class BillingService {
     return new Observable(observer => {
       // Id del vendedor.
       this.sellerId = user.sellerId;
+      this.sellerName = user.sellerName;
       this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, error => {
@@ -57,6 +62,7 @@ export class BillingService {
     return new Observable(observer => {
       // Id del vendedor.
       this.sellerId = user.sellerId;
+      this.sellerName = user.sellerName;
 
       this.http.get<Billing[]>(this.api.get('searchBilling', [this.sellerId, limit + stringSearch])).subscribe((data) => {
         observer.next(data);
@@ -123,7 +129,8 @@ export class BillingService {
       PaymentDateFinal: paramsFilter.dateFinal === undefined ? null: paramsFilter.dateFinal,
       IdSeller: this.sellerId,
       BillingNumber: paramsFilter.bill === undefined ? null: paramsFilter.bill,
-      Email: email
+      Email: email,
+      SellerName: this.sellerName
     }
 
     console.log(exportData);
