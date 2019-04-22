@@ -19,9 +19,15 @@ describe('DownloadBillingpayModalComponent', () => {
   let fixture: ComponentFixture<DownloadBillingpayModalComponent>;
 
   const userData = {sellerProfile: 'seller'}; 
+
    // Mock Services 
    const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']); 
    const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']); 
+   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+   const mockBillingService = jasmine.createSpyObj('BillingService', ['downloadBillingPay']);
+   const dialogMock = {close: () => { }};
+
+   let loadingService: LoadingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,16 +46,16 @@ describe('DownloadBillingpayModalComponent', () => {
         DownloadBillingpayModalComponent
       ],
        providers: [
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: dialogMock },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         ComponentsService,
         { provide: UserParametersService, useValue: mockUserParameterService }, 
         { provide: UserLoginService, useValue: mockUserLoginService },
+        {provide: LoadingService, useValue: mockLoadingService},
+        {provide: BillingService, useValue: mockBillingService},
         CognitoUtil,
-        BillingService,
         EndpointService,
-        DatePipe,
-        LoadingService
+        DatePipe
        ]
     })
     .compileComponents();
@@ -62,11 +68,13 @@ describe('DownloadBillingpayModalComponent', () => {
     // Define la respuesta de la información de un usuario 
     mockUserParameterService.getUserData.and.returnValue(of(responseGetUser)); 
     mockUserLoginService.isAuthenticated.and.returnValue(true); 
+    mockBillingService.downloadBillingPay.and.returnValue(of('test@test.com'));
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DownloadBillingpayModalComponent);
     component = fixture.componentInstance;
+    loadingService = TestBed.get(LoadingService);
     fixture.detectChanges();
   });
 
@@ -81,6 +89,7 @@ describe('DownloadBillingpayModalComponent', () => {
     emailNativeElement.value = 'prueba@hotmail.com';
     emailNativeElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
+    component.downloadPay(component.myform);
     expect(component.myform.controls.email.errors).toBeNull();
   });
 

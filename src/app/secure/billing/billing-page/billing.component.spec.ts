@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BillingModule } from '../billing.module';
 import { BillingComponent } from './billing.component';
 import { ShellComponent } from '@app/core/shell';
-import { MatSidenavModule } from '@angular/material';
+import { MatSidenavModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ describe('BillingComponent', () => {
    const mockBillingService = jasmine.createSpyObj('BillingService', ['getBilling']);
    const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']); 
    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+   const dialogMock = {close: () => { }};
 
     const responseGetBilling = {
         billingNumber: "9406165195",
@@ -83,6 +84,8 @@ describe('BillingComponent', () => {
                 DynamoDBService,
                 { provide: UserParametersService, useValue: mockUserParameterService },
                 {provide: LoadingService, useValue: mockLoadingService},
+                { provide: MatDialogRef, useValue: dialogMock },
+                { provide: MAT_DIALOG_DATA, useValue: [] },
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
@@ -113,11 +116,21 @@ describe('BillingComponent', () => {
             mockUserLoginService.isAuthenticated.and.returnValue(true); 
             mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
         });
-        
-        // it('response getBilling',() => {
-        //     component.user = userInfo;
-        //     component.getOrdersList(null);
-        //     expect(mockBillingService.getBilling).toHaveBeenCalled();
+
+        it('response getUserData',() => {
+          component.getUserData();
+        });
+
+        it('stop propagation', () => {
+          component.stopPropagation(new Event('MouseEvent'));
+        });
+
+        it('open modal',() => {
+          component.openModalDetailOrder(component.dataSource);
+        });
+
+        //  it('filterBillingList',() => {
+           
         // });
 
     });
