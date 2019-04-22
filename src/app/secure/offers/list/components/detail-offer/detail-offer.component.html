@@ -107,13 +107,13 @@
             <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" (ngSubmit)="submitUpdateOffer()" class="flexbox flex-wrap align-center justify-between"
                 autocomplete="off">
                 <mat-form-field>
-                    <input matInput placeholder="Inventario" formControlName="Stock" (keypress)="onlyNumber($event)" required>
+                    <input matInput placeholder="Inventario" id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input  matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
+                    <input  matInput placeholder="Precio" id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>

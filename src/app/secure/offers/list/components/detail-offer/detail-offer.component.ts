@@ -182,6 +182,26 @@ export class DetailOfferComponent {
     this.isUpdateOffer = false;
   }
 
+
+  // Funcion para cargar datos de regex
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      for (const val in this.offertRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.offertRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createValidators();
+    });
+  }
+
+
+
+
+
   /**
    * @method createValidators
    * @description Metodo para crear el formControl de cada input con sus validaciones.
@@ -410,18 +430,4 @@ export class DetailOfferComponent {
   }
 
 
-  // Funcion para cargar datos de regex
-  public validateFormSupport(): void {
-    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
-      let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
-      for (const val in this.offertRegex) {
-        if (!!val) {
-          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
-          this.offertRegex[val] = element && `${element.Value}`;
-        }
-      }
-      this.createValidators();
-    });
-  }
 }
