@@ -24,8 +24,15 @@
   font-size: 14px;
 
 }
+.mat-button[disabled][disabled]{
+  background-color: #00000042;
+  color: #fff;
+  transition: background-color 1 ease ;
 
+}
 .buttonProcessContinuar {
+  transition: background-color 0.5 ease ;
+
   margin-top: 1em;
   background-color: #485AFA;
   color: #fff;
