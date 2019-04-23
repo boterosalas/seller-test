@@ -39,7 +39,7 @@ export class ComponentProcessComponent implements OnInit {
     private loadingService: LoadingService,
     private process: ProcessService,
     public dialog: MatDialog,
-    private router: Router,
+    public router: Router,
     public userParams: UserParametersService,
     public userService: UserLoginService) {
     this.options = fb.group({
