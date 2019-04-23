@@ -21,7 +21,7 @@
           <p> Fecha de modificación: {{products.updatedDate}}</p>
         </div>
       </mat-card-content>
-      <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== 0">
+      <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== '0.00'">
         <p> Mejor oferta</p>
         <p [innerHTML]="products.bestOffer | currency: '$' : 'symbol' : '1.2-2'"> </p>
       </div>

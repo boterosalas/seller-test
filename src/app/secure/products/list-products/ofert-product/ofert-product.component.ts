@@ -177,7 +177,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
-        if (total <= 8000 && this.ofertProduct.value.Currency == 'COP') {
+        if (total <= 8000 && this.ofertProduct.value.Currency === 'COP') {
             this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
                 duration: 3000,
             });
@@ -210,7 +210,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     }
                 }
             } else {
-                if (this.ofertProduct.controls.Currency.value == 'USD') {
+                if (this.ofertProduct.controls.Currency.value === 'USD') {
                     errors = false;
                     if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                         if (showErrors) {
@@ -233,7 +233,7 @@ export class OfertExpandedProductComponent implements OnInit {
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                if (this.ofertProduct.controls.Currency.value == 'COP') {
+                if (this.ofertProduct.controls.Currency.value === 'COP') {
                     this.setCategoryErrorPrice(errors);
                 } else {
                     errors = false;
@@ -247,7 +247,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value == 'COP') {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -377,18 +377,18 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.IsUpdatedStock.reset();
         if (this.applyOffer.eanesCombos.length !== 0) {
             this.Combos.controls.forEach((price: any) => {
-                price.controls.ofertPriceComponet.reset("");
-                price.controls.ComboQuantity.reset("");
+                price.controls.ofertPriceComponet.reset('');
+                price.controls.ComboQuantity.reset('');
             });
         }
 
         if (this.ofertProduct.controls.Currency.value !== 'COP') {
-            this.ofertProduct.controls.Currency.setValue('COP')
+            this.ofertProduct.controls.Currency.setValue('COP');
         }
         this.cleanFilterListProducts(result);
     }
 
-    /**
+    /*
    * @method onlyNumber que permite solo el ingreso de números.
    * @param event
    * @memberof DetailOfferComponent
@@ -401,26 +401,26 @@ export class OfertExpandedProductComponent implements OnInit {
         }
     }
 
-    /**
+    /*
     * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
     * limpias las variables precio, precio con descuento y costo de flete promedio
     * si cuenta con combos, al cambiar el tipo de moneda tambien se aplica el reseteo de las variables precio y cantidad de combo
-    * @param event 
+    * @param event
     */
 
-    changeTypeCurrency(event) {
+    changeTypeCurrency(event: any) {
         this.setCategoryError(false);
-        this.ofertProduct.controls.Price.reset("");
-        this.ofertProduct.controls.DiscountPrice.reset("")
-        this.ofertProduct.controls.IsFreightCalculator.reset("");
+        this.ofertProduct.controls.Price.reset('');
+        this.ofertProduct.controls.DiscountPrice.reset('');
+        this.ofertProduct.controls.IsFreightCalculator.reset('');
         this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
             duration: 3000,
         });
 
         if (this.applyOffer.eanesCombos.length !== 0) {
             this.Combos.controls.forEach((price: any) => {
-                price.controls.ofertPriceComponet.reset("");
-                price.controls.ComboQuantity.reset("");
+                price.controls.ofertPriceComponet.reset('');
+                price.controls.ComboQuantity.reset('');
             });
         }
     }

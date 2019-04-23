@@ -414,10 +414,10 @@ export class DetailOfferComponent {
   /**
    * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
    * y limpias las variables
-   * @param event 
+   * @param event
    */
 
-  changeTypeCurrency(event) {
+  changeTypeCurrency(event: any) {
     this.formUpdateOffer.controls['Price'].reset('');
     this.formUpdateOffer.controls['DiscountPrice'].reset('');
     this.formUpdateOffer.controls['AverageFreightCost'].reset('');
