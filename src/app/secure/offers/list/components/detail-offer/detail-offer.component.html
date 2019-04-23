@@ -36,9 +36,9 @@
 
         <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
 
-            <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
+            <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'" class="price-strikethrough"></p>
 
-            <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (dataOffer.price | currency: '$' : 'symbol' : '1.0-0')"
+            <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (dataOffer.price | currency: '$' : 'symbol' : '1.2-2')"
                 class="price"></p>
 
             <div class="container-stock flexbox">
@@ -65,7 +65,7 @@
 
             <span class="flexbox align-center">
                 <mat-icon>local_shipping</mat-icon>
-                <p [innerHTML]="'Costo de Flete Promedio: <strong>' + (dataOffer.shippingCost | currency: '$' : 'symbol' : '1.0-0') + '</strong>'"></p>
+                <p [innerHTML]="'Costo de Flete Promedio: <strong>' + (dataOffer.shippingCost | currency: '$' : 'symbol' : '1.2-2') + '</strong>'"></p>
             </span>
 
             <span class="flexbox align-center">
@@ -107,13 +107,13 @@
             <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" (ngSubmit)="submitUpdateOffer()" class="flexbox flex-wrap align-center justify-between"
                 autocomplete="off">
                 <mat-form-field>
-                    <input matInput placeholder="Inventario" formControlName="Stock" (keypress)="onlyNumber($event)" required>
+                    <input matInput placeholder="Inventario" id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input  matInput placeholder="Precio" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
+                    <input  matInput placeholder="Precio" id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
                         required>
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'"></mat-error>
@@ -157,7 +157,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Tipo de moneda</mat-label>
-                    <mat-select name="Currrency" formControlName="Currrency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="false" >
+                    <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="false" >
                           <mat-option value="USD">USD</mat-option>
                           <mat-option value="COP">COP</mat-option>
                     </mat-select>

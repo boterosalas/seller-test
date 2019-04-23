@@ -24,22 +24,22 @@
               <p>Inventario: <span>{{ item.stock | number }} unidades</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-md">
-              <p>Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-lg">
-              <p>Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-xl">
-              <p>Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
           <span class="extension-panel-down">
             <p class="d-none-sm">Inventario: <span>{{ item.stock | number }} unidades</span></p>
-            <p class="d-none-md">Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            <p class="d-none-md">Precio: <span>{{ item.price | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             <p class="d-none-lg ">Precio con descuento: <span>{{ item.discountPrice | currency: '$' : 'symbol' :
-                '1.0-0' }}</span></p>
-            <p class="d-none-xl ">Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+                '1.2-2' }}</span></p>
+            <p class="d-none-xl ">Precio flete: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             <p>Garantia: <span>{{ item.warranty }} meses</span></p>
             <p>Promesa de entrega: <span>{{ item.promiseDelivery }} días</span></p>
             <p>Tipo de moneda: <span>{{ item.currency }} </span></p>
