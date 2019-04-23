@@ -1,14 +1,40 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ComponentProcessComponent } from './component-process.component';
-/*
-describe('ComponentProcessComponent', () => {
+import { MatStepperModule, MatInputModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UnitProductModule } from '@app/secure/products';
+import { ShellModule } from '../../../../core/shell/shell.module';
+import { LoadingService, EndpointService, UserParametersService, CognitoUtil, UserLoginService, DynamoDBService } from '@app/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+/* describe('ComponentProcessComponent', () => {
   let component: ComponentProcessComponent;
   let fixture: ComponentFixture<ComponentProcessComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ComponentProcessComponent ]
+      imports:[
+        MatStepperModule,
+        FormsModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        UnitProductModule,
+        ShellModule,
+        RouterTestingModule
+      ],
+      declarations: [ 
+        // ComponentProcessComponent
+       ],
+       providers: [
+        LoadingService,
+        EndpointService,
+        UserParametersService,
+        CognitoUtil,
+        UserLoginService,
+        DynamoDBService
+       ]
     })
     .compileComponents();
   }));
@@ -22,5 +48,5 @@ describe('ComponentProcessComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
-*/
+
+}); */
