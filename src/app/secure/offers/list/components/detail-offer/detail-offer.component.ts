@@ -65,7 +65,7 @@ export class DetailOfferComponent {
   public Warranty: FormControl;
   public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
-  public Currrency: FormControl;
+  public Currency: FormControl;
 
   offertRegex = {
     formatNumber: '',
@@ -215,7 +215,7 @@ export class DetailOfferComponent {
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.DiscountPrice = new FormControl({ value: this.dataOffer.discountPrice, disabled: this.Price.value < 8000 ? true : false }, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
@@ -224,7 +224,7 @@ export class DetailOfferComponent {
     this.Warranty = new FormControl(this.dataOffer.warranty);
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
-    this.Currrency = new FormControl('COP')
+    this.Currency = new FormControl(this.dataOffer.currency)
   }
 
   /**
@@ -246,7 +246,7 @@ export class DetailOfferComponent {
       Warranty: this.Warranty,
       IsLogisticsExito: this.IsLogisticsExito,
       IsUpdatedStock: this.IsUpdatedStock,
-      Currrency: this.Currrency
+      Currency: this.Currency
     });
   }
 
@@ -343,7 +343,7 @@ export class DetailOfferComponent {
       case 'Price':
         // this.DiscountPrice.reset(); Se elimina linea, con error al siempre hacer unfocus en precio borraba el precio de descuento.
         if (this.Price.value === '') {
-        } else if (parseInt(this.Price.value, 10) < 8000 && this.Currrency.value == 'COP') {
+        } else if (parseInt(this.Price.value, 10) < 8000 && this.Currency.value == 'COP') {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
         } else if (parseInt(this.Price.value, 10) <= parseInt(this.DiscountPrice.value, 10)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
@@ -354,7 +354,7 @@ export class DetailOfferComponent {
       case 'DiscountPrice':
     
         if (this.DiscountPrice.value !== '') {
-          if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currrency.value == 'COP') {
+          if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value == 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
@@ -362,7 +362,6 @@ export class DetailOfferComponent {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
           }
         } else {
-          console.log(this.DiscountPrice.value)
           this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
