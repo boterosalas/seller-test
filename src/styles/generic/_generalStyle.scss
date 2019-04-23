@@ -144,3 +144,9 @@
 .half-width {
     width: 45%;
 }
+.mat-button[disabled][disabled]{
+    background-color: #00000042;
+    color: #fff;
+    transition: background-color 1 ease ;
+  
+  }

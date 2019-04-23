@@ -22,88 +22,6 @@
             id="categoryProduct">
         </mat-form-field>
       </div>
-<<<<<<< HEAD
-    </div>
-
-    <!-- PACKING AND PRODUCT SIZE -->
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
-      class="container-sub-forms">
-      <div class="sub-form" formGroupName="packing">
-        <label class="label-shipping">Empaque (cm/kg)</label>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking" (change)="detectForm()"
-                id="highPackingProduct">
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">La dimensión
-                ingresada no es v&aacute;lida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking" (change)="detectForm()"
-                id="longPackingProduct">
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking" (change)="detectForm()"
-                id="widthPackingProduct">
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking" (change)="detectForm()"
-                id="weightPackingProduct">
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('required')">Este campo es obligatorio</mat-error>
-
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="sub-form product-form" formGroupName="product">
-        <label class="label-shipping">Producto (cm/kg)</label>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct" (change)="detectForm()"
-                id="highProduct">
-              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">La dimensión
-                ingresada no es v&aacute;lida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('required')">Este campo es obligatorio</mat-error>
-            </mat-form-field>
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct" (change)="detectForm()"
-                id="longProduct">
-              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('required')">Este campo es obligatorio</mat-error>
-
-            </mat-form-field>
-          </div>
-          <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct" (change)="detectForm()"
-                id="widthProduct">
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('required')">Este campo es obligatorio</mat-error>
-
-            </mat-form-field>
-            <mat-form-field class="packing-field">
-              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct" (change)="detectForm()"
-                id="weightProduct">
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('required')">Este campo es obligatorio</mat-error>
-
-            </mat-form-field>
-=======
   
       <!-- BRAND AND MODEL -->
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
@@ -224,7 +142,6 @@
   
               </mat-form-field>
             </div>
->>>>>>> fixValidatorsHideButton
           </div>
         </div>
       </div>
@@ -309,8 +226,13 @@
     </div>
 
     <mat-form-field class="keyword-field">
+<<<<<<< HEAD
         <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct">
         <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
+=======
+        <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct" (keyup.enter)="saveKeyword()">
+        <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
+>>>>>>> fixValidatorUnit
           add_circle_outline
         </mat-icon>
         <div class="basic-info-error" *ngIf="!keywords.length">Este campo es obligatorio</div>

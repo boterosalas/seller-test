@@ -26,7 +26,7 @@
       <app-basic-information></app-basic-information>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atras</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar" (click)="continue_after_basic_info()">Continuar</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">Continuar</button>
       </div>
     </form>
   </mat-step>

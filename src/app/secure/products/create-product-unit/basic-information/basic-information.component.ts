@@ -141,9 +141,13 @@ export class ProductBasicInfoComponent implements OnInit {
             
         });
         this.formBasicInfo = new FormGroup({
+<<<<<<< HEAD
             Keyword: new FormControl('', [
                 Validators.required
             ]),
+=======
+            Keyword: new FormControl('', [Validators.required ]),
+>>>>>>> fixValidatorUnit
             Name: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('nameProduct'))
@@ -236,7 +240,8 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public saveKeyword(): void {
-        let word =  this.formBasicInfo.controls.Keyword.value;
+       
+        let word = this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
             if (this.keywords.length < 20) {
@@ -251,7 +256,8 @@ export class ProductBasicInfoComponent implements OnInit {
                     });
                 }
                 this.detectForm();
-                this.formBasicInfo.controls.Keyword.setValue(null);
+                this.formBasicInfo.controls.Keyword.clearValidators()
+                this.formBasicInfo.controls.Keyword.reset()
             } else {
                 this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
                     duration: 3000,
@@ -268,13 +274,12 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
-        if ( this.keywords.length >0) {
-            this.formBasicInfo.controls.Keyword.setErrors(null)
-        }else{
-            this.formBasicInfo.controls.Keyword.setErrors({require:true})
+        if (this.keywords.length<1) {
+            this.formBasicInfo.setErrors({required:true})
+            console.log( this.formBasicInfo);
+            
         }
-        
-    }TextTrackCueList
+    }
 
     /**
      * selectColor
