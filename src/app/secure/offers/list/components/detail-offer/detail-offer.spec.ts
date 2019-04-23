@@ -36,7 +36,7 @@ const detailOffer = [
         "IsFreightCalculator": 0,
         "warranty": 3,
         "IsLogisticsExito": 0,
-        "Currrency": "COP",
+        "Currency": "COP",
         "imageUrl": null
     }]
 

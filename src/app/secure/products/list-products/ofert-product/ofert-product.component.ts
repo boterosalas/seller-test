@@ -103,7 +103,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
-            Currrency: new FormControl('COP')
+            Currency: new FormControl('COP')
         });
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
@@ -177,7 +177,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
-        if (total <= 8000 && this.ofertProduct.value.Currrency == 'COP') {
+        if (total <= 8000 && this.ofertProduct.value.Currency == 'COP') {
             this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
                 duration: 3000,
             });
@@ -210,7 +210,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     }
                 }
             } else {
-                if (this.ofertProduct.controls.Currrency.value == 'USD') {
+                if (this.ofertProduct.controls.Currency.value == 'USD') {
                     errors = false;
                     if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                         if (showErrors) {
@@ -233,7 +233,7 @@ export class OfertExpandedProductComponent implements OnInit {
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                if (this.ofertProduct.controls.Currrency.value == 'COP') {
+                if (this.ofertProduct.controls.Currency.value == 'COP') {
                     this.setCategoryErrorPrice(errors);
                 } else {
                     errors = false;
@@ -247,7 +247,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currrency.value == 'COP') {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value == 'COP') {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -316,7 +316,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
-            Currrency: this.ofertProduct.controls.Currrency.value,
+            Currency: this.ofertProduct.controls.Currency.value,
         };
 
         let aryOfAry = [data];
@@ -382,8 +382,8 @@ export class OfertExpandedProductComponent implements OnInit {
             });
         }
 
-        if (this.ofertProduct.controls.Currrency.value !== 'COP') {
-            this.ofertProduct.controls.Currrency.setValue('COP')
+        if (this.ofertProduct.controls.Currency.value !== 'COP') {
+            this.ofertProduct.controls.Currency.setValue('COP')
         }
         this.cleanFilterListProducts(result);
     }
