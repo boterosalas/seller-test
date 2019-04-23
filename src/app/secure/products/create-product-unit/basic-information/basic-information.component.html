@@ -197,7 +197,7 @@
         </button>
       </div>
     </div>
-<<<<<<< HEAD
+
 
 
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
@@ -226,13 +226,13 @@
     </div>
 
     <mat-form-field class="keyword-field">
-<<<<<<< HEAD
+
         <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct">
         <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
-=======
+
         <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct" (keyup.enter)="saveKeyword()">
         <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
->>>>>>> fixValidatorUnit
+
           add_circle_outline
         </mat-icon>
         <div class="basic-info-error" *ngIf="!keywords.length">Este campo es obligatorio</div>
@@ -249,7 +249,7 @@
         {{key}}
       </span>
       <button mat-icon-button (click)="deleteKeywork(i)">
-=======
+
     <mat-divider></mat-divider>
   
     <!-- BUTTON TO ADD SONS -->
@@ -257,7 +257,6 @@
       <div>
       </div>
       <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
->>>>>>> fixValidatorsHideButton
         <mat-icon class="material-icons">
           add_circle_outline
         </mat-icon>

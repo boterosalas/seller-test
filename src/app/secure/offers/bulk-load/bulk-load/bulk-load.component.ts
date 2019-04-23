@@ -219,24 +219,35 @@ export class BulkLoadComponent implements OnInit {
         this.arrayNecessaryData.push([]);
         let priceDiscountIndex = 0;
         let priceIndex = 0;
-
         for (let j = 0; j < res[0].length; j++) {
 
           if (res[0][j] === 'EAN' ||
             res[0][j] === 'Inventario' ||
+            res[0][j] === 'Stock' ||
             res[0][j] === 'Precio' ||
+            res[0][j] === 'Price' ||
             res[0][j] === 'Precio con Descuento' ||
+            res[0][j] === 'Discount Price' ||
             res[0][j] === 'Costo de Flete Promedio' ||
+            res[0][j] === 'Shipping Cost' ||
             res[0][j] === 'Promesa de Entrega' ||
+            res[0][j] === 'Delivery Terms' ||
             res[0][j] === 'Free Shipping' ||
             res[0][j] === 'Indicador Envios Exito' ||
+            res[0][j] === 'Envios Exito Indicator' ||
             res[0][j] === 'Cotizador de Flete' ||
+            res[0][j] === 'Freight Calculator' ||
             res[0][j] === 'Garantia' ||
+            res[0][j] === 'Warranty' ||
             res[0][j] === 'Logistica Exito' ||
+            res[0][j] === 'Exito Logistics' ||
             res[0][j] === 'Actualizacion de Inventario' ||
+            res[0][j] === 'Stock Update' ||
             res[0][j] === 'Ean combo' ||
             res[0][j] === 'Cantidad en combo' ||
-            res[0][j] === 'Tipo de moneda'
+            res[0][j] === 'Amount in combo' ||
+            res[0][j] === 'Tipo de moneda' ||
+            res[0][j] === 'Currency'
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
@@ -293,24 +304,27 @@ export class BulkLoadComponent implements OnInit {
         this.loadingService.closeSpinner();
         this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
       } else {
-        if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Inventario') &&
-          this.arrayNecessaryData[0].includes('Precio')) {
+
+        if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock')) &&
+          (this.arrayNecessaryData[0].includes('Precio') || this.arrayNecessaryData[0].includes('Price'))) {
+
+          
           const iVal = {
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-            iInv: this.arrayNecessaryData[0].indexOf('Inventario'),
-            iPrecio: this.arrayNecessaryData[0].indexOf('Precio'),
-            iPrecDesc: this.arrayNecessaryData[0].indexOf('Precio con Descuento'),
-            iCostFletProm: this.arrayNecessaryData[0].indexOf('Costo de Flete Promedio'),
-            iPromEntrega: this.arrayNecessaryData[0].indexOf('Promesa de Entrega'),
-            iFreeShiping: this.arrayNecessaryData[0].indexOf('Free Shipping'),
-            iIndEnvExito: this.arrayNecessaryData[0].indexOf('Indicador Envios Exito'),
-            iCotFlete: this.arrayNecessaryData[0].indexOf('Cotizador de Flete'),
-            iGarantia: this.arrayNecessaryData[0].indexOf('Garantia'),
-            iLogisticaExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-            iActInventario: this.arrayNecessaryData[0].indexOf('Actualizacion de Inventario'),
+            iInv: this.validateSubTitle(this.arrayNecessaryData, 'Stock', 'Inventario'),
+            iPrecio: this.validateSubTitle(this.arrayNecessaryData, 'Price', 'Precio'),
+            iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discount Price', 'Precio con Descuento'),
+            iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio'),
+            iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega'),
+            iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping'),
+            iIndEnvExito:  this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
+            iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
+            iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
+            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
+            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Logistica Exito'),
             iEanCombo: this.arrayNecessaryData[0].indexOf('Ean combo'),
-            iCantidadCombo: this.arrayNecessaryData[0].indexOf('Cantidad en combo'),
-            iCurrency: this.arrayNecessaryData[0].indexOf('Tipo de moneda')
+            iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
+            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -329,6 +343,25 @@ export class BulkLoadComponent implements OnInit {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
     }
+  }
+
+
+  /**
+   * @param {any} array
+   * @param {string} titleEn
+   * @param {string} titleEs
+   * Funcion que permite valida la cabecera del archivo de carga masiva;
+   * captura y retorna el valor con la cabecera existente
+   *
+   */
+
+  validateSubTitle(array: any, titleEn: string, titleEs: string) {
+    if (array[0].indexOf(titleEs) > 0) {
+      return array[0].indexOf(titleEs)
+    } else if (array[0].indexOf(titleEn) > 0) {
+      return array[0].indexOf(titleEn)
+    }
+
   }
 
   /**
@@ -627,7 +660,6 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   addInfoTosend(res: any, index: any, iVal: any) {
-
     const newObjectForSend = {
       EAN: res[index][iVal.iEAN],
       Stock: res[index][iVal.iInv],

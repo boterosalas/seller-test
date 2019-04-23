@@ -141,13 +141,7 @@ export class ProductBasicInfoComponent implements OnInit {
             
         });
         this.formBasicInfo = new FormGroup({
-<<<<<<< HEAD
-            Keyword: new FormControl('', [
-                Validators.required
-            ]),
-=======
             Keyword: new FormControl('', [Validators.required ]),
->>>>>>> fixValidatorUnit
             Name: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('nameProduct'))
@@ -279,6 +273,7 @@ export class ProductBasicInfoComponent implements OnInit {
             console.log( this.formBasicInfo);
             
         }
+        
     }
 
     /**
