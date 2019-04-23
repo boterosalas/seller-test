@@ -36,9 +36,9 @@
 
         <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
 
-            <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
+            <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'" class="price-strikethrough"></p>
 
-            <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (dataOffer.price | currency: '$' : 'symbol' : '1.0-0')"
+            <p [innerHTML]="dataOffer.discountPrice > 0 ? (dataOffer.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (dataOffer.price | currency: '$' : 'symbol' : '1.2-2')"
                 class="price"></p>
 
             <div class="container-stock flexbox">

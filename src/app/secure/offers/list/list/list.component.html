@@ -44,8 +44,8 @@
 
         <div class="container-desc-card flexbox flex-wrap align-center">
           <h3 [innerHTML]="'EAN: ' + item.ean"></h3>
-          <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.0-0'" class="price-strikethrough"></p>
-          <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.0-0') : (item.price | currency: '$' : 'symbol' : '1.0-0')"
+          <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'" class="price-strikethrough"></p>
+          <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
             class="price"></p>
           <p [innerHTML]="item.name" class="name"></p>
           <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"
