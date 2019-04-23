@@ -38,6 +38,10 @@ describe('BillingProductsOrderComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
   describe('With order', () => {
     beforeEach(() => {
       component.order = [{
@@ -47,7 +51,12 @@ describe('BillingProductsOrderComponent', () => {
         totalShippingCost: '2731',
         price: '104900'
       }];
-    })
+    });
+
+    it('open modal', () => {
+      component.openModalDetailProduct(component.order);
+    });
+    
 
     it('exist products Information', () => {
       expect(component.order).not.toBeNull();
