@@ -25,20 +25,20 @@ export const registerRegex = [
 
 const detailOffer = [
     {
-        "ean": "0001910660339",
-        "Stock": 0,
-        "Price": 8494,
-        "DiscountPrice": 8493,
-        "AverageFreightCost": 10000,
-        "PromiseDelivery": "1 a 3",
-        "IsFreeShipping": 0,
-        "IsEnviosExito": 0,
-        "IsFreightCalculator": 0,
-        "warranty": 3,
-        "IsLogisticsExito": 0,
-        "Currrency": "COP",
-        "imageUrl": null
-    }]
+        'ean': '0001910660339',
+        'Stock': 0,
+        'Price': 8494,
+        'DiscountPrice': 8493,
+        'AverageFreightCost': 10000,
+        'PromiseDelivery': '1 a 3',
+        'IsFreeShipping': 0,
+        'IsEnviosExito': 0,
+        'IsFreightCalculator': 0,
+        'warranty': 3,
+        'IsLogisticsExito': 0,
+        'Currency': 'COP',
+        'imageUrl': null
+    }];
 
 fdescribe('Detail offer Component', () => {
 
@@ -101,7 +101,6 @@ fdescribe('Detail offer Component', () => {
     });
 
     describe('List with data', () => {
-        const formBuilder: FormBuilder = new FormBuilder();
         beforeEach(() => {
             const mockDetailOffer = Object.assign({}, detailOffer);
             const responseRegex = {
@@ -123,8 +122,8 @@ fdescribe('Detail offer Component', () => {
             expect(!!detailOfferComponent.offertRegex.formatNumber).toBeFalsy();
             expect(!!detailOfferComponent.offertRegex.promiseDelivery).toBeFalsy();
             expect(!!detailOfferComponent.offertRegex.isUpdatedStock).toBeFalsy();
-            detailOfferComponent.dataOffer = detailOffer
-            detailOfferComponent.createValidators()
+            detailOfferComponent.dataOffer = detailOffer;
+            detailOfferComponent.createValidators();
             expect(!detailOfferComponent.offertRegex.formatNumber).toBeTruthy();
             expect(!detailOfferComponent.offertRegex.promiseDelivery).toBeTruthy();
             expect(!detailOfferComponent.offertRegex.isUpdatedStock).toBeTruthy();
