@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -71,8 +71,8 @@ export class DetailOfferComponent {
     formatNumber: '',
     promiseDelivery: '',
     currency: '',
-    isUpdatedStock:'',
-    discountPrice:''
+    isUpdatedStock: '',
+    discountPrice: ''
   };
 
   /**
@@ -117,8 +117,6 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   public isProductionEnv = environment.production;
-
-  @ViewChild('discountPrinceView') discountPrinceView: ElementRef
 
   constructor(
     public list: ListComponent,
@@ -224,7 +222,7 @@ export class DetailOfferComponent {
     this.Warranty = new FormControl(this.dataOffer.warranty);
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
-    this.Currency = new FormControl(this.dataOffer.currency)
+    this.Currency = new FormControl(this.dataOffer.currency);
   }
 
   /**
@@ -343,18 +341,18 @@ export class DetailOfferComponent {
       case 'Price':
         // this.DiscountPrice.reset(); Se elimina linea, con error al siempre hacer unfocus en precio borraba el precio de descuento.
         if (this.Price.value === '') {
-        } else if (parseInt(this.Price.value, 10) < 8000 && this.Currency.value == 'COP') {
+        } else if (parseInt(this.Price.value, 10) < 8000 && this.Currency.value === 'COP') {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
         } else if (parseInt(this.Price.value, 10) <= parseInt(this.DiscountPrice.value, 10)) {
-            this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
+          this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
         } else {
           this.DiscountPrice.enable();
         }
         break;
       case 'DiscountPrice':
-    
+
         if (this.DiscountPrice.value !== '') {
-          if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value == 'COP') {
+          if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value === 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
@@ -413,16 +411,16 @@ export class DetailOfferComponent {
   }
 
 
-/**
- * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
- * y limpias las variables
- * @param event 
- */
+  /**
+   * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
+   * y limpias las variables
+   * @param event 
+   */
 
   changeTypeCurrency(event) {
-    this.formUpdateOffer.controls['Price'].reset("");
-    this.formUpdateOffer.controls['DiscountPrice'].reset("");
-    this.formUpdateOffer.controls['AverageFreightCost'].reset("");
+    this.formUpdateOffer.controls['Price'].reset('');
+    this.formUpdateOffer.controls['DiscountPrice'].reset('');
+    this.formUpdateOffer.controls['AverageFreightCost'].reset('');
     this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
       duration: 3000,
     });
