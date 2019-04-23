@@ -40,7 +40,7 @@ const detailOffer = [
         "imageUrl": null
     }]
 
-fdescribe('Detail offer Component', () => {
+describe('Detail offer Component', () => {
 
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
