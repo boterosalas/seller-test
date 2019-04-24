@@ -38,6 +38,19 @@
                 "toolbar_subtitle": "| Listado de vendedores",
                 "toolbar_title_phone": "Listado de vendedores"
             }
+        },
+        "quoting": {
+            "administrator": {
+                "shipping_methods": {
+                    "title": "Método de envío"
+                },
+                "list_transporter": {
+                    "title_component": "Transportadoras",
+                    "lb_table_name": "Nombre",
+                    "lb_table_shipping_method": "Método de envío",
+                    "txt_not_elements": "No hay elementos creados."
+                }
+            }
         }
     }
 }

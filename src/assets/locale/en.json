@@ -38,6 +38,19 @@
                 "toolbar_subtitle": "| Seller list",
                 "toolbar_title_phone": "Seller list"
             }
+        },
+        "quoting": {
+            "administrator": {
+                "shipping_methods": {
+                    "title": "Shipping method"
+                },
+                "list_transporter": {
+                    "title_component": "Conveyors",
+                    "lb_table_name": "Name",
+                    "lb_table_shipping_method": "Shipping method",
+                    "txt_not_elements": "There are no created elements."
+                }
+            }
         }
     }
 }
