@@ -269,9 +269,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
         if (this.keywords.length<1) {
-            this.formBasicInfo.setErrors({required:true})
-            console.log( this.formBasicInfo);
-            
+            this.formBasicInfo.setErrors({required:true})      
         }
         
     }
