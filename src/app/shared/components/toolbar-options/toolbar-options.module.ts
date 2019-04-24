@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
-
 import { ToolbarOptionsComponent } from './toolbar-options.component';
+
 
 
 @NgModule({

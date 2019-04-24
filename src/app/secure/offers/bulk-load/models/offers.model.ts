@@ -13,6 +13,7 @@ export class ModelOffers {
         public IsLogisticsExito: any,
         public IsUpdatedStock: any,
         public errorRow: boolean,
+        public Currency?: boolean,
         public errorEan?: boolean,
         public errorStock?: boolean,
         public errorPrice?: boolean,
@@ -29,5 +30,7 @@ export class ModelOffers {
         public EanCombo?: any,
         public errorEanCombo?: boolean,
         public errorComboQuantity?: boolean,
+        public errorCurrency?: boolean,
+
     ) { }
 }

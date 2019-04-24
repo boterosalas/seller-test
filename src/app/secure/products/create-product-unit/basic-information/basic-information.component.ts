@@ -134,12 +134,11 @@ export class ProductBasicInfoComponent implements OnInit {
      * Create formulario para informacion basica.
      *
      * @private
-     * @param {*} patterns
      * @memberof ProductBasicInfoComponent
      */
-    private createForm(patterns: any): void {
+    private createForm(): void {
         this.formKeyword = new FormGroup({
-            Keyword: new FormControl('', [])
+            
         });
         this.formBasicInfo = new FormGroup({
             Keyword: new FormControl('', [Validators.required ]),
@@ -259,15 +258,20 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
+        if ( this.keywords.length >0) {
+            this.formBasicInfo.controls.Keyword.setErrors(null)
+        }else{
+            this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
+
+        }
     }
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
         if (this.keywords.length<1) {
-            this.formBasicInfo.setErrors({required:true})
-            console.log( this.formBasicInfo);
-            
+            this.formBasicInfo.setErrors({required:true})      
         }
+        
     }
 
     /**
@@ -387,7 +391,7 @@ export class ProductBasicInfoComponent implements OnInit {
         const param = ['productos', null];
         this.service.getRegexInformationBasic(param).subscribe(res => {
             this.validateRegex = JSON.parse(res.body.body);
-            this.createForm(this.validateRegex.Data);
+            this.createForm();
         });
 
     }

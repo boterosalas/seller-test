@@ -177,7 +177,7 @@
         <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
           add_circle_outline
         </mat-icon>
-        <div class="basic-info-error" *ngIf="!keywords.length">Este campo es obligatorio</div>
+        <div class="basic-info-error" *ngIf="keywords.length<1">Este campo es obligatorio</div>
       </mat-form-field>
   </form>
 

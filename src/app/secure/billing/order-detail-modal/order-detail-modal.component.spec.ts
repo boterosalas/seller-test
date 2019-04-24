@@ -5,8 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 /* our own custom components */
 import { OrderBillingDetailModalComponent } from './order-detail-modal.component';
 import { BillingModule } from '../billing.module';
+import { ShellModule } from '@app/core/shell/shell.module';
 
-/*
+
 describe('OrderBillingDetailModalComponent', () => {
   let component: OrderBillingDetailModalComponent;
   let fixture: ComponentFixture<OrderBillingDetailModalComponent>;
@@ -15,7 +16,8 @@ describe('OrderBillingDetailModalComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        BillingModule
+        BillingModule,
+        ShellModule
       ]
     })
       .compileComponents();
@@ -30,5 +32,8 @@ describe('OrderBillingDetailModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+
 });
-*/
+

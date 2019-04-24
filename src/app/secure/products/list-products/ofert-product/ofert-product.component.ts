@@ -9,6 +9,7 @@ import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,15 +34,21 @@ export class OfertExpandedProductComponent implements OnInit {
     @Input() applyOffer: any;
     @Input() productsExpanded: any;
 
-    public formatNumber = /^[0-9]+$/;
-    public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
+    public isTypeCurrency = false;
+    // public formatNumber = /^[0-9]+$/;
+    // public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
     public valuePrice: any;
     public totalCombo: any;
     public showImage = false;
     public showButton = true;
+    offertRegex = {
+        formatNumber: '',
+        promiseDelivery: '',
+    };
 
 
     constructor(
+        public SUPPORT: SupportService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
         private modalService?: ModalService,
@@ -54,6 +61,7 @@ export class OfertExpandedProductComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.validateFormSupport();
         this.createFormControls();
     }
 
@@ -67,22 +75,27 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct = this.fb.group({
             Stock: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.formatNumber)
+                Validators.pattern(this.offertRegex.formatNumber)
             ]),
             Price: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.formatNumber),
-
+                Validators.pattern(this.offertRegex.formatNumber)
             ]),
             DiscountPrice: new FormControl('', [
-                Validators.pattern(this.formatNumber)
+                Validators.pattern(this.offertRegex.formatNumber)
             ]),
-            PromiseDelivery: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatPromEntrega)]),
-            IsFreightCalculator: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
-            Warranty: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
+            PromiseDelivery: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.offertRegex.promiseDelivery)
+            ]),
+            IsFreightCalculator: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.offertRegex.formatNumber)
+            ]),
+            Warranty: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.offertRegex.formatNumber)
+            ]),
             ofertOption: new FormControl(''),
             IsUpdatedStock: new FormControl(''),
             Combos: this.fb.array([]), /*
@@ -90,6 +103,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
+            Currency: new FormControl('COP')
         });
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
@@ -110,8 +124,8 @@ export class OfertExpandedProductComponent implements OnInit {
     addItem(nameCombo: string, ean?: number, EanCombo?: number): void {
         this.comboForm = this.fb.group({
             ofertPriceComponet: new FormControl('', [Validators.required,
-            Validators.pattern(this.formatNumber)]),
-            ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.formatNumber)])],
+            Validators.pattern(this.offertRegex.formatNumber)]),
+            ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.offertRegex.formatNumber)])],
             nameCombo: [nameCombo],
             EAN: [ean],
             EanCombo: this.applyOffer.ean
@@ -163,7 +177,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
-        if (total <= 8000) {
+        if (total <= 8000 && this.ofertProduct.value.Currency === 'COP') {
             this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
                 duration: 3000,
             });
@@ -196,15 +210,35 @@ export class OfertExpandedProductComponent implements OnInit {
                     }
                 }
             } else {
+                if (this.ofertProduct.controls.Currency.value === 'USD') {
+                    errors = false;
+                    if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
+                        if (showErrors) {
+                            this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
+                                duration: 3000,
+                            });
+                        }
+                    } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
+                        if (showErrors) {
+                            this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
+                                duration: 3000,
+                            });
+                        }
+                    }
+                }
                 this.setCategoryError(errors);
-
             }
         } else {
             // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                this.setCategoryErrorPrice(errors);
+                if (this.ofertProduct.controls.Currency.value === 'COP') {
+                    this.setCategoryErrorPrice(errors);
+                } else {
+                    errors = false;
+                    this.setCategoryErrorPrice(errors);
+                }
             }
         }
         this.sendArray();
@@ -213,7 +247,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     public setCategoryError(show: boolean): void {
         if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value <= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
                 this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
             }
         } else {
@@ -282,6 +316,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
+            Currency: this.ofertProduct.controls.Currency.value,
         };
 
         let aryOfAry = [data];
@@ -332,8 +367,76 @@ export class OfertExpandedProductComponent implements OnInit {
 
     // Funcion para limpiar formulario
     public cleanFilter(result?: any) {
-        this.ofertProduct.reset();
+        this.ofertProduct.controls.Stock.reset();
+        this.ofertProduct.controls.Price.reset();
+        this.ofertProduct.controls.DiscountPrice.reset();
+        this.ofertProduct.controls.PromiseDelivery.reset();
+        this.ofertProduct.controls.IsFreightCalculator.reset();
+        this.ofertProduct.controls.Warranty.reset();
+        this.ofertProduct.controls.ofertOption.reset();
+        this.ofertProduct.controls.IsUpdatedStock.reset();
+        if (this.applyOffer.eanesCombos.length !== 0) {
+            this.Combos.controls.forEach((price: any) => {
+                price.controls.ofertPriceComponet.reset('');
+                price.controls.ComboQuantity.reset('');
+            });
+        }
+
+        if (this.ofertProduct.controls.Currency.value !== 'COP') {
+            this.ofertProduct.controls.Currency.setValue('COP');
+        }
         this.cleanFilterListProducts(result);
-        // this.ofertProduct = null;
+    }
+
+    /*
+   * @method onlyNumber que permite solo el ingreso de números.
+   * @param event
+   * @memberof DetailOfferComponent
+   */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
+    }
+
+    /*
+    * Funcion que recibe como parametro el tipo de evento seleccionado en la lista desplegable (USD, COP), muestra un mensaje de cambio de moneda
+    * limpias las variables precio, precio con descuento y costo de flete promedio
+    * si cuenta con combos, al cambiar el tipo de moneda tambien se aplica el reseteo de las variables precio y cantidad de combo
+    * @param event
+    */
+
+    changeTypeCurrency(event: any) {
+        this.setCategoryError(false);
+        this.ofertProduct.controls.Price.reset('');
+        this.ofertProduct.controls.DiscountPrice.reset('');
+        this.ofertProduct.controls.IsFreightCalculator.reset('');
+        this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+            duration: 3000,
+        });
+
+        if (this.applyOffer.eanesCombos.length !== 0) {
+            this.Combos.controls.forEach((price: any) => {
+                price.controls.ofertPriceComponet.reset('');
+                price.controls.ComboQuantity.reset('');
+            });
+        }
+    }
+
+    // Funcion para cargar datos de regex
+    public validateFormSupport(): void {
+        this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+            let dataOffertRegex = JSON.parse(res.body.body);
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+            for (const val in this.offertRegex) {
+                if (!!val) {
+                    const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+                    this.offertRegex[val] = element && `${element.Value}`;
+                }
+            }
+            this.createFormControls();
+        });
     }
 }

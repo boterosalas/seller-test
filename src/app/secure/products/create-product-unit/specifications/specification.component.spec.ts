@@ -1335,7 +1335,7 @@ describe('SpecificationProductComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 SpecificationProductComponent,
-                SpecificationDialogComponent
+                SpecificationDialogComponent,
             ],
             providers: [
                 { provide: SpecificationService, useValue: specificationService },
