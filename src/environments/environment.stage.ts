@@ -11,7 +11,7 @@ export const environment = {
   // Constantes para cognito productivo.
   cognito: {
     region: 'us-east-1',
-    identityPoolId: '',
+    identityPoolId: null,
     userPoolId: 'us-east-1_5vEqf5WT0',
     clientId: '6sovc853lkkuk7km70jlvlu8u2',
     rekognitionBucket: 'rekognition-pics',

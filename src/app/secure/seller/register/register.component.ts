@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -10,6 +10,10 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Router } from '@angular/router';
+import { trimField } from '@app/shared/util/validation-messages';
+import { PayoneerService } from './payoneer.service';
+import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { countries } from './countries';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -30,6 +34,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class RegisterSellerComponent implements OnInit {
 
+  countries = countries;
+  colombia = 'COLOMBIA';
+  isColombiaSelect = true;
   public imagesRegister: Array<any> = [
     {
       checked: '../../../../../assets/seller-register/logo_exito_check.jpg',
@@ -45,6 +52,23 @@ export class RegisterSellerComponent implements OnInit {
     }
   ];
 
+  sellerRegex = {
+    phoneNumber: '',
+    contactName: '',
+    email: '',
+    nameStore: '',
+    nit: '',
+    rut: '',
+    internationalNit: '',
+    internationalRut: '',
+    internationalPostalCode: '',
+    payoneer: '',
+    internationalState: '',
+    internationalCity: '',
+    daneCode: '',
+    address: '',
+  };
+
   public values = '';
   public existValueInDB: boolean;
   public matcher: MyErrorStateMatcher;
@@ -53,8 +77,6 @@ export class RegisterSellerComponent implements OnInit {
   public idState: number;
   public daneCode: any;
   public disabledForService: boolean;
-  public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
-  public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$/;
   public user: UserInformation;
   public activeButton: boolean;
   public selectedValue: string;
@@ -69,7 +91,6 @@ export class RegisterSellerComponent implements OnInit {
   disabledComponent = false;
 
   constructor(
-    @Inject(RegisterService)
     private registerService: RegisterService,
     private loadingService: LoadingService,
     private modalService: ModalService,
@@ -77,23 +98,9 @@ export class RegisterSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private router: Router,
+    private payoneerService: PayoneerService,
+    private regexService: BasicInformationService
   ) { }
-
-
-  public validateNameStorage(name: string): boolean {
-    const t = name.toLocaleLowerCase().trim();
-
-    if (!t.match(this.nameStoreRegex)) {
-      this.validateFormRegister.controls.Name.setErrors(
-        {
-          pattern: TestRequest
-        }
-      );
-    } else {
-      this.validateFormRegister.controls.Name.setErrors(null);
-    }
-    return true;
-  }
 
   /**
    * Funcion que verifica si la funcion del modulo posee permisos
@@ -107,43 +114,95 @@ export class RegisterSellerComponent implements OnInit {
     return permission && permission.ShowFunctionality;
   }
 
+  /**
+   * Agregar FormBuilder y cambiar el formulario
+   */
   ngOnInit() {
     this.getProfile();
     this.userService.isAuthenticated(this);
     this.permissionComponent = this.authService.getMenu(registerName);
-    const disabledForm = !this.getFunctionality(this.create);
-    this.disabledComponent = disabledForm;
+    this.disabledComponent = !this.getFunctionality(this.create);
+    this.initSellerForm(this.disabledComponent);
+    this.matcher = new MyErrorStateMatcher();
+    this.initAdminForm();
+    this.getRegex();
+  }
+
+  getRegex() {
+    this.regexService.getRegexInformationBasic(null).subscribe(res => {
+        let dataSellerRegex = JSON.parse(res.body.body);
+        dataSellerRegex = dataSellerRegex.Data.filter(data => data.Module === 'vendedores');
+        for (const val in this.sellerRegex) {
+          if (!!val) {
+            const element = dataSellerRegex.find(regex => regex.Identifier === val.toString());
+            this.sellerRegex[val] = element && `${element.Value}`;
+          }
+        }
+        this.initAdminForm();
+        this.initSellerForm(this.disabledComponent);
+    });
+  }
+
+  initAdminForm() {
+    this.validateFormRegisterAdmin = new FormGroup({
+      Nit: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern(this.sellerRegex.nit)
+      ]),
+      Email: new FormControl
+        ('', [Validators.required,
+        Validators.pattern(this.sellerRegex.email)
+        ]),
+      Name: new FormControl
+        ('', [
+          Validators.required,
+          trimField,
+          Validators.pattern(this.sellerRegex.nameStore)
+        ]),
+      Profile: new FormControl
+        (this.profileAdmin, [Validators.required]),
+    });
+  }
+
+  initSellerForm(disabledForm: boolean) {
     this.validateFormRegister = new FormGroup({
       Nit: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         Validators.maxLength(20),
-        Validators.pattern('^[0-9]*$')
+        Validators.pattern(this.sellerRegex.nit)
       ]),
       Rut: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.maxLength(20),
-        Validators.pattern('^[0-9]*$')
+        Validators.pattern(this.sellerRegex.rut)
         ]),
       ContactName: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
-        Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
+        Validators.pattern(this.sellerRegex.contactName)
         ]),
       Email: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
-        Validators.pattern(this.emailRegex)
+        Validators.pattern(this.sellerRegex.email)
         ]),
       PhoneNumber: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
-        Validators.minLength(7),
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]*$')]),
+          Validators.maxLength(20),
+          trimField,
+          Validators.pattern(this.sellerRegex.phoneNumber)]),
       Address: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required]),
+      Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
       DaneCode: new FormControl,
       SincoDaneCode: new FormControl,
-      Name: new FormControl({ value: '', disabled: disabledForm }, [Validators.required]),
+      Name: new FormControl({ value: '', disabled: disabledForm }, [
+        Validators.required,
+        trimField,
+        Validators.pattern(this.sellerRegex.nameStore)
+      ]),
+      Payoneer: new FormControl({value: '', disabled: this.isColombiaSelect}),
       IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
       IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
       GotoExito: new FormControl({ value: true, disabled: disabledForm }),
@@ -152,25 +211,76 @@ export class RegisterSellerComponent implements OnInit {
       Profile: new FormControl
         (this.profileSeller, [Validators.required]),
     });
-    this.matcher = new MyErrorStateMatcher();
+    this.disabledFiledsSellerForm();
+    this.addValidationsSellerForm();
+    this.putColombiaByDefault();
+  }
 
-    this.validateFormRegisterAdmin = new FormGroup({
-      Nit: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(20),
-        Validators.pattern('^[0-9]*$')
-      ]),
-      Email: new FormControl
-        ('', [Validators.required,
-        Validators.pattern(this.emailRegex)
-        ]),
-      Name: new FormControl
-        ('', [Validators.required]),
-      Profile: new FormControl
-        (this.profileAdmin, [Validators.required]),
+  disabledFiledsSellerForm() {
+    this.State.disable();
+    this.City.disable();
+    this.PostalCode.disable();
+    this.PhoneNumber.disable();
+    this.Nit.disable();
+    this.Rut.disable();
+  }
+
+  addValidationsSellerForm() {
+    this.Country.valueChanges.subscribe(val => {
+      if (!!val) {
+        this.isColombiaSelect = val === this.colombia;
+      }
+      this.State.reset({value: '', disabled: false});
+      const selectedCountry = this.countries.find(element => element.CountryName === val);
+      this.PhoneNumber.reset({value: selectedCountry.CountryIndicative, disabled: true});
+      this.City.reset(null);
+      this.PostalCode.reset(null);
+      this.City.enable();
+      this.PostalCode.enable();
+      this.PhoneNumber.enable();
+      this.Nit.reset({value: null, disabled: false});
+      this.Rut.enable();
+      this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
     });
   }
 
+  validationsForNotColombiaSelectSellerForm() {
+    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalNit)]));
+    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
+    this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalState)]));
+    this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalCity)]));
+    this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
+    this.Payoneer.enable();
+    this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
+  }
+
+  validationsForColombiaSelectSellerForm() {
+    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.nit)]));
+    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]));
+    this.State.setValidators(null);
+    this.City.setValidators(null);
+    this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
+    this.Payoneer.disable();
+  }
+
+  putColombiaByDefault() {
+    const colombia = this.countries.find(element => element.CountryName === this.colombia);
+    if (!!colombia) this.Country.setValue(colombia.CountryName);
+  }
+
+  validateExitPayoneerUser(event) {
+    const value = event.target.value;
+    if ( !!value) {
+      this.loadingService.viewSpinner();
+      this.payoneerService.getStatusById(value).subscribe((val: any) => {
+        const body = JSON.parse(val.body.body);
+        if(body && !body.Data) {
+          this.Payoneer.setErrors({payoneer: true});
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
+  }
 
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
@@ -193,8 +303,14 @@ export class RegisterSellerComponent implements OnInit {
    * @param event
    * @memberof RegisterSellerComponent
    */
-  keyPress(event: any) {
-    const pattern = /[0-9]/;
+  keyPress(event: any, inputName: string) {
+    if ( inputName === 'nit' || inputName === 'rut' || inputName === 'city' || inputName === 'state') {
+      inputName = this.isColombiaSelect ? `${inputName}` : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
+    }
+    if (inputName === 'postalCode') {
+      inputName = this.isColombiaSelect ? 'daneCode' : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
+    }
+    const pattern = new RegExp(this.sellerRegex[inputName]);
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
@@ -208,8 +324,10 @@ export class RegisterSellerComponent implements OnInit {
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
     this.disabledForService = true;
-    const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
+    const profile = !this.validateFormRegister.controls.Profile.value.includes('Tienda') ? `Tienda|${this.validateFormRegister.controls.Profile.value}` : this.validateFormRegister.controls.Profile.value;
     this.validateFormRegister.controls.Profile.setValue(profile);
+    this.City.setValue(this.City.value.toString().toUpperCase());
+    this.State.setValue(this.State.value.toString().toUpperCase());
     this.registerService.registerUser(this.validateFormRegister.value)
       .subscribe(
         (result: any) => {
@@ -360,6 +478,76 @@ export class RegisterSellerComponent implements OnInit {
             }
           }
         });
+  }
+
+  get Country(): FormControl {
+    return this.validateFormRegister.get('Country') as FormControl;
+  }
+
+  get State(): FormControl {
+    return this.validateFormRegister.get('State') as FormControl;
+  }
+
+  get City(): FormControl {
+    return this.validateFormRegister.get('City') as FormControl;
+  }
+
+  get PostalCode(): FormControl {
+    return this.validateFormRegister.get('DaneCode') as FormControl;
+  }
+
+  get Nit(): FormControl {
+    return this.validateFormRegister.get('Nit') as FormControl;
+  }
+
+  get Rut(): FormControl {
+    return this.validateFormRegister.get('Rut') as FormControl;
+  }
+
+  get ContactName(): FormControl {
+    return this.validateFormRegister.get('ContactName') as FormControl;
+  }
+
+  get Email(): FormControl {
+    return this.validateFormRegister.get('Email') as FormControl;
+  }
+
+  get PhoneNumber(): FormControl {
+    return this.validateFormRegister.get('PhoneNumber') as FormControl;
+  }
+  get Address(): FormControl {
+    return this.validateFormRegister.get('Address') as FormControl;
+  }
+
+  get Name(): FormControl {
+    return this.validateFormRegister.get('Name') as FormControl;
+  }
+
+  get Payoneer(): FormControl {
+    return this.validateFormRegister.get('Payoneer') as FormControl;
+  }
+
+  get Exito(): FormControl {
+    return this.validateFormRegister.get('GotoExito') as FormControl;
+  }
+
+  get Profile(): FormControl {
+    return this.validateFormRegister.get('Profile') as FormControl;
+  }
+
+  get Carulla(): FormControl {
+    return this.validateFormRegister.get('GotoCarulla') as FormControl;
+  }
+  get Catalogo(): FormControl {
+    return this.validateFormRegister.get('GotoCatalogo') as FormControl;
+  }
+
+  get LogisticExito(): FormControl {
+    return this.validateFormRegister.get('IsLogisticsExito') as FormControl;
+  }
+
+  get ShippingExito(): FormControl {
+    return this.validateFormRegister.get('IsShippingExito') as FormControl;
   }
 }
 
