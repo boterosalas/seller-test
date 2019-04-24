@@ -15,6 +15,7 @@ import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
 import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { TranslateDirective } from './directives/translate/translate.directive';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TranslatePipe } from './pipes/translate.pipe';
     ControlMessagesComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
-    TranslatePipe
+    TranslatePipe,
+    TranslateDirective
   ],
   exports: [
     MaterialModule,
@@ -45,7 +47,8 @@ import { TranslatePipe } from './pipes/translate.pipe';
     ControlMessagesComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
-    TranslatePipe
+    TranslatePipe,
+    TranslateDirective
   ],
   entryComponents: [
     ErrorDialogComponent,

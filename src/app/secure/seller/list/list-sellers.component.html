@@ -3,7 +3,7 @@
     <!-- Formulario para realizar filtro de listado de vendedores -->
     <form class="basic-info" #createfilterSeller="ngForm" [formGroup]="filterSeller" class="seller-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>Filtro vendedores</h3>
+        <h3 translate>secure.seller.list.seller_filter</h3>
         <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
@@ -12,29 +12,30 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="ID" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+          <input matInput [placeholder]="( 'secure.seller.list.id' | translate) | async" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterSeller.get('id').hasError('pattern')" [innerHTML]="'ID invalido'"></mat-error>
+          <mat-error *ngIf="filterSeller.get('id').hasError('pattern')" translate>errors.invalid_id</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Nombre del vendedor" formControlName="sellerName" [errorStateMatcher]="matcher"
+          <input matInput [placeholder]="( 'secure.seller.list.seller_name' | translate) | async" formControlName="sellerName" [errorStateMatcher]="matcher"
             (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             >
-            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">Nombre invalido</mat-error>
+            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')" translate>errors.invalid_name</mat-error>
           <!-- <mat-hint></mat-hint>
   <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="NIT" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+            <mat-placeholder translate>secure.seller.list.nit</mat-placeholder>
+          <input matInput formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" [innerHTML]="'NIT invalido'"></mat-error>
+          <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')" translate>errors.invalid_nit</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-          <button mat-stroked-button color="primary" [innerHTML]="'Limpiar'" (click)="cleanFilter()"></button>
+          <button mat-stroked-button color="primary" (click)="cleanFilter()">{{('filters.clear'|translate) | async}}</button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="drawer.toggle() && filterListSeller()"></button>
+          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterListSeller()" translate>{{('filters.clear'|translate) | async}}</button>
         </div>
 
       </div>
@@ -46,20 +47,20 @@
       <mat-toolbar class="seller-list-toolbar">
         <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
           <!--  Titulo del toolbar -->
-          <p class="seller-list-title" fxShow [fxShow.xs]="false">
-            Vendedores
-            <small class="sub-title">| Listado de vendedores</small>
+          <p class="seller-list-title" fxShow [fxShow.xs]="false" translate>
+            {{('secure.seller.list.toolbar_title' | translate) | async}}
+            <small class="sub-title" translate>secure.seller.list.toolbar_subtitle</small>
           </p>
           <!--  Titulo del toolbar -->
-          <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-            Listado de vendedores
+          <p class="seller-list-title" fxShow="false" [fxShow.xs]="true" translate>
+            secure.seller.list.toolbar_title_phone
           </p>
           <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
           </mat-paginator> -->
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+          <small class="sub-title-filter" translate>filters.filter</small>
         </button>
       </mat-toolbar>
       <!-- Resultado Filtro -->
@@ -79,28 +80,28 @@
         <!-- SELLER HEADER LIST-->
         <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center"  fxHide.xs>
           <div id="id" class="label-container id">
-            <label class="label-list">
-              ID
+            <label class="label-list" translate>
+              secure.seller.list.id
             </label>
           </div>
           <div id="nit" class="label-container nit">
-              <label class="label-list">
-                Nit
+              <label class="label-list" translate>
+                secure.seller.list.nit
               </label>
             </div>
           <div id="name" class="label-container name">
-            <label class="label-list">
-              Nombre del vendedor
+            <label class="label-list" translate>
+              secure.seller.list.seller_name
             </label>
           </div>
           <div id="status" class="label-container status">
-            <label class="label-list">
-              Estado
+            <label class="label-list" translate>
+              secure.seller.list.status
             </label>
           </div>
           <div id="vacations" class="label-container vacations">
-            <label class="label-list">
-              Vacaciones
+            <label class="label-list" translate>
+              secure.seller.list.vacations
             </label>
           </div>
         </div>
@@ -117,24 +118,24 @@
                         visibility
                       </mat-icon>
                     </button>
-                    <p class="title-list" >
-                      ID
+                    <p class="title-list" translate>
+                      secure.seller.list.nit
                     </p>
                     <label class="label-result">
                       {{seller.IdSeller}}
                     </label>
                   </div>
                   <div id="nit" class="label-container nit">
-                      <p class="title-list">
-                        Nit
+                      <p class="title-list" translate>
+                        secure.seller.list.nit
                       </p>
                     <label class="label-result">
                       {{seller.Nit}}
                     </label>
                   </div>
                   <div id="name" class="label-container name">
-                      <p class="title-list">
-                        Nombre
+                      <p class="title-list" translate>
+                        secure.seller.list.seller_name
                       </p>
                     <label class="label-result">
                       {{seller.Name}}
@@ -170,8 +171,8 @@
                     </button>
                   </div>
                   <div id="vacations" class="label-container vacations">
-                    <p class="title-list">
-                      Vacacaiones
+                    <p class="title-list" translate>
+                      secure.seller.list.vacations
                     </p>
                     <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
                          <div>
@@ -183,8 +184,8 @@
                           </mat-icon>
                     </label>
                     <ng-template #ProgramDate>
-                        <label class="label-result">
-                            {{ ('secure.seller.list.program_vacation' | translate) | async}}
+                        <label class="label-result" translate>
+                          secure.seller.list.program_vacation
                       </label>                     
                     </ng-template>
                   </div>

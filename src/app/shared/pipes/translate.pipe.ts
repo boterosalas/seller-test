@@ -12,7 +12,6 @@ export class TranslatePipe implements PipeTransform, OnDestroy {
   subscription: Subscription;
 
   constructor(private languageService: LanguageService) {
-
   }
 
   transform(value: any, args?: any): any {
