@@ -1,37 +1,57 @@
 import { Directive, Input, ElementRef, OnDestroy, AfterViewInit, OnInit } from '@angular/core';
 import { LanguageService } from '@app/core/translate/language.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, elementAt } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { debug } from 'util';
 
 @Directive({
-  selector: '[translate]'
+  selector: '[I18N]'
 })
 export class TranslateDirective implements AfterViewInit, OnDestroy {
 
-  key: string;
   subscription: Subscription;
 
-  constructor( private element: ElementRef ,private languageService: LanguageService) {
-   }
+  constructor(private element: ElementRef, private languageService: LanguageService) {
+  }
 
-   ngAfterViewInit() {
-    this.getContent();
-      this.languageService.lenguage$.pipe(distinctUntilChanged()).subscribe(val => {
-        const value = !!this.key && this.languageService.getValue(this.key);
-        this.updateContent(value);
-      });
-   }
+  ngAfterViewInit() {
+    this.languageService.lenguage$.pipe(distinctUntilChanged()).subscribe(() => {
+      this.translate(this.element);
+    });
+  }
 
-   getContent() {
-     this.key = this.element.nativeElement.innerHTML;
-   }
+  translate(el) {
+    const existChildNode = !!el && ((!!el.nativeElement && !!el.nativeElement.childNodes && el.nativeElement.childNodes.length > 0) || (!!el.childNodes && el.childNodes.length > 0));
+    if (existChildNode) {
+      try {
+        !!el.nativeElement.childNodes && el.nativeElement.childNodes.forEach(child => {
+          this.translate(child);
+        });
+      } catch {
+        !!el.childNodes && el.childNodes.forEach(child => {
+          this.translate(child);
+        });
+        }
+      } else {
+        const newKey = this.getContent(el);
+        const value = this.languageService.getValue(newKey);
+        this.updateContent(el, value);
+      }
+    }
 
-   updateContent(value: string) {
-     this.element.nativeElement.innerHTML = !!value && value;
-   }
+    getContent(element) {
+    if (!element.keyTranslate) {
+      element.keyTranslate = element.nodeValue;
+    }
+    return element.keyTranslate;
+  }
 
-   ngOnDestroy() {
-     !!this.subscription && this.subscription.unsubscribe();
-   }
+  updateContent(element, value: string) {
+    element.nodeValue = !!value && value;
+  }
+
+  ngOnDestroy() {
+    !!this.subscription && this.subscription.unsubscribe();
+  }
 
 }

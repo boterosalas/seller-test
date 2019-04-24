@@ -71,11 +71,11 @@ export class LanguageService {
     return !!value ? value : key;
   }
 
-  setLanguageLocalSotrage(language: string) {
+  private setLanguageLocalSotrage(language: string) {
     localStorage.setItem('Language', language);
   }
 
-  getLanguageLocalStorage(): string {
+  private getLanguageLocalStorage(): string {
     return localStorage.getItem('Language');
   }
 }
