@@ -4,7 +4,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { Observable, Subscribable, Subscription } from 'rxjs';
 
 @Pipe({
-  name: 'translate'
+  name: 'I18N'
 })
 export class TranslatePipe implements PipeTransform, OnDestroy {
 
