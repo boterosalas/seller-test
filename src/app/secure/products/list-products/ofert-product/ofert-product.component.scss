@@ -76,6 +76,14 @@
   color: #5D5D5D;
   display: block;
   width: 23%;
+  height: 12%;
+
+  .style-text {
+    // width: 100%;
+    margin-bottom: 15%;
+    margin-top: 0%;
+    height: 78%
+  }
 
   @media screen and (max-width: 600px) {
     width: 90%;

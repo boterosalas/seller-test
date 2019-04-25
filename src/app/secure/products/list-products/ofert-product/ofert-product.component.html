@@ -98,7 +98,7 @@
       <ng-container class="container-sub" *ngFor="let comp of Combos.controls">
         <div class="info-product" fxShow.xs="true">
           <ng-container [formGroup]="comp">
-            <div>
+            <div  class="style-text">
               <h3>{{comp.get('nameCombo').value}}</h3>
             </div>
             <div class="ofert-information">
