@@ -38,10 +38,6 @@ describe('BillingProductsOrderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   describe('With order', () => {
     beforeEach(() => {
       component.order = [{
