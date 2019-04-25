@@ -343,6 +343,11 @@ export class OfertExpandedProductComponent implements OnInit {
         );
     }
 
+    /**
+     * Metodo que activa variable apra habilitar o deshabilitar el boton
+     *
+     * @memberof OfertExpandedProductComponent
+     */
     public sendArray() {
         if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
             this.showButton = true;
