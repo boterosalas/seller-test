@@ -38,7 +38,7 @@ describe('BillingProductsOrderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  /* describe('With order', () => {
+  describe('With order', () => {
     beforeEach(() => {
       component.order = [{
         detailName: 'Videojuego Grand Theft Auto V PS4',
@@ -166,6 +166,6 @@ describe('BillingProductsOrderComponent', () => {
     });
 
   });
- */
+
 });
 
