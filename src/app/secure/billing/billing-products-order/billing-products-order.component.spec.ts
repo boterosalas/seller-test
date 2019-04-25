@@ -10,7 +10,7 @@ import { ShellModule } from '@app/core/shell/shell.module';
 import { By } from '@angular/platform-browser';
 
 
-/* describe('BillingProductsOrderComponent', () => {
+describe('BillingProductsOrderComponent', () => {
   let component: BillingProductsOrderComponent;
   let fixture: ComponentFixture<BillingProductsOrderComponent>;
 
@@ -168,4 +168,4 @@ import { By } from '@angular/platform-browser';
   });
 
 });
- */
+

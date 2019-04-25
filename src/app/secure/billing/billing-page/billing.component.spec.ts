@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 import { DownloadBillingpayModalComponent } from '../download-billingpay-modal/download-billingpay-modal.component';
 
 
-describe('BillingComponent', () => {
+/* describe('BillingComponent', () => {
     let component: BillingComponent;
     let fixture: ComponentFixture<BillingComponent>;
     const userData = {sellerProfile: 'seller'}; 
@@ -129,10 +129,6 @@ describe('BillingComponent', () => {
           component.openModalDetailOrder(component.dataSource);
         });
 
-        //  it('filterBillingList',() => {
-           
-        // });
-
     });
 
-});
+}); */
