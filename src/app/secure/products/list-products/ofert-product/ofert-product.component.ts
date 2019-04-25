@@ -242,7 +242,6 @@ export class OfertExpandedProductComponent implements OnInit {
             }
         }
         this.sendArray();
-        console.log(' this.sendArray(): ',  this.sendArray());
     }
 
 
@@ -349,15 +348,19 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendArray() {
-        if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+        if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
             this.showButton = true;
-        } if (this.ofertProduct.controls.DiscountPrice.value && this.ofertProduct.controls.DiscountPrice.value !== this.totalCombo) {
+        } else if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) && parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== this.totalCombo) {
             this.showButton = true;
+        } else if (!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))) {
+                this.showButton = true;
+                this.snackBar.open('El precio debe ser igual a la suma de los combos sino existe precio con descuento.', 'Cerrar', {
+                    duration: 3000,
+                });
         } else {
             this.showButton = false;
             // this.sendDataToService();
         }
-        console.log(this.showButton, 66);
     }
 
     public abc() {
