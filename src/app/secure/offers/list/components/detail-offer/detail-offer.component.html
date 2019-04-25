@@ -81,7 +81,7 @@
                 <div class="flexbox align-center justify-center sep-right" [ngClass]="{'check' : dataOffer.isFreeShipping}">
                     <mat-icon *ngIf="dataOffer.isFreeShipping && dataOffer.isFreeShipping === true">check</mat-icon>
                     <mat-icon *ngIf="!dataOffer.isFreeShipping || dataOffer.isFreeShipping === false">clear</mat-icon>
-                    <p [innerHTML]="'Free Shinpping'"></p>
+                    <p [innerHTML]="'Free Shipping'"></p>
                 </div>
                 <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isEnviosExito}">
                     <mat-icon *ngIf="dataOffer.isEnviosExito && dataOffer.isEnviosExito === true">check</mat-icon>
