@@ -242,6 +242,7 @@ export class OfertExpandedProductComponent implements OnInit {
             }
         }
         this.sendArray();
+        console.log(' this.sendArray(): ',  this.sendArray());
     }
 
 
@@ -343,12 +344,15 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
     public sendArray() {
-        if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
+        if (this.ofertProduct.controls.DiscountPrice.value >= this.ofertProduct.controls.Price.value) {
+            this.showButton = true;
+        } if (this.ofertProduct.controls.DiscountPrice.value && this.ofertProduct.controls.DiscountPrice.value !== this.totalCombo) {
             this.showButton = true;
         } else {
             this.showButton = false;
             // this.sendDataToService();
         }
+        console.log(this.showButton, 66);
     }
 
     public abc() {
