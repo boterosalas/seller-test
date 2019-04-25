@@ -188,6 +188,7 @@ export class BillingComponent implements OnInit, OnDestroy {
           }
           this.dataSource = new MatTableDataSource(data);
 
+          // se reccorre la respuesta de la lista y se pone la comision en negativo
           this.dataSource.data.forEach(element => {
             element.commission *=-1;
           });
@@ -228,6 +229,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
 
+      // se reccorre la respuesta de la lista y se pone la comision en negativo
       this.dataSource.data.forEach(element => {
         element.commission *=-1;
       });
