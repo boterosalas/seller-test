@@ -187,6 +187,10 @@ export class BillingComponent implements OnInit, OnDestroy {
             this.orderListLength = false;
           }
           this.dataSource = new MatTableDataSource(data);
+
+          this.dataSource.data.forEach(element => {
+            element.commission *=-1;
+          });
           
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
@@ -223,6 +227,11 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
       // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
+
+      this.dataSource.data.forEach(element => {
+        element.commission *=-1;
+      });
+
       // this.paginator.pageIndex = 0;
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;

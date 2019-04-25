@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSortModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CognitoUtil } from '@app/core';
@@ -28,6 +28,7 @@ import { DownloadBillingpayModalComponent } from './download-billingpay-modal/do
     BillingRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatSortModule
   ],
   declarations: [
     BillingComponent,
