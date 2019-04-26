@@ -10,6 +10,10 @@
         "reason_max_length": "The reason must not exceed 120 characters",
         "observation_max_length": "The observation must not exceed 2000 characters" 
     },
+    "buttons": {
+        "modal_btn_ok": "",
+        "modal_btn_cancel": ""
+    },
     "filters": {
         "clear": "Clear",
         "filter": "Filter"
@@ -37,19 +41,92 @@
                 "toolbar_title": "Sellers",
                 "toolbar_subtitle": "| Seller list",
                 "toolbar_title_phone": "Seller list"
+            },
+            "profiles": {
+                "profile": {
+                    "toolbar_title": "Vendedores",
+                    "toolbar_subtitle": "Parametrización de perfiles",
+                    "tbl_lbl_name": "Nombre",
+                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                },
+                "dialog": {
+                    "modal_title_add_profile": "Agregar perfil",
+                    "modal_title_edit_profile": "Editar perfil",
+                    "modal_rdn_exito": "Exito",
+                    "modal_rdn_store": "Tienda",
+                    "modal_placeholder_profile_name": "Nombre del perfil",
+                    "modal_placeholder_select_menu": "Seleccione el menu",
+                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                }
             }
         },
-        "quoting": {
-            "administrator": {
-                "shipping_methods": {
-                    "title": "Shipping method"
-                },
-                "list_transporter": {
-                    "title_component": "Conveyors",
-                    "lb_table_name": "Name",
-                    "lb_table_shipping_method": "Shipping method",
-                    "txt_not_elements": "There are no created elements."
+        "offers": {
+            "quoting": {
+                "administrator": {
+                    "shipping_methods": {
+                        "title": "Método de envío"
+                    },
+                    "list_transporter": {
+                        "title_component": "Transportadoras",
+                        "lb_table_name": "Nombre",
+                        "lb_table_shipping_method": "Método de envío",
+                        "txt_not_elements": "No hay elementos creados.",
+                        "btn_create": "Crear"
+                    },
+                    "list_zones": {
+                        "title_component": "Zonas",
+                        "lb_table_name": "Name",
+                        "txt_not_elements": "No hay elementos creados.",
+                        "btn_create": "Crear"
+                    },
+                    "dialogs": {
+                        "create": {
+                            "modal_title":"Crear transportadora",
+                            "modal_text": "Crear transportadora",
+                            "modal_placeholder_transporter_name": "Nombre transportadora",
+                            "modal_placeholder_shipping_method": "Seleccionar Metodo"
+                        }
+                    }
                 }
+            },
+            "stores": {
+                "tree": {
+                    "components": {
+                        "tree_component": {
+                            "tbl_lbl_name:" : "Nombre",
+                            "tbl_lbl_commision:" : "comisión"
+                        }
+                    }
+                }
+            }
+        },
+        "parametize": {
+            "specifications": {
+                "title_bar": "Parametrizar reglas",
+                "subtitle_bar": "Parametrización de especificaciones",
+                "btn_add_specifications_group": "Agregrar grupo de especificaciones",
+                "btn_edit": "Editar",
+                "btn_delete": "Eliminar",
+                "btn_add_specifications": "Agregar especificaciones"
+            },
+            "dialog": {
+                "modal_title":"Agregar grupo de especificaciones",
+                "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
+                "modal_placeholder_specification_name": "Nombre de especificacion",
+                "modal_placeholder_category": "Categoria",
+                "modal_placeholder_add_category": "Para agregar es necesario, dar clic en (+).",
+                "modal_placeholder_rd_add_all": "Agregar todos"
+            },
+            "dialogAddSpecs": {
+                "modal_title":"Agregar de especificaciones",
+                "modal_text": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
+                "modal_placeholder_specification_name": "Nombre de especificacion",
+                "modal_lbl_vendedor": "Visualización del vendedor",
+                "modal_rdn_text": "Texo",
+                "modal_rdn_list_action": "Selección una acción (lista)",
+                "modal_chk_required": "Obligatoria",
+                "modal_placeholder_add_option": "Ingresa opcion",
+                "modal_btn_add_option": "Agregar opcion"
             }
         }
     }

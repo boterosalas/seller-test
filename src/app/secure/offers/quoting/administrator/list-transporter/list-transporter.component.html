@@ -1,30 +1,30 @@
 <article id="list-transporter">
-  <h4>{{'secure.quoting.administrator.list_transporter.title_component' | I18N | async}}</h4>
+  <h4>{{'secure.offers.quoting.administrator.list_transporter.title_component' | I18N | async}}</h4>
 
   <!-- Transporters title table CRUD-->
   <aside fxLayout="row" fxHide.xs>
-    <p class="title-list-transporter" fxFlex="40">{{'secure.quoting.administrator.list_transporter.lb_table_name' | I18N | async}}</p>
+    <p class="title-list-transporter" fxFlex="40">{{'secure.offers.quoting.administrator.list_transporter.lb_table_name' | I18N | async}}</p>
     <div fxFlex="42" fxLayout="row" fxLayoutAlign="end end">
-      <p class="title-list-transporter">{{'secure.quoting.administrator.list_transporter.lb_table_shipping_method' | I18N | async}}</p>
+      <p class="title-list-transporter">{{'secure.offers.quoting.administrator.list_transporter.lb_table_shipping_method' | I18N | async}}</p>
     </div>
   </aside>
 
   <div *ngIf="!listTransporters || (listTransporters && !listTransporters.length)" class="no-items" fxLayout="row"
     fxLayoutAlign="center center">
     <p class="title-list-transporter">
-      {{'secure.quoting.administrator.list_transporter.txt_not_elements' | I18N | async}}
+      {{'secure.offers.quoting.administrator.list_transporter.txt_not_elements' | I18N | async}}
     </p>
   </div>
 
   <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters; let i = index">
     <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
-      <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'secure.quoting.administrator.list_transporter.lb_table_name' | I18N | async}}</p>
+      <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'secure.offers.quoting.administrator.list_transporter.lb_table_name' | I18N | async}}</p>
       <p fxFlex="40">
         {{item.Name}}
       </p>
       <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
         <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
-          <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'secure.quoting.administrator.list_transporter.lb_table_shipping_method' | I18N | async}}</p>
+          <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'secure.offers.quoting.administrator.list_transporter.lb_table_shipping_method' | I18N | async}}</p>
           <p>{{ getNameMethod( item.IdShippingMethod ) }}</p>
         </div>
 
