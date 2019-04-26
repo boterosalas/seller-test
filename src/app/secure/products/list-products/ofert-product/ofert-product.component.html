@@ -66,7 +66,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-label>Tipo de moneda</mat-label>
-        <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="false" >
+        <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="true" >
               <mat-option value="USD">USD</mat-option>
               <mat-option value="COP">COP</mat-option>
         </mat-select>

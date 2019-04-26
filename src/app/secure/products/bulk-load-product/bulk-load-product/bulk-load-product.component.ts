@@ -862,7 +862,7 @@ export class BulkLoadProductComponent implements OnInit {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('Se ha presentado un error al cargar la información 88', 'Aceptar', 4000);
+                this.componentService.openSnackBar('El fortmato es inválido.', 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {

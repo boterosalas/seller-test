@@ -350,9 +350,9 @@ export class OfertExpandedProductComponent implements OnInit {
     public sendArray() {
         if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
             this.showButton = true;
-        } else if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) && parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== this.totalCombo) {
+        } else if (this.applyOffer.eanesCombos.length !== 0 && (parseFloat(this.ofertProduct.controls.DiscountPrice.value) && parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== this.totalCombo)) {
             this.showButton = true;
-        } else if (!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))) {
+        } else if (this.applyOffer.eanesCombos.length !== 0 && ((!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))))) {
                 this.showButton = true;
                 this.snackBar.open('El precio debe ser igual a la suma de los combos sino existe precio con descuento.', 'Cerrar', {
                     duration: 3000,

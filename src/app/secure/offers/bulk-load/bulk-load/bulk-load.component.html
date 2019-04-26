@@ -17,16 +17,17 @@
             fxLayoutAlign="center center">
 
             <!-- Input para subir archivo Excel Ingles -->
-
-            <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoadInternational()" mat-button>
+          <div *ngIf="false">
+              <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoadInternational()" mat-button>
+                  <mat-icon class="mat-18">file_download</mat-icon>
+                  DOWNLOAD FORMAT
+              </a>
+          </div>
+          <!-- Input para subir archivo Excel -->
+          <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()" mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
-              DOWNLOAD FORMAT</a>
-            <!-- Input para subir archivo Excel -->
-
-            <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()" mat-button>
-              <mat-icon class="mat-18">file_download</mat-icon>
-              DESCARGAR FORMATO</a>
-
+              DESCARGAR FORMATO
+          </a>
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)" multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" #fileUploadOption>
