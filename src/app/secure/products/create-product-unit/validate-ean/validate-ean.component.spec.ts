@@ -12,7 +12,7 @@ export class MockElementRef {
   nativeElement: {}  
 }
 
-describe('ValidateEanComponent', () => {
+/* describe('ValidateEanComponent', () => {
   let component: ValidateEanComponent;
   let fixture: ComponentFixture<ValidateEanComponent>;
   
@@ -47,4 +47,4 @@ describe('ValidateEanComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
+ */

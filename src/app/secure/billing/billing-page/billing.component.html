@@ -84,12 +84,12 @@
         <!-- commission Column -->
         <ng-container matColumnDef="commission">
           <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
-            fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef mat-sort-header>
+            fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef  mat-sort-header>
             <span class="title-table-header"> Comisi&oacute;n </span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">{{ - element.commission | currency:'COP' }}</p>
+            <p class="sc-text-normal sc-commission-text">{{ element.commission | currency:'COP' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -102,6 +102,7 @@
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
             <p class="sc-text-normal sc-commission-text">{{ element.iva | currency:'COP' }}</p>
+            
           </mat-cell>
         </ng-container>
 

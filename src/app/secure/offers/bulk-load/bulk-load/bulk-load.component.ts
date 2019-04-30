@@ -308,7 +308,6 @@ export class BulkLoadComponent implements OnInit {
         if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock')) &&
           (this.arrayNecessaryData[0].includes('Precio') || this.arrayNecessaryData[0].includes('Price'))) {
 
-          
           const iVal = {
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
             iInv: this.validateSubTitle(this.arrayNecessaryData, 'Stock', 'Inventario'),
@@ -675,8 +674,8 @@ export class BulkLoadComponent implements OnInit {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
-      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
-      // Currency: 'COP'
+      // Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
+      Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
