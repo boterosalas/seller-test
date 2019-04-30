@@ -46,7 +46,6 @@
               <div *ngIf="isColombiaSelect; else stateInput" fxFlex="50%">
                 <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
               </div>
-
               <ng-template #stateInput>
                 <div fxFlex="50%">
                   <mat-form-field class="register full-width">
@@ -218,7 +217,7 @@
                 <mat-form-field class="register" style="width:100% !important;">
                   <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Seller', 'Name', validateFormRegister.get('Name'))"
                     formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store" (ngModelChange)="activeButton = false"
-                    required (change)="validateNameStorage(validateFormRegister.get('Name').value)">
+                    required >
                   <mat-hint></mat-hint>
                   <mat-error id="error-name-store-required" *ngIf="validateFormRegister.get('Name').hasError('required')"
                     [innerHTML]="'Este campo es requerido.'"></mat-error>
@@ -338,7 +337,7 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
-                  <input matInput placeholder="NIT" (keypress)="keyPress($event)" maxlength="20" formControlName="Nit"
+                  <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')" maxlength="20" formControlName="Nit"
                     autocomplete="off" (blur)="validateExist($event,'Admin' ,'Nit')" [errorStateMatcher]="matcher" autofocus id="register-nit"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
