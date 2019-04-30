@@ -329,17 +329,23 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
                         duration: 3000,
                     });
+                    this.loadingService.closeSpinner();
+
                     // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
-                    window.location.reload();
+                    // window.location.reload();
 
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-            }
-        );
+                window.location.reload();
+
+            }, error => {
+                this.loadingService.closeSpinner();
+                window.location.reload();
+            });
     }
 
     /**
@@ -353,10 +359,10 @@ export class OfertExpandedProductComponent implements OnInit {
         } else if (this.applyOffer.eanesCombos.length !== 0 && (parseFloat(this.ofertProduct.controls.DiscountPrice.value) && parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== this.totalCombo)) {
             this.showButton = true;
         } else if (this.applyOffer.eanesCombos.length !== 0 && ((!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))))) {
-                this.showButton = true;
-                this.snackBar.open('El precio debe ser igual a la suma de los combos sino existe precio con descuento.', 'Cerrar', {
-                    duration: 3000,
-                });
+            this.showButton = true;
+            this.snackBar.open('El precio debe ser igual a la suma de los combos sino existe precio con descuento.', 'Cerrar', {
+                duration: 3000,
+            });
         } else {
             this.showButton = false;
             // this.sendDataToService();
