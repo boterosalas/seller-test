@@ -50,6 +50,7 @@ export class RoutesConst {
     static readonly paramSpecifications: any = 'especificaciones';
     static readonly paramBrands: any = 'marcas';
     static readonly listProducts: any = 'listado-productos';
+    static readonly categoryTree: any = 'category-tree';
 
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
@@ -100,6 +101,7 @@ export class RoutesConst {
     static readonly sellerCenterIntSellerAgreements: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerAgreement;
     static readonly sellerCenterIntSellerProfiles: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerProfiles;
     static readonly sellerCenterIntSellerList: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerList;
+    static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

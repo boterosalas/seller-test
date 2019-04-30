@@ -10,6 +10,7 @@ import { BrandsComponent } from './brands/brands.component';
 import { BrandService } from './brands/brands.component.service';
 import { AddDialogSpecsComponent } from './dialogAddSpecs/dialog-add-specs.component';
 import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.component';
+import { CategoryTreeComponent } from './category-tree/category-tree.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.compone
     BrandsComponent,
     FocusDirective,
     AddDialogSpecsComponent,
-    DeleteDialogSpecsComponent
+    DeleteDialogSpecsComponent,
+    CategoryTreeComponent,
   ],
   imports: [
     CommonModule,

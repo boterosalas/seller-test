@@ -5,6 +5,7 @@ import { SpecificationsParamComponent } from './specifications/specifications.co
 import { BrandsComponent } from './brands/brands.component';
 import { RoutesConst } from './../../shared';
 import { AuthService } from '../auth/auth.routing';
+import { CategoryTreeComponent } from './category-tree/category-tree.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -17,6 +18,12 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntParamBrand}`,
       component: BrandsComponent,
       data: { title: 'Marcas' },
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntCategoryTree}`,
+      component: CategoryTreeComponent,
+      canActivate: [AuthService],
+      data: {title: 'Categorias'}
     }
   ])
 ];

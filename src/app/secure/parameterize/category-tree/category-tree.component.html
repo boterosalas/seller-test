@@ -1,0 +1,25 @@
+<ng-container *ngFor="let category of categoryList">
+  <div>
+    <ng-container>
+      <div class="row" [ngStyle]="{'margin-left': totalMargin}">
+          <div (click)="showChildrens(category)" class="row__btn">
+              <ng-container *ngIf="category.Son.length > 0 && category.Show">
+                <mat-icon>remove</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="category.Son.length > 0 && !category.Show">
+                <mat-icon>add</mat-icon>
+              </ng-container>
+            </div>
+            <div (click)="Editar(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
+                <mat-icon>edit</mat-icon>
+            </div>
+            <div (click)="showChildrens(category)">
+              {{category.Name}}
+            </div>
+          </div>
+            <ng-container *ngIf="category.Son.length > 0  && category.Show">
+              <app-category-tree [categoryList]="category.Son" [isNode]="false" [margin]="margin"></app-category-tree>
+            </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
