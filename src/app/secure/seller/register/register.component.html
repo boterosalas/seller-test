@@ -1,7 +1,7 @@
 <mat-tab-group dynamicHeight mat-stretch-tabs>
-  <mat-tab label="Formulario registro de nuevo vendedor">
+  <mat-tab [label]="'secure.seller.register_seller.title' | I18N | async">
     <div class="row" fxLayoutAlign="center" id="containerH3">
-      <h3 class="center" [innerHTML]="'Formulario registro de nuevo vendedor'"></h3>
+      <h3 class="center">{{'secure.seller.register_seller.title' | I18N | async}}</h3>
     </div>
 
 

@@ -37,6 +37,9 @@
                 "toolbar_title": "Sellers",
                 "toolbar_subtitle": "| Seller list",
                 "toolbar_title_phone": "Seller list"
+            },
+            "register_seller": {
+                "title": "New seller registration form"
             }
         }
     }

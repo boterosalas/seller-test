@@ -37,6 +37,12 @@
                 "toolbar_title": "Vendedores",
                 "toolbar_subtitle": "| Listado de vendedores",
                 "toolbar_title_phone": "Listado de vendedores"
+            },
+            "register_seller": {
+                "title": "Formulario registro de nuevo vendedor",
+                "description": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los vendedores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar vendedores.",
+                "select_profile_type": "Selecciona tipo de perfil",
+                
             }
         }
     }
