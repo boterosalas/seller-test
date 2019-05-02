@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CategoryTreeService } from './category-tree.service';
+import { CategoryTreeService } from '../category-tree.service';
 
 describe('CategoryTreeService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -30,6 +30,7 @@ export class DialogWithFormComponent {
      }
 
   onNoClick(): void {
+    !!this.data && !!this.data.form && this.data.form.reset();
     this.dialogRef.close();
   }
 

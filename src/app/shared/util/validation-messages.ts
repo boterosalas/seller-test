@@ -9,6 +9,6 @@ export const validationMessages = {
 };
 
 export function trimField(control: AbstractControl): ValidationErrors | null {
-  const value = control.value
+  const value = !!control.value ? control.value : '';
   return !!value.toString().trim() ? null : {trim: true}
 }

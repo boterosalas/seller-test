@@ -1,0 +1,101 @@
+<mat-toolbar class="category-tree-toolbar">
+    <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+        <!--  Titulo del toolbar -->
+        <p class="seller-list-title" fxShow [fxShow.xs]="false">
+            Parametrización
+            <small class="sub-title">| Árbol de categorías</small>
+        </p>
+        <!--  Titulo del toolbar -->
+        <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+            Árbol de categorías
+        </p>
+        <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+        </mat-paginator> -->
+    </div>
+</mat-toolbar>
+<div class="content-flex-start">
+    <button mat-button (click)="openCategoryDialog()">
+        <mat-icon class="material-icons">
+            control_point
+        </mat-icon>
+        Agregar categoría nivel 1
+    </button>
+    <button mat-button (click)="expandTree(categoryList)">
+        Expandir
+    </button>
+    <button mat-button (click)="contractTree(categoryList)">
+        Contraer
+    </button>
+</div>
+<div class="container__tree">
+    <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
+        [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
+</div>
+
+<ng-template #dialogContent>
+    <form [formGroup]="form" class="full-width form margin-top__15">
+        <div class="container-fields">
+            <mat-form-field class="register full-width">
+                <mat-label>Tipo de producto</mat-label>
+                <mat-select formControlName="ProductType">
+                    <mat-option *ngFor="let type of productTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="container-fields">
+            <mat-form-field class="half-width">
+                <input matInput id="Name" placeholder="Nombre" autocomplete="false" formControlName="Name">
+                <mat-error *ngIf="Name.hasError('required') || Name.hasError('trim')">Este campo es
+                    obligatorio.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width">
+                <input matInput id="Commission" placeholder="Comisión por defecto" autocomplete="false"
+                    formControlName="Commission">
+                <mat-error *ngIf="Commission.hasError('required') || Commission.hasError('trim')">Este campo es
+                    obligatorio.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-fields">
+            <mat-form-field class="half-width">
+                <input matInput id="IdCatalogos" placeholder="Id Catalogos" autocomplete="false"
+                    formControlName="IdCatalogos">
+                <mat-error *ngIf="IdCatalogos.hasError('required') || IdCatalogos.hasError('trim')">Este campo es
+                    obligatorio.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width">
+                <input matInput id="IdExito" placeholder="Id Exito" autocomplete="false" formControlName="IdExito">
+                <mat-error *ngIf="IdExito.hasError('required') || IdExito.hasError('trim')">Este campo es
+                    obligatorio.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-fields">
+            <mat-form-field class="half-width">
+                <input matInput id="IdMarketplace" placeholder="Id Marketplace" autocomplete="false"
+                    formControlName="IdMarketplace">
+                <mat-error *ngIf="IdMarketplace.hasError('required') || IdMarketplace.hasError('trim')">Este campo es
+                    obligatorio.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width">
+                <input matInput id="IdVTEX" placeholder="Id VTEX" autocomplete="false" formControlName="IdVTEX">
+                <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">Este campo es
+                    obligatorio.</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-fields">
+            <mat-form-field class="half-width">
+                <input matInput id="IdCarulla" placeholder="Id Carulla" autocomplete="false"
+                    formControlName="IdCarulla">
+                <mat-error *ngIf="IdCarulla.hasError('required') || IdCarulla.hasError('trim')">Este campo es
+                    obligatorio.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width">
+                <input matInput id="NameParent" placeholder="Nombre de la categoría padre" autocomplete="false"
+                    formControlName="NameParent">
+            </mat-form-field>
+        </div>
+    </form>
+</ng-template>

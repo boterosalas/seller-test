@@ -1,0 +1,23 @@
+.row{
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px lightgray;
+    height: 37px;
+    padding: 5px 0;
+}
+
+.container {
+    display: block;
+    width: 100%;
+}
+.addPadding {
+    margin-left: 24px; 
+}
+.container-name {
+    margin-left: 10px;
+    color: grey;
+}
+
+.row__btn{
+    cursor: pointer;
+}

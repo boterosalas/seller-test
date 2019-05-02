@@ -1,7 +1,7 @@
 <ng-container *ngFor="let category of categoryList">
-  <div>
+  <div class="container-tree">
     <ng-container>
-      <div class="row" [ngStyle]="{'margin-left': totalMargin}">
+      <div class="row" [ngStyle]="{'padding-left': totalMargin}">
           <div (click)="showChildrens(category)" class="row__btn">
               <ng-container *ngIf="category.Son.length > 0 && category.Show">
                 <mat-icon>remove</mat-icon>
@@ -10,15 +10,18 @@
                 <mat-icon>add</mat-icon>
               </ng-container>
             </div>
-            <div (click)="Editar(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
+            <div *ngIf="canUpdate" (click)="editCategory(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
                 <mat-icon>edit</mat-icon>
             </div>
-            <div (click)="showChildrens(category)">
+            <div *ngIf="canCreate" (click)="createCategory(category)" class="row__btn">
+                <mat-icon>control_point</mat-icon>
+            </div>
+            <div class="container-name" (click)="showChildrens(category)">
               {{category.Name}}
             </div>
           </div>
             <ng-container *ngIf="category.Son.length > 0  && category.Show">
-              <app-category-tree [categoryList]="category.Son" [isNode]="false" [margin]="margin"></app-category-tree>
+              <app-category-tree [categoryList]="category.Son" [categoryComponent]="parametrizationCategoryComponent" [canCreate]="canCreate" [canUpdate]="canUpdate" [margin]="margin"></app-category-tree>
             </ng-container>
     </ng-container>
   </div>

@@ -10,7 +10,10 @@ import { BrandsComponent } from './brands/brands.component';
 import { BrandService } from './brands/brands.component.service';
 import { AddDialogSpecsComponent } from './dialogAddSpecs/dialog-add-specs.component';
 import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.component';
-import { CategoryTreeComponent } from './category-tree/category-tree.component';
+import { CategoriesComponent } from './category/categories/categories.component';
+import { CategoryTreeComponent } from './category/category-tree/category-tree.component';
+import { CategoryTreeService } from './category/category-tree.service';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { CategoryTreeComponent } from './category-tree/category-tree.component';
     FocusDirective,
     AddDialogSpecsComponent,
     DeleteDialogSpecsComponent,
-    CategoryTreeComponent,
+    CategoriesComponent,
+    CategoryTreeComponent
+
   ],
   imports: [
     CommonModule,
@@ -32,12 +37,14 @@ import { CategoryTreeComponent } from './category-tree/category-tree.component';
   exports: [],
   providers: [
     ParamSpecsService,
-    BrandService
+    BrandService,
+    CategoryTreeService
   ],
   entryComponents: [
     AddDialogComponent,
     AddDialogSpecsComponent,
-    DeleteDialogSpecsComponent
+    DeleteDialogSpecsComponent,
+    DialogWithFormComponent
   ]
 })
 export class ParameterizeModule { }
