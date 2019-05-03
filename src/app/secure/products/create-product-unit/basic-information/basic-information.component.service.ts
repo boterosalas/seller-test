@@ -16,4 +16,13 @@ export class BasicInformationService {
     public getRegexInformationBasic(params: any): Observable<any> {
         return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
     }
+
+    /**
+     *  @memberof ListBrands
+     */
+
+    // getListBrands() {
+
+    // }
+
 }
