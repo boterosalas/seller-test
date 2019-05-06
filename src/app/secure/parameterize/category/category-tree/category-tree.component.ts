@@ -11,16 +11,33 @@ import { CategoriesComponent } from '../categories/categories.component';
 })
 export class CategoryTreeComponent implements OnInit {
 
+  /**
+   * param that represent the category list to render
+   */
   @Input() categoryList = [];
+  /**
+   * param that represent the lvl tree
+   */
   @Input() margin = 0;
+  /**
+   * param that represent the update access
+   */
   @Input() canUpdate = false;
+  /**
+   * param that represent the create access
+   */
   @Input() canCreate = false;
+  /**
+   * param that represent the parent Component to make the logic for update and create
+   */
   @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent;
+  /**
+   * param that represent the margin to add to category list for each lvl
+   */
   totalMargin = '0px';
 
 
-  constructor(private categoryService: CategoryTreeService,
-    private loadingService: LoadingService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -28,14 +45,26 @@ export class CategoryTreeComponent implements OnInit {
     this.totalMargin = `${this.margin * 20}px`;
   }
 
+  /**
+   * Show the children for category
+   * @param category represent the specific category to show children
+   */
   showChildrens(category: any) {
     category.Show = !category.Show;
   }
 
+  /**
+   * Method that open the edit modal
+   * @param category represen the specific category to get the data for edit modal
+   */
   editCategory(category: any) {
     this.parametrizationCategoryComponent.openCategoryDialog(category, true);
   }
 
+  /**
+   * Method that open the create modal
+   * @param category represen the specific category to get the data for create modal
+   */
   createCategory(category: any) {
     this.parametrizationCategoryComponent.openCategoryDialog(category);
   }

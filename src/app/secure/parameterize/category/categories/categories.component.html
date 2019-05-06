@@ -24,11 +24,11 @@
     </div>
 </mat-toolbar>
 <div class="content-flex-start">
-    <button mat-button matTooltip="Crear cateoría" (click)="openCategoryDialog()">
+    <button *ngIf="canCreate" mat-button matTooltip="Crear cateoría" (click)="openCategoryDialog()">
         <mat-icon class="material-icons">
             control_point
         </mat-icon>
-        Agregar categoría nivel 1
+        Crear categoría nivel 1
     </button>
 </div>
 <div class="container__tree">

@@ -16,6 +16,9 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 })
 export class CategoriesComponent implements OnInit {
 
+  /**
+   * Attribute that represent the regex for the form
+   */
   categoryRegex = {
     Commission: '',
     Id: '',
@@ -28,16 +31,42 @@ export class CategoriesComponent implements OnInit {
     IdVTEX: ''
   };
 
+  /**
+   * Attribute that represent the type products
+   */
   productTypes = [
     'Technology',
     'Clothing'
   ];
+
+  /**
+   * Attribute that represent the request category List for the service
+   */
   initialCategotyList = [];
+
+  /**
+   * Attribute that represent the request category List for the service
+   */
   categoryList = [];
+
+  /**
+   * Attribute that represent the Update access
+   */
   canUpdate = false;
+
+  /**
+   * Attribute that represent the create access
+   */
   canCreate = false;
-  permissionComponent: MenuModel;
+
+  /**
+   * Attribute that represent the content for the form
+   */
   @ViewChild('dialogContent') content: TemplateRef<any>;
+
+  /**
+   * Attribute that represent the form
+   */
   form: FormGroup;
 
   constructor(
@@ -49,15 +78,17 @@ export class CategoriesComponent implements OnInit {
     private ngZone: NgZone,
     private regexService: BasicInformationService
     ) {
-    this.permissionComponent = this.authService.getMenu(categoryName);
   }
 
   ngOnInit() {
-    this.getTree();
     this.getFunctionalities();
+    this.getTree();
     this.getRegex();
   }
 
+  /**
+   * Method that get the regex for the form
+   */
   getRegex() {
     this.loadingService.viewSpinner();
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
@@ -89,6 +120,9 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that initialize the form
+   */
   initForm() {
     this.form = this.fb.group({
       Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission)])],
@@ -105,16 +139,17 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * MEthod that get the permissions for the component
+   */
   getFunctionalities() {
-    this.canUpdate = this.getFunctionality(updateFunctionality);
-    this.canCreate = this.getFunctionality(createFunctionality);
+    this.canUpdate = this.authService.getPermissionForMenu(categoryName, updateFunctionality);
+    this.canCreate = this.authService.getPermissionForMenu(categoryName, createFunctionality);
   }
 
-  public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
-  }
-
+  /**
+   * Method that get the category list
+   */
   getTree() {
     this.loadingService.viewSpinner();
     this.categoryService.getCategoryTree().subscribe((response: any) => {
@@ -126,6 +161,10 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * Method add the Son attribute for the category list
+   * @param dataList category list
+   */
   orderData(dataList: any[]) {
     dataList.map(element => {
       if (!element.Son) {
@@ -139,6 +178,10 @@ export class CategoriesComponent implements OnInit {
     return this.orderCategoryList(dataList);
   }
 
+  /**
+   * Method that construc the category tree
+   * @param list category list
+   */
   orderCategoryList(list: any[]) {
     return list.reduce((previous, current) => {
       list.forEach((element) => {
@@ -153,6 +196,9 @@ export class CategoriesComponent implements OnInit {
     }, []);
   }
 
+  /**
+   * Method that expand the tree
+   */
   expandTree() {
     this.loadingService.viewSpinner();
     this.ngZone.runOutsideAngular(() => {
@@ -161,6 +207,9 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that contract the tree
+   */
   contractTree() {
     this.loadingService.viewSpinner();
     this.ngZone.runOutsideAngular(() => {
@@ -169,6 +218,11 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that expand or contract the category list
+   * @param list category list
+   * @param show boolean for expand or contract
+   */
   showCategoryList(list: any[], show: boolean) {
     list.map(element => {
       element.Show = show;
@@ -178,7 +232,11 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Method that open the dialog with category data
+   * @param category 
+   * @param edit boolean for edit or create
+   */
   openCategoryDialog(category: any = null, edit: boolean = false) {
     const dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
@@ -192,6 +250,10 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  /**
+   * Method that put the data for Create dialog
+   * @param category 
+   */
   putDataCreateDialog(category: any) {
     const title = 'Crear una categoría';
     const message = 'Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.';
@@ -211,6 +273,10 @@ export class CategoriesComponent implements OnInit {
     return { title, message, icon, form, messageCenter };
   }
 
+  /**
+   * Method that put the data for edit dialog
+   * @param category 
+   */
   putDataEditDialog(category: any) {
     const title = 'Modificar una categoría';
     const message = 'Para modificar una categoría debes cambiar la información en cualquiera de los campos habilitados. No podrás modificar información que se encuentre bloqueada y todos los campos deben estar diligenciados para poder guardar la modificación.';
@@ -230,12 +296,19 @@ export class CategoriesComponent implements OnInit {
     return { title, message, icon, form, messageCenter };
   }
 
-
+  /**
+   * Method that find the category by id
+   * @param idParent id of category parent
+   */
   findParentName(idParent: any) {
     const parent = this.initialCategotyList.find(element => element.Id === idParent);
     return !!parent ? parent.Name : null;
   }
 
+  /**
+   * method that config the data for a dialog
+   * @param dialog
+   */
   configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
     const dialogIntance = dialog.componentInstance;
     dialogIntance.content = this.content;
