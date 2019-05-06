@@ -264,7 +264,7 @@
             </mat-form-field>
             <div class="distanceComponetInt">
               <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon" (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
-                formControlName="associateEanSon">No tengo EAN asociado</mat-checkbox>
+                formControlName="associateEanSon" id="associateEanSon">No tengo EAN asociado</mat-checkbox>
             </div>
           </div>
 
@@ -300,7 +300,7 @@
 
           <mat-form-field class="field">
             <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
-            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP">
+            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP" id="HexColorCodePDP">
             <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'" [(colorPicker)]="son.colorPick"
               (colorPickerChange)="detectForm()" [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
               palette
