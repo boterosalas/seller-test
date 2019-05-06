@@ -1,23 +1,27 @@
-<ng-container *ngIf="!!data.icon">
-    <div class="container-icon">
-        <mat-icon>
-            {{data.icon}}
-        </mat-icon>
-    </div>
-</ng-container>
-<ng-container class="title-container" *ngIf="!!data.title">
-        <h1 mat-dialog-title><strong>{{data.title}}</strong></h1>
-</ng-container>
+<div class="container-header">
+        <ng-container *ngIf="!!data.icon">
+                <div class="container-icon">
+                    <mat-icon>
+                        {{data.icon}}
+                    </mat-icon>
+                </div>
+            </ng-container>
+            <ng-container class="title-container" *ngIf="!!data.title">
+                    <h1 mat-dialog-title><strong>{{data.title}}</strong></h1>
+            </ng-container>
+</div>
 <div mat-dialog-content [ngClass]="data.messageCenter ? 'text-center' : 'text-justify'">
     <ng-container *ngIf="!!data.message">
-        {{data.message}}
+        <div class="container__message">
+                {{data.message}}
+        </div>
     </ng-container>
     <ng-container *ngIf="!!content">
-        <ng-template [ngTemplateOutlet]="content" style="margin-top: 15px">
+        <ng-template [ngTemplateOutlet]="content">
         </ng-template>
     </ng-container>
 </div>
-<div mat-dialog-actions>
-    <button id="btn-cancel" type="button" mat-button color="primary" (click)="onNoClick()">CANCELAR</button>
+<div class="container__btn" mat-dialog-actions>
+    <button id="btn-cancel" type="button" mat-stroked-button color="primary" (click)="onNoClick()">CANCELAR</button>
     <button id="btn-confirmation" type="submit" mat-raised-button color="primary" (click)="confirmation()" [disabled]="data.form && data.form.invalid">ACEPTAR</button>
 </div>

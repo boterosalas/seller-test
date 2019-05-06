@@ -1,12 +1,27 @@
+@mixin margin {
+    margin: 0 auto;
+    max-width: 90%;
+}
+
 .category-tree-toolbar{
     display: flex;
     justify-content: space-between;
+    background: white;
+    border-bottom: solid 0.001em  #D3D3D3;
+}
+
+.toolbar-options-tree{
+    width: 100%;
 }
 
 .content-flex-start {
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+    justify-content: flex-end;
+    margin: 15px auto;
+    max-width: 90%;
+    & button {
+        color: #485AFA;
+    }
 }
 
 .half-width {
@@ -23,9 +38,7 @@ margin-top: 15px;
 }
 
 .container__tree {
-    max-width: 70%;
-    width: 70%;
-    margin: 0 auto;
+    @include margin;
 }
 
 .container-fields {

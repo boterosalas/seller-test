@@ -4,19 +4,19 @@
       <div class="row" [ngStyle]="{'padding-left': totalMargin}">
           <div (click)="showChildrens(category)" class="row__btn">
               <ng-container *ngIf="category.Son.length > 0 && category.Show">
-                <mat-icon>remove</mat-icon>
+                <mat-icon>keyboard_arrow_up</mat-icon>
               </ng-container>
               <ng-container *ngIf="category.Son.length > 0 && !category.Show">
-                <mat-icon>add</mat-icon>
+                <mat-icon>keyboard_arrow_down</mat-icon>
               </ng-container>
             </div>
             <div *ngIf="canUpdate" (click)="editCategory(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
-                <mat-icon>edit</mat-icon>
+                <mat-icon matTooltip="Editar">edit</mat-icon>
             </div>
             <div *ngIf="canCreate" (click)="createCategory(category)" class="row__btn">
-                <mat-icon>control_point</mat-icon>
+                <mat-icon matTooltip="Agregar categoria hija">control_point</mat-icon>
             </div>
-            <div class="container-name" (click)="showChildrens(category)">
+            <div [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="showChildrens(category)" class="row__name row__btn">
               {{category.Name}}
             </div>
           </div>

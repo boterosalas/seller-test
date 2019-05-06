@@ -143,6 +143,7 @@
                 <div id="status" class="label-container status">
                     <button mat-mini-fab 
                     id ="btn-enabled-seller"
+                    matTooltip="Habilitar vendedor"
                     (click) = "changeSellerStatus(seller, 'enabled', i)"
                     [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
@@ -152,6 +153,7 @@
                     </button>
                     <button mat-mini-fab
                     id="btn-disabled-seller"
+                    matTooltip="Deshabilitar vendedor"
                     (click) = "changeSellerStatus(seller, 'disabled', i)"
                     [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'grayBackgroundButton' " 
                     [disabled]="!seller.Status || seller.Status == 'Disable'">
@@ -161,6 +163,7 @@
                     </button>
                     <button mat-mini-fab
                     id="btn-vacation-seller" 
+                    matTooltip="Programar vacaciones"
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
                     [disabled]=" !seller.Status || seller.Status == 'Disable'">
@@ -198,8 +201,7 @@
 
 <ng-template #dialogContent *ngIf="needFormStates$ | async as status">
   <ng-container *ngIf="status.status == 'vacation'">
-      <br/>
-    <form [formGroup]="statusForm" class="full-width space-between margin-top__15">
+    <form [formGroup]="statusForm" class="full-width space-between">
       <mat-form-field class="half-width">
         <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
@@ -215,7 +217,7 @@
   </form>
   </ng-container>  
   <ng-container *ngIf="status.status == 'disabled'">
-    <form [formGroup]="statusForm" class="margin-top__15">
+    <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
           <input matInput id="inputReason" placeholder="Motivo" autocomplete="false" formControlName="Reasons">
           <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>

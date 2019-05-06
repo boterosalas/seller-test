@@ -315,9 +315,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
                     }
                 } else {
                     this.modalService.showModal('errorService');
+                    this.loading.closeSpinner();
                 }
                 dialogInstance.onNoClick();
-                this.loading.closeSpinner();
             }));
         };
 
@@ -348,6 +348,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.sellerList[value.posSeller].EndVacations = DateService.getDateFormatToShow(this.endDateVacation.value);
             break;
         }
+        this.loading.closeSpinner();
         this.snackBar.open('Actualizado correctamente: ' + this.sellerList[value.posSeller].Name, 'Cerrar', {
             duration: 3000,
         });
