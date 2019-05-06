@@ -15,6 +15,7 @@ import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
 import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -88,6 +89,28 @@ export class BulkLoadProductComponent implements OnInit {
 
   public showCharge: boolean;
 
+  // Objeto moquear regex
+  productsRegex = {
+    descUnidadMedidaProduct: '',
+    factConversionProduct: '',
+    factEscurrido: '',
+    eanComboProduct: '',
+    nameProduct: '',
+    number: '',
+    allCharacter: '',
+    allCharsKeyWords: '',
+    limitChars: '',
+    eanImageProduct: '',
+    SkuShippingSizeProduct: '',
+    package: '',
+    descriptionProduct: '',
+    typeCategory: '',
+    sizeProduct: '',
+    colorProduct: '',
+    hexPDP: '',
+    limitCharsSixty: ''
+  };
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
@@ -106,7 +129,8 @@ export class BulkLoadProductComponent implements OnInit {
     public userService: UserLoginService,
     public userParams: UserParametersService,
     private modalService: ModalService,
-    public authService: AuthService
+    public authService: AuthService,
+    public SUPPORT: SupportService,
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -1340,64 +1364,64 @@ export class BulkLoadProductComponent implements OnInit {
     // call to the bulk load product service
     if (this.profileTypeLoad === 'Tienda') {
       this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
-      .subscribe(
-        (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const data = result;
-            if (data.body.data !== null && data.body.data !== undefined) {
-              if (data.body.successful !== 0 || data.body.error !== 0) {
-                // this.openDialogSendOrder(data);
-                this.progressStatus = false;
-                this.verifyStateCharge();
-                this.getAvaliableLoads();
-                // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);
+        .subscribe(
+          (result: any) => {
+            if (result.status === 201 || result.status === 200) {
+              const data = result;
+              if (data.body.data !== null && data.body.data !== undefined) {
+                if (data.body.successful !== 0 || data.body.error !== 0) {
+                  // this.openDialogSendOrder(data);
+                  this.progressStatus = false;
+                  this.verifyStateCharge();
+                  this.getAvaliableLoads();
+                  // Validar que los errores existan para poder mostrar el modal.
+                  if (result.body.data.error > 0) {
+                    this.openDialogSendOrder(data);
+                  }
+                } else if (data.body.successful === 0 && data.body.error === 0) {
+                  this.modalService.showModal('errorService');
                 }
-              } else if (data.body.successful === 0 && data.body.error === 0) {
+              } else {
                 this.modalService.showModal('errorService');
               }
+
             } else {
               this.modalService.showModal('errorService');
             }
-
-          } else {
-            this.modalService.showModal('errorService');
+            this.resetVariableUploadFile();
+            this.loadingService.closeSpinner();
           }
-          this.resetVariableUploadFile();
-          this.loadingService.closeSpinner();
-        }
-      );
+        );
     } else {
       this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
-      .subscribe(
-        (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const data = result;
-            if (data.body.data !== null && data.body.data !== undefined) {
-              if (data.body.successful !== 0 || data.body.error !== 0) {
-                // this.openDialogSendOrder(data);
-                this.progressStatus = false;
-                this.verifyStateCharge();
-                this.getAvaliableLoads();
-                // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);
+        .subscribe(
+          (result: any) => {
+            if (result.status === 201 || result.status === 200) {
+              const data = result;
+              if (data.body.data !== null && data.body.data !== undefined) {
+                if (data.body.successful !== 0 || data.body.error !== 0) {
+                  // this.openDialogSendOrder(data);
+                  this.progressStatus = false;
+                  this.verifyStateCharge();
+                  this.getAvaliableLoads();
+                  // Validar que los errores existan para poder mostrar el modal.
+                  if (result.body.data.error > 0) {
+                    this.openDialogSendOrder(data);
+                  }
+                } else if (data.body.successful === 0 && data.body.error === 0) {
+                  this.modalService.showModal('errorService');
                 }
-              } else if (data.body.successful === 0 && data.body.error === 0) {
+              } else {
                 this.modalService.showModal('errorService');
               }
+
             } else {
               this.modalService.showModal('errorService');
             }
-
-          } else {
-            this.modalService.showModal('errorService');
+            this.resetVariableUploadFile();
+            this.loadingService.closeSpinner();
           }
-          this.resetVariableUploadFile();
-          this.loadingService.closeSpinner();
-        }
-      );
+        );
     }
   }
 
@@ -1844,6 +1868,20 @@ export class BulkLoadProductComponent implements OnInit {
       view[i] = s.charCodeAt(i) & 0xFF;
     }
     return buf;
+  }
+
+  // Funcion para cargar datos de regex
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+      for (const val in this.productsRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.productsRegex[val] = element && `${element.Value}`;
+        }
+      }
+    });
   }
 
 }
