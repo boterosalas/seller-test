@@ -1488,7 +1488,7 @@ export class BulkLoadProductComponent implements OnInit {
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     const filterNumber = /^[0-9]+$/;
-    const formatEan = /([a-zA-Z0-9]{7,})$|^([0-9]{7,})$|0{1}$/;
+    const formatEan = /^([A-Z0-9]{5,16})$|0{1}$/;
     const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
     const formatAllChars = /^[\w\W\s\d]{1,200}$/;
     const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
@@ -1506,7 +1506,7 @@ export class BulkLoadProductComponent implements OnInit {
     const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
     // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
     const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
-    const formatEanCombo = /(((^((IZ)[0-9]{5,13})|^([0-9]{7,15}))+)+([,](([0-9]{7,15})|((IZ)[0-9]{5,13})))*)$/;
+    const formatEanCombo = /(((^([A-Z0-9]{5,16}))+)+([,](([A-Z0-9]{5,16})))*)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
