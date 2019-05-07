@@ -33,7 +33,7 @@
       </mat-form-field> -->
 
       <mat-form-field class="field">
-          <mat-select placeholder="Marca" formControlName="Brand" (selectionChange)="detectForm()" required>
+          <mat-select placeholder="Marca" formControlName="Brand" id="Brand" (selectionChange)="detectForm()" required>
             <mat-option *ngFor="let brand of brands" [value]="brand.value">
               {{brand.value}}
             </mat-option>
@@ -177,7 +177,7 @@
     </div>
 
     <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column" style="width: 100%;">
-      <angular-editor formControlName="Description" [config]="config" style="width: 100%;" (change)="detectForm()" required></angular-editor>
+      <angular-editor formControlName="Description" id="Description" [config]="config" style="width: 100%;" (change)="detectForm()" required></angular-editor>
       <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">Este campo es obligatorio</mat-error>
       <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">El formato no es válido</mat-error>
     </div>
