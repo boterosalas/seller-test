@@ -126,7 +126,6 @@ export class BulkLoadProductComponent implements OnInit {
     public BulkLoadProductS: BulkLoadProductService,
     public dialog: MatDialog,
     private loadingService: LoadingService,
-    public userService: UserLoginService,
     public userParams: UserParametersService,
     private modalService: ModalService,
     public authService: AuthService,
