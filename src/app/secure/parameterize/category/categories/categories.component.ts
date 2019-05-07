@@ -156,6 +156,7 @@ export class CategoriesComponent implements OnInit {
       if (!!response && !!response.status && response.status === 200) {
         this.initialCategotyList = JSON.parse(response.body.body).Data;
         this.categoryList = this.orderData(this.initialCategotyList);
+        console.log(this.categoryList);
       }
       this.loadingService.closeSpinner();
     });
@@ -169,9 +170,9 @@ export class CategoriesComponent implements OnInit {
     dataList.map(element => {
       if (!element.Son) {
         element.Son = [];
-        if (!element.Show) {
-          element.Show = false;
-        }
+      }
+      if (!element.Show) {
+        element.Show = false;
       }
       return element;
     });
@@ -234,7 +235,7 @@ export class CategoriesComponent implements OnInit {
 
   /**
    * Method that open the dialog with category data
-   * @param category 
+   * @param category
    * @param edit boolean for edit or create
    */
   openCategoryDialog(category: any = null, edit: boolean = false) {
@@ -252,7 +253,7 @@ export class CategoriesComponent implements OnInit {
 
   /**
    * Method that put the data for Create dialog
-   * @param category 
+   * @param category
    */
   putDataCreateDialog(category: any) {
     const title = 'Crear una categoría';
@@ -275,7 +276,7 @@ export class CategoriesComponent implements OnInit {
 
   /**
    * Method that put the data for edit dialog
-   * @param category 
+   * @param category
    */
   putDataEditDialog(category: any) {
     const title = 'Modificar una categoría';
