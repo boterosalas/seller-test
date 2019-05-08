@@ -69,6 +69,8 @@ export class CategoriesComponent implements OnInit {
    */
   form: FormGroup;
 
+  categoryToUpdate: any;
+
   constructor(
     private categoryService: CategoryTreeService,
     private loadingService: LoadingService,
@@ -289,6 +291,7 @@ export class CategoriesComponent implements OnInit {
       this.form.patchValue(category);
       !!this.ProductType && !!category.ProductType && this.ProductType.setValue(category.ProductType);
       this.NameParent.setValue(this.findParentName(category.IdParent));
+      this.categoryToUpdate = category;
     }
     this.NameParent.disable();
     this.Commission.disable();
@@ -316,26 +319,30 @@ export class CategoriesComponent implements OnInit {
     dialogIntance.content = this.content;
     dialogIntance.confirmation = () => {
       this.loadingService.viewSpinner();
-      const value = Object.assign({}, this.form.value);
-      const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value): this.categoryService.createCategory(value);
+      let value = Object.assign({}, this.form.value);
+      value = !!value.Id ? value:  (delete value.Id && value);
+      const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
-        if (!!response && !!response.status && response.status === 200) {
-          const responseValue = JSON.parse(response.body.body).Data;
+        console.log(response);
+        if (!!response && !!response.statusCode && response.statusCode === 200) {
+          const responseValue = JSON.parse(response.body).Data;
           console.log(responseValue);
           if (!!responseValue.Id) {
             console.log('voy a crear');
           } else {
-            this.updateCategory(this.form.value);
+            this.updateCategory(this.form.value, dialogIntance);
           }
         }
       });
     };
   }
 
-  updateCategory(value: any) {
+  updateCategory(value: any, dialog: DialogWithFormComponent) {
     if (!!value.Id) {
       let oldCategory = this.initialCategotyList.find(element => element.Id === value.Id);
-      oldCategory = this.form.value;
+      oldCategory = value;
+      console.log(this.categoryToUpdate, value);
+      dialog.onNoClick();
       this.loadingService.closeSpinner();
       this.snackBar.open('Actualizado correctamente', 'Cerrar', {
         duration: 3000,
