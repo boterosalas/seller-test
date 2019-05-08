@@ -1,4 +1,6 @@
 $color-gray3: #D3D3D3;
+$color-gray: #909090;
+$blue: #485AFA;
 
 /*
 .card-offer {
@@ -73,9 +75,10 @@ $color-gray3: #D3D3D3;
 .listBrands {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 2%;
-  padding-right: 2%;
+  padding-left: 8%;
+  padding-right: 8%;
   margin: 0.25em;
+  margin-top: 35px;
 }
 
 .example-sidenav {
@@ -86,7 +89,7 @@ $color-gray3: #D3D3D3;
   }
 }
 
-.hide-page{
+.hide-page {
   @media only screen and (max-width: 600px) {
     display: none;
   }
@@ -144,6 +147,158 @@ $color-gray3: #D3D3D3;
   flex-wrap: wrap;
   width: 100%;
 }
+
 table {
   width: 100%;
 }
+
+.edit-profile {
+  color: $color-gray;
+}
+
+.label-container {
+  padding: 0 1%;
+
+  &.status {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 600px) {
+      width: 37.5%;
+    }
+  }
+}
+
+.mat-mini-fab {
+  height: 30px;
+  width: 30px;
+  font-size: 14px;
+  line-height: 14px;
+
+  &::ng-deep .mat-button-wrapper {
+    line-height: 14px;
+    padding: 0 0 0 0.5px;
+
+    & .mat-icon {
+      color: white !important;
+    }
+  }
+}
+
+.brands-checkbox-actDes {
+  width: 7%;
+  text-align: center;
+}
+
+.brands-header-styles {
+  font-weight: bold;
+}
+
+.brands-header-id {
+  width: 8%;
+}
+
+.brands-header-action {
+  width: 8%;
+}
+
+.brands-header-status {
+  width: 15%;
+  text-align: center
+}
+
+.mat-checkbox-inner-container {
+  height: 15px;
+  width: 15px;
+}
+
+.brands-header-status-items {
+  text-align: -webkit-center;
+}
+
+.brands-header-brands {
+  width: 28%;
+}
+
+.brands-button-add {
+  width: 100%;
+  text-align: right;
+}
+
+.brands-icons-add {
+  color: #485AFA;
+}
+
+.container-group-add-button {
+  text-align: right;
+  color: $blue;
+  width: 100%;
+  margin: 1.4%;
+}
+
+.brands-color-status-active {
+  color: green !important;
+  font-weight: bold;
+}
+
+.brands-color-status-inactive {
+  color: #f44336 !important;
+  font-weight: bold;
+}
+
+.brands-filter-sidenav {
+  padding-top: 5%;
+  padding-right: 8%;
+  padding-left: 8%;
+  padding-bottom: 5%;
+}
+
+.brands-modal-margin {
+  margin-top: 40px;
+}
+
+.full-width {
+  width: 100%
+}
+
+.half-width {
+  width: 100%;
+}
+
+.brands-permission {
+  text-align: center;
+  color: #9e9e9e
+}
+
+.brands-not-permission {
+  margin-top: 10%;
+}
+
+.brands-icon-permission {
+  margin-top: 10px
+}
+
+.mat-table {
+  border-spacing: 0px
+}
+
+.mat-style-td {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-left: 24px;
+}
+
+.mat-style-tr {
+  font-weight: inherit;
+  font-size: 14px;
+  height: 56px;
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-left: 24px;
+  text-align: left;
+}
+

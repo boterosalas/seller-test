@@ -1,138 +1,131 @@
 <mat-drawer-container style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
-        <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
-          <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
-            *ngIf="filterProduts">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-              <h3>Filtro Marcas</h3>
-              <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
-                mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
-                <mat-icon>clear</mat-icon>
-              </button>
-            </div>
-      
-            <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
-              <mat-form-field color="primary">
-                <input matInput placeholder="Nombre de la marca" formControlName="productName" [errorStateMatcher]="matcher">
-                <mat-hint></mat-hint>
-                <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')" [innerHTML]="'Nombre de la marca invalido'"></mat-error>
-              </mat-form-field>
-              <mat-form-field color="primary">
-                <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
-                <mat-hint></mat-hint>
-                <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
-              </mat-form-field>
-      
-              <!-- <div>
-                <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row" fxLayoutAlign="space-between center"
-                  fxLayout.xs="column" fxLayoutAlign.xs="space-between" class="radioDate" (change)="changeDates()">
-                  <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
-                  <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
-                </mat-radio-group>
-                <mat-error *ngIf="filterProduts.controls.creationDate.hasError('date')">
-                  La fecha final NO debe ser menor a la fecha inicial.
-                </mat-error>
-              </div> -->
-              <!-- <div *ngIf="optionDates">
-                <div fxLayout="row" fxLayoutAlign="space-between center">
-                  <mat-form-field class="classDatapicker">
-                    <input matInput [matDatepicker]="picker" placeholder="De" disabled formControlName="initialDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker disabled="false"></mat-datepicker>
-                  </mat-form-field>
-      
-                  <mat-form-field class="classDatapicker">
-                    <input matInput [matDatepicker]="picker1" placeholder="Hasta" disabled formControlName="finalDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
-                  </mat-form-field>
-                </div>
-              </div> -->
-      
-      
-              <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-                <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'" (click)="cleanAllFilter()"></button>
-                <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-                <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterApply(drawer)"></button>
-              </div>
-            </div>
-          </form>
-        </mat-drawer>
-      
-        <div class="height-full">
-          <mat-toolbar class="tree-toolbar">
-            <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
-              <!--  Titulo del toolbar -->
-              <p class="parameterize-brands-title" fxShow [fxShow.xs]="false">
-                Parametrización
-                <small class="sub-title">| Listado de marcas</small>
-              </p>
-              <!--  Titulo del toolbar -->
-              <p class="parameterize-brands-title" fxShow="false" [fxShow.xs]="true">
-                Listado de marcas
-              </p>
-              <div class="hide-page">
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
-              </div>
-            </div>
-            <button type="button" mat-button (click)="drawer.toggle()">
-              <mat-icon>filter_list</mat-icon>
-              <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
-            </button>
-          </mat-toolbar>
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+    <form class="basic-info" [formGroup]="filterBrands" class="brands-filter-sidenav">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Filtro Marcas</h3>
+        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+          mat-icon-button mat-button (click)="drawer.toggle()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
+        <mat-form-field color="primary">
+          <input matInput placeholder="ID" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')" [innerHTML]="'Id invalido'">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field color="primary">
+          <input matInput placeholder="Nombre de la marca" formControlName="filterBrandsName"
+            [errorStateMatcher]="matcher">
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')"
+            [innerHTML]="'Nombre de la marca invalido'"></mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'"
+            (click)="cleanAllFilter()"></button>
+          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'"
+            (click)="filterApply(drawer)"></button>
         </div>
-        <div fxLayout="column">
-          <div class="example-chip-list">
-            <mat-chip-list #chipList>
-              <!-- <mat-chip *ngFor="let productsFilter of listFilterProducts" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(productsFilter)">
-                {{productsFilter.name}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip> -->
-              <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
-            </mat-chip-list>
-          </div>
-      
-          <div class="listBrands">
-            <!-- <app-combo-product [offerPermission]="offerPermission" [showProducts]="showProducts" [productsList]="productsList" class="listCombo"></app-combo-product> -->
-            <table mat-table [dataSource]="dataSource">
+      </div>
+    </form>
+  </mat-drawer>
 
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="id">
-                      <th mat-header-cell *matHeaderCellDef> ID </th>
-                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                    </ng-container>
-                
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="name">
-                      <th mat-header-cell *matHeaderCellDef> Marca </th>
-                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                    </ng-container>
-                
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="status">
-                      <th mat-header-cell *matHeaderCellDef> Estado </th>
-                      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                    </ng-container>
-                
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="actions">
-                      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                      <td mat-cell *matCellDef="let element"> 1 </td>
-                    </ng-container>
-                
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-            
-            <div *ngIf="false" fxLayout="column" class="no-brands">
-              <div class="icon-face">
-                <mat-icon class="mat-18">layers_clear</mat-icon>
-              </div>
-              <label class="icon-face-text">
-                No hay marcas cargadas
-              </label>
-            </div>
-          </div>
+  <div class="height-full">
+    <mat-toolbar class="tree-toolbar">
+      <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+        <p class="parameterize-brands-title" fxShow [fxShow.xs]="false">
+          Parametrización
+          <small class="sub-title">| Listado de marcas</small>
+        </p>
+        <p class="parameterize-brands-title" fxShow="false" [fxShow.xs]="true">
+          Listado de marcas
+        </p>
+        <div class="hide-page">
+          <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="pageEvent = changePaginatorBrands($event)"></mat-paginator>
         </div>
-      </mat-drawer-container>
-      
+      </div>
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+      </button>
+    </mat-toolbar>
+  </div>
+  <div fxLayout="column">
+    <div class="listBrands">
+      <div class="brands-button-add">
+        <div id="addButton" class="container-group-add-button">
+          <button mat-button *ngIf="canCreate && canRead" (click)="upsetBrands()">
+            <mat-icon class="material-icons">
+              control_point
+            </mat-icon>
+            Agregar marca
+          </button>
+        </div>
+      </div>
+      <table matSort (matSortChange)="sortData($event)" class="table mat-table">
+        <tr class="mat-header-row">
+          <th mat-sort-header="id" style="font-weight: inherit; font-size: 14px;"
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">ID</th>
+          <th mat-sort-header="name" style="font-weight: inherit; font-size: 14px;"
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Nombre de la marca</th>
+          <th style="font-weight: inherit; font-size: 14px;"
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Estado</th>
+          <th style="font-weight: inherit; font-size: 14px;"
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Acciones</th>
+        </tr>
+        <tr style="height: 56px;" *ngFor="let brand of sortedData" class="mat-row">
+          <td class="mat-cell mat-style-td">{{brand.id}}</td>
+          <td class="mat-cell mat-style-td">{{brand.name}}</td>
+          <td class="mat-cell mat-style-td">
+            <section class="example-section">
+              <mat-slide-toggle class="example-margin" [color]="color" id="id_slide_toggle_{{brand.id}}"
+                (click)="changeStatusBrands($event, brand)"
+                [matTooltip]="brand.status == true ? 'Desactivar' : 'activar'" [checked]=brand.status>
+              </mat-slide-toggle>
+            </section>
+          </td>
+          <td class="mat-cell mat-style-td">
+            <button mat-icon-button matTooltip="Editar" *ngIf="canUpdate" (click)="upsetBrands(brand)">
+              <mat-icon class="edit-profile material-icons">create</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+      <div *ngIf="false" fxLayout="column" class="no-brands">
+        <div class="icon-face">
+          <mat-icon class="mat-18">layers_clear</mat-icon>
+        </div>
+        <label class="icon-face-text">
+          No hay marcas cargadas
+        </label>
+      </div>
+    </div>
+    <div *ngIf="!canRead" class="brands-not-permission">
+      <div class="brands-permission">
+        <label>No posee permisos para visualizar el listado.</label>
+      </div>
+      <div class="brands-permission brands-icon-permission">
+        <mat-icon class="material-icons">
+          visibility_off
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
+<ng-template #dialogContent>
+  <form [formGroup]="form" class="full-width brands-modal-margin">
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Nombre de la marca" style="text-transform: uppercase;" formControlName="nameBrands"
+        [errorStateMatcher]="matcher" (focusout)="validateExist($event)" (keyup)="validate()" required>
+      <mat-error *ngIf="form.get('nameBrands').hasError('required')" [innerHTML]="'Este campo es requerido'">
+      </mat-error>
+      <mat-error *ngIf="form.get('nameBrands').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
+      <!-- <mat-error *ngIf="form.controls.nameBrands.errors.validateBrands" [innerHTML]="'prueba'"></mat-error> -->
+      <mat-error *ngIf="form.controls.nameBrands.errors && form.controls.nameBrands.errors.validExistBrandsDB"
+        [innerHTML]="'La marca ya existe'"></mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>

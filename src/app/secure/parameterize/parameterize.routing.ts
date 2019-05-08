@@ -17,6 +17,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntParamBrand}`,
       component: BrandsComponent,
       data: { title: 'Marcas' },
+      canActivate: [AuthService]
     }
   ])
 ];
