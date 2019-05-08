@@ -15,7 +15,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 
-fdescribe('ProductBasicInfoComponent', () => {
+describe('ProductBasicInfoComponent', () => {
     let component: ProductBasicInfoComponent;
     let fixture: ComponentFixture<ProductBasicInfoComponent>;
     const regex = [
