@@ -14,7 +14,7 @@ export class CategoryTreeService {
   ) { }
 
   getCategoryTree(): Observable<any> {
-    return this.http.get(`${this.api.get('manageCategory')}/GetAllCategories`, {observe: 'response'});
+    return this.http.get(`${this.api.get('manageCategory')}/GetAllCategories`, { observe: 'response' });
   }
 
   createCategory(body: any): Observable<any> {
@@ -25,4 +25,7 @@ export class CategoryTreeService {
     return this.http.patch(`${this.api.get('manageCategory')}/UpdateCategory`, body);
   }
 
+  verifyStatusOfCreateCategory(): Observable<any> {
+    return this.http.get(this.api.get('statusCreateCategory'), { observe: 'response' });
+  }
 }

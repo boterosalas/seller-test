@@ -37,6 +37,8 @@ export const endpoints = {
       getSellerCommissionCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetAllCategories',
       // Ruta base para la modificación de las categorías
       manageCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory',
+      // Consulta el estado de creación de una categoria
+      statusCreateCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetStatusLoadCommissionCategory',
       // Register Seller Name
       registerSeller: 'https://5a1c7n6t70.execute-api.us-east-1.amazonaws.com/RegisterSeller/',
       validateSellerNit: 'https://5avfpnwghf.execute-api.us-east-1.amazonaws.com/ValidateSellerNit/{params}',
@@ -161,7 +163,9 @@ export const endpoints = {
       // servicio empleado para obtener las comisiones de un usuario o todas las comisiones
       getSellerCommissionCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/{params}',
       // Ruta base para la modificación de las categoría
-      manageCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory',
+      manageCategory: '',
+      // Consulta el estado de creación de una categoria
+      statusCreateCategory: '',
       // Register seller services
       registerSeller: 'https://x2vflz270c.execute-api.us-east-1.amazonaws.com/registerseller-pdn/',
       validateSellerNit: 'https://ce8fuvj37h.execute-api.us-east-1.amazonaws.com/validatesellernit-pdn/{params}',

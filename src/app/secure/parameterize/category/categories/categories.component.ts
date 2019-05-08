@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
 import { LoadingService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName } from '@app/secure/auth/auth.consts';
@@ -79,8 +79,9 @@ export class CategoriesComponent implements OnInit {
     private fb: FormBuilder,
     private ngZone: NgZone,
     private regexService: BasicInformationService,
-    private snackBar: MatSnackBar
-    ) {
+    private snackBar: MatSnackBar,
+    private cd: ChangeDetectorRef
+  ) {
   }
 
   ngOnInit() {
@@ -159,7 +160,6 @@ export class CategoriesComponent implements OnInit {
       if (!!response && !!response.status && response.status === 200) {
         this.initialCategotyList = JSON.parse(response.body.body).Data;
         this.categoryList = this.orderData(this.initialCategotyList);
-        console.log(this.categoryList);
       }
       this.loadingService.closeSpinner();
     });
@@ -265,7 +265,7 @@ export class CategoriesComponent implements OnInit {
     let form = null;
     const messageCenter = false;
     if (category) {
-      const {Name, Id} = category;
+      const { Name, Id } = category;
       this.NameParent.setValue(Name);
       this.IdParent.setValue(Id);
     }
@@ -320,34 +320,55 @@ export class CategoriesComponent implements OnInit {
     dialogIntance.confirmation = () => {
       this.loadingService.viewSpinner();
       let value = Object.assign({}, this.form.value);
-      value = !!value.Id ? value:  (delete value.Id && value);
+      value = !!value.Id ? value : (delete value.Id && value);
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
-        console.log(response);
-        if (!!response && !!response.statusCode && response.statusCode === 200) {
+        if (!!response && !!response.statusCode && (response.statusCode === 200 || response.statusCode === 400)) {
           const responseValue = JSON.parse(response.body).Data;
-          console.log(responseValue);
           if (!!responseValue.Id) {
-            console.log('voy a crear');
-          } else {
-            this.updateCategory(this.form.value, dialogIntance);
+            this.openStatusModal();
+          } else if (responseValue === true) {
+            this.confirmationUpdate(value);
+            this.loadingService.closeSpinner();
+            dialogIntance.onNoClick();
+            this.snackBar.open('Actualizado correctamente', 'Cerrar', {
+              duration: 3000,
+            });
           }
         }
       });
     };
   }
 
-  updateCategory(value: any, dialog: DialogWithFormComponent) {
-    if (!!value.Id) {
-      let oldCategory = this.initialCategotyList.find(element => element.Id === value.Id);
-      oldCategory = value;
-      console.log(this.categoryToUpdate, value);
-      dialog.onNoClick();
-      this.loadingService.closeSpinner();
-      this.snackBar.open('Actualizado correctamente', 'Cerrar', {
-        duration: 3000,
+  updateCategory(list: any[], value: any) {
+    list.forEach((element) => {
+      if (element.Id === value.Id) {
+        for (let val in element) {
+          if (!!val) {
+            element[val] = value[val];
+          }
+        }
+      } else {
+        this.updateCategory(element.Son, value);
+      }
     });
-    }
+  }
+
+  confirmationUpdate(value: any) {
+    this.ngZone.runOutsideAngular(() => {
+      if (!!value.Id) {
+        value.Show = this.categoryToUpdate.Show;
+        value.Son = this.categoryToUpdate.Son;
+        this.updateCategory(this.categoryList, value);
+        this.categoryToUpdate = null;
+      }
+    });
+  }
+
+  openStatusModal() {
+    this.categoryService.verifyStatusOfCreateCategory().subscribe(res => {
+      console.log(res);
+    });
   }
 
   get Commission(): FormControl {
