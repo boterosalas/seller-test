@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ProductBasicInfoComponent } from './basic-information.component';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators, Validator } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule, MatSelectModule, MatSliderModule, MatStepperModule, MatIconModule, MatDividerModule, MatCheckboxModule, MatTooltipModule, MatSnackBar, MatSnackBarModule, MatInputModule } from '@angular/material';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -45,7 +45,7 @@ fdescribe('ProductBasicInfoComponent', () => {
         },
         {
             Identifier: 'ean',
-            Value: ''
+            Value: '^([A-Z0-9]{5,16})$'
         },
         {
             Identifier: 'sizeProduct',
@@ -181,18 +181,47 @@ fdescribe('ProductBasicInfoComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('valid data', () => {
+        component.formBasicInfo.controls.Keyword.setValue('test');
+        component.formBasicInfo.controls.Name.setValue('test');
+        component.formBasicInfo.controls.Category.setValue('Category');
+        component.formBasicInfo.controls.shippingSize.setValue(1);
+        component.formBasicInfo.controls.Model.setValue('w');
+        component.formBasicInfo.controls.Brand.setValue('w');
+        component.formBasicInfo.controls.Detail.setValue('w');
+        component.formBasicInfo.controls.MeasurementUnit.setValue('1');
+        component.formBasicInfo.controls.ConversionFactor.setValue(1);
+        component.formBasicInfo.controls.Description.setValue('pruebas de texto');
+        component.formBasicInfo.controls.packing['controls'].HighPacking.setValue('1');
+        component.formBasicInfo.controls.packing['controls'].LongPacking.setValue('1');
+        component.formBasicInfo.controls.packing['controls'].WidthPacking.setValue('1');
+        component.formBasicInfo.controls.packing['controls'].WeightPacking.setValue('1');
+        component.formBasicInfo.controls.product['controls'].HighProduct.setValue('1');
+        component.formBasicInfo.controls.product['controls'].LongProduct.setValue('1');
+        component.formBasicInfo.controls.product['controls'].WidthProduct.setValue('1');
+        component.formBasicInfo.controls.product['controls'].WeightProduct.setValue('1');
+    });
+
     //invert color
 
-    it('padZero', () => {
+    it('padZero add color with 0', () => {
         component.padZero('prueba');
+        expect(component.padZero).toBeTruthy();
+    });
+
+    it('padZero add color with 1', () => {
+        component.padZero('prueba', 1);
+        expect(component.padZero).toBeTruthy();
     });
 
     it('invert color bw true', () => {
         component.invertColor('#F5F5DC');
+        expect(component.invertColor).toBeTruthy();
     });
 
     it('invert color bw true 3 letters', () => {
         component.invertColor('#FFF');
+        expect(component.invertColor).toBeTruthy();
     });
 
     it('invert color bw true more than 6 letters', () => {
@@ -201,16 +230,19 @@ fdescribe('ProductBasicInfoComponent', () => {
 
     it('invert color no #', () => {
         component.invertColor('red');
+        expect(component.invertColor).toBeTruthy();
     });
 
     it('invert color no hex  ', () => {
         component.invertColor('#F5F5DC', false);
+        expect(component.invertColor).toBeTruthy();
     });
 
 
     it('select color  ', () => {
         component.selectColor('#F5F5DC', {});
         component.colorSelected = '#F5F5DC';
+        expect(component.invertColor).toBeTruthy();
     });
 
     // son list
@@ -219,20 +251,24 @@ fdescribe('ProductBasicInfoComponent', () => {
     it('add son', () => {
         component.addSon();
         fixture.detectChanges();
+        expect(component.addSon).toBeTruthy();
     });
 
     it('show son', () => {
         component.toggleSon([]);
+        expect(component.toggleSon).toBeTruthy();
     });
 
     it('delete Son', () => {
         component.deleteSon(1);
+        expect(component.deleteSon).toBeTruthy();
     });
 
     // send data
 
     it('send Data ToService', () => {
         component.sendDataToService();
+        expect(component.sendDataToService).toBeTruthy();
     });
 
 
@@ -240,6 +276,7 @@ fdescribe('ProductBasicInfoComponent', () => {
 
     it('save keywords not keyword', () => {
         component.saveKeyword();
+        expect(component.saveKeyword).toBeTruthy();
     });
 
     it('save keywords not keyword less than 20', () => {
@@ -250,6 +287,19 @@ fdescribe('ProductBasicInfoComponent', () => {
         keywordNativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         component.saveKeyword();
+        expect(component.saveKeyword).toBeTruthy();
+    });
+
+    it('save keywords not keyword more than 20', () => {
+        component.keywords = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14', '15', '16', '17', '18', '19', '20', '21'];
+        const keywordField = fixture.debugElement.query(By.css('#keywordProduct'));
+        expect(keywordField).toBeTruthy();
+        const keywordNativeElement = keywordField.nativeElement;
+        keywordNativeElement.value = '123kkcld4533';
+        keywordNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        component.saveKeyword();
+        expect(component.saveKeyword).toBeTruthy();
     });
 
     it('save many keywords ', () => {
@@ -260,6 +310,7 @@ fdescribe('ProductBasicInfoComponent', () => {
         keywordNativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         component.saveKeyword();
+        expect(component.saveKeyword).toBeTruthy();
     });
 
     it('delete keywords ', () => {
@@ -270,11 +321,29 @@ fdescribe('ProductBasicInfoComponent', () => {
         keywordNativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         component.deleteKeywork(1);
+        expect(component.deleteKeywork).toBeTruthy();
     });
 
-    it('validate ean', () => {
+    it('delete keywords more than one word', () => {
+        component.keywords = ['1','2','3'];
+        const keywordField = fixture.debugElement.query(By.css('#keywordProduct'));
+        expect(keywordField).toBeTruthy();
+        const keywordNativeElement = keywordField.nativeElement;
+        keywordNativeElement.value = '';
+        keywordNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        component.deleteKeywork(2);
+        expect(component.deleteKeywork).toBeTruthy();
+    });
+
+    it('validate ean son exist', () => {
         component.valInputEan = '123456789';
         component.validateEanSon();
+    });
+
+    it('send ean son', () => {
+        component.valInputEan = '123456789';
+        component.sendEanSon();
     });
 
     it('send data ', () => {
@@ -295,24 +364,58 @@ fdescribe('ProductBasicInfoComponent', () => {
         component.validarNewSon();
     });
 
+    it('validate new son invalid data', () => {
+        const newForm = {
+            form: new FormGroup({
+                Ean: new FormControl('', Validators.required),
+                Size: new FormControl(''),
+                HexColorCodePDP: new FormControl(''),
+                HexColorCodeName: new FormControl(''),
+                associateEanSon: new FormControl(false)
+            }),
+            Show: true,
+            colorPick: null,
+            colorPick2: null,
+        };
+        component.sonList.push(newForm);
+        component.validarNewSon();
+    });
 
-    // fit('asignated change son no exist', () => {
-    //     component.valInputEan = '1223457';
-    //     component.validateEanSonExist = true;
-    //     fixture.detectChanges();
-    //     expect(component.valInputEan.enable).toBeTruthy();
-    //     component.onAsignatedEanSonChanged(false, '');
-    // });
+    it('asignated asignatedEanSon ', () => {
+        component.asignatedEanSon = true;
+        component.validateEanSonExist = true;
+        component.valInputEan = new FormControl('');
+        let initialValue = 'estoy iniciando en algo diferente';
+        const eanForm = new FormControl(initialValue);
+        component.onAsignatedEanSonChanged(true, eanForm);
+     });
 
-    // fit('asignated change son exist', () => {
-    //     component.valInputEan = '1223457';
-    //     component.validateEanSonExist = false;
-    //     fixture.detectChanges();
-    //     expect(component.valInputEan.enable).toBeTruthy();
-    //     component.onAsignatedEanSonChanged(false, '');
-    // });
+    it('asignated asignatedEanSon with valinput', () => {
+        component.asignatedEanSon = true;
+        component.validateEanSonExist = true;
+        component.valInputEan = new FormControl('ok');
+        let initialValue = 'estoy iniciando en algo diferente';
+        const eanForm = new FormControl(initialValue);
+        component.onAsignatedEanSonChanged(true, eanForm);
+     });
 
-    describe('values info basic ', () => {
+
+    it('asignated change send son', () => {
+       component.asignatedEanSon = false;
+       component.validateEanSonExist = true;
+       component.valInputEan = new FormControl('');
+       component.onAsignatedEanSonChanged(false, '');
+    });
+
+    it('asignated change', () => {
+       component.asignatedEanSon = false;
+       component.validateEanSonExist = false;
+       component.valInputEan = new FormControl('');
+       component.onAsignatedEanSonChanged(false, '');
+    });
+
+
+    describe('values info basic valid inputs ', () => {
 
         it('name of product', () => {
             const nameProductField = fixture.debugElement.query(By.css('#nameProduct'));
@@ -374,16 +477,6 @@ fdescribe('ProductBasicInfoComponent', () => {
             expect(component.formBasicInfo.controls.ConversionFactor.errors).toBeNull();
         });
 
-        // it('description of product', () => {
-        //     const angularEditorField = fixture.debugElement.query(By.css('#angularEditor'));
-        //     expect(angularEditorField).toBeTruthy();
-        //     const angularEditorNativeElement = angularEditorField.nativeElement;
-        //     angularEditorNativeElement.value = 'Texto de prueba';
-        //     angularEditorNativeElement.dispatchEvent(new Event('input'));
-        //     fixture.detectChanges();
-        //     expect(component.formBasicInfo.controls.Description.errors).toBeNull();
-        // });
-
         it('model of product', () => {
             const modelProductField = fixture.debugElement.query(By.css('#modelProduct'));
             expect(modelProductField).toBeTruthy();
@@ -392,6 +485,16 @@ fdescribe('ProductBasicInfoComponent', () => {
             modelProductNativeElement.dispatchEvent(new Event('input'));
             fixture.detectChanges();
             expect(component.formBasicInfo.controls.Model.errors).toBeNull();
+        });
+
+        it('category of product', () => {
+            const keywordProductField = fixture.debugElement.query(By.css('#keywordProduct'));
+            expect(keywordProductField).toBeTruthy();
+            const keywordProductNativeElement = keywordProductField.nativeElement;
+            keywordProductNativeElement.value = 'Gas, cocina';
+            keywordProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Keyword.errors).toBeNull();
         });
 
         it('Detail of packing product', () => {
@@ -510,56 +613,202 @@ fdescribe('ProductBasicInfoComponent', () => {
 
     });
 
-    describe('form son ', () => {
-        beforeEach(() => {
+    describe('values info basic invalid inputs ', () => {
 
-            component.newForm =
-                new FormGroup({
-                    Ean: new FormControl('', Validators.required),
-                    Size: new FormControl('kaka'),
-                    HexColorCodePDP: new FormControl('*?)'),
-                    HexColorCodeName: new FormControl('?=(/'),
-                    associateEanSon: new FormControl(true)
-                });
-
-            component.sonList.push(component.newForm);
-
+        it('name of product', () => {
+            const nameProductField = fixture.debugElement.query(By.css('#nameProduct'));
+            expect(nameProductField).toBeTruthy();
+            const nameProductNativeElement = nameProductField.nativeElement;
+            nameProductNativeElement.value = 'x+*';
+            nameProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Name.errors).toBeTruthy();
         });
 
+        it('category of product', () => {
+            const categoryProductField = fixture.debugElement.query(By.css('#categoryProduct'));
+            expect(categoryProductField).toBeTruthy();
+            const categoryProductNativeElement = categoryProductField.nativeElement;
+            categoryProductNativeElement.value = '';
+            categoryProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Category.errors).toBeNull();
+        });
 
+        it('brand of product', () => {
+            component.brands = [{ value: 'Oster' }, { value: 'Haceb' }, { value: 'Mabe' }];
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                const brandField = fixture.debugElement.query(By.css('#Brand'));
+                expect(brandField).toBeTruthy();
+                const brandNativeElement = brandField.nativeElement;
+                brandNativeElement.value = brandNativeElement.options[5].value;
+                brandNativeElement.dispatchEvent(new Event('change'));
+                fixture.detectChanges();
+                expect(component.formBasicInfo.controls.Brand.errors).toBeTruthy();
+            });
+        });
 
-        // it('validate new with data', () => {
-        //    component.sonList[0].markAsDirty();
-        //    component.sonList[0].controls.Ean.markAsDirty();
-        //    component.sonList[0].controls.Size.markAsDirty();
-        //    component.sonList[0].controls.HexColorCodePDP.markAsDirty();
-        //    component.sonList[0].controls.HexColorCodeName.markAsDirty();
-        //    fixture.detectChanges();
-        //    component.validarNewSon();
-        //    expect(component.sonList[0]).toBeFalsy();
-        // });
+        it('measurement of product', () => {
+            component.UnitMeasurementList = ['Gramo', 'Mililitro', 'Metro', 'Unidad'];
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                const measurement = fixture.debugElement.query(By.css('#Brand'));
+                expect(measurement).toBeTruthy();
+                const measurementElement = measurement.nativeElement;
+                measurementElement.value = measurementElement.options[10].value;
+                measurementElement.dispatchEvent(new Event('change'));
+                fixture.detectChanges();
+                expect(component.formBasicInfo.controls.MeasurementUnit.errors).toBeTruthy();
+            });
+        });
 
+        it('Conversion Factor of product', () => {
+            const conversionFactorProductField = fixture.debugElement.query(By.css('#conversionFactorProduct'));
+            expect(conversionFactorProductField).toBeTruthy();
+            const conversionFactorProductNativeElement = conversionFactorProductField.nativeElement;
+            conversionFactorProductNativeElement.value = 'hola';
+            conversionFactorProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.ConversionFactor.errors).toBeTruthy();
+        });
 
-        // it('asignated change son exist', () => {
-        //     component.valInputEan = '1223457';
-        //     component.validateEanSonExist = true;
-        //     fixture.detectChanges();
-        //     component.onAsignatedEanSonChanged(false, '');
-        // });
+        it('model of product', () => {
+            const modelProductField = fixture.debugElement.query(By.css('#modelProduct'));
+            expect(modelProductField).toBeTruthy();
+            const modelProductNativeElement = modelProductField.nativeElement;
+            modelProductNativeElement.value = 'test';
+            modelProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Model.errors).toBeTruthy();
+        });
 
-        // it('asignated change no son exist', () => {
-        //     component.valInputEan = '1223457';
-        //     component.validateEanSonExist = false;
-        //     fixture.detectChanges();
-        //     component.onAsignatedEanSonChanged(false, '');
-        // });
+        it('category of product', () => {
+            const keywordProductField = fixture.debugElement.query(By.css('#keywordProduct'));
+            expect(keywordProductField).toBeTruthy();
+            const keywordProductNativeElement = keywordProductField.nativeElement;
+            keywordProductNativeElement.value = '';
+            keywordProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Keyword.errors).toBeTruthy();
+        });
 
-        // fit('asignated change  exist asignatedEanSon ', () => {
-        //     component.valInputEan = '1223457';
-        //     component.validateEanSonExist = true;
-        //     fixture.detectChanges();
-        //     component.onAsignatedEanSonChanged(true, '');
-        // });
+        it('Detail of packing product', () => {
+            const detailProductField = fixture.debugElement.query(By.css('#detailProduct'));
+            expect(detailProductField).toBeTruthy();
+            const detailProductNativeElement = detailProductField.nativeElement;
+            detailProductNativeElement.value = 'test';
+            detailProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(component.formBasicInfo.controls.Detail.errors).toBeTruthy();
+        });
+
+        it('high of packing product', () => {
+            const highPackingProductField = fixture.debugElement.query(By.css('#highPackingProduct'));
+            expect(highPackingProductField).toBeTruthy();
+            const highPackingProductNativeElement = highPackingProductField.nativeElement;
+            highPackingProductNativeElement.value = 'test';
+            highPackingProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.packing['controls'].HighProduct.errors).toBeTruthy();
+            });
+        });
+
+        it('long of packing product', () => {
+            const longPackingProductField = fixture.debugElement.query(By.css('#longPackingProduct'));
+            expect(longPackingProductField).toBeTruthy();
+            const longPackingProductNativeElement = longPackingProductField.nativeElement;
+            longPackingProductNativeElement.value = 'test';
+            longPackingProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.packing['controls'].LongPacking.errors).toBeTruthy();
+            });
+        });
+
+        it('width of packing product', () => {
+            const widthPackingProductField = fixture.debugElement.query(By.css('#widthPackingProduct'));
+            expect(widthPackingProductField).toBeTruthy();
+            const widthPackingProductNativeElement = widthPackingProductField.nativeElement;
+            widthPackingProductNativeElement.value = 'test';
+            widthPackingProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.packing['controls'].WidthPacking.errors).toBeTruthy();
+            });
+        });
+
+        it('weight of packing product', () => {
+            const weightPackingProductField = fixture.debugElement.query(By.css('#weightPackingProduct'));
+            expect(weightPackingProductField).toBeTruthy();
+            const weightPackingProductNativeElement = weightPackingProductField.nativeElement;
+            weightPackingProductNativeElement.value = 'test';
+            weightPackingProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.packing['controls'].WeightPacking.errors).toBeTruthy();
+            });
+        });
+
+        it('high of product', () => {
+            const highProductField = fixture.debugElement.query(By.css('#highProduct'));
+            expect(highProductField).toBeTruthy();
+            const highProductNativeElement = highProductField.nativeElement;
+            highProductNativeElement.value = 'test';
+            highProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.product['controls'].WeightPacking.errors).toBeTruthy();
+            });
+        });
+
+        it('long of product', () => {
+            const longProductField = fixture.debugElement.query(By.css('#longProduct'));
+            expect(longProductField).toBeTruthy();
+            const longProductNativeElement = longProductField.nativeElement;
+            longProductNativeElement.value = 'test';
+            longProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.product['controls'].LongProduct.errors).toBeTruthy();
+            });
+        });
+
+        it('width of product', () => {
+            const widthProductField = fixture.debugElement.query(By.css('#widthProduct'));
+            expect(widthProductField).toBeTruthy();
+            const widthProductNativeElement = widthProductField.nativeElement;
+            widthProductNativeElement.value = 'test';
+            widthProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.product['controls'].WidthProduct.errors).toBeTruthy();
+            });
+        });
+
+        it('weight of product', () => {
+            const weightProductField = fixture.debugElement.query(By.css('#weightProduct'));
+            expect(weightProductField).toBeTruthy();
+            const weightProductNativeElement = weightProductField.nativeElement;
+            weightProductNativeElement.value = 'test';
+            weightProductNativeElement.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.formBasicInfo.controls.product['controls'].WeightProduct.errors).toBeTruthy();
+            });
+        });
 
     });
+
 });
