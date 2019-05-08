@@ -10,7 +10,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
 
-fdescribe('BulkLoad Products Component', () => {
+describe('BulkLoad Products Component', () => {
 
     const mockAuthService = {
         profileType$: new BehaviorSubject<any>('Tienda'),
