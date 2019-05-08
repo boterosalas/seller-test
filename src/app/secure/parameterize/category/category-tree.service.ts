@@ -14,6 +14,15 @@ export class CategoryTreeService {
   ) { }
 
   getCategoryTree(): Observable<any> {
-    return this.http.get(this.api.get('getSellerCommissionCategory'), {observe: 'response'});
+    return this.http.get(`${this.api.get('manageCategory')}/GetAllCategories`, {observe: 'response'});
   }
+
+  createCategory(body: any): Observable<any> {
+    return this.http.post(`${this.api.get('manageCategory')}/AddCategory`, body);
+  }
+
+  updateCategory(body: any): Observable<any> {
+    return this.http.patch(`${this.api.get('manageCategory')}/UpdateCategory`, body);
+  }
+
 }

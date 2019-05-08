@@ -3,7 +3,7 @@ import { CategoryTreeService } from '../category-tree.service';
 import { LoadingService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { trimField, validateDataToEqual } from '@app/shared/util/validation-messages';
@@ -76,7 +76,8 @@ export class CategoriesComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private regexService: BasicInformationService
+    private regexService: BasicInformationService,
+    private snackBar: MatSnackBar
     ) {
   }
 
@@ -314,8 +315,32 @@ export class CategoriesComponent implements OnInit {
     const dialogIntance = dialog.componentInstance;
     dialogIntance.content = this.content;
     dialogIntance.confirmation = () => {
-      console.log('confirmation');
+      this.loadingService.viewSpinner();
+      const value = Object.assign({}, this.form.value);
+      const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value): this.categoryService.createCategory(value);
+      serviceResponse.subscribe(response => {
+        if (!!response && !!response.status && response.status === 200) {
+          const responseValue = JSON.parse(response.body.body).Data;
+          console.log(responseValue);
+          if (!!responseValue.Id) {
+            console.log('voy a crear');
+          } else {
+            this.updateCategory(this.form.value);
+          }
+        }
+      });
     };
+  }
+
+  updateCategory(value: any) {
+    if (!!value.Id) {
+      let oldCategory = this.initialCategotyList.find(element => element.Id === value.Id);
+      oldCategory = this.form.value;
+      this.loadingService.closeSpinner();
+      this.snackBar.open('Actualizado correctamente', 'Cerrar', {
+        duration: 3000,
+    });
+    }
   }
 
   get Commission(): FormControl {
@@ -361,4 +386,5 @@ export class CategoriesComponent implements OnInit {
   get IdVTEX(): FormControl {
     return this.form.get('IdVTEX') as FormControl;
   }
+
 }
