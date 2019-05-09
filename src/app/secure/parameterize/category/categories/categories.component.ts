@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { trimField, validateDataToEqual } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
 
 @Component({
   selector: 'app-categories',
@@ -86,6 +87,7 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.getFunctionalities();
+    this.verifyProccesCategory();
     this.getTree();
     this.getRegex();
   }
@@ -162,6 +164,18 @@ export class CategoriesComponent implements OnInit {
         this.categoryList = this.orderData(this.initialCategotyList);
       }
       this.loadingService.closeSpinner();
+    });
+  }
+
+  verifyProccesCategory() {
+    this.loadingService.viewSpinner();
+    this.categoryService.verifyStatusOfCreateCategory().subscribe((res) => {
+      const response = JSON.parse(res.body.body).Data;
+      const {Status} = response;
+      if (Status === 1 || Status === 4) {
+        this.openStatusModal();
+        this.loadingService.closeSpinner();
+      }
     });
   }
 
@@ -264,6 +278,7 @@ export class CategoriesComponent implements OnInit {
     const icon = null;
     let form = null;
     const messageCenter = false;
+    const showButtons = true;
     if (category) {
       const { Name, Id } = category;
       this.NameParent.setValue(Name);
@@ -274,7 +289,7 @@ export class CategoriesComponent implements OnInit {
     this.form.setValidators(validateDataToEqual(initialValue));
     this.Commission.enable();
     form = this.form;
-    return { title, message, icon, form, messageCenter };
+    return { title, message, icon, form, messageCenter, showButtons };
   }
 
   /**
@@ -287,6 +302,7 @@ export class CategoriesComponent implements OnInit {
     const icon = null;
     let form = null;
     const messageCenter = false;
+    const showButtons = true;
     if (category) {
       this.form.patchValue(category);
       !!this.ProductType && !!category.ProductType && this.ProductType.setValue(category.ProductType);
@@ -298,7 +314,7 @@ export class CategoriesComponent implements OnInit {
     const initialValue = Object.assign(this.form.value, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     form = this.form;
-    return { title, message, icon, form, messageCenter };
+    return { title, message, icon, form, messageCenter, showButtons };
   }
 
   /**
@@ -326,6 +342,9 @@ export class CategoriesComponent implements OnInit {
         if (!!response && !!response.statusCode && (response.statusCode === 200 || response.statusCode === 400)) {
           const responseValue = JSON.parse(response.body).Data;
           if (!!responseValue.Id) {
+            console.log('cierro modal');
+            this.loadingService.closeSpinner();
+            dialogIntance.onNoClick();
             this.openStatusModal();
           } else if (responseValue === true) {
             this.confirmationUpdate(value);
@@ -366,9 +385,17 @@ export class CategoriesComponent implements OnInit {
   }
 
   openStatusModal() {
-    this.categoryService.verifyStatusOfCreateCategory().subscribe(res => {
-      console.log(res);
+    this.loadingService.viewSpinner();
+    const dialog = this.dialog.open(CreateProcessDialogComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
     });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.componentAlive$.subscribe(() => {
+      this.getTree();
+    });
+    this.loadingService.closeSpinner();
   }
 
   get Commission(): FormControl {
@@ -416,3 +443,8 @@ export class CategoriesComponent implements OnInit {
   }
 
 }
+
+
+/**
+ * body: "{"Errors":[],"Data":{"IdSeller":1,"Status":2,"Response":"","Checked":"False"},"Message":"Operación realizada éxitosamente."}"
+ */

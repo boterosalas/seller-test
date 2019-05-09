@@ -47,13 +47,13 @@ export class FileDatabase {
   }
 
   initialize(tree: any) {
+    console.log('jodase', tree);
     if (typeof tree !== 'undefined') {
       const dataObject = JSON.parse(JSON.stringify(tree));
-      const realTree = this.createRealTree(dataObject, this.objetoBuild);
-      const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
+      const realTree = this.createRealTree(tree, this.objetoBuild);
+      const treeExtraData = this.createTreeExtraData(tree, this.objetoBuildExtraData);
       const data = this.buildFileTree(realTree, 0, treeExtraData);
-      this.dataChange.next(data);
-
+      this.dataChange.next(tree);
     }
   }
 
@@ -178,6 +178,7 @@ export class TreeComponentComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.arbol);
     this.database.initialize(this.arbol);
   }
 

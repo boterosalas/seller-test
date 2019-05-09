@@ -42,7 +42,7 @@ export class CategoryTreeComponent implements OnInit {
 
   ngOnInit() {
     this.margin++;
-    this.totalMargin = `${this.margin * 20}px`;
+    this.totalMargin = `${this.margin * 24}px`;
   }
 
   /**

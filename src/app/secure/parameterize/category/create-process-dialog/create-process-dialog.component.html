@@ -1,0 +1,23 @@
+<div>
+  <div class="error-list-content list-log">
+      <h3 class="succes-string" mat-subheader *ngIf="Success && !inProcess">
+          <mat-icon>check</mat-icon>
+          Creación realizada con éxito
+        </h3>
+
+        <h3 class="error-string" mat-subheader *ngIf="!Success && !inProcess">
+      <mat-icon>warning</mat-icon>
+      No se pudo crear la categoría
+    </h3>
+    <h3 class="processing-string" mat-subheader *ngIf="inProcess">
+      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      Creación en proceso
+    </h3>
+    <mat-divider></mat-divider>
+  </div>
+  <mat-dialog-actions class="container__btn">
+    <button id="btn-cancel" type="button" mat-stroked-button color="primary" [disabled]="inProcess" (click)="onNoClick">CANCELAR</button>
+    <button id="close-finish-upload-button" [disabled]="!inProcess" mat-raised-button color="primary"
+      [routerLink]="['/securehome/seller-center']" mat-dialog-close>Home Seller Center</button>
+  </mat-dialog-actions>
+</div>

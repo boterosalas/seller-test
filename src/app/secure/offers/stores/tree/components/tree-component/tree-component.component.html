@@ -7,7 +7,7 @@
     <mat-tree-node class="tree-col" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
       <div fxLayout="row" fxFlex="100%">
         <div fxLayout="row" fxFlex="100%">
-          <p class="tree-child-col" [innerHTML]="node.filename"></p>
+          <p class="tree-child-col" [innerHTML]="node.Name"></p>
         </div>
         <div class="badge-tree-cateogry" matBadgePosition="before">
           <app-input-commision [updateFunction]="updateFunction" [inputValue]="node" [currenTree]="current_tree"></app-input-commision>
@@ -17,7 +17,7 @@
     </mat-tree-node>
 
     <mat-tree-node class="tree-col" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.Name">
         <mat-icon class="mat-icon-rtl-mirror">
           {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
         </mat-icon>

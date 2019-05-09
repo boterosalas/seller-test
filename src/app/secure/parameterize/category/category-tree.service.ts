@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class CategoryTreeService {
 
+  delay = 5000;
+  stop = false;
+  i = 0;
+
   constructor(
     private http: HttpClient,
     private api: EndpointService
