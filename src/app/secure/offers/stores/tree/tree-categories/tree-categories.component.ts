@@ -107,7 +107,6 @@ export class TreeCategoriesComponent implements OnInit {
         if (res.status === 200) {
           // indico a los componentes suscritos al evento que se ha cargado información para el arbol
           const sellerCommission = JSON.parse(res.body.body);
-          console.log(sellerCommission.Data);
           const information = {
             informationForTreeIsLoad: true,
             data: {
@@ -136,18 +135,16 @@ export class TreeCategoriesComponent implements OnInit {
   configTreeInformation(information: IsLoadInformationForTree) {
 
     let node = {};
-    const data = [];
     const listCategories = information.data.allGetSellerCommissionCategory;
     const sellerCategories = information.data.getSellerCommissionCategory;
     for (let i = 0; i < listCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
-      if (listCategories[i].IdParent === null) {
+      if (listCategories[i].Name === this.CONST_MARKETPLACE) {
         node = listCategories[i];
-         const branch = this.createTree(node, listCategories, sellerCategories);
-         !!branch && data.push(branch);
-         //break;
+         break;
       }
     }
+    const data = this.createTree(node, listCategories, sellerCategories);
     this.arbol = data;
   }
 

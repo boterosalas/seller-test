@@ -86,7 +86,6 @@ export class StoresService {
     return new Observable(observer => {
       this.http.get(`${this.api.get('manageCategory')}/GetComissionsSeller/${store.IdSeller}`, { observe: 'response' })
         .subscribe((data: any) => {
-          console.log(data);
           observer.next(data);
         }, error => {
           observer.next(error);

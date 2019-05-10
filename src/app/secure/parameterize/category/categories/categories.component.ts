@@ -342,7 +342,6 @@ export class CategoriesComponent implements OnInit {
         if (!!response && !!response.statusCode && (response.statusCode === 200 || response.statusCode === 400)) {
           const responseValue = JSON.parse(response.body).Data;
           if (!!responseValue.Id) {
-            console.log('cierro modal');
             this.loadingService.closeSpinner();
             dialogIntance.onNoClick();
             this.openStatusModal();
@@ -357,6 +356,9 @@ export class CategoriesComponent implements OnInit {
         }
       });
     };
+    dialog.afterClosed().subscribe(() => {
+      this.form.reset();
+    })
   }
 
   updateCategory(list: any[], value: any) {
