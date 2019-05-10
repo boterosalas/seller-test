@@ -100,7 +100,7 @@
       </div>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <app-ofert-expanded-product [productsExpanded]="productsExpanded" *ngIf="applyOffer && productsExpanded.availableToOffer === true" class="ofertProductExpanded" [applyOffer]="applyOffer"></app-ofert-expanded-product>
+  <app-ofert-expanded-product [productsExpanded]="productsExpanded" *ngIf="applyOffer" class="ofertProductExpanded" [applyOffer]="applyOffer"></app-ofert-expanded-product>
 </mat-expansion-panel>
 
 <div class="expanded-information-product">
