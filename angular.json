@@ -11,6 +11,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions":{
+              "includePaths":[
+                 "src/styles/settings"
+              ]
+           },
             "outputPath": "deploy/dist",
             "index": "src/index.html",
             "main": "src/main.ts",

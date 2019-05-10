@@ -145,6 +145,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
    */
   toggleMenu() {
     this.sidenav.toggle();
+    console.log('click');
   }
 
   /**

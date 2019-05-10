@@ -1,11 +1,4 @@
-$color-white: #FFFFFF;
-$color-black: #000000;
-$color-gray1: #5D5D5D;
-$color-gray2: #909090;
-$color-gray3: #D3D3D3;
-$color-gray4: #BCBCBC;
-$color-blue: #485AFA;
-$color-white-opacity: rgba(255, 255, 255, 0.7);
+@import '_variables';
 
 .container-card-img {
   width: 100%;
@@ -32,13 +25,14 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
 .example-card {
   border: 1px solid #D3D3D3;
   width: 240px;
-  height: 298px;
   margin: 10px 6px;
   border-radius: 10px;
   cursor: pointer;
   padding-left: 0px;
   padding-right: 0px;
-  // padding-bottom: 0px;
+  min-height: 260px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .container-desc-card {
@@ -46,7 +40,6 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
   width: 100%;
   box-sizing: border-box;
   padding: 5px 5px 5px 20px;
-
 
   h3,
   p {
@@ -60,8 +53,9 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
 
   h3 {
     font-size: 12px;
-    color: $color-black;
+    color: $color-gray1;
     padding: 0.25em;
+    font-weight: 300;
   }
 
   p {
@@ -73,14 +67,15 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
       color: black;
       white-space: normal;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 300;
       height: auto;
     }
   }
 }
 
 .best-offer {
-  font-size: 14px;
+  font-size: $font-size-principal;
+  font-weight: bold;
   color: white;
   background-color: #5D5D5D;
   border-bottom-left-radius: 8px;
@@ -113,4 +108,26 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
 
 .full-width {
   width: 100%;
+}
+
+
+.mat-card-content{
+    .mfooter {
+      display: block;
+      margin: 0;
+      padding: 10px 10px 5px 23px;
+      border-top: 1px dotted $color-gray-light;
+      p{
+        margin-bottom: 4px;
+        margin-top: 4px;
+        color: $color-gray-light;
+        font-size: $font-size-principal - 4;
+      }
+  }
+}
+
+.bleft{
+  position: absolute;
+  left: 0;
+  color: $color-gray-light;
 }

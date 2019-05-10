@@ -1,4 +1,4 @@
-<button mat-icon-button *ngIf="productsExpanded && showProducts"  (click)="backTolist()">
+<button class="bleft" mat-icon-button *ngIf="productsExpanded && showProducts"  (click)="backTolist()">
   <mat-icon class="material-icons">
     arrow_back
   </mat-icon>
@@ -17,9 +17,11 @@
         <div class="container-desc-card flexbox flex-wrap align-center">
           <h3>EAN: {{products.ean}}</h3>
           <p class="name">{{products.name}}</p>
-          <p> Fecha de creación: {{products.createdDate}}</p>
-          <p> Fecha de modificación: {{products.updatedDate}}</p>
         </div>
+        <mat-card-footer class="mfooter">
+            <p> Fecha de creación: {{products.createdDate}}</p>
+            <p> Fecha de modificación: {{products.updatedDate}}</p>
+        </mat-card-footer>
       </mat-card-content>
       <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== '0.00'">
         <p> Mejor oferta</p>

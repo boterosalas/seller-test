@@ -200,6 +200,7 @@ describe('ProductBasicInfoComponent', () => {
         component.formBasicInfo.controls.product['controls'].LongProduct.setValue('1');
         component.formBasicInfo.controls.product['controls'].WidthProduct.setValue('1');
         component.formBasicInfo.controls.product['controls'].WeightProduct.setValue('1');
+        expect(component.formBasicInfo.valid).toBeTruthy();
     });
 
     //invert color
