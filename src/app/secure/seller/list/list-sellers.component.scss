@@ -176,36 +176,52 @@ $color-primary: #3d5afe;
   margin-left: 5%;
 }
 
-.mat-mini-fab{
+.mat-icon-button{
   height: 30px;
   width: 30px;
   font-size: 14px;
   line-height: 14px; 
+  border: solid 1px;
+  border-color: rgba(0, 0, 0, 0.16);
   &::ng-deep .mat-button-wrapper{
     line-height: 14px;
     padding: 0 0 0 0.5px; 
     & .mat-icon{
-      color: white !important;
+      color: lightgray;
       width: 20px;
       height: 20px;
       font-size: 20px;
+      line-height: 20px;
     }
   }
 }
 
-.enabledSellerButton{
-  background-color: green !important;
+.btn__visibility{
+  border: solid 0px !important;
+  & mat-icon {
+    color: black !important;
+  }
 }
 
-.grayBackgroundButton {
-  background: grey !important;
+.enabledSellerButton{
+  & mat-icon {
+    color: green !important;
+  }
 }
+.button--disabled {
+  border: solid 0px;
+}
+
 .primaryColor {
-  background: $color-primary !important;
+  & mat-icon {
+    color: $color-primary !important;
+  }
 }
 
 .warnColor {
-  background: $color-warn !important;
+  & mat-icon {
+    color:$color-warn !important;
+  }
 }
 
 .full-width {

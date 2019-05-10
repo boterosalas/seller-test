@@ -16,7 +16,7 @@ export class CreateProcessDialogComponent implements AfterViewInit {
   componentAlive$ = new Subject<any>();
   Success = false;
 
-  constructor(public dialogRef: MatDialogRef<CreateProcessDialogComponent>, ,
+  constructor(public dialogRef: MatDialogRef<CreateProcessDialogComponent>,
     public categoryService: CategoryTreeService) {
   }
 

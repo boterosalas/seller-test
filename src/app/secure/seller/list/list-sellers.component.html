@@ -111,7 +111,7 @@
           <!-- SELLER HEADER LIST-->
           <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
-                    <button mat-icon-button matTooltip="Administrar vendedor" (click)="redirectToSeller(seller.IdSeller)"
+                    <button mat-icon-button matTooltip="Administrar vendedor" class="btn__visibility" (click)="redirectToSeller(seller.IdSeller)"
                       fxShow [fxShow.xs]="false" *ngIf="canVisualize">
                       <mat-icon class="material-icons">
                         visibility
@@ -141,31 +141,31 @@
                     </label>
                   </div>
                 <div id="status" class="label-container status">
-                    <button mat-mini-fab 
+                    <button mat-icon-button
                     id ="btn-enabled-seller"
                     matTooltip="Habilitar vendedor"
                     (click) = "changeSellerStatus(seller, 'enabled', i)"
-                    [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'grayBackgroundButton' " 
+                    [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
                       <mat-icon aria-label="active status of seller">
                         check
                       </mat-icon>
                     </button>
-                    <button mat-mini-fab
+                    <button mat-icon-button
                     id="btn-disabled-seller"
                     matTooltip="Deshabilitar vendedor"
                     (click) = "changeSellerStatus(seller, 'disabled', i)"
-                    [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'grayBackgroundButton' " 
+                    [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Disable'">
                       <mat-icon aria-label="inactive status of seller">
                         block
                       </mat-icon>
                     </button>
-                    <button mat-mini-fab
+                    <button mat-icon-button
                     id="btn-vacation-seller" 
                     matTooltip="Programar vacaciones"
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
-                    [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'grayBackgroundButton' " 
+                    [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'button--disabled' " 
                     [disabled]=" !seller.Status || seller.Status == 'Disable'">
                       <mat-icon aria-label="vacation status of seller">
                         local_airport
