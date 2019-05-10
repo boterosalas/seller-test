@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@
 import { Logger } from '@app/core/util/logger.service';
 import { ListProductService } from '../list-products.service';
 import { LoadingService } from '@app/core';
+import { MatSnackBar } from '@angular/material';
 
 const log = new Logger('ComboProductComponent');
 
@@ -26,7 +27,8 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private productsService?: ListProductService,
-    private loadingService?: LoadingService
+    private loadingService?: LoadingService,
+    public snackBar?: MatSnackBar,
 
   ) { }
 
