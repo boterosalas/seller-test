@@ -77,11 +77,15 @@ describe('CategoryTreeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CategoryTreeComponent);
     component = fixture.componentInstance;
+    component.categoryList = mockCategoryListWithoutChild;
+    component.margin = 0;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    fixture.whenStable().then(() => {{
+      expect(component).toBeTruthy();
+    }});
   });
 
   describe('Category tree exist without child', () => {
@@ -181,7 +185,6 @@ describe('CategoryTreeComponent', () => {
         component.showChildrens(component.categoryList[0]);
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          tick();
           btnDropUp = fixture.debugElement.query(By.css('#arrow-up-category'));
           expect(btnDropUp).toBeTruthy();
           const btnDropUpElement = btnDropUp.nativeElement;

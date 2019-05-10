@@ -30,7 +30,7 @@ export class CategoryTreeComponent implements OnInit {
   /**
    * param that represent the parent Component to make the logic for update and create
    */
-  @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent;
+  @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent = null;
   /**
    * param that represent the margin to add to category list for each lvl
    */

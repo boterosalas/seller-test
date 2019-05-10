@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 
 import { CategoriesComponent } from './categories.component';
 import { NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
@@ -116,7 +116,18 @@ describe('CategoriesComponent', () => {
     }
   };
 
-  const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree']);
+  const responseStatus = {
+    statusCode: 200,
+    body : {
+      body: JSON.stringify({
+        Data: {
+          Status : 0
+        }
+      })
+    }
+  }
+
+  const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockAuthService = jasmine.createSpyObj('AuthService', ['getPermissionForMenu']);
   const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
@@ -129,7 +140,8 @@ describe('CategoriesComponent', () => {
     title: '',
     message: '',
     icon: '',
-    form: null
+    form: null,
+    showButtons: true
   };
 
   let component: CategoriesComponent;
@@ -173,20 +185,21 @@ describe('CategoriesComponent', () => {
     dialogComponent = dialogFixture.componentInstance;
     mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(responseRegex));
     mockAuthService.getPermissionForMenu.and.returnValue(true);
+    mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(responseStatus));
+    mockMatDialogRef.afterClosed.and.returnValue(of(null));
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+      expect(component).toBeTruthy();
   });
 
   describe('Category List with data', () => {
     beforeEach(() => {
       mockCategoryService.getCategoryTree.and.returnValue(of(responseList));
-      component.getTree();
-      fixture.detectChanges();
       mockMatDialogRef.componentInstance.and.returnValue(dialogComponent);
       mockMatDialog.open.and.returnValue(mockMatDialogRef);
       mockMatDialog.open.calls.reset();
+      fixture.detectChanges();
     });
 
     it('Should be exist tree', () => {
@@ -229,10 +242,10 @@ describe('CategoriesComponent', () => {
 
   });
 
-  describe('Category List without data', () => {
-    beforeEach(() => {
-      mockCategoryService.getCategoryTree.and.returnValue(of(responseEmptyList));
-      fixture.detectChanges();
-    });
-  });
+  // describe('Category List without data', () => {
+  //   beforeEach(() => {
+  //     mockCategoryService.getCategoryTree.and.returnValue(of(responseEmptyList));
+  //     fixture.detectChanges();
+  //   });
+  // });
 });

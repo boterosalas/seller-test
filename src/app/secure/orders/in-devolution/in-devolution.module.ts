@@ -12,6 +12,7 @@ import { InDevolutionComponent } from './in-devolution-page/in-devolution.compon
 import { BillingRoutingModule } from './in-devolution.routing';
 import { ProductDevolutionModalComponent } from './product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
+import { InDevolutionService } from './in-devolution.service';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: MatDialogRef, useValue: {} },
+        InDevolutionService
     ]
 })
 export class InDevolutionModule { }
