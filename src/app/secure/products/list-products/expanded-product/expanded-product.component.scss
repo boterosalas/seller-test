@@ -360,6 +360,7 @@ mat-card {
 
 .title-ofert {
   & h3 {
+    color: black;
     font-size: 19px;
     font-weight: bold;
     padding-left: 5px;
@@ -367,6 +368,7 @@ mat-card {
   }
 
   & mat-icon {
+    color: black;
     font-size: 30px;
   }
 }
