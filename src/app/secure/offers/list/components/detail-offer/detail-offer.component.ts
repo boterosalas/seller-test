@@ -166,16 +166,13 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   editOffer() {
-    console.log('44', this.dataOffer);
     if (this.dataOffer.availableToOffer === true) {
-      console.log('Viene false');
       this.isUpdateOffer = true;
       this.createValidators();
       this.createForm();
     } else {
-      console.log('Viene true');
       this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
-        duration: 3000,
+        duration: 5000,
       });
     }
   }
