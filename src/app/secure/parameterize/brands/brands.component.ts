@@ -28,7 +28,7 @@ export interface Brands {
     id: number;
     name: string;
     status: boolean;
-    statusTool: string;
+    paginationToken: string;
 }
 
 @Component({
@@ -79,8 +79,15 @@ export class BrandsComponent implements OnInit {
     showMessage = false;
     body: any;
     validateBrandsExist: boolean;
+    dialogReff: DialogWithFormComponent;
+    validateExit = true;
+    newBrands: string;
 
 
+
+    paginationToken_test: Array<any>;
+    validatePage_test: any;
+    pagaCurrent_test: string = null;
 
 
     /**
@@ -100,11 +107,12 @@ export class BrandsComponent implements OnInit {
 
 
     ngOnInit() {
+        this.paginationToken_test = [];
+        this.paginationToken_test.push({'page': '0', 'paginationToke': null});
         this.getRegexByModule();
         this.createForm();
         this.validatePermission();
         this.getAllBrands();
-        this.form.controls['nameBrands'].setErrors({'validate': false});
     }
 
     /**
@@ -123,14 +131,15 @@ export class BrandsComponent implements OnInit {
 
         if (page || limit) {
             this.countFilter++;
-        }
+        } else {}
 
         if (this.countFilter) {
             this.urlParams = `${this.filterBrandsId}/${this.filterBrandsName}/${page}/${limit}/`;
-        }
+        } else {}
         this.loading.viewSpinner();
 
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
+
             this.brandsList = result.brands,
                 this.sortedData = result.brands,
                 this.length = result.totalLength;
@@ -153,7 +162,7 @@ export class BrandsComponent implements OnInit {
         if (!sort.active || sort.direction === '') {
             this.sortedData = data;
             return;
-        }
+        } else {}
 
         this.sortedData = data.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
@@ -164,6 +173,7 @@ export class BrandsComponent implements OnInit {
             }
         });
     }
+
     /**
      * funcion para comparar el orden de las colunmas de la tabla (sort)
      *
@@ -224,7 +234,7 @@ export class BrandsComponent implements OnInit {
      */
     public upsetBrands(brandsData: any, status: string, index: number): void {
         const dataDialog = this.setDataChangeStatusDialog(brandsData, status, index);
-        this.form.controls['nameBrands'].setErrors({'validExist': true});
+        this.form.controls['nameBrands'].setErrors({ 'validExist': true });
         if (!!dataDialog && !!dataDialog.title) {
             const dialogRef = this.dialog.open(DialogWithFormComponent, {
                 width: '55%',
@@ -269,15 +279,13 @@ export class BrandsComponent implements OnInit {
         return { title, message, icon, form, messageCenter };
     }
 
-
     /**
      * Funcion para hacer la confirmacion del dialogo o cancelarla
      * @param dialog
      */
-
     configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
+        console.log(dialog);
         const dialogInstance = dialog.componentInstance;
-        this.form.controls['nameBrands'].setErrors({'validateBrands': true});
         dialogInstance.content = this.content;
         dialogInstance.confirmation = () => {
             this.body = this.form.value;
@@ -349,7 +357,6 @@ export class BrandsComponent implements OnInit {
         });
     }
 
-
     /**
      * Funcion para abrir dialogo y poder activar o desactivar una marca
      */
@@ -357,7 +364,6 @@ export class BrandsComponent implements OnInit {
         event.preventDefault();
         this.setDataDialog(brand);
     }
-
 
     /**
      * Abre una ventana de dialogo, recibe la data, status y un index
@@ -434,12 +440,7 @@ export class BrandsComponent implements OnInit {
                 dialogInstance.onNoClick();
                 this.loading.closeSpinner();
             });
-
-
-
-
         };
-
     }
     /**
      * funcion para aplicar filtros al listado de marcas
@@ -458,8 +459,22 @@ export class BrandsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     public changePaginatorBrands(param: any): any {
+        // console.log(param);
+        // this.token_test = this.brandsList[this.brandsList.length - 1 ].paginationToken;
+        // this.brandsList.findIndex(x => x === position)
+        // console.log(this.brandsList[position].id)
         this.pageSize = param.pageSize;
         this.pagepaginator = param.pageIndex;
+
+        this.validatePage_test = this.paginationToken_test.find(x => x.page === this.pagepaginator.toString());
+        if (this.validatePage_test) {
+            this.pagaCurrent_test = this.validatePage_test.paginationToke;
+        } else {
+            this.paginationToken_test.push({'page': this.pagepaginator.toString(), 'paginationToke': this.brandsList[this.brandsList.length - 1 ].paginationToken });
+            this.pagaCurrent_test = this.brandsList[this.brandsList.length - 1 ].paginationToken;
+        }
+        console.log(this.pagaCurrent_test);
+        // console.log(this.pagepaginator);
         this.getAllBrands('', false, false);
     }
     /**
@@ -469,31 +484,26 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        const newBrands = event.target.value.toUpperCase();
-        if (newBrands && newBrands !== '' && newBrands !== undefined && newBrands !== null) {
-            this.brandService.validateExistBrands(newBrands).subscribe(res => {
+        console.log(event);
+        this.newBrands = event.target.value.toUpperCase();
+        if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
+            this.brandService.validateExistBrands(this.newBrands).subscribe(res => {
                 // Validar si la data es un booleano
                 // this.validateBrandsExist = (res['data']);
-                console.log(res);
-                this.form.controls['nameBrands'].setErrors({'validate': true});
-                this.form.controls['nameBrands'].setErrors({'validExistBrandsDB': res});
-                
-                // if (this.validateEanExist) {
-                //   this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': this.validateEanExist });
-                //   this.process.unavailableEanView();
-                // }
-                // if (!this.validateEanExist) {
-                //   this.activeButtonCreacionUnitaria = true;
-                //   this.sendEan();
-                // }
-              }, error => {
+                this.validateExit = true;
+                // this.form.controls.nameBrands.setErrors(null);
+                this.form.controls.nameBrands.setErrors({ 'validExistBrandsDB': true });
+            }, error => {
                 // this.validateEanExist = true;
-              });
-        }
+            });
+        } else { return null; }
     }
-
-
-    public validate(){
-        this.form.controls['nameBrands'].setErrors({'validate': false});
+    /**
+     * funcion para cerrar el dialogo de agregar marca
+     *
+     * @memberof BrandsComponent
+     */
+    onNoClick() {
+        this.dialog.closeAll();
     }
 }
