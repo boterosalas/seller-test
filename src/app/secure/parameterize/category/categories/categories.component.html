@@ -61,7 +61,7 @@
                 <mat-error *ngIf="Commission.hasError('required') || Commission.hasError('trim')">Este campo es
                     obligatorio.
                 </mat-error>
-                <mat-error *ngIf="Commission.hasError('pattern')">La comisión no es válida.</mat-error>
+                <mat-error *ngIf="Commission.hasError('pattern') || Commission.hasError('positiveNumber')">La comisión no es válida.</mat-error>
             </mat-form-field>
         </div>
         <div class="container-fields">

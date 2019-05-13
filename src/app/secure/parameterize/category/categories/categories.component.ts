@@ -6,7 +6,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { trimField, validateDataToEqual } from '@app/shared/util/validation-messages';
+import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
 
@@ -135,7 +135,7 @@ export class CategoriesComponent implements OnInit {
    */
   initForm() {
     this.form = this.fb.group({
-      Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission)])],
+      Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), positiveNumber])],
       Id: ['', Validators.pattern(this.categoryRegex.Id)],
       IdCarulla: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCarulla)])],
       IdCatalogos: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCatalogos)])],
@@ -347,10 +347,11 @@ export class CategoriesComponent implements OnInit {
       this.loadingService.viewSpinner();
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
+      value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
-        if (!!response && !!response.statusCode && (response.statusCode === 200 || response.statusCode === 400)) {
-          try {
+        try {
+          if (!!response && !!response.statusCode && (response.statusCode === 200)) {
             const responseValue = JSON.parse(response.body).Data;
             if (!!responseValue.Id) {
               this.loadingService.closeSpinner();
@@ -364,10 +365,17 @@ export class CategoriesComponent implements OnInit {
                 duration: 3000,
               });
             }
-          } catch {
+          }  else if ( !!response && !!response.statusCode && response.statusCode === 400) {
+            const responseValue = JSON.parse(response.body).Errors;
+            const message = responseValue[0].Message;
             this.loadingService.closeSpinner();
-            this.modalService.showModal('errorService');
+            this.snackBar.open(message, 'Cerrar', {
+              duration: 3000,
+            });
           }
+        } catch (error) {
+          this.loadingService.closeSpinner();
+          this.modalService.showModal('errorService');
         }
       });
     };
