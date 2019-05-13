@@ -62,7 +62,7 @@ export class BrandsComponent implements OnInit {
     boleano = null;
     color = '#4caf50';
     subs: Subscription[] = [];
-    BrandsRegex = { formatNumber: '' };
+    BrandsRegex = { brandsName: '', formatNumber : ''  };
     idBrands: number;
     statusBrands: boolean;
     nameBrands: string;
@@ -134,8 +134,9 @@ export class BrandsComponent implements OnInit {
         } else {}
 
         if (this.countFilter) {
-            this.urlParams = `${this.filterBrandsId}/${this.filterBrandsName}/${page}/${limit}/`;
+            this.urlParams = `id:${this.filterBrandsId}/name:${this.filterBrandsName}/${page}/${limit}/`;
         } else {}
+        console.log(this.urlParams);
         this.loading.viewSpinner();
 
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
@@ -217,12 +218,12 @@ export class BrandsComponent implements OnInit {
     createForm() {
         this.filterBrands = new FormGroup({
             filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
-            filterBrandsName: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            filterBrandsName: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
         });
         this.form = new FormGroup({
-            nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
             idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
-            status: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            status: new FormControl(''),
         });
     }
 
@@ -284,7 +285,6 @@ export class BrandsComponent implements OnInit {
      * @param dialog
      */
     configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
-        console.log(dialog);
         const dialogInstance = dialog.componentInstance;
         dialogInstance.content = this.content;
         dialogInstance.confirmation = () => {
@@ -484,7 +484,6 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        console.log(event);
         this.newBrands = event.target.value.toUpperCase();
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             this.brandService.validateExistBrands(this.newBrands).subscribe(res => {

@@ -2,33 +2,10 @@ $color-gray3: #D3D3D3;
 $color-gray: #909090;
 $blue: #485AFA;
 
-/*
-.card-offer {
-  border: 1px solid $color-gray3;
-  width: 240px;
-  height: 350px;
-  margin-left: 2%;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 6px 18px $color-gray3;
-  }
-}
-*/
 .no-brands {
   justify-content: center;
   padding-top: 15%;
   padding-left: 40%;
-}
-
-.example-chip-list {
-  margin: 1%;
-  position: sticky;
-  top: 64px;
-  background: white;
-  z-index: 10000;
-  padding: 1%;
 }
 
 .tree-toolbar {
@@ -43,21 +20,6 @@ $blue: #485AFA;
     justify-content: flex-start;
     width: 100%;
     padding-left: 20px;
-  }
-}
-
-.icon-face {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 140px;
-
-  & mat-icon {
-    font-size: 120px;
-    color: #EFEDED;
-    height: 120px;
-    width: 120px;
   }
 }
 
@@ -102,45 +64,14 @@ $blue: #485AFA;
   padding-bottom: 5%;
 }
 
-::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: rgb(72, 90, 250) !important;
-}
-
-::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: rgb(72, 90, 250) !important;
-}
-
-.radioDate {
-  padding-top: 4.25%;
-  padding-bottom: 4.25%;
-  font-size: 15px !important;
-}
-
 .buttonsSend {
   padding-top: 4.25%;
   padding-bottom: 4.25%;
 }
 
-.classDatapicker {
-  width: 150px;
-}
-
-::ng-deep .mat-datepicker-content .mat-calendar {
-  width: 200px !important;
-  height: 255px !important;
-}
-
 .height-full {
   height: 5%;
 }
-
-/*
-::ng-deep .tree-toolbar {
-  border-bottom: 0.001em solid #D3D3D3;
-  padding: 0 25px;
-  position: fixed;
-  z-index: 1;
-} */
 
 .listCombo {
   display: flex;
@@ -167,22 +98,6 @@ table {
 
     @media screen and (max-width: 600px) {
       width: 37.5%;
-    }
-  }
-}
-
-.mat-mini-fab {
-  height: 30px;
-  width: 30px;
-  font-size: 14px;
-  line-height: 14px;
-
-  &::ng-deep .mat-button-wrapper {
-    line-height: 14px;
-    padding: 0 0 0 0.5px;
-
-    & .mat-icon {
-      color: white !important;
     }
   }
 }
@@ -238,16 +153,6 @@ table {
   margin: 1.4%;
 }
 
-.brands-color-status-active {
-  color: green !important;
-  font-weight: bold;
-}
-
-.brands-color-status-inactive {
-  color: #f44336 !important;
-  font-weight: bold;
-}
-
 .brands-filter-sidenav {
   padding-top: 5%;
   padding-right: 8%;
@@ -257,6 +162,7 @@ table {
 
 .brands-modal-margin {
   margin-top: 40px;
+  height: 128px;
 }
 
 .full-width {
@@ -309,6 +215,12 @@ table {
   margin-bottom: -24px;
 }
 
-.brands-position-option-cancel{
+.brands-position-option-cancel {
   margin-left: 8px;
+}
+
+.brands-table-null {
+  width: 100%;
+  text-align: center;
+  margin-top: 90px;
 }

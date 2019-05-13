@@ -6,7 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrandService } from './brands.component.service';
 import { LoadingService, ModalService, EndpointService, UserParametersService, CognitoUtil, UserLoginService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
@@ -133,6 +133,7 @@ fdescribe('BrandsComponent', () => {
 
         it('Should be fail nit with characters', () => {
             brandsComponent.getAllBrands();
+            expect(brandsComponent.brandsList[0].id).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -146,21 +147,27 @@ fdescribe('BrandsComponent', () => {
 
         it('sort data active and direction', () => {
             brandsComponent.sortData(sort);
+            expect(brandsComponent.sortedData).not.toBeNull();
         });
         it('sort data id', () => {
             sort.active = 'id';
             fixture.detectChanges();
             brandsComponent.sortData(sort);
+            const sortDataId = brandsComponent.sortData(sort);
+            expect(sortDataId).not.toBeNull();
         });
         it('sort data asc', () => {
             sort.direction = 'asc';
             fixture.detectChanges();
             brandsComponent.sortData(sort);
+            const sortDataAsc = brandsComponent.sortData(sort);
+            expect(sortDataAsc).not.toBeNull();
         });
         it('sort data null', () => {
             sort.active = null;
             fixture.detectChanges();
-            brandsComponent.sortData(sort);
+            const sortDataNull =  brandsComponent.sortData(sort);
+            expect(sortDataNull).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -173,11 +180,13 @@ fdescribe('BrandsComponent', () => {
 
         it('brands status edit', () => {
             const brandsData = { id: 1, name: 'carulla', status: true, paginationToken: '1|65' };
-            brandsComponent.setDataChangeStatusDialog(brandsData, 'active', 0);
+            const brandsStatus = brandsComponent.setDataChangeStatusDialog(brandsData, 'active', 0);
+            expect(brandsStatus.icon).toEqual('edit');
         });
         it('brands create', () => {
             const brandsData = {};
-            brandsComponent.setDataChangeStatusDialog(brandsData, 'active', 0);
+            const brandsStatusCreate = brandsComponent.setDataChangeStatusDialog(brandsData, 'active', 0);
+            expect(brandsStatusCreate.icon).toEqual('control_point');
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -210,12 +219,14 @@ fdescribe('BrandsComponent', () => {
             fixture.detectChanges();
         });
         it('status active', () => {
-            const brand = { id: 1, name: 'marca', status: false };
+            const brand = { id: 1, name: 'carulla', status: false };
             brandsComponent.setStatusBrand(brand);
+            expect(brandsComponent.brandsList[1].status).toEqual(true);
         });
         it('status active', () => {
-            const brand = { id: 1, name: 'marca', status: true };
+            const brand = { id: 2, name: 'Troopx', status: true };
             brandsComponent.setStatusBrand(brand);
+            expect(brandsComponent.brandsList[1].status).toEqual(true);
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -227,7 +238,7 @@ fdescribe('BrandsComponent', () => {
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
         });
-        it('status active', () => {
+        it('apply fitler', () => {
             const brand = { id: 1, name: 'marca', status: false };
             brandsComponent.filterApply(brand);
         });
@@ -240,7 +251,7 @@ fdescribe('BrandsComponent', () => {
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
         });
-        it('change paginator brands', () => {
+        it('change paginator brands with param with space black', () => {
             const param = { pageSize: '', pageIndex: '', };
             brandsComponent.changePaginatorBrands(param);
         });
@@ -257,13 +268,15 @@ fdescribe('BrandsComponent', () => {
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
         });
-        it('change paginator brands', () => {
+        it('validte exist in bd with new brands', () => {
             const event = { target: {value: 'MARCA'}};
             brandsComponent.validateExist(event);
+            expect(brandsComponent.validateExit).toEqual(true);
         });
-        it('change paginator brands', () => {
+        it('validate exist in bd with space black', () => {
             const event = { target: {value: ''}};
-            brandsComponent.validateExist(event);
+            const bradnsValidate =  brandsComponent.validateExist(event);
+            expect(bradnsValidate).toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();

@@ -94,12 +94,9 @@
           </td>
         </tr>
       </table>
-      <div *ngIf="false" fxLayout="column" class="no-brands">
-        <div class="icon-face">
-          <mat-icon class="mat-18">layers_clear</mat-icon>
-        </div>
-        <label class="icon-face-text">
-          No hay marcas cargadas
+      <div *ngIf="!sortedData" class="brands-table-null">
+        <label class="">
+          No se han encontrado marcas registradas
         </label>
       </div>
     </div>
