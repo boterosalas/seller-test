@@ -53,7 +53,7 @@
                       autocomplete="off" [errorStateMatcher]="matcher" id="register-state" (keypress)="keyPress($event, 'state')" required>
                       <mat-hint></mat-hint>
                       <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('maxlength') || State.hasError('minlength') || State.hasError('pattern')">
-                        El departamento no es inválido
+                        El departamento no es válido
                       </mat-error>
                       <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('required')">
                         El departamento es requerido
@@ -77,7 +77,7 @@
                         autocomplete="off" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'city')" id="register-city"required>
                         <mat-hint></mat-hint>
                         <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('maxlength') || City.hasError('minlength') || City.hasError('pattern')">
-                          La ciudad no es inválido
+                          La ciudad no es válida
                         </mat-error>
                         <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('required')">
                           La ciudad es requerido
@@ -93,7 +93,7 @@
                     required>
                     <mat-hint></mat-hint>
                     <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('maxlength') || PostalCode.hasError('minlength') || PostalCode.hasError('pattern')">
-                      El código no es inválido
+                      El código no es válido
                     </mat-error>
                     <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('required')">
                       El código es requerido

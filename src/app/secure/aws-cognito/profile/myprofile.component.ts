@@ -183,7 +183,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const message = 'Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
         const icon = 'local_airport';
         const form = this.vacationForm;
-        return {title, message, icon, form};
+        const showButtons = true;
+        return {title, message, icon, form, showButtons};
     }
 
     /**
@@ -324,7 +325,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;
-        return {message, title, icon, form, messageCenter};
+        const showButtons = true;
+        return {message, title, icon, form, messageCenter, showButtons};
     }
 
     /**

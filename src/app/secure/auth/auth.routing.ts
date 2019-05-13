@@ -272,6 +272,17 @@ export class AuthService implements CanActivate {
     }
 
     /**
+     * Verifica la existencia del permiso dentro del menu
+     * @param menu Name for specific menu
+     * @param permission Name of permission
+     */
+    getPermissionForMenu(menu: string, permission: string) {
+        const existMenu = this.getMenu(menu);
+        const existPermission = !!existMenu && existMenu.Functionalities.find(result => permission === result.NameFunctionality);
+        return !!existPermission && existPermission.ShowFunctionality;
+    }
+
+    /**
      * Setear los modulos, menus y funcionalidades.
      *
      * @param {ModuleModel[]} modules

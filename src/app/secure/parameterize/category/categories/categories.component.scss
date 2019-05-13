@@ -1,0 +1,48 @@
+@mixin margin {
+    margin: 0 auto;
+    max-width: 90%;
+}
+
+.category-tree-toolbar{
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-bottom: solid 0.001em  #D3D3D3;
+}
+
+.toolbar-options-tree{
+    width: 100%;
+}
+
+.content-flex-start {
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px auto;
+    max-width: 90%;
+    & button {
+        color: #485AFA;
+    }
+}
+
+.half-width {
+    width: 45%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.margin-top__15 {
+margin-top: 15px;
+}
+
+.container__tree {
+    @include margin;
+}
+
+.container-fields {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+}

@@ -138,63 +138,11 @@ describe('Detail offer Component', () => {
             fixture.detectChanges();
         });
 
-        it('Should be pass stock with letter', () => {
-            fixture.whenStable().then(() => {
-                const stockField = fixture.debugElement.query(By.css('#detail-offer-stock'));
-                expect(stockField).toBeTruthy();
-                const stockNativeElement = stockField.nativeElement;
-                stockNativeElement.value = 'asddfgghj';
-                stockNativeElement.dispatchEvent(new Event('input'));
-                fixture.detectChanges();
-                expect(detailOfferComponent.Stock.errors).toBeNull();
-            });
+        it('Edit offert', () => {
+            detailOfferComponent.dataOffer.availableToOffer = true;
+            detailOfferComponent.editOffer();
+            expect(detailOfferComponent.isUpdateOffer).toBeTruthy();
         });
-        it('Should be pass stock with in blank', () => {
-            fixture.whenStable().then(() => {
-                const stockField = fixture.debugElement.query(By.css('#detail-offer-stock'));
-                expect(stockField).toBeTruthy();
-                const stockNativeElement = stockField.nativeElement;
-                stockNativeElement.value = ' ';
-                stockNativeElement.dispatchEvent(new Event('input'));
-                fixture.detectChanges();
-                expect(detailOfferComponent.Stock.errors).toBeNull();
-            });
-        });
-        it('Should be pass price with letter', () => {
-            fixture.whenStable().then(() => {
-                const priceField = fixture.debugElement.query(By.css('#detail-offer-Price'));
-                expect(priceField).toBeTruthy();
-                const stockNativeElement = priceField.nativeElement;
-                stockNativeElement.value = 'asdasdasdasd';
-                stockNativeElement.dispatchEvent(new Event('input'));
-                fixture.detectChanges();
-                expect(detailOfferComponent.Stock.errors).toBeNull();
-            });
-        });
-        it('Should be pass price > 8000', () => {
-            fixture.whenStable().then(() => {
-                const priceField = fixture.debugElement.query(By.css('#detail-offer-Price'));
-                expect(priceField).toBeTruthy();
-                const stockNativeElement = priceField.nativeElement;
-                stockNativeElement.value = '9000';
-                stockNativeElement.dispatchEvent(new Event('input'));
-                fixture.detectChanges();
-                expect(detailOfferComponent.Price.errors).toBeNull();
-            });
-        });
-
-        it('should be fail price required', () => {
-            fixture.whenStable().then(() => {
-                const priceField = fixture.debugElement.query(By.css('#detail-offer-Price'));
-                expect(priceField).toBeTruthy();
-                const priceNativeElement = priceField.nativeElement;
-                priceNativeElement.value = 'fghfghfghfghfg';
-                priceNativeElement.dispatchEvent(new Event('input'));
-                fixture.detectChanges();
-                expect(detailOfferComponent.Price.errors).toBeNull();
-            });
-        });
-
     });
 
 });
