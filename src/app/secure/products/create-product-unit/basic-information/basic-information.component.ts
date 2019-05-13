@@ -83,11 +83,7 @@ export class ProductBasicInfoComponent implements OnInit {
       };
 
       // brands variables
-       brands = [
-        { value: 'Steak'},
-        { value: 'Pizza'},
-        { value: 'Tacos'}
-      ];
+       brands;
 
     constructor(
         private snackBar: MatSnackBar,
@@ -99,7 +95,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initComponent();
-        
+        this.listOfBrands();
     }
 
     /**
@@ -542,8 +538,11 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
 
-    //  listOfBrands() {
-
-    //  }
+     listOfBrands() {
+         this.service.getActiveBrands().subscribe(brands => {
+             console.log(brands);
+             this.brands = brands.Data.Brands;
+         })
+     }
 
 }

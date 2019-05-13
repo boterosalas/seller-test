@@ -34,8 +34,8 @@
 
       <mat-form-field class="field">
           <mat-select placeholder="Marca" formControlName="Brand" id="Brand" (selectionChange)="detectForm()" required>
-            <mat-option *ngFor="let brand of brands" [value]="brand.value">
-              {{brand.value}}
+            <mat-option *ngFor="let brand of brands" [value]="brand.Name">
+              {{brand.Name}}
             </mat-option>
           </mat-select>
           

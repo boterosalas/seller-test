@@ -65,11 +65,25 @@ describe('ProductBasicInfoComponent', () => {
     // Mock Services
 
     const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData',]);
-    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic']);
+    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands']);
     const mockEanService = jasmine.createSpyObj('EanServicesService', ['validateEan']);
 
     // create new instance of FormBuilder
     const formBuilder: FormBuilder = new FormBuilder();
+
+    // brands 
+
+    const brands = {
+        Message: "Operación realizada éxitosamente.", 
+        Errors: Array(0), 
+        Data: {
+            Brands: [
+                {Id: 636933398904381000, Name: "ADIDAS", Status: 1, IdVTEX: "1033", UpdateStatus: false},
+                {Id: 636931110403428500, Name: "LG", Status: 1, IdVTEX: "4973", UpdateStatus: false}
+            ] ,
+            Total: 2
+        }
+    }
 
     // data formulario
 
@@ -157,6 +171,7 @@ describe('ProductBasicInfoComponent', () => {
         })
             .compileComponents();
         mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(mockResponseRegex));
+        mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockEanService.validateEan.and.returnValue(of('123456789'));
     }));
 
