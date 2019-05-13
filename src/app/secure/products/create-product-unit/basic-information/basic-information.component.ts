@@ -540,7 +540,6 @@ export class ProductBasicInfoComponent implements OnInit {
 
      listOfBrands() {
          this.service.getActiveBrands().subscribe(brands => {
-             console.log(brands);
              this.brands = brands.Data.Brands;
          })
      }
