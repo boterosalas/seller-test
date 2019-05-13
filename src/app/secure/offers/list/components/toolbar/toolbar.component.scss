@@ -1,13 +1,8 @@
-$color-white: #FFFFFF;
-$color-black: #000000;
-$color-gray1: #5D5D5D;
-$color-gray2: #909090;
-$color-gray3: #D3D3D3;
-$color-gray4: #BCBCBC;
-$color-blue: #485AFA;
+@import '_variables';
+
 :host ::ng-deep {
     mat-toolbar.toolbar-component {
-        border-bottom: 0.001em solid $color-gray3;
+        border-bottom: 0.001em solid $color-bottom-bar;
         padding: 0 25px;
         position: fixed;
         z-index: 1;

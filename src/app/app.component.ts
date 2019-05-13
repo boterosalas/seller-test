@@ -29,6 +29,36 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
   ) { }
 
   ngOnInit() {
+
+    //toolbar position
+
+    window.onscroll = function() {
+      toolbarTop()
+    };
+
+    function toolbarTop() {
+
+      const classtop = document.querySelector('.toolbar-component');
+      const classtop2 = document.querySelector('.tree-toolbar');
+      // const secondTool= document.querySelector('.toolbar-component');
+      if(classtop){
+        if(window.scrollY > 45){
+          classtop.classList.add("top-toolbar");
+        } else {
+          classtop.classList.remove("top-toolbar");
+        }
+      }
+
+      if(classtop2){
+        if(window.scrollY > 45){
+          classtop2.classList.add("top-toolbar");
+        } else {
+          classtop2.classList.remove("top-toolbar");
+        }
+      }
+
+    }
+      
     // Configurar logs.
     if (environment.production) {
       Logger.enableProductionMode();
@@ -64,5 +94,7 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
       }
     });
   }
+
+ 
 }
 

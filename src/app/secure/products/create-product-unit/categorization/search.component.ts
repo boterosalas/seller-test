@@ -85,29 +85,18 @@ export class SearchCategorizationComponent implements OnInit {
     }
 
     /**
-     * Event from angular material search
-     *
-     * @param {*} event
-     * @memberof SearchCategorizationComponent
-     */
-    whatchValueInput(event: any): void {
-        this.searchTextInput = event;
-    }
-
-    /**
-     * Execute search text in tree after click ENTER.
+     * Execute search text in tree after click.
      *
      * @param {*} event
      * @memberof SearchCategorizationComponent
      */
     public keyDownFunction(event: any): void {
-        // keyCode 13 -> Enter
-        if (event.keyCode === 13) {
+            this.searchTextInput = event;
             if (this.searchTextInput.Name) {
                 this.searchText = this.searchTextInput.Name;
             } else {
                 this.searchText = this.searchTextInput;
-            }
+            
         }
     }
 }

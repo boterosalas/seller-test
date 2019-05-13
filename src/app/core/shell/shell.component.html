@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container class="example-container">
   <!-- Sidebar Principal -->
   <mat-sidenav #sidenav mode="over" opened="{{stateSideNav}}">
     <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
@@ -10,7 +10,7 @@
   </mat-sidenav>
 
   <!-- Contenido principal -->
-  <mat-sidenav-content class="over-hidden">
+  <mat-sidenav-content>
     <!-- Componente Header de la página -->
     <app-header [sidenav]="sidenav" [user]="user"></app-header>
     <app-toolbar-link [user]="user" class="light-content" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true" fxShow="true"></app-toolbar-link>

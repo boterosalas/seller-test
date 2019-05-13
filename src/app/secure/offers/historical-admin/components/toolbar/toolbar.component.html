@@ -4,7 +4,7 @@
     <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
 
       <p>{{tittleBar}}
-        <small class="sub-title">| {{subtitleBar}}</small>
+        <small class="sub-title"><span class="bar"> | </span> {{subtitleBar}}</small>
       </p>
       <div class="seller-search">
         <app-search-seller  *ngIf="getFunctionality(read)" [isFullSearch]="false"></app-search-seller>
