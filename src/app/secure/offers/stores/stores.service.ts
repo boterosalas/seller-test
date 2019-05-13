@@ -83,9 +83,8 @@ export class StoresService {
    * @memberof StoresService
    */
   getSellerCommissionCategory(store: StoreModel): Observable<[{}]> {
-
     return new Observable(observer => {
-      this.http.get(this.api.get('getSellerCommissionCategory', [store.IdSeller]), { observe: 'response' })
+      this.http.get(`${this.api.get('manageCategory')}/GetComissionsSeller/${store.IdSeller}`, { observe: 'response' })
         .subscribe((data: any) => {
           observer.next(data);
         }, error => {
@@ -105,7 +104,7 @@ export class StoresService {
    */
   public patchSellerCommissionCategory(params: {}): Observable<{}> {
     return new Observable(observer => {
-      this.http.patch<any>(this.api.get('getSellerCommissionCategory'), params, { observe: 'response' })
+      this.http.patch<any>(`${this.api.get('manageCategory')}/UpdateComissionsSeller`, params, { observe: 'response' })
         .subscribe(
           data => {
             observer.next(data);

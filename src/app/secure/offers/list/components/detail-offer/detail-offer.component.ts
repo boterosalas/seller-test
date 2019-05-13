@@ -166,9 +166,15 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   editOffer() {
-    this.isUpdateOffer = true;
-    this.createValidators();
-    this.createForm();
+    if (this.dataOffer.availableToOffer === true) {
+      this.isUpdateOffer = true;
+      this.createValidators();
+      this.createForm();
+    } else {
+      this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+        duration: 5000,
+      });
+    }
   }
 
   /**

@@ -42,13 +42,13 @@ describe('DialogWithFormComponent', () => {
       title: 'El titulo',
       message: 'el mensaje',
       messageCenter: false,
-      form: null
+      form: null,
+      showButtons: true
     };
-
-    component.valid = false;
+    fixture.detectChanges();
 
     component.confirmation = () => {
-      component.data.message = 'Mensaje Confirmado'
+      component.data.message = 'Mensaje Confirmado';
       return of(true);
     };
 
@@ -62,7 +62,9 @@ describe('DialogWithFormComponent', () => {
     component.data.form = formGroup;
     const confirmationButton = fixture.debugElement.query(By.css('#btn-confirmation')).nativeElement;
     fixture.detectChanges();
-    expect(confirmationButton.disabled).toBeTruthy();
+    fixture.whenStable().then(() => {
+      expect(confirmationButton.disabled).toBeTruthy();
+    });
   });
 
   it('Should valid the confirmation button', () => {

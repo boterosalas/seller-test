@@ -53,7 +53,6 @@ export class FileDatabase {
       const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
       const data = this.buildFileTree(realTree, 0, treeExtraData);
       this.dataChange.next(data);
-
     }
   }
 

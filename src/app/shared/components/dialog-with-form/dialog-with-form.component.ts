@@ -9,6 +9,7 @@ interface DialogData {
   form: FormGroup;
   messageCenter: boolean;
   icon: string;
+  showButtons: boolean;
 }
 
 @Component({
@@ -19,17 +20,16 @@ interface DialogData {
 export class DialogWithFormComponent {
 
   content: TemplateRef<any>;
-  valid: boolean = true;
-
 
   constructor(
-    public dialogRef: MatDialogRef<DialogWithFormComponent>, 
+    public dialogRef: MatDialogRef<DialogWithFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {
 
      }
 
   onNoClick(): void {
+    !!this.data && !!this.data.form && this.data.form.reset();
     this.dialogRef.close();
   }
 

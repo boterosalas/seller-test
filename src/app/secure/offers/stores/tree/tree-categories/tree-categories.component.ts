@@ -139,9 +139,9 @@ export class TreeCategoriesComponent implements OnInit {
     const sellerCategories = information.data.getSellerCommissionCategory;
     for (let i = 0; i < listCategories.length; i++) {
       // tslint:disable-next-line:triple-equals
-      if (listCategories[i].Name == this.CONST_MARKETPLACE) {
+      if (listCategories[i].Name === this.CONST_MARKETPLACE) {
         node = listCategories[i];
-        break;
+         break;
       }
     }
     const data = this.createTree(node, listCategories, sellerCategories);
