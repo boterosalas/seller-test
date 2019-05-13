@@ -540,7 +540,16 @@ export class ProductBasicInfoComponent implements OnInit {
 
      listOfBrands() {
          this.service.getActiveBrands().subscribe(brands => {
-             this.brands = brands.Data.Brands;
+             const initialBrands = brands.Data.Brands;
+             this.brands = initialBrands.sort((a, b) =>{
+                if (a.Name > b.Name) {
+                  return 1;
+                }
+                if (a.Name < b.Name) {
+                  return -1;
+                }
+                return 0;
+              });
          })
      }
 
