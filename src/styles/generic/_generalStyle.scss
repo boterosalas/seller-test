@@ -199,9 +199,14 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
       transition:  all .4s ease 0s;
   }
 
-  #closeMenuApplication span .mat-icon{
+  #closeMenuApplication, .toolbar-title-search  {
+    span .mat-icon{
         color: $blue !important;
     }
+    .mat-button-focus-overlay{
+        background: none !important;
+    }
+  }
   
     .example-container {
         position: absolute;
@@ -270,6 +275,14 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 
 .mat-drawer-container, .mat-drawer-content{
     z-index: inherit !important;
+}
+
+.expand.mat-icon{
+    color:$color-gray1;
+}
+
+.toolbar-orders-options-table .toolbar-options-table .toolbar-paginate {
+    justify-content: flex-end !important;
 }
 
 
