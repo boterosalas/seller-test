@@ -1,6 +1,6 @@
 @import '_variables';
 
-body, mat-sidenav-container, .mat-expansion-panel-header, .mat-card, .mat-tab-group{
+body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-card, .mat-tab-group{
     font-family: $font-principal !important;
 }
 
@@ -241,3 +241,17 @@ body, mat-sidenav-container, .mat-expansion-panel-header, .mat-card, .mat-tab-gr
     background: grey;
   }
   
+  .no-button{
+      background: none !important;
+      padding: 0 !important;
+      .mat-button-focus-overlay{
+        background: none !important;
+      }
+      &:hover{
+          background: none !important;
+      }
+  }
+
+  .mat-drawer-content{
+    overflow: inherit !important;
+  }

@@ -82,8 +82,10 @@ export class ProductBasicInfoComponent implements OnInit {
         ]
       };
 
-      // brands variables
-       brands;
+      /**
+       *  brands variables
+       *  */
+       brands = [];
 
     constructor(
         private snackBar: MatSnackBar,
