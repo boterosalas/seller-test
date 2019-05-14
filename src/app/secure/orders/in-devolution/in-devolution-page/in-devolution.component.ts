@@ -21,6 +21,7 @@ import { ActionReportNoveltyComponent } from '../action-report-novelty/action-re
 import { InDevolutionService } from '../in-devolution.service';
 import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -90,6 +91,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private inDevolutionService: InDevolutionService,
     private componentsService: ComponentsService,
+    private loadingService: LoadingService,
     public userParams: UserParametersService
   ) { }
 
@@ -179,8 +181,9 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
       };
     }
     const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
-
+    this.loadingService.viewSpinner();
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
+      this.loadingService.closeSpinner();
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
       if (res != null) {

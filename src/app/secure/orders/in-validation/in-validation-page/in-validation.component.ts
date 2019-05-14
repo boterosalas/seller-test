@@ -10,6 +10,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 import { InValidationModalComponent } from '../in-validation-modal/in-validation-modal.component';
 import { InValidationService } from '../in-validation.service';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 
 // log component
@@ -82,7 +83,8 @@ export class InValidationComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private zone: NgZone,
     private inValidationService: InValidationService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -150,8 +152,9 @@ export class InValidationComponent implements OnInit, OnDestroy {
       };
     }
     const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
-
+    this.loadingService.viewSpinner();
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
+      this.loadingService.closeSpinner();
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;
