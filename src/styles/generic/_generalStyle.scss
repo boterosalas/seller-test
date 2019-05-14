@@ -194,6 +194,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
   }
 
   .top-toolbar{
+    border-top: 1px solid $color-gray5;
       transform: translateY(-47px);
       transition:  all .4s ease 0s;
   }
@@ -255,3 +256,20 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
   .mat-drawer-content{
     overflow: inherit !important;
   }
+.content-table-orders{
+    .button-toolbar{
+      color: $color-gray-light !important;
+    }
+}
+
+//backdrop  
+
+.mat-drawer-backdrop, .mat-drawer{
+    position: fixed !important;
+}
+
+.mat-drawer-container, .mat-drawer-content{
+    z-index: inherit !important;
+}
+
+

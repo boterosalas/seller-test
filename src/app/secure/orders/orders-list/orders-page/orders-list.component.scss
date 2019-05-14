@@ -29,10 +29,10 @@ $blue: mat-palette($mat-indigo);
 :host ::ng-deep .content-order {
   & .container {
     min-width: 300px;
-    max-height: 500px;
+    // max-height: 500px;
     flex-direction: column;
     display: flex;
-    padding: 0 0 200px;
+    // padding: 0 0 200px;
   }
   & .sales-card {
     & .state-cancel {
@@ -291,3 +291,5 @@ $blue: mat-palette($mat-indigo);
     margin: 0;
   }
 }
+
+
