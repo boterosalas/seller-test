@@ -12,7 +12,7 @@ $blue: #485AFA;
   border-bottom: 0.001em solid #D3D3D3;
   padding: 0 25px;
   position: fixed;
-  z-index: 100;
+  z-index: 1;
   background-color: white;
 
   & .toolbar-options-table {
@@ -40,7 +40,7 @@ $blue: #485AFA;
   padding-left: 8%;
   padding-right: 8%;
   margin: 0.25em;
-  margin-top: 50px;
+  margin-top: 90px;
 }
 
 .example-sidenav {
@@ -225,14 +225,18 @@ table {
   margin-top: 90px;
 }
 
-.brands-input-spinner{
+.brands-input-spinner {
   display: inline-flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
 }
 
-.brands-label-filter{
+.brands-label-filter {
   margin-top: 10px;
   width: calc(100% - 166px);
+}
+
+::ng-deep .mat-slide-toggle-thumb-container {
+  z-index: 0 !important;
 }
