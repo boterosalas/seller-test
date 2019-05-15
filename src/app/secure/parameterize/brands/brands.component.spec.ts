@@ -55,7 +55,7 @@ describe('BrandsComponent', () => {
     ];
 
     const response = {
-        body: JSON.stringify({Data: registerRegex }),
+        body: JSON.stringify({Data: brands }),
         headers: null,
         isBase64Encoded: false,
         multiValueHeaders: null,
@@ -322,24 +322,6 @@ describe('BrandsComponent', () => {
             const event = jasmine.createSpyObj('event', ['preventDefault']);
             const brand = { id: 1, name: 'marca', status: false };
             brandsComponent.changeStatusBrands(event, brand);
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-    describe('confimation create and update brands', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            brandsComponent.body = {
-                idBrands: '636934381618814126',
-                nameBrands: '',
-                UpdateStatus:'false',
-            };
-            fixture.detectChanges();
-        });
-        it('config Data Dialog Act-Des', () => {
-            mockBrandsService.createBrands.and.returnValue(of(response));
-            brandsComponent.confirmation();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
