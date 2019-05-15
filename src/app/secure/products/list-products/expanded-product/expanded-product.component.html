@@ -1,5 +1,3 @@
-<hr>
-
 <div class="cont-product">
 
   <div class="info-product" fxShow.xs="true" fxShow="false">
@@ -16,7 +14,7 @@
         <ng-container *ngIf="img.max">
           <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
           <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
-            <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-blue' : ''">
+            <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-gray' : ''">
           </div>
         </ng-container>
       </mat-card>
@@ -37,14 +35,15 @@
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
-      <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
-      <p> Fecha de modificación: {{productsExpanded.updatedDate}}</p>
+      <p> <span class="color-gray">Fecha de creación:</span>  {{productsExpanded.createdDate}}</p>
+      <span class="separator"> | </span>
+      <p> <span class="color-gray">Fecha de modificación:</span> {{productsExpanded.updatedDate}}</p>
     </div>
 
-    <div class="text"> Categoría: <label> {{productsExpanded.category}} </label></div>
-    <div class="text"> Marca: <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> Modelo: <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> Shipping-size: <label> {{productsExpanded.shipping_size}} </label></div>
+    <div class="text"> Categoría: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
+    <div class="text">Marca:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Modelo: <span class="color-gray"></span>  <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Shipping-size: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
 
 
     <div class="text" fxLayout="row">

@@ -1,4 +1,5 @@
 import { Validator, AbstractControl, ValidationErrors } from "@angular/forms";
+import { isNumber } from "util";
 
 export const validationMessages = {
   required: 'Este campo es necesario.',
@@ -11,6 +12,11 @@ export const validationMessages = {
 export function trimField(control: AbstractControl): ValidationErrors | null {
   const value = !!control.value ? control.value : '';
   return !!value.toString().trim() ? null : { trim: true };
+}
+
+export function positiveNumber(control: AbstractControl): ValidationErrors | null {
+  const value = !!control.value ? control.value : '';
+  return !!value.toString().trim() && (Number(value) > 0) ? null : { positiveNumber : true };
 }
 
 export function validateDataToEqual(firstObject: any) {

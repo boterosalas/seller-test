@@ -1,12 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
-import { LoadingService } from '@app/core';
+import { LoadingService, ModalService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { trimField, validateDataToEqual } from '@app/shared/util/validation-messages';
+import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
 
@@ -81,7 +81,7 @@ export class CategoriesComponent implements OnInit {
     private ngZone: NgZone,
     private regexService: BasicInformationService,
     private snackBar: MatSnackBar,
-    private cd: ChangeDetectorRef
+    private modalService: ModalService
   ) {
   }
 
@@ -98,29 +98,33 @@ export class CategoriesComponent implements OnInit {
   getRegex() {
     this.loadingService.viewSpinner();
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
-      let dataSellerRegex = JSON.parse(res.body.body);
-      dataSellerRegex = !!dataSellerRegex && dataSellerRegex.Data;
-      this.categoryRegex.Commission = !!dataSellerRegex && dataSellerRegex.find(element => {
-        if (element.Identifier === 'formatNumber' && element.Module === 'ofertas') {
-          return element;
-        }
-      }).Value;
-      this.categoryRegex.Name = !!dataSellerRegex && dataSellerRegex.find(element => {
-        if (element.Identifier === 'CategoryName' && element.Module === 'parametrizacion') {
-          return element;
-        }
-      }).Value;
-      const ids = !!dataSellerRegex && dataSellerRegex.find(element => {
-        if (element.Identifier === 'internationalCity' && element.Module === 'vendedores') {
-          return element;
-        }
-      }).Value;
-      if (!!ids) {
-        for (const val in this.categoryRegex) {
-          if (!!val && val.includes('Id')) {
-            this.categoryRegex[val] = ids;
+      try {
+        let dataSellerRegex = JSON.parse(res.body.body);
+        dataSellerRegex = !!dataSellerRegex && dataSellerRegex.Data;
+        this.categoryRegex.Commission = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'formatNumber' && element.Module === 'ofertas') {
+            return element;
+          }
+        }).Value;
+        this.categoryRegex.Name = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'CategoryName' && element.Module === 'parametrizacion') {
+            return element;
+          }
+        }).Value;
+        const ids = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'internationalCity' && element.Module === 'vendedores') {
+            return element;
+          }
+        }).Value;
+        if (!!ids) {
+          for (const val in this.categoryRegex) {
+            if (!!val && val.includes('Id')) {
+              this.categoryRegex[val] = ids;
+            }
           }
         }
+      } catch {
+        this.modalService.showModal('errorService');
       }
       this.initForm();
     });
@@ -131,7 +135,7 @@ export class CategoriesComponent implements OnInit {
    */
   initForm() {
     this.form = this.fb.group({
-      Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission)])],
+      Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), positiveNumber])],
       Id: ['', Validators.pattern(this.categoryRegex.Id)],
       IdCarulla: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCarulla)])],
       IdCatalogos: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCatalogos)])],
@@ -162,6 +166,8 @@ export class CategoriesComponent implements OnInit {
       if (!!response && !!response.status && response.status === 200) {
         this.initialCategotyList = JSON.parse(response.body.body).Data;
         this.categoryList = this.orderData(this.initialCategotyList);
+      } else {
+        this.modalService.showModal('errorService');
       }
       this.loadingService.closeSpinner();
     });
@@ -170,11 +176,15 @@ export class CategoriesComponent implements OnInit {
   verifyProccesCategory() {
     this.loadingService.viewSpinner();
     this.categoryService.verifyStatusOfCreateCategory().subscribe((res) => {
-      const response = JSON.parse(res.body.body).Data;
-      const {Status} = response;
-      if (Status === 1 || Status === 4) {
-        this.openStatusModal();
-        this.loadingService.closeSpinner();
+      try {
+        const response = JSON.parse(res.body.body).Data;
+        const { Status } = response;
+        if (Status === 1 || Status === 4) {
+          this.openStatusModal();
+          this.loadingService.closeSpinner();
+        }
+      } catch {
+        this.modalService.showModal('errorService');
       }
     });
   }
@@ -337,34 +347,47 @@ export class CategoriesComponent implements OnInit {
       this.loadingService.viewSpinner();
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
+      value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
-        if (!!response && !!response.statusCode && (response.statusCode === 200 || response.statusCode === 400)) {
-          const responseValue = JSON.parse(response.body).Data;
-          if (!!responseValue.Id) {
+        try {
+          if (!!response && !!response.statusCode && (response.statusCode === 200)) {
+            const responseValue = JSON.parse(response.body).Data;
+            if (!!responseValue.Id) {
+              this.loadingService.closeSpinner();
+              dialogIntance.onNoClick();
+              this.openStatusModal();
+            } else if (responseValue === true) {
+              this.confirmationUpdate(value);
+              this.loadingService.closeSpinner();
+              dialogIntance.onNoClick();
+              this.snackBar.open('Actualizado correctamente', 'Cerrar', {
+                duration: 3000,
+              });
+            }
+          }  else if ( !!response && !!response.statusCode && response.statusCode === 400) {
+            const responseValue = JSON.parse(response.body).Errors;
+            const message = responseValue[0].Message;
             this.loadingService.closeSpinner();
-            dialogIntance.onNoClick();
-            this.openStatusModal();
-          } else if (responseValue === true) {
-            this.confirmationUpdate(value);
-            this.loadingService.closeSpinner();
-            dialogIntance.onNoClick();
-            this.snackBar.open('Actualizado correctamente', 'Cerrar', {
+            this.snackBar.open(message, 'Cerrar', {
               duration: 3000,
             });
           }
+        } catch (error) {
+          this.loadingService.closeSpinner();
+          this.modalService.showModal('errorService');
         }
       });
     };
     dialog.afterClosed().subscribe(() => {
       this.form.reset();
-    })
+    });
   }
 
   updateCategory(list: any[], value: any) {
     list.forEach((element) => {
       if (element.Id === value.Id) {
-        for (let val in element) {
+        for (const val in element) {
           if (!!val) {
             element[val] = value[val];
           }
@@ -445,8 +468,3 @@ export class CategoriesComponent implements OnInit {
   }
 
 }
-
-
-/**
- * body: "{"Errors":[],"Data":{"IdSeller":1,"Status":2,"Response":"","Checked":"False"},"Message":"Operación realizada éxitosamente."}"
- */

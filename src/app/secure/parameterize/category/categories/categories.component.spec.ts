@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { CategoriesComponent } from './categories.component';
 import { NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
-import { LoadingService } from '@app/core';
+import { LoadingService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { of } from 'rxjs';
 import { MaterialModule } from '@app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
 
 describe('CategoriesComponent', () => {
 
@@ -71,7 +72,7 @@ describe('CategoriesComponent', () => {
       Promisedelivery: '2 a 5',
       Show: false,
       SkuShippingSize: '2',
-      Son : [
+      Son: [
         {
           Commission: 15,
           Id: 27177,
@@ -110,7 +111,7 @@ describe('CategoriesComponent', () => {
   const categoryEmptyList = [];
 
   const responseEmptyList = {
-    status: 200,
+    status: 400,
     body: {
       body: JSON.stringify({ Data: categoryEmptyList })
     }
@@ -118,10 +119,10 @@ describe('CategoriesComponent', () => {
 
   const responseStatus = {
     statusCode: 200,
-    body : {
+    body: {
       body: JSON.stringify({
         Data: {
-          Status : 0
+          Status: 0
         }
       })
     }
@@ -134,8 +135,8 @@ describe('CategoriesComponent', () => {
   const mockMatDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
   const mockNgZone = jasmine.createSpyObj('NgZone', ['runOutsideAngular']);
   const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic']);
+  const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
 
-  let spyOnDialogWithFormComponent;
   const data = {
     title: '',
     message: '',
@@ -148,10 +149,12 @@ describe('CategoriesComponent', () => {
   let fixture: ComponentFixture<CategoriesComponent>;
   let dialogFixture: ComponentFixture<DialogWithFormComponent>;
   let dialogComponent: DialogWithFormComponent;
+  let dialogProcessFixture: ComponentFixture<CreateProcessDialogComponent>;
+  let dialogProcessComponent: CreateProcessDialogComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CategoriesComponent, DialogWithFormComponent],
+      declarations: [CategoriesComponent, DialogWithFormComponent, CreateProcessDialogComponent],
       imports: [
         MaterialModule,
         ReactiveFormsModule,
@@ -166,6 +169,7 @@ describe('CategoriesComponent', () => {
         { provide: BasicInformationService, useValue: mockBasicInformationService },
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: data },
+        { provide: ModalService, useValue: mockDialogError },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -183,6 +187,8 @@ describe('CategoriesComponent', () => {
     component = fixture.componentInstance;
     dialogFixture = TestBed.createComponent(DialogWithFormComponent);
     dialogComponent = dialogFixture.componentInstance;
+    dialogProcessFixture = TestBed.createComponent(CreateProcessDialogComponent);
+    dialogProcessComponent = dialogProcessFixture.componentInstance;
     mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(responseRegex));
     mockAuthService.getPermissionForMenu.and.returnValue(true);
     mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(responseStatus));
@@ -190,7 +196,7 @@ describe('CategoriesComponent', () => {
   });
 
   it('should create', () => {
-      expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   describe('Category List with data', () => {
@@ -240,12 +246,118 @@ describe('CategoriesComponent', () => {
       expect(mockMatDialog.open).toHaveBeenCalled();
     });
 
+    it('should be update a category', () => {
+      component.categoryToUpdate = categoryList[1];
+      const value = {
+        Commission: 15,
+        Id: 27177,
+        IdCarulla: null,
+        IdCatalogos: null,
+        IdExito: 'catmp1000000000',
+        IdMarketplace: 'catmp1000000000',
+        IdParent: 27176,
+        IdVTEX: null,
+        Name: 'Nacionales',
+        ProductType: 'Technology'
+      };
+      component.confirmationUpdate(value);
+      expect(component.categoryList).not.toEqual(categoryTree);
+    })
+
+    it('Should e exist Comission', () => {
+      expect(component.Commission).toBeTruthy();
+    });
+
+    it('Should e exist Id', () => {
+      expect(component.Id).toBeTruthy();
+    });
+
+    it('Should e exist IdCarulla', () => {
+      expect(component.IdCarulla).toBeTruthy();
+    });
+
+    it('Should e exist IdCatalogos', () => {
+      expect(component.IdCatalogos).toBeTruthy();
+    });
+
+    it('Should e exist IdExito', () => {
+      expect(component.IdExito).toBeTruthy();
+    });
+
+    it('Should e exist IdMarketplace', () => {
+      expect(component.IdMarketplace).toBeTruthy();
+    });
+
+    it('Should e exist IdParent', () => {
+      expect(component.IdParent).toBeTruthy();
+    });
+
+    it('Should e exist NameParent', () => {
+      expect(component.NameParent).toBeTruthy();
+    });
+
+    it('Should e exist Name', () => {
+      expect(component.Name).toBeTruthy();
+    });
+
+    it('Should e exist ProductType', () => {
+      expect(component.ProductType).toBeTruthy();
+    });
+
+    it('Should e exist IdVTEX', () => {
+      expect(component.IdVTEX).toBeTruthy();
+    });
+
+    describe('With creation in batch', () => {
+      beforeEach(() => {
+        const newResponseStatus = {
+          statusCode: 200,
+          body: {
+            body: JSON.stringify({
+              Data: {
+                Status: 1
+              }
+            })
+          }
+        };
+        mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(newResponseStatus));
+        mockMatDialogRef.componentInstance.and.returnValue(dialogProcessComponent);
+      });
+
+      it('Shoud be OpenModal for creating in batch', () => {
+        component.ngOnInit();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(mockCategoryService.verifyStatusOfCreateCategory).toHaveBeenCalled();
+        });
+      });
+    });
   });
 
-  // describe('Category List without data', () => {
-  //   beforeEach(() => {
-  //     mockCategoryService.getCategoryTree.and.returnValue(of(responseEmptyList));
-  //     fixture.detectChanges();
-  //   });
-  // });
+  describe('Category without data', () => {
+    beforeEach(() => {
+      mockCategoryService.getCategoryTree.and.returnValue(of(responseEmptyList));
+      const newResponseRegex = {
+        status: 200,
+        body: {
+          body: JSON.stringify({ Data: [] })
+        }
+      };
+      mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(newResponseRegex));
+      mockAuthService.getPermissionForMenu.and.returnValue(true);
+      mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(responseStatus));
+      mockMatDialogRef.afterClosed.and.returnValue(of(null));
+      mockDialogError.showModal.calls.reset();
+    });
+
+    it('Should be faild ngOnInit, call modalService 3 times', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(mockDialogError.showModal).toHaveBeenCalled();
+        expect(mockDialogError.showModal).toHaveBeenCalledTimes(4);
+      });
+    });
+
+  });
 });

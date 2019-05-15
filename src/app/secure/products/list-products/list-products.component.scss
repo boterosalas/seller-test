@@ -1,19 +1,5 @@
-$color-gray3: #D3D3D3;
+@import '_variables';
 
-/*
-.card-offer {
-  border: 1px solid $color-gray3;
-  width: 240px;
-  height: 350px;
-  margin-left: 2%;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 6px 18px $color-gray3;
-  }
-}
-*/
 .no-products {
   justify-content: center;
   padding-top: 15%;
@@ -25,7 +11,7 @@ $color-gray3: #D3D3D3;
   position: sticky;
   top: 64px;
   background: white;
-  z-index: 10000;
+  z-index: 2;
   padding: 1%;
 }
 
@@ -33,7 +19,7 @@ $color-gray3: #D3D3D3;
   border-bottom: 0.001em solid #D3D3D3;
   padding: 0 25px;
   position: fixed;
-  z-index: 100;
+  z-index: 2;
   background-color: white;
 
   & .toolbar-options-table {
@@ -143,4 +129,13 @@ $color-gray3: #D3D3D3;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.seller-list-title{
+  .sub-title{
+    text-transform: uppercase;
+  }
 }

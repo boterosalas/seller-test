@@ -22,6 +22,7 @@ import {
   ProductPendingDevolutionModalComponent,
 } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -98,7 +99,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private pendingDevolutionService: PendingDevolutionService,
     public componentsService: ComponentsService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private loadingService: LoadingService
   ) { }
 
   /**
@@ -164,8 +166,9 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       };
     }
     const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
-
+    this.loadingService.viewSpinner();
     this.pendingDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
+      this.loadingService.closeSpinner();
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
       if (isEmpty(res)) {
