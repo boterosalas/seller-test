@@ -96,6 +96,8 @@ export class BrandsComponent implements OnInit {
     listFilterBrands: ListFilterBrands[] = [];
     removable = true;
     changeNameBrands: string;
+    filterBrandsControlsName: any;
+    filterBrandsControlsId: any;
 
 
     /**
@@ -134,13 +136,15 @@ export class BrandsComponent implements OnInit {
         const limit = this.pageSize;
         const IdVTEX = 'null';
         const Status = 'null';
-        if (this.filterBrands.controls['filterBrandsId'].value) {
+        this.filterBrandsControlsName = this.filterBrands.controls['filterBrandsId'].value;
+        this.filterBrandsControlsId = this.filterBrands.controls['filterBrandsName'].value;
+        if (this.filterBrandsControlsName) {
             this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
         } else {
             this.filterBrandsId = 'null';
         }
 
-        if (this.filterBrands.controls['filterBrandsName'].value) {
+        if (this.filterBrandsControlsId) {
             this.filterBrandsName = (this.filterBrands.controls['filterBrandsName'].value).toUpperCase();
         } else {
             this.filterBrandsName = 'null';
