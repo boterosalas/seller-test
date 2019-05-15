@@ -43,6 +43,14 @@ $no-px-important: 0px;
   }
   :host{
     article#shipping-methods{
+
+      font-size: 12px;
+      text-align: center;
+
+      mat-icon{
+        margin: 6px auto !important;
+      }
+
       aside{
         border: none;
         width: 100%;
