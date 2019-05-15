@@ -40,7 +40,7 @@ $blue: #485AFA;
   padding-left: 8%;
   padding-right: 8%;
   margin: 0.25em;
-  margin-top: 35px;
+  margin-top: 50px;
 }
 
 .example-sidenav {
@@ -81,6 +81,7 @@ $blue: #485AFA;
 
 table {
   width: 100%;
+  margin-top: 10px;
 }
 
 .edit-profile {
@@ -138,7 +139,6 @@ table {
 }
 
 .brands-button-add {
-  width: 100%;
   text-align: right;
 }
 
@@ -170,7 +170,7 @@ table {
 }
 
 .half-width {
-  width: 100%;
+  width: 95%;
 }
 
 .brands-permission {
@@ -223,4 +223,16 @@ table {
   width: 100%;
   text-align: center;
   margin-top: 90px;
+}
+
+.brands-input-spinner{
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.brands-label-filter{
+  margin-top: 10px;
+  width: calc(100% - 166px);
 }

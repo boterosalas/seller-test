@@ -25,10 +25,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 export interface Brands {
-    id: number;
+    Id: number;
+    Name: string;
+    Status: boolean;
+    PaginationToken: string;
+}
+
+export interface ListFilterBrands {
     name: string;
-    status: boolean;
-    paginationToken: string;
+    value: string;
+    nameFilter: string;
 }
 
 @Component({
@@ -48,6 +54,7 @@ export class BrandsComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild('dialogContent') content: TemplateRef<any>;
     @ViewChild('matSlideToggle') matSlideToggle: ElementRef;
+    @ViewChild('buttonClose') buttonClose: ElementRef;
 
     public form: FormGroup;
     public filterBrands: FormGroup;
@@ -62,7 +69,7 @@ export class BrandsComponent implements OnInit {
     boleano = null;
     color = '#4caf50';
     subs: Subscription[] = [];
-    BrandsRegex = { brandsName: '', formatNumber : ''  };
+    BrandsRegex = { brandsName: '', formatNumber: '' };
     idBrands: number;
     statusBrands: boolean;
     nameBrands: string;
@@ -73,8 +80,9 @@ export class BrandsComponent implements OnInit {
     canUpdate: boolean;
     canCreate: boolean;
     urlParams: string;
+    urlParamsUpdate: string;
     filterBrandsId: any;
-    filterBrandsName: any;
+    filterBrandsName: string;
     dessetUpsert: any;
     showMessage = false;
     body: any;
@@ -82,12 +90,12 @@ export class BrandsComponent implements OnInit {
     dialogReff: DialogWithFormComponent;
     validateExit = true;
     newBrands: string;
-
-
-
-    paginationToken_test: Array<any>;
-    validatePage_test: any;
-    pagaCurrent_test: string = null;
+    serviceParams: {};
+    showSpinner = false;
+    showButton = false;
+    listFilterBrands: ListFilterBrands[] = [];
+    removable = true;
+    changeNameBrands: string;
 
 
     /**
@@ -107,8 +115,6 @@ export class BrandsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.paginationToken_test = [];
-        this.paginationToken_test.push({'page': '0', 'paginationToke': null});
         this.getRegexByModule();
         this.createForm();
         this.validatePermission();
@@ -126,29 +132,75 @@ export class BrandsComponent implements OnInit {
     public getAllBrands(params?: any, activeFilter?: any, showErrors: boolean = true) {
         const page = this.pagepaginator;
         const limit = this.pageSize;
-        this.filterBrandsId = this.filterBrands.controls['filterBrandsId'].value;
-        this.filterBrandsName = this.filterBrands.controls['filterBrandsName'].value;
+        const IdVTEX = 'null';
+        const Status = 'null';
+        if (this.filterBrands.controls['filterBrandsId'].value) {
+            this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
+        } else {
+            this.filterBrandsId = 'null';
+        }
+
+        if (this.filterBrands.controls['filterBrandsName'].value) {
+            this.filterBrandsName = (this.filterBrands.controls['filterBrandsName'].value).toUpperCase();
+        } else {
+            this.filterBrandsName = 'null';
+        }
 
         if (page || limit) {
             this.countFilter++;
-        } else {}
+        } else { this.countFilter = 0; }
 
-        if (this.countFilter) {
-            this.urlParams = `id:${this.filterBrandsId}/name:${this.filterBrandsName}/${page}/${limit}/`;
-        } else {}
-        console.log(this.urlParams);
+        this.urlParams = `${this.filterBrandsId}/${this.filterBrandsName}/${Status}/${IdVTEX}/${page}/${limit}`;
         this.loading.viewSpinner();
-
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
+           /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
+            if (res) {
+                this.brandsList = res.Brands,
+                    this.length = res.Total;
+                this.sortedData = this.mapItems(
+                    res.Brands,
+                );
+            } else {
+                this.sortedData = null;
+            }
 
-            this.brandsList = result.brands,
-                this.sortedData = result.brands,
-                this.length = result.totalLength;
             this.loading.closeSpinner();
         }, error => {
             this.loading.closeSpinner();
             this.modalService.showModal('errorService');
         });
+    }
+    /**
+     *funcion para mapear el resultado del servicio get all brands
+     *
+     * @param {any[]} items
+     * @returns {any[]}
+     * @memberof BrandsComponent
+     */
+    mapItems(items: any[]): any[] {
+        return items.map(x => {
+            return {
+                Id: x.Id,
+                Name: x.Name,
+                Status: this.changeStatus(x.Status),
+                IdVTEX: x.IdVTEX,
+                UpdateStatus: x.UpdateStatus,
+            };
+        });
+    }
+    /**
+     * funcion para cambiar de 1/0 a boleano y poder pintar el interruptor de activo/inactivo
+     *
+     * @param {string} status
+     * @returns
+     * @memberof BrandsComponent
+     */
+    changeStatus(status: string) {
+        if (status === "1") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -163,13 +215,13 @@ export class BrandsComponent implements OnInit {
         if (!sort.active || sort.direction === '') {
             this.sortedData = data;
             return;
-        } else {}
+        } else { }
 
         this.sortedData = data.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
-                case 'id': return this.compare(a.id, b.id, isAsc);
-                case 'name': return this.compare(a.name, b.name, isAsc);
+                case 'id': return this.compare(a.Id, b.Id, isAsc);
+                case 'name': return this.compare(a.Name, b.Name, isAsc);
                 default: return 0;
             }
         });
@@ -233,8 +285,8 @@ export class BrandsComponent implements OnInit {
      * @param status
      * @param index
      */
-    public upsetBrands(brandsData: any, status: string, index: number): void {
-        const dataDialog = this.setDataChangeStatusDialog(brandsData, status, index);
+    public upsetBrands(brandsData: any): void {
+        const dataDialog = this.setDataChangeStatusDialog(brandsData);
         this.form.controls['nameBrands'].setErrors({ 'validExist': true });
         if (!!dataDialog && !!dataDialog.title) {
             const dialogRef = this.dialog.open(DialogWithFormComponent, {
@@ -255,21 +307,23 @@ export class BrandsComponent implements OnInit {
      * @param status
      * @param index
      */
-    setDataChangeStatusDialog(brandsData: any, status: string, index: number) {
+    setDataChangeStatusDialog(brandsData: any) {
         let message = '';
         let title = '';
         let icon = '';
         let form = null;
         let messageCenter = false;
+        const showButtons = false;
 
-        if (brandsData && brandsData.id) {
+        if (brandsData && brandsData.Id) {
             message = 'Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial. ';
             icon = 'edit';
             title = 'Editar marca';
             messageCenter = false;
-            this.form.controls['nameBrands'].setValue(brandsData.name);
-            this.form.controls['idBrands'].setValue(brandsData.id);
-            this.form.controls['status'].setValue(brandsData.status);
+            this.changeNameBrands = brandsData.Name;
+            this.form.controls['nameBrands'].setValue(brandsData.Name);
+            this.form.controls['idBrands'].setValue(brandsData.Id);
+            this.form.controls['status'].setValue(brandsData.Status);
         } else {
             message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y que no podrás utilizar ningún símbolo o caracter especial.';
             icon = 'control_point';
@@ -277,7 +331,7 @@ export class BrandsComponent implements OnInit {
             messageCenter = false;
         }
         form = this.form;
-        return { title, message, icon, form, messageCenter };
+        return { title, message, icon, form, messageCenter, showButtons };
     }
 
     /**
@@ -287,50 +341,9 @@ export class BrandsComponent implements OnInit {
     configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
         const dialogInstance = dialog.componentInstance;
         dialogInstance.content = this.content;
-        dialogInstance.confirmation = () => {
-            this.body = this.form.value;
-            this.brandService.changeStatusBrands(this.body).subscribe(result => {
-                this.body.nameBrands.toUpperCase();
-                //    this.dessetUpsert = this.brandsList.find(x => x.name === this.body.nameBrands);
-                //    console.log(this.body.nameBrands);
-                //    console.log(this.brandsList);
-                //    if (this.dessetUpsert) {
-                //      this.showMessage = true;
-                //    } else {
-                //      this.showMessage = false;
-                //    }
-
-
-                // if (result.status === 200) {
-                //     const reponse = result.body.body;
-                //     const message = JSON.parse(body);
-                //     if (body && message.Message && message.Message === 'El usuario ha sido actualizado éxitosamente.') {
-                //         // this.sellerList[index].StartVacations = null;
-                //         // this.sellerList[index].EndVacations = null;
-                //         // this.snackBar.open('Actualizado correctamente: ' + this.sellerList[index].Name, 'Cerrar', {
-                //         //     duration: 3000,
-                //         // });
-                //     } else {
-                //         // this.getRequiredData();
-                //     }
-                // } else {
-                //     this.modalService.showModal('errorService');
-                // }
-                // // dialog.onNoClick();
-                // this.loading.closeSpinner();
-            });
-        };
-
         this.subs.push(dialog.afterClosed().subscribe(() => {
             this.form.reset({ nameBrands: '', IdBrands: '' });
         }));
-    }
-
-    /**
-     * Funcion para cerrar el filtro y limpiar los campos del filtrado
-     */
-    closeFilter() {
-        this.filterBrands.reset({ filterBrandsName: '', filterBrandsId: '' });
     }
 
     /**
@@ -338,6 +351,8 @@ export class BrandsComponent implements OnInit {
      */
     cleanAllFilter() {
         this.filterBrands.reset({ filterBrandsName: '', filterBrandsId: '' });
+        this.listFilterBrands = [];
+        this.getAllBrands();
     }
 
     /**
@@ -393,22 +408,23 @@ export class BrandsComponent implements OnInit {
         let icon = '';
         const form = null;
         let messageCenter = false;
-        this.idBrands = brandsData.id;
-        this.statusBrands = brandsData.status;
-        this.nameBrands = brandsData.name;
+        const showButtons = true;
+        this.idBrands = brandsData.Id;
+        this.statusBrands = brandsData.Status;
+        this.nameBrands = brandsData.Name;
 
         if (this.statusBrands) {
             message = 'Desactivar la marca la eliminará del listado de marcas disponibles para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
             icon = '';
-            title = 'Desactivar Marca ' + ' (' + brandsData.name + ')';
+            title = 'Desactivar Marca ' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         } else {
             message = 'Al Activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
             icon = '';
-            title = 'Activar Marca' + ' (' + brandsData.name + ')';
+            title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         }
-        return { title, message, icon, form, messageCenter };
+        return { title, message, icon, form, messageCenter, showButtons };
     }
 
     /**
@@ -421,25 +437,25 @@ export class BrandsComponent implements OnInit {
         const dialogInstance = dialog.componentInstance;
         dialogInstance.confirmation = () => {
             const body = {
-                id: this.idBrands,
-                status: !this.statusBrands,
-                name: this.nameBrands.toUpperCase()
+                Id: this.idBrands,
+                Name: this.nameBrands,
+                UpdateStatus: true,
             };
-            if (body && body.status === true) {
+            if (!this.statusBrands === true) {
                 this.stringStatus = 'activo';
             } else {
                 this.stringStatus = 'desactivo';
             }
             this.loading.viewSpinner();
             this.brandService.changeStatusBrands(body).subscribe(result => {
-                this.dessetUpsert = this.brandsList.find(x => x.id === body.id);
-                this.dessetUpsert.status = body.status;
+                this.dessetUpsert = this.sortedData.find(x => x.Id === body.Id);
+                this.dessetUpsert.Status = !this.statusBrands;
                 this.snackBar.open('Se ' + this.stringStatus + ' correctamente la marca ' + this.nameBrands, 'Cerrar', {
                     duration: 3000,
                 });
                 dialogInstance.onNoClick();
                 this.loading.closeSpinner();
-            });
+            }, error => { console.error(error); });
         };
     }
     /**
@@ -448,9 +464,60 @@ export class BrandsComponent implements OnInit {
      * @param {*} params
      * @memberof BrandsComponent
      */
-    public filterApply(params: any) {
+    public filterApply(drawer: any) {
+        this.pagepaginator = 0;
+        this.listFilterBrands = [];
+        if (this.filterBrands.controls['filterBrandsId'].value) {
+            this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
+        } else {
+            this.filterBrandsId = 'null';
+        }
+
+        if (this.filterBrands.controls['filterBrandsName'].value) {
+            this.filterBrandsName = (this.filterBrands.controls['filterBrandsName'].value).toUpperCase();
+        } else {
+            this.filterBrandsName = 'null';
+        }
+        const data = [];
+        data.push({ value: this.filterBrandsId, name: 'filterBrandsId', nameFilter: 'filterBrandsId' });
+        data.push({ value: this.filterBrandsName, name: 'filterBrandsName', nameFilter: 'filterBrandsName' });
+        this.add(data);
         this.getAllBrands('', true, false);
+        drawer.toggle();
     }
+
+
+    /**
+     *funcion para agregar chips de filtrado
+     *
+     * @param {*} data
+     * @memberof BrandsComponent
+     */
+    public add(data: any): void {
+        data.forEach(element => {
+            const value = element.value;
+            if (value && value != 'null') {
+                this.listFilterBrands.push({ name: element.value, value: element.name, nameFilter: element.nameFilter });
+            }
+        });
+    }
+  /**
+   * funcion para remover los chips de filtrados, recargar con los filtros restantes 
+   *
+   * @param {ListFilterBrands} brandsFilter
+   * @memberof BrandsComponent
+   */
+  public remove(brandsFilter: ListFilterBrands): void {
+        const index = this.listFilterBrands.indexOf(brandsFilter);
+        if (index >= 0) {
+            this.listFilterBrands.splice(index, 1);
+            this[brandsFilter.value] = '';
+            this.filterBrands.controls[brandsFilter.nameFilter].setValue(null);
+        }
+        this.getAllBrands();
+    }
+
+
     /**
      * Funcion para cambiar paginador
      *
@@ -459,26 +526,45 @@ export class BrandsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     public changePaginatorBrands(param: any): any {
-        // console.log(param);
-        // this.token_test = this.brandsList[this.brandsList.length - 1 ].paginationToken;
-        // this.brandsList.findIndex(x => x === position)
-        // console.log(this.brandsList[position].id)
         this.pageSize = param.pageSize;
         this.pagepaginator = param.pageIndex;
-
-        this.validatePage_test = this.paginationToken_test.find(x => x.page === this.pagepaginator.toString());
-        if (this.validatePage_test) {
-            this.pagaCurrent_test = this.validatePage_test.paginationToke;
-        } else {
-            this.paginationToken_test.push({'page': this.pagepaginator.toString(), 'paginationToke': this.brandsList[this.brandsList.length - 1 ].paginationToken });
-            this.pagaCurrent_test = this.brandsList[this.brandsList.length - 1 ].paginationToken;
-        }
-        console.log(this.pagaCurrent_test);
-        // console.log(this.pagepaginator);
         this.getAllBrands('', false, false);
     }
+
     /**
+     * funcion para confirmar las acciones de creacion y edicion de marcas
      *
+     * @memberof BrandsComponent
+     */
+    confirmation() {
+        this.body = this.form.value;
+        this.loading.viewSpinner();
+        if (this.body && this.body.idBrands) {
+            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: this.body.nameBrands.toUpperCase(), UpdateStatus: false }).subscribe(result => {
+                if (result.statusCode === 200) {
+                    this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
+                        duration: 3000,
+                    });
+                    this.dialog.closeAll();
+                    this.loading.closeSpinner();
+                    this.getAllBrands();
+                }
+            });
+        } else {
+            this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
+                if (result.statusCode === 200) {
+                    this.getAllBrands();
+                    this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {
+                        duration: 3000,
+                    });
+                    this.dialog.closeAll();
+                    this.loading.closeSpinner();
+                }
+            });
+        }
+    }
+    /**
+     * funcion para validar la exitencia de una marca ya creada, si esta creada sale un snack bar y no permite la creacion
      *
      * @param {*} $event
      * @memberof BrandsComponent
@@ -486,15 +572,28 @@ export class BrandsComponent implements OnInit {
     public validateExist(event: any) {
         this.newBrands = event.target.value.toUpperCase();
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
-            this.brandService.validateExistBrands(this.newBrands).subscribe(res => {
-                // Validar si la data es un booleano
-                // this.validateBrandsExist = (res['data']);
-                this.validateExit = true;
-                // this.form.controls.nameBrands.setErrors(null);
-                this.form.controls.nameBrands.setErrors({ 'validExistBrandsDB': true });
-            }, error => {
-                // this.validateEanExist = true;
-            });
+            if (this.newBrands !== this.changeNameBrands) {
+                this.urlParams = `null/${this.newBrands}/null/null/null/null`;
+                this.showSpinner = true;
+                this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
+                     /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
+                    this.showSpinner = false;
+                    if (res) {
+                        this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
+                            duration: 3000,
+                        });
+                        this.validateExit = true;
+
+                    } else {
+                        this.validateExit = false;
+
+                    }
+                }, error => {
+                    this.showSpinner = false;
+                    this.validateExit = true;
+                    this.form.controls.nameBrands.setErrors({ 'validExistBrandsDB': true });
+                });
+            }
         } else { return null; }
     }
     /**

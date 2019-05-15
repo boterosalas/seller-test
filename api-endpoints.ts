@@ -128,6 +128,13 @@ export const endpoints = {
       payoneer: 'https://jokht2xtxh.execute-api.us-east-1.amazonaws.com/payoneer-dev/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
+      // PARAMETRIZACION
+         // BRANDS GET - Obtener listado de marcas creadas
+         getAllBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/{params}',
+         // BRANDS UPDATE - Actualiza una marca
+         updateBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/UpdateBrand/{params}',
+         // BRANDS CREATE - Crea una nueva marca
+         createBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateBrand/{params}'
     },
   },
   // Endpoints production
