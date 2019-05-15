@@ -176,7 +176,6 @@ export class BrandsComponent implements OnInit {
     }
     /**
      *funcion para mapear el resultado del servicio get all brands
-     *
      * @param {any[]} items
      * @returns {any[]}
      * @memberof BrandsComponent
@@ -194,7 +193,6 @@ export class BrandsComponent implements OnInit {
     }
     /**
      * funcion para cambiar de 1/0 a boleano y poder pintar el interruptor de activo/inactivo
-     *
      * @param {string} status
      * @returns
      * @memberof BrandsComponent
@@ -403,6 +401,7 @@ export class BrandsComponent implements OnInit {
             });
         }
     }
+
     /**
      * funcion para activar o desactivar marcas, recibe el elemento el cual se le cambiara el estado
      */
@@ -433,7 +432,6 @@ export class BrandsComponent implements OnInit {
 
     /**
      * funcion para confirmar el cambio de estado de una marca
-     *
      * @param {MatDialogRef<DialogWithFormComponent>} dialog
      * @memberof BrandsComponent
      */
@@ -462,6 +460,7 @@ export class BrandsComponent implements OnInit {
             }, error => { console.error(error); });
         };
     }
+
     /**
      * funcion para aplicar filtros al listado de marcas
      *
@@ -490,7 +489,6 @@ export class BrandsComponent implements OnInit {
         drawer.toggle();
     }
 
-
     /**
      *funcion para agregar chips de filtrado
      *
@@ -505,13 +503,13 @@ export class BrandsComponent implements OnInit {
             }
         });
     }
-  /**
-   * funcion para remover los chips de filtrados, recargar con los filtros restantes 
-   *
-   * @param {ListFilterBrands} brandsFilter
-   * @memberof BrandsComponent
-   */
-  public remove(brandsFilter: ListFilterBrands): void {
+
+    /**
+     * funcion para remover los chips de filtrados, recargar con los filtros restantes 
+     * @param {ListFilterBrands} brandsFilter
+     * @memberof BrandsComponent
+     */
+    public remove(brandsFilter: ListFilterBrands): void {
         const index = this.listFilterBrands.indexOf(brandsFilter);
         if (index >= 0) {
             this.listFilterBrands.splice(index, 1);
@@ -524,7 +522,6 @@ export class BrandsComponent implements OnInit {
 
     /**
      * Funcion para cambiar paginador
-     *
      * @param {*} param
      * @returns {*}
      * @memberof ListProductsComponent
