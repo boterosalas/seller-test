@@ -97,7 +97,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initComponent();
-        this.listOfBrands();
+        // this.listOfBrands();
     }
 
     /**

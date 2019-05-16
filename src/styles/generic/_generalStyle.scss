@@ -289,7 +289,19 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     margin-top: 0px !important;
 }
 
+.normal-theme .mat-paginator{
+    background: none !important;
+}
+
+.mat-paginator-range-label {
+    margin: 0 !important;
+}
+
 @media only screen and (max-width: 767px) {
+    mat-toolbar.toolbar-component{
+        top: 54px;
+    }
+
     .process-container{
         .mat-step-label{
             display: none !important;
@@ -301,6 +313,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
         width: 100%;
         text-overflow: ellipsis;
         overflow: hidden;
+        text-align: center;
     }
 
     .toolbar.mat-toolbar{

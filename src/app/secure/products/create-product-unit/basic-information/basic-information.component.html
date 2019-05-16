@@ -25,22 +25,22 @@
 
     <!-- BRAND AND MODEL -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-      <!-- <mat-form-field class="brand-product field">
+      <mat-form-field class="brand-product field">
         <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand" (change)="detectForm()"
           id="brandProduct">
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-      </mat-form-field> -->
+      </mat-form-field>
 
-      <mat-form-field class="field">
+      <!-- <mat-form-field class="field">
           <mat-select placeholder="Marca" formControlName="Brand" id="Brand" (selectionChange)="detectForm()" required>
             <mat-option *ngFor="let brand of brands" [value]="brand.Name">
               {{brand.Name}}
             </mat-option>
-          </mat-select>
+          </mat-select> 
           
           <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
 
       <mat-form-field class="model-product field">
         <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model" (change)="detectForm()"

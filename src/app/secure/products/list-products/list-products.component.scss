@@ -11,7 +11,7 @@
   position: sticky;
   top: 64px;
   background: white;
-  z-index: 2;
+  z-index: 1;
   padding: 1%;
 }
 
@@ -61,7 +61,7 @@
   flex-wrap: wrap;
   padding-left: 2%;
   padding-right: 2%;
-  margin: 0.25em;
+  margin: 0 auto;
 }
 
 .example-sidenav {
@@ -130,12 +130,12 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 3%;
   position: relative;
 }
 
 .seller-list-title{
   .sub-title{
-    text-transform: uppercase;
+    // text-transform: uppercase;
   }
 }
