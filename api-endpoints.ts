@@ -129,7 +129,7 @@ export const endpoints = {
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     },
   },
   // Endpoints production
@@ -258,7 +258,7 @@ export const endpoints = {
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     }
   }
 };
