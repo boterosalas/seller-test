@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategoriesComponent } from './categories.component';
 import { NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
@@ -118,15 +118,16 @@ describe('CategoriesComponent', () => {
   };
 
   const responseStatus = {
-    statusCode: 200,
+    status: 200,
     body: {
+      statusCode: 200,
       body: JSON.stringify({
         Data: {
           Status: 0
         }
       })
     }
-  }
+  };
 
   const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
@@ -262,7 +263,7 @@ describe('CategoriesComponent', () => {
       };
       component.confirmationUpdate(value);
       expect(component.categoryList).not.toEqual(categoryTree);
-    })
+    });
 
     it('Should e exist Comission', () => {
       expect(component.Commission).toBeTruthy();

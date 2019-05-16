@@ -1,30 +1,242 @@
+$color-gray3: #D3D3D3;
+$color-gray: #909090;
 $blue: #485AFA;
-@mixin border {
-    border-bottom: 1px solid#EFEDED;
+
+.no-brands {
+  justify-content: center;
+  padding-top: 15%;
+  padding-left: 40%;
 }
 
-:host {
-    section.brand-container {
-        .app-toolbar-title {
-            width: 100%;
-        }
-        .list {
-            margin: 0 2em;
-            .container-group-add-button {
-                text-align: right;
-                color: $blue;
-                padding: 10px 0px;
-                @include border();
-            }
-            .container-brand-list {
-                .brand-list {
-                    @include border();
-                    color: #5D5D5D;
-                    mat-icon {
-                        color: #909090;
-                    }
-                }
-            }
-        }
+.tree-toolbar {
+  border-bottom: 0.001em solid #D3D3D3;
+  padding: 0 25px;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+
+  & .toolbar-options-table {
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 20px;
+  }
+}
+
+
+.icon-face-text {
+  color: #757474;
+  font-size: 18px;
+  text-align: center;
+}
+
+.drawer-container {
+  height: 100%;
+}
+
+.listBrands {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 8%;
+  padding-right: 8%;
+  margin: 0.25em;
+  margin-top: 90px;
+}
+
+.example-sidenav {
+  width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.hide-page {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.seller-filter-sidenav {
+  padding-top: 5%;
+  padding-right: 8%;
+  padding-left: 8%;
+  padding-bottom: 5%;
+}
+
+.buttonsSend {
+  padding-top: 4.25%;
+  padding-bottom: 4.25%;
+}
+
+.height-full {
+  height: 5%;
+}
+
+.listCombo {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.edit-profile {
+  color: $color-gray;
+}
+
+.label-container {
+  padding: 0 1%;
+
+  &.status {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 600px) {
+      width: 37.5%;
     }
+  }
+}
+
+.brands-checkbox-actDes {
+  width: 7%;
+  text-align: center;
+}
+
+.brands-header-styles {
+  font-weight: bold;
+}
+
+.brands-header-id {
+  width: 8%;
+}
+
+.brands-header-action {
+  width: 8%;
+}
+
+.brands-header-status {
+  width: 15%;
+  text-align: center
+}
+
+.mat-checkbox-inner-container {
+  height: 15px;
+  width: 15px;
+}
+
+.brands-header-status-items {
+  text-align: -webkit-center;
+}
+
+.brands-header-brands {
+  width: 28%;
+}
+
+.brands-button-add {
+  text-align: right;
+}
+
+.brands-icons-add {
+  color: #485AFA;
+}
+
+.container-group-add-button {
+  text-align: right;
+  color: $blue;
+  width: 100%;
+  margin: 1.4%;
+}
+
+.brands-filter-sidenav {
+  padding-top: 5%;
+  padding-right: 8%;
+  padding-left: 8%;
+  padding-bottom: 5%;
+}
+
+.brands-modal-margin {
+  margin-top: 40px;
+  height: 128px;
+}
+
+.full-width {
+  width: 100%
+}
+
+.half-width {
+  width: 95%;
+}
+
+.brands-permission {
+  text-align: center;
+  color: #9e9e9e
+}
+
+.brands-not-permission {
+  margin-top: 10%;
+}
+
+.brands-icon-permission {
+  margin-top: 10px
+}
+
+.mat-table {
+  border-spacing: 0px
+}
+
+.mat-style-td {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-left: 24px;
+}
+
+.mat-style-tr {
+  font-weight: inherit;
+  font-size: 14px;
+  height: 56px;
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-left: 24px;
+  text-align: left;
+}
+
+.brands-position-option {
+  justify-content: center;
+  text-align: center;
+  padding: 12px 0;
+  margin-bottom: -24px;
+}
+
+.brands-position-option-cancel {
+  margin-left: 8px;
+}
+
+.brands-table-null {
+  width: 100%;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.brands-input-spinner {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.brands-label-filter {
+  margin-top: 10px;
+  width: calc(100% - 166px);
+}
+
+::ng-deep .mat-slide-toggle-thumb-container {
+  z-index: 0 !important;
 }

@@ -128,6 +128,13 @@ export const endpoints = {
       payoneer: 'https://jokht2xtxh.execute-api.us-east-1.amazonaws.com/payoneer-dev/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
+      // PARAMETRIZACION
+      // BRANDS GET - Obtener listado de marcas creadas
+      getAllBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/{params}',
+      // BRANDS UPDATE - Actualiza una marca
+      updateBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/UpdateBrand/{params}',
+      // BRANDS CREATE - Crea una nueva marca
+      createBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateBrand/{params}',
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     },
@@ -257,6 +264,13 @@ export const endpoints = {
       payoneer: 'https://fi27yra105.execute-api.us-east-1.amazonaws.com/payoneer-pdn/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
+      // PARAMETRIZACION
+      // BRANDS GET - Obtener listado de marcas creadas
+      getAllBrands: '',
+      // BRANDS UPDATE - Actualiza una marca
+      updateBrand: '',
+      // BRANDS CREATE - Crea una nueva marca
+      createBrand: '',
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     }

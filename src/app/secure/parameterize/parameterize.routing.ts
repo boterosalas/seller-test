@@ -5,7 +5,6 @@ import { SpecificationsParamComponent } from './specifications/specifications.co
 import { BrandsComponent } from './brands/brands.component';
 import { RoutesConst } from './../../shared';
 import { AuthService } from '../auth/auth.routing';
-import { CategoryTreeComponent } from './category/category-tree/category-tree.component';
 import { CategoriesComponent } from './category/categories/categories.component';
 
 const routes: Routes = [
@@ -19,6 +18,7 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntParamBrand}`,
       component: BrandsComponent,
       data: { title: 'Marcas' },
+      canActivate: [AuthService]
     },
     {
       path: `${RoutesConst.sellerCenterIntCategoryTree}`,
