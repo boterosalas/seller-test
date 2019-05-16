@@ -272,12 +272,16 @@ export class BrandsComponent implements OnInit {
     createForm() {
         this.filterBrands = new FormGroup({
             filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
-            filterBrandsName: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
+            filterBrandsName: new FormControl(''),
         });
         this.form = new FormGroup({
             nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
             idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
             status: new FormControl(''),
+        });
+
+        this.form.valueChanges.subscribe(() => {
+            this.validateExit = true;
         });
     }
 
@@ -327,7 +331,7 @@ export class BrandsComponent implements OnInit {
             this.form.controls['idBrands'].setValue(brandsData.Id);
             this.form.controls['status'].setValue(brandsData.Status);
         } else {
-            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y que no podrás utilizar ningún símbolo o caracter especial.';
+            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.';
             icon = 'control_point';
             title = 'Agregar marca';
             messageCenter = false;
@@ -422,7 +426,7 @@ export class BrandsComponent implements OnInit {
             title = 'Desactivar Marca ' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         } else {
-            message = 'Al Activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
+            message = 'Al activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
             icon = '';
             title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
