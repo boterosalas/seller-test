@@ -298,7 +298,16 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 }
 
 @media only screen and (max-width: 767px) {
-    mat-toolbar.toolbar-component{
+    
+    .principal-toolbar{
+        z-index: 2 !important;
+    }
+
+    .listCombo{
+        margin-top: 15% !important;
+    }
+
+    mat-toolbar.toolbar-component, .tree-toolbar{
         top: 54px;
     }
 
@@ -316,7 +325,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
         text-align: center;
     }
 
-    .toolbar.mat-toolbar{
+    .toolbar.mat-toolbar, .tree-toolbar{
         p{
             font-size: 16px !important;
             width: 100%;
@@ -329,7 +338,30 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
         height: auto !important;
     }
 
+    mat-toolbar.toolbar-component{
+        padding-bottom: 5px !important;
+    }
+
     mat-toolbar.toolbar-component .toolbar-options .options-toolbar {
         margin-top: 20px;
     }
+
+    .tree-toolbar .toolbar-options-table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-store{
+        margin-bottom: 8px;
+    }
+
+    .mat-expansion-panel{
+        max-width: 88vw;
+    }
+
+    .bleft{
+        position: relative !important;
+    }
+
   }
