@@ -23,6 +23,8 @@ import {
 } from '../product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
+import { MenuModel, readFunctionality, acceptFuncionality, refuseFuncionality, pendingName } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -94,13 +96,23 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     }
   };
 
+  permissionComponent: MenuModel;
+
+  /**
+   * Attribute that represent the read access
+   */
+  read = readFunctionality;
+  accept = acceptFuncionality;
+  refuse = refuseFuncionality;
+
   constructor(
     public shellComponent: ShellComponent,
     public dialog: MatDialog,
     private pendingDevolutionService: PendingDevolutionService,
     public componentsService: ComponentsService,
     public userParams: UserParametersService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private authService: AuthService
   ) { }
 
   /**
@@ -108,12 +120,21 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(pendingName);
     this.getDataUser();
   }
 
   ngOnDestroy() {
     // Funcionalidad para remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+  }
+
+  /**
+   * MEthod that get the permissions for the component
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   async getDataUser() {
