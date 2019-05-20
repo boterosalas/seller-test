@@ -9,7 +9,7 @@
     </div>
 
     <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders">
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="read">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
@@ -129,12 +129,12 @@
                 <span>Acciones</span>
               </button>
               <mat-menu #orderOptions="matMenu">
-                <button (click)="openModalAceptOrder(element)" id="print-rot-order-{{element.orderNumber}}" mat-menu-item>
+                <button (click)="openModalAceptOrder(element)" id="print-rot-order-{{element.orderNumber}}" mat-menu-item *ngIf="accept">
                   <mat-icon>thumb_up</mat-icon>
                   <span>Aceptar</span>
                 </button>
 
-                <button (click)="openModalRefuseOrder(element)" id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item>
+                <button (click)="openModalRefuseOrder(element)" id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item *ngIf="refuse">
                   <mat-icon>thumb_down</mat-icon>
                   <span>Rechazar</span>
                 </button>
