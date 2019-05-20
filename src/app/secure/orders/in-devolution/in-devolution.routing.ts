@@ -17,7 +17,7 @@ const routes: Routes = [
   Route.withShell([
     {
         path: `${RoutesConst.sellerCenterIntOrderInDevolution}`,
-        component: !isProductionEnv ? InDevolutionComponent : ErrorPageComponent,
+        component: InDevolutionComponent,
         data: { title: 'En devolución' },
         // canActivate: [TermsService]
         canActivate: [AuthService]
