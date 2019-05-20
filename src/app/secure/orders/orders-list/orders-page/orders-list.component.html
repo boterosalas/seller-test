@@ -63,11 +63,11 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" fxFlex.xl="250px"
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl=""
             *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Orden</span>
           </mat-header-cell>
-          <mat-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" fxFlex.xl="250px" *matCellDef="let element">
+          <mat-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-bold-order id-order">
               <mat-icon matSuffix class="icon-forSend" [ngClass]="{'active': element.allowShipping && element.idStatusOrder == const.OrderAsignado}">
                 local_shipping
@@ -82,11 +82,11 @@
 
         <!-- dateOrder Column -->
         <ng-container matColumnDef="dateOrder">
-          <mat-header-cell fxFlex.sm="120px" fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xs="70" fxShow.xs="false"
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false"
             fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Fecha pedido</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.sm="120px" fxFlex.md="110px" fxFlex.lg="140px"
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.sm="" fxFlex.md="" fxFlex.lg=""
             fxFlex.xs="70" fxFlex.xl="250px" *matCellDef="let element">
             <p class="sc-date-content-table">{{getDateWithOutGMT(element.dateOrder) | date}} </p>
           </mat-cell>
@@ -94,24 +94,24 @@
 
         <!-- dateMaxDeliveryOrder Column -->
         <ng-container matColumnDef="dateMaxDeliveryOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
-            fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Fecha max entrega </span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
-            fxFlex.md="110px" fxFlex.lg="140px" fxFlex.xl="250px" fxFlex.xs="70" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xl="" fxFlex.xs="70" *matCellDef="let element">
             <p class="sc-date-content-table">{{getDateWithOutGMT(element.dateMaxDeliveryOrder) | date}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- statusOrder Column -->
         <ng-container matColumnDef="statusOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px"
-            fxFlex.md="160px" fxFlex.lg="160px" fxFlex.xs="70" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Estado</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="118px"
-            fxFlex.md="160px" fxFlex.lg="160px" fxFlex.xs="150px" fxFlex.xl="250px" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
             <div class="mat-icon-status-order">
 
               <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderAsignado">
@@ -148,26 +148,26 @@
         <!-- channel Column -->
         <ng-container matColumnDef="channel">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
-            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef
             mat-sort-header>
             <span class="title-table-header">Canal</span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
-            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matCellDef="let element">
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{element.channel}}</p>
           </mat-cell>
         </ng-container>
 
         <!-- Acciones Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="110px" fxFlex.sm="110px" fxFlex.md="110px" fxFlex.xs="110px"
-            fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+            fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Acciones</span>
           </mat-header-cell>
-          <mat-cell fxFlex.lg="130px" fxFlex.sm="140px" fxFlex.md="130px" fxFlex.xl="250px" fxFlex.xs="130px"
+          <mat-cell fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xl="" fxFlex.xs=""
             *matCellDef="let element;let index=index">
             <div class="center-product-list">
-              <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)" class="sc-button-toolbar button-toolbar"
+              <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)" class="sc-button-toolbar no-button button-toolbar"
                 mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon matPrefix>arrow_drop_down</mat-icon>
                 <span>Acciones</span>

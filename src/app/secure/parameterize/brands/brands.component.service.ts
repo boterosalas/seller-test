@@ -1,47 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { String } from 'aws-sdk/clients/rdsdataservice';
 
 export interface BrandModel {
-    IdBrand: number;
-    NameBrand: string;
+  IdBrand: number;
+  NameBrand: string;
 }
+
+export interface Brands {
+  id: number;
+  name: string;
+  status: boolean;
+  paginationToken: string;
+}
+
 
 @Injectable()
 export class BrandService {
 
-    constructor(
-        private http: HttpClient
-    ) {
-    }
+  constructor(
+    private http: HttpClient,
+    private api: EndpointService
+  ) { }
 
-    public getBrands(): Observable<any> {
-        return of({
-            data: [{
-                idBrand: 1,
-                brandName: 'hola como estas'
-            }, {
-                idBrand: 2,
-                brandName: 'hola como estas 2'
-            }], errors: [], message: ''
-        });
-    }
+  getAllBrands(params: any): Observable<any> {
+    return this.http.get(this.api.get('getAllBrands', [params]));
+  }
 
-    public getBrand(id: number): Observable<any> {
-        return of();
-    }
+  changeStatusBrands(body: any): Observable<any> {
+    return this.http.patch(this.api.get('updateBrand'), body);
+  }
 
-    public setBrand(model: any): Observable<any> {
-        return of();
-    }
+  createBrands(body: any): Observable <any> {
+    return this.http.patch(this.api.get('createBrand'), body);
+  }
 
-    public updateBrand(model: any): Observable<any> {
-        return of();
-    }
-
-    public deleteBrand(id: number): Observable<any> {
-        return of();
-    }
+  validateExistBrands(nameBrands: String): Observable<any> {
+    return this.http.get(this.api.get('getAllBrands', [nameBrands]));
+  }
 
 }

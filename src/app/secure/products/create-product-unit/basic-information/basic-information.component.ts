@@ -82,6 +82,11 @@ export class ProductBasicInfoComponent implements OnInit {
         ]
       };
 
+      /**
+       *  brands variables
+       *  */
+       brands = [];
+
     constructor(
         private snackBar: MatSnackBar,
         private service: BasicInformationService,
@@ -92,6 +97,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initComponent();
+        // this.listOfBrands();
     }
 
     /**
@@ -140,12 +146,12 @@ export class ProductBasicInfoComponent implements OnInit {
         this.formKeyword = new FormGroup({
             
         });
+
         this.formBasicInfo = new FormGroup({
             Keyword: new FormControl('', [Validators.required ]),
-            Name: new FormControl('',
-                [
-                    Validators.required, Validators.pattern(this.getValue('nameProduct'))
-                ]),
+            Name: new FormControl('', Validators.compose([
+                Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
+            ])),
             Category: new FormControl({ value: this.productData.CategorySelected, disabled: true },
                 [
                     Validators.required,
@@ -526,4 +532,27 @@ export class ProductBasicInfoComponent implements OnInit {
         }
         return valid;
     }
+
+    /**
+     * Obtiene el listado de marcas
+     *
+     * @returns {array}
+     * @memberof ProductBasicInfoComponent
+     */
+
+     listOfBrands() {
+         this.service.getActiveBrands().subscribe(brands => {
+             const initialBrands = brands.Data.Brands;
+             this.brands = initialBrands.sort((a, b) =>{
+                if (a.Name > b.Name) {
+                  return 1;
+                }
+                if (a.Name < b.Name) {
+                  return -1;
+                }
+                return 0;
+              });
+         })
+     }
+
 }

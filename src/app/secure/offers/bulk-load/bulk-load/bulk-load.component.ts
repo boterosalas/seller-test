@@ -268,7 +268,7 @@ export class BulkLoadComponent implements OnInit {
             priceError = 'Price';
           }
           this.EanArray.push({
-            ean: res[i][this.arrayNecessaryData[0].indexOf('EAN')],
+            ean: res[i][res[0].indexOf('EAN')],
             price: price,
             index: i,
             error: priceError
@@ -356,9 +356,9 @@ export class BulkLoadComponent implements OnInit {
 
   validateSubTitle(array: any, titleEn: string, titleEs: string) {
     if (array[0].indexOf(titleEs) > 0) {
-      return array[0].indexOf(titleEs)
+      return array[0].indexOf(titleEs);
     } else if (array[0].indexOf(titleEn) > 0) {
-      return array[0].indexOf(titleEn)
+      return array[0].indexOf(titleEn);
     }
 
   }

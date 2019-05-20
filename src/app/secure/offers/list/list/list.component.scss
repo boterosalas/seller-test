@@ -1,11 +1,6 @@
-$color-white: #FFFFFF;
-$color-black: #000000;
-$color-gray1: #5D5D5D;
-$color-gray2: #909090;
-$color-gray3: #D3D3D3;
-$color-gray4: #BCBCBC;
-$color-blue: #485AFA;
-$color-white-opacity: rgba(255, 255, 255, 0.7);
+
+@import '_variables';
+
 :host ::ng-deep {
     mat-sidenav-container {
         position: relative;
@@ -75,21 +70,24 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                     }
                 }
                 &.card-offer {
-                    border: 1px solid $color-gray3;
+                    border: 1px solid $color-border;
                     width: 240px;
-                    height: 350px;
+                    height: auto;
+                    min-height: 300px;
                     margin: 10px 6px;
                     border-radius: 5px;
                     cursor: pointer;
                     &:hover {
-                        box-shadow: 0px 6px 18px $color-gray3;
+                        box-shadow: 0px 6px 18px $color-border;
                     }
                     .container-card-img {
                         width: 100%;
                         height: 45%;
-                        max-height: 157px;
-                        min-height: 157px;
+                        max-height: 100px;
+                        min-height: 100px;
                         position: relative;
+                        padding: 20px 0px 0px 0px;
+                        margin-bottom: 10px;
                         img {
                             width: 120px;
                             height: 120px;
@@ -130,37 +128,50 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                             text-overflow: ellipsis;
                         }
                         h3 {
-                            font-size: 12px;
+                            font-size: $font-size-principal - 4;
+                            font-family: $font-principal;
                             color: $color-black;
+                            font-weight: 300;
                         }
                         p {
-                            font-size: 14px;
+                            font-size: $font-size-principal - 2;
                             color: $color-gray2;
                             &.price {
-                                font-size: 22px;
+                                font-size: $font-size-principal + 6;
+                                font-family: $font-principal;
                                 color: $color-black;
                             }
                             &.price-strikethrough {
                                 text-decoration: line-through;
+                                color: $color-gray-light;
+                                font-size: $font-size-principal - 2;
                             }
                             &.sold-out-text {
-                                font-size: 12px;
+                                font-size: $font-size-principal - 4;
                             }
                             &.name {
+                                font-family: $font-principal;
+                                font-weight: 300;
                                 color: $color-gray1;
                                 white-space: normal;
+                            }
+                            &.stock{
+                                font-family: $font-principal;
+                                font-weight: 300;
+                                color:$color-gray-light;
                             }
                         }
                     }
                     .container-last-modification {
                         height: 10%;
                         width: 100%;
-                        border-top: 1px dashed $color-gray3;
+                        border-top: 1px dashed $color-border;
                         box-sizing: border-box;
                         padding: 0 5px 0 20px;
                         p {
-                            font-size: 12px;
-                            color: $color-gray2;
+                            font-size: $font-size-principal - 4;
+                            font-family: $font-principal;
+                            color: $color-gray1;
                             strong {
                                 font-weight: normal;
                                 color: $color-gray1;
@@ -194,58 +205,58 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
                         margin-left: 0;
                     }
                 }
-                &.card-offer {
-                    width: 100%;
-                    height: 170px;
-                    max-width: 345px;
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: center;
-                    .container-card-img {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 35%;
-                        height: 85%;
-                        max-height: 85%;
-                        min-height: 85%;
-                        img {
-                            width: 75px;
-                            height: 75px;
-                        }
-                        .sold-out {
-                            div {
-                                width: 87px;
-                            }
-                        }
-                    }
-                    .container-desc-card {
-                        height: 85%;
-                        width: 65%;
-                        padding: 5% 3% 3% 5%;
-                        p {
-                            &.stock {
-                                display: none;
-                            }
-                            &.name {
-                                font-size: 16px;
-                            }
-                        }
-                    }
-                    .container-last-modification {
-                        height: 15%;
-                        display: none;
-                        &.mobile {
-                            display: flex;
-                            justify-content: space-between;
-                            padding: 0 20px;
-                            p {
-                                margin: 0;
-                            }
-                        }
-                    }
-                }
+                // &.card-offer {
+                //     width: 100%;
+                //     height: 170px;
+                //     max-width: 345px;
+                //     display: flex;
+                //     flex-wrap: wrap;
+                //     align-items: center;
+                //     justify-content: center;
+                //     .container-card-img {
+                //         display: flex;
+                //         align-items: center;
+                //         justify-content: center;
+                //         width: 35%;
+                //         height: 85%;
+                //         max-height: 85%;
+                //         min-height: 85%;
+                //         img {
+                //             width: 75px;
+                //             height: 75px;
+                //         }
+                //         .sold-out {
+                //             div {
+                //                 width: 87px;
+                //             }
+                //         }
+                //     }
+                //     .container-desc-card {
+                //         height: 85%;
+                //         width: 65%;
+                //         padding: 5% 3% 3% 5%;
+                //         p {
+                //             &.stock {
+                //                 display: none;
+                //             }
+                //             &.name {
+                //                 font-size: 16px;
+                //             }
+                //         }
+                //     }
+                //     .container-last-modification {
+                //         height: 15%;
+                //         display: none;
+                //         &.mobile {
+                //             display: flex;
+                //             justify-content: space-between;
+                //             padding: 0 20px;
+                //             p {
+                //                 margin: 0;
+                //             }
+                //         }
+                //     }
+                // }
             }
         }
         mat-sidenav {
@@ -255,3 +266,12 @@ $color-white-opacity: rgba(255, 255, 255, 0.7);
         }
     }
 }
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  

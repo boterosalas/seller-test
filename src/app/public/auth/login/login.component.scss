@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '_variables';
 // always include only once per project
 @include mat-core();
 $primary: mat-palette($mat-indigo);
@@ -107,4 +108,9 @@ $primary: mat-palette($mat-indigo);
     #login-button{
         width: 130px;
     }
+}
+
+a{
+    text-decoration: none;
+    color:$color-blue;
 }

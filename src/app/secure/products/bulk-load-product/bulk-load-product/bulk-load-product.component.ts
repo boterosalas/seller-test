@@ -15,6 +15,7 @@ import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
 import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -88,6 +89,30 @@ export class BulkLoadProductComponent implements OnInit {
 
   public showCharge: boolean;
 
+  // Objeto moquear regex
+  productsRegex = {
+    number: '',
+    eanProduct: '',
+    nameProduct: '',
+    eanComboProduct: '',
+    brandProduct: '',
+    keyWordsProduct: '',
+    detailProduct: '',
+    eanImageProduct: '',
+    SkuShippingSizeProduct: '',
+    Package: '',
+    descriptionProduct: '',
+    size: '',
+    hexColourCodePDPProduct: '',
+    limitCharsSixty: '',
+    sizeProduct: '',
+    colorProduct: '',
+    typeCategory: '',
+    descUnidadMedidaProduct: '',
+    factConversionProduct: '',
+    eanCombo: ''
+  };
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
@@ -103,10 +128,10 @@ export class BulkLoadProductComponent implements OnInit {
     public BulkLoadProductS: BulkLoadProductService,
     public dialog: MatDialog,
     private loadingService: LoadingService,
-    public userService: UserLoginService,
     public userParams: UserParametersService,
     private modalService: ModalService,
-    public authService: AuthService
+    public authService: AuthService,
+    public SUPPORT: SupportService,
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -134,6 +159,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.getAvaliableLoads();
     this.verifyStateCharge();
     this.getDataUser();
+    this.validateFormSupport();
   }
 
   /**
@@ -1340,64 +1366,64 @@ export class BulkLoadProductComponent implements OnInit {
     // call to the bulk load product service
     if (this.profileTypeLoad === 'Tienda') {
       this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
-      .subscribe(
-        (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const data = result;
-            if (data.body.data !== null && data.body.data !== undefined) {
-              if (data.body.successful !== 0 || data.body.error !== 0) {
-                // this.openDialogSendOrder(data);
-                this.progressStatus = false;
-                this.verifyStateCharge();
-                this.getAvaliableLoads();
-                // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);
+        .subscribe(
+          (result: any) => {
+            if (result.status === 201 || result.status === 200) {
+              const data = result;
+              if (data.body.data !== null && data.body.data !== undefined) {
+                if (data.body.successful !== 0 || data.body.error !== 0) {
+                  // this.openDialogSendOrder(data);
+                  this.progressStatus = false;
+                  this.verifyStateCharge();
+                  this.getAvaliableLoads();
+                  // Validar que los errores existan para poder mostrar el modal.
+                  if (result.body.data.error > 0) {
+                    this.openDialogSendOrder(data);
+                  }
+                } else if (data.body.successful === 0 && data.body.error === 0) {
+                  this.modalService.showModal('errorService');
                 }
-              } else if (data.body.successful === 0 && data.body.error === 0) {
+              } else {
                 this.modalService.showModal('errorService');
               }
+
             } else {
               this.modalService.showModal('errorService');
             }
-
-          } else {
-            this.modalService.showModal('errorService');
+            this.resetVariableUploadFile();
+            this.loadingService.closeSpinner();
           }
-          this.resetVariableUploadFile();
-          this.loadingService.closeSpinner();
-        }
-      );
+        );
     } else {
       this.BulkLoadProductS.setProducts(this.arrayInformationForSend)
-      .subscribe(
-        (result: any) => {
-          if (result.status === 201 || result.status === 200) {
-            const data = result;
-            if (data.body.data !== null && data.body.data !== undefined) {
-              if (data.body.successful !== 0 || data.body.error !== 0) {
-                // this.openDialogSendOrder(data);
-                this.progressStatus = false;
-                this.verifyStateCharge();
-                this.getAvaliableLoads();
-                // Validar que los errores existan para poder mostrar el modal.
-                if (result.body.data.error > 0) {
-                  this.openDialogSendOrder(data);
+        .subscribe(
+          (result: any) => {
+            if (result.status === 201 || result.status === 200) {
+              const data = result;
+              if (data.body.data !== null && data.body.data !== undefined) {
+                if (data.body.successful !== 0 || data.body.error !== 0) {
+                  // this.openDialogSendOrder(data);
+                  this.progressStatus = false;
+                  this.verifyStateCharge();
+                  this.getAvaliableLoads();
+                  // Validar que los errores existan para poder mostrar el modal.
+                  if (result.body.data.error > 0) {
+                    this.openDialogSendOrder(data);
+                  }
+                } else if (data.body.successful === 0 && data.body.error === 0) {
+                  this.modalService.showModal('errorService');
                 }
-              } else if (data.body.successful === 0 && data.body.error === 0) {
+              } else {
                 this.modalService.showModal('errorService');
               }
+
             } else {
               this.modalService.showModal('errorService');
             }
-
-          } else {
-            this.modalService.showModal('errorService');
+            this.resetVariableUploadFile();
+            this.loadingService.closeSpinner();
           }
-          this.resetVariableUploadFile();
-          this.loadingService.closeSpinner();
-        }
-      );
+        );
     }
   }
 
@@ -1487,26 +1513,26 @@ export class BulkLoadProductComponent implements OnInit {
    */
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
-    const filterNumber = /^[0-9]+$/;
-    const formatEan = /^([A-Z0-9]{5,16})$|0{1}$/;
-    const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
-    const formatAllChars = /^[\w\W\s\d]{1,200}$/;
-    const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
-    const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
-    const formatImg = /\bJPG$|\bjpg$/;
-    const formatSkuShippingSize = /^[1-5]{1}$/;
-    const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
-    const formatDesc = /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
-    const formatSize = /^[^\s]{1,10}$/;
-    const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
-    const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
-    const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
-    const FormatTypeCategory = /^(Technology|Clothing)$/;
-    const formatDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
-    const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
-    // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
-    const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
-    const formatEanCombo = /(((^([A-Z0-9]{5,16}))+)+([,](([A-Z0-9]{5,16})))*)$/;
+    // const filterNumber = /^[0-9]+$/;
+    // const formatEan = /^([A-Z0-9]{5,16})$|0{1}$/;
+    // const formatNameProd = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ+\-\,\.\s]{1,60}$/;
+    // const formatAllChars = /^[\w\W\s\d]{1,200}$/;
+    // const formatAllCharsKeyWords = /^[\w\W\s\d]{1,500}$/;
+    // const formatlimitChars = /^[\w\W\s\d]{1,29}$/;
+    // const formatImg = /\bJPG$|\bjpg$/;
+    // const formatSkuShippingSize = /^[1-5]{1}$/;
+    // const formatPackage = /^([0-9]{1,7})(\,[0-9]{1,2})$|^([0-9]{1,10})$/;
+    // const formatDesc = /^((?!<script>|<SCRIPT>|<Script>)[\s\S])*$/;
+    // const formatSize = /^[^\s]{1,10}$/;
+    // const formatHexPDP = /^[a-zA-Z0-9]{1,6}$/;
+    // const formatlimitCharsSixty = /^[\w\W\s\d]{1,60}$/;
+    // const FormatColor = /^(Beige|Negro|Blanco|Azul|Amarillo|Cafe|Gris|Verde|Naranja|Rosa|Morado|Rojo|Plata|Dorado|MultiColor)$/;
+    // const FormatTypeCategory = /^(Technology|Clothing)$/;
+    // const formatDescUnidadMedida = /^(Gramo|Mililitro|Metro|Unidad)$/;
+    // const formatFactConversion = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
+    // // const formatFactConversion = /^(((^[1-9]\d{0,10})$|^(([0-9])+[,\.][0-9]{1,2}){1,9}))?/;
+    // const formatFactEscurrido = /^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$/;
+    // const formatEanCombo = /(((^([A-Z0-9]{5,16}))+)+([,](([A-Z0-9]{5,16})))*)$/;
 
     if (inputtxt === undefined) {
       valueReturn = false;
@@ -1514,21 +1540,21 @@ export class BulkLoadProductComponent implements OnInit {
       inputtxt = inputtxt.trim();
       switch (validation) {
         case 'ean':
-          if ((inputtxt.match(formatEan))) {
+          if ((inputtxt.match(this.productsRegex.eanProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'descUniMedida':
-          if ((inputtxt.match(formatDescUnidadMedida))) {
+          if ((inputtxt.match(this.productsRegex.descUnidadMedidaProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'factConversion':
-          if ((inputtxt.match(formatFactConversion))) {
+          if ((inputtxt.match(this.productsRegex.factConversionProduct))) {
             if (inputtxt > 0) {
               valueReturn = true;
             } else {
@@ -1540,49 +1566,49 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'factEscurrido':
-          if ((inputtxt.match(formatFactEscurrido))) {
+          if ((inputtxt.match(this.productsRegex.factConversionProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'eanCombo':
-          if ((inputtxt.match(formatEanCombo))) {
+          if ((inputtxt.match(this.productsRegex.eanCombo))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'nameProd':
-          if ((inputtxt.match(formatNameProd))) {
+          if ((inputtxt.match(this.productsRegex.nameProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'numeric':
-          if ((inputtxt.match(filterNumber))) {
+          if ((inputtxt.match(this.productsRegex.number))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'formatAllChars':
-          if ((inputtxt.match(formatAllChars))) {
+          if ((inputtxt.match(this.productsRegex.brandProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'formatAllCharsKeyWords':
-          if ((inputtxt.match(formatAllCharsKeyWords))) {
+          if ((inputtxt.match(this.productsRegex.keyWordsProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'formatlimitChars':
-          if ((inputtxt.match(formatlimitChars))) {
+          if ((inputtxt.match(this.productsRegex.detailProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1596,21 +1622,21 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'formatImg':
-          if ((inputtxt.match(formatImg))) {
+          if ((inputtxt.match(this.productsRegex.eanImageProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'formatSku':
-          if ((inputtxt.match(formatSkuShippingSize))) {
+          if ((inputtxt.match(this.productsRegex.SkuShippingSizeProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'formatPackage':
-          if ((inputtxt.match(formatPackage))) {
+          if ((inputtxt.match(this.productsRegex.Package))) {
             const num = parseInt(inputtxt, 10);
             if (num > 0) {
               valueReturn = true;
@@ -1622,14 +1648,14 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'formatDescription':
-          if ((inputtxt.match(formatDesc))) {
+          if ((inputtxt.match(this.productsRegex.descriptionProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'boolean':
-          if ((inputtxt.match(filterNumber))) {
+          if ((inputtxt.match(this.productsRegex.number))) {
             if (inputtxt === '1' || inputtxt === '0') {
               valueReturn = true;
             } else {
@@ -1640,7 +1666,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'greaterThanZero':
-          if ((inputtxt.match(filterNumber))) {
+          if ((inputtxt.match(this.productsRegex.number))) {
             const num = parseInt(inputtxt, 10);
             if (num > 0) {
               valueReturn = true;
@@ -1652,42 +1678,42 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'category':
-          if (inputtxt.match(FormatTypeCategory)) {
+          if (inputtxt.match(this.productsRegex.typeCategory)) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'size':
-          if ((inputtxt.match(formatSize))) {
+          if ((inputtxt.match(this.productsRegex.size))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'color':
-          if (inputtxt.match(FormatColor)) {
+          if (inputtxt.match(this.productsRegex.colorProduct)) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'colorPDP':
-          if ((inputtxt.match(formatHexPDP))) {
+          if ((inputtxt.match(this.productsRegex.hexColourCodePDPProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         case 'colorName':
-          if ((inputtxt.match(formatlimitCharsSixty))) {
+          if ((inputtxt.match(this.productsRegex.limitCharsSixty))) {
             valueReturn = true;
           } else {
             valueReturn = false;
           }
           break;
         default:
-          if ((inputtxt.match(formatAllChars))) {
+          if ((inputtxt.match(this.productsRegex.brandProduct))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1844,6 +1870,20 @@ export class BulkLoadProductComponent implements OnInit {
       view[i] = s.charCodeAt(i) & 0xFF;
     }
     return buf;
+  }
+
+  // Funcion para cargar datos de regex
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+      for (const val in this.productsRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.productsRegex[val] = element && `${element.Value}`;
+        }
+      }
+    });
   }
 
 }

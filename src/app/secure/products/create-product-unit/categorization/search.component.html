@@ -8,19 +8,19 @@
 </p>
 <div fxLayout="row" fxLayoutAlign="center center" class="sticky-position">
 
-    <form id="search-form" class="search mat-typography" (keydown)="keyDownFunction($event)">
+    <form id="search-form" class="search mat-typography">
         <mat-form-field class="input-search" floatLabel=never>
             <!-- Icon search -->
             <mat-icon id="icon-search" class="icon-search" matPrefix>search</mat-icon>
 
             <!-- Input search -->
-            <input id="input-search" class="search-input" type="search" (ngModelChange)="whatchValueInput($event)"
+            <input id="input-search" class="search-input" type="search"
                 [formControl]="searchCategory" matInput [matAutocomplete]="auto" placeholder="Buscar categoría" >
         </mat-form-field>
 
         <!-- Autocomplete -->
-        <mat-autocomplete class="auto-complete" #auto="matAutocomplete">
-            <mat-option id="option-search-number-{{position}}" (click)="whatchValueInput(option)" class="autocomplete-list"
+        <mat-autocomplete class="auto-complete" #auto="matAutocomplete" (optionSelected)="keyDownFunction($event.option.value)">
+            <mat-option id="option-search-number-{{position}}" class="autocomplete-list"
                 *ngFor="let option of filteredStates | async; let position = index" [value]="option.Name">
                 <mat-icon>store</mat-icon>
                 {{option.Name}}

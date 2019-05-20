@@ -183,7 +183,8 @@ describe('List Seller Component', () => {
         title: '',
         message: '',
         icon: '',
-        form: null
+        form: null,
+        showButtons: true
     };
 
     // Create Variables for services and component

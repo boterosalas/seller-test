@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class BasicInformationService {
@@ -16,4 +17,16 @@ export class BasicInformationService {
     public getRegexInformationBasic(params: any): Observable<any> {
         return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
     }
+
+    /**
+     *  @memberof ListBrands
+     */
+
+    getActiveBrands(): Observable<any> {
+        return this.http.get(this.api.get('getActiveBrands'))
+        .pipe(map((resp: any) => {
+            return JSON.parse(resp.body);
+        }))
+    }
+
 }

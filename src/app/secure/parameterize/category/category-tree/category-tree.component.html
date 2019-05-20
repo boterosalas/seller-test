@@ -1,0 +1,28 @@
+<ng-container *ngFor="let category of categoryList">
+  <div class="container-tree">
+    <ng-container>
+      <div class="row" [ngStyle]="{'padding-left': totalMargin}">
+          <div (click)="showChildrens(category)" class="row__btn">
+              <ng-container *ngIf="category.Son.length > 0 && category.Show">
+                <mat-icon id="arrow-up-category">keyboard_arrow_up</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="category.Son.length > 0 && !category.Show">
+                <mat-icon id="arrow-down-category">keyboard_arrow_down</mat-icon>
+              </ng-container>
+            </div>
+            <div *ngIf="canUpdate" (click)="editCategory(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
+                <mat-icon id="btn-edit-category" matTooltip="Editar">edit</mat-icon>
+            </div>
+            <div *ngIf="canCreate" (click)="createCategory(category)" class="row__btn">
+                <mat-icon id="btn-add-category" matTooltip="Crear categoría hija">control_point</mat-icon>
+            </div>
+            <div id="category" [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="showChildrens(category)" class="row__name row__btn">
+              {{category.Name}}
+            </div>
+          </div>
+            <ng-container *ngIf="category.Son.length > 0  && category.Show">
+              <app-category-tree [categoryList]="category.Son" [categoryComponent]="parametrizationCategoryComponent" [canCreate]="canCreate" [canUpdate]="canUpdate" [margin]="margin"></app-category-tree>
+            </ng-container>
+    </ng-container>
+  </div>
+</ng-container>

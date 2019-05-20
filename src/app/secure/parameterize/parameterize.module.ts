@@ -10,6 +10,11 @@ import { BrandsComponent } from './brands/brands.component';
 import { BrandService } from './brands/brands.component.service';
 import { AddDialogSpecsComponent } from './dialogAddSpecs/dialog-add-specs.component';
 import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.component';
+import { CategoriesComponent } from './category/categories/categories.component';
+import { CategoryTreeComponent } from './category/category-tree/category-tree.component';
+import { CategoryTreeService } from './category/category-tree.service';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { CreateProcessDialogComponent } from './category/create-process-dialog/create-process-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,11 @@ import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.compone
     BrandsComponent,
     FocusDirective,
     AddDialogSpecsComponent,
-    DeleteDialogSpecsComponent
+    DeleteDialogSpecsComponent,
+    CategoriesComponent,
+    CategoryTreeComponent,
+    CreateProcessDialogComponent
+
   ],
   imports: [
     CommonModule,
@@ -30,12 +39,15 @@ import { DeleteDialogSpecsComponent } from './dialogDelete/dialog-delete.compone
   exports: [],
   providers: [
     ParamSpecsService,
-    BrandService
+    BrandService,
+    CategoryTreeService
   ],
   entryComponents: [
     AddDialogComponent,
     AddDialogSpecsComponent,
-    DeleteDialogSpecsComponent
+    DeleteDialogSpecsComponent,
+    DialogWithFormComponent,
+    CreateProcessDialogComponent
   ]
 })
 export class ParameterizeModule { }

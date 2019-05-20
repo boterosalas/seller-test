@@ -286,7 +286,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;
-        return {message, title, icon, form, messageCenter};
+        const showButtons = true;
+        return {message, title, icon, form, messageCenter, showButtons};
     }
 
     /**
@@ -315,9 +316,9 @@ export class SellerListComponent implements OnInit, OnDestroy {
                     }
                 } else {
                     this.modalService.showModal('errorService');
+                    this.loading.closeSpinner();
                 }
                 dialogInstance.onNoClick();
-                this.loading.closeSpinner();
             }));
         };
 
@@ -348,6 +349,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
             this.sellerList[value.posSeller].EndVacations = DateService.getDateFormatToShow(this.endDateVacation.value);
             break;
         }
+        this.loading.closeSpinner();
         this.snackBar.open('Actualizado correctamente: ' + this.sellerList[value.posSeller].Name, 'Cerrar', {
             duration: 3000,
         });
@@ -363,6 +365,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let icon = '';
         let form = null;
         let messageCenter = false;
+        const showButtons = true;
         if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
             message = '¿Estas seguro que deseas activar este vendedor?';
             icon = null;
@@ -391,7 +394,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
-        return {title, message, icon, form, messageCenter};
+        return {title, message, icon, form, messageCenter, showButtons};
     }
 
     /**

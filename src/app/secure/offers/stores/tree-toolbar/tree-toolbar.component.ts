@@ -58,7 +58,7 @@ export class TreeToolbarComponent implements OnInit {
 
   modifyCommission() {
     this.loadingService.viewSpinner();
-    const params = JSON.stringify(localStorage.getItem('parametersCommission'));
+    const params = localStorage.getItem('parametersCommission');
     this.storesService.patchSellerCommissionCategory(params).subscribe((res: any) => {
       if (res.status === 200) {
         this.loadingService.closeSpinner();

@@ -1,3 +1,4 @@
+@import '_variables';
 @import '~@angular/material/theming'; // always include only once per project
 @include mat-core();
 $green: mat-palette($mat-green);
@@ -96,4 +97,17 @@ $blue: mat-palette($mat-indigo);
     flex: initial !important;
     place-content: center flex-end !important;
   }
+}
+
+.mat-toolbar {
+
+  .toolbar-options{
+  
+    p{
+      color: $color-black;
+      font-size: $font-size-principal +2;
+      font-family: $font-principal;
+    }
+  }
+
 }

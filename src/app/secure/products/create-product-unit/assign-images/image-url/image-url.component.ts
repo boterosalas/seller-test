@@ -32,7 +32,7 @@ export class ImageUrlComponent implements OnInit {
       this.createImage = this.fb.group({
           inputImage: ['', Validators.pattern(this.formatImg)],
         });
-        this.imgUrl = 'novalido.jpg';
+        this.imgUrl = './assets/img/no-image.svg';
   }
 
 /**
@@ -51,12 +51,12 @@ export class ImageUrlComponent implements OnInit {
         } else {
           if ( this.imgUrl ) {
             this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error});
-            this.imgUrl = 'novalido.jpg';
+            this.imgUrl = './assets/img/no-image.svg';
           }
         }
       });
     } else {
-      this.imgUrl = 'novalido.jpg';
+      this.imgUrl = './assets/img/no-image.svg';
     }
   }
 }

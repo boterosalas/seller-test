@@ -34,7 +34,11 @@ export const endpoints = {
       getAllSellersFull: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers',
       getAllSellers: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/1',
       // servicio empleado para obtener las comisiones de un usuario o todas las comisiones
-      getSellerCommissionCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/{params}',
+      getSellerCommissionCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetAllCategories',
+      // Ruta base para la modificación de las categorías
+      manageCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory',
+      // Consulta el estado de creación de una categoria
+      statusCreateCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetStatusLoadCommissionCategory',
       // Register Seller Name
       registerSeller: 'https://5a1c7n6t70.execute-api.us-east-1.amazonaws.com/RegisterSeller/',
       validateSellerNit: 'https://5avfpnwghf.execute-api.us-east-1.amazonaws.com/ValidateSellerNit/{params}',
@@ -124,6 +128,15 @@ export const endpoints = {
       payoneer: 'https://jokht2xtxh.execute-api.us-east-1.amazonaws.com/payoneer-dev/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting',
+      // PARAMETRIZACION
+      // BRANDS GET - Obtener listado de marcas creadas
+      getAllBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/{params}',
+      // BRANDS UPDATE - Actualiza una marca
+      updateBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/UpdateBrand/{params}',
+      // BRANDS CREATE - Crea una nueva marca
+      createBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateBrand/{params}',
+      // get active brands
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     },
   },
   // Endpoints production
@@ -157,7 +170,11 @@ export const endpoints = {
       getAllSellersFull: 'https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn',
       getAllSellers: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/1',
       // servicio empleado para obtener las comisiones de un usuario o todas las comisiones
-      getSellerCommissionCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/{params}',
+      getSellerCommissionCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/GetAllCategories',
+      // Ruta base para la modificación de las categoría
+      manageCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn',
+      // Consulta el estado de creación de una categoria
+      statusCreateCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/GetStatusLoadCommissionCategory',
       // Register seller services
       registerSeller: 'https://x2vflz270c.execute-api.us-east-1.amazonaws.com/registerseller-pdn/',
       validateSellerNit: 'https://ce8fuvj37h.execute-api.us-east-1.amazonaws.com/validatesellernit-pdn/{params}',
@@ -247,6 +264,15 @@ export const endpoints = {
       payoneer: 'https://fi27yra105.execute-api.us-east-1.amazonaws.com/payoneer-pdn/ValidateRegisterPayoneer',
       // Servicio carga masiva moderación productos Seller
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
+      // PARAMETRIZACION
+      // BRANDS GET - Obtener listado de marcas creadas
+      getAllBrands: '',
+      // BRANDS UPDATE - Actualiza una marca
+      updateBrand: '',
+      // BRANDS CREATE - Crea una nueva marca
+      createBrand: '',
+      // get active brands
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     }
   }
 };

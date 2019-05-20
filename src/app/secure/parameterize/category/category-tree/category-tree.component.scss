@@ -1,0 +1,32 @@
+.row{
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px lightgray;
+    height: 37px;
+    padding: 5px 0;
+}
+
+.container {
+    display: block;
+    width: 100%;
+}
+.addPadding {
+    padding-left: 24px;
+}
+.container-name {
+    margin-left: 10px;
+    color: grey;
+}
+
+.row__btn{
+    cursor: pointer;
+    margin: 2px;
+}
+
+.row__name {
+    margin-left: 10px;
+}
+
+.txtCategory--selected{
+    color: black;
+}

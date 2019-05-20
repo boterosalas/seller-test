@@ -1,4 +1,5 @@
 @import '~@angular/material/theming'; // always include only once per project
+@import '_variables';
 @include mat-core();
 $green: mat-palette($mat-green);
 $amber: mat-palette($mat-amber);
@@ -127,7 +128,7 @@ $amber: mat-palette($mat-amber);
   & .center-product-list {
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     height: 100%;
   }
   & .content-detail-order {
@@ -196,4 +197,29 @@ $amber: mat-palette($mat-amber);
     align-items: center;
     justify-content: center;
   }
+}
+
+.content-table-orders{
+  .mat-icon.mat-primary{
+    color:$color-gray1;
+  }
+
+  .mat-button.mat-primary{
+    color: $color-gray-light;
+  }
+  
+  .sc-date-content-table{
+    color:$color-gray1;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .sc-status-order-table .status-orange, .sc-status-order-table .status-green{
+    padding-right: 5px;
+  }
+
+  .title-table-header{
+    color: #757474
+  }
+
 }

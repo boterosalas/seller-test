@@ -1,11 +1,32 @@
+@import '_variables';
+
 :host {
     .principal-toolbar {
-        background-color: #fff;
+        background-color: $color-white;
         position: fixed;
         overflow: hidden;
-        z-index: 2;
+        z-index: 1;
     }
     .mat-toolbar-row, .mat-toolbar-single-row{
         height: 64px;
     }
+}
+
+
+.principal-toolbar {
+    font-family: $font-principal;
+    
+    .name-user{
+        font-size: $font-size-head;
+    }
+
+    .logo-application{
+        background-position: 0px -10px;
+    }
+
+    .sc-button-toolbar{
+        font-size: $font-size-head - 2;
+        color:$color-gray-light;
+    }
+
 }

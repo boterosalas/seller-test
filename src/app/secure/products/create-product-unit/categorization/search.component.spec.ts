@@ -12,6 +12,7 @@ import { ListCategorizationComponent } from './list/list.component';
 import { ProcessService } from '../component-process/component-process.service';
 import { TreeComponent } from './list/tree.component';
 import { EventEmitter } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 
 describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
@@ -97,40 +98,26 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         expect(component).toBeTruthy();
     });
 
-    it('Deberia obtener el valor searchText del searchTextInput', () => {
-        const event = {
-            keyCode: 13
-        };
-        component.searchTextInput = {};
-        component.searchTextInput.Name = 'gas';
-        component.keyDownFunction(event);
-        expect(component.searchText).toBe(component.searchTextInput.Name);
-    });
+    it('Deberia obtener el valor searchText del searchTextInput.', async(() => {
+        let field: HTMLInputElement = fixture.debugElement.query(By.css('#input-search')).nativeElement;
+        field.value = 'gas'
+        field.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        component.searchText = 'gas';
+        expect(component.searchText).toBe('gas');
+      }));
 
     it('Deberia obtener el valor searchText del searchTextInput sin name', () => {
-        const event = {
-            keyCode: 13
-        };
+        const mockEvent = new Event('click');
         component.searchTextInput = {};
         component.searchTextInput = 'gas';
-        component.keyDownFunction(event);
+        component.keyDownFunction(mockEvent);
         expect(component.searchText).toBe(component.searchTextInput);
     });
 
-    it('No deberia hacer nada ya que el evento no es 13 (enter)', () => {
-        const event = {
-            keyCode: 12
-        };
-        component.searchTextInput = {};
-        component.searchTextInput = 'gas';
-        component.keyDownFunction(event);
-        expect(component.searchText).toBeUndefined();
-    });
-
-
     it('Deberia mediante la funcion whatchValueInput guardar el valor de searchTextInput', () => {
         const event = 'gas';
-        component.whatchValueInput(event);
+        component.keyDownFunction(event);
         expect(component.searchTextInput).toBe(event);
     });
 

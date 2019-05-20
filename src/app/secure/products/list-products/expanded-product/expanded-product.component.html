@@ -1,5 +1,3 @@
-<hr>
-
 <div class="cont-product">
 
   <div class="info-product" fxShow.xs="true" fxShow="false">
@@ -16,7 +14,7 @@
         <ng-container *ngIf="img.max">
           <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
           <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
-            <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-blue' : ''">
+            <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-gray' : ''">
           </div>
         </ng-container>
       </mat-card>
@@ -37,14 +35,15 @@
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
-      <p> Fecha de creación: {{productsExpanded.createdDate}}</p>
-      <p> Fecha de modificación: {{productsExpanded.updatedDate}}</p>
+      <p> <span class="color-gray">Fecha de creación:</span>  {{productsExpanded.createdDate}}</p>
+      <span class="separator"> | </span>
+      <p> <span class="color-gray">Fecha de modificación:</span> {{productsExpanded.updatedDate}}</p>
     </div>
 
-    <div class="text"> Categoría: <label> {{productsExpanded.category}} </label></div>
-    <div class="text"> Marca: <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> Modelo: <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> Shipping-size: <label> {{productsExpanded.shipping_size}} </label></div>
+    <div class="text"> Categoría: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
+    <div class="text">Marca:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Modelo: <span class="color-gray"></span>  <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> Shipping-size: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
 
 
     <div class="text" fxLayout="row">
@@ -74,7 +73,7 @@
         largo-{{productsExpanded.item_length}}cm peso-{{productsExpanded.item_weight}}kg </label>
     </div>
 
-    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productsExpanded.bestOffer !== '0.00'">
       <p> Mejor oferta</p>
       <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.2-2'" *ngIf="productsExpanded.bestOffer !== '0.00'">
       </p>
@@ -82,13 +81,22 @@
   </div>
 </div>
 
-<mat-expansion-panel hideToggle="true" class="ofert-expanded" *ngIf="offerPermission">
+<mat-expansion-panel hideToggle="true" class="ofert-expanded" *ngIf="offerPermission" [disabled]="productsExpanded.availableToOffer === false">
   <mat-expansion-panel-header >
     <mat-panel-title class="title-ofert" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon matPrefix>add</mat-icon>
-      <h3>
-        Agregar oferta
-      </h3>
+      <div *ngIf="productsExpanded.availableToOffer === true"  fxLayout="row" fxLayoutAlign="space-around center" >
+        <mat-icon matPrefix>add</mat-icon>
+        <h3>
+          Agregar oferta
+        </h3>
+      </div>
+      <div *ngIf="productsExpanded.availableToOffer === false"  fxLayout="row" fxLayoutAlign="space-around center" >
+        <mat-icon matPrefix>add_alert</mat-icon>
+        <h3>
+          Este producto no está listo para ofertar, por favor intentalo más tarde.
+        </h3>
+        <mat-icon matPrefix>add_alert</mat-icon>
+      </div>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <app-ofert-expanded-product [productsExpanded]="productsExpanded" *ngIf="applyOffer" class="ofertProductExpanded" [applyOffer]="applyOffer"></app-ofert-expanded-product>
