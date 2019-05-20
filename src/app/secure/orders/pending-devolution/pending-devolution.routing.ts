@@ -8,16 +8,18 @@ import { environment } from '@env/environment';
 import { RoutesConst } from './../../../shared';
 import { PendingDevolutionComponent } from './pending-devolution-page/pending-devolution.component';
 import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const isProductionEnv = environment.production;
 
 const routes: Routes = [
   Route.withShell([
     {
-        path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
-        component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
-        data: { title: 'Solicitudes pendientes' },
-        canActivate: [TermsService]
+      path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
+      component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
+      data: { title: 'Solicitudes pendientes' },
+      // canActivate: [TermsService]
+      canActivate: [AuthService]
     }
   ])
 ];
