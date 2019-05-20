@@ -98,7 +98,7 @@ export class BrandsComponent implements OnInit {
     changeNameBrands: string;
     filterBrandsControlsName: any;
     filterBrandsControlsId: any;
-
+    separatorKeysCodes: number[] = [];
 
     /**
      * Instanciar servicios, formularios y dialogos
