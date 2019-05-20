@@ -16,7 +16,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterIntOrderInPendingDevolution}`,
-      component: !isProductionEnv ? PendingDevolutionComponent : ErrorPageComponent,
+      component: PendingDevolutionComponent,
       data: { title: 'Solicitudes pendientes' },
       // canActivate: [TermsService]
       canActivate: [AuthService]

@@ -18,7 +18,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterIntOrderInValidation}`,
-      component: !isProductionEnv ? InValidationComponent : ErrorPageComponent,
+      component: InValidationComponent,
       data: { title: 'En validación' },
       // canActivate: [TermsService]
       canActivate: [AuthService]
