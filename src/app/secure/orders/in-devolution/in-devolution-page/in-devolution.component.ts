@@ -22,6 +22,8 @@ import { InDevolutionService } from '../in-devolution.service';
 import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
+import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -86,17 +88,28 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     }
   };
 
+  permissionComponent: MenuModel;
+
+  /**
+   * Attribute that represent the read access
+   */
+  read = readFunctionality;
+  accept = acceptFuncionality;
+  refuse = refuseFuncionality;
+
   constructor(
     public shellComponent: ShellComponent,
     public dialog: MatDialog,
     private inDevolutionService: InDevolutionService,
     private componentsService: ComponentsService,
     private loadingService: LoadingService,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     // Datos del usuario autenticado.
+    this.permissionComponent = this.authService.getMenu(devolutionName);
     this.getDataUser();
   }
 
@@ -110,6 +123,14 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+  }
+
+  /**
+   * MEthod that get the permissions for the component
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**
@@ -155,7 +176,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    *
    * @param item
    */
-  openModalCommentOrder(item): void {
+  openModalCommentOrder(item: any): void {
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',
       data: {
@@ -200,9 +221,9 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
     }, () => {
-        this.orderListLength = true;
-        log.error('No se pudo cargar las órdenes');
-      });
+      this.orderListLength = true;
+      log.error('No se pudo cargar las órdenes');
+    });
   }
 
 
