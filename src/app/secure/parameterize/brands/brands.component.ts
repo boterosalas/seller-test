@@ -578,7 +578,7 @@ export class BrandsComponent implements OnInit {
         this.newBrands = event.target.value.toUpperCase();
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
-                this.urlParams = `null/${this.newBrands}/null/null/null/null`;
+                this.urlParams = `null/${this.newBrands}/null/null`;
                 this.showSpinner = true;
                 this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
                      /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
