@@ -158,7 +158,7 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
            /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
-            if (res) {
+           if ( res && parseInt(res.Total) > 0) {
                 this.brandsList = res.Brands,
                     this.length = res.Total;
                 this.sortedData = this.mapItems(
@@ -272,12 +272,16 @@ export class BrandsComponent implements OnInit {
     createForm() {
         this.filterBrands = new FormGroup({
             filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
-            filterBrandsName: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
+            filterBrandsName: new FormControl(''),
         });
         this.form = new FormGroup({
             nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
             idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
             status: new FormControl(''),
+        });
+
+        this.form.valueChanges.subscribe(() => {
+            this.validateExit = true;
         });
     }
 
@@ -327,7 +331,7 @@ export class BrandsComponent implements OnInit {
             this.form.controls['idBrands'].setValue(brandsData.Id);
             this.form.controls['status'].setValue(brandsData.Status);
         } else {
-            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y que no podrás utilizar ningún símbolo o caracter especial.';
+            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.';
             icon = 'control_point';
             title = 'Agregar marca';
             messageCenter = false;
@@ -422,7 +426,7 @@ export class BrandsComponent implements OnInit {
             title = 'Desactivar Marca ' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         } else {
-            message = 'Al Activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
+            message = 'Al activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
             icon = '';
             title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
@@ -574,12 +578,12 @@ export class BrandsComponent implements OnInit {
         this.newBrands = event.target.value.toUpperCase();
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
-                this.urlParams = `null/${this.newBrands}/null/null/null/null`;
+                this.urlParams = `null/${this.newBrands}/null/null`;
                 this.showSpinner = true;
                 this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
                      /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
                     this.showSpinner = false;
-                    if (res) {
+                    if (res && parseInt(res.Total) > 0) {
                         this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
                             duration: 3000,
                         });

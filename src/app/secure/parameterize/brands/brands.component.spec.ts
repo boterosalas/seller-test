@@ -6,14 +6,14 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrandService } from './brands.component.service';
 import { LoadingService, ModalService, EndpointService, UserParametersService, CognitoUtil, UserLoginService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { of } from 'rxjs';
-import { SortDirection, MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDrawer } from '@angular/material';
+import { of, throwError } from 'rxjs';
+import { SortDirection, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 export const registerRegex = [
@@ -23,6 +23,12 @@ export const registerRegex = [
 export interface Sort {
     active: string;
     direction: SortDirection;
+}
+
+export interface ListFilterBrands {
+    name: string;
+    value: string;
+    nameFilter: string;
 }
 
 export interface Brands {
@@ -55,7 +61,7 @@ describe('BrandsComponent', () => {
     ];
 
     const response = {
-        body: JSON.stringify({Data: brands }),
+        body: '{"Message":"Operación realizada éxitosamente.","Errors":[],"Data":{ "Brands":[{"Id":636934381618814126,"Name":"---------","Status":0,"IdVTEX":"2000500","UpdateStatus":false}, {"Id":636934381618814126,"Name":"---------","Status":1,"IdVTEX":"2000500","UpdateStatus":false}]}}',
         headers: null,
         isBase64Encoded: false,
         multiValueHeaders: null,
@@ -68,9 +74,14 @@ describe('BrandsComponent', () => {
         isBase64Encoded: false,
         multiValueHeaders: null,
         statusCode: 200
-    }
+    };
 
     const sort: Sort = { active: 'name', direction: 'desc' };
+
+    const filterBrands = new FormGroup({
+        filterBrandsId: new FormControl('636934381618814126'),
+        filterBrandsName: new FormControl('---------'),
+    });
 
     // Mock Services
     const mockBrandsService = jasmine.createSpyObj('BrandService', ['getAllBrands', 'changeStatusBrands', 'validateExistBrands', 'createBrands']);
@@ -79,7 +90,8 @@ describe('BrandsComponent', () => {
     const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
-    const mockDrawer = jasmine.createSpyObj('MatDrawer', ['toggle']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+    const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
     const data = {
         title: '',
         message: '',
@@ -94,6 +106,7 @@ describe('BrandsComponent', () => {
     let brandService: BrandService;
     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
     let dialogComponent: DialogWithFormComponent;
+    let supportService: SupportService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -110,9 +123,10 @@ describe('BrandsComponent', () => {
                 DialogWithFormComponent
             ],
             providers: [
-                BrandService,
+                { provide: BrandService, useValue: mockBrandsService },
                 EndpointService,
-                LoadingService,
+                { provide: LoadingService, useValue: mockLoadingService },
+                // { provide: SupportService, useValue: mockSupportService },
                 SupportService,
                 { provide: AuthService, useValue: mockAuthService },
                 UserParametersService,
@@ -138,8 +152,11 @@ describe('BrandsComponent', () => {
         fixture = TestBed.createComponent(BrandsComponent);
         brandsComponent = fixture.componentInstance;
         brandService = TestBed.get(BrandService);
+        supportService = TestBed.get(SupportService);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
+        mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
+        mockBrandsService.getAllBrands.and.returnValue(of(response));
         fixture.detectChanges();
     });
 
@@ -149,7 +166,35 @@ describe('BrandsComponent', () => {
     });
 
 
-    describe('get all branchs with pagination and limit undefined', () => {
+    describe('Brands list', () => {
+        beforeEach(() => {
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+        });
+
+        it('Brands list with data', () => {
+            fixture.detectChanges();
+            brandsComponent.getAllBrands();
+            expect(brandsComponent.brandsList).not.toBeNull();
+        });
+        it('Brands list with filter name and id', () => {
+            brandsComponent.filterBrands = filterBrands;
+            brandsComponent.getAllBrands();
+            expect(brandsComponent.brandsList).not.toBeNull();
+        });
+        it('Brands list with page size and page paginator undefined', () => {
+            brandsComponent.pageSize = undefined;
+            brandsComponent.pagepaginator = undefined;
+            brandsComponent.getAllBrands();
+            expect(brandsComponent.brandsList).not.toBeNull();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Brands list', () => {
         beforeEach(() => {
             brandsComponent.pageSize = 50;
             brandsComponent.pagepaginator = 0;
@@ -157,171 +202,246 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(responseEmpty));
         });
 
-        it('Should be fail nit with characters', () => {
-            brandsComponent.filterBrandsControlsId = 636934381618814126;
-            brandsComponent.filterBrandsControlsName = '---------';
+        it('Brands list with response empty', () => {
             fixture.detectChanges();
             brandsComponent.getAllBrands();
+            expect(brandsComponent.brandsList).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
         });
     });
-    describe('sortData', () => {
+    describe('Brands list', () => {
         beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            fixture.detectChanges();
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(throwError('falle'));
         });
 
-        it('sort data active and direction', () => {
-            brandsComponent.sortData(sort);
-            expect(brandsComponent.sortedData).not.toBeNull();
+        it('Brands list with response error', () => {
+            fixture.detectChanges();
+            brandsComponent.getAllBrands();
+
         });
-        it('sort data id', () => {
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Sort Data', () => {
+        beforeEach(() => {
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+        });
+
+        it('Sort data with data', () => {
+            brandsComponent.brandsList = brands;
+            fixture.detectChanges();
+            brandsComponent.sortData(sort);
+            expect(brandsComponent.brandsList).not.toBeNull();
+        });
+        it('Sort data with params empty ', () => {
+            brandsComponent.brandsList = brands;
+            fixture.detectChanges();
+            brandsComponent.sortData({ active: '', direction: '' });
+            expect(brandsComponent.brandsList).not.toBeNull();
+        });
+        it('Sort data with order id', () => {
             sort.active = 'id';
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             const sortDataId = brandsComponent.sortData(sort);
             expect(sortDataId).not.toBeNull();
         });
-        it('sort data asc', () => {
-            sort.direction = 'asc';
+        it('sort data with order status', () => {
+            sort.active = 'status';
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
-            const sortDataAsc = brandsComponent.sortData(sort);
-            expect(sortDataAsc).not.toBeNull();
-        });
-        it('sort data null', () => {
-            sort.active = null;
-            fixture.detectChanges();
-            const sortDataNull = brandsComponent.sortData(sort);
-            expect(sortDataNull).not.toBeNull();
+            const sortDataId = brandsComponent.sortData(sort);
+            expect(sortDataId).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
         });
     });
-    describe('set Data Change Status Dialog', () => {
+    describe('Set data change', () => {
         beforeEach(() => {
-            fixture.detectChanges();
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(responseEmpty));
         });
 
-        it('brands status edit', () => {
-            const brandsData = { Id: 1, Name: 'carulla', Status: true, PaginationToken: '1|65' };
+        it('set data with id', () => {
+            const brandsData = { Id: '636934381618814126', Name: '---------', Status: true, IdVTEX: '2000500', UpdateStatus: false };
             const brandsStatus = brandsComponent.setDataChangeStatusDialog(brandsData);
             expect(brandsStatus.icon).toEqual('edit');
         });
-        it('brands create', () => {
+        it('set data with id empty', () => {
             const brandsData = {};
-            const brandsStatusCreate = brandsComponent.setDataChangeStatusDialog(brandsData);
-            expect(brandsStatusCreate.icon).toEqual('control_point');
+            const brandsStatus = brandsComponent.setDataChangeStatusDialog(brandsData);
+            expect(brandsStatus.icon).toEqual('control_point');
         });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-    describe('close and clear Filter', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            brandsComponent.filterBrandsName = 'test clear filter';
-            fixture.detectChanges();
-        });
-        it('button clear filter', () => {
+        it('clear all filter', () => {
             brandsComponent.cleanAllFilter();
-        });
-        it('button clear filter', () => {
-            brandsComponent.onNoClick();
+            expect(brandsComponent.listFilterBrands).toEqual([]);
         });
         afterAll(() => {
             TestBed.resetTestingModule();
         });
     });
-
-    describe('set status brand', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            fixture.detectChanges();
-        });
-        it('status active', () => {
-            const brand = { Id: 1, Name: 'carulla', Status: false };
-            brandsComponent.setStatusBrand(brand);
-            expect(brandsComponent.brandsList[1].Status).toEqual(true);
-        });
-        it('status active', () => {
-            const brand = { Id: 2, Name: 'Troopx', Status: true };
-            brandsComponent.setStatusBrand(brand);
-            expect(brandsComponent.brandsList[1].Status).toEqual(true);
-        });
-        it('status change 1 to true', () => {
-            const brandsStatus = brandsComponent.changeStatus('1');
-            expect(brandsStatus).toEqual(true);
-        });
-        it('status change 0 to false', () => {
-            const brandsStatus = brandsComponent.changeStatus('0');
-            expect(brandsStatus).toEqual(false);
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-
-    describe('filter apply', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            mockDrawer.toggle.and.returnValue();
-            fixture.detectChanges();
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-    describe('change paginator brands', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            fixture.detectChanges();
-        });
-        it('change paginator brands with param with space black', () => {
-            const param = { pageSize: '', pageIndex: '', };
-            brandsComponent.changePaginatorBrands(param);
-        });
-        it('change paginator brands', () => {
-            const param = { pageSize: 50, pageIndex: 0, };
-            brandsComponent.changePaginatorBrands(param);
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-    describe('validate Exist', () => {
-        beforeEach(() => {
-            brandsComponent.brandsList = brands;
-            fixture.detectChanges();
-        });
-        it('validte exist in bd with new brands', () => {
-            const event = { target: { value: 'MARCA' } };
-            brandsComponent.validateExist(event);
-            expect(brandsComponent.validateExit).toEqual(true);
-        });
-        it('validate exist in bd with space black', () => {
-            const event = { target: { value: '' } };
-            const bradnsValidate = brandsComponent.validateExist(event);
-            expect(bradnsValidate).toBeNull();
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
-    });
-    describe('config Data Dialog Act-Des', () => {
+    describe('Change status', () => {
         beforeEach(() => {
             brandsComponent.brandsList = brands;
             mockDialog.open.and.returnValue(mockDialogRef);
             mockDialogRef.componentInstance.and.returnValue(dialogComponent);
             fixture.detectChanges();
         });
-        it('config Data Dialog Act-Des', () => {
+        it('change status with data empty', () => {
             const event = jasmine.createSpyObj('event', ['preventDefault']);
-            const brand = { id: 1, name: 'marca', status: false };
+            const brand = {};
             brandsComponent.changeStatusBrands(event, brand);
+        });
+        it('change status with data', () => {
+            const event = jasmine.createSpyObj('event', ['preventDefault']);
+            const brand = { Id: '636934381618814126', Name: '---------', Status: true, IdVTEX: '2000500', UpdateStatus: false };
+            brandsComponent.changeStatusBrands(event, brand);
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Apply filter', () => {
+        beforeEach(() => {
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+        });
+        it('apply filter with data', () => {
+            const newForm = new FormGroup({ filterBrandsId: new FormControl('123456789'), filterBrandsName: new FormControl('SUPERPOPIS') });
+            brandsComponent.filterBrands = newForm;
+            const drawerr = {
+                toggle: () => { return; }
+            };
+            brandsComponent.filterApply(drawerr);
+            expect(brandsComponent.pagepaginator).toEqual(0);
+        });
+        it('aplly filter with data empty', () => {
+            const newForm = new FormGroup({ filterBrandsId: new FormControl(''), filterBrandsName: new FormControl('') });
+            brandsComponent.filterBrands = newForm;
+            const drawerr = {
+                toggle: () => { return; }
+            };
+            brandsComponent.filterApply(drawerr);
+            expect(brandsComponent.pagepaginator).toEqual(0);
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Remove chips filter', () => {
+        beforeEach(() => {
+            brandsComponent.pageSize = 50;
+            brandsComponent.pagepaginator = 0;
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+        });
+        it('remove chips', () => {
+            const listFilterBrands: ListFilterBrands = { name: 'filterBrandsId', value: 'filterBrandsId', nameFilter: 'filterBrandsId' };
+            brandsComponent.listFilterBrands.push(listFilterBrands);
+            brandsComponent.remove(listFilterBrands);
+            expect(brandsComponent.listFilterBrands).not.toBeNull();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Change paginator brands', () => {
+        beforeEach(() => {
+            brandsComponent.countFilter = 1;
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+        });
+        it('change paginator with page index and page size empty', () => {
+            const params = { pageSize: 0, pageIndex: 0 };
+            brandsComponent.changePaginatorBrands(params);
+            expect(brandsComponent.pagepaginator).toEqual(0);
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Confirmation', () => {
+        beforeEach(() => {
+            mockBrandsService.changeStatusBrands.and.returnValue(of(response));
+            mockBrandsService.createBrands.and.returnValue(of(response));
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+            mockBrandsService.validateExistBrands.and.returnValue(of(response));
+        });
+        it('Confirmation create brands', () => {
+            const newForm = new FormGroup({ idBrands: new FormControl('123456789'), nameBrands: new FormControl('SUPERPOPIS') });
+            brandsComponent.form = newForm;
+            brandsComponent.confirmation();
+            expect(brandsComponent.body).not.toBeNull();
+        });
+        it('confirmation create with data empty', () => {
+            brandsComponent.confirmation();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Validate exist', () => {
+        beforeEach(() => {
+            mockBrandsService.changeStatusBrands.and.returnValue(of(response));
+            mockBrandsService.createBrands.and.returnValue(of(response));
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+            mockBrandsService.validateExistBrands.and.returnValue(of(response));
+        });
+        it('validate brands with data', () => {
+            const event = { target: { value: 'MARCA' } };
+            brandsComponent.validateExist(event);
+            expect(brandsComponent.newBrands).not.toBeNull();
+        });
+        it('validate brands with data empty', () => {
+            const event = { target: { value: '' } };
+            const brandsExist = brandsComponent.validateExist(event);
+            expect(brandsExist).toBeFalsy();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Confimation response error', () => {
+        beforeEach(() => {
+            mockBrandsService.changeStatusBrands.and.returnValue(of(response));
+            mockBrandsService.createBrands.and.returnValue(of(response));
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+            mockBrandsService.validateExistBrands.and.returnValue(throwError('falle'));
+        });
+        it('confirmation response error and name brands', () => {
+            const event = { target: { value: 'MARCA' } };
+            brandsComponent.validateExist(event);
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Confirmation validate exist false', () => {
+        beforeEach(() => {
+            mockBrandsService.changeStatusBrands.and.returnValue(of(response));
+            mockBrandsService.createBrands.and.returnValue(of(response));
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
+            mockBrandsService.validateExistBrands.and.returnValue(of(responseEmpty));
+        });
+        it('confirmacition brands', () => {
+            const event = { target: { value: 'MARCA' } };
+            brandsComponent.validateExist(event);
+            expect(brandsComponent.validateExit).toBeFalsy();
         });
         afterAll(() => {
             TestBed.resetTestingModule();

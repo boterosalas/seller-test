@@ -135,6 +135,8 @@ export const endpoints = {
       updateBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/UpdateBrand/{params}',
       // BRANDS CREATE - Crea una nueva marca
       createBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateBrand/{params}',
+      // BRANDS CREATE - Crea una nueva marca
+      validateBrandsExact: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetExactBrand/{params}',
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
     },
@@ -266,13 +268,16 @@ export const endpoints = {
       postSaveInformationModerationSeller: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn',
       // PARAMETRIZACION
       // BRANDS GET - Obtener listado de marcas creadas
-      getAllBrands: '',
+      // BRANDS GET - Obtener listado de marcas creadas
+      getAllBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetBrands/{params}',
       // BRANDS UPDATE - Actualiza una marca
-      updateBrand: '',
+      updateBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/UpdateBrand/{params}',
       // BRANDS CREATE - Crea una nueva marca
-      createBrand: '',
+      createBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateBrand/{params}',
+      // BRANDS CREATE - Crea una nueva marca
+      validateBrandsExact: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetExactBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
+      getActiveBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetBrands/null/null/null/1/null/null/null'
     }
   }
 };

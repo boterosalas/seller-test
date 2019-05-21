@@ -37,8 +37,8 @@ export class BrandService {
     return this.http.patch(this.api.get('createBrand'), body);
   }
 
-  validateExistBrands(nameBrands: String): Observable<any> {
-    return this.http.get(this.api.get('getAllBrands', [nameBrands]));
+  validateExistBrands(params: any): Observable<any> {
+    return this.http.get(this.api.get('validateBrandsExact', [params]));
   }
 
 }
