@@ -233,21 +233,24 @@ describe('BrandsComponent', () => {
             brandsComponent.pageSize = 50;
             brandsComponent.pagepaginator = 0;
             brandsComponent.countFilter = 1;
-            mockBrandsService.getAllBrands.and.returnValue(of(responseEmpty));
+            mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
 
         it('Sort data with data', () => {
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             expect(brandsComponent.brandsList).not.toBeNull();
         });
         it('Sort data with params empty ', () => {
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData({ active: '', direction: '' });
             expect(brandsComponent.brandsList).not.toBeNull();
         });
         it('Sort data with order id', () => {
             sort.active = 'id';
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             const sortDataId = brandsComponent.sortData(sort);
@@ -255,6 +258,7 @@ describe('BrandsComponent', () => {
         });
         it('sort data with order status', () => {
             sort.active = 'status';
+            brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             const sortDataId = brandsComponent.sortData(sort);

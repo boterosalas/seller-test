@@ -158,7 +158,7 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
            /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
-           if (parseInt(res.Total) > 0) {
+           if ( res && parseInt(res.Total) > 0) {
                 this.brandsList = res.Brands,
                     this.length = res.Total;
                 this.sortedData = this.mapItems(
@@ -583,7 +583,7 @@ export class BrandsComponent implements OnInit {
                 this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
                      /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
                     this.showSpinner = false;
-                    if (parseInt(res.Total) > 0) {
+                    if (res && parseInt(res.Total) > 0) {
                         this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
                             duration: 3000,
                         });
