@@ -41,6 +41,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
       this.response.productNotifyViewModel.map(element => {
         element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
+        element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
       });
       this.cd.detectChanges();
     }
