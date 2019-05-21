@@ -39,7 +39,7 @@ export interface Brands {
 }
 
 
-fdescribe('BrandsComponent', () => {
+describe('BrandsComponent', () => {
     const registerMenu = {
         Functionalities: [{
             NameFunctionality: 'Crear',
