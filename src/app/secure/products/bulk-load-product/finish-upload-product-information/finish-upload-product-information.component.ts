@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -18,7 +18,7 @@ const EXCEL_EXTENSION = '.xlsx';
 /**
  * FinishUploadProductInformationComponent
  */
-export class FinishUploadProductInformationComponent {
+export class FinishUploadProductInformationComponent implements AfterViewInit {
 
   public response: any;
 
@@ -30,10 +30,21 @@ export class FinishUploadProductInformationComponent {
    */
   constructor(
     public dialogRef: MatDialogRef<FinishUploadProductInformationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cd: ChangeDetectorRef
   ) {
 
     this.response = data.response;
+  }
+
+  ngAfterViewInit() {
+    if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
+      this.response.productNotifyViewModel.map(element => {
+        element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
+        element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
+      });
+      this.cd.detectChanges();
+    }
   }
 
   /**

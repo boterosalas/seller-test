@@ -150,6 +150,8 @@ export const marketFuncionality = 'Marcar';
 export const offerFuncionality = 'Ofertar';
 export const idSended = '170';
 export const idToSend = '35';
+export const acceptFuncionality = 'Aceptar';
+export const refuseFuncionality = 'Rechazar';
 
 const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCase(), [
     // 1. Todas (Consultar, Descargar).
@@ -181,25 +183,21 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
     ], RoutesConst.sellerCenterIntOrderLoadGuide),
-    // 5. Devolucoines (Consultar, Descargar, Adjuntar, Enviar, Marcar)
+    // 5. Devoluciones (Consultar, Aceptar, Rechazar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
-        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
-        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
-        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
+        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 6. Validaciónes (Consultar, Descargar, Adjuntar, Enviar, Marcar)
+    // 6. Validaciónes (Consultar)
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
-        new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
-        new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
-        new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 7. Solicitudes PEndientes (Consultar)
+    // 7. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
     new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
     // 8. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
@@ -390,7 +388,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 4. Perfiles.
  * 5. Marcas.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías' , brandName = 'Marcas';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [

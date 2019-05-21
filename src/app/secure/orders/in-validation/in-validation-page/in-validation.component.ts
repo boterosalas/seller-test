@@ -11,7 +11,8 @@ import { InValidationModalComponent } from '../in-validation-modal/in-validation
 import { InValidationService } from '../in-validation.service';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
-
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { MenuModel, validationName, readFunctionality } from '@app/secure/auth/auth.consts';
 
 // log component
 const log = new Logger('InValidationComponent');
@@ -65,6 +66,14 @@ export class InValidationComponent implements OnInit, OnDestroy {
   public user: UserInformation;
   // suscriptions vars
   private subFilterOrderPending: any;
+
+  permissionComponent: MenuModel;
+
+  /**
+   * Attribute that represent the read access
+   */
+  read = readFunctionality;
+  // canRead = false;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'En Validación',
@@ -84,10 +93,13 @@ export class InValidationComponent implements OnInit, OnDestroy {
     private zone: NgZone,
     private inValidationService: InValidationService,
     public userParams: UserParametersService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(validationName);
+    // this.getFunctionalities();
     this.getDataUser();
   }
 
@@ -102,6 +114,14 @@ export class InValidationComponent implements OnInit, OnDestroy {
     // Remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
   }
+
+  /**
+   * MEthod that get the permissions for the component
+   */
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
+}
 
   /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar
