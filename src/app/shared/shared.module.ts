@@ -15,6 +15,7 @@ import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
 import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 import { CreateProcessDialogComponent } from './components/create-process-dialog/create-process-dialog.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CreateProcessDialogComponent } from './components/create-process-dialog
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     CdkDetailRowDirective,

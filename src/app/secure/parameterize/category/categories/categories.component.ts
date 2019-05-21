@@ -425,6 +425,7 @@ export class CategoriesComponent implements OnInit {
       data: data
     });
     const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.categoryService.verifyStatusOfCreateCategory();
     dialogIntance.processFinish$.subscribe((val) => {
       if (!!val) {
         this.getTree();

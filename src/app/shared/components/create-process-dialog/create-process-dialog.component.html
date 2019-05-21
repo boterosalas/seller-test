@@ -22,7 +22,6 @@
   <mat-dialog-actions class="container__btn">
     <button id="btn-cancel" type="button" mat-stroked-button color="primary" [disabled]="inProcess"
       (click)="onNoClick()">Cerrar</button>
-    <button id="close-finish-upload-button" [disabled]="!inProcess" mat-raised-button color="primary"
-      [routerLink]="['/securehome/seller-center']" mat-dialog-close>Ir al inicio</button>
+    <button id="close-finish-upload-button" [disabled]="!inProcess" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>Ir al inicio</button>
   </mat-dialog-actions>
 </div>
