@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -11,6 +11,7 @@ import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
 
 // log component
 const log = new Logger('BulkLoadComponent');
@@ -72,6 +73,8 @@ export class BulkLoadComponent implements OnInit {
 
   public EanArray: any = [];
 
+  public ListError: any;
+
   // Validación de las regex
   validateRegex: any;
 
@@ -84,6 +87,7 @@ export class BulkLoadComponent implements OnInit {
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('dialogContent') content: TemplateRef<any>;
 
 
   constructor(
@@ -116,6 +120,7 @@ export class BulkLoadComponent implements OnInit {
    */
   ngOnInit() {
     this.validateFormSupport();
+    this.verifyProccesOffert();
   }
 
   /**
@@ -604,7 +609,8 @@ export class BulkLoadComponent implements OnInit {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.sendJsonInformation();
+      this.openModal();
+      // this.sendJsonInformation();
     }
 
 
@@ -790,6 +796,7 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   sendJsonInformation() {
+    console.log('por aqui');
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
@@ -1037,6 +1044,58 @@ export class BulkLoadComponent implements OnInit {
           this.offertRegex[val] = element && `${element.Value}`;
         }
       }
+    });
+  }
+
+  verifyProccesOffert() {
+    this.loadingService.viewSpinner();
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        const response = JSON.parse(res.body.body).Data;
+        const { Status } = response;
+        if (Status === 1 || Status === 4) {
+          this.openModal();
+        }else {
+          this.loadingService.closeSpinner();
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+
+  openModal() {
+    this.loadingService.closeSpinner();
+    const data = {
+      successText: 'Carga realizada con éxito',
+      failText: 'No se pudo realizar la carga',
+      processText: 'Carga en proceso',
+      initTime: 500,
+      intervalTime: 5000
+    };
+    const dialog = this.dialog.open(CreateProcessDialogComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.ListError = val.Data;
+
+      dialogIntance.content = this.content;
+      // console.log(dialogIntance.inProcess);
+      // console.log(val);
+      // dialogIntance.inProcess = true;
+      // console.log(dialogIntance.inProcess);
+      // if (!!val) {
+      //   this.getTree();
+      //   this.snackBar.open('Categoria creada satisfactoriamente', 'Cerrar', {
+      //     duration: 3000
+      //   });
+      // }
     });
   }
 

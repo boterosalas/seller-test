@@ -95,9 +95,13 @@
         </p>
         <p>
           <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()">Selecciona el archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
-
       </div>
     </div>
   </div>
-
 </div>
+
+<ng-template #dialogContent>
+<div *ngFor="let item of ListError">
+  <div>{{item.NAME}}</div>
+</div>
+</ng-template>

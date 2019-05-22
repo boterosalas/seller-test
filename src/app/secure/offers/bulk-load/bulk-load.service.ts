@@ -4,6 +4,19 @@ import { CognitoUtil, EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
 
+const responseStatus = {
+  status: 200,
+  body: {
+    statusCode: 200,
+    body: JSON.stringify({
+      Data: {
+        Status: 3,
+        Data: [{EAN: '1987081822179', NAME: 'PRUEBA1'}, {EAN: '6581480417371', NAME: 'PRUEBA2'}, {EAN: '571825208827', NAME: 'PRUEBA3'}]
+      }
+    })
+  }
+};
+
 @Injectable()
 export class BulkLoadService {
   httpOptions: any;
@@ -32,6 +45,12 @@ export class BulkLoadService {
             observer.next(error);
           }
         );
+    });
+  }
+
+  verifyStatusBulkLoad(): Observable<any> {
+    return new Observable(observer => {
+            observer.next(responseStatus);
     });
   }
 }
