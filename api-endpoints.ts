@@ -136,7 +136,7 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       createBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/'
     },
   },
   // Endpoints production
@@ -272,7 +272,7 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       createBrand: '',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/{params}'
     }
   }
 };

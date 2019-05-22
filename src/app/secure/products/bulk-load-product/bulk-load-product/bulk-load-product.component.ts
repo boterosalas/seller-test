@@ -16,6 +16,7 @@ import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from 
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -113,6 +114,19 @@ export class BulkLoadProductComponent implements OnInit {
     eanCombo: ''
   };
 
+  //active brands
+  brands:any = [];
+
+  // value clothing or technology
+
+  typeTheme = 'clothing';
+  dataTheme;
+
+
+  // tipo extension XLSX
+  EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  EXCEL_EXTENSION = '.xlsx';
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
@@ -132,6 +146,7 @@ export class BulkLoadProductComponent implements OnInit {
     private modalService: ModalService,
     public authService: AuthService,
     public SUPPORT: SupportService,
+    private service: BasicInformationService
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -160,6 +175,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.verifyStateCharge();
     this.getDataUser();
     this.validateFormSupport();
+    this.listOfBrands();
   }
 
   /**
@@ -1884,6 +1900,167 @@ export class BulkLoadProductComponent implements OnInit {
         }
       }
     });
+  }
+
+  //**Generar excel* */
+
+  exportExcel() {
+
+    if( this.typeTheme === 'technology'){
+      this.dataTheme = this.getDataFormFileTechnology();
+    }
+    if( this.typeTheme === 'clothing'){
+      this.dataTheme = this.getDataFormFileClothing();
+    }
+
+    // Crea las hojas
+    const worksheetProducts: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.productos);
+    const worksheetCategory: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.categoria);
+    const worksheetBrands: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.marcas);
+    const worksheetSpecifications: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.especificaciones);
+
+    // SheetNames: Arreglo con el nombre de la hoja
+    // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
+    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoria': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoria', 'Marcas', 'Especificaciones'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    if( this.typeTheme === 'technology'){
+      this.saveAsExcel(excelBuffer, 'Plantilla general Technology');
+    }
+    if( this.typeTheme === 'clothing'){
+      this.saveAsExcel(excelBuffer, 'Plantilla general Clothing');
+    }
+    
+    
+    // console.log(workbook);
+  }
+
+  saveAsExcel(buffer: any, fileName: string) {
+    const data: Blob = new Blob([buffer], {
+      type: this.EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName);
+  }
+
+  getDataFormFileTechnology() {
+    const productos = [{
+      'Grupo EAN Combo': undefined,
+      'EAN': undefined,
+      'Nombre del producto': undefined,
+      'Categoria': undefined,
+      'Marca': undefined,
+      'Modelo': undefined,
+      'Detalles': undefined,
+      'Descripcion': undefined,
+      'Palabras Clave': undefined,
+      'Alto del empaque': undefined,
+      'Largo del empaque': undefined,
+      'Ancho del empaque': undefined,
+      'Peso del empaque': undefined,
+      'skuShippingsize': undefined,
+      'Alto del producto': undefined,
+      'Largo del producto': undefined,
+      'Ancho del producto': undefined,
+      'Peso del producto': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Tipo de Producto': undefined,
+      'URL de Imagen 1': undefined,
+      'URL de Imagen 2': undefined,
+      'URL de Imagen 3': undefined,
+      'URL de Imagen 4': undefined,
+      'URL de Imagen 5': undefined,
+      'Logistica Exito': undefined,
+    }];
+
+    const categoria = [{
+      'Código de Categoría': undefined,
+      'Categoría Especifica': undefined,
+    }];
+
+    const marcas = this.brands
+
+    const especificaciones = [{
+      'Especificaciones': undefined
+    }];
+
+    return { productos, categoria, marcas, especificaciones };
+
+  }
+
+  getDataFormFileClothing() {
+    const productos = [{
+      'Grupo EAN Combo': undefined,
+      'EAN': undefined,
+      'Referencia Hijo': undefined,
+      'Referencia Padre': undefined,
+      'Nombre del producto': undefined,
+      'Categoria': undefined,
+      'Marca': undefined,
+      'Modelo': undefined,
+      'Detalles': undefined,
+      'Descripcion': undefined,
+      'Palabras Clave': undefined,
+      'Talla': undefined,
+      'Color': undefined,
+      'hexColourCodePDP': undefined,
+      'hexColourName': undefined,
+      'Alto del empaque': undefined,
+      'Largo del empaque': undefined,
+      'Ancho del empaque': undefined,
+      'Peso del empaque': undefined,
+      'skuShippingsize': undefined,
+      'Alto del producto': undefined,
+      'Largo del producto': undefined,
+      'Ancho del producto': undefined,
+      'Peso del producto': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Tipo de Producto': undefined,
+      'URL de Imagen 1': undefined,
+      'URL de Imagen 2': undefined,
+      'URL de Imagen 3': undefined,
+      'URL de Imagen 4': undefined,
+      'URL de Imagen 5': undefined,
+      'Logistica Exito': undefined,
+    }];
+
+    const categoria = [{
+      'Código de Categoría': undefined,
+      'Categoría Especifica': undefined,
+    }];
+
+    const marcas = this.brands
+
+    const especificaciones = [{
+      'Especificaciones': undefined
+    }];
+
+    return { productos, categoria, marcas, especificaciones };
+
+  }
+
+  listOfBrands() {
+    this.loadingService.viewSpinner();
+    this.service.getActiveBrands().subscribe(brands => {
+      this.loadingService.closeSpinner();
+      const initialBrands = brands.Data.Brands;
+
+      this.brands = initialBrands.sort((a, b) => {
+        if (a.Name > b.Name) {
+          return 1;
+        }
+        if (a.Name < b.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      initialBrands.forEach((element, i) => {
+        this.brands[i] = {marca: element.Name};
+      });
+
+    })
   }
 
 }
