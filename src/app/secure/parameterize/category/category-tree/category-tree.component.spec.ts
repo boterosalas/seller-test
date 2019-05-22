@@ -215,7 +215,7 @@ describe('CategoryTreeComponent', () => {
         expect(mockCategoriesComponent.openCategoryDialog).toHaveBeenCalledTimes(1);
       });
 
-      it('Should be send to edit', () => {
+      it('Should be send to create', () => {
         component.createCategory(component.categoryList[0]);
         expect(mockCategoriesComponent.openCategoryDialog).toHaveBeenCalledTimes(1);
         expect(mockCategoriesComponent.openCategoryDialog).toHaveBeenCalled();

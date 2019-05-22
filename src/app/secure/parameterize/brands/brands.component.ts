@@ -316,6 +316,7 @@ export class BrandsComponent implements OnInit {
         let form = null;
         let messageCenter = false;
         const showButtons = false;
+        const btnConfirmationText = null;
 
         if (brandsData && brandsData.Id) {
             message = 'Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial. ';
@@ -333,7 +334,7 @@ export class BrandsComponent implements OnInit {
             messageCenter = false;
         }
         form = this.form;
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
     }
 
     /**
@@ -412,6 +413,7 @@ export class BrandsComponent implements OnInit {
         const form = null;
         let messageCenter = false;
         const showButtons = true;
+        const btnConfirmationText = null;
         this.idBrands = brandsData.Id;
         this.statusBrands = brandsData.Status;
         this.nameBrands = brandsData.Name;
@@ -427,7 +429,7 @@ export class BrandsComponent implements OnInit {
             title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         }
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**

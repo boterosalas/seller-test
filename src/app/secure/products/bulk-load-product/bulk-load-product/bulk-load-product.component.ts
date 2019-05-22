@@ -2140,7 +2140,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const form = null;
     const messageCenter = false;
     const showButtons = true;
-    return {title, message, icon, form, messageCenter, showButtons};
+    const btnConfirmationText = 'Descargar';
+    return {title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
   }
 
   /**

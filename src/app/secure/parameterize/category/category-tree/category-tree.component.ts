@@ -78,7 +78,7 @@ export class CategoryTreeComponent implements OnInit {
     }
   }
 
-  eventName(category) {
+  eventName(category: any) {
     if (this.parametrizationCategoryComponent instanceof CategoriesComponent) {
       this.showChildrens(category);
     } else {

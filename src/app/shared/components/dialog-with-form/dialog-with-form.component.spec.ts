@@ -43,7 +43,8 @@ describe('DialogWithFormComponent', () => {
       message: 'el mensaje',
       messageCenter: false,
       form: null,
-      showButtons: true
+      showButtons: true,
+      btnConfirmationText: null
     };
     fixture.detectChanges();
 

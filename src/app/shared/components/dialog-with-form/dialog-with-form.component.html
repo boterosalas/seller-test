@@ -25,6 +25,6 @@
     <mat-dialog-actions *ngIf="data.showButtons" class="container__btn">
         <button id="btn-cancel" type="button" mat-stroked-button color="primary" (click)="onNoClick()">CANCELAR</button>
         <button id="btn-confirmation" type="submit" mat-raised-button color="primary" (click)="confirmation()"
-            [disabled]="data.form && data.form.invalid" mat-dialog-close>ACEPTAR</button>
+            [disabled]="data.form && data.form.invalid" mat-dialog-close>{{!!data.btnConfirmationText ? data.btnConfirmationText: ACEPTAR}}</button>
     </mat-dialog-actions>
 </div>
