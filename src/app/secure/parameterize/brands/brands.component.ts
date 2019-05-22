@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { BrandService } from './brands.component.service';
-import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort } from '@angular/material';
+import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort, MatPaginatorIntl } from '@angular/material';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { readFunctionality, createFunctionality, updateFunctionality, MenuModel, brandName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
+import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -40,10 +41,11 @@ export interface ListFilterBrands {
 @Component({
     selector: 'app-brands',
     templateUrl: './brands.component.html',
-    styleUrls: ['brands.component.scss']
+    styleUrls: ['brands.component.scss'],
+    providers: [
+        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+    ]
 })
-
-
 
 export class BrandsComponent implements OnInit {
 
@@ -473,6 +475,7 @@ export class BrandsComponent implements OnInit {
      */
     public filterApply(drawer: any) {
         this.pagepaginator = 0;
+        this.paginator.firstPage();
         this.listFilterBrands = [];
         if (this.filterBrands.controls['filterBrandsId'].value) {
             this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
