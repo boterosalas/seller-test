@@ -11,7 +11,33 @@ const responseStatus = {
     body: JSON.stringify({
       Data: {
         Status: 3,
-        Data: [{EAN: '1987081822179', NAME: 'PRUEBA1'}, {EAN: '6581480417371', NAME: 'PRUEBA2'}, {EAN: '571825208827', NAME: 'PRUEBA3'}]
+        Data: [
+          {EAN: '1987081822179', NAME: null},
+          {EAN: '6581480417371', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: null},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+          {EAN: '571825208827', NAME: 'PRUEBA3'},
+        ]
       }
     })
   }
