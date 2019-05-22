@@ -1,3 +1,5 @@
+@import '_variables';
+
 $color-gray3: #D3D3D3;
 :host ::ng-deep .container {
     padding: 0px;
@@ -158,4 +160,13 @@ $color-gray3: #D3D3D3;
         pointer-events: none;
         color: $color-gray3;
     }
+}
+
+.container--text__sticky{
+    position: sticky;
+    top: 0;
+    background: $color-white;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
 }

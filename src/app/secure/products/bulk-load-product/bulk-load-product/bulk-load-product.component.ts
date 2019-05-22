@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -17,6 +17,9 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { VtexTree } from './VTEXtreeList';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -34,7 +37,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadProductComponent implements OnInit {
+export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   public paginator: any;
 
@@ -117,9 +120,6 @@ export class BulkLoadProductComponent implements OnInit {
   //active brands
   brands:any = [];
 
-  // value clothing or technology
-
-  typeTheme = 'clothing';
   dataTheme;
 
 
@@ -135,6 +135,12 @@ export class BulkLoadProductComponent implements OnInit {
   @ViewChild('fileUploadOption') inputFileUpload: any;
   isAdmin: boolean;
   profileTypeLoad: any;
+
+  selectCategory;
+
+  vtextree: any[] = [];
+
+  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
 
 
   constructor(
@@ -176,6 +182,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.getDataUser();
     this.validateFormSupport();
     this.listOfBrands();
+    this.trasformTree()
   }
 
   /**
@@ -1906,10 +1913,10 @@ export class BulkLoadProductComponent implements OnInit {
 
   exportExcel() {
 
-    if( this.typeTheme === 'technology'){
+    if(  this.selectCategory.productType === 'Technology'){
       this.dataTheme = this.getDataFormFileTechnology();
     }
-    if( this.typeTheme === 'clothing'){
+    if(this.selectCategory.productType === 'Clothing'){
       this.dataTheme = this.getDataFormFileClothing();
     }
 
@@ -1924,10 +1931,10 @@ export class BulkLoadProductComponent implements OnInit {
     const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoria': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoria', 'Marcas', 'Especificaciones'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
 
-    if( this.typeTheme === 'technology'){
+    if( this.selectCategory.productType === 'Technology'){
       this.saveAsExcel(excelBuffer, 'Plantilla general Technology');
     }
-    if( this.typeTheme === 'clothing'){
+    if( this.selectCategory.productType === 'Clothing'){
       this.saveAsExcel(excelBuffer, 'Plantilla general Clothing');
     }
     
@@ -2060,7 +2067,92 @@ export class BulkLoadProductComponent implements OnInit {
         this.brands[i] = {marca: element.Name};
       });
 
-    })
+    });
   }
 
+  /**
+   * Generación del arbol VTEX
+   */
+  trasformTree() {
+    // Copia el Listado del insumo
+    const arrayTree = [...VtexTree.VTEX_TREE];
+    // Agrega los atributos SON y SHOW a cada elemento
+    const vtexTree: any[] = arrayTree.map((element: any) => {
+      element.Son = [];
+      element.Show = false;
+      return element;
+    });
+    let lastFirst: number, lastSecond: number = -1;
+    // transforma la lista de categorias VTEX a un arreglo de árboles
+    this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
+        lastFirst = i;
+        previous.push(current);
+      }
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
+        lastSecond = i;
+        if (lastFirst >= 0) {
+          vtexTree[lastFirst].Son.push(current);
+        }
+      }
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
+        if (lastSecond >= 0) {
+          vtexTree[lastSecond].Son.push(current);
+        }
+      }
+      return previous;
+    }, []);
+
+  }
+
+  /**
+   * Abre la modal para seleccionar una categoría
+   */
+  openModalVtexTree() {
+    const dataDialog = this.configDataDialog();
+    const dialogRef = this.dialog.open(DialogWithFormComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      data: dataDialog
+    });
+    this.configDialog(dialogRef);
+  }
+
+  /**
+   * Configuración del contenido y confirmación de la acción
+   */
+  configDialog(dialogRef) {
+    const dialogComponent = dialogRef.componentInstance;
+    dialogComponent.content = this.contentDialog;
+    dialogComponent.confirmation =  () => {
+      this.exportExcel();
+    };
+  }
+
+  /**
+   * Configuración de la data del modal
+   */
+  configDataDialog() {
+    const title = 'Arbol VETEX';
+    const message = null;
+    const icon = null;
+    const form = null;
+    const messageCenter = false;
+    const showButtons = true;
+    return {title, message, icon, form, messageCenter, showButtons};
+  }
+
+  /**
+   * Se define el comportamiento a realizar con el elemento seleccionado
+   * @param element Elemento seleccionado
+   */
+  selectElement(element: any) {
+    if(element.Son.length > 0) {
+      element.Show = !element.Show;
+    } else {
+      this.selectCategory = element;
+      // Aca se debe lanzar la petición para consultar el grupo de especificaciones
+    }
+  }
 }

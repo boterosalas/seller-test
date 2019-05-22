@@ -17,6 +17,8 @@ import {
 } from './finish-upload-product-information/finish-upload-product-information.component';
 import { TableErrorsProductComponent } from './table-errors-product/table-errors-product.component';
 import { TableLoadProductComponent } from './table-load-product/table-load-product.component';
+import { ParameterizeModule } from '@app/secure/parameterize/parameterize.module';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
 
 @NgModule({
@@ -26,14 +28,15 @@ import { TableLoadProductComponent } from './table-load-product/table-load-produ
     ReactiveFormsModule,
     SharedModule,
     BulkLoadProductRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ParameterizeModule
   ],
   declarations: [
     BulkLoadProductComponent,
     FinishUploadProductInformationComponent,
     BulkLoadProductComponent,
     TableLoadProductComponent,
-    TableErrorsProductComponent
+    TableErrorsProductComponent,
   ],
   exports: [
     BulkLoadProductComponent,
@@ -43,7 +46,8 @@ import { TableLoadProductComponent } from './table-load-product/table-load-produ
     TableErrorsProductComponent
   ],
   entryComponents: [
-    FinishUploadProductInformationComponent
+    FinishUploadProductInformationComponent,
+    DialogWithFormComponent
   ],
   providers: [
     ComponentsService,

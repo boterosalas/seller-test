@@ -36,6 +36,11 @@
               multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
+              <button *ngIf="!isAdmin" color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-raised-button>
+              <mat-icon class="mat-18">file_download</mat-icon>
+              DESCARGAR PLANTILLA
+            </button>
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-button>
               <mat-icon class="mat-18">file_upload</mat-icon>
@@ -171,4 +176,11 @@
   </div>
 </div>
 
-<button mat-button (click)="exportExcel()">Basic</button>
+<ng-template #modalContent>
+  <div class="container--text__sticky">
+    Categoría selecionada: <span *ngIf="!!selectCategory && !!selectCategory.Name">{{selectCategory.Name}}</span>
+  </div>
+  <div>
+      <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false" [margin]="0"></app-category-tree>
+  </div>
+</ng-template>
