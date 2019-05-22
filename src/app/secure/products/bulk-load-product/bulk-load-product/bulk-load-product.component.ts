@@ -1,13 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { uniq, isEqual, uniqWith } from 'lodash';
 
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
@@ -16,6 +15,7 @@ import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from 
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -89,6 +89,8 @@ export class BulkLoadProductComponent implements OnInit {
 
   public showCharge: boolean;
 
+  listCategories: any[] = [];
+
   // Objeto moquear regex
   productsRegex = {
     number: '',
@@ -122,7 +124,6 @@ export class BulkLoadProductComponent implements OnInit {
   isAdmin: boolean;
   profileTypeLoad: any;
 
-
   constructor(
     public componentService: ComponentsService,
     public BulkLoadProductS: BulkLoadProductService,
@@ -132,6 +133,8 @@ export class BulkLoadProductComponent implements OnInit {
     private modalService: ModalService,
     public authService: AuthService,
     public SUPPORT: SupportService,
+    private searchService: SearchService,
+    private snackBar: MatSnackBar
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -160,6 +163,7 @@ export class BulkLoadProductComponent implements OnInit {
     this.verifyStateCharge();
     this.getDataUser();
     this.validateFormSupport();
+    this.getCategoriesList();
   }
 
   /**
@@ -1048,6 +1052,20 @@ export class BulkLoadProductComponent implements OnInit {
 
   }
 
+  /* Get categories from service, and storage in list categories.
+  */
+  public getCategoriesList(): void {
+    this.searchService.getCategories().subscribe((result: any) => {
+      // guardo el response
+      if (result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listCategories = body.Data;
+      } else {
+        log.debug('BulkLoadProductComponent:' + result.message);
+      }
+    });
+  }
+
   /**
    * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
    * @param {any} res
@@ -1065,8 +1083,10 @@ export class BulkLoadProductComponent implements OnInit {
       Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
       Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
-      MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
-      MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      // MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
+      MetaTitle: null,
+      // MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      MetaDescription: null,
       KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
       PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim().replace('.', ',') : null,
       PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim().replace('.', ',') : null,
@@ -1166,6 +1186,36 @@ export class BulkLoadProductComponent implements OnInit {
       }
     }
 
+
+    /*
+    * Primero listo las categorias, si hay categorias, recoro el excel en la posicion de las categorias,
+    * valido que el Id de la categoria sea el mismo que el Id de la lista de categorias..
+    * Capturo el nombre de la categoria por su Id para enviarlo en el Json en los campos de metatitulo y metadescription
+    */
+    if (this.listCategories) {
+      this.listCategories.forEach(element => {
+        if (element.Id === parseFloat(newObjectForSend.Category)) {
+          // newObjectForSend.Category = element.Name;
+          if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          }
+        }
+      });
+    } else {
+      this.snackBar.open('Se produjo un error al realizar la petición al servidor.', 'Cerrar', {
+        duration: 5000,
+      });
+    }
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
