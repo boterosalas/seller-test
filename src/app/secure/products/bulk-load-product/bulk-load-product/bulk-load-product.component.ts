@@ -1,27 +1,26 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
-import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { LoadingService, Logger, ModalService, UserParametersService } from '@app/core';
+import { ComponentsService, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { uniq, isEqual, uniqWith } from 'lodash';
 
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
 import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
-import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
+import { MenuModel, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { VtexTree } from './VTEXtreeList';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { trimField } from '../../../../shared/util/validation-messages';
+import { SearchService } from '../../create-product-unit/categorization/search.component.service';
+import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -95,6 +94,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   public showCharge: boolean;
 
+  listCategories: any[] = [];
+
   // Objeto moquear regex
   productsRegex = {
     number: '',
@@ -156,7 +157,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     public authService: AuthService,
     public SUPPORT: SupportService,
     private service: BasicInformationService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private searchService: SearchService,
+    private snackBar: MatSnackBar
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -193,7 +196,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.getDataUser();
     this.validateFormSupport();
     this.listOfBrands();
-    this.trasformTree()
+    this.trasformTree();
+    this.getCategoriesList();
   }
 
   /**
@@ -1082,6 +1086,20 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   }
 
+  /* Get categories from service, and storage in list categories.
+  */
+  public getCategoriesList(): void {
+    this.searchService.getCategories().subscribe((result: any) => {
+      // guardo el response
+      if (result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listCategories = body.Data;
+      } else {
+        log.debug('BulkLoadProductComponent:' + result.message);
+      }
+    });
+  }
+
   /**
    * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
    * @param {any} res
@@ -1099,8 +1117,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
       Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
-      MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
-      MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      // MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
+      MetaTitle: null,
+      // MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      MetaDescription: null,
       KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
       PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim().replace('.', ',') : null,
       PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim().replace('.', ',') : null,
@@ -1111,7 +1131,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim().replace('.', ',') : null,
       ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim().replace('.', ',') : null,
       ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim().replace('.', ',') : null,
-      Seller: res[i][iVal.iVendedor] ? res[i][iVal.iVendedor].trim() : null,
+      Seller: 'Marketplace',
       ProductType: res[i][iVal.iTipoDeProducto] ? res[i][iVal.iTipoDeProducto].trim() : null,
       ImageUrl1: res[i][iVal.iURLDeImagen1] ? res[i][iVal.iURLDeImagen1].trim() : null,
       ImageUrl2: res[i][iVal.iURLDeImagen2] ? res[i][iVal.iURLDeImagen2].trim() : null,
@@ -1200,6 +1220,36 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       }
     }
 
+
+    /*
+    * Primero listo las categorias, si hay categorias, recorro el excel en la posicion de las categorias,
+    * valido que la categoria del archivo del excel sea el mismo que el Id de la lista de categorias..
+    * Capturo el nombre de la categoria por su Id para enviarlo en el Json en los campos de metatitulo y metadescription
+    */
+    if (this.listCategories) {
+      this.listCategories.forEach(element => {
+        if (element.Id === parseFloat(newObjectForSend.Category)) {
+          // newObjectForSend.Category = element.Name;
+          if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          }
+        }
+      });
+    } else {
+      this.snackBar.open('Se produjo un error al realizar la petición al servidor.', 'Cerrar', {
+        duration: 5000,
+      });
+    }
     this.arrayInformationForSend.push(newObjectForSend);
   }
 

@@ -56,7 +56,7 @@ export class InDevolutionService {
    * @returns {Observable<[{}]>}
    * @memberof PendingDevolutionService
    */
-  acceptOrDeniedDevolution(info): Observable<[{}]> {
+  acceptOrDeniedDevolution(info: any): Observable<[{}]> {
     return new Observable(observer => {
       this.http.post(this.api.get('acceptOrDeniedDevolution'), info)
         .subscribe((data: any) => {

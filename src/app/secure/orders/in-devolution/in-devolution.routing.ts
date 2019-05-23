@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { RoutesConst } from './../../../shared';
 import { InDevolutionComponent } from './in-devolution-page/in-devolution.component';
 import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 const isProductionEnv = environment.production;
 
@@ -16,9 +17,10 @@ const routes: Routes = [
   Route.withShell([
     {
         path: `${RoutesConst.sellerCenterIntOrderInDevolution}`,
-        component: !isProductionEnv ? InDevolutionComponent : ErrorPageComponent,
+        component: InDevolutionComponent,
         data: { title: 'En devolución' },
-        canActivate: [TermsService]
+        // canActivate: [TermsService]
+        canActivate: [AuthService]
     }
   ])
 ];
