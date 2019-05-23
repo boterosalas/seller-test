@@ -38,7 +38,7 @@
               #fileUploadOption>
               <button *ngIf="!isAdmin" color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-raised-button>
-              <mat-icon class="mat-18">file_download</mat-icon>
+              <mat-icon class="mat-18 text_white">file_download</mat-icon>
               DESCARGAR PLANTILLA
             </button>
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
@@ -178,7 +178,7 @@
 
 <ng-template #modalContent>
   <div class="container--text__sticky">
-    Categoría selecionada: <span *ngIf="!!selectCategory && !!selectCategory.Name">{{selectCategory.Name}}</span>
+    Categoría seleccionada: <span class="badge badge-blue" *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span>
   </div>
   <div>
       <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false" [margin]="0"></app-category-tree>

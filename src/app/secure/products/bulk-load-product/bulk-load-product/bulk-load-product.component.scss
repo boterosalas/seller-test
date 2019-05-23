@@ -170,3 +170,20 @@ $color-gray3: #D3D3D3;
     padding: 10px;
     text-align: center;
 }
+
+.text_white{
+    color: $color-white;
+}
+
+.badge {
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-weight: bold;
+    font-size: 12px;
+
+    &-blue{
+        background: $blue
+    }
+
+}

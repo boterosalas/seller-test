@@ -20,6 +20,8 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { VtexTree } from './VTEXtreeList';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { trimField } from '../../../../shared/util/validation-messages';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -119,7 +121,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   //active brands
   brands:any = [];
-
+  // variable para la  creacion del excel
   dataTheme;
 
 
@@ -136,7 +138,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   isAdmin: boolean;
   profileTypeLoad: any;
 
-  selectCategory;
+  // Formulario para la seleccion de una categoria a descargar planitlla
+  categoryForm: FormGroup;
 
   vtextree: any[] = [];
 
@@ -152,7 +155,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     private modalService: ModalService,
     public authService: AuthService,
     public SUPPORT: SupportService,
-    private service: BasicInformationService
+    private service: BasicInformationService,
+    public fb: FormBuilder
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -166,6 +170,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.countErrors = 0;
     this.fileName = '';
     this.eanComboArray = [];
+
+    this.categoryForm = this.fb.group({
+      Name: ['', Validators.compose([Validators.required, trimField])],
+      productType: ['', Validators.compose([Validators.required, trimField])],
+      TipodeObjeto: ['', Validators.compose([Validators.required, trimField])]
+    });
+
   }
 
   /**
@@ -1913,10 +1924,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   exportExcel() {
 
-    if(  this.selectCategory.productType === 'Technology'){
+    if(  this.categoryType.value === 'Technology'){
       this.dataTheme = this.getDataFormFileTechnology();
     }
-    if(this.selectCategory.productType === 'Clothing'){
+    if(this.categoryType.value === 'Clothing'){
       this.dataTheme = this.getDataFormFileClothing();
     }
 
@@ -1928,13 +1939,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     // SheetNames: Arreglo con el nombre de la hoja
     // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoria': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoria', 'Marcas', 'Especificaciones'] };
+    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
 
-    if( this.selectCategory.productType === 'Technology'){
+    if( this.categoryType.value === 'Technology'){
       this.saveAsExcel(excelBuffer, 'Plantilla general Technology');
     }
-    if( this.selectCategory.productType === 'Clothing'){
+    if( this.categoryType.value === 'Clothing'){
       this.saveAsExcel(excelBuffer, 'Plantilla general Clothing');
     }
     
@@ -1948,6 +1959,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     });
     FileSaver.saveAs(data, fileName);
   }
+
+  //** Datos de plantilla Technology */
 
   getDataFormFileTechnology() {
     const productos = [{
@@ -1994,6 +2007,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     return { productos, categoria, marcas, especificaciones };
 
   }
+
+  //** Datos de plantilla Clothing */
 
   getDataFormFileClothing() {
     const productos = [{
@@ -2046,6 +2061,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     return { productos, categoria, marcas, especificaciones };
 
   }
+
+  //** Lista por marcas activas */
 
   listOfBrands() {
     this.loadingService.viewSpinner();
@@ -2132,12 +2149,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /**
    * Configuración de la data del modal
+   * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
    */
   configDataDialog() {
-    const title = 'Arbol VETEX';
+    const title = 'Árbol VETEX';
     const message = null;
     const icon = null;
-    const form = null;
+    const form = this.categoryForm;
     const messageCenter = false;
     const showButtons = true;
     const btnConfirmationText = 'Descargar';
@@ -2152,8 +2170,20 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     if(element.Son.length > 0) {
       element.Show = !element.Show;
     } else {
-      this.selectCategory = element;
+      this.categoryForm.patchValue(element);
       // Aca se debe lanzar la petición para consultar el grupo de especificaciones
     }
+  }
+
+  get categoryName() : FormControl {
+    return this.categoryForm.get('Name') as FormControl;
+  }
+
+  get categoryType() : FormControl {
+    return this.categoryForm.get('productType') as FormControl;
+  }
+
+  get categoryLvl() : FormControl {
+    return this.categoryForm.get('TipodeObjeto') as FormControl;
   }
 }
