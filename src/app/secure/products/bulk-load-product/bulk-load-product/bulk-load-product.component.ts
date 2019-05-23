@@ -1097,7 +1097,7 @@ export class BulkLoadProductComponent implements OnInit {
       ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim().replace('.', ',') : null,
       ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim().replace('.', ',') : null,
       ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim().replace('.', ',') : null,
-      Seller: res[i][iVal.iVendedor] ? res[i][iVal.iVendedor].trim() : null,
+      Seller: 'Marketplace',
       ProductType: res[i][iVal.iTipoDeProducto] ? res[i][iVal.iTipoDeProducto].trim() : null,
       ImageUrl1: res[i][iVal.iURLDeImagen1] ? res[i][iVal.iURLDeImagen1].trim() : null,
       ImageUrl2: res[i][iVal.iURLDeImagen2] ? res[i][iVal.iURLDeImagen2].trim() : null,
@@ -1188,8 +1188,8 @@ export class BulkLoadProductComponent implements OnInit {
 
 
     /*
-    * Primero listo las categorias, si hay categorias, recoro el excel en la posicion de las categorias,
-    * valido que el Id de la categoria sea el mismo que el Id de la lista de categorias..
+    * Primero listo las categorias, si hay categorias, recorro el excel en la posicion de las categorias,
+    * valido que la categoria del archivo del excel sea el mismo que el Id de la lista de categorias..
     * Capturo el nombre de la categoria por su Id para enviarlo en el Json en los campos de metatitulo y metadescription
     */
     if (this.listCategories) {
