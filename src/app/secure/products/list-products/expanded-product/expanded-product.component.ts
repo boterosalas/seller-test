@@ -37,6 +37,8 @@ export class ExpandedProductComponent implements OnInit {
         this.createArrayImages();
         this.applyOffert();
         this.getDataUser();
+        const startswithModel = !!this.productsExpanded.model && (this.productsExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
+        this.productsExpanded.model = startswithModel ? (this.productsExpanded.model.toString() as string).slice(7, this.productsExpanded.model.length) : this.productsExpanded.model;
     }
 
     async getDataUser() {
