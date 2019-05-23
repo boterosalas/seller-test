@@ -1,9 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, TemplateRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { Subject, Observable, timer } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
 
 const EXCEL_EXTENSION = '.xlsx';
+
 
 
 /**
@@ -18,9 +21,18 @@ const EXCEL_EXTENSION = '.xlsx';
 /**
  * FinishUploadInformationComponent
  */
-export class FinishUploadInformationComponent {
+export class FinishUploadInformationComponent implements AfterViewInit, OnDestroy {
 
   public response: any;
+  public responseData: any;
+  inProcess = true;
+  processFinish$ = new Subject<any>();
+  Success = false;
+  countError: number;
+  listError: any;
+
+  request: Observable<any>;
+  content: TemplateRef<any>;
 
   /**
    * Creates an instance of FinishUploadInformationComponent.
@@ -30,9 +42,36 @@ export class FinishUploadInformationComponent {
    */
   constructor(
     public dialogRef: MatDialogRef<FinishUploadInformationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cdr: ChangeDetectorRef
   ) {
-    this.response = data.response;
+    this.response = data;
+    // this.cdr.detectChanges();
+  }
+
+  ngAfterViewInit() {
+    !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
+      try {
+        const response = JSON.parse(res.body.body).Data;
+        const { Status } = response;
+        if (Status === 2) {
+          this.Success = true;
+          this.inProcess = false;
+          this.processFinish$.next(response);
+        } else if (Status === 3) {
+          this.Success = false;
+          this.inProcess = false;
+          this.listError = response.Data;
+          this.countError = response.Data.length;
+          this.processFinish$.next(response);
+        }
+      } catch {
+        this.Success = false;
+        this.inProcess = false;
+        this.processFinish$.next(null);
+      }
+    });
+    
   }
 
   /**
@@ -84,6 +123,10 @@ export class FinishUploadInformationComponent {
       type: ''
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  ngOnDestroy() {
+    this.processFinish$.next(null);
   }
 
 }

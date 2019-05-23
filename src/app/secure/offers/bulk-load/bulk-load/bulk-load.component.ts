@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -29,7 +29,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit {
+export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public paginator: any;
 
@@ -100,6 +100,7 @@ export class BulkLoadComponent implements OnInit {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
+    private cdr: ChangeDetectorRef
 
   ) {
     this.user = {};
@@ -321,7 +322,7 @@ export class BulkLoadComponent implements OnInit {
             iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio'),
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping'),
-            iIndEnvExito:  this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
@@ -609,7 +610,7 @@ export class BulkLoadComponent implements OnInit {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.openModal();
+      this.openModal(1);
       // this.sendJsonInformation();
     }
 
@@ -1054,8 +1055,10 @@ export class BulkLoadComponent implements OnInit {
         const response = JSON.parse(res.body.body).Data;
         const { Status } = response;
         if (Status === 1 || Status === 4) {
-          this.openModal();
-        }else {
+          setTimeout(() => {
+            this.openModal(Status);
+          });
+        } else {
           this.loadingService.closeSpinner();
         }
       } catch {
@@ -1065,7 +1068,7 @@ export class BulkLoadComponent implements OnInit {
   }
 
 
-  openModal() {
+  openModal(status: number) {
     this.loadingService.closeSpinner();
     const data = {
       successText: 'Carga realizada con éxito',
@@ -1074,29 +1077,29 @@ export class BulkLoadComponent implements OnInit {
       initTime: 500,
       intervalTime: 5000
     };
-    const dialog = this.dialog.open(CreateProcessDialogComponent, {
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',
       minWidth: '280px',
       maxHeight: '80vh',
+      disableClose: status === 1,
       data: data
     });
+    this.cdr.detectChanges();
     const dialogIntance = dialog.componentInstance;
+    this.cdr.detectChanges();
     dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
-      this.ListError = val.Data;
-
-      dialogIntance.content = this.content;
-      // console.log(dialogIntance.inProcess);
-      // console.log(val);
-      // dialogIntance.inProcess = true;
-      // console.log(dialogIntance.inProcess);
-      // if (!!val) {
-      //   this.getTree();
-      //   this.snackBar.open('Categoria creada satisfactoriamente', 'Cerrar', {
-      //     duration: 3000
-      //   });
-      // }
+      this.cdr.detectChanges();
+      if (val && val.Status) {
+        console.log(val.Status);
+      } else { }
+      dialog.disableClose = false;
     });
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
 }
