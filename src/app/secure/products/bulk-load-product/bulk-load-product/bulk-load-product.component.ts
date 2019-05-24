@@ -2225,15 +2225,15 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     }
   }
 
-  get categoryName() : FormControl {
+  get categoryName(): FormControl {
     return this.categoryForm.get('Name') as FormControl;
   }
 
-  get categoryType() : FormControl {
+  get categoryType(): FormControl {
     return this.categoryForm.get('productType') as FormControl;
   }
 
-  get categoryLvl() : FormControl {
+  get categoryLvl(): FormControl {
     return this.categoryForm.get('TipodeObjeto') as FormControl;
   }
 }
