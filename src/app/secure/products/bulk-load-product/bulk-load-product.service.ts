@@ -124,6 +124,17 @@ export class BulkLoadProductService {
     });
   }
 
+   /**
+   * @method getCategoriesVTEX()
+   * @returns {Observable}
+   * @description Método para obtener las categorias de vetex
+   * @memberof BulkLoadProductService
+   */
+
+  getCategoriesVTEX(categoria):Observable<any> {
+    return this.http.get(this.api.get('getCategoriesVetex') + categoria);
+  }
+
   /**
    * @method getCargasMasicas()
    * @returns {Observable}
@@ -142,6 +153,8 @@ export class BulkLoadProductService {
           }
         );
     });
+
+   
 
     /*
         return of(
