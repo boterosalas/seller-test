@@ -3,11 +3,12 @@ import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { CategoryTreeComponent } from './category-tree.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { CategoriesComponent } from '../categories/categories.component';
 
 describe('CategoryTreeComponent', () => {
   let component: CategoryTreeComponent;
   let fixture: ComponentFixture<CategoryTreeComponent>;
-  const mockCategoriesComponent = jasmine.createSpyObj('CategoriesComponent', ['openCategoryDialog']);
+  const mockCategoriesComponent: CategoriesComponent = jasmine.createSpyObj('CategoriesComponent', ['openCategoryDialog']);
   const mockCategoryListWithoutChild = [
     {
       Commission: 15,
@@ -138,7 +139,7 @@ describe('CategoryTreeComponent', () => {
         component.canUpdate = true;
         component.categoryList[0].Show = false;
         component.parametrizationCategoryComponent = mockCategoriesComponent;
-        mockCategoriesComponent.openCategoryDialog.calls.reset();
+        (<any>mockCategoriesComponent.openCategoryDialog).calls.reset();
         fixture.detectChanges();
       });
 

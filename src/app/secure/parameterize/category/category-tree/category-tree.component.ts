@@ -63,8 +63,8 @@ export class CategoryTreeComponent implements OnInit {
    * @param category represen the specific category to get the data for edit modal
    */
   editCategory(category: any) {
-    if (this.parametrizationCategoryComponent instanceof CategoriesComponent) {
-      this.parametrizationCategoryComponent.openCategoryDialog(category, true);
+    if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category, true);
     }
   }
 
@@ -73,16 +73,16 @@ export class CategoryTreeComponent implements OnInit {
    * @param category represen the specific category to get the data for create modal
    */
   createCategory(category: any) {
-    if (this.parametrizationCategoryComponent instanceof CategoriesComponent) {
-      this.parametrizationCategoryComponent.openCategoryDialog(category);
+    if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category);
     }
   }
 
   eventName(category: any) {
-    if (this.parametrizationCategoryComponent instanceof CategoriesComponent) {
+    if ((<TreeSelected>this.parametrizationCategoryComponent).selectElement !== undefined) {
+      (<TreeSelected>this.parametrizationCategoryComponent).selectElement(category);
+    } else if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
       this.showChildrens(category);
-    } else {
-      this.parametrizationCategoryComponent.selectElement(category);
     }
   }
 }
