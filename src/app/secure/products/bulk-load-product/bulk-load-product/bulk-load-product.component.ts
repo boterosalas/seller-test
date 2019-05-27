@@ -2001,13 +2001,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
 
     if (this.categoryType.value === 'Technology') {
-      this.saveAsExcel(excelBuffer, 'Plantilla general Technology');
+      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
     }
     if (this.categoryType.value === 'Clothing') {
-      this.saveAsExcel(excelBuffer, 'Plantilla general Clothing');
+      this.saveAsExcel(excelBuffer, `Plantilla general Clothing ${this.categoryName.value}`);
     }
-
-    console.log(workbook);
   }
 
   saveAsExcel(buffer: any, fileName: string) {
@@ -2050,7 +2048,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Logistica Exito': undefined,
     }];
 
-    const categoria = this.listOfCategories();
+    const categoria = this.listOfCategories() || [];
 
     const marcas = this.brands;
 
@@ -2099,16 +2097,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Logistica Exito': undefined,
     }];
 
-    const categoria = [{
-      'Código de Categoría': undefined,
-      'Categoría Especifica': undefined,
-    }];
+    const categoria = this.listOfCategories() || [];
 
     const marcas = this.brands;
 
-    const especificaciones = [{
-      'Especificaciones': undefined
-    }];
+    const especificaciones = this.listOfSpecs();
 
     return { productos, categoria, marcas, especificaciones };
 
@@ -2116,26 +2109,47 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Lista por marcas activas */
   listOfCategories() {
-    if (this.vetex.data){
-       return this.vetex.data.listCategories.map((element) => {
-           return {'Código de Categoría': element.id, 'Categoría Especifica': element.name};
-        });
-    } else {
-      return  null;
+    if (this.vetex.data) {
+      return this.vetex.data.listCategories.map((element) => {
+        return { 'Código de Categoría': element.id, 'Categoría Especifica': element.name };
+      });
     }
   }
 
   listOfSpecs() {
-    if (this.vetex.data){
-    return this.vetex.data.specs.map((element) => {
-      const values = element.listValues.reduce((previous, current) => {
-        return !!previous ? `${previous}, ${current}` : current
-      }, '');
-         return {'Especificaciones': element.specName, 'Valores': values};
-      });
-    } else {
-      return  null;
+    // Arreglo a retornar
+    const specs = [];
+    if (this.vetex.data) {
+      // Modelo de especificaciones a construir
+    const modelSpecs = {};
+    // Maximo numero de valores de una especificacion
+    let maxSpecsValue = 0;
+    this.vetex.data.specs.forEach(element => {
+      // Crea la key del objeto
+      modelSpecs[element.specName] = undefined;
+      // Comprueba el maximo valor
+      if(maxSpecsValue < element.listValues.length) {
+        maxSpecsValue = element.listValues.length;
+      }
+    });
+    // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
+    for(let i = 0; i < maxSpecsValue; i ++) {
+      const object = Object.assign({}, modelSpecs);
+      specs.push(object);
     }
+
+    this.vetex.data.specs.map((element) => {
+      if(element.listValues.length > 0) {
+        element.listValues.forEach((specElement, i) => {
+          // Agrega el valor de la especificacion (specName) al objeto situado en la posicion i
+          specs[i][element.specName] = specElement;
+        });
+      } else {
+        specs.forEach(specElement => specElement[element.specName] = null);
+      }
+      });
+    }
+    return specs;
   }
 
   /* Lista por marcas activas */
@@ -2254,7 +2268,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         this.vetex = resp;
         this.listOfCategories();
         this.listOfSpecs();
-        console.log(resp);
       });
 
     }
@@ -2271,218 +2284,5 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   get categoryLvl(): FormControl {
     return this.categoryForm.get('TipodeObjeto') as FormControl;
   }
-
-//   vetex:any =  [{
-//     errors: [],
-//     data: {
-//         idGroup: '636854161363776361',
-//         groupName: 'Lavadoras',
-//         specs: [
-//             {
-//                 idSpec: '636854161401212951',
-//                 specName: 'Material principal',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161392547134',
-//                 specName: 'Capacidad en libras',
-//                 required: true,
-//                 values: null,
-//                 listValues: [
-//                     '0 - 25.9',
-//                     '26 - 31',
-//                     '31.1 en adelante'
-//                 ]
-//             },
-//             {
-//                 idSpec: '636854161382756614',
-//                 specName: 'Potencia',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636868940901682966',
-//                 specName: 'Nombre Especs numbre 62714424',
-//                 required: false,
-//                 values: null,
-//                 listValues: [
-//                     'Opcion 3',
-//                     'Opcion 1',
-//                     'Opcion 4',
-//                     'Opcion 9'
-//                 ]
-//             },
-//             {
-//                 idSpec: '636854161390629009',
-//                 specName: 'Peso Neto',
-//                 required: true,
-//                 values: null,
-//                 listValues: [
-//                     'op1',
-//                     'op2'
-//                 ]
-//             },
-//             {
-//                 idSpec: '636854161396425922',
-//                 specName: 'Tipo de Instrumento',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161376888095',
-//                 specName: 'Capacidad en Kilogramos',
-//                 required: true,
-//                 values: null,
-//                 listValues: [
-//                     '0 - 11',
-//                     '11.1 - 14',
-//                     '14.1 en adelante'
-//                 ]
-//             },
-//             {
-//                 idSpec: '636854161386668731',
-//                 specName: 'Estilo',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161378842785',
-//                 specName: 'Tipo de carga',
-//                 required: true,
-//                 values: null,
-//                 listValues: [
-//                     'Frontal',
-//                     'Superi or'
-//                 ]
-//             },
-//             {
-//                 idSpec: '636854161380807452',
-//                 specName: 'Modelo',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161388568160',
-//                 specName: 'Referencia',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636924947427602052',
-//                 specName: 'fray',
-//                 required: true,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161398340944',
-//                 specName: 'Tipo de panel',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161409031573',
-//                 specName: 'Peso Bruto',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161366353090',
-//                 specName: 'Voltaje',
-//                 required: true,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161405152291',
-//                 specName: 'Compatibilidad',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161374889830',
-//                 specName: 'Beneficio',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161394465125',
-//                 specName: 'Resistencia',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161407096097',
-//                 specName: 'Capacidad',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161384712412',
-//                 specName: 'Tipo',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             },
-//             {
-//                 idSpec: '636854161403150701',
-//                 specName: 'Especificaciones',
-//                 required: false,
-//                 values: null,
-//                 listValues: []
-//             }
-//         ],
-//         id: '636854161363776361',
-//         listCategories: [
-//             {
-//                 id: 27223,
-//                 name: 'Lavadoras'
-//             },
-//             {
-//                 id: 27223,
-//                 name: 'Lavadoras'
-//             },
-//             {
-//                 id: 27707,
-//                 name: 'Carga Frontal'
-//             },
-//             {
-//                 id: 27714,
-//                 name: 'Carga Superior'
-//             },
-//             {
-//                 id: 27301,
-//                 name: 'Lavadoras De Perilla'
-//             },
-//             {
-//                 id: 27302,
-//                 name: 'Lavadoras Digitales'
-//             },
-//             {
-//                 id: 27550,
-//                 name: 'Secadoras'
-//             },
-//             {
-//                 id: 27199,
-//                 name: 'Lavasecadora'
-//             }
-//         ],
-//         idVTEX: ''
-//     },
-//     message: 'Operación realizada exitosamente.'
-// }]
 
 }
