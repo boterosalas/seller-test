@@ -12,7 +12,6 @@ import { of, BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '../../create-product-unit/basic-information/basic-information.component.service';
 import { FormBuilder } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
-import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 
 export const registerRegex = [
     { Identifier: 'number', Value: '^[0-9]+$', Module: 'productos' },
@@ -61,8 +60,6 @@ fdescribe('BulkLoad Products Component', () => {
     const mockSearchService = jasmine.createSpyObj('SearchService', ['getCategories']);
     const mockMatSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
-    const mockFileServer = jasmine.createSpyObj('FileSaver', ['saveAs']);
-
     const response = {
         status: 200,
         body: {
@@ -87,11 +84,15 @@ fdescribe('BulkLoad Products Component', () => {
         }
     };
 
+    const brands = {
+        Data: {
+            Brands: [{ marca: '000000 000123' }, { marca: '00004567' }]
+        }
+    };
+
 
     let fixture: ComponentFixture<BulkLoadProductComponent>;
     let component: BulkLoadProductComponent;
-    let dialogFixture: ComponentFixture<DialogWithFormComponent>;
-    let dialogComponent: DialogWithFormComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -131,7 +132,7 @@ fdescribe('BulkLoad Products Component', () => {
             }
         };
         mockSupportService.getRegexFormSupport.and.returnValue(of(res));
-
+        mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
     });
     afterEach(() => {
@@ -158,8 +159,6 @@ fdescribe('BulkLoad Products Component', () => {
 
         describe('Seller login', () => {
             beforeEach(() => {
-                dialogFixture = TestBed.createComponent(DialogWithFormComponent);
-                dialogComponent = dialogFixture.componentInstance;
             });
 
             it('Get quantity charges in seller', () => {
@@ -202,7 +201,6 @@ fdescribe('BulkLoad Products Component', () => {
             });
 
             it('Validate status charge checked true', () => {
-                console.log('55', response);
                 response.body.data.status = 1;
                 component.verifyStateCharge();
                 expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
@@ -226,50 +224,10 @@ fdescribe('BulkLoad Products Component', () => {
                 expect(pruebaDialog).toBeTruthy();
             });
 
-            it('Configuracion abre modal', () => {
-                component.openModalVtexTree();
-                const pruebaDialogModal = component.openModalVtexTree();
-                expect(pruebaDialogModal).toBeTruthy();
+            it('Lista por marcas', () => {
+                component.listOfBrands();
+                expect(mockBasicInformationService.getActiveBrands).toHaveBeenCalled();
             });
-
-            /*
-            describe('abc', () => {
-                beforeEach(() => {
-                    const response1 = {
-                        status: 200,
-                        body: {
-                            data: {
-                                status: 1,
-                                checked: 'true',
-                                Data: 'Success',
-                                Response: {
-                                    Error: [],
-                                    Message: 'Operación realizada exitosamente',
-                                    Data: {
-                                        Error: 0,
-                                        FileName: '',
-                                        ProductNotify: [],
-                                        SpecsNotify: [],
-                                        Successful: 0,
-                                        TotalProcess: 0,
-                                        productWaiting: [ ]
-                                    }
-                                }
-                            }
-                        }
-                    };
-                    mockBulkLoadProductService.verifyStateCharge.and.returnValue(of(response1));
-
-                });
-                it('Validate status charge status 1 ', () => {
-                    // response.body.data.checked = 'false';
-                    fixture.detectChanges();
-                    fixture.whenStable().then(() => {
-                        component.verifyStateCharge();
-                        expect(mockBulkLoadProductService.verifyStateCharge).toHaveBeenCalled();
-                    });
-                });
-            }); */
         });
     });
 

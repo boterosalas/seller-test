@@ -121,7 +121,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   };
 
   //active brands
-  brands:any = [];
+  brands: any = [];
   // variable para la  creacion del excel
   dataTheme;
 
@@ -1970,14 +1970,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     });
   }
 
-  //**Generar excel* */
+  /*Generar excel*/
 
   exportExcel() {
 
-    if(  this.categoryType.value === 'Technology'){
+    if (this.categoryType.value === 'Technology') {
       this.dataTheme = this.getDataFormFileTechnology();
     }
-    if(this.categoryType.value === 'Clothing'){
+    if (this.categoryType.value === 'Clothing') {
       this.dataTheme = this.getDataFormFileClothing();
     }
 
@@ -1992,15 +1992,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
 
-    if( this.categoryType.value === 'Technology'){
+    if (this.categoryType.value === 'Technology') {
       this.saveAsExcel(excelBuffer, 'Plantilla general Technology');
     }
-    if( this.categoryType.value === 'Clothing'){
+    if (this.categoryType.value === 'Clothing') {
       this.saveAsExcel(excelBuffer, 'Plantilla general Clothing');
     }
-    
-    
-    // console.log(workbook);
   }
 
   saveAsExcel(buffer: any, fileName: string) {
@@ -2010,7 +2007,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     FileSaver.saveAs(data, fileName);
   }
 
-  //** Datos de plantilla Technology */
+  /* Datos de plantilla Technology */
 
   getDataFormFileTechnology() {
     const productos = [{
@@ -2048,7 +2045,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Categoría Especifica': undefined,
     }];
 
-    const marcas = this.brands
+    const marcas = this.brands;
 
     const especificaciones = [{
       'Especificaciones': undefined
@@ -2058,7 +2055,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   }
 
-  //** Datos de plantilla Clothing */
+  /* Datos de plantilla Clothing */
 
   getDataFormFileClothing() {
     const productos = [{
@@ -2102,7 +2099,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Categoría Especifica': undefined,
     }];
 
-    const marcas = this.brands
+    const marcas = this.brands;
 
     const especificaciones = [{
       'Especificaciones': undefined
@@ -2112,7 +2109,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   }
 
-  //** Lista por marcas activas */
+  /* Lista por marcas activas */
 
   listOfBrands() {
     this.loadingService.viewSpinner();
@@ -2131,7 +2128,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       });
 
       initialBrands.forEach((element, i) => {
-        this.brands[i] = {marca: element.Name};
+        this.brands[i] = { marca: element.Name };
       });
 
     });
@@ -2189,10 +2186,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /**
    * Configuración del contenido y confirmación de la acción
    */
-  configDialog(dialogRef) {
+  configDialog(dialogRef: any) {
     const dialogComponent = dialogRef.componentInstance;
     dialogComponent.content = this.contentDialog;
-    dialogComponent.confirmation =  () => {
+    dialogComponent.confirmation = () => {
       this.exportExcel();
     };
   }
@@ -2209,7 +2206,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const messageCenter = false;
     const showButtons = true;
     const btnConfirmationText = 'Descargar';
-    return {title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
   /**
@@ -2217,7 +2214,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @param element Elemento seleccionado
    */
   selectElement(element: any) {
-    if(element.Son.length > 0) {
+    if (element.Son.length > 0) {
       element.Show = !element.Show;
     } else {
       this.categoryForm.patchValue(element);
@@ -2225,15 +2222,15 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     }
   }
 
-  get categoryName() : FormControl {
+  get categoryName(): FormControl {
     return this.categoryForm.get('Name') as FormControl;
   }
 
-  get categoryType() : FormControl {
+  get categoryType(): FormControl {
     return this.categoryForm.get('productType') as FormControl;
   }
 
-  get categoryLvl() : FormControl {
+  get categoryLvl(): FormControl {
     return this.categoryForm.get('TipodeObjeto') as FormControl;
   }
 }
