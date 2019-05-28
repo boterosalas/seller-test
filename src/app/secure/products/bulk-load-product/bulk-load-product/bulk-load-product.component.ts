@@ -358,6 +358,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
     */
+   if (res && !!res[0] && res[0].length > 0) {
+     for(let i = 0; i < res[0].length; i ++) {
+       res[0][i] = res[0][i].toString().trim();
+     }
+   }
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
