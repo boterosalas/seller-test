@@ -10,8 +10,9 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '../../create-product-unit/basic-information/basic-information.component.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
+import { componentRefresh } from '@angular/core/src/render3/instructions';
 
 export const registerRegex = [
     { Identifier: 'number', Value: '^[0-9]+$', Module: 'productos' },
@@ -49,7 +50,7 @@ describe('BulkLoad Products Component', () => {
     const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openSnackBar']);
     const mockBulkLoadProductService = jasmine.createSpyObj('BulkLoadProductService', ['getAmountAvailableLoads', 'setProductsModeration',
-        'setProducts', 'getCargasMasivas', 'verifyStateCharge']);
+        'setProducts', 'getCargasMasivas', 'verifyStateCharge', 'getCategoriesVTEX']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     // const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu', 'profileType$']);
     const mockUserParametersService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
@@ -88,6 +89,1034 @@ describe('BulkLoad Products Component', () => {
         Data: {
             Brands: [{ marca: '000000 000123' }, { marca: '00004567' }]
         }
+    };
+
+    const selectedData = {
+        productType: 'Technology',
+        Name: 'Electrodomésticos',
+        TipodeObjeto: 'Nivel 1',
+        Son: [
+            {
+                productType: 'Technology',
+                Name: 'Refrigeración',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Nevecones',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Neveras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Minibar',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Cavas de Vino y Cerveza',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Congeladores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Dispensadores de Agua',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Fabricante de Hielo',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Lavado y Secado',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Lavadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Secadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Lavadoras Secadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Torre de Lavado',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Lavavajillas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Cocción',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Campanas - Extractores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Estufas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Hornos de Empotrar',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Cubiertas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Máquinas de Coser, Bordaras y Fileteadoras',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Maquinas de Coser',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Fileteadora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Bordadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Preparación y Cocción de Alimentos',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Licuadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Procesadores de Alimentos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Extractores ',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Exprimidores de Cítricos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Máquinas para Cortar Carne',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Combos Pequeños Electrodomésticos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Batidoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Productos para la Cocción de Alimentos',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Horno Microondas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Horno Tostador',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Hornos Eléctricos para Pizza',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Hornos Eléctricos Análogos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Horno Rostizador',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Tostadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Plancha Asadora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Sartenes Eléctricos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Estufa Portátil',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Sanducheras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Panninis',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Olla de Arroz',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Olla Freidora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Olla Cocción Lenta',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Ollas a Presión Eléctricas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Vaporeras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Wafflera',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Máquinas para Especialidades',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Preparación de Bebidas',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Cafetera',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Teteras Eléctricas',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Hervidor de Agua',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Máquinas para Té Helado',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Purificador de Agua',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Accesorios Preparación de Alimentos',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Vaso Licuadora Vidrio',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Vaso Licuadora Plástico',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Empaques Licuadora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Jarras Cafetera',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Filtros Cafetera',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Cuchillas Licuadora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Tapas Licuadora',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Accesorios de Batidoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Ventilación y Calefacción',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Aires Acondicionados',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Ventiladores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Enfriadores de Ambiente',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Calentadores de Ambiente',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Calentadores de Agua',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Repuesto de Ventilación',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Purificadores de Aire',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Cuidado de Pisos',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Aspiradoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Brilladoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Accesorios Cuidado de Pisos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Planchas de Ropa',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Planchas a Vapor',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Planchas Verticales',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Plancha Seca',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            },
+            {
+                productType: 'Technology',
+                Name: 'Cuidado Personal',
+                TipodeObjeto: 'Nivel 2',
+                Son: [
+                    {
+                        productType: 'Technology',
+                        Name: 'Secadores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Espejos Eléctricos',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Afeitadoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Depiladoras',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Vaporizadores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Plancha Alisadora Cabello',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Masajeadores',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    },
+                    {
+                        productType: 'Technology',
+                        Name: 'Maquina Cortador Cabello',
+                        TipodeObjeto: 'Nivel 3',
+                        Son: [
+
+                        ],
+                        Show: false
+                    }
+                ],
+                Show: false
+            }
+        ],
+        Show: false
+    }
+
+    const lastlvl = {
+        Name: 'Lavadoras',
+        Show: false,
+        Son: [],
+        TipodeObjeto: 'Nivel 3',
+        productType: 'Technology'
+    };
+
+    const vetex = {
+        errors: [],
+        data: {
+            idGroup: '636854161363776361',
+            groupName: 'Lavadoras',
+            specs: [
+                {
+                    idSpec: '636854161401212951',
+                    specName: 'Material principal',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161392547134',
+                    specName: 'Capacidad en libras',
+                    required: true,
+                    values: null,
+                    listValues: [
+                        '0 - 25.9',
+                        '26 - 31',
+                        '31.1 en adelante'
+                    ]
+                },
+                {
+                    idSpec: '636854161382756614',
+                    specName: 'Potencia',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636868940901682966',
+                    specName: 'Nombre Especs numbre 62714424',
+                    required: false,
+                    values: null,
+                    listValues: [
+                        'Opcion 3',
+                        'Opcion 1',
+                        'Opcion 4',
+                        'Opcion 9'
+                    ]
+                },
+                {
+                    idSpec: '636854161390629009',
+                    specName: 'Peso Neto',
+                    required: true,
+                    values: null,
+                    listValues: [
+                        'op1',
+                        'op2'
+                    ]
+                },
+                {
+                    idSpec: '636854161396425922',
+                    specName: 'Tipo de Instrumento',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161376888095',
+                    specName: 'Capacidad en Kilogramos',
+                    required: true,
+                    values: null,
+                    listValues: [
+                        '0 - 11',
+                        '11.1 - 14',
+                        '14.1 en adelante'
+                    ]
+                },
+                {
+                    idSpec: '636854161386668731',
+                    specName: 'Estilo',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161378842785',
+                    specName: 'Tipo de carga',
+                    required: true,
+                    values: null,
+                    listValues: [
+                        'Frontal',
+                        'Superi or'
+                    ]
+                },
+                {
+                    idSpec: '636854161380807452',
+                    specName: 'Modelo',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161388568160',
+                    specName: 'Referencia',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636924947427602052',
+                    specName: 'fray',
+                    required: true,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161398340944',
+                    specName: 'Tipo de panel',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161409031573',
+                    specName: 'Peso Bruto',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161366353090',
+                    specName: 'Voltaje',
+                    required: true,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161405152291',
+                    specName: 'Compatibilidad',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161374889830',
+                    specName: 'Beneficio',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161394465125',
+                    specName: 'Resistencia',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161407096097',
+                    specName: 'Capacidad',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161384712412',
+                    specName: 'Tipo',
+                    required: false,
+                    values: null,
+                    listValues: []
+                },
+                {
+                    idSpec: '636854161403150701',
+                    specName: 'Especificaciones',
+                    required: false,
+                    values: null,
+                    listValues: []
+                }
+            ],
+            id: '636854161363776361',
+            listCategories: [
+                {
+                    id: 27223,
+                    name: 'Lavadoras'
+                },
+                {
+                    id: 27223,
+                    name: 'Lavadoras'
+                },
+                {
+                    id: 27707,
+                    name: 'Carga Frontal'
+                },
+                {
+                    id: 27714,
+                    name: 'Carga Superior'
+                },
+                {
+                    id: 27301,
+                    name: 'Lavadoras De Perilla'
+                },
+                {
+                    id: 27302,
+                    name: 'Lavadoras Digitales'
+                },
+                {
+                    id: 27550,
+                    name: 'Secadoras'
+                },
+                {
+                    id: 27199,
+                    name: 'Lavasecadora'
+                }
+            ],
+            idVTEX: ''
+        },
+        message: 'Operación realizada exitosamente.'
     };
 
 
@@ -134,6 +1163,13 @@ describe('BulkLoad Products Component', () => {
         mockSupportService.getRegexFormSupport.and.returnValue(of(res));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
+        mockBulkLoadProductService.getCategoriesVTEX.and.returnValue(of(vetex));
+        component.categoryForm = new FormGroup({
+            Name: new FormControl(''),
+            productType: new FormControl(''),
+            TipodeObjeto: new FormControl('')
+        });
+
     });
     afterEach(() => {
         fixture = TestBed.createComponent(BulkLoadProductComponent);
@@ -151,85 +1187,79 @@ describe('BulkLoad Products Component', () => {
         expect(component).toBeTruthy();
     });
 
-
-
     describe('Seller login', () => {
         beforeEach(() => {
         });
 
-        describe('Seller login', () => {
-            beforeEach(() => {
-            });
+        it('Get quantity charges in seller', () => {
+            component.getAvaliableLoads();
+            expect(component.isAdmin).toBeFalsy();
+            // Se verifica el llamado del metodo getAmountAvailableLoads
+            expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
+        });
 
-            it('Get quantity charges in seller', () => {
-                component.getAvaliableLoads();
-                expect(component.isAdmin).toBeFalsy();
-                // Se verifica el llamado del metodo getAmountAvailableLoads
-                expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
-            });
+        it('Reset variables', () => {
+            component.listLog = [];
+            component.countErrors = 0;
+            component.countRowUpload = 0;
+            component.arrayInformation = [];
+            component.arrayInformationForSend = [];
+            component.orderListLength = true;
+            component.numberElements = 0;
+            component.fileName = '';
+            component.arrayNecessaryData = [];
+            component.resetVariableUploadFile();
+            expect(component.resetVariableUploadFile).toBeTruthy();
+        });
 
-            it('Reset variables', () => {
-                component.listLog = [];
-                component.countErrors = 0;
-                component.countRowUpload = 0;
-                component.arrayInformation = [];
-                component.arrayInformationForSend = [];
-                component.orderListLength = true;
-                component.numberElements = 0;
-                component.fileName = '';
-                component.arrayNecessaryData = [];
-                component.resetVariableUploadFile();
-                expect(component.resetVariableUploadFile).toBeTruthy();
-            });
+        it('Get regex', () => {
+            component.validateFormSupport();
+            expect(mockSupportService.getRegexFormSupport).toHaveBeenCalled();
+        });
 
-            it('Get regex', () => {
-                component.validateFormSupport();
-                expect(mockSupportService.getRegexFormSupport).toHaveBeenCalled();
-            });
+        it('Download excel', () => {
+            component.downloadFormatMassiveOfferLoadinternacional();
+        });
 
-            it('Download excel', () => {
-                component.downloadFormatMassiveOfferLoadinternacional();
-            });
+        it('Download excel spanish', () => {
+            component.downloadFormatMassiveOfferLoad();
+        });
 
-            it('Download excel spanish', () => {
-                component.downloadFormatMassiveOfferLoad();
-            });
+        it('Validate status charge', () => {
+            component.verifyStateCharge();
+            expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
+        });
 
-            it('Validate status charge', () => {
-                component.verifyStateCharge();
-                expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
-            });
+        it('Validate status charge checked true', () => {
+            response.body.data.status = 1;
+            component.verifyStateCharge();
+            expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
+        });
 
-            it('Validate status charge checked true', () => {
-                response.body.data.status = 1;
-                component.verifyStateCharge();
-                expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
-            });
+        it('Validate datos plantilla technology', () => {
+            component.getDataFormFileTechnology();
+            const prueba = component.getDataFormFileTechnology();
+            expect(prueba.categoria).toBeTruthy();
+        });
 
-            it('Validate datos plantilla technology', () => {
-                component.getDataFormFileTechnology();
-                const prueba = component.getDataFormFileTechnology();
-                expect(prueba.categoria).toBeTruthy();
-            });
+        it('Validate datos plantilla clothing', () => {
+            component.getDataFormFileClothing();
+            const prueba = component.getDataFormFileClothing();
+            expect(prueba.categoria).toBeTruthy();
+        });
 
-            it('Validate datos plantilla clothing', () => {
-                component.getDataFormFileClothing();
-                const prueba = component.getDataFormFileClothing();
-                expect(prueba.categoria).toBeTruthy();
-            });
+        it('Configuracion de la tabla', () => {
+            component.configDataDialog();
+            const pruebaDialog = component.configDataDialog();
+            expect(pruebaDialog).toBeTruthy();
+        });
 
-            it('Configuracion de la tabla', () => {
-                component.configDataDialog();
-                const pruebaDialog = component.configDataDialog();
-                expect(pruebaDialog).toBeTruthy();
-            });
-
-            it('Lista por marcas', () => {
-                component.listOfBrands();
-                expect(mockBasicInformationService.getActiveBrands).toHaveBeenCalled();
-            });
+        it('Lista por marcas', () => {
+            component.listOfBrands();
+            expect(mockBasicInformationService.getActiveBrands).toHaveBeenCalled();
         });
     });
+
 
     describe('Admin login', () => {
         beforeEach(() => {
@@ -254,6 +1284,33 @@ describe('BulkLoad Products Component', () => {
             component.resetVariableUploadFile();
             expect(component.resetVariableUploadFile).toBeTruthy();
         });
+    });
+
+    describe('Download data theme for seller', () => {
+
+        it('element selected first tree lvl', () => {
+            component.selectElement(selectedData);
+            expect(mockBulkLoadProductService.getCategoriesVTEX).not.toHaveBeenCalled();
+        });
+
+        it('element selected last lvl', () => {
+            component.selectElement(lastlvl);
+            component.categoryForm.patchValue({ lastlvl });
+            expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
+        });
+
+        it('export excel Technology', () => {
+            component.categoryType.setValue('Technology');
+            component.exportExcel();
+            expect(component.exportExcel).toBeTruthy();
+        });
+
+        it('export excel Clothing', () => {
+            component.categoryType.setValue('Clothing');
+            component.exportExcel();
+            expect(component.exportExcel).toBeTruthy();
+        });
+
     });
 
 });

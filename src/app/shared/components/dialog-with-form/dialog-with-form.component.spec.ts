@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-fdescribe('DialogWithFormComponent', () => {
+describe('DialogWithFormComponent', () => {
   let component: DialogWithFormComponent;
   let fixture: ComponentFixture<DialogWithFormComponent>;
   const mockDialog = jasmine.createSpyObj('MatDialogRef', ['open, close, afterClosed']);

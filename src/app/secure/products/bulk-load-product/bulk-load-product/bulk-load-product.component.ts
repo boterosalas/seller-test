@@ -94,7 +94,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   public showCharge: boolean;
 
+  /*listado de categorias*/
   listCategories: any[] = [];
+
+  /*listado de especificaciones*/
   listSpecs: any[] = [];
 
 
@@ -148,6 +151,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // Formulario para la seleccion de una categoria a descargar planitlla
   categoryForm: FormGroup;
 
+  /*arabol vtex*/
   vtextree: any[] = [];
 
   @ViewChild('modalContent') contentDialog: TemplateRef<any>;
@@ -358,11 +362,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
     */
-   if (res && !!res[0] && res[0].length > 0) {
-     for(let i = 0; i < res[0].length; i ++) {
-       res[0][i] = res[0][i].toString().trim();
-     }
-   }
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
@@ -2247,7 +2246,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
    */
   configDataDialog() {
-    const title = 'Árbol VETEX';
+    const title = 'Árbol VTEX';
     const message = null;
     const icon = null;
     const form = this.categoryForm;
