@@ -113,7 +113,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     eanImageProduct: '',
     SkuShippingSizeProduct: '',
     Package: '',
-    descriptionProduct: '',
+    forbiddenScript: '',
     size: '',
     hexColourCodePDPProduct: '',
     limitCharsSixty: '',
@@ -1736,7 +1736,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           }
           break;
         case 'formatDescription':
-          if ((inputtxt.match(this.productsRegex.descriptionProduct))) {
+          if ((inputtxt.match(this.productsRegex.forbiddenScript))) {
             valueReturn = true;
           } else {
             valueReturn = false;
