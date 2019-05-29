@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { BulkLoadProductComponent } from './bulk-load-product.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MaterialModule } from '@app/material.module';
@@ -13,6 +13,7 @@ import { BasicInformationService } from '../../create-product-unit/basic-informa
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { componentRefresh } from '@angular/core/src/render3/instructions';
+import { By } from '@angular/platform-browser';
 
 export const registerRegex = [
     { Identifier: 'number', Value: '^[0-9]+$', Module: 'productos' },
@@ -1119,6 +1120,22 @@ describe('BulkLoad Products Component', () => {
         message: 'Operación realizada exitosamente.'
     };
 
+    const UserInformation = {
+        sellerEmail: 'ccbustamante2@misena.edu.co',
+        sellerId: '11618',
+        sellerName: 'la tienda de cristian 2019 vs 5',
+        sellerNit: '1128438122',
+        sellerProfile: 'seller',
+    }
+
+    const UserInformationAdmin = {
+        sellerEmail: 'ccbustamante2@misena.edu.co',
+        sellerId: '11618',
+        sellerName: 'la tienda de cristian 2019 vs 5',
+        sellerNit: '1128438122',
+        sellerProfile: 'admin',
+    }
+
 
     let fixture: ComponentFixture<BulkLoadProductComponent>;
     let component: BulkLoadProductComponent;
@@ -1300,15 +1317,53 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('export excel Technology', () => {
+            component.modelSpecs = {pruebas: '1', testeo: '2'};
             component.categoryType.setValue('Technology');
             component.exportExcel();
             expect(component.exportExcel).toBeTruthy();
         });
 
         it('export excel Clothing', () => {
+            component.modelSpecs = {pruebas: '1', testeo: '2'};
             component.categoryType.setValue('Clothing');
             component.exportExcel();
             expect(component.exportExcel).toBeTruthy();
+        });
+
+        it('vtex tree', () => {
+            component.trasformTree();
+        });
+
+    });
+
+    describe('seller', () => {
+
+        beforeEach(() => {
+            mockUserParametersService.getUserData.and.returnValue(UserInformation);
+        });
+
+            it('get user data', () => {
+                component.getDataUser();
+                fixture.whenStable().then(() => {
+                    tick();
+                    expect(component.user).toContain(UserInformation);
+                });
+            });
+
+            it('on file change', ()=> {
+                component.onFileChange(new Event('change'));
+            });
+
+    });
+
+
+    describe('no seller', () => {
+        beforeEach(() => {
+            mockUserParametersService.getUserData.and.returnValue(UserInformationAdmin);
+        });
+
+        it('get user data', () => {
+            component.getDataUser();
         });
 
     });
