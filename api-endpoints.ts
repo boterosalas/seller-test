@@ -50,6 +50,7 @@ export const endpoints = {
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
+      getStatusOffers : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
       // Historical
       getHistoricalOffers: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
       downloadHistorical: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',

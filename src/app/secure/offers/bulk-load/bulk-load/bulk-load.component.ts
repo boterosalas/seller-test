@@ -75,6 +75,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public ListError: any;
 
+  public intervalTime = 2000;
+
   // Validación de las regex
   validateRegex: any;
 
@@ -327,7 +329,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Logistica Exito'),
-            iEanCombo: this.arrayNecessaryData[0].indexOf('Ean combo'),
+            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
             iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda')
           };
@@ -406,9 +408,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @memberof BulkLoadComponent
    */
   createTable(res: any, iVal: any, numCol: any) {
-
     for (let i = 0; i < res.length; i++) {
-
       let errorInCell = false;
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
@@ -610,11 +610,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.openModal(1);
-      // this.sendJsonInformation();
+      this.sendJsonOffer();
     }
-
-
   }
 
   /**
@@ -797,7 +794,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @memberof BulkLoadComponent
    */
   sendJsonInformation() {
-    console.log('por aqui');
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
@@ -1048,18 +1044,48 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     });
   }
 
-  verifyProccesOffert() {
+  /**
+   *
+   *
+   * @memberof BulkLoadComponent
+   */
+  sendJsonOffer() {
+    this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
+    this.bulkLoadService.setOffers(this.arrayInformationForSend)
+      .subscribe(
+        (result: any) => {
+          if (result) {
+            if (result.data.successful === result.data.totalProcess) {
+              this.openModal(1, null);
+            } else {
+              const { offerNotifyViewModels } = result.data;
+              this.openModal(3, offerNotifyViewModels);
+            }
+          }
+          this.resetVariableUploadFile();
+          this.loadingService.closeSpinner();
+        }
+      );
+  }
+
+  /**
+   *
+   *
+   * @memberof BulkLoadComponent
+   */
+  verifyProccesOffert() {
+    this.arrayInformationForSend.splice(0, 1);
     this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
       try {
-        const response = JSON.parse(res.body.body).Data;
-        const { Status } = response;
-        if (Status === 1 || Status === 4) {
-          setTimeout(() => {
-            this.openModal(Status);
-          });
-        } else {
-          this.loadingService.closeSpinner();
+        if (res && res.status === 200) {
+          const { status } = res.body.data;
+          if (status === 1 || status === 4) {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModal(statusCurrent, null); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
         }
       } catch {
         this.modalService.showModal('errorService');
@@ -1067,39 +1093,60 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  openModal(status: number) {
-    this.loadingService.closeSpinner();
+  /**
+   * Abre un dialogo para mostrar el estados de la carga de batch
+   *
+   * @param {number} status
+   * @memberof BulkLoadComponent
+   */
+  openModal(type: number, listError: any) {
+    if (this.arrayInformationForSend.length > 0) {
+      this.calculateIntervalTime();
+    } else {
+      this.intervalTime = 1800;
+    }
     const data = {
       successText: 'Carga realizada con éxito',
       failText: 'No se pudo realizar la carga',
       processText: 'Carga en proceso',
       initTime: 500,
-      intervalTime: 5000
+      intervalTime: this.intervalTime,
+      listError: listError
     };
     this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',
       minWidth: '280px',
       maxHeight: '80vh',
-      disableClose: status === 1,
+      disableClose: type === 1,
       data: data
     });
-    this.cdr.detectChanges();
     const dialogIntance = dialog.componentInstance;
-    this.cdr.detectChanges();
     dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
-      this.cdr.detectChanges();
-      if (val && val.Status) {
-        console.log(val.Status);
-      } else { }
       dialog.disableClose = false;
     });
   }
-
+  /**
+   * Calcula el tiempo del intervalo para realizar la consultado (consulta iterativa recursiva) el promedio de rango 0.012 ~ 0.018
+   *
+   * @memberof BulkLoadComponent
+   */
+  calculateIntervalTime() {
+    const sizeFile = this.arrayInformationForSend.length;
+    if (sizeFile > 0 && sizeFile > 100) {
+      this.intervalTime = 1.7 * (sizeFile * 10);
+    } else {
+      this.intervalTime = 2000;
+    }
+  }
+  /**
+   * destruye el compomente y cierra el modal
+   *
+   * @memberof BulkLoadComponent
+   */
   ngOnDestroy() {
+    this.loadingService.closeSpinner();
     this.dialog.closeAll();
   }
-
 }

@@ -30,6 +30,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   Success = false;
   countError: number;
   listError: any;
+  listErrorStatus: any;
 
   request: Observable<any>;
   content: TemplateRef<any>;
@@ -46,32 +47,75 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     private cdr: ChangeDetectorRef
   ) {
     this.response = data;
-    // this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
-    !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
-      try {
-        const response = JSON.parse(res.body.body).Data;
-        const { Status } = response;
-        if (Status === 2) {
-          this.Success = true;
-          this.inProcess = false;
-          this.processFinish$.next(response);
-        } else if (Status === 3) {
+    if (this.data.listError === null) {
+      !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
+        try {
+          const { status, response } = res.body.data;
+          if (status === 2) {
+            this.Success = true;
+            this.inProcess = false;
+            this.processFinish$.next(res);
+          } else if (status === 3) {
+           
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify
+            } else {
+              this.listErrorStatus = [length = 0];
+            }
+            this.Success = false;
+            this.inProcess = false;
+            this.listError = this.mapItems(this.listErrorStatus);
+            this.countError = this.listErrorStatus.length;
+            this.processFinish$.next(res);
+          }
+        } catch {
           this.Success = false;
           this.inProcess = false;
-          this.listError = response.Data;
-          this.countError = response.Data.length;
-          this.processFinish$.next(response);
+          this.processFinish$.next(null);
         }
-      } catch {
-        this.Success = false;
-        this.inProcess = false;
-        this.processFinish$.next(null);
-      }
+      });
+    } else {
+      this.Success = false;
+      this.inProcess = false;
+      this.listError = this.mapItems(this.data.listError);
+      this.countError = this.data.listError.length;
+      this.cdr.detectChanges();
+    }
+    this.cdr.detectChanges();
+  }
+/**
+ *
+ *
+ * @param {any[]} items
+ * @returns {any[]}
+ * @memberof FinishUploadInformationComponent
+ */
+mapItems(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Ean: this.validateHeader(x.ean, x.Ean),
+        Message: this.validateHeader(x.message, x.Message),
+      };
     });
-    
+  }
+
+/**
+ *
+ *
+ * @param {*} a
+ * @param {*} b
+ * @returns
+ * @memberof FinishUploadInformationComponent
+ */
+validateHeader(a, b) {
+    if (a !== undefined) {
+      return a;
+    } else {
+      return b;
+    }
   }
 
   /**
