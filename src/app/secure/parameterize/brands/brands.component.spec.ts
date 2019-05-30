@@ -17,7 +17,7 @@ import { SortDirection, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angula
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 export const registerRegex = [
-    { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
+    { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
 ];
 
 export interface Sort {
