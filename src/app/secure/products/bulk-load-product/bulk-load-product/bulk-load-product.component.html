@@ -32,7 +32,7 @@
             </div>
 
             <!-- Input para subir archivo Excel -->
-            <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
+            <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
               multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
@@ -178,7 +178,8 @@
 
 <ng-template #modalContent>
   <div class="container--text__sticky">
-    Categoría seleccionada: <span class="badge badge-blue" *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span>
+    <p>Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes</p>
+     <p>Categoría seleccionada: <span class="badge badge-blue" *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span></p>
   </div>
   <div>
       <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false" [margin]="0"></app-category-tree>

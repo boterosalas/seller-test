@@ -131,6 +131,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // categorias vetex
   vetex: any = [];
 
+  //specName
+
+  modelSpecs: any;
+
   // variable para la  creacion del excel
   dataTheme;
 
@@ -210,18 +214,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.getCategoriesList();
     // this.listOfCategories();
     // this.listOfSpecs();
-  }
-
-  /**
-   * Funcion que verifica si la funcion del modulo posee permisos
-   *
-   * @param {string} functionality
-   * @returns {boolean}
-   * @memberof ToolbarComponent
-   */
-  public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
   }
 
   async getDataUser() {
@@ -2050,7 +2042,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'URL de Imagen 4': undefined,
       'URL de Imagen 5': undefined,
       'Logistica Exito': undefined,
-    }];
+    },
+    this.modelSpecs
+  ];
 
     const categoria = this.listOfCategories() || [];
 
@@ -2099,7 +2093,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'URL de Imagen 4': undefined,
       'URL de Imagen 5': undefined,
       'Logistica Exito': undefined,
-    }];
+    },
+    this.modelSpecs
+  ];
 
     const categoria = this.listOfCategories() || [];
 
@@ -2125,12 +2121,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const specs = [];
     if (this.vetex.data) {
       // Modelo de especificaciones a construir
-    const modelSpecs = {};
+    this.modelSpecs = {};
     // Maximo numero de valores de una especificacion
     let maxSpecsValue = 0;
-    this.vetex.data.specs.forEach(element => {
+    this.vetex.data.specs.forEach((element) => {
       // Crea la key del objeto
-      modelSpecs[element.specName] = undefined;
+      this.modelSpecs[element.specName] = undefined;
       // Comprueba el maximo valor
       if(maxSpecsValue < element.listValues.length) {
         maxSpecsValue = element.listValues.length;
@@ -2138,7 +2134,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     });
     // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
     for(let i = 0; i < maxSpecsValue; i ++) {
-      const object = Object.assign({}, modelSpecs);
+      const object = Object.assign({}, this.modelSpecs);
       specs.push(object);
     }
 
@@ -2175,7 +2171,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       });
 
       initialBrands.forEach((element, i) => {
-        this.brands[i] = { marca: element.Name };
+        this.brands[i] = { Marca: element.Name };
       });
 
     });
@@ -2246,7 +2242,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
    */
   configDataDialog() {
-    const title = 'Árbol VTEX';
+    const title = 'Árbol de categorías';
     const message = null;
     const icon = null;
     const form = this.categoryForm;
