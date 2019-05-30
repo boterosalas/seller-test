@@ -1,0 +1,83 @@
+:host {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$modal: 72px;
+
+@mixin icon-border-gray {
+    height: 50px;
+    width: 50px;
+    font-size: 14px;
+    line-height: 14px; 
+    border-radius: 40px;
+    background-color: $color-gray;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-icon {
+        color: $color-white;
+    }
+    &::ng-deep .mat-button-wrapper{
+        line-height: 14px;
+        padding: 0 0 0 0.5px;
+    } 
+    & .mat-icon{
+        color: white !important;
+        width: 20px;
+        height: 20px;
+        font-size: 20PX;
+    }
+}
+
+:host {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    & .mat-dialog-actions {
+        justify-content: center;
+        text-align: center;
+    }
+
+    & .container-icon {
+        @include icon-border-gray();
+    }
+
+    & .mat-dialog-content{
+        padding: 0 76px;
+        margin-bottom: 20px;
+        max-height: 45vh;
+    }
+
+    & .mat-dialog-title {
+        text-align: center;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.container__btn {
+    margin-bottom: 20px;
+    & button {
+        margin: 0 8px;
+    }
+}
+
+.container-header{
+    margin-top: 17px;
+}
+
+.container__message{
+    margin-bottom: 25px;
+}

@@ -38,7 +38,7 @@ export const registerRegex = [
     { Identifier: 'eanCombo', Value: '((^([A-Z0-9]{5,16}))+)+([,](([A-Z0-9]{5,16})))*)$', Module: 'productos' },
 ];
 
-fdescribe('BulkLoad Products Component', () => {
+describe('BulkLoad Products Component', () => {
 
     const mockAuthService = {
         profileType$: new BehaviorSubject<any>('Tienda'),

@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-create-process-dialog',
   templateUrl: './create-process-dialog.component.html',
-  styleUrls: ['./create-process-dialog.component.scss', '../../../../shared/components/dialog-with-form/dialog-with-form.component.scss']
+  styleUrls: ['./create-process-dialog.component.html.scss']
 })
 export class CreateProcessDialogComponent implements AfterViewInit {
 
