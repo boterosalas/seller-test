@@ -1079,7 +1079,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *
+   * Funcion para enviar la informacion luego de que pasa las validacion del front 
    *
    * @memberof BulkLoadComponent
    */
@@ -1104,7 +1104,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *
+   * Funcion para verificar el status de la carga, se llama en dos veces una con la carga inicial y la otra cuando se sube un archivo
    *
    * @memberof BulkLoadComponent
    */

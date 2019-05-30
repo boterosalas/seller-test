@@ -87,7 +87,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     this.cdr.detectChanges();
   }
 /**
- *
+ * funcion para mapear las llaves y normalizar el nombre enviado del back
  *
  * @param {any[]} items
  * @returns {any[]}
@@ -103,7 +103,7 @@ mapItems(items: any[]): any[] {
   }
 
 /**
- *
+ * Validacion para saber cual de los dos valores esta undefined y retonar el valor diferente de undefined
  *
  * @param {*} a
  * @param {*} b
@@ -168,8 +168,12 @@ validateHeader(a, b) {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-
-  ngOnDestroy() {
+/**
+ * Funcion para destruir el componente y parar la solicitud del estado de la carga masiva de ofertas
+ *
+ * @memberof FinishUploadInformationComponent
+ */
+ngOnDestroy() {
     this.processFinish$.next(null);
   }
 

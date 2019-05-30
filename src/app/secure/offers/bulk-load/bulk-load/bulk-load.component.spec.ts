@@ -150,8 +150,6 @@ describe('BulkLoadComponent', () => {
     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
     let dialogComponent: DialogWithFormComponent;
     let supportService: SupportService;
-    let componentsService: ComponentsService;
-    let userLoginService: UserLoginService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -214,17 +212,19 @@ describe('BulkLoadComponent', () => {
         beforeEach(() => {
         });
 
-        it('', () => {
+        it('Reset variable', () => {
             fixture.detectChanges();
             bulkLoadComponent.resetVariableUploadFile();
             fixture.detectChanges();
+            expect(bulkLoadComponent.numberElements ).toEqual(0);
         });
-        it('', () => {
+        it('Reset uploadFile', () => {
             fixture.detectChanges();
             bulkLoadComponent.resetUploadFIle();
             fixture.detectChanges();
+            expect(bulkLoadComponent.inputFileUpload.nativeElement.value).toEqual('');
         });
-        it('', () => {
+        it('validate subtitle En', () => {
             fixture.detectChanges();
             const array = [['EAN', 'Inventario', 'Precio', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
             const titleEn = 'Price';
@@ -232,133 +232,167 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
             fixture.detectChanges();
         });
-        it('', () => {
-            fixture.detectChanges();
-            const array = [['EAN', 'Inventario', 'Price', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
-            const titleEn = 'Price';
-            const titleEs = 'Precio';
-            bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
-            fixture.detectChanges();
-        });
+        // it('validate subtitle Es', () => {
+        //     fixture.detectChanges();
+        //     const array = [['EAN', 'Inventario', 'Price', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
+        //     const titleEn = 'Price';
+        //     const titleEs = 'Precio';
+        //     bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
+        //     fixture.detectChanges();
+        // });
         afterAll(() => {
             TestBed.resetTestingModule();
         });
     });
-    describe('', () => {
+    describe('validate input', () => {
         beforeEach(() => {
         });
-        it('', () => {
-            fixture.detectChanges();
-            const ean = '6581480417371';
-            const price = 10000;
-            const iVal = '';
-            const cantidadCombo = 200;
-            bulkLoadComponent.EanArray = [{iVal: '', ean: '6581480417371', totalPrice: 300000}];
-            bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-            fixture.detectChanges();
-        });
-        it('', () => {
-            fixture.detectChanges();
-            const ean = 'testt_price';
-            const price = undefined;
-            const iVal = '';
-            const cantidadCombo = 200;
-            bulkLoadComponent.EanArray = [{iVal: '', ean: '6581480417371', totalPrice: 300000}];
-            bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-            fixture.detectChanges();
-        });
-        it('', () => {
-            fixture.detectChanges();
-            const ean = 'testt_price';
-            const price = undefined;
-            const iVal = '';
-            const cantidadCombo = 200;
-            bulkLoadComponent.EanArray = [{iVal: '', ean: '6581480417371', totalPrice: 'test_price'}];
-            bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-            fixture.detectChanges();
-        });
+        // it('valida exist ean price number', () => {
+        //     fixture.detectChanges();
+        //     const ean = '6581480417371';
+        //     const price = 10000;
+        //     const iVal = '';
+        //     const cantidadCombo = 200;
+        //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
+        //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+        //     fixture.detectChanges();
+        //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
+        // });
+        // it('valida exist ean price text', () => {
+        //     fixture.detectChanges();
+        //     const ean = 'testt_price';
+        //     const price = undefined;
+        //     const iVal = '';
+        //     const cantidadCombo = 200;
+        //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
+        //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+        //     fixture.detectChanges();
+        //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
+        // });
+        // it('validate exist ean text', () => {
+        //     fixture.detectChanges();
+        //     const ean = 'testt_price';
+        //     const price = undefined;
+        //     const iVal = '';
+        //     const cantidadCombo = 200;
+        //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 'test_price' }];
+        //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+        //     fixture.detectChanges();
+        //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
+        // });
         afterAll(() => {
             TestBed.resetTestingModule();
         });
     });
-    describe('', () => {
+    describe('set errors columns', () => {
         beforeEach(() => {
         });
-        it('', () => {
+        it('errors columns', () => {
             fixture.detectChanges();
             bulkLoadComponent.arrayInformation = [{
-                 EAN: 6581480417371,
-                 Stock: 10,
-                 Price: 300000,
-                 DiscountPrice: 250000,
-                 AverageFreightCost: 8000,
-                 PromiseDelivery: '1 a 2',
-                 IsFreeShipping: 0,
-                 IsEnviosExito: 0,
-                 IsFreightCalculator: 0,
-                 Warranty: 2,
-                 IsLogisticsExito: 0,
-                 IsUpdatedStock: 0,
-                 errorRow: true,
-                 Currency: true,
-                 errorEan: true,
-                 errorStock: true,
-                 errorPrice: true,
-                 errorDiscountPrice: true,
-                 errorAverageFreightCost: true,
-                 errorPromiseDelivery: true,
-                 errorIsFreeShipping: true,
-                 errorIsEnviosExito: true,
-                 errorIsFreightCalculator: true,
-                 errorWarranty: true,
-                 errorIsLogisticsExito: true,
-                 errorIsUpdatedStock: true,
-                 ComboQuantity: '',
-                 EanCombo: '',
-                 errorEanCombo: true,
-                 errorComboQuantity: true,
-                 errorCurrency: true,
+                EAN: 6581480417371,
+                Stock: 10,
+                Price: 300000,
+                DiscountPrice: 250000,
+                AverageFreightCost: 8000,
+                PromiseDelivery: '1 a 2',
+                IsFreeShipping: 0,
+                IsEnviosExito: 0,
+                IsFreightCalculator: 0,
+                Warranty: 2,
+                IsLogisticsExito: 0,
+                IsUpdatedStock: 0,
+                errorRow: true,
+                Currency: true,
+                errorEan: true,
+                errorStock: true,
+                errorPrice: true,
+                errorDiscountPrice: true,
+                errorAverageFreightCost: true,
+                errorPromiseDelivery: true,
+                errorIsFreeShipping: true,
+                errorIsEnviosExito: true,
+                errorIsFreightCalculator: true,
+                errorWarranty: true,
+                errorIsLogisticsExito: true,
+                errorIsUpdatedStock: true,
+                ComboQuantity: '',
+                EanCombo: '',
+                errorEanCombo: true,
+                errorComboQuantity: true,
+                errorCurrency: true,
             }];
             bulkLoadComponent.setErrrorColumns();
             fixture.detectChanges();
+            expect(bulkLoadComponent.arrayInformation).not.toBeNull();
         });
-        it('', () => {
+        it('set error columns', () => {
             fixture.detectChanges();
             bulkLoadComponent.arrayInformation = [{
-                 EAN: 6581480417371,
-                 Stock: 10,
-                 Price: 300000,
-                 DiscountPrice: 250000,
-                 AverageFreightCost: 8000,
-                 PromiseDelivery: '1 a 2',
-                 IsFreeShipping: 0,
-                 IsEnviosExito: 0,
-                 IsFreightCalculator: 0,
-                 Warranty: 2,
-                 IsLogisticsExito: 0,
-                 IsUpdatedStock: 0,
-                 errorRow: true,
-                 Currency: true,
-                 errorEan: true,
-                 errorStock: true,
-                 errorPrice: true,
-                 errorDiscountPrice: true,
-                 errorAverageFreightCost: true,
-                 errorPromiseDelivery: true,
-                 errorIsFreeShipping: true,
-                 errorIsEnviosExito: true,
-                 errorIsFreightCalculator: true,
-                 errorWarranty: true,
-                 errorIsLogisticsExito: true,
-                 errorIsUpdatedStock: true,
-                 ComboQuantity: '',
-                 EanCombo: '',
-                 errorEanCombo: true,
-                 errorComboQuantity: true,
-                 errorCurrency: true,
+                EAN: 6581480417371,
+                Stock: 10,
+                Price: 300000,
+                DiscountPrice: 250000,
+                AverageFreightCost: 8000,
+                PromiseDelivery: '1 a 2',
+                IsFreeShipping: 0,
+                IsEnviosExito: 0,
+                IsFreightCalculator: 0,
+                Warranty: 2,
+                IsLogisticsExito: 0,
+                IsUpdatedStock: 0,
+                errorRow: true,
+                Currency: true,
+                errorEan: true,
+                errorStock: true,
+                errorPrice: true,
+                errorDiscountPrice: true,
+                errorAverageFreightCost: true,
+                errorPromiseDelivery: true,
+                errorIsFreeShipping: true,
+                errorIsEnviosExito: true,
+                errorIsFreightCalculator: true,
+                errorWarranty: true,
+                errorIsLogisticsExito: true,
+                errorIsUpdatedStock: true,
+                ComboQuantity: '',
+                EanCombo: '',
+                errorEanCombo: true,
+                errorComboQuantity: true,
+                errorCurrency: true,
             }];
-            // bulkLoadComponent.addRowToTable(res, 1, iVal);
             fixture.detectChanges();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('download massive', () => {
+        beforeEach(() => {
+        });
+        it('international', () => {
+            fixture.detectChanges();
+            bulkLoadComponent.downloadFormatMassiveOfferLoadInternational();
+            fixture.detectChanges();
+        });
+        // it('national', () => {
+        //     fixture.detectChanges();
+        //     bulkLoadComponent.downloadFormatMassiveOfferLoad();
+        //     fixture.detectChanges();
+        // });
+        // it('calculate interval time size file(5) > 0 ', () => {
+        //     bulkLoadComponent.arrayInformationForSend.length = 5;
+        //     fixture.detectChanges();
+        //     bulkLoadComponent.calculateIntervalTime();
+        //     fixture.detectChanges();
+        //     expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
+        // });
+        it(' calculate interval time size file(101) > 0', () => {
+            bulkLoadComponent.arrayInformationForSend.length = 101;
+            fixture.detectChanges();
+            bulkLoadComponent.calculateIntervalTime();
+            fixture.detectChanges();
+            expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
