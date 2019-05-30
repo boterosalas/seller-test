@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { CognitoUtil, EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
-
 @Injectable()
 export class BulkLoadService {
   httpOptions: any;
@@ -21,17 +20,11 @@ export class BulkLoadService {
    * @returns {Observable<{}>}
    * @memberof BulkLoadService
    */
-  setOffers(params: {}): Observable<{}> {
-    return new Observable(observer => {
-      this.http.patch<any>(this.api.get('patchOffers'), params, { observe: 'response' })
-        .subscribe(
-          data => {
-            observer.next(data);
-          },
-          error => {
-            observer.next(error);
-          }
-        );
-    });
+  setOffers(body: any): Observable<any> {
+    return this.http.patch(this.api.get('patchOffers'), body);
+  }
+
+  public verifyStatusBulkLoad(): Observable<any> {
+    return this.http.get(this.api.get('getStatusOffers'), { observe: 'response' });
   }
 }

@@ -1,9 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, TemplateRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { Subject, Observable, timer } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
 
 const EXCEL_EXTENSION = '.xlsx';
+
 
 
 /**
@@ -18,9 +21,19 @@ const EXCEL_EXTENSION = '.xlsx';
 /**
  * FinishUploadInformationComponent
  */
-export class FinishUploadInformationComponent {
+export class FinishUploadInformationComponent implements AfterViewInit, OnDestroy {
 
   public response: any;
+  public responseData: any;
+  inProcess = true;
+  processFinish$ = new Subject<any>();
+  Success = false;
+  countError: number;
+  listError: any;
+  listErrorStatus: any;
+
+  request: Observable<any>;
+  content: TemplateRef<any>;
 
   /**
    * Creates an instance of FinishUploadInformationComponent.
@@ -30,9 +43,79 @@ export class FinishUploadInformationComponent {
    */
   constructor(
     public dialogRef: MatDialogRef<FinishUploadInformationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cdr: ChangeDetectorRef
   ) {
-    this.response = data.response;
+    this.response = data;
+  }
+
+  ngAfterViewInit() {
+    if (this.data.listError === null) {
+      !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
+        try {
+          const { status, response } = res.body.data;
+          if (status === 2) {
+            this.Success = true;
+            this.inProcess = false;
+            this.processFinish$.next(res);
+          } else if (status === 3) {
+           
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify
+            } else {
+              this.listErrorStatus = [length = 0];
+            }
+            this.Success = false;
+            this.inProcess = false;
+            this.listError = this.mapItems(this.listErrorStatus);
+            this.countError = this.listErrorStatus.length;
+            this.processFinish$.next(res);
+          }
+        } catch {
+          this.Success = false;
+          this.inProcess = false;
+          this.processFinish$.next(null);
+        }
+      });
+    } else {
+      this.Success = false;
+      this.inProcess = false;
+      this.listError = this.mapItems(this.data.listError);
+      this.countError = this.data.listError.length;
+      this.cdr.detectChanges();
+    }
+    this.cdr.detectChanges();
+  }
+/**
+ * funcion para mapear las llaves y normalizar el nombre enviado del back
+ *
+ * @param {any[]} items
+ * @returns {any[]}
+ * @memberof FinishUploadInformationComponent
+ */
+mapItems(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Ean: this.validateHeader(x.ean, x.Ean),
+        Message: this.validateHeader(x.message, x.Message),
+      };
+    });
+  }
+
+/**
+ * Validacion para saber cual de los dos valores esta undefined y retonar el valor diferente de undefined
+ *
+ * @param {*} a
+ * @param {*} b
+ * @returns
+ * @memberof FinishUploadInformationComponent
+ */
+validateHeader(a, b) {
+    if (a !== undefined) {
+      return a;
+    } else {
+      return b;
+    }
   }
 
   /**
@@ -84,6 +167,14 @@ export class FinishUploadInformationComponent {
       type: ''
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+/**
+ * Funcion para destruir el componente y parar la solicitud del estado de la carga masiva de ofertas
+ *
+ * @memberof FinishUploadInformationComponent
+ */
+ngOnDestroy() {
+    this.processFinish$.next(null);
   }
 
 }

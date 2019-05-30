@@ -31,3 +31,29 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+.error-string {
+  & mat-icon {
+    color: #F44336;
+    margin-right: 10px;
+  }
+}
+
+.succes-string {
+  & mat-icon {
+    color: rgb(103, 165, 48);;
+    margin-right: 10px;
+  }
+}
+
+.icon-color-error {
+  color: #c70024;
+}
+
+.processCharge {
+  margin: 0 6% 0 3%;
+}
+
+.finish-upload-information-list-height{
+  max-height: 310px;
+}

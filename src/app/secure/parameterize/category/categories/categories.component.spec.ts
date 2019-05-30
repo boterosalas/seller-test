@@ -13,7 +13,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { of } from 'rxjs';
 import { MaterialModule } from '@app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
+import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 
 describe('CategoriesComponent', () => {
 
