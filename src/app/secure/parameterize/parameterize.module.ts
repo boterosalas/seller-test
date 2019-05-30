@@ -34,7 +34,9 @@ import { CreateProcessDialogComponent } from '../../shared/components/create-pro
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [],
+  exports: [
+    CategoryTreeComponent
+  ],
   providers: [
     ParamSpecsService,
     BrandService,

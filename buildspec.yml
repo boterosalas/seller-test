@@ -13,7 +13,7 @@ phases:
   install:
     commands:
       - echo Instalando Angular...
-      - npm install -g @angular/cli
+      - npm install -g @angular/cli@6.1.5
       - echo Instalacion de Angular finalizada.
       - ng -v
   build:
@@ -21,7 +21,7 @@ phases:
       - echo Iniciando compilacion...
       - |
          if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-DEV"; then
-           node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=stage;
+           node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=stage --aot;
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
            aws s3 rm s3://$S3_BUCKET_DEV --recursive;

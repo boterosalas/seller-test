@@ -15,14 +15,14 @@ describe('DialogWithFormComponent', () => {
   let cancelSpy;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogWithFormComponent ],
+      declarations: [DialogWithFormComponent],
       imports: [MaterialModule],
       providers: [
-        {provide: MatDialogRef, useValue: mockDialog},
-        {provide: MAT_DIALOG_DATA, useValue: data}
+        { provide: MatDialogRef, useValue: mockDialog },
+        { provide: MAT_DIALOG_DATA, useValue: data }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -36,14 +36,15 @@ describe('DialogWithFormComponent', () => {
   });
 
 
-  beforeEach(()=> {
+  beforeEach(() => {
     component.data = {
       icon: 'cancel',
       title: 'El titulo',
       message: 'el mensaje',
       messageCenter: false,
       form: null,
-      showButtons: true
+      showButtons: true,
+      btnConfirmationText: null
     };
     fixture.detectChanges();
 
@@ -67,12 +68,21 @@ describe('DialogWithFormComponent', () => {
     });
   });
 
-  it('Should valid the confirmation button', () => {
-    const confirmationButton = fixture.debugElement.query(By.css('#btn-confirmation')).nativeElement;
-    confirmationButton.click();
-    fixture.detectChanges();
-    expect(confirmationSpy).toHaveBeenCalled();
-  });
+  // it('Should valid the confirmation button', () => {
+  //   const formGroup = new FormGroup({});
+  //   formGroup.addControl('IdSeller', new FormControl('Holi'));
+  //   component.data.form = formGroup;
+  //   const confirmationButton = fixture.debugElement.query(By.css('#btn-confirmation'))
+  //   const confirmationButtonNative = confirmationButton.nativeElement;
+  //   expect(confirmationButtonNative).toBeTruthy();
+  //   expect(confirmationButtonNative.enabled).toBeTruthy();
+  //   fixture.detectChanges();
+  //   fixture.whenStable().then(() => {
+  //     confirmationButtonNative.click();
+  //     expect(confirmationSpy).toHaveBeenCalled();
+  //     expect(component.data.message).toEqual('Mensaje Confirmado');
+  //   });
+  // });
 
   it('Should be click cancel button', () => {
     const cancelButton = fixture.debugElement.query(By.css('#btn-cancel')).nativeElement;

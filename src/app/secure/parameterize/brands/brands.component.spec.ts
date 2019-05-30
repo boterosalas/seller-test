@@ -96,7 +96,9 @@ describe('BrandsComponent', () => {
         title: '',
         message: '',
         icon: '',
-        form: null
+        form: null,
+        btnConfirmationText: null,
+        showButtons: false
     };
     const formBuilder: FormBuilder = new FormBuilder();
 

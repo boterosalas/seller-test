@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { BrandService } from './brands.component.service';
-import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort } from '@angular/material';
+import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort, MatPaginatorIntl } from '@angular/material';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { readFunctionality, createFunctionality, updateFunctionality, MenuModel, brandName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
+import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -40,10 +41,11 @@ export interface ListFilterBrands {
 @Component({
     selector: 'app-brands',
     templateUrl: './brands.component.html',
-    styleUrls: ['brands.component.scss']
+    styleUrls: ['brands.component.scss'],
+    providers: [
+        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+    ]
 })
-
-
 
 export class BrandsComponent implements OnInit {
 
@@ -320,6 +322,7 @@ export class BrandsComponent implements OnInit {
         let form = null;
         let messageCenter = false;
         const showButtons = false;
+        const btnConfirmationText = null;
 
         if (brandsData && brandsData.Id) {
             message = 'Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial. ';
@@ -337,7 +340,7 @@ export class BrandsComponent implements OnInit {
             messageCenter = false;
         }
         form = this.form;
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
     }
 
     /**
@@ -416,6 +419,7 @@ export class BrandsComponent implements OnInit {
         const form = null;
         let messageCenter = false;
         const showButtons = true;
+        const btnConfirmationText = null;
         this.idBrands = brandsData.Id;
         this.statusBrands = brandsData.Status;
         this.nameBrands = brandsData.Name;
@@ -431,7 +435,7 @@ export class BrandsComponent implements OnInit {
             title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         }
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**
@@ -473,6 +477,7 @@ export class BrandsComponent implements OnInit {
      */
     public filterApply(drawer: any) {
         this.pagepaginator = 0;
+        this.paginator.firstPage();
         this.listFilterBrands = [];
         if (this.filterBrands.controls['filterBrandsId'].value) {
             this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;

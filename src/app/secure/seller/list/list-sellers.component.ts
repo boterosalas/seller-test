@@ -366,6 +366,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         let form = null;
         let messageCenter = false;
         const showButtons = true;
+        const btnConfirmationText = null;
         if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
             message = '¿Estas seguro que deseas activar este vendedor?';
             icon = null;
@@ -394,7 +395,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
-        return {title, message, icon, form, messageCenter, showButtons};
+        return {title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
     }
 
     /**

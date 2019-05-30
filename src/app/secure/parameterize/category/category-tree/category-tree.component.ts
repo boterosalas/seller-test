@@ -3,6 +3,11 @@ import { LoadingService } from '@app/core';
 import { AnyKindOfDictionary } from 'lodash';
 import { CategoryTreeService } from '../category-tree.service';
 import { CategoriesComponent } from '../categories/categories.component';
+import { BulkLoadProductComponent } from '@app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component';
+
+export interface TreeSelected {
+  selectElement: (element) => void;
+}
 
 @Component({
   selector: 'app-category-tree',
@@ -30,7 +35,7 @@ export class CategoryTreeComponent implements OnInit {
   /**
    * param that represent the parent Component to make the logic for update and create
    */
-  @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent = null;
+  @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent | TreeSelected = null;
   /**
    * param that represent the margin to add to category list for each lvl
    */
@@ -58,7 +63,9 @@ export class CategoryTreeComponent implements OnInit {
    * @param category represen the specific category to get the data for edit modal
    */
   editCategory(category: any) {
-    this.parametrizationCategoryComponent.openCategoryDialog(category, true);
+    if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category, true);
+    }
   }
 
   /**
@@ -66,6 +73,16 @@ export class CategoryTreeComponent implements OnInit {
    * @param category represen the specific category to get the data for create modal
    */
   createCategory(category: any) {
-    this.parametrizationCategoryComponent.openCategoryDialog(category);
+    if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category);
+    }
+  }
+
+  eventName(category: any) {
+    if ((<TreeSelected>this.parametrizationCategoryComponent).selectElement !== undefined) {
+      (<TreeSelected>this.parametrizationCategoryComponent).selectElement(category);
+    } else if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      this.showChildrens(category);
+    }
   }
 }

@@ -143,7 +143,8 @@ describe('CategoriesComponent', () => {
     message: '',
     icon: '',
     form: null,
-    showButtons: true
+    showButtons: true,
+    btnConfirmationText: null
   };
 
   let component: CategoriesComponent;

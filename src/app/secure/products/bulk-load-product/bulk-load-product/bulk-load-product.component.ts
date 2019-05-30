@@ -1,21 +1,26 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
-import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
-import { ComponentsService, RoutesConst, UserInformation } from '@app/shared';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { LoadingService, Logger, ModalService, UserParametersService } from '@app/core';
+import { ComponentsService, UserInformation } from '@app/shared';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { uniq, isEqual, uniqWith } from 'lodash';
 
 import { BulkLoadProductService } from '../bulk-load-product.service';
 import { FinishUploadProductInformationComponent, } from '../finish-upload-product-information/finish-upload-product-information.component';
 import { AbaliableLoadModel, ModelProduct } from '../models/product.model';
-import { MenuModel, moderateName, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
+import { MenuModel, loadFunctionality, bulkLoadProductName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { VtexTree } from './VTEXtreeList';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { trimField } from '../../../../shared/util/validation-messages';
+import { SearchService } from '../../create-product-unit/categorization/search.component.service';
+import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -33,7 +38,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadProductComponent implements OnInit {
+export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   public paginator: any;
 
@@ -89,6 +94,13 @@ export class BulkLoadProductComponent implements OnInit {
 
   public showCharge: boolean;
 
+  /*listado de categorias*/
+  listCategories: any[] = [];
+
+  /*listado de especificaciones*/
+  listSpecs: any[] = [];
+
+
   // Objeto moquear regex
   productsRegex = {
     number: '',
@@ -101,7 +113,7 @@ export class BulkLoadProductComponent implements OnInit {
     eanImageProduct: '',
     SkuShippingSizeProduct: '',
     Package: '',
-    descriptionProduct: '',
+    forbiddenScript: '',
     size: '',
     hexColourCodePDPProduct: '',
     limitCharsSixty: '',
@@ -113,6 +125,24 @@ export class BulkLoadProductComponent implements OnInit {
     eanCombo: ''
   };
 
+  // active brands
+  brands: any = [];
+
+  // categorias vetex
+  vetex: any = [];
+
+  //specName
+
+  modelSpecs: any;
+
+  // variable para la  creacion del excel
+  dataTheme;
+
+
+  // tipo extension XLSX
+  EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  EXCEL_EXTENSION = '.xlsx';
+
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
   load = loadFunctionality;
@@ -121,6 +151,14 @@ export class BulkLoadProductComponent implements OnInit {
   @ViewChild('fileUploadOption') inputFileUpload: any;
   isAdmin: boolean;
   profileTypeLoad: any;
+
+  // Formulario para la seleccion de una categoria a descargar planitlla
+  categoryForm: FormGroup;
+
+  /*arabol vtex*/
+  vtextree: any[] = [];
+
+  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
 
 
   constructor(
@@ -132,6 +170,10 @@ export class BulkLoadProductComponent implements OnInit {
     private modalService: ModalService,
     public authService: AuthService,
     public SUPPORT: SupportService,
+    private service: BasicInformationService,
+    public fb: FormBuilder,
+    private searchService: SearchService,
+    private snackBar: MatSnackBar
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -145,6 +187,13 @@ export class BulkLoadProductComponent implements OnInit {
     this.countErrors = 0;
     this.fileName = '';
     this.eanComboArray = [];
+
+    this.categoryForm = this.fb.group({
+      Name: ['', Validators.compose([Validators.required, trimField])],
+      productType: ['', Validators.compose([Validators.required, trimField])],
+      TipodeObjeto: ['', Validators.compose([Validators.required, trimField])]
+    });
+
   }
 
   /**
@@ -160,18 +209,11 @@ export class BulkLoadProductComponent implements OnInit {
     this.verifyStateCharge();
     this.getDataUser();
     this.validateFormSupport();
-  }
-
-  /**
-   * Funcion que verifica si la funcion del modulo posee permisos
-   *
-   * @param {string} functionality
-   * @returns {boolean}
-   * @memberof ToolbarComponent
-   */
-  public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
+    this.listOfBrands();
+    this.trasformTree();
+    this.getCategoriesList();
+    // this.listOfCategories();
+    // this.listOfSpecs();
   }
 
   async getDataUser() {
@@ -1048,6 +1090,20 @@ export class BulkLoadProductComponent implements OnInit {
 
   }
 
+  /* Get categories from service, and storage in list categories.
+  */
+  public getCategoriesList(): void {
+    this.searchService.getCategories().subscribe((result: any) => {
+      // guardo el response
+      if (result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listCategories = body.Data;
+      } else {
+        log.debug('BulkLoadProductComponent:' + result.message);
+      }
+    });
+  }
+
   /**
    * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
    * @param {any} res
@@ -1065,8 +1121,10 @@ export class BulkLoadProductComponent implements OnInit {
       Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
       Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
-      MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
-      MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      // MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
+      MetaTitle: null,
+      // MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      MetaDescription: null,
       KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
       PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim().replace('.', ',') : null,
       PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim().replace('.', ',') : null,
@@ -1077,7 +1135,7 @@ export class BulkLoadProductComponent implements OnInit {
       ProductLength: res[i][iVal.iLargoDelProducto] ? res[i][iVal.iLargoDelProducto].trim().replace('.', ',') : null,
       ProductWidth: res[i][iVal.iAnchoDelProducto] ? res[i][iVal.iAnchoDelProducto].trim().replace('.', ',') : null,
       ProductWeight: res[i][iVal.iPesoDelProducto] ? res[i][iVal.iPesoDelProducto].trim().replace('.', ',') : null,
-      Seller: res[i][iVal.iVendedor] ? res[i][iVal.iVendedor].trim() : null,
+      Seller: 'Marketplace',
       ProductType: res[i][iVal.iTipoDeProducto] ? res[i][iVal.iTipoDeProducto].trim() : null,
       ImageUrl1: res[i][iVal.iURLDeImagen1] ? res[i][iVal.iURLDeImagen1].trim() : null,
       ImageUrl2: res[i][iVal.iURLDeImagen2] ? res[i][iVal.iURLDeImagen2].trim() : null,
@@ -1166,6 +1224,36 @@ export class BulkLoadProductComponent implements OnInit {
       }
     }
 
+
+    /*
+    * Primero listo las categorias, si hay categorias, recorro el excel en la posicion de las categorias,
+    * valido que la categoria del archivo del excel sea el mismo que el Id de la lista de categorias..
+    * Capturo el nombre de la categoria por su Id para enviarlo en el Json en los campos de metatitulo y metadescription
+    */
+    if (this.listCategories) {
+      this.listCategories.forEach(element => {
+        if (element.Id === parseFloat(newObjectForSend.Category)) {
+          // newObjectForSend.Category = element.Name;
+          if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
+            newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          } else {
+            newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+          }
+        }
+      });
+    } else {
+      this.snackBar.open('Se produjo un error al realizar la petición al servidor.', 'Cerrar', {
+        duration: 5000,
+      });
+    }
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
@@ -1648,7 +1736,7 @@ export class BulkLoadProductComponent implements OnInit {
           }
           break;
         case 'formatDescription':
-          if ((inputtxt.match(this.productsRegex.descriptionProduct))) {
+          if ((inputtxt.match(this.productsRegex.forbiddenScript))) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -1884,6 +1972,317 @@ export class BulkLoadProductComponent implements OnInit {
         }
       }
     });
+  }
+
+  /*Generar excel*/
+
+  exportExcel() {
+
+    if (this.categoryType.value === 'Technology') {
+      this.dataTheme = this.getDataFormFileTechnology();
+    }
+    if (this.categoryType.value === 'Clothing') {
+      this.dataTheme = this.getDataFormFileClothing();
+    }
+
+    // Crea las hojas
+    const worksheetProducts: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.productos);
+    const worksheetCategory: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.categoria);
+    const worksheetBrands: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.marcas);
+    const worksheetSpecifications: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.especificaciones);
+
+    // SheetNames: Arreglo con el nombre de la hoja
+    // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
+    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    if (this.categoryType.value === 'Technology') {
+      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
+    }
+    if (this.categoryType.value === 'Clothing') {
+      this.saveAsExcel(excelBuffer, `Plantilla general Clothing ${this.categoryName.value}`);
+    }
+  }
+
+  saveAsExcel(buffer: any, fileName: string) {
+    const data: Blob = new Blob([buffer], {
+      type: this.EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName);
+  }
+
+  /* Datos de plantilla Technology */
+
+  getDataFormFileTechnology() {
+    const productos = [{
+      'Grupo EAN Combo': undefined,
+      'EAN': undefined,
+      'Nombre del producto': undefined,
+      'Categoria': undefined,
+      'Marca': undefined,
+      'Modelo': undefined,
+      'Detalles': undefined,
+      'Descripcion': undefined,
+      'Palabras Clave': undefined,
+      'Alto del empaque': undefined,
+      'Largo del empaque': undefined,
+      'Ancho del empaque': undefined,
+      'Peso del empaque': undefined,
+      'skuShippingsize': undefined,
+      'Alto del producto': undefined,
+      'Largo del producto': undefined,
+      'Ancho del producto': undefined,
+      'Peso del producto': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Tipo de Producto': undefined,
+      'URL de Imagen 1': undefined,
+      'URL de Imagen 2': undefined,
+      'URL de Imagen 3': undefined,
+      'URL de Imagen 4': undefined,
+      'URL de Imagen 5': undefined,
+      'Logistica Exito': undefined,
+    },
+    this.modelSpecs
+  ];
+
+    const categoria = this.listOfCategories() || [];
+
+    const marcas = this.brands;
+
+    const especificaciones = this.listOfSpecs();
+
+    return { productos, categoria, marcas, especificaciones };
+
+  }
+
+  /* Datos de plantilla Clothing */
+
+  getDataFormFileClothing() {
+    const productos = [{
+      'Grupo EAN Combo': undefined,
+      'EAN': undefined,
+      'Referencia Hijo': undefined,
+      'Referencia Padre': undefined,
+      'Nombre del producto': undefined,
+      'Categoria': undefined,
+      'Marca': undefined,
+      'Modelo': undefined,
+      'Detalles': undefined,
+      'Descripcion': undefined,
+      'Palabras Clave': undefined,
+      'Talla': undefined,
+      'Color': undefined,
+      'hexColourCodePDP': undefined,
+      'hexColourName': undefined,
+      'Alto del empaque': undefined,
+      'Largo del empaque': undefined,
+      'Ancho del empaque': undefined,
+      'Peso del empaque': undefined,
+      'skuShippingsize': undefined,
+      'Alto del producto': undefined,
+      'Largo del producto': undefined,
+      'Ancho del producto': undefined,
+      'Peso del producto': undefined,
+      'Descripcion Unidad de Medida': undefined,
+      'Factor de conversion': undefined,
+      'Tipo de Producto': undefined,
+      'URL de Imagen 1': undefined,
+      'URL de Imagen 2': undefined,
+      'URL de Imagen 3': undefined,
+      'URL de Imagen 4': undefined,
+      'URL de Imagen 5': undefined,
+      'Logistica Exito': undefined,
+    },
+    this.modelSpecs
+  ];
+
+    const categoria = this.listOfCategories() || [];
+
+    const marcas = this.brands;
+
+    const especificaciones = this.listOfSpecs();
+
+    return { productos, categoria, marcas, especificaciones };
+
+  }
+
+  /* Lista por marcas activas */
+  listOfCategories() {
+    if (this.vetex.data) {
+      return this.vetex.data.listCategories.map((element) => {
+        return { 'Código de Categoría': element.id, 'Categoría Especifica': element.name };
+      });
+    }
+  }
+
+  listOfSpecs() {
+    // Arreglo a retornar
+    const specs = [];
+    if (this.vetex.data) {
+      // Modelo de especificaciones a construir
+    this.modelSpecs = {};
+    // Maximo numero de valores de una especificacion
+    let maxSpecsValue = 0;
+    this.vetex.data.specs.forEach((element) => {
+      // Crea la key del objeto
+      this.modelSpecs[element.specName] = undefined;
+      // Comprueba el maximo valor
+      if(maxSpecsValue < element.listValues.length) {
+        maxSpecsValue = element.listValues.length;
+      }
+    });
+    // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
+    for(let i = 0; i < maxSpecsValue; i ++) {
+      const object = Object.assign({}, this.modelSpecs);
+      specs.push(object);
+    }
+
+    this.vetex.data.specs.map((element) => {
+      if(element.listValues.length > 0) {
+        element.listValues.forEach((specElement, i) => {
+          // Agrega el valor de la especificacion (specName) al objeto situado en la posicion i
+          specs[i][element.specName] = specElement;
+        });
+      } else {
+        specs.forEach(specElement => specElement[element.specName] = null);
+      }
+      });
+    }
+    return specs;
+  }
+
+  /* Lista por marcas activas */
+
+  listOfBrands() {
+    this.loadingService.viewSpinner();
+    this.service.getActiveBrands().subscribe(brands => {
+      this.loadingService.closeSpinner();
+      const initialBrands = brands.Data.Brands;
+
+      this.brands = initialBrands.sort((a, b) => {
+        if (a.Name > b.Name) {
+          return 1;
+        }
+        if (a.Name < b.Name) {
+          return -1;
+        }
+        return 0;
+      });
+
+      initialBrands.forEach((element, i) => {
+        this.brands[i] = { Marca: element.Name };
+      });
+
+    });
+  }
+
+  /**
+   * Generación del arbol VTEX
+   */
+  trasformTree() {
+    // Copia el Listado del insumo
+    const arrayTree = [...VtexTree.VTEX_TREE];
+    // Agrega los atributos SON y SHOW a cada elemento
+    const vtexTree: any[] = arrayTree.map((element: any) => {
+      element.Son = [];
+      element.Show = false;
+      return element;
+    });
+    let lastFirst: number, lastSecond: number = -1;
+    // transforma la lista de categorias VTEX a un arreglo de árboles
+    this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
+        lastFirst = i;
+        previous.push(current);
+      }
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
+        lastSecond = i;
+        if (lastFirst >= 0) {
+          vtexTree[lastFirst].Son.push(current);
+        }
+      }
+      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
+        if (lastSecond >= 0) {
+          vtexTree[lastSecond].Son.push(current);
+        }
+      }
+      return previous;
+    }, []);
+
+  }
+
+  /**
+   * Abre la modal para seleccionar una categoría
+   */
+  openModalVtexTree() {
+    const dataDialog = this.configDataDialog();
+    const dialogRef = this.dialog.open(DialogWithFormComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      data: dataDialog
+    });
+    this.configDialog(dialogRef);
+  }
+
+  /**
+   * Configuración del contenido y confirmación de la acción
+   */
+  configDialog(dialogRef: any) {
+    const dialogComponent = dialogRef.componentInstance;
+    dialogComponent.content = this.contentDialog;
+    dialogComponent.confirmation = () => {
+      this.exportExcel();
+    };
+  }
+
+  /**
+   * Configuración de la data del modal
+   * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
+   */
+  configDataDialog() {
+    const title = 'Árbol de categorías';
+    const message = null;
+    const icon = null;
+    const form = this.categoryForm;
+    const messageCenter = false;
+    const showButtons = true;
+    const btnConfirmationText = 'Descargar';
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
+  }
+
+  /**
+   * Se define el comportamiento a realizar con el elemento seleccionado
+   * @param element Elemento seleccionado
+   */
+  selectElement(element: any) {
+    if (element.Son.length > 0) {
+      element.Show = !element.Show;
+    } else {
+      this.categoryForm.patchValue(element);
+      // Aca se debe lanzar la petición para consultar el grupo de especificaciones
+      this.loadingService.viewSpinner();
+      this.BulkLoadProductS.getCategoriesVTEX(element.Name).subscribe(resp => {
+        this.loadingService.closeSpinner();
+        this.vetex = resp;
+        this.listOfCategories();
+        this.listOfSpecs();
+      });
+
+    }
+  }
+
+  get categoryName(): FormControl {
+    return this.categoryForm.get('Name') as FormControl;
+  }
+
+  get categoryType(): FormControl {
+    return this.categoryForm.get('productType') as FormControl;
+  }
+
+  get categoryLvl(): FormControl {
+    return this.categoryForm.get('TipodeObjeto') as FormControl;
   }
 
 }

@@ -23,7 +23,8 @@ export class BasicInformationService {
      */
 
     getActiveBrands(): Observable<any> {
-        return this.http.get(this.api.get('getActiveBrands'))
+        const active = 'null/null/1/null/null/null';
+        return this.http.get(this.api.get('getActiveBrands') + active )
         .pipe(map((resp: any) => {
             return JSON.parse(resp.body);
         }))

@@ -139,7 +139,9 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       validateBrandsExact: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetExactBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/null/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/',
+      // get categories vetex
+      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/'
     },
   },
   // Endpoints production
@@ -278,7 +280,9 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       validateBrandsExact: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetExactBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetBrands/null/null/null/1/null/null/null'
+      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/', // falta url pdn
+      // get categories vetex
+      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/' // falta url pdn
     }
   }
 };

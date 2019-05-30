@@ -13,6 +13,34 @@ import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
 
+export const OFFERS_HEADERS_EAN = 'EAN';
+export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
+export const OFFERS_HEADERS_STOCK = 'Stock';
+export const OFFERS_HEADERS_PRECIO = 'Precio';
+export const OFFERS_HEADERS_PRICE = 'Price';
+export const OFFERS_HEADERS_PRECIO_DESCUENTO = 'Precio con Descuento';
+export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discount Price';
+export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio' ;
+export const OFFERS_HEADERS_SHIPPING = 'Shipping Cost';
+export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
+export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
+export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
+export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envios Exito';
+export const OFFERS_HEADERS_EXITO_INDICATOR = 'Envios Exito Indicator';
+export const OFFERS_HEADERS_COTIZADOR = 'Cotizador de Flete';
+export const OFFERS_HEADERS_FREIGHT = 'Freight Calculator';
+export const OFFERS_HEADERS_GARANTIA = 'Garantia';
+export const OFFERS_HEADERS_WARRANTY = 'Warranty';
+export const OFFERS_HEADERS_LIGICAEXITO = 'Logistica Exito';
+export const OFFERS_HEADERS_EXITO_LOGISTIC = 'Exito Logistics';
+export const OFFERS_HEADERS_ACTIALIZACION_INVENTARIO = 'Actualizacion de Inventario';
+export const OFFERS_HEADERS_UPDATE_STOCK = 'Stock Update';
+export const OFFERS_HEADERS_EAN_COMBO = 'Ean combo';
+export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
+export const OFFERS_HEADERS_AMOUNT_COMBO = 'Amount in combo';
+export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
+export const OFFERS_HEADERS_CURRENCY = 'Currency';
+
 // log component
 const log = new Logger('BulkLoadComponent');
 const EXCEL_EXTENSION = '.xlsx';
@@ -222,6 +250,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       let contEmptyRow = 0;
       this.EanArray = [];
 
+      for (let i = 0; i < res[0].length; i ++) {
+        res[0][i] = res[0][i].toString().trim();
+      }
+
       for (let i = 0; i < res.length; i++) {
 
         this.arrayNecessaryData.push([]);
@@ -229,40 +261,42 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         let priceIndex = 0;
         for (let j = 0; j < res[0].length; j++) {
 
-          if (res[0][j] === 'EAN' ||
-            res[0][j] === 'Inventario' ||
-            res[0][j] === 'Stock' ||
-            res[0][j] === 'Precio' ||
-            res[0][j] === 'Price' ||
-            res[0][j] === 'Precio con Descuento' ||
-            res[0][j] === 'Discount Price' ||
-            res[0][j] === 'Costo de Flete Promedio' ||
-            res[0][j] === 'Shipping Cost' ||
-            res[0][j] === 'Promesa de Entrega' ||
-            res[0][j] === 'Delivery Terms' ||
-            res[0][j] === 'Free Shipping' ||
-            res[0][j] === 'Indicador Envios Exito' ||
-            res[0][j] === 'Envios Exito Indicator' ||
-            res[0][j] === 'Cotizador de Flete' ||
-            res[0][j] === 'Freight Calculator' ||
-            res[0][j] === 'Garantia' ||
-            res[0][j] === 'Warranty' ||
-            res[0][j] === 'Logistica Exito' ||
-            res[0][j] === 'Exito Logistics' ||
-            res[0][j] === 'Actualizacion de Inventario' ||
-            res[0][j] === 'Stock Update' ||
-            res[0][j] === 'Ean combo' ||
-            res[0][j] === 'Cantidad en combo' ||
-            res[0][j] === 'Amount in combo' ||
-            res[0][j] === 'Tipo de moneda' ||
-            res[0][j] === 'Currency'
+          if (res[0][j] === OFFERS_HEADERS_EAN ||
+            res[0][j] === OFFERS_HEADERS_INVENTARIO ||
+            res[0][j] === OFFERS_HEADERS_STOCK ||
+            res[0][j] === OFFERS_HEADERS_PRECIO ||
+            res[0][j] === OFFERS_HEADERS_PRICE ||
+            res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO ||
+            res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE ||
+            res[0][j] === OFFERS_HEADERS_FLETE ||
+            res[0][j] === OFFERS_HEADERS_SHIPPING ||
+            res[0][j] === OFFERS_HEADERS_ENTREGA ||
+            res[0][j] === OFFERS_HEADERS_DELIVERY ||
+            res[0][j] === OFFERS_HEADERS_FREE_SHIPPING ||
+            res[0][j] === OFFERS_HEADERS_ENVIOS_EXITO ||
+            res[0][j] === OFFERS_HEADERS_EXITO_INDICATOR ||
+            res[0][j] === OFFERS_HEADERS_COTIZADOR ||
+            res[0][j] === OFFERS_HEADERS_FREIGHT ||
+            res[0][j] === OFFERS_HEADERS_GARANTIA ||
+            res[0][j] === OFFERS_HEADERS_WARRANTY ||
+            res[0][j] === OFFERS_HEADERS_LIGICAEXITO ||
+            res[0][j] === OFFERS_HEADERS_EXITO_LOGISTIC ||
+            res[0][j] === OFFERS_HEADERS_ACTIALIZACION_INVENTARIO ||
+            res[0][j] === OFFERS_HEADERS_UPDATE_STOCK ||
+            res[0][j] === OFFERS_HEADERS_EAN_COMBO ||
+            res[0][j] === OFFERS_HEADERS_CANTIDAD_COMBO ||
+            res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO ||
+            res[0][j] === OFFERS_HEADERS_MONEDA ||
+            res[0][j] === OFFERS_HEADERS_CURRENCY
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
-          if (res[0][j] === 'Precio') {
+          if (res[0][j] === OFFERS_HEADERS_PRECIO ||
+            res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] === 'Precio con Descuento') {
+          if (res[0][j] ===  OFFERS_HEADERS_PRECIO_DESCUENTO ||
+            res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }
 

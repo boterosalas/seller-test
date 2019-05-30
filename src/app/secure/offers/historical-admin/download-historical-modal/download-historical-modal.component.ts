@@ -8,7 +8,8 @@ import { DownloadHistoricalService } from './download-historical.service';
 import { UserInformation, ComponentsService } from '@app/shared';
 import {
   Logger,
-  UserParametersService
+  UserParametersService,
+  LoadingService
 } from '@app/core';
 
 // log component
@@ -57,6 +58,7 @@ export class DownloadHistoricalModalComponent implements OnInit {
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
+    private loadingService: LoadingService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // Capturo el limite de registros indicados por el usuario
@@ -108,6 +110,7 @@ export class DownloadHistoricalModalComponent implements OnInit {
   downloadHistorical(form: any) {
     log.debug(this.downloadHistoricalService.getCurrentFilterHistorical());
     const email = form.get('email').value;
+    this.loadingService.viewSpinner();
     this.downloadHistoricalService.downloadHistorical(email)
       .subscribe(
         res => {
@@ -118,10 +121,12 @@ export class DownloadHistoricalModalComponent implements OnInit {
             this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
           }
           this.onNoClick();
+          this.loadingService.closeSpinner();
         },
         err => {
           this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
           this.onNoClick();
+        this.loadingService.closeSpinner();
         }
       );
   }

@@ -184,7 +184,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const icon = 'local_airport';
         const form = this.vacationForm;
         const showButtons = true;
-        return {title, message, icon, form, showButtons};
+        const btnConfirmationText = null;
+        return {title, message, icon, form, showButtons, btnConfirmationText};
     }
 
     /**
@@ -326,7 +327,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const form = null;
         const messageCenter = false;
         const showButtons = true;
-        return {message, title, icon, form, messageCenter, showButtons};
+        const btnConfirmationText = null;
+        return {message, title, icon, form, messageCenter, showButtons, btnConfirmationText};
     }
 
     /**

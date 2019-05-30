@@ -289,6 +289,7 @@ export class CategoriesComponent implements OnInit {
     let form = null;
     const messageCenter = false;
     const showButtons = true;
+    const btnConfirmationText = null;
     if (category) {
       const { Name, Id } = category;
       this.NameParent.setValue(Name);
@@ -299,7 +300,7 @@ export class CategoriesComponent implements OnInit {
     this.form.setValidators(validateDataToEqual(initialValue));
     this.Commission.enable();
     form = this.form;
-    return { title, message, icon, form, messageCenter, showButtons };
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
   /**
@@ -313,6 +314,7 @@ export class CategoriesComponent implements OnInit {
     let form = null;
     const messageCenter = false;
     const showButtons = true;
+    const btnConfirmationText = null;
     if (category) {
       this.form.patchValue(category);
       !!this.ProductType && !!category.ProductType && this.ProductType.setValue(category.ProductType);
@@ -324,7 +326,7 @@ export class CategoriesComponent implements OnInit {
     const initialValue = Object.assign(this.form.value, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     form = this.form;
-    return { title, message, icon, form, messageCenter, showButtons };
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
   /**
