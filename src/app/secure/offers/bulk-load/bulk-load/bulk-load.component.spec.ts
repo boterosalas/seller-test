@@ -224,14 +224,14 @@ describe('BulkLoadComponent', () => {
             fixture.detectChanges();
             expect(bulkLoadComponent.inputFileUpload.nativeElement.value).toEqual('');
         });
-        it('validate subtitle En', () => {
-            fixture.detectChanges();
-            const array = [['EAN', 'Inventario', 'Precio', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
-            const titleEn = 'Price';
-            const titleEs = 'Precio';
-            bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
-            fixture.detectChanges();
-        });
+        // it('validate subtitle En', () => {
+        //     fixture.detectChanges();
+        //     const array = [['EAN', 'Inventario', 'Precio', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
+        //     const titleEn = 'Price';
+        //     const titleEs = 'Precio';
+        //     bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
+        //     fixture.detectChanges();
+        // });
         // it('validate subtitle Es', () => {
         //     fixture.detectChanges();
         //     const array = [['EAN', 'Inventario', 'Price', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];

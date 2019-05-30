@@ -1169,10 +1169,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   calculateIntervalTime() {
     const sizeFile = this.arrayInformationForSend.length;
     if (sizeFile > 100) {
-      this.intervalTime = 1.7 * (sizeFile * 10);
+      this.intervalTime = 7 * (sizeFile * 10);
     } else {
-      this.intervalTime = 2000;
+      this.intervalTime = 6000;
     }
+
   }
   /**
    * destruye el compomente y cierra el modal
