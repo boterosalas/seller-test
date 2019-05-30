@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -11,6 +11,7 @@ import { BulkLoadService } from '../bulk-load.service';
 import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
 import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
@@ -56,7 +57,7 @@ const EXCEL_EXTENSION = '.xlsx';
     ]),
   ]
 })
-export class BulkLoadComponent implements OnInit {
+export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public paginator: any;
 
@@ -100,6 +101,10 @@ export class BulkLoadComponent implements OnInit {
 
   public EanArray: any = [];
 
+  public ListError: any;
+
+  public intervalTime = 2000;
+
   // Validación de las regex
   validateRegex: any;
 
@@ -112,6 +117,7 @@ export class BulkLoadComponent implements OnInit {
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('dialogContent') content: TemplateRef<any>;
 
 
   constructor(
@@ -124,6 +130,7 @@ export class BulkLoadComponent implements OnInit {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
+    private cdr: ChangeDetectorRef
 
   ) {
     this.user = {};
@@ -144,6 +151,7 @@ export class BulkLoadComponent implements OnInit {
    */
   ngOnInit() {
     this.validateFormSupport();
+    this.verifyProccesOffert();
   }
 
   /**
@@ -350,12 +358,12 @@ export class BulkLoadComponent implements OnInit {
             iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio'),
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping'),
-            iIndEnvExito:  this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Logistica Exito'),
-            iEanCombo: this.arrayNecessaryData[0].indexOf('Ean combo'),
+            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
             iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda')
           };
@@ -434,9 +442,7 @@ export class BulkLoadComponent implements OnInit {
    * @memberof BulkLoadComponent
    */
   createTable(res: any, iVal: any, numCol: any) {
-
     for (let i = 0; i < res.length; i++) {
-
       let errorInCell = false;
       if (i !== 0 && i > 0) {
         for (let j = 0; j < numCol; j++) {
@@ -638,10 +644,8 @@ export class BulkLoadComponent implements OnInit {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.sendJsonInformation();
+      this.sendJsonOffer();
     }
-
-
   }
 
   /**
@@ -1074,4 +1078,109 @@ export class BulkLoadComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcion para enviar la informacion luego de que pasa las validacion del front 
+   *
+   * @memberof BulkLoadComponent
+   */
+  sendJsonOffer() {
+    this.arrayInformationForSend.splice(0, 1);
+    this.loadingService.viewSpinner();
+    this.bulkLoadService.setOffers(this.arrayInformationForSend)
+      .subscribe(
+        (result: any) => {
+          if (result) {
+            if (result.data.successful === result.data.totalProcess) {
+              this.openModal(1, null);
+            } else {
+              const { offerNotifyViewModels } = result.data;
+              this.openModal(3, offerNotifyViewModels);
+            }
+          }
+          this.resetVariableUploadFile();
+          this.loadingService.closeSpinner();
+        }
+      );
+  }
+
+  /**
+   * Funcion para verificar el status de la carga, se llama en dos veces una con la carga inicial y la otra cuando se sube un archivo
+   *
+   * @memberof BulkLoadComponent
+   */
+  verifyProccesOffert() {
+    this.arrayInformationForSend.splice(0, 1);
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        if (res && res.status === 200) {
+          const { status } = res.body.data;
+          if (status === 1 || status === 4) {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModal(statusCurrent, null); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  /**
+   * Abre un dialogo para mostrar el estados de la carga de batch
+   *
+   * @param {number} status
+   * @memberof BulkLoadComponent
+   */
+  openModal(type: number, listError: any) {
+    if (this.arrayInformationForSend.length > 0) {
+      this.calculateIntervalTime();
+    } else {
+      this.intervalTime = 1800;
+    }
+    const data = {
+      successText: 'Carga realizada con éxito',
+      failText: 'No se pudo realizar la carga',
+      processText: 'Carga en proceso',
+      initTime: 500,
+      intervalTime: this.intervalTime,
+      listError: listError
+    };
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+    });
+  }
+  /**
+   * Calcula el tiempo del intervalo para realizar la consultado (consulta iterativa recursiva) el promedio de rango 0.012 ~ 0.018
+   *
+   * @memberof BulkLoadComponent
+   */
+  calculateIntervalTime() {
+    const sizeFile = this.arrayInformationForSend.length;
+    if (sizeFile > 100) {
+      this.intervalTime = 1.7 * (sizeFile * 10);
+    } else {
+      this.intervalTime = 2000;
+    }
+  }
+  /**
+   * destruye el compomente y cierra el modal
+   *
+   * @memberof BulkLoadComponent
+   */
+  ngOnDestroy() {
+    this.loadingService.closeSpinner();
+    this.dialog.closeAll();
+  }
 }

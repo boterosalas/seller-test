@@ -1,0 +1,27 @@
+<div>
+  <div class="error-list-content list-log">
+    <h3 class="succes-string" mat-subheader *ngIf="Success && !inProcess && data.successText">
+      <mat-icon>check</mat-icon>
+      {{data.successText}}
+    </h3>
+
+    <h3 class="error-string" mat-subheader *ngIf="!Success && !inProcess && data.failText">
+      <mat-icon>warning</mat-icon>
+      {{data.failText}}
+    </h3>
+    <ng-container *ngIf="!!content && !Success && !inProcess ">
+      <ng-template [ngTemplateOutlet]="content">
+      </ng-template>
+    </ng-container>
+    <h3 class="processing-string" mat-subheader *ngIf="inProcess && data.processText">
+      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      {{data.processText}}
+    </h3>
+    <mat-divider></mat-divider>
+  </div>
+  <mat-dialog-actions class="container__btn">
+    <button id="btn-cancel" type="button" mat-stroked-button color="primary" [disabled]="inProcess"
+      (click)="onNoClick()">Cerrar</button>
+    <button id="close-finish-upload-button" [disabled]="!inProcess" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>Ir al inicio</button>
+  </mat-dialog-actions>
+</div>
