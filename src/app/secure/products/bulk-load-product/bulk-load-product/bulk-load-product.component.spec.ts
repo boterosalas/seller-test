@@ -1136,6 +1136,26 @@ describe('BulkLoad Products Component', () => {
         sellerProfile: 'admin',
     }
 
+    const categories:any = {  
+        headers:{  
+            normalizedNames:{  
+    
+            },
+            lazyUpdate:null
+        },
+        status:200,
+        statusText: 'OK',
+        url: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetAllCategories',
+        ok: true,
+        type: 4,
+        body: {  
+            statusCode: 200,
+            headers: null,
+            body: "{\"Errors\":[],\"Data\":[{\"Id\":27316,\"IdParent\":27195,\"Name\":\"A Gas\",\"IdExito\":\"cat790026000\",\"IdCarulla\":\"567_300030040000000\",\"IdCatalogos\":\"k_900010000000000\",\"IdMarketplace\":\"catmp1111000000\",\"ProductType\":\"Technology\",\"SkuShippingSize\":\"5\",\"Promisedelivery\":\"2 a 5\",\"IsExitoShipping\":true,\"Commission\":15.0,\"IdVTEX\":\"34185600\"},{\"Id\":27352,\"IdParent\":27231,\"Name\":\"Abdominales\",\"IdExito\":\"35_900120030040000\",\"IdCarulla\":\"567_300030010060000\",\"IdCatalogos\":\"k_900020020000000\",\"IdMarketplace\":\"catmp1141000000\",\"ProductType\":\"Technology\",\"SkuShippingSize\":\"4\",\"Promisedelivery\":\"2 a 5\",\"IsExitoShipping\":true,\"Commission\":15.0,\"IdVTEX\":\"34185334\"}],\"Message\":\"Operación realizada éxitosamente.\"}",
+            isBase64Encoded: false
+        }
+    }
+
 
     let fixture: ComponentFixture<BulkLoadProductComponent>;
     let component: BulkLoadProductComponent;
@@ -1181,12 +1201,13 @@ describe('BulkLoad Products Component', () => {
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
         mockBulkLoadProductService.getCategoriesVTEX.and.returnValue(of(vetex));
+        mockSearchService.getCategories.and.returnValue(of(categories));
+        mockUserParametersService.getUserData.and.returnValue(UserInformation);
         component.categoryForm = new FormGroup({
             Name: new FormControl(''),
             productType: new FormControl(''),
             TipodeObjeto: new FormControl('')
         });
-
     });
     afterEach(() => {
         fixture = TestBed.createComponent(BulkLoadProductComponent);
@@ -1253,18 +1274,6 @@ describe('BulkLoad Products Component', () => {
             expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
         });
 
-        it('Validate datos plantilla technology', () => {
-            component.getDataFormFileTechnology();
-            const prueba = component.getDataFormFileTechnology();
-            expect(prueba.categoria).toBeTruthy();
-        });
-
-        it('Validate datos plantilla clothing', () => {
-            component.getDataFormFileClothing();
-            const prueba = component.getDataFormFileClothing();
-            expect(prueba.categoria).toBeTruthy();
-        });
-
         it('Configuracion de la tabla', () => {
             component.configDataDialog();
             const pruebaDialog = component.configDataDialog();
@@ -1282,12 +1291,14 @@ describe('BulkLoad Products Component', () => {
         beforeEach(() => {
             mockAuthService.profileType$.next('Admin');
         });
+        
         it('Get quantity charges in seller', () => {
             component.getAvaliableLoads();
             expect(component.isAdmin).toBeTruthy();
             // Se verifica el llamado del metodo getAmountAvailableLoads
             expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();
         });
+
         it('Reset variables', () => {
             component.listLog = [];
             component.countErrors = 0;
@@ -1316,14 +1327,35 @@ describe('BulkLoad Products Component', () => {
             expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
         });
 
-        it('export excel Technology', () => {
+        it('export excel Technology with data', () => {
+            component.vetex.data =  {
+                groupName: 'Lavadoras',
+                id: '636945656165896196',
+                idGroup: '636945656165896196',
+                idVTEX: '',
+                listCategories: [{id: 27223, name: 'Lavadoras'},
+                                 {id: 27707, name: 'Carga Frontal'},
+                                 {id: 27714, name: 'Carga Superior'}],
+                specs: [
+                    {idSpec: "636945656167650094", specName: "Voltaje", required: false, values: null, listValues: Array(0)},
+                    {idSpec: "636945656198371143", specName: "Compatibilidad", required: false, values: null, listValues: Array(0)}
+                ]
+              }
             component.modelSpecs = {pruebas: '1', testeo: '2'};
             component.categoryType.setValue('Technology');
             component.exportExcel();
             expect(component.exportExcel).toBeTruthy();
         });
 
-        it('export excel Clothing', () => {
+        it('export excel Clothing with data', () => {
+            component.vetex.data =  {
+                groupName: '',
+                id: '',
+                idGroup: '',
+                idVTEX: '',
+                listCategories: [],
+                specs: []
+              }
             component.modelSpecs = {pruebas: '1', testeo: '2'};
             component.categoryType.setValue('Clothing');
             component.exportExcel();
@@ -1334,12 +1366,19 @@ describe('BulkLoad Products Component', () => {
             component.trasformTree();
         });
 
+        it('export excel Technology or Clothing no data', () => {
+            component.vetex.data = null;
+            fixture.detectChanges();
+            component.listOfCategories();
+            expect(component.vetex.data).toBeTruthy();
+        });
+
     });
 
     describe('seller', () => {
 
         beforeEach(() => {
-            mockUserParametersService.getUserData.and.returnValue(UserInformation);
+            
         });
 
             it('get user data', () => {
@@ -1350,8 +1389,28 @@ describe('BulkLoad Products Component', () => {
                 });
             });
 
+            it('read file', ()=> {
+                const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+                const fileUploadNativeElement = fileUpload.nativeElement;
+                fileUploadNativeElement.dispatchEvent(new Event('change')); 
+                fixture.detectChanges();
+                component.readFileUpload(fileUploadNativeElement);
+                component.onFileChange(fileUploadNativeElement);
+                expect(mockSearchService.getCategories).toHaveBeenCalled();
+            });
+
             it('on file change', ()=> {
-                component.onFileChange(new Event('change'));
+                const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+                const fileUploadNativeElement = fileUpload.nativeElement;
+                fileUploadNativeElement.dispatchEvent(new Event('change')); 
+                fixture.detectChanges();
+                component.onFileChange(fileUploadNativeElement);
+                expect(mockSearchService.getCategories).toHaveBeenCalled();
+            });
+
+            it('on file change error', ()=> {
+                component.onFileChange('');
+                expect(component.onFileChange).toThrowError();
             });
 
     });

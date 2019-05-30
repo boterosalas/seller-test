@@ -2046,7 +2046,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.modelSpecs
   ];
 
-    const categoria = this.listOfCategories() || [];
+    const categoria = this.listOfCategories();
 
     const marcas = this.brands;
 
@@ -2097,7 +2097,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.modelSpecs
   ];
 
-    const categoria = this.listOfCategories() || [];
+    const categoria = this.listOfCategories();
 
     const marcas = this.brands;
 
@@ -2109,17 +2109,26 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Lista por marcas activas */
   listOfCategories() {
-    if (this.vetex.data) {
+    if (this.vetex.data !== null) {
       return this.vetex.data.listCategories.map((element) => {
         return { 'Código de Categoría': element.id, 'Categoría Especifica': element.name };
       });
+    } else {
+      return this.vetex.data = {
+        groupName: '',
+        id: '',
+        idGroup: '',
+        idVTEX: '',
+        listCategories: [],
+        specs: []
+      }
     }
   }
 
   listOfSpecs() {
     // Arreglo a retornar
     const specs = [];
-    if (this.vetex.data) {
+
       // Modelo de especificaciones a construir
     this.modelSpecs = {};
     // Maximo numero de valores de una especificacion
@@ -2132,6 +2141,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         maxSpecsValue = element.listValues.length;
       }
     });
+  
     // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
     for(let i = 0; i < maxSpecsValue; i ++) {
       const object = Object.assign({}, this.modelSpecs);
@@ -2148,9 +2158,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         specs.forEach(specElement => specElement[element.specName] = null);
       }
       });
-    }
     return specs;
-  }
+} 
 
   /* Lista por marcas activas */
 

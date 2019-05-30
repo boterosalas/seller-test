@@ -71,7 +71,7 @@ export class BrandsComponent implements OnInit {
     boleano = null;
     color = '#4caf50';
     subs: Subscription[] = [];
-    BrandsRegex = { brandsName: '', formatNumber: '' };
+    BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     idBrands: number;
     statusBrands: boolean;
     nameBrands: string;
@@ -273,12 +273,12 @@ export class BrandsComponent implements OnInit {
      */
     createForm() {
         this.filterBrands = new FormGroup({
-            filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatIntegerNumber)]),
             filterBrandsName: new FormControl(''),
         });
         this.form = new FormGroup({
             nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
-            idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatIntegerNumber)]),
             status: new FormControl(''),
         });
 
