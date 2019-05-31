@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { LoadingService } from '@app/core/global/loading/loading.service';
 
 @Component({
     selector: 'app-dialog-token',
@@ -10,7 +11,11 @@ export class DialogTokenExpiredComponent {
 
     constructor(
         public dialogRef: MatDialogRef<DialogTokenExpiredComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
+        private loadingService: LoadingService,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+
+            this.loadingService.closeSpinner();
+         }
 
 
     closeDialog(): void {
