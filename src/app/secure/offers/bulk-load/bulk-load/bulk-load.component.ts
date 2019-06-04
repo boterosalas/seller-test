@@ -101,6 +101,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public EanArray: any = [];
 
+  public listErrorStatus: any = [];
+
   public ListError: any;
 
   public intervalTime = 2000;
@@ -1108,19 +1110,25 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @memberof BulkLoadComponent
    */
   verifyProccesOffert() {
-    // this.loadingService.viewSpinner();
+    this.loadingService.viewSpinner();
     this.arrayInformationForSend.splice(0, 1);
     this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
       try {
         if (res && res.status === 200) {
           const { status, checked } = res.body.data;
-          if ((status === 1 || status === 4) && checked !== 'True') {
+          if ((status === 1 || status === 4) && checked !== 'true') {
             const statusCurrent = 1;
             setTimeout(() => { this.openModal(statusCurrent, null); });
-          } else if (status === 2 && checked !== 'True') {
+          } else if (status === 2 && checked !== 'true') {
             setTimeout(() => { this.openModal(status, null); });
-          } else if (status === 3 && checked !== 'True') {
-            setTimeout(() => { this.openModal(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModal(status, this.listErrorStatus); });
           } else {
             this.loadingService.closeSpinner();
           }
@@ -1151,7 +1159,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       processText: 'Carga en proceso',
       initTime: 500,
       intervalTime: this.intervalTime,
-      listError: listError
+      listError: listError,
+      typeStatus: type
     };
     this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
