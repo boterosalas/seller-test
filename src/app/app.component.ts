@@ -1,6 +1,7 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, ModalComponent, ModalService, UserLoginService } from '@app/core';
 import { environment } from '@env/environment';
+import { LanguageService } from './core/translate/language.service';
 
 const log = new Logger('AppComponent');
 
@@ -30,8 +31,11 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private cognito: CognitoUtil,
     private loadingService: LoadingService,
     private modalService: ModalService,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef,
+    private languageService: LanguageService
+  ) {
+    console.log('debo ser lo primero en esta perra vida en instanciarme');
+  }
 
   ngOnInit() {
 

@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogModule } from '../dialogs/delete/delete-dialog.module';
 import { SellerModule } from '@app/secure/seller/seller.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DeleteDialogModule,
     SellerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     ListTransporterComponent

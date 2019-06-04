@@ -16,6 +16,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog.componen
 import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 import { CreateProcessDialogComponent } from './components/create-process-dialog/create-process-dialog.component';
 import { RouterModule } from '@angular/router';
+import { TranslatePipe } from './pipes/translate.pipe';
+import { TranslateDirective } from './directives/translate/translate.directive';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { RouterModule } from '@angular/router';
     ControlMessagesComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
-    CreateProcessDialogComponent
+    CreateProcessDialogComponent,
+    TranslatePipe,
+    TranslateDirective
   ],
   exports: [
     MaterialModule,
@@ -47,7 +51,9 @@ import { RouterModule } from '@angular/router';
     ControlMessagesComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
-    CreateProcessDialogComponent
+    CreateProcessDialogComponent,
+    TranslatePipe,
+    TranslateDirective
   ],
   entryComponents: [
     ErrorDialogComponent,

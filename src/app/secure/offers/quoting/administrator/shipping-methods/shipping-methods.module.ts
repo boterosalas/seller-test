@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShippingMethodsComponent } from './shipping-methods.component';
 import { MaterialModule } from '@app/material.module';
 import { ShippingMethodsService } from './shipping-methods.service';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ShippingMethodsService } from './shipping-methods.service';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   exports: [
     ShippingMethodsComponent
