@@ -21,7 +21,8 @@ export class StoreModel {
         public State?: string,
         public City?: string,
         public SincoDaneCode?: string,
-        public Profile?: string
+        public Profile?: string,
+        public Warranty?: string
     ) { }
 }
 
