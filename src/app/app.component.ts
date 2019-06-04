@@ -19,6 +19,11 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
 
   @ViewChild(ModalComponent) private modalComponent: ModalComponent;
 
+
+  /**
+   * Un comentario para elminar
+   */
+
   constructor(
     private awsUtil: AwsUtil,
     private userService: UserLoginService,
