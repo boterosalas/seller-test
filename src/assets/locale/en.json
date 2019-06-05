@@ -2,6 +2,9 @@
     "change_language": "Change language successfull to ",
     "english": "English",
     "spanish": "Spanish",
+    "shared": {
+        "name": "Name"
+    },
     "errors": {
         "required": "Field required",
         "invalid_name": "Invalid name",
@@ -90,22 +93,16 @@
                 "tap_title_admin": "New administrative user registration form",
                 "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller"
             },
-            "profiles": {
-                "profile": {
-                    "toolbar_title": "Vendedores",
-                    "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
-                },
-                "dialog": {
-                    "modal_title_add_profile": "Agregar perfil",
-                    "modal_title_edit_profile": "Editar perfil",
-                    "modal_rdn_exito": "Exito",
-                    "modal_rdn_store": "Tienda",
-                    "modal_placeholder_profile_name": "Nombre del perfil",
-                    "modal_placeholder_select_menu": "Seleccione el menu",
-                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
-                }
+            "manage": {
+                "lb_title_toolbar": "Seller",
+                "lb_subtitle_toolbar": "Manage sellers",
+                "txt_serch_seller": "Enter the seller name in the search bar in order to see the data"
+
+            },
+            "contracts": {
+                "lb_title_toolbar": "Contracts",
+                "lb_subtitle_toolbar": "Contract lookup",
+                "txt_no_contract_seller": "There are no current contracts associated to this seller"
             }
         },
         "offers": {
@@ -175,6 +172,23 @@
                 "modal_chk_required": "Obligatoria",
                 "modal_placeholder_add_option": "Ingresa opcion",
                 "modal_btn_add_option": "Agregar opcion"
+            },
+            "profiles": {
+                "profile": {
+                    "toolbar_title": "Vendedores",
+                    "toolbar_subtitle": "Parametrización de perfiles",
+                    "tbl_lbl_name": "Nombre",
+                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                },
+                "dialog": {
+                    "modal_title_add_profile": "Agregar perfil",
+                    "modal_title_edit_profile": "Editar perfil",
+                    "modal_rdn_exito": "Exito",
+                    "modal_rdn_store": "Tienda",
+                    "modal_placeholder_profile_name": "Nombre del perfil",
+                    "modal_placeholder_select_menu": "Seleccione el menu",
+                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                }
             }
         }
     }

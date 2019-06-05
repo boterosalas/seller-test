@@ -2,6 +2,9 @@
     "change_language": "El lenguaje ha cambiado satisfactoriamente a ",
     "english": "Inglés",
     "spanish": "Español",
+    "shared": {
+        "name": "Nombre"
+    },
     "errors": {
         "required": "Este cambio es obligatorio",
         "invalid_name": "Nombre invalido",
@@ -90,22 +93,16 @@
                 "tap_title_admin": "Formulario registro de nuevo administrador",
                 "txt_description_admin": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los administradores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar administrador."
             },
-            "profiles": {
-                "profile": {
-                    "toolbar_title": "Vendedores",
-                    "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
-                },
-                "dialog": {
-                    "modal_title_add_profile": "Agregar perfil",
-                    "modal_title_edit_profile": "Editar perfil",
-                    "modal_rdn_exito": "Exito",
-                    "modal_rdn_store": "Tienda",
-                    "modal_placeholder_profile_name": "Nombre del perfil",
-                    "modal_placeholder_select_menu": "Seleccione el menu",
-                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
-                }
+            "manage": {
+                "lb_title_toolbar": "Vendedores",
+                "lb_subtitle_toolbar": "Administrar vendedores",
+                "txt_serch_seller": "Ingresa el nombre del vendedor en la barra de búsqueda para ver los datos."
+
+            },
+            "contracts": {
+                "lb_title_toolbar": "Acuerdos",
+                "lb_subtitle_toolbar": "Buscar acuerdos",
+                "txt_no_contract_seller": "No hay acuerdos asociados a este vendendor"
             }
         },
         "offers": {
@@ -175,6 +172,23 @@
                 "modal_chk_required": "Obligatoria",
                 "modal_placeholder_add_option": "Ingresa opcion",
                 "modal_btn_add_option": "Agregar opcion"
+            },
+            "profiles": {
+                "profile": {
+                    "toolbar_title": "Vendedores",
+                    "toolbar_subtitle": "Parametrización de perfiles",
+                    "tbl_lbl_name": "Nombre",
+                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                },
+                "dialog": {
+                    "modal_title_add_profile": "Agregar perfil",
+                    "modal_title_edit_profile": "Editar perfil",
+                    "modal_rdn_exito": "Exito",
+                    "modal_rdn_store": "Tienda",
+                    "modal_placeholder_profile_name": "Nombre del perfil",
+                    "modal_placeholder_select_menu": "Seleccione el menu",
+                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                }
             }
         }
     }
