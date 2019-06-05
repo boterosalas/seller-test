@@ -266,7 +266,7 @@ export class RegisterSellerComponent implements OnInit {
   putColombiaByDefault() {
     const colombia = this.countries.find(element => element.CountryName === this.colombia);
     if (!!colombia) this.Country.setValue(colombia.CountryName);
-    this.Country.disable();
+    //this.Country.disable();
   }
 
   validateExitPayoneerUser(event) {

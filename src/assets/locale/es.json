@@ -8,11 +8,30 @@
         "invalid_nit": "Nit invalido",
         "invalid_id": "Id invalido",
         "reason_max_length": "El motivo no debe superar los 120 caracteres",
-        "observation_max_length": "La observación no debe superar los 2000 caracteres" 
+        "observation_max_length": "La observación no debe superar los 2000 caracteres" ,
+        "state_invalid" : "El departamento es inválido",
+        "state_required": "El departamento es requerido",
+        "city_invalid" : "La ciudad es inválida",
+        "city_required": "La ciudad es requerida",
+        "code_invalid" : "El código es inválido",
+        "code_required": "El código es requerido",
+        "phone_invalid": "El teléfono es inválido",
+        "user_invalid": "El usuario es inválido",
+        "nit_invalid": "El NIT es inválido",
+        "nit_exist": "El nit ya existe",
+        "rut_invalid": "El RUT es inválido",
+        "contact_invalid": "El contacto es inválido",
+        "email_invalid": "El correo electrónico es inválido",
+        "email_exist": "El correo electrónico ya existe",
+        "store_name_invalid": "El nombre de la tienda es inválido",
+        "store_name_exist": "El nombre de la tienda ya existe",
+        "name_invalid": "El nombre es inválido",
+        "name_exist": "El nombre ya existe"
     },
     "buttons": {
         "modal_btn_ok": "",
-        "modal_btn_cancel": ""
+        "modal_btn_cancel": "CANCELAR",
+        "register": "REGISTRAR"
     },
     "filters": {
         "clear": "Limpiar",
@@ -47,9 +66,29 @@
                 "tooltip_vacations": "Programar vacaciones"
             },
             "register_seller": {
-                "title": "Formulario registro de nuevo vendedor",
-                "description": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los vendedores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar vendedores.",
-                "select_profile_type": "Selecciona tipo de perfil"
+                "tap_title_seller": "Formulario registro de nuevo vendedor",
+                "txt_description_seller": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los vendedores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar vendedores.",
+                "lb_select_profile_type": "Selecciona tipo de perfil",
+                "lb_profile_type_form": "Tipo de perfil",
+                "txt_select_profile_type": "Seleccionaste el perfil",
+                "lb_country_form": "Pais",
+                "lb_state_form": "Departamento",
+                "lb_city_form": "Ciudad",
+                "lb_postal_code_form": "Código postal",
+                "lb_phone_form": "Teléfono",
+                "lb_payoneer_form": "Payoneer",
+                "lb_nit_form": "NIT",
+                "lb_rut_form": "RUT",
+                "lb_contact_form": "Contacto (nombre y apellido)",
+                "lb_store_name_form": "Nombre de la tienda",
+                "lb_address_form": "Dirección de facturación",
+                "lb_logistic_form": "Vendedor Logística Éxito",
+                "lb_envios_form": "Vendedor Envíos Éxito",
+                "lb_view_form": "Visualización del vendedor",
+                "lb_email_form": "Correo electrónico",
+                "lb_name_form": "Nombre",
+                "tap_title_admin": "Formulario registro de nuevo administrador",
+                "txt_description_admin": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los administradores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar administrador."
             },
             "profiles": {
                 "profile": {

@@ -8,11 +8,30 @@
         "invalid_nit": "Invalid nit",
         "invalid_id": "Invalid id",
         "reason_max_length": "The reason must not exceed 120 characters",
-        "observation_max_length": "The observation must not exceed 2000 characters" 
+        "observation_max_length": "The observation must not exceed 2000 characters",
+        "state_invalid" : "The state entered is invalid",
+        "state_required": "The state is required",
+        "city_invalid" : "The city entered is invalid",
+        "city_required": "The city is required",
+        "code_invalid" : "The code entered is invalid",
+        "code_required": "The code is required",
+        "phone_invalid": "The phone number entered is invalid",
+        "user_invalid": "The user is invalid",
+        "nit_invalid": "The identification entered is invalid",
+        "nit_exist": "The identification entered already exist",
+        "rut_invalid": "The RUT entered is invalid",
+        "contact_invalid": "The contact entered is invalid",
+        "email_invalid": "The e-mail address entered is invalid",
+        "email_exist": "The e-mail address entered already exist",
+        "store_name_invalid": "The store name entered is invalid",
+        "store_name_exist": "The store name entered already exist",
+        "name_invalid": "The name entered is invalid",
+        "name_exist": "The name entered already exist"
     },
     "buttons": {
         "modal_btn_ok": "",
-        "modal_btn_cancel": ""
+        "modal_btn_cancel": "",
+        "register": "REGISTER"
     },
     "filters": {
         "clear": "Clear",
@@ -47,7 +66,29 @@
                 "tooltip_vacations": "Program vacations"
             },
             "register_seller": {
-                "title": "New seller registration form"
+                "tap_title_seller": "New seller registration form",
+                "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
+                "lb_select_profile_type": "Select profile type",
+                "lb_profile_type_form": "Profile type",
+                "txt_select_profile_type": "Select profile type",
+                "lb_country_form": "Country",
+                "lb_state_form": "State",
+                "lb_city_form": "City",
+                "lb_postal_code_form": "Postal code",
+                "lb_phone_form": "Phone",
+                "lb_payoneer_form": "Payoneer",
+                "lb_nit_form": "NIT",
+                "lb_rut_form": "RUT",
+                "lb_contact_form": "Contact (name and sourname)",
+                "lb_store_name_form": "Store name",
+                "lb_address_form": "Billing address",
+                "lb_logistic_form": "Éxito Logistics Seller",
+                "lb_envios_form": "Envíos Éxito Seller",
+                "lb_view_form": "Seller view",
+                "lb_email_form": "Email",
+                "lb_name_form": "Name",
+                "tap_title_admin": "New administrative user registration form",
+                "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller"
             },
             "profiles": {
                 "profile": {
