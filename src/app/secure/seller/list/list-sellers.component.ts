@@ -73,8 +73,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
     @ViewChild('sidenav') sidenav: MatSidenav;
     nameSellerListFilter: any;
 
-    // Variables con los permisos que este componente posee
-    permissionComponent: MenuModel;
     read = readFunctionality;
     visualize = visualizeFunctionality;
     enable = enableFunctionality;
@@ -86,6 +84,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canVisualize: boolean;
     canPutInVacation: boolean;
     canCancelVacation: boolean;
+    canRead: boolean;
     today = DateService.getToday();
 
     constructor(private storesService: StoresService,
@@ -120,16 +119,16 @@ export class SellerListComponent implements OnInit, OnDestroy {
         !!drawer && drawer.classList.remove('mat-drawer-content');
         const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
         !!drawerContainer && drawerContainer.classList.add('height_seller-list');
-        this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
         this.initStatusForm();
-        this.canDisabled = this.getFunctionality(this.disable);
-        this.canEnabled = this.getFunctionality(this.enable);
-        this.canVisualize = this.getFunctionality(this.visualize);
-        this.canPutInVacation = this.getFunctionality(this.vacation);
-        this.canCancelVacation = this.getFunctionality(this.cancelVacation);
+        this.canDisabled = this.authService.getPermissionForMenu(sellerListName, this.disable);
+        this.canEnabled = this.authService.getPermissionForMenu(sellerListName, this.enable);
+        this.canVisualize = this.authService.getPermissionForMenu(sellerListName,this.visualize);
+        this.canPutInVacation = this.authService.getPermissionForMenu(sellerListName,this.vacation);
+        this.canCancelVacation = this.authService.getPermissionForMenu(sellerListName,this.cancelVacation);
+        this.canRead = this.authService.getPermissionForMenu(sellerListName,this.read);
     }
 
     /**
@@ -142,18 +141,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.subs.push(this.needFormStates$.subscribe(status => {
             !!status && this.putComplementDataInStatusForm(status);
         }));
-    }
-
-    /**
-     * Funcion que verifica si la funcion del modulo posee permisos
-     *
-     * @param {string} functionality
-     * @returns {boolean}
-     * @memberof ToolbarComponent
-     */
-    public getFunctionality(functionality: string): boolean {
-        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-        return permission && permission.ShowFunctionality;
     }
 
     /**

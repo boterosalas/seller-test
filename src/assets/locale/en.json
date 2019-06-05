@@ -40,7 +40,11 @@
                 "seller_filter": "Seller filter",
                 "toolbar_title": "Sellers",
                 "toolbar_subtitle": "| Seller list",
-                "toolbar_title_phone": "Seller list"
+                "toolbar_title_phone": "Seller list",
+                "tooltip_manage": "Manage seller",
+                "tooltip_enable": "Activate user",
+                "tooltip_disable": "Disable user",
+                "tooltip_vacations": "Program vacations"
             },
             "register_seller": {
                 "title": "New seller registration form"

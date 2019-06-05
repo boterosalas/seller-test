@@ -73,7 +73,7 @@
         </mat-chip-list>
       </div>
       <!-- SELLER CONTAINER LIST-->
-      <div class="list-container" *ngIf="getFunctionality(read)">
+      <div class="list-container" *ngIf="canRead">
         <!-- SELLER HEADER LIST-->
         <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center"  fxHide.xs>
           <div id="id" class="label-container id">
@@ -109,7 +109,7 @@
         <!-- SELLER HEADER LIST--> 
           <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
-                    <button mat-icon-button matTooltip="Administrar vendedor" class="btn__visibility" (click)="redirectToSeller(seller.IdSeller)"
+                    <button mat-icon-button [matTooltip]="'secure.seller.list.tooltip_manage' | I18N | async" class="btn__visibility" (click)="redirectToSeller(seller.IdSeller)"
                       fxShow [fxShow.xs]="false" *ngIf="canVisualize">
                       <mat-icon class="material-icons">
                         visibility
@@ -141,7 +141,7 @@
                 <div id="status" class="label-container status">
                     <button mat-icon-button
                     id ="btn-enabled-seller"
-                    matTooltip="Habilitar vendedor"
+                    [matTooltip]="'secure.seller.list.tooltip_enable' | I18N | async"
                     (click) = "changeSellerStatus(seller, 'enabled', i)"
                     [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
@@ -151,7 +151,7 @@
                     </button>
                     <button mat-icon-button
                     id="btn-disabled-seller"
-                    matTooltip="Deshabilitar vendedor"
+                    [matTooltip]="'secure.seller.list.tooltip_disable' | I18N | async"
                     (click) = "changeSellerStatus(seller, 'disabled', i)"
                     [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Disable'">
@@ -161,7 +161,7 @@
                     </button>
                     <button mat-icon-button
                     id="btn-vacation-seller" 
-                    matTooltip="Programar vacaciones"
+                    [matTooltip]="'secure.seller.list.tooltip_vacations' | I18N | async"
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'button--disabled' " 
                     [disabled]=" !seller.Status || seller.Status == 'Disable'">
@@ -220,14 +220,14 @@
     <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
           <input matInput [placeholder]="('secure.seller.list.reason' | I18N) | async" id="inputReason" autocomplete="false" formControlName="Reasons">
-          <mat-error *ngIf="reason.hasError('maxlength')">El motivo no debe superar los 120 caracteres.</mat-error>
-          <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
+          <mat-error *ngIf="reason.hasError('maxlength')">{{'errors.reason_max_length'  | I18N | async }}</mat-error>
+          <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">{{'errors.required'  | I18N | async }}</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
           <textarea matInput [placeholder]="('secure.seller.list.observtion' | I18N) | async" id="inputObservation" autocomplete="false" formControlName="Observations"></textarea>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="observation.hasError('maxlength')">La observación no debe superar los 2000 caracteres.</mat-error>
-          <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">Este campo es obligatorio.</mat-error>  
+          <mat-error *ngIf="observation.hasError('maxlength')">{{'errors.observation_max_length'  | I18N | async }}</mat-error>
+          <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">{{'errors.required'  | I18N | async }}</mat-error>  
         </mat-form-field>
     </form>
   </ng-container>

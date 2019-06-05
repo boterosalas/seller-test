@@ -40,7 +40,11 @@
                 "seller_filter": "Filtro vendedores",
                 "toolbar_title": "Vendedores",
                 "toolbar_subtitle": "| Listado de vendedores",
-                "toolbar_title_phone": "Listado de vendedores"
+                "toolbar_title_phone": "Listado de vendedores",
+                "tooltip_manage": "Administrar vendedor",
+                "tooltip_enable": "Habilitar vendedor",
+                "tooltip_disable": "Deshabilitar vendedor",
+                "tooltip_vacations": "Programar vacaciones"
             },
             "register_seller": {
                 "title": "Formulario registro de nuevo vendedor",
