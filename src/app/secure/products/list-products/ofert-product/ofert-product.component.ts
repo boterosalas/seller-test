@@ -110,8 +110,8 @@ export class OfertExpandedProductComponent implements OnInit {
         this.applyOffer.eanesCombos.forEach((element: any) => {
             this.addItem(element.nameCombo, element.ean);
         });
-        this.ofertProduct.controls.IsUpdatedStock.disable();
-        this.disableUpdate();
+        // this.ofertProduct.controls.IsUpdatedStock.disable();
+        // this.disableUpdate();
     }
 
 
@@ -149,16 +149,17 @@ export class OfertExpandedProductComponent implements OnInit {
      *
      * @memberof OfertExpandedProductComponent
      */
-    public disableUpdate(): void {
-        this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
-            if (val === 'IsLogisticsExito') {
-                this.ofertProduct.controls.IsUpdatedStock.enable();
-            } else {
-                this.ofertProduct.controls.IsUpdatedStock.setValue(false);
-                this.ofertProduct.controls.IsUpdatedStock.disable();
-            }
-        });
-    }
+    /*
+        public disableUpdate(): void {
+             this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
+                 if (val === 'IsLogisticsExito') {
+                     this.ofertProduct.controls.IsUpdatedStock.enable();
+                 } else {
+                    //  this.ofertProduct.controls.IsUpdatedStock.setValue(false);
+                     this.ofertProduct.controls.IsUpdatedStock.enable();
+                 }
+             });
+        } */
 
     /**
      * Obtiene el precio de descuento si tiene ean combos.
