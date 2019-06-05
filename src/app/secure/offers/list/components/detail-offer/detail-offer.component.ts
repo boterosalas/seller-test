@@ -316,7 +316,7 @@ export class DetailOfferComponent {
         case 'IsLogisticsExito':
           this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.disable();
+          this.IsUpdatedStock.enable();
           break;
         case 'IsUpdatedStock':
           this.IsUpdatedStock.setValue(0);
