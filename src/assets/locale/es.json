@@ -12,7 +12,7 @@
         "remove": "Remover",
         "register": "REGISTRAR",
         "cancel": "CANCELAR",
-        "acept": "ACEPTAR",
+        "accept": "ACEPTAR",
         "options": "Opciones"
     },
     "errors": {
@@ -39,7 +39,8 @@
         "store_name_invalid": "El nombre de la tienda es inválido",
         "store_name_exist": "El nombre de la tienda ya existe",
         "name_invalid": "El nombre es inválido",
-        "name_exist": "El nombre ya existe"
+        "name_exist": "El nombre ya existe",
+        "spec_name_max_length": "El nombre no debe superar los 200 caracteres."
     },
     "filters": {
         "clear": "Limpiar",
@@ -158,12 +159,14 @@
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
-                "modal_title":"Agregar grupo de especificaciones",
+                "modal_title_spec":"Agregar grupo de especificaciones",
+                "modal_title_brand": "Agregar una marca",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
-                "modal_placeholder_specification_name": "Nombre de especificacion",
+                "modal_placeholder_specification_name": "Nombre de la especificacion",
                 "modal_placeholder_category": "Categoria",
                 "modal_placeholder_add_category": "Para agregar es necesario, dar clic en (+).",
-                "modal_placeholder_rd_add_all": "Agregar todos"
+                "modal_placeholder_rd_add_all": "Agregar todos",
+                "modal_subtitle_content": "Categorías asociadas"
             },
             "dialogAddSpecs": {
                 "modal_title":"Agregar especificaciones",

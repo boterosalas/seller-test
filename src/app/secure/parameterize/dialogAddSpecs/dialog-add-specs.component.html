@@ -21,8 +21,8 @@
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
             <input matInput formControlName="nameSpec" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_specification_name' | I18N | async">
-            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
-          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
+            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">{{'errors.spec_name_max_length' | I18N | async}}</mat-error>
+          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">{{'errors.required' | I18N | async}}</mat-error>
           </mat-form-field>
           <mat-checkbox class="input-add" formControlName="requiredSpec">{{'secure.parametize.dialogAddSpecs.modal_chk_required' | I18N | async}}</mat-checkbox>
         </div>
@@ -39,7 +39,7 @@
         <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
           <mat-form-field class="width-full">
             <input matInput [formControlName]="opc.name" placeholder="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | I18N | async">
-            <mat-error>Este campo es obligatorio</mat-error>
+            <mat-error>{{'errors.required' | I18N | async}}</mat-error>
           </mat-form-field>
 
           <button mat-icon-button (click)="removeOpt(opc, i)" type="button">
@@ -65,7 +65,7 @@
         </button>
       </div>
       <button type="button" id="btn-create-transporter" mat-button color="primary" (click)="close()">{{'actions.cancel' | I18N | async}}</button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary">{{'actions.acept' | I18N | async}}</button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary">{{'actions.accept' | I18N | async}}</button>
     </div>
   </form>
 </div>

@@ -12,7 +12,7 @@
         "remove": "Remove",
         "register": "REGISTER",
         "cancel": "CANCEL",
-        "acept": "ACEPT",
+        "accept": "ACCEPT",
         "options": "Options"
     },
     "errors": {
@@ -39,7 +39,8 @@
         "store_name_invalid": "The store name entered is invalid",
         "store_name_exist": "The store name entered already exist",
         "name_invalid": "The name entered is invalid",
-        "name_exist": "The name entered already exist"
+        "name_exist": "The name entered already exist",
+        "spec_name_max_length": "El nombre no debe superar los 200 caracteres."
     },
     "filters": {
         "clear": "Clear",
@@ -158,12 +159,14 @@
                 "btn_add_specifications": "Add specifications to a group"
             },
             "dialog": {
-                "modal_title":"Add specification group",
-                "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
+                "modal_title_spec":"Add specification group",
+                "modal_title_brand": "Add brand",
+                "modal_text": "Enter a name for the specification group and fill all the category codes for which the group must be shown to. In order to enter categories you may enter them one by one by writing the code, or enter all of them separated by commas. Remember that the categories must be valid in order to continue.",
                 "modal_placeholder_specification_name": "Specification name",
                 "modal_placeholder_category": "Category",
                 "modal_placeholder_add_category": "In order to add, it is necessary to clic the (+).",
-                "modal_placeholder_rd_add_all": "Add all"
+                "modal_placeholder_rd_add_all": "Add all",
+                "modal_subtitle_content": "Assigned categories"
             },
             "dialogAddSpecs": {
                 "modal_title":"Add specifications to a group",
