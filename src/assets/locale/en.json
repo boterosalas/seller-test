@@ -5,6 +5,16 @@
     "shared": {
         "name": "Name"
     },
+    "actions": {
+        "edit": "Edit",
+        "add": "Add",
+        "delete": "Delete",
+        "remove": "Remove",
+        "register": "REGISTER",
+        "cancel": "CANCEL",
+        "acept": "ACEPT",
+        "options": "Options"
+    },
     "errors": {
         "required": "Field required",
         "invalid_name": "Invalid name",
@@ -32,11 +42,6 @@
         "name_exist": "The name entered already exist",
         "error_date": "The maximum date range is 15 days",
         "invalid_EAN": "EAN invalid"
-    },
-    "buttons": {
-        "modal_btn_ok": "",
-        "modal_btn_cancel": "",
-        "register": "REGISTER"
     },
     "filters": {
         "clear": "Clear",
@@ -159,31 +164,31 @@
         },
         "parametize": {
             "specifications": {
-                "title_bar": "Parametrizar reglas",
-                "subtitle_bar": "Parametrización de especificaciones",
-                "btn_add_specifications_group": "Agregrar grupo de especificaciones",
-                "btn_edit": "Editar",
-                "btn_delete": "Eliminar",
-                "btn_add_specifications": "Agregar especificaciones"
+                "txt_title_toolbar": "Shipping rules configuration",
+                "txt_subtitle_toolbar": "Product specification configuration",
+                "btn_add_specifications_group": "Add specification group",
+                "btn_add_specifications": "Add specifications to a group"
             },
             "dialog": {
-                "modal_title": "Agregar grupo de especificaciones",
+                "modal_title":"Add specification group",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
-                "modal_placeholder_specification_name": "Nombre de especificacion",
-                "modal_placeholder_category": "Categoria",
-                "modal_placeholder_add_category": "Para agregar es necesario, dar clic en (+).",
-                "modal_placeholder_rd_add_all": "Agregar todos"
+                "modal_placeholder_specification_name": "Specification name",
+                "modal_placeholder_category": "Category",
+                "modal_placeholder_add_category": "In order to add, it is necessary to clic the (+).",
+                "modal_placeholder_rd_add_all": "Add all"
             },
             "dialogAddSpecs": {
-                "modal_title": "Agregar de especificaciones",
-                "modal_text": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
-                "modal_placeholder_specification_name": "Nombre de especificacion",
-                "modal_lbl_vendedor": "Visualización del vendedor",
-                "modal_rdn_text": "Texo",
-                "modal_rdn_list_action": "Selección una acción (lista)",
-                "modal_chk_required": "Obligatoria",
-                "modal_placeholder_add_option": "Ingresa opcion",
-                "modal_btn_add_option": "Agregar opcion"
+                "modal_title":"Add specifications to a group",
+                "modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",
+                "modal_text_2": "In the case you select a list type, you must also enter minimum 2 options",
+                "modal_text_3": "for the seller to pick, you may add more if necessary.",
+                "modal_placeholder_specification_name": "Specification name",
+                "modal_lbl_vendedor": "Seller view",
+                "modal_rdn_text": "Text",
+                "modal_rdn_list_action": "Select an action (list)",
+                "modal_chk_required": "Mandatory",
+                "modal_placeholder_add_option": "Enter an option",
+                "modal_btn_add_option": "Add an option"
             },
             "profiles": {
                 "profile": {

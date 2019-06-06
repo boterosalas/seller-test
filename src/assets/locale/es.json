@@ -5,6 +5,16 @@
     "shared": {
         "name": "Nombre"
     },
+    "actions": {
+        "edit": "Editar",
+        "add": "Agregar",
+        "delete": "Eliminar",
+        "remove": "Remover",
+        "register": "REGISTRAR",
+        "cancel": "CANCELAR",
+        "acept": "ACEPTAR",
+        "options": "Opciones"
+    },
     "errors": {
         "required": "Este cambio es obligatorio",
         "invalid_name": "Nombre invalido",
@@ -32,11 +42,6 @@
         "name_exist": "El nombre ya existe",
         "error_date": "El rango máximo son 15 días",
         "invalid_EAN": "EAN invalido"
-    },
-    "buttons": {
-        "modal_btn_ok": "",
-        "modal_btn_cancel": "CANCELAR",
-        "register": "REGISTRAR"
     },
     "filters": {
         "clear": "Limpiar",
@@ -159,11 +164,9 @@
         },
         "parametize": {
             "specifications": {
-                "title_bar": "Parametrizar reglas",
-                "subtitle_bar": "Parametrización de especificaciones",
+                "txt_title_toolbar": "Parametrizar reglas",
+                "txt_subtitle_toolbar": "Parametrización de especificaciones",
                 "btn_add_specifications_group": "Agregrar grupo de especificaciones",
-                "btn_edit": "Editar",
-                "btn_delete": "Eliminar",
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
@@ -175,8 +178,10 @@
                 "modal_placeholder_rd_add_all": "Agregar todos"
             },
             "dialogAddSpecs": {
-                "modal_title": "Agregar de especificaciones",
-                "modal_text": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
+                "modal_title":"Agregar especificaciones",
+                "modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
+                "modal_text_2": "En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones",
+                "modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
                 "modal_placeholder_specification_name": "Nombre de especificacion",
                 "modal_lbl_vendedor": "Visualización del vendedor",
                 "modal_rdn_text": "Texo",
