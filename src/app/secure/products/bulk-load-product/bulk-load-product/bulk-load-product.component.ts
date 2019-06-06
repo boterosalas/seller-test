@@ -21,6 +21,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { trimField } from '../../../../shared/util/validation-messages';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
+import { LanguageService } from '@app/core/translate/language.service';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -173,7 +174,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     private service: BasicInformationService,
     public fb: FormBuilder,
     private searchService: SearchService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private languageService: LanguageService
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -299,7 +301,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.error_has_uploading'), 'Aceptar', 4000);
     });
   }
 
@@ -356,7 +358,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     */
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.limit_for_day'), 'Aceptar', 10000);
     } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
@@ -424,7 +426,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         * else si no lo tiene significa que el formato es invalido y manda un error*/
         if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.no_information_contains'), 'Aceptar', 10000);
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
@@ -522,10 +524,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             */
               if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.contains_more_assets'), 'Aceptar', 10000);
               } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.getValue('secure.seller.list.amount_allowed') , 'Aceptar', 10000);
               } else {
                 this.fileName = file.target.files[0].name;
                 this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -536,13 +538,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             }
           } else {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar('El formato seleccionado es inválido', 'Aceptar', 10000);
+            this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.formt_invalid'), 'Aceptar', 10000);
           }
         }
 
       } else {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.no_information_contains'), 'Aceptar', 10000);
       }
     }
   }
@@ -930,7 +932,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El fortmato es inválido.', 'Aceptar', 4000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.formt_invalid'), 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {

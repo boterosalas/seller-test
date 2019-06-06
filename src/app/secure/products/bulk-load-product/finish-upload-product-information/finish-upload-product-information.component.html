@@ -3,13 +3,13 @@
 
     <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
         <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
-      {{response.processing}} Carga en proceso
+      {{response.processing}} {{'secure.products.bulk_upload.upload_progress' | I18N | async}}
     </h3>
     <mat-divider *ngIf="response.processing != 0"></mat-divider>
 
     <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status ===2">
       <mat-icon>check</mat-icon>
-      {{response.successful}} Carga realizada con éxito
+      {{response.successful}} {{'secure.products.bulk_upload.successful_upload' | I18N | async}}
     </h3>
     <mat-divider *ngIf="response.successful != 0"></mat-divider>
 
@@ -23,15 +23,15 @@ productos
     <mat-nav-list *ngIf="response.body.data.status ===3">
       <mat-list-item *ngFor="let item of response.productNotifyViewModel">
         <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : ('Nombre del producto: ' + item.ProductName)}}</h4>
-        <p matLine>Error presentado: {{item.message}}{{item.Message}}</p>
+        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : ({{'secure.products.bulk_upload.product_Name' | I18N | async}}:  + item.ProductName)}}</h4>
+        <p matLine>{{'secure.products.bulk_upload.error_ocurred' | I18N | async}} {{item.message}}{{item.Message}}</p>
       </mat-list-item>
     </mat-nav-list>
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">Refrescar</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>Home Seller Center</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'secure.products.bulk_upload.refresh' | I18N | async}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.bulk_upload.home_seller_center' | I18N | async}}</button>
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>Cerrar</button>
     <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
       (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">Exportar
