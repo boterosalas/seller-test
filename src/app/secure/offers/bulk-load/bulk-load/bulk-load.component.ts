@@ -717,7 +717,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       // Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
       Currency: 'COP'
     };
-    console.log(newObjectForSend);
     this.arrayInformationForSend.push(newObjectForSend);
   }
 
