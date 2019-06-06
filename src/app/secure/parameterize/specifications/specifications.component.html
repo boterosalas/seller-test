@@ -1,7 +1,7 @@
 <!-- SPECIFICATIONS SECTION -->
 <section id="app-specifications" class="flexbox flex-wrap">
     <!-- TOOLBAR WITH TITLE AND SUBTITLE-->
-    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'Parametrizar reglas'" subtitleBar="Parametrización de especificaciones"></app-toolbar-tittle>
+    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'secure.parametize.specifications.txt_title_toolbar' | I18N | async" [subtitleBar]="'secure.parametize.specifications.txt_subtitle_toolbar' | I18N | async"></app-toolbar-tittle>
 
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
@@ -10,7 +10,7 @@
             <mat-icon class="material-icons">
                 control_point
             </mat-icon>
-            Agregar grupo de especificaciones
+            {{'secure.parametize.specifications.btn_add_specifications_group' | I18N | async}}
         </button>
     </div>
 
@@ -35,13 +35,13 @@
                             <mat-icon class="material-icons">
                                 edit
                             </mat-icon>
-                            <span>Editar</span>
+                            <span>{{'actions.edit' | I18N | async}}</span>
                         </button>
                         <button mat-menu-item (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
                             <mat-icon class="material-icons">
                                 delete
                             </mat-icon>
-                            <span>Eliminar</span>
+                            <span>{{'actions.delete' | I18N | async}}</span>
                         </button>
                     </mat-menu>
                     <button mat-icon-button *ngIf="!group.Show" (click)="toggleGroupSpecification(group)">
@@ -93,7 +93,7 @@
                         <mat-icon class="material-icons">
                             control_point
                         </mat-icon>
-                        Agregar especificaciones
+                        {{'secure.parametize.specifications.btn_add_specifications' | I18N | async}}
                     </button>
                 </div>
             </div>

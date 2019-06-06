@@ -259,7 +259,7 @@
             </div>
 
             <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-              <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary"[disabled]="!registerSeller.form.valid || disabledForService || !activeButton">{{('buttons.register' | I18N | async)}}</button>
+              <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary"[disabled]="!registerSeller.form.valid || disabledForService || !activeButton">{{('actions.register' | I18N | async)}}</button>
             </div>
            
             <!-- <div fxFlex="50%">
@@ -350,7 +350,7 @@
             </div>
             <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
               <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button color="primary"
-                [disabled]="!registerAdmin.form.valid || disabledForService || !activeButton">{{('buttons.register' | I18N | async)}}</button>
+                [disabled]="!registerAdmin.form.valid || disabledForService || !activeButton">{{('actions.register' | I18N | async)}}</button>
             </div>
           </form>
         </div>
