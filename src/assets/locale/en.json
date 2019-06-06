@@ -163,6 +163,55 @@
                 }
             }
         },
+        "products": {
+            "bulk_upload": {
+                "title_module" : "Products",
+                "title_bar": "Bulk upload",
+                "select_file_import": "Select a file to import",
+                "download_format": "Download format",
+                "download_template": "Download template",
+                "options": "Options",
+                "upload_file": "Upload file",
+                "clear_current_data": "Clear current data",
+                "send_data": "Send data",
+                "allowed_uploads_day": "Allowed uploads per day",
+                "successful_uploads_today": "Successful uploads today",
+                "available_uploads": "Available uploads",
+                "backup": "Backup",
+                "text_step_import": "In order to upload files to the Seller Center, you must first",
+                "download_the_format": "Download the format",
+                "text_step_import_two": "in this file you may enter your product information",
+                "text_select_import": "select a file to import",
+                "text_select_import_type": "you wish to import (.xlsx, .xls) to the Seller Center and you are done.",
+                "text_import_product": "In order to import products to the Seller Center you may use the product creation formats that were sent to you previously, if you don't have the formats, you have to request them to your account manager. Remember to fill in the format completely according to the category of the products you are creating, and checking the restrictions of each field. In the case that your products don't count with an EAN code, you must fill in this field with a cero (0)",
+                "select_product_category": "Select a product category in order to download the upload file with the appropiate fields",
+                "select_category": "Selected category",
+                "limit_for_day": "You have reach the upload limit for today",
+                "no_information_contains": "The selected file contains no information",
+                "contains_more_assets": "The selected file contains more assets than allowed for today",
+                "amount_records": "The amount of records is over",
+                "amount_allowed": ", this amount is not allowed",
+                "formt_invalid": "The selected format is invalid",
+                "error_has_uploading": "An error has occurred when uploading the information",
+                "upload_progress": "Upload in progress",
+                "successful_upload": "Successful upload",
+                "product_Name": "Product name",
+                "error_ocurred": "Error has ocurred",
+                "refresh": "Refresh",
+                "home_seller_center": "Go to home"
+
+
+
+            },
+            "validation": {
+
+            },
+            "products_list": {
+
+            }
+              
+        },
+
         "parametize": {
             "specifications": {
                 "txt_title_toolbar": "Shipping rules configuration",

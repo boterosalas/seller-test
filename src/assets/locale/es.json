@@ -163,6 +163,53 @@
                 }
             }
         },
+        "products": {
+            "bulk_upload": {
+                "title_module" : "Productos",
+                "title_bar": "Carga masiva",
+                "select_file_import": "Seleccionar archivo para importar",
+                "download_format": "Descargar Formato",
+                "download_template": "Descargar plantilla",
+                "options": "Opciones",
+                "upload_file": "Cargar archivo",
+                "clear_current_data": "Limpiar datos actules",
+                "send_data": "Enviar registro",
+                "allowed_uploads_day": "Cargas permitidas por día",
+                "successful_uploads_today": "Cargas éxitosas realizadas hoy",
+                "available_uploads": "Cargas disponibles",
+                "backup": "Backup",
+                "text_step_import": "Para importar archivos al Seller Center, primero debes",
+                "download_the_format": "Descargar el formato",
+                "text_step_import_two": "en este archivo podrás cargar productos",
+                "text_select_import": "selecciona el archivo",
+                "text_select_import_type": "que desees importar (.xlsx, .xls) al Seller Center y listo.",
+                "text_import_product": "Para importar los productos al Seller Center podrás utilizar las plantillas de creación actualizadas que te fueron enviadas previamente, si no tienes las plantillas, primero debes solicitarlas al responsable de tu cuenta. Recuerda llenar la plantilla de la categoría correspondiente a tus productos completamente y revisando las restricciones de cada campo. En caso de que tus productos no tengan EAN, debes enviar el campo con un <b>cero (0)</b> en la plantilla.",
+                "select_product_category": "Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes",
+                "select_category": "Categoría seleccionada",
+                "limit_for_day": "Has llegado  al limite de carga por el día de hoy",
+                "no_information_contains": "El archivo seleccionado no posee información",
+                "contains_more_assets": "El archivo contiene más activos de los permitidos por el día de hoy",
+                "amount_records": "El número de registros supera los",
+                "amount_allowed": ", no se permite esta cantidad",
+                "formt_invalid": "El formato seleccionado es inválido",
+                "error_has_uploading": "Se ha presentado un error al cargar la información",
+                "upload_progress": "Carga en proceso",
+                "successful_upload": "Carga realizada con éxito",
+                "product_Name": "Nombre del producto",
+                "error_ocurred": "Error presentado",
+                "refresh": "Refrescar",
+                "home_seller_center": "ir al inicio"
+
+
+            },
+            "validation": {
+
+            },
+            "products_list": {
+
+            }
+              
+        },
         "parametize": {
             "specifications": {
                 "txt_title_toolbar": "Parametrizar reglas",
