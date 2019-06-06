@@ -1,6 +1,6 @@
 <div class="container-error" *ngIf="countErrors > 0">
   <div class="name-file-upload">
-    <p>Archivo seleccionado:</p>
+    <p>{{'secure.products.bulk_upload.selected_file' | I18N | async}}: </p>
     <b>{{ fileName}}</b>
   </div>
   <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"  *ngIf="listLog.length != 0">
@@ -9,7 +9,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span>{{countErrors}} </span>
-          <b> Errores detectados</b>
+          <b> {{'errors.errors_detected' | I18N | async}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -18,7 +18,7 @@
 
       <mat-nav-list dense>
         <mat-list-item>
-          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.
+          <p class="wrap" matLine>{{'errors.errors_upload_product_again' | I18N | async}}
           </p>
         </mat-list-item>
         <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)" *ngFor="let item of listLog">

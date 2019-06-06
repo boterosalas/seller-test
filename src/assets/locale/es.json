@@ -13,7 +13,10 @@
         "register": "REGISTRAR",
         "cancel": "CANCELAR",
         "accept": "ACEPTAR",
-        "options": "Opciones"
+        "options": "Opciones",
+        "refresh": "Refrescar",
+        "close": "Cerrar",
+        "export_excel": "Exportar a excel"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -42,7 +45,9 @@
         "name_exist": "El nombre ya existe",
         "spec_name_max_length": "El nombre no debe superar los 200 caracteres.",
         "error_date": "El rango máximo son 15 días",
-        "invalid_EAN": "EAN invalido"
+        "invalid_EAN": "EAN invalido",
+        "errors_detected": "Errores detectados",
+        "errors_upload_product_again":"Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos."
     },
     "filters": {
         "clear": "Limpiar",
@@ -197,9 +202,10 @@
                 "successful_upload": "Carga realizada con éxito",
                 "product_Name": "Nombre del producto",
                 "error_ocurred": "Error presentado",
-                "refresh": "Refrescar",
-                "home_seller_center": "ir al inicio"
-
+                "home_seller_center": "ir al inicio",
+                "selected_file": "Archivo seleccionado",
+                "column_data": "El dato en la"
+               
 
             },
             "validation": {

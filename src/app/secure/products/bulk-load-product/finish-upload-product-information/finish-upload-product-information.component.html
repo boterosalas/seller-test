@@ -30,12 +30,11 @@ productos
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'secure.products.bulk_upload.refresh' | I18N | async}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | I18N | async}}</button>
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.bulk_upload.home_seller_center' | I18N | async}}</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>Cerrar</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | I18N | async}}</button>
     <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
-      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">Exportar
-      Excel
+      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel' | I18N | async}}
     </button>
   </mat-dialog-actions>
 </div>
