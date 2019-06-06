@@ -5,18 +5,28 @@
     "shared": {
         "name": "Nombre"
     },
+    "actions": {
+        "edit": "Editar",
+        "add": "Agregar",
+        "delete": "Eliminar",
+        "remove": "Remover",
+        "register": "REGISTRAR",
+        "cancel": "CANCELAR",
+        "accept": "ACEPTAR",
+        "options": "Opciones"
+    },
     "errors": {
         "required": "Este cambio es obligatorio",
         "invalid_name": "Nombre invalido",
         "invalid_nit": "Nit invalido",
         "invalid_id": "Id invalido",
         "reason_max_length": "El motivo no debe superar los 120 caracteres",
-        "observation_max_length": "La observación no debe superar los 2000 caracteres" ,
-        "state_invalid" : "El departamento es inválido",
+        "observation_max_length": "La observación no debe superar los 2000 caracteres",
+        "state_invalid": "El departamento es inválido",
         "state_required": "El departamento es requerido",
-        "city_invalid" : "La ciudad es inválida",
+        "city_invalid": "La ciudad es inválida",
         "city_required": "La ciudad es requerida",
-        "code_invalid" : "El código es inválido",
+        "code_invalid": "El código es inválido",
         "code_required": "El código es requerido",
         "phone_invalid": "El teléfono es inválido",
         "user_invalid": "El usuario es inválido",
@@ -29,12 +39,10 @@
         "store_name_invalid": "El nombre de la tienda es inválido",
         "store_name_exist": "El nombre de la tienda ya existe",
         "name_invalid": "El nombre es inválido",
-        "name_exist": "El nombre ya existe"
-    },
-    "buttons": {
-        "modal_btn_ok": "",
-        "modal_btn_cancel": "CANCELAR",
-        "register": "REGISTRAR"
+        "name_exist": "El nombre ya existe",
+        "spec_name_max_length": "El nombre no debe superar los 200 caracteres.",
+        "error_date": "El rango máximo son 15 días",
+        "invalid_EAN": "EAN invalido"
     },
     "filters": {
         "clear": "Limpiar",
@@ -97,7 +105,6 @@
                 "lb_title_toolbar": "Vendedores",
                 "lb_subtitle_toolbar": "Administrar vendedores",
                 "txt_serch_seller": "Ingresa el nombre del vendedor en la barra de búsqueda para ver los datos."
-
             },
             "contracts": {
                 "lb_title_toolbar": "Acuerdos",
@@ -126,7 +133,7 @@
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title":"Crear transportadora",
+                            "modal_title": "Crear transportadora",
                             "modal_text": "Crear transportadora",
                             "modal_placeholder_transporter_name": "Nombre transportadora",
                             "modal_placeholder_shipping_method": "Seleccionar Metodo"
@@ -138,33 +145,46 @@
                 "tree": {
                     "components": {
                         "tree_component": {
-                            "tbl_lbl_name:" : "Nombre",
-                            "tbl_lbl_commision:" : "comisión"
+                            "tbl_lbl_name:": "Nombre",
+                            "tbl_lbl_commision:": "comisión"
                         }
+                    }
+                }
+            },
+            "historical_admin": {
+                "components": {
+                    "filter": {
+                        "title": "Filtro histórico",
+                        "tooltip_close": "Cerrar",
+                        "placeholder_initial_date": "Fecha inicio",
+                        "placeholder_final_date": "Fecha final",
+                        "EAN": "EAN"
                     }
                 }
             }
         },
         "parametize": {
             "specifications": {
-                "title_bar": "Parametrizar reglas",
-                "subtitle_bar": "Parametrización de especificaciones",
+                "txt_title_toolbar": "Parametrizar reglas",
+                "txt_subtitle_toolbar": "Parametrización de especificaciones",
                 "btn_add_specifications_group": "Agregrar grupo de especificaciones",
-                "btn_edit": "Editar",
-                "btn_delete": "Eliminar",
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
-                "modal_title":"Agregar grupo de especificaciones",
+                "modal_title_spec":"Agregar grupo de especificaciones",
+                "modal_title_brand": "Agregar una marca",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
-                "modal_placeholder_specification_name": "Nombre de especificacion",
+                "modal_placeholder_specification_name": "Nombre de la especificacion",
                 "modal_placeholder_category": "Categoria",
                 "modal_placeholder_add_category": "Para agregar es necesario, dar clic en (+).",
-                "modal_placeholder_rd_add_all": "Agregar todos"
+                "modal_placeholder_rd_add_all": "Agregar todos",
+                "modal_subtitle_content": "Categorías asociadas"
             },
             "dialogAddSpecs": {
-                "modal_title":"Agregar de especificaciones",
-                "modal_text": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
+                "modal_title":"Agregar especificaciones",
+                "modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
+                "modal_text_2": "En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones",
+                "modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
                 "modal_placeholder_specification_name": "Nombre de especificacion",
                 "modal_lbl_vendedor": "Visualización del vendedor",
                 "modal_rdn_text": "Texo",

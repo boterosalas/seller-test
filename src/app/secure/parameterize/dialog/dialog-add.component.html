@@ -8,32 +8,30 @@
     </mat-icon>
   </div>
   <h1 mat-dialog-title *ngIf="!typeModel">
-    Agregar grupo de especificaciones
+    {{'secure.parametize.dialog.modal_title_spec' | I18N | async}}
   </h1>
   <h1 mat-dialog-title *ngIf="typeModel">
-    Agregar una marca
+    {{'secure.parametize.dialog.modal_title_brand' | I18N | async}}
   </h1>
 
   <!-- CONTAINER FORM SPECS -->
   <div mat-dialog-content *ngIf="formSpecs" class="form-container" fxLayout="column" fxLayoutAlign="center center">
-    <p>Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se
-      deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas
-      separadas por coma. Recuerda que las categorías deben ser válidas para continuar.</p>
+    <p>{{'secure.parametize.dialog.modal_text' | I18N | async}}</p>
     <form fxLayout="column" class="form-add" [formGroup]="formSpecs" (ngSubmit)="saveSpecGroup()">
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
         <mat-form-field class="input-add">
-          <input formControlName="NameSpec" matInput placeholder="Nombre de especificación" >
-          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
-          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
+          <input formControlName="NameSpec" matInput [placeholder]="'secure.parametize.dialog.modal_placeholder_specification_name' | I18N | async" >
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('maxlength')">{{'errors.spec_name_max_length' | I18N | async}}</mat-error>
+          <mat-error *ngIf="formSpecs.get('NameSpec').hasError('required')">{{'errors.required' | I18N | async}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="input-add">
-          <input matInput placeholder="Categoria" formControlName="Categories" (keyup.enter)="getCategories()">
+          <input matInput [placeholder]="'secure.parametize.dialog.modal_placeholder_category' | I18N | async" formControlName="Categories" (keyup.enter)="getCategories()">
           <mat-icon matSuffix class="add-category" (click)="getCategories()">
             add_circle_outline
           </mat-icon>
-          <mat-hint>Para agregar es necesario, dar clic en (+).</mat-hint>
+          <mat-hint>{{'secure.parametize.dialog.modal_placeholder_add_category' | I18N | async}}</mat-hint>
 
           <mat-error *ngIf="formSpecs.controls.Categories.hasError('noExist')">
             Esta categoría ({{categoriesError}}) no existe.
@@ -50,13 +48,13 @@
         </div>
 
         <div class="input-add padding-slide">
-          <mat-slide-toggle color="primary" (change)="changeSlider($event)">Agregar todos</mat-slide-toggle>
+          <mat-slide-toggle color="primary" (change)="changeSlider($event)">{{'secure.parametize.dialog.modal_placeholder_rd_add_all' | I18N | async}}</mat-slide-toggle>
         </div>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="categoriesAdded.length">
         <label>
-          Categorías asociadas
+            {{'secure.parametize.dialog.modal_subtitle_content' | I18N | async}}
         </label>
         <button mat-icon-button color="primary" type="button" (click)="toogleCategories(true)">
           <mat-icon class="material-icons" *ngIf="!showCategoriesAdded && categoriesAdded.length">
@@ -80,10 +78,8 @@
       </div>
 
       <div class="padding-button" fxLayout="row" fxLayoutAlign="center center">
-        <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
-        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
-          [disabled]="!formSpecs.valid">
-        </button>
+        <button type="button" id="btn-create-transporter" mat-button color="primary" (click)="close()">{{'actions.cancel' | I18N | async}}</button>
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="!formSpecs.valid">{{'actions.accept' | I18N | async}}</button>
       </div>
     </form>
   </div>

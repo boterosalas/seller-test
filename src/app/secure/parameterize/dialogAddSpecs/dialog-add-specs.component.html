@@ -8,33 +8,29 @@
   </div>
 
   <h1 class="center-text" mat-dialog-title>
-    Agregar de especificaciones
+    {{'secure.parametize.dialogAddSpecs.modal_title' | I18N | async}}
   </h1>
 
   <form [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
     <div mat-dialog-content class="form-container">
-      <p>Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes
-        determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable. En
-        caso
-        de
-        ser de <strong class="special" [ngClass]="{'transition': showErrorMin}">lista desplegable debes ingresar
-          también
-          como mínimo 2 opciones</strong> de las cuales el vendedor pueda escoger,
-        puedes agregar más opciones de ser necesario.</p>
+      <p> {{'secure.parametize.dialogAddSpecs.modal_text_1' | I18N | async}} 
+        <strong class="special" [ngClass]="{'transition': showErrorMin}">{{'secure.parametize.dialogAddSpecs.modal_text_2' | I18N | async}}</strong>
+        {{'secure.parametize.dialogAddSpecs.modal_text_3' | I18N | async}}
+      </p>
       <div fxLayout="row" style="width: 100%;" fxLayout.xs="column" fxLayoutAlign="space-between start">
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
-            <input matInput formControlName="nameSpec" placeholder="Nombre de especificación">
-            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">El nombre no debe superar los 200 caracteres.</mat-error>
-          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">Este campo es obligatorio.</mat-error>
+            <input matInput formControlName="nameSpec" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_specification_name' | I18N | async">
+            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">{{'errors.spec_name_max_length' | I18N | async}}</mat-error>
+          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">{{'errors.required' | I18N | async}}</mat-error>
           </mat-form-field>
-          <mat-checkbox class="input-add" formControlName="requiredSpec">Obligatoria</mat-checkbox>
+          <mat-checkbox class="input-add" formControlName="requiredSpec">{{'secure.parametize.dialogAddSpecs.modal_chk_required' | I18N | async}}</mat-checkbox>
         </div>
         <div class="container-form vis" fxLayout="column">
-          <h3 class="title"> Visualización del vendedor</h3>
+          <h3 class="title">{{'secure.parametize.dialogAddSpecs.modal_lbl_vendedor' | I18N | async}}</h3>
           <mat-radio-group formControlName="optionSpec">
-            <mat-radio-button value="text">Texto</mat-radio-button>
-            <mat-radio-button value="list">Selección una acción (lista)</mat-radio-button>
+            <mat-radio-button value="text">{{'secure.parametize.dialogAddSpecs.modal_rdn_text' | I18N | async}}</mat-radio-button>
+            <mat-radio-button value="list">{{'secure.parametize.dialogAddSpecs.modal_rdn_list_action' | I18N | async}}</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
@@ -42,8 +38,8 @@
       <div class="addoption">
         <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
           <mat-form-field class="width-full">
-            <input matInput [formControlName]="opc.name" placeholder="Ingresa opción">
-            <mat-error>Este campo es obligatorio</mat-error>
+            <input matInput [formControlName]="opc.name" placeholder="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | I18N | async">
+            <mat-error>{{'errors.required' | I18N | async}}</mat-error>
           </mat-form-field>
 
           <button mat-icon-button (click)="removeOpt(opc, i)" type="button">
@@ -65,12 +61,11 @@
           <mat-icon class="material-icons">
             control_point
           </mat-icon>
-          Agregar opción
+          {{'secure.parametize.dialogAddSpecs.modal_btn_add_option' | I18N | async}}
         </button>
       </div>
-      <button type="button" id="btn-create-transporter" mat-button color="primary" [innerHTML]="'CANCELAR'" (click)="close()"></button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'">
-      </button>
+      <button type="button" id="btn-create-transporter" mat-button color="primary" (click)="close()">{{'actions.cancel' | I18N | async}}</button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary">{{'actions.accept' | I18N | async}}</button>
     </div>
   </form>
 </div>
