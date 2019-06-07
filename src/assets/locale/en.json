@@ -54,7 +54,7 @@
         "error_date": "The maximum date range is 15 days",
         "invalid_EAN": "EAN invalid",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again":"Please fix the file's errors and upload the products again."
+        "errors_upload_product_again": "Please fix the file's errors and upload the products again."
     },
     "filters": {
         "clear": "Clear",
@@ -171,13 +171,32 @@
                         "placeholder_initial_date": "Start date",
                         "placeholder_final_date": "Ending date",
                         "EAN": "EAN"
+                    },
+                    "toolbar": {
+                        "title_offert": "Offers",
+                        "subtitle_offert": "Offer Upload Historic Registry"
                     }
+                },
+                "historical_admin": {
+                    "stock": "Stock",
+                    "units": "units",
+                    "price": "Price",
+                    "discount_price": "Discount Price",
+                    "shipping_cost": "Shipping Cost",
+                    "warranty": "Warranty",
+                    "promise": "Delivery Promise",
+                    "currency": "Currency",
+                    "free_shipping": "Free shipping",
+                    "shiping_exito": "Envíos Éxito",
+                    "exito_logistic": "Éxito Logistics",
+                    "freight_calculator": "Freight Calculator",
+                    "without_offert": "There is no offer registry available."
                 }
             }
         },
         "products": {
             "bulk_upload": {
-                "title_module" : "Products",
+                "title_module": "Products",
                 "title_bar": "Bulk upload",
                 "select_file_import": "Select a file to import",
                 "download_format": "Download format",
@@ -281,15 +300,9 @@
 
 
             },
-            "validation": {
-
-            },
-            "products_list": {
-
-            }
-              
+            "validation": {},
+            "products_list": {}
         },
-
         "parametize": {
             "specifications": {
                 "txt_title_toolbar": "Shipping rules configuration",
@@ -298,7 +311,7 @@
                 "btn_add_specifications": "Add specifications to a group"
             },
             "dialog": {
-                "modal_title_spec":"Add specification group",
+                "modal_title_spec": "Add specification group",
                 "modal_title_brand": "Add brand",
                 "modal_text": "Enter a name for the specification group and fill all the category codes for which the group must be shown to. In order to enter categories you may enter them one by one by writing the code, or enter all of them separated by commas. Remember that the categories must be valid in order to continue.",
                 "modal_placeholder_specification_name": "Specification name",
@@ -308,7 +321,7 @@
                 "modal_subtitle_content": "Assigned categories"
             },
             "dialogAddSpecs": {
-                "modal_title":"Add specifications to a group",
+                "modal_title": "Add specifications to a group",
                 "modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",
                 "modal_text_2": "In the case you select a list type, you must also enter minimum 2 options",
                 "modal_text_3": "for the seller to pick, you may add more if necessary.",

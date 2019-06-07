@@ -170,8 +170,28 @@
                         "placeholder_initial_date": "Fecha inicio",
                         "placeholder_final_date": "Fecha final",
                         "EAN": "EAN"
+                    },
+                    "toolbar": {
+                        "title_offert": "Ofertas",
+                        "subtitle_offert": "Histórico de Carga de Ofertas"
                     }
+                },
+                "historical_admin": {
+                    "stock": "Inventario",
+                    "units": "unidades",
+                    "price": "Precio",
+                    "discount_price": "Precio con descuento",
+                    "shipping_cost": "Precio flete",
+                    "warranty": "Garantia",
+                    "promise": "Promesa de entrega",
+                    "currency": "Tipo de moneda",
+                    "free_shipping": "Free shipping",
+                    "shiping_exito": "Envíos Éxito",
+                    "exito_logistic": "Logística Éxito",
+                    "freight_calculator": "Cotizador de flete",
+                    "without_offert": "No se han encontrado registros en el historico de ofertas."
                 }
+
             }
         },
         "products": {
