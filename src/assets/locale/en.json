@@ -1,5 +1,5 @@
 {
-    "change_language": "Change language successfull to ",
+    "change_language": "Change language successfully to ",
     "english": "English",
     "spanish": "Spanish",
     "shared": {
@@ -208,6 +208,21 @@
                     "modal_placeholder_profile_name": "Nombre del perfil",
                     "modal_placeholder_select_menu": "Seleccione el menu",
                     "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                }
+            },
+            "category": {
+                "categories": {
+                    "title": "Configuration",
+                    "subtitle": "Category tree",
+                    "btn_expand": "Expand",
+                    "btn_contract": "Contract",
+                    "tooltip_expand": "Expand tree",
+                    "tooltip_contract": "Contract tree",
+                    "tooltip_add": "Create category",
+                    "btn_add_category": "Create level 1 category"
+                },
+                "category_tree": {
+                    "tooltip_add_son": "Create child category"
                 }
             }
         }
