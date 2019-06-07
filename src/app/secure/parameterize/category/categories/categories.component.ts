@@ -9,6 +9,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
+import { LanguageService } from '@app/core/translate/language.service';
 
 @Component({
   selector: 'app-categories',
@@ -81,7 +82,8 @@ export class CategoriesComponent implements OnInit {
     private ngZone: NgZone,
     private regexService: BasicInformationService,
     private snackBar: MatSnackBar,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private languageService: LanguageService
   ) {
   }
 
@@ -283,8 +285,8 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataCreateDialog(category: any) {
-    const title = 'Crear una categoría';
-    const message = 'Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.';
+    const title = this.languageService.getValue('secure.parametize.category.categories.modal_create_title');
+    const message = this.languageService.getValue('secure.parametize.category.categories.modal_create_description');
     const icon = null;
     let form = null;
     const messageCenter = false;
@@ -308,8 +310,8 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
-    const title = 'Modificar una categoría';
-    const message = 'Para modificar una categoría debes cambiar la información en cualquiera de los campos habilitados. No podrás modificar información que se encuentre bloqueada y todos los campos deben estar diligenciados para poder guardar la modificación.';
+    const title = this.languageService.getValue('secure.parametize.category.categories.modal_update_title');
+    const message = this.languageService.getValue('secure.parametize.category.categories.modal_update_description');
     const icon = null;
     let form = null;
     const messageCenter = false;
