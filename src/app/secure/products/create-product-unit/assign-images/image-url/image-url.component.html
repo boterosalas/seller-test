@@ -10,6 +10,7 @@
         formato de la imagen es invalido</mat-error>
     </mat-form-field>
   </form> -->
+  
   <form #createImageProductEan="ngForm" [formGroup]="createImage">
   <mat-card class="createImagenPU">
     <img mat-card-image src={{imgUrl}}>
@@ -17,8 +18,8 @@
 
   <mat-form-field class="example-full-width">
     <input matInput #inputImage_ formControlName="inputImage" placeholder="Img URL" (keyup)="sendChange(inputImage_.value)">
-    <mat-error  *ngIf="createImage.get('inputImage').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
-    <mat-error  *ngIf="createImage.controls.inputImage.errors &&  createImage.controls.inputImage.errors.validFormatImage">La imagen no es v&aacute;lida</mat-error>
+    <mat-error  *ngIf="createImage.get('inputImage').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
+    <mat-error  *ngIf="createImage.controls.inputImage.errors &&  createImage.controls.inputImage.errors.validFormatImage">{{'secure.products.bulk_upload.imagen_invalidate' | I18N | async}}</mat-error>
   </mat-form-field>
 </form>
 </div>

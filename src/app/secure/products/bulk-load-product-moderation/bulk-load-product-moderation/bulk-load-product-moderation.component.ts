@@ -4,6 +4,7 @@ import { SendModerationFormatModalComponent } from '@secure/products/bulk-load-p
 import { ConfigBulkLoad, Event, TypeEvents } from '@shared/components/bulk-load';
 import { MenuModel, loadFunctionality, moderateName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { LanguageService } from '@app/core/translate/language.service';
 
 @Component({
   selector: 'app-bulk-load-product-moderation',
@@ -16,6 +17,7 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
   // Configuración del componente 'bulk-load'.
   config: Partial<ConfigBulkLoad> = {
     title: 'VALIDACIÓN DE PRODUCTOS'
+    // title: this.languageService.getValue('secure.seller.list.product_validation')
   };
   // Referencia de la modal
   dialogRef: MatDialogRef<SendModerationFormatModalComponent>;
@@ -26,7 +28,8 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
    disabledLoad = false;
 
   constructor(private dialog: MatDialog,
-    public authService: AuthService) { }
+    public authService: AuthService,
+    private languageService: LanguageService) { }
 
   ngOnInit() {
      /*Se llama el metodo que valida si se encuentra logeado, este metodo hace un callback y llama el metodo isLoggedIn()*/

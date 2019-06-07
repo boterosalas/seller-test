@@ -26,6 +26,7 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
 import { BasicInformationService } from './basic-information/basic-information.component.service';
 import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MaterialModule,
     FormsModule,
     ColorPickerModule,
-    AngularEditorModule
+    AngularEditorModule,
+    SharedModule
   ],
   declarations: [
     CreateUnutaryProductComponent,
