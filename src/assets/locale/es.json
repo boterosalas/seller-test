@@ -293,6 +293,21 @@
                     "modal_placeholder_select_menu": "Seleccione el menu",
                     "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
                 }
+            },
+            "category": {
+                "categories": {
+                    "title": "Parametrización",
+                    "subtitle": "Árbol de categorías",
+                    "btn_expand": "Expandir",
+                    "btn_contract": "Contraer",
+                    "tooltip_expand": "Expandir árbol",
+                    "tooltip_contract": "Contraer árbol",
+                    "tooltip_add": "Crear categoría",
+                    "btn_add_category": "Crear categoría nivel 1"
+                },
+                "category_tree": {
+                    "tooltip_add_son": "Crear categoría hija"
+                }
             }
         }
     }

@@ -2,33 +2,33 @@
     <div class="normal-theme toolbar-options-tree" fxLayout="row" fxLayoutAlign="space-between center">
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow [fxShow.xs]="false">
-            Parametrización
-            <small class="sub-title">| Árbol de categorías</small>
+            {{'secure.parametize.category.categories.title' | I18N | async}}
+            <small class="sub-title">| {{'secure.parametize.category.categories.subtitle' | I18N | async}}</small>
         </p>
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-            Árbol de categorías
+                {{'secure.parametize.category.categories.subtitle' | I18N | async}}
         </p>
         <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
         </mat-paginator> -->
         <div class="float-rigth">
-            <button mat-button matTooltip="Expandir árbol" (click)="expandTree()">
+            <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_expand' | I18N | async" (click)="expandTree()">
                     <mat-icon>keyboard_arrow_down</mat-icon>
-                Expandir
+                    {{'secure.parametize.category.categories.btn_expand' | I18N | async}}
             </button>
-            <button mat-button matTooltip="Contraer árbol" (click)="contractTree()">
+            <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_contract' | I18N | async" (click)="contractTree()">
                     <mat-icon>keyboard_arrow_up</mat-icon>
-                Contraer
+                    {{'secure.parametize.category.categories.btn_contract' | I18N | async}}
             </button>
         </div>
     </div>
 </mat-toolbar>
 <div class="content-flex-start">
-    <button *ngIf="canCreate && false" mat-button matTooltip="Crear cateoría" (click)="openCategoryDialog()">
+    <button *ngIf="canCreate && false" mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_add' | I18N | async" (click)="openCategoryDialog()">
         <mat-icon class="material-icons">
             control_point
         </mat-icon>
-        Crear categoría nivel 1
+        {{'secure.parametize.category.categories.btn_add_category' | I18N | async}}
     </button>
 </div>
 <div class="container__tree">
