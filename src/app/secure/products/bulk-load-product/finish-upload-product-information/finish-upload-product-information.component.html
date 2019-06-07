@@ -23,8 +23,8 @@ productos
     <mat-nav-list *ngIf="response.body.data.status ===3">
       <mat-list-item *ngFor="let item of response.productNotifyViewModel">
         <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : ({{'secure.products.bulk_upload.product_Name' | I18N | async}}:  + item.ProductName)}}</h4>
-        <p matLine>{{'secure.products.bulk_upload.error_ocurred' | I18N | async}} {{item.message}}{{item.Message}}</p>
+        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : ('Nombre del producto: ' + item.ProductName)}}</h4>
+        <p matLine>Error presentado: {{item.message}}{{item.Message}}</p>
       </mat-list-item>
     </mat-nav-list>
   </div>

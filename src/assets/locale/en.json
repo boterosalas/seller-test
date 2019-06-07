@@ -3,7 +3,13 @@
     "english": "English",
     "spanish": "Spanish",
     "shared": {
-        "name": "Name"
+        "name": "Name",
+        "category": "Category",
+        "brand": "Brand",
+        "model": "Model",
+        "details": "Details",
+        "descripcion": "Descripcion"
+
     },
     "actions": {
         "edit": "Edit",
@@ -203,8 +209,33 @@
                 "product_Name": "Product name",
                 "error_ocurred": "Error has ocurred",
                 "home_seller_center": "Go to home",
-                "column_data": "The data in column"
-                
+                "column_data": "The data in column",
+                "column": "column",
+                "for": "for",
+                "row": "row",
+                "mandatory": "is mandatory.",
+                "boolean": "must be a boolean (1 or 2).",
+                "number_positive": "must be a numeric positive value greater than 0, without decimals.",
+                "tech_cloting": "must be either 'Technology' or 'Clothing'.",
+                "gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",
+                "errorneous_format": "has an erroneous format",
+                "input_option": "The data in",
+                "duplication_ean": "has duplication in it's EAN.",
+                "records_found": "Records found, the following have errors",
+                "upload_all": "Upload all products again",
+                "mandatory_data": "Mandatory data",
+                "parent_reference": "Parent Reference",
+                "child_reference": "Child Reference",
+                "meta_title": "Meta Title",
+                "meta_description": "meta Description",
+                "keywords": "Keywords",
+                "package_height": "Package Height",
+                "package_lenght": "Package Lenght",
+                "package_width": "Package Width",
+                "package_weight": "Package Weight",
+                "sku_shipping_size": "Sku shipping size",
+                "item_height": "Item Height",
+                "item_lenght": "Item Lenght"
 
 
 

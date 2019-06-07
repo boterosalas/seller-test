@@ -4,7 +4,7 @@
       [length]="100" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
     <button fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" style="margin-left:20px"
       (click)="bulkLoad.resetVariableUploadFile()" id="clear-guide-button" color="primary" mat-raised-button>
-      <span [innerHTML]="'Vuelve a cargar todas los productos'"></span>
+      <span>{{'secure.products.bulk_upload.upload_all' | I18N | async}}</span>
     </button>
   </div>
 
@@ -14,7 +14,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span [innerHTML]="countRowUpload - 1"></span>
-          <b [innerHTML]="' Registros encontrados, los siguientes cuentan con errores'"></b>
+          <b>{{'secure.products.bulk_upload.records_found' | I18N | async}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -35,7 +35,7 @@
               <p class="sc-text-normal">{{element.Ean}}</p>
             </div>
             <div class="information" *ngIf="element.Ean == undefined || element.Ean == ''">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error">{{'secure.products.bulk_upload.mandatory_data' | I18N | async}}
               </p>
             </div>
           </td>
@@ -45,7 +45,7 @@
         <ng-container matColumnDef="ParentReference">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Referencia Padre</p>
+              <p>{{'secure.products.bulk_upload.parent_reference' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorParentReference == true }" *matCellDef="let element"
@@ -68,7 +68,7 @@
         <ng-container matColumnDef="SonReference">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Referencia Hijo</p>
+              <p>{{'secure.products.bulk_upload.child_reference' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSonReference == true }" *matCellDef="let element"
@@ -91,7 +91,7 @@
         <ng-container matColumnDef="Name">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Nombre</p>
+              <p>{{'shared.name' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorName == true }" *matCellDef="let element" matTooltip="{{element.Name}}">
@@ -109,7 +109,7 @@
         <ng-container matColumnDef="Category">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Categoria</p>
+              <p>{{'shared.category' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorCategory == true }" *matCellDef="let element"
@@ -128,7 +128,7 @@
         <ng-container matColumnDef="Brand">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Marca</p>
+              <p>{{'shared.brand' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorBrand == true }" *matCellDef="let element" matTooltip="{{element.Brand}}">
@@ -146,7 +146,7 @@
         <ng-container matColumnDef="Model">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Modelo</p>
+              <p>{{'shared.model' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorModel == true }" *matCellDef="let element" matTooltip="{{element.Model}}">
@@ -164,7 +164,7 @@
         <ng-container matColumnDef="Details">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Detalles</p>
+              <p>{{'shared.details' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDetails == true }" *matCellDef="let element"
@@ -183,7 +183,7 @@
         <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Descripción</p>
+              <p>{{'shared.descripcion' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDescription == true }" *matCellDef="let element"
@@ -202,7 +202,7 @@
         <ng-container matColumnDef="MetaTitle">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Meta Titulo</p>
+              <p>{{'secure.products.bulk_upload.meta_title' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorMetaTitle == true }" *matCellDef="let element"
@@ -221,7 +221,7 @@
         <ng-container matColumnDef="MetaDescription">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Meta Descripción</p>
+              <p>{{'secure.products.bulk_upload.meta_description' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorMetaDescription == true }" *matCellDef="let element"
@@ -240,7 +240,7 @@
         <ng-container matColumnDef="KeyWords">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Palabras Clave</p>
+              <p>{{'secure.products.bulk_upload.keywords' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorKeyWords == true }" *matCellDef="let element"
@@ -259,7 +259,7 @@
         <ng-container matColumnDef="PackageHeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Alto de empaque</p>
+              <p>{{'secure.products.bulk_upload.package_height' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageHeight == true }" *matCellDef="let element"
@@ -278,7 +278,7 @@
         <ng-container matColumnDef="PackageLength">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Largo de empaque</p>
+              <p>{{'secure.products.bulk_upload.package_lenght' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageLength == true }" *matCellDef="let element"
@@ -297,7 +297,7 @@
         <ng-container matColumnDef="PackageWidth">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Ancho de empaque</p>
+              <p>{{'secure.products.bulk_upload.package_width' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageWidth == true }" *matCellDef="let element"
@@ -316,7 +316,7 @@
         <ng-container matColumnDef="PackageWeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Peso de empaque</p>
+              <p>{{'secure.products.bulk_upload.package_weight' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageWeight == true }" *matCellDef="let element"
@@ -335,7 +335,7 @@
         <ng-container matColumnDef="SkuShippingSize">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>SkuShippingSize</p>
+              <p>{{'secure.products.bulk_upload.sku_shipping_size' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSkuShippingSize == true }" *matCellDef="let element"
@@ -354,7 +354,7 @@
         <ng-container matColumnDef="ProductHeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Alto del producto</p>
+              <p>{{'secure.products.bulk_upload.item_height' | I18N | async}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductHeight == true }" *matCellDef="let element"

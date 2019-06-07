@@ -3,7 +3,12 @@
     "english": "Inglés",
     "spanish": "Español",
     "shared": {
-        "name": "Nombre"
+        "name": "Nombre",
+        "category": "Categoria",
+        "brand": "Marca",
+        "model": "Modelo",
+        "details": "Detalles",
+        "descripcion": "Descripción"
     },
     "actions": {
         "edit": "Editar",
@@ -204,7 +209,33 @@
                 "error_ocurred": "Error presentado",
                 "home_seller_center": "ir al inicio",
                 "selected_file": "Archivo seleccionado",
-                "column_data": "El dato en la"
+                "column_data": "El dato en la",
+                "column": "columna",
+                "for": "de la",
+                "row": "fila",
+                "mandatory": "es obligatorio.",
+                "boolean": "debe ser booleano (1 ó 2).",
+                "number_positive": "debe ser numérico positivo mayor a cero, sin decimales.",
+                "tech_cloting": "deber ser 'Technology' o 'Clothing'.",
+                "gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",
+                "errorneous_format": "no cumple con el formato requerido.",
+                "input_option": "El campo opcional en la",
+                "duplication_ean": "tiene eanes repetidos.",
+                "records_found": "Registros encontrados, los siguientes cuentan con errores",
+                "upload_all": "Vuelve a cargar todas los productos",
+                "mandatory_data": "Dato obligatorio",
+                "parent_reference": "Referencia Padre",
+                "child_reference": "Referencia Hijo",
+                "meta_title": "Meta Título",
+                "meta_description": "Meta Título",
+                "keywords": "Palabras Clave",
+                "package_height": "Alto de empaque",
+                "package_lenght": "Largo de empaque",
+                "package_width": "Ancho de empaque",
+                "package_weight": "Peso de empaque",
+                "sku_shipping_size": "Tamaño de envío Sku",
+                "item_height": "Alto del producto",
+                "item_lenght": "Largo del producto"
                
 
             },
