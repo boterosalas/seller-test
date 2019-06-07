@@ -8,7 +8,9 @@
         "brand": "Brand",
         "model": "Model",
         "details": "Details",
-        "descripcion": "Descripcion"
+        "descripcion": "Descripcion",
+        "send": "send"
+
     },
     "actions": {
         "edit": "Edit",
@@ -253,7 +255,50 @@
                 "package_weight": "Package Weight",
                 "sku_shipping_size": "Sku shipping size",
                 "item_height": "Item Height",
-                "item_lenght": "Item Lenght"
+                "item_lenght": "Item Lenght",
+                "item_width": "Item Width",
+                "item_weight": "Item Weight",
+                "seller": "Seller",
+                "product_type":"Product Type",
+                "image_modification":"Image Modification",
+                "image ":"Image",
+                "size ":"Size",
+                "color ":"Color",
+                "exito_logistics ":"Exito Logistics",
+                "measuring_unit_description ":"Measuring Unit Description",
+                "conversion_factor ":"Conversion Factor",
+                "drained_factor ":"Drained Factor",
+                "combo_ean_group ":"Combo EAN Group",
+                "text_may_upload_product" : "In order to import files to the Seller Center, first you must",
+                "text_file_may_update" : "in this file you may upload the product validation",
+                "product_validation" : "Product validation",
+                "will_send_validation" : "We will send you the validation form to the following e-mail address",
+                "validation_sent_succesfully" : "The validation has been sent succesfully",
+                "validation_sent_couldnt_be_sent" : "Something happened, the validation couldn't be sent",
+                "download_file": "Download file",
+                "download_file_import": "Select file to import",
+                "text_assign_images": "In this section you must enter the correspondinge image URL for the producto you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",
+                "assign_child_image": "child",
+                "format_invalidate": "The format is invalid",
+                "imagen_invalidate": "The image is invalid",
+                "basic_product_information": "In this section you must fill the basic product information. Remember that all the fields must be filled correctyly in order to continue. If your product has variations you must add each variation as a 'Child completely filling all the information for each one in the botton part of this section",
+                "input_mandatory":"This field is mandatory",
+                "brand_invalidate":"The entered brand is invalid",
+                "model_invalidate":"The entered model is invalid",
+                "detail_invalidate":"The entered detail is invalid",
+                "shipping_size":"Shipping size",
+                "packaging":"Packaging (cm/kg)",
+                "dimension_invalid":"The dimension entered is invalid",
+                "add_variation":"Add Variation",
+                "delete_variation":"Delete Variation",
+                "ean_invalida":"The entered EAN is invalid",
+                "ean_invalida_multioffer":"The EAN already exists, please associate a multioffer",
+                "dont_have_ean":"I don't have an EAN code for this product",
+                "size_invalid":"The entered size is invalid",
+                "specific_name_invalid":"The specific name for the color entered is invalid, It mustn't have spaces"
+                
+
+
             },
             "validation": {},
             "products_list": {}
