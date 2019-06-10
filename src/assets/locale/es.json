@@ -8,7 +8,8 @@
         "brand": "Marca",
         "model": "Modelo",
         "details": "Detalles",
-        "descripcion": "Descripción"
+        "descripcion": "Descripción",
+        "product_type": "Tipo del producto"
     },
     "actions": {
         "edit": "Editar",
@@ -22,6 +23,7 @@
         "refresh": "Refrescar",
         "close": "Cerrar",
         "export_excel": "Exportar a excel",
+        "send_historical": "Enviar histórico",
         "send": "Enviar"
     },
     "errors": {
@@ -45,6 +47,7 @@
         "contact_invalid": "El contacto es inválido",
         "email_invalid": "El correo electrónico es inválido",
         "email_exist": "El correo electrónico ya existe",
+        "email_required": "El correo electrónico no puede estar en blanco",
         "store_name_invalid": "El nombre de la tienda es inválido",
         "store_name_exist": "El nombre de la tienda ya existe",
         "name_invalid": "El nombre es inválido",
@@ -53,7 +56,8 @@
         "error_date": "El rango máximo son 15 días",
         "invalid_EAN": "EAN invalido",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again":"Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos."
+        "errors_upload_product_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.",
+        "commission_invalid": "La comisión es inválida"
     },
     "filters": {
         "clear": "Limpiar",
@@ -176,6 +180,12 @@
                         "subtitle_offert": "Histórico de Carga de Ofertas"
                     }
                 },
+                "download_historical": {
+                    "title": "Te enviaremos el histórico de ofertas al siguiente correo electrónico.",
+                    "tooltip_email": "Volver a seleccionar mi corre electrónico.",
+                    "snackbar_succes": "Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico.",
+                    "snackbar_error": "Se ha presentado un error al realizar la descarga del histórico."
+                },
                 "historical_admin": {
                     "stock": "Inventario",
                     "units": "unidades",
@@ -191,12 +201,11 @@
                     "freight_calculator": "Cotizador de flete",
                     "without_offert": "No se han encontrado registros en el historico de ofertas."
                 }
-
             }
         },
         "products": {
             "bulk_upload": {
-                "title_module" : "Productos",
+                "title_module": "Productos",
                 "title_bar": "Carga masiva",
                 "select_file_import": "Seleccionar archivo para importar",
                 "download_format": "Descargar Formato",
@@ -298,13 +307,8 @@
                 "size_invalid":"La talla ingresada no es válida",
                 "specific_name_invalid":"El Nombre específico de color ingresado no es válido, no debe tener espacios."
             },
-            "validation": {
-
-            },
-            "products_list": {
-
-            }
-              
+            "validation": {},
+            "products_list": {}
         },
         "parametize": {
             "specifications": {
@@ -314,7 +318,7 @@
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
-                "modal_title_spec":"Agregar grupo de especificaciones",
+                "modal_title_spec": "Agregar grupo de especificaciones",
                 "modal_title_brand": "Agregar una marca",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
                 "modal_placeholder_specification_name": "Nombre de la especificacion",
@@ -324,7 +328,7 @@
                 "modal_subtitle_content": "Categorías asociadas"
             },
             "dialogAddSpecs": {
-                "modal_title":"Agregar especificaciones",
+                "modal_title": "Agregar especificaciones",
                 "modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
                 "modal_text_2": "En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones",
                 "modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
@@ -363,10 +367,17 @@
                     "tooltip_contract": "Contraer árbol",
                     "tooltip_add": "Crear categoría",
                     "btn_add_category": "Crear categoría nivel 1",
-                    "modal_update_title": "Para modificar una categoría debes cambiar la información en cualquiera de los campos habilitados. No podrás modificar información que se encuentre bloqueada y todos los campos deben estar diligenciados para poder guardar la modificación.",
-                    "modal_create_title": "Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.",
-                    "modal-update-description": "Modificar una categoría",
-                    "modal-create-description": "Crear una categoría"
+                    "modal_update_description": "Para modificar una categoría debes cambiar la información en cualquiera de los campos habilitados. No podrás modificar información que se encuentre bloqueada y todos los campos deben estar diligenciados para poder guardar la modificación.",
+                    "modal_create_description": "Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.",
+                    "modal_update_title": "Modificar una categoría",
+                    "modal_create_title": "Crear una categoría",
+                    "lb_comission_form": "Default commission value",
+                    "lb_parent_name_category_form": "Parent category name",
+                    "lb_id_vtex_form": "VTEX ID",
+                    "lb_id_carulla_form": "Carulla ID",
+                    "lb_id_exito_form": "Éxito ID",
+                    "lb_id_catalogo_form": "Category ID",
+                    "lb_id_market_form": "Marketplace ID"
                 },
                 "category_tree": {
                     "tooltip_add_son": "Crear categoría hija"

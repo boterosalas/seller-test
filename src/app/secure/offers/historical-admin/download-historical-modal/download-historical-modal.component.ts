@@ -11,6 +11,7 @@ import {
   UserParametersService,
   LoadingService
 } from '@app/core';
+import { LanguageService } from '@app/core/translate/language.service';
 
 // log component
 const log = new Logger('DownloadHistoricalComponent');
@@ -59,6 +60,7 @@ export class DownloadHistoricalModalComponent implements OnInit {
     private fb: FormBuilder,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
+    private languageService: LanguageService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // Capturo el limite de registros indicados por el usuario
@@ -115,16 +117,16 @@ export class DownloadHistoricalModalComponent implements OnInit {
       .subscribe(
         res => {
           if (res != null) {
-            this.componentsService.openSnackBar('Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico',
-              'Cerrar', 10000);
+            this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_succes'),
+            this.languageService.getValue('actions.close'), 10000);
           } else {
-            this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
+            this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.getValue('actions.close'), 5000);
           }
           this.onNoClick();
           this.loadingService.closeSpinner();
         },
         err => {
-          this.componentsService.openSnackBar('Se ha presentado un error al realizar la descarga del histórico', 'Cerrar', 5000);
+          this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.getValue('actions.close'), 5000);
           this.onNoClick();
         this.loadingService.closeSpinner();
         }

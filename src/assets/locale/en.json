@@ -9,8 +9,7 @@
         "model": "Model",
         "details": "Details",
         "descripcion": "Descripcion",
-        "send": "send"
-
+        "product_type": "Tipo del producto"
     },
     "actions": {
         "edit": "Edit",
@@ -23,7 +22,9 @@
         "options": "Options",
         "refresh": "Refresh",
         "close": "Close",
-        "export_excel": "Export excel"
+        "export_excel": "Export excel",
+        "send_historical": "Send historic registry",
+        "send": "Send"
     },
     "errors": {
         "required": "Field required",
@@ -44,8 +45,9 @@
         "nit_exist": "The identification entered already exist",
         "rut_invalid": "The RUT entered is invalid",
         "contact_invalid": "The contact entered is invalid",
-        "email_invalid": "The e_mail address entered is invalid",
-        "email_exist": "The e_mail address entered already exist",
+        "email_invalid": "The e-mail address entered is invalid",
+        "email_exist": "The e-mail address entered already exist",
+        "email_required": "The e-mail address field can not be blank",
         "store_name_invalid": "The store name entered is invalid",
         "store_name_exist": "The store name entered already exist",
         "name_invalid": "The name entered is invalid",
@@ -54,7 +56,8 @@
         "error_date": "The maximum date range is 15 days",
         "invalid_EAN": "EAN invalid",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again": "Please fix the file's errors and upload the products again."
+        "errors_upload_product_again": "Please fix the file's errors and upload the products again.",
+        "commission_invalid": "The commission is invalid"
     },
     "filters": {
         "clear": "Clear",
@@ -176,6 +179,12 @@
                         "title_offert": "Offers",
                         "subtitle_offert": "Offer Upload Historic Registry"
                     }
+                },
+                "download_historical": {
+                    "title": "We will send the offer historic registry to the following e-mail address.",
+                    "tooltip_email": "Reselect my e-mail address.",
+                    "snackbar_succes": "The historic registry download has been made correctly, check your inbox.",
+                    "snackbar_error": "An error has occurred when trying to download the historic registry."
                 },
                 "historical_admin": {
                     "stock": "Stock",
@@ -360,10 +369,17 @@
                     "tooltip_contract": "Contract tree",
                     "tooltip_add": "Create category",
                     "btn_add_category": "Create level 1 category",
-                    "modal_update_title": "To modify a category level you must change the information filled in any of the available fields. You cannot modify information that is blocked, and all the fields must be filled in order to save the modification.",
-                    "modal_create_title": "To create a category level you must first insert a name and it's respective pairing code with every available channel. Make sure to full and check all the information, since the category levels cannot be deleted later.",
-                    "modal_update_description": "Modify category",
-                    "modal_create_description": "Create category"
+                    "modal_update_description": "To modify a category level you must change the information filled in any of the available fields. You cannot modify information that is blocked, and all the fields must be filled in order to save the modification.",
+                    "modal_create_description": "To create a category level you must first insert a name and it's respective pairing code with every available channel. Make sure to full and check all the information, since the category levels cannot be deleted later.",
+                    "modal_update_title": "Modify category",
+                    "modal_create_title": "Create category",
+                    "lb_comission_form": "Comisión por defecto",
+                    "lb_parent_name_category_form": "Parent category name",
+                    "lb_id_vtex_form": "ID VTEX",
+                    "lb_id_carulla_form": "ID Carulla",
+                    "lb_id_exito_form": "ID Éxito",
+                    "lb_id_catalogo_form": "ID Cátalogos",
+                    "lb_id_market_form": "ID Marketplace"
                 },
                 "category_tree": {
                     "tooltip_add_son": "Create child category"
