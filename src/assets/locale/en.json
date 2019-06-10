@@ -10,7 +10,9 @@
         "details": "Details",
         "descripcion": "Descripcion",
         "product_type": "Tipo del producto",
-        "send": "send"
+        "send": "send",
+        "update_successfully": "Updated successfully",
+        "create_successfully": "Created successfully"
     },
     "actions": {
         "edit": "Edit",

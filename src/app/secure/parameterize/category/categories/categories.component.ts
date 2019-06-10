@@ -365,7 +365,7 @@ export class CategoriesComponent implements OnInit {
               this.confirmationUpdate(value);
               this.loadingService.closeSpinner();
               dialogIntance.onNoClick();
-              this.snackBar.open('Actualizado correctamente', 'Cerrar', {
+              this.snackBar.open(this.languageService.getValue('shared.update_successfully'), this.languageService.getValue('actions.close'), {
                 duration: 3000,
               });
             }
@@ -373,7 +373,7 @@ export class CategoriesComponent implements OnInit {
             const responseValue = JSON.parse(response.body).Errors;
             const message = responseValue[0].Message;
             this.loadingService.closeSpinner();
-            this.snackBar.open(message, 'Cerrar', {
+            this.snackBar.open(message, this.languageService.getValue('actions.close'), {
               duration: 3000,
             });
           }
@@ -433,7 +433,7 @@ export class CategoriesComponent implements OnInit {
     dialogIntance.processFinish$.subscribe((val) => {
       if (!!val) {
         this.getTree();
-        this.snackBar.open('Categoria creada satisfactoriamente', 'Cerrar', {
+        this.snackBar.open(this.languageService.getValue('shared.create_successfully'), this.languageService.getValue('actions.close'), {
           duration: 3000
         });
       }
