@@ -21,7 +21,8 @@
         "options": "Opciones",
         "refresh": "Refrescar",
         "close": "Cerrar",
-        "export_excel": "Exportar a excel"
+        "export_excel": "Exportar a excel",
+        "send_historical": "Enviar histórico"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -44,6 +45,7 @@
         "contact_invalid": "El contacto es inválido",
         "email_invalid": "El correo electrónico es inválido",
         "email_exist": "El correo electrónico ya existe",
+        "email_required": "El correo electrónico no puede estar en blanco",
         "store_name_invalid": "El nombre de la tienda es inválido",
         "store_name_exist": "El nombre de la tienda ya existe",
         "name_invalid": "El nombre es inválido",
@@ -52,7 +54,7 @@
         "error_date": "El rango máximo son 15 días",
         "invalid_EAN": "EAN invalido",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again":"Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos."
+        "errors_upload_product_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos."
     },
     "filters": {
         "clear": "Limpiar",
@@ -175,6 +177,12 @@
                         "subtitle_offert": "Histórico de Carga de Ofertas"
                     }
                 },
+                "download_historical": {
+                    "title": "Te enviaremos el histórico de ofertas al siguiente correo electrónico.",
+                    "tooltip_email": "Volver a seleccionar mi corre electrónico.",
+                    "snackbar_succes": "Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico.",
+                    "snackbar_error": "Se ha presentado un error al realizar la descarga del histórico."
+                },
                 "historical_admin": {
                     "stock": "Inventario",
                     "units": "unidades",
@@ -190,12 +198,11 @@
                     "freight_calculator": "Cotizador de flete",
                     "without_offert": "No se han encontrado registros en el historico de ofertas."
                 }
-
             }
         },
         "products": {
             "bulk_upload": {
-                "title_module" : "Productos",
+                "title_module": "Productos",
                 "title_bar": "Carga masiva",
                 "select_file_import": "Seleccionar archivo para importar",
                 "download_format": "Descargar Formato",
@@ -256,16 +263,9 @@
                 "sku_shipping_size": "Tamaño de envío Sku",
                 "item_height": "Alto del producto",
                 "item_lenght": "Largo del producto"
-               
-
             },
-            "validation": {
-
-            },
-            "products_list": {
-
-            }
-              
+            "validation": {},
+            "products_list": {}
         },
         "parametize": {
             "specifications": {
@@ -275,7 +275,7 @@
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
-                "modal_title_spec":"Agregar grupo de especificaciones",
+                "modal_title_spec": "Agregar grupo de especificaciones",
                 "modal_title_brand": "Agregar una marca",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
                 "modal_placeholder_specification_name": "Nombre de la especificacion",
@@ -285,7 +285,7 @@
                 "modal_subtitle_content": "Categorías asociadas"
             },
             "dialogAddSpecs": {
-                "modal_title":"Agregar especificaciones",
+                "modal_title": "Agregar especificaciones",
                 "modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
                 "modal_text_2": "En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones",
                 "modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
