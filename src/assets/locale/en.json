@@ -10,7 +10,6 @@
         "details": "Details",
         "descripcion": "Descripcion",
         "product_type": "Tipo del producto",
-        "send": "send",
         "update_successfully": "Updated successfully",
         "create_successfully": "Created successfully"
     },
@@ -28,7 +27,8 @@
         "close": "Close",
         "export_excel": "Export excel",
         "send_historical": "Send historic registry",
-        "send": "Send"
+        "send": "Send",
+        "save": "SAVE"
     },
     "errors": {
         "required": "Field required",
@@ -377,19 +377,18 @@
             },
             "profiles": {
                 "profile": {
-                    "toolbar_title": "Vendedores",
-                    "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                    "toolbar_title": "Sellers",
+                    "toolbar_subtitle": "Profile configuration",
+                    "tbl_lbl_subtitle": "(Profile type)"
                 },
                 "dialog": {
-                    "modal_title_add_profile": "Agregar perfil",
-                    "modal_title_edit_profile": "Editar perfil",
+                    "modal_title_add_profile": "Add a profile",
+                    "modal_title_edit_profile": "Edit a profile",
                     "modal_rdn_exito": "Exito",
-                    "modal_rdn_store": "Tienda",
-                    "modal_placeholder_profile_name": "Nombre del perfil",
-                    "modal_placeholder_select_menu": "Seleccione el menu",
-                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                    "modal_rdn_store": "Seller",
+                    "modal_placeholder_profile_name": "Profile name",
+                    "modal_placeholder_select_menu": "Select a menu",
+                    "modal_placeholder_select_functionality": "Select a functionality"
                 }
             },
             "category": {

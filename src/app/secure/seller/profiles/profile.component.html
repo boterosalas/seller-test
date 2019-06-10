@@ -2,8 +2,8 @@
 <div class="profile-container">
     <mat-toolbar class="toolbar">
         <!-- Titulo del toolbar -->
-        <p class="title">Vendedores
-                <small class="sub-title">| Parametrización de perfiles</small>
+        <p class="title">{{'secure.parametize.profiles.profile.toolbar_title' | I18N | async}}
+                <small class="sub-title">| {{'secure.parametize.profiles.profile.toolbar_subtitle' | I18N | async}}</small>
             </p>
     </mat-toolbar>
 
@@ -12,15 +12,15 @@
         <div fxLayout="row" class="header" fxLayoutAlign="space-between center">
             <div fxLayout="column" class="title-container">
                 <label class="title">
-                    Nombre
+                    {{'shared.name' | I18N | async}}
                 </label>
-                <span class="subtitle-item">(Tipo de perfil)</span>
+                <span class="subtitle-item">{{'secure.parametize.profiles.profile.tbl_lbl_subtitle' | I18N | async}}</span>
             </div>
             <button mat-raised-button *ngIf="canCreate" color="primary" (click)="openDialogProfile(null)">
                 <mat-icon class="material-icons icon-profile">
                     add
                 </mat-icon>
-                Agregar
+                {{'actions.add' | I18N | async}}
             </button>
         </div>
         <div class="list" *ngFor="let profile of profileList; let i = index" fxLayout="row" fxLayoutAlign="space-between center"

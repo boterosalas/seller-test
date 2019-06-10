@@ -27,7 +27,8 @@
         "close": "Cerrar",
         "export_excel": "Exportar a excel",
         "send_historical": "Enviar histórico",
-        "send": "Enviar"
+        "send": "Enviar",
+        "save": "GUARDAR"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -379,7 +380,6 @@
                 "profile": {
                     "toolbar_title": "Vendedores",
                     "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
                     "tbl_lbl_subtitle": "(Tipo de perfil)"
                 },
                 "dialog": {
