@@ -9,7 +9,9 @@
         "model": "Modelo",
         "details": "Detalles",
         "descripcion": "Descripción",
-        "product_type": "Tipo del producto"
+        "product_type": "Tipo del producto",
+        "update_successfully": "Actualizado correctamente",
+        "create_successfully": "Creado correctamente"
     },
     "actions": {
         "edit": "Editar",
