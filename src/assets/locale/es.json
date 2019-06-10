@@ -17,7 +17,7 @@
         "remove": "Remover",
         "register": "REGISTRAR",
         "cancel": "CANCELAR",
-        "canel_min": "Cancelar",
+        "cancel_min": "Cancelar",
         "accept": "ACEPTAR",
         "options": "Opciones",
         "refresh": "Refrescar",
@@ -198,7 +198,7 @@
                     "price": "Precio",
                     "discount_price": "Precio con descuento",
                     "shipping_cost": "Precio flete",
-                    "warranty": "Garantia",
+                    "warranty": "Garantía",
                     "promise": "Promesa de entrega",
                     "currency": "Tipo de moneda",
                     "free_shipping": "Free shipping",
@@ -219,7 +219,17 @@
                 "components": {
                     "detail_offer": {
                         "return": "Volver",
-                        "averageFreightCost": "Costo de Flete Promedio"
+                        "averageFreightCost": "Costo de Flete Promedio",
+                        "cop": "COP",
+                        "usd": "USD",
+                        "update_stock": "Actualización de Inventario",
+                        "snackbar_offer_product": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
+                        "snackbar_currency": "El tipo de moneda se ha cambiado a ",
+                        "id_offer": "ID de Oferta: ",
+                        "in_stock": "En stock: ",
+                        "business_days": "días hábiles",
+                        "months": "meses",
+                        "last_modify": "Última modificación: "
                     }
                 }
             }
@@ -294,7 +304,7 @@
                 "image_modification": "Modificación Imagen",
                 "image ": "Imagen",
                 "size": "Talla",
-                "color": "Color",
+                "color": "Color ",
                 "exito_logistics ": "Logistica Exito",
                 "measuring_unit_description ": "Des. Unidad Medida",
                 "conversion_factor ": "Factor Conversion",

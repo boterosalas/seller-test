@@ -18,7 +18,7 @@
         "remove": "Remove",
         "register": "REGISTER",
         "cancel": "CANCEL",
-        "canel_min": "Cancelar",
+        "cancel_min": "Cancelar",
         "accept": "ACCEPT",
         "options": "Options",
         "refresh": "Refresh",
@@ -219,7 +219,17 @@
                 "components": {
                     "detail_offer": {
                         "return": "Back",
-                        "averageFreightCost": "Shipping Cost"
+                        "averageFreightCost": "Shipping Cost",
+                        "cop": "COP",
+                        "usd": "USD",
+                        "update_stock": "Stock update",
+                        "snackbar_offer_product": "This product is not ready for an offer to be associated, please try again later.",
+                        "snackbar_currency": "The corrency has been changed to ",
+                        "id_offer": "Offer ID: ",
+                        "in_stock": "In stock: ",
+                        "business_days": "business_days",
+                        "months": "months",
+                        "last_modify": "Last modify: "
                     }
                 }
             }

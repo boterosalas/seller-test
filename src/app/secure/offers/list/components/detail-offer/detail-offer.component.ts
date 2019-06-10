@@ -8,6 +8,7 @@ import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
 import { MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { LanguageService } from '@app/core/translate/language.service';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -124,6 +125,7 @@ export class DetailOfferComponent {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
+    private languageService: LanguageService,
     public snackBar?: MatSnackBar,
 
   ) {
@@ -131,6 +133,7 @@ export class DetailOfferComponent {
     this.params = [];
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.validateFormSupport();
     this.createValidators();
@@ -171,7 +174,7 @@ export class DetailOfferComponent {
       this.createValidators();
       this.createForm();
     } else {
-      this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+      this.snackBar.open(this.languageService.getValue('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.getValue('actions.close'), {
         duration: 5000,
       });
     }
@@ -427,7 +430,7 @@ export class DetailOfferComponent {
     this.formUpdateOffer.controls['Price'].reset('');
     this.formUpdateOffer.controls['DiscountPrice'].reset('');
     this.formUpdateOffer.controls['AverageFreightCost'].reset('');
-    this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+    this.snackBar.open(`${this.languageService.getValue('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.getValue('actions.close'), {
       duration: 3000,
     });
   }
