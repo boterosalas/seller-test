@@ -379,7 +379,9 @@
                 "profile": {
                     "toolbar_title": "Sellers",
                     "toolbar_subtitle": "Profile configuration",
-                    "tbl_lbl_subtitle": "(Profile type)"
+                    "tbl_lbl_subtitle": "(Profile type)",
+                    "seller_type": "Seller type",
+                    "admin_type": "Admin type"
                 },
                 "dialog": {
                     "modal_title_add_profile": "Add a profile",

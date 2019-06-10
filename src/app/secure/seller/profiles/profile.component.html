@@ -27,10 +27,10 @@
             fxLayoutAlign="space-between center">
             <div class="item-list" fxLayout="row">
                 <div class="account-circle">
-                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" matTooltip="Tipo administrador">
+                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" [matTooltip]="'secure.parametize.profiles.profile.seller_type' | I18N | async">
                         people
                     </mat-icon>
-                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 0" matTooltip="Tipo vendedor">
+                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 0" [matTooltip]="'secure.parametize.profiles.profile.admin_type' | I18N | async">
                         person
                     </mat-icon>
                 </div>
@@ -39,7 +39,7 @@
                     <span class="subtitle-item">{{profile.TypeName}}</span>
                 </div>
             </div>
-            <button mat-icon-button matTooltip="Editar" (click)="openDialogProfile(profile)">
+            <button mat-icon-button [matTooltip]="'actions.edit' | I18N | async" (click)="openDialogProfile(profile)">
                 <mat-icon class="edit-profile material-icons">create</mat-icon>
             </button>
         </div>

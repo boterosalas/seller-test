@@ -380,7 +380,9 @@
                 "profile": {
                     "toolbar_title": "Vendedores",
                     "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                    "tbl_lbl_subtitle": "(Tipo de perfil)",
+                    "seller_type": "Tipo vendedor",
+                    "admin_type": "Tipo administrador"
                 },
                 "dialog": {
                     "modal_title_add_profile": "Agregar perfil",
