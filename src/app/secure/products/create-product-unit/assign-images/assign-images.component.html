@@ -1,10 +1,6 @@
 <div>
   <p id="textCreateImageResponsive">
-    En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear.
-    Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1.
-    Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg,
-    y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg.
-    Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.
+      {{'secure.products.bulk_upload.text_assign_images' | I18N | async}}
   </p>
 </div>
 
@@ -26,7 +22,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Hijo {{i + 1}}
+          {{'secure.products.bulk_upload.assign_child_image' | I18N | async}} {{i + 1}}
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div>
