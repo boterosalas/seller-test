@@ -2,31 +2,27 @@
   <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
     <form class="basic-info" [formGroup]="filterBrands" class="brands-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>Filtro Marcas</h3>
-        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+        <h3>{{'secure.parametize.brands.title_filter_brand' | I18N | async}}</h3>
+        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | I18N | async" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="Id" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'shared.id' | I18N | async" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')" [innerHTML]="'Id invalido'">
-          </mat-error>
+          <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')">{{'errors.invalid_id'}}</mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
-          <input matInput placeholder="Nombre de la marca" style="text-transform: uppercase;"
+          <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name' | I18N | async" style="text-transform: uppercase;"
             formControlName="filterBrandsName" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')"
-            [innerHTML]="'Nombre de la marca invalido'"></mat-error>
+          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')">{{'errors.brand_invalidate' | I18N | async}}</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'"
-            (click)="cleanAllFilter()"></button>
-          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid"
-            [innerHTML]="'Filtrar'" (click)="filterApply(drawer)"></button>
+          <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | I18N | async}}</button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid" (click)="filterApply(drawer)">{{'filters.filter' | I18N | async}}</button>
         </div>
       </div>
     </form>
@@ -36,11 +32,11 @@
     <mat-toolbar class="tree-toolbar">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <p class="parameterize-brands-title" fxShow [fxShow.xs]="false">
-          Parametrización
-          <small class="sub-title">| Listado de marcas</small>
+          {{'secure.parametize.title_toolbar'| I18N | async}}
+          <small class="sub-title">| {{'secure.parametize.brands.subtitle_toolbar'| I18N | async}}</small>
         </p>
         <p class="parameterize-brands-title" fxShow="false" [fxShow.xs]="true">
-          Listado de marcas
+          {{'secure.parametize.brands.subtitle_toolbar'| I18N | async}}
         </p>
         <div class="hide-page">
           <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
@@ -49,7 +45,7 @@
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
-        <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        <small class="sub-title-filter">{{'filters.filter' | I18N | async}}</small>
       </button>
     </mat-toolbar>
   </div>
@@ -73,7 +69,7 @@
             <mat-icon class="material-icons">
               control_point
             </mat-icon>
-            Agregar marca
+            {{'secure.parametize.brands.btn_add_brand'| I18N | async}}
           </button>
         </div>
       </div>

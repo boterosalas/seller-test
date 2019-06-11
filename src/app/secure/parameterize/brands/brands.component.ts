@@ -10,6 +10,7 @@ import { readFunctionality, createFunctionality, updateFunctionality, MenuModel,
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
 import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
+import { LanguageService } from '@app/core/translate/language.service';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -114,6 +115,7 @@ export class BrandsComponent implements OnInit {
         public SUPPORT: SupportService,
         public authService: AuthService,
         private snackBar: MatSnackBar,
+        private languageService: LanguageService,
         private modalService?: ModalService,
     ) { }
 
@@ -325,18 +327,18 @@ export class BrandsComponent implements OnInit {
         const btnConfirmationText = null;
 
         if (brandsData && brandsData.Id) {
-            message = 'Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial. ';
+            message = this.languageService.getValue('secure.parametize.brands.txt_edit_brand');
             icon = 'edit';
-            title = 'Editar marca';
+            title = this.languageService.getValue('secure.parametize.brands.edit_brand');
             messageCenter = false;
             this.changeNameBrands = brandsData.Name;
             this.form.controls['nameBrands'].setValue(brandsData.Name);
             this.form.controls['idBrands'].setValue(brandsData.Id);
             this.form.controls['status'].setValue(brandsData.Status);
         } else {
-            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.';
+            message = this.languageService.getValue('secure.parametize.brands.txt_add_brand');;
             icon = 'control_point';
-            title = 'Agregar marca';
+            title = this.languageService.getValue('secure.parametize.brands.btn_add_brand');;
             messageCenter = false;
         }
         form = this.form;
