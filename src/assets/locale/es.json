@@ -296,7 +296,10 @@
                 "amount_records": "El número de registros supera los",
                 "amount_allowed": ", no se permite esta cantidad",
                 "formt_invalid": "El formato seleccionado es inválido",
-                "error_has_uploading": "Se ha presentado un error al cargar la información"
+                "error_has_uploading": "Se ha presentado un error al cargar la información",
+                "image ": "Imagen",
+                "size": "Talla",
+                "color": "Color "
             },
             "Finish_upload_product_information" : {
                 "upload_progress": "Carga en proceso",
