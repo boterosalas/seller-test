@@ -10,6 +10,7 @@ import { ListProductService } from './list-products.service';
 import { ExpandedProductComponent } from './expanded-product/expanded-product.component';
 import { OfertExpandedProductComponent } from './ofert-product/ofert-product.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
       ListProductRoutingModule,
       MaterialModule,
       FormsModule,
-      CurrencyMaskModule
+      CurrencyMaskModule,
+      SharedModule
     ],
     declarations: [
       ListProductsComponent,

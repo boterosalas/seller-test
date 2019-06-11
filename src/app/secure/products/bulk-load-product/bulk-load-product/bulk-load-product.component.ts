@@ -301,7 +301,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.error_has_uploading'), 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.error_has_uploading'), 'Aceptar', 4000);
     });
   }
 
@@ -358,7 +358,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     */
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.limit_for_day'), 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.limit_for_day'), 'Aceptar', 10000);
     } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
@@ -426,7 +426,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         * else si no lo tiene significa que el formato es invalido y manda un error*/
         if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.no_information_contains'), 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
@@ -524,10 +524,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             */
               if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.contains_more_assets'), 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.contains_more_assets'), 'Aceptar', 10000);
               } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.getValue('secure.seller.list.amount_allowed') , 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.getValue('secure.products.bulk_upload.amount_allowed') , 'Aceptar', 10000);
               } else {
                 this.fileName = file.target.files[0].name;
                 this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -538,13 +538,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             }
           } else {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.formt_invalid'), 'Aceptar', 10000);
+            this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 10000);
           }
         }
 
       } else {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.no_information_contains'), 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
       }
     }
   }
@@ -932,7 +932,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.seller.list.formt_invalid'), 'Aceptar', 4000);
+                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {

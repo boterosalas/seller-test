@@ -60,9 +60,9 @@ export class SendModerationFormatModalComponent implements OnInit {
     this.service.getModeration(data).subscribe(res => {
       let message;
       if (res.status === 200) {
-        message = this.languageService.getValue('secure.seller.list.validation_sent_succesfully');
+        message = this.languageService.getValue('secure.products.bulk_upload.validation_sent_succesfully');
       } else {
-        message = this.languageService.getValue('secure.seller.list.validation_sent_couldnt_be_sent');
+        message = this.languageService.getValue('secure.products.bulk_upload.validation_sent_couldnt_be_sent');
       }
       this.snackBar.open(message, 'Cerrar', {
         duration: 3000

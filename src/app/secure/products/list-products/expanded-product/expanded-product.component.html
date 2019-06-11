@@ -35,46 +35,46 @@
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
-      <p> <span class="color-gray">Fecha de creación:</span>  {{productsExpanded.createdDate}}</p>
+      <p> <span class="color-gray">{{'secure.products.bulk_upload.creation_date' | I18N | async}}:</span>  {{productsExpanded.createdDate}}</p>
       <span class="separator"> | </span>
-      <p> <span class="color-gray">Fecha de modificación:</span> {{productsExpanded.updatedDate}}</p>
+      <p> <span class="color-gray">{{'secure.products.bulk_upload.modification_date' | I18N | async}}:</span> {{productsExpanded.updatedDate}}</p>
     </div>
 
-    <div class="text"> Categoría: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
-    <div class="text">Marca:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> Modelo: <span class="color-gray"></span>  <label> {{productsExpanded.model}} </label></div>
+    <div class="text"> {{'shared.category' | I18N | async}}: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
+    <div class="text">{{'shared.brand' | I18N | async}}:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> {{'shared.model' | I18N | async}}: <span class="color-gray"></span>  <label> {{productsExpanded.model}} </label></div>
     <div class="divider-one"> Shipping-size: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
 
 
     <div class="text" fxLayout="row">
       <div *ngIf="productsExpanded.colour.length !== 0">
         <i class="material-icons"> color_lens </i>
-        Color:
+        {{'secure.products.bulk_upload.color' | I18N | async}}:
         <div class="color-product" [ngStyle]="{'background': '#'+productsExpanded.colour}"></div>
       </div>
       <div *ngIf="productsExpanded.colour.length !== 0">
         <i class="material-icons"> style </i>
-        Talla:
+        {{'secure.products.bulk_upload.size' | I18N | async}}:
         <label> {{productsExpanded.size}}</label>
       </div>
     </div>
 
     <div class="text">
       <i class="material-icons"> shopping_basket </i>
-      Empaque:
-      <label> Alto-{{productsExpanded.package_height}}cm ancho-{{productsExpanded.package_width}}cm
-        largo-{{productsExpanded.package_length}}cm peso-{{productsExpanded.package_weight}}kg </label>
+      {{'secure.products.bulk_upload.packaging_form' | I18N | async}}:
+      <label> {{'secure.products.bulk_upload.height' | I18N | async}}-{{productsExpanded.package_height}}cm {{'secure.products.bulk_upload.width' | I18N | async}}-{{productsExpanded.package_width}}cm
+          {{'secure.products.bulk_upload.length' | I18N | async}}-{{productsExpanded.package_length}}cm {{'secure.products.bulk_upload.weight' | I18N | async}}-{{productsExpanded.package_weight}}kg </label>
     </div>
 
     <div class="text">
       <i class="material-icons"> local_shipping </i>
-      Producto:
-      <label>Alto-{{productsExpanded.item_height}}cm ancho-{{productsExpanded.item_width}}cm
-        largo-{{productsExpanded.item_length}}cm peso-{{productsExpanded.item_weight}}kg </label>
+      {{'secure.products.bulk_upload.products' | I18N | async}}
+      <label>{{'secure.products.bulk_upload.height' | I18N | async}}-{{productsExpanded.item_height}}cm {{'secure.products.bulk_upload.width' | I18N | async}}-{{productsExpanded.item_width}}cm
+          {{'secure.products.bulk_upload.length' | I18N | async}}-{{productsExpanded.item_length}}cm {{'secure.products.bulk_upload.weight' | I18N | async}}-{{productsExpanded.item_weight}}kg </label>
     </div>
 
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productsExpanded.bestOffer !== '0.00'">
-      <p> Mejor oferta</p>
+      <p>{{'secure.products.bulk_upload.best_offer' | I18N | async}}</p>
       <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.2-2'" *ngIf="productsExpanded.bestOffer !== '0.00'">
       </p>
     </div>
@@ -87,13 +87,13 @@
       <div *ngIf="productsExpanded.availableToOffer === true"  fxLayout="row" fxLayoutAlign="space-around center" >
         <mat-icon matPrefix>add</mat-icon>
         <h3>
-          Agregar oferta
+            {{'secure.products.bulk_upload.add_offer' | I18N | async}}
         </h3>
       </div>
       <div *ngIf="productsExpanded.availableToOffer === false"  fxLayout="row" fxLayoutAlign="space-around center" >
         <mat-icon matPrefix>add_alert</mat-icon>
         <h3>
-          Este producto no está listo para ofertar, por favor intentalo más tarde.
+            {{'secure.products.bulk_upload.product_not_ready_offer' | I18N | async}}
         </h3>
         <mat-icon matPrefix>add_alert</mat-icon>
       </div>
@@ -104,17 +104,17 @@
 
 <div class="expanded-information-product">
   <mat-tab-group>
-    <mat-tab label="Descripción">
+    <mat-tab [label]="'shared.descripcion' | I18N | async">
       <p class="description-product" [innerHtml]="productsExpanded.description"></p>
     </mat-tab>
-    <mat-tab label="Palabras claves" class="flex">
+    <mat-tab [label]="'secure.products.bulk_upload.keywords' | I18N | async" class="flex">
       <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
         <mat-chip>{{keywords}}</mat-chip>
       </div>
     </mat-tab>
     <mat-tab label="Especificaciones">
       <span class="no-specs" *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
-        No hay elementos de especificaciones.
+          {{'secure.products.bulk_upload.no_more_spedifications' | I18N | async}}
       </span>
       <div class="container">
         <div class="container-sub" *ngFor="let spec of productsExpanded.features">
@@ -135,7 +135,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Descripción
+            {{'shared.descripcion' | I18N | async}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-form-field>
@@ -146,7 +146,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Palabras claves
+            {{'secure.products.bulk_upload.keywords' | I18N | async}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
@@ -156,11 +156,11 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Especificaciones
+            {{'secure.products.bulk_upload.specifications' | I18N | async}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <span *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
-        No hay elementos de especificaciones.
+          {{'secure.products.bulk_upload.no_more_spedifications' | I18N | async}}
       </span>
       <div class="container">
         <div class="container-sub" *ngFor="let spec of productsExpanded.features">

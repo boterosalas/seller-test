@@ -5,7 +5,7 @@
         </mat-icon>
     </div>
     <h1>
-        Agregar especificaciones
+            {{'secure.products.bulk_upload.add_specifications' | I18N | async}}
     </h1>
     <p class="text">
         Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te
@@ -19,10 +19,10 @@
                 <mat-form-field class="specification-form-field">
                     <input matInput formControlName="Name" placeholder="Nombre de especificación" (blur)="onBlur('Name')">
                     <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.required">
-                        Campo obligatorio.
+                            {{'secure.products.bulk_upload.add_specifications' | I18N | async}}
                     </mat-error>
                     <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.maxlength">
-                        Maximo 200 caracteres.
+                            {{'secure.products.bulk_upload.200_characters' | I18N | async}}
                     </mat-error>
                 </mat-form-field>
 
@@ -30,22 +30,24 @@
                 <mat-form-field class="specification-form-field">
                     <input matInput formControlName="Value" placeholder="Especificación" (blur)="onBlur('Value')">
                     <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.required">
-                        Campo obligatorio.
+                            {{'secure.products.bulk_upload.field_mandatory' | I18N | async}}200_characters
                     </mat-error>
                     <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.maxlength">
-                        Maximo 200 caracteres.
+                            {{'secure.products.bulk_upload.200_characters' | I18N | async}}
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
                 <div fxFlex="46" fxLayout="row" fxLayoutAlign="end center">
-                    <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
-                        (click)="closeDialog(false)"></button>
+                    <button type="button" id="btn-create-transporter" mat-stroked-button color="primary"
+                        (click)="closeDialog(false)">
+                        {{'secure.products.bulk_upload.close' | I18N | async}}
+                    </button>
                 </div>
                 <div fxFlex="46" fxLayout="row" fxLayoutAlign="start center">
-                    <button id="btn-create-transporter" [disabled]="!formSpecification.valid" mat-raised-button color="primary"
-                        [innerHTML]="'GUARDAR'">
+                    <button id="btn-create-transporter" [disabled]="!formSpecification.valid" mat-raised-button color="primary" >
+                     {{'secure.products.bulk_upload.save' | I18N | async}}
                     </button>
                 </div>
             </div>

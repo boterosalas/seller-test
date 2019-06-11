@@ -12,41 +12,41 @@
 
   <mat-step [stepControl]="categoryFormGroup">
     <form [formGroup]="categoryFormGroup">
-      <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
+      <ng-template matStepLabel>{{'secure.products.bulk_upload.categorization' | I18N | async}}</ng-template>
       <app-search-categorization></app-search-categorization>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.bulk_upload.back' | I18N | async}}</button>
+        <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">{{'secure.products.bulk_upload.continue' | I18N | async}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="basicInfoFormGroup">
     <form [formGroup]="basicInfoFormGroup">
-      <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
+      <ng-template matStepLabel>{{'secure.products.bulk_upload.basic_information' | I18N | async}}</ng-template>
       <app-basic-information></app-basic-information>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.bulk_upload.back' | I18N | async}}</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">{{'secure.products.bulk_upload.continue' | I18N | async}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="especificFormGroup">
     <form [formGroup]="especificFormGroup">
-      <ng-template matStepLabel>Especificaciones</ng-template>
+      <ng-template matStepLabel>{{'secure.products.bulk_upload.specifications' | I18N | async}}</ng-template>
       <app-specification-product></app-specification-product>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.bulk_upload.back' | I18N | async}}</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">{{'secure.products.bulk_upload.continue' | I18N | async}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="imageFormGroup">
     <form [formGroup]="imageFormGroup">
-      <ng-template matStepLabel>Im&aacute;genes</ng-template>
+      <ng-template matStepLabel>{{'secure.products.bulk_upload.images' | I18N | async}}</ng-template>
       <app-assign-images [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
-          <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">Guardar</button>
+          <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.bulk_upload.back' | I18N | async}}</button>
+          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">{{'secure.products.bulk_upload.save' | I18N | async}}</button>
         </div>
     </form>
   </mat-step>
