@@ -11,7 +11,10 @@
         "descripcion": "Descripción",
         "product_type": "Tipo del producto",
         "update_successfully": "Actualizado correctamente",
-        "create_successfully": "Creado correctamente"
+        "create_successfully": "Creado correctamente",
+        "id": "ID",
+        "actions": "Acciones",
+        "status": "Estado"
     },
     "actions": {
         "edit": "Editar",
@@ -29,7 +32,10 @@
         "send_historical": "Enviar histórico",
         "send": "Enviar",
         "save": "GUARDAR",
-        "create": "CREAR"
+        "create": "CREAR",
+        "download": "Descargar",
+        "enable": "Activar",
+        "disable": "Desactivar"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -70,6 +76,7 @@
         "error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
         "format_invalidate": "Formato inválido",
         "error_promise": "La promesa de entrega no es válida.",
+        "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
         "error_product": "Producto inválido."
     },
     "filters": {
@@ -157,10 +164,18 @@
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title": "Crear transportadora",
-                            "modal_text": "Crear transportadora",
+                            "modal_title_new_shipping": "Crear transportadora",
+                            "modal_title_new_zone": "Crear zona",
+                            "modal_title_update_shipping": "Modificar transportadora",
+                            "modal_title_update_zone": "Modificar zona",
+                            "modal_text_new_shipping": "Ingresa una nombre de transportadora y un método de envío asociado para que aparezca en la lista de los vendedores al momento de configurar el método de envío seleccionado.",
+                            "modal_text_new_zone": "Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para que aparezca en la lista de los vendedores al momento de configurar un método de envío.",
+                            "modal_text_update_shipping": "Reemplaza el nombre de transportadora existente y da clic a Guardar para modificar el nombre de esta transportadora.",
+                            "modal_text_update_zone": "Reemplaza el nombre de la zona existente o los códigos DANE configurados para la zona y da clic a Guardar para modificar esta zona",
                             "modal_placeholder_transporter_name": "Nombre transportadora",
-                            "modal_placeholder_shipping_method": "Seleccionar Metodo"
+                            "modal_placeholder_shipping_method": "Seleccionar Metodo",
+                            "modal_placeholder_name_zone": "Nombre de la zona",
+                            "modal_placeholder_postal_code": "Código DANE"
                         }
                     }
                 }
@@ -242,6 +257,13 @@
                         "page_products": "Productos por página",
                         "subtitle_offert_list": "Listado de ofertas"
                     }
+                }
+            },
+            "bulk_upload": {
+                "bulk_upload": {
+                    "title_toolbar": "CARGA MASIVA DE OFERTAS",
+                    "download_format_offer": "DESCARGAR FORMATO",
+                    "upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR"
                 }
             }
         },
@@ -508,6 +530,18 @@
             }
         },
         "parametize": {
+            "title_toolbar": "Parametrización",
+            "brands": {
+                "title_filter_brand": "Filtro Marcas",
+                "txt_brand_name": "Nombre de la marca",
+                "subtitle_toolbar": "Listado de marcas",
+                "btn_add_brand": "Agregar marca",
+                "txt_add_brand": "Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.",
+                "txt_edit_brand": "Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial.",
+                "edit_brand": "Editar marca",
+                "txt_no_brands": "No se han encontrado marcas registradas.",
+                "txt_no_permissions_view": "No posee permisos para visualizar el listado."
+            },
             "specifications": {
                 "txt_title_toolbar": "Parametrizar reglas",
                 "txt_subtitle_toolbar": "Parametrización de especificaciones",
@@ -557,6 +591,7 @@
             },
             "category": {
                 "categories": {
+                    "categories": "Categorías",
                     "title": "Parametrización",
                     "subtitle": "Árbol de categorías",
                     "btn_expand": "Expandir",
