@@ -11,7 +11,8 @@
         "descripcion": "Descripcion",
         "product_type": "Tipo del producto",
         "update_successfully": "Updated successfully",
-        "create_successfully": "Created successfully"
+        "create_successfully": "Created successfully",
+        "id": "ID"
     },
     "actions": {
         "edit": "Edit",
@@ -69,7 +70,8 @@
         "error_price_discount": "Invalid discount price, the value must be higher or equal to 8.000.",
         "error_price_discount-2": "PInvalid discount price, the value must be lower than the Price entered.",
         "format_invalidate": "Invalid format",
-        "error_promise": "The delivery promise entered is invalid."
+        "error_promise": "The delivery promise entered is invalid.",
+        "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)"
     },
     "filters": {
         "clear": "Clear",
@@ -156,10 +158,18 @@
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title": "Create shipping company",
-                            "modal_text": "Create shipping company",
+                            "modal_title_new_shipping": "Create shipping company",
+                            "modal_title_new_zone": "Create zone",
+                            "modal_title_update_shipping": "Update shipping company",
+                            "modal_title_update_zone": "Update zone",
+                            "modal_text_new_shipping": "Enter a shipping company name and an associated shipping method, so it will appear in the seller's list when they configure the selected shipping method.",
+                            "modal_text_new_zone": "Enter a zone name and associated postal codes sepparated by a comma, so it will appear in the seller's list when they configure the selected shipping method.",
+                            "modal_text_update_shipping": "Replace the name of the existing shipping company and clic Save in order to modify the name of this registry.",
+                            "modal_text_update_zone": "Replace the name of the existing zone or the associated postal codes and clic Save in order to modify this zone.",
                             "modal_placeholder_transporter_name": "Shipping company name",
-                            "modal_placeholder_shipping_method": "Select shipping method"
+                            "modal_placeholder_shipping_method": "Select shipping method",
+                            "modal_placeholder_name_zone": "Zone name",
+                            "modal_placeholder_postal_code": "Postal code"
                         }
                     }
                 }
@@ -343,6 +353,16 @@
             "products_list": {}
         },
         "parametize": {
+            "title_toolbar": "Configuration",
+            "brands": {
+                "title_filter_brand": "Brand filter",
+                "txt_brand_name": "Brand's name",
+                "subtitle_toolbar": "Brands list",
+                "btn_add_brand": "Add brand",
+                "txt_add_brand": "In order to create a brand you must enter the brand's name the way you want it to be shown in the sites. Keep into account that if the brand already exists you may not create it, and that you may not use any symbol or special character.",
+                "txt_edit_brand": "In brand modification you may only change the name. Keep into account that if the brand name already exists you may not change the name so it's the same, and that you may not use any symbol or special character.",
+                "edit_brand": "Edit brand"
+            },
             "specifications": {
                 "txt_title_toolbar": "Shipping rules configuration",
                 "txt_subtitle_toolbar": "Product specification configuration",

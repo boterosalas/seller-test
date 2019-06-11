@@ -11,7 +11,8 @@
         "descripcion": "Descripción",
         "product_type": "Tipo del producto",
         "update_successfully": "Actualizado correctamente",
-        "create_successfully": "Creado correctamente"
+        "create_successfully": "Creado correctamente",
+        "id": "ID"
     },
     "actions": {
         "edit": "Editar",
@@ -69,7 +70,8 @@
         "error_price_discount": "Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000.",
         "error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
         "format_invalidate": "Formato inválido",
-        "error_promise": "La promesa de entrega no es válida."
+        "error_promise": "La promesa de entrega no es válida.",
+        "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)"
     },
     "filters": {
         "clear": "Limpiar",
@@ -156,10 +158,18 @@
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title": "Crear transportadora",
-                            "modal_text": "Crear transportadora",
+                            "modal_title_new_shipping": "Crear transportadora",
+                            "modal_title_new_zone": "Crear zona",
+                            "modal_title_update_shipping": "Modificar transportadora",
+                            "modal_title_update_zone": "Modificar zona",
+                            "modal_text_new_shipping": "Ingresa una nombre de transportadora y un método de envío asociado para que aparezca en la lista de los vendedores al momento de configurar el método de envío seleccionado.",
+                            "modal_text_new_zone": "Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para que aparezca en la lista de los vendedores al momento de configurar un método de envío.",
+                            "modal_text_update_shipping": "Reemplaza el nombre de transportadora existente y da clic a Guardar para modificar el nombre de esta transportadora.",
+                            "modal_text_update_zone": "Reemplaza el nombre de la zona existente o los códigos DANE configurados para la zona y da clic a Guardar para modificar esta zona",
                             "modal_placeholder_transporter_name": "Nombre transportadora",
-                            "modal_placeholder_shipping_method": "Seleccionar Metodo"
+                            "modal_placeholder_shipping_method": "Seleccionar Metodo",
+                            "modal_placeholder_name_zone": "Nombre de la zona",
+                            "modal_placeholder_postal_code": "Código DANE"
                         }
                     }
                 }
@@ -344,6 +354,16 @@
             "products_list": {}
         },
         "parametize": {
+            "title_toolbar": "Parametrización",
+            "brands": {
+                "title_filter_brand": "Filtro Marcas",
+                "txt_brand_name": "Nombre de la marca",
+                "subtitle_toolbar": "Listado de marcas",
+                "btn_add_brand": "Agregar marca",
+                "txt_add_brand": "Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.",
+                "txt_edit_brand": "Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial.",
+                "edit_brand": "Editar marca"
+            },
             "specifications": {
                 "txt_title_toolbar": "Parametrizar reglas",
                 "txt_subtitle_toolbar": "Parametrización de especificaciones",
