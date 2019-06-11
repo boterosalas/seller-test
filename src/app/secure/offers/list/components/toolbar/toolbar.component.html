@@ -8,13 +8,13 @@
     </div>
 
     <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
-      <p>{{tittleBar}}
-        <small class="sub-title"><span class="bar">|</span> {{subtitleBar}}</small>
+      <p>{{'secure.offers.historical_admin.components.toolbar.title_offert' | I18N | async}}
+        <small class="sub-title"><span class="bar">|</span> {{'secure.offers.list.components.toolbar.subtitle_offert_list' | I18N | async}}</small>
       </p>
       <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
 
         <mat-form-field class="select-page-size">
-          <mat-select id="select-number-page-size" placeholder="Productos por página" [(ngModel)]="dataPaginate.limit" (ngModelChange)="changeSize()">
+          <mat-select id="select-number-page-size" [placeholder]="'secure.offers.list.components.toolbar.page_products' | I18N | async" [(ngModel)]="dataPaginate.limit" (ngModelChange)="changeSize()">
             <mat-option value="30">30</mat-option>
             <mat-option value="60">60</mat-option>
             <mat-option value="120">120</mat-option>
@@ -34,7 +34,7 @@
 
         <button class="btn-filter" mat-icon-button mat-button (click)="toggleMenu()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+          <small class="sub-title-filter">{{'filters.filter' | I18N | async}}</small>
         </button>
 
       </div>

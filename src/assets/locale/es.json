@@ -68,7 +68,8 @@
         "error_price_discount": "Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000.",
         "error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
         "format_invalidate": "Formato inválido",
-        "error_promise": "La promesa de entrega no es válida."
+        "error_promise": "La promesa de entrega no es válida.",
+        "error_product": "Producto inválido."
     },
     "filters": {
         "clear": "Limpiar",
@@ -235,6 +236,14 @@
                         "business_days": "días hábiles",
                         "months": "meses",
                         "last_modify": "Última modificación: "
+                    },
+                    "filter": {
+                        "title_filter_offer": "Filtro ofertas",
+                        "placeholder_products": "Producto"
+                    },
+                    "toolbar": {
+                        "page_products": "Productos por página",
+                        "subtitle_offert_list": "Listado de ofertas"
                     }
                 }
             }
