@@ -71,11 +71,8 @@
         "error_price_discount-2": "PInvalid discount price, the value must be lower than the Price entered.",
         "format_invalidate": "Invalid format",
         "error_promise": "The delivery promise entered is invalid.",
-<<<<<<< HEAD
-        "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)"
-=======
+        "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
         "error_product": "Invalid product."
->>>>>>> 2804ba6c6daff3760750c5ee19459a3cbc4ef2a8
     },
     "filters": {
         "clear": "Clear",

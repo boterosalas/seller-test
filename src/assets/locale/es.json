@@ -71,11 +71,8 @@
         "error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
         "format_invalidate": "Formato inválido",
         "error_promise": "La promesa de entrega no es válida.",
-<<<<<<< HEAD
-        "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)"
-=======
+        "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
         "error_product": "Producto inválido."
->>>>>>> 2804ba6c6daff3760750c5ee19459a3cbc4ef2a8
     },
     "filters": {
         "clear": "Limpiar",
