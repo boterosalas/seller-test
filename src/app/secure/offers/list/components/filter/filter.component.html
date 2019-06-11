@@ -1,42 +1,45 @@
 <section id="section-filter-offers" class="flexbox flex-wrap">
 
-    <form novalidate #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(filterForm.value)" class="flexbox flex-wrap justify-center">
+  <form novalidate #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(filterForm.value)"
+    class="flexbox flex-wrap justify-center">
 
-        <article class="flexbox align-center justify-between">
-            <span [innerHTML]="'Filtro ofertas'"></span>
-            <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below" mat-icon-button
-                mat-button (click)="toggleMenu()">
-                <mat-icon>clear</mat-icon>
-            </button>
-        </article>
+    <article class="flexbox align-center justify-between">
+      <span>{{'secure.offers.list.components.filter.title_filter_offer' | I18N | async}}</span>
+      <button id="closeMenuApplication" type="button" color="primary"
+        [matTooltip]="'secure.offers.historical_admin.components.filter.tooltip_close' | I18N | async"
+        matTooltipPosition="below" mat-icon-button mat-button (click)="toggleMenu()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </article>
 
-        <mat-form-field color="primary">
-            <input matInput placeholder="Producto" formControlName="product" [errorStateMatcher]="matcher">
-            <mat-hint></mat-hint>
-            <mat-error *ngIf="filterForm.get('product').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
-            <mat-hint></mat-hint>
-            <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
-        </mat-form-field>
+    <mat-form-field color="primary">
+      <input matInput [placeholder]="'secure.offers.list.components.filter.placeholder_products' | I18N | async" formControlName="product" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterForm.get('product').hasError('pattern')">{{'errors.error_product' | I18N | async}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'secure.offers.historical_admin.components.filter.EAN' | I18N | async" formControlName="ean" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | I18N | async}}</mat-error>
+    </mat-form-field>
 
-        <article class="container-radio-buttons flexbox align-center justify-between">
-            <div class="inputGroup flexbox align-center justify-center">
-                <input id="stock-sold-out" name="stock" type="radio" value="0" formControlName="stock" />
-                <label class="flexbox align-center" for="stock-sold-out" [innerHTML]="'Agotado'"></label>
-            </div>
-            <div class="inputGroup flexbox align-center justify-center">
-                <input id="stock" name="stock" type="radio" value="1" formControlName="stock" />
-                <label class="flexbox align-center" for="stock" [innerHTML]="'Con inventario'"></label>
-            </div>
-        </article>
+    <article class="container-radio-buttons flexbox align-center justify-between">
+      <div class="inputGroup flexbox align-center justify-center">
+        <input id="stock-sold-out" name="stock" type="radio" value="0" formControlName="stock" />
+        <label class="flexbox align-center" for="stock-sold-out" >{{'secure.offers.list.list.with_out_stock' | I18N | async}}</label>
+      </div>
+      <div class="inputGroup flexbox align-center justify-center">
+        <input id="stock" name="stock" type="radio" value="1" formControlName="stock" />
+        <label class="flexbox align-center" for="stock">{{'secure.offers.list.list.with_stock' | I18N | async}}</label>
+      </div>
+    </article>
 
-        <article class="container-buttons flexbox align-center justify-between">
-            <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
-            <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value)"></button>
-        </article>
+    <article class="container-buttons flexbox align-center justify-between">
+      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'">{{'filters.clear' | I18N | async}}</button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'"
+        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value)">{{'filters.filter' | I18N | async}}</button>
+    </article>
 
-    </form>
+  </form>
 
 </section>

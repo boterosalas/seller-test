@@ -8,7 +8,10 @@
         "brand": "Marca",
         "model": "Modelo",
         "details": "Detalles",
-        "descripcion": "Descripción"
+        "descripcion": "Descripción",
+        "product_type": "Tipo del producto",
+        "update_successfully": "Actualizado correctamente",
+        "create_successfully": "Creado correctamente"
     },
     "actions": {
         "edit": "Editar",
@@ -17,12 +20,16 @@
         "remove": "Remover",
         "register": "REGISTRAR",
         "cancel": "CANCELAR",
+        "cancel_min": "Cancelar",
         "accept": "ACEPTAR",
         "options": "Opciones",
         "refresh": "Refrescar",
         "close": "Cerrar",
         "export_excel": "Exportar a excel",
-        "send": "Enviar"
+        "send_historical": "Enviar histórico",
+        "send": "Enviar",
+        "save": "GUARDAR",
+        "create": "CREAR"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -45,6 +52,7 @@
         "contact_invalid": "El contacto es inválido",
         "email_invalid": "El correo electrónico es inválido",
         "email_exist": "El correo electrónico ya existe",
+        "email_required": "El correo electrónico no puede estar en blanco",
         "store_name_invalid": "El nombre de la tienda es inválido",
         "store_name_exist": "El nombre de la tienda ya existe",
         "name_invalid": "El nombre es inválido",
@@ -53,7 +61,16 @@
         "error_date": "El rango máximo son 15 días",
         "invalid_EAN": "EAN invalido",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again":"Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos."
+        "errors_upload_product_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.",
+        "commission_invalid": "La comisión es inválida",
+        "error_required": "Este campo es requerido",
+        "error_price": "Precio inválido, el valor debe ser mayor o igual a 8.000.",
+        "error_price_dscto": "Precio inválido, el valor debe ser mayor a Precio con Descuento.",
+        "error_price_discount": "Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000.",
+        "error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
+        "format_invalidate": "Formato inválido",
+        "error_promise": "La promesa de entrega no es válida.",
+        "error_product": "Producto inválido."
     },
     "filters": {
         "clear": "Limpiar",
@@ -131,16 +148,12 @@
                     },
                     "list_transporter": {
                         "title_component": "Transportadoras",
-                        "lb_table_name": "Nombre",
                         "lb_table_shipping_method": "Método de envío",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "No hay elementos creados."
                     },
                     "list_zones": {
                         "title_component": "Zonas",
-                        "lb_table_name": "Name",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "No hay elementos creados."
                     },
                     "dialogs": {
                         "create": {
@@ -176,13 +189,19 @@
                         "subtitle_offert": "Histórico de Carga de Ofertas"
                     }
                 },
+                "download_historical": {
+                    "title": "Te enviaremos el histórico de ofertas al siguiente correo electrónico.",
+                    "tooltip_email": "Volver a seleccionar mi corre electrónico.",
+                    "snackbar_succes": "Se ha realizado la descarga del histórico correctamente, revisa tu correo electrónico.",
+                    "snackbar_error": "Se ha presentado un error al realizar la descarga del histórico."
+                },
                 "historical_admin": {
                     "stock": "Inventario",
                     "units": "unidades",
                     "price": "Precio",
                     "discount_price": "Precio con descuento",
                     "shipping_cost": "Precio flete",
-                    "warranty": "Garantia",
+                    "warranty": "Garantía",
                     "promise": "Promesa de entrega",
                     "currency": "Tipo de moneda",
                     "free_shipping": "Free shipping",
@@ -191,12 +210,44 @@
                     "freight_calculator": "Cotizador de flete",
                     "without_offert": "No se han encontrado registros en el historico de ofertas."
                 }
-
+            },
+            "list": {
+                "list": {
+                    "filter_answer": "Resultado de filtro:",
+                    "with_stock": "Con inventario",
+                    "with_out_stock": "Agotado",
+                    "EAN_offert": "EAN: ",
+                    "without_offert": "No se han encontrado registros en el listado de ofertas."
+                },
+                "components": {
+                    "detail_offer": {
+                        "return": "Volver",
+                        "averageFreightCost": "Costo de Flete Promedio",
+                        "cop": "COP",
+                        "usd": "USD",
+                        "update_stock": "Actualización de Inventario",
+                        "snackbar_offer_product": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
+                        "snackbar_currency": "El tipo de moneda se ha cambiado a ",
+                        "id_offer": "ID de Oferta: ",
+                        "in_stock": "En stock: ",
+                        "business_days": "días hábiles",
+                        "months": "meses",
+                        "last_modify": "Última modificación: "
+                    },
+                    "filter": {
+                        "title_filter_offer": "Filtro ofertas",
+                        "placeholder_products": "Producto"
+                    },
+                    "toolbar": {
+                        "page_products": "Productos por página",
+                        "subtitle_offert_list": "Listado de ofertas"
+                    }
+                }
             }
         },
         "products": {
             "bulk_upload": {
-                "title_module" : "Productos",
+                "title_module": "Productos",
                 "title_bar": "Carga masiva",
                 "select_file_import": "Seleccionar archivo para importar",
                 "download_format": "Descargar Formato",
@@ -260,22 +311,22 @@
                 "item_width": "Ancho del producto",
                 "item_weight": "Peso del producto",
                 "seller": "Vendedor",
-                "product_type":"Tipo del producto",
-                "image_modification":"Modificación Imagen",
-                "image ":"Imagen",
-                "size ":"Talla",
-                "color ":"Color",
-                "exito_logistics ":"Logistica Exito",
-                "measuring_unit_description ":"Des. Unidad Medida",
-                "conversion_factor ":"Factor Conversion",
-                "drained_factor ":"Factor Escurrido",
-                "combo_ean_group ":"Grupo EAN Combo",
-                "text_may_upload_product" : "Para importar archivos al Seller Center, primero debes",
-                "text_file_may_update" : ", en este archivo podrás cargar la validación de productos.",
-                "product_validation" : "Validación del productos",
-                "will_send_validation" : "Te enviaremos el formato de moderación al siguiente correo electrónico.",
-                "validation_sent_succesfully" : "Se ha enviado correctamente la moderación.",
-                "validation_sent_couldnt_be_sent" : "Algo ocurrió, no se pudo enviar la moderación.",
+                "product_type": "Tipo del producto",
+                "image_modification": "Modificación Imagen",
+                "image ": "Imagen",
+                "size": "Talla",
+                "color": "Color ",
+                "exito_logistics ": "Logistica Exito",
+                "measuring_unit_description ": "Des. Unidad Medida",
+                "conversion_factor ": "Factor Conversion",
+                "drained_factor ": "Factor Escurrido",
+                "combo_ean_group ": "Grupo EAN Combo",
+                "text_may_upload_product": "Para importar archivos al Seller Center, primero debes",
+                "text_file_may_update": ", en este archivo podrás cargar la validación de productos.",
+                "product_validation": "Validación del productos",
+                "will_send_validation": "Te enviaremos el formato de moderación al siguiente correo electrónico.",
+                "validation_sent_succesfully": "Se ha enviado correctamente la moderación.",
+                "validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación.",
                 "download_file": "Descargar archivo",
                 "download_file_import": "Seleccionar archivo para importar",
                 "text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",
@@ -395,10 +446,8 @@
             "validation": {
 
             },
-            "products_list": {
-
-            }
-              
+            "validation": {},
+            "products_list": {}
         },
         "parametize": {
             "specifications": {
@@ -408,7 +457,7 @@
                 "btn_add_specifications": "Agregar especificaciones"
             },
             "dialog": {
-                "modal_title_spec":"Agregar grupo de especificaciones",
+                "modal_title_spec": "Agregar grupo de especificaciones",
                 "modal_title_brand": "Agregar una marca",
                 "modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",
                 "modal_placeholder_specification_name": "Nombre de la especificacion",
@@ -418,7 +467,7 @@
                 "modal_subtitle_content": "Categorías asociadas"
             },
             "dialogAddSpecs": {
-                "modal_title":"Agregar especificaciones",
+                "modal_title": "Agregar especificaciones",
                 "modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
                 "modal_text_2": "En caso de ser de lista desplegable debes ingresar también como mínimo 2 opciones",
                 "modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
@@ -434,8 +483,9 @@
                 "profile": {
                     "toolbar_title": "Vendedores",
                     "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                    "tbl_lbl_subtitle": "(Tipo de perfil)",
+                    "seller_type": "Tipo vendedor",
+                    "admin_type": "Tipo administrador"
                 },
                 "dialog": {
                     "modal_title_add_profile": "Agregar perfil",
@@ -456,7 +506,18 @@
                     "tooltip_expand": "Expandir árbol",
                     "tooltip_contract": "Contraer árbol",
                     "tooltip_add": "Crear categoría",
-                    "btn_add_category": "Crear categoría nivel 1"
+                    "btn_add_category": "Crear categoría nivel 1",
+                    "modal_update_description": "Para modificar una categoría debes cambiar la información en cualquiera de los campos habilitados. No podrás modificar información que se encuentre bloqueada y todos los campos deben estar diligenciados para poder guardar la modificación.",
+                    "modal_create_description": "Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.",
+                    "modal_update_title": "Modificar una categoría",
+                    "modal_create_title": "Crear una categoría",
+                    "lb_comission_form": "Comisión por defecto",
+                    "lb_parent_name_category_form": "Parent category name",
+                    "lb_id_vtex_form": "VTEX ID",
+                    "lb_id_carulla_form": "Carulla ID",
+                    "lb_id_exito_form": "Éxito ID",
+                    "lb_id_catalogo_form": "Category ID",
+                    "lb_id_market_form": "Marketplace ID"
                 },
                 "category_tree": {
                     "tooltip_add_son": "Crear categoría hija"

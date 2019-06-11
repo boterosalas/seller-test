@@ -9,8 +9,9 @@
         "model": "Model",
         "details": "Details",
         "descripcion": "Descripcion",
-        "send": "send"
-
+        "product_type": "Tipo del producto",
+        "update_successfully": "Updated successfully",
+        "create_successfully": "Created successfully"
     },
     "actions": {
         "edit": "Edit",
@@ -19,11 +20,16 @@
         "remove": "Remove",
         "register": "REGISTER",
         "cancel": "CANCEL",
+        "cancel_min": "Cancelar",
         "accept": "ACCEPT",
         "options": "Options",
         "refresh": "Refresh",
         "close": "Close",
-        "export_excel": "Export excel"
+        "export_excel": "Export excel",
+        "send_historical": "Send historic registry",
+        "send": "Send",
+        "save": "SAVE",
+        "create": "CREATE"
     },
     "errors": {
         "required": "Field required",
@@ -46,6 +52,7 @@
         "contact_invalid": "The contact entered is invalid",
         "email_invalid": "The e-mail address entered is invalid",
         "email_exist": "The e-mail address entered already exist",
+        "email_required": "The e-mail address field can not be blank",
         "store_name_invalid": "The store name entered is invalid",
         "store_name_exist": "The store name entered already exist",
         "name_invalid": "The name entered is invalid",
@@ -54,7 +61,16 @@
         "error_date": "The maximum date range is 15 days",
         "invalid_EAN": "EAN invalid",
         "errors_detected": "Errores detectados",
-        "errors_upload_product_again": "Please fix the file's errors and upload the products again."
+        "errors_upload_product_again": "Please fix the file's errors and upload the products again.",
+        "commission_invalid": "The commission is invalid",
+        "error_required": "This field is mandatory",
+        "error_price": "Invalid price, the value must be higher or equal to 8.000. ",
+        "error_price_dscto": "Invalid price, the value must be higher than the Discount Price entered.",
+        "error_price_discount": "Invalid discount price, the value must be higher or equal to 8.000.",
+        "error_price_discount-2": "PInvalid discount price, the value must be lower than the Price entered.",
+        "format_invalidate": "Invalid format",
+        "error_promise": "The delivery promise entered is invalid.",
+        "error_product": "Invalid product."
     },
     "filters": {
         "clear": "Clear",
@@ -90,7 +106,7 @@
             },
             "register_seller": {
                 "tap_title_seller": "New seller registration form",
-                "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
+                "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
                 "lb_select_profile_type": "Select profile type",
                 "lb_profile_type_form": "Profile type",
                 "txt_select_profile_type": "Select profile type",
@@ -111,7 +127,7 @@
                 "lb_email_form": "Email",
                 "lb_name_form": "Name",
                 "tap_title_admin": "New administrative user registration form",
-                "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller"
+                "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller"
             },
             "manage": {
                 "lb_title_toolbar": "Seller",
@@ -128,27 +144,23 @@
             "quoting": {
                 "administrator": {
                     "shipping_methods": {
-                        "title": "Método de envío"
+                        "title": "Shipping method"
                     },
                     "list_transporter": {
-                        "title_component": "Transportadoras",
-                        "lb_table_name": "Nombre",
-                        "lb_table_shipping_method": "Método de envío",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "title_component": "Conveyors",
+                        "lb_table_shipping_method": "Shipping method",
+                        "txt_not_elements": "There are no created elements."
                     },
                     "list_zones": {
                         "title_component": "Zonas",
-                        "lb_table_name": "Name",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "There are no created elements."
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title": "Crear transportadora",
-                            "modal_text": "Crear transportadora",
-                            "modal_placeholder_transporter_name": "Nombre transportadora",
-                            "modal_placeholder_shipping_method": "Seleccionar Metodo"
+                            "modal_title": "Create shipping company",
+                            "modal_text": "Create shipping company",
+                            "modal_placeholder_transporter_name": "Shipping company name",
+                            "modal_placeholder_shipping_method": "Select shipping method"
                         }
                     }
                 }
@@ -166,7 +178,7 @@
             "historical_admin": {
                 "components": {
                     "filter": {
-                        "title": "Historic registry filter",
+                        "title": "Historic offer registry filter",
                         "tooltip_close": "Close",
                         "placeholder_initial_date": "Start date",
                         "placeholder_final_date": "Ending date",
@@ -176,6 +188,12 @@
                         "title_offert": "Offers",
                         "subtitle_offert": "Offer Upload Historic Registry"
                     }
+                },
+                "download_historical": {
+                    "title": "We will send the offer historic registry to the following e-mail address.",
+                    "tooltip_email": "Reselect my e-mail address.",
+                    "snackbar_succes": "The historic registry download has been made correctly, check your inbox.",
+                    "snackbar_error": "An error has occurred when trying to download the historic registry."
                 },
                 "historical_admin": {
                     "stock": "Stock",
@@ -193,6 +211,39 @@
                     "without_offert": "There is no offer registry available.",
                     "stock_invalid": "Invalid stock",
                     "stock_mandatory": "The stock field is mandatory"
+                }
+            },
+            "list": {
+                "list": {
+                    "filter_answer": "Filter results: ",
+                    "with_stock": "With stock",
+                    "with_out_stock": "Out of stock",
+                    "EAN_offert": "EAN: ",
+                    "without_offert": "There is no offer list registry."
+                },
+                "components": {
+                    "detail_offer": {
+                        "return": "Back",
+                        "averageFreightCost": "Shipping Cost",
+                        "cop": "COP",
+                        "usd": "USD",
+                        "update_stock": "Stock update",
+                        "snackbar_offer_product": "This product is not ready for an offer to be associated, please try again later.",
+                        "snackbar_currency": "The corrency has been changed to ",
+                        "id_offer": "Offer ID: ",
+                        "in_stock": "In stock: ",
+                        "business_days": "business days",
+                        "months": "months",
+                        "last_modify": "Last modify: "
+                    },
+                    "filter": {
+                        "title_filter_offer": "Offer filter",
+                        "placeholder_products": "Product"
+                    },
+                    "toolbar": {
+                        "page_products": "Products per page",
+                        "subtitle_offert_list": "Offer list"
+                    }
                 }
             }
         },
@@ -261,22 +312,22 @@
                 "item_width": "Item Width",
                 "item_weight": "Item Weight",
                 "seller": "Seller",
-                "product_type":"Product Type",
-                "image_modification":"Image Modification",
-                "image ":"Image",
-                "size ":"Size",
-                "color ":"Color",
-                "exito_logistics ":"Exito Logistics",
-                "measuring_unit_description ":"Measuring Unit Description",
-                "conversion_factor ":"Conversion Factor",
-                "drained_factor ":"Drained Factor",
-                "combo_ean_group ":"Combo EAN Group",
-                "text_may_upload_product" : "In order to import files to the Seller Center, first you must",
-                "text_file_may_update" : "in this file you may upload the product validation",
-                "product_validation" : "Product validation",
-                "will_send_validation" : "We will send you the validation form to the following e-mail address",
-                "validation_sent_succesfully" : "The validation has been sent succesfully",
-                "validation_sent_couldnt_be_sent" : "Something happened, the validation couldn't be sent",
+                "product_type": "Product Type",
+                "image_modification": "Image Modification",
+                "image ": "Image",
+                "size": "Size",
+                "color": "Color",
+                "exito_logistics ": "Exito Logistics",
+                "measuring_unit_description ": "Measuring Unit Description",
+                "conversion_factor ": "Conversion Factor",
+                "drained_factor ": "Drained Factor",
+                "combo_ean_group ": "Combo EAN Group",
+                "text_may_upload_product": "In order to import files to the Seller Center, first you must",
+                "text_file_may_update": "in this file you may upload the product validation",
+                "product_validation": "Product validation",
+                "will_send_validation": "We will send you the validation form to the following e-mail address",
+                "validation_sent_succesfully": "The validation has been sent succesfully",
+                "validation_sent_couldnt_be_sent": "Something happened, the validation couldn't be sent",
                 "download_file": "Download file",
                 "download_file_import": "Select file to import",
                 "text_assign_images": "In this section you must enter the correspondinge image URL for the producto you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",
@@ -426,19 +477,20 @@
             },
             "profiles": {
                 "profile": {
-                    "toolbar_title": "Vendedores",
-                    "toolbar_subtitle": "Parametrización de perfiles",
-                    "tbl_lbl_name": "Nombre",
-                    "tbl_lbl_subtitle": "(Tipo de perfil)"
+                    "toolbar_title": "Sellers",
+                    "toolbar_subtitle": "Profile configuration",
+                    "tbl_lbl_subtitle": "(Profile type)",
+                    "seller_type": "Seller type",
+                    "admin_type": "Admin type"
                 },
                 "dialog": {
-                    "modal_title_add_profile": "Agregar perfil",
-                    "modal_title_edit_profile": "Editar perfil",
+                    "modal_title_add_profile": "Add a profile",
+                    "modal_title_edit_profile": "Edit a profile",
                     "modal_rdn_exito": "Exito",
-                    "modal_rdn_store": "Tienda",
-                    "modal_placeholder_profile_name": "Nombre del perfil",
-                    "modal_placeholder_select_menu": "Seleccione el menu",
-                    "modal_placeholder_select_functionality": "Seleccione la funcionalidad"
+                    "modal_rdn_store": "Seller",
+                    "modal_placeholder_profile_name": "Profile name",
+                    "modal_placeholder_select_menu": "Select a menu",
+                    "modal_placeholder_select_functionality": "Select a functionality"
                 }
             },
             "category": {
@@ -450,7 +502,18 @@
                     "tooltip_expand": "Expand tree",
                     "tooltip_contract": "Contract tree",
                     "tooltip_add": "Create category",
-                    "btn_add_category": "Create level 1 category"
+                    "btn_add_category": "Create level 1 category",
+                    "modal_update_description": "To modify a category level you must change the information filled in any of the available fields. You cannot modify information that is blocked, and all the fields must be filled in order to save the modification.",
+                    "modal_create_description": "To create a category level you must first insert a name and it's respective pairing code with every available channel. Make sure to full and check all the information, since the category levels cannot be deleted later.",
+                    "modal_update_title": "Modify category",
+                    "modal_create_title": "Create category",
+                    "lb_comission_form": "Default commission value",
+                    "lb_parent_name_category_form": "Parent category name",
+                    "lb_id_vtex_form": "ID VTEX",
+                    "lb_id_carulla_form": "ID Carulla",
+                    "lb_id_exito_form": "ID Éxito",
+                    "lb_id_catalogo_form": "ID Cátalogos",
+                    "lb_id_market_form": "ID Marketplace"
                 },
                 "category_tree": {
                     "tooltip_add_son": "Create child category"

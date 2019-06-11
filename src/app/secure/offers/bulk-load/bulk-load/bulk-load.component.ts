@@ -363,8 +363,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
-            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
-            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Logistica Exito'),
+            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito'),
+            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
             iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda')

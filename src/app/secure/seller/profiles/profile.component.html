@@ -2,8 +2,8 @@
 <div class="profile-container">
     <mat-toolbar class="toolbar">
         <!-- Titulo del toolbar -->
-        <p class="title">Vendedores
-                <small class="sub-title">| Parametrización de perfiles</small>
+        <p class="title">{{'secure.parametize.profiles.profile.toolbar_title' | I18N | async}}
+                <small class="sub-title">| {{'secure.parametize.profiles.profile.toolbar_subtitle' | I18N | async}}</small>
             </p>
     </mat-toolbar>
 
@@ -12,25 +12,25 @@
         <div fxLayout="row" class="header" fxLayoutAlign="space-between center">
             <div fxLayout="column" class="title-container">
                 <label class="title">
-                    Nombre
+                    {{'shared.name' | I18N | async}}
                 </label>
-                <span class="subtitle-item">(Tipo de perfil)</span>
+                <span class="subtitle-item">{{'secure.parametize.profiles.profile.tbl_lbl_subtitle' | I18N | async}}</span>
             </div>
             <button mat-raised-button *ngIf="canCreate" color="primary" (click)="openDialogProfile(null)">
                 <mat-icon class="material-icons icon-profile">
                     add
                 </mat-icon>
-                Agregar
+                {{'actions.add' | I18N | async}}
             </button>
         </div>
         <div class="list" *ngFor="let profile of profileList; let i = index" fxLayout="row" fxLayoutAlign="space-between center"
             fxLayoutAlign="space-between center">
             <div class="item-list" fxLayout="row">
                 <div class="account-circle">
-                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" matTooltip="Tipo administrador">
+                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 1" [matTooltip]="'secure.parametize.profiles.profile.seller_type' | I18N | async">
                         people
                     </mat-icon>
-                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 0" matTooltip="Tipo vendedor">
+                    <mat-icon class="material-icons icon-profile" *ngIf="profile.Type == 0" [matTooltip]="'secure.parametize.profiles.profile.admin_type' | I18N | async">
                         person
                     </mat-icon>
                 </div>
@@ -39,7 +39,7 @@
                     <span class="subtitle-item">{{profile.TypeName}}</span>
                 </div>
             </div>
-            <button mat-icon-button matTooltip="Editar" (click)="openDialogProfile(profile)">
+            <button mat-icon-button [matTooltip]="'actions.edit' | I18N | async" (click)="openDialogProfile(profile)">
                 <mat-icon class="edit-profile material-icons">create</mat-icon>
             </button>
         </div>
