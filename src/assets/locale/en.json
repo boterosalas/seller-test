@@ -8,11 +8,13 @@
         "brand": "Brand",
         "model": "Model",
         "details": "Details",
-        "descripcion": "Descripcion",
-        "product_type": "Tipo del producto",
+        "descripcion": "Description",
+        "product_type": "Product type",
         "update_successfully": "Updated successfully",
         "create_successfully": "Created successfully",
-        "id": "ID"
+        "id": "ID",
+        "actions": "Actions",
+        "status": "Status"
     },
     "actions": {
         "edit": "Edit",
@@ -30,7 +32,10 @@
         "send_historical": "Send historic registry",
         "send": "Send",
         "save": "SAVE",
-        "create": "CREATE"
+        "create": "CREATE",
+        "download": "Download",
+        "enable": "Enable",
+        "disable": "Disable"
     },
     "errors": {
         "required": "Field required",
@@ -370,7 +375,9 @@
                 "btn_add_brand": "Add brand",
                 "txt_add_brand": "In order to create a brand you must enter the brand's name the way you want it to be shown in the sites. Keep into account that if the brand already exists you may not create it, and that you may not use any symbol or special character.",
                 "txt_edit_brand": "In brand modification you may only change the name. Keep into account that if the brand name already exists you may not change the name so it's the same, and that you may not use any symbol or special character.",
-                "edit_brand": "Edit brand"
+                "edit_brand": "Edit brand",
+                "txt_no_brands": "No se han encontrado marcas registradas.",
+                "txt_no_permissions_view": "No posee permisos para visualizar el listado."
             },
             "specifications": {
                 "txt_title_toolbar": "Shipping rules configuration",
@@ -421,6 +428,7 @@
             },
             "category": {
                 "categories": {
+                    "categories": "Categories",
                     "title": "Configuration",
                     "subtitle": "Category tree",
                     "btn_expand": "Expand",

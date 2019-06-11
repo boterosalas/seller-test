@@ -12,7 +12,9 @@
         "product_type": "Tipo del producto",
         "update_successfully": "Actualizado correctamente",
         "create_successfully": "Creado correctamente",
-        "id": "ID"
+        "id": "ID",
+        "actions": "Acciones",
+        "status": "Estado"
     },
     "actions": {
         "edit": "Editar",
@@ -30,7 +32,10 @@
         "send_historical": "Enviar histórico",
         "send": "Enviar",
         "save": "GUARDAR",
-        "create": "CREAR"
+        "create": "CREAR",
+        "download": "Descargar",
+        "enable": "Activar",
+        "disable": "Desactivar"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -371,7 +376,9 @@
                 "btn_add_brand": "Agregar marca",
                 "txt_add_brand": "Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.",
                 "txt_edit_brand": "Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial.",
-                "edit_brand": "Editar marca"
+                "edit_brand": "Editar marca",
+                "txt_no_brands": "No se han encontrado marcas registradas.",
+                "txt_no_permissions_view": "No posee permisos para visualizar el listado."
             },
             "specifications": {
                 "txt_title_toolbar": "Parametrizar reglas",
@@ -422,6 +429,7 @@
             },
             "category": {
                 "categories": {
+                    "categories": "Categorías",
                     "title": "Parametrización",
                     "subtitle": "Árbol de categorías",
                     "btn_expand": "Expandir",
