@@ -28,7 +28,8 @@
         "export_excel": "Export excel",
         "send_historical": "Send historic registry",
         "send": "Send",
-        "save": "SAVE"
+        "save": "SAVE",
+        "create": "CREATE"
     },
     "errors": {
         "required": "Field required",
@@ -142,27 +143,23 @@
             "quoting": {
                 "administrator": {
                     "shipping_methods": {
-                        "title": "Método de envío"
+                        "title": "Shipping method"
                     },
                     "list_transporter": {
-                        "title_component": "Transportadoras",
-                        "lb_table_name": "Nombre",
-                        "lb_table_shipping_method": "Método de envío",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "title_component": "Conveyors",
+                        "lb_table_shipping_method": "Shipping method",
+                        "txt_not_elements": "There are no created elements."
                     },
                     "list_zones": {
                         "title_component": "Zonas",
-                        "lb_table_name": "Name",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "There are no created elements."
                     },
                     "dialogs": {
                         "create": {
-                            "modal_title": "Crear transportadora",
-                            "modal_text": "Crear transportadora",
-                            "modal_placeholder_transporter_name": "Nombre transportadora",
-                            "modal_placeholder_shipping_method": "Seleccionar Metodo"
+                            "modal_title": "Create shipping company",
+                            "modal_text": "Create shipping company",
+                            "modal_placeholder_transporter_name": "Shipping company name",
+                            "modal_placeholder_shipping_method": "Select shipping method"
                         }
                     }
                 }
@@ -407,7 +404,7 @@
                     "modal_create_description": "To create a category level you must first insert a name and it's respective pairing code with every available channel. Make sure to full and check all the information, since the category levels cannot be deleted later.",
                     "modal_update_title": "Modify category",
                     "modal_create_title": "Create category",
-                    "lb_comission_form": "Comisión por defecto",
+                    "lb_comission_form": "Default commission value",
                     "lb_parent_name_category_form": "Parent category name",
                     "lb_id_vtex_form": "ID VTEX",
                     "lb_id_carulla_form": "ID Carulla",

@@ -65,10 +65,15 @@ export class LanguageService {
   getValue(key: string): string {
     const properties = key.split('.');
     const val = this.lenguage$.getValue();
-    const value = properties.reduce((past, current) => {
-      return past[current.trim()];
-    }, (val === 'Es' ? this.esData : this.enData));
-    return !!value ? value : key;
+    try {
+      const value = properties.reduce((past, current) => {
+        return past[current.trim()];
+      }, (val === 'Es' ? this.esData : this.enData));
+      return !!value ? value : key;
+    } catch {
+      console.trace();
+      console.log(key);
+    }
   }
 
   private setLanguageLocalSotrage(language: string) {

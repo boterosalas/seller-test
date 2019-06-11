@@ -28,7 +28,8 @@
         "export_excel": "Exportar a excel",
         "send_historical": "Enviar histórico",
         "send": "Enviar",
-        "save": "GUARDAR"
+        "save": "GUARDAR",
+        "create": "CREAR"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -146,16 +147,12 @@
                     },
                     "list_transporter": {
                         "title_component": "Transportadoras",
-                        "lb_table_name": "Nombre",
                         "lb_table_shipping_method": "Método de envío",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "No hay elementos creados."
                     },
                     "list_zones": {
                         "title_component": "Zonas",
-                        "lb_table_name": "Name",
-                        "txt_not_elements": "No hay elementos creados.",
-                        "btn_create": "Crear"
+                        "txt_not_elements": "No hay elementos creados."
                     },
                     "dialogs": {
                         "create": {
@@ -408,7 +405,7 @@
                     "modal_create_description": "Para crear una categoría debes ingresar su nombre y los códigos de homologación de cada uno de los canales. Asegúrate de diligenciar y revisar la información, ya que las categorías no se podrán eliminar posteriormente.",
                     "modal_update_title": "Modificar una categoría",
                     "modal_create_title": "Crear una categoría",
-                    "lb_comission_form": "Default commission value",
+                    "lb_comission_form": "Comisión por defecto",
                     "lb_parent_name_category_form": "Parent category name",
                     "lb_id_vtex_form": "VTEX ID",
                     "lb_id_carulla_form": "Carulla ID",
