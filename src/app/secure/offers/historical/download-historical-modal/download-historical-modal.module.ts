@@ -12,6 +12,7 @@ import { DownloadHistoricalService } from '@app/secure/offers/historical/downloa
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService } from '@app/shared';
 import { UserLoginService, EndpointService } from '@app/core';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { UserLoginService, EndpointService } from '@app/core';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule
   ],
   declarations: [
     DownloadHistoricalModalComponent

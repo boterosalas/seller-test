@@ -243,6 +243,13 @@
                         "subtitle_offert_list": "Listado de ofertas"
                     }
                 }
+            },
+            "bulk_upload": {
+                "bulk_upload": {
+                    "title_toolbar": "CARGA MASIVA DE OFERTAS",
+                    "download_format_offer": "DESCARGAR FORMATO",
+                    "upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR"
+                }
             }
         },
         "products": {
