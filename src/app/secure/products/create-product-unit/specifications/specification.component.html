@@ -1,5 +1,5 @@
 <p class="specification-text">
-  {{'secure.products.bulk_upload.text_must_specifications' | I18N | async}}
+  {{'secure.products.create_product_unit.specifications.text_must_specifications' | I18N | async}}
 </p>
 <div class="specification-container" *ngIf="chargeList">
   {{validForm(specsForm.invalid)}}
@@ -10,7 +10,7 @@
           [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
           {{specification.Name}}
           <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
-            {{'secure.products.bulk_upload.info' | I18N | async}}
+            {{'secure.products.create_product_unit.specifications.info' | I18N | async}}
           </mat-icon>
         </span>
         <button mat-icon-button (click)="toggleSpecification(specification, true)">
@@ -61,7 +61,7 @@
 
 <div fxLayout="row" class="new-specs-title" *ngIf="ShowSpecTitle" fxHide.xs>
   <p>
-    {{'secure.products.bulk_upload.specifications' | I18N | async}}
+    {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
   </p>
   <p>
     {{'shared.name' | I18N | async}}
@@ -71,7 +71,7 @@
 <div *ngFor="let spec of specificationListToAdd; let i = index">
   <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
     <p fxShow.xs fxShow="false">
-            {{'secure.products.bulk_upload.specifications' | I18N | async}}
+            {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
     </p>
     <span>
       {{spec.Name}}

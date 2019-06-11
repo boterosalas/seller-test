@@ -5,8 +5,8 @@
         <mat-icon matPrefix>list_alt</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.stock' | I18N | async" formControlName="Stock" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Stock').hasError('pattern')">{{'secure.products.bulk_upload.stock_invalid' | I18N | async}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Stock').hasError('required')">{{'secure.products.bulk_upload.stock_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Stock').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.stock_invalid' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Stock').hasError('required')">{{'secure.products.create_product_unit.offer_product.stock_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
@@ -14,10 +14,10 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.price' | I18N | async" formControlName="Price" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">{{'secure.products.bulk_upload.price_mandatoy' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">{{'secure.products.create_product_unit.offer_product.price_mandatoy' | I18N | async}}</mat-error>
         <mat-error *ngIf="ofertProduct.controls.Price.hasError('priceReal')">
-            {{'secure.products.bulk_upload.price_higher_product' | I18N | async}}
+            {{'secure.products.create_product_unit.offer_product.price_higher_product' | I18N | async}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -26,9 +26,9 @@
         <mat-icon matPrefix>attach_money</mat-icon>historical_admin
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | I18N | async" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | I18N | async}}</mat-error>
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">
-            {{'secure.products.bulk_upload.discount_price_higher' | I18N | async}}
+            {{'secure.products.create_product_unit.offer_product.discount_price_higher' | I18N | async}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -39,17 +39,17 @@
         <mat-icon matPrefix>local_shipping</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | I18N | async" formControlName="PromiseDelivery" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">{{'secure.products.bulk_upload.promise_invalid' | I18N | async}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.bulk_upload.promise_mandatoy' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.promise_invalid' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.create_product_unit.offer_product.promise_mandatoy' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput [placeholder]="'secure.products.bulk_upload.shipping_cost' | I18N | async" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
+        <input matInput [placeholder]="'secure.products.create_product_unit.offer_product.shipping_cost' | I18N | async" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.bulk_upload.shipping_cost_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.create_product_unit.offer_product.shipping_cost_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
@@ -57,8 +57,8 @@
         <mat-icon matPrefix>beenhere</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.warranty' | I18N | async" formControlName="Warranty" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('pattern')">{{'secure.products.bulk_upload.invalid_warranty' | I18N | async}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">{{'secure.products.bulk_upload.mandatory_warranty' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_warranty' | I18N | async}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_warranty' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -80,14 +80,14 @@
     <div style="width: 100%">
       <mat-radio-group formControlName="ofertOption">
         <mat-radio-button value="IsFreeShipping" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.free_shipping' | I18N | async}}</mat-radio-button>
-        <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.bulk_upload.envios_exito_indicator' | I18N | async}}</mat-radio-button>
+        <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.create_product_unit.offer_product.envios_exito_indicator' | I18N | async}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | I18N | async}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsLogisticsExito" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | I18N | async}}</mat-radio-button>
       </mat-radio-group>
     </div>
     <div style="padding-right: 100px;" *ngIf="false">
       <mat-slide-toggle formControlName="IsUpdatedStock">
-          {{'secure.products.bulk_upload.stock_update' | I18N | async}}
+          {{'secure.products.create_product_unit.offer_product.stock_update' | I18N | async}}
       </mat-slide-toggle>
     </div>
   </div>
@@ -106,8 +106,8 @@
                 <mat-icon matPrefix>attach_money</mat-icon>
                 <input (change)="getPriceDescount()" matInput [placeholder]="'secure.offers.historical_admin.historical_admin.price' | I18N | async" formControlName="ofertPriceComponet" [errorStateMatcher]="matcher">
                 <mat-hint></mat-hint>
-                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">{{'secure.products.bulk_upload.mandatory_price_ean_combo' | I18N | async}}</mat-error>
-                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">{{'secure.products.bulk_upload.invalid_price_ean_combo' | I18N | async}}</mat-error>
+                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_price_ean_combo' | I18N | async}}</mat-error>
+                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_price_ean_combo' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
             <div class="ofert-information">
@@ -115,8 +115,8 @@
                 <mat-icon matPrefix>add_shopping_cart</mat-icon>
                 <input (change)="getPriceDescount()" matInput placeholder="Cantidad en combo" (blur)="getVerifyPrice()" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
                 <mat-hint></mat-hint>
-                <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">{{'secure.products.bulk_upload.mandatory_amount_ean_combo' | I18N | async}}</mat-error>
-                <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')">{{'secure.products.bulk_upload.invalid_amount_ean_combo' | I18N | async}}</mat-error>
+                <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_amount_ean_combo' | I18N | async}}</mat-error>
+                <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_amount_ean_combo' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
           </ng-container>

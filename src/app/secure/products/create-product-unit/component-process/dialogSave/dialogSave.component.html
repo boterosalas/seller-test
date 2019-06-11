@@ -1,7 +1,7 @@
 <div *ngIf="response">
   <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="!response.response.data.error">
     <mat-icon mat-list-icon class="icon-color-succes">check</mat-icon>
-    {{'secure.products.bulk_upload.product_creation_request' | I18N | async}}
+    {{'secure.products.create_product_unit.component_process.dialog_save.product_creation_request' | I18N | async}}
   </h4>
 
   <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> Se {{response.errors > 1 ? 'han': 'ha' }} presentado
@@ -15,12 +15,12 @@
     <mat-list-item *ngFor="let item of response.response.productNotifyViewModel">
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
       <h4 matLine>EAN:{{item.ean}}{{item.Ean}}</h4>
-      <p matLine>{{'secure.products.bulk_upload.error_ocurred' | I18N | async}}: {{item.message}}{{item.Message}}</p>
+      <p matLine>{{'secure.products.create_product_unit.component_process.dialog_save.error_ocurred' | I18N | async}}: {{item.message}}{{item.Message}}</p>
     </mat-list-item>
   </mat-nav-list>
 </div>
 
 <mat-dialog-actions class="footer-Save">
-  <button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']">{{'secure.products.bulk_upload.home' | I18N | async}}</button>
-  <button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">{{'secure.products.bulk_upload.retry' | I18N | async}}</button>
+  <button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']">{{'secure.products.create_product_unit.component_process.dialog_save.home' | I18N | async}}</button>
+  <button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">{{'secure.products.create_product_unit.component_process.dialog_save.retry' | I18N | async}}</button>
 </mat-dialog-actions>

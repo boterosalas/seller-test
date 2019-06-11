@@ -1,6 +1,6 @@
 <div class="container-error" *ngIf="countErrors > 0">
   <div class="name-file-upload">
-    <p>{{'secure.products.bulk_upload.selected_file' | I18N | async}}: </p>
+    <p>{{'secure.products.table_errors_product.selected_file' | I18N | async}}: </p>
     <b>{{ fileName}}</b>
   </div>
   <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"
@@ -28,75 +28,75 @@
 
 
           <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.mandatory' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.mandatory' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.boolean' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.boolean' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.number_positive' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.number_positive' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormatProduct'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.tech_cloting' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.tech_cloting' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormatUnidad'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}}
-              #{{ item.columna }}#{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.gram_milili' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}#{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.gram_milili' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFortFact'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.errorneous_format' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.errorneous_format' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormat'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.errorneous_format' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.errorneous_format' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormatExtraField'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.input_option' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.errorneous_format' | I18N | async}}
+            {{'secure.products.table_errors_product.input_option' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.errorneous_format' | I18N | async}}
           </p>
 
           <p matLine *ngIf="item.type == 'EanComboRepeatError'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.bulk_upload.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.column' | I18N | async}} #{{ item.columna }}
-              #{{ item.columna }}</span> {{'secure.products.bulk_upload.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.bulk_upload.row' | I18N | async}} #{{item.fila}}</span>
-            {{'secure.products.bulk_upload.duplication_ean' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.duplication_ean' | I18N | async}}
           </p>
 
         </mat-list-item>

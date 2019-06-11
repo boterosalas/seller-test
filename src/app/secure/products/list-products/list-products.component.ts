@@ -253,7 +253,7 @@ export class ListProductsComponent implements OnInit {
                 if (final < inicial) {
                     fecha++;
                     if (showErrors) {
-                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.date_must_no_be_initial_date'), this.languageService.getValue('actions.close'), {
+                        this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -262,7 +262,7 @@ export class ListProductsComponent implements OnInit {
             } else {
                 fecha++;
                 if (showErrors) {
-                    this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.you_must_initial'), this.languageService.getValue('actions.close'), {
+                    this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                         duration: 3000,
                     });
                 }
@@ -277,7 +277,7 @@ export class ListProductsComponent implements OnInit {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     if (showErrors) {
-                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.you_must_initial'), this.languageService.getValue('actions.close'), {
+                        this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -287,7 +287,7 @@ export class ListProductsComponent implements OnInit {
                 fecha++;
                 if (showErrors) {
                     // alert('Debes igresar fecha inicial y final para realizar filtro');
-                    this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.you_must_initial'), this.languageService.getValue('actions.close'), {
+                    this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                         duration: 3000,
                     });
                 }
