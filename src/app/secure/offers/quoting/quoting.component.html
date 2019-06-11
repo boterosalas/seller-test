@@ -1,5 +1,5 @@
 <section id="app-quoting" class="flexbox flex-wrap">
-  <app-toolbar-tittle class="app-toolbar-title " [tittleBar]="'Ofertas'" [subtitleBar]="userRol"></app-toolbar-tittle>
+  <app-toolbar-tittle class="app-toolbar-title " [tittleBar]="'secure.offers.historical_admin.components.toolbar.title_offert' | I18N | async" [subtitleBar]="userRol"></app-toolbar-tittle>
 
   <article class="container-quoting" *ngIf="user?.sellerProfile === 'administrator'">
     <app-quoting-administrator></app-quoting-administrator>
