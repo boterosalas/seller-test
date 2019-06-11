@@ -9,7 +9,7 @@
         <div class="normal-theme toolbar-options-table">
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
             <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="sc-title title-toolbar" [innerHTML]="'CARGA MASIVA DE OFERTAS'"></h3>
+              class="sc-title title-toolbar">{{'secure.offers.bulk_upload.bulk_upload.title_toolbar' | I18N | async}}</h3>
           </div>
 
           <!-- Paginación de la tabla -->
@@ -21,14 +21,14 @@
               <a download class="sc-default-button" id="download-file-button"
                 (click)="downloadFormatMassiveOfferLoadInternational()" mat-button>
                 <mat-icon class="mat-18">file_download</mat-icon>
-                DOWNLOAD FORMAT
+                {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | I18N | async}}
               </a>
             </div>
             <!-- Input para subir archivo Excel -->
             <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()"
               mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
-              DESCARGAR FORMATO
+              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | I18N | async}}
             </a>
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
@@ -38,7 +38,7 @@
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
               mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
-              SELECCIONAR ARCHIVO PARA IMPORTAR
+              {{'secure.offers.bulk_upload.bulk_upload.upload_format' | I18N | async}}
             </button>
 
           </div>

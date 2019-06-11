@@ -258,6 +258,11 @@
                         "subtitle_offert_list": "Offer list"
                     }
                 }
+            },
+            "bulk_upload": {
+                "bulk_upload": {
+                    "title_toolbar": "BULK OFFER UPLOAD"
+                }
             }
         },
         "products": {
