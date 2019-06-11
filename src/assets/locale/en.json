@@ -71,7 +71,11 @@
         "error_price_discount-2": "PInvalid discount price, the value must be lower than the Price entered.",
         "format_invalidate": "Invalid format",
         "error_promise": "The delivery promise entered is invalid.",
+<<<<<<< HEAD
         "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)"
+=======
+        "error_product": "Invalid product."
+>>>>>>> 2804ba6c6daff3760750c5ee19459a3cbc4ef2a8
     },
     "filters": {
         "clear": "Clear",
@@ -187,7 +191,7 @@
             "historical_admin": {
                 "components": {
                     "filter": {
-                        "title": "Historic registry filter",
+                        "title": "Historic offer registry filter",
                         "tooltip_close": "Close",
                         "placeholder_initial_date": "Start date",
                         "placeholder_final_date": "Ending date",
@@ -239,9 +243,17 @@
                         "snackbar_currency": "The corrency has been changed to ",
                         "id_offer": "Offer ID: ",
                         "in_stock": "In stock: ",
-                        "business_days": "business_days",
+                        "business_days": "business days",
                         "months": "months",
                         "last_modify": "Last modify: "
+                    },
+                    "filter": {
+                        "title_filter_offer": "Offer filter",
+                        "placeholder_products": "Product"
+                    },
+                    "toolbar": {
+                        "page_products": "Products per page",
+                        "subtitle_offert_list": "Offer list"
                     }
                 }
             }
