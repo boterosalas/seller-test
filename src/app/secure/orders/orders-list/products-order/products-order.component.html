@@ -9,49 +9,49 @@
     </div>
     <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="265px" class="sc-text-normal">
       <div class="title-table-product">
-        <p>Producto</p>
+        <p>{{'secure.orders.order_list.product_detail.product' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
          class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>Costo</p>
+        <p>{{'secure.orders.order_list.product_detail.cost' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
          class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>Flete</p>
+        <p>{{'secure.orders.order_list.product_detail.freight' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p>Estado</p>
+        <p>{{'shared.status' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p>Guía</p>
+        <p>{{'secure.orders.order_list.product_detail.guide' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p>Transportadora</p>
+        <p>{{'secure.orders.order_list.product_order.conveyor' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p>Tipo entrega</p>
+        <p>{{'secure.orders.order_list.product_order.delivery_type' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p style="padding-left: 22px;">Acciones</p>
+        <p style="padding-left: 22px;">{{'shared.actions' | I18N | async}}</p>
       </div>
     </div>
     <!-- <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table sc-text-normal">
@@ -147,25 +147,25 @@
       <button id="dropdown-product-order-{{index}}" color="primary" class="button-toolbar" mat-button
               [matMenuTriggerFor]="orderOptions">
         <mat-icon>arrow_drop_down</mat-icon>
-        <span>Acciones</span>
+        <span>{{'shaerd.actions' | I18N | async}}</span>
       </button>
       <mat-menu #orderOptions="matMenu">
         <button id="print-product-detail-{{index}}" mat-menu-item>
           <mat-icon>print</mat-icon>
-          <span>Etiqueta</span>
+          <span>{{'actions.label' | I18N | async}}</span>
         </button>
         <button id="send-product-inDetail-{{index}}"
                 *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
                 (click)="openDialogSendOrder(order,true)" mat-menu-item>
           <mat-icon>local_shipping</mat-icon>
-          <span>Enviar</span>
+          <span>{{'actions.send' | I18N | async}}</span>
         </button>
 
         <button id="dropdown-product-viewDetail-{{index}}" (click)="openModalDetailProduct(product)" fxShow.xs="true"
                 fxShow.sm="true"
                 fxShow.gt-lg="false" fxShow="false" mat-menu-item>
           <mat-icon>more_vert</mat-icon>
-          <span>Ver detalle</span>
+          <span>{{'actions.show_detail' | I18N | async}}</span>
         </button>
       </mat-menu>
     </div>
@@ -184,7 +184,7 @@
       <div>
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
-                fxHide.xl="true">Costo:</span>
+                fxHide.xl="true">{{'secure.orders.order_list.product_detail.cost' | I18N | async}}:</span>
           <strong class="sc-text-normal">${{order.costTotalOrder | number}}</strong>
         </p>
       </div>
@@ -194,7 +194,7 @@
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
                 fxHide.xl="true">
-            Flete:</span>
+                {{'secure.orders.order_list.product_detail.freight' | I18N | async}}:</span>
           <strong class="sc-text-normal">${{order.costTotalShipping | number}}</strong>
         </p>
       </div>
@@ -205,7 +205,7 @@
       <div>
         <button id="send-from-product-order-{{order.orderNumber}}" (click)="openDialogSendOrder(order)"
                 [disabled]="!order.sendAllProduct"
-                class="full-button sc-default-button sc-button" mat-raised-button color="accent">Enviar todo
+                class="full-button sc-default-button sc-button" mat-raised-button color="accent">{{'actions.send_all' | I18N | async}}
         </button>
       </div>
     </div>

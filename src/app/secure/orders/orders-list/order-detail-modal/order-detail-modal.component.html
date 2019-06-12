@@ -1,6 +1,6 @@
 <div class="container-product-list">
   <div class="title-page">
-    <span class="sc-title">Orden: {{order.orderNumber}}
+    <span class="sc-title">{{'secure.orders.order' | I18N | async}}: {{order.orderNumber}}
     </span>
     <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
@@ -8,7 +8,7 @@
   </div>
   <mat-list class="card-info" fxFlex="100">
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Orden
+      <h4 mat-line>{{'secure.orders.order' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.orderNumber}}</p>
       </h4>
 
@@ -16,14 +16,14 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Fecha de pedido
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_date' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.dateOrder | date}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Fecha maxima de entrega
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.deadline' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.dateMaxDeliveryOrder | date}}</p>
       </h4>
 
@@ -31,7 +31,7 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Estado
+      <h4 mat-line>{{'shared.status' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.statusOrder}}</p>
       </h4>
 
@@ -39,14 +39,14 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Canal
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.channel' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.channel}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Tipo de orden
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_type' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.typeDespatchOrder}}</p>
       </h4>
     </mat-list-item>

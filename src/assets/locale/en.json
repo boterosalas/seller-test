@@ -37,7 +37,11 @@
         "create": "CREATE",
         "download": "Download",
         "enable": "Enable",
-        "disable": "Disable"
+        "disable": "Disable",
+        "all_download": "All download",
+        "label": "Label",
+        "show_detail": "Show detail",
+        "send_all": "Send all"
     },
     "errors": {
         "required": "Field required",
@@ -86,6 +90,43 @@
         "filter": "Filter"
     },
     "secure": {
+        "client_information": {
+            "client": "Client",
+            "address": "Address",
+            "phone": "Phone number"
+        },
+        "orders": {
+            "orders": "Orders",
+            "order": "Order",
+            "billing_orders": {
+                "subtitle_toolbar": "Search for an invoice",
+                "txt_serch_order": "Enter order number",
+                "txt_no_order": "Enter the order number in the search bar to find a specific invoice",
+                "txt_no_invoices": "There are no invoices associated with this order number",
+                "must_enter_order": "You must enter an order number to see the invoices associated"
+            },
+            "order_list": {
+                "detail_modal": {
+                    "order_date": "Order date",
+                    "deadline": "Maximum delivery date",
+                    "order_type": "Order type",
+                    "channel": "Channel"
+                },
+                "order_page": {
+
+                },
+                "product_detail": {
+                    "product": "Product",
+                    "cost": "Cost",
+                    "freight": "Freight",
+                    "guide": "Guide"
+                },
+                "product_order": {
+                    "conveyor": "Conveyor",
+                    "delivery_type": "Delivery type"
+                }
+            }
+        },
         "seller": {
             "list": {
                 "enabled_title_modal": "Enable user",
