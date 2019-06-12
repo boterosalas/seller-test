@@ -2,7 +2,7 @@
   <mat-icon class="material-icons">
     arrow_back
   </mat-icon>
-  Volver
+  {{'secure.products.create_product_unit.list_products.combo_product.back' | I18N | async}}
 </button>
 
 <div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
@@ -19,12 +19,12 @@
           <p class="name">{{products.name}}</p>
         </div>
         <mat-card-footer class="mfooter">
-            <p> Fecha de creación: {{products.createdDate}}</p>
-            <p> Fecha de modificación: {{products.updatedDate}}</p>
+            <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | I18N | async}}: {{products.createdDate}}</p>
+            <p>{{'secure.products.create_product_unit.list_products.combo_product.modification_date' | I18N | async}}: {{products.updatedDate}}</p>
         </mat-card-footer>
       </mat-card-content>
       <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== '0.00'">
-        <p> Mejor oferta</p>
+        <p>{{'secure.products.create_product_unit.list_products.combo_product.best_offer' | I18N | async}}: </p>
         <p [innerHTML]="products.bestOffer | currency: '$' : 'symbol' : '1.2-2'"> </p>
       </div>
     </mat-card>

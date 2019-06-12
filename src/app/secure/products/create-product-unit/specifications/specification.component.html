@@ -1,55 +1,52 @@
 <p class="specification-text">
-    En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás
-    las especificaciones que consideramos importantes para el tipo específico de producto, si tu tipo de producto no
-    está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de
-    "Todas las especificaciones"
+  {{'secure.products.create_product_unit.specifications.text_must_specifications' | I18N | async}}
 </p>
 <div class="specification-container" *ngIf="chargeList">
-    {{validForm(specsForm.invalid)}}
-    <form name="specsForm" #specsForm="ngForm">
-        <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-                <span class="specification-name" matTooltip="Este grupo posee especificaciones obligatorias" [ngClass]="{'label-black': specification.Show}"
-                    fxLayout="row" fxLayoutAlign="start center">
-                    {{specification.Name}}
-                    <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
-                        info
-                    </mat-icon>
-                </span>
-                <button mat-icon-button (click)="toggleSpecification(specification, true)">
-                    <mat-icon class="material-icons" *ngIf="!specification.Show">
-                        keyboard_arrow_down
-                    </mat-icon>
-                    <mat-icon class="material-icons" *ngIf="specification.Show">
-                        keyboard_arrow_up
-                    </mat-icon>
-                </button>
-            </div>
-            <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
-                <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
-                    <mat-form-field *ngIf="!spec.List.length" class="specification-input">
-                        <input [required]="spec.Required" matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
-                            name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)"
-                            pattern="^[\w\W\s\d]{1,200}$">
-                        <mat-error>
-                            {{showError(e, specsForm)}}
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field *ngIf="spec.List.length" class="specification-input">
-                        <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}"
-                            id="specs{{e}}" name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
-                            <mat-option *ngFor="let item of spec.List" [value]="item">
-                                {{item}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error>
-                            {{showError(e, specsForm)}}
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
+  {{validForm(specsForm.invalid)}}
+  <form name="specsForm" #specsForm="ngForm">
+    <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
+        <span class="specification-name" matTooltip="Este grupo posee especificaciones obligatorias"
+          [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
+          {{specification.Name}}
+          <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
+            {{'secure.products.create_product_unit.specifications.info' | I18N | async}}
+          </mat-icon>
+        </span>
+        <button mat-icon-button (click)="toggleSpecification(specification, true)">
+          <mat-icon class="material-icons" *ngIf="!specification.Show">
+            keyboard_arrow_down
+          </mat-icon>
+          <mat-icon class="material-icons" *ngIf="specification.Show">
+            keyboard_arrow_up
+          </mat-icon>
+        </button>
+      </div>
+      <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
+        <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
+          <mat-form-field *ngIf="!spec.List.length" class="specification-input">
+            <input [required]="spec.Required" matInput placeholder="{{spec.Name}}"
+              (keyup.enter)="specificationChange(spec, i, e)" name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value"
+              (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
+            <mat-error>
+              {{showError(e, specsForm)}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field *ngIf="spec.List.length" class="specification-input">
+            <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}" id="specs{{e}}"
+              name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
+              <mat-option *ngFor="let item of spec.List" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              {{showError(e, specsForm)}}
+            </mat-error>
+          </mat-form-field>
         </div>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>
 
 <!-- <div id="specification-create" class="specification-create" fxLayout="row" fxLayoutAlign="space-between center">
@@ -63,44 +60,44 @@
 </div> -->
 
 <div fxLayout="row" class="new-specs-title" *ngIf="ShowSpecTitle" fxHide.xs>
-    <p>
-        Especificaciones
-    </p>
-    <p>
-        Nombre
-    </p>
+  <p>
+    {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
+  </p>
+  <p>
+    {{'shared.name' | I18N | async}}
+  </p>
 </div>
 
 <div *ngFor="let spec of specificationListToAdd; let i = index">
-    <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
-        <p fxShow.xs fxShow="false">
-            Especificaciones
-        </p>
+  <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
+    <p fxShow.xs fxShow="false">
+            {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
+    </p>
+    <span>
+      {{spec.Name}}
+    </span>
+    <span fxHide.xs>
+      {{spec.Value}}
+    </span>
+    <button mat-icon-button (click)="removeSpecification(i)" fxHide.xs>
+      <mat-icon class="material-icons">
+        delete
+      </mat-icon>
+    </button>
+    <div fxShow.xs fxShow="false" fxLayout="column">
+      <p>
+        {{spec.Name}}
+      </p>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
         <span>
-            {{spec.Name}}
+          {{spec.Value}}
         </span>
-        <span fxHide.xs>
-            {{spec.Value}}
-        </span>
-        <button mat-icon-button (click)="removeSpecification(i)" fxHide.xs>
-            <mat-icon class="material-icons">
-                delete
-            </mat-icon>
+        <button mat-icon-button (click)="removeSpecification(i)">
+          <mat-icon class="material-icons">
+            delete
+          </mat-icon>
         </button>
-        <div fxShow.xs fxShow="false" fxLayout="column">
-            <p>
-                Nombre
-            </p>
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <span>
-                    {{spec.Value}}
-                </span>
-                <button mat-icon-button (click)="removeSpecification(i)">
-                    <mat-icon class="material-icons">
-                        delete
-                    </mat-icon>
-                </button>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

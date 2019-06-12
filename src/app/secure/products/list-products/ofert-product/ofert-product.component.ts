@@ -10,6 +10,7 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { LanguageService } from '@app/core/translate/language.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -48,6 +49,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
 
     constructor(
+        private languageService: LanguageService,
         public SUPPORT: SupportService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
@@ -178,7 +180,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
         if (total <= 8000 && this.ofertProduct.value.Currency === 'COP') {
-            this.snackBar.open('El precio no debe ser menor que 8000', 'Cerrar', {
+            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_must_less'), this.languageService.getValue('actions.close'), {
                 duration: 3000,
             });
         }
@@ -198,13 +200,13 @@ export class OfertExpandedProductComponent implements OnInit {
                 errors = false;
                 if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                     if (showErrors) {
-                        this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
+                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_lower_discount'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
                 } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                     if (showErrors) {
-                        this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
+                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -214,13 +216,13 @@ export class OfertExpandedProductComponent implements OnInit {
                     errors = false;
                     if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                         if (showErrors) {
-                            this.snackBar.open('El precio no debe ser menor o igual que el precio con descuento', 'Cerrar', {
+                            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_lower_discount'), this.languageService.getValue('actions.close'), {
                                 duration: 3000,
                             });
                         }
                     } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                         if (showErrors) {
-                            this.snackBar.open('El precio con descuento debe ser igual a la suma de los combos', 'Cerrar', {
+                            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.getValue('actions.close'), {
                                 duration: 3000,
                             });
                         }
@@ -326,7 +328,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.bulkLoadService.setOffers(aryOfAry).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
-                    this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
+                    this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.offer_has_been_correctly'), this.languageService.getValue('actions.close'), {
                         duration: 3000,
                     });
                     this.loadingService.closeSpinner();
@@ -336,7 +338,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     // window.location.reload();
 
                 } else {
-                    log.error('Error al intentar aplicar una oferta');
+                    log.error(this.languageService.getValue('secure.products.bulk_upload.error_trying_apply_offer'));
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
@@ -360,7 +362,7 @@ export class OfertExpandedProductComponent implements OnInit {
             this.showButton = true;
         } else if (this.applyOffer.eanesCombos.length !== 0 && ((!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))))) {
             this.showButton = true;
-            this.snackBar.open('El precio debe ser igual a la suma de los combos sino existe precio con descuento.', 'Cerrar', {
+            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_must_equal_combos'), this.languageService.getValue('actions.close'), {
                 duration: 3000,
             });
         } else {
@@ -431,7 +433,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.Price.reset('');
         this.ofertProduct.controls.DiscountPrice.reset('');
         this.ofertProduct.controls.IsFreightCalculator.reset('');
-        this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+        this.snackBar.open( this.languageService.getValue('secure.products.bulk_upload.changed_currency') + '(' + event + ')', this.languageService.getValue('actions.close'), {
             duration: 3000,
         });
 

@@ -17,7 +17,7 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
   // Configuración del componente 'bulk-load'.
   config: Partial<ConfigBulkLoad> = {
     title: 'VALIDACIÓN DE PRODUCTOS'
-    // title: this.languageService.getValue('secure.seller.list.product_validation')
+    // title: this.languageService.getValue('secure.products.bulk_upload.product_validation')
   };
   // Referencia de la modal
   dialogRef: MatDialogRef<SendModerationFormatModalComponent>;

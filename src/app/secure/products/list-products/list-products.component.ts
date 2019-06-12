@@ -7,6 +7,7 @@ import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar } from '@an
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
+import { LanguageService } from '@app/core/translate/language.service';
 
 import { ReturnStatement } from '@angular/compiler';
 import { MenuModel, listProductsName, readFunctionality, offerFuncionality } from '@app/secure/auth/auth.consts';
@@ -76,14 +77,14 @@ export class ListProductsComponent implements OnInit {
     offerPermission = false;
 
     constructor(
+        private languageService: LanguageService,
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
         private modalService?: ModalService,
         private fb?: FormBuilder,
         public SUPPORT?: SupportService,
         public snackBar?: MatSnackBar,
-        public authService?: AuthService
-
+        public authService?: AuthService,
     ) { }
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
@@ -252,7 +253,7 @@ export class ListProductsComponent implements OnInit {
                 if (final < inicial) {
                     fecha++;
                     if (showErrors) {
-                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -261,7 +262,7 @@ export class ListProductsComponent implements OnInit {
             } else {
                 fecha++;
                 if (showErrors) {
-                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                         duration: 3000,
                     });
                 }
@@ -276,7 +277,7 @@ export class ListProductsComponent implements OnInit {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     if (showErrors) {
-                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -286,7 +287,7 @@ export class ListProductsComponent implements OnInit {
                 fecha++;
                 if (showErrors) {
                     // alert('Debes igresar fecha inicial y final para realizar filtro');
-                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    this.snackBar.open(this.languageService.getValue('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.getValue('actions.close'), {
                         duration: 3000,
                     });
                 }

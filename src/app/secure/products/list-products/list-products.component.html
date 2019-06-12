@@ -3,8 +3,8 @@
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>Filtro productos</h3>
-        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+        <h3>{{'secure.products.create_product_unit.list_products.product_filter' | I18N | async}}</h3>
+        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | I18N | async" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
           <mat-icon>clear</mat-icon>
         </button>
@@ -12,9 +12,11 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="Nombre de producto" formControlName="productName" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'secure.products.create_product_unit.list_products.product_name' | I18N | async" formControlName="productName" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')" [innerHTML]="'Nombre de producto invalido'"></mat-error>
+          <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')">
+              {{'secure.products.create_product_unit.list_products.product_name_invalid' | I18N | async}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
           <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
@@ -25,11 +27,11 @@
         <div>
           <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row" fxLayoutAlign="space-between center"
             fxLayout.xs="column" fxLayoutAlign.xs="space-between" class="radioDate" (change)="changeDates()">
-            <mat-radio-button value="createDate">Fecha de creación</mat-radio-button>
-            <mat-radio-button value="updateDate">Fecha de modificación</mat-radio-button>
+            <mat-radio-button value="createDate">{{'secure.products.create_product_unit.list_products.creation_date' | I18N | async}}</mat-radio-button>
+            <mat-radio-button value="updateDate">{{'secure.products.create_product_unit.list_products.modification_date' | I18N | async}}</mat-radio-button>
           </mat-radio-group>
           <mat-error *ngIf="filterProduts.controls.creationDate.hasError('date')">
-            La fecha final NO debe ser menor a la fecha inicial.
+              {{'secure.products.create_product_unit.list_products.ending_date' | I18N | async}}
           </mat-error>
         </div>
         <div *ngIf="optionDates">
@@ -50,9 +52,9 @@
 
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'" (click)="cleanAllFilter()"></button>
+          <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | I18N | async}} </button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" (click)="filterApply(drawer)"></button>
+          <button mat-flat-button color="primary" type="submit" (click)="filterApply(drawer)">{{'filters.filter' | I18N | async}}</button>
         </div>
       </div>
     </form>
@@ -63,12 +65,12 @@
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow [fxShow.xs]="false">
-          Productos
-          <small class="sub-title">| Listado de productos</small>
+            {{'secure.products.bulk_upload.title_module' | I18N | async}}
+          <small class="sub-title">| {{'secure.products.create_product_unit.list_products.list_products_view' | I18N | async}}</small>
         </p>
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-          Listado de productos
+            {{'secure.products.create_product_unit.list_products.list_products_view' | I18N | async}}
         </p>
         <div class="hide-page">
           <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
@@ -76,7 +78,7 @@
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
-        <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        <small class="sub-title-filter" >{{'filters.filter' | I18N | async}}</small>
       </button>
     </mat-toolbar>
   </div>
@@ -99,7 +101,7 @@
           <mat-icon class="mat-18">layers_clear</mat-icon>
         </div>
         <label class="icon-face-text">
-          No hay productos cargados
+            {{'secure.products.create_product_unit.list_products.are_no_uploades_products' | I18N | async}}
         </label>
       </div>
     </div>

@@ -3,15 +3,15 @@
         <div></div>
         <div>
             <div *ngIf="selectedCategory">
-                Usted seleccionó: <strong [innerHTML]="selectedCategory"></strong>
+                    {{'secure.products.create_product_unit.categorization.list.you_selected' | I18N | async}}:  <strong [innerHTML]="selectedCategory"></strong>
             </div>
         </div>
         <button mat-button (click)="openAll()">
             <span *ngIf="!openAllItems">
-                EXPANDIR
+                    {{'secure.products.create_product_unit.categorization.list.expand' | I18N | async}}
             </span>
             <span *ngIf="openAllItems">
-                COLAPSAR
+                    {{'secure.products.create_product_unit.categorization.list.colapse' | I18N | async}}
             </span>
         </button>
     </div>

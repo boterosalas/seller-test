@@ -1,6 +1,6 @@
 <!-- FORM CONTAINER -->
 <div fxFlex="100" fxLayout="column" class="basic-info-container" *ngIf="formCreate" id="textCreateBasicInfo">
-  <p>{{'secure.products.bulk_upload.basic_product_information' | I18N | async}}</p>
+  <p>{{'secure.products.create_product_unit.basic_information.basic_product_information' | I18N | async}}</p>
   <!-- BASIC INFORMATION FORM-->
   <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
 
@@ -9,8 +9,8 @@
       <mat-form-field class="name-product field">
         <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name" (change)="detectForm()"
           id="nameProduct" autofocus required>
-        <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="category-product field">
@@ -24,8 +24,8 @@
       <mat-form-field class="brand-product field">
         <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand" (change)="detectForm()"
           id="brandProduct">
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.bulk_upload.brand_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
 
       <!-- <mat-form-field class="field">
@@ -41,8 +41,8 @@
       <mat-form-field class="model-product field">
         <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model" (change)="detectForm()"
           id="modelProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('Model').hasError('pattern')">{{'secure.products.bulk_upload.model_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Model').hasError('required') && formBasicInfo.get('Model').touched">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.model_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('required') && formBasicInfo.get('Model').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
 
@@ -51,12 +51,12 @@
       <mat-form-field class="detail-product field">
         <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail" (change)="detectForm()"
           id="detailProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('pattern')">{{'secure.products.bulk_upload.detail_invalidate' | I18N | async}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.detail_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
 
       <div class="shipping-product field">
-        <label class="label-shipping">{{'secure.products.bulk_upload.shipping_size' | I18N | async}}</label>
+        <label class="label-shipping">{{'secure.products.create_product_unit.basic_information.shipping_size' | I18N | async}}</label>
         <mat-slider min="1" max="5" tickInterval="true" class="shipping-slider" (change)="detectForm()" formControlName="shippingSize"
           id="shippingProduct"></mat-slider>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
@@ -73,34 +73,34 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
       class="container-sub-forms">
       <div class="sub-form" formGroupName="packing">
-        <label class="label-shipping">{{'secure.products.bulk_upload.packaging' | I18N | async}} </label>
+        <label class="label-shipping">{{'secure.products.create_product_unit.basic_information.packaging' | I18N | async}} </label>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
               <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking" (change)="detectForm()"
                 id="highPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}} </mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}} </mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
               <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking" (change)="detectForm()"
                 id="longPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
             </mat-form-field>
           </div>
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
               <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking" (change)="detectForm()"
                 id="widthPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
               <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking" (change)="detectForm()"
                 id="weightPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
 
             </mat-form-field>
           </div>
@@ -113,14 +113,14 @@
             <mat-form-field class="packing-field">
               <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct" (change)="detectForm()"
                 id="highProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
               <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct" (change)="detectForm()"
                 id="longProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
 
             </mat-form-field>
           </div>
@@ -128,15 +128,15 @@
             <mat-form-field class="packing-field">
               <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct" (change)="detectForm()"
                 id="widthProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
 
             </mat-form-field>
             <mat-form-field class="packing-field">
               <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct" (change)="detectForm()"
                 id="weightProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">{{'secure.products.bulk_upload.dimension_invalid' | I18N | async}}</mat-error>
-                <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | I18N | async}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
 
             </mat-form-field>
           </div>
@@ -153,21 +153,21 @@
           </mat-option>
         </mat-select>
         
-        <mat-error *ngIf="formBasicInfo.get('MeasurementUnit').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('MeasurementUnit').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="field">
         <input matInput placeholder="Factor de conversión" class="input-packing-width" formControlName="ConversionFactor"
           (change)="detectForm()" id="conversionFactorProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | I18N | async}}</mat-error>
       </mat-form-field>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column" style="width: 100%;">
       <angular-editor formControlName="Description" id="Description" [config]="config" style="width: 100%;" (change)="detectForm()" required></angular-editor>
-      <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
-      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">{{'secure.products.bulk_upload.format_invalidate' | I18N | async}}</mat-error>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | I18N | async}}</mat-error>
     </div>
 
     <mat-form-field class="keyword-field">
@@ -175,7 +175,7 @@
         <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
           add_circle_outline
         </mat-icon>
-        <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</div>
+        <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</div>
       </mat-form-field>
   </form>
 
@@ -205,7 +205,7 @@
       <mat-icon class="material-icons">
         add_circle_outline
       </mat-icon>
-      <span>{{'secure.products.bulk_upload.add_variation' | I18N | async}}</span>
+      <span>{{'secure.products.create_product_unit.basic_information.add_variation' | I18N | async}}</span>
     </button>
   </div>
 
@@ -213,7 +213,7 @@
   <div *ngFor="let son of sonList; let i = index" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="border-bottom-gray">
       <label>
-          {{'secure.products.bulk_upload.add_variation' | I18N | async}} {{i+1}}
+          {{'secure.products.create_product_unit.basic_information.add_variation' | I18N | async}} {{i+1}}
       </label>
       <button mat-icon-button (click)="toggleSon(son)">
         <mat-icon class="material-icons" *ngIf="son.Show">
@@ -228,7 +228,7 @@
     <div *ngIf="son.Show" class="son-container">
 
       <div class="text-right">
-        <button mat-icon-button [matTooltip]="'secure.products.bulk_upload.delete_variation'" (click)="deleteSon(i)">
+        <button mat-icon-button [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
           <mat-icon class="material-icons">
             delete
           </mat-icon>
@@ -245,22 +245,22 @@
             <mat-form-field id="inputValidEanSon">
               <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean" (blur)="validateEanSon()"
                 (change)="detectForm()" id="validateEanSonProduct">
-              <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">{{'secure.products.bulk_upload.ean_invalida' | I18N | async}}</mat-error>
+              <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.ean_invalida' | I18N | async}}</mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
-                  {{'secure.products.bulk_upload.ean_invalida_multioffer' | I18N | async}}</mat-error>
-              <mat-error *ngIf="son.form.get('Ean').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+                  {{'secure.products.create_product_unit.basic_information.ean_invalida_multioffer' | I18N | async}}</mat-error>
+              <mat-error *ngIf="son.form.get('Ean').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
             </mat-form-field>
             <div class="distanceComponetInt">
               <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon" (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
-                formControlName="associateEanSon" id="associateEanSon">{{'secure.products.bulk_upload.dont_have_ean' | I18N | async}}</mat-checkbox>
+                formControlName="associateEanSon" id="associateEanSon">{{'secure.products.create_product_unit.basic_information.dont_have_ean' | I18N | async}}</mat-checkbox>
             </div>
           </div>
 
           <mat-form-field class="category-product field">
             <input matInput placeholder="Ingresa la talla" class="input-category-product" formControlName="Size"
               (change)="detectForm()" id="sizeProduct">
-            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">{{'secure.products.bulk_upload.size_invalid' | I18N | async}}</mat-error>
-            <mat-error *ngIf="son.form.get('Size').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.size_invalid' | I18N | async}}</mat-error>
+            <mat-error *ngIf="son.form.get('Size').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
           </mat-form-field>
         </div>
 
@@ -293,14 +293,14 @@
               (colorPickerChange)="detectForm()" [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
               palette
             </mat-icon>
-            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</div>
+            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</div>
           </mat-form-field>
         </div>
 
         <mat-form-field class="category-product field">
           <input matInput placeholder="Nombre específico de color" formControlName="HexColorCodeName" (change)="detectForm()" id="hexColorNameProduct">
-          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">{{'secure.products.bulk_upload.specific_name_invalid' | I18N | async}}</mat-error>
-          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">{{'secure.products.bulk_upload.input_mandatory' | I18N | async}}</mat-error>
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.specific_name_invalid' | I18N | async}}</mat-error>
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
         </mat-form-field>
 
       </form>
