@@ -36,7 +36,11 @@
         "create": "CREAR",
         "download": "Descargar",
         "enable": "Activar",
-        "disable": "Desactivar"
+        "disable": "Desactivar",
+        "all_download": "Descargar todas",
+        "label": "Etiqueta",
+        "show_detail": "Ver detalle",
+        "send_all": "Enviar todo"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -85,6 +89,43 @@
         "filter": "Filtrar"
     },
     "secure": {
+        "client_information": {
+            "client": "Cliente",
+            "address": "Dirección",
+            "phone": "Teléfono"
+        },
+        "orders": {
+            "orders": "Órdenes",
+            "order": "Order",
+            "billing_orders": {
+                "subtitle_toolbar": "Buscar factura",
+                "txt_serch_order": "Ingrese número de orden",
+                "txt_no_order": "Ingresa el número de orden en la barra de búsqueda para encontrar una factura específica.",
+                "txt_no_invoices": "No hay facturas asociados a esta orden.",
+                "must_enter_order": "Debes de ingresar un número de orden para visualizar las facturas"
+            },
+            "order_list": {
+                "detail_modal": {
+                    "order_date": "Fecha de pedido",
+                    "deadline": "Fecha maxima de entrega",
+                    "order_type": "Tipo de orden",
+                    "channel": "Canal"
+                },
+                "order_page": {
+
+                },
+                "product_detail": {
+                    "product": "Producto",
+                    "cost": "Costo",
+                    "freight": "Flete",
+                    "guide": "Guía"
+                },
+                "product_order": {
+                    "conveyor": "Transportadora",
+                    "delivery_type": "Tipo de entrega"
+                }
+            }
+        },
         "seller": {
             "list": {
                 "enabled_title_modal": "Activación",
