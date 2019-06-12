@@ -398,7 +398,7 @@ export class ManageSellerComponent implements OnInit {
       values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
       values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
-      values.Policy = this.validateFormRegister.controls.Policy;
+      values.Policy = this.validateFormRegister.controls.Policy.value;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
