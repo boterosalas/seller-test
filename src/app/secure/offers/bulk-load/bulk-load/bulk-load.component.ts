@@ -12,6 +12,7 @@ import { FinishUploadInformationComponent } from '../finish-upload-information/f
 import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
+import { LanguageService } from '@app/core/translate/language.service';
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
@@ -20,7 +21,7 @@ export const OFFERS_HEADERS_PRECIO = 'Precio';
 export const OFFERS_HEADERS_PRICE = 'Price';
 export const OFFERS_HEADERS_PRECIO_DESCUENTO = 'Precio con Descuento';
 export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discount Price';
-export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio' ;
+export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio';
 export const OFFERS_HEADERS_SHIPPING = 'Shipping Cost';
 export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
 export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
@@ -132,7 +133,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private languageService: LanguageService,
+
 
   ) {
     this.user = {};
@@ -237,7 +240,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.error_has_uploading'), this.languageService.getValue('actions.accpet_min'), 4000);
     });
   }
 
@@ -252,7 +255,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       let contEmptyRow = 0;
       this.EanArray = [];
 
-      for (let i = 0; i < res[0].length; i ++) {
+      for (let i = 0; i < res[0].length; i++) {
         res[0][i] = res[0][i].toString().trim();
       }
 
@@ -297,7 +300,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] ===  OFFERS_HEADERS_PRECIO_DESCUENTO ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO ||
             res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }
@@ -346,7 +349,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
       if (this.arrayNecessaryData.length === 1) {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), this.languageService.getValue('actions.accpet_min'), 10000);
       } else {
 
         if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock')) &&
@@ -372,19 +375,19 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
-              .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
+              .openSnackBar(this.languageService.getValue('secure.offers.bulk_upload.bulk_upload.exceeds_limits'), this.languageService.getValue('actions.accpet_min'), 10000);
           } else {
             this.fileName = file.target.files[0].name;
             this.createTable(this.arrayNecessaryData, iVal, numCol);
           }
         } else {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), this.languageService.getValue('actions.accpet_min'), 10000);
         }
       }
     } else {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), this.languageService.getValue('actions.accpet_min'), 10000);
     }
   }
 
@@ -426,7 +429,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         try {
           element.totalPrice += (parseFloat(price) * parseFloat(cantidadCombo));
         } catch (e) {
-          console.error('El precio del producto no es un numero', e);
+          console.error(this.languageService.getValue('secure.offers.bulk_upload.bulk_upload.no_number'), e);
         }
       }
       // si viene vacio o alguna letra lo convierte a numero 0 para queno explote.

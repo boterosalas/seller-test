@@ -9,7 +9,8 @@
         <div class="normal-theme toolbar-options-table">
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
             <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="sc-title title-toolbar">{{'secure.offers.bulk_upload.bulk_upload.title_toolbar' | I18N | async}}</h3>
+              class="sc-title title-toolbar">{{'secure.offers.bulk_upload.bulk_upload.title_toolbar' | I18N | async}}
+            </h3>
           </div>
 
           <!-- Paginación de la tabla -->
@@ -47,21 +48,22 @@
             class="center-product-list" fxFlex="130px">
             <button id="dropdown-options-load-guide" class="button-toolbar" mat-button
               [matMenuTriggerFor]="toolbarOptions">
-              <span>Opciones</span>
+              <span>{{'actions.options' | I18N | async}}</span>
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu dense #toolbarOptions="matMenu">
               <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
-                <span>Cargar archivo</span>
+                <span>{{'secure.products.bulk_upload.upload_file' | I18N | async}}</span>
               </button>
               <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
-                Descargar Formato</a>
+                {{'secure.products.bulk_upload.download_format' | I18N | async}}</a>
               <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
                 mat-menu-item>
-                <span>Limpiar datos actuales</span>
+                <span>{{'secure.products.bulk_upload.clear_current_data' | I18N | async}}</span>
               </button>
               <button id="send-guide-button" (click)="sendJsonInformation()"
-                [disabled]="countErrors != 0 || countRowUpload == 0" color="accent" mat-menu-item>Enviar registro
+                [disabled]="countErrors != 0 || countRowUpload == 0" color="accent"
+                mat-menu-item>{{'secure.products.bulk_upload.send_data' | I18N | async}}
               </button>
             </mat-menu>
           </div>
@@ -99,14 +101,15 @@
         </mat-icon>
       </div>
       <div class="content-information-no-data">
-        <p>Para importar archivos al Seller Center, primero debes
+        <p>{{'secure.products.bulk_upload.text_step_import' | I18N | async}}
           <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
-            class="link-text">Descargar el formato
-          </a>, en este archivo podrás cargar ofertas
+            class="link-text">{{'secure.products.bulk_upload.download_the_format' | I18N | async}}
+          </a>, {{'secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer' | I18N | async}}
         </p>
         <p>
-          <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()">Selecciona el
-            archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.</p>
+          <span class="link-text" id="upload-file-guide-button"
+            (click)="fileUploadOption.click()">{{'secure.products.bulk_upload.text_select_import' | I18N | async}}</span>
+          {{'secure.products.bulk_upload.text_select_import_type' | I18N | async}}</p>
       </div>
     </div>
   </div>
@@ -120,7 +123,8 @@
         <mat-list-item *ngFor="let item of ListError">
           <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
           <h4 matLine>{{item.NAME === null ? ('EAN : ' + item.EAN) : ('Nombre del producto: ' + item.NAME)}}</h4>
-          <p matLine>Error presentado: Producto {{item.EAN}} no indexado, por favor intentar más tarde. </p>
+          <p matLine>{{'secure.offers.bulk_upload.bulk_upload.list_error' | I18N | async}} {{item.EAN}}
+            {{'secure.offers.bulk_upload.bulk_upload.list_error_2' | I18N | async}} </p>
         </mat-list-item>
       </mat-nav-list>
     </div>

@@ -26,6 +26,7 @@
         "cancel": "CANCELAR",
         "cancel_min": "Cancelar",
         "accept": "ACEPTAR",
+        "accpet_min": "Aceptar",
         "options": "Opciones",
         "refresh": "Refrescar",
         "close": "Cerrar",
@@ -274,7 +275,9 @@
                     "shiping_exito": "Envíos Éxito",
                     "exito_logistic": "Logística Éxito",
                     "freight_calculator": "Cotizador de flete",
-                    "without_offert": "No se han encontrado registros en el historico de ofertas."
+                    "without_offert": "No se han encontrado registros en el historico de ofertas.",
+                    "stock_invalid": "Inventario inválido",
+                    "stock_mandatory": "El campo inventario es obligatorio."
                 }
             },
             "list": {
@@ -314,7 +317,12 @@
                 "bulk_upload": {
                     "title_toolbar": "CARGA MASIVA DE OFERTAS",
                     "download_format_offer": "DESCARGAR FORMATO",
-                    "upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR"
+                    "upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR",
+                    "text_step_import_to_offer": "en este archivo podrás cargar ofertas",
+                    "exceeds_limits": "El número de registros supera los 1,048,576, no se permite esta cantidad",
+                    "no_number": "El precio del producto no es un número",
+                    "list_error": "Error presentado: Producto",
+                    "list_error_2": "no indexado, por favor intentar más tarde."
                 }
             }
         },
@@ -352,14 +360,14 @@
                 "size": "Talla",
                 "color": "Color "
             },
-            "Finish_upload_product_information" : {
+            "Finish_upload_product_information": {
                 "upload_progress": "Carga en proceso",
                 "successful_upload": "Carga realizada con éxito",
+                "product_Name": "Nombre de producto",
                 "error_ocurred": "Error presentado",
                 "home_seller_center": "ir al inicio"
             },
-
-            "table_errors_product":{
+            "table_errors_product": {
                 "selected_file": "Archivo seleccionado",
                 "column_data": "El dato en la",
                 "column": "columna",
@@ -374,8 +382,7 @@
                 "input_option": "El campo opcional de la",
                 "duplication_ean": "tiene eanes repetidos."
             },
-            
-            "table_load_product":{
+            "table_load_product": {
                 "records_found": "Registros encontrados, los siguientes cuentan con errores",
                 "upload_all": "Vuelve a cargar todas los productos",
                 "mandatory_data": "Dato obligatorio",
@@ -405,8 +412,7 @@
                 "drained_factor ": "Factor Escurrido",
                 "combo_ean_group ": "Grupo EAN Combo"
             },
-
-            "bulk_load_product_moderation":{
+            "bulk_load_product_moderation": {
                 "text_may_upload_product": "Para importar archivos al Seller Center, primero debes",
                 "download_the_format": "Descargar el formato",
                 "text_file_may_update": ", en este archivo podrás cargar la validación de productos.",
@@ -414,110 +420,108 @@
                 "will_send_validation": "Te enviaremos el formato de moderación al siguiente correo electrónico.",
                 "validation_sent_succesfully": "Se ha enviado correctamente la moderación.",
                 "validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación."
-              
             },
-
-            "create_product_unit" : {
-                "assing_images":{
+            "create_product_unit": {
+                "assing_images": {
                     "text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",
                     "assign_child_image": "Hijo"
                 },
-                "assing_images_url":{
+                "assing_images_url": {
                     "format_invalidate": "El formato es inválido",
                     "imagen_invalidate": "La imagen no es válida"
                 },
-                "basic_information":{
+                "basic_information": {
                     "text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",
                     "assign_child_image": "Hijo",
                     "format_invalidate": "El formato es inválido",
                     "imagen_invalidate": "La imagen no es válida",
                     "basic_product_information": "En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada variación como un 'hijo' diligenciando completamente la información de cada uno en la parte inferior de la sección",
-                    "input_mandatory":"Este campo es obligatorio",
-                    "brand_invalidate":"La marca ingresada no es válida",
-                    "model_invalidate":"El modelo ingresado no es válido",
-                    "detail_invalidate":"El detalle ingresado no es válido",
-                    "shipping_size":"Shipping size",
-                    "packaging":"Empaque (cm/kg)",
-                    "dimension_invalid":"La dimensión ingresada no es válida",
-                    "add_variation":"Agregar hijo",
-                    "delete_variation":"Eliminar hijo",
-                    "ean_invalida":"El EAN ingresado no es válido",
-                    "ean_invalida_multioffer":"El EAN ya existe, por favor asocia una multioferta.",
-                    "dont_have_ean":"No tengo EAN asociado",
-                    "size_invalid":"La talla ingresada no es válida",
-                    "specific_name_invalid":"El Nombre específico de color ingresado no es válido, no debe tener espacios.",
-                    "beige":"Beige",
-                    "black":"Negro",
-                    "White":"Blanco",
-                    "blue":"Azul",
-                    "yellow":"Amarillo",
-                    "brown":"Café",
-                    "gray":"Gris",
-                    "green":"Verde",
-                    "orange":"Naranja",
-                    "pink":"Rosa",
-                    "purple":"Morado",
-                    "red":"Rojo",
-                    "silver":"Plata",
-                    "golden":"Dorado",
-                    "multicolored":"Multicolor",
-                    "gram":"Gramo",
-                    "mililitre":"Mililitro",
-                    "metre":"Metro",
-                    "Unit":"Unidad",
-                    "write_description_here":"Escriba aquí la descripción...",
-                    "only_up_to_20_keywords":"Solo acepta un máximo de 20 palabras claves",
-                    "order_to_add_necessary":"Para agregar mas hijos es necesario que el ultimo tenga todos los datos correctos"
+                    "input_mandatory": "Este campo es obligatorio",
+                    "brand_invalidate": "La marca ingresada no es válida",
+                    "model_invalidate": "El modelo ingresado no es válido",
+                    "detail_invalidate": "El detalle ingresado no es válido",
+                    "shipping_size": "Shipping size",
+                    "packaging": "Empaque (cm/kg)",
+                    "dimension_invalid": "La dimensión ingresada no es válida",
+                    "add_variation": "Agregar hijo",
+                    "delete_variation": "Eliminar hijo",
+                    "ean_invalida": "El EAN ingresado no es válido",
+                    "ean_invalida_multioffer": "El EAN ya existe, por favor asocia una multioferta.",
+                    "dont_have_ean": "No tengo EAN asociado",
+                    "size_invalid": "La talla ingresada no es válida",
+                    "specific_name_invalid": "El Nombre específico de color ingresado no es válido, no debe tener espacios.",
+                    "beige": "Beige",
+                    "black": "Negro",
+                    "White": "Blanco",
+                    "blue": "Azul",
+                    "yellow": "Amarillo",
+                    "brown": "Café",
+                    "gray": "Gris",
+                    "green": "Verde",
+                    "orange": "Naranja",
+                    "pink": "Rosa",
+                    "purple": "Morado",
+                    "red": "Rojo",
+                    "silver": "Plata",
+                    "golden": "Dorado",
+                    "multicolored": "Multicolor",
+                    "gram": "Gramo",
+                    "mililitre": "Mililitro",
+                    "metre": "Metro",
+                    "Unit": "Unidad",
+                    "write_description_here": "Escriba aquí la descripción...",
+                    "only_up_to_20_keywords": "Solo acepta un máximo de 20 palabras claves",
+                    "order_to_add_necessary": "Para agregar mas hijos es necesario que el ultimo tenga todos los datos correctos"
                 },
-                "categorization":{
-                    "search_category":"Buscar categoría",
-                    "now_you_must":"Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más apropiada para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si necesitas buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista desplegable.",
-                    "list":{
-                            "you_selected":"Usted seleccionó",
-                            "expand":"Expandir",
-                            "colapse":"Colapsar"
+                "categorization": {
+                    "search_category": "Buscar categoría",
+                    "now_you_must": "Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más apropiada para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si necesitas buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista desplegable.",
+                    "list": {
+                        "you_selected": "Usted seleccionó",
+                        "expand": "Expandir",
+                        "colapse": "Colapsar"
                     }
                 },
-                "component_process":{
-                    "categorization":"Categorización",
-                    "back":"Atrás",
-                    "continue":"Continue",
-                    "basic_information":"Información básica",
-                    "specifications":"Especificaciones",
-                    "images":"Imágenes",
-                    "save":"Guardar",
-                    "dialog_save":{
-                            "product_creation_request":"La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
-                            "home":"Inicio",
-                            "retry":"Reintentar",
-                            "error_ocurred": "Error presentado"
+                "component_process": {
+                    "categorization": "Categorización",
+                    "back": "Atrás",
+                    "continue": "Continue",
+                    "basic_information": "Información básica",
+                    "specifications": "Especificaciones",
+                    "images": "Imágenes",
+                    "save": "Guardar",
+                    "dialog_save": {
+                        "product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
+                        "home": "Inicio",
+                        "retry": "Reintentar",
+                        "error_ocurred": "Error presentado"
                     }
                 },
-                "create_unutary_product":{
-                    "products":"Productos",
-                    "unitary_creation":"Creación Unitaria"
+                "create_unutary_product": {
+                    "products": "Productos",
+                    "unitary_creation": "Creación Unitaria"
                 },
                 "specifications": {
-                    "text_must_specifications":"En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás las especificaciones que consideramos importantes para el tipo específico de producto, si tu tipo de producto no está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de 'Todas las especificaciones'",
-                    "info":"Info",
-                    "error_has_occured_uploading":"Error al intentar obtener las especificaciones",
-                    "200_characters":"Maximo 200 caracteres.",
-                    "error_field":"Error en el campo.",
-                    "field_mandatory":"Campo obligatorio.",
-                    "specifications":"Especificaciones",
-                    "dialog":{
-                        "add_specifications":"Agregar especificaciones"
+                    "text_must_specifications": "En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás las especificaciones que consideramos importantes para el tipo específico de producto, si tu tipo de producto no está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de 'Todas las especificaciones'",
+                    "info": "Info",
+                    "error_has_occured_uploading": "Error al intentar obtener las especificaciones",
+                    "200_characters": "Maximo 200 caracteres.",
+                    "error_field": "Error en el campo.",
+                    "field_mandatory": "Campo obligatorio.",
+                    "specifications": "Especificaciones",
+                    "dialog": {
+                        "add_specifications": "Agregar especificaciones"
                     },
-                    "validate-ean":{
-                        "first_you_must_valid_ean":" Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",
-                        "invalid_ean_format":"Formato inválido de EAN (7-16 caraceteres alfanúmericos).",
-                        "invalid_ean_format_multioffer":"The EAN already exists, please associate a multioffer",
-                        "not_have_ean_code":"No tengo EAN asociado",
-                        "continue":"Continue"
+                    "validate-ean": {
+                        "first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",
+                        "invalid_ean_format": "Formato inválido de EAN (7-16 caraceteres alfanúmericos).",
+                        "invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",
+                        "not_have_ean_code": "No tengo EAN asociado",
+                        "continue": "Continue"
                     }
                 },
-                "list_products":{
-                    "product_filter":"Filtro productos",
+                "list_products": {
+                    "product_filter": "Filtro productos",
                     "product_name": "Nombre del producto",
                     "product_name_invalid": "Nombre del producto invalido",
                     "creation_date": "Fecha de creación",
@@ -527,33 +531,33 @@
                     "are_no_uploades_products": "No hay productos cargados",
                     "date_must_no_be_initial_date": "La fecha inicial NO debe ser mayor a la fecha final",
                     "you_must_initial": "Debes ingresar fecha inicial y final para realizar filtro",
-                    "combo_product":{
+                    "combo_product": {
                         "creation_date": "Fecha de creación",
                         "modification_date": "Fecha de modificación",
                         "best_offer": "Mejor oferta",
-                        "back":"Atrás"
+                        "back": "Atrás"
                     },
-                    "expanded_product":{
+                    "expanded_product": {
                         "size": "Talla",
                         "color": "Color ",
                         "creation_date": "Fecha de creación",
                         "modification_date": "Fecha de modificación",
-                        "products":"Productos",
+                        "products": "Productos",
                         "keywords": "Palabras Clave",
-                        "specifications":"Especificaciones",
-                        "description":"Descripción",
+                        "specifications": "Especificaciones",
+                        "description": "Descripción",
                         "best_offer": "Mejor oferta",
                         "packaging_form": "Empaque",
                         "height": "Alto",
                         "width": "Ancho",
                         "length": "Largo",
                         "weight": "Peso",
-                        "add_offer":"Agregar oferta",
+                        "add_offer": "Agregar oferta",
                         "no_more_spedifications": "No hay elementos de especificaciones",
                         "product_not_ready_offer": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
                         "price_must_equal_combos": "El precio debe ser igual a la suma de los combos sino existe precio con descuento."
                     },
-                    "offer_product" : {
+                    "offer_product": {
                         "stock_invalid": "Inventario inválido.",
                         "stock_mandatory": "Inventario es campo obligatorio",
                         "price_mandatoy": "Precio es campo obligatorio",
@@ -579,7 +583,6 @@
                         "changed_currency": "El tipo de moneda se ha cambiado a ",
                         "format_invalidate": "El formato es inválido"
                     }
-
                 }
             }
         },
