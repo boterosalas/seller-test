@@ -39,8 +39,11 @@
         "disable": "Disable",
         "all_download": "All download",
         "label": "Label",
-        "show_detail": "Show detail",
-        "send_all": "Send all"
+        "show_detail": "See detail",
+        "send_all": "Send all",
+        "print_receipt": "Print receipt",
+        "print_label": "Print label",
+        "attach_invoice": "Attach invoice"
     },
     "errors": {
         "required": "Field required",
@@ -112,7 +115,18 @@
                     "channel": "Channel"
                 },
                 "order_page": {
-
+                    "no_orders_found": "No orders have been found",
+                    "load_all_orders": "Load all the orders",
+                    "without_invoice": "Sin factura adjunta",
+                    "with_invoice": "Con factura adjunta",
+                    "wrong_to_search_orders": "An error has occurred when loading the order list",
+                    "insert_limit": "Insert a registry limit",
+                    "info_no_more_products": "The order has no more products pending to be sent",
+                    "info_total_products": "Total of products to be sent in the order",
+                    "no_pending_products": "The selected order has no products pending to be sent",
+                    "info_no_send_products": "The order's products have not been sent",
+                    "successfully_mark": "The order has been flagged correctly",
+                    "successfully_remove_mark": "The order has been unflagged correctly"
                 },
                 "product_detail": {
                     "product": "Product",
@@ -122,7 +136,9 @@
                 },
                 "product_order": {
                     "conveyor": "Conveyor",
-                    "delivery_type": "Delivery type"
+                    "delivery_type": "Delivery type",
+                    "standar": "Standar",
+                    "fulfillment": "fulfillment"
                 }
             }
         },

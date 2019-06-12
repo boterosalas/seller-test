@@ -40,7 +40,10 @@
         "all_download": "Descargar todas",
         "label": "Etiqueta",
         "show_detail": "Ver detalle",
-        "send_all": "Enviar todo"
+        "send_all": "Enviar todo",
+        "print_receipt": "Imprimir recibo",
+        "print_label": "Imprimir rótulo",
+        "Attach invoice": "Adjuntar factura"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -96,7 +99,7 @@
         },
         "orders": {
             "orders": "Órdenes",
-            "order": "Order",
+            "order": "Órden",
             "billing_orders": {
                 "subtitle_toolbar": "Buscar factura",
                 "txt_serch_order": "Ingrese número de orden",
@@ -112,7 +115,18 @@
                     "channel": "Canal"
                 },
                 "order_page": {
-
+                    "no_orders_found": "No se han encontrado órdene4s",
+                    "load_all_orders": "Cargar todas las órdenes",
+                    "without_invoice": "Sin factura adjunta",
+                    "with_invoice": "Con factura adjunta",
+                    "wrong_to_search_orders": "Se ha presentado un error al consultar la lista de órdenes",
+                    "insert_limit": "Indique un limite de registros",
+                    "info_no_more_products": "La orden ya no posee mas productos para ser enviados",
+                    "info_total_products": "Total del productos a ser enviados en la orden",
+                    "no_pending_products": "La orden seleccionada no posee productos para ser enviados.",
+                    "info_no_send_products": "No se han enviado productos de la orden",
+                    "successfully_mark": "Se ha marcado la orden correctamente",
+                    "successfully_remove_mark": "Se ha removido la marca de la orden correctamente"
                 },
                 "product_detail": {
                     "product": "Producto",
@@ -122,7 +136,9 @@
                 },
                 "product_order": {
                     "conveyor": "Transportadora",
-                    "delivery_type": "Tipo de entrega"
+                    "delivery_type": "Tipo de entrega",
+                    "standar": "Estándar",
+                    "fulfillment": "fulfillment"
                 }
             }
         },

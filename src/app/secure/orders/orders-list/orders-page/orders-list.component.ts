@@ -15,6 +15,7 @@ import { SendOrderComponent } from '../send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName, marketFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { LanguageService } from '@app/core/translate/language.service';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -138,7 +139,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public userService: UserLoginService,
     public cognito: CognitoUtil,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private languageService: LanguageService
   ) { }
 
   /**
@@ -357,6 +359,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersList($event: any) {
+    const closeSnack = this.languageService.getValue('actions.close');
     this.setCategoryName();
     this.loadingService.viewSpinner();
     if ($event !== undefined) {
@@ -377,14 +380,17 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.addCheckOptionInProduct(res, $event.paginator);
         }, err => {
           this.orderListLength = true;
-          this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);
-          log.error('Se ha presentado un error al consultar la lista de órdenes', err);
+          const message = this.languageService.getValue('secure.orders.order_list.order_page.wrong_to_search_orders');
+          this.componentService.openSnackBar(message, closeSnack, 10000);
+          log.error(message, err);
         });
       } else {
-        this.componentService.openSnackBar('Indique un limite de registros', 'Cerrar', 1000);
+        const message = this.languageService.getValue('secure.orders.order_list.order_page.insert_limit');
+        this.componentService.openSnackBar(message, closeSnack, 1000);
       }
     } else {
-      this.componentService.openSnackBar('Indique un limite de registros', 'Cerrar', 1000);
+      const message = this.languageService.getValue('secure.orders.order_list.order_page.insert_limit');
+      this.componentService.openSnackBar(message, closeSnack, 1000);
     }
   }
 
@@ -476,9 +482,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
     if (numberElements === 0) {
-      log.info('La orden ya no posee mas productos para ser enviados');
+      const message = this.languageService.getValue('secure.orders.order_list.order_page.info_no_more_products');
+      log.info(message);
     } else {
-      log.info('Total del productos a ser enviados en la orden', numberElements);
+      const message = this.languageService.getValue('secure.orders.order_list.order_page.info_total_products');
+      log.info(message, numberElements);
     }
     return numberElements;
   }
@@ -489,8 +497,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   openDialogSendOrder(item: any): void {
+    const closeSnack = this.languageService.getValue('actions.close');
     if (this.getLengthProductForSend(item) === 0) {
-      this.componentService.openSnackBar('La orden seleccionada no posee productos para ser enviados.', 'Cerrar', 3000);
+      const message = this.languageService.getValue('secure.orders.order_list.order_page.no_pending_products');
+      this.componentService.openSnackBar(message, closeSnack, 3000);
     } else {
       this.loadingService.viewProgressBar();
       const dialogRef = this.dialog.open(SendOrderComponent, {
@@ -516,7 +526,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           // this.dataSource = new MatTableDataSource(JSON.parse(data));
           this.dataSource._updateChangeSubscription();
         } else {
-          log.info('No se han enviado productos de la orden');
+          const message = this.languageService.getValue('secure.orders.order_list.order_page.info_no_send_products');
+          log.info(message);
         }
         this.loadingService.closeProgressBar();
       });
@@ -547,6 +558,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   recordProcesSedOrder(orderId: any, currentValue: any) {
+    const closeSnack = this.languageService.getValue('actions.close');
     if (currentValue === true) {
       currentValue = false;
     } else {
@@ -567,10 +579,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.dataSource.data[index].processedOrder = currentValue;
 
           if (currentValue) {
-            this.componentService.openSnackBar('Se ha marcado la orden correctamente', 'Cerrar', 10000);
+            const message = this.languageService.getValue('secure.orders.order_list.order_page.successfully_mark');
+            this.componentService.openSnackBar(message, closeSnack, 10000);
 
           } else {
-            this.componentService.openSnackBar('Se ha removido la marca de la orden correctamente', 'Cerrar', 10000);
+            const message = this.languageService.getValue('secure.orders.order_list.order_page.successfully_remove_mark');
+            this.componentService.openSnackBar(message, closeSnack, 10000);
           }
         }
       });
