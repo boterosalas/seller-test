@@ -264,7 +264,7 @@
 
               <div fxFlex="100%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <textarea matInput placeholder="Políticas de Devolución y Garantía" formControlName="Warranty"
+                  <textarea matInput placeholder="Políticas de Devolución y Garantía" formControlName="Policy"
                   [errorStateMatcher]="matcher" id="register-warranty-store" (ngModelChange)="activeButton = false"
                   required rows="5" cols="80%"></textarea>
 
@@ -273,10 +273,10 @@
                     required> -->
                   <mat-hint></mat-hint>
                   <mat-error id="error-name-store-required"
-                    *ngIf="validateFormRegister.get('Warranty').hasError('required')"
+                    *ngIf="validateFormRegister.get('Policy').hasError('required')"
                     [innerHTML]="'Este campo es requerido.'"></mat-error>
                   <mat-error id="error-name-store-invalid"
-                    *ngIf="validateFormRegister.get('Warranty').hasError('pattern')">El formato no es válido</mat-error>
+                    *ngIf="validateFormRegister.get('Policy').hasError('pattern')">El formato no es válido</mat-error>
                 </mat-form-field>
               </div>
             </div>

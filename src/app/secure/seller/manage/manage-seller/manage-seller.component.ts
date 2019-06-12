@@ -72,7 +72,7 @@ export class ManageSellerComponent implements OnInit {
   public gotoCarrulla: FormControl;
   public gotoCatalogo: FormControl;
   public profile: FormControl;
-  public warranty: FormControl;
+  public policy: FormControl;
   profileSeller: string[] = [];
   profileAdmin: string[] = [];
   public showUpdate: boolean;
@@ -180,7 +180,7 @@ export class ManageSellerComponent implements OnInit {
               this.daneCode.setValue(this.currentSellerSelect.DaneCode);
               this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
               this.name.setValue(this.currentSellerSelect.Name);
-              this.warranty.setValue(this.currentSellerSelect.Warranty);
+              this.policy.setValue(this.currentSellerSelect.Policy);
               this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
               this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
               this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
@@ -250,7 +250,7 @@ export class ManageSellerComponent implements OnInit {
     this.name = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.nameStoreRegex)]);
-    this.warranty = new FormControl({ value: '', disabled: disable },
+    this.policy = new FormControl({ value: '', disabled: disable },
       [Validators.required, Validators.pattern(this.warrantyRegex)]);
     this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
     this.isShippingExito = new FormControl({ value: '', disabled: disable });
@@ -280,7 +280,7 @@ export class ManageSellerComponent implements OnInit {
       DaneCode: this.daneCode,
       SincoDaneCode: this.sincoDaneCode,
       Name: this.name,
-      Warranty: this.warranty,
+      Policy: this.policy,
       IsLogisticsExito: this.isLogisticsExito,
       IsShippingExito: this.isShippingExito,
       GotoExito: this.gotoExito,
@@ -398,7 +398,7 @@ export class ManageSellerComponent implements OnInit {
       values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
       values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
-      values.Warranty = this.validateFormRegister.controls.Warranty;
+      values.Policy = this.validateFormRegister.controls.Policy;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {

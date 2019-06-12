@@ -22,7 +22,7 @@ export class StoreModel {
         public City?: string,
         public SincoDaneCode?: string,
         public Profile?: string,
-        public Warranty?: string
+        public Policy?: string
     ) { }
 }
 

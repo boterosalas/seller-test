@@ -203,7 +203,7 @@ export class RegisterSellerComponent implements OnInit {
         trimField,
         Validators.pattern(this.sellerRegex.nameStore)
       ]),
-      Warranty: new FormControl({ value: '', disabled: disabledForm }, [
+      Policy: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         Validators.pattern(this.sellerRegex.warranty)
       ]),
