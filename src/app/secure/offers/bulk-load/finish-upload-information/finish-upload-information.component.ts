@@ -50,7 +50,8 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   }
 
   ngAfterViewInit() {
-    if (this.data.listError === null) {
+    const typeStatus = this.data.typeStatus;
+    if (typeStatus === 1 || typeStatus === 4 && this.data.listError === null) {
       !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
         try {
           const { status, response } = res.body.data;
@@ -59,9 +60,9 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.inProcess = false;
             this.processFinish$.next(res);
           } else if (status === 3) {
-           
+
             if (response) {
-              this.listErrorStatus = JSON.parse(response).Data.OfferNotify
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
             } else {
               this.listErrorStatus = [length = 0];
             }
@@ -77,7 +78,11 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
           this.processFinish$.next(null);
         }
       });
-    } else {
+    } else if (typeStatus === 2 && this.data.listError === null) {
+      this.Success = true;
+      this.inProcess = false;
+      this.cdr.detectChanges();
+    } else if (typeStatus === 3 && this.data.listError !== null) {
       this.Success = false;
       this.inProcess = false;
       this.listError = this.mapItems(this.data.listError);
@@ -86,14 +91,14 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     }
     this.cdr.detectChanges();
   }
-/**
- * funcion para mapear las llaves y normalizar el nombre enviado del back
- *
- * @param {any[]} items
- * @returns {any[]}
- * @memberof FinishUploadInformationComponent
- */
-mapItems(items: any[]): any[] {
+  /**
+   * funcion para mapear las llaves y normalizar el nombre enviado del back
+   *
+   * @param {any[]} items
+   * @returns {any[]}
+   * @memberof FinishUploadInformationComponent
+   */
+  mapItems(items: any[]): any[] {
     return items.map(x => {
       return {
         Ean: this.validateHeader(x.ean, x.Ean),
@@ -102,15 +107,15 @@ mapItems(items: any[]): any[] {
     });
   }
 
-/**
- * Validacion para saber cual de los dos valores esta undefined y retonar el valor diferente de undefined
- *
- * @param {*} a
- * @param {*} b
- * @returns
- * @memberof FinishUploadInformationComponent
- */
-validateHeader(a, b) {
+  /**
+   * Validacion para saber cual de los dos valores esta undefined y retonar el valor diferente de undefined
+   *
+   * @param {*} a
+   * @param {*} b
+   * @returns
+   * @memberof FinishUploadInformationComponent
+   */
+  validateHeader(a, b) {
     if (a !== undefined) {
       return a;
     } else {
@@ -168,12 +173,12 @@ validateHeader(a, b) {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-/**
- * Funcion para destruir el componente y parar la solicitud del estado de la carga masiva de ofertas
- *
- * @memberof FinishUploadInformationComponent
- */
-ngOnDestroy() {
+  /**
+   * Funcion para destruir el componente y parar la solicitud del estado de la carga masiva de ofertas
+   *
+   * @memberof FinishUploadInformationComponent
+   */
+  ngOnDestroy() {
     this.processFinish$.next(null);
   }
 

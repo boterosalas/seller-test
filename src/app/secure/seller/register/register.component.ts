@@ -164,6 +164,7 @@ export class RegisterSellerComponent implements OnInit {
       Profile: new FormControl
         (this.profileAdmin, [Validators.required]),
     });
+    this.putValioationStoreNameInLowerCaseAdmin();
   }
 
   initSellerForm(disabledForm: boolean) {
@@ -219,7 +220,28 @@ export class RegisterSellerComponent implements OnInit {
     this.disabledFiledsSellerForm();
     this.addValidationsSellerForm();
     this.putColombiaByDefault();
+    this.putValidationStoreNameInLowerCaseSeller();
   }
+
+  putValidationStoreNameInLowerCaseSeller() {
+    !!this.Name && this.Name.valueChanges.subscribe(val => {
+      if (!!val) {
+        const validate = val.toString().toLowerCase().trim().match(this.sellerRegex.nameStore);
+        !validate && this.Name.setErrors({ pattern: true });
+      }
+    });
+  }
+
+  putValioationStoreNameInLowerCaseAdmin() {
+    const adminName = !!this.validateFormRegisterAdmin && (this.validateFormRegisterAdmin.get('Name') as FormControl);
+    !!adminName && adminName.valueChanges.subscribe(val => {
+      if (!!val) {
+        const validate = val.toString().toLowerCase().trim().match(this.sellerRegex.nameStore);
+        !validate && adminName.setErrors({ pattern: true });
+      }
+    });
+  }
+
 
   disabledFiledsSellerForm() {
     this.State.disable();
