@@ -396,7 +396,7 @@ export class DetailOfferComponent {
   submitUpdateOffer() {
     this.params.push(this.formUpdateOffer.value);
     this.loadingService.viewSpinner();
-    this.loadOfferService.setOffers(this.params).subscribe(
+    this.loadOfferService.setOffersProducts(this.params).subscribe(
       (result: any) => {
         if (result.status === 200) {
           const data = result;

@@ -314,7 +314,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
             IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
+            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
             Currency: this.ofertProduct.controls.Currency.value,
@@ -324,7 +324,7 @@ export class OfertExpandedProductComponent implements OnInit {
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(aryOfAry).subscribe(
+        this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
                     this.snackBar.open('Aplicó correctamente una oferta', 'Cerrar', {
@@ -332,16 +332,16 @@ export class OfertExpandedProductComponent implements OnInit {
                     });
                     this.loadingService.closeSpinner();
 
-                    // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
+                    // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
-                    // window.location.reload();
+                    window.location.reload();
 
                 } else {
                     log.error('Error al intentar aplicar una oferta');
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                window.location.reload();
+                // window.location.reload();
 
             }, error => {
                 this.loadingService.closeSpinner();
