@@ -14,7 +14,8 @@
         "create_successfully": "Creado correctamente",
         "id": "ID",
         "actions": "Acciones",
-        "status": "Estado"
+        "status": "Estado",
+        "commission": "Comisión"
     },
     "actions": {
         "edit": "Editar",
@@ -148,6 +149,9 @@
             }
         },
         "offers": {
+            "stores": {
+                "txt_no_seller": "Ingresa el nombre de la tienda en la barra de búsqueda para ver las categorías."
+            },
             "quoting": {
                 "administrator": {
                     "shipping_methods": {
@@ -176,16 +180,6 @@
                             "modal_placeholder_shipping_method": "Seleccionar Metodo",
                             "modal_placeholder_name_zone": "Nombre de la zona",
                             "modal_placeholder_postal_code": "Código DANE"
-                        }
-                    }
-                }
-            },
-            "stores": {
-                "tree": {
-                    "components": {
-                        "tree_component": {
-                            "tbl_lbl_name:": "Nombre",
-                            "tbl_lbl_commision:": "comisión"
                         }
                     }
                 }

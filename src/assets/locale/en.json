@@ -14,7 +14,8 @@
         "create_successfully": "Created successfully",
         "id": "ID",
         "actions": "Actions",
-        "status": "Status"
+        "status": "Status",
+        "commission": "Commission"
     },
     "actions": {
         "edit": "Edit",
@@ -148,6 +149,9 @@
             }
         },
         "offers": {
+            "stores": {
+                "txt_no_seller": "Enter the store name in the search bar to see the categories."
+            },
             "quoting": {
                 "administrator": {
                     "shipping_methods": {
@@ -176,16 +180,6 @@
                             "modal_placeholder_shipping_method": "Select shipping method",
                             "modal_placeholder_name_zone": "Zone name",
                             "modal_placeholder_postal_code": "Postal code"
-                        }
-                    }
-                }
-            },
-            "stores": {
-                "tree": {
-                    "components": {
-                        "tree_component": {
-                            "tbl_lbl_name:": "Nombre",
-                            "tbl_lbl_commision:": "comisión"
                         }
                     }
                 }
@@ -381,8 +375,8 @@
                 "txt_add_brand": "In order to create a brand you must enter the brand's name the way you want it to be shown in the sites. Keep into account that if the brand already exists you may not create it, and that you may not use any symbol or special character.",
                 "txt_edit_brand": "In brand modification you may only change the name. Keep into account that if the brand name already exists you may not change the name so it's the same, and that you may not use any symbol or special character.",
                 "edit_brand": "Edit brand",
-                "txt_no_brands": "No se han encontrado marcas registradas.",
-                "txt_no_permissions_view": "No posee permisos para visualizar el listado."
+                "txt_no_brands": "No registered brands found",
+                "txt_no_permissions_view": "you no have permissions to see the list"
             },
             "specifications": {
                 "txt_title_toolbar": "Shipping rules configuration",
