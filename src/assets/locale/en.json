@@ -44,7 +44,8 @@
         "send_all": "Send all",
         "print_receipt": "Print receipt",
         "print_label": "Print label",
-        "attach_invoice": "Attach invoice"
+        "attach_invoice": "Attach invoice",
+        "go_to_start": "Go to start"
     },
     "errors": {
         "required": "Field required",
@@ -77,6 +78,7 @@
         "invalid_EAN": "EAN invalid",
         "errors_detected": "Errores detectados",
         "errors_upload_product_again": "Please fix the file's errors and upload the products again.",
+        "errors_upload_offer_again": "Please fix the errors in the file and upload the offer information again.",
         "commission_invalid": "The commission is invalid",
         "error_required": "This field is mandatory",
         "error_price": "Invalid price, the value must be higher or equal to 8.000. ",
@@ -323,6 +325,23 @@
                     "no_number": "The product's price is not a number",
                     "list_error": "An error has occurred: Product",
                     "list_error_2": "has not been indexed yet, please try again later."
+                },
+                "finish_upload_information": {
+                    "error_upload": "There have been",
+                    "error_upload_2": "error(s) when uploading the offer information."
+                },
+                "table_error": {
+                    "error_promise_delivery": "must have the following format (# a #), the numbers must be greater than 0.",
+                    "error_currency": "must be either COP or USD.",
+                    "diferent_ean": "must be different than your own EAN.",
+                    "incomplete_info": "has missing information for a component",
+                    "sum_price": "should have a price comprised of the sum of the components.",
+                    "sum_price_component": "should have a discount price comprised of the sum of the components."
+                },
+                "table_load": {
+                    "title_offer_charge": "Upload the offers again",
+                    "ean_combo": "EAN Combo",
+                    "quantity_combo": "Amount in combo"
                 }
             }
         },
