@@ -1,15 +1,16 @@
 <div class="container-error" *ngIf="countErrors > 0">
   <div class="name-file-upload">
-    <p>Archivo seleccionado:</p>
+    <p>{{'secure.products.table_errors_product.selected_file' | I18N | async}}:</p>
     <b>{{ fileName}}</b>
   </div>
-  <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"  *ngIf="listLog.length != 0">
+  <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"
+     *ngIf="listLog.length != 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span>{{countErrors}} </span>
-          <b> Errores detectados</b>
+          <b> {{'errors.errors_detected' | I18N | async}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -18,61 +19,93 @@
 
       <mat-nav-list dense>
         <mat-list-item>
-          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de las ofertas.
+          <p class="wrap" matLine>{{'errors.errors_upload_offer_again' | I18N | async}}
           </p>
         </mat-list-item>
-        <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)" *ngFor="let item of listLog">
+        <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)"
+          *ngFor="let item of listLog">
           <mat-icon class="icon-color-error">error</mat-icon>
 
-          <p matLine *ngIf="item.type == 'NumberFormat'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor o igual a cero, sin decimales.
+          <p matLine *ngIf="item.type == 'NumberFormat'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> es obligatorio.
+          <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.mandatory' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debe ser booleano (1 ó 0).
+          <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.boolean' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor a cero, sin decimales.
+          <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debería tener el formato (# a #), los números deben ser mayores a 0.
+          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_promise_delivery' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidFormatCurrency'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> El tipo de moneda debe ser COP o USD.
+          <p matLine *ngIf="item.type == 'InvalidFormatCurrency'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_currency' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidEanCombo'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debería ser diferente al EAN propio
+          <p matLine *ngIf="item.type == 'InvalidEanCombo'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.diferent_ean' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidExistEan'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> Información de oferta de componente faltante [{{item.msg}}]
+          <p matLine *ngIf="item.type == 'InvalidExistEan'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.incomplete_info' | I18N | async}}
+            [{{item.msg}}].
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidPriceCombo'" style="white-space: normal;overflow: visible;">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> El precio de este producto combo debe ser la sumatoria de sus componentes
+          <p matLine *ngIf="item.type == 'InvalidPriceCombo'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidPriceOfferCombo'" style="white-space: normal;overflow: visible;">El dato en la
-              <span class="error-string">columna #{{ item.columna }}</span> de la
-              <span class="error-string">fila #{{item.fila}}</span> El precio con descuento de este producto combo debe ser la sumatoria de sus componentes
-            </p>
+          <p matLine *ngIf="item.type == 'InvalidPriceOfferCombo'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price_component' | I18N | async}}
+          </p>
 
 
         </mat-list-item>

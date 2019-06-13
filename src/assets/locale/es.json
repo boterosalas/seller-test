@@ -44,7 +44,8 @@
         "send_all": "Enviar todo",
         "print_receipt": "Imprimir recibo",
         "print_label": "Imprimir rótulo",
-        "Attach invoice": "Adjuntar factura"
+        "Attach invoice": "Adjuntar factura",
+        "go_to_start": "Ir al inicio"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -77,6 +78,7 @@
         "invalid_EAN": "EAN invalido",
         "errors_detected": "Errores detectados",
         "errors_upload_product_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.",
+        "errors_upload_offer_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las ofertas.",
         "commission_invalid": "La comisión es inválida",
         "error_required": "Este campo es requerido",
         "error_price": "Precio inválido, el valor debe ser mayor o igual a 8.000.",
@@ -323,6 +325,23 @@
                     "no_number": "El precio del producto no es un número",
                     "list_error": "Error presentado: Producto",
                     "list_error_2": "no indexado, por favor intentar más tarde."
+                },
+                "finish_upload_information": {
+                    "error_upload": "Se han presentado",
+                    "error_upload_2": "error (es) al momento de cargar las ofertas."
+                },
+                "table_error": {
+                    "error_promise_delivery": "debería tener el formato (# a #), los números deben ser mayores a 0.",
+                    "error_currency": "El tipo de moneda debe ser COP o USD.",
+                    "diferent_ean": "debería ser diferente al EAN propio",
+                    "incomplete_info": "Información de oferta de componente faltante",
+                    "sum_price": "El precio de este producto combo debe ser la sumatoria de sus componentes.",
+                    "sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes."
+                },
+                "table_load": {
+                    "title_offer_charge": "Vuelve a cargar todas las ofertas",
+                    "ean_combo": "Ean Combo",
+                    "quantity_combo": "Cantidad en combo"
                 }
             }
         },
@@ -377,7 +396,7 @@
                 "boolean": "debe ser booleano (1 ó 2).",
                 "number_positive": "debe ser numérico positivo mayor a cero, sin decimales.",
                 "tech_cloting": "deber ser 'Technology' o 'Clothing'.",
-                "gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",
+                "gram_milili": "deber ser 'Gramo', 'Mililitro', 'Metro' o 'Unidad'.",
                 "errorneous_format": "no cumple con el formato requerido.",
                 "input_option": "El campo opcional de la",
                 "duplication_ean": "tiene eanes repetidos."
