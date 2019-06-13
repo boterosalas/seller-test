@@ -177,7 +177,7 @@ export const countries = [
     },
     {
         'CountryName': 'COLOMBIA',
-        'CountryIndicative': '57'
+        'CountryIndicative': ''
     },
     {
         'CountryName': 'COMORAS',
