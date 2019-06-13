@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MaterialModule } from '@app/material.module';
 import { ModalService } from '@app/core';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 describe('ShippingMethodsComponent', () => {
@@ -55,7 +56,8 @@ describe('ShippingMethodsComponent', () => {
         { provide: LoadingService, useValue: loadingService },
         { provide: ModalService, useValue: modalService }
       ], imports: [
-        MaterialModule
+        MaterialModule,
+        SharedModule
       ]
     })
       .compileComponents();

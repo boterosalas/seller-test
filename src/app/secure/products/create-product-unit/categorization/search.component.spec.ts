@@ -13,6 +13,8 @@ import { ProcessService } from '../component-process/component-process.service';
 import { TreeComponent } from './list/tree.component';
 import { EventEmitter } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { SharedModule } from '@app/shared/shared.module';
+import { LoadingService } from '@app/core';
 
 
 describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
@@ -67,6 +69,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
             // nothing to do here
         }
     };
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -78,12 +81,14 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
             providers: [
                 { provide: SearchService, useValue: searchService },
                 { provide: ProcessService, useValue: processService },
+                { provide: LoadingService, useValue: mockLoadingService },
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
                 FormsModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

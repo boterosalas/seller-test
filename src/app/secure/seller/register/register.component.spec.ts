@@ -16,6 +16,7 @@ import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { detectChanges } from '@angular/core/src/render3';
 import { PayoneerService } from './payoneer.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const registerRegex = [
   {Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores'},
@@ -76,7 +77,8 @@ describe('RegisterSellerComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       providers: [
         { provide: RegisterService, useValue: mockRegisterService },

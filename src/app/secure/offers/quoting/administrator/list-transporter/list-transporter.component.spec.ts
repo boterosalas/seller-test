@@ -18,6 +18,7 @@ import { CreateDialogComponent } from '../dialogs/create/create-dialog.component
 import { ShippingMethodsService } from '../shipping-methods/shipping-methods.service';
 import { TransportModel } from '../dialogs/models/transport.model';
 import { ShippingMethodsModel } from '../shipping-methods/shipping-methods.model';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('ListTransporterComponent', () => {
 
@@ -108,7 +109,8 @@ describe('ListTransporterComponent', () => {
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
-                FormsModule
+                FormsModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

@@ -16,6 +16,7 @@ import { of, throwError } from 'rxjs';
 import { SortDirection, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { ComponentsService, RoutesConst } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 
@@ -159,11 +160,11 @@ describe('BulkLoadComponent', () => {
                 FormsModule,
                 RouterTestingModule,
                 BrowserAnimationsModule,
-                HttpClientModule
+                HttpClientModule,
+                SharedModule
             ],
             declarations: [
-                BulkLoadComponent,
-                DialogWithFormComponent
+                BulkLoadComponent
             ],
             providers: [
                 { provide: BulkLoadService, useValue: mockBulkLoadService },

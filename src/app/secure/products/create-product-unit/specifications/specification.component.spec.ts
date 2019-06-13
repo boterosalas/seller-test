@@ -12,6 +12,8 @@ import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { ProcessService } from '../component-process/component-process.service';
+import { SharedModule } from '@app/shared/shared.module';
+import { LoadingService } from '@app/core';
 
 describe('SpecificationProductComponent', () => {
 
@@ -1330,6 +1332,7 @@ describe('SpecificationProductComponent', () => {
         setFeatures(data: any): void {
         }
     };
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -1341,12 +1344,14 @@ describe('SpecificationProductComponent', () => {
                 { provide: SpecificationService, useValue: specificationService },
                 { provide: ProcessService, useValue: proccessService },
                 { provide: MatDialogRef, useValue: {} },
+                { provide: LoadingService, useValue: mockLoadingService },
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
                 FormsModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { componentRefresh } from '@angular/core/src/render3/instructions';
 import { By } from '@angular/platform-browser';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const registerRegex = [
     { Identifier: 'number', Value: '^[0-9]+$', Module: 'productos' },
@@ -1164,7 +1165,7 @@ describe('BulkLoad Products Component', () => {
         TestBed.configureTestingModule({
             // Se declara el componente a testear
             declarations: [BulkLoadProductComponent],
-            imports: [MaterialModule],
+            imports: [MaterialModule, SharedModule],
             providers: [{ provide: ComponentsService, useValue: mockComponentsService },
             { provide: BulkLoadProductService, useValue: mockBulkLoadProductService },
             { provide: MatDialog, useValue: mockMatDialog },

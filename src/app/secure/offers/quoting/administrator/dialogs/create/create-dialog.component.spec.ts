@@ -4,7 +4,7 @@ import { MaterialModule } from '@app/material.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EventEmitterDialogs } from './../../events/eventEmitter-dialogs.service';
-import { ModalService } from '@app/core';
+import { ModalService, LoadingService } from '@app/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable, of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,7 @@ import { ListTransporterService } from '../../list-transporter/list-transporter.
 import { ListZonesService } from '../../list-zones/list-zones.service';
 import { TransportModel } from '../../dialogs/models/transport.model';
 import { ZoneModel } from '../../dialogs/models/zone.model';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('CreateDialogComponent', () => {
 
@@ -136,6 +137,7 @@ describe('CreateDialogComponent', () => {
             /** Mock to do it nothing */
         }
     };
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -149,12 +151,14 @@ describe('CreateDialogComponent', () => {
                 { provide: ListTransporterService, useValue: listTransporterService },
                 { provide: ListZonesService, useValue: listZonesService },
                 { provide: MatSnackBar, useValue: matSnackBar },
+                { provide: LoadingService, useValue: mockLoadingService}
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
                 FormsModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

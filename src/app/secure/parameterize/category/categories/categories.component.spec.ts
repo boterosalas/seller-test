@@ -14,6 +14,8 @@ import { of } from 'rxjs';
 import { MaterialModule } from '@app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
+import { SharedModule } from '@app/shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CategoriesComponent', () => {
 
@@ -130,7 +132,7 @@ describe('CategoriesComponent', () => {
   };
 
   const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory']);
-  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
   const mockAuthService = jasmine.createSpyObj('AuthService', ['getPermissionForMenu']);
   const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
   const mockMatDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
@@ -156,12 +158,14 @@ describe('CategoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CategoriesComponent, DialogWithFormComponent, CreateProcessDialogComponent],
+      declarations: [CategoriesComponent],
       imports: [
         MaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        SharedModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: CategoryTreeService, useValue: mockCategoryService },

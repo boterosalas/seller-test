@@ -16,6 +16,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -61,13 +62,14 @@ describe('Detail offer Component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [DetailOfferComponent, DialogWithFormComponent],
+            declarations: [DetailOfferComponent],
             imports: [
                 MaterialModule,
                 ReactiveFormsModule,
                 FormsModule,
                 RouterTestingModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                SharedModule
             ],
             providers: [
                 { provide: StoresService, useValue: mockStoresService },

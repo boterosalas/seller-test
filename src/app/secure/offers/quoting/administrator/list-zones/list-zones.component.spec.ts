@@ -17,6 +17,7 @@ import { ZoneModel } from '../dialogs/models/zone.model';
 
 /** Own imports */
 import { ListZonesService } from './list-zones.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('ListZonesComponent', () => {
 
@@ -94,7 +95,8 @@ describe('ListZonesComponent', () => {
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
-                FormsModule
+                FormsModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

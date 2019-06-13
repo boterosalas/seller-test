@@ -4,11 +4,14 @@ import { CategoryTreeComponent } from './category-tree.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CategoriesComponent } from '../categories/categories.component';
+import { SharedModule } from '@app/shared/shared.module';
+import { LoadingService } from '@app/core';
 
 describe('CategoryTreeComponent', () => {
   let component: CategoryTreeComponent;
   let fixture: ComponentFixture<CategoryTreeComponent>;
   const mockCategoriesComponent: CategoriesComponent = jasmine.createSpyObj('CategoriesComponent', ['openCategoryDialog']);
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockCategoryListWithoutChild = [
     {
       Commission: 15,
@@ -70,6 +73,10 @@ describe('CategoryTreeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CategoryTreeComponent ],
+      imports: [SharedModule],
+      providers: [
+        { provide: LoadingService, useValue: mockLoadingService },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();

@@ -12,6 +12,7 @@ import { Const } from '@app/shared';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel } from './models/menu.model';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => {
 
@@ -192,7 +193,8 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
                 MatRadioModule,
                 ReactiveFormsModule,
                 MatSelectModule,
-                MatDividerModule
+                MatDividerModule,
+                SharedModule
             ]
         }).compileComponents();
     }));

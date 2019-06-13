@@ -118,8 +118,8 @@
                 "order_page": {
                     "no_orders_found": "No orders have been found",
                     "load_all_orders": "Load all the orders",
-                    "without_invoice": "Sin factura adjunta",
-                    "with_invoice": "Con factura adjunta",
+                    "without_invoice": "Without attached invoice",
+                    "with_invoice": "With attached invoice",
                     "wrong_to_search_orders": "An error has occurred when loading the order list",
                     "insert_limit": "Insert a registry limit",
                     "info_no_more_products": "The order has no more products pending to be sent",

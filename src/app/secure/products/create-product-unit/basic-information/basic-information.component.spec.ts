@@ -7,13 +7,14 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { BasicInformationService } from './basic-information.component.service';
 import { HttpClientModule } from '@angular/common/http';
-import { EndpointService } from '@app/core';
+import { EndpointService, LoadingService } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
 import { NO_ERRORS_SCHEMA, EventEmitter } from '@angular/core';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EanServicesService } from '../validate-ean/ean-services.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('ProductBasicInfoComponent', () => {
     let component: ProductBasicInfoComponent;
@@ -67,6 +68,7 @@ describe('ProductBasicInfoComponent', () => {
     const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData',]);
     const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands']);
     const mockEanService = jasmine.createSpyObj('EanServicesService', ['validateEan']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
 
     // create new instance of FormBuilder
     const formBuilder: FormBuilder = new FormBuilder();
@@ -154,7 +156,8 @@ describe('ProductBasicInfoComponent', () => {
                 HttpClientModule,
                 MatSnackBarModule,
                 MatInputModule,
-                NoopAnimationsModule
+                NoopAnimationsModule,
+                SharedModule
             ],
             declarations: [
                 ProductBasicInfoComponent
@@ -164,7 +167,8 @@ describe('ProductBasicInfoComponent', () => {
                 ProcessService,
                 { provide: BasicInformationService, useValue: mockBasicInformationService },
                 { provide: EanServicesService, useValue: mockEanService },
-                { provide: FormBuilder, useValue: formBuilder }
+                { provide: FormBuilder, useValue: formBuilder },
+                { provide: LoadingService, useValue: mockLoadingService },
             ],
             // No_Errors_schema (Evita errores de importación de otros Componentes)
             schemas: [NO_ERRORS_SCHEMA]
