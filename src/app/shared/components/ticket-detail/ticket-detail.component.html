@@ -1,33 +1,56 @@
 <app-ticket-toolbar></app-ticket-toolbar>
-<div class="ticket-content"
-     >
-  <div class="ticket-content__ticket-item ticket-detail">
-    <span>Descripción</span>
+<div class="ticket-content">
+  <div class="ticket-content__item ticket-detail">
+    <span class="ticket-content__title ticket-content__title--bottom-space"
+      >Descripción</span
+    >
     <div>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex, aliquid.</p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
+        exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
+        voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
+        aliquid.
+      </p>
     </div>
     <div class="ticket-products">
-      <span> Productos</span>
+      <span class="ticket-content__title ticket-content__title--bottom-space">
+        Productos</span
+      >
       <div class="ticket-products--product-list">
-          <p>###########</p> &nbsp; - &nbsp; <p>###########</p>
+        <p>###########</p>
+        &nbsp; - &nbsp;
+        <p>###########</p>
       </div>
-      <span class="ticket-products--show-all" (click)="openDialog()">Ver todos los productos</span>
+      <span
+        class="ticket-content__title ticket-products--show-all"
+        (click)="openDialog()"
+        >Ver todos los productos</span
+      >
     </div>
   </div>
-  <div class="ticket-content__ticket-item ticket-history">
-    <span>Seguimiento </span>
+  <div class="ticket-content__item ticket-history">
+    <span class="ticket-content__title ticket-content__title--bottom-space"
+      >Seguimiento
+    </span>
     <small>Febrero 28 de 2019</small>
     <div class="card-history">
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab, soluta. Deleniti culpa voluptate quidem iste non at rem nisi deserunt dolorum dignissimos nulla, similique recusandae sequi soluta asperiores dolor reiciendis.</p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab, soluta.
+        Deleniti culpa voluptate quidem iste non at rem nisi deserunt dolorum
+        dignissimos nulla, similique recusandae sequi soluta asperiores dolor
+        reiciendis.
+      </p>
       <div class="by-ticket">
-          <small>Miguel Arango - Asesor Seller Center</small>
+        <small>Miguel Arango - Asesor Seller Center</small>
       </div>
     </div>
     <div class="ticket-history__controls">
-        <button (click)="openDialog()" class="mat-raised-button">RESPONDER</button>
+      <button (click)="openDialog()" class="mat-raised-button">
+        RESPONDER
+      </button>
     </div>
   </div>
 </div>
 <div class="show-history">
-    <span >Ver seguimiento completo</span>
+  <span>Ver seguimiento completo</span>
 </div>

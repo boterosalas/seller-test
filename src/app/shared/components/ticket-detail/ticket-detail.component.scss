@@ -1,58 +1,73 @@
-$primary-color: #485AFA;
+$primary-color: #757474;
+$accent-color: #485afa;
 $title-color: black;
-$hint-color: #9E9E9E;
+$hint-color: #9e9e9e;
 
-.ticket-content{
+.ticket-content {
+  $width-margin-s: 4px;
+  $height-margin-s: 0;
+  $width-margin-tablet: 78px;
+  $height-margin-tablet: 0;
+
   display: flex;
-  margin: 0 78px;
+  margin: $height-margin-tablet $width-margin-tablet;
   flex-direction: row;
 
-  &__ticket-item{
+  &__item {
     width: 50%;
     display: flex;
     flex-direction: column;
-    margin: 17px 79px 0 79px;
-
+    //margin: 17px 79px 0 79px;
+    @media (max-width: 375px) {
+      width: 100%;
+      margin: $height-margin-s $width-margin-s;
+    }
   }
 
+  &__title {
+    font-weight: bold;
+    color: $primary-color;
+
+    &--bottom-space {
+      margin-bottom: 21px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    flex-direction: column;
+    margin: $height-margin-s $width-margin-s;
+  }
 }
 
 .ticket-detail {
   font-size: 14px !important;
   font-family: Arial, Helvetica, sans-serif;
 
-  p{
+  p {
     margin: 0;
     text-align: justify;
     color: $hint-color;
     width: inherit;
   }
-
-  span{
-    font-weight: bold;
-    color: $title-color;
-    text-align: left;
-    margin-bottom: 21px;
-  }
-
 }
-.ticket-products{
+
+.ticket-products {
   margin-top: 21px;
 
-  &--product-list{
+  &--product-list {
     display: flex;
     flex-direction: row;
     margin: 21px 0;
   }
-  &--show-all{
+  &--show-all {
     text-decoration: underline;
   }
-  &--show-all:hover{
+  &--show-all:hover {
     cursor: pointer;
   }
 }
 
-.ticket-history{
+.ticket-history {
   font-family: Arial, Helvetica, sans-serif;
 
   span {
@@ -63,60 +78,60 @@ $hint-color: #9E9E9E;
     margin-bottom: 8px;
   }
 
-  small{
+  small {
     font-size: 12px;
     font-style: italic;
     color: $hint-color;
     margin-bottom: 18px;
   }
-  .card-history{
-    border: 1px solid  #D3D3D3 !important;
+  .card-history {
+    border: 1px solid #d3d3d3 !important;
     border-radius: 8px 8px 8px 0;
     padding: 16px 16px 0px 16px;
   }
 
-  .card-history p{
+  .card-history p {
     margin: 0px;
     font-size: 14px;
     text-align: justify;
     color: $hint-color;
   }
 
-  .by-ticket{
+  .by-ticket {
     font-size: 12px;
     font-style: italic;
     color: $hint-color;
     margin-top: 8px;
     margin-bottom: 13px !important;
   }
-  &__controls{
+  &__controls {
     display: flex;
     justify-content: flex-end;
   }
 
   button {
     background-color: white;
-    border: 1px solid $primary-color;
+    border: 1px solid $accent-color;
     border-radius: 2px;
-    color: #485AFA;
+    color: #485afa;
     font-size: 12px;
     font-weight: bold;
     margin-top: 19px;
   }
   button:hover {
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
+    background-color: $accent-color;
+    border: 1px solid $accent-color;
     color: white;
   }
 }
 
-.show-history{
+.show-history {
   font-size: 14px;
   font-weight: bold;
   text-align: center;
   margin-top: 21px;
 
-  span{
+  span {
     text-decoration: underline;
     cursor: pointer;
   }
