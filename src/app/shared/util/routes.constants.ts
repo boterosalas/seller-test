@@ -52,6 +52,8 @@ export class RoutesConst {
     static readonly listProducts: any = 'listado-productos';
     static readonly categoryTree: any = 'category-tree';
 
+/**Support Center */
+    static readonly sellerSupportCenter: any = 'support-center';
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
     static readonly homeForgotPassword: any = RoutesConst.home + '/' + RoutesConst.forgotPassword;
@@ -59,6 +61,10 @@ export class RoutesConst {
     static readonly homeNewPassword: any = RoutesConst.home + '/' + RoutesConst.newPassword;
 
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
+
+
+    //Support Center DetaiTicket
+    static readonly sellerCenterTickets: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter;
 
     static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
     static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;

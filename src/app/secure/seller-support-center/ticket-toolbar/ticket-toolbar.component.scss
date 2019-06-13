@@ -1,0 +1,43 @@
+$primary-color: #485afa;
+$text-color: #757474;
+$hint-color: #5D5D5D;
+
+.ticket-toolbar{
+  background-color: white;
+  padding: 0px 32px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 45px !important;
+  max-height: 45px;
+  justify-content: space-between;
+
+}
+
+.toolbar-brand{
+  font-size: 18px;
+
+  span {
+    font-weight: bold;
+  }
+  small{
+    color: $hint-color;
+  }
+}
+
+.toolbar-right{
+  font-size:  14px;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+}
