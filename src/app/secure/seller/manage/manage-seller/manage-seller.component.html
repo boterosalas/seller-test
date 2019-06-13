@@ -178,7 +178,7 @@
             <div fxFlex="100%">
               <mat-form-field class="register" style="width:100% !important;">
                 <textarea matInput placeholder="Políticas de Devolución y Garantía" formControlName="Policy"
-                  [errorStateMatcher]="matcher" id="register-warranty-store" (ngModelChange)="activeButton = false"
+                  [errorStateMatcher]="matcher" id="register-warranty-store"
                   required rows="5" cols="80%"></textarea>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
@@ -241,7 +241,7 @@
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
               color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!updateSeller.form.valid || disabledForService || !activeButton"></button>
+              [disabled]="!updateSeller.form.valid || disabledForService || !activeButton || !updateSeller.form.touched"></button>
           </div>
         </form>
       </div>
@@ -314,7 +314,7 @@
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
               color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!updateAdmin.form.valid || disabledForService || !activeButton"></button>
+              [disabled]="!updateAdmin.form.valid || disabledForService || !activeButton || !updateAdmin.form.touched"></button>
           </div>
         </form>
       </div>
