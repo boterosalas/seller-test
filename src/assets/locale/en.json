@@ -45,7 +45,8 @@
         "print_receipt": "Print receipt",
         "print_label": "Print label",
         "attach_invoice": "Attach invoice",
-        "go_to_start": "Go to start"
+        "go_to_start": "Go to start",
+        "update": "UPDATE"
     },
     "errors": {
         "required": "Field required",
@@ -174,6 +175,8 @@
             },
             "register_seller": {
                 "tap_title_seller": "New seller registration form",
+                "tap_title_update_seller": "Seller update form",
+                "tap_title_update_admin": "Admin update form",
                 "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
                 "lb_select_profile_type": "Select profile type",
                 "lb_profile_type_form": "Profile type",

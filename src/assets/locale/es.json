@@ -45,7 +45,8 @@
         "print_receipt": "Imprimir recibo",
         "print_label": "Imprimir rótulo",
         "Attach invoice": "Adjuntar factura",
-        "go_to_start": "Ir al inicio"
+        "go_to_start": "Ir al inicio",
+        "update": "ACTUALIZAR"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -174,6 +175,8 @@
             },
             "register_seller": {
                 "tap_title_seller": "Formulario registro de nuevo vendedor",
+                "tap_title_update_seller": "Formulario editar vendedor",
+                "tap_title_update_admin": "Formulario editar Administrador",
                 "txt_description_seller": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los vendedores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar vendedores.",
                 "lb_select_profile_type": "Selecciona tipo de perfil",
                 "lb_profile_type_form": "Tipo de perfil",
