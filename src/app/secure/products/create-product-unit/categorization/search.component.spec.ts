@@ -69,7 +69,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
             // nothing to do here
         }
     };
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
