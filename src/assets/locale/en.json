@@ -387,7 +387,8 @@
                 "successful_upload": "Successful upload",
                 "product_Name": "Product name",
                 "error_ocurred": "Error has ocurred",
-                "home_seller_center": "Go to home"
+                "home_seller_center": "Go to home",
+                "when_uploading_products":"ocurred when uploading the products"
             },
             "table_errors_product": {
                 "selected_file": "Seleted file",
@@ -533,8 +534,16 @@
                     "error_field": "There is an error in the field",
                     "add_specifications": "Add specifications",
                     "field_mandatory": "mandatory field",
+                    "group_mandatory_specifications":"This group has mandatory specifications",
                     "dialog": {
-                        "add_specifications": "Agregar especificaciones"
+                        "add_specifications": "Agregar especificaciones",
+                        "has":"has",
+                        "have":"have",
+                        "there":"There",
+                        "been":"been",
+                        "try_create_products":"when trying to create the product. Try gain… Thank you",
+                        "errors": "errors",
+                        "error": "error"
                     },
                     "validate-ean": {
                         "first_you_must_valid_ean": "First you must enter a valid EAN or Bar Code for your product. Remember that this code must be real, since it identifies your product worldwide. For the EAN you may only enter numbers ranging from 7 to 13 characters. If you EAN contains less than 13 characters take into acount that it will be autocompleted with 0 to it's left until it has 13 characters. If you are a manufacturer or your product is generic you may pick the 'I don't have an EAN for my product' option and we will assign a code.",
@@ -698,6 +707,18 @@
                 }
             }
         },
-        "load_guide_page": {}
+        "load_guide_page": {
+            "load_guide": {
+                "hi": "Hi",
+                "title": "LOADING GUIDES",
+                "body": "In order to upload files to Seller Center, first you must",
+                "body_2": "Download the format",
+                "body_3": ", in this file you may enter tracking numbers and shipping company names",
+                "body_4": "Select the file",
+                "warning_register": "Remember that the maximum number of allowed records is 500.",
+                "amount_not_allowed": "The number of records exceeds 500, this amount is not allowed.",
+                "error_has_uploading_guide": "There was an error submitting the guide."
+            }
+        }
     }
 }
