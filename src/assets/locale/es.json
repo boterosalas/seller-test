@@ -384,7 +384,8 @@
                 "successful_upload": "Carga realizada con éxito",
                 "product_Name": "Nombre de producto",
                 "error_ocurred": "Error presentado",
-                "home_seller_center": "ir al inicio"
+                "home_seller_center": "ir al inicio",
+                "when_uploading_products":"ocurred when uploading the products"
             },
             "table_errors_product": {
                 "selected_file": "Archivo seleccionado",
@@ -530,8 +531,16 @@
                     "error_field": "Error en el campo.",
                     "field_mandatory": "Campo obligatorio.",
                     "specifications": "Especificaciones",
+                    "group_mandatory_specifications":"Este grupo posee especificaciones obligatorias",
                     "dialog": {
-                        "add_specifications": "Agregar especificaciones"
+                        "add_specifications": "Agregar especificaciones",
+                        "has":"han",
+                        "have":"ha",
+                        "there":"Se",
+                        "been":"presentado",
+                        "try_create_products":"al momento de crear el producto. Intentelo nuevamente... Gracias",
+                        "errors": "errors",
+                        "error": "error"
                     },
                     "validate-ean": {
                         "first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",

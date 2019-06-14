@@ -6,7 +6,7 @@
   <form name="specsForm" #specsForm="ngForm">
     <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-        <span class="specification-name" matTooltip="Este grupo posee especificaciones obligatorias"
+        <span class="specification-name" [matTooltip]="'secure.products.create_product_unit.specifications.group_mandatory_specifications' | I18N | async"
           [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
           {{specification.Name}}
           <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
