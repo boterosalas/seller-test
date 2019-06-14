@@ -695,6 +695,18 @@
                 }
             }
         },
-        "load_guide_page": {}
+        "load_guide_page": {
+            "load_guide": {
+                "hi": "Hi",
+                "title": "LOADING GUIDES",
+                "body": "In order to upload files to Seller Center, first you must",
+                "body_2": "Download the format",
+                "body_3": ", in this file you may enter tracking numbers and shipping company names",
+                "body_4": "Select the file",
+                "warning_register": "Remember that the maximum number of allowed records is 500.",
+                "amount_not_allowed": "The number of records exceeds 500, this amount is not allowed.",
+                "error_has_uploading_guide": "There was an error submitting the guide."
+            }
+        }
     }
 }

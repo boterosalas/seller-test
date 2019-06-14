@@ -695,6 +695,18 @@
                 }
             }
         },
-        "load_guide_page": {}
+        "load_guide_page": {
+            "load_guide": {
+                "hi": "Hola",
+                "title": "CARGA DE GUÍAS",
+                "body": "Para importar archivos al Seller Center, primero debes",
+                "body_2": "Descargar el formato",
+                "body_3": ", en este archivo podrás registrar guías y transportadoras",
+                "body_4": "Selecciona el archivo",
+                "warning_register": "Recuerda que el número de registros permitidos es de 500.",
+                "amount_not_allowed": "El número de registros supera los 500, no se permite esta cantidad",
+                "error_has_uploading_guide": "Se ha presentado un error al enviar la guía."
+            }
+        }
     }
 }
