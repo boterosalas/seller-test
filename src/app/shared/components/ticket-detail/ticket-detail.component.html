@@ -27,7 +27,9 @@
     </div>
   </div>
   <div class="ticket-content__item ticket-history">
-    <span class="ticket-content__title ticket-content__title--bottom-space"
+    <app-history-card></app-history-card>
+    <!-- 
+      <span class="ticket-content__title ticket-content__title--bottom-space"
       >Seguimiento
     </span>
     <small>Febrero 28 de 2019</small>
@@ -41,7 +43,8 @@
       <div class="by-ticket">
         <small>Miguel Arango - Asesor Seller Center</small>
       </div>
-    </div>
+    </div>-->
+
     <div class="ticket-history__controls">
       <button (click)="openDialog()" class="mat-raised-button">
         RESPONDER
@@ -52,3 +55,5 @@
 <div class="show-history">
   <span>Ver seguimiento completo</span>
 </div>
+
+<app-history-card></app-history-card>
