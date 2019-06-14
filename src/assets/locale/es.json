@@ -438,7 +438,9 @@
                 "product_validation": "Validación del productos",
                 "will_send_validation": "Te enviaremos el formato de moderación al siguiente correo electrónico.",
                 "validation_sent_succesfully": "Se ha enviado correctamente la moderación.",
-                "validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación."
+                "validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación.",
+                "download_file": "Descargar archivo",
+                "download_file_import": "Seleccionar archivo para importar"
             },
             "create_product_unit": {
                 "assing_images": {
@@ -536,7 +538,7 @@
                         "invalid_ean_format": "Formato inválido de EAN (7-16 caraceteres alfanúmericos).",
                         "invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",
                         "not_have_ean_code": "No tengo EAN asociado",
-                        "continue": "Continue"
+                        "continue": "Continuar"
                     }
                 },
                 "list_products": {
@@ -692,6 +694,7 @@
                     "tooltip_add_son": "Crear categoría hija"
                 }
             }
-        }
+        },
+        "load_guide_page": {}
     }
 }
