@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { TicketModalComponent } from '@app/secure/seller-support-center/ticket-modal/ticket-modal.component';
+import { TicketModalComponent } from '../ticket-modal/ticket-modal.component';
 
 @Component({
   selector: 'app-ticket-detail',
