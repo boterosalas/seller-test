@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef } from '@an
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { LanguageService } from '@app/core/translate/language.service';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -21,6 +22,10 @@ const EXCEL_EXTENSION = '.xlsx';
 export class FinishUploadProductInformationComponent implements AfterViewInit {
 
   public response: any;
+  public has: string;
+  public have: string;
+  public errors: string;
+  public error: string;
 
   /**
    * Creates an instance of FinishUploadProductInformationComponent.
@@ -31,10 +36,15 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<FinishUploadProductInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private languageService: LanguageService
   ) {
 
     this.response = data.response;
+    this.has = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.has');
+    this.have = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.have');
+    this.errors = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.errors');
+    this.error = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.error');
   }
 
   ngAfterViewInit() {
