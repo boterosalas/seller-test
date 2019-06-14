@@ -11,7 +11,7 @@ describe('CategoryTreeComponent', () => {
   let component: CategoryTreeComponent;
   let fixture: ComponentFixture<CategoryTreeComponent>;
   const mockCategoriesComponent: CategoriesComponent = jasmine.createSpyObj('CategoriesComponent', ['openCategoryDialog']);
-  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
   const mockCategoryListWithoutChild = [
     {
       Commission: 15,

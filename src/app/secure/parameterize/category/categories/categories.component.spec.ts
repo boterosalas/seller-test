@@ -132,7 +132,7 @@ describe('CategoriesComponent', () => {
   };
 
   const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory']);
-  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
   const mockAuthService = jasmine.createSpyObj('AuthService', ['getPermissionForMenu']);
   const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
   const mockMatDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);

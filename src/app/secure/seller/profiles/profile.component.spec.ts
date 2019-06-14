@@ -135,28 +135,28 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
         getMenu(param: any) {
             return {
                 Id: undefined,
-                NameMenu: "Perfiles",
-                NameMenuBack: "perfiles",
+                NameMenu: 'Perfiles',
+                NameMenuBack: 'perfiles',
                 ProfileType: 1,
                 ShowMenu: true,
                 ShowMenuProduction: true,
-                UrlRedirect: "securehome/seller-center/vendedores/perfiles",
-                Functionalities: 
+                UrlRedirect: 'securehome/seller-center/vendedores/perfiles',
+                Functionalities:
                 [
                     {
-                        NameFunctionality: "Consultar",
+                        NameFunctionality: 'Consultar',
                     ShowFunctionality: true,
-                    nameFunctionalityBack: "Consultar",
+                    nameFunctionalityBack: 'Consultar',
                     },
                     {
-                        NameFunctionality: "Editar",
+                        NameFunctionality: 'Editar',
                     ShowFunctionality: true,
-                    nameFunctionalityBack: "Editar",
+                    nameFunctionalityBack: 'Editar',
                     },
                     {
-                        NameFunctionality: "Crear",
+                        NameFunctionality: 'Crear',
                     ShowFunctionality: true,
-                    nameFunctionalityBack: "Crear",
+                    nameFunctionalityBack: 'Crear',
                     }
                 ]
             };
@@ -202,7 +202,7 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
     beforeEach(() => {
         fixture = TestBed.createComponent(ProfileComponent);
         component = fixture.componentInstance;
-        component.permissionComponent = authService.getMenu()
+        component.permissionComponent = authService.getMenu();
         fixture.detectChanges();
     });
 
@@ -218,13 +218,13 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
         expect(component.menuList).toBeDefined();
     });
 
-    /*  Por cambios en estructura de JSON de perfiles es necesario cambiar "listMenus" ya que se cambiaron algunos atributos del
+    /*  Por cambios en estructura de JSON de perfiles es necesario cambiar 'listMenus' ya que se cambiaron algunos atributos del
     JSON enviado por back ejemplo Name por nameProfile.
-    it('El primer item de la lista de perfiles deberia ser "Administrador"', () => {
+    it('El primer item de la lista de perfiles deberia ser 'Administrador'', () => {
         expect(component.profileList[0].Name).toBe(listProfiles[0].nameProfile);
     });
 
-    it('El primer item de la lista de menus deberia ser "Factura electronica"', () => {
+    it('El primer item de la lista de menus deberia ser 'Factura electronica'', () => {
         expect(component.menuList[0].Name).toBe(listMenus[0].nameMenu);
     });
 

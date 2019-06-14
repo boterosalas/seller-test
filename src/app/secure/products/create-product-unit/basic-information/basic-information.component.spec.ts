@@ -68,7 +68,7 @@ describe('ProductBasicInfoComponent', () => {
     const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData',]);
     const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands']);
     const mockEanService = jasmine.createSpyObj('EanServicesService', ['validateEan']);
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
 
     // create new instance of FormBuilder
     const formBuilder: FormBuilder = new FormBuilder();

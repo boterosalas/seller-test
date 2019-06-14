@@ -71,7 +71,7 @@ export class LanguageService {
       }, (val === 'Es' ? this.esData : this.enData));
       return !!value ? value : key;
     } catch {
-      console.trace();
+      //console.trace();
       console.log(key);
     }
   }
