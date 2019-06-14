@@ -61,6 +61,7 @@ import { TicketDetailComponent } from "./components/ticket-detail/ticket-detail.
     TicketToolbarComponent
   ],
   entryComponents: [
+    TicketModalComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent

@@ -9,40 +9,24 @@
       voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
       aliquid.
     </p>
-    <div class="ticket-products">
+    <div class="ticket-detail__products">
       <span class="ticket-content__title ticket-content__title--bottom-space">
         Productos</span
       >
-      <div class="ticket-products--product-list">
-        <p>###########</p>
+      <div class="ticket-detail__product-item">
+        <span>Lorem ipsum dolor sit amet</span>
         &nbsp; - &nbsp;
-        <p>###########</p>
+        <span>###########</span>
       </div>
-      <span
-        class="ticket-content__title ticket-products--show-all"
-        (click)="openDialog()"
-        >Ver todos los productos</span
-      >
+
+      <span class="ticket-content__title show-all" (click)="openDialog()">
+        Ver todos los productos
+      </span>
     </div>
   </div>
+
   <div class="ticket-content__item ticket-history">
     <app-history-card></app-history-card>
-    <!-- 
-      <span class="ticket-content__title ticket-content__title--bottom-space"
-      >Seguimiento
-    </span>
-    <small>Febrero 28 de 2019</small>
-    <div class="card-history">
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab, soluta.
-        Deleniti culpa voluptate quidem iste non at rem nisi deserunt dolorum
-        dignissimos nulla, similique recusandae sequi soluta asperiores dolor
-        reiciendis.
-      </p>
-      <div class="by-ticket">
-        <small>Miguel Arango - Asesor Seller Center</small>
-      </div>
-    </div>-->
 
     <div class="ticket-history__controls">
       <button (click)="openDialog()" class="mat-raised-button">
@@ -50,9 +34,8 @@
       </button>
     </div>
   </div>
-</div>
-<div class="show-history">
-  <span>Ver seguimiento completo</span>
-</div>
 
-<app-history-card></app-history-card>
+  <span class="ticket-content__item ticket-content__item--full-width show-all"
+    >Ver seguimiento completo</span
+  >
+</div>

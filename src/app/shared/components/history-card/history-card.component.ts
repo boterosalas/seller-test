@@ -8,7 +8,5 @@ import { Component, OnInit } from "@angular/core";
 export class HistoryCardComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {
-    debugger
-  }
+  ngOnInit() {}
 }
