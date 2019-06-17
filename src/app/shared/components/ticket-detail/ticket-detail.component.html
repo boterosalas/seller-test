@@ -1,54 +1,67 @@
-<app-ticket-toolbar></app-ticket-toolbar>
 <div class="ticket-content">
   <div class="ticket-content__item ticket-detail">
     <span class="ticket-content__title ticket-content__title--bottom-space">
       Descripción
     </span>
-    <p>
+    <p class="ticket-content__secondary-text">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
       exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
       voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
       aliquid.
     </p>
-    <div class="ticket-products">
+    <div class="ticket-detail__products">
       <span class="ticket-content__title ticket-content__title--bottom-space">
         Productos</span
       >
-      <div class="ticket-products--product-list">
-        <p>###########</p>
-        &nbsp; - &nbsp;
-        <p>###########</p>
+      <div class="ticket-content__title--bottom-space">
+        <div class="ticket-detail__product-item ticket-content__secondary-text">
+          <span>Lorem ipsum dolor sit amet</span>
+          &nbsp; - &nbsp;
+          <span>###########</span>
+        </div>
+        <div class="ticket-detail__product-item ticket-content__secondary-text">
+          <span>Lorem ipsum dolor sit amet</span>
+          &nbsp; - &nbsp;
+          <span>###########</span>
+        </div>
+        <div class="ticket-detail__product-item ticket-content__secondary-text">
+          <span>Lorem ipsum dolor sit amet</span>
+          &nbsp; - &nbsp;
+          <span>###########</span>
+        </div>
+        <div class="ticket-detail__product-item ticket-content__secondary-text">
+          <span>Lorem ipsum dolor sit amet</span>
+          &nbsp; - &nbsp;
+          <span>###########</span>
+        </div>
       </div>
+
       <span
-        class="ticket-content__title ticket-products--show-all"
+        class="ticket-content__title ticket-content__title--underline 
+        ticket-content__title--cursor"
         (click)="openDialog()"
-        >Ver todos los productos</span
       >
+        Ver todos los productos
+      </span>
     </div>
   </div>
-  <div class="ticket-content__item ticket-history">
-    <span class="ticket-content__title ticket-content__title--bottom-space"
-      >Seguimiento
-    </span>
-    <small>Febrero 28 de 2019</small>
-    <div class="card-history">
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab, soluta.
-        Deleniti culpa voluptate quidem iste non at rem nisi deserunt dolorum
-        dignissimos nulla, similique recusandae sequi soluta asperiores dolor
-        reiciendis.
-      </p>
-      <div class="by-ticket">
-        <small>Miguel Arango - Asesor Seller Center</small>
-      </div>
-    </div>
-    <div class="ticket-history__controls">
-      <button (click)="openDialog()" class="mat-raised-button">
+
+  <div class="ticket-content__item">
+    <app-history-card></app-history-card>
+
+    <div class="ticket-content__controls ticket-content__controls--left">
+      <button
+        (click)="openDialog()"
+        class="mat-raised-button ticket-content__button ticket-content__button--secondary"
+      >
         RESPONDER
       </button>
     </div>
   </div>
-</div>
-<div class="show-history">
-  <span>Ver seguimiento completo</span>
+
+  <span
+    class="ticket-content__item ticket-content__title ticket-content__item--full-width 
+    ticket-content__title--underline ticket-content__title--center ticket-content__title--cursor"
+    >Ver seguimiento completo</span
+  >
 </div>

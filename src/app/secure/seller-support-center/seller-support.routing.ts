@@ -1,28 +1,27 @@
-import { Routes, RouterModule } from '@angular/router';
-import { Route } from '@app/core';
-import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from "@angular/router";
+import { Route } from "@app/core";
+import { NgModule } from "@angular/core";
 
-import { TicketDetailComponent } from '@app/shared/components/ticket-detail/ticket-detail.component';
+import { RoutesConst } from "@app/shared";
 
-import { RoutesConst } from '@app/shared';
+import { AuthService } from "../auth/auth.routing";
 
-import { AuthService } from '../auth/auth.routing';
+import { TicketComponentComponent } from "./ticket-component/ticket-component.component";
 
 const routes: Routes = [
-    Route.withShell([
-        {
-            path: `${RoutesConst.sellerCenterTickets}`,
-            component:  TicketDetailComponent,
-            data: { title: 'Administrar Tickets' },
-            // canActivate: [AuthService]
-        }
-    ])
+  Route.withShell([
+    {
+      path: `${RoutesConst.sellerCenterTickets}`,
+      component: TicketComponentComponent,
+      data: { title: "Administrar Tickets" }
+      // canActivate: [AuthService]
+    }
+  ])
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
 })
-
-export class SellerSupportRoutingModule { }
+export class SellerSupportRoutingModule {}
