@@ -144,6 +144,46 @@
                     "standar": "Estándar",
                     "fulfillment": "fulfillment"
                 }
+            },
+            "in_devolution": {
+                "action_confirm_receipt": {
+                    "title_dialog": "Aceptar recibo",
+                    "body_dialog": "Confirmastes el recibo del producto, iniciaremos el proceso de devolución de dinero al cliente."
+                },
+                "action_report_novelty": {
+                    "title": "Ingresar observación",
+                    "placeholder_denied": "Motivo del rechazo",
+                    "rejected_request": "La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.",
+                    "error_rejected": "Se ha presentado un error al realizar el rechazo de la solicitud."
+                },
+                "in_devolution_page": {
+                    "order": "Órden",
+                    "date_order": "Fecha pedido",
+                    "date_request": "Fecha solicitud",
+                    "commnet": "Comentario",
+                    "view_commnet": "Ver comentario",
+                    "rejected": "Rechazar",
+                    "no_found_orders": "No se han encontrado órdenes.",
+                    "charge_orders": "Cargar todas las órdenes"
+                },
+                "product_devolution_modal": {
+                    "info_title": "Información del producto",
+                    "reference": "Referencia",
+                    "sku": "SKU",
+                    "view_info_client": "Ver información del cliente",
+                    "id": "Identificación"
+                },
+                "view_comment": {
+                    "comment_request": "Comentario de la devolución",
+                    "commnet_ser_client": "Comentario servicio al cliente",
+                    "commnet_seller": "Comentario vendedor",
+                    "no_commnet": "No hay comentarios"
+                }
+            },
+            "in_validation": {
+                "in_validation_page": {
+                    "max_response_date": "Fecha max respuesta"
+                }
             }
         },
         "seller": {
@@ -388,7 +428,7 @@
                 "product_Name": "Nombre de producto",
                 "error_ocurred": "Error presentado",
                 "home_seller_center": "ir al inicio",
-                "when_uploading_products":"ocurred when uploading the products"
+                "when_uploading_products": "ocurred when uploading the products"
             },
             "table_errors_product": {
                 "selected_file": "Archivo seleccionado",
@@ -534,14 +574,14 @@
                     "error_field": "Error en el campo.",
                     "field_mandatory": "Campo obligatorio.",
                     "specifications": "Especificaciones",
-                    "group_mandatory_specifications":"Este grupo posee especificaciones obligatorias",
+                    "group_mandatory_specifications": "Este grupo posee especificaciones obligatorias",
                     "dialog": {
                         "add_specifications": "Agregar especificaciones",
-                        "has":"han",
-                        "have":"ha",
-                        "there":"Se",
-                        "been":"presentado",
-                        "try_create_products":"al momento de crear el producto. Intentelo nuevamente... Gracias",
+                        "has": "han",
+                        "have": "ha",
+                        "there": "Se",
+                        "been": "presentado",
+                        "try_create_products": "al momento de crear el producto. Intentelo nuevamente... Gracias",
                         "errors": "errors",
                         "error": "error"
                     },

@@ -144,6 +144,46 @@
                     "standar": "Standar",
                     "fulfillment": "fulfillment"
                 }
+            },
+            "in_devolution": {
+                "action_confirm_receipt": {
+                    "title_dialog": "Approve reception",
+                    "body_dialog": "You have confirmed the reception of the product, we will proceed with the refund to the client."
+                },
+                "action_report_novelty": {
+                    "title": "Enter observation",
+                    "placeholder_denied": "Rejection motive",
+                    "rejected_request": "Your request has been rejected, our team will evaluate your answer.",
+                    "error_rejected": "An error has occurred when trying to reject the request."
+                },
+                "in_devolution_page": {
+                    "order": "Order",
+                    "date_order": "Order date",
+                    "date_request": "Request date",
+                    "commnet": "Commentary",
+                    "view_commnet": "See commentary",
+                    "rejected": "Reject",
+                    "no_found_orders": "No orders have been found.",
+                    "charge_orders": "Reload all the orders."
+                },
+                "product_devolution_modal": {
+                    "info_title": "Product information",
+                    "reference": "Refference",
+                    "sku": "SKU",
+                    "view_info_client": "See client information",
+                    "id": "ID"
+                },
+                "view_comment": {
+                    "comment_request": "Refund request comment",
+                    "commnet_ser_client": "Customer service's comment",
+                    "commnet_seller": "Seller's coment",
+                    "no_commnet": "There are no comments"
+                }
+            },
+            "in_validation": {
+                "in_validation_page": {
+                    "max_response_date": "Max response date"
+                }
             }
         },
         "seller": {
@@ -388,7 +428,7 @@
                 "product_Name": "Product name",
                 "error_ocurred": "Error has ocurred",
                 "home_seller_center": "Go to home",
-                "when_uploading_products":"ocurred when uploading the products"
+                "when_uploading_products": "ocurred when uploading the products"
             },
             "table_errors_product": {
                 "selected_file": "Seleted file",
@@ -534,14 +574,14 @@
                     "error_field": "There is an error in the field",
                     "add_specifications": "Add specifications",
                     "field_mandatory": "mandatory field",
-                    "group_mandatory_specifications":"This group has mandatory specifications",
+                    "group_mandatory_specifications": "This group has mandatory specifications",
                     "dialog": {
                         "add_specifications": "Agregar especificaciones",
-                        "has":"has",
-                        "have":"have",
-                        "there":"There",
-                        "been":"been",
-                        "try_create_products":"when trying to create the product. Try gain… Thank you",
+                        "has": "has",
+                        "have": "have",
+                        "there": "There",
+                        "been": "been",
+                        "try_create_products": "when trying to create the product. Try gain… Thank you",
                         "errors": "errors",
                         "error": "error"
                     },

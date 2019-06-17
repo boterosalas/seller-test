@@ -1,9 +1,9 @@
 <div class="content-modal">
-  <h2 mat-dialog-title>Aceptar recibo</h2>
-  <mat-dialog-content>Confirmastes el recibo del producto, iniciaremos el proceso de devolución de dinero al cliente.
+  <h2 mat-dialog-title>{{'secure.orders.in_devolution.action_confirm_receipt.title_dialog' | I18N | async}}</h2>
+  <mat-dialog-content>{{'secure.orders.in_devolution.action_confirm_receipt.body_dialog' | I18N | async}}
   </mat-dialog-content>
   <mat-dialog-actions class="button-content">
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button color="primary" [mat-dialog-close]="true">Cerrar</button>
+    <button mat-button color="primary" [mat-dialog-close]="true">{{'actions.close' | I18N | async}}</button>
   </mat-dialog-actions>
 </div>
