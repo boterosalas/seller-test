@@ -1,30 +1,30 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
-  <h5>Factura: {{order.billingNumber}}</h5>
+  <h5>{{'secure.billing.invoice' | I18N | async}}: {{order.billingNumber}}</h5>
 
   <div class="title-product-list">
     <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="155px" class="sc-text-normal">
       <div class="title-table-product">
-        <p>Producto</p>
+        <p>{{'secure.billing.product' | I18N | async}}</p>
       </div>
     </div>
     <div class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>EAN</p>
+        <p>{{'secure.billing.ean' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>Cantidad</p>
+        <p>{{'secure.billing.amount' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>Flete total</p>
+        <p>{{'secure.billing.total_freight' | I18N | async}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
       <div class="title-table-product">
-        <p>Costo total</p>
+        <p>{{'secure.billing.total_cost' | I18N | async}}</p>
       </div>
     </div>
   </div>
@@ -63,14 +63,14 @@
 
       <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
         <mat-icon>arrow_drop_down</mat-icon>
-        <span>Acciones</span>
+        <span>{{'shared.actions' | I18N | async}}</span>
       </button>
       <mat-menu #orderOptions="matMenu">
 
         <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)" fxShow.xs="true" fxShow.sm="true"
           fxShow.gt-lg="false" fxShow="false" mat-menu-item>
           <mat-icon>more_vert</mat-icon>
-          <span>Ver detalle</span>
+          <span>{{'actions.show_detail' | I18N | async}}</span>
         </button>
       </mat-menu>
     </div>

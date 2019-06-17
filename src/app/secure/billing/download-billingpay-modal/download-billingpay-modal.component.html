@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Te enviaremos los pagos al siguiente correo electrónico.</h2>
+<h2 mat-dialog-title>{{'secure.billing.send_payment_information' | I18N | async}}</h2>
 <mat-dialog-content>
 
   <form #f="ngForm" [formGroup]="myform" class="form-login">
@@ -31,7 +31,7 @@
           <!-- Clean email input -->
           
           <!-- Error message -->
-          <mat-error>El correo electrónico no puede estar en blanco</mat-error>
+          <mat-error>{{'errors.blank_email' | I18N | async}}</mat-error>
           <!-- /Error message -->
 
         </mat-form-field>
@@ -43,7 +43,7 @@
 <mat-dialog-actions class="dialog-buttons">
 
   <!-- Cancel button -->
-  <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
+  <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel' | I18N | async}}</button>
   <!-- /Cancel button -->
 
   <!-- Send historical button -->
@@ -51,7 +51,7 @@
     class="sc-button"
     [disabled]="!f.form.valid"
     (click)="downloadPay(myform)"
-    mat-raised-button color="accent">Enviar pagos
+    mat-raised-button color="accent">{{'secure.billing.send_payment' | I18N | async}}
   </button>
   <!-- /Send historical button -->
 

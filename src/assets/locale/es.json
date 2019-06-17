@@ -89,7 +89,8 @@
         "format_invalidate": "Formato inválido",
         "error_promise": "La promesa de entrega no es válida.",
         "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
-        "error_product": "Producto inválido."
+        "error_product": "Producto inválido.",
+        "blank_email": "El correo electrónico no puede estar en blanco"
     },
     "filters": {
         "clear": "Limpiar",
@@ -104,12 +105,21 @@
             "payment_date": "Fecha de pago",
             "commission": "Comisión",
             "iva": "IVA",
-            "amount": "Valor a pagar",
+            "amount_pay": "Valor a pagar",
             "movement_charge": "Cobro movimiento",
             "storage_charge": "Cobro almacenamiento",
             "total_charged": "Total cobrado",
             "no_payment": "No se han encontrado pagos",
-            "refresh_payment": "Cargar todos los pagos en el botón: FACTURACIÓN"
+            "refresh_payment": "Cargar todos los pagos en el botón: FACTURACIÓN",
+            "product": "Producto",
+            "ean": "EAN",
+            "amount": "Cantidad",
+            "total_freight": "Flete total",
+            "total_cost": "Costo total",
+            "send_payment": "Enviar pagos",
+            "send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",
+            "correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",
+            "error_download": "Se ha presentado un error al realizar la descarga de los pagos"
         },
         "client_information": {
             "client": "Cliente",

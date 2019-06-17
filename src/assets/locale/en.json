@@ -89,7 +89,8 @@
         "format_invalidate": "Invalid format",
         "error_promise": "The delivery promise entered is invalid.",
         "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
-        "error_product": "Invalid product."
+        "error_product": "Invalid product.",
+        "blank_email": "The e-mail address can not be blank"
     },
     "filters": {
         "clear": "Clear",
@@ -104,12 +105,21 @@
             "payment_date": "Payment date",
             "commission": "Commission",
             "iva": "Added Value Tax",
-            "amount": "Amount due to pay",
+            "amount_pay": "Amount due to pay",
             "movement_charge": "Movement charge",
             "storage_charge": "Storage charge",
             "total_charged": "Total charged",
             "no_payment": "No payment information has been found",
-            "refresh_payment": "Refresh all payment information with the button: INVOICING"
+            "refresh_payment": "Refresh all payment information with the button: INVOICING",
+            "product": "Product",
+            "ean": "EAN",
+            "amount": "Amount",
+            "total_freight": "Total freight",
+            "total_cost": "Total cost",
+            "send_payment": "Send payment",
+            "send_payment_information": "We will send the payment information to the following e-mail address",
+            "correctly_download": "The payment information has been downloaded correctly, check your inbox",
+            "error_download": "An error has occurred when downloading the payment information"
         },
         "client_information": {
             "client": "Client",
