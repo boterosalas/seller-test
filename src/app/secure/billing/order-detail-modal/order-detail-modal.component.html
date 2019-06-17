@@ -1,6 +1,6 @@
 <div class="container-product-list">
   <div class="title-page">
-    <span class="sc-title">Factura: {{order.billingNumber}}
+    <span class="sc-title">{{'secure.billing.invoice' | I18N | async}}: {{order.billingNumber}}
     </span>
     <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
@@ -9,47 +9,47 @@
   <mat-list class="card-info" fxFlex="100">
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Factura
+      <h4 mat-line>{{'secure.billing.invoice' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.billingNumber}}</p>
       </h4>
     </mat-list-item>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Número del pedido
+      <h4 mat-line>{{'secure.billing.order_number' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.orderNumber}}</p>
       </h4>
     </mat-list-item>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Orden de pago
+      <h4 mat-line>{{'secure.billing.payment_number' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.payOrderNumber}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Concepto
+      <h4 mat-line>{{'secure.billing.concept' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.concept}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Fecha de pago
+      <h4 mat-line>{{'secure.billing.payment_date' | I18N | async}}
         <p mat-subheader class="sub-text-list">{{order.paymentDate | date}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Comisión
+      <h4 mat-line>{{'secure.billing.commission' | I18N | async}}
         <p mat-subheader class="sub-text-list">${{order.commission | number}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Valor a pagar
+      <h4 mat-line>{{'secure.billing.amount_pay' | I18N | async}}
         <p mat-subheader class="sub-text-list">${{order.billingTotal | number}}</p>
       </h4>
     </mat-list-item>

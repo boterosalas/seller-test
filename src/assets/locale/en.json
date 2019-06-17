@@ -1,7 +1,8 @@
 {
-    "change_language": "Change language successfully to ",
+    "change_language": "Language changed successfully to ",
     "english": "English",
     "spanish": "Spanish",
+    "language": "Language",
     "shared": {
         "name": "Name",
         "category": "Category",
@@ -95,6 +96,11 @@
     "filters": {
         "clear": "Clear",
         "filter": "Filter"
+    },
+    "shell": {
+        "header": {
+            "welcome": "Welcome"
+        }
     },
     "secure": {
         "billing": {

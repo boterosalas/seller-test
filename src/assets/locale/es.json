@@ -2,6 +2,7 @@
     "change_language": "El lenguaje ha cambiado satisfactoriamente a ",
     "english": "Inglés",
     "spanish": "Español",
+    "language": "Idioma",
     "shared": {
         "name": "Nombre",
         "category": "Categoría",
@@ -95,6 +96,11 @@
     "filters": {
         "clear": "Limpiar",
         "filter": "Filtrar"
+    },
+    "shell": {
+        "header": {
+            "welcome": "Bienvenido"
+        }
     },
     "secure": {
         "billing": {

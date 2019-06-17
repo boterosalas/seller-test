@@ -5,16 +5,16 @@
       <mat-icon class="mat-24">menu</mat-icon>
     </button>
     <div (click)="goToHome()" class="logo-application"></div>
-    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">Bienvenido:
+    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">{{'shell.header.welcome' | I18N | async}}:
       <b>{{user?.sellerName}}</b>
-      <span class="sc-header-name-seller">ID: {{user?.sellerId}}</span>
+      <span class="sc-header-name-seller">{{'shared.id' | I18N | async}}: {{user?.sellerId}}</span>
     </p>
     <span class="spacer-content"></span>
 
     <ng-container>
       <form [formGroup]="form">
         <mat-form-field>
-          <mat-label>idioma</mat-label>
+          <mat-label>{{'language' | I18N | async}}</mat-label>
             <mat-select formControlName="language" class="header_select">
               <mat-option *ngFor="let language of languages" [value]="language.id">
                 <span>
