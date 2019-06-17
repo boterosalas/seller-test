@@ -9,7 +9,7 @@ import {
   MatIconModule,
   MatListModule
 } from "@angular/material";
-import { TicketComponentComponent } from "./ticket-component/ticket-component.component";
+import { CaseComponentComponent } from "./case-component/case-component.component";
 import { SharedModule } from "@app/shared/shared.module";
 
 @NgModule({
@@ -24,6 +24,6 @@ import { SharedModule } from "@app/shared/shared.module";
     MatListModule,
     SharedModule
   ],
-  declarations: [TicketComponentComponent]
+  declarations: [CaseComponentComponent]
 })
 export class SellerSupportCenterModule {}

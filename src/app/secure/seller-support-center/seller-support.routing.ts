@@ -6,14 +6,14 @@ import { RoutesConst } from "@app/shared";
 
 import { AuthService } from "../auth/auth.routing";
 
-import { TicketComponentComponent } from "./ticket-component/ticket-component.component";
+import { CaseComponentComponent } from "./case-component/case-component.component";
 
 const routes: Routes = [
   Route.withShell([
     {
-      path: `${RoutesConst.sellerCenterTickets}`,
-      component: TicketComponentComponent,
-      data: { title: "Administrar Tickets" }
+      path: `${RoutesConst.sellerCenterCases}`,
+      component: CaseComponentComponent,
+      data: { title: "Administrar Cases" }
       // canActivate: [AuthService]
     }
   ])
