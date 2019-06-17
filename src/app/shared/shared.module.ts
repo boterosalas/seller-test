@@ -18,9 +18,9 @@ import { ErrorDialogComponent } from "./components/dialogs/error-dialog.componen
 import { DialogWithFormComponent } from "./components/dialog-with-form/dialog-with-form.component";
 import { CreateProcessDialogComponent } from "./components/create-process-dialog/create-process-dialog.component";
 import { HistoryCardComponent } from "./components/history-card/history-card.component";
-import { TicketToolbarComponent } from "./components/ticket-toolbar/ticket-toolbar.component";
-import { TicketModalComponent } from "./components/ticket-modal/ticket-modal.component";
-import { TicketDetailComponent } from "./components/ticket-detail/ticket-detail.component";
+import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
+import { CaseModalComponent } from "./components/case-modal/case-modal.component";
+import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
 
 @NgModule({
   imports: [
@@ -39,9 +39,9 @@ import { TicketDetailComponent } from "./components/ticket-detail/ticket-detail.
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     HistoryCardComponent,
-    TicketDetailComponent,
-    TicketModalComponent,
-    TicketToolbarComponent
+    CaseDetailComponent,
+    CaseModalComponent,
+    CaseToolbarComponent
   ],
   exports: [
     MaterialModule,
@@ -56,12 +56,12 @@ import { TicketDetailComponent } from "./components/ticket-detail/ticket-detail.
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent,
-    TicketDetailComponent,
-    TicketModalComponent,
-    TicketToolbarComponent
+    CaseDetailComponent,
+    CaseModalComponent,
+    CaseToolbarComponent
   ],
   entryComponents: [
-    TicketModalComponent,
+    CaseModalComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent
