@@ -4,7 +4,7 @@ import { UserLoginService, UserParametersService } from '@app/core';
 import { UserInformation } from '@app/shared/models';
 import { Router } from '@angular/router';
 
-describe('QuotingComponent', () => {
+fdescribe('QuotingComponent', () => {
 
 
   const userMock = new UserInformation();

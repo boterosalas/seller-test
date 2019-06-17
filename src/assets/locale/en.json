@@ -96,6 +96,21 @@
         "filter": "Filter"
     },
     "secure": {
+        "billing": {
+            "invoice": "Invoice",
+            "order_number": "Order number",
+            "payment_number": "Payment order number",
+            "concept": "Concept",
+            "payment_date": "Payment date",
+            "commission": "Commission",
+            "iva": "Added Value Tax",
+            "amount": "Amount due to pay",
+            "movement_charge": "Movement charge",
+            "storage_charge": "Storage charge",
+            "total_charged": "Total charged",
+            "no_payment": "No payment information has been found",
+            "refresh_payment": "Refresh all payment information with the button: INVOICING"
+        },
         "client_information": {
             "client": "Client",
             "address": "Address",
@@ -151,6 +166,8 @@
                 "enabled_title_modal": "Enable user",
                 "disabled_title_modal": "Disable user",
                 "vacation_title_modal": "Program vacations",
+                "cancel_title_modal": "Cancel holiday period",
+                "cancel_message_modal": "¿Are you sure you want to cancel your holiday period? If you confirm this action you will return to an Active status, if the holiday period has already started, you must update all your offers again",
                 "enabled_message_modal": "Are you sure you want to activate this account?",
                 "disabled_message_modal": "To inactivate this account you must first input a reason and an observation that will explain to the Seller the reason for which their store is being inactivated. Once entered you may clic the ACCEPT button.",
                 "vacation_message_modal": "To program a vacation period for this account, you must first insert an inicial date, a final date and clic the PROGRAM button. The effects will only be in place once the period has started. Remember that you must make a full offer update once the period has finished, otherwise your offers will not be able to be seen in the site.",
@@ -216,6 +233,8 @@
                 "txt_no_seller": "Enter the store name in the search bar to see the categories."
             },
             "quoting": {
+                "quoting_admin": "ADMINISTRATOR FREIGHT CALCULATOR.",
+                "quoting_seller": "SELLER FREIGHT CALCULATOR.",
                 "administrator": {
                     "shipping_methods": {
                         "title": "Shipping method"

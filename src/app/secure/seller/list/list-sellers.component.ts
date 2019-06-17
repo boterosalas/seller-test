@@ -270,8 +270,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * Metodo encargado de cambiar la data del dialogo para cancelar vacaciones
      */
     setDataCancelVacationsDialog() {
-        const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
-        const title = 'Cancelar vacaciones';
+        const message = this.languageService.getValue('secure.seller.list.cancel_message_modal');
+        const title = this.languageService.getValue('secure.seller.list.cancel_title_modal');
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;

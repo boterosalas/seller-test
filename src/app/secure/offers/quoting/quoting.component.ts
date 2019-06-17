@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UserInformation, RoutesConst } from '@app/shared';
 import { UserLoginService, UserParametersService } from '@app/core';
 import { Router } from '@angular/router';
+import { LanguageService } from '@app/core/translate/language.service';
 
 @Component({
   selector: 'app-quoting',
@@ -16,7 +17,8 @@ export class QuotingComponent implements OnInit {
   constructor(
     private userService: UserLoginService,
     private router: Router,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -24,12 +26,16 @@ export class QuotingComponent implements OnInit {
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      this.user = await this.userParams.getUserData();
-      this.userRol = this.user.sellerProfile === 'seller' ? 'Cotizador vendedor' : this.user.sellerProfile === 'administrator' ? 'Cotizador administrador' : null;
-    } else if (!isLoggedIn) {
-      this.router.navigate([`/${RoutesConst.home}`]);
-    }
+    await this.languageService.lenguage$.subscribe(async () => {
+      if (isLoggedIn) {
+        const sellerQuoting = this.languageService.getValue('secure.offers.quoting.quoting_seller');
+        const adminQuoting = this.languageService.getValue('secure.offers.quoting.quoting_admin');
+        this.user = await this.userParams.getUserData();
+        this.userRol = this.user.sellerProfile === 'seller' ? sellerQuoting : this.user.sellerProfile === 'administrator' ? adminQuoting : null;
+      } else if (!isLoggedIn) {
+        this.router.navigate([`/${RoutesConst.home}`]);
+      }
+    });
   }
 
 }
