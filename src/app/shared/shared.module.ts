@@ -20,6 +20,7 @@ import { CreateProcessDialogComponent } from "./components/create-process-dialog
 import { HistoryCardComponent } from "./components/history-card/history-card.component";
 import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
 import { ResponseCaseDialogComponent } from "./components/response-case-dialog/response-case-dialog.component";
+import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
 
 @NgModule({
@@ -41,6 +42,7 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     HistoryCardComponent,
     CaseDetailComponent,
     ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
     CaseToolbarComponent
   ],
   exports: [
@@ -58,10 +60,12 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     CreateProcessDialogComponent,
     CaseDetailComponent,
     ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
     CaseToolbarComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent
