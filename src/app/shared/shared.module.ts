@@ -21,6 +21,7 @@ import { HistoryCardComponent } from "./components/history-card/history-card.com
 import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
 import { CaseModalComponent } from "./components/case-modal/case-modal.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
+import { CaseListComponent } from './components/case-list/case-list.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     HistoryCardComponent,
     CaseDetailComponent,
     CaseModalComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    CaseListComponent
   ],
   exports: [
     MaterialModule,
@@ -58,7 +60,8 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     CreateProcessDialogComponent,
     CaseDetailComponent,
     CaseModalComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    CaseListComponent
   ],
   entryComponents: [
     CaseModalComponent,
