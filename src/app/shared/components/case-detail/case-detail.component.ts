@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { CaseModalComponent } from "../case-modal/case-modal.component";
+import { ResponseCaseDialogComponent } from "../response-case-dialog/response-case-dialog.component";
 
 @Component({
   selector: "app-case-detail",
@@ -13,9 +13,9 @@ export class CaseDetailComponent implements OnInit {
   ngOnInit() {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CaseModalComponent, {
-      width: "760px",
-      height: "482px",
+    const dialogRef = this.dialog.open(ResponseCaseDialogComponent, {
+      width: "50%",
+      height: "fit-content",
       data: { title: "texts" }
     });
     dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
