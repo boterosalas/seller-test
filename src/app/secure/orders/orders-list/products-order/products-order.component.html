@@ -74,8 +74,8 @@
       <div class="productName-table-option">
         <div class="product-name n-margin">
           {{product.nameProduct}}
-          <p class="sc-text-bold-order n-margin">Ref: {{product.reference}}</p>
-          <p class="sc-text-bold-order n-margin">SKU: {{product.sku}}</p>
+          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.ref' | I18N | async}}: {{product.reference}}</p>
+          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.sku' | I18N | async}}: {{product.sku}}</p>
         </div>
       </div>
     </div>
@@ -177,7 +177,7 @@
   <div class="content-total-product">
     <div fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px" fxFlex.xs="96px">
       <div class="total-product-text">
-        <p class="sc-text-bold-order">Total:</p>
+        <p class="sc-text-bold-order">{{'secure.orders.order_list.product_order.total' | I18N | async}}:</p>
       </div>
     </div>
     <div fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px" fxFlex.xs="127px">

@@ -1,22 +1,22 @@
 <div *ngIf="myform">
-  <h2 mat-dialog-title>Te enviaremos las
-    <span *ngIf="!billingType"> &oacute;rdenes </span>
-    <span *ngIf="billingType"> facturas </span>
-    al siguiente correo electrónico.</h2>
+  <h2 mat-dialog-title>{{'secure.orders.download_order_modal.title' | I18N | async}}
+    <span *ngIf="!billingType"> {{'secure.orders.download_order_modal.title_2' | I18N | async}} </span>
+    <span *ngIf="billingType"> {{'secure.orders.download_order_modal.title_3' | I18N | async}} </span>
+    {{'secure.orders.download_order_modal.title_4' | I18N | async}}</h2>
   <mat-dialog-content>
     <form #f="ngForm" [formGroup]="myform" class="form-login">
       <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout="row" fxFlex="100">
           <mat-form-field fxFlex="100" class="input-style">
-            <input name="email" formControlName="email" matInput placeholder="Correo electrónico" type="email" required>
+            <input name="email" formControlName="email" matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | I18N | async" type="email" required>
 
             <!-- dirty: si el campo cambia -->
             <button disabled="{{!f.form.dirty}}" matSuffix type="button" color="primary" mat-icon-button (click)="createForm()">
-              <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>
+              <mat-icon [matTooltip]="'secure.offers.historical_admin.download_historical.tooltip_email' | I18N | async" matTooltipPosition="below" matSuffix>
                 autorenew
               </mat-icon>
             </button>
-            <mat-error>El correo electrónico no puede estar en blanco</mat-error>
+            <mat-error>{{'errors.email_required' | I18N | async}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -24,11 +24,11 @@
   </mat-dialog-content>
   <mat-dialog-actions class="dialog-buttons">
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
+    <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | I18N | async}}</button>
 
     <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">
-      <span *ngIf="!billingType">Enviar &oacute;rdenes </span>
-      <span *ngIf="billingType">Enviar facturas </span>
+      <span *ngIf="!billingType">{{'secure.orders.download_order_modal.btn_send_order' | I18N | async}}</span>
+      <span *ngIf="billingType">{{'secure.orders.download_order_modal.btn_send_invoice' | I18N | async}} </span>
     </button>
   </mat-dialog-actions>
 </div>

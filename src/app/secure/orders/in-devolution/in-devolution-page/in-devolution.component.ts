@@ -24,6 +24,7 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { LanguageService } from '@app/core/translate/language.service';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -104,7 +105,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     private componentsService: ComponentsService,
     private loadingService: LoadingService,
     public userParams: UserParametersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private languageService: LanguageService,
   ) { }
 
   ngOnInit() {
@@ -297,11 +299,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
       } else {
-        this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
+        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.in_devolution.in_devolution_page.sn_error_request'), this.languageService.getValue('actions.accpet_min'), 12000);
       }
     }, error => {
       log.error(error);
-      this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
+      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.in_devolution.in_devolution_page.sn_error_request'), this.languageService.getValue('actions.accpet_min'), 12000);
     });
   }
 

@@ -2,7 +2,7 @@
   <div class="title-page">
     <span class="sc-title">{{'secure.orders.order_list.product_detail.product' | I18N | async}}: {{product.nameProduct}}
     </span>
-    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+    <a [matTooltip]="'actions.close' | I18N | async" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>

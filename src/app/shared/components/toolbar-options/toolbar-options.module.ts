@@ -16,7 +16,7 @@ import { ToolbarOptionsComponent } from './toolbar-options.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    DownloadOrderModalModule
+    // DownloadOrderModalModule
   ],
   declarations: [
     ToolbarOptionsComponent,

@@ -1,6 +1,6 @@
 <div class="container-product-list content-products-pending-detail">
   <div class="title-page">
-    <span class="sc-title">Producto: {{order.reversionRequestDetailViewModel.productName}}
+    <span class="sc-title">{{'secure.orders.order_list.product_detail.product' | I18N | async}}: {{order.reversionRequestDetailViewModel.productName}}
     </span>
     <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
@@ -11,7 +11,7 @@
     <mat-expansion-panel class="expanded-element" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title class="sc-link-text">
-          Informaci&oacute;n del producto
+          {{'secure.orders.in_devolution.product_devolution_modal.info_title' | I18N | async}}
         </mat-panel-title>
 
       </mat-expansion-panel-header>
@@ -19,7 +19,7 @@
 
       <mat-list class="card-info" fxFlex="100">
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Producto
+          <h4 mat-line>{{'secure.orders.order_list.product_detail.product' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.productName}}</p>
           </h4>
 
@@ -34,14 +34,14 @@
         <mat-divider></mat-divider> -->
 
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Referencia
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.reference' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.reference}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>SKU
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.sku' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.sku}}</p>
           </h4>
 
@@ -74,34 +74,34 @@
     <mat-expansion-panel class="expanded-element">
       <mat-expansion-panel-header>
         <mat-panel-title class="sc-link-text">
-          Ver informaci&oacute;n del cliente
+          {{'secure.orders.in_devolution.product_devolution_modal.view_info_client' | I18N | async}}
         </mat-panel-title>
 
       </mat-expansion-panel-header>
 
       <mat-list class="card-info" fxFlex="100">
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Nombre
+          <h4 mat-line>{{'shared.name' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.clientName}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Identificaci&oacute;n
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.id' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.identificationCard}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Direcci&oacute;n
+          <h4 mat-line>{{'secure.client_information.address' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.clientAddress}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Tel&eacute;fono
+          <h4 mat-line>{{'secure.client_information.phone' | I18N | async}}
             <p mat-subheader class="sub-text-list">{{order.clientTelephone}}</p>
           </h4>
         </mat-list-item>

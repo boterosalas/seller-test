@@ -7,6 +7,7 @@ import { ComponentsService } from '@app/shared/services/components.service';
 
 import { DownloadOrderService } from './download-order.service';
 import { UserInformation } from '@app/shared';
+import { LanguageService } from '@app/core/translate/language.service';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
@@ -51,6 +52,7 @@ export class DownloadOrderModalComponent implements OnInit {
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
+    private languageService: LanguageService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // capturo el limite de registros indicados por el usuario
@@ -115,14 +117,13 @@ export class DownloadOrderModalComponent implements OnInit {
   downloadOrdersByService(currentFiltersOrders: any): void {
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
       if (res != null) {
-        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
-          'Cerrar', 10000);
+        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_download_order'), this.languageService.getValue('actions.close'), 10000);
       } else {
-        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
       }
       this.onNoClick();
     }, err => {
-      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
       this.onNoClick();
     });
   }
@@ -134,14 +135,13 @@ export class DownloadOrderModalComponent implements OnInit {
   downBillingByService(currentFiltersOrders: any): void {
     this.downloadOrderService.downloadBilling(currentFiltersOrders).subscribe(res => {
       if (res != null) {
-        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
-          'Cerrar', 10000);
+        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_download_order'), this.languageService.getValue('actions.close'), 10000);
       } else {
-        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
       }
       this.onNoClick();
     }, err => {
-      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
       this.onNoClick();
     });
 

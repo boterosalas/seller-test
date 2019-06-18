@@ -91,7 +91,8 @@
         "error_promise": "The delivery promise entered is invalid.",
         "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
         "error_product": "Invalid product.",
-        "blank_email": "The e-mail address can not be blank"
+        "blank_email": "The e-mail address can not be blank",
+        "error_guide": "5 characters minimum, 20 characters maximum."
     },
     "filters": {
         "clear": "Clear",
@@ -142,6 +143,16 @@
                 "txt_no_invoices": "There are no invoices associated with this order number",
                 "must_enter_order": "You must enter an order number to see the invoices associated"
             },
+            "download_order_modal": {
+                "title" : "We will send you the",
+                "title_2" : "orders",
+                "title_3" : "invoices",
+                "title_4" : "to the following e-mail address",
+                "btn_send_order": "Send orders",
+                "btn_send_invoice": "Send invoices",
+                "sn_download_order": "The orders have been downloaded correctly, check your inbox.",
+                "sn_error_download": "An error has occurred when downloading the orders."
+            },
             "order_list": {
                 "detail_modal": {
                     "order_date": "Order date",
@@ -173,7 +184,18 @@
                     "conveyor": "Conveyor",
                     "delivery_type": "Delivery type",
                     "standar": "Standar",
-                    "fulfillment": "fulfillment"
+                    "fulfillment": "fulfillment",
+                    "ref": "Ref",
+                    "sku": "SKU",
+                    "total": "Total"
+                },
+                "send_order": {
+                    "title_order": "Send Order",
+                    "no_send_products": "The order doesn't contain any more products left for sending.",
+                    "full_fillment": "Delivery type: Fulfillment",
+                    "envios_exito": "Delivery type: Envíos Éxito",
+                    "standar": "Delivery type: Standard",
+                    "send_products": "Send Product"
                 }
             },
             "in_devolution": {
@@ -195,7 +217,8 @@
                     "view_commnet": "See commentary",
                     "rejected": "Reject",
                     "no_found_orders": "No orders have been found.",
-                    "charge_orders": "Reload all the orders."
+                    "charge_orders": "Reload all the orders.",
+                    "sn_error_request": "An error has occurred while accepting the request."
                 },
                 "product_devolution_modal": {
                     "info_title": "Product information",
@@ -214,6 +237,15 @@
             "in_validation": {
                 "in_validation_page": {
                     "max_response_date": "Max response date"
+                }
+            },
+            "pending_devolution": {
+                "action_accept_devolution": {
+                    "title": "Approve refund request",
+                    "body": "The request has been approved, we will notify the client so they can send you the product back."
+                }, 
+                "view_comment": {
+                    "commnet_client": "Customer comment"
                 }
             }
         },
