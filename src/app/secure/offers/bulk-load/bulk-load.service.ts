@@ -20,8 +20,8 @@ export class BulkLoadService {
    * @returns {Observable<{}>}
    * @memberof BulkLoadService
    */
-  setOffers(body: {}): Observable<{}> {
-    return this.http.patch(this.api.get('patchOffers'), body, { observe: 'response' });
+  setOffers(body: any): Observable<{}> {
+    return this.http.patch(this.api.get('patchOffers'), body);
   }
 
   setOffersProducts(body: {}): Observable<{}> {
