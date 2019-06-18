@@ -22,19 +22,14 @@ export const registerRegex = [
   {Identifier: 'contactName', Value: '^[0-9A-Za-zá é í ó ú ü ñà è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$', Module: 'vendedores'},
   {Identifier: 'email', Value: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$', Module: 'vendedores'},
   {Identifier: 'nameStore', Value: '^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$', Module: 'vendedores'},
-  {Identifier: 'nit', Value: '^[0-9]*$', Module: 'vendedores'},
-  {Identifier: 'rut', Value: '^[0-9]*$', Module: 'vendedores'},
-  {Identifier: 'internationalNit', Value: '^[0-9a-zA-Z-]*$', Module: 'vendedores'},
-  {Identifier: 'internationalRut', Value: '^[0-9a-zA-Z-]*$', Module: 'vendedores'},
+  {Identifier: 'integerNumber', Value: '^[0-9]*$', Module: 'vendedores'},
+  {Identifier: 'internationalIdentifier', Value: '^[0-9a-zA-Z-]*$', Module: 'vendedores'},
   {Identifier: 'internationalPostalCode', Value: '^[0-9a-zA-Z]*$', Module: 'vendedores'},
   {Identifier: 'payoneer', Value: '^[\w_\-\.\^@!\? \'\']+$', Module: 'vendedores'},
-  {Identifier: 'internationalState', Value: '^([^\/])*$', Module: 'vendedores'},
-  {Identifier: 'internationalCity', Value: '^([^\/])*$', Module: 'vendedores'},
-  {Identifier: 'daneCode', Value: '^[0-9]*$', Module: 'vendedores'},
-  {Identifier: 'address', Value: '^([^\/])*$', Module: 'vendedores'},
+  {Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores'}
 ];
 
-describe('RegisterSellerComponent', () => {
+fdescribe('RegisterSellerComponent', () => {
   const userData = {sellerProfile: 'administrator'};
   const registerMenu = {
     Functionalities: [{
@@ -142,34 +137,34 @@ describe('RegisterSellerComponent', () => {
 
     it('sould be charge regex', () => {
       expect(!!component.sellerRegex.payoneer).toBeFalsy();
-      expect(!!component.sellerRegex.address).toBeFalsy();
+      expect(!!component.sellerRegex.internationalLocation).toBeFalsy();
       expect(!!component.sellerRegex.contactName).toBeFalsy();
-      expect(!!component.sellerRegex.daneCode).toBeFalsy();
+      expect(!!component.sellerRegex.integerNumber).toBeFalsy();
       expect(!!component.sellerRegex.email).toBeFalsy();
-      expect(!!component.sellerRegex.internationalCity).toBeFalsy();
-      expect(!!component.sellerRegex.internationalNit).toBeFalsy();
+      expect(!!component.sellerRegex.internationalLocation).toBeFalsy();
+      expect(!!component.sellerRegex.internationalIdentifier).toBeFalsy();
       expect(!!component.sellerRegex.internationalPostalCode).toBeFalsy();
-      expect(!!component.sellerRegex.internationalRut).toBeFalsy();
-      expect(!!component.sellerRegex.internationalState).toBeFalsy();
+      expect(!!component.sellerRegex.internationalIdentifier).toBeFalsy();
+      expect(!!component.sellerRegex.internationalLocation).toBeFalsy();
       expect(!!component.sellerRegex.nameStore).toBeFalsy();
-      expect(!!component.sellerRegex.nit).toBeFalsy();
+      expect(!!component.sellerRegex.integerNumber).toBeFalsy();
       expect(!!component.sellerRegex.phoneNumber).toBeFalsy();
-      expect(!!component.sellerRegex.rut).toBeFalsy();
+      expect(!!component.sellerRegex.integerNumber).toBeFalsy();
       component.getRegex();
       expect(!!component.sellerRegex.payoneer).toBeTruthy();
-      expect(!!component.sellerRegex.address).toBeTruthy();
+      expect(!!component.sellerRegex.internationalLocation).toBeTruthy();
       expect(!!component.sellerRegex.contactName).toBeTruthy();
-      expect(!!component.sellerRegex.daneCode).toBeTruthy();
+      expect(!!component.sellerRegex.integerNumber).toBeTruthy();
       expect(!!component.sellerRegex.email).toBeTruthy();
-      expect(!!component.sellerRegex.internationalCity).toBeTruthy();
-      expect(!!component.sellerRegex.internationalNit).toBeTruthy();
+      expect(!!component.sellerRegex.internationalLocation).toBeTruthy();
+      expect(!!component.sellerRegex.internationalIdentifier).toBeTruthy();
       expect(!!component.sellerRegex.internationalPostalCode).toBeTruthy();
-      expect(!!component.sellerRegex.internationalRut).toBeTruthy();
-      expect(!!component.sellerRegex.internationalState).toBeTruthy();
+      expect(!!component.sellerRegex.internationalIdentifier).toBeTruthy();
+      expect(!!component.sellerRegex.internationalLocation).toBeTruthy();
       expect(!!component.sellerRegex.nameStore).toBeTruthy();
-      expect(!!component.sellerRegex.nit).toBeTruthy();
+      expect(!!component.sellerRegex.integerNumber).toBeTruthy();
       expect(!!component.sellerRegex.phoneNumber).toBeTruthy();
-      expect(!!component.sellerRegex.rut).toBeTruthy();
+      expect(!!component.sellerRegex.integerNumber).toBeTruthy();
     });
 
     describe('is Colombian Select', () => {
