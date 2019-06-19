@@ -39,11 +39,11 @@
         </button>
       
 
-      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
+      <button class="sc-button-toolbar" [matTooltip]="'shell.header.profile' | I18N | async" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
         id="profile-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
+      <button class="sc-button-toolbar" [matTooltip]="'shell.header.logout' | I18N | async" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
         id="logout-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">exit_to_app</mat-icon>
       </button>

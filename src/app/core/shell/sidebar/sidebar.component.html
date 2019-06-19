@@ -16,7 +16,7 @@
     <ng-container>
         <form [formGroup]="form">
           <mat-form-field>
-            <mat-label>idioma</mat-label>
+            <mat-label>{{'language' | I18N | async}}</mat-label>
               <mat-select formControlName="language">
                 <mat-option *ngFor="let language of languages" [value]="language.id">
                   {{language.id}}
@@ -239,12 +239,12 @@
     </mat-list-item> -->
     <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterMyProfile]">
       <mat-icon matListIcon class="mat-18">person</mat-icon>
-      <h6 matLine>Perfil</h6>
+      <h6 matLine>{{'shell.header.profile' | I18N | async}}</h6>
     </mat-list-item>
 
     <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]" (click)="toggleMenu()">
       <mat-icon matListIcon class="mat-18">input</mat-icon>
-      <h6 matLine>Salir</h6>
+      <h6 matLine>{{'shell.header.logout' | I18N | async}}</h6>
     </mat-list-item>
 
     <!--

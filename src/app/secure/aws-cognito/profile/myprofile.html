@@ -1,18 +1,18 @@
-<h1 class="text-center">Mi Perfil</h1>
+<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | I18N | async}}</h1>
 <div class="profile-content">
     <div class="sub-content">
         <form [formGroup]="form">
             <mat-form-field class="full-width">
-                <input matInput placeholder="Id seller" autocomplete="false" formControlName="IdSeller">
+                <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | I18N | async" autocomplete="false" formControlName="IdSeller">
             </mat-form-field>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Nit" autocomplete="false" formControlName="Nit">
+                <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | I18N | async)" autocomplete="false" formControlName="Nit">
             </mat-form-field>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="Name">
+                <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | I18N | async)" autocomplete="false" formControlName="Name">
             </mat-form-field>        
             <mat-form-field class="full-width">
-                <input matInput placeholder="Correo" autocomplete="false" formControlName="Email">
+                <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | I18N | async)" autocomplete="false" formControlName="Email">
             </mat-form-field>
         </form>
     </div>
@@ -40,14 +40,14 @@
                     </mat-card-title>
                     <mat-card-content>
                         <label class="label-result">
-                                <strong>Inicio:</strong>{{user.StartVacations}} - <strong>Fin:</strong>{{user.EndVacations}}
+                                <strong>{{'secure.seller.list.start_date' | I18N | async}}:</strong>{{user.StartVacations}} - <strong>{{'secure.seller.list.end_date' | I18N | async}}:</strong>{{user.EndVacations}}
                             </label>
                     </mat-card-content>
                 </div>
             </mat-card>
         </ng-container>
         <ng-template #programVacations>
-            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="sendToOpenVacationDialog()">PROGRAMAR VACACIONES</button>
+            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | I18N | async}}</button>
         </ng-template>
     </div>
 </div>
@@ -55,13 +55,13 @@
 <ng-template #dialogTemplate>
     <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
         <mat-form-field class="half-width">
-            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)">
+            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="today" [readonly]="true" [placeholder]="'secure.seller.list.start_date' | I18N | async" formControlName="StartDateVacation" (click)="openPicker(1)">
             <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
             <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="half-width">
-            <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)">
+            <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="startDateVacation.value" [placeholder]="'secure.seller.list.end_date' | I18N | async" formControlName="EndDateVacation" (click)="openPicker(2)">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker disabled="false"></mat-datepicker>
         </mat-form-field>

@@ -104,7 +104,9 @@
     },
     "shell": {
         "header": {
-            "welcome": "Welcome"
+            "welcome": "Welcome",
+            "profile": "Profile",
+            "logout": "Logout"
         }
     },
     "core": {
@@ -133,6 +135,12 @@
         }
     },
     "secure": {
+        "aws_cognito": {
+            "profile": {
+                "profile": "My profile",
+                "seller_id": "Seller id"
+            }
+        },
         "billing": {
             "invoice": "Invoice",
             "order_number": "Order number",
