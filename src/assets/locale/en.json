@@ -25,7 +25,7 @@
         "remove": "Remove",
         "register": "REGISTER",
         "cancel": "CANCEL",
-        "cancel_min": "Cancelar",
+        "cancel_min": "Cancel",
         "accept": "ACCEPT",
         "accpet_min": "Accept",
         "options": "Options",
@@ -95,7 +95,8 @@
         "blank_email": "The e-mail address can not be blank",
         "error_guide": "5 characters minimum, 20 characters maximum.",
         "error_check_payment": "An error has occurred when browing payments.",
-        "error_no_searh_criteria": "No specified search criteria."
+        "error_no_searh_criteria": "No specified search criteria.",
+        "error_check_orders": "An error has occurred when browing orders."
     },
     "filters": {
         "clear": "Clear",
@@ -113,6 +114,20 @@
                     "initial_date": "Fecha de pago inicial",
                     "final_date": "Fecha de pago final",
                     "invoice_number": "Número de factura"
+                },
+                "search_envios_exito_form": {
+                    "filter_channel": "Filter by channel",
+                    "none": "None",
+                    "exito": "Éxito",
+                    "carulla": "Carulla",
+                    "digital_catalog": "Digital Catalog",
+                    "filter_by_number": "Filter by order number",
+                    "filter_by_id": "Filter by client ID"
+                },
+                "search_order_form": {
+                    "from": "From",
+                    "to": "To",
+                    "only_markerd_order": "Only marked orders"
                 }
             }
         }

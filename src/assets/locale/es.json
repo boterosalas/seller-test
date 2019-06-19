@@ -95,7 +95,8 @@
         "blank_email": "El correo electrónico no puede estar en blanco",
         "error_guide": "Mínimo 5 caracteres, Maximo 20 caracteres.",
         "error_check_payment": "Se ha presentado un error al consultar los pagos.",
-        "error_no_searh_criteria": "No se ha indicado ningún criterio de búsqueda."
+        "error_no_searh_criteria": "No se ha indicado ningún criterio de búsqueda.",
+        "error_check_orders": "Se ha presentado un error al consultar las órdenes."
     },
     "filters": {
         "clear": "Limpiar",
@@ -113,6 +114,20 @@
                     "initial_date": "Inicial payment date",
                     "final_date": "Final payment date",
                     "invoice_number": "Invoice number"
+                },
+                "search_envios_exito_form": {
+                    "filter_channel": "Filtrar por canal",
+                    "none": "Ninguno",
+                    "exito": "Éxito",
+                    "carulla": "Carulla",
+                    "digital_catalog": "Catálogos Virtuales",
+                    "filter_by_number": "Filtrar por número de pedido",
+                    "filter_by_id": "Filtrar por cédula del cliente"
+                },
+                "search_order_form": {
+                    "from": "Desde",
+                    "to": "Hasta",
+                    "only_markerd_order": "Solo mis órdenes marcadas"
                 }
             }
         }

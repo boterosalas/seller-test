@@ -8,6 +8,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
 import { UserParametersService } from '@app/core';
+import { LanguageService } from '@app/core/translate/language.service';
 
 
 @Component({
@@ -43,7 +44,8 @@ export class SearchOrderFormComponent implements OnInit {
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    private languageService: LanguageService,
   ) { }
 
   /**
@@ -158,13 +160,13 @@ export class SearchOrderFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.getValue('actions.close'), 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar(this.languageService.getValue('errors.error_check_orders'), this.languageService.getValue('actions.close'), 3000);
       });
     } else {
-      this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);
+      this.componentsService.openSnackBar(this.languageService.getValue('errors.error_no_searh_criteria'), this.languageService.getValue('actions.close'), 3000);
     }
   }
 
