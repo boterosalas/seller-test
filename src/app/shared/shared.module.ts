@@ -19,7 +19,8 @@ import { DialogWithFormComponent } from "./components/dialog-with-form/dialog-wi
 import { CreateProcessDialogComponent } from "./components/create-process-dialog/create-process-dialog.component";
 import { HistoryCardComponent } from "./components/history-card/history-card.component";
 import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
-import { CaseModalComponent } from "./components/case-modal/case-modal.component";
+import { ResponseCaseDialogComponent } from "./components/response-case-dialog/response-case-dialog.component";
+import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
 import { CaseListComponent } from './components/case-list/case-list.component';
 
@@ -41,9 +42,9 @@ import { CaseListComponent } from './components/case-list/case-list.component';
     CreateProcessDialogComponent,
     HistoryCardComponent,
     CaseDetailComponent,
-    CaseModalComponent,
-    CaseToolbarComponent,
-    CaseListComponent
+    ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
+    CaseToolbarComponent
   ],
   exports: [
     MaterialModule,
@@ -59,12 +60,13 @@ import { CaseListComponent } from './components/case-list/case-list.component';
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     CaseDetailComponent,
-    CaseModalComponent,
-    CaseToolbarComponent,
-    CaseListComponent
+    ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
+    CaseToolbarComponent
   ],
   entryComponents: [
-    CaseModalComponent,
+    ResponseCaseDialogComponent,
+    ProductsCaseDialogComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent

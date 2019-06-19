@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { CaseModalComponent } from "../case-modal/case-modal.component";
+import { ProductsCaseDialogComponent } from "../products-case-dialog/products-case-dialog.component";
+import { ResponseCaseDialogComponent } from "../response-case-dialog/response-case-dialog.component";
 
 @Component({
   selector: "app-case-detail",
@@ -8,16 +9,29 @@ import { CaseModalComponent } from "../case-modal/case-modal.component";
   styleUrls: ["./case-detail.component.scss"]
 })
 export class CaseDetailComponent implements OnInit {
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { title: "texts" }
+  };
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {}
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CaseModalComponent, {
-      width: "760px",
-      height: "482px",
-      data: { title: "texts" }
-    });
+  openResponseDialog(): void {
+    const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
+  }
+
+  openProductsDialog(): void {
+    const dialogRef = this.dialog.open(
+      ProductsCaseDialogComponent,
+      this.configDialog
+    );
     dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
   }
 
