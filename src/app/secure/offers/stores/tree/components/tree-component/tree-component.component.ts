@@ -3,6 +3,7 @@ import { Component, Injectable, OnInit, Input, ViewChild, Output, EventEmitter }
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTree } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { EventEmitterStore } from '../../../events/eventEmitter-store.service';
+import { elementStart } from '@angular/core/src/render3/instructions';
 
 /**
  * File node data with nested structure.
@@ -46,14 +47,56 @@ export class FileDatabase {
   constructor() {
   }
 
-  initialize(tree: any) {
-    if (typeof tree !== 'undefined') {
-      const dataObject = JSON.parse(JSON.stringify(tree));
-      const realTree = this.createRealTree(dataObject, this.objetoBuild);
-      const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
-      const data = this.buildFileTree(realTree, 0, treeExtraData);
-      this.dataChange.next(data);
+  initialize(tree: any[]) {
+    // if (typeof tree !== 'undefined') {
+    //   const dataObject = JSON.parse(JSON.stringify(tree));
+    //   const realTree = this.createRealTree(dataObject, this.objetoBuild);
+    //   const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
+    //   const data = this.buildFileTree(realTree, 0, treeExtraData);
+    //   this.dataChange.next(data);
+    // }
+    if (!!tree) {
+      const newObject = Object.assign({}, tree);
+      const newArray = [newObject];
+      const newTree = !!tree && this.makeTree(newArray);
+      this.dataChange.next(newTree);
     }
+  }
+
+  makeTree(tree: any[]) {
+    return tree.reduce((prev, current) => {
+      tree.forEach(element => {
+        if (element.nodes.length > 0) {
+          element.nodes = this.transformArrayToFlenode(element.nodes);
+        }
+        current = this.transformToFileNode(element);
+        if (!element.IdParent) {
+          prev.push(current);
+        }
+      });
+      return prev;
+    }, []);
+  }
+
+  transformArrayToFlenode(childrens: any[]) {
+    const newChildrens =  childrens.map(element => {
+      if (element.nodes && element.nodes.length > 0) {
+        element.nodes = this.transformArrayToFlenode(element.nodes);
+      }
+      element = this.transformToFileNode(element);
+      return element;
+    });
+    return newChildrens;
+  }
+
+  transformToFileNode(element: any) {
+    const newElement = new FileNode();
+    newElement.filename = element.Name;
+    newElement.idCategory = element.Id;
+    newElement.idParent = element.IdParent;
+    newElement.children = element.nodes;
+    newElement.commision = element.commission;
+    return newElement;
   }
 
   /**
@@ -62,7 +105,7 @@ export class FileDatabase {
    * @param objetoBuild
    */
   createRealTree(obj: any, objetoBuild: any) {
-    const hijos = {};
+    const hijos = [];
     if (obj instanceof Object) {
       for (const k in obj) {
         if (obj.hasOwnProperty(k)) {
@@ -184,13 +227,13 @@ export class TreeComponentComponent implements OnInit {
    * Método que se encarga de la configuración base del arbol
    * @memberof TreeComponentComponent
    */
-  configureTreeComponent(database) {
+  configureTreeComponent(database: any) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
       this._isExpandable, this._getChildren);
     this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    database.dataChange.subscribe(data => {
+    database.dataChange.subscribe( data => {
       this.dataSource.data = data;
       this.current_tree = this.dataSource.data;
       this.currentTreeOutput.emit(JSON.stringify(this.dataSource.data));
@@ -202,7 +245,7 @@ export class TreeComponentComponent implements OnInit {
     flatNode.filename = node.filename;
     flatNode.type = node.type;
     flatNode.level = level;
-    flatNode.expandable = !!node.children;
+    flatNode.expandable = !!node.children && node.children.length > 0;
     flatNode.commission = node.commision;
     flatNode.idCategory = node.idCategory;
     flatNode.idParent = node.idParent;
