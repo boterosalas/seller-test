@@ -47,7 +47,8 @@
         "print_label": "Imprimir rótulo",
         "Attach invoice": "Adjuntar factura",
         "go_to_start": "Ir al inicio",
-        "update": "ACTUALIZAR"
+        "update": "ACTUALIZAR",
+        "apply": "Aplicar"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -92,7 +93,9 @@
         "quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
         "error_product": "Producto inválido.",
         "blank_email": "El correo electrónico no puede estar en blanco",
-        "error_guide": "Mínimo 5 caracteres, Maximo 20 caracteres."
+        "error_guide": "Mínimo 5 caracteres, Maximo 20 caracteres.",
+        "error_check_payment": "Se ha presentado un error al consultar los pagos.",
+        "error_no_searh_criteria": "No se ha indicado ningún criterio de búsqueda."
     },
     "filters": {
         "clear": "Limpiar",
@@ -101,6 +104,17 @@
     "shell": {
         "header": {
             "welcome": "Bienvenido"
+        }
+    },
+    "core": {
+        "shell": {
+            "search_order_menu": {
+                "search_billing_form": {
+                    "initial_date": "Inicial payment date",
+                    "final_date": "Final payment date",
+                    "invoice_number": "Invoice number"
+                }
+            }
         }
     },
     "secure": {
@@ -116,7 +130,7 @@
             "movement_charge": "Cobro movimiento",
             "storage_charge": "Cobro almacenamiento",
             "total_charged": "Total cobrado",
-            "no_payment": "No se han encontrado pagos",
+            "no_payment": "No se han encontrado pagos.",
             "refresh_payment": "Cargar todos los pagos en el botón: FACTURACIÓN",
             "product": "Producto",
             "ean": "EAN",

@@ -47,7 +47,8 @@
         "print_label": "Print label",
         "attach_invoice": "Attach invoice",
         "go_to_start": "Go to start",
-        "update": "UPDATE"
+        "update": "UPDATE",
+        "apply": "Apply"
     },
     "errors": {
         "required": "Field required",
@@ -92,7 +93,9 @@
         "quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
         "error_product": "Invalid product.",
         "blank_email": "The e-mail address can not be blank",
-        "error_guide": "5 characters minimum, 20 characters maximum."
+        "error_guide": "5 characters minimum, 20 characters maximum.",
+        "error_check_payment": "An error has occurred when browing payments.",
+        "error_no_searh_criteria": "No specified search criteria."
     },
     "filters": {
         "clear": "Clear",
@@ -101,6 +104,17 @@
     "shell": {
         "header": {
             "welcome": "Welcome"
+        }
+    },
+    "core": {
+        "shell": {
+            "search_order_menu": {
+                "search_billing_form": {
+                    "initial_date": "Fecha de pago inicial",
+                    "final_date": "Fecha de pago final",
+                    "invoice_number": "Número de factura"
+                }
+            }
         }
     },
     "secure": {
@@ -144,10 +158,10 @@
                 "must_enter_order": "You must enter an order number to see the invoices associated"
             },
             "download_order_modal": {
-                "title" : "We will send you the",
-                "title_2" : "orders",
-                "title_3" : "invoices",
-                "title_4" : "to the following e-mail address",
+                "title": "We will send you the",
+                "title_2": "orders",
+                "title_3": "invoices",
+                "title_4": "to the following e-mail address",
                 "btn_send_order": "Send orders",
                 "btn_send_invoice": "Send invoices",
                 "sn_download_order": "The orders have been downloaded correctly, check your inbox.",
@@ -243,7 +257,7 @@
                 "action_accept_devolution": {
                     "title": "Approve refund request",
                     "body": "The request has been approved, we will notify the client so they can send you the product back."
-                }, 
+                },
                 "view_comment": {
                     "commnet_client": "Customer comment"
                 }

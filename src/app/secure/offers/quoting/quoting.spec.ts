@@ -3,8 +3,9 @@ import { QuotingComponent } from './quoting.component';
 import { UserLoginService, UserParametersService } from '@app/core';
 import { UserInformation } from '@app/shared/models';
 import { Router } from '@angular/router';
+import { LanguageService } from '@app/core/translate/language.service';
 
-fdescribe('QuotingComponent', () => {
+describe('QuotingComponent', () => {
 
 
   const userMock = new UserInformation();
@@ -42,9 +43,10 @@ fdescribe('QuotingComponent', () => {
   };
 
   let component: QuotingComponent;
+  const languageService = jasmine.createSpyObj('LanguageService', ['getValue']);
 
   beforeEach(async(() => {
-    component = new QuotingComponent(userLoginService, router, userParams);
+    component = new QuotingComponent(userLoginService, router, userParams, languageService);
   }));
 
   it('should create QuotingComponent', () => {

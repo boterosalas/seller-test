@@ -8,6 +8,7 @@ import { BillingService } from '@secure/billing/billing.service';
 import { isEmpty } from 'lodash';
 import { UserParametersService } from '@app/core/aws-cognito/user-parameters.service';
 import { LoadingService } from '@app/core';
+import { LanguageService } from '@app/core/translate/language.service';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -33,6 +34,7 @@ export class SearchBillingFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
+    private languageService: LanguageService,
     private loadingService?: LoadingService
   ) {
   }
@@ -137,13 +139,13 @@ export class SearchBillingFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado pagos.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar(this.languageService.getValue('secure.billing.no_payment'), this.languageService.getValue('actions.close'), 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar los pagos.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar(this.languageService.getValue('errors.error_check_payment'), this.languageService.getValue('actions.close'), 3000);
       });
     } else {
-      this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);
+      this.componentsService.openSnackBar(this.languageService.getValue('errors.error_no_searh_criteria'), this.languageService.getValue('actions.close'), 3000);
     }
   }
 }
