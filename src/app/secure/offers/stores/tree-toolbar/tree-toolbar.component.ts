@@ -41,6 +41,7 @@ export class TreeToolbarComponent implements OnInit {
     // EventEmitter que permite saber cuando el usuario a buscado una tienda y se ha cargado la información de su comision
     this.eventsStore.eventInformationForTreeIsLoad.subscribe((res: IsLoadInformationForTree) => {
       // capturo el boolean que indica si se cargo o no la información
+      console.log('eventInformation', res);
       this.informationForTreeIsLoad = res.informationForTreeIsLoad;
     });
   }
@@ -57,11 +58,13 @@ export class TreeToolbarComponent implements OnInit {
   }
 
   modifyCommission() {
+    console.log('si edito');
     this.loadingService.viewSpinner();
     const params = localStorage.getItem('parametersCommission');
     this.storesService.patchSellerCommissionCategory(params).subscribe((res: any) => {
       if (res.status === 200) {
         this.loadingService.closeSpinner();
+        console.log('ahora que hago');
         this.searchStore = JSON.parse(localStorage.getItem('searchStore'));
       } else {
         this.loadingService.closeSpinner();

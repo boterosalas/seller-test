@@ -45,6 +45,7 @@ export class TreeCategoriesComponent implements OnInit {
     this.getAllSellerCommissionCategory();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
+      console.log(res);
       this.configTreeComponent(res);
     });
   }
@@ -114,6 +115,7 @@ export class TreeCategoriesComponent implements OnInit {
               allGetSellerCommissionCategory: this.allSellerCategories
             }
           };
+          console.log(information);
           // ejecuto el evento que notifica los cambios en la información para el arbol
           // y informa que se cargo correctamente algun dato.
           this.eventsStore.informationForTreeIsLoad(information);
@@ -141,10 +143,14 @@ export class TreeCategoriesComponent implements OnInit {
       // tslint:disable-next-line:triple-equals
       if (listCategories[i].Name === this.CONST_MARKETPLACE) {
         node = listCategories[i];
-         break;
+        break;
       }
     }
+    console.log('node', node);
+    console.log('node', sellerCategories);
+    console.log('node', listCategories);
     const data = this.createTree(node, listCategories, sellerCategories);
+    console.log(data);
     this.arbol = data;
   }
 

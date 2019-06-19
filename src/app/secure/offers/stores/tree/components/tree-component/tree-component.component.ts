@@ -3,6 +3,7 @@ import { Component, Injectable, OnInit, Input, ViewChild, Output, EventEmitter }
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTree } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { EventEmitterStore } from '../../../events/eventEmitter-store.service';
+import { elementStart } from '@angular/core/src/render3/instructions';
 
 /**
  * File node data with nested structure.
@@ -46,14 +47,57 @@ export class FileDatabase {
   constructor() {
   }
 
-  initialize(tree: any) {
-    if (typeof tree !== 'undefined') {
-      const dataObject = JSON.parse(JSON.stringify(tree));
-      const realTree = this.createRealTree(dataObject, this.objetoBuild);
-      const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
-      const data = this.buildFileTree(realTree, 0, treeExtraData);
-      this.dataChange.next(data);
+  initialize(tree: any[]) {
+    // if (typeof tree !== 'undefined') {
+    //   const dataObject = JSON.parse(JSON.stringify(tree));
+    //   const realTree = this.createRealTree(dataObject, this.objetoBuild);
+    //   const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
+    //   const data = this.buildFileTree(realTree, 0, treeExtraData);
+    //   console.log(data);
+    //   this.dataChange.next(data);
+    // }
+    if (!!tree) {
+      const newObject = Object.assign(tree, {});
+      const newArray = [newObject];
+      const newTree = !!tree && this.makeTree(newArray);
+      this.dataChange.next(newTree);
     }
+  }
+
+  makeTree(tree: any[]) {
+    return tree.reduce((prev, current) => {
+      tree.forEach(element => {
+        if (element.nodes.length > 0) {
+          element.nodes = this.transformArrayToFlenode(element.nodes);
+        }
+        current = this.transformToFileNode(element);
+        if (!element.IdParent) {
+          prev.push(current);
+        }
+      });
+      return prev;
+    }, []);
+  }
+
+  transformArrayToFlenode(childrens: any[]) {
+    const newChildrens =  childrens.map(element => {
+      if (element.nodes && element.nodes.length > 0) {
+        element.nodes = this.transformArrayToFlenode(element.nodes);
+      }
+      element = this.transformToFileNode(element);
+      return element;
+    });
+    return newChildrens;
+  }
+
+  transformToFileNode(element) {
+    const newElement = new FileNode();
+    newElement.filename = element.Name;
+    newElement.idCategory = element.Id;
+    newElement.idParent = element.IdParent;
+    newElement.children = element.nodes;
+    newElement.commision = element.commission;
+    return newElement;
   }
 
   /**
@@ -62,7 +106,7 @@ export class FileDatabase {
    * @param objetoBuild
    */
   createRealTree(obj: any, objetoBuild: any) {
-    const hijos = {};
+    const hijos = [];
     if (obj instanceof Object) {
       for (const k in obj) {
         if (obj.hasOwnProperty(k)) {
