@@ -341,7 +341,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                // window.location.reload();
+                window.location.reload();
 
             }, error => {
                 this.loadingService.closeSpinner();
