@@ -53,11 +53,10 @@ export class FileDatabase {
     //   const realTree = this.createRealTree(dataObject, this.objetoBuild);
     //   const treeExtraData = this.createTreeExtraData(dataObject, this.objetoBuildExtraData);
     //   const data = this.buildFileTree(realTree, 0, treeExtraData);
-    //   console.log(data);
     //   this.dataChange.next(data);
     // }
     if (!!tree) {
-      const newObject = Object.assign(tree, {});
+      const newObject = Object.assign({}, tree);
       const newArray = [newObject];
       const newTree = !!tree && this.makeTree(newArray);
       this.dataChange.next(newTree);
@@ -90,7 +89,7 @@ export class FileDatabase {
     return newChildrens;
   }
 
-  transformToFileNode(element) {
+  transformToFileNode(element: any) {
     const newElement = new FileNode();
     newElement.filename = element.Name;
     newElement.idCategory = element.Id;
@@ -228,13 +227,13 @@ export class TreeComponentComponent implements OnInit {
    * Método que se encarga de la configuración base del arbol
    * @memberof TreeComponentComponent
    */
-  configureTreeComponent(database) {
+  configureTreeComponent(database: any) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
       this._isExpandable, this._getChildren);
     this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    database.dataChange.subscribe(data => {
+    database.dataChange.subscribe( data => {
       this.dataSource.data = data;
       this.current_tree = this.dataSource.data;
       this.currentTreeOutput.emit(JSON.stringify(this.dataSource.data));
@@ -246,7 +245,7 @@ export class TreeComponentComponent implements OnInit {
     flatNode.filename = node.filename;
     flatNode.type = node.type;
     flatNode.level = level;
-    flatNode.expandable = !!node.children;
+    flatNode.expandable = !!node.children && node.children.length > 0;
     flatNode.commission = node.commision;
     flatNode.idCategory = node.idCategory;
     flatNode.idParent = node.idParent;

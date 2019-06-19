@@ -5,6 +5,7 @@ import { EventEmitterStore } from '../../events/eventEmitter-store.service';
 import { IsLoadInformationForTree, StoreModel } from '../../models/store.model';
 import { StoresService } from '../../stores.service';
 import { UserInformation } from '@app/shared';
+import { element } from '@angular/core/src/render3/instructions';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');
@@ -45,7 +46,6 @@ export class TreeCategoriesComponent implements OnInit {
     this.getAllSellerCommissionCategory();
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsStore.eventSearchStore.subscribe((res: StoreModel) => {
-      console.log(res);
       this.configTreeComponent(res);
     });
   }
@@ -115,7 +115,6 @@ export class TreeCategoriesComponent implements OnInit {
               allGetSellerCommissionCategory: this.allSellerCategories
             }
           };
-          console.log(information);
           // ejecuto el evento que notifica los cambios en la información para el arbol
           // y informa que se cargo correctamente algun dato.
           this.eventsStore.informationForTreeIsLoad(information);
@@ -135,49 +134,64 @@ export class TreeCategoriesComponent implements OnInit {
    * @memberof TreeCategoriesComponent
    */
   configTreeInformation(information: IsLoadInformationForTree) {
-
-    let node = {};
-    const listCategories = information.data.allGetSellerCommissionCategory;
-    const sellerCategories = information.data.getSellerCommissionCategory;
-    for (let i = 0; i < listCategories.length; i++) {
-      // tslint:disable-next-line:triple-equals
-      if (listCategories[i].Name === this.CONST_MARKETPLACE) {
-        node = listCategories[i];
-        break;
-      }
-    }
-    console.log('node', node);
-    console.log('node', sellerCategories);
-    console.log('node', listCategories);
-    const data = this.createTree(node, listCategories, sellerCategories);
-    console.log(data);
+    this.arbol = null;
+    let node: any = {};
+    const listCategories = Object.assign([], information.data.allGetSellerCommissionCategory);
+    const sellerCategories = Object.assign([], information.data.getSellerCommissionCategory);
+    // for (let i = 0; i < listCategories.length; i++) {
+    //   // tslint:disable-next-line:triple-equals
+    //   if (listCategories[i].Name === this.CONST_MARKETPLACE) {
+    //     node = listCategories[i];
+    //     break;
+    //   }
+    // }
+    const algo = this.createTree(listCategories, sellerCategories);
+    const data = Object.assign({}, algo[0]);
     this.arbol = data;
   }
 
 
-  createTree(parent: any, listCategories: any, sellerCategories: any) {
-
-    this.obtenerRelacionesCategorias(parent, sellerCategories);
-    const hijos = [];
-    for (let i = 0; i < listCategories.length; i++) {
-      // tslint:disable-next-line:triple-equals
-      if (listCategories[i].IdParent == parent.Id) {
-        hijos.push(listCategories[i]);
-      }
-    }
-
-    if (hijos.length > 0) {
-      for (let i = 0; i < hijos.length; i++) {
-        const hijo = hijos[i];
-        if (parent.nodes == null) {
-          parent.nodes = [];
+  createTree(listCategories: any[], sellerCategories: any[]) {
+    const otherList: any[] = listCategories.map(element => {
+      element.nodes = [];
+      return element;
+    });
+    return otherList.reduce((previous, current) => {
+      otherList.map((element) => {
+        const sellerCategoryComission = sellerCategories.find(x => x.IdCategory ===  element.Id);
+        element.commission = !!sellerCategoryComission && !!sellerCategoryComission.Commission ? sellerCategoryComission.Commission : 0;
+        if (!!element.IdParent && current.Id === element.IdParent) {
+          current.nodes.push(element);
         }
-
-        parent.nodes.push(hijo);
-        this.createTree(hijo, listCategories, sellerCategories);
+        return element;
+      });
+      if (!current.IdParent) {
+        previous.push(current);
       }
-    }
-    return parent;
+      return previous;
+    }, []);
+    
+    // this.obtenerRelacionesCategorias(parent, sellerCategories);
+    // const hijos = [];
+    // for (let i = 0; i < listCategories.length; i++) {
+    //   // tslint:disable-next-line:triple-equals
+    //   if (listCategories[i].IdParent == parent.Id) {
+    //     hijos.push(listCategories[i]);
+    //   }
+    // }
+
+    // if (hijos.length > 0) {
+    //   for (let i = 0; i < hijos.length; i++) {
+    //     const hijo = hijos[i];
+    //     if (parent.nodes == null) {
+    //       parent.nodes = [];
+    //     }
+
+    //     parent.nodes.push(hijo);
+    //     this.createTree(hijo, listCategories, sellerCategories);
+    //   }
+    // }
+    // return parent;
   }
 
   obtenerRelacionesCategorias = function (nodo: any, sellerCategories: any) {

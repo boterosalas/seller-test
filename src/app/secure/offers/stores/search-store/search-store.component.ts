@@ -61,7 +61,6 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.searchStoreInput.currentValue && changes.searchStoreInput.currentValue !== undefined &&
       changes.searchStoreInput.currentValue !== null) {
       this.viewStoreInformation(this.searchStoreInput);
