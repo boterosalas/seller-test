@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-case-list',
@@ -9,8 +10,9 @@ export class CaseListComponent implements OnInit {
   panelOpenState = false;
 
   constructor() { }
-
   ngOnInit() {
   }
+
+
 
 }
