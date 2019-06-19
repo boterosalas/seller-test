@@ -112,7 +112,7 @@ export class CategoriesComponent implements OnInit {
           }
         }).Value;
         const ids = !!dataSellerRegex && dataSellerRegex.find(element => {
-          if (element.Identifier === 'internationalCity' && element.Module === 'vendedores') {
+          if (element.Identifier === 'internationalLocation' && element.Module === 'vendedores') {
             return element;
           }
         }).Value;
