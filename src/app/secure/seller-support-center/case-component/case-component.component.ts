@@ -5,4 +5,8 @@ import { Component } from "@angular/core";
   templateUrl: "./case-component.component.html",
   styleUrls: ["./case-component.component.scss"]
 })
-export class CaseComponentComponent {}
+export class CaseComponentComponent {
+  openFilter(){
+    console.log("Vainas")
+  }
+}

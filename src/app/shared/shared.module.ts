@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA  } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { MaterialModule } from "@app/material.module";
@@ -23,7 +23,7 @@ import { ResponseCaseDialogComponent } from "./components/response-case-dialog/r
 import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
 import { CaseListComponent } from './components/case-list/case-list.component';
-
+import { CaseFilterComponent } from './components/case-filter/case-filter.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +44,9 @@ import { CaseListComponent } from './components/case-list/case-list.component';
     CaseDetailComponent,
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    CaseListComponent,
+    CaseFilterComponent
   ],
   exports: [
     MaterialModule,
@@ -62,7 +64,9 @@ import { CaseListComponent } from './components/case-list/case-list.component';
     CaseDetailComponent,
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    CaseListComponent,
+    CaseFilterComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
@@ -71,6 +75,7 @@ import { CaseListComponent } from './components/case-list/case-list.component';
     DialogWithFormComponent,
     CreateProcessDialogComponent
   ],
-  providers: [EventEmitterSeller]
+  providers: [EventEmitterSeller],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule {}

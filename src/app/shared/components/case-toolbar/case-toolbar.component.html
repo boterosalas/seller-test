@@ -15,10 +15,17 @@
     <span class="example-spacer"></span>
     <div class="toolbar-right" fxShow="true" fxHide.lt-md="true">
       <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-      <button mat-button>
+      <!--<button mat-button>
         <mat-icon>filter_list</mat-icon>
         Filtrar
-      </button>
+      </button>-->
+
+      <mat-sidenav-content>
+        <button mat-raised-button (click)="openFilter.emit()">
+          <mat-icon>filter_list</mat-icon>
+          Filtro
+        </button>
+      </mat-sidenav-content>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -26,10 +33,11 @@
 <mat-sidenav-container fxFlexFill>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <button mat-button mat-list-item>
+      <app-case-filter></app-case-filter>
+      <!--<button mat-button mat-list-item>
         <mat-icon>filter_list</mat-icon>
         Filtrar
-      </button>
+      </button>-->
       <a (click)="sidenav.toggle()" mat-list-item>
         <mat-icon>close</mat-icon> Close
       </a>
