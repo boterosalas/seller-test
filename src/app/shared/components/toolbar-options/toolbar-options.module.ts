@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
 import { ToolbarOptionsComponent } from './toolbar-options.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 
@@ -16,7 +17,8 @@ import { ToolbarOptionsComponent } from './toolbar-options.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    // DownloadOrderModalModule
+    SharedModule,
+    DownloadOrderModalModule
   ],
   declarations: [
     ToolbarOptionsComponent,

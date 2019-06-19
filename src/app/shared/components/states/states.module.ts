@@ -15,7 +15,6 @@ import { StatesComponent } from './states.component';
     RouterModule,
     ReactiveFormsModule,
     MaterialModule,
-    ToolbarOptionsModule
   ],
   declarations: [
     StatesComponent

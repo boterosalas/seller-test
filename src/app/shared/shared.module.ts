@@ -41,7 +41,6 @@ import { TranslateDirective } from './directives/translate/translate.directive';
   ],
   exports: [
     MaterialModule,
-    ToolbarOptionsModule,
     CdkDetailRowDirective,
     NoWhitespaceDirective,
     StatesModule,

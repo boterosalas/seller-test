@@ -14,8 +14,7 @@ import { CitiesComponent } from './cities.component';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule,
-    ToolbarOptionsModule
+    MaterialModule
   ],
   declarations: [
     CitiesComponent
