@@ -7,6 +7,6 @@ import { Component } from "@angular/core";
 })
 export class CaseComponentComponent {
   openFilter(){
-    console.log("Vainas")
+    console.log("Prueba.")
   }
 }
