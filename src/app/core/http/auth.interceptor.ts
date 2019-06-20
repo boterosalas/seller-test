@@ -18,6 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if(!req.url.toString().includes('assets')) {
       const idToken = this.cognitoUtil.getTokenLocalStorage();
       const headers = new HttpHeaders({ 'Authorization': idToken, 'Content-type': 'application/json; charset=utf-8' });
 
@@ -28,5 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
 
       return next.handle(authReq);
+    }
+    return next.handle(req);
   }
 }
