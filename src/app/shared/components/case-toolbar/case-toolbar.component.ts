@@ -1,8 +1,8 @@
-import { Component, Output } from "@angular/core";
+import { Component, Output, EventEmitter  } from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { EventEmitter } from "events";
+//import {EventEmitter  } from "event";
 
 @Component({
   selector: "app-case-toolbar",
@@ -10,11 +10,19 @@ import { EventEmitter } from "events";
   styleUrls: ["./case-toolbar.component.scss"]
 })
 export class CaseToolbarComponent {
-  @Output() openFilter= new  EventEmitter();
+
+  @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  stateFilter: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
   constructor(private breakpointObserver: BreakpointObserver) { }
+
+  openFilter() {
+
+    this.eventFilter.emit(!this.stateFilter);
+  }
+
 }

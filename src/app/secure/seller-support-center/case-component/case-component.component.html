@@ -1,6 +1,7 @@
-<app-case-toolbar (openFilter)="openFilter()"></app-case-toolbar>
+<app-case-toolbar (eventFilter)="openFilter($event)"></app-case-toolbar>
+{{filter}}
 <app-case-list></app-case-list>
-<!--<app-case-detail></app-case-detail>-->
-<div class="support-center-case__filter-container">
+<app-case-detail></app-case-detail>
+<div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
   <app-case-filter></app-case-filter>
 </div>
