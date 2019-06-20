@@ -21,14 +21,14 @@ import { CitiesModule } from "./components/cities";
 import { ErrorDialogComponent } from "./components/dialogs/error-dialog.component";
 import { DialogWithFormComponent } from "./components/dialog-with-form/dialog-with-form.component";
 import { CreateProcessDialogComponent } from "./components/create-process-dialog/create-process-dialog.component";
-import { HistoryCardComponent } from "./components/history-card/history-card.component";
+import { ConversationCardComponent } from "./components/conversation-card/conversation-card.component";
 import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
 import { ResponseCaseDialogComponent } from "./components/response-case-dialog/response-case-dialog.component";
 import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
-import { CaseListComponent } from "./components/case-list/case-list.component";
+import { DropDownBoxComponent } from "./components/drop-down-box/drop-down-box.component";
 import { CaseFilterComponent } from "./components/case-filter/case-filter.component";
-import { ItemCaseListDirective } from "./components/case-list/item-case-list.directive";
+import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-drop-down-box.directive";
 @NgModule({
   imports: [
     CommonModule,
@@ -45,14 +45,14 @@ import { ItemCaseListDirective } from "./components/case-list/item-case-list.dir
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent,
-    HistoryCardComponent,
+    ConversationCardComponent,
     CaseDetailComponent,
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
     CaseToolbarComponent,
-    CaseListComponent,
+    DropDownBoxComponent,
     CaseFilterComponent,
-    ItemCaseListDirective
+    ContentDropDownBoxDirective
   ],
   exports: [
     MaterialModule,
@@ -71,9 +71,9 @@ import { ItemCaseListDirective } from "./components/case-list/item-case-list.dir
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
     CaseToolbarComponent,
-    CaseListComponent,
+    DropDownBoxComponent,
     CaseFilterComponent,
-    ItemCaseListDirective
+    ContentDropDownBoxDirective
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

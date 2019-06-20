@@ -1,10 +1,10 @@
 <app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
 
-<app-case-list>
+<app-drop-down-box>
   <ng-container *itemCaseList>
     <app-case-detail></app-case-detail>
   </ng-container>
-</app-case-list>
+</app-drop-down-box>
 
 <div
   [ngClass]="
