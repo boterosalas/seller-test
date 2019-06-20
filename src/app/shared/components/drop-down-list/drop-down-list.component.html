@@ -1,0 +1,26 @@
+<div class="drop-down-list">
+  <div
+    class="drop-down-list-header"
+    fxLayout="row"
+    fxLayout.xs="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="0"
+  >
+    <div fxFlex="5%">&nbsp;</div>
+
+    <div
+      class="drop-down-list-header--item-header"
+      *ngFor="let configuration of configurations"
+      [fxFlex]="configuration.md * 5 + '%'"
+    >
+      {{ configuration.displayName }}
+    </div>
+  </div>
+
+  <app-drop-down-box *ngFor="let item of data">
+    <ng-container *itemCaseList>
+      <app-case-detail></app-case-detail>
+    </ng-container>
+  </app-drop-down-box>
+</div>

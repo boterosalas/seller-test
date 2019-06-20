@@ -13,8 +13,8 @@ const routes: Routes = [
     {
       path: `${RoutesConst.sellerCenterCases}`,
       component: ListOfCaseComponent,
-      data: { title: "Administrar Cases" }
-      // canActivate: [AuthService]
+      data: { title: "Administrar Casos" },
+      //canActivate: [AuthService]
     }
   ])
 ];

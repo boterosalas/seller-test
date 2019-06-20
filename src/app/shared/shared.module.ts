@@ -29,6 +29,7 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
 import { DropDownBoxComponent } from "./components/drop-down-box/drop-down-box.component";
 import { CaseFilterComponent } from "./components/case-filter/case-filter.component";
 import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-drop-down-box.directive";
+import { DropDownListComponent } from "./components/drop-down-list/drop-down-list.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +53,8 @@ import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-
     CaseToolbarComponent,
     DropDownBoxComponent,
     CaseFilterComponent,
-    ContentDropDownBoxDirective
+    ContentDropDownBoxDirective,
+    DropDownListComponent
   ],
   exports: [
     MaterialModule,
@@ -73,7 +75,8 @@ import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-
     CaseToolbarComponent,
     DropDownBoxComponent,
     CaseFilterComponent,
-    ContentDropDownBoxDirective
+    ContentDropDownBoxDirective,
+    DropDownListComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
