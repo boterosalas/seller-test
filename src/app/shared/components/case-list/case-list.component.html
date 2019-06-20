@@ -43,7 +43,13 @@
             fxLayoutAlign="center center"
             class="no-select"
           >
-            <span [ngClass]="!panelOpenState ? 'item-detail-arrow' : 'item-detail-arrow--active'">
+            <span
+              [ngClass]="
+                !panelOpenState
+                  ? 'item-detail-arrow'
+                  : 'item-detail-arrow--active'
+              "
+            >
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
@@ -63,14 +69,15 @@
           <div class="case-list-detail--item-detail" fxFlex="10%">
             Pendiente
           </div>
-          <div
-            class="case-list-detail--item-detail"
-            fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%">
             <mat-icon>question_answer</mat-icon>
           </div>
         </div>
       </mat-expansion-panel-header>
-      <app-case-detail></app-case-detail>
+
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
