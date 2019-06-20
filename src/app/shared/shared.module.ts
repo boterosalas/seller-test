@@ -1,5 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA  } from "@angular/core";
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA
+} from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { MaterialModule } from "@app/material.module";
@@ -22,8 +26,9 @@ import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.com
 import { ResponseCaseDialogComponent } from "./components/response-case-dialog/response-case-dialog.component";
 import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
-import { CaseListComponent } from './components/case-list/case-list.component';
-import { CaseFilterComponent } from './components/case-filter/case-filter.component';
+import { CaseListComponent } from "./components/case-list/case-list.component";
+import { CaseFilterComponent } from "./components/case-filter/case-filter.component";
+import { ItemCaseListDirective } from "./components/case-list/item-case-list.directive";
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +51,8 @@ import { CaseFilterComponent } from './components/case-filter/case-filter.compon
     ProductsCaseDialogComponent,
     CaseToolbarComponent,
     CaseListComponent,
-    CaseFilterComponent
+    CaseFilterComponent,
+    ItemCaseListDirective
   ],
   exports: [
     MaterialModule,
@@ -66,7 +72,8 @@ import { CaseFilterComponent } from './components/case-filter/case-filter.compon
     ProductsCaseDialogComponent,
     CaseToolbarComponent,
     CaseListComponent,
-    CaseFilterComponent
+    CaseFilterComponent,
+    ItemCaseListDirective
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

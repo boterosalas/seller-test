@@ -1,7 +1,14 @@
 <app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
-<app-case-list></app-case-list>
+
+<app-case-list>
+  <ng-container *itemCaseList>
+    <app-case-detail></app-case-detail>
+  </ng-container>
+</app-case-list>
+
 <div
-  [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
   "
 >
   <app-case-filter
