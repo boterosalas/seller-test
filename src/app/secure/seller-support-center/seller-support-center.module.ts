@@ -10,7 +10,7 @@ import {
   MatListModule
 } from "@angular/material";
 
-import { CaseComponentComponent } from "./case-component/case-component.component";
+import { ListOfCaseComponent } from "./list-of-case/list-of-case.component";
 import { SharedModule } from "@app/shared/shared.module";
 
 @NgModule({
@@ -25,6 +25,6 @@ import { SharedModule } from "@app/shared/shared.module";
     MatListModule,
     SharedModule
   ],
-  declarations: [CaseComponentComponent]
+  declarations: [ListOfCaseComponent]
 })
 export class SellerSupportCenterModule {}
