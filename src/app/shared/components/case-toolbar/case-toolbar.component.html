@@ -13,7 +13,7 @@
       <small>Visualización de reclamaciones</small>
     </div>
     <span class="example-spacer"></span>
-    <div class="toolbar-right" fxShow="true" fxHide.lt-md="true">
+    <div class="toolbar-right" fxShow="true" fxHide.lt-sm="true">
       <!-- The following menu items will be hidden on both SM and XS screen sizes -->
       <!--<button mat-button>
         <mat-icon>filter_list</mat-icon>
@@ -21,7 +21,7 @@
       </button>-->
 
       <mat-sidenav-content>
-        <button mat-raised-button (click)="openFilter()">
+        <button mat-raised-button (click)="toggleFilter()">
           <mat-icon>filter_list</mat-icon>
           Filtro
         </button>

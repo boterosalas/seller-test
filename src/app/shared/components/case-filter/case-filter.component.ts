@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {MatSidenav} from '@angular/material'
+import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
+import { MatSidenav } from '@angular/material';
 @Component({
   selector: 'app-case-filter',
   templateUrl: './case-filter.component.html',
@@ -7,18 +7,23 @@ import {MatSidenav} from '@angular/material'
 })
 export class CaseFilterComponent implements OnInit {
 
-  @ViewChild('sidenavfilter') navFilter: MatSidenav;
+  @Output()
+  eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input()
   stateFilter: boolean;
 
+  @ViewChild('sidenavfilter') sideFilter: MatSidenav;
+
   constructor() { }
 
   ngOnInit() {
+    this.sideFilter.toggle();
   }
 
-  openFilter(){
+  toggleFilter() {
 
+    this.eventFilter.emit(!this.stateFilter);
   }
 
 }

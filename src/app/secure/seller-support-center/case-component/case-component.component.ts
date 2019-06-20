@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
+import {MatSidenav} from '@angular/material';
 
 @Component({
   selector: "app-case-component",
@@ -10,8 +11,7 @@ export class CaseComponentComponent {
 
   filter: boolean;
 
-  openFilter(stateFilter: boolean){
-
+  toggleFilter(stateFilter: boolean){
     this.filter = stateFilter;
     console.log(this.filter);
   }
