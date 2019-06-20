@@ -20,23 +20,46 @@ $hint-color: #5d5d5d;
   small {
     color: $hint-color;
   }
+  @media (max-width: 768px) {
+    display: flex !important;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+  }
 }
+.separator{
+  font-weight: normal;
 
+  @media (max-width: 768px) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+}
 .toolbar-right {
+
   font-size: 14px;
-  display: flex;
-  flex-direction: row;
+  &--item{
+    height: 40px !important;
+    max-height: 40px !important;
+  }
 }
-
-.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 200px;
+::ng-deep .mat-paginator-container{
+  min-height: 0 !important;
+  margin-top: -5px;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
+}
+::ng-deep .mat-paginator-page-size-label{
+  visibility: hidden;
+  @media (max-width: 768px) {
+    display: none;
+    visibility: hidden;
+  }
+}
+::ng-deep .mat-paginator-page-size-label::after{
+  content: 'Productos por pagina' !important;
+  visibility: visible;
 }
