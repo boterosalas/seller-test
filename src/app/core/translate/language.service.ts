@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject, timer, Observable, Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { distinctUntilChanged, takeUntil, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { LoadingService } from '../global';
+
 
 export const AVAILABLE_LANGUAGES = [
   {
@@ -22,21 +23,36 @@ export class LanguageService {
   lenguage$ = new BehaviorSubject(null);
   esData;
   enData;
+  currentLanguage;
+  existFiles$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient,
     private snackBar: MatSnackBar,
     private loadingService: LoadingService) {
-      console.log('me instancio');
-    this.http.get('./assets/locale/es.json').subscribe(data => {
-      this.esData = data;
-      this.http.get('./assets/locale/en.json').subscribe(dataEn => {
-        this.enData = dataEn;
-        const currentLanguage = this.getLanguageLocalStorage();
-        if (!currentLanguage || this.lenguage$.getValue() !== currentLanguage) {
-          !!this.lenguage$.getValue() ? this.setLanguage(this.lenguage$.getValue()) : this.setLanguage('Es');
-        }
-      });
-    });
+    console.log('me instancio');
+    this.getLanguagesFile();
+  }
+
+  getLanguagesFile() {
+    this.currentLanguage = this.getLanguageLocalStorage();
+    if (!this.currentLanguage && !this.lenguage$.getValue()) {
+      this.currentLanguage = navigator.language.toString().toLowerCase().includes('es') ? 'Es' : 'En';
+    }
+    const interval = setInterval(() => {
+      if(!this.esData && !this.enData) {
+        this.http.get('./assets/locale/es.json', {headers: {'Content-Type':  'application/json'}}).subscribe(data => {
+          this.esData = data;
+          this.http.get('./assets/locale/en.json', {headers: {'Content-Type':  'application/json'}}).subscribe(dataEn => {
+            this.enData = dataEn;
+            if (!this.currentLanguage || this.lenguage$.getValue() !== this.currentLanguage) {
+              !!this.lenguage$.getValue() ? this.setLanguage(this.lenguage$.getValue()) : this.setLanguage('Es');
+            }
+          });
+        });
+      } else {
+        clearInterval(interval);
+      }
+    }, 500);
   }
 
   setLanguage(languageId: string) {
@@ -62,14 +78,19 @@ export class LanguageService {
    * Metodo que busca dentro de los archivos de lenguaje .json el texto a mostrar
    * @param key Llave para obtener el texto
    */
+
   getValue(key: string): string {
     const properties = key.split('.');
     const val = this.lenguage$.getValue();
     try {
-      const value = properties.reduce((past, current) => {
-        return past[current.trim()];
-      }, (val === 'Es' ? this.esData : this.enData));
-      return !!value ? value : key;
+      if (this.esData && this.enData) {
+        const value = properties.reduce((past, current) => {
+          return past[current.trim()];
+        }, (val === 'Es' ? this.esData : this.enData));
+        return !!value ? value : key;
+      } else {
+        return key;
+      }
     } catch {
       //console.trace();
       console.log(key);
