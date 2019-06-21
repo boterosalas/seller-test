@@ -19,7 +19,7 @@ export const OFFERS_HEADERS_PRECIO = 'Precio';
 export const OFFERS_HEADERS_PRICE = 'Price';
 export const OFFERS_HEADERS_PRECIO_DESCUENTO = 'Precio con Descuento';
 export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discount Price';
-export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio' ;
+export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio';
 export const OFFERS_HEADERS_SHIPPING = 'Shipping Cost';
 export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
 export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
@@ -242,8 +242,8 @@ export class BulkLoadComponent implements OnInit {
       let contEmptyRow = 0;
       this.EanArray = [];
 
-      for (let i = 0; i < res[0].length; i ++) {
-        res[0][i] = res[0][i].toString().trim();
+      for (let i = 0; i < res[0].length; i++) {
+        res[0][i] = !!res[0][i] ? res[0][i].toString().trim() : res[0][i];
       }
 
       for (let i = 0; i < res.length; i++) {
@@ -287,7 +287,7 @@ export class BulkLoadComponent implements OnInit {
             res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] ===  OFFERS_HEADERS_PRECIO_DESCUENTO ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO ||
             res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }
@@ -350,7 +350,7 @@ export class BulkLoadComponent implements OnInit {
             iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio'),
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping'),
-            iIndEnvExito:  this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Actualizacion de Inventario'),
@@ -829,7 +829,7 @@ export class BulkLoadComponent implements OnInit {
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
-          if (result.status === 200) {
+          if (result.status === 200 || result.status === 201) {
             const data = result;
             log.info(data);
             if (data.body.successful !== 0 || data.body.error !== 0) {
