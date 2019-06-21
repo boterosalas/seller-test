@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { ProductsCaseDialogComponent } from "../products-case-dialog/products-case-dialog.component";
 import { ResponseCaseDialogComponent } from "../response-case-dialog/response-case-dialog.component";
+const productsConfig = require("./products-list-configuration.json");
 
 @Component({
   selector: "app-case-detail",
@@ -15,9 +16,24 @@ export class CaseDetailComponent implements OnInit {
     data: { title: "texts" }
   };
 
+  products = [
+    {
+      name: "Producto 1",
+      price: "$20.000"
+    },
+    {
+      name: "Producto 2",
+      price: "$20.000"
+    }
+  ];
+
+  productsConfig: Array<any>;
+
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.productsConfig = productsConfig;
+  }
 
   openResponseDialog(): void {
     const dialogRef = this.dialog.open(
@@ -27,7 +43,7 @@ export class CaseDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
   }
 
-  openProductsDialog(): void {
+  onClickShowAllProducts() {
     const dialogRef = this.dialog.open(
       ProductsCaseDialogComponent,
       this.configDialog

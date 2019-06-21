@@ -30,6 +30,8 @@ import { DropDownBoxComponent } from "./components/drop-down-box/drop-down-box.c
 import { CaseFilterComponent } from "./components/case-filter/case-filter.component";
 import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-drop-down-box.directive";
 import { DropDownListComponent } from "./components/drop-down-list/drop-down-list.component";
+import { BasicCardComponent } from './components/basic-card/basic-card.component';
+import { PreviewListCardComponent } from './components/preview-list-card/preview-list-card.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -54,7 +56,9 @@ import { DropDownListComponent } from "./components/drop-down-list/drop-down-lis
     DropDownBoxComponent,
     CaseFilterComponent,
     ContentDropDownBoxDirective,
-    DropDownListComponent
+    DropDownListComponent,
+    BasicCardComponent,
+    PreviewListCardComponent
   ],
   exports: [
     MaterialModule,
