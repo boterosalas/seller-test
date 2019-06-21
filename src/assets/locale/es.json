@@ -12,6 +12,7 @@
         "descripcion": "Descripción",
         "product_type": "Tipo del producto",
         "update_successfully": "Actualizado correctamente",
+        "update_successfully_2": "Actualizado correctamente: ",
         "create_successfully": "Creado correctamente",
         "id": "ID",
         "actions": "Acciones",
@@ -48,7 +49,8 @@
         "Attach invoice": "Adjuntar factura",
         "go_to_start": "Ir al inicio",
         "update": "ACTUALIZAR",
-        "apply": "Aplicar"
+        "apply": "Aplicar",
+        "close_menu": "Cerrar menú"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -110,6 +112,15 @@
         }
     },
     "core": {
+        "http": {
+            "dialog_token_expired": {
+                "title": "La sesión ha expirado",
+                "body": "La sesión ha expirado o caducado por inactividad prolongada. Por favor vuelva a ingresar.",
+                "error_network": "Error en la red, Parece que no estás conectado a internet, por favor verifica tu conexión.",
+                "error_service": "Se produjo un error al realizar la petición al servidor.",
+                "error_acces": "No se pudo realizar la petición al servidor, Ocurrió un error."
+            }
+        },
         "shell": {
             "search_order_menu": {
                 "search_billing_form": {
@@ -133,6 +144,10 @@
                 }
             }
         }
+    },
+    "public": {
+        "seller_center": "Seller Center",
+        "login": "Inicio de sesión"
     },
     "secure": {
         "aws_cognito": {
@@ -181,10 +196,10 @@
                 "must_enter_order": "Debes de ingresar un número de orden para visualizar las facturas"
             },
             "download_order_modal": {
-                "title" : "Te enviaremos las",
-                "title_2" : "órdenes",
-                "title_3" : "facturas",
-                "title_4" : "al siguiente correo electrónico.",
+                "title": "Te enviaremos las",
+                "title_2": "órdenes",
+                "title_3": "facturas",
+                "title_4": "al siguiente correo electrónico.",
                 "btn_send_order": "Enviar órdenes",
                 "btn_send_invoice": "Enviar facturas",
                 "sn_download_order": "Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico.",
@@ -280,7 +295,7 @@
                 "action_accept_devolution": {
                     "title": "Aceptar devolución",
                     "body": "La solicitud ha sido aceptada, le notificaremos al cliente para que envié el producto."
-                }, 
+                },
                 "view_comment": {
                     "commnet_client": "Comentario cliente"
                 }

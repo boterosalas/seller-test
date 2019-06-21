@@ -13,7 +13,7 @@
     </mat-dialog-content>
     <br>
     <mat-dialog-actions fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="status">
-        <button *ngIf="status != 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-error">Aceptar</button>
-        <button *ngIf="status == 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-success" (click)="reloadPage()">Aceptar</button>
+        <button *ngIf="status != 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-error">{{'actions.accpet_min' | I18N | async}}</button>
+        <button *ngIf="status == 'done'" mat-button mat-dialog-close class="button-seller-register" id="btn-modal-success" (click)="reloadPage()">{{'actions.accpet_min' | I18N | async}}</button>
     </mat-dialog-actions>
 </div>

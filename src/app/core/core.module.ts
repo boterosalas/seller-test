@@ -18,6 +18,7 @@ import { ShellModule } from './shell/shell.module';
 import { RouteReusableStrategy } from './util/route-reusable-strategy';
 import { DialogTokenExpiredComponent } from './http/dialog-token-expired/dialog-token-expired';
 import { LanguageService } from './translate/language.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -35,6 +36,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MaterialModule,
     ShellModule,
     RouterModule,
+    SharedModule
   ],
   declarations: [
     LoadingComponent,

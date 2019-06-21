@@ -12,6 +12,7 @@
         "descripcion": "Description",
         "product_type": "Product type",
         "update_successfully": "Updated successfully",
+        "update_successfully_2": "Updated successfully: ",
         "create_successfully": "Created successfully",
         "id": "ID",
         "actions": "Actions",
@@ -48,7 +49,8 @@
         "attach_invoice": "Attach invoice",
         "go_to_start": "Go to start",
         "update": "UPDATE",
-        "apply": "Apply"
+        "apply": "Apply",
+        "close_menu": "Close menu"
     },
     "errors": {
         "required": "Field required",
@@ -110,6 +112,15 @@
         }
     },
     "core": {
+        "http": {
+            "dialog_token_expired": {
+                "title": "The session has expired",
+                "body": "The session has expired due to prolonged inactivity. Please try to enter once again.",
+                "error_network": "Network error, it seems you are not connected to the internet, please check your connection.",
+                "error_service": "An error has occurred when trying to access the server.",
+                "error_acces": "An error has occurred when trying to access the server."
+            }
+        },
         "shell": {
             "search_order_menu": {
                 "search_billing_form": {
@@ -133,6 +144,10 @@
                 }
             }
         }
+    },
+    "public": {
+        "seller_center": "Seller Center",
+        "login": "Login"
     },
     "secure": {
         "aws_cognito": {

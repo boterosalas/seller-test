@@ -2,7 +2,7 @@
 
   <mat-nav-list class="light-content">
     <mat-toolbar color="primary">
-      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below"
+      <button id="closeMenuApplication" color="accent" [matTooltip]="'actions.close_menu' | I18N | async" matTooltipPosition="below"
         mat-icon-button mat-button (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
       </button>

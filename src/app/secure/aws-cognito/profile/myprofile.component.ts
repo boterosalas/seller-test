@@ -286,7 +286,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         this.startDateVacation.reset(null);
                         this.endDateVacation.reset(null);
                         this.isInVacation = false;
-                        this.snackBar.open('Actualizado correctamente: ' + this.user.Name, 'Cerrar', {
+                        this.snackBar.open(this.languageService.getValue('shared.update_successfully_2') + this.user.Name, this.languageService.getValue('actions.close'), {
                             duration: 3000,
                         });
                     } else {
