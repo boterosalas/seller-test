@@ -66,7 +66,8 @@ import { CaseFilterComponent } from './components/case-filter/case-filter.compon
     ProductsCaseDialogComponent,
     CaseToolbarComponent,
     CaseListComponent,
-    CaseFilterComponent
+    CaseFilterComponent,
+    HistoryCardComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
