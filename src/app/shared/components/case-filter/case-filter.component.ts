@@ -1,9 +1,10 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+
 @Component({
-  selector: 'app-case-filter',
-  templateUrl: './case-filter.component.html',
-  styleUrls: ['./case-filter.component.scss']
+  selector: "app-case-filter",
+  templateUrl: "./case-filter.component.html",
+  styleUrls: ["./case-filter.component.scss"],
 })
 export class CaseFilterComponent implements OnInit {
 
@@ -15,6 +16,8 @@ export class CaseFilterComponent implements OnInit {
 
   @ViewChild('sidenavfilter') sideFilter: MatSidenav;
 
+  menuState: string;
+
   constructor() { }
 
   ngOnInit() {
@@ -22,7 +25,6 @@ export class CaseFilterComponent implements OnInit {
   }
 
   toggleFilter() {
-
     this.eventFilter.emit(!this.stateFilter);
   }
 

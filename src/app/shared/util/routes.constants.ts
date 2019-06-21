@@ -65,6 +65,7 @@ export class RoutesConst {
 
     //Support Center DetaiTicket
     static readonly sellerCenterCases: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter;
+    static readonly sellerCenterCasesDetail: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter+'/:idCase';
 
     static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
     static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;

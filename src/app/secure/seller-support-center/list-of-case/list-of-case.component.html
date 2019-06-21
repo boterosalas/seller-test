@@ -10,9 +10,10 @@
     filter ? 'support-center-case__filter-container' : 'hidden-content'
   "
 >
+<div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
   <app-case-filter
     (eventFilter)="toggleFilter($event)"
     [stateFilter]="filter"
-    *ngIf="filter"
   ></app-case-filter>
+</div>
 </div>
