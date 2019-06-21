@@ -1,46 +1,32 @@
 <mat-toolbar class="ticket-toolbar">
   <mat-toolbar-row>
-    <button
-      mat-icon-button
-      (click)="sidenav.toggle()"
-      fxShow="true"
-      fxHide.gt-sm
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
     <div class="toolbar-brand">
-      <span class="toolbar-brand">Reclamaciones</span> |
+      <span>Reclamaciones</span><span class="separator"> &#124; </span>
       <small>Visualización de reclamaciones</small>
     </div>
     <span class="example-spacer"></span>
-    <div class="toolbar-right" fxShow="true" fxHide.lt-md="true">
-      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-      <!--<button mat-button>
-        <mat-icon>filter_list</mat-icon>
-        Filtrar
-      </button>-->
+    <div>
+      <mat-sidenav-content
+        class="toolbar-right"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <div class="toolbar-right--item">
+            <mat-paginator
+            [length]="lengthOrder"
+            [pageSize]="pageSizeOrder"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+          >
+          </mat-paginator>
+        </div>
 
-      <mat-sidenav-content>
-        <button mat-raised-button (click)="openFilter.emit()">
-          <mat-icon>filter_list</mat-icon>
-          Filtro
-        </button>
+        <div class="toolbar-right--item" >
+            <button mat-raised-button (click)="toggleFilter()">
+                <mat-icon>filter_list</mat-icon>
+                Filtro
+              </button>
+        </div>
       </mat-sidenav-content>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
-      <app-case-filter></app-case-filter>
-      <!--<button mat-button mat-list-item>
-        <mat-icon>filter_list</mat-icon>
-        Filtrar
-      </button>-->
-      <a (click)="sidenav.toggle()" mat-list-item>
-        <mat-icon>close</mat-icon> Close
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-</mat-sidenav-container>

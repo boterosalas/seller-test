@@ -1,4 +1,4 @@
-<app-case-toolbar></app-case-toolbar>
+<app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
 <mat-toolbar>
   <div class="prev-view">
     <a href="#">
@@ -107,19 +107,33 @@
           <span>###########</span>
         </div>
         <span class="detail-product--show-all">
-            Ver todos los productos
-          </span>
+          Ver todos los productos
+        </span>
       </div>
     </div>
   </div>
-  <div class="detail-history"
-  fxLayout="row"
-  fxLayout.xs="row"
-  fxLayoutAlign="center center"
-  fxLayoutGap="10px"
-  fxLayoutGap.xs="0"
+  <div
+    class="detail-history"
+    fxLayout="row"
+    fxLayout.xs="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="0"
   >
     <div fxFlex="5%">&nbsp;</div>
     <app-history-card xFlex="95%"></app-history-card>
   </div>
+</div>
+
+<div
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
+  "
+>
+<div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
+  <app-case-filter
+    (eventFilter)="toggleFilter($event)"
+    [stateFilter]="filter"
+  ></app-case-filter>
+</div>
 </div>

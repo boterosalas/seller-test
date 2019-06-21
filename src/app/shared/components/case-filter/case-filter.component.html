@@ -1,9 +1,9 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenavfilter mode="side" position="end">
+  <mat-sidenav #sidenavfilter mode="side" position="end" >
     <div class="filter-content">
       <div class="filter-header">
         <span class="filter-header--title">Filtro reclamaciones</span>
-        <span class="filter-header--close" (click)="sidenavfilter.toggle()"
+        <span class="filter-header--close" (click)="toggleFilter()"
           >&times;</span
         >
       </div>
@@ -51,9 +51,9 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-raised-button (click)="sidenavfilter.toggle()">
+    <!--<button mat-raised-button (click)="sidenavfilter.toggle()">
       <mat-icon>filter_list</mat-icon>
       Filtro
-    </button>
+    </button>-->
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,6 +1,20 @@
-<app-case-toolbar (openFilter)="openFilter()"></app-case-toolbar>
-<app-case-list></app-case-list>
-<!--<app-case-detail></app-case-detail>-->
-<div class="support-center-case__filter-container">
-  <app-case-filter></app-case-filter>
+<app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
+
+<app-case-list>
+  <ng-container *itemCaseList>
+    <app-case-detail></app-case-detail>
+  </ng-container>
+</app-case-list>
+
+<div
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
+  "
+>
+<div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
+  <app-case-filter
+    (eventFilter)="toggleFilter($event)"
+    [stateFilter]="filter"
+  ></app-case-filter>
+</div>
 </div>
