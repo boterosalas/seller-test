@@ -17,6 +17,9 @@ import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
+import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -69,7 +72,8 @@ describe('Detail offer Component', () => {
                 FormsModule,
                 RouterTestingModule,
                 BrowserAnimationsModule,
-                SharedModule
+                SharedModule,
+                HttpClientTestingModule,
             ],
             providers: [
                 { provide: StoresService, useValue: mockStoresService },
@@ -81,7 +85,8 @@ describe('Detail offer Component', () => {
                 { provide: SupportService, useValue: mockSuportService },
                 { provide: FormBuilder, useValue: formBuilder },
                 ListComponent
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
 
 

@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CategoriesComponent', () => {
 
@@ -165,7 +166,8 @@ describe('CategoriesComponent', () => {
         FormsModule,
         BrowserAnimationsModule,
         SharedModule,
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [
         { provide: CategoryTreeService, useValue: mockCategoryService },

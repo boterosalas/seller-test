@@ -9,6 +9,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MaterialModule } from '@app/material.module';
 import { ModalService } from '@app/core';
 import { SharedModule } from '@app/shared/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 describe('ShippingMethodsComponent', () => {
@@ -54,11 +56,13 @@ describe('ShippingMethodsComponent', () => {
         { provide: ShippingMethodsService, useValue: shippingService },
         { provide: QuotingAdminService, useValue: quotingService },
         { provide: LoadingService, useValue: loadingService },
-        { provide: ModalService, useValue: modalService }
+        { provide: ModalService, useValue: modalService },
       ], imports: [
         MaterialModule,
-        SharedModule
-      ]
+        SharedModule,
+        HttpClientTestingModule
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));

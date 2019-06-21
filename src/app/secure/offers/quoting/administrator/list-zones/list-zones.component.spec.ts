@@ -18,6 +18,8 @@ import { ZoneModel } from '../dialogs/models/zone.model';
 /** Own imports */
 import { ListZonesService } from './list-zones.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ListZonesComponent', () => {
 
@@ -96,8 +98,10 @@ describe('ListZonesComponent', () => {
                 MatFormFieldModule,
                 ReactiveFormsModule,
                 FormsModule,
-                SharedModule
-            ]
+                SharedModule,
+                HttpClientTestingModule
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 
