@@ -1,0 +1,59 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenavfilter mode="side" position="end" >
+    <div class="filter-content">
+      <div class="filter-header">
+        <span class="filter-header--title">Filtro reclamaciones</span>
+        <span class="filter-header--close" (click)="toggleFilter()"
+          >&times;</span
+        >
+      </div>
+      <div class="filter-form">
+        <mat-form-field class="filter-form--field">
+          <input matInput placeholder="ID" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-form--field">
+          <input matInput placeholder="Motivo" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Fecha de creación"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="filter-form--field">
+          <mat-select placeholder="Estado">
+            <mat-option value="pendiente">Pendiente</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-form--field">
+          <input matInput placeholder="Número de pedido" />
+        </mat-form-field>
+      </div>
+      <div class="filter-control">
+        <button class="mat-raised-button  filter-control--btn-clean btn">
+          Limpiar
+        </button>
+        <button class="mat-raised-button  filter-control--btn-send btn">
+          Filtrar
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!--<button mat-raised-button (click)="sidenavfilter.toggle()">
+      <mat-icon>filter_list</mat-icon>
+      Filtro
+    </button>-->
+  </mat-sidenav-content>
+</mat-sidenav-container>

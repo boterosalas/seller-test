@@ -1,0 +1,37 @@
+$hint-color: #9e9e9e;
+$primary-color: #757474;
+
+.preview-list-card {
+  display: flex;
+  flex-direction: column;
+  &__secondary-text {
+    margin: 0;
+    text-align: justify;
+    color: $hint-color;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 14px;
+    color: $primary-color;
+  }
+
+  &__products {
+    &-item {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &--bottom-space {
+    margin-bottom: 16px;
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--pointer {
+    cursor: pointer;
+  }
+}

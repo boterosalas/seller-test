@@ -1,4 +1,8 @@
-import { NgModule } from "@angular/core";
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SellerSupportRoutingModule } from "./seller-support.routing";
 import { LayoutModule } from "@angular/cdk/layout";
@@ -9,8 +13,10 @@ import {
   MatIconModule,
   MatListModule
 } from "@angular/material";
-import { CaseComponentComponent } from "./case-component/case-component.component";
+
+import { ListOfCaseComponent } from "./list-of-case/list-of-case.component";
 import { SharedModule } from "@app/shared/shared.module";
+import { DetailCaseComponent } from "./detail-case/detail-case.component";
 
 @NgModule({
   imports: [
@@ -24,6 +30,7 @@ import { SharedModule } from "@app/shared/shared.module";
     MatListModule,
     SharedModule
   ],
-  declarations: [CaseComponentComponent]
+  declarations: [ListOfCaseComponent, DetailCaseComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SellerSupportCenterModule {}

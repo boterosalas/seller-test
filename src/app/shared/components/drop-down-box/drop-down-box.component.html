@@ -1,0 +1,59 @@
+<div class="case-list-content">
+  <mat-accordion class="case-list-expandable">
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <div
+          class="case-list-detail"
+          fxLayout
+          fxLayout.xs="column"
+          fxLayoutAlign="center center"
+          fxLayoutGap="10px"
+          fxLayoutGap.xs="0"
+        >
+          <div
+            class="case-list-detail--item-detail"
+            fxFlex="5%"
+            fxLayoutAlign="center center"
+            class="no-select"
+          >
+            <span
+              [ngClass]="
+                !panelOpenState
+                  ? 'item-detail-arrow'
+                  : 'item-detail-arrow--active'
+              "
+            >
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </span>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="10%">1234</div>
+          <div class="case-list-detail--item-detail" fxFlex="15%">0987654</div>
+          <div class="case-list-detail--item-detail" fxFlex="10%">Petición</div>
+          <div class="case-list-detail--item-detail" fxFlex="30%">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
+              deleniti, enim minima distinctio impedit architecto commodi
+              mollitia ratione a rem esse, dignissimos repudiandae possimus cum!
+            </p>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="15%">
+            11/02/2019
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="10%">
+            Pendiente
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="10%">
+            <mat-icon>question_answer</mat-icon>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

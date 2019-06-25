@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoryCardComponent } from './history-card.component';
+import { DropDownListComponent } from './drop-down-list.component';
 
-describe('HistoryCardComponent', () => {
-  let component: HistoryCardComponent;
-  let fixture: ComponentFixture<HistoryCardComponent>;
+describe('DropDownListComponent', () => {
+  let component: DropDownListComponent;
+  let fixture: ComponentFixture<DropDownListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistoryCardComponent ]
+      declarations: [ DropDownListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistoryCardComponent);
+    fixture = TestBed.createComponent(DropDownListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

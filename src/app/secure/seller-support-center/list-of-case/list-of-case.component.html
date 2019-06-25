@@ -1,0 +1,19 @@
+<app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
+
+<app-drop-down-list
+  [data]="cases"
+  [configurations]="listConfiguration"
+></app-drop-down-list>
+
+<div
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
+  "
+>
+<div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
+  <app-case-filter
+    (eventFilter)="toggleFilter($event)"
+    [stateFilter]="filter"
+  ></app-case-filter>
+</div>
+</div>

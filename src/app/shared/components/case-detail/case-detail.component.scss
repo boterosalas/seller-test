@@ -44,10 +44,6 @@ $hint-color: #9e9e9e;
     &--pointer {
       cursor: pointer;
     }
-
-    &--bottom-space {
-      margin-bottom: 21px;
-    }
   }
 
   &__controls {
@@ -77,12 +73,8 @@ $hint-color: #9e9e9e;
     }
   }
 
-  &__secondary {
-    &-text {
-      margin: 0;
-      text-align: justify;
-      color: $hint-color;
-    }
+  &--bottom-space {
+    margin-bottom: 21px;
   }
 
   @media (max-width: 425px) {
@@ -97,19 +89,5 @@ $hint-color: #9e9e9e;
 
   * {
     width: 80%;
-  }
-
-  &__products {
-    margin-top: 21px;
-    display: flex;
-    flex-direction: column;
-
-    &-item {
-      display: flex;
-      flex-direction: row;
-    }
-    &--show-all:hover {
-      cursor: pointer;
-    }
   }
 }

@@ -1,5 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA
+} from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { MaterialModule } from "@app/material.module";
@@ -17,12 +21,17 @@ import { CitiesModule } from "./components/cities";
 import { ErrorDialogComponent } from "./components/dialogs/error-dialog.component";
 import { DialogWithFormComponent } from "./components/dialog-with-form/dialog-with-form.component";
 import { CreateProcessDialogComponent } from "./components/create-process-dialog/create-process-dialog.component";
-import { HistoryCardComponent } from "./components/history-card/history-card.component";
+import { ConversationCardComponent } from "./components/conversation-card/conversation-card.component";
 import { CaseToolbarComponent } from "./components/case-toolbar/case-toolbar.component";
 import { ResponseCaseDialogComponent } from "./components/response-case-dialog/response-case-dialog.component";
 import { ProductsCaseDialogComponent } from "./components/products-case-dialog/products-case-dialog.component";
 import { CaseDetailComponent } from "./components/case-detail/case-detail.component";
-
+import { DropDownBoxComponent } from "./components/drop-down-box/drop-down-box.component";
+import { CaseFilterComponent } from "./components/case-filter/case-filter.component";
+import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-drop-down-box.directive";
+import { DropDownListComponent } from "./components/drop-down-list/drop-down-list.component";
+import { BasicCardComponent } from "./components/basic-card/basic-card.component";
+import { PreviewListCardComponent } from "./components/preview-list-card/preview-list-card.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -39,11 +48,17 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent,
-    HistoryCardComponent,
+    ConversationCardComponent,
     CaseDetailComponent,
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    DropDownBoxComponent,
+    CaseFilterComponent,
+    ContentDropDownBoxDirective,
+    DropDownListComponent,
+    BasicCardComponent,
+    PreviewListCardComponent
   ],
   exports: [
     MaterialModule,
@@ -61,7 +76,11 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     CaseDetailComponent,
     ResponseCaseDialogComponent,
     ProductsCaseDialogComponent,
-    CaseToolbarComponent
+    CaseToolbarComponent,
+    DropDownBoxComponent,
+    CaseFilterComponent,
+    ContentDropDownBoxDirective,
+    DropDownListComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
@@ -70,6 +89,7 @@ import { CaseDetailComponent } from "./components/case-detail/case-detail.compon
     DialogWithFormComponent,
     CreateProcessDialogComponent
   ],
-  providers: [EventEmitterSeller]
+  providers: [EventEmitterSeller],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule {}

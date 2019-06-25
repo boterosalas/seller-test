@@ -1,53 +1,28 @@
 <div class="ticket-content">
   <div class="ticket-content__item ticket-detail">
-    <span class="ticket-content__title ticket-content__title--bottom-space">
-      Descripción
-    </span>
-    <p class="ticket-content__secondary-text">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
-      exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
-      voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
-      aliquid.
-    </p>
-    <div class="ticket-detail__products">
-      <span class="ticket-content__title ticket-content__title--bottom-space">
-        Productos</span
-      >
-      <div class="ticket-content__title--bottom-space">
-        <div class="ticket-detail__product-item ticket-content__secondary-text">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <div class="ticket-detail__product-item ticket-content__secondary-text">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <div class="ticket-detail__product-item ticket-content__secondary-text">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <div class="ticket-detail__product-item ticket-content__secondary-text">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-      </div>
+    <app-basic-card
+      class="ticket-content--bottom-space"
+      title="Descripción"
+      description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
+    exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
+    voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
+    aliquid."
+    ></app-basic-card>
 
-      <span
-        class="ticket-content__title ticket-content__title--underline 
-        ticket-content__title--cursor"
-        (click)="openProductsDialog()"
-      >
-        Ver todos los productos
-      </span>
-    </div>
+    <app-preview-list-card
+      title="Productos"
+      [products]="products"
+      [configuration]="productsConfig"
+      (onClickShowAll)="onClickShowAllProducts()"
+    ></app-preview-list-card>
   </div>
 
   <div class="ticket-content__item">
-    <app-history-card></app-history-card>
+    <span class="ticket-content__title ticket-content--bottom-space">
+      Seguimiento
+    </span>
+
+    <app-conversation-card></app-conversation-card>
 
     <div class="ticket-content__controls ticket-content__controls--left">
       <button
@@ -60,8 +35,9 @@
   </div>
 
   <span
-    class="ticket-content__item ticket-content__title ticket-content__item--full-width 
-    ticket-content__title--underline ticket-content__title--center ticket-content__title--cursor"
-    >Ver seguimiento completo</span
+    class="ticket-content__item ticket-content__title ticket-content__item--full-width
+    ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer"
   >
+    Ver seguimiento completo
+  </span>
 </div>
