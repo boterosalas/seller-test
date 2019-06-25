@@ -50,7 +50,8 @@
         "go_to_start": "Go to start",
         "update": "UPDATE",
         "apply": "Apply",
-        "close_menu": "Close menu"
+        "close_menu": "Close menu",
+        "enter": "ENTER"
     },
     "errors": {
         "required": "Field required",
@@ -98,7 +99,9 @@
         "error_guide": "5 characters minimum, 20 characters maximum.",
         "error_check_payment": "An error has occurred when browing payments.",
         "error_no_searh_criteria": "No specified search criteria.",
-        "error_check_orders": "An error has occurred when browing orders."
+        "error_check_orders": "An error has occurred when browing orders.",
+        "error_user_login": "The username must be a valid e-mail addres and is required.",
+        "error_psw_login": "The password cannot be blank or be too short (7 characters minimum)."
     },
     "filters": {
         "clear": "Clear",
@@ -122,6 +125,9 @@
             }
         },
         "shell": {
+            "header": {
+                "support": "Support"
+            },
             "search_order_menu": {
                 "search_billing_form": {
                     "initial_date": "Fecha de pago inicial",
@@ -147,7 +153,14 @@
     },
     "public": {
         "seller_center": "Seller Center",
-        "login": "Login"
+        "login": "Login",
+        "auth": {
+            "login": {
+                "ph_user": "User",
+                "ph_psw": "Password",
+                "forgot_psw": "I forgot my password"
+            }
+        }
     },
     "secure": {
         "aws_cognito": {

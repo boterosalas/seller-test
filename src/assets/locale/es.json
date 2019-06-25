@@ -50,7 +50,8 @@
         "go_to_start": "Ir al inicio",
         "update": "ACTUALIZAR",
         "apply": "Aplicar",
-        "close_menu": "Cerrar menú"
+        "close_menu": "Cerrar menú",
+        "enter": "INGRESAR"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -98,7 +99,9 @@
         "error_guide": "Mínimo 5 caracteres, Maximo 20 caracteres.",
         "error_check_payment": "Se ha presentado un error al consultar los pagos.",
         "error_no_searh_criteria": "No se ha indicado ningún criterio de búsqueda.",
-        "error_check_orders": "Se ha presentado un error al consultar las órdenes."
+        "error_check_orders": "Se ha presentado un error al consultar las órdenes.",
+        "error_user_login": "El usuario debe ser un email válido y es requerido.",
+        "error_psw_login": "La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)."
     },
     "filters": {
         "clear": "Limpiar",
@@ -122,6 +125,9 @@
             }
         },
         "shell": {
+            "header": {
+                "support": "Soporte"
+            },
             "search_order_menu": {
                 "search_billing_form": {
                     "initial_date": "Inicial payment date",
@@ -147,7 +153,14 @@
     },
     "public": {
         "seller_center": "Seller Center",
-        "login": "Inicio de sesión"
+        "login": "Inicio de sesión",
+        "auth": {
+            "login": {
+                "ph_user": "Usuario",
+                "ph_psw": "Contraseña",
+                "forgot_psw": "Olvidé mi contraseña"
+            }
+        }
     },
     "secure": {
         "aws_cognito": {

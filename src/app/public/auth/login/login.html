@@ -12,30 +12,30 @@
             <div fxFlex="100">
               <mat-form-field class="full-width input-style">
                 <mat-icon matPrefix>person</mat-icon>
-                <input id="input-username" name="email" formControlName="email" matInput placeholder="Usuario" type="email"
-                  required maxlength="100">
-                <mat-error>El usuario debe ser un email válido y es requerido</mat-error>
+                <input id="input-username" name="email" formControlName="email" matInput
+                  [placeholder]="'public.auth.login.ph_user' | I18N | async" type="email" required maxlength="100">
+                <mat-error>{{'errors.error_user_login' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
             <div fxFlex="100">
               <mat-form-field class="full-width">
                 <mat-icon matPrefix>https</mat-icon>
                 <input id="input-password" name="password" formControlName="password" maxlength="25" matInput
-                  placeholder="Contraseña" type="password" required length="40">
-                <mat-error>La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)</mat-error>
+                  [placeholder]="'public.auth.login.ph_psw' | I18N | async" type="password" required length="40">
+                <mat-error>{{'errors.error_psw_login' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
             <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
               <button id="login-button" [disabled]="!f.form.valid" (click)="onLogin()" type="submit" mat-raised-button
-              color="primary">INGRESAR</button>
+                color="primary">{{'actions.enter' | I18N | async}}</button>
             </div>
             <div *ngIf="errorMessage!=null">
               <mat-error>{{ errorMessage }}</mat-error>
             </div>
             <div fxFlex="100" fxLayout="row" fxFlexAlign="center">
               <p>
-                <a [routerLink]="['/' + consts.homeForgotPassword]"><i class="fa fa-fw fa-group"></i>Olvidé mi
-                  contraseña</a>
+                <a [routerLink]="['/' + consts.homeForgotPassword]"><i class="fa fa-fw fa-group"></i>
+                  {{'public.auth.login.forgot_psw' | I18N | async}}</a>
               </p>
             </div>
           </div>

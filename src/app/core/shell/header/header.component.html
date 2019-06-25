@@ -35,7 +35,7 @@
         <button *ngIf="user?.sellerProfile === 'seller'" class="sc-button-toolbar" (click)="openDialogSupport()" fxShow.xs="true" fxShow.sm="false"
           fxShow.lg="true" fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
           <mat-icon class="mat-24">help</mat-icon>
-          Soporte
+          {{'core.shell.header.support' | I18N | async}}
         </button>
       
 
