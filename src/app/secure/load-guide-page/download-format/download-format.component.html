@@ -1,11 +1,13 @@
-<h2 mat-dialog-title>Indica el número de registros que quieres descargar en el archivo.</h2>
+<h2 mat-dialog-title>{{'secure.laod_guide_page.download_format.title' | I18N | async}}</h2>
 <mat-dialog-content>
   <form #f="ngForm" [formGroup]="myform" class="form-login">
     <div fxLayout="column" fxLayoutGap="20px">
       <div fxLayout="row" fxFlex="100">
         <mat-form-field fxFlex="100" class="input-style">
-          <input name="limit" formControlName="limit" matInput placeholder="Limite de registros" type="number" required>
-          <mat-error>El limite de registros no puede estar en blanco</mat-error>
+          <input name="limit" formControlName="limit" matInput
+            [placeholder]="'secure.laod_guide_page.download_format.ph_record_limit' | I18N | async" type="number"
+            required>
+          <mat-error>{{'errors.error_limit_format' | I18N | async}}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -15,8 +17,9 @@
 
 
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
+  <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | I18N | async}}</button>
 
-  <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadInformationForGuide(myform)" mat-raised-button color="accent">Descargar &oacute;rdenes
+  <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadInformationForGuide(myform)" mat-raised-button
+    color="accent">{{'actions.download_orders' | I18N | async}}
   </button>
 </mat-dialog-actions>

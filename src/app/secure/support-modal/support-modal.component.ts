@@ -10,6 +10,7 @@ import { SupportService } from './support.service';
 import { UserInformation } from '@app/shared';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { BasicInformationService } from '../products/create-product-unit/basic-information/basic-information.component.service';
+import { LanguageService } from '@app/core/translate/language.service';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -47,7 +48,8 @@ export class SupportModalComponent implements OnInit {
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
     public userParams: UserParametersService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private languageService: LanguageService,
   ) { }
 
   /**
@@ -145,11 +147,11 @@ export class SupportModalComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
       this.loadingService.closeSpinner();
-      this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
+      this.COMPONENT.openSnackBar(this.languageService.getValue('secure.support_modal.ts_send_msj'), this.languageService.getValue('actions.accpet_min'), 10000);
       this.onNoClick();
     }, err => {
       this.loadingService.closeSpinner();
-      this.COMPONENT.openSnackBar('Se ha presentado un error al enviar el mensaje de soporte', 'Aceptar', 10000);
+      this.COMPONENT.openSnackBar(this.languageService.getValue('secure.support_modal.ts_error_msj_support'), this.languageService.getValue('actions.accpet_min'), 10000);
     });
   }
 

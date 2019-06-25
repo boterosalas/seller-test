@@ -1,7 +1,7 @@
 <div class="container-error">
 
   <div class="name-file-upload">
-    <p>Archivo seleccionado:</p>
+    <p>{{'secure.products.table_errors_product.selected_file' | I18N | async}}:</p>
     <b>{{ fileName}}</b>
   </div>
   <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"
@@ -11,7 +11,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>warning</mat-icon>
           <span>{{countErrors}}</span>
-          <b>Errores detectados</b>
+          <b>{{'errors.errors_detected' | I18N | async}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -20,18 +20,17 @@
 
       <mat-nav-list dense>
         <mat-list-item>
-          <p class="wrap" matLine>Por favor corrige los errores en el archivo y vuelve a realizar la carga de las
-            guías.</p>
+          <p class="wrap" matLine>{{'errors.error_guide_upload' | I18N | async}}.</p>
         </mat-list-item>
         <mat-list-item id="error-list-guide-button" (click)="loadGuide.selectErrorLog(item)"
                        *ngFor="let item of listLog">
           <mat-icon class="icon-color-error">warning</mat-icon>
-          <p matLine *ngIf="item.type == 'NumberFormat'">El dato en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico</p>
-          <p matLine *ngIf="item.type == 'dateNotFound'">Dato faltante en la
-            <span class="error-string">columna #{{ item.columna }}</span> de la
-            <span class="error-string">fila #{{item.fila}}</span>
+          <p matLine *ngIf="item.type == 'NumberFormat'">{{'secure.products.table_errors_product.column_data' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span> {{'secure.laod_guide_page.table_errors.numeric' | I18N | async}}</p>
+          <p matLine *ngIf="item.type == 'dateNotFound'">{{'secure.laod_guide_page.table_errors.missinf_info' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}} #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}} #{{item.fila}}</span>
           </p>
         </mat-list-item>
       </mat-nav-list>
@@ -41,12 +40,12 @@
   <mat-card class="card-ok-process" *ngIf="countErrors == 0">
     <div class="succes-data">
       <mat-icon>check</mat-icon>
-      Ok 100%
+      {{'secure.laod_guide_page.table_errors.ok' | I18N | async}}
     </div>
     <mat-card-actions>
       <button id="finish-send-guide-button" (click)="loadGuide.sendJsonInformation()"
               [disabled]="countErrors != 0 || countRowUpload == 0"
-              mat-raised-button class="sc-default-button full-width" color="accent">Enviar registro
+              mat-raised-button class="sc-default-button full-width" color="accent">{{'secure.products.bulk_upload.send_data' | I18N | async}
       </button>
     </mat-card-actions>
   </mat-card>

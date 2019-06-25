@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import { LoadGuideService } from '../load-guide.service';
+import { LanguageService } from '@app/core/translate/language.service';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -40,7 +41,8 @@ export class DownloadFormatComponent implements OnInit {
     private componentService: ComponentsService,
     public dialogRef: MatDialogRef<DownloadFormatComponent>,
     private fb: FormBuilder,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private languageService: LanguageService,
   ) {
     this.user = {};
   }
@@ -74,11 +76,11 @@ export class DownloadFormatComponent implements OnInit {
     this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${this.user.sellerId}&limit=${form.value.limit}`)
       .subscribe((res: Array<{}>) => {
         if (res.length > 0) {
-          this.componentService.openSnackBar('Se ha descargado correctamente la información', 'Cerrar', 3000);
+          this.componentService.openSnackBar(this.languageService.getValue('secure.laod_guide_page.download_format.ts_download_ok'), this.languageService.getValue('actions.close'), 3000);
           // aplico el formato al json para los campos tracking y guide
           this.applyFormatToJson(res);
         } else {
-          this.componentService.openConfirmAlert('No se han encontrado órdenes', '¿Quieres descargar el formato de envío vació?')
+          this.componentService.openConfirmAlert(this.languageService.getValue('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.getValue('secure.laod_guide_page.download_format.ts_want_download'))
             .then(response => {
               if (response) {
                 const emptyFile = [{

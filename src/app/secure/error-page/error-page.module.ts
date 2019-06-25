@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 
 import { ErrorPageComponent } from './error-page.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
   imports: [
     RouterModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    CommonModule
   ],
   declarations: [
     ErrorPageComponent,

@@ -51,7 +51,8 @@
         "update": "ACTUALIZAR",
         "apply": "Aplicar",
         "close_menu": "Cerrar menú",
-        "enter": "INGRESAR"
+        "enter": "INGRESAR",
+        "download_orders": "Descargar órdenes"
     },
     "errors": {
         "required": "Este cambio es obligatorio",
@@ -101,7 +102,9 @@
         "error_no_searh_criteria": "No se ha indicado ningún criterio de búsqueda.",
         "error_check_orders": "Se ha presentado un error al consultar las órdenes.",
         "error_user_login": "El usuario debe ser un email válido y es requerido.",
-        "error_psw_login": "La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres)."
+        "error_psw_login": "La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres).",
+        "error_limit_format": "El limite de registros no puede estar en blanco",
+        "error_guide_upload": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las guías."
     },
     "filters": {
         "clear": "Limpiar",
@@ -197,6 +200,43 @@
             "client": "Cliente",
             "address": "Dirección",
             "phone": "Teléfono"
+        },
+        "dashboard": {
+            "all": "Todas",
+            "in_transit": "En proceso de envío",
+            "delievered": "Entregado",
+            "expired": "Vencido",
+            "sales": "Ventas",
+            "selected_months": "Seleccione el mes",
+            "info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete"
+        },
+        "error_page": {
+            "no_found_page": "La pagina solicitada no ha sido encontrada",
+            "go_home": "Ir a inicio"
+        },
+        "laod_guide_page": {
+            "download_format": {
+                "title": "Indica el número de registros que quieres descargar en el archivo.",
+                "ph_record_limit": "Limite de registros",
+                "ts_download_ok": "Se ha descargado correctamente la información.",
+                "ts_want_download": "¿Quieres descargar el formato de envío vacío?"
+            },
+            "finish_upload_info":{
+                "title": "Registro correctos",
+                "error_guide": "Se han presentado",
+                "error_guide_2": "errores al momento de realizar los registros de las guías.",
+                "order_number": "Número de orden"
+            },
+            "table_errors": {
+                "numeric": "debe ser numérico",
+                "missinf_info": "Dato faltante en la",
+                "ok": "Ok 100%"
+            },
+            "table_load": {
+                "records_found": "Registros encontrados",
+                "missing_data": "Dato faltante",
+                "shipping_company": "Transportador"
+            }
         },
         "orders": {
             "orders": "Órdenes",
@@ -529,7 +569,7 @@
                 "download_template": "Descargar plantilla",
                 "options": "Opciones",
                 "upload_file": "Cargar archivo",
-                "clear_current_data": "Limpiar datos actules",
+                "clear_current_data": "Limpiar datos actuales",
                 "send_data": "Enviar registro",
                 "allowed_uploads_day": "Cargas permitidas por día",
                 "successful_uploads_today": "Cargas éxitosas realizadas hoy",
@@ -633,7 +673,7 @@
                     "format_invalidate": "El formato es inválido",
                     "imagen_invalidate": "La imagen no es válida",
                     "basic_product_information": "En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada variación como un 'hijo' diligenciando completamente la información de cada uno en la parte inferior de la sección",
-                    "input_mandatory": "Este campo es obligatorio",
+                    "input_mandatory": "Este campo es obligatorio.",
                     "brand_invalidate": "La marca ingresada no es válida",
                     "model_invalidate": "El modelo ingresado no es válido",
                     "detail_invalidate": "El detalle ingresado no es válido",
@@ -891,6 +931,40 @@
                 "amount_not_allowed": "El número de registros supera los 500, no se permite esta cantidad",
                 "error_has_uploading_guide": "Se ha presentado un error al enviar la guía."
             }
+        },
+        "support_modal": {
+            "ts_send_msj": "Se ha enviado tu mensaje de soporte.",
+            "ts_error_msj_support": "Se ha presentado un error al enviar el mensaje de soporte.",
+            "title": "Crea tu caso",
+            "description": "Registra aquí la información para registrar un caso a nuestro equipo de soporte.",
+            "tooltip_case": "Ingresa el nombre de la persona que registra el caso.",
+            "invalid_fiel": "Campo inválido.",
+            "content": "Contenidos",
+            "platform_use": "Uso de la plataforma",
+            "problems_techincal": "Problemas técnicos plataforma",
+            "pay_invoice": "Pagos y facturación",
+            "shipping": "Transporte",
+            "service": "Servicio - Atención",
+            "seller_evaluation": "Evaluación vendedores",
+            "case_motive": "Motivo de caso",
+            "list_case": "Selecciona de la lista desplegable el motivo del caso",
+            "name_case": "Nombre del caso",
+            "title_case": "Ingresa un título para tu caso. Este campo tiene un límite de 120 caracteres.",
+            "desc_case": "Este campo contiene máximo 120 caracteres.",
+            "type_case": "Tipo de caso",
+            "complaint": "Queja",
+            "request": "Petición",
+            "claim": "Reclamo",
+            "congratulations": "Felicitación",
+            "sugegstion": "Sugerencia",
+            "list_type_case": "Selecciona de la lista desplegable el tipo de caso",
+            "email_contact": "Ingresa un correo para contactarte. Si el correo diligenciado esta errado por favor corrígelo. IMPORTANTE: A este correo llegará la respuesta del caso.",
+            "error_email": "El correo electrónico no es válido.",
+            "description_case": "Ingresa una descripción con el mayor detalle posible de la incidencia. Este campo tiene un límite de 2.000 caracteres",
+            "limit_field": "Este campo contiene máximo 2000 caracteres.",
+            "field_invalid": "Campo inválido.",
+            "tutorial": "TUTORIALES",
+            "contact_mail": "Correo contacto"
         }
     }
 }

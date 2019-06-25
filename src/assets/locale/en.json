@@ -51,7 +51,8 @@
         "update": "UPDATE",
         "apply": "Apply",
         "close_menu": "Close menu",
-        "enter": "ENTER"
+        "enter": "ENTER",
+        "download_orders": "Download orders"
     },
     "errors": {
         "required": "Field required",
@@ -101,7 +102,9 @@
         "error_no_searh_criteria": "No specified search criteria.",
         "error_check_orders": "An error has occurred when browing orders.",
         "error_user_login": "The username must be a valid e-mail addres and is required.",
-        "error_psw_login": "The password cannot be blank or be too short (7 characters minimum)."
+        "error_psw_login": "The password cannot be blank or be too short (7 characters minimum).",
+        "error_limit_format": "The record limit cannot be blank",
+        "error_guide_upload": "Please fix the file's errors and upload the tracking numbers again."
     },
     "filters": {
         "clear": "Clear",
@@ -197,6 +200,43 @@
             "client": "Client",
             "address": "Address",
             "phone": "Phone number"
+        },
+        "dashboard": {
+            "all": "All",
+            "in_transit": "In transit",
+            "delievered": "Delievered",
+            "expired": "Expired",
+            "sales": "Sales",
+            "selected_months": "Select a month",
+            "info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value y shown without taking freight values into account"
+        },
+        "error_page": {
+            "no_found_page": "The page you requested is not available",
+            "go_home": "Go to start"
+        },
+        "laod_guide_page": {
+            "download_format": {
+                "title": "Enter the amount of records you want to download in the file.",
+                "ph_record_limit": "Record limit",
+                "ts_download_ok": "The information was downloaded correctly.",
+                "ts_want_download": "Do you want to download an empty format?"
+            },
+            "finish_upload_info":{
+                "title": "Correct records",
+                "error_guide": "There have been",
+                "error_guide_2": "errors have occurred when trying to register the tracking numbers.",
+                "order_number": "Order number"
+            },
+            "table_errors": {
+                "numeric": "it must be numeric.",
+                "missinf_info": "Missing information in the",
+                "ok": "Ok 100%"
+            },
+            "table_load": {
+                "records_found": "Records found",
+                "missing_data": "Missing information",
+                "shipping_company": "Shipping company"
+            }
         },
         "orders": {
             "orders": "Orders",
@@ -891,6 +931,40 @@
                 "amount_not_allowed": "The number of records exceeds 500, this amount is not allowed.",
                 "error_has_uploading_guide": "There was an error submitting the guide."
             }
+        },
+        "support_modal": {
+            "ts_send_msj": "Your message has been sent to the support team.",
+            "ts_error_msj_support": "An error occurred when trying to send the message to the support team.",
+            "title": "Enter your case",
+            "description": "Enter here the information in order to send a case to our support team",
+            "tooltip_case": "Enter the name of the person who is recording the case",
+            "invalid_fiel": "Invalid field",
+            "content": "Content",
+            "platform_use": "Platform use",
+            "problems_techincal": "Technical problems",
+            "pay_invoice": "Payment and invoicing",
+            "shipping": "Shipping",
+            "service": "Service",
+            "seller_evaluation": "Seller evaluation",
+            "case_motive": "Case motive",
+            "list_case": "Select the case's motive from the list",
+            "name_case": "Case name",
+            "title_case": "Enter a title for you case. This field has 120 characters as it's maximum",
+            "desc_case": "This field must contain 120 characters as it's maximum",
+            "type_case": "Case type",
+            "complaint": "Complaint",
+            "request": "Request",
+            "claim": "Claim",
+            "congratulations": "Congratulations",
+            "sugegstion": "Suggestion",
+            "list_type_case": "Select the case's type from the list.",
+            "email_contact": "Enter an e-mail address so we can contact you. If the e-mail address entered is incorrect please fix it. IMPORTANT: We will respond to this address.",
+            "error_email": "The entered e-mail address is invalid.",
+            "description_case": "Enter a detailed description of your case. This field has 2.000 characters as it's maximum",
+            "limit_field": "This field has 2.000 characters as it's maximum.",
+            "field_invalid": "Invalid field",
+            "tutorial": "TUTORIALS",
+            "contact_mail": "Contact email"
         }
     }
 }

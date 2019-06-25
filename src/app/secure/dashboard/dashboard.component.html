@@ -14,13 +14,13 @@
     <!-- Orders table -->
     <div class="dashboard__orders orders">
       <div class="orders__header">
-        <h3 class="orders__title">Órdenes</h3>
+        <h3 class="orders__title">{{'secure.orders.orders' | I18N | async}}</h3>
       </div>
       <div class="orders__body">
         <div class="orders__row">
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              Todas
+              {{'secure.dashboard.all' | I18N | async}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -43,7 +43,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              En proceso de envío
+              {{'secure.dashboard.in_transit' | I18N | async}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -68,7 +68,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              Entregado
+              {{'secure.dashboard.delievered' | I18N | async}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -94,7 +94,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              Vencido
+              {{'secure.dashboard.expired' | I18N | async}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -127,7 +127,7 @@
     <!-- Sells -->
     <div class="dashboard__sales sales">
       <div class="sales__header">
-        <h3 class="sales__title">Ventas</h3>
+        <h3 class="sales__title">{{'secure.dashboard.sales' | I18N | async}}</h3>
       </div>
       <div class="sales__body">
         <div class="sales__date-box">
@@ -142,8 +142,8 @@
           </div>
           <mat-form-field style="display: none" class="sales__date">
             <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
-              [matDatepicker]="picker" placeholder="Selecciona un mes" (click)="openDatePicker()">
-            <mat-datepicker-toggle matSuffix [for]="picker">Seleccione el mes</mat-datepicker-toggle>
+              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | I18N | async" (click)="openDatePicker()">
+            <mat-datepicker-toggle matSuffix [for]="picker">{{'secure.dashboard.selected_months' | I18N | async}}</mat-datepicker-toggle>
             <mat-datepicker touchUi #picker startView="year" [startAt]="startDate" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
           </mat-form-field>
         </div>
@@ -163,8 +163,7 @@
             </div>
             <div class="graph__info">
               <p>
-                "Esta información es aproximada y no tiene en cuenta
-                cancelación, adicionalmente la venta se muestra sin flete"
+                {{'secure.dashboard.info_cancel_sale' | I18N | async}}
               </p>
             </div>
           </div>
