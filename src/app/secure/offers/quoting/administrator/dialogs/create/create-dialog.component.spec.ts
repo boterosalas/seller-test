@@ -140,7 +140,7 @@ describe('CreateDialogComponent', () => {
             /** Mock to do it nothing */
         }
     };
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar' ]);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

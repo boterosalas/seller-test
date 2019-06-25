@@ -15,6 +15,7 @@ import { EventEmitter } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '@app/shared/shared.module';
 import { LoadingService } from '@app/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
@@ -88,7 +89,8 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
                 ReactiveFormsModule,
                 FormsModule,
                 BrowserAnimationsModule,
-                SharedModule
+                SharedModule,
+                HttpClientTestingModule
             ]
         }).compileComponents();
     }));

@@ -136,7 +136,6 @@
 //     const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport', 'sendSupportMessage']);
 //     const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openConfirmAlert', 'openSnackBar']);
 //     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
-//     const mockLanguageService = jasmine.createSpyObj('LanguageService', ['getValue']);
 
 //     const data = {
 //         title: '',
@@ -178,7 +177,7 @@
 //                 { provide: MatDialog, useValue: mockDialog },
 //                 { provide: MAT_DIALOG_DATA, useValue: data },
 //                 { provide: MatDialogRef, useValue: mockDialogRef },
-//                 { provide: LanguageService, useValue: mockLanguageService},
+//                 LanguageService,
 //                 UserParametersService,
 //                 CognitoUtil,
 //                 EndpointService,
@@ -228,22 +227,22 @@
 //             fixture.detectChanges();
 //             expect(bulkLoadComponent.inputFileUpload.nativeElement.value).toEqual('');
 //         });
-//         // it('validate subtitle En', () => {
-//         //     fixture.detectChanges();
-//         //     const array = [['EAN', 'Inventario', 'Precio', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
-//         //     const titleEn = 'Price';
-//         //     const titleEs = 'Precio';
-//         //     bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
-//         //     fixture.detectChanges();
-//         // });
-//         // it('validate subtitle Es', () => {
-//         //     fixture.detectChanges();
-//         //     const array = [['EAN', 'Inventario', 'Price', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
-//         //     const titleEn = 'Price';
-//         //     const titleEs = 'Precio';
-//         //     bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
-//         //     fixture.detectChanges();
-//         // });
+//         it('validate subtitle En', () => {
+//             fixture.detectChanges();
+//             const array = [['EAN', 'Inventario', 'Precio', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
+//             const titleEn = 'Price';
+//             const titleEs = 'Precio';
+//             bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
+//             fixture.detectChanges();
+//         });
+//         it('validate subtitle Es', () => {
+//             fixture.detectChanges();
+//             const array = [['EAN', 'Inventario', 'Price', 'Precio con Descuento', 'Costo de Flete Promedio', 'Promesa de Entrega', 'Free Shipping', 'Indicador Envios Exito', 'Cotizador de Flete', 'Logistica Exito', 'Garantia', 'Actualizacion de Inventario']];
+//             const titleEn = 'Price';
+//             const titleEs = 'Precio';
+//             bulkLoadComponent.validateSubTitle(array, titleEn, titleEs);
+//             fixture.detectChanges();
+//         });
 //         afterAll(() => {
 //             TestBed.resetTestingModule();
 //         });
@@ -251,39 +250,39 @@
 //     describe('validate input', () => {
 //         beforeEach(() => {
 //         });
-//         // it('valida exist ean price number', () => {
-//         //     fixture.detectChanges();
-//         //     const ean = '6581480417371';
-//         //     const price = 10000;
-//         //     const iVal = '';
-//         //     const cantidadCombo = 200;
-//         //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
-//         //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-//         //     fixture.detectChanges();
-//         //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
-//         // });
-//         // it('valida exist ean price text', () => {
-//         //     fixture.detectChanges();
-//         //     const ean = 'testt_price';
-//         //     const price = undefined;
-//         //     const iVal = '';
-//         //     const cantidadCombo = 200;
-//         //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
-//         //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-//         //     fixture.detectChanges();
-//         //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
-//         // });
-//         // it('validate exist ean text', () => {
-//         //     fixture.detectChanges();
-//         //     const ean = 'testt_price';
-//         //     const price = undefined;
-//         //     const iVal = '';
-//         //     const cantidadCombo = 200;
-//         //     bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 'test_price' }];
-//         //     bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
-//         //     fixture.detectChanges();
-//         //     expect(bulkLoadComponent.EanArray ).not.toBeNull();
-//         // });
+//         it('valida exist ean price number', () => {
+//             fixture.detectChanges();
+//             const ean = '6581480417371';
+//             const price = 10000;
+//             const iVal = '';
+//             const cantidadCombo = 200;
+//             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
+//             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+//             fixture.detectChanges();
+//             expect(bulkLoadComponent.EanArray ).not.toBeNull();
+//         });
+//         it('valida exist ean price text', () => {
+//             fixture.detectChanges();
+//             const ean = 'testt_price';
+//             const price = undefined;
+//             const iVal = '';
+//             const cantidadCombo = 200;
+//             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
+//             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+//             fixture.detectChanges();
+//             expect(bulkLoadComponent.EanArray ).not.toBeNull();
+//         });
+//         it('validate exist ean text', () => {
+//             fixture.detectChanges();
+//             const ean = 'testt_price';
+//             const price = undefined;
+//             const iVal = '';
+//             const cantidadCombo = 200;
+//             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 'test_price' }];
+//             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
+//             fixture.detectChanges();
+//             expect(bulkLoadComponent.EanArray ).not.toBeNull();
+//         });
 //         afterAll(() => {
 //             TestBed.resetTestingModule();
 //         });
@@ -379,25 +378,25 @@
 //             bulkLoadComponent.downloadFormatMassiveOfferLoadInternational();
 //             fixture.detectChanges();
 //         });
-//         // it('national', () => {
-//         //     fixture.detectChanges();
-//         //     bulkLoadComponent.downloadFormatMassiveOfferLoad();
-//         //     fixture.detectChanges();
-//         // });
-//         // it('calculate interval time size file(5) > 0 ', () => {
-//         //     bulkLoadComponent.arrayInformationForSend.length = 5;
-//         //     fixture.detectChanges();
-//         //     bulkLoadComponent.calculateIntervalTime();
-//         //     fixture.detectChanges();
-//         //     expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
-//         // });
-//         // it(' calculate interval time size file(101) > 0', () => {
-//         //     bulkLoadComponent.arrayInformationForSend.length = 101;
-//         //     fixture.detectChanges();
-//         //     bulkLoadComponent.calculateIntervalTime();
-//         //     fixture.detectChanges();
-//         //     expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
-//         // });
+//         it('national', () => {
+//             fixture.detectChanges();
+//             bulkLoadComponent.downloadFormatMassiveOfferLoad();
+//             fixture.detectChanges();
+//         });
+//         it('calculate interval time size file(5) > 0 ', () => {
+//             bulkLoadComponent.arrayInformationForSend.length = 5;
+//             fixture.detectChanges();
+//             bulkLoadComponent.calculateIntervalTime();
+//             fixture.detectChanges();
+//             expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
+//         });
+//         it(' calculate interval time size file(101) > 0', () => {
+//             bulkLoadComponent.arrayInformationForSend.length = 101;
+//             fixture.detectChanges();
+//             bulkLoadComponent.calculateIntervalTime();
+//             fixture.detectChanges();
+//             expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
+//         });
 //         afterAll(() => {
 //             TestBed.resetTestingModule();
 //         });

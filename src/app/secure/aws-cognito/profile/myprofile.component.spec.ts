@@ -75,7 +75,6 @@ describe('My Profile', () => {
         showButtons: true,
         btnConfirmationText : null
     };
-    const mockLanguageService = jasmine.createSpyObj('LanguageService', ['getValue']);
 
     let fixture: ComponentFixture<MyProfileComponent>;
     let component: MyProfileComponent;
@@ -127,7 +126,7 @@ describe('My Profile', () => {
                 {provide: MatDialogRef, useValue: mockDialogRef},
                 {provide: ModalService, useValue: mockDialogError},
                 {provide: AuthService, useValue: mockAuthService},
-                {provide: LanguageService, useValue: mockLanguageService},
+                LanguageService,
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();

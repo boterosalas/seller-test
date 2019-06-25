@@ -13,6 +13,8 @@ import { Observable, of } from 'rxjs';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel } from './models/menu.model';
 import { SharedModule } from '@app/shared/shared.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => {
 
@@ -176,26 +178,28 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
                 { provide: MatDialog, useValue: {} },
             ], imports: [
                 FlexLayoutModule,
-                MatToolbarModule,
+                // MatToolbarModule,
                 BrowserModule,
-                MatIconModule,
-                MatButtonModule,
-                MatTooltipModule,
-                MatDialogModule,
+                // MatIconModule,
+                // MatButtonModule,
+                // MatTooltipModule,
+                // MatDialogModule,
                 FormsModule,
-                MatButtonModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatRippleModule,
-                MatInputModule,
+                // MatButtonModule,
+                // MatFormFieldModule,
+                // MatInputModule,
+                // MatRippleModule,
+                // MatInputModule,
                 FormsModule,
                 CommonModule,
-                MatRadioModule,
+                // MatRadioModule,
                 ReactiveFormsModule,
-                MatSelectModule,
-                MatDividerModule,
-                SharedModule
-            ]
+                // MatSelectModule,
+                // MatDividerModule,
+                SharedModule,
+                HttpClientTestingModule
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 

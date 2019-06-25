@@ -15,7 +15,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('OrderBillingDetailModalComponent', () => {
   let component: OrderBillingDetailModalComponent;
   let fixture: ComponentFixture<OrderBillingDetailModalComponent>;
-  const mockLanguageService = jasmine.createSpyObj('LanguageService', ['getValue']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
   beforeEach(async(() => {
@@ -27,7 +26,7 @@ describe('OrderBillingDetailModalComponent', () => {
         SharedModule
       ],
       providers: [
-        {provide: LanguageService, useValue: mockLanguageService},
+        LanguageService,
         {provide: LoadingService, useValue: mockLoadingService},
       ],
       schemas: [NO_ERRORS_SCHEMA]

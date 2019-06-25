@@ -15,7 +15,6 @@ import { LoadingService } from '@app/core';
 describe('BillingProductsOrderComponent', () => {
   let component: BillingProductsOrderComponent;
   let fixture: ComponentFixture<BillingProductsOrderComponent>;
-  const mockLanguageService = jasmine.createSpyObj('LanguageService', ['getValue']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
   beforeEach(async(() => {
@@ -29,7 +28,7 @@ describe('BillingProductsOrderComponent', () => {
       declarations: [
       ],
       providers: [
-        {provide: LanguageService, useValue: mockLanguageService},
+        LanguageService,
         {provide: LoadingService, useValue: mockLoadingService},
         
       ]
