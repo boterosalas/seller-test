@@ -141,7 +141,9 @@ export const endpoints = {
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/',
       // get categories vetex
-      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/'
+      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/',
+      // Support Seller center
+      getAllStatusCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-status'
     },
   },
   // Endpoints production

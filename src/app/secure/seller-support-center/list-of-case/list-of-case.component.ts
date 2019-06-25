@@ -6,6 +6,7 @@ import {
   transition,
   animate
 } from "@angular/animations";
+import { SellerSupportCenterService } from "../services/seller-support-center.service";
 
 const listConfiguration = require("./configuration-list-component.json");
 
@@ -38,7 +39,7 @@ export class ListOfCaseComponent implements OnInit {
   cases: Array<any>;
   listConfiguration: Array<any>;
 
-  constructor() {
+  constructor(private sellerSupportService: SellerSupportCenterService) {
     this.cases = mockLisOfCases;
   }
 

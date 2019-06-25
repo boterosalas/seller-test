@@ -17,6 +17,7 @@ import {
 import { ListOfCaseComponent } from "./list-of-case/list-of-case.component";
 import { SharedModule } from "@app/shared/shared.module";
 import { DetailCaseComponent } from "./detail-case/detail-case.component";
+import { SellerSupportCenterService } from "./services/seller-support-center.service";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { DetailCaseComponent } from "./detail-case/detail-case.component";
     SharedModule
   ],
   declarations: [ListOfCaseComponent, DetailCaseComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  providers: [SellerSupportCenterService]
 })
 export class SellerSupportCenterModule {}
