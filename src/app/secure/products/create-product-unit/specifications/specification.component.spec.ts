@@ -14,6 +14,7 @@ import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { ProcessService } from '../component-process/component-process.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { LoadingService } from '@app/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SpecificationProductComponent', () => {
 
@@ -1351,7 +1352,8 @@ describe('SpecificationProductComponent', () => {
                 ReactiveFormsModule,
                 FormsModule,
                 BrowserAnimationsModule,
-                SharedModule
+                SharedModule,
+                HttpClientTestingModule
             ]
         }).compileComponents();
     }));

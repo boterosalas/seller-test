@@ -18,6 +18,9 @@ import { ListZonesService } from '../../list-zones/list-zones.service';
 import { TransportModel } from '../../dialogs/models/transport.model';
 import { ZoneModel } from '../../dialogs/models/zone.model';
 import { SharedModule } from '@app/shared/shared.module';
+import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CreateDialogComponent', () => {
 
@@ -137,7 +140,7 @@ describe('CreateDialogComponent', () => {
             /** Mock to do it nothing */
         }
     };
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar' ]);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -158,8 +161,10 @@ describe('CreateDialogComponent', () => {
                 ReactiveFormsModule,
                 FormsModule,
                 BrowserAnimationsModule,
-                SharedModule
-            ]
+                SharedModule,
+                HttpClientTestingModule
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 

@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { CategoriesComponent } from '../categories/categories.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { LoadingService } from '@app/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CategoryTreeComponent', () => {
   let component: CategoryTreeComponent;
@@ -73,7 +74,7 @@ describe('CategoryTreeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CategoryTreeComponent ],
-      imports: [SharedModule],
+      imports: [SharedModule, HttpClientTestingModule],
       providers: [
         { provide: LoadingService, useValue: mockLoadingService },
       ],

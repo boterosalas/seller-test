@@ -18,6 +18,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel } from '../profiles/models/menu.model';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export const response = {
     status: 200,
@@ -207,7 +208,8 @@ describe('List Seller Component', () => {
                 FormsModule,
                 RouterTestingModule,
                 BrowserAnimationsModule,
-                SharedModule
+                SharedModule,
+                HttpClientTestingModule
             ],
             providers: [
                 {provide: LoadingService, useValue: mockLoadingService},
