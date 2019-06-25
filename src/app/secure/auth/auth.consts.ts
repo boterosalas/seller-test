@@ -434,8 +434,14 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
     ], RoutesConst.sellerCenterIntCategoryTree)
 ]);
 
+export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
+const ReclaModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
+new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Administrador, [
+  new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+], RoutesConst.sellerSupportCenter)]);
+
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule, ReclaModule
 ]; // Lista de modelo, menus a mostrar.
 
 
