@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, PercentPipe } from "@angular/common";
 import {
   NgModule,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -32,6 +32,7 @@ import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-
 import { DropDownListComponent } from "./components/drop-down-list/drop-down-list.component";
 import { BasicCardComponent } from "./components/basic-card/basic-card.component";
 import { PreviewListCardComponent } from "./components/preview-list-card/preview-list-card.component";
+import { FlexSizePipe } from "./components/drop-down-list/flex-size.pipe";
 @NgModule({
   imports: [
     CommonModule,
@@ -58,7 +59,8 @@ import { PreviewListCardComponent } from "./components/preview-list-card/preview
     ContentDropDownBoxDirective,
     DropDownListComponent,
     BasicCardComponent,
-    PreviewListCardComponent
+    PreviewListCardComponent,
+    FlexSizePipe
   ],
   exports: [
     MaterialModule,

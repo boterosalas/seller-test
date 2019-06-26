@@ -3,18 +3,15 @@
     <app-basic-card
       class="ticket-content--bottom-space"
       title="Descripción"
-      description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
-    exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
-    voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
-    aliquid."
+      [description]="case.description"
     ></app-basic-card>
 
-    <app-preview-list-card
+    <!-- <app-preview-list-card
       title="Productos"
       [products]="products"
       [configuration]="productsConfig"
       (onClickShowAll)="onClickShowAllProducts()"
-    ></app-preview-list-card>
+    ></app-preview-list-card> -->
   </div>
 
   <div class="ticket-content__item">
@@ -22,7 +19,19 @@
       Seguimiento
     </span>
 
-    <app-conversation-card></app-conversation-card>
+    <app-conversation-card
+      style="opacity: 0.5;"
+      *ngIf="!case.followLast || case.followLast.length == 0"
+      message="No contiene seguimiento"
+    ></app-conversation-card>
+
+    <ng-container *ngFor="let follow of case.followLast">
+      <app-conversation-card
+        [name]="follow.userName"
+        [message]="follow.description"
+        [date]="follow.createDate"
+      ></app-conversation-card>
+    </ng-container>
 
     <div class="ticket-content__controls ticket-content__controls--left">
       <button
@@ -35,8 +44,10 @@
   </div>
 
   <span
+    [routerLink]="['/securehome/seller-center/support-center/' + case.id]"
     class="ticket-content__item ticket-content__title ticket-content__item--full-width
-    ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer"
+    ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
+    ticket-content--no-select"
   >
     Ver seguimiento completo
   </span>

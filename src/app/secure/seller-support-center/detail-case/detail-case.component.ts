@@ -1,38 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import { Component, OnInit } from "@angular/core";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
 
 @Component({
-  selector: 'app-detail-case',
-  templateUrl: './detail-case.component.html',
-  styleUrls: ['./detail-case.component.scss'],
+  selector: "app-detail-case",
+  templateUrl: "./detail-case.component.html",
+  styleUrls: ["./detail-case.component.scss"],
   animations: [
-    trigger('slideInOut', [
-      state('in', style({
-        transform: 'translate3d(0, 0, 0)'
-      })),
-      state('out', style({
-        transform: 'translate3d(100%, 0, 0)'
-      })),
-      transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate('400ms ease-in-out'))
+    trigger("slideInOut", [
+      state(
+        "in",
+        style({
+          transform: "translate3d(0, 0, 0)"
+        })
+      ),
+      state(
+        "out",
+        style({
+          transform: "translate3d(100%, 0, 0)"
+        })
+      ),
+      transition("in => out", animate("400ms ease-in-out")),
+      transition("out => in", animate("400ms ease-in-out"))
     ])
   ]
 })
 export class DetailCaseComponent {
-
   menuState: string;
   filter: boolean;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-  this.toggleFilter(this.filter);
+    this.toggleFilter(this.filter);
   }
 
-  toggleFilter(stateFilter: boolean){
-
+  toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-    this.menuState = stateFilter ? 'in' : 'out';
-    console.log(this.filter, this.menuState);
+    this.menuState = stateFilter ? "in" : "out";
   }
 }

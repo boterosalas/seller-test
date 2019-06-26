@@ -1,7 +1,7 @@
 <app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
 <mat-toolbar>
   <div class="prev-view">
-    <a href="#">
+    <a [routerLink]="['/securehome/seller-center/support-center']">
       <mat-icon>keyboard_arrow_left</mat-icon>Volver a reclamaciones</a
     >
   </div>
@@ -121,7 +121,7 @@
     fxLayoutGap.xs="0"
   >
     <div fxFlex="5%">&nbsp;</div>
-    <app-history-card xFlex="95%"></app-history-card>
+    <app-conversation-card xFlex="95%"></app-conversation-card>
   </div>
 </div>
 
@@ -130,10 +130,13 @@
     filter ? 'support-center-case__filter-container' : 'hidden-content'
   "
 >
-<div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
-  <app-case-filter
-    (eventFilter)="toggleFilter($event)"
-    [stateFilter]="filter"
-  ></app-case-filter>
-</div>
+  <div
+    [@slideInOut]="menuState"
+    [ngClass]="filter ? 'support-filter' : 'hidden-content'"
+  >
+    <app-case-filter
+      (eventFilter)="toggleFilter($event)"
+      [stateFilter]="filter"
+    ></app-case-filter>
+  </div>
 </div>

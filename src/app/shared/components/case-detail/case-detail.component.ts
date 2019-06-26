@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { ProductsCaseDialogComponent } from "../products-case-dialog/products-case-dialog.component";
 import { ResponseCaseDialogComponent } from "../response-case-dialog/response-case-dialog.component";
@@ -10,6 +10,8 @@ const productsConfig = require("./products-list-configuration.json");
   styleUrls: ["./case-detail.component.scss"]
 })
 export class CaseDetailComponent implements OnInit {
+  @Input() case: Case;
+
   configDialog = {
     width: "50%",
     height: "fit-content",
@@ -54,4 +56,20 @@ export class CaseDetailComponent implements OnInit {
   closeDialog(): void {
     this.dialog.closeAll();
   }
+}
+
+export interface Case {
+  id: string;
+  sellerId: string;
+  caseId: string;
+  status: number;
+  orderNumber: string;
+  reasonPQR: string;
+  reasonDetail: string;
+  description: string;
+  createDate: string;
+  updateDate: string;
+  customerEmail: string;
+  read: boolean;
+  followLast: Array<any>;
 }
