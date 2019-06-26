@@ -7,6 +7,7 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
+import { initServicesIfNeeded } from "@angular/core/src/view";
 
 const listConfiguration = require("./configuration-list-component.json");
 
@@ -34,6 +35,8 @@ const listConfiguration = require("./configuration-list-component.json");
   ]
 })
 export class ListOfCaseComponent implements OnInit {
+
+  options: any;
   filter: boolean;
   menuState: string;
   cases: Array<any>;
@@ -45,14 +48,23 @@ export class ListOfCaseComponent implements OnInit {
 
   ngOnInit() {
     this.listConfiguration = listConfiguration;
+    this.getStatusCase();
     this.toggleFilter(this.filter);
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
+    //this.getStatusCase();
     this.menuState = stateFilter ? "in" : "out";
   }
+  getStatusCase(){
+    this.sellerSupportService.getAllStatusCase()
+      .subscribe(res=>
+        this.options = res.data,
+        error => console.log(error));
+  }
 }
+
 
 const mockLisOfCases = [
   {

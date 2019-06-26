@@ -26,7 +26,6 @@ export class CaseToolbarComponent {
   constructor(private breakpointObserver: BreakpointObserver) { }
 
   toggleFilter() {
-
     this.eventFilter.emit(!this.stateFilter);
   }
 

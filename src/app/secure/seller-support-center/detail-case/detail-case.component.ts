@@ -33,6 +33,5 @@ export class DetailCaseComponent {
 
     this.filter = stateFilter;
     this.menuState = stateFilter ? 'in' : 'out';
-    console.log(this.filter, this.menuState);
   }
 }

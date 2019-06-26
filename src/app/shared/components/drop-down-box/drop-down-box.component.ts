@@ -3,7 +3,7 @@ import {
   OnInit,
   Output,
   ContentChildren,
-  QueryList
+  QueryList, EventEmitter
 } from "@angular/core";
 import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
 
@@ -13,6 +13,7 @@ import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
   styleUrls: ["./drop-down-box.component.scss"]
 })
 export class DropDownBoxComponent implements OnInit {
+
   panelOpenState = false;
   @ContentChildren(ContentDropDownBoxDirective) items: QueryList<
     ContentDropDownBoxDirective
@@ -20,4 +21,5 @@ export class DropDownBoxComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {}
+
 }
