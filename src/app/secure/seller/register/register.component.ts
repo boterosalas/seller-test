@@ -297,7 +297,7 @@ export class RegisterSellerComponent implements OnInit {
     if (!!value) {
       this.loadingService.viewSpinner();
       this.payoneerService.getStatusById(value).subscribe((val: any) => {
-        const body = JSON.parse(val.body.body);
+        const body = JSON.parse(val.body);
         if (body && !body.Data) {
           this.Payoneer.setErrors({ payoneer: true });
         }
