@@ -4,10 +4,10 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: "root"
+ providedIn: "root"
 })
 export class SellerSupportCenterService {
-  constructor(private _http: HttpClient, private _api: EndpointService) {}
+ constructor(private _http: HttpClient, private _api: EndpointService) {}
 
   public getAllStatusCase(): Observable<StatusResponse> {
     const URL = this._api.get("getAllStatusCase");

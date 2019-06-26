@@ -21,6 +21,7 @@ export class DropDownBoxComponent implements OnInit {
   @Input() data: Data;
 
   ngOnInit() {}
+
 }
 
 export interface Data {
