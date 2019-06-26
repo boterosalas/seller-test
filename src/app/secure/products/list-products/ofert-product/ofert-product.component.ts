@@ -112,8 +112,8 @@ export class OfertExpandedProductComponent implements OnInit {
         this.applyOffer.eanesCombos.forEach((element: any) => {
             this.addItem(element.nameCombo, element.ean);
         });
-        this.ofertProduct.controls.IsUpdatedStock.disable();
-        this.disableUpdate();
+        // this.ofertProduct.controls.IsUpdatedStock.disable();
+        // this.disableUpdate();
     }
 
 
@@ -151,16 +151,17 @@ export class OfertExpandedProductComponent implements OnInit {
      *
      * @memberof OfertExpandedProductComponent
      */
-    public disableUpdate(): void {
-        this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
-            if (val === 'IsLogisticsExito') {
-                this.ofertProduct.controls.IsUpdatedStock.enable();
-            } else {
-                this.ofertProduct.controls.IsUpdatedStock.setValue(false);
-                this.ofertProduct.controls.IsUpdatedStock.disable();
-            }
-        });
-    }
+    /*
+        public disableUpdate(): void {
+             this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
+                 if (val === 'IsLogisticsExito') {
+                     this.ofertProduct.controls.IsUpdatedStock.enable();
+                 } else {
+                    //  this.ofertProduct.controls.IsUpdatedStock.setValue(false);
+                     this.ofertProduct.controls.IsUpdatedStock.enable();
+                 }
+             });
+        } */
 
     /**
      * Obtiene el precio de descuento si tiene ean combos.
@@ -315,7 +316,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
             IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === 'IsUpdatedStock' ? '1' : '0',
+            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
             Currency: this.ofertProduct.controls.Currency.value,
@@ -325,7 +326,7 @@ export class OfertExpandedProductComponent implements OnInit {
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffers(aryOfAry).subscribe(
+        this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
                     this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.offer_has_been_correctly'), this.languageService.getValue('actions.close'), {
@@ -333,9 +334,9 @@ export class OfertExpandedProductComponent implements OnInit {
                     });
                     this.loadingService.closeSpinner();
 
-                    // Le dice al servicio que cambie la variable, apra que aquel que este suscrito, lo cambie.
+                    // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
-                    // window.location.reload();
+                    window.location.reload();
 
                 } else {
                     log.error(this.languageService.getValue('secure.products.bulk_upload.error_trying_apply_offer'));

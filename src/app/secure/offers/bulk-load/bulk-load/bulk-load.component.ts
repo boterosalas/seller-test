@@ -256,7 +256,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.EanArray = [];
 
       for (let i = 0; i < res[0].length; i++) {
-        res[0][i] = res[0][i].toString().trim();
+        res[0][i] = !!res[0][i] ? res[0][i].toString().trim() : res[0][i];
       }
 
       for (let i = 0; i < res.length; i++) {
@@ -838,7 +838,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
-          if (result.status === 200) {
+          if (result.status === 200 || result.status === 201) {
             const data = result;
             log.info(data);
             if (data.body.successful !== 0 || data.body.error !== 0) {

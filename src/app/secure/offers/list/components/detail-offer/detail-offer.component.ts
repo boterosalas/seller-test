@@ -230,7 +230,8 @@ export class DetailOfferComponent {
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
-    this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
+    // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
+    this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
     this.Currency = new FormControl(this.dataOffer.currency);
   }
 
@@ -273,7 +274,7 @@ export class DetailOfferComponent {
           this.IsFreightCalculator.setValue(0);
           this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.disable();
+          this.IsUpdatedStock.enable();
           break;
         case 'isEnviosExito':
           this.IsEnviosExito.setValue(1);
@@ -281,7 +282,7 @@ export class DetailOfferComponent {
           this.IsFreightCalculator.setValue(0);
           this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.disable();
+          this.IsUpdatedStock.enable();
           break;
         case 'isFreightCalculator':
           this.IsFreightCalculator.setValue(1);
@@ -289,7 +290,7 @@ export class DetailOfferComponent {
           this.IsEnviosExito.setValue(0);
           this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.disable();
+          this.IsUpdatedStock.enable();
           break;
         case 'IsLogisticsExito':
           this.IsLogisticsExito.setValue(1);
@@ -317,7 +318,7 @@ export class DetailOfferComponent {
         case 'IsLogisticsExito':
           this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.disable();
+          this.IsUpdatedStock.enable();
           break;
         case 'IsUpdatedStock':
           this.IsUpdatedStock.setValue(0);
@@ -397,7 +398,7 @@ export class DetailOfferComponent {
   submitUpdateOffer() {
     this.params.push(this.formUpdateOffer.value);
     this.loadingService.viewSpinner();
-    this.loadOfferService.setOffers(this.params).subscribe(
+    this.loadOfferService.setOffersProducts(this.params).subscribe(
       (result: any) => {
         if (result.status === 200) {
           const data = result;
