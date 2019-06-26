@@ -8,6 +8,6 @@ export class PayoneerService {
 
     public getStatusById(id: any) {
         const url = `${this.api.get('payoneer')}/${id}`;
-        return this.http.get(url, {observe: 'response'});
+        return this.http.get(url);
     }
 }
