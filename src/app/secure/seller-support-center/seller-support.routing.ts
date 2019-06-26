@@ -14,14 +14,14 @@ const routes: Routes = [
     {
       path: `${RoutesConst.sellerCenterCases}`,
       component: ListOfCaseComponent,
-      data: { title: "Administrar Casos" }
-      //canActivate: [AuthService]
+      data: { title: "Administrar Casos" },
+      canActivate: [AuthService]
     },
     {
       path: `${RoutesConst.sellerCenterCasesDetail}`,
       component: DetailCaseComponent,
-      data: { title: "Detalle Caso" }
-      // canActivate: [AuthService]
+      data: { title: "Detalle Caso" }/* ,
+      canActivate: [AuthService] */
     }
   ])
 ];

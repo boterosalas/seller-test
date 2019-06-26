@@ -29,21 +29,23 @@
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">1234</div>
-          <div class="case-list-detail--item-detail" fxFlex="15%">0987654</div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">Petición</div>
-          <div class="case-list-detail--item-detail" fxFlex="30%">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
-              deleniti, enim minima distinctio impedit architecto commodi
-              mollitia ratione a rem esse, dignissimos repudiandae possimus cum!
-            </p>
+          <div class="case-list-detail--item-detail" fxFlex="10%">
+            {{ data.id }}
           </div>
           <div class="case-list-detail--item-detail" fxFlex="15%">
-            11/02/2019
+            {{ data.orderNumber }}
           </div>
           <div class="case-list-detail--item-detail" fxFlex="10%">
-            Pendiente
+            {{ data.reasonPQR }}
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="30%">
+            <p>{{ data.reasonDetail }}</p>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="15%">
+            {{ data.createDate | date }}
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="10%">
+            {{ data.status }}
           </div>
           <div class="case-list-detail--item-detail" fxFlex="10%">
             <mat-icon>question_answer</mat-icon>

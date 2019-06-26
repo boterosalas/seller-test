@@ -1,9 +1,9 @@
 import {
   Component,
   OnInit,
-  Output,
   ContentChildren,
-  QueryList
+  QueryList,
+  Input
 } from "@angular/core";
 import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
 
@@ -13,11 +13,21 @@ import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
   styleUrls: ["./drop-down-box.component.scss"]
 })
 export class DropDownBoxComponent implements OnInit {
-  panelOpenState = false;
-  @ContentChildren(ContentDropDownBoxDirective) items: QueryList<
-    ContentDropDownBoxDirective
-  >;
+  @ContentChildren(ContentDropDownBoxDirective)
+  items: QueryList<ContentDropDownBoxDirective>;
 
-  constructor() {}
+  panelOpenState = false;
+
+  @Input() data: Data;
+
   ngOnInit() {}
+}
+
+export interface Data {
+  id: string;
+  orderNumber: string;
+  reasonPQR: string;
+  reasonDetail: string;
+  createDate: string;
+  status: string;
 }

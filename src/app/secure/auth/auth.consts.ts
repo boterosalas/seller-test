@@ -435,10 +435,10 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
 ]);
 
 export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
-const ReclaModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
-new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Administrador, [
+const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCase(), [
+new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Vendedor, [
   new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-], RoutesConst.sellerSupportCenter)]);
+], RoutesConst.sellerCenterCases)]);
 
 export const Modules = [
     OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule, ReclaModule

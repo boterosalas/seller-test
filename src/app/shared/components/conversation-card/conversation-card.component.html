@@ -4,9 +4,9 @@
       class="ticket-history__flow--decoration ticket-history__flow--node"
     ></div>
     <span
-      class="ticket-history__small-text ticket-history__title--bottom-space"
+      class="ticket-history__small-text ticket-history__small-text--bottom-space"
     >
-      Febrero 28 de 2019
+      {{ date ? (date | date: "MMMM d 'de' y") : "" }}
     </span>
   </div>
 
@@ -15,14 +15,9 @@
       class="ticket-history__flow--decoration ticket-history__flow--line"
     ></div>
     <div class="ticket-history__content">
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab, soluta.
-        Deleniti culpa voluptate quidem iste non at rem nisi deserunt dolorum
-        dignissimos nulla, similique recusandae sequi soluta asperiores dolor
-        reiciendis.
-      </p>
+      <p>{{ message ? message : "" }}</p>
       <span class="ticket-history__small-text">
-        Miguel Arango - Asesor Seller Center
+        {{ name ? name : "" }}
       </span>
     </div>
   </div>

@@ -10,7 +10,9 @@ export class DropDownListComponent implements OnInit {
 
   @Input() configurations: Array<ColumnConfiguration>;
 
-  constructor() {}
+  constructor() {
+    this.data = [];
+  }
 
   ngOnInit() {}
 }

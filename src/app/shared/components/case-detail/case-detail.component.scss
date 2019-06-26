@@ -81,6 +81,10 @@ $hint-color: #9e9e9e;
     flex-direction: column;
     margin: $height-margin-s $width-margin-s;
   }
+
+  &--no-select {
+    user-select: none;
+  }
 }
 
 .ticket-detail {
