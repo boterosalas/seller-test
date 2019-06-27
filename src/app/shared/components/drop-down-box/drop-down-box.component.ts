@@ -6,6 +6,7 @@ import {
   Input
 } from "@angular/core";
 import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
+import { IData } from "./models/data.model";
 
 @Component({
   selector: "app-drop-down-box",
@@ -18,17 +19,8 @@ export class DropDownBoxComponent implements OnInit {
 
   panelOpenState = false;
 
-  @Input() data: Data;
+  @Input() data: IData;
 
   ngOnInit() {}
 
-}
-
-export interface Data {
-  id: string;
-  orderNumber: string;
-  reasonPQR: string;
-  reasonDetail: string;
-  createDate: string;
-  status: string;
 }

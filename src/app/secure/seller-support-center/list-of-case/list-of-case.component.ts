@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   trigger,
   state,
@@ -8,8 +8,6 @@ import {
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
 import { initServicesIfNeeded } from "@angular/core/src/view";
-
-const listConfiguration = require("./configuration-list-component.json");
 
 @Component({
   selector: "app-list-of-case",
@@ -45,13 +43,15 @@ export class ListOfCaseComponent implements OnInit {
   constructor(private sellerSupportService: SellerSupportCenterService) {}
 
   ngOnInit() {
-    this.listConfiguration = listConfiguration;
-    this.getStatusCase();
+    this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
 
     this.sellerSupportService
       .getAllCase({ Page: 1, PageSize: 100 })
-      .subscribe(res => (this.cases = res.data.cases));
+      .subscribe(res => {
+        console.log(res.data.cases);
+        return (this.cases = res.data.cases);
+      });
   }
 
   toggleFilter(stateFilter: boolean) {

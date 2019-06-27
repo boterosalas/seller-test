@@ -7,111 +7,51 @@
   </div>
 </mat-toolbar>
 
-<div class="detail-content">
-  <div
-    class="detail-header"
-    fxLayout="row"
-    fxLayout.xs="row"
-    fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
-  >
-    <div fxFlex="5%">&nbsp;</div>
-    <div class="detail-header--item-header" fxFlex="10%">
-      ID
-    </div>
-    <div class="detail-header--item-header" fxFlex="15%">
-      Numero de pedido
-    </div>
-    <div class="detail-header--item-header" fxFlex="10%">Motivo</div>
-    <div class="detail-header--item-header" fxFlex="30%">
-      Detalle del motivo
-    </div>
-    <div class="detail-header--item-header" fxFlex="15%">Fecha creacion</div>
-    <div class="detail-header--item-header" fxFlex="10%">Estado</div>
-    <div class="detail-header--item-header" fxFlex="10%">Responder</div>
-  </div>
-  <div
-    class="detail-item"
-    fxLayout="row"
-    fxLayout.xs="row"
-    fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
-  >
-    <div
-      class="detail-item--item-detail"
-      fxFlex="5%"
-      fxLayoutAlign="center center"
-      class="no-select"
-    >
-      <span>
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </span>
-    </div>
-    <div class="detail-item--item-detail" fxFlex="10%">1234</div>
-    <div class="detail-item--item-detail" fxFlex="15%">0987654</div>
-    <div class="detail-item--item-detail" fxFlex="10%">Petición</div>
-    <div class="detail-item--item-detail" fxFlex="30%">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
-        deleniti, enim minima distinctio impedit architecto commodi mollitia
-        ratione a rem esse, dignissimos repudiandae possimus cum!
-      </p>
-    </div>
-    <div class="detail-item--item-detail" fxFlex="15%">
-      11/02/2019
-    </div>
-    <div class="detail-item--item-detail" fxFlex="10%">
-      Pendiente
-    </div>
-    <div class="detail-item--item-detail" fxFlex="10%">
-      <mat-icon>question_answer</mat-icon>
-    </div>
-  </div>
+<div *ngIf="case$ | async as case" class="detail-content">
+  <app-drop-down-list
+    [data]="[case]"
+    [configurations]="headerConfigurations"
+  ></app-drop-down-list>
 
+  <!--   <div
+  class="detail-item"
+  fxLayout="row"
+  fxLayout.xs="row"
+  fxLayoutAlign="center center"
+  fxLayoutGap="10px"
+  fxLayoutGap.xs="0"
+>
   <div
-    class="detail-info"
-    fxLayout="row"
-    fxLayout.xs="row"
+    class="detail-item--item-detail"
+    fxFlex="5%"
     fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
+    class="no-select"
   >
-    <div fxFlex="5%">&nbsp;</div>
-    <div fxFlex="95%">
-      <span class="detail-info--title-info">
-        Descripción
-      </span>
-      <p class="detail-info--decription-info">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
-        exercitationem sit nobis ut, natus corrupti sed nihil culpa mollitia
-        voluptas illum dolore dicta quo eligendi recusandae quos placeat! Ex,
-        aliquid.
-      </p>
-      <div class="detail-product">
-        <span class="detail-product--title-products"> Productos</span>
-        <div class="detail-product--item-products">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <div class="detail-product--item-products">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <div class="detail-product--item-products">
-          <span>Lorem ipsum dolor sit amet</span>
-          &nbsp; - &nbsp;
-          <span>###########</span>
-        </div>
-        <span class="detail-product--show-all">
-          Ver todos los productos
-        </span>
-      </div>
-    </div>
+    <span>
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </span>
   </div>
+  <div class="detail-item--item-detail" fxFlex="10%">{{ case.id }}</div>
+  <div class="detail-item--item-detail" fxFlex="15%">0987654</div>
+  <div class="detail-item--item-detail" fxFlex="10%">Petición</div>
+  <div class="detail-item--item-detail" fxFlex="30%">
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
+      deleniti, enim minima distinctio impedit architecto commodi mollitia
+      ratione a rem esse, dignissimos repudiandae possimus cum!
+    </p>
+  </div>
+  <div class="detail-item--item-detail" fxFlex="15%">
+    11/02/2019
+  </div>
+  <div class="detail-item--item-detail" fxFlex="10%">
+    Pendiente
+  </div>
+  <div class="detail-item--item-detail" fxFlex="10%">
+    <mat-icon>question_answer</mat-icon>
+  </div>
+</div>
+
   <div
     class="detail-history"
     fxLayout="row"
@@ -122,7 +62,7 @@
   >
     <div fxFlex="5%">&nbsp;</div>
     <app-conversation-card xFlex="95%"></app-conversation-card>
-  </div>
+  </div> -->
 </div>
 
 <div

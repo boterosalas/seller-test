@@ -6,17 +6,13 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./drop-down-list.component.scss"]
 })
 export class DropDownListComponent implements OnInit {
-  @Input() data: Array<any>;
+  @Input() data: Array<any> = new Array();
 
   @Input() configurations: Array<ColumnConfiguration>;
 
-  constructor() {
-    this.data = [];
-  }
-
   ngOnInit() {}
 }
-//columns 12
+
 export interface ColumnConfiguration {
   name: string;
   displayName: String;

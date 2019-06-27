@@ -32,7 +32,8 @@ import { ContentDropDownBoxDirective } from "./components/drop-down-box/content-
 import { DropDownListComponent } from "./components/drop-down-list/drop-down-list.component";
 import { BasicCardComponent } from "./components/basic-card/basic-card.component";
 import { PreviewListCardComponent } from "./components/preview-list-card/preview-list-card.component";
-import { FlexSizePipe } from "./components/drop-down-list/flex-size.pipe";
+import { FlexSizePipe } from "./components/drop-down-list-header/flex-size.pipe";
+import { DropDownListHeaderComponent } from "./components/drop-down-list-header/drop-down-list-header.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -60,7 +61,8 @@ import { FlexSizePipe } from "./components/drop-down-list/flex-size.pipe";
     DropDownListComponent,
     BasicCardComponent,
     PreviewListCardComponent,
-    FlexSizePipe
+    FlexSizePipe,
+    DropDownListHeaderComponent
   ],
   exports: [
     MaterialModule,
@@ -82,7 +84,8 @@ import { FlexSizePipe } from "./components/drop-down-list/flex-size.pipe";
     DropDownBoxComponent,
     CaseFilterComponent,
     ContentDropDownBoxDirective,
-    DropDownListComponent
+    DropDownListComponent,
+    DropDownListHeaderComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
