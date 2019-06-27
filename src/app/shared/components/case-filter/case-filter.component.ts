@@ -22,6 +22,7 @@ export class CaseFilterComponent implements OnInit {
   @ViewChild('sidenavfilter') sideFilter: MatSidenav;
   @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() stateFilter: boolean;
+  @Output() eventSubmitFilter: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() options;
   @ViewChild('filterForm') filterForm: NgForm;
@@ -40,7 +41,7 @@ export class CaseFilterComponent implements OnInit {
 
   ngOnInit() {
     this.sideFilter.toggle();
-    console.log(this.options);
+    this.cleanFilter();
   }
 
   toggleFilter() {
@@ -49,7 +50,9 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
-    console.log(this.filter);
+    this.eventFilter.emit(!this.stateFilter);
+    this.eventSubmitFilter.emit(this.filter);
+    this.cleanFilter();
   }
   cleanFilter() {
     this.filterForm.reset();

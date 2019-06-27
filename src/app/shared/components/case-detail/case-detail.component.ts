@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { ProductsCaseDialogComponent } from "../products-case-dialog/products-case-dialog.component";
-import { ResponseCaseDialogComponent } from "../response-case-dialog/response-case-dialog.component";
 const productsConfig = require("./products-list-configuration.json");
 
 @Component({
@@ -11,6 +10,8 @@ const productsConfig = require("./products-list-configuration.json");
 })
 export class CaseDetailComponent implements OnInit {
   @Input() case: Case;
+
+  @Output() onClickResponse: EventEmitter<any> = new EventEmitter();
 
   configDialog = {
     width: "50%",
@@ -38,11 +39,7 @@ export class CaseDetailComponent implements OnInit {
   }
 
   openResponseDialog(): void {
-    const dialogRef = this.dialog.open(
-      ResponseCaseDialogComponent,
-      this.configDialog
-    );
-    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
+    this.onClickResponse.emit(this.case);
   }
 
   onClickShowAllProducts() {

@@ -22,5 +22,4 @@ export class DropDownBoxComponent implements OnInit {
   @Input() data: IData;
 
   ngOnInit() {}
-
 }

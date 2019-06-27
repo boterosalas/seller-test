@@ -2,9 +2,7 @@
   <app-drop-down-list-header [configurations]="configurations">
   </app-drop-down-list-header>
 
-  <app-drop-down-box *ngFor="let item of data" [data]="item">
-    <ng-container *itemCaseList>
-      <app-case-detail [case]="item"></app-case-detail>
-    </ng-container>
-  </app-drop-down-box>
+  <ng-container *ngFor="let item of items">
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
 </div>

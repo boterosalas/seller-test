@@ -7,7 +7,13 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
+<<<<<<< HEAD
 import { initServicesIfNeeded } from "@angular/core/src/view";
+=======
+import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
+import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
+import { MatDialog } from "@angular/material";
+>>>>>>> f4f96da4378b4e0db0c91ea71e79ab203211829d
 
 @Component({
   selector: "app-list-of-case",
@@ -33,14 +39,26 @@ import { initServicesIfNeeded } from "@angular/core/src/view";
   ]
 })
 export class ListOfCaseComponent implements OnInit {
-
   options: any;
   filter: boolean;
   menuState: string;
   cases: Array<any>;
   listConfiguration: Array<any>;
 
-  constructor(private sellerSupportService: SellerSupportCenterService) {}
+  totalPages;
+  pages;
+  pageSize;
+
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { title: "texts" }
+  };
+
+  constructor(
+    public dialog: MatDialog,
+    private sellerSupportService: SellerSupportCenterService
+  ) {}
 
   ngOnInit() {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
@@ -59,10 +77,43 @@ export class ListOfCaseComponent implements OnInit {
 
     this.menuState = stateFilter ? "in" : "out";
   }
-  getStatusCase(){
-    this.sellerSupportService.getAllStatusCase()
-      .subscribe(res=>
-        this.options = res.data,
-        error => console.log(error));
+
+  getStatusCase() {
+    this.sellerSupportService.getAllStatusCase().subscribe(
+      res => {
+        this.options = res.data;
+      },
+      error => console.log(error)
+    );
+  }
+
+  getAllCases(filter?: any) {
+    this.sellerSupportService.getAllCase(filter).subscribe(res => {
+      const { pageSize, page, totalPages } = res.data;
+      this.cases = res.data.cases;
+      this.refreshPaginator(totalPages, page, pageSize);
+    });
+  }
+
+  submitFilter(filterForm) {
+    this.getAllCases(filterForm);
+  }
+
+  changeSizeCaseList(paginator) {
+    console.log("parent", paginator);
+  }
+
+  refreshPaginator(total, page, limit) {
+    this.totalPages = total;
+    this.pageSize = limit;
+    this.pages = page;
+  }
+
+  onEmitResponse(caseResponse: any) {
+    const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
   }
 }
