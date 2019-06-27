@@ -58,6 +58,10 @@ $hint-color: #5d5d5d;
     display: none;
     visibility: hidden;
   }
+  @media (max-width: 992px) {
+    display: none;
+    visibility: hidden;
+  }
 }
 ::ng-deep .mat-paginator-page-size-label::after{
   content: 'Productos por pagina' !important;

@@ -42,6 +42,6 @@ export class DetailCaseComponent {
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-    this.menuState = stateFilter ? "in" : "out";
+    this.menuState = stateFilter ? 'in' : 'out';
   }
 }

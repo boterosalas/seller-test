@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+import { Component, ViewChild, OnInit, Input } from "@angular/core";
 import {
   trigger,
   state,
@@ -7,6 +7,8 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
+import { initServicesIfNeeded } from "@angular/core/src/view";
+import { PageEvent } from "@angular/material";
 
 const listConfiguration = require("./configuration-list-component.json");
 
@@ -34,24 +36,64 @@ const listConfiguration = require("./configuration-list-component.json");
   ]
 })
 export class ListOfCaseComponent implements OnInit {
+
+  options: any;
   filter: boolean;
   menuState: string;
   cases: Array<any>;
   listConfiguration: Array<any>;
 
-  constructor(private sellerSupportService: SellerSupportCenterService) {}
+  totalPages;
+  pages;
+  pageSize;
+
+  constructor(private sellerSupportService: SellerSupportCenterService) {
+
+
+  }
 
   ngOnInit() {
     this.listConfiguration = listConfiguration;
+    this.getStatusCase();
+    this.getAllCases({ page: 1, pageSize: 50 , totalPages: 100});
     this.toggleFilter(this.filter);
-
-    this.sellerSupportService
-      .getAllCase({ Page: 1, PageSize: 100 })
-      .subscribe(res => (this.cases = res.data.cases));
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
+
     this.menuState = stateFilter ? "in" : "out";
+  }
+
+  getStatusCase() {
+    this.sellerSupportService.getAllStatusCase()
+      .subscribe(res =>{
+        this.options = res.data;
+      },
+        error => console.log(error));
+  }
+
+  getAllCases(filter?: any) {
+    this.sellerSupportService
+      .getAllCase(filter)
+      .subscribe(res => {
+        const { pageSize, page, totalPages } = res.data;
+        this.cases = res.data.cases;
+        this.refreshPaginator(totalPages, page, pageSize);
+      });
+  }
+
+  submitFilter(filterForm) {
+    this.getAllCases(filterForm);
+  }
+
+  changeSizeCaseList(paginator){
+    console.log('parent', paginator);
+  }
+
+  refreshPaginator(total, page, limit) {
+    this.totalPages = total;
+    this.pageSize = limit;
+    this.pages = page;
   }
 }

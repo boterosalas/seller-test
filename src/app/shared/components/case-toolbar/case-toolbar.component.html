@@ -12,10 +12,11 @@
         fxLayoutAlign="center center"
       >
         <div class="toolbar-right--item">
-            <mat-paginator
-            [length]="lengthOrder"
-            [pageSize]="pageSizeOrder"
-            [pageSizeOptions]="[5, 10, 25, 100]"
+            <mat-paginator  #paginator
+            [length]="totalPages"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            (changes)="changeSizeCaseList($event)"
           >
           </mat-paginator>
         </div>
