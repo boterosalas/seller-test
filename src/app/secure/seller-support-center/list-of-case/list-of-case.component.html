@@ -1,8 +1,14 @@
-<app-case-toolbar (eventFilter)="toggleFilter($event)"> </app-case-toolbar>
+<app-case-toolbar (eventFilter)="toggleFilter($event)"
+  [totalPages]="totalPages"
+  [pages]="pages"
+  [pageSize]="pageSize"
+  (OnchangeSizeCaseList)="changeSizeCaseList($event)"
+  > </app-case-toolbar>
 
 <ng-template [ngIf]="cases">
   <app-drop-down-list
     [data]="cases"
+    [options]="options"
     [configurations]="listConfiguration"
   ></app-drop-down-list>
 </ng-template>
@@ -17,6 +23,7 @@
     (eventFilter)="toggleFilter($event)"
     [stateFilter]="filter"
     [options]="options"
+    (eventSubmitFilter)="submitFilter($event)"
   ></app-case-filter>
 </div>
 </div>

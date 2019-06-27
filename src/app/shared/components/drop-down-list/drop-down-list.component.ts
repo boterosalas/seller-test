@@ -7,15 +7,21 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class DropDownListComponent implements OnInit {
   @Input() data: Array<any>;
+  @Input() options: Array<any>;
 
   @Input() configurations: Array<ColumnConfiguration>;
 
   constructor() {
     this.data = [];
+    this.options = [];
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
 }
+
 //columns 12
 export interface ColumnConfiguration {
   name: string;

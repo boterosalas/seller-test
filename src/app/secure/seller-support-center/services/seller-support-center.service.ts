@@ -14,10 +14,11 @@ export class SellerSupportCenterService {
     return this._http.get<StatusResponse>(URL);
   }
 
-  public getAllCase(filter?: Filter): any {
+  public getAllCase(filter?: Filter): Observable<CaseResponse> {
     const URL = this._api.get("getAllCase");
-    return this._http.post(URL, filter);
+    return this._http.post<CaseResponse>(URL, filter);
   }
+
 }
 
 export interface Filter {
