@@ -105,3 +105,24 @@ export class LanguageService {
     return localStorage.getItem('Language');
   }
 }
+
+export class LanguageServiceTest {
+
+  lenguage$ = new BehaviorSubject('Es');
+  esData = {};
+  enData = {};
+  currentLanguage = 'Es';
+  existFiles$ = new BehaviorSubject(true);
+
+  constructor() {}
+ 
+  /**
+   * Metodo que busca dentro de los archivos de lenguaje .json el texto a mostrar
+   * @param key Llave para obtener el texto
+   */
+
+  getValue(key: string): string {
+    return key;
+  }
+}
+
