@@ -17,9 +17,11 @@ export class DropDownBoxComponent implements OnInit {
   @ContentChildren(ContentDropDownBoxDirective)
   items: QueryList<ContentDropDownBoxDirective>;
 
-  panelOpenState = false;
+  @Input() isOpen: boolean;
 
   @Input() data: IData;
+
+  panelOpenState = false;
 
   ngOnInit() {}
 }

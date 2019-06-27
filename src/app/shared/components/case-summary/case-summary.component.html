@@ -5,13 +5,6 @@
       title="Descripción"
       [description]="case.description"
     ></app-basic-card>
-
-    <!-- <app-preview-list-card
-        title="Productos"
-        [products]="products"
-        [configuration]="productsConfig"
-        (onClickShowAll)="onClickShowAllProducts()"
-      ></app-preview-list-card> -->
   </div>
 
   <div class="ticket-content__item">
@@ -20,7 +13,7 @@
     </span>
 
     <app-conversation-card
-      style="opacity: 0.5;"
+      style="opacity: 0.7;"
       *ngIf="!case.followLast || case.followLast.length == 0"
       message="No contiene seguimiento"
     ></app-conversation-card>

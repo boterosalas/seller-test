@@ -8,61 +8,18 @@
 </mat-toolbar>
 
 <div *ngIf="case$ | async as case" class="detail-content">
-  <app-drop-down-list
-    [data]="[case]"
-    [configurations]="headerConfigurations"
-  ></app-drop-down-list>
-
-  <!--   <div
-  class="detail-item"
-  fxLayout="row"
-  fxLayout.xs="row"
-  fxLayoutAlign="center center"
-  fxLayoutGap="10px"
-  fxLayoutGap.xs="0"
->
-  <div
-    class="detail-item--item-detail"
-    fxFlex="5%"
-    fxLayoutAlign="center center"
-    class="no-select"
-  >
-    <span>
-      <mat-icon>keyboard_arrow_up</mat-icon>
-    </span>
-  </div>
-  <div class="detail-item--item-detail" fxFlex="10%">{{ case.id }}</div>
-  <div class="detail-item--item-detail" fxFlex="15%">0987654</div>
-  <div class="detail-item--item-detail" fxFlex="10%">Petición</div>
-  <div class="detail-item--item-detail" fxFlex="30%">
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quia
-      deleniti, enim minima distinctio impedit architecto commodi mollitia
-      ratione a rem esse, dignissimos repudiandae possimus cum!
-    </p>
-  </div>
-  <div class="detail-item--item-detail" fxFlex="15%">
-    11/02/2019
-  </div>
-  <div class="detail-item--item-detail" fxFlex="10%">
-    Pendiente
-  </div>
-  <div class="detail-item--item-detail" fxFlex="10%">
-    <mat-icon>question_answer</mat-icon>
-  </div>
-</div>
-
-  <div
-    class="detail-history"
-    fxLayout="row"
-    fxLayout.xs="row"
-    fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
-  >
-    <div fxFlex="5%">&nbsp;</div>
-    <app-conversation-card xFlex="95%"></app-conversation-card>
-  </div> -->
+  <app-drop-down-list [data]="[case]" [configurations]="headerConfigurations">
+    <ng-container *itemDropDownList>
+      <app-drop-down-box [data]="case" [isOpen]="true">
+        <ng-container *itemCaseList>
+          <app-case-detail
+            (onClickResponse)="onEmitResponse($event)"
+            [case]="case"
+          ></app-case-detail>
+        </ng-container>
+      </app-drop-down-box>
+    </ng-container>
+  </app-drop-down-list>
 </div>
 
 <div

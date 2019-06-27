@@ -12,6 +12,8 @@ import { Observable } from "rxjs";
 import { CaseDetail } from "../models/case-detail.model";
 import { map } from "rxjs/operators";
 import { CaseDetailResponse } from "../models/case-detail-response.model";
+import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: "app-detail-case",
@@ -45,9 +47,16 @@ export class DetailCaseComponent implements OnInit {
 
   case$: Observable<CaseDetail>;
 
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { title: "texts" }
+  };
+
   constructor(
     private supportService: SellerSupportCenterService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {
     this.headerConfigurations = this.supportService.getListHeaderConfiguration();
   }
@@ -63,6 +72,14 @@ export class DetailCaseComponent implements OnInit {
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-    this.menuState = stateFilter ? 'in' : 'out';
+    this.menuState = stateFilter ? "in" : "out";
+  }
+
+  onEmitResponse(caseResponse: any) {
+    const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
   }
 }
