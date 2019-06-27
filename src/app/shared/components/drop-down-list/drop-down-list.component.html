@@ -1,26 +1,8 @@
 <div class="drop-down-list">
-  <div
-    class="drop-down-list-header"
-    fxLayout="row"
-    fxLayout.xs="row"
-    fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
-  >
-    <div fxFlex="5%">&nbsp;</div>
+  <app-drop-down-list-header [configurations]="configurations">
+  </app-drop-down-list-header>
 
-    <div
-      class="drop-down-list-header--item-header"
-      *ngFor="let configuration of configurations"
-      [fxFlex]="configuration.md * 5 | flexSize"
-    >
-      {{ configuration.displayName }}
-    </div>
-  </div>
-
-  <app-drop-down-box *ngFor="let item of data" [data]="item">
-    <ng-container *itemCaseList>
-      <app-case-detail [case]="item"></app-case-detail>
-    </ng-container>
-  </app-drop-down-box>
+  <ng-container *ngFor="let item of items">
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
 </div>

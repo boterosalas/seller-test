@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   trigger,
   state,
@@ -7,10 +7,9 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
-import { initServicesIfNeeded } from "@angular/core/src/view";
-import { PageEvent } from "@angular/material";
-
-const listConfiguration = require("./configuration-list-component.json");
+import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
+import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: "app-list-of-case",
@@ -36,7 +35,6 @@ const listConfiguration = require("./configuration-list-component.json");
   ]
 })
 export class ListOfCaseComponent implements OnInit {
-
   options: any;
   filter: boolean;
   menuState: string;
@@ -47,16 +45,27 @@ export class ListOfCaseComponent implements OnInit {
   pages;
   pageSize;
 
-  constructor(private sellerSupportService: SellerSupportCenterService) {
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { title: "texts" }
+  };
 
-
-  }
+  constructor(
+    public dialog: MatDialog,
+    private sellerSupportService: SellerSupportCenterService
+  ) {}
 
   ngOnInit() {
-    this.listConfiguration = listConfiguration;
-    this.getStatusCase();
-    this.getAllCases({ page: 1, pageSize: 50 , totalPages: 100});
+    this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
+
+    this.sellerSupportService
+      .getAllCase({ Page: 1, PageSize: 100 })
+      .subscribe(res => {
+        console.log(res.data.cases);
+        return (this.cases = res.data.cases);
+      });
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -66,34 +75,41 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase()
-      .subscribe(res =>{
+    this.sellerSupportService.getAllStatusCase().subscribe(
+      res => {
         this.options = res.data;
       },
-        error => console.log(error));
+      error => console.log(error)
+    );
   }
 
   getAllCases(filter?: any) {
-    this.sellerSupportService
-      .getAllCase(filter)
-      .subscribe(res => {
-        const { pageSize, page, totalPages } = res.data;
-        this.cases = res.data.cases;
-        this.refreshPaginator(totalPages, page, pageSize);
-      });
+    this.sellerSupportService.getAllCase(filter).subscribe(res => {
+      const { pageSize, page, totalPages } = res.data;
+      this.cases = res.data.cases;
+      this.refreshPaginator(totalPages, page, pageSize);
+    });
   }
 
   submitFilter(filterForm) {
     this.getAllCases(filterForm);
   }
 
-  changeSizeCaseList(paginator){
-    console.log('parent', paginator);
+  changeSizeCaseList(paginator) {
+    console.log("parent", paginator);
   }
 
   refreshPaginator(total, page, limit) {
     this.totalPages = total;
     this.pageSize = limit;
     this.pages = page;
+  }
+
+  onEmitResponse(caseResponse: any) {
+    const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
   }
 }
