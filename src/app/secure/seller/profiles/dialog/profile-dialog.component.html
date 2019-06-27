@@ -41,7 +41,7 @@
                         <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_functionality' | I18N | async" formControlName="Funcionality" name="Funcionality"
                             multiple (selectionChange)="changeFunctionality()">
                             <mat-option *ngFor="let functionality of functionalitiesList" [value]="functionality">
-                                {{functionality.Name}}
+                                {{('permissions.' + functionality.Name) | I18N | async}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -60,7 +60,7 @@
             </div>
             <ul fxLayout="column" class="list-add-menu">
                 <li *ngFor="let functionality of menu.Functionalities">
-                    {{functionality.Name}}
+                    {{('permissions.' + functionality.Name) | I18N | async}}
                 </li>
             </ul>
             <button mat-icon-button class="remove-menu" (click)="removeMenu(i)" type="button" *ngIf="(editMode && canUpdate)|| !editMode">
