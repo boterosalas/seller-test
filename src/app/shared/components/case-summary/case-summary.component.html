@@ -1,0 +1,54 @@
+<div class="ticket-content">
+  <div class="ticket-content__item ticket-detail">
+    <app-basic-card
+      class="ticket-content--bottom-space"
+      title="Descripción"
+      [description]="case.description"
+    ></app-basic-card>
+
+    <!-- <app-preview-list-card
+        title="Productos"
+        [products]="products"
+        [configuration]="productsConfig"
+        (onClickShowAll)="onClickShowAllProducts()"
+      ></app-preview-list-card> -->
+  </div>
+
+  <div class="ticket-content__item">
+    <span class="ticket-content__title ticket-content--bottom-space">
+      Seguimiento
+    </span>
+
+    <app-conversation-card
+      style="opacity: 0.5;"
+      *ngIf="!case.followLast || case.followLast.length == 0"
+      message="No contiene seguimiento"
+    ></app-conversation-card>
+
+    <ng-container *ngFor="let follow of case.followLast">
+      <app-conversation-card
+        [name]="follow.userName"
+        [message]="follow.description"
+        [date]="follow.createDate"
+      ></app-conversation-card>
+    </ng-container>
+
+    <div class="ticket-content__controls ticket-content__controls--left">
+      <button
+        (click)="openResponseDialog()"
+        class="mat-raised-button ticket-content__button ticket-content__button--secondary"
+      >
+        RESPONDER
+      </button>
+    </div>
+  </div>
+
+  <span
+    [routerLink]="['/securehome/seller-center/support-center/' + case.id]"
+    class="ticket-content__item ticket-content__title ticket-content__item--full-width
+      ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
+      ticket-content--no-select"
+  >
+    Ver seguimiento completo
+  </span>
+</div>

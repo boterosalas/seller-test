@@ -34,7 +34,7 @@ import { BasicCardComponent } from "./components/basic-card/basic-card.component
 import { PreviewListCardComponent } from "./components/preview-list-card/preview-list-card.component";
 import { FlexSizePipe } from "./components/drop-down-list-header/flex-size.pipe";
 import { DropDownListHeaderComponent } from "./components/drop-down-list-header/drop-down-list-header.component";
-import { CaseSumaryComponent } from './components/case-sumary/case-sumary.component';
+import { CaseSummaryComponent } from "./components/case-summary/case-summary.component";
 import { ItemDropDownListDirective } from "./components/drop-down-list/content-drop-down-list.directive";
 @NgModule({
   imports: [
@@ -65,7 +65,7 @@ import { ItemDropDownListDirective } from "./components/drop-down-list/content-d
     PreviewListCardComponent,
     FlexSizePipe,
     DropDownListHeaderComponent,
-    CaseSumaryComponent,
+    CaseSummaryComponent,
     ItemDropDownListDirective
   ],
   exports: [
@@ -90,7 +90,8 @@ import { ItemDropDownListDirective } from "./components/drop-down-list/content-d
     ContentDropDownBoxDirective,
     DropDownListComponent,
     DropDownListHeaderComponent,
-    ItemDropDownListDirective
+    ItemDropDownListDirective,
+    CaseSummaryComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

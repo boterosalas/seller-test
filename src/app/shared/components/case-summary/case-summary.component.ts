@@ -4,11 +4,11 @@ import { ProductsCaseDialogComponent } from "../products-case-dialog/products-ca
 const productsConfig = require("./products-list-configuration.json");
 
 @Component({
-  selector: "app-case-detail",
-  templateUrl: "./case-detail.component.html",
-  styleUrls: ["./case-detail.component.scss"]
+  selector: "app-case-summary",
+  templateUrl: "./case-summary.component.html",
+  styleUrls: ["./case-summary.component.scss"]
 })
-export class CaseDetailComponent implements OnInit {
+export class CaseSummaryComponent implements OnInit {
   @Input() case: Case;
 
   @Output() onClickResponse = new EventEmitter<any>();

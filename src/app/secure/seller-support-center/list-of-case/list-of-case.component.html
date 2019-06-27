@@ -16,10 +16,10 @@
     <ng-container *itemDropDownList>
       <app-drop-down-box *ngFor="let item of cases" [data]="item">
         <ng-container *itemCaseList>
-          <app-case-detail
+          <app-case-summary
             (onClickResponse)="onEmitResponse($event)"
             [case]="item"
-          ></app-case-detail>
+          ></app-case-summary>
         </ng-container>
       </app-drop-down-box>
     </ng-container>
