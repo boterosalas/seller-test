@@ -104,7 +104,8 @@
         "error_user_login": "The username must be a valid e-mail addres and is required.",
         "error_psw_login": "The password cannot be blank or be too short (7 characters minimum).",
         "error_limit_format": "The record limit cannot be blank",
-        "error_guide_upload": "Please fix the file's errors and upload the tracking numbers again."
+        "error_guide_upload": "Please fix the file's errors and upload the tracking numbers again.",
+        "error_format_invalid": "The format is invalid"
     },
     "filters": {
         "clear": "Clear",
@@ -407,6 +408,7 @@
                 "lb_view_form": "Seller view",
                 "lb_email_form": "Email",
                 "lb_name_form": "Name",
+                "lb_warranty": "Refund and Warranty Conditions",
                 "tap_title_admin": "New administrative user registration form",
                 "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller"
             },

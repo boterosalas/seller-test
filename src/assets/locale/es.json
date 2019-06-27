@@ -87,7 +87,7 @@
         "errors_upload_product_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de los productos.",
         "errors_upload_offer_again": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las ofertas.",
         "commission_invalid": "La comisión es inválida",
-        "error_required": "Este campo es requerido",
+        "error_required": "Este campo es requerido.",
         "error_price": "Precio inválido, el valor debe ser mayor o igual a 8.000.",
         "error_price_dscto": "Precio inválido, el valor debe ser mayor a Precio con Descuento.",
         "error_price_discount": "Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000.",
@@ -104,7 +104,8 @@
         "error_user_login": "El usuario debe ser un email válido y es requerido.",
         "error_psw_login": "La contraseña no puede estar en blanco y ser demasiado corta (mínimo 7 caracteres).",
         "error_limit_format": "El limite de registros no puede estar en blanco",
-        "error_guide_upload": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las guías."
+        "error_guide_upload": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las guías.",
+        "error_format_invalid": "El formato no es válido"
     },
     "filters": {
         "clear": "Limpiar",
@@ -407,6 +408,7 @@
                 "lb_view_form": "Visualización del vendedor",
                 "lb_email_form": "Correo electrónico",
                 "lb_name_form": "Nombre",
+                "lb_warranty": "Políticas de Devolución y Garantía",
                 "tap_title_admin": "Formulario registro de nuevo administrador",
                 "txt_description_admin": "En este formulario podrás registrar vendedores para el Marketplace de Grupo Éxito. Los administradores tendrán acceso al Seller Center desde el momento en que se reciba la confirmación de credenciales a través de correo electrónico. Se recomienda seguir las recomendaciones del manual de uso al momento de registrar administrador."
             },
