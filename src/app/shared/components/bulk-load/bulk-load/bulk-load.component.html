@@ -9,7 +9,7 @@
           <!-- Título del componente -->
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
             <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="sc-title title-toolbar"
-              [innerHTML]="config.title"></h3>
+              > {{'secure.products.bulk_load_product_moderation.product_validation' | I18N | async}}</h3>
           </div>
 
           <!-- Botones de descargar e importar archivo -->
@@ -19,7 +19,7 @@
             <!-- Botón para descargar el formato -->
             <button class="sc-default-button" id="download-file-button" mat-button (click)="downloadFile()">
               <mat-icon class="mat-18">file_download</mat-icon>
-              DESCARGAR ARCHIVO
+              {{'secure.products.bulk_load_product_moderation.download_file' | I18N | async}}
             </button>
 
             <!-- Input para subir archivo de Excel -->
@@ -30,7 +30,7 @@
             <button color="primary" class="sc-default-button" [ngClass]="{'block-link' : disabledLoad}" id="load-file-button" (click)="fileUploadInput.click()"
               mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
-              SELECCIONAR ARCHIVO A IMPORTAR
+              {{'secure.products.bulk_load_product_moderation.download_file_import' | I18N | async}}
             </button>
           </div>
 

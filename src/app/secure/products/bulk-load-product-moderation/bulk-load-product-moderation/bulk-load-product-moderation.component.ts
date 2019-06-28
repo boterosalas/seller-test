@@ -15,9 +15,9 @@ export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit
   // Plantilla para configurar el contenido principal del componente 'bulk-load'.
   @ViewChild('mainContentTpl') private mainContentTpl: TemplateRef<any>;
   // Configuración del componente 'bulk-load'.
+
   config: Partial<ConfigBulkLoad> = {
-    title: 'VALIDACIÓN DE PRODUCTOS'
-    // title: this.languageService.getValue('secure.products.bulk_upload.product_validation')
+    title: this.languageService.getValue('secure.products.bulk_load_product_moderation.product_validation')
   };
   // Referencia de la modal
   dialogRef: MatDialogRef<SendModerationFormatModalComponent>;
