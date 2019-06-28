@@ -26,7 +26,7 @@
 
           <h4>{{'secure.seller.register_seller.lb_select_profile_type' | I18N | async}}</h4>
           <mat-form-field>
-            <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
+            <mat-select [placeholder]="'secure.seller.register_seller.lb_profile_type_form' | I18N | async" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
               <mat-option *ngFor="let Seller of profileSeller" [value]="Seller">
                 {{Seller}}
               </mat-option>
@@ -39,7 +39,7 @@
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important">
-                <input matInput placeholder="NIT" formControlName="Nit" id="register-nit"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | I18N | async" formControlName="Nit" id="register-nit"
                   (ngModelChange)="activeButton = false" [readonly]="true" required>
               </mat-form-field>
             </div>
@@ -53,9 +53,8 @@
                 <mat-error id="error-rut-required" *ngIf="validateFormRegister.get('Rut').hasError('required')">{{'errors.required' | I18N | async}}</mat-error>
 
                 <mat-error id="error-rut-invalid"
-                  *ngIf="validateFormRegister.get('Rut').hasError('maxlength') || validateFormRegister.get('Rut').hasError('pattern')"
-                  [innerHTML]="'El rut no es v&aacute;lido.'">
-                </mat-error>
+                    *ngIf="validateFormRegister.get('Rut').hasError('maxlength') || validateFormRegister.get('Rut').hasError('pattern')">
+                    {{'errors.rut_invalid' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -70,31 +69,31 @@
                 <mat-hint></mat-hint>
 
                 <mat-error id="error-contact-name-required"
-                  *ngIf="validateFormRegister.get('ContactName').hasError('required'); else invalidContactName"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
+                    *ngIf="validateFormRegister.get('ContactName').hasError('required'); else invalidContactName">
+                    {{'errors.required' | I18N | async}}</mat-error>
 
-                <ng-template #invalidContactName>
-                  <mat-error id="error-contact-name-invalid"
-                    *ngIf="validateFormRegister.get('ContactName').hasError('pattern') || !validateFormRegister.get('ContactName').pristine || !validateFormRegister.get('ContactName').valid"
-                    [innerHTML]="'El contacto no es v&aacute;lido.'"></mat-error>
-                </ng-template>
+                  <ng-template #invalidContactName>
+                    <mat-error id="error-contact-name-invalid"
+                      *ngIf="validateFormRegister.get('ContactName').hasError('pattern') || !validateFormRegister.get('ContactName').pristine || !validateFormRegister.get('ContactName').valid">
+                      {{'errors.contact_invalid' | I18N | async}}</mat-error>
+                  </ng-template>
               </mat-form-field>
             </div>
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | I18N | async" formControlName="Email"
                   [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton = false"
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
-                <mat-error id="error-email-required" *ngIf="validateFormRegister.get('Email').hasError('required')"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
-                <mat-error id="error-email-invalid" *ngIf="validateFormRegister.get('Email').hasError('pattern')"
-                  [innerHTML]="'El correo electr&oacute;nico no es v&aacute;lido.'"></mat-error>
+                <mat-error id="error-email-required" *ngIf="validateFormRegister.get('Email').hasError('required')">
+                  {{'errors.required' | I18N | async}}</mat-error>
+                <mat-error id="error-email-invalid" *ngIf="validateFormRegister.get('Email').hasError('pattern')">
+                  {{'errors.email_invalid' | I18N | async}}</mat-error>
                 <mat-error id="error-email-exist"
-                  *ngIf="validateFormRegister.get('Email').hasError('validExistEmailDB')"
-                  [innerHTML]="'El correo electrónico ya existe.'"></mat-error>
+                  *ngIf="validateFormRegister.get('Email').hasError('validExistEmailDB')">
+                  {{'errors.email_exist' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -104,28 +103,28 @@
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="Tel&eacute;fono" pattern="^[0-9]*$" maxlength="10" minlength="7"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_phone_form' | I18N | async" pattern="^[0-9]*$" maxlength="10" minlength="7"
                   formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event)"
                   id="register-phone-number" required>
                 <mat-hint></mat-hint>
 
                 <mat-error id="error-phone-number-required"
-                  *ngIf="validateFormRegister.get('PhoneNumber').hasError('required')"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
-                <mat-error id="error-phone-number-invalid"
-                  *ngIf="validateFormRegister.get('PhoneNumber').hasError('maxlength') || validateFormRegister.get('PhoneNumber').hasError('pattern') || validateFormRegister.get('PhoneNumber').hasError('minlength')"
-                  [innerHTML]="'El tel&eacute;fono no es v&aacute;lido.'"></mat-error>
+                    *ngIf="validateFormRegister.get('PhoneNumber').hasError('required')">
+                    {{'errors.error_required' | I18N | async}}</mat-error>
+                  <mat-error id="error-phone-number-invalid"
+                    *ngIf="validateFormRegister.get('PhoneNumber').hasError('maxlength') || validateFormRegister.get('PhoneNumber').hasError('pattern') || validateFormRegister.get('PhoneNumber').hasError('minlength')">
+                    {{'errors.phone_invalid' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput appNoSpaces placeholder="Direcci&oacute;n de facturaci&oacute;n"
+                <input matInput appNoSpaces [placeholder]="'secure.seller.register_seller.lb_address_form' | I18N | async"
                   formControlName="Address" [errorStateMatcher]="matcher" id="register-address" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-address-required"
-                  *ngIf="validateFormRegister.get('Address').hasError('required') || (!validateFormRegister.get('Address').valid && !validateFormRegister.get('Address').pristine)"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
+                    *ngIf="validateFormRegister.get('Address').hasError('required') || (!validateFormRegister.get('Address').valid && !validateFormRegister.get('Address').pristine)">
+                    {{'errors.required' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -148,24 +147,25 @@
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="C&oacute;digo DANE" [readonly]="true" formControlName="DaneCode"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_postal_code_form' | I18N | async" [readonly]="true" formControlName="DaneCode"
                   id="register-dane-code" required>
               </mat-form-field>
             </div>
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Name')"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_store_name_form' | I18N | async" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
                   (ngModelChange)="activeButton = false" required>
                 <mat-hint></mat-hint>
-                <mat-error id="error-name-store-required" *ngIf="validateFormRegister.get('Name').hasError('required')"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
-                <mat-error id="error-name-store-invalid" *ngIf="validateFormRegister.get('Name').hasError('pattern')"
-                  [innerHTML]="'El nombre de tienda no es v&aacute;lido.'"></mat-error>
-                <mat-error id="error-name-store-exist"
-                  *ngIf="validateFormRegister.get('Name').hasError('validExistNameDB')"
-                  [innerHTML]="'El nombre de tienda ya existe.'"></mat-error>
+                <mat-error id="error-name-store-required"
+                    *ngIf="validateFormRegister.get('Name').hasError('required')">{{'errors.required' | I18N | async}}
+                  </mat-error>
+                  <mat-error id="error-name-store-invalid" *ngIf="validateFormRegister.get('Name').hasError('pattern')">
+                    {{'errors.store_name_invalid' | I18N | async}}</mat-error>
+                  <mat-error id="error-name-store-exist"
+                    *ngIf="validateFormRegister.get('Name').hasError('validExistNameDB')">
+                    {{'errors.store_name_exist' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -176,16 +176,16 @@
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
             <div fxFlex="100%">
               <mat-form-field class="register" style="width:100% !important;">
-                <textarea matInput placeholder="Políticas de Devolución y Garantía" formControlName="Policy"
+                <textarea matInput [placeholder]="'secure.seller.register_seller.lb_warranty' | I18N | async" formControlName="Policy"
                   [errorStateMatcher]="matcher" id="register-warranty-store"
                   required rows="5" cols="80%"></textarea>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
-                  *ngIf="validateFormRegister.get('Policy').hasError('required')">'Este campo es requerido.
-                </mat-error>
-                <mat-error id="error-name-store-exist" *ngIf="validateFormRegister.get('Policy').hasError('pattern')">
-                  El formato no es válido.
-                </mat-error>
+                    *ngIf="validateFormRegister.get('Policy').hasError('required')">{{'errors.required' | I18N | async}}
+                  </mat-error>
+                  <mat-error id="error-name-store-invalid"
+                    *ngIf="validateFormRegister.get('Policy').hasError('pattern')">
+                    {{'errors.error_format_invalid' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -195,13 +195,11 @@
             <div fxFlex="100%">
               <div fxLayout="column" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap.md="20px"
                 fxLayoutGap.lg="20px" fxLayoutGap.xs="2%" fxLayoutGap.sm="2%">
-                <mat-slide-toggle id="register-is-logistc-exito" formControlName="IsLogisticsExito">Vendedor
-                  Log&iacute;stica
-                  &Eacute;xito
+                <mat-slide-toggle id="register-is-logistc-exito" formControlName="IsLogisticsExito">
+                  {{'secure.seller.register_seller.lb_logistic_form' | I18N | async}}
                 </mat-slide-toggle>
-                <mat-slide-toggle id="register-is-shipping-exito" formControlName="IsShippingExito">Vendedor
-                  Env&iacute;os
-                  &Eacute;xito
+                <mat-slide-toggle id="register-is-shipping-exito" formControlName="IsShippingExito">
+                  {{'secure.seller.register_seller.lb_envios_form' | I18N | async}}
                 </mat-slide-toggle>
               </div>
 
@@ -239,8 +237,8 @@
 
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
-              color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!updateSeller.form.valid || disabledForService || !activeButton || !updateSeller.form.touched"></button>
+              color="primary"
+              [disabled]="!updateSeller.form.valid || disabledForService || !activeButton || !updateSeller.form.touched">{{'actions.update' | I18N | async}}</button>
           </div>
         </form>
       </div>
@@ -256,37 +254,39 @@
 
           <h4>{{'secure.seller.register_seller.lb_select_profile_type' | I18N | async}}</h4>
           <mat-form-field>
-            <mat-select placeholder="Tipo de perfil" [(ngModel)]="selectedValue" name="adminList"
+            <mat-select [placeholder]="'secure.seller.register_seller.lb_profile_type_form' | I18N | async" [(ngModel)]="selectedValue" name="adminList"
               formControlName="Profile">
               <mat-option *ngFor="let Admin of profileAdmin" [value]="Admin">
                 {{Admin}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <p> Seleccionaste el perfil: {{selectedValue}} </p>
+          <p> {{'secure.seller.register_seller.txt_select_profile_type' | I18N | async}}: {{selectedValue}} </p>
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important">
-                <input matInput placeholder="NIT" formControlName="Nit" id="register-nit"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | I18N | async" formControlName="Nit" id="register-nit"
                   (ngModelChange)="activeButton = false" [readonly]="true" required>
               </mat-form-field>
             </div>
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | I18N | async" formControlName="Email"
                   [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton = false"
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
-                <mat-error id="error-email-required" *ngIf="validateFormRegisterAdmin.get('Email').hasError('required')"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
-                <mat-error id="error-email-invalid" *ngIf="validateFormRegisterAdmin.get('Email').hasError('pattern')"
-                  [innerHTML]="'El correo electr&oacute;nico no es v&aacute;lido.'"></mat-error>
-                <mat-error id="error-email-exist"
-                  *ngIf="validateFormRegisterAdmin.get('Email').hasError('validExistEmailDB')"
-                  [innerHTML]="'El correo electrónico ya existe.'"></mat-error>
+                <mat-error id="error-email-required"
+                    *ngIf="validateFormRegisterAdmin.get('Email').hasError('required')">
+                    {{'errors.required' | I18N | async}}</mat-error>
+                  <mat-error id="error-email-invalid"
+                    *ngIf="validateFormRegisterAdmin.get('Email').hasError('pattern')">
+                    {{'errors.email_invalid' | I18N | async}}</mat-error>
+                  <mat-error id="error-email-exist"
+                    *ngIf="validateFormRegisterAdmin.get('Email').hasError('validExistEmailDB')">
+                    {{'errors.email_exist' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -294,26 +294,26 @@
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
             <div fxFlex="45%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput placeholder="Nombre administrador" (blur)="validateExist($event, 'Name')"
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_name_form' | I18N | async" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
                   (ngModelChange)="activeButton = false" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
-                  *ngIf="validateFormRegisterAdmin.get('Name').hasError('required')"
-                  [innerHTML]="'Este campo es requerido.'"></mat-error>
-                <mat-error id="error-name-store-invalid"
-                  *ngIf="validateFormRegisterAdmin.get('Name').hasError('pattern')"
-                  [innerHTML]="'El nombre de tienda no es v&aacute;lido.'"></mat-error>
-                <mat-error id="error-name-store-exist"
-                  *ngIf="validateFormRegisterAdmin.get('Name').hasError('validExistNameDB')"
-                  [innerHTML]="'El nombre de tienda ya existe.'"></mat-error>
+                    *ngIf="validateFormRegisterAdmin.get('Name').hasError('required')">
+                    {{'errors.required' | I18N | async}}</mat-error>
+                  <mat-error id="error-name-store-invalid"
+                    *ngIf="validateFormRegisterAdmin.get('Name').hasError('pattern')">
+                    {{'errors.name_invalid' | I18N | async}}</mat-error>
+                  <mat-error id="error-name-store-exist"
+                    *ngIf="validateFormRegisterAdmin.get('Name').hasError('validExistNameDB')">
+                    {{'errors.name_exist' | I18N | async}}</mat-error>
               </mat-form-field>
             </div>
           </div>
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
-              color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!updateAdmin.form.valid || disabledForService || !activeButton || !updateAdmin.form.touched"></button>
+              color="primary" 
+              [disabled]="!updateAdmin.form.valid || disabledForService || !activeButton || !updateAdmin.form.touched">{{'actions.update' | I18N | async}}</button>
           </div>
         </form>
       </div>
