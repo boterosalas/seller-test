@@ -172,166 +172,166 @@ describe('RegisterSellerComponent', () => {
       expect(!!component.sellerRegex.integerNumber).toBeTruthy();
     });
 
-    // describe('is Colombian Select', () => {
-    //   beforeEach(() => {
-    //     component.ngOnInit();
-    //     component.putColombiaByDefault();
-    //     fixture.detectChanges();
-    //     const response = {
-    //       status: 200,
-    //       body: {
-    //         body: JSON.stringify({Data: 'Success'})
-    //       }
-    //     };
-    //     mockRegisterService.registerUser.and.returnValue(of(response));
-    //   });
+    describe('is Colombian Select', () => {
+      beforeEach(() => {
+        component.ngOnInit();
+        component.putColombiaByDefault();
+        fixture.detectChanges();
+        const response = {
+          status: 200,
+          body: {
+            body: JSON.stringify({Data: 'Success'})
+          }
+        };
+        mockRegisterService.registerUser.and.returnValue(of(response));
+      });
 
-    //   it('should be pass nit with number', () => {
-    //     // consulta del HTML el elemento con el id register-nit
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     // Verifica que exista el elemento
-    //     expect(nitField).toBeTruthy();
-    //     // construlle el elemento de manera nativa
-    //     const nitNativeElement = nitField.nativeElement;
-    //     // se le asigna el valor al elemento nativo
-    //     nitNativeElement.value = '1234567453';
-    //     // Se ejecuta el evento input (para simular la escritura del valor previamente definido del input)
-    //     nitNativeElement.dispatchEvent(new Event('input'));
-    //     // se detectan lso cambios
-    //     fixture.detectChanges();
-    //     // se valida la existancia de errores dentro del formulario correspondiente al campo
-    //     expect(component.Nit.errors).toBeNull();
-    //   });
+      it('should be pass nit with number', () => {
+        // consulta del HTML el elemento con el id register-nit
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        // Verifica que exista el elemento
+        expect(nitField).toBeTruthy();
+        // construlle el elemento de manera nativa
+        const nitNativeElement = nitField.nativeElement;
+        // se le asigna el valor al elemento nativo
+        nitNativeElement.value = '1234567453';
+        // Se ejecuta el evento input (para simular la escritura del valor previamente definido del input)
+        nitNativeElement.dispatchEvent(new Event('input'));
+        // se detectan lso cambios
+        fixture.detectChanges();
+        // se valida la existancia de errores dentro del formulario correspondiente al campo
+        expect(component.Nit.errors).toBeNull();
+      });
 
-    //   it('Should be fail nit with characters', () => {
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     expect(nitField).toBeTruthy();
-    //     const nitNativeElement = nitField.nativeElement;
-    //     nitNativeElement.value = '123kkcld4533';
-    //     nitNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Nit.errors).toBeTruthy();
-    //   });
+      it('Should be fail nit with characters', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123kkcld4533';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
 
-    //   it('Should be pass Nit with length <= 20', () => {
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     expect(nitField).toBeTruthy();
-    //     const nitNativeElement = nitField.nativeElement;
-    //     nitNativeElement.value = '12345674530987432345';
-    //     nitNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Nit.errors).toBeNull();
-    //   });
+      it('Should be pass Nit with length <= 20', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '12345674530987432345';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
 
-    //   it('Should be fail Nit with length > 20', () => {
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     expect(nitField).toBeTruthy();
-    //     const nitNativeElement = nitField.nativeElement;
-    //     nitNativeElement.value = '123456745323459875431';
-    //     nitNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Nit.errors).toBeTruthy();
-    //   });
+      it('Should be fail Nit with length > 20', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '123456745323459875431';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
 
-    //   it('should be pass nit required', () => {
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     expect(nitField).toBeTruthy();
-    //     const nitNativeElement = nitField.nativeElement;
-    //     nitNativeElement.value = '1234567453';
-    //     nitNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Nit.errors).toBeNull();
-    //   });
+      it('should be pass nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        const nitNativeElement = nitField.nativeElement;
+        nitNativeElement.value = '1234567453';
+        nitNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeNull();
+      });
 
-    //   it('should be fail nit required', () => {
-    //     const nitField = fixture.debugElement.query(By.css('#register-nit'));
-    //     expect(nitField).toBeTruthy();
-    //     fixture.detectChanges();
-    //     expect(component.Nit.errors).toBeTruthy();
-    //   });
+      it('should be fail nit required', () => {
+        const nitField = fixture.debugElement.query(By.css('#register-nit'));
+        expect(nitField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Nit.errors).toBeTruthy();
+      });
 
-    //   it('Should be pass rut with numbers', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     const rutFieldElement = rutField.nativeElement;
-    //     rutFieldElement.value = '123456789';
-    //     rutFieldElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeNull();
-    //   });
+      it('Should be pass rut with numbers', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutFieldElement = rutField.nativeElement;
+        rutFieldElement.value = '123456789';
+        rutFieldElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
 
-    //   it('Should be fail rut with characters', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     const rutNativeelement = rutField.nativeElement;
-    //     rutNativeelement.value = '13245lakjdfasdf';
-    //     rutNativeelement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeTruthy();
-    //   });
+      it('Should be fail rut with characters', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeelement = rutField.nativeElement;
+        rutNativeelement.value = '13245lakjdfasdf';
+        rutNativeelement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
 
-    //   it('Should be pass Rut with length <= 20', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     const rutNativeElement = rutField.nativeElement;
-    //     rutNativeElement.value = '12345674530987432345';
-    //     rutNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeNull();
-    //   });
+      it('Should be pass Rut with length <= 20', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '12345674530987432345';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
 
-    //   it('Should be fail Rut with length > 20', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     const rutNativeElement = rutField.nativeElement;
-    //     rutNativeElement.value = '123456745323459875431';
-    //     rutNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeTruthy();
-    //   });
+      it('Should be fail Rut with length > 20', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '123456745323459875431';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
 
-    //   it('should be pass Rut required', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     const rutNativeElement = rutField.nativeElement;
-    //     rutNativeElement.value = '1234567453';
-    //     rutNativeElement.dispatchEvent(new Event('input'));
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeNull();
-    //   });
+      it('should be pass Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        const rutNativeElement = rutField.nativeElement;
+        rutNativeElement.value = '1234567453';
+        rutNativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeNull();
+      });
 
-    //   it('should be fail Rut required', () => {
-    //     const rutField = fixture.debugElement.query(By.css('#register-rut'));
-    //     expect(rutField).toBeTruthy();
-    //     fixture.detectChanges();
-    //     expect(component.Rut.errors).toBeTruthy();
-    //   });
+      it('should be fail Rut required', () => {
+        const rutField = fixture.debugElement.query(By.css('#register-rut'));
+        expect(rutField).toBeTruthy();
+        fixture.detectChanges();
+        expect(component.Rut.errors).toBeTruthy();
+      });
+    });
+
+    // it('Sohoul be submiter a National seller', () => {
+    //   component.ngOnInit();
+    //   component.Country.setValue('COLOMBIA');
+    //   component.State.setValue('Antioquia');
+    //   component.City.setValue('Sabaneta');
+    //   component.PostalCode.setValue('05631000');
+    //   component.PhoneNumber.setValue('3124567823');
+    //   component.Nit.setValue('8473645323');
+    //   component.Rut.setValue('8473645323');
+    //   component.ContactName.setValue('cristian bustamante');
+    //   component.Email.setValue('probando@test.com');
+    //   component.Name.setValue('La tienda de cristian bustamante');
+    //   component.Address.setValue('asdfvasd');
+    //   component.Exito.setValue(true);
+    //   component.LogisticExito.setValue(true);
+    //   component.Profile.setValue('seller');
+    //   component.Carulla.setValue(true);
+    //   component.submitSellerRegistrationForm();
+    //   expect(mockRegisterService.registerUser).toHaveBeenCalled();
     // });
 
-    // // it('Sohoul be submiter a National seller', () => {
-    // //   component.ngOnInit();
-    // //   component.Country.setValue('COLOMBIA');
-    // //   component.State.setValue('Antioquia');
-    // //   component.City.setValue('Sabaneta');
-    // //   component.PostalCode.setValue('05631000');
-    // //   component.PhoneNumber.setValue('3124567823');
-    // //   component.Nit.setValue('8473645323');
-    // //   component.Rut.setValue('8473645323');
-    // //   component.ContactName.setValue('cristian bustamante');
-    // //   component.Email.setValue('probando@test.com');
-    // //   component.Name.setValue('La tienda de cristian bustamante');
-    // //   component.Address.setValue('asdfvasd');
-    // //   component.Exito.setValue(true);
-    // //   component.LogisticExito.setValue(true);
-    // //   component.Profile.setValue('seller');
-    // //   component.Carulla.setValue(true);
-    // //   component.submitSellerRegistrationForm();
-    // //   expect(mockRegisterService.registerUser).toHaveBeenCalled();
-    // // });
+    it('Should be submiter a admin', () => {
 
-    // it('Should be submiter a admin', () => {
-
-    // });
+    });
 
     describe('is not Colombia Select', () => {
       beforeEach( () => {
