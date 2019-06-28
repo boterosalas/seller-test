@@ -12,9 +12,10 @@ import { Observable } from "rxjs";
 import { CaseDetail } from "../models/case-detail.model";
 import { map } from "rxjs/operators";
 import { CaseDetailResponse } from "../models/case-detail-response.model";
-import { LoadingService, ModalService}  from '@app/core';
-import { Logger } from '@core/util/logger.service';
-
+import { LoadingService, ModalService } from "@app/core";
+import { Logger } from "@core/util/logger.service";
+import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: "app-detail-case",
@@ -50,11 +51,16 @@ export class DetailCaseComponent implements OnInit {
 
   case$: Observable<CaseDetail>;
 
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { title: "texts" }
+  };
+
   constructor(
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
-    private loadingService?: LoadingService,
-    private modalService?: ModalService
+    private loadingService?: LoadingService
   ) {
     this.headerConfigurations = this.sellerSupportService.getListHeaderConfiguration();
   }
@@ -67,14 +73,25 @@ export class DetailCaseComponent implements OnInit {
 
     this.case$ = this.sellerSupportService
       .getCase(this.route.snapshot.paramMap.get("idCase"))
-      .pipe(map((res: CaseDetailResponse) => res.data ));
+      .pipe(map((res: CaseDetailResponse) => res.data));
 
-    this.case$.subscribe(p => {console.log(p); this.loadingService.closeSpinner();});
+    this.case$.subscribe(p => {
+      console.log(p);
+      this.loadingService.closeSpinner();
+    });
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-    this.menuState = stateFilter ? 'in' : 'out';
+    this.menuState = stateFilter ? "in" : "out";
+  }
+
+  onEmitResponse(caseResponse: any) {
+    /* const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+    dialogRef.afterClosed().subscribe(result => console.log("are Closed")); */
   }
   getStatusCase() {
     this.sellerSupportService.getAllStatusCase().subscribe(

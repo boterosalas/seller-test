@@ -14,11 +14,11 @@
 
     <app-conversation-card
       style="opacity: 0.7;"
-      *ngIf="!case.follow || case.follow.length == 0"
+      *ngIf="!case.followLast || case.followLast.length == 0"
       message="No contiene seguimiento"
     ></app-conversation-card>
 
-    <ng-container *ngFor="let follow of case.follow">
+    <ng-container *ngFor="let follow of case.followLast">
       <app-conversation-card
         [name]="follow.userName"
         [message]="follow.description"
@@ -35,4 +35,13 @@
       </button>
     </div>
   </div>
+
+  <span
+    [routerLink]="['/securehome/seller-center/support-center/' + case.id]"
+    class="ticket-content__item ticket-content__title ticket-content__item--full-width
+      ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
+      ticket-content--no-select"
+  >
+    Ver seguimiento completo
+  </span>
 </div>
