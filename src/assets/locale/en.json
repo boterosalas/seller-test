@@ -123,7 +123,8 @@
         "apply": "Apply",
         "close_menu": "Close menu",
         "enter": "ENTER",
-        "download_orders": "Download orders"
+        "download_orders": "Download orders",
+        "recover_password": "Recover password"
     },
     "errors": {
         "required": "Field required",
