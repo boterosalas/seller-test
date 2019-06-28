@@ -1,0 +1,18 @@
+<div
+  class="sh-list-header-header"
+  fxLayout="row"
+  fxLayout.xs="row"
+  fxLayoutAlign="center center"
+  fxLayoutGap="10px"
+  fxLayoutGap.xs="0"
+>
+  <div fxFlex="5%">&nbsp;</div>
+
+  <div
+    class="sh-list-header-header--item-header"
+    *ngFor="let columnConfiguration of configurations"
+    [fxFlex]="columnConfiguration.md * 5 | flexSize"
+  >
+    {{ columnConfiguration.displayName }}
+  </div>
+</div>

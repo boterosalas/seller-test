@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   trigger,
   state,
@@ -7,10 +7,11 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
-import { initServicesIfNeeded } from "@angular/core/src/view";
-import { PageEvent } from "@angular/material";
-
-const listConfiguration = require("./configuration-list-component.json");
+import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
+import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
+import { MatDialog } from "@angular/material";
+import { LoadingService, ModalService}  from '@app/core';
+import { Logger } from '@core/util/logger.service';
 
 @Component({
   selector: "app-list-of-case",
@@ -40,23 +41,36 @@ export class ListOfCaseComponent implements OnInit {
   options: any;
   filter: boolean;
   menuState: string;
+
   cases: Array<any>;
+  repondCase;
+
   listConfiguration: Array<any>;
 
   totalPages;
   pages;
   pageSize;
 
-  constructor(private sellerSupportService: SellerSupportCenterService) {
+  configDialog = {
+    width: "50%",
+    height: "fit-content",
+    data: { Id: "" }
+  };
 
+  public log: Logger;
 
-  }
+  constructor(
+    public dialog: MatDialog,
+    private sellerSupportService: SellerSupportCenterService,
+    private loadingService?: LoadingService,
+    private modalService?: ModalService,
+  ) { }
 
   ngOnInit() {
-    this.listConfiguration = listConfiguration;
-    this.getStatusCase();
-    this.getAllCases({ page: 1, pageSize: 50 , totalPages: 100});
+    this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
+    this.getStatusCase();
+    this.loadAllCases();
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -65,35 +79,73 @@ export class ListOfCaseComponent implements OnInit {
     this.menuState = stateFilter ? "in" : "out";
   }
 
+  loadAllCases(){
+    this.loadingService.viewSpinner();
+
+    this.sellerSupportService
+      .getAllCase({ Page: 1, PageSize: 100 })
+      .subscribe(res => {
+        this.cases = res.data.cases;
+        this.loadingService.closeSpinner();
+
+      }, err => {
+        this.loadingService.closeSpinner();
+        this.log.debug(err);
+        this.modalService.showModal('errorService');
+    });
+  }
+
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase()
-      .subscribe(res =>{
+    this.sellerSupportService.getAllStatusCase().subscribe(
+      res => {
         this.options = res.data;
       },
-        error => console.log(error));
+      error => console.log(error)
+    );
   }
 
   getAllCases(filter?: any) {
-    this.sellerSupportService
-      .getAllCase(filter)
-      .subscribe(res => {
+    //this.loadingService.viewSpinner();
+
+    this.sellerSupportService.getAllCase(filter).subscribe(res => {
         const { pageSize, page, totalPages } = res.data;
         this.cases = res.data.cases;
+        this.loadingService.closeSpinner();
         this.refreshPaginator(totalPages, page, pageSize);
-      });
+    }, err => {
+      this.loadingService.closeSpinner();
+      this.log.debug(err);
+      this.modalService.showModal('errorService');
+    });
   }
 
   submitFilter(filterForm) {
-    this.getAllCases(filterForm);
+    this.getAllCases(filterForm)
   }
 
-  changeSizeCaseList(paginator){
-    console.log('parent', paginator);
+  changeSizeCaseList(paginator) {
+    console.log("parent", paginator);
   }
 
   refreshPaginator(total, page, limit) {
     this.totalPages = total;
     this.pageSize = limit;
     this.pages = page;
+  }
+
+  onEmitResponse(caseResponse: any) {
+    this.configDialog.data.Id = caseResponse.id;
+
+    const dialogRef = this.dialog.open(
+      ResponseCaseDialogComponent,
+      this.configDialog
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined){
+      this.sellerSupportService.patchCaseResponse(result.data)
+      .subscribe(res => console.log("are Closed", res));
+      }
+    });
   }
 }

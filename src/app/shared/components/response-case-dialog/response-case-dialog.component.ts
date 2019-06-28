@@ -16,4 +16,7 @@ export class ResponseCaseDialogComponent implements OnInit {
   closeDialog(): void {
     this.dialogRef.close();
   }
+  submitResponse(){
+    this.dialogRef.close({data: this.data});
+  }
 }
