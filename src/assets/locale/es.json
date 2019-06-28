@@ -920,7 +920,9 @@
                 "txt_title_toolbar": "Parametrizar reglas",
                 "txt_subtitle_toolbar": "Parametrización de especificaciones",
                 "btn_add_specifications_group": "Agregrar grupo de especificaciones",
-                "btn_add_specifications": "Agregar especificaciones"
+                "btn_add_specifications": "Agregar especificaciones",
+                "tooltip_type_text": "Especificación de tipo texto",
+                "tooltip_type_list": "Especificación de tipo lista"
             },
             "dialog": {
                 "modal_title_spec": "Agregar grupo de especificaciones",

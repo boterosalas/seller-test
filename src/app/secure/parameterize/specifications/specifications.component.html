@@ -60,10 +60,10 @@
                 <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <div  fxLayout="row" fxLayoutAlign="center center" class="icon-container">
-                            <mat-icon class="type-spec" *ngIf="spec.List.length" matTooltip="Especificación de tipo lista">
+                            <mat-icon class="type-spec" *ngIf="spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_list' | I18N | async">
                                 list
                             </mat-icon>
-                            <mat-icon class="type-spec" *ngIf="!spec.List.length" matTooltip="Especificación de tipo texto">
+                            <mat-icon class="type-spec" *ngIf="!spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_text' | I18N | async">
                                 text_fields
                             </mat-icon>
                         </div>

@@ -7,7 +7,7 @@
         "Appangular": "App angular",
         "Api": "Api",
         "Históricodecargadeofertas": "Offers upload historic registry",
-        "Árboldecategorías": "Categories tree",
+        "Árboldecategorías": "Category tree",
         "Marcas": "Brands",
         "Cotizador": "Freight calculator",
         "Especificaciones": "Especifications",
@@ -458,7 +458,7 @@
                 "tap_title_seller": "New seller registration form",
                 "tap_title_update_seller": "Seller update form",
                 "tap_title_update_admin": "Admin update form",
-                "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
+                "txt_description_seller": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller.",
                 "lb_select_profile_type": "Select profile type",
                 "lb_profile_type_form": "Profile type",
                 "txt_select_profile_type": "Select profile type",
@@ -480,7 +480,7 @@
                 "lb_name_form": "Name",
                 "lb_warranty": "Refund and Warranty Conditions",
                 "tap_title_admin": "New administrative user registration form",
-                "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e_mail is received. We recommend following the the user manual's instructions when registering a new Seller"
+                "txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller"
             },
             "manage": {
                 "lb_title_toolbar": "Seller",
@@ -920,7 +920,9 @@
                 "txt_title_toolbar": "Shipping rules configuration",
                 "txt_subtitle_toolbar": "Product specification configuration",
                 "btn_add_specifications_group": "Add specification group",
-                "btn_add_specifications": "Add specifications to a group"
+                "btn_add_specifications": "Add specifications to a group",
+                "tooltip_type_text": "Text especification",
+                "tooltip_type_list": "Value list especification"
             },
             "dialog": {
                 "modal_title_spec": "Add specification group",
