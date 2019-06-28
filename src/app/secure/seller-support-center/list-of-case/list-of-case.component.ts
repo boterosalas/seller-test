@@ -7,13 +7,11 @@ import {
   animate
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
-<<<<<<< HEAD
-import { initServicesIfNeeded } from "@angular/core/src/view";
-=======
 import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
 import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
 import { MatDialog } from "@angular/material";
->>>>>>> f4f96da4378b4e0db0c91ea71e79ab203211829d
+import { LoadingService, ModalService}  from '@app/core';
+import { Logger } from '@core/util/logger.service';
 
 @Component({
   selector: "app-list-of-case",
@@ -39,10 +37,14 @@ import { MatDialog } from "@angular/material";
   ]
 })
 export class ListOfCaseComponent implements OnInit {
+
   options: any;
   filter: boolean;
   menuState: string;
+
   cases: Array<any>;
+  repondCase;
+
   listConfiguration: Array<any>;
 
   totalPages;
@@ -52,30 +54,45 @@ export class ListOfCaseComponent implements OnInit {
   configDialog = {
     width: "50%",
     height: "fit-content",
-    data: { title: "texts" }
+    data: { Id: "" }
   };
+
+  public log: Logger;
 
   constructor(
     public dialog: MatDialog,
-    private sellerSupportService: SellerSupportCenterService
-  ) {}
+    private sellerSupportService: SellerSupportCenterService,
+    private loadingService?: LoadingService,
+    private modalService?: ModalService,
+  ) { }
 
   ngOnInit() {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
-
-    this.sellerSupportService
-      .getAllCase({ Page: 1, PageSize: 100 })
-      .subscribe(res => {
-        console.log(res.data.cases);
-        return (this.cases = res.data.cases);
-      });
+    this.getStatusCase();
+    this.loadAllCases();
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
 
     this.menuState = stateFilter ? "in" : "out";
+  }
+
+  loadAllCases(){
+    this.loadingService.viewSpinner();
+
+    this.sellerSupportService
+      .getAllCase({ Page: 1, PageSize: 100 })
+      .subscribe(res => {
+        this.cases = res.data.cases;
+        this.loadingService.closeSpinner();
+
+      }, err => {
+        this.loadingService.closeSpinner();
+        this.log.debug(err);
+        this.modalService.showModal('errorService');
+    });
   }
 
   getStatusCase() {
@@ -88,15 +105,22 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getAllCases(filter?: any) {
+    //this.loadingService.viewSpinner();
+
     this.sellerSupportService.getAllCase(filter).subscribe(res => {
-      const { pageSize, page, totalPages } = res.data;
-      this.cases = res.data.cases;
-      this.refreshPaginator(totalPages, page, pageSize);
+        const { pageSize, page, totalPages } = res.data;
+        this.cases = res.data.cases;
+        this.loadingService.closeSpinner();
+        this.refreshPaginator(totalPages, page, pageSize);
+    }, err => {
+      this.loadingService.closeSpinner();
+      this.log.debug(err);
+      this.modalService.showModal('errorService');
     });
   }
 
   submitFilter(filterForm) {
-    this.getAllCases(filterForm);
+    this.getAllCases(filterForm)
   }
 
   changeSizeCaseList(paginator) {
@@ -110,10 +134,18 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
+    this.configDialog.data.Id = caseResponse.id;
+
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined){
+      this.sellerSupportService.patchCaseResponse(result.data)
+      .subscribe(res => console.log("are Closed", res));
+      }
+    });
   }
 }

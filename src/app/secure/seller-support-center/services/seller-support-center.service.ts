@@ -32,4 +32,9 @@ export class SellerSupportCenterService {
   public getListHeaderConfiguration(): any {
     return require("../configurations/configuration-list-header.json");
   }
+  public patchCaseResponse(caseResponse:any):  Observable<StatusResponse>{
+    const URL = this._api.get("patchCaseResponse");
+    return this._http.patch<StatusResponse>(URL, caseResponse);
+  }
+
 }

@@ -14,7 +14,7 @@
   </div>
 
   <div class="response-case-dialog__item dialog-response">
-    <textarea
+    <textarea [(ngModel)]="data.Description"
       class="response-case-dialog__text-second"
       matInput
       name=""
@@ -34,6 +34,7 @@
     </button>
     <button
       class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-save"
+      (click)="submitResponse()"
     >
       Agregar
     </button>
