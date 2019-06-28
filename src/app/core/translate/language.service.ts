@@ -81,7 +81,10 @@ export class LanguageService {
 
   getValue(key: string): string {
     key = key.trim();
-    key = !!key.includes(' ') ? key.replace(' ', '') : key;
+    key = !!key.includes(' ') ? key.split(' ').join('') : key;
+    if (key.includes('menu.') || key.includes('module.')) {
+      key = this.capitalizeFirstLetter(key);
+    }
     const properties = key.split('.');
     const val = this.lenguage$.getValue();
     try {
@@ -97,6 +100,12 @@ export class LanguageService {
       //console.trace();
       console.log(key);
     }
+  }
+
+  capitalizeFirstLetter(key: string): string {
+    const elements = key.split('.');
+    const secondElement = elements[1].charAt(0).toUpperCase() + elements[1].substr(1, elements[1].length).toLowerCase();
+    return `${elements[0]}.${secondElement}`;
   }
 
   private setLanguageLocalSotrage(language: string) {

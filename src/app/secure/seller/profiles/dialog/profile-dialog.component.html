@@ -29,9 +29,9 @@
             <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
                 <mat-form-field class="select-form">
                     <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_menu' | I18N | async" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
-                        <mat-optgroup *ngFor="let module of menuShowList" [label]="module.Name">
+                        <mat-optgroup *ngFor="let module of menuShowList" [label]="('module.' + module.Name) | I18N | async">
                             <mat-option *ngFor="let menu of module.Menus" [value]="menu" [ngClass]="{'no-show': showMenu(menu)}">
-                                {{menu.Name}}
+                                {{('menu.' + menu.Name) |I18N | async}}
                             </mat-option>
                         </mat-optgroup>
                     </mat-select>
@@ -56,7 +56,7 @@
         </div>
         <div *ngFor="let menu of menuAddList; let i = index" fxLayout="row" fxLayoutAlign="space-between center" class="menu-added">
             <div class="list-add-menu">
-                {{menu.Name}}
+                {{('menu.' + menu.Name) |I18N | async}}
             </div>
             <ul fxLayout="column" class="list-add-menu">
                 <li *ngFor="let functionality of menu.Functionalities">
