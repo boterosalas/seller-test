@@ -80,6 +80,8 @@ export class LanguageService {
    */
 
   getValue(key: string): string {
+    key = key.trim();
+    key = !!key.includes(' ') ? key.replace(' ', '') : key;
     const properties = key.split('.');
     const val = this.lenguage$.getValue();
     try {
