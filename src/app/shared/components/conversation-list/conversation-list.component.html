@@ -1,0 +1,5 @@
+<ng-container class="ticket-history ticket-history__container">
+  <ng-container *ngFor="let item of items">
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</ng-container>
