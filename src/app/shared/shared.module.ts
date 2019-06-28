@@ -6,9 +6,6 @@ import { MaterialModule } from '@app/material.module';
 import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
-
-import { CitiesModule } from './components/cities';
-import { StatesModule } from './components/states';
 import { ToolbarOptionsModule } from './components/toolbar-options';
 import { ToolbarTittleModule } from './components/toolbar-tittle';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
@@ -18,6 +15,8 @@ import { CreateProcessDialogComponent } from './components/create-process-dialog
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { TranslateDirective } from './directives/translate/translate.directive';
+import { CitiesComponent } from './components/cities/cities.component';
+import { StatesComponent } from './components/states/states.component';
 
 
 @NgModule({
@@ -37,14 +36,14 @@ import { TranslateDirective } from './directives/translate/translate.directive';
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     TranslatePipe,
-    TranslateDirective
+    TranslateDirective,
+    CitiesComponent,
+    StatesComponent
   ],
   exports: [
     MaterialModule,
     CdkDetailRowDirective,
     NoWhitespaceDirective,
-    StatesModule,
-    CitiesModule,
     ToolbarTittleModule,
     SearchSellerComponent,
     ControlMessagesComponent,
@@ -52,7 +51,9 @@ import { TranslateDirective } from './directives/translate/translate.directive';
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     TranslatePipe,
-    TranslateDirective
+    TranslateDirective,
+    CitiesComponent,
+    StatesComponent
   ],
   entryComponents: [
     ErrorDialogComponent,
