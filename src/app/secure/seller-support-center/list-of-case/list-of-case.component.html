@@ -1,0 +1,48 @@
+<app-case-toolbar
+  (eventFilter)="toggleFilter($event)"
+  [totalPages]="totalPages"
+  [pages]="pages"
+  [pageSize]="pageSize"
+>
+</app-case-toolbar>
+
+<ng-template [ngIf]="cases">
+  <app-drop-down-list
+    [data]="cases"
+    [options]="options"
+    [configurations]="listConfiguration"
+  >
+    <ng-container *itemDropDownList>
+      <app-drop-down-box
+        *ngFor="let item of cases"
+        [data]="item"
+        [read]="item.read"
+      >
+        <ng-container *itemCaseList>
+          <app-case-summary
+            (onClickResponse)="onEmitResponse($event)"
+            [case]="item"
+          ></app-case-summary>
+        </ng-container>
+      </app-drop-down-box>
+    </ng-container>
+  </app-drop-down-list>
+</ng-template>
+
+<div
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
+  "
+>
+  <div
+    [@slideInOut]="menuState"
+    [ngClass]="filter ? 'support-filter' : 'hidden-content'"
+  >
+    <app-case-filter
+      (eventFilter)="toggleFilter($event)"
+      [stateFilter]="filter"
+      [options]="options"
+      (eventSubmitFilter)="submitFilter($event)"
+    ></app-case-filter>
+  </div>
+</div>

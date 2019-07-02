@@ -1,0 +1,11 @@
+.drop-down-list {
+  background-color: #fff;
+}
+
+::ng-deep .mat-expansion-indicator::after {
+  display: none !important;
+  visibility: hidden !important;
+}
+.bold-text {
+  font-weight: bold !important;
+}

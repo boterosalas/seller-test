@@ -1,0 +1,24 @@
+<div class="ticket-history ticket-history__container">
+  <div class="ticket-history__flow">
+    <div
+      class="ticket-history__flow--decoration ticket-history__flow--node"
+    ></div>
+    <span
+      class="ticket-history__small-text ticket-history__small-text--bottom-space"
+    >
+      {{ date ? (date | date: "MMMM d 'de' y") : "" }}
+    </span>
+  </div>
+
+  <div class="ticket-history__flow">
+    <div
+      class="ticket-history__flow--decoration ticket-history__flow--line"
+    ></div>
+    <div class="ticket-history__content">
+      <p>{{ message ? message : "" }}</p>
+      <span class="ticket-history__small-text">
+        {{ name ? name : "" }}
+      </span>
+    </div>
+  </div>
+</div>

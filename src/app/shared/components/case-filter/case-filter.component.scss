@@ -1,0 +1,91 @@
+$primary-color: #757474;
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #909090;
+$underline-color: #19a695;
+
+$spacer-x: 54px;
+
+.mat-sidenav {
+  width: 363px;
+}
+
+.filter-content{
+  margin: 59px 32px;
+}
+
+.filter-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 22px;
+  margin-bottom: 40px;
+  &--title{
+    font-weight: bold;
+    color: $title-color;
+  }
+  &--close{
+    color: $accent-color;
+    cursor: pointer;
+  }
+}
+
+.filter-form{
+  display: flex;
+  flex-direction: column;
+
+  &--filed{
+   padding-bottom: 41px;
+  }
+}
+
+::ng-deep .mat-form-field-underline{
+  color: $underline-color;
+}
+::ng-deep .mat-form-field-infix{
+
+  color: $hint-color !important;
+ }
+
+ .filter-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 51px 8px 0 8px;
+
+  &--btn-clean {
+    background-color: white;
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: $accent-color;
+      color: white;
+    }
+  }
+
+  &--btn-send {
+    background-color: $accent-color;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+ }
+
+ .btn{
+  padding: 0px 24px;
+  font-weight: bold;
+  font-size: 12px;
+ }
+
+ .blank-content{
+   height: 100vh;
+   opacity: 1;
+   background-color: transparent !important;
+ }
+
+::deep-ng .mat-sidenav-content{
+  background-color: transparent !important;
+}

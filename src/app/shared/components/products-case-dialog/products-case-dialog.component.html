@@ -1,0 +1,24 @@
+<div class="response-case-dialog">
+  <div class="response-case-dialog__item">
+    <span mat-dialog-title class="response-case-dialog__title">
+      Productos en este pedido
+    </span>
+    <div class="response-case-dialog__item--vertical-spacing">
+      <span class="response-case-dialog__text-primary"> productos</span>
+    </div>
+  </div>
+
+  <div class="response-case-dialog__item response-case-dialog__control">
+    <button
+      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-close"
+      (click)="closeDialog()"
+    >
+      Cancelar
+    </button>
+    <button
+      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-save"
+    >
+      Agregar
+    </button>
+  </div>
+</div>

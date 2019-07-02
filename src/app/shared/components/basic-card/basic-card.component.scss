@@ -1,0 +1,22 @@
+$hint-color: #9e9e9e;
+$primary-color: #757474;
+
+.basic-card {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-weight: bold;
+    font-size: 14px;
+    color: $primary-color;
+    &--bottom-space {
+      margin-bottom: 21px;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    text-align: justify;
+    color: $hint-color;
+  }
+}

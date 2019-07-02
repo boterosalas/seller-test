@@ -1,0 +1,39 @@
+<div class="response-case-dialog">
+  <div class="response-case-dialog__item">
+    <span mat-dialog-title class="response-case-dialog__title">
+      Agregar respuesta
+    </span>
+    <span
+      class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing"
+      >{{ data.follow[0].description }}
+    </span>
+  </div>
+
+  <div class="response-case-dialog__item dialog-response">
+    <textarea
+      [(ngModel)]="data.Description"
+      class="response-case-dialog__text-second"
+      matInput
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+      placeholder="Escribe tu respuesta"
+    ></textarea>
+  </div>
+
+  <div class="response-case-dialog__item response-case-dialog__control">
+    <button
+      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-close"
+      (click)="closeDialog()"
+    >
+      Cancelar
+    </button>
+    <button
+      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-save"
+      (click)="submitResponse()"
+    >
+      Agregar
+    </button>
+  </div>
+</div>

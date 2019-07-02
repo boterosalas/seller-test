@@ -1,0 +1,8 @@
+<div class="drop-down-list">
+  <app-drop-down-list-header [configurations]="configurations">
+  </app-drop-down-list-header>
+
+  <ng-container *ngFor="let item of items" >
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</div>

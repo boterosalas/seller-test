@@ -1,0 +1,33 @@
+<mat-toolbar class="ticket-toolbar">
+  <mat-toolbar-row>
+    <div class="toolbar-brand">
+      <span>Reclamaciones</span><span class="separator"> &#124; </span>
+      <small>Visualización de reclamaciones</small>
+    </div>
+    <span class="example-spacer"></span>
+    <div>
+      <mat-sidenav-content
+        class="toolbar-right"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <div class="toolbar-right--item">
+            <mat-paginator  #paginator
+            [length]="totalPages"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            (changes)="changeSizeCaseList($event)"
+          >
+          </mat-paginator>
+        </div>
+
+        <div class="toolbar-right--item" >
+            <button mat-raised-button (click)="toggleFilter()">
+                <mat-icon>filter_list</mat-icon>
+                Filtro
+              </button>
+        </div>
+      </mat-sidenav-content>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
