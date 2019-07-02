@@ -1,0 +1,68 @@
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #9e9e9e;
+$border-color: #d3d3d3;
+
+$small-text: 12px;
+$node-radio: 2px;
+
+.sh-message {
+  &__small-text {
+    font-size: $small-text;
+    font-style: italic;
+    color: $hint-color;
+
+    &--bottom-space {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__content {
+    border: 1px solid $border-color;
+    border-radius: 8px 8px 8px 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+
+    p {
+      margin: 0px;
+      font-size: 14px;
+      text-align: justify;
+      color: $hint-color;
+    }
+
+    * {
+      &:last-child {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    margin: 16px 0;
+    &--right {
+      justify-content: flex-end;
+    }
+  }
+
+  &__button {
+    background-color: $accent-color;
+    color: white;
+    border: 1px solid transparent;
+    font-weight: bold;
+    border-radius: 2px;
+
+    &--secondary {
+      background-color: white;
+      border: 1px solid $accent-color;
+      color: $accent-color;
+
+      &:hover {
+        background-color: $accent-color;
+        color: white;
+      }
+    }
+  }
+}

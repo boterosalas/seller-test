@@ -36,6 +36,9 @@ import { FlexSizePipe } from "./components/drop-down-list-header/flex-size.pipe"
 import { DropDownListHeaderComponent } from "./components/drop-down-list-header/drop-down-list-header.component";
 import { CaseSummaryComponent } from "./components/case-summary/case-summary.component";
 import { ItemDropDownListDirective } from "./components/drop-down-list/content-drop-down-list.directive";
+import { ConversationComponent } from "./components/conversation/conversation.component";
+import { ConversationMessageComponent } from "./components/conversation-message/conversation-message.component";
+import { ItemConversationDirective } from "./components/conversation/item-conversation.directive";
 @NgModule({
   imports: [
     CommonModule,
@@ -66,7 +69,10 @@ import { ItemDropDownListDirective } from "./components/drop-down-list/content-d
     FlexSizePipe,
     DropDownListHeaderComponent,
     CaseSummaryComponent,
-    ItemDropDownListDirective
+    ItemDropDownListDirective,
+    ConversationComponent,
+    ConversationMessageComponent,
+    ItemConversationDirective
   ],
   exports: [
     MaterialModule,
@@ -91,7 +97,9 @@ import { ItemDropDownListDirective } from "./components/drop-down-list/content-d
     DropDownListComponent,
     DropDownListHeaderComponent,
     ItemDropDownListDirective,
-    CaseSummaryComponent
+    CaseSummaryComponent,
+    ConversationComponent,
+    ItemConversationDirective
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

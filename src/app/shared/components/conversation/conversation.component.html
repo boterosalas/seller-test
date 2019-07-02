@@ -1,0 +1,10 @@
+<div class="sh-conversation">
+  <ng-container *ngFor="let item of items">
+    <div class="sh-conversation__flow">
+      <div
+        class="sh-conversation__flow--decoration sh-conversation__flow--node"
+      ></div>
+      <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+    </div>
+  </ng-container>
+</div>

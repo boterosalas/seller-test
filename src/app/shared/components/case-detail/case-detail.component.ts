@@ -11,24 +11,13 @@ const productsConfig = require("./products-list-configuration.json");
 export class CaseDetailComponent implements OnInit {
   @Input() case: Case;
 
-  @Output() onClickResponse = new EventEmitter<any>();
+  @Output() reply = new EventEmitter<any>();
 
   configDialog = {
     width: "50%",
     height: "fit-content",
     data: { title: "texts" }
   };
-
-  products = [
-    {
-      name: "Producto 1",
-      price: "$20.000"
-    },
-    {
-      name: "Producto 2",
-      price: "$20.000"
-    }
-  ];
 
   productsConfig: Array<any>;
 
@@ -39,7 +28,7 @@ export class CaseDetailComponent implements OnInit {
   }
 
   openResponseDialog(): void {
-    this.onClickResponse.emit(this.case);
+    this.reply.emit(this.case);
   }
 
   onClickShowAllProducts() {

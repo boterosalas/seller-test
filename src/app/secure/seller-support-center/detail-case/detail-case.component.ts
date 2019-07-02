@@ -87,6 +87,7 @@ export class DetailCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
+    console.log(caseResponse);
     /* const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
