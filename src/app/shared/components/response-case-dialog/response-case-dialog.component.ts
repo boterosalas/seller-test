@@ -6,15 +6,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
   templateUrl: "./response-case-dialog.component.html",
   styleUrls: ["./response-case-dialog.component.scss"]
 })
-export class ResponseCaseDialogComponent implements OnInit {
+export class ResponseCaseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ResponseCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-
-  ngOnInit() {
-    console.log(this.data);
-  }
 
   closeDialog(): void {
     this.dialogRef.close();
