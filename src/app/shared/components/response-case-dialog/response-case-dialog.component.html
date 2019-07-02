@@ -5,16 +5,13 @@
     </span>
     <span
       class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing"
-    >
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque in
-      expedita sequi ipsum fuga dolorum laboriosam possimus aut, provident animi
-      impedit nesciunt? Consectetur quam id nostrum labore nesciunt?
-      Consequatur, illo!
+      >{{ data.follow[0].description }}
     </span>
   </div>
 
   <div class="response-case-dialog__item dialog-response">
-    <textarea [(ngModel)]="data.Description"
+    <textarea
+      [(ngModel)]="data.Description"
       class="response-case-dialog__text-second"
       matInput
       name=""

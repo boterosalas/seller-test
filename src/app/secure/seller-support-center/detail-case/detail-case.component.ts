@@ -54,7 +54,7 @@ export class DetailCaseComponent implements OnInit {
   configDialog = {
     width: "70%",
     height: "fit-content",
-    data: { id: "" }
+    data: null
   };
 
   constructor(
@@ -76,10 +76,7 @@ export class DetailCaseComponent implements OnInit {
       .getCase(this.route.snapshot.paramMap.get("idCase"))
       .pipe(map((res: CaseDetailResponse) => res.data));
 
-    this.case$.subscribe(p => {
-      console.log(p);
-      this.loadingService.closeSpinner();
-    });
+    this.case$.subscribe(() => this.loadingService.closeSpinner());
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -88,7 +85,7 @@ export class DetailCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
-    this.configDialog.data.id = caseResponse.id;
+    this.configDialog.data = caseResponse;
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
@@ -96,19 +93,14 @@ export class DetailCaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.sellerSupportService
-          .patchCaseResponse(result.data)
-          .subscribe(res => console.log("are Closed", res));
+        this.sellerSupportService.patchCaseResponse(result.data);
       }
     });
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(
-      res => {
-        this.options = res.data;
-      },
-      error => console.log(error)
-    );
+    this.sellerSupportService.getAllStatusCase().subscribe(res => {
+      this.options = res.data;
+    });
   }
 }

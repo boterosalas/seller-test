@@ -53,7 +53,7 @@ export class ListOfCaseComponent implements OnInit {
   configDialog = {
     width: "70%",
     height: "fit-content",
-    data: { id: "" }
+    data: null
   };
 
   public log: Logger;
@@ -95,12 +95,9 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(
-      res => {
-        this.options = res.data;
-      },
-      error => console.log(error)
-    );
+    this.sellerSupportService.getAllStatusCase().subscribe(res => {
+      this.options = res.data;
+    });
   }
 
   getAllCases(filter?: any) {
@@ -119,12 +116,8 @@ export class ListOfCaseComponent implements OnInit {
     );
   }
 
-  submitFilter(filterForm) {
+  submitFilter(filterForm: any) {
     this.getAllCases(filterForm);
-  }
-
-  changeSizeCaseList(paginator) {
-    console.log("parent", paginator);
   }
 
   refreshPaginator(total: any, page: any, limit: any) {
@@ -134,7 +127,7 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
-    this.configDialog.data.id = caseResponse.id;
+    this.configDialog.data = caseResponse;
 
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
@@ -143,10 +136,16 @@ export class ListOfCaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.sellerSupportService
-          .patchCaseResponse(result.data)
-          .subscribe(res => console.log("are Closed", res));
+        this.sellerSupportService.patchCaseResponse(result.data);
       }
     });
+  }
+
+  reloadLastResponse(result: any) {
+    let newCase = this.cases.find(element => element.id === result.data.id);
+    newCase.followLast = result.data.follow;
+    newCase.read = result.data.read;
+    result = {};
+    newCase = {};
   }
 }

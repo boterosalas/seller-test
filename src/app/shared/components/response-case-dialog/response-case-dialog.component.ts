@@ -12,11 +12,18 @@ export class ResponseCaseDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.data);
+  }
+
   closeDialog(): void {
     this.dialogRef.close();
   }
-  submitResponse(){
-    this.dialogRef.close({data: this.data});
+
+  submitResponse() {
+    this.dialogRef.close({ data: this.data });
+    this.dialogRef.afterClosed().subscribe(res => {
+      (this.data.id = ""), (this.data.Description = "");
+    });
   }
 }

@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container >
   <mat-sidenav #sidenavfilter mode="side" position="end">
     <div class="filter-content">
       <div class="filter-header">
@@ -76,6 +76,10 @@
       </form>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="blank-content"
+  (click)="toggleFilter()">
+    <div class="blank-content">
+
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

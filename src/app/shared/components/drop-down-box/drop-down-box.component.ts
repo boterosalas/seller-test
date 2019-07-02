@@ -20,6 +20,7 @@ export class DropDownBoxComponent implements OnInit {
   @Input() isOpen: boolean;
 
   @Input() data: IData;
+  @Input() read;
 
   panelOpenState = false;
 
