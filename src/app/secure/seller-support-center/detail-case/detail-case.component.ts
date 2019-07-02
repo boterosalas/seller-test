@@ -52,12 +52,13 @@ export class DetailCaseComponent implements OnInit {
   case$: Observable<CaseDetail>;
 
   configDialog = {
-    width: "50%",
+    width: "70%",
     height: "fit-content",
-    data: { title: "texts" }
+    data: { id: "" }
   };
 
   constructor(
+    public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
     private loadingService?: LoadingService
@@ -87,13 +88,21 @@ export class DetailCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
-    console.log(caseResponse);
-    /* const dialogRef = this.dialog.open(
+    this.configDialog.data.id = caseResponse.id;
+    const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => console.log("are Closed")); */
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.sellerSupportService
+          .patchCaseResponse(result.data)
+          .subscribe(res => console.log("are Closed", res));
+      }
+    });
   }
+
   getStatusCase() {
     this.sellerSupportService.getAllStatusCase().subscribe(
       res => {

@@ -51,9 +51,9 @@ export class ListOfCaseComponent implements OnInit {
   pageSize;
 
   configDialog = {
-    width: "50%",
+    width: "70%",
     height: "fit-content",
-    data: { Id: "" }
+    data: { id: "" }
   };
 
   public log: Logger;
@@ -104,8 +104,6 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getAllCases(filter?: any) {
-    //this.loadingService.viewSpinner();
-
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
         const { pageSize, page, totalPages } = res.data;
@@ -129,14 +127,14 @@ export class ListOfCaseComponent implements OnInit {
     console.log("parent", paginator);
   }
 
-  refreshPaginator(total, page, limit) {
+  refreshPaginator(total: any, page: any, limit: any) {
     this.totalPages = total;
     this.pageSize = limit;
     this.pages = page;
   }
 
   onEmitResponse(caseResponse: any) {
-    this.configDialog.data.Id = caseResponse.id;
+    this.configDialog.data.id = caseResponse.id;
 
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
