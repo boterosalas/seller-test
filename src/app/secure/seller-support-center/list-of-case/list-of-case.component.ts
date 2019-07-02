@@ -10,7 +10,7 @@ import { SellerSupportCenterService } from "../services/seller-support-center.se
 import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
 import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
 import { MatDialog } from "@angular/material";
-import { LoadingService, ModalService}  from '@app/core';
+import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 
 @Component({
@@ -79,20 +79,21 @@ export class ListOfCaseComponent implements OnInit {
     this.menuState = stateFilter ? "in" : "out";
   }
 
-  loadAllCases(){
+  loadAllCases() {
     this.loadingService.viewSpinner();
 
     this.sellerSupportService
-      .getAllCase({ Page: 1, PageSize: 100 })
-      .subscribe(res => {
+      .getAllCase({ Page: 1, PageSize: 100 }).subscribe(res =>
+      {
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-
+        console.log(this.cases);
       }, err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
         this.modalService.showModal('errorService');
-    });
+
+      });
   }
 
   getStatusCase() {
@@ -106,12 +107,11 @@ export class ListOfCaseComponent implements OnInit {
 
   getAllCases(filter?: any) {
     //this.loadingService.viewSpinner();
-
     this.sellerSupportService.getAllCase(filter).subscribe(res => {
-        const { pageSize, page, totalPages } = res.data;
-        this.cases = res.data.cases;
-        this.loadingService.closeSpinner();
-        this.refreshPaginator(totalPages, page, pageSize);
+      const { pageSize, page, totalPages } = res.data;
+      this.cases = res.data.cases;
+      this.loadingService.closeSpinner();
+      this.refreshPaginator(totalPages, page, pageSize);
     }, err => {
       this.loadingService.closeSpinner();
       this.log.debug(err);
@@ -142,10 +142,21 @@ export class ListOfCaseComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined){
-      this.sellerSupportService.patchCaseResponse(result.data)
-      .subscribe(res => console.log("are Closed", res));
-      }
+      if (result !== undefined) {
+        result.data.LastFollow = true;
+        this.sellerSupportService.patchCaseResponse(result.data)
+          .subscribe(res => this.reloadLastResponse(res));
+    }
     });
+  }
+
+  reloadLastResponse(result: any){
+    console.log(result);
+    let newCase = this.cases.find(element => element.id === result.data.id);
+    newCase.followLast = result.data.follow;
+    newCase.read = result.data.read;
+    result = {};
+    newCase = {};
+
   }
 }

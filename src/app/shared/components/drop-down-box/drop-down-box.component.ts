@@ -20,6 +20,8 @@ export class DropDownBoxComponent implements OnInit {
   panelOpenState = false;
 
   @Input() data: IData;
+  @Input() read;
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

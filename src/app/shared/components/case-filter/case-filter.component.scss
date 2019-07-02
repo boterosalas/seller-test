@@ -79,3 +79,13 @@ $spacer-x: 54px;
   font-weight: bold;
   font-size: 12px;
  }
+
+ .blank-content{
+   height: 100vh;
+   opacity: 1;
+   background-color: transparent !important;
+ }
+
+::deep-ng .mat-sidenav-content{
+  background-color: transparent !important;
+}

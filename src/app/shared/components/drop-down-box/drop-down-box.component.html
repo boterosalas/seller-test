@@ -6,6 +6,7 @@
     >
       <mat-expansion-panel-header>
         <div
+          [ngClass]="read ? '' : 'bold-text'"
           class="case-list-detail"
           fxLayout
           fxLayout.xs="column"

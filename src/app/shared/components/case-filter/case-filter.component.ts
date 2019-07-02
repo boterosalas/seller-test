@@ -6,7 +6,7 @@ import { Filter } from './models/Filter';
 @Component({
   selector: "app-case-filter",
   templateUrl: "./case-filter.component.html",
-  styleUrls: ["./case-filter.component.scss"],
+  styleUrls: ["./case-filter.component.scss"]
 })
 export class CaseFilterComponent implements OnInit {
 
