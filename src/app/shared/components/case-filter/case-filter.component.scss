@@ -85,7 +85,6 @@ $spacer-x: 54px;
    opacity: 1;
    background-color: transparent !important;
  }
-
-::deep-ng .mat-sidenav-content{
+.mat-sidenav-container{
   background-color: transparent !important;
 }
