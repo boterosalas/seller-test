@@ -1,38 +1,37 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
   style,
   transition,
   animate
-} from "@angular/animations";
-import { SellerSupportCenterService } from "../services/seller-support-center.service";
-import { ProductsCaseDialogComponent } from "@shared/components/products-case-dialog/products-case-dialog.component";
-import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
-import { MatDialog } from "@angular/material";
-import { LoadingService, ModalService } from "@app/core";
-import { Logger } from "@core/util/logger.service";
+} from '@angular/animations';
+import { SellerSupportCenterService } from '../services/seller-support-center.service';
+import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
+import { MatDialog } from '@angular/material';
+import { LoadingService, ModalService } from '@app/core';
+import { Logger } from '@core/util/logger.service';
 
 @Component({
-  selector: "app-list-of-case",
-  templateUrl: "./list-of-case.component.html",
-  styleUrls: ["./list-of-case.component.scss"],
+  selector: 'app-list-of-case',
+  templateUrl: './list-of-case.component.html',
+  styleUrls: ['./list-of-case.component.scss'],
   animations: [
-    trigger("slideInOut", [
+    trigger('slideInOut', [
       state(
-        "in",
+        'in',
         style({
-          transform: "translate3d(0, 0, 0)"
+          transform: 'translate3d(0, 0, 0)'
         })
       ),
       state(
-        "out",
+        'out',
         style({
-          transform: "translate3d(100%, 0, 0)"
+          transform: 'translate3d(100%, 0, 0)'
         })
       ),
-      transition("in => out", animate("400ms ease-in-out")),
-      transition("out => in", animate("400ms ease-in-out"))
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
     ])
   ]
 })
@@ -51,8 +50,8 @@ export class ListOfCaseComponent implements OnInit {
   pageSize;
 
   configDialog = {
-    width: "70%",
-    height: "fit-content",
+    width: '70%',
+    height: 'fit-content',
     data: null
   };
 
@@ -75,7 +74,7 @@ export class ListOfCaseComponent implements OnInit {
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
 
-    this.menuState = stateFilter ? "in" : "out";
+    this.menuState = stateFilter ? 'in' : 'out';
   }
 
   loadAllCases() {
@@ -89,7 +88,7 @@ export class ListOfCaseComponent implements OnInit {
       err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
-        this.modalService.showModal("errorService");
+        this.modalService.showModal('errorService');
       }
     );
   }
@@ -111,7 +110,7 @@ export class ListOfCaseComponent implements OnInit {
       err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
-        this.modalService.showModal("errorService");
+        this.modalService.showModal('errorService');
       }
     );
   }

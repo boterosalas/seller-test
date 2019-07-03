@@ -53,12 +53,10 @@
     <!-- /Input date final -->
 
           <mat-form-field class="filter-form--field">
-            <mat-select placeholder="Estado" [(ngModel)]="filter.Status" name="status" >
-              <div *ngFor="let state of options">
-                <mat-option value="{{ state.code }}">{{
+            <mat-select placeholder="Estado"  name="status" [(ngModel)]="value" >
+                <mat-option *ngFor="let state of options" value="{{state.name}}">{{
                   state.name
                 }}</mat-option>
-              </div>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="filter-form--field">
@@ -76,7 +74,7 @@
       </form>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content class="blank-content"
+  <mat-sidenav-content class=""
   (click)="toggleFilter()">
     <div class="blank-content">
 
