@@ -85,8 +85,7 @@ export class ListOfCaseComponent implements OnInit {
       res => {
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-      },
-      err => {
+      }, err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
         this.modalService.showModal("errorService");
@@ -141,7 +140,7 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
-  reloadLastResponse(result: any) {
+  reloadLastResponse(result: any){
     let newCase = this.cases.find(element => element.id === result.data.id);
     newCase.followLast = result.data.follow;
     newCase.read = result.data.read;

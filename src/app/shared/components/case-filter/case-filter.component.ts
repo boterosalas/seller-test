@@ -12,22 +12,24 @@ export class CaseFilterComponent implements OnInit {
 
   filter: Filter = {
     CaseNumber: '',
-    OrderNumber: '',
-    ReasonPQR: '',
+    OrderNumber: null,
+    ReasonPQR: null,
     Status: [],
-    DateInit: '', //   dd/mm/yyyy
-    DateEnd: '' //   dd/mm/yyyy
+    DateInit: "", //   dd/mm/yyyy
+    DateEnd: "" //   dd/mm/yyyy
   };
+
+  value: string;
 
   @ViewChild('sidenavfilter') sideFilter: MatSidenav;
   @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() stateFilter: boolean;
   @Output() eventSubmitFilter: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input() options;
+  @Input() options: any;
   @ViewChild('filterForm') filterForm: NgForm;
-  @ViewChild('dateInitial') dateInitial;
-  @ViewChild('dateFinal') dateFinal;
+  @ViewChild('dateInitial') dateInitial: any;
+  @ViewChild('dateFinal') dateFinal: any;
 
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
   public rangeDays = 14;
@@ -50,8 +52,19 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
+
+    if(this.value !== undefined ){
+      if(this.value !== null){
+        this.filter.Status.push(this.value)
+      }
+    }else{
+      this.filter.Status = [];
+    }
+
     this.eventFilter.emit(!this.stateFilter);
     this.eventSubmitFilter.emit(this.filter);
+    this.value = '';
+    this.filter.Status.pop();
     this.cleanFilter();
   }
   cleanFilter() {
