@@ -290,7 +290,12 @@ export const endpoints = {
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/', // falta url pdn
       // get categories vetex
-      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/' // falta url pdn
+      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/', // falta url pdn
+      // Support Seller center
+      getAllStatusCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-status',
+      getAllCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/casesfilteredpaged',
+      getCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case',
+      patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow'
     }
   }
 };
