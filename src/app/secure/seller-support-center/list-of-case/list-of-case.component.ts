@@ -135,7 +135,9 @@ export class ListOfCaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.sellerSupportService.patchCaseResponse(result.data);
+        this.sellerSupportService.patchCaseResponse(result.data).subscribe(
+          res=> this.reloadLastResponse(res)
+        );
       }
     });
   }
