@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CaseFilterComponent } from './case-filter.component';
-
+/*
 describe('CaseFilterComponent', () => {
   let component: CaseFilterComponent;
   let fixture: ComponentFixture<CaseFilterComponent>;
@@ -23,3 +23,4 @@ describe('CaseFilterComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+ */

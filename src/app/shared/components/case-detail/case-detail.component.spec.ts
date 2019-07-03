@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CaseDetailComponent } from "./case-detail.component";
 
-describe("CaseDetailComponent", () => {
+/* describe("CaseDetailComponent", () => {
   let component: CaseDetailComponent;
   let fixture: ComponentFixture<CaseDetailComponent>;
 
@@ -22,3 +22,4 @@ describe("CaseDetailComponent", () => {
     expect(component).toBeTruthy();
   });
 });
+ */
