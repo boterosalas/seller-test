@@ -87,7 +87,6 @@ export class ListOfCaseComponent implements OnInit {
       {
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-        console.log(this.cases);
       }, err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
@@ -120,7 +119,8 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   submitFilter(filterForm) {
-    this.getAllCases(filterForm)
+    this.getAllCases(filterForm);
+
   }
 
   changeSizeCaseList(paginator) {
@@ -151,7 +151,6 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   reloadLastResponse(result: any){
-    console.log(result);
     let newCase = this.cases.find(element => element.id === result.data.id);
     newCase.followLast = result.data.follow;
     newCase.read = result.data.read;

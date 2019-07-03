@@ -1,5 +1,6 @@
 export interface IData {
-  id: string;
+  id?: string;
+  caseNumber: string
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
