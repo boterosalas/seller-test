@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: "app-preview-list-card",
-  templateUrl: "./preview-list-card.component.html",
-  styleUrls: ["./preview-list-card.component.scss"]
+  selector: 'app-preview-list-card',
+  templateUrl: './preview-list-card.component.html',
+  styleUrls: ['./preview-list-card.component.scss']
 })
 export class PreviewListCardComponent implements OnInit {
   @Input() title: string;
