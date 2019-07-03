@@ -4,14 +4,14 @@
     <div class="offer-button-back flexbox align-center">
       <button class="btn-back" mat-icon-button (click)="goToListOffers()">
         <mat-icon>arrow_back</mat-icon>
-        <small class="sub-title-back" [innerHTML]="'Volver'"></small>
+        <small class="sub-title-back">{{'secure.offers.list.components.detail_offer.return' | I18N | async}}</small>
       </button>
     </div>
     <div class="offer-img flexbox align-center justify-center">
       <img [src]="dataOffer.imageUrl" alt="">
       <div class="sold-out flexbox justify-center align-center" *ngIf="dataOffer.stock === 0 || !dataOffer.stock">
         <div class="flexbox justify-center align-center">
-          <p [innerHTML]="'Agotado'"></p>
+          <p>{{'secure.offers.list.list.with_out_stock' | I18N | async}}</p>
         </div>
       </div>
     </div>
@@ -19,20 +19,20 @@
 
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
 
-    <p [innerHTML]="'EAN: ' + dataOffer.ean" class="ean flexbox align-center"></p>
+    <p class="ean flexbox align-center">{{'secure.billing.ean' | I18N | async}}: {{dataOffer.ean}}</p>
 
     <div class="btn-edit-offer flexbox justify-end">
-      <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
+      <button type="button" color="primary" [matTooltip]="'actions.edit' | I18N | async" matTooltipPosition="below" mat-icon-button mat-button
         (click)="editOffer()" *ngIf="!isUpdateOffer && isUpdateOffer === false && canEdit">
         <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
       </button>
-      <button type="button" color="primary" matTooltip="Cancelar" matTooltipPosition="below" mat-icon-button mat-button
+      <button type="button" color="primary" [matTooltip]="'actions.cancel' | I18N | async" matTooltipPosition="below" mat-icon-button mat-button
         (click)="cancelEditOffer()" *ngIf="isUpdateOffer && isUpdateOffer === true">
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
 
-    <p [innerHTML]="dataOffer.name" class="name"></p>
+    <p class="name">{{dataOffer.name}}</p>
 
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
 
