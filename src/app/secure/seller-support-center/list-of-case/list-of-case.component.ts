@@ -99,6 +99,7 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getAllCases(filter?: any) {
+    this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
         const { pageSize, page, totalPages } = res.data;
@@ -126,16 +127,19 @@ export class ListOfCaseComponent implements OnInit {
 
   onEmitResponse(caseResponse: any) {
     this.configDialog.data = caseResponse;
-
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
     );
 
     dialogRef.afterClosed().subscribe(result => {
+      this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService.patchCaseResponse(result.data).subscribe(
-          res=> this.reloadLastResponse(res)
+          res => {
+            this.reloadLastResponse(res);
+            this.loadingService.closeSpinner();
+          }
         );
       }
     });
@@ -143,9 +147,10 @@ export class ListOfCaseComponent implements OnInit {
 
   reloadLastResponse(result: any) {
     let newCase = this.cases.find(element => element.id === result.data.id);
-    newCase.followLast = result.data.follow;
+    newCase.followLast[0] = result.data.follow[0];
     newCase.read = result.data.read;
     result = {};
     newCase = {};
+
   }
 }
