@@ -44,7 +44,7 @@
             <p>{{ data.reasonDetail }}</p>
           </div>
           <div class="case-list-detail--item-detail" fxFlex="15%">
-            {{ data.createDate | date }}
+            {{ data.createDate | dateNoGtm | date }}
           </div>
           <div class="case-list-detail--item-detail" fxFlex="10%">
             {{ data.status }}

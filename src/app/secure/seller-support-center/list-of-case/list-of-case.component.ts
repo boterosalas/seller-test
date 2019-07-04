@@ -11,6 +11,7 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
+import { Filter } from '../models/filter';
 
 @Component({
   selector: 'app-list-of-case',
@@ -39,15 +40,12 @@ export class ListOfCaseComponent implements OnInit {
   options: any;
   filter: boolean;
   menuState: string;
-
   cases: Array<any>;
-  repondCase;
-
+  repondCase: any;
   listConfiguration: Array<any>;
-
-  totalPages;
-  pages;
-  pageSize;
+  totalPages: number;
+  pages: number;
+  pageSize: number;
 
   configDialog = {
     width: '70%',
@@ -84,7 +82,8 @@ export class ListOfCaseComponent implements OnInit {
       res => {
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-      }, err => {
+      },
+      err => {
         this.loadingService.closeSpinner();
         this.log.debug(err);
         this.modalService.showModal('errorService');
@@ -98,7 +97,8 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
-  getAllCases(filter?: any) {
+  getAllCases(filter?: Filter) {
+    this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
         const { pageSize, page, totalPages } = res.data;
@@ -107,9 +107,9 @@ export class ListOfCaseComponent implements OnInit {
         this.refreshPaginator(totalPages, page, pageSize);
       },
       err => {
-        this.loadingService.closeSpinner();
         this.log.debug(err);
         this.modalService.showModal('errorService');
+        this.loadingService.closeSpinner();
       }
     );
   }
@@ -134,9 +134,9 @@ export class ListOfCaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.sellerSupportService.patchCaseResponse(result.data).subscribe(
-          res=> this.reloadLastResponse(res)
-        );
+        this.sellerSupportService
+          .patchCaseResponse(result.data)
+          .subscribe(res => this.reloadLastResponse(res));
       }
     });
   }
