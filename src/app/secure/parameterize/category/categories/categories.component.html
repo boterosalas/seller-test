@@ -108,5 +108,23 @@
                     formControlName="NameParent">
             </mat-form-field>
         </div>
+        <div class="container-fields">
+            <mat-form-field class="half-width">
+                <input matInput id="tariffCode" placeholder="Código de arancel" autocomplete="false"
+                    formControlName="TariffCode" required>
+                <mat-error *ngIf="TariffCode.hasError('required') || TariffCode.hasError('trim')">Este campo es
+                    obligatorio.
+                </mat-error>
+                <mat-error *ngIf="TariffCode.hasError('pattern') || TariffCode.hasError('maxlength')">El código no es válido.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width">
+                <input matInput id="tariff" placeholder="Arancel" autocomplete="false"
+                    formControlName="Tariff" required>
+                    <mat-error *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')">Este campo es
+                        obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="Tariff.hasError('pattern') || Tariff.hasError('max') || Tariff.hasError('min')">El valor no es válido.</mat-error>
+            </mat-form-field>
+        </div>
     </form>
 </ng-template>
