@@ -417,12 +417,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
         /*Variable para contar el número de registros que esta en el excel, se resta 1 porque no se tiene en cuenta la primera fila que es la fila de titulos */
         const numberRegister = this.arrayNecessaryData.length - 1;
-
         /*
         * if valido si el excel solo trae 2 registros y hay 1 vacio
         * else if se valida que el documento tenga en los titulos o primera columna nos datos, EAN, Tipo de Productoo y Categoria
         * else si no lo tiene significa que el formato es invalido y manda un error*/
-        if (this.arrayNecessaryData.length === 2 && contEmptyRow === 1) {
+        if ((res.length - contEmptyRow) === 1) {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
