@@ -3,18 +3,18 @@
     class="sh-message__small-text sh-message__small-text--bottom-space"
     *ngIf="configuration.theme === _THEMES.BASIC"
   >
-    {{ date ? (date | date: "MMMM d 'de' y") : "" }}
+    {{ date ? (date | dateNoGtm | date: "MMMM d 'de' y") : '' }}
   </span>
   <div class="sh-message__content">
     <span
       class="sh-message__small-text sh-message__small-text--bottom-space"
       *ngIf="configuration.theme === _THEMES.ALTER"
     >
-      {{ date ? (date | date: "MMMM d 'de' y") : "" }}
+      {{ date ? (date | dateNoGtm | date: "MMMM d 'de' y") : '' }}
     </span>
-    <p>{{ message ? message : "" }}</p>
+    <p>{{ message ? message : '' }}</p>
     <span class="sh-message__small-text">
-      {{ name ? name : "" }}
+      {{ name ? name : '' }}
     </span>
   </div>
   <div
