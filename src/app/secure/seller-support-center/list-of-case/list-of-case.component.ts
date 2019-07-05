@@ -126,24 +126,27 @@ export class ListOfCaseComponent implements OnInit {
 
   onEmitResponse(caseResponse: any) {
     this.configDialog.data = caseResponse;
-
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
     );
 
     dialogRef.afterClosed().subscribe(result => {
+      this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService
           .patchCaseResponse(result.data)
-          .subscribe(res => this.reloadLastResponse(res));
+          .subscribe(res => {
+            this.reloadLastResponse(res);
+            this.loadingService.closeSpinner();
+          });
       }
     });
   }
 
   reloadLastResponse(result: any) {
     let newCase = this.cases.find(element => element.id === result.data.id);
-    newCase.followLast = result.data.follow;
+    newCase.followLast[0] = result.data.follow[0];
     newCase.read = result.data.read;
     result = {};
     newCase = {};
