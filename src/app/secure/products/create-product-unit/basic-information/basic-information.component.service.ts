@@ -4,6 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
 import { map } from 'rxjs/operators';
 
+const DataArrray = [
+    { 'size': 'XS' },
+    { 'size': 'S' },
+    { 'size': 'M' },
+    { 'size': 'L' },
+    { 'size': 'XL' },
+    { 'size': 'XXL' },
+    { 'size': 'XXXL' },
+];
+
 @Injectable()
 export class BasicInformationService {
 
@@ -24,10 +34,16 @@ export class BasicInformationService {
 
     getActiveBrands(): Observable<any> {
         const active = 'null/null/1/null/null/null';
-        return this.http.get(this.api.get('getActiveBrands') + active )
-        .pipe(map((resp: any) => {
-            return JSON.parse(resp.body);
-        }))
+        return this.http.get(this.api.get('getActiveBrands') + active)
+            .pipe(map((resp: any) => {
+                return JSON.parse(resp.body);
+            }));
     }
 
+    getSizeProducts(): Observable<any> {
+        return new Observable(
+            observer => {
+                observer.next(DataArrray);
+            });
+    }
 }
