@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService } from '@app/shared';
 import { BulkLoadProductService } from '../bulk-load-product.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { LoadingService, UserLoginService, UserParametersService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { SupportService } from '@app/secure/support-modal/support.service';
@@ -1754,6 +1754,53 @@ describe('BulkLoad Products Component', () => {
 
         it('get user data', () => {
             component.getDataUser();
+        });
+
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of({ amountAvailableLoads: 100 }));
+            component.dataAvaliableLoads = dataAvalilable;
+            component.isAdmin = true;
+            fixture.detectChanges();
+        });
+
+        it('validate data from file', () => {
+            component.validateDataFromFile(res, file);
+        });
+
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of({ amountAvailableLoads: 0 }));
+            component.dataAvaliableLoads = dataAvalilable;
+            fixture.detectChanges();
+        });
+        it('validate data from file', () => {
+            component.validateDataFromFile(resEN, file);
+        });
+
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            component.arrayInformation = dataArray;
+            component.paginator = paginator;
+            component.dataSource = new MatTableDataSource();
+            fixture.detectChanges();
+        });
+        it('validate data from file', () => {
+            component.setErrrorColumns();
+        });
+
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            component.arrayInformation = dataArray;
+            component.dataSource = new MatTableDataSource();
+            fixture.detectChanges();
+        });
+        it('validate data from file', () => {
+            component.closeActualDialog();
         });
 
     });
