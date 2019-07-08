@@ -2200,8 +2200,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     });
   }
-
-  listOfSize() {
+/**
+ * Funcion para somunir el listado de tallas
+ *
+ * @memberof BulkLoadProductComponent
+ */
+listOfSize() {
     this.loadingService.viewSpinner();
     this.service.getSizeProducts().subscribe(size => {
       this.loadingService.closeSpinner();

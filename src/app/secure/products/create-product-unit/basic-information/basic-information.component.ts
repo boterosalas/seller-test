@@ -556,6 +556,11 @@ export class ProductBasicInfoComponent implements OnInit {
               });
          });
      }
+     /**
+      * Funcion para somunir el listado de tallas
+      *
+      * @memberof ProductBasicInfoComponent
+      */
      listSize() {
         this.service.getSizeProducts().subscribe(size => {
             this.sizes = size;
