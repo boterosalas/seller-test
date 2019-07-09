@@ -10,6 +10,7 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -112,6 +113,16 @@ export class OfertExpandedProductComponent implements OnInit {
         });
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
+        this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+            this.changeTypeCurrency(val);
+            if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').disable();
+            } else {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                !this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').enable();
+            }
+        });
     }
 
 
