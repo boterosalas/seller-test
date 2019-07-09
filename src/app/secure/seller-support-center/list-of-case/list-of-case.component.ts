@@ -43,9 +43,9 @@ export class ListOfCaseComponent implements OnInit {
   cases: Array<any>;
   repondCase: any;
   listConfiguration: Array<any>;
-  totalPages: number;
-  pages: number;
-  pageSize: number;
+  length: number;
+  pageIndex = 1;
+  pageSize = 50;
 
   configDialog = {
     width: '70%',
@@ -66,29 +66,17 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    this.loadAllCases();
+    this.loadCases({ Page: this.pageIndex, PageSize: this.pageSize });
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-
     this.menuState = stateFilter ? 'in' : 'out';
   }
 
-  loadAllCases() {
-    this.loadingService.viewSpinner();
-
-    this.sellerSupportService.getAllCase({ Page: 1, PageSize: 100 }).subscribe(
-      res => {
-        this.cases = res.data.cases;
-        this.loadingService.closeSpinner();
-      },
-      err => {
-        this.loadingService.closeSpinner();
-        this.log.debug(err);
-        this.modalService.showModal('errorService');
-      }
-    );
+  changePagination(pagination: any) {
+    const { pageIndex, pageSize } = pagination;
+    this.loadCases({ PageSize: pageSize, Page: pageIndex });
   }
 
   getStatusCase() {
@@ -97,14 +85,14 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
-  getAllCases(filter?: Filter) {
+  loadCases(filter?: Filter) {
     this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
-        const { pageSize, page, totalPages } = res.data;
+        const { pageSize, page } = res.data;
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-        this.refreshPaginator(totalPages, page, pageSize);
+        this.refreshPaginator(res.data.cases.length, page, pageSize);
       },
       err => {
         this.log.debug(err);
@@ -114,14 +102,14 @@ export class ListOfCaseComponent implements OnInit {
     );
   }
 
-  submitFilter(filterForm: any) {
-    this.getAllCases(filterForm);
+  submitFilter(filterForm: Filter) {
+    this.loadCases(filterForm);
   }
 
-  refreshPaginator(total: any, page: any, limit: any) {
-    this.totalPages = total;
+  refreshPaginator(total: number, page: number, limit: number) {
+    this.length = total;
     this.pageSize = limit;
-    this.pages = page;
+    this.pageIndex = page - 1;
   }
 
   onEmitResponse(caseResponse: any) {
@@ -140,6 +128,8 @@ export class ListOfCaseComponent implements OnInit {
             this.reloadLastResponse(res);
             this.loadingService.closeSpinner();
           });
+      } else {
+        this.loadingService.closeSpinner();
       }
     });
   }
@@ -150,5 +140,10 @@ export class ListOfCaseComponent implements OnInit {
     newCase.read = result.data.read;
     result = {};
     newCase = {};
+  }
+
+  markAsRead(caseRead: any) {
+    const caseId = { id: caseRead.id };
+    this.sellerSupportService.patchReadCase(caseId);
   }
 }

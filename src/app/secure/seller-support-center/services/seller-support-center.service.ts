@@ -36,4 +36,10 @@ export class SellerSupportCenterService {
     const URL = this._api.get('patchCaseResponse');
     return this._http.patch<StatusResponse>(URL, caseResponse);
   }
+
+  public patchReadCase(caseRead: any): Observable<any>{
+    const URL = this._api.get('patchReadCase');
+    return this._http.patch<any>(URL, caseRead);
+  }
+
 }
