@@ -53,11 +53,11 @@ export class CaseFilterComponent implements OnInit {
 
   submitFilter() {
 
-    if(this.value !== undefined ){
-      if(this.value !== null){
+    if (this.value !== undefined ){
+      if (this.value !== null) {
         this.filter.Status.push(this.value)
       }
-    }else{
+    }else {
       this.filter.Status = [];
     }
 

@@ -12,20 +12,21 @@
         fxLayoutAlign="center center"
       >
         <div class="toolbar-right--item">
-            <mat-paginator  #paginator
-            [length]="totalPages"
+          <mat-paginator
+            #paginator
+            [length]="length"
+            [pageIndex]="pageIndex"
             [pageSize]="pageSize"
             [pageSizeOptions]="[5, 10, 25, 50, 100]"
-            (changes)="changeSizeCaseList($event)"
           >
           </mat-paginator>
         </div>
 
-        <div class="toolbar-right--item" >
-            <button mat-raised-button (click)="toggleFilter()">
-                <mat-icon>filter_list</mat-icon>
-                Filtro
-              </button>
+        <div class="toolbar-right--item">
+          <button mat-raised-button (click)="onToggleFilter()">
+            <mat-icon>filter_list</mat-icon>
+            Filtro
+          </button>
         </div>
       </mat-sidenav-content>
     </div>
