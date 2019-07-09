@@ -1,7 +1,8 @@
 <app-case-toolbar
-  (eventFilter)="toggleFilter($event)"
-  [totalPages]="totalPages"
-  [pages]="pages"
+  (toggleFilter)="toggleFilter($event)"
+  (changePagination)="changePagination($event)"
+  [length]="length"
+  [pageIndex]="pageIndex"
   [pageSize]="pageSize"
 >
 </app-case-toolbar>
@@ -12,12 +13,13 @@
     [options]="options"
     [configurations]="listConfiguration"
   >
-    <ng-container *itemDropDownList>
+    <ng-container *itemDropDownList >
       <app-drop-down-box
         *ngFor="let item of cases"
         [data]="item"
         [read]="item.read"
-      >
+        (opened)="markAsRead($event)"
+        >
         <ng-container *itemCaseList>
           <app-case-summary
             (onClickResponse)="onEmitResponse($event)"

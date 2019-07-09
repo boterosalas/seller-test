@@ -123,6 +123,11 @@ export class CategoriesComponent implements OnInit {
             }
           }
         }
+        this.categoryRegex.IdVTEX = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'integerNumber' && element.Module === 'vendedores') {
+            return element;
+          }
+        }).Value;
       } catch {
         this.modalService.showModal('errorService');
       }
