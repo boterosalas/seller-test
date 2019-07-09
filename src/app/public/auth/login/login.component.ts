@@ -138,6 +138,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+    console.log('Me ejecuto Primero o segundo?, Loguin component');
     this.subscription = this.authRoutingService.getPermissions().subscribe((response) => {
       const result = JSON.parse(response.body);
       const modules = result.Data.Profile.Modules;
