@@ -45,10 +45,7 @@ export class BasicInformationService {
      * @returns {Observable<any>}
      * @memberof BasicInformationService
      */
-    getSizeProducts(): Observable<any> {
-        return new Observable(
-            observer => {
-                observer.next(DataArrray);
-            });
+    public getSizeProducts(): Observable<any> {
+        return this.http.get(this.api.get('getSize'), { observe: 'response' });
     }
 }

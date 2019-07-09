@@ -271,8 +271,8 @@
           <mat-form-field class="category-product field">
               <mat-label>Ingresa la talla</mat-label>
               <mat-select formControlName="Size">
-                <mat-option *ngFor="let size of sizes" (change)="detectForm()"  class="input-category-product" [value]="size.size">
-                  {{size.size}}
+                <mat-option *ngFor="let size of sizes" (change)="detectForm()"  class="input-category-product" [value]="size.Size">
+                  {{size.Size}}
                 </mat-option>
               </mat-select>
             <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lida</mat-error>

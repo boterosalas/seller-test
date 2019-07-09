@@ -67,26 +67,26 @@ export class ProductBasicInfoComponent implements OnInit {
         placeholder: 'Escriba aquí la descripción...',
         translate: 'no',
         customClasses: [
-          {
-            name: 'quote',
-            class: 'quote',
-          },
-          {
-            name: 'redText',
-            class: 'redText'
-          },
-          {
-            name: 'titleText',
-            class: 'titleText',
-            tag: 'h1',
-          },
+            {
+                name: 'quote',
+                class: 'quote',
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1',
+            },
         ]
-      };
+    };
 
-      /**
-       *  brands variables
-       *  */
-       brands = [];
+    /**
+     *  brands variables
+     *  */
+    brands = [];
 
     constructor(
         private snackBar: MatSnackBar,
@@ -146,11 +146,11 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     private createForm(): void {
         this.formKeyword = new FormGroup({
-            
+
         });
 
         this.formBasicInfo = new FormGroup({
-            Keyword: new FormControl('', [Validators.required ]),
+            Keyword: new FormControl('', [Validators.required]),
             Name: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
             ])),
@@ -242,7 +242,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public saveKeyword(): void {
-       
+
         let word = this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
@@ -266,9 +266,9 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
-        if ( this.keywords.length >0) {
+        if (this.keywords.length > 0) {
             this.formBasicInfo.controls.Keyword.setErrors(null)
-        }else{
+        } else {
             this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
 
         }
@@ -276,10 +276,10 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
-        if (this.keywords.length<1) {
-            this.formBasicInfo.setErrors({required:true})      
+        if (this.keywords.length < 1) {
+            this.formBasicInfo.setErrors({ required: true })
         }
-        
+
     }
 
     /**
@@ -542,28 +542,30 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
 
-     listOfBrands() {
-         this.service.getActiveBrands().subscribe(brands => {
-             const initialBrands = brands.Data.Brands;
-             this.brands = initialBrands.sort((a, b) =>{
+    listOfBrands() {
+        this.service.getActiveBrands().subscribe(brands => {
+            const initialBrands = brands.Data.Brands;
+            this.brands = initialBrands.sort((a, b) => {
                 if (a.Name > b.Name) {
-                  return 1;
+                    return 1;
                 }
                 if (a.Name < b.Name) {
-                  return -1;
+                    return -1;
                 }
                 return 0;
-              });
-         });
-     }
-     /**
-      * Funcion para somunir el listado de tallas
-      *
-      * @memberof ProductBasicInfoComponent
-      */
-     listSize() {
+            });
+        });
+    }
+    /**
+     * Funcion para somunir el listado de tallas
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    listSize() {
         this.service.getSizeProducts().subscribe(size => {
-            this.sizes = size;
+            if (size.status === 200 || size.status === 201) {
+                this.sizes = JSON.parse(size.body);
+            }
         });
     }
 }

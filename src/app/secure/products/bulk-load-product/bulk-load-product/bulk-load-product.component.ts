@@ -2208,9 +2208,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 listOfSize() {
     this.loadingService.viewSpinner();
     this.service.getSizeProducts().subscribe(size => {
+      const sizeArray = JSON.parse(size.body);
       this.loadingService.closeSpinner();
-      size.forEach((element, i) => {
-        this.size[i] = { Talla: element.size };
+      sizeArray.forEach((element, i) => {
+        this.size[i] = { Talla: element.Size };
       });
     });
   }
