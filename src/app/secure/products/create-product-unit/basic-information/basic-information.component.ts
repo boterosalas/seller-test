@@ -5,6 +5,7 @@ import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-basic-information',
@@ -66,24 +67,25 @@ export class ProductBasicInfoComponent implements OnInit {
         placeholder: 'Escriba aquí la descripción...',
         translate: 'no',
         customClasses: [
-          {
-            name: 'quote',
-            class: 'quote',
-          },
-          {
-            name: 'redText',
-            class: 'redText'
-          },
-          {
-            name: 'titleText',
-            class: 'titleText',
-            tag: 'h1',
-          },
+            {
+                name: 'quote',
+                class: 'quote',
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1',
+            },
         ]
-      };
+    };
 
-      // Brands Variables
-       brands = [];
+    // Brands Variables
+    brands = [];
+    filterBrands = [];
 
     constructor(
         private snackBar: MatSnackBar,
@@ -95,7 +97,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initComponent();
-        // this.listOfBrands();
+        this.listOfBrands();
     }
 
     /**
@@ -145,7 +147,7 @@ export class ProductBasicInfoComponent implements OnInit {
         });
 
         this.formBasicInfo = new FormGroup({
-            Keyword: new FormControl('', [Validators.required ]),
+            Keyword: new FormControl('', [Validators.required]),
             Name: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
             ])),
@@ -229,6 +231,19 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
             }
         });
+
+        this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+            if (!!val && val.length >= 2) {
+                this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
+                console.log(val, this.filterBrands);
+            } else if (!val) {
+                this.filterBrands = [];
+            }
+
+            if (!!this.brands.includes(val)) {
+                this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            }
+        });
     }
 
     /**
@@ -260,9 +275,9 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
-        if ( this.keywords.length > 0) {
+        if (this.keywords.length > 0) {
             this.formBasicInfo.controls.Keyword.setErrors(null);
-        }else {
+        } else {
             this.formBasicInfo.controls.Keyword.setValidators(Validators.required);
 
         }
@@ -271,7 +286,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
         if (this.keywords.length < 1) {
-            this.formBasicInfo.setErrors({required: true});
+            this.formBasicInfo.setErrors({ required: true });
         }
     }
 
@@ -535,19 +550,19 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
 
-     listOfBrands() {
-         this.service.getActiveBrands().subscribe(brands => {
-             const initialBrands = brands.Data.Brands;
-             this.brands = initialBrands.sort((a, b) => {
+    listOfBrands() {
+        this.service.getActiveBrands().subscribe(brands => {
+            const initialBrands = brands.Data.Brands;
+            this.brands = initialBrands.sort((a, b) => {
                 if (a.Name > b.Name) {
-                  return 1;
+                    return 1;
                 }
                 if (a.Name < b.Name) {
-                  return -1;
+                    return -1;
                 }
                 return 0;
-              });
-         });
-     }
+            });
+        });
+    }
 
 }
