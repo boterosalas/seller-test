@@ -12,6 +12,9 @@ export class AuthService implements CanActivate {
     modulesRouting: ModuleModel[] = Modules;
     modulesBack: ModuleModel[];
     userData: any;
+    completeUserData: any =  {
+        country: 'Colombia'
+    };
     admin = 'administrator';
     adminType = 1;
     types = ['Tienda', 'Exito'];

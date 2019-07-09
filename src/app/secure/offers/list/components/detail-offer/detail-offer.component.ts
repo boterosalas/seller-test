@@ -8,6 +8,8 @@ import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
 import { MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -124,8 +126,8 @@ export class DetailOfferComponent {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
-    public snackBar?: MatSnackBar,
-
+    public authService: AuthService,
+    public snackBar?: MatSnackBar
   ) {
     this.isUpdateOffer = false;
     this.params = [];
@@ -253,6 +255,24 @@ export class DetailOfferComponent {
       IsLogisticsExito: this.IsLogisticsExito,
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
+    });
+    this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+      this.changeTypeCurrency(val);
+      if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
+        this.formUpdateOffer.get('IsFreeShipping').setValue(0);
+        this.formUpdateOffer.get('IsEnviosExito').setValue(0);
+        this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
+        this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
+        this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
+        this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
+        this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+        this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
+      } else {
+        !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
+        !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
+        !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+        !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
+      }
     });
   }
 
