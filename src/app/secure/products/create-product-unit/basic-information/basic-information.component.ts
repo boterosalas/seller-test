@@ -82,9 +82,7 @@ export class ProductBasicInfoComponent implements OnInit {
         ]
       };
 
-      /**
-       *  brands variables
-       *  */
+      // Brands Variables
        brands = [];
 
     constructor(
@@ -144,7 +142,6 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     private createForm(): void {
         this.formKeyword = new FormGroup({
-            
         });
 
         this.formBasicInfo = new FormGroup({
@@ -240,7 +237,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public saveKeyword(): void {
-       
         let word = this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
@@ -256,28 +252,27 @@ export class ProductBasicInfoComponent implements OnInit {
                     });
                 }
                 this.detectForm();
-                this.formBasicInfo.controls.Keyword.clearValidators()
-                this.formBasicInfo.controls.Keyword.reset()
+                this.formBasicInfo.controls.Keyword.clearValidators();
+                this.formBasicInfo.controls.Keyword.reset();
             } else {
                 this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
                     duration: 3000,
                 });
             }
         }
-        if ( this.keywords.length >0) {
-            this.formBasicInfo.controls.Keyword.setErrors(null)
-        }else{
-            this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
+        if ( this.keywords.length > 0) {
+            this.formBasicInfo.controls.Keyword.setErrors(null);
+        }else {
+            this.formBasicInfo.controls.Keyword.setValidators(Validators.required);
 
         }
     }
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
-        if (this.keywords.length<1) {
-            this.formBasicInfo.setErrors({required:true})      
+        if (this.keywords.length < 1) {
+            this.formBasicInfo.setErrors({required: true});
         }
-        
     }
 
     /**
@@ -543,7 +538,7 @@ export class ProductBasicInfoComponent implements OnInit {
      listOfBrands() {
          this.service.getActiveBrands().subscribe(brands => {
              const initialBrands = brands.Data.Brands;
-             this.brands = initialBrands.sort((a, b) =>{
+             this.brands = initialBrands.sort((a, b) => {
                 if (a.Name > b.Name) {
                   return 1;
                 }
@@ -552,7 +547,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
                 return 0;
               });
-         })
+         });
      }
 
 }
