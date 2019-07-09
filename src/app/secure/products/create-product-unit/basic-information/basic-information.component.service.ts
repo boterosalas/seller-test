@@ -39,7 +39,12 @@ export class BasicInformationService {
                 return JSON.parse(resp.body);
             }));
     }
-
+    /**
+     * Funcion para consumir el end point de tallas
+     *
+     * @returns {Observable<any>}
+     * @memberof BasicInformationService
+     */
     getSizeProducts(): Observable<any> {
         return new Observable(
             observer => {
