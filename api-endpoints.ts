@@ -296,7 +296,8 @@ export const endpoints = {
       getAllStatusCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-status',
       getAllCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/casesfilteredpaged',
       getCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case',
-      patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow'
+      patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow',
+      patchReadCase: ''
     }
   }
 };
