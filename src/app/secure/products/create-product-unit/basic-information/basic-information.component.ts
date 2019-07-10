@@ -213,6 +213,32 @@ export class ProductBasicInfoComponent implements OnInit {
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
         });
+
+        this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+            if (!!val && val.length >= 2) {
+                this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
+            } else if (!val) {
+                this.filterBrands = [];
+            }
+
+            // if (!!this.brands.includes(val)) {
+            //     this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            // }
+
+            if (val !== '' && this.filterBrands.length !== 0) {
+                this.filterBrands.forEach(el => {
+                    if (val !== el.Name) {
+                        this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    }
+                });
+            } else if (val === '') {
+                this.formBasicInfo.get('Brand').setErrors({ required: true });
+            } else {
+                this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            }
+            console.log(val);
+        });
+
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
             if (data === 'INVALID') {
@@ -230,27 +256,6 @@ export class ProductBasicInfoComponent implements OnInit {
                     }
                 }
             }
-        });
-
-        this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
-            if (!!val && val.length >= 2) {
-                this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
-            } else if (!val) {
-                this.filterBrands = [];
-            }
-
-            // if (!!this.brands.includes(val)) {
-            //     this.formBasicInfo.get('Brand').setErrors({ pattern: true });
-            // }
-            console.log('val', val);
-            if ( val !== '' && this.filterBrands.length !== 0) {
-                console.log('no hay');
-            } else {
-                console.log('val', val);
-                this.formBasicInfo.get('Brand').setErrors({ pattern: true });
-                console.log('no hay');
-            }
-
         });
     }
 
