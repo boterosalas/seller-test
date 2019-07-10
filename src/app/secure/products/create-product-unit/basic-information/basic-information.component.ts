@@ -235,14 +235,22 @@ export class ProductBasicInfoComponent implements OnInit {
         this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
             if (!!val && val.length >= 2) {
                 this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
-                console.log(val, this.filterBrands);
             } else if (!val) {
                 this.filterBrands = [];
             }
 
-            if (!!this.brands.includes(val)) {
+            // if (!!this.brands.includes(val)) {
+            //     this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            // }
+            console.log('val', val);
+            if ( val !== '' && this.filterBrands.length !== 0) {
+                console.log('no hay');
+            } else {
+                console.log('val', val);
                 this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                console.log('no hay');
             }
+
         });
     }
 
