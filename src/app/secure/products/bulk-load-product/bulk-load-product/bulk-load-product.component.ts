@@ -131,7 +131,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // categorias vetex
   vetex: any = [];
 
-  //specName
+  // size
+  size: any = [];
+
+  // specName
 
   modelSpecs: any;
 
@@ -212,6 +215,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.listOfBrands();
     this.trasformTree();
     this.getCategoriesList();
+    this.listOfSize();
     // this.listOfCategories();
     // this.listOfSpecs();
   }
@@ -1992,14 +1996,25 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     // SheetNames: Arreglo con el nombre de la hoja
     // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-    const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    // const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+    // const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
 
-    if (this.categoryType.value === 'Technology') {
-      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
-    }
     if (this.categoryType.value === 'Clothing') {
+      const worksheetSize: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.talla);
+      XLSX.utils.sheet_add_json(worksheetSize, [
+        { B: 'Color' }, { B: 'Beige' }, { B: 'Negro' }, { B: 'Blanco' }, { B: 'Azul' }, { B: 'Amarillo' }, { B: 'Cafe' }, { B: 'Gris' }, { B: 'Verde' }, { B: 'Naranja' }, { B: 'Rosa' }, { B: 'Morado' }, { B: 'Rojo' }, { B: 'Plata' }, { B: 'Dorado' }, { B: 'MultiColor' }
+      ], { skipHeader: true, origin: 'B1' });
+      // SheetNames: Arreglo con el nombre de la hoja
+      // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
+      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications, 'Tallas y Colores': worksheetSize }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones', 'Tallas y Colores'] };
+      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcel(excelBuffer, `Plantilla general Clothing ${this.categoryName.value}`);
+    } else {
+      // SheetNames: Arreglo con el nombre de la hoja
+      // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
+      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
     }
   }
 
@@ -2043,7 +2058,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Logistica Exito': undefined,
     },
     this.modelSpecs
-  ];
+    ];
 
     const categoria = this.listOfCategories();
 
@@ -2094,7 +2109,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Logistica Exito': undefined,
     },
     this.modelSpecs
-  ];
+    ];
 
     const categoria = this.listOfCategories();
 
@@ -2102,8 +2117,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     const especificaciones = this.listOfSpecs();
 
-    return { productos, categoria, marcas, especificaciones };
+    const talla = this.size;
 
+    return { productos, categoria, marcas, especificaciones, talla };
   }
 
   /* Lista por marcas activas */
@@ -2128,7 +2144,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // Arreglo a retornar
     const specs = [];
 
-      // Modelo de especificaciones a construir
+    // Modelo de especificaciones a construir
     this.modelSpecs = {};
     // Maximo numero de valores de una especificacion
     let maxSpecsValue = 0;
@@ -2136,19 +2152,19 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       // Crea la key del objeto
       this.modelSpecs[element.specName] = undefined;
       // Comprueba el maximo valor
-      if(maxSpecsValue < element.listValues.length) {
+      if (maxSpecsValue < element.listValues.length) {
         maxSpecsValue = element.listValues.length;
       }
     });
-  
+
     // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
-    for(let i = 0; i < maxSpecsValue; i ++) {
+    for (let i = 0; i < maxSpecsValue; i++) {
       const object = Object.assign({}, this.modelSpecs);
       specs.push(object);
     }
 
     this.vetex.data.specs.map((element) => {
-      if(element.listValues.length > 0) {
+      if (element.listValues.length > 0) {
         element.listValues.forEach((specElement, i) => {
           // Agrega el valor de la especificacion (specName) al objeto situado en la posicion i
           specs[i][element.specName] = specElement;
@@ -2156,9 +2172,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       } else {
         specs.forEach(specElement => specElement[element.specName] = null);
       }
-      });
+    });
     return specs;
-} 
+  }
 
   /* Lista por marcas activas */
 
@@ -2184,6 +2200,22 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     });
   }
+/**
+ * Funcion para somunir el listado de tallas
+ *
+ * @memberof BulkLoadProductComponent
+ */
+listOfSize() {
+    this.loadingService.viewSpinner();
+    this.service.getSizeProducts().subscribe(size => {
+      const sizeArray = JSON.parse(size.body);
+      this.loadingService.closeSpinner();
+      sizeArray.forEach((element, i) => {
+        this.size[i] = { Talla: element.Size };
+      });
+    });
+  }
+
 
   /**
    * Generación del arbol VTEX

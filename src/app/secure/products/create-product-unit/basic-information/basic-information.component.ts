@@ -22,6 +22,7 @@ export class ProductBasicInfoComponent implements OnInit {
     keywords = [];
     colorSelected: string;
     sonList = [];
+    sizes = [];
     colorPick: string;
     colorPick2: string;
     ColorPDP: string = null;
@@ -108,6 +109,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public initComponent(): void {
         this.productData = this.process.getProductData();
         this.valdiateInfoBasic();
+        this.listSize();
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
@@ -552,7 +554,18 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
                 return 0;
               });
-         })
+         });
      }
-
+     /**
+      * Funcion para somunir el listado de tallas
+      *
+      * @memberof ProductBasicInfoComponent
+      */
+     listSize() {
+        this.service.getSizeProducts().subscribe(size => {
+            if (size.status === 200 || size.status === 201) {
+                this.sizes = JSON.parse(size.body);
+            }
+        });
+    }
 }
