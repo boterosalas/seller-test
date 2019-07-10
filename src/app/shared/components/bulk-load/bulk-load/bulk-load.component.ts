@@ -518,11 +518,13 @@ export class BulkLoadComponent implements OnInit {
           // Estado 3 cuando la carga posee errores
         } else if (result.body.data.status === 3 && result.body.data.checked === 'false') {
 
-          if (result.body.data.response && result.body.data.response.Error) {
-            result.body.data.response.Error.forEach(element => {
+          let message = result.body.data.response.Data.ProductNotify[0].Message;
+          
+          if (result.body.data.response.Data && result.body.data.response.Data.ProductNotify) {
+            result.body.data.response.Data.ProductNotify.forEach(element => {
               errorsToShow.push({
-                Name: element.ean,
-                Description: element.message
+                Name: element.Ean,
+                Description: element.Message
               });
             });
             this.openDialogSendOrderPopUp({ type: this.typeDialog.Error, errors: errorsToShow });
