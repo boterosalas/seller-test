@@ -1761,7 +1761,22 @@ describe('BulkLoad Products Component', () => {
     describe('validate data from file', () => {
         beforeEach(() => {
             mockBulkLoadProductService.setProducts.and.returnValue(of(responseSetProductModeration));
+            mockBulkLoadProductService.setProductsModeration.and.returnValue(of(responseSetProductModeration));
             component.dataAvaliableLoads = dataAvalilable;
+            component.profileTypeLoad = 'Tienda';
+            component.isAdmin = true;
+        });
+
+        it('validate data from file', () => {
+            component.validateDataFromFile(res, file);
+        });
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            mockBulkLoadProductService.setProducts.and.returnValue(of(responseSetProductModeration));
+            mockBulkLoadProductService.setProductsModeration.and.returnValue(of(responseSetProductModeration));
+            component.dataAvaliableLoads = dataAvalilable;
+            component.profileTypeLoad = 'oficina';
             component.isAdmin = true;
         });
 
@@ -1777,41 +1792,9 @@ describe('BulkLoad Products Component', () => {
         it('validate data from file', () => {
             component.setErrrorColumns();
         });
+        it('validate data from file', () => {
+            component.closeActualDialog();
+        });
     });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of({ amountAvailableLoads: 0 }));
-    //         component.dataAvaliableLoads = dataAvalilable;
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.validateDataFromFile(resEN, file);
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         component.arrayInformation = dataArray;
-    //         component.paginator = paginator;
-    //         component.dataSource = new MatTableDataSource();
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.setErrrorColumns();
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         component.arrayInformation = dataArray;
-    //         component.dataSource = new MatTableDataSource();
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.closeActualDialog();
-    //     });
-
-    // });
-
 });
 
