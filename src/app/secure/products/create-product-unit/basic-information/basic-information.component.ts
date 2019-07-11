@@ -5,6 +5,7 @@ import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-basic-information',
@@ -22,6 +23,7 @@ export class ProductBasicInfoComponent implements OnInit {
     keywords = [];
     colorSelected: string;
     sonList = [];
+    sizes = [];
     colorPick: string;
     colorPick2: string;
     ColorPDP: string = null;
@@ -66,26 +68,25 @@ export class ProductBasicInfoComponent implements OnInit {
         placeholder: 'Escriba aquí la descripción...',
         translate: 'no',
         customClasses: [
-          {
-            name: 'quote',
-            class: 'quote',
-          },
-          {
-            name: 'redText',
-            class: 'redText'
-          },
-          {
-            name: 'titleText',
-            class: 'titleText',
-            tag: 'h1',
-          },
+            {
+                name: 'quote',
+                class: 'quote',
+            },
+            {
+                name: 'redText',
+                class: 'redText'
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1',
+            },
         ]
-      };
+    };
 
-      /**
-       *  brands variables
-       *  */
-       brands = [];
+    // Brands Variables
+    brands = [];
+    filterBrands = [];
 
     constructor(
         private snackBar: MatSnackBar,
@@ -97,7 +98,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.initComponent();
-        // this.listOfBrands();
+        this.listOfBrands();
     }
 
     /**
@@ -108,6 +109,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public initComponent(): void {
         this.productData = this.process.getProductData();
         this.valdiateInfoBasic();
+        this.listSize();
         this.validateEanSonExist = true;
         this.process.change.subscribe(data => {
             this.productData = this.process.getProductData();
@@ -144,11 +146,10 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     private createForm(): void {
         this.formKeyword = new FormGroup({
-            
         });
 
         this.formBasicInfo = new FormGroup({
-            Keyword: new FormControl('', [Validators.required ]),
+            Keyword: new FormControl(''),
             Name: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
             ])),
@@ -214,13 +215,39 @@ export class ProductBasicInfoComponent implements OnInit {
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
         });
+
+        this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+            if (!!val && val.length >= 2) {
+                this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
+            } else if (!val) {
+                this.filterBrands = [];
+            }
+
+            // if (!!this.brands.includes(val)) {
+            //     this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            // }
+
+            if (val !== '' && this.filterBrands.length !== 0) {
+                this.filterBrands.forEach(el => {
+                    if (val !== el.Name) {
+                        this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    }
+                });
+            } else if (val === '') {
+                this.formBasicInfo.get('Brand').setErrors({ required: true });
+            } else {
+                this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+            }
+        });
+
+        this.validatorKeyWord();
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
+            const views = this.process.getViews();
             if (data === 'INVALID') {
                 if (this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
                 }
-                const views = this.process.getViews();
                 views.showInfo = false;
                 this.process.setViews(views);
             } else {
@@ -229,6 +256,10 @@ export class ProductBasicInfoComponent implements OnInit {
                     if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                         this.sendDataToService();
                     }
+                }
+                if (!views.showInfo) {
+                    views.showInfo = true;
+                    this.process.setViews(views);
                 }
             }
         });
@@ -240,7 +271,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public saveKeyword(): void {
-       
         let word = this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
@@ -256,28 +286,31 @@ export class ProductBasicInfoComponent implements OnInit {
                     });
                 }
                 this.detectForm();
-                this.formBasicInfo.controls.Keyword.clearValidators()
-                this.formBasicInfo.controls.Keyword.reset()
+                this.formBasicInfo.controls.Keyword.clearValidators();
+                this.formBasicInfo.controls.Keyword.reset();
             } else {
                 this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
                     duration: 3000,
                 });
             }
         }
-        if ( this.keywords.length >0) {
-            this.formBasicInfo.controls.Keyword.setErrors(null)
-        }else{
-            this.formBasicInfo.controls.Keyword.setValidators(Validators.required)
+        this.validatorKeyWord();
 
+    }
+
+    public validatorKeyWord() {
+        if (this.keywords.length > 0) {
+            this.formBasicInfo.controls.Keyword.setErrors(null);
+        } else {
+            this.formBasicInfo.controls.Keyword.setValidators(Validators.required);
         }
     }
 
     public deleteKeywork(indexOfValue: number): void {
         this.keywords.splice(indexOfValue, 1);
-        if (this.keywords.length<1) {
-            this.formBasicInfo.setErrors({required:true})      
+        if (this.keywords.length < 1) {
+            this.formBasicInfo.setErrors({ required: true });
         }
-        
     }
 
     /**
@@ -459,6 +492,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
+
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
@@ -540,19 +574,31 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
 
-     listOfBrands() {
-         this.service.getActiveBrands().subscribe(brands => {
-             const initialBrands = brands.Data.Brands;
-             this.brands = initialBrands.sort((a, b) =>{
+    listOfBrands() {
+        this.service.getActiveBrands().subscribe(brands => {
+            const initialBrands = brands.Data.Brands;
+            this.brands = initialBrands.sort((a, b) => {
                 if (a.Name > b.Name) {
-                  return 1;
+                    return 1;
                 }
                 if (a.Name < b.Name) {
-                  return -1;
+                    return -1;
                 }
                 return 0;
-              });
-         })
-     }
+            });
+        });
+    }
 
+     /**
+      * Funcion para somunir el listado de tallas
+      *
+      * @memberof ProductBasicInfoComponent
+      */
+     listSize() {
+        this.service.getSizeProducts().subscribe(size => {
+            if (size.status === 200 || size.status === 201) {
+                this.sizes = JSON.parse(size.body);
+            }
+        });
+    }
 }

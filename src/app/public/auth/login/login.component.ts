@@ -142,17 +142,21 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     this.subscription = this.authRoutingService.getPermissions().subscribe((response) => {
       const result = JSON.parse(response.body);
       const modules = result.Data.Profile.Modules;
-      const firstModule = modules[0].Menus[0].Name;
-      const moduleName = modules[0].Name;
+      // const firstModule = modules[0].Menus[0].Name;
+      const firstModule = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Menus[0].Name;
+      // const moduleName = modules[0].Name;
+      const moduleName = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Name;
       this.authService.getModules().then(data => {
         const menu = data.find(menu => menu.NameModule.toLowerCase() === moduleName.toLowerCase());
         const subMenu = menu.Menus.find(subMenu => subMenu.NameMenu.toLowerCase() === firstModule.toLowerCase());
-        const url = subMenu.UrlRedirect;
+        const url: string = subMenu.UrlRedirect;
         this.loadingService.closeSpinner();
         if (result.Data.Profile.ProfileType === Const.ProfileTypesBack[1]) {
           this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
         } else {
-          this.router.navigate([`/${url}`]);
+          if (!url.includes('s3-website-us')) {
+            this.router.navigate([`/${url}`]);
+          }
         }
       });
     });
