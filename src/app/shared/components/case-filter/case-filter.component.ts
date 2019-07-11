@@ -40,6 +40,10 @@ export class CaseFilterComponent implements OnInit {
   @ViewChild('dateFinal') dateFinal: any;
 
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
+  public rangeDays = 14;
+  public milisecondsRangeDays = 1000 * 60 * 60 * 24 * this.rangeDays;
+  public rangeDateMax;
+  public rangeError = false;
 
   constructor(private datePipe: DatePipe) {
     this.options = [];
