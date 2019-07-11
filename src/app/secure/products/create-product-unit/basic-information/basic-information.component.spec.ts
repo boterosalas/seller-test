@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core
 import { ProductBasicInfoComponent } from './basic-information.component';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators, Validator } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule, MatSelectModule, MatSliderModule, MatStepperModule, MatIconModule, MatDividerModule, MatCheckboxModule, MatTooltipModule, MatSnackBar, MatSnackBarModule, MatInputModule } from '@angular/material';
+import { MatOptionModule, MatSelectModule, MatSliderModule, MatStepperModule, MatIconModule, MatDividerModule, MatCheckboxModule, MatTooltipModule, MatSnackBar, MatSnackBarModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { BasicInformationService } from './basic-information.component.service';
@@ -55,39 +55,39 @@ describe('ProductBasicInfoComponent', () => {
             Identifier: 'hexColorNameProduct',
             Value: '^(\S){1,200}$'
         }
-    ]
+    ];
     const mockResponseRegex = {
         body: {
             body: JSON.stringify({ Data: regex })
         }
-    }
+    };
 
     // Mock Services
 
-    const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData',]);
-    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands']);
+    const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData']);
+    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands', 'getSizeProducts']);
     const mockEanService = jasmine.createSpyObj('EanServicesService', ['validateEan']);
 
     // create new instance of FormBuilder
     const formBuilder: FormBuilder = new FormBuilder();
 
-    // brands 
+    // brands
 
     const brands = {
-        Message: "Operación realizada éxitosamente.", 
-        Errors: Array(0), 
+        Message: 'Operación realizada éxitosamente.',
+        Errors: Array(0),
         Data: {
             Brands: [
-                {Id: 636933398904381000, Name: "ADIDAS", Status: 1, IdVTEX: "1033", UpdateStatus: false},
-                {Id: 636931110403428500, Name: "LG", Status: 1, IdVTEX: "4973", UpdateStatus: false}
+                {Id: 636933398904381000, Name: 'ADIDAS', Status: 1, IdVTEX: '1033', UpdateStatus: false},
+                {Id: 636931110403428500, Name: 'LG', Status: 1, IdVTEX: '4973', UpdateStatus: false}
             ] ,
             Total: 2
         }
-    }
+    };
 
     // data formulario
 
-    let views = {
+    const views = {
         showEan: true,
         showCat: false,
         showInfo: true,
@@ -95,7 +95,7 @@ describe('ProductBasicInfoComponent', () => {
         showImg: true,
     };
 
-    let data = {
+    const data = {
         Ean: null,
         AssignEan: null,
         Category: null,
@@ -135,6 +135,16 @@ describe('ProductBasicInfoComponent', () => {
         MetaDescription: null
     };
 
+    const DataArrray = [
+        {'size': 'XS'},
+        {'size': 'S'},
+        {'size': 'M'},
+        {'size': 'L'},
+        {'size': 'XL'},
+        {'size': 'XXL'},
+        {'size': 'XXXL'},
+    ];
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -154,7 +164,8 @@ describe('ProductBasicInfoComponent', () => {
                 HttpClientModule,
                 MatSnackBarModule,
                 MatInputModule,
-                NoopAnimationsModule
+                NoopAnimationsModule,
+                MatAutocompleteModule
             ],
             declarations: [
                 ProductBasicInfoComponent
@@ -172,6 +183,7 @@ describe('ProductBasicInfoComponent', () => {
             .compileComponents();
         mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(mockResponseRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
+        mockBasicInformationService.getSizeProducts.and.returnValue(of(DataArrray));
         mockEanService.validateEan.and.returnValue(of('123456789'));
     }));
 
@@ -179,6 +191,7 @@ describe('ProductBasicInfoComponent', () => {
         fixture = TestBed.createComponent(ProductBasicInfoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        // tslint:disable-next-line:no-unused-expression
         component.formBasicInfo;
 
         component.newForm = new FormGroup({
@@ -218,7 +231,7 @@ describe('ProductBasicInfoComponent', () => {
         expect(component.formBasicInfo.valid).toBeTruthy();
     });
 
-    //invert color
+    // invert color
 
     it('padZero add color with 0', () => {
         component.padZero('prueba');
@@ -307,7 +320,7 @@ describe('ProductBasicInfoComponent', () => {
     });
 
     it('save keywords not keyword more than 20', () => {
-        component.keywords = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14', '15', '16', '17', '18', '19', '20', '21'];
+        component.keywords = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'];
         const keywordField = fixture.debugElement.query(By.css('#keywordProduct'));
         expect(keywordField).toBeTruthy();
         const keywordNativeElement = keywordField.nativeElement;
@@ -341,7 +354,7 @@ describe('ProductBasicInfoComponent', () => {
     });
 
     it('delete keywords more than one word', () => {
-        component.keywords = ['1','2','3'];
+        component.keywords = ['1', '2', '3'];
         const keywordField = fixture.debugElement.query(By.css('#keywordProduct'));
         expect(keywordField).toBeTruthy();
         const keywordNativeElement = keywordField.nativeElement;
@@ -401,7 +414,7 @@ describe('ProductBasicInfoComponent', () => {
         component.asignatedEanSon = true;
         component.validateEanSonExist = true;
         component.valInputEan = new FormControl('');
-        let initialValue = 'estoy iniciando en algo diferente';
+        const initialValue = 'estoy iniciando en algo diferente';
         const eanForm = new FormControl(initialValue);
         component.onAsignatedEanSonChanged(true, eanForm);
      });
@@ -410,7 +423,7 @@ describe('ProductBasicInfoComponent', () => {
         component.asignatedEanSon = true;
         component.validateEanSonExist = true;
         component.valInputEan = new FormControl('ok');
-        let initialValue = 'estoy iniciando en algo diferente';
+        const initialValue = 'estoy iniciando en algo diferente';
         const eanForm = new FormControl(initialValue);
         component.onAsignatedEanSonChanged(true, eanForm);
      });

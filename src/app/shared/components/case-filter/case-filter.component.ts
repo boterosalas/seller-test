@@ -1,24 +1,31 @@
-import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  ViewChild,
+  Output,
+  Input
+} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
 import { Router } from '@angular/router';
-import {DatePipe} from '@angular/common';
 
 @Component({
-  selector: "app-case-filter",
-  templateUrl: "./case-filter.component.html",
-  styleUrls: ["./case-filter.component.scss"]
+  selector: 'app-case-filter',
+  templateUrl: './case-filter.component.html',
+  styleUrls: ['./case-filter.component.scss'],
+  providers: [DatePipe]
 })
 export class CaseFilterComponent implements OnInit {
-
   filter: Filter = {
     CaseNumber: '',
     OrderNumber: null,
     ReasonPQR: null,
     Status: [],
-    DateInit: "", //   yyyy/mm/dd
-    DateEnd: "" //   yyyy/mm/dd
+    DateInit: '',
+    DateEnd: ''
   };
 
   value: string;
@@ -38,8 +45,7 @@ export class CaseFilterComponent implements OnInit {
   public rangeDateMax;
   public rangeError = false;
 
-  constructor(private router: Router,
-    private formatDate: DatePipe) {
+  constructor(private router: Router, private formatDate: DatePipe) {
     this.options = [];
   }
 
@@ -54,19 +60,27 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
-    if (this.value !== undefined ){
+    if (this.value !== undefined) {
       if (this.value !== null) {
         this.filter.Status.push(this.value);
       }
-    }else {
+    } else {
       this.filter.Status = [];
     }
 
     this.eventFilter.emit(!this.stateFilter);
-    this.filter.DateInit = this.formatDate.transform(this.filter.DateInit, 'y-MM-d');
-    this.filter.DateEnd = this.formatDate.transform(this.filter.DateEnd, 'y-MM-d');
+    this.filter.DateInit = this.formatDate.transform(
+      this.filter.DateInit,
+      'y-MM-d'
+    );
+    this.filter.DateEnd = this.formatDate.transform(
+      this.filter.DateEnd,
+      'y-MM-d'
+    );
 
-    this.router.navigate(['securehome/seller-center/support-center'], {queryParams: this.filter});
+    this.router.navigate(['securehome/seller-center/support-center'], {
+      queryParams: this.filter
+    });
 
     this.value = '';
     this.filter.Status.pop();

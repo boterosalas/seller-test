@@ -147,6 +147,6 @@ export class ListOfCaseComponent implements OnInit {
 
   markAsRead(caseRead: any) {
     const caseId = { id: caseRead.id };
-    this.sellerSupportService.patchReadCase(caseId);
+    this.sellerSupportService.patchReadCase(caseId).subscribe();
   }
 }

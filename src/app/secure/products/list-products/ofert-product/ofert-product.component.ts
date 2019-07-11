@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
@@ -457,5 +457,34 @@ export class OfertExpandedProductComponent implements OnInit {
             }
             this.createFormControls();
         });
+    }
+
+    notifyEvent(value) {
+        switch (value.toString()) {
+            case 'IsFreeShipping':
+                const radioIsFreeShipping = document.getElementById('isFreeShipping');
+                if (value === this.ofertProduct.get('ofertOption').value) {
+                    this.ofertProduct.get('ofertOption').setValue('');
+                    setTimeout(() => {
+                        radioIsFreeShipping && radioIsFreeShipping.classList.remove('mat-radio-checked');
+                    });
+                } else {
+                    this.ofertProduct.get('ofertOption').setValue('IsFreeShipping');
+                    radioIsFreeShipping && radioIsFreeShipping.classList.add('mat-radio-checked');
+                }
+                break;
+            case 'IsEnviosExito':
+                const radioIsEnviosExito = document.getElementById('isEnviosExito');
+                if (value === this.ofertProduct.get('ofertOption').value) {
+                    this.ofertProduct.get('ofertOption').setValue('');
+                    setTimeout(() => {
+                        radioIsEnviosExito && radioIsEnviosExito.classList.remove('mat-radio-checked');
+                    });
+                } else {
+                    this.ofertProduct.get('ofertOption').setValue('IsEnviosExito');
+                    radioIsEnviosExito && radioIsEnviosExito.classList.add('mat-radio-checked');
+                }
+                break;
+        }
     }
 }

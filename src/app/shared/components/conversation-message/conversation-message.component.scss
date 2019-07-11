@@ -30,6 +30,8 @@ $node-radio: 2px;
       font-size: 14px;
       text-align: justify;
       color: $hint-color;
+      text-overflow: ellipsis;
+      overflow-wrap: break-word;
     }
 
     * {

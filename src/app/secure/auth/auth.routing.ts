@@ -176,7 +176,9 @@ export class AuthService implements CanActivate {
                         if (menu.ShowMenu && oneTime) {
                             redirect = true;
                             oneTime = false;
-                            this.router.navigate([`/${menu.UrlRedirect}`]);
+                            if (!menu.UrlRedirect.includes('s3-website-us')) {
+                                this.router.navigate([`/${menu.UrlRedirect}`]);
+                            }
                         }
                     });
                 }
