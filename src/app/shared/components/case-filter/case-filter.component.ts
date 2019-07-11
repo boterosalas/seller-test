@@ -71,11 +71,11 @@ export class CaseFilterComponent implements OnInit {
     this.eventFilter.emit(!this.stateFilter);
     this.filter.DateInit = this.datePipe.transform(
       this.filter.DateInit,
-      'MM-d-y'
+      'y-MM-d'
     );
     this.filter.DateEnd = this.datePipe.transform(
       this.filter.DateEnd,
-      'MM-d-y'
+      'y-MM-d'
     );
     this.eventSubmitFilter.emit(this.filter);
 
