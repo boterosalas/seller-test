@@ -64,22 +64,22 @@ describe('ProductBasicInfoComponent', () => {
 
     // Mock Services
 
-    const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData',]);
-    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands']);
+    const mockProcessService = jasmine.createSpyObj('ProcessService', ['change', 'showView', 'getViews', 'setViews', 'getProductData']);
+    const mockBasicInformationService = jasmine.createSpyObj('BasicInformationService', ['getRegexInformationBasic', 'getActiveBrands', 'getSizeProducts']);
     const mockEanService = jasmine.createSpyObj('EanServicesService', ['validateEan']);
 
     // create new instance of FormBuilder
     const formBuilder: FormBuilder = new FormBuilder();
 
-    // brands 
+    // brands
 
     const brands = {
-        Message: "Operación realizada éxitosamente.", 
-        Errors: Array(0), 
+        Message: 'Operación realizada éxitosamente.',
+        Errors: Array(0),
         Data: {
             Brands: [
-                {Id: 636933398904381000, Name: "ADIDAS", Status: 1, IdVTEX: "1033", UpdateStatus: false},
-                {Id: 636931110403428500, Name: "LG", Status: 1, IdVTEX: "4973", UpdateStatus: false}
+                {Id: 636933398904381000, Name: 'ADIDAS', Status: 1, IdVTEX: '1033', UpdateStatus: false},
+                {Id: 636931110403428500, Name: 'LG', Status: 1, IdVTEX: '4973', UpdateStatus: false}
             ] ,
             Total: 2
         }
@@ -135,6 +135,16 @@ describe('ProductBasicInfoComponent', () => {
         MetaDescription: null
     };
 
+    const DataArrray = [
+        {'size': 'XS'},
+        {'size': 'S'},
+        {'size': 'M'},
+        {'size': 'L'},
+        {'size': 'XL'},
+        {'size': 'XXL'},
+        {'size': 'XXXL'},
+    ];
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -172,6 +182,7 @@ describe('ProductBasicInfoComponent', () => {
             .compileComponents();
         mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(mockResponseRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
+        mockBasicInformationService.getSizeProducts.and.returnValue(of(DataArrray));
         mockEanService.validateEan.and.returnValue(of('123456789'));
     }));
 

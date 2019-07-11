@@ -304,10 +304,13 @@
           </div>
 
           <mat-form-field class="category-product field">
-            <input matInput placeholder="Ingresa la talla" class="input-category-product" formControlName="Size"
-              (change)="detectForm()" id="sizeProduct">
-            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lida
-            </mat-error>
+              <mat-label>Ingresa la talla</mat-label>
+              <mat-select formControlName="Size">
+                <mat-option *ngFor="let size of sizes" (change)="detectForm()"  class="input-category-product" [value]="size.Size">
+                  {{size.Size}}
+                </mat-option>
+              </mat-select>
+            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lida</mat-error>
             <mat-error *ngIf="son.form.get('Size').hasError('required')">EL campo es obligatorio</mat-error>
           </mat-form-field>
         </div>
@@ -359,7 +362,6 @@
             v&aacute;lido, no debe tener espacios.</mat-error>
           <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">EL campo es obligatorio</mat-error>
         </mat-form-field>
-
       </form>
     </div>
   </div>
