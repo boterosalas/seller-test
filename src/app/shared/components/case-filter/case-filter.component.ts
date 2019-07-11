@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angu
 import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
+import { Router } from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: "app-case-filter",
@@ -15,8 +17,8 @@ export class CaseFilterComponent implements OnInit {
     OrderNumber: null,
     ReasonPQR: null,
     Status: [],
-    DateInit: "", //   dd/mm/yyyy
-    DateEnd: "" //   dd/mm/yyyy
+    DateInit: "", //   yyyy/mm/dd
+    DateEnd: "" //   yyyy/mm/dd
   };
 
   value: string;
@@ -24,7 +26,6 @@ export class CaseFilterComponent implements OnInit {
   @ViewChild('sidenavfilter') sideFilter: MatSidenav;
   @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() stateFilter: boolean;
-  @Output() eventSubmitFilter: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() options: any;
   @ViewChild('filterForm') filterForm: NgForm;
@@ -37,7 +38,8 @@ export class CaseFilterComponent implements OnInit {
   public rangeDateMax;
   public rangeError = false;
 
-  constructor() {
+  constructor(private router: Router,
+    private formatDate: DatePipe) {
     this.options = [];
   }
 
@@ -52,17 +54,20 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
-
     if (this.value !== undefined ){
       if (this.value !== null) {
-        this.filter.Status.push(this.value)
+        this.filter.Status.push(this.value);
       }
     }else {
       this.filter.Status = [];
     }
 
     this.eventFilter.emit(!this.stateFilter);
-    this.eventSubmitFilter.emit(this.filter);
+    this.filter.DateInit = this.formatDate.transform(this.filter.DateInit, 'y-MM-d');
+    this.filter.DateEnd = this.formatDate.transform(this.filter.DateEnd, 'y-MM-d');
+
+    this.router.navigate(['securehome/seller-center/support-center'], {queryParams: this.filter});
+
     this.value = '';
     this.filter.Status.pop();
     this.cleanFilter();

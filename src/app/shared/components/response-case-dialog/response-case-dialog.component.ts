@@ -23,10 +23,10 @@ export class ResponseCaseDialogComponent {
   }
 
   submitResponse() {
+
     this.response.id = this.data.id;
     this.dialogRef.close({ data: this.response });
     this.dialogRef.afterClosed().subscribe(res => {
-
     });
   }
 }

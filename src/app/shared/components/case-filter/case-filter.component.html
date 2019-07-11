@@ -7,7 +7,7 @@
           >&times;</span
         >
       </div>
-      <form #filterForm="ngForm" (submit)="submitFilter()">
+      <form #filterForm="ngForm" (submit)="submitFilter()" >
         <div class="filter-form">
           <mat-form-field class="filter-form--field">
             <input matInput placeholder="ID" [(ngModel)]="filter.CaseNumber" name="caseNumber"/>
