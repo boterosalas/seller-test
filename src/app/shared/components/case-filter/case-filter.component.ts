@@ -1,22 +1,30 @@
-import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  ViewChild,
+  Output,
+  Input
+} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
 
 @Component({
-  selector: "app-case-filter",
-  templateUrl: "./case-filter.component.html",
-  styleUrls: ["./case-filter.component.scss"]
+  selector: 'app-case-filter',
+  templateUrl: './case-filter.component.html',
+  styleUrls: ['./case-filter.component.scss'],
+  providers: [DatePipe]
 })
 export class CaseFilterComponent implements OnInit {
-
   filter: Filter = {
     CaseNumber: '',
     OrderNumber: null,
     ReasonPQR: null,
     Status: [],
-    DateInit: "", //   dd/mm/yyyy
-    DateEnd: "" //   dd/mm/yyyy
+    DateInit: '', //   dd/mm/yyyy
+    DateEnd: '' //   dd/mm/yyyy
   };
 
   value: string;
@@ -32,12 +40,8 @@ export class CaseFilterComponent implements OnInit {
   @ViewChild('dateFinal') dateFinal: any;
 
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
-  public rangeDays = 14;
-  public milisecondsRangeDays = 1000 * 60 * 60 * 24 * this.rangeDays;
-  public rangeDateMax;
-  public rangeError = false;
 
-  constructor() {
+  constructor(private datePipe: DatePipe) {
     this.options = [];
   }
 
@@ -52,17 +56,25 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
-
-    if (this.value !== undefined ){
+    if (this.value !== undefined) {
       if (this.value !== null) {
-        this.filter.Status.push(this.value)
+        this.filter.Status.push(this.value);
       }
-    }else {
+    } else {
       this.filter.Status = [];
     }
 
     this.eventFilter.emit(!this.stateFilter);
+    this.filter.DateInit = this.datePipe.transform(
+      this.filter.DateInit,
+      'MM-d-y'
+    );
+    this.filter.DateEnd = this.datePipe.transform(
+      this.filter.DateEnd,
+      'MM-d-y'
+    );
     this.eventSubmitFilter.emit(this.filter);
+
     this.value = '';
     this.filter.Status.pop();
     this.cleanFilter();
