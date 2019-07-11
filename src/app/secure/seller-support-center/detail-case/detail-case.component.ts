@@ -92,7 +92,6 @@ export class DetailCaseComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('After Clse', result);
       this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService.patchCaseResponse(result.data).subscribe(res => {

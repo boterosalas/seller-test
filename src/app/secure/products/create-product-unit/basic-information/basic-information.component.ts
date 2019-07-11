@@ -147,7 +147,7 @@ export class ProductBasicInfoComponent implements OnInit {
         });
 
         this.formBasicInfo = new FormGroup({
-            Keyword: new FormControl('', [Validators.required]),
+            Keyword: new FormControl(''),
             Name: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
             ])),
@@ -236,16 +236,16 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 this.formBasicInfo.get('Brand').setErrors({ pattern: true });
             }
-            console.log(val);
         });
 
+        this.validatorKeyWord();
         this.formCreate = true;
         this.formBasicInfo.statusChanges.subscribe(data => {
+            const views = this.process.getViews();
             if (data === 'INVALID') {
                 if (this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
                 }
-                const views = this.process.getViews();
                 views.showInfo = false;
                 this.process.setViews(views);
             } else {
@@ -254,6 +254,10 @@ export class ProductBasicInfoComponent implements OnInit {
                     if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                         this.sendDataToService();
                     }
+                }
+                if (!views.showInfo) {
+                    views.showInfo = true;
+                    this.process.setViews(views);
                 }
             }
         });
@@ -288,11 +292,15 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
+        this.validatorKeyWord();
+
+    }
+
+    public validatorKeyWord() {
         if (this.keywords.length > 0) {
             this.formBasicInfo.controls.Keyword.setErrors(null);
         } else {
             this.formBasicInfo.controls.Keyword.setValidators(Validators.required);
-
         }
     }
 
@@ -482,6 +490,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
+
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
