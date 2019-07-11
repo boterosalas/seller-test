@@ -1124,10 +1124,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
       Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
-      // MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
-      MetaTitle: null,
-      // MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
-      MetaDescription: null,
+      MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
+      // MetaTitle: null,
+      MetaDescription: res[i][iVal.iMetaDescripcion] ? res[i][iVal.iMetaDescripcion].trim() : null,
+      // MetaDescription: null,
       KeyWords: res[i][iVal.iPalabrasClave] ? res[i][iVal.iPalabrasClave].trim() : null,
       PackageHeight: res[i][iVal.iAltoDelEmpaque] ? res[i][iVal.iAltoDelEmpaque].trim().replace('.', ',') : null,
       PackageLength: res[i][iVal.ilargoDelEmpaque] ? res[i][iVal.ilargoDelEmpaque].trim().replace('.', ',') : null,
@@ -1459,6 +1459,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
         .subscribe(
           (result: any) => {
+
             if (result.status === 201 || result.status === 200) {
               const data = result;
               if (data.body.data !== null && data.body.data !== undefined) {
