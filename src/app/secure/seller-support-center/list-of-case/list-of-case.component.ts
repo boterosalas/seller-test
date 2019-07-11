@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { Filter } from '../models/filter';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-case',
@@ -46,6 +47,7 @@ export class ListOfCaseComponent implements OnInit {
   length: number;
   pageIndex = 1;
   pageSize = 50;
+  filterParams: any;
 
   configDialog = {
     width: '70%',
@@ -58,6 +60,7 @@ export class ListOfCaseComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
+    public router: ActivatedRoute,
     private loadingService?: LoadingService,
     private modalService?: ModalService
   ) {}
@@ -66,7 +69,11 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    this.loadCases({ Page: this.pageIndex, PageSize: this.pageSize });
+    //this.loadCases({ Page: this.pageIndex, PageSize: this.pageSize });
+
+    this.router.queryParams.subscribe(res => {
+      this.loadCases(res);
+    });
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -85,7 +92,7 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
-  loadCases(filter?: Filter) {
+  loadCases(filter?: any) {
     this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
@@ -100,10 +107,6 @@ export class ListOfCaseComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     );
-  }
-
-  submitFilter(filterForm: Filter) {
-    this.loadCases(filterForm);
   }
 
   refreshPaginator(total: number, page: number, limit: number) {

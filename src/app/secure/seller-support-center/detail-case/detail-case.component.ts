@@ -56,6 +56,7 @@ export class DetailCaseComponent implements OnInit {
     height: "fit-content",
     data: null
   };
+  filterParams: any;
 
   constructor(
     public dialog: MatDialog,
@@ -68,7 +69,6 @@ export class DetailCaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.viewSpinner();
-
     this.toggleFilter(this.filter);
     this.getStatusCase();
 

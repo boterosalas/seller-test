@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-case-filter',
@@ -23,8 +24,8 @@ export class CaseFilterComponent implements OnInit {
     OrderNumber: null,
     ReasonPQR: null,
     Status: [],
-    DateInit: '', //   dd/mm/yyyy
-    DateEnd: '' //   dd/mm/yyyy
+    DateInit: '',
+    DateEnd: ''
   };
 
   value: string;
@@ -32,7 +33,6 @@ export class CaseFilterComponent implements OnInit {
   @ViewChild('sidenavfilter') sideFilter: MatSidenav;
   @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() stateFilter: boolean;
-  @Output() eventSubmitFilter: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() options: any;
   @ViewChild('filterForm') filterForm: NgForm;
@@ -45,7 +45,7 @@ export class CaseFilterComponent implements OnInit {
   public rangeDateMax;
   public rangeError = false;
 
-  constructor(private datePipe: DatePipe) {
+  constructor(private router: Router, private formatDate: DatePipe) {
     this.options = [];
   }
 
@@ -69,15 +69,18 @@ export class CaseFilterComponent implements OnInit {
     }
 
     this.eventFilter.emit(!this.stateFilter);
-    this.filter.DateInit = this.datePipe.transform(
+    this.filter.DateInit = this.formatDate.transform(
       this.filter.DateInit,
       'y-MM-d'
     );
-    this.filter.DateEnd = this.datePipe.transform(
+    this.filter.DateEnd = this.formatDate.transform(
       this.filter.DateEnd,
       'y-MM-d'
     );
-    this.eventSubmitFilter.emit(this.filter);
+
+    this.router.navigate(['securehome/seller-center/support-center'], {
+      queryParams: this.filter
+    });
 
     this.value = '';
     this.filter.Status.pop();
