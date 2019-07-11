@@ -36,9 +36,9 @@ module.exports = function (config) {
         ]
       }
     },
-    //browsers: ['ChromeHeadless'],
-    //singleRun: true
-     browsers: ['Chrome'],
-     singleRun: false
+    browsers: ['ChromeHeadless'],
+    singleRun: true
+     //browsers: ['Chrome'],
+     //singleRun: false
   });
 };
