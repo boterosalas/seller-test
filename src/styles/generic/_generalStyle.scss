@@ -299,6 +299,10 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 
 @media only screen and (max-width: 767px) {
 
+    .search-content-selector{
+        max-width: 93% !important;
+    }
+
     .center-mobile{
         text-align: center;
     }
@@ -396,10 +400,6 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     justify-content: end;
     display: flex;
     align-self: center;
-}
-
-.search-content-selector{
-    max-width: 93% !important;
 }
 
 .ml-20{
