@@ -106,7 +106,7 @@ describe('BulkLoad Products Component', () => {
             ImageUrl4: '',
             ImageUrl5: '',
             MeasurementUnit: '',
-            ConversionFactor : '',
+            ConversionFactor: '',
             DrainedFactor: '',
             ParentReference: '',
             ModifyImage: '',
@@ -140,7 +140,7 @@ describe('BulkLoad Products Component', () => {
             errorImageUrl4: true,
             errorImageUrl5: true,
             errorMeasurementUnit: true,
-            errorConversionFactor : true,
+            errorConversionFactor: true,
             errorDrainedFactor: true,
             errorParentReference: true,
             errorSonReference: true,
@@ -372,7 +372,7 @@ describe('BulkLoad Products Component', () => {
         ]
     ];
 
-    const paginator = {pageIndex: 1, pageSize: 1};
+    const paginator = { pageIndex: 1, pageSize: 1 };
 
     const file = {
         target: {
@@ -389,10 +389,33 @@ describe('BulkLoad Products Component', () => {
 
     const dataAvalilable = { amountAvailableLoads: 1000 };
     const dataAvalilable0 = { amountAvailableLoads: 0 };
-    const datadataSource = {paginator : 0};
+    const datadataSource = { paginator: 0 };
 
 
     const response = {
+        status: 200,
+        body: {
+            data: {
+                status: 0,
+                checked: 'true',
+                Data: 'Success',
+                Response: {
+                    Error: [],
+                    Message: 'Operación realizada exitosamente',
+                    Data: {
+                        Error: 0,
+                        FileName: '',
+                        ProductNotify: [],
+                        SpecsNotify: [],
+                        Successful: 0,
+                        TotalProcess: 0,
+                        productWaiting: []
+                    }
+                }
+            }
+        }
+    };
+    const responseSetProductModeration = {
         status: 200,
         body: {
             data: {
@@ -1468,7 +1491,7 @@ describe('BulkLoad Products Component', () => {
 
     const categories: any = {
         headers: {
-            normalizedNames:{
+            normalizedNames: {
 
             },
             lazyUpdate: null
@@ -1622,7 +1645,7 @@ describe('BulkLoad Products Component', () => {
         beforeEach(() => {
             mockAuthService.profileType$.next('Admin');
         });
-        
+
         it('Get quantity charges in seller', () => {
             component.getAvaliableLoads();
             expect(component.isAdmin).toBeTruthy();
@@ -1645,165 +1668,133 @@ describe('BulkLoad Products Component', () => {
         });
     });
 
-    // describe('Download data theme for seller', () => {
+    describe('Download data theme for seller', () => {
 
-    //     it('element selected first tree lvl', () => {
-    //         component.selectElement(selectedData);
-    //         expect(mockBulkLoadProductService.getCategoriesVTEX).not.toHaveBeenCalled();
-    //     });
+        it('element selected first tree lvl', () => {
+            component.selectElement(selectedData);
+            expect(mockBulkLoadProductService.getCategoriesVTEX).not.toHaveBeenCalled();
+        });
 
-    //     it('element selected last lvl', () => {
-    //         component.selectElement(lastlvl);
-    //         component.categoryForm.patchValue({ lastlvl });
-    //         expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
-    //     });
+        it('element selected last lvl', () => {
+            component.selectElement(lastlvl);
+            component.categoryForm.patchValue({ lastlvl });
+            expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
+        });
 
-    //     it('export excel Technology with data', () => {
-    //         component.vetex.data =  {
-    //             groupName: 'Lavadoras',
-    //             id: '636945656165896196',
-    //             idGroup: '636945656165896196',
-    //             idVTEX: '',
-    //             listCategories: [{id: 27223, name: 'Lavadoras'},
-    //                              {id: 27707, name: 'Carga Frontal'},
-    //                              {id: 27714, name: 'Carga Superior'}],
-    //             specs: [
-    //                 {idSpec: "636945656167650094", specName: "Voltaje", required: false, values: null, listValues: Array(0)},
-    //                 {idSpec: "636945656198371143", specName: "Compatibilidad", required: false, values: null, listValues: Array(0)}
-    //             ]
-    //           }
-    //         component.modelSpecs = {pruebas: '1', testeo: '2'};
-    //         component.categoryType.setValue('Technology');
-    //         component.exportExcel();
-    //         expect(component.exportExcel).toBeTruthy();
-    //     });
+        it('export excel Technology with data', () => {
+            component.vetex.data = {
+                groupName: 'Lavadoras',
+                id: '636945656165896196',
+                idGroup: '636945656165896196',
+                idVTEX: '',
+                listCategories: [{ id: 27223, name: 'Lavadoras' },
+                { id: 27707, name: 'Carga Frontal' },
+                { id: 27714, name: 'Carga Superior' }],
+                specs: [
+                    { idSpec: "636945656167650094", specName: "Voltaje", required: false, values: null, listValues: Array(0) },
+                    { idSpec: "636945656198371143", specName: "Compatibilidad", required: false, values: null, listValues: Array(0) }
+                ]
+            }
+            component.modelSpecs = { pruebas: '1', testeo: '2' };
+            component.categoryType.setValue('Technology');
+            component.exportExcel();
+            expect(component.exportExcel).toBeTruthy();
+        });
 
-    //     it('export excel Clothing with data', () => {
-    //         component.vetex.data =  {
-    //             groupName: '',
-    //             id: '',
-    //             idGroup: '',
-    //             idVTEX: '',
-    //             listCategories: [],
-    //             specs: []
-    //           }
-    //         component.modelSpecs = {pruebas: '1', testeo: '2'};
-    //         component.categoryType.setValue('Clothing');
-    //         component.exportExcel();
-    //         expect(component.exportExcel).toBeTruthy();
-    //     });
+        it('export excel Clothing with data', () => {
+            component.vetex.data = {
+                groupName: '',
+                id: '',
+                idGroup: '',
+                idVTEX: '',
+                listCategories: [],
+                specs: []
+            }
+            component.modelSpecs = { pruebas: '1', testeo: '2' };
+            component.categoryType.setValue('Clothing');
+            component.exportExcel();
+            expect(component.exportExcel).toBeTruthy();
+        });
 
-    //     it('vtex tree', () => {
-    //         component.trasformTree();
-    //     });
+        it('vtex tree', () => {
+            component.trasformTree();
+        });
+    });
 
-    //     it('export excel Technology or Clothing no data', () => {
-    //         component.vetex.data = null;
-    //         fixture.detectChanges();
-    //         component.listOfCategories();
-    //         expect(component.vetex.data).toBeTruthy();
-    //     });
+    describe('seller', () => {
 
-    // });
+        beforeEach(() => { });
 
-    // describe('seller', () => {
+        it('get user data', () => {
+            component.getDataUser();
+            fixture.whenStable().then(() => {
+                tick();
+                expect(component.user).toContain(UserInformation);
+            });
+        });
 
-    //     beforeEach(() => {
-            
-    //     });
+        it('read file', () => {
+            const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+            const fileUploadNativeElement = fileUpload.nativeElement;
+            fileUploadNativeElement.dispatchEvent(new Event('change'));
+            fixture.detectChanges();
+            component.readFileUpload(fileUploadNativeElement);
+            component.onFileChange(fileUploadNativeElement);
+            expect(mockSearchService.getCategories).toHaveBeenCalled();
+        });
 
-    //         it('get user data', () => {
-    //             component.getDataUser();
-    //             fixture.whenStable().then(() => {
-    //                 tick();
-    //                 expect(component.user).toContain(UserInformation);
-    //             });
-    //         });
+        it('on file change', () => {
+            const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+            const fileUploadNativeElement = fileUpload.nativeElement;
+            fileUploadNativeElement.dispatchEvent(new Event('change'));
+            fixture.detectChanges();
+            component.onFileChange(fileUploadNativeElement);
+            expect(mockSearchService.getCategories).toHaveBeenCalled();
+        });
 
-    //         it('read file', ()=> {
-    //             const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
-    //             const fileUploadNativeElement = fileUpload.nativeElement;
-    //             fileUploadNativeElement.dispatchEvent(new Event('change')); 
-    //             fixture.detectChanges();
-    //             component.readFileUpload(fileUploadNativeElement);
-    //             component.onFileChange(fileUploadNativeElement);
-    //             expect(mockSearchService.getCategories).toHaveBeenCalled();
-    //         });
+        it('on file change error', () => {
+            component.onFileChange('');
+            expect(component.onFileChange).toThrowError();
+        });
 
-    //         it('on file change', ()=> {
-    //             const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
-    //             const fileUploadNativeElement = fileUpload.nativeElement;
-    //             fileUploadNativeElement.dispatchEvent(new Event('change')); 
-    //             fixture.detectChanges();
-    //             component.onFileChange(fileUploadNativeElement);
-    //             expect(mockSearchService.getCategories).toHaveBeenCalled();
-    //         });
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            mockBulkLoadProductService.setProducts.and.returnValue(of(responseSetProductModeration));
+            mockBulkLoadProductService.setProductsModeration.and.returnValue(of(responseSetProductModeration));
+            component.dataAvaliableLoads = dataAvalilable;
+            component.profileTypeLoad = 'Tienda';
+            component.isAdmin = true;
+        });
 
-    //         it('on file change error', ()=> {
-    //             component.onFileChange('');
-    //             expect(component.onFileChange).toThrowError();
-    //         });
+        it('validate data from file', () => {
+            component.validateDataFromFile(res, file);
+        });
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            mockBulkLoadProductService.setProducts.and.returnValue(of(responseSetProductModeration));
+            mockBulkLoadProductService.setProductsModeration.and.returnValue(of(responseSetProductModeration));
+            component.dataAvaliableLoads = dataAvalilable;
+            component.profileTypeLoad = 'oficina';
+            component.isAdmin = true;
+        });
 
-    // });
+        it('validate data from file', () => {
+            component.validateDataFromFile(res, file);
+        });
+    });
+    describe('validate data from file', () => {
+        beforeEach(() => {
+            component.arrayInformation = dataArray;
+        });
 
-
-    // describe('no seller', () => {
-    //     beforeEach(() => {
-    //         mockUserParametersService.getUserData.and.returnValue(UserInformationAdmin);
-    //     });
-
-    //     it('get user data', () => {
-    //         component.getDataUser();
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of({ amountAvailableLoads: 100 }));
-    //         component.dataAvaliableLoads = dataAvalilable;
-    //         component.isAdmin = true;
-    //         fixture.detectChanges();
-    //     });
-
-    //     it('validate data from file', () => {
-    //         component.validateDataFromFile(res, file);
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of({ amountAvailableLoads: 0 }));
-    //         component.dataAvaliableLoads = dataAvalilable;
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.validateDataFromFile(resEN, file);
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         component.arrayInformation = dataArray;
-    //         component.paginator = paginator;
-    //         component.dataSource = new MatTableDataSource();
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.setErrrorColumns();
-    //     });
-
-    // });
-    // describe('validate data from file', () => {
-    //     beforeEach(() => {
-    //         component.arrayInformation = dataArray;
-    //         component.dataSource = new MatTableDataSource();
-    //         fixture.detectChanges();
-    //     });
-    //     it('validate data from file', () => {
-    //         component.closeActualDialog();
-    //     });
-
-    // });
-
+        it('validate data from file', () => {
+            component.setErrrorColumns();
+        });
+        it('validate data from file', () => {
+            component.closeActualDialog();
+        });
+    });
 });
 
