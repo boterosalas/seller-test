@@ -149,7 +149,7 @@ export class ProductBasicInfoComponent implements OnInit {
         });
 
         this.formBasicInfo = new FormGroup({
-            Keyword: new FormControl(''),
+            Keyword: new FormControl('', [Validators.required]),
             Name: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern(this.getValue('nameProduct')), Validators.minLength(1)
             ])),
@@ -247,16 +247,20 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
-                    if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
+                    if ( this.validateClothingProduct() ) {
                         this.sendDataToService();
                     }
                 }
-                if (!views.showInfo) {
+                if (!views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
                     views.showInfo = true;
                     this.process.setViews(views);
                 }
             }
         });
+    }
+
+    public validateClothingProduct(): boolean {
+        return (this.productData.ProductType === 'Clothing' && this.getValidSonsForm() || (this.productData.ProductType !== 'Clothing'));
     }
 
     /**
