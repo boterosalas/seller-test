@@ -157,9 +157,12 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
   
   }
 
-  @media only screen and (min-width: 767px)  {
+  @media only screen and (min-width: 768px)  {
     .process-container{
         height: auto !important;
+    }
+    .search-store {
+        width: 40% !important;
     }
 }
 
@@ -407,5 +410,5 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 }
 
 .search-store{
-    width: 100% !important;
+    width: 100%;
 }
