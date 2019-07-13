@@ -241,7 +241,7 @@
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
               color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!updateSeller.form.valid || disabledForService || !activeButton || !updateSeller.form.touched"></button>
+              [disabled]="!updateSeller.form.valid"></button>
           </div>
         </form>
       </div>
@@ -314,7 +314,7 @@
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
               color="primary" [innerHTML]="'ACTUALIZAR'"
-              [disabled]="!validateFormRegisterAdmin.form.valid || disabledForService || !activeButton || !updateAdmin.form.touched"></button>
+              [disabled]="!updateSeller.form.valid  || disabledForService || !activeButton || !updateAdmin.form.touched"></button>
           </div>
         </form>
       </div>

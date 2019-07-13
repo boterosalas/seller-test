@@ -439,13 +439,15 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public validateEanSon(): void {
-        this.serviceEanSon.validateEan(this.valInputEan.value).subscribe(res => {
-            // Validar si la data es un booleano para validar si exiset el Ean del hijo
-            this.validateEanSonExist = (res['data']);
-            if (this.validateEanSonExist) {
-                this.valInputEan.setErrors({ 'validExistEanSonDB': this.validateEanSonExist });
-            }
-        });
+        if(this.valInputEan.value !== '') {         
+            this.serviceEanSon.validateEan(this.valInputEan.value).subscribe(res => {
+                // Validar si la data es un booleano para validar si exiset el Ean del hijo
+                this.validateEanSonExist = (res['data']);
+                if (this.validateEanSonExist) {
+                    this.valInputEan.setErrors({ 'validExistEanSonDB': this.validateEanSonExist });
+                }
+            });
+        }
     }
 
     onAsignatedEanSonChanged(value: boolean, ean: any) {
