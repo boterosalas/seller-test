@@ -69,8 +69,6 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    //this.loadCases({ Page: this.pageIndex, PageSize: this.pageSize });
-
     this.router.queryParams.subscribe(res => {
       this.loadCases(res);
     });
@@ -99,10 +97,10 @@ export class ListOfCaseComponent implements OnInit {
         const { pageSize, page } = res.data;
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-        this.refreshPaginator(res.data.cases.length, page, pageSize);
+        this.refreshPaginator(res.data.total, page, pageSize);
       },
       err => {
-        this.log.debug(err);
+        //this.log.debug(err);
         this.modalService.showModal('errorService');
         this.loadingService.closeSpinner();
       }
