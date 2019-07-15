@@ -156,6 +156,7 @@ export class ManageSellerComponent implements OnInit {
     this.createFormControls(disabledForm);
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.createForm();
       this.elementStateLoad = null;
       this.elementCityLoad = null;
       if (!isEmpty(seller)) {
@@ -210,6 +211,7 @@ export class ManageSellerComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     });
+
   }
 
   /**
@@ -288,12 +290,14 @@ export class ManageSellerComponent implements OnInit {
       GotoCatalogo: this.gotoCatalogo,
       Profile: this.profile
     });
+
     this.validateFormRegisterAdmin = new FormGroup({
       Nit: this.nit,
       Email: this.email,
       Name: this.name,
       Profile: this.profile
     });
+
   }
 
   /**
@@ -319,7 +323,7 @@ export class ManageSellerComponent implements OnInit {
     const jsonExistParam = event.target.value;
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.loadingService.viewSpinner();
-      this.activeButton = false;
+      this.activeButton = true;
       this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
         .subscribe(
           (result: any) => {
@@ -340,6 +344,7 @@ export class ManageSellerComponent implements OnInit {
               }
               if (!this.existValueInDB) {
                 this.activeButton = true;
+                
               }
               this.activeButton = true;
               this.loadingService.closeSpinner();
@@ -369,7 +374,6 @@ export class ManageSellerComponent implements OnInit {
       this.firstEmit = false;
     }
   }
-
 
   /**
    * @method receiveDataCitie Metodo para obtener la data de la ciudad.
