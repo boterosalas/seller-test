@@ -153,7 +153,7 @@ export class CategoriesComponent implements OnInit {
       ProductType: ['', Validators.compose([Validators.required])],
       IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])],
       Tariff: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), Validators.max(100), Validators.min(0), positiveNumber])],
-      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10)])]
+      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10), Validators.minLength(10)])]
     });
   }
 
