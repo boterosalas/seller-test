@@ -55,6 +55,12 @@ $line-color: #d3d3d3;
   visibility: hidden !important;
 }
 
+::ng-deep .mat-expansion-panel{
+  @media (max-width: 600px) {
+    max-width: 100% !important;
+  }
+}
+
 .bold-text{
   font-weight: bold;
 }
