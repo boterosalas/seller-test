@@ -219,8 +219,9 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 2. Carga masiva.
  * 3. Histórico de ofertas. (Tipo vendedor)
  * 4. Histórico de ofertas. (Tipo Administrador)
+ * 4. listado de ofertas. (Tipo Administrador)
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', offerListNameAdmin = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -241,6 +242,10 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
     ], RoutesConst.sellerCenterIntOferHistoricalBulkLoadAdmin),
+    // 5. Listado de ofertas. (Tipo Administrador)
+    new MenuModel(offerListNameAdmin, showAll, offerListNameAdmin.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntOfersListAdmin),
 ]);
 
 /**

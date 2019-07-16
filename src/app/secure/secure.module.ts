@@ -5,7 +5,7 @@ import { BillingModule } from '@app/secure/billing/billing.module';
 import { DashboardModule } from '@app/secure/dashboard/dashboard.module';
 import { ErrorModule } from '@app/secure/error-page/error-page.module';
 import { LoadGuideModule } from '@app/secure/load-guide-page/load-guide.module';
-import { BulkLoadModule, HistoricalModule, HistoricalModuleAdmin, ListModule, StoresModule } from '@app/secure/offers';
+import { BulkLoadModule, HistoricalModule, HistoricalModuleAdmin, ListModule, ListAdminModule, StoresModule } from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolutionModule } from '@app/secure/orders';
 import { BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
@@ -42,6 +42,7 @@ import { SellerSupportCenterModule } from './seller-support-center/seller-suppor
     StoresModule,
     BulkLoadModule,
     ListModule,
+    ListAdminModule,
     HistoricalModule,
     BulkLoadProductModule,
     QuotingModule,
