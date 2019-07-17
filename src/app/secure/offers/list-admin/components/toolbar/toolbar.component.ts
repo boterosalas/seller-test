@@ -4,7 +4,6 @@ import { MatSidenav, MatDialog } from '@angular/material';
 // our own custom components
 import { Logger } from '@app/core/util/logger.service';
 import { ModelFilter } from './../filter/filter.model';
-import { DownloadHistoricalModalComponent } from '@secure/offers/historical-admin/download-historical-modal/download-historical-modal.component';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
 import { MenuModel, readFunctionality, bulkLoadHistoryNameAdmin, downloadFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
@@ -48,7 +47,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
    */
   public currentPage: any;
 
-  public historicalOfferLength: any;
+  public listAdminOfferLength: any;
 
   /**
    * Variable que se usa para el funcionmiento correcto del filtro
@@ -80,7 +79,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Input() isEnabled: boolean;
 
   // Limite de registros por petición
-  lengthHistorical = null;
+  lengthListAdmin = null;
 
    // Variables con los permisos que este componente posee
    permissionComponent: MenuModel;
@@ -89,7 +88,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   /**
    * Creates an instance of ToolbarComponent.
-   * @param {HistoricalComponent} list
+   * @param {ListAdminComponent} list
    * @param {ChangeDetectorRef} cdRef
    * @memberof ToolbarComponent
    */
@@ -171,21 +170,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
    */
   toggleMenu() {
     this.sidenav.toggle();
-  }
-
-  /**
-   * Funcionalidad para desplegar el modal que permite descargar el histórico
-   * @memberof ToolbarOptionsComponent
-   */
-  openModalDownloadHistoricalOffer(): void {
-    const dialogRef = this.dialog.open(DownloadHistoricalModalComponent, {
-      data: {
-        limit: this.lengthHistorical,
-      },
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal detail order was closed');
-    });
   }
 
 }

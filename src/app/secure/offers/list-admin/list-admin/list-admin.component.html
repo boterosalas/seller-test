@@ -1,13 +1,13 @@
 <mat-sidenav-container>
   <app-toolbar [isEnabled]="" [sidenav]="sidenav" [inDetail]="inDetail" [currentPageInput]="currentPage" [numberPages]="numberPages"></app-toolbar>
 
-  <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="historicalOffer">
+  <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="listAdminOffer">
 
-    <!-- Historical list offers -->
+    <!--list admin offers -->
     <aside>
-      <mat-accordion class="historical-list-container">
+      <mat-accordion class="listAdmin-list-container">
 
-        <mat-expansion-panel *ngFor="let item of historicalOffer">
+        <mat-expansion-panel *ngFor="let item of listAdminOffer">
           <mat-expansion-panel-header class="extension-panel-header" expandedHeight="48px" collapsedHeight="48px">
             <mat-panel-description class="extension-panel-description">
               <p class="d-none d-block-md"><span>{{item.updatedDate | date:'LLLL d, y' | titlecase}} |
@@ -73,22 +73,22 @@
         </mat-expansion-panel>
       </mat-accordion>
     </aside>
-    <!-- /Historical list offers -->
+    <!-- list admin offers -->
 
   </section>
 
   <!-- Message for not offers -->
-  <section *ngIf="!historicalOffer || historicalOffer.length === 0 || historicalOffer.length === null" class="no-content-component">
+  <section *ngIf="!listAdminOffer || listAdminOffer.length === 0 || listAdminOffer.length === null" class="no-content-component">
     <div class="icon-sentiment-dissatisfied">
       <mat-icon>sentiment_dissatisfied</mat-icon>
     </div>
-    <p [innerHTML]="'No se han encontrado registros en el historico de ofertas.'"></p>
+    <p [innerHTML]="'No se han encontrado registros en el listado de ofertas.'"></p>
   </section>
   <!-- Message for not offers -->
 
   <!-- Filter sidenav component -->
   <mat-sidenav #sidenav mode="over" position="end">
-    <app-historical-filter [sidenav]="sidenav"></app-historical-filter>
+    <app-listAdmin-filter [sidenav]="sidenav"></app-listAdmin-filter>
   </mat-sidenav>
   <!-- /Filter sidenav component -->
 

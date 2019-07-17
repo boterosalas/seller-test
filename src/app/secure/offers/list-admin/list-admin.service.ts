@@ -19,7 +19,7 @@ export class ListAdminService {
    public paginationTokens: Array<string>;
  
    /**
-    * Create instances of HistoricalService
+    * Create instances of ListAdminService
     * @param {http} HttpClient
     * @param {endpointService} EndpointService
     */
@@ -36,19 +36,19 @@ export class ListAdminService {
     * @param pagTokens
     * @description Metodo para almacenar los paginationTokens, necesarios para las peticiones
     *              al servicio mediante el paginador
-    * @memberof HistoricalService
+    * @memberof ListAdminService
     */
    public savePaginationTokens(pagTokens: Array<string>) {
      this.paginationTokens = pagTokens;
    }
  
    /**
-    * @method getHistoricalOffers
+    * @method getListAdminOffers
     * @description Metodo para obtener el histórico de ofertas
     * @returns {Observable<{}>}
-    * @memberof HistoricalService
+    * @memberof ListAdminService
     */
-   public getHistoricalOffers(params?: any): Observable<{}> {
+   public getListAdminOffers(params?: any): Observable<{}> {
      // Se crea variable que guardara los parametros unidos para enviarle al servicio
      let urlParams: any;
  

@@ -27,12 +27,6 @@
         </button>
         <!-- /Paginator next icon -->
 
-        <!-- Download button -->
-        <button [disabled]="historicalOfferLength" mat-icon-button (click)="openModalDownloadHistoricalOffer()"  *ngIf="getFunctionality(download)">
-          <mat-icon>archive</mat-icon>
-        </button>
-        <!-- /Download button -->
-
         <!-- Filter button -->
         <button *ngIf="isEnabled" class="btn-filter" mat-icon-button (click)="toggleMenu()">
           <mat-icon>filter_list</mat-icon>

@@ -1,15 +1,15 @@
-<section id="section-historical-filter-offers" class="flexbox flex-wrap">
+<section id="section-listAdmin-filter-offers" class="flexbox flex-wrap">
 
   <form
     novalidate
     #f="ngForm"
-    [formGroup]="historicalFilterForm"
-    (ngSubmit)="historical.historicalFilter(historicalFilterForm)"
+    [formGroup]="listAdminFilterForm"
+    (ngSubmit)="listAdmin.listAdminFilter(listAdminFilterForm)"
     class="flexbox flex-wrap justify-center">
 
     <!-- Clear form button -->
     <article class="flexbox align-center justify-between">
-      <span [innerHTML]="'Filtro histórico'"></span>
+      <span [innerHTML]="'Filtro Listado de ofertas'"></span>
       <button
         id="closeMenuApplication"
         type="button"
@@ -49,7 +49,7 @@
         formControlName="dateFinal"
         name="dateFinal"
         [readonly]="true"
-        [min]="historicalFilterForm.value.dateInitial"
+        [min]="listAdminFilterForm.value.dateInitial"
         [max]="rangeDateMax"
         matInput
         [matDatepicker]="dateFinal"
@@ -67,7 +67,7 @@
         formControlName="ean"
         matInput>
       <mat-hint></mat-hint>
-      <mat-error *ngIf="historicalFilterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
+      <mat-error *ngIf="listAdminFilterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
     </mat-form-field>
     <!-- /Input EAN -->
 

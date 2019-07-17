@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 // our own custom components
 import { ModelFilter } from './filter.model';
-// import { HistoricalAdminComponent } from '@app/secure/offers/historical-admin/historical-admin/historicalAdmin.component';
+// import { ListAdminAdminComponent } from '@app/secure/offers/listAdmin-admin/listAdmin-admin/listAdminAdmin.component';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
 
 
@@ -19,7 +19,7 @@ import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/lis
  * @implements {OnChanges}
  */
 @Component({
-  selector: 'app-historical-filter',
+  selector: 'app-listAdmin-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
@@ -49,7 +49,7 @@ export class FilterComponent implements OnInit {
    * @memberof FilterComponent
    */
   public formFilter: ModelFilter;
-  public historicalFilterForm: FormGroup;
+  public listAdminFilterForm: FormGroup;
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
   public rangeDays = 14;
   public milisecondsRangeDays = 1000 * 60 * 60 * 24 * this.rangeDays;
@@ -58,11 +58,11 @@ export class FilterComponent implements OnInit {
 
   /**
    * Creates an instance of FilterComponent.
-   * @param {HistoricalComponent} historical
+   * @param {ListAdminComponent} listAdmin
    * @memberof FilterComponent
    */
   constructor(
-    public historical: ListAdminComponent,
+    public listAdmin: ListAdminComponent,
     private fb: FormBuilder
   ) {
     this.formFilter = new ModelFilter();
@@ -83,7 +83,7 @@ export class FilterComponent implements OnInit {
    * @description Metodo para crear el formulario
    */
   createForm() {
-    this.historicalFilterForm = this.fb.group({
+    this.listAdminFilterForm = this.fb.group({
       'dateInitial': [null, Validators.compose([Validators.required])],
       'dateFinal': new FormControl(null, Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
       'ean': [null, Validators.compose([Validators.pattern(this.regexNoSpaces)])]
@@ -105,8 +105,8 @@ export class FilterComponent implements OnInit {
    * @description Set the date final of filter
    */
   setMaxDateRange() {
-    if (this.historicalFilterForm.value.dateInitial != null) {
-      this.rangeDateMax = new Date(this.historicalFilterForm.value.dateInitial.getTime() + this.milisecondsRangeDays);
+    if (this.listAdminFilterForm.value.dateInitial != null) {
+      this.rangeDateMax = new Date(this.listAdminFilterForm.value.dateInitial.getTime() + this.milisecondsRangeDays);
     }
   }
 
@@ -116,8 +116,8 @@ export class FilterComponent implements OnInit {
    * @description Validate the range of dates for filter
    */
   validateFinalRange() {
-    if (this.historicalFilterForm.value.dateFinal != null && this.historicalFilterForm.value.dateInitial != null) {
-      if ((this.historicalFilterForm.value.dateFinal.getTime() - this.historicalFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++))) {
+    if (this.listAdminFilterForm.value.dateFinal != null && this.listAdminFilterForm.value.dateInitial != null) {
+      if ((this.listAdminFilterForm.value.dateFinal.getTime() - this.listAdminFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++))) {
         this.rangeError = true;
       }
     }
@@ -142,11 +142,11 @@ export class FilterComponent implements OnInit {
   }
 
   clearAndSubmit() {
-    this.historicalFilterForm.reset();
+    this.listAdminFilterForm.reset();
 
-    if (this.historical.filterActive) {
-      this.historical.historicalFilter(this.historicalFilterForm);
-      this.historical.filterActive = false;
+    if (this.listAdmin.filterActive) {
+      this.listAdmin.listAdminFilter(this.listAdminFilterForm);
+      this.listAdmin.filterActive = false;
     }
   }
 

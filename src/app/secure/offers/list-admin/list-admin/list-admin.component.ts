@@ -7,7 +7,7 @@ import { ShellComponent } from '@app/core/shell';
 import { Router } from '@angular/router';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-// import { DownloadHistoricalService } from '../../historical-admin/download-historical-modal/download-historical.service';
+// import { DownloadListAdminService } from '../../listAdmin-admin/download-listAdmin-modal/download-listAdmin.service';
 import { RoutesConst } from '@app/shared';
 import { ListAdminService } from '../list-admin.service';
 
@@ -45,8 +45,8 @@ export class ListAdminComponent implements OnInit {
   // Variable que se usa para controlar que filtro se esta removiendo
   public filterRemove: any;
 
-  // Variable en la que se guarda la respuesta del servicio historico de ofertas
-  public historicalOffer: any;
+  // Variable en la que se guarda la respuesta del servicio listado de ofertas
+  public listAdminOffer: any;
 
   // Variable en la que se almacena cuantas páginas trae el servicio de listado de ofertas
   public numberPages: any;
@@ -76,13 +76,13 @@ export class ListAdminComponent implements OnInit {
   public isEnabled: boolean;
 
   /**
-   * Creates an instance of HistoricalComponent.
+   * Creates an instance of ListAdminComponent.
    * @param {ShellComponent} [shellComponent]
    * @param {UserLoginService} [userService]
    * @param {Router} [router]
-   * @param {HistoricalService} [historicalService]
+   * @param {ListAdminService} [listAdminService]
    * @param {UserParametersService} [userParams]
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
 
   constructor(
@@ -92,10 +92,9 @@ export class ListAdminComponent implements OnInit {
     public shellComponent?: ShellComponent,
     public userService?: UserLoginService,
     public router?: Router,
-    public historicalService?: ListAdminService,
+    public listAdminService?: ListAdminService,
     public userParams?: UserParametersService,
     public breakpointObserver?: BreakpointObserver,
-    // public downloadHistoricalService?: DownloadHistoricalService,
   ) {
     this.paramData = new ModelFilter();
     this.layoutChanges = breakpointObserver.observe('(min-width: 577px)');
@@ -104,11 +103,11 @@ export class ListAdminComponent implements OnInit {
   /**
    * @method ngOnInit
    * @description Metodo que se llama mientras se inicia el componente
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
   ngOnInit() {
     // Borra el filtro del localstorage
-    localStorage.removeItem('currentFilterHistorical');
+    localStorage.removeItem('currentFilterListAdmin');
     // Inicializa el valor del limite
     this.limit = 100;
     // Inicializa el array de paginationToken
@@ -116,7 +115,7 @@ export class ListAdminComponent implements OnInit {
     // Llena la primeara posición del paginationToken con null
     this.paginationToken.push('null');
     // Inicializa la instancia de Logger
-    this.log = new Logger('HistoricalComponent');
+    this.log = new Logger('ListAdminComponent');
 
     this.userService.isAuthenticated(this);
     this.layoutChanges.subscribe(result => {
@@ -128,7 +127,7 @@ export class ListAdminComponent implements OnInit {
       const PARAMS = {
         IdSeller: seller.IdSeller
       };
-      this.getHistoricalOffers(PARAMS);
+      this.getListAdminOffers(PARAMS);
     });
   }
 
@@ -139,7 +138,7 @@ export class ListAdminComponent implements OnInit {
   /**
    * @method getDataUser
    * @description Metodo para ir al servicio de userParams y obtener los datos del usuario
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
@@ -153,7 +152,7 @@ export class ListAdminComponent implements OnInit {
    * @description Metodo para validar si el usuario esta logeado
    * @param message
    * @param isLoggedIn
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
   isLoggedIn(message: string, isLoggedIn: boolean) {
     if (!isLoggedIn) {
@@ -164,14 +163,14 @@ export class ListAdminComponent implements OnInit {
   }
 
   /**
-   * @method getHistoricalOffers
-   * @description Metodo para consumir el servicio del historico de ofertas
+   * @method getListAdminOffers
+   * @description Metodo para consumir el servicio del listado de ofertas
    * @param params
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
-  getHistoricalOffers(params?: any, isPageChangue?: boolean) {
+  getListAdminOffers(params?: any, isPageChangue?: boolean) {
     this.loadingService.viewSpinner();
-    this.historicalService.getHistoricalOffers(params).subscribe(
+    this.listAdminService.getListAdminOffers(params).subscribe(
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
 
@@ -181,29 +180,29 @@ export class ListAdminComponent implements OnInit {
           if (response) {
             this.isEnabled = true;
 
-            // Pregunta si ya hay datos en la variable historicalOffer
-            if (this.historicalOffer && isPageChangue) {
+            // Pregunta si ya hay datos en la variable listAdminOffer
+            if (this.listAdminOffer && isPageChangue) {
               if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
-              this.historicalService.savePaginationTokens(this.paginationToken);
-              this.historicalOffer = response.offerHistoricals;
-              // Entra cuando no hay datos en la variable historicalOffer
+              this.listAdminService.savePaginationTokens(this.paginationToken);
+              this.listAdminOffer = response.offerListAdmins;
+              // Entra cuando no hay datos en la variable listAdminOffer
             } else {
-              // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
+              // Obtiene los valores iniciales de la primera consulta para poner datos en la variable listAdminOffer
               this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
               this.numberPages = Math.ceil(this.numberPages);
-              // this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, params.IdSeller);
+              // this.downloadListAdminService.setCurrentFilterListAdmin(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, params.IdSeller);
               if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
-              this.historicalService.savePaginationTokens(this.paginationToken);
-              this.historicalOffer = response.offerHistoricals;
+              this.listAdminService.savePaginationTokens(this.paginationToken);
+              this.listAdminOffer =  response.offerHistoricals;
             }
             // Entra cuando la respuesta no tiene resultados
           } else {
-            // Pone en false la variable historicalOffer y resetea los valores del páginador
-            this.historicalOffer = false;
+            // Pone en false la variable listAdminOffer y resetea los valores del páginador
+            this.listAdminOffer = false;
             this.numberPages = 0;
             this.currentPage = 0;
             this.isEnabled = false;
@@ -220,13 +219,13 @@ export class ListAdminComponent implements OnInit {
   }
 
   /**
-   * @method historicalFilter
+   * @method listAdminFilter
    * @param params
-   * @description Metodo para filtrar el historico de ofertas
-   * @memberof HistoricalComponent
+   * @description Metodo para filtrar el listado de ofertas
+   * @memberof ListAdminComponent
    */
-  historicalFilter(params: any) {
-    this.historicalOffer = false;
+  listAdminFilter(params: any) {
+    this.listAdminOffer = false;
     this.currentPage = 1;
     this.filterActive = true;
     this.paramData.dateInitial = params.get('dateInitial').value;
@@ -235,12 +234,12 @@ export class ListAdminComponent implements OnInit {
     // this.paramData.currentPage = this.currentPage;
     this.paramData.limit = this.limit;
     this.paramData.IdSeller = this.seller.IdSeller;
-    this.getHistoricalOffers(this.paramData);
-    // this.downloadHistoricalService.setCurrentFilterHistorical(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, this.paramData.IdSeller); // Metodo para guardadr los parametros del filtro
+    this.getListAdminOffers(this.paramData);
+    // this.downloadListAdminService.setCurrentFilterListAdmin(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, this.paramData.IdSeller); // Metodo para guardadr los parametros del filtro
 
     this.paginationToken = []; // Clear paginationToken variable
     this.paginationToken.push('null');
-    this.historicalService.savePaginationTokens(this.paginationToken);
+    this.listAdminService.savePaginationTokens(this.paginationToken);
     this.numberPages = 0; // Clear paginator
 
     this.sidenav.toggle();
@@ -250,20 +249,20 @@ export class ListAdminComponent implements OnInit {
    * @method setDataPaginate
    * @description Metodo para el funcionamiento del páginador
    * @param params
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
   setDataPaginate(params: any) {
     this.paramData.IdSeller = this.seller.IdSeller;
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
-    this.getHistoricalOffers(this.paramData, true);
+    this.getListAdminOffers(this.paramData, true);
   }
 
   /**
    * @method removeLastPaginationToken
    * @description Metodo eliminar el ultimo pagination Token
    * @param currentPage
-   * @memberof HistoricalComponent
+   * @memberof ListAdminComponent
    */
   removeLastPaginationToken(currentPage: number) {
     if (currentPage === this.paginationToken.length) {
@@ -272,6 +271,6 @@ export class ListAdminComponent implements OnInit {
       this.paginationToken.pop();
       this.paginationToken.pop();
     }
-    this.historicalService.savePaginationTokens(this.paginationToken);
+    this.listAdminService.savePaginationTokens(this.paginationToken);
   }
 }
