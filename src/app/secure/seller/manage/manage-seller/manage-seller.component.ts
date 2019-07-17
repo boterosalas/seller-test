@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { MenuModel, updateFunctionality, readFunctionality, administrateName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { validateDataToEqual } from '@app/shared/util/validation-messages';
 
 const log = new Logger('ManageSellerComponent');
 
