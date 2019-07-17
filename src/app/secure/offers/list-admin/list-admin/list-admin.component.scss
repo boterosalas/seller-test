@@ -1,0 +1,342 @@
+
+/*
+* Clases auxiliares para mostrar y ocultar un elemento
+* En diferentes breackpoints
+*/
+.d-none {
+    display: none !important;
+  }
+  
+  .d-block {
+    display: block !important;
+  }
+  
+  @media (min-width: 370px) {
+    .d-none-xs {
+      display: none !important;
+    }
+  
+    .d-block-xs {
+      display: block !important;
+    }
+  }
+  
+  @media (min-width: 576px) {
+    .d-none-sm {
+      display: none !important;
+    }
+  
+    .d-block-sm {
+      display: block !important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .d-none-md {
+      display: none !important;
+    }
+  
+    .d-block-md {
+      display: block !important;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .d-none-lg {
+      display: none !important;
+    }
+  
+    .d-block-lg {
+      display: block !important;
+    }
+  }
+  
+  @media (min-width: 1220px) {
+    .d-none-xl {
+      display: none !important;
+    }
+  
+    .d-block-xl {
+      display: block !important;
+    }
+  }
+  
+
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-gray1: #5D5D5D;
+$color-gray2: #909090;
+$color-gray3: #D3D3D3;
+$color-gray4: #BCBCBC;
+$color-gray5: #0000008a;
+$color-blue: #485AFA;
+$color-green: #6FB63E;
+$color-white-opacity: rgba(255, 255, 255, 0.7);
+
+:host ::ng-deep {
+  mat-sidenav-container {
+    position: relative;
+  }
+
+  section {
+    &.no-content-component {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 5%;
+      box-sizing: border-box;
+      height: 600px;
+
+      & p {
+        color: $color-gray1;
+        font-size: 18px;
+      }
+    }
+
+    .icon-sentiment-dissatisfied {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 140px;
+
+      & mat-icon {
+        font-size: 120px;
+        color: #EFEDED;
+        height: 120px;
+        width: 120px;
+      }
+    }
+
+    &#section-list-offers {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+
+      @media screen and (max-width: 768px) {
+        padding: 115px 5% 5%;
+        justify-content: center;
+      }
+
+      aside {
+        width: 100%;
+
+        .mat-expansion-panel {
+          &:nth-child(odd){
+            background-color: #0000000d;
+
+            .mat-expansion-panel-header {              
+              &:focus {
+                background-color: transparent;
+              }
+              &:focus-within {
+                background-color: transparent;
+              }
+              &.mat-expanded {
+                &:hover {
+                  background-color: transparent;
+                } 
+              }
+            }
+            &.mat-expanded {
+              &:hover {
+                background-color: #0000000d;
+              } 
+            }
+          }
+          &:not([class*=mat-elevation-z]) {
+            box-shadow: 0 0px 0px 0px rgba(0,0,0,.2),
+                        0 0px 0px 0 rgba(0,0,0,.14),
+                        0 1px 3px 0 rgba(0,0,0,.12);
+          }
+          &:hover {
+            background-color: #dfdfdf;
+          }
+          &.mat-expanded {
+            &:hover {
+              background-color: transparent;
+            } 
+          }
+        }
+
+        .extension-panel-header {
+          font-size: 13px;
+
+          .extension-panel-description {
+            &:nth-child(1) {
+              @media screen and (min-width: 320px) { width: 40%; }
+              @media screen and (min-width: 370px) { width: 50%; }
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 27%; }
+              @media screen and (min-width: 992px) { width: 18%; }
+            }
+            &:nth-child(2) {
+              @media screen and (min-width: 320px) { width: 60%; }
+              @media screen and (min-width: 370px) { width: 55%; }
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 25%; }
+              @media screen and (min-width: 992px) { width: 17%; }
+            }
+            &:nth-child(3) {
+              @media screen and (min-width: 576px) { width: 30%; }
+              @media screen and (min-width: 768px) { width: 22%; }
+              @media screen and (min-width: 992px) { width: 14%; }
+            }
+            &:nth-child(4) {
+              @media screen and (min-width: 768px) { width: 20%; }
+              @media screen and (min-width: 992px) { width: 13%; }
+            }
+            &:nth-child(5) {
+              width: 20%;
+            }
+            &:nth-child(6) {
+              width: 13%;
+            }
+          }
+
+          @media screen and (max-width: 1220px) { font-size: 12px; }
+          @media screen and (max-width: 768px) { padding: 0 15px; }
+          @media screen and (max-width: 370px) { font-size: 11px; }
+
+          .mat-expansion-panel-header-description {
+            @media screen and (max-width: 768px) { margin-right: 10px; }
+            @media screen and (max-width: 576px) { margin-right: 0; }
+
+            span {
+              color: $color-black;
+            }
+          }
+        }
+
+        .mat-expansion-panel-content {
+          .mat-expansion-panel-body {
+            margin-top: -12px;
+
+            @media screen and (max-width: 576px) { margin-top: -15px; }
+            @media screen and (max-width: 768px) { padding: 0 15px 16px; }
+
+            .extension-panel-down {
+              font-size: 13px;
+              color: $color-gray5;
+
+              @media screen and (max-width: 768px) { font-size: 12px; }
+              @media screen and (max-width: 370px) { font-size: 11px; }
+
+              p {
+                span {
+                  color: $color-black;
+                }
+              }
+            }
+          }
+        }
+
+        .grid-list {
+          margin-top: 20px;
+
+          .grid-tile {
+            font-size: 13px;
+
+            @media screen and (max-width: 768px) { font-size: 12px; }
+            @media screen and (max-width: 370px) { font-size: 11px; }
+
+            &.mat-grid-tile {
+              .mat-figure {
+                @media screen and (max-width: 576px) {
+                  justify-content: left;
+                  left: 20px;
+                }
+
+                @media screen and (max-width: 370px) {
+                  justify-content: left;
+                  left: 5px;
+                }
+              }
+            }
+
+            &:after {
+              content: '';
+              display: block;
+              height: 80%;
+              width: 1px;
+              top: 10%;
+              right: 0;
+              position: absolute;
+              border-right: solid 1px$color-gray4;
+            }
+
+            &:nth-child(1) {
+              @media screen and (max-width: 576px) {
+                border-bottom: solid 1px $color-gray4;
+              }
+            }
+
+            &:nth-child(2) {
+              @media screen and (max-width: 576px) {
+                border-bottom: solid 1px $color-gray4;
+
+                &:after {
+                  display: none;
+                }
+              }
+            }
+
+            &:last-child {
+              &:after {
+                display: none;
+              }
+            }
+
+            .icon {
+              margin-right: 10px;
+
+              @media screen and (max-width: 768px) {
+                height: 20px;
+                width: 20px;
+                font-size: 20px;
+                margin-right: 0;
+              }
+
+              @media screen and (max-width: 576px) { margin-right: 5px; }
+
+              &.check {
+                color: $color-green;
+              }
+
+              &.close {
+                color: $color-gray2;
+              }
+            }
+
+            .ligthen-gray {
+              color: $color-gray2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  mat-sidenav {
+    &.mat-sidenav {
+      width: 370px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    section#section-list-offers {
+      padding: 115px 5% 5%;
+      justify-content: center;
+    }
+
+    mat-sidenav {
+      &.mat-sidenav {
+        width: 100%;
+      }
+    }
+  }
+}

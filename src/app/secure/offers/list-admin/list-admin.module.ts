@@ -13,6 +13,8 @@ import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
 import { ListAdminRoutingModule } from './list-admin.routing';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 
@@ -30,7 +32,9 @@ import { ListAdminRoutingModule } from './list-admin.routing';
     MaterialModule,
   ],
   declarations: [
-    ListAdminComponent
+    ListAdminComponent,
+    ToolbarComponent,
+    FilterComponent
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
