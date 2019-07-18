@@ -68,7 +68,8 @@ describe('My Profile', () => {
         message: '',
         icon: '',
         form: null,
-        showButtons: true
+        showButtons: true,
+        btnConfirmationText : null
     };
 
     let fixture: ComponentFixture<MyProfileComponent>;

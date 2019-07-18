@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { BrandService } from './brands.component.service';
-import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort } from '@angular/material';
+import { MatDialog, PageEvent, MatDialogRef, ErrorStateMatcher, MatSnackBar, Sort, MatPaginatorIntl } from '@angular/material';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { readFunctionality, createFunctionality, updateFunctionality, MenuModel, brandName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
+import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -40,10 +41,11 @@ export interface ListFilterBrands {
 @Component({
     selector: 'app-brands',
     templateUrl: './brands.component.html',
-    styleUrls: ['brands.component.scss']
+    styleUrls: ['brands.component.scss'],
+    providers: [
+        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+    ]
 })
-
-
 
 export class BrandsComponent implements OnInit {
 
@@ -69,7 +71,7 @@ export class BrandsComponent implements OnInit {
     boleano = null;
     color = '#4caf50';
     subs: Subscription[] = [];
-    BrandsRegex = { brandsName: '', formatNumber: '' };
+    BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     idBrands: number;
     statusBrands: boolean;
     nameBrands: string;
@@ -158,7 +160,7 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
            /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
-            if (res) {
+           if ( res && parseInt(res.Total) > 0) {
                 this.brandsList = res.Brands,
                     this.length = res.Total;
                 this.sortedData = this.mapItems(
@@ -271,13 +273,17 @@ export class BrandsComponent implements OnInit {
      */
     createForm() {
         this.filterBrands = new FormGroup({
-            filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
-            filterBrandsName: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
+            filterBrandsId: new FormControl('', [Validators.pattern(this.BrandsRegex.formatIntegerNumber)]),
+            filterBrandsName: new FormControl(''),
         });
         this.form = new FormGroup({
             nameBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.brandsName)]),
-            idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatNumber)]),
+            idBrands: new FormControl('', [Validators.pattern(this.BrandsRegex.formatIntegerNumber)]),
             status: new FormControl(''),
+        });
+
+        this.form.valueChanges.subscribe(() => {
+            this.validateExit = true;
         });
     }
 
@@ -316,6 +322,7 @@ export class BrandsComponent implements OnInit {
         let form = null;
         let messageCenter = false;
         const showButtons = false;
+        const btnConfirmationText = null;
 
         if (brandsData && brandsData.Id) {
             message = 'Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial. ';
@@ -327,13 +334,13 @@ export class BrandsComponent implements OnInit {
             this.form.controls['idBrands'].setValue(brandsData.Id);
             this.form.controls['status'].setValue(brandsData.Status);
         } else {
-            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y que no podrás utilizar ningún símbolo o caracter especial.';
+            message = 'Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.';
             icon = 'control_point';
             title = 'Agregar marca';
             messageCenter = false;
         }
         form = this.form;
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
     }
 
     /**
@@ -412,6 +419,7 @@ export class BrandsComponent implements OnInit {
         const form = null;
         let messageCenter = false;
         const showButtons = true;
+        const btnConfirmationText = null;
         this.idBrands = brandsData.Id;
         this.statusBrands = brandsData.Status;
         this.nameBrands = brandsData.Name;
@@ -422,12 +430,12 @@ export class BrandsComponent implements OnInit {
             title = 'Desactivar Marca ' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         } else {
-            message = 'Al Activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
+            message = 'Al activar la marca, quedará habilitada para la creación de producto unitario y masivo. ¿Estás seguro de esta acción?';
             icon = '';
             title = 'Activar Marca' + ' (' + brandsData.Name + ')';
             messageCenter = false;
         }
-        return { title, message, icon, form, messageCenter, showButtons };
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**
@@ -469,6 +477,7 @@ export class BrandsComponent implements OnInit {
      */
     public filterApply(drawer: any) {
         this.pagepaginator = 0;
+        this.paginator.firstPage();
         this.listFilterBrands = [];
         if (this.filterBrands.controls['filterBrandsId'].value) {
             this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
@@ -574,12 +583,12 @@ export class BrandsComponent implements OnInit {
         this.newBrands = event.target.value.toUpperCase();
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
-                this.urlParams = `null/${this.newBrands}/null/null/null/null`;
+                this.urlParams = `null/${this.newBrands}/null/null`;
                 this.showSpinner = true;
                 this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
                      /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
                     this.showSpinner = false;
-                    if (res) {
+                    if (res && parseInt(res.Total) > 0) {
                         this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
                             duration: 3000,
                         });

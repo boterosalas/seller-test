@@ -10,6 +10,7 @@ interface DialogData {
   messageCenter: boolean;
   icon: string;
   showButtons: boolean;
+  btnConfirmationText: string;
 }
 
 @Component({

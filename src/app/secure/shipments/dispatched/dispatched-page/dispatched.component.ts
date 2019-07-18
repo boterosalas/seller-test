@@ -46,6 +46,7 @@ export class DispatchedComponent implements OnInit {
   // Configuración para el toolbar-options y el search de la página.
   public informationToForm: SearchFormEntity = {
     title: 'Envíos en despacho',
+    subtitle: 'Envíos en despacho',
     btn_title: 'Filtrar envíos',
     title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',

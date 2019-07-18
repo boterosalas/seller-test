@@ -14,7 +14,7 @@ import { CategoriesComponent } from './category/categories/categories.component'
 import { CategoryTreeComponent } from './category/category-tree/category-tree.component';
 import { CategoryTreeService } from './category/category-tree.service';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { CreateProcessDialogComponent } from './category/create-process-dialog/create-process-dialog.component';
+import { CreateProcessDialogComponent } from '../../shared/components/create-process-dialog/create-process-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +26,6 @@ import { CreateProcessDialogComponent } from './category/create-process-dialog/c
     DeleteDialogSpecsComponent,
     CategoriesComponent,
     CategoryTreeComponent,
-    CreateProcessDialogComponent
-
   ],
   imports: [
     CommonModule,
@@ -36,7 +34,9 @@ import { CreateProcessDialogComponent } from './category/create-process-dialog/c
     ReactiveFormsModule,
     FormsModule
   ],
-  exports: [],
+  exports: [
+    CategoryTreeComponent
+  ],
   providers: [
     ParamSpecsService,
     BrandService,

@@ -17,7 +17,9 @@ import { AuthService } from './auth/auth.routing';
 import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
 import { ListProductModule } from './products/list-products/list-products.module';
-
+import { SellerSupportCenterService } from './seller-support-center/services/seller-support-center.service';
+//SellerSupportCenterCase
+import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
 
 @NgModule({
   declarations: [],
@@ -51,9 +53,10 @@ import { ListProductModule } from './products/list-products/list-products.module
     ListProductModule,
     SellerModule,
     BillingOrdersModule,
-    ParameterizeModule
+    ParameterizeModule,
+    SellerSupportCenterModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, SellerSupportCenterService],
 })
 export class SecureModule {
 }

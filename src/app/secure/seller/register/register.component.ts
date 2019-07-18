@@ -57,16 +57,12 @@ export class RegisterSellerComponent implements OnInit {
     contactName: '',
     email: '',
     nameStore: '',
-    nit: '',
-    rut: '',
-    internationalNit: '',
-    internationalRut: '',
+    integerNumber: '',
+    internationalIdentifier: '',
     internationalPostalCode: '',
     payoneer: '',
-    internationalState: '',
-    internationalCity: '',
-    daneCode: '',
-    address: '',
+    internationalLocation: '',
+    warranty: ''
   };
 
   public values = '';
@@ -148,7 +144,7 @@ export class RegisterSellerComponent implements OnInit {
       Nit: new FormControl('', [
         Validators.required,
         Validators.maxLength(20),
-        Validators.pattern(this.sellerRegex.nit)
+        Validators.pattern(this.sellerRegex.integerNumber)
       ]),
       Email: new FormControl
         ('', [Validators.required,
@@ -171,12 +167,12 @@ export class RegisterSellerComponent implements OnInit {
       Nit: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         Validators.maxLength(20),
-        Validators.pattern(this.sellerRegex.nit)
+        Validators.pattern(this.sellerRegex.integerNumber)
       ]),
       Rut: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
         Validators.maxLength(20),
-        Validators.pattern(this.sellerRegex.rut)
+        Validators.pattern(this.sellerRegex.integerNumber)
         ]),
       ContactName: new FormControl
         ({ value: '', disabled: disabledForm }, [Validators.required,
@@ -192,16 +188,20 @@ export class RegisterSellerComponent implements OnInit {
           trimField,
         Validators.pattern(this.sellerRegex.phoneNumber)]),
       Address: new FormControl
-        ({ value: '', disabled: disabledForm }, [Validators.required]),
+        ({ value: '', disabled: disabledForm }, [Validators.required, Validators.pattern(this.sellerRegex.internationalLocation)]),
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
-      DaneCode: new FormControl,
-      SincoDaneCode: new FormControl,
+      DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
+      SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       Name: new FormControl({ value: '', disabled: disabledForm }, [
         Validators.required,
         trimField,
         Validators.pattern(this.sellerRegex.nameStore)
+      ]),
+      Policy: new FormControl({ value: '', disabled: disabledForm }, [
+        Validators.required,
+        Validators.pattern(this.sellerRegex.warranty)
       ]),
       Payoneer: new FormControl({ value: '', disabled: this.isColombiaSelect }),
       IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
@@ -267,31 +267,32 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   validationsForNotColombiaSelectSellerForm() {
-    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalNit)]));
-    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
-    this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalState)]));
-    this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalCity)]));
+    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalIdentifier)]));
+    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalIdentifier)]));
+    this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalLocation)]));
+    this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalLocation)]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.Payoneer.enable();
     this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
 
   validationsForColombiaSelectSellerForm() {
-    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.nit)]));
-    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]));
+    this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.integerNumber)]));
+    this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.integerNumber)]));
     this.State.setValidators(null);
     this.City.setValidators(null);
-    this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
+    this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.integerNumber));
     this.Payoneer.disable();
   }
 
   putColombiaByDefault() {
     const colombia = this.countries.find(element => element.CountryName === this.colombia);
+    // tslint:disable-next-line:curly
     if (!!colombia) this.Country.setValue(colombia.CountryName);
     this.Country.disable();
   }
 
-  validateExitPayoneerUser(event) {
+  validateExitPayoneerUser(event: any) {
     const value = event.target.value;
     if (!!value) {
       this.loadingService.viewSpinner();
@@ -327,11 +328,13 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   keyPress(event: any, inputName: string) {
-    if (inputName === 'nit' || inputName === 'rut' || inputName === 'city' || inputName === 'state') {
-      inputName = this.isColombiaSelect ? `${inputName}` : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
+    if (inputName === 'nit' || inputName === 'rut') {
+      inputName = !!this.isColombiaSelect ? 'integerNumber' : 'internationalIdentifier';
+    } if(inputName === 'city' || inputName === 'state') {
+      inputName = 'internationalLocation';
     }
     if (inputName === 'postalCode') {
-      inputName = this.isColombiaSelect ? 'daneCode' : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
+      inputName = this.isColombiaSelect ? 'integerNumber' : `international${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`;
     }
     const pattern = new RegExp(this.sellerRegex[inputName]);
     const inputChar = String.fromCharCode(event.charCode);

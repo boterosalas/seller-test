@@ -32,6 +32,7 @@ $blue: mat-palette($mat-indigo);
     // max-height: 500px;
     flex-direction: column;
     display: flex;
+    padding: 0;
     // padding: 0 0 200px;
   }
   & .sales-card {
@@ -100,7 +101,7 @@ $blue: mat-palette($mat-indigo);
   }
   // Configuración para el contenedor de la tabla principal
   & .content-table-orders {
-    padding-top: 10px;
+    padding: 10px 20px;
   }
   // Configuración para el toolbar que contiene las opciones del usuario en la vista órdenes
   & .toolbar-orders-options-table {

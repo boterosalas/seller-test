@@ -68,11 +68,9 @@ export class ListProductsComponent implements OnInit {
     separatorKeysCodes: number[] = [];
     pageSizeOptions: number[] = [30, 60, 120, 600];
     pageEvent: PageEvent;
-    listFilterProducts: ListFilterProducts[] = [
-    ];
+    listFilterProducts: ListFilterProducts[] = [];
     validateRegex: any;
     productsProductExpanded: any = [];
-    permissionComponent: MenuModel;
     read = readFunctionality;
     offer = offerFuncionality;
     offerPermission = false;
@@ -88,22 +86,8 @@ export class ListProductsComponent implements OnInit {
 
     ) { }
     ngOnInit() {
-        this.permissionComponent = this.authService.getMenu(listProductsName);
-       // this.permissionComponent = this.authService.getMenu(listProductsNameAdmin);
+        this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.validateFormSupport();
-        this.offerPermission = this.getFunctionality(this.offer);
-    }
-
-    /*
-    Funcion que verifica si la funcion del modulo posee permisos
-   *
-   * @param {string} functionality
-   * @returns {boolean}
-   * @memberof ToolbarComponent
-   */
-    public getFunctionality(functionality: string): boolean {
-        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-        return permission && permission.ShowFunctionality;
     }
 
     onEnter(value: string) {

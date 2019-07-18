@@ -13,9 +13,9 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { of } from 'rxjs';
 import { MaterialModule } from '@app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
+import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 
-fdescribe('CategoriesComponent', () => {
+describe('CategoriesComponent', () => {
 
   const categoryRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -143,7 +143,8 @@ fdescribe('CategoriesComponent', () => {
     message: '',
     icon: '',
     form: null,
-    showButtons: true
+    showButtons: true,
+    btnConfirmationText: null
   };
 
   let component: CategoriesComponent;

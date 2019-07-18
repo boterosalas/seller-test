@@ -32,10 +32,15 @@
             </div>
 
             <!-- Input para subir archivo Excel -->
-            <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
+            <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
               multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
+              <button *ngIf="!isAdmin" color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-raised-button>
+              <mat-icon class="mat-18 text_white">file_download</mat-icon>
+              DESCARGAR PLANTILLA
+            </button>
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-button>
               <mat-icon class="mat-18">file_upload</mat-icon>
@@ -58,6 +63,10 @@
               <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
                 <span>Cargar archivo</span>
               </button>
+              <button *ngIf="!isAdmin" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-menu-item>
+              <span>DESCARGAR PLANTILLA</span>
+            </button>
               <!-- Se esconde formato de cargas, ticket 725 -->
               <div *ngIf="false">
                 <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
@@ -169,5 +178,14 @@
       </div>
     </div>
   </div>
-
 </div>
+
+<ng-template #modalContent>
+  <div class="container--text__sticky">
+    <p>Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes</p>
+     <p>Categoría seleccionada: <span class="badge badge-blue" *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span></p>
+  </div>
+  <div>
+      <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false" [margin]="0"></app-category-tree>
+  </div>
+</ng-template>

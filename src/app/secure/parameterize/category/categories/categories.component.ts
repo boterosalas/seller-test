@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
-import { CreateProcessDialogComponent } from '../create-process-dialog/create-process-dialog.component';
+import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 
 @Component({
   selector: 'app-categories',
@@ -123,6 +123,11 @@ export class CategoriesComponent implements OnInit {
             }
           }
         }
+        this.categoryRegex.IdVTEX = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'integerNumber' && element.Module === 'vendedores') {
+            return element;
+          }
+        }).Value;
       } catch {
         this.modalService.showModal('errorService');
       }
@@ -289,6 +294,7 @@ export class CategoriesComponent implements OnInit {
     let form = null;
     const messageCenter = false;
     const showButtons = true;
+    const btnConfirmationText = null;
     if (category) {
       const { Name, Id } = category;
       this.NameParent.setValue(Name);
@@ -299,7 +305,7 @@ export class CategoriesComponent implements OnInit {
     this.form.setValidators(validateDataToEqual(initialValue));
     this.Commission.enable();
     form = this.form;
-    return { title, message, icon, form, messageCenter, showButtons };
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
   /**
@@ -313,6 +319,7 @@ export class CategoriesComponent implements OnInit {
     let form = null;
     const messageCenter = false;
     const showButtons = true;
+    const btnConfirmationText = null;
     if (category) {
       this.form.patchValue(category);
       !!this.ProductType && !!category.ProductType && this.ProductType.setValue(category.ProductType);
@@ -324,7 +331,7 @@ export class CategoriesComponent implements OnInit {
     const initialValue = Object.assign(this.form.value, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     form = this.form;
-    return { title, message, icon, form, messageCenter, showButtons };
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
   /**
@@ -411,14 +418,28 @@ export class CategoriesComponent implements OnInit {
 
   openStatusModal() {
     this.loadingService.viewSpinner();
+    const data = {
+      successText: 'Creación realizada con éxito',
+      failText: 'No se pudo crear la categoría',
+      processText: 'Creación en proceso',
+      initTime: 500,
+      intervalTime: 5000
+    };
     const dialog = this.dialog.open(CreateProcessDialogComponent, {
       width: '70%',
       minWidth: '280px',
       maxHeight: '80vh',
+      data: data
     });
     const dialogIntance = dialog.componentInstance;
-    dialogIntance.componentAlive$.subscribe(() => {
-      this.getTree();
+    dialogIntance.request = this.categoryService.verifyStatusOfCreateCategory();
+    dialogIntance.processFinish$.subscribe((val) => {
+      if (!!val) {
+        this.getTree();
+        this.snackBar.open('Categoria creada satisfactoriamente', 'Cerrar', {
+          duration: 3000
+        });
+      }
     });
     this.loadingService.closeSpinner();
   }

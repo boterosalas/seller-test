@@ -1,0 +1,37 @@
+[
+  {
+    "name": "caseId",
+    "displayName": "ID",
+    "md": 2
+  },
+  {
+    "name": "orderNumber",
+    "displayName": "Número de pedido",
+    "md": 3
+  },
+  {
+    "name": "reasonPQR",
+    "displayName": "Motivo",
+    "md": 2
+  },
+  {
+    "name": "reasonDetail",
+    "displayName": "Detalle del motivo",
+    "md": 6
+  },
+  {
+    "name": "createDate",
+    "displayName": "Fecha creación",
+    "md": 3
+  },
+  {
+    "name": "status",
+    "displayName": "Estado",
+    "md": 2
+  },
+  {
+    "name": "",
+    "displayName": "Responder",
+    "md": 2
+  }
+]

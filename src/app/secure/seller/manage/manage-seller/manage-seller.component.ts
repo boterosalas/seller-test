@@ -49,6 +49,7 @@ export class ManageSellerComponent implements OnInit {
 
   public emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$/;
   public nameStoreRegex = /^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.net.$)(?!\.gov$)(?! gov$)(?!\.edu$)(?! S.A.S$)(?! S.A$)(?! SA$)(?! SAS$)(?! s.a.s$)(?! sa.s$)(?! s.as$)(?! sas$)(?! s.a.$)(?! S.a.S$)(?! s.a.S$)(?! s.a$)(?! S.a.$)(?! LTDA$)(?! ltda$)(?! Ltda$)(?! LTDA.$)(?! ltda.$)(?! lTDA$)(?! ltDA$)(?! ltdA$)(?! lTda$)(?! ltDa$)(?! lTDa$)(?! LTda$)(?! LtDa$)(?! \s+|\s+$).)*$/;
+  public warrantyRegex = /^((?!<script>|<SCRIPT>|<Script>)[\s\S]){1,20000}$/;
 
   public matcher: MyErrorStateMatcher;
   public validateFormRegister: FormGroup;
@@ -71,6 +72,7 @@ export class ManageSellerComponent implements OnInit {
   public gotoCarrulla: FormControl;
   public gotoCatalogo: FormControl;
   public profile: FormControl;
+  public policy: FormControl;
   profileSeller: string[] = [];
   profileAdmin: string[] = [];
   public showUpdate: boolean;
@@ -92,6 +94,11 @@ export class ManageSellerComponent implements OnInit {
   public firstEmit = true;
   public idSeller: string;
   public selectedValue: string;
+  public initialName: any;
+  public initialEmail: any;
+
+  public initialNameSeller: any;
+  public initialEmailSeller: any;
 
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
@@ -154,6 +161,7 @@ export class ManageSellerComponent implements OnInit {
     this.createFormControls(disabledForm);
     // EventEmitter que permite saber cuando el usuario a buscado una tienda
     this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.createForm();
       this.elementStateLoad = null;
       this.elementCityLoad = null;
       if (!isEmpty(seller)) {
@@ -178,6 +186,7 @@ export class ManageSellerComponent implements OnInit {
               this.daneCode.setValue(this.currentSellerSelect.DaneCode);
               this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
               this.name.setValue(this.currentSellerSelect.Name);
+              this.policy.setValue(this.currentSellerSelect.Policy);
               this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
               this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
               this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
@@ -203,11 +212,18 @@ export class ManageSellerComponent implements OnInit {
             }
           }
           this.loadingService.closeSpinner();
+          this.initialName = this.validateFormRegisterAdmin.value.Name;
+          this.initialEmail = this.validateFormRegisterAdmin.value.Email;
+          this.initialNameSeller = this.validateFormRegister.value.Name;
+          this.initialEmailSeller = this.validateFormRegister.value.Email;
         });
         this.loadingService.closeSpinner();
       }
     });
+
   }
+
+
 
   /**
    *
@@ -247,6 +263,8 @@ export class ManageSellerComponent implements OnInit {
     this.name = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
       Validators.pattern(this.nameStoreRegex)]);
+    this.policy = new FormControl({ value: '', disabled: disable },
+      [Validators.required, Validators.pattern(this.warrantyRegex)]);
     this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
     this.isShippingExito = new FormControl({ value: '', disabled: disable });
     this.gotoExito = new FormControl({ value: '', disabled: disable });
@@ -275,6 +293,7 @@ export class ManageSellerComponent implements OnInit {
       DaneCode: this.daneCode,
       SincoDaneCode: this.sincoDaneCode,
       Name: this.name,
+      Policy: this.policy,
       IsLogisticsExito: this.isLogisticsExito,
       IsShippingExito: this.isShippingExito,
       GotoExito: this.gotoExito,
@@ -282,12 +301,14 @@ export class ManageSellerComponent implements OnInit {
       GotoCatalogo: this.gotoCatalogo,
       Profile: this.profile
     });
+
     this.validateFormRegisterAdmin = new FormGroup({
       Nit: this.nit,
       Email: this.email,
       Name: this.name,
       Profile: this.profile
     });
+
   }
 
   /**
@@ -310,40 +331,45 @@ export class ManageSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   validateExist(event: any, param: string): void {
+    if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
+      this.initialEmailSeller !== this.validateFormRegister.controls.Email.value || this.initialNameSeller !== this.validateFormRegister.controls.Name.value
+      ) {
     const jsonExistParam = event.target.value;
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.loadingService.viewSpinner();
-      this.activeButton = false;
-      this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
-        .subscribe(
-          (result: any) => {
-            if (result.status === 200) {
-              const data_response = JSON.parse(result.body.body);
-              this.existValueInDB = data_response.Data;
-              switch (param) {
-                case 'Email':
-                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
-                  }
-                  break;
-                case 'Name':
-                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
-                  }
-                  break;
-              }
-              if (!this.existValueInDB) {
+      this.activeButton = true;
+        this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
+          .subscribe(
+            (result: any) => {
+              if (result.status === 200) {
+                const data_response = JSON.parse(result.body.body);
+                this.existValueInDB = data_response.Data;
+                switch (param) {
+                  case 'Email':
+                    if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
+                      this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
+                    }
+                    break;
+                  case 'Name':
+                    if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
+                      this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                    }
+                    break;
+                }
+                if (!this.existValueInDB) {
+                  this.activeButton = true;
+
+                }
                 this.activeButton = true;
+                this.loadingService.closeSpinner();
+              } else {
+                this.modalService.showModal('errorService');
+                this.activeButton = true;
+                this.loadingService.closeSpinner();
               }
-              this.activeButton = true;
-              this.loadingService.closeSpinner();
-            } else {
-              this.modalService.showModal('errorService');
-              this.activeButton = true;
-              this.loadingService.closeSpinner();
             }
-          }
-        );
+          );
+      }
     }
   }
 
@@ -363,7 +389,6 @@ export class ManageSellerComponent implements OnInit {
       this.firstEmit = false;
     }
   }
-
 
   /**
    * @method receiveDataCitie Metodo para obtener la data de la ciudad.
@@ -392,6 +417,7 @@ export class ManageSellerComponent implements OnInit {
       values.PhoneNumber = this.validateFormRegister.controls.PhoneNumber.value;
       values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
+      values.Policy = this.validateFormRegister.controls.Policy.value;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {

@@ -16,7 +16,7 @@
             <div *ngIf="canCreate" (click)="createCategory(category)" class="row__btn">
                 <mat-icon id="btn-add-category" matTooltip="Crear categoría hija">control_point</mat-icon>
             </div>
-            <div id="category" [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="showChildrens(category)" class="row__name row__btn">
+            <div id="category" [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="eventName(category)" class="row__name row__btn">
               {{category.Name}}
             </div>
           </div>
