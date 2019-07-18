@@ -38,7 +38,7 @@ export class CaseSummaryComponent implements OnInit {
       ProductsCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => console.log('are Closed'));
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
   closeDialog(): void {
