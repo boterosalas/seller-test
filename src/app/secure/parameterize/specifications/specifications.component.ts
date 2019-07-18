@@ -83,9 +83,9 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     public getSpecifications(getCategories: boolean = false): void {
         this.specificationService.getConfigSpecifications().subscribe(data => {
             console.log('data: ', data);
-            if (data.status === 200 && data.body) {
-                console.log('entra: ', data.body.data);
-                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.body.data);
+            if (data.data) {
+                console.log('entra', data.data);
+                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(data.data);
             }
             if (getCategories) {
                 this.getCategoriesList();
