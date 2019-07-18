@@ -27,7 +27,7 @@ export class ParamSpecsService {
    * @memberof ParamSpecsService
    */
   public getConfigSpecifications(): Observable<any> {
-    return this.http.get(this.api.get('getConfigSpecs'), { observe: 'response' });
+    return this.http.get(this.api.get('getConfigSpecs'));
   }
 
   public createConfigSpecifications(param: any): Observable<any> {
