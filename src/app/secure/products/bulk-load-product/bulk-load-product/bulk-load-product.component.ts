@@ -1969,6 +1969,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+      console.log('dataOffertRegex: ', dataOffertRegex);
       for (const val in this.productsRegex) {
         if (!!val) {
           const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());

@@ -291,7 +291,7 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       validateBrandsExact: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetExactBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/',
+      getActiveBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetBrands/',
       // get categories vetex
       getCategoriesVetex: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/getspecsbycategoryname/',
       // Support Seller center
