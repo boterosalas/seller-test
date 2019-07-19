@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { MatDialog } from "@angular/material";
-import { ProductsCaseDialogComponent } from "../products-case-dialog/products-case-dialog.component";
-const productsConfig = require("./products-list-configuration.json");
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
+const productsConfig = require('./products-list-configuration.json');
 
 @Component({
-  selector: "app-case-detail",
-  templateUrl: "./case-detail.component.html",
-  styleUrls: ["./case-detail.component.scss"]
+  selector: 'app-case-detail',
+  templateUrl: './case-detail.component.html',
+  styleUrls: ['./case-detail.component.scss']
 })
 export class CaseDetailComponent implements OnInit {
   @Input() case: Case;
@@ -14,9 +14,9 @@ export class CaseDetailComponent implements OnInit {
   @Output() reply = new EventEmitter<any>();
 
   configDialog = {
-    width: "50%",
-    height: "fit-content",
-    data: { title: "texts" }
+    width: '50%',
+    height: 'fit-content',
+    data: { title: 'texts' }
   };
 
   productsConfig: Array<any>;
@@ -36,7 +36,7 @@ export class CaseDetailComponent implements OnInit {
       ProductsCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => console.log("are Closed"));
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
   closeDialog(): void {

@@ -1,9 +1,10 @@
 import {
   Component,
-  OnInit,
   ContentChildren,
   QueryList,
-  Input
+  Input,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
 import { IData } from "./models/data.model";
@@ -13,16 +14,17 @@ import { IData } from "./models/data.model";
   templateUrl: "./drop-down-box.component.html",
   styleUrls: ["./drop-down-box.component.scss"]
 })
-export class DropDownBoxComponent implements OnInit {
+export class DropDownBoxComponent {
   @ContentChildren(ContentDropDownBoxDirective)
   items: QueryList<ContentDropDownBoxDirective>;
 
   @Input() isOpen: boolean;
 
   @Input() data: IData;
+
   @Input() read;
 
-  panelOpenState = false;
+  @Output() opened = new EventEmitter();
 
-  ngOnInit() {}
+  panelOpenState = false;
 }

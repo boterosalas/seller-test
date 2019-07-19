@@ -1,34 +1,16 @@
 <mat-toolbar class="toolbar-orders-options-table" color="primary">
   <mat-toolbar-row class="toolbar-options">
     <div class="normal-theme toolbar-options-table">
-      <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="toolbar-cont">
+      <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center" class="toolbar-cont">
         <!--
         <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">{{informationToForm.title}}</h3>
 
         <button (click)="getOrdersList($event)">Recargar</button> -->
 
         <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">
-          {{informationToForm.title}}
-        </button>
-        <!-- Opciones de la pagina ordern -->
-        <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button" id="search-order-button"
-          (click)="toggleMenuOrderSearch()" mat-button color="primary">
-          <mat-icon>search</mat-icon>
-          {{informationToForm.btn_title}}
-        </button>
-
-        <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false"
-          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button" id="download-order-button"
-          mat-button color="primary" *ngIf="!billingType && downloadPermission">
-          <mat-icon>file_download</mat-icon>
-          Descargar
-        </button>
-
-        <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
-          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button" id="download-pay-button"
-          mat-button color="primary" *ngIf="downloadBillingPay">
-          <mat-icon>file_download</mat-icon>
-          Descargar
+          <p>{{informationToForm.title}}
+            <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle}}</small>
+          </p>
         </button>
 
         <!-- <div fxFlex="160px" *ngIf="billingType">-</div> -->
@@ -59,8 +41,8 @@
                 </button>
               </div>
               <button id="search-order-button" (click)="toggleMenuOrderSearch()" mat-menu-item>
-                <mat-icon>search</mat-icon>
-                <span class="acction-text">{{informationToForm.btn_title}}</span>
+                <mat-icon>filter_list</mat-icon>
+                <span class="acction-text">Filtrar</span>
               </button>
               <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" class="acction-text" id="download-order-button"
                 mat-menu-item>
@@ -90,6 +72,24 @@
             </mat-menu>
           </div>
         </div>
+        <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false"
+          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-order-button"
+          mat-button color="primary" *ngIf="!billingType && downloadPermission">
+          <mat-icon>file_download</mat-icon>
+          Descargar
+        </button>
+
+        <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
+          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-pay-button"
+          mat-button color="primary" *ngIf="downloadBillingPay">
+          <mat-icon>file_download</mat-icon>
+          Descargar
+        </button>
+        <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter" id="search-order-button"
+          (click)="toggleMenuOrderSearch()" mat-button color="primary">
+          <mat-icon>filter_list</mat-icon>
+          Filtrar
+        </button>
       </div>
     </div>
   </mat-toolbar-row>

@@ -40,6 +40,7 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   // en el menú de filtro y que información se le pasar a este mismo.
   informationToForm: SearchFormEntity = {
     title: 'Buscar',
+    subtitle: '',
     btn_title: 'Buscar',
     title_for_search: 'Buscar',
     type_form: 'orders',

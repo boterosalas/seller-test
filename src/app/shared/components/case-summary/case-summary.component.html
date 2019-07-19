@@ -1,5 +1,5 @@
 <div class="ticket-content">
-  <div class="ticket-content__item ticket-detail">
+  <div class="ticket-content__item ticket-detail ticket-detail--col">
     <app-basic-card
       class="ticket-content--bottom-space"
       title="Descripción"
@@ -7,27 +7,38 @@
     ></app-basic-card>
   </div>
 
-  <div class="ticket-content__item">
+  <div class="ticket-content__item ticket-detail--col">
     <span class="ticket-content__title ticket-content--bottom-space">
       Seguimiento
     </span>
 
-    <app-conversation-card
-      style="opacity: 0.7;"
-      *ngIf="!case.followLast || case.followLast.length == 0"
-      message="No contiene seguimiento"
-    ></app-conversation-card>
+    <app-conversation>
+      <ng-container *ngIf="!case.followLast || case.followLast.length == 0">
+        <app-conversation-message
+          *itemConversation
+          class="sh-case-detail--full-width"
+          style="opacity: 0.7;"
+          message="No contiene seguimiento"
+        ></app-conversation-message>
+      </ng-container>
 
-    <ng-container *ngFor="let follow of case.followLast">
-      <app-conversation-card
-        [name]="follow.userName"
-        [message]="follow.description"
-        [date]="follow.createDate"
-      ></app-conversation-card>
-    </ng-container>
+      <ng-container *ngFor="let follow of case.followLast; let i = index">
+        <app-conversation-message
+          *itemConversation
+          style="width: 100%"
+          [name]="follow.userName"
+          [message]="follow.description"
+          [date]="follow.createDate"
+          [configuration]="{
+            theme: 'BASIC'
+          }"
+        ></app-conversation-message>
+      </ng-container>
+    </app-conversation>
 
     <div class="ticket-content__controls ticket-content__controls--left">
       <button
+        [disabled]="disabled"
         (click)="openResponseDialog()"
         class="mat-raised-button ticket-content__button ticket-content__button--secondary"
       >
@@ -42,6 +53,6 @@
       ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
       ticket-content--no-select"
   >
-    Ver seguimiento completo
+    Ver detalle
   </span>
 </div>

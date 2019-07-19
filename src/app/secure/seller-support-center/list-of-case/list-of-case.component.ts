@@ -11,6 +11,8 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
+import { Filter } from '../models/filter';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-case',
@@ -39,15 +41,13 @@ export class ListOfCaseComponent implements OnInit {
   options: any;
   filter: boolean;
   menuState: string;
-
   cases: Array<any>;
-  repondCase;
-
+  repondCase: any;
   listConfiguration: Array<any>;
-
-  totalPages;
-  pages;
-  pageSize;
+  length: number;
+  pageIndex = 1;
+  pageSize = 50;
+  filterParams: any;
 
   configDialog = {
     width: '70%',
@@ -60,6 +60,7 @@ export class ListOfCaseComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
+    public router: ActivatedRoute,
     private loadingService?: LoadingService,
     private modalService?: ModalService
   ) {}
@@ -68,29 +69,19 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    this.loadAllCases();
+    this.router.queryParams.subscribe(res => {
+      this.loadCases(res);
+    });
   }
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-
     this.menuState = stateFilter ? 'in' : 'out';
   }
 
-  loadAllCases() {
-    this.loadingService.viewSpinner();
-
-    this.sellerSupportService.getAllCase({ Page: 1, PageSize: 100 }).subscribe(
-      res => {
-        this.cases = res.data.cases;
-        this.loadingService.closeSpinner();
-      },
-      err => {
-        this.loadingService.closeSpinner();
-        this.log.debug(err);
-        this.modalService.showModal('errorService');
-      }
-    );
+  changePagination(pagination: any) {
+    const { pageIndex, pageSize } = pagination;
+    this.loadCases({ PageSize: pageSize, Page: pageIndex });
   }
 
   getStatusCase() {
@@ -99,52 +90,61 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
-  getAllCases(filter?: any) {
+  loadCases(filter?: any) {
+    this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
-        const { pageSize, page, totalPages } = res.data;
+        const { pageSize, page } = res.data;
         this.cases = res.data.cases;
         this.loadingService.closeSpinner();
-        this.refreshPaginator(totalPages, page, pageSize);
+        this.refreshPaginator(res.data.total, page, pageSize);
       },
       err => {
-        this.loadingService.closeSpinner();
-        this.log.debug(err);
+        //this.log.debug(err);
         this.modalService.showModal('errorService');
+        this.loadingService.closeSpinner();
       }
     );
   }
 
-  submitFilter(filterForm: any) {
-    this.getAllCases(filterForm);
-  }
-
-  refreshPaginator(total: any, page: any, limit: any) {
-    this.totalPages = total;
+  refreshPaginator(total: number, page: number, limit: number) {
+    this.length = total;
     this.pageSize = limit;
-    this.pages = page;
+    this.pageIndex = page - 1;
   }
 
   onEmitResponse(caseResponse: any) {
     this.configDialog.data = caseResponse;
-
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
       this.configDialog
     );
 
     dialogRef.afterClosed().subscribe(result => {
+      this.loadingService.viewSpinner();
       if (result !== undefined) {
-        this.sellerSupportService.patchCaseResponse(result.data);
+        this.sellerSupportService
+          .patchCaseResponse(result.data)
+          .subscribe(res => {
+            this.reloadLastResponse(res);
+            this.loadingService.closeSpinner();
+          });
+      } else {
+        this.loadingService.closeSpinner();
       }
     });
   }
 
   reloadLastResponse(result: any) {
     let newCase = this.cases.find(element => element.id === result.data.id);
-    newCase.followLast = result.data.follow;
+    newCase.followLast[0] = result.data.follow[0];
     newCase.read = result.data.read;
     result = {};
     newCase = {};
+  }
+
+  markAsRead(caseRead: any) {
+    const caseId = { id: caseRead.id };
+    this.sellerSupportService.patchReadCase(caseId).subscribe();
   }
 }

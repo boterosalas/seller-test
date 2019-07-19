@@ -111,7 +111,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: `${this.currentCategory.name} ${this.numberElements}`,
+    title: 'Órdenes',
+    subtitle: `${this.currentCategory.name} ${this.numberElements}`,
     btn_title: 'Consultar órdenes',
     title_for_search: 'Consultar órdenes',
     type_form: 'orders',
@@ -581,7 +582,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   setTitleToolbar() {
-    this.informationToForm.title = `${this.currentCategory.name} ${this.numberElements}`;
+    this.informationToForm.subtitle = `${this.currentCategory.name} ${this.numberElements}`;
   }
 
   /**

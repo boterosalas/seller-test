@@ -8,7 +8,7 @@ import {
 } from "@angular/animations";
 import { SellerSupportCenterService } from "../services/seller-support-center.service";
 import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { CaseDetail } from "../models/case-detail.model";
 import { map } from "rxjs/operators";
 import { CaseDetailResponse } from "../models/case-detail-response.model";
@@ -49,13 +49,14 @@ export class DetailCaseComponent implements OnInit {
 
   headerConfigurations: any;
 
-  case$: Observable<CaseDetail>;
+  case$: Observable<any>;
 
   configDialog = {
     width: "70%",
     height: "fit-content",
     data: null
   };
+  filterParams: any;
 
   constructor(
     public dialog: MatDialog,
@@ -68,7 +69,6 @@ export class DetailCaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.viewSpinner();
-
     this.toggleFilter(this.filter);
     this.getStatusCase();
 
@@ -92,8 +92,14 @@ export class DetailCaseComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
+      this.loadingService.viewSpinner();
       if (result !== undefined) {
-        this.sellerSupportService.patchCaseResponse(result.data);
+        this.sellerSupportService.patchCaseResponse(result.data).subscribe(res => {
+          this.case$ = of(res.data);
+          this.loadingService.closeSpinner();
+        });
+      }else {
+        this.loadingService.closeSpinner();
       }
     });
   }

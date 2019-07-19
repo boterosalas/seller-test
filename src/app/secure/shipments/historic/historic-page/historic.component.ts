@@ -33,7 +33,8 @@ export class HistoricComponent implements OnInit, OnDestroy {
 
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Despacho',
+    title: 'Órdenes',
+    subtitle: 'Despacho',
     btn_title: 'Consultar órdenes pendientes',
     title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',

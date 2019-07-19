@@ -1,10 +1,14 @@
 <div class="response-case-dialog">
-  <div class="response-case-dialog__item">
-    <span mat-dialog-title class="response-case-dialog__title">
+  <div class="response-case-dialog__item margin-bottom">
+    <span mat-dialog-title class="response-case-dialog__title ">
       Agregar respuesta
     </span>
     <span
-      class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing"
+      *ngIf="
+        (data.followLast && data.followLast.length > 0) ||
+        (data.follow && data.follow.length > 0)
+      "
+      class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing response-case-dialog ellipsis-text"
       >{{
         data.follow
           ? data.follow[0].description
@@ -15,7 +19,7 @@
 
   <div class="response-case-dialog__item dialog-response">
     <textarea
-      [(ngModel)]="data.Description"
+      [(ngModel)]="response.description"
       class="response-case-dialog__text-second"
       matInput
       name=""
@@ -23,6 +27,9 @@
       cols="30"
       rows="10"
       placeholder="Escribe tu respuesta"
+      minlength="5"
+      maxlength="2000"
+      required
     ></textarea>
   </div>
 

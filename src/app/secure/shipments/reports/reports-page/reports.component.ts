@@ -21,7 +21,8 @@ export class ReportsComponent implements OnInit {
 
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Indicadores de mis envios',
+    title: 'Órdenes',
+    subtitle: 'Indicadores de mis envios',
     btn_title: 'Consultar órdenes pendientes',
     title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',

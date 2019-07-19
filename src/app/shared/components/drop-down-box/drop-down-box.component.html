@@ -2,15 +2,16 @@
   <mat-accordion class="case-list-expandable">
     <mat-expansion-panel
       [expanded]="isOpen"
-      (opened)="panelOpenState = true"
+      (opened)="opened.emit(data); this.panelOpenState = true; read = true;"
       (closed)="panelOpenState = false"
     >
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header
+      >
         <div
           [ngClass]="read ? '' : 'bold-text'"
           class="case-list-detail"
           fxLayout
-          fxLayout.xs="column"
+          fxLayout.xs="row"
           fxLayoutAlign="center center"
           fxLayoutGap="10px"
           fxLayoutGap.xs="0"
@@ -44,7 +45,7 @@
             <p>{{ data.reasonDetail }}</p>
           </div>
           <div class="case-list-detail--item-detail" fxFlex="15%">
-            {{ data.createDate | date }}
+            {{ data.createDate | dateNoGtm | date }}
           </div>
           <div class="case-list-detail--item-detail" fxFlex="10%">
             {{ data.status }}
