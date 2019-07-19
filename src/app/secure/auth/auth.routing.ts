@@ -13,7 +13,7 @@ export class AuthService implements CanActivate {
     modulesBack: ModuleModel[];
     userData: any;
     completeUserData: any =  {
-        country: 'Colombi'
+        country: 'Colombia'
     };
     admin = 'administrator';
     adminType = 1;
