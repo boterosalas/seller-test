@@ -94,6 +94,11 @@ export class ManageSellerComponent implements OnInit {
   public firstEmit = true;
   public idSeller: string;
   public selectedValue: string;
+  public initialName: any;
+  public initialEmail: any;
+
+  public initialNameSeller: any;
+  public initialEmailSeller: any;
 
   // Variables con los permisos que este componente posee
   permissionComponent: MenuModel;
@@ -207,12 +212,18 @@ export class ManageSellerComponent implements OnInit {
             }
           }
           this.loadingService.closeSpinner();
+          this.initialName = this.validateFormRegisterAdmin.value.Name;
+          this.initialEmail = this.validateFormRegisterAdmin.value.Email;
+          this.initialNameSeller = this.validateFormRegister.value.Name;
+          this.initialEmailSeller = this.validateFormRegister.value.Email;
         });
         this.loadingService.closeSpinner();
       }
     });
 
   }
+
+
 
   /**
    *
@@ -320,41 +331,45 @@ export class ManageSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   validateExist(event: any, param: string): void {
+    if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
+      this.initialEmailSeller !== this.validateFormRegister.controls.Email.value || this.initialNameSeller !== this.validateFormRegister.controls.Name.value
+      ) {
     const jsonExistParam = event.target.value;
     if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
       this.loadingService.viewSpinner();
       this.activeButton = true;
-      this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
-        .subscribe(
-          (result: any) => {
-            if (result.status === 200) {
-              const data_response = JSON.parse(result.body.body);
-              this.existValueInDB = data_response.Data;
-              switch (param) {
-                case 'Email':
-                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
-                  }
-                  break;
-                case 'Name':
-                  if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
-                    this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
-                  }
-                  break;
-              }
-              if (!this.existValueInDB) {
+        this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
+          .subscribe(
+            (result: any) => {
+              if (result.status === 200) {
+                const data_response = JSON.parse(result.body.body);
+                this.existValueInDB = data_response.Data;
+                switch (param) {
+                  case 'Email':
+                    if (this.existValueInDB && jsonExistParam !== this.noValidateData.email) {
+                      this.validateFormRegister.controls[param].setErrors({ 'validExistEmailDB': data_response.Data });
+                    }
+                    break;
+                  case 'Name':
+                    if (this.existValueInDB && jsonExistParam !== this.noValidateData.name) {
+                      this.validateFormRegister.controls[param].setErrors({ 'validExistNameDB': data_response.Data });
+                    }
+                    break;
+                }
+                if (!this.existValueInDB) {
+                  this.activeButton = true;
+
+                }
                 this.activeButton = true;
-                
+                this.loadingService.closeSpinner();
+              } else {
+                this.modalService.showModal('errorService');
+                this.activeButton = true;
+                this.loadingService.closeSpinner();
               }
-              this.activeButton = true;
-              this.loadingService.closeSpinner();
-            } else {
-              this.modalService.showModal('errorService');
-              this.activeButton = true;
-              this.loadingService.closeSpinner();
             }
-          }
-        );
+          );
+      }
     }
   }
 

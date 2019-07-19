@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-case-filter',
@@ -45,7 +45,8 @@ export class CaseFilterComponent implements OnInit {
   public rangeDateMax;
   public rangeError = false;
 
-  constructor(private router: Router, private formatDate: DatePipe) {
+  constructor(private router: Router, private route: ActivatedRoute,
+    private formatDate: DatePipe) {
     this.options = [];
   }
 
@@ -60,6 +61,7 @@ export class CaseFilterComponent implements OnInit {
   }
 
   submitFilter() {
+    this.router.navigate([], { relativeTo: this.route, queryParams: {} });
     if (this.value !== undefined) {
       if (this.value !== null) {
         this.filter.Status.push(this.value);

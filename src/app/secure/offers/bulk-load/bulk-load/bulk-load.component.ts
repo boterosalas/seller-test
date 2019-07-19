@@ -966,11 +966,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'Promesa de Entrega': undefined,
       'Free Shipping': undefined,
       'Indicador Envios Exito': undefined,
+      'Actualizacion de Inventario': undefined,
       'Cotizador de Flete': undefined,
       'Garantia': undefined,
       'Ean combo': undefined,
       'Cantidad en combo': undefined,
-      'Tipo de moneda': undefined
+      'Tipo de moneda': undefined,
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
@@ -987,6 +988,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'Delivery Terms': undefined,
       'Free Shipping': undefined,
       'Envios Exito Indicator': undefined,
+      'Stock Update': undefined,
       'Freight Calculator': undefined,
       'Warranty': undefined,
       'Ean combo': undefined,
