@@ -113,7 +113,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
-    currency: ''
+    currency: '',
+    warranty: ''
   };
 
 
@@ -538,7 +539,27 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
                 }
 
-              } else if (j === iVal.iPrecio || j === iVal.iPrecDesc || j === iVal.iGarantia) {
+              } else if (j === iVal.iGarantia) {
+                const iGarantia = this.validFormat(res[i][j], 'greaterWarranty');
+                if (!iGarantia && iGarantia === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'ThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iGarantia ? 'Warranty' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iPrecio || j === iVal.iPrecDesc) {
 
                 const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
 
@@ -555,7 +576,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : j === iVal.iGarantia ? 'Warranty' : null
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : null
                   };
 
                   this.listLog.push(itemLog);
@@ -928,6 +949,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           if ((inputtxt.match(this.offertRegex.formatNumber))) {
             const num = parseInt(inputtxt, 10);
             if (num > 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
+          case 'greaterWarranty':
+          if ((inputtxt.match(this.offertRegex.warranty))) {
+            const num = parseInt(inputtxt, 10);
+            if (num >= 0) {
               valueReturn = true;
             } else {
               valueReturn = false;
