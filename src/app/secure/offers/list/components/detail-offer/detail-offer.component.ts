@@ -398,6 +398,7 @@ export class DetailOfferComponent {
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(this.params).subscribe(
       (result: any) => {
+        console.log(result);
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {
@@ -409,10 +410,15 @@ export class DetailOfferComponent {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        } else {
+        }
+         else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];
+        }
+
+        if (result.body.data.error === 1) {
+          this.modalService.showModal('errorService');
         }
       }
     );

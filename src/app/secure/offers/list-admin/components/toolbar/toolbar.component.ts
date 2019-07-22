@@ -19,10 +19,11 @@ const log = new Logger('ToolbarOptionsComponent');
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
 })
 
 export class ToolbarComponent implements OnInit, OnChanges {
+
   /**
    * Variable que almacena el texto que se mostrara en el titulo
    * @memberof ToolbarComponent
@@ -33,7 +34,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * Variable que almacena el texto que se mostrara en el subtitulo
    * @memberof ToolbarComponent
    */
-  public subtitleBar: String = 'Listado de Ofertas';
+  public subtitleBar: String = 'Listado de ofertas';
 
   /**
    * Variable que almacena las varibales del páginados que se enviaran al servicio
@@ -46,8 +47,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * @memberof ToolbarComponent
    */
   public currentPage: any;
-
-  public listAdminOfferLength: any;
 
   /**
    * Variable que se usa para el funcionmiento correcto del filtro
@@ -62,7 +61,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Input() inDetail: boolean;
 
   /**
-   * Variable que almacena el número de páginas que trae el filtro de ofertas
+   * Variable que almacena el número de páginas que trae el listado de ofertas
    * @memberof ToolbarComponent
    */
   @Input() numberPages: any;
@@ -73,35 +72,23 @@ export class ToolbarComponent implements OnInit, OnChanges {
    */
   @Input() currentPageInput: any;
 
-  /**
-   * Variable que permite habilitar/deshabilitar el filtro.
-   */
   @Input() isEnabled: boolean;
-
-  // Limite de registros por petición
-  lengthListAdmin = null;
-
-   // Variables con los permisos que este componente posee
-   permissionComponent: MenuModel;
-   read = readFunctionality;
-   download = downloadFunctionality;
 
   /**
    * Creates an instance of ToolbarComponent.
-   * @param {ListAdminComponent} list
+   * @param {ListComponent} list
    * @param {ChangeDetectorRef} cdRef
    * @memberof ToolbarComponent
    */
   constructor(
-    public list: ListAdminComponent,
-    private cdRef: ChangeDetectorRef,
-    public dialog: MatDialog,
-    public authService: AuthService
+      public list: ListAdminComponent,
+      private cdRef: ChangeDetectorRef,
+      public dialog: MatDialog,
+      public authService: AuthService
   ) {
-    this.dataPaginate = new ModelFilter();
-    this.dataPaginate.limit = 100;
-    this.currentPage = 1;
-    this.isEnabled = true;
+      this.dataPaginate = new ModelFilter();
+      this.dataPaginate.limit = '30';
+      this.currentPage = 1;
   }
 
   /**
@@ -110,9 +97,28 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * @memberof ToolbarComponent
    */
   ngOnInit() {
-    this.permissionComponent = this.authService.getMenu(bulkLoadHistoryNameAdmin);
-    this.numberPages = this.numberPages === undefined ? 0 : this.numberPages;
+      this.permissionComponent = this.authService.getMenu(bulkLoadHistoryNameAdmin);
+      this.numberPages = this.numberPages === undefined ? 0 : this.numberPages;
   }
+
+  /**
+   * @method ngOnChanges
+   * @param {SimpleChanges} changes
+   * @description Metodo para controlar el cambio de la página (Input)
+   * @memberof ToolbarComponent
+   */
+  ngOnChanges(changes: SimpleChanges) {
+      if (!changes.inDetail) {
+          this.currentPage = this.currentPageInput === undefined ? 1 : this.currentPageInput;
+          this.cdRef.detectChanges();
+      }
+
+  }
+
+     // Variables con los permisos que este componente posee
+     permissionComponent: MenuModel;
+     read = readFunctionality;
+     download = downloadFunctionality;
 
   /**
    * Funcion que verifica si la funcion del modulo posee permisos
@@ -127,49 +133,55 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   /**
-   * @method ngOnChanges
-   * @param {SimpleChanges} changes
-   * @description Metodo para controlar el cambio de la página (Input)
+   * @method changeSize
+   * @description Metodo para cambiar el número de ofertas que se ven en pantalla 30 - 60 - 120 - 600
    * @memberof ToolbarComponent
    */
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.inDetail) {
-      this.currentPage = this.currentPageInput === undefined ? 1 : this.currentPageInput;
-      this.cdRef.detectChanges();
-    }
-
+  changeSize() {
+      this.currentPage = 1;
+      this.dataPaginate.currentPage = this.currentPage;
+      this.list.setDataPaginate(this.dataPaginate);
   }
 
   /**
    * @method changePage
    * @param dir
    * @description Metodo para pasar la página adelante o atras.
-   *              Recibe el parametro dir, este se usa para saber la dirección en que cambio las páginas: next - prev
+   * Recibe el parametro dir, este se usa para saber la dirección en que cambio las páginas: next - prev
    * @memberof ToolbarComponent
    */
   changePage(dir: string) {
-    switch (dir) {
-      case 'next':
-        this.currentPage += 1;
-        this.dataPaginate.currentPage = this.currentPage;
-        this.list.setDataPaginate(this.dataPaginate);
-        break;
-      case 'prev':
-        this.list.removeLastPaginationToken(this.currentPage);
-        this.currentPage -= 1;
-        this.dataPaginate.currentPage = this.currentPage;
-        this.list.setDataPaginate(this.dataPaginate);
-        break;
-    }
+      switch (dir) {
+          case 'next':
+              this.currentPage += 1;
+              this.dataPaginate.currentPage = this.currentPage;
+              this.list.setDataPaginate(this.dataPaginate);
+              break;
+          case 'prev':
+              this.currentPage -= 1;
+              this.dataPaginate.currentPage = this.currentPage;
+              this.list.setDataPaginate(this.dataPaginate);
+              break;
+      }
   }
 
   /**
    * @method toggleMenu
-   * @description Metodo para abrir o cerrar el menú
+   * @description Metodo para abrir o cerrar el menúr
    * @memberof ToolbarComponent
    */
   toggleMenu() {
-    this.sidenav.toggle();
+      this.sidenav.toggle();
+  }
+
+  /**
+   * @method goBack
+   * @description metodo para volver atras desde la vista de detalle hasta el listado de ofertas
+   * @memberof ToolbarComponent
+   */
+  goBack() {
+      this.list.viewDetailOffer = false;
+      this.list.inDetail = false;
   }
 
 }

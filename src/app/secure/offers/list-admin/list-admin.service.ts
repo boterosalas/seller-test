@@ -49,28 +49,28 @@ export class ListAdminService {
     * @memberof ListAdminService
     */
    public getListAdminOffers(params?: any): Observable<{}> {
-     // Se crea variable que guardara los parametros unidos para enviarle al servicio
-     let urlParams: any;
- 
-     this.paramsData.dateInitial = params === undefined || params.dateInitial === undefined || params.dateInitial === null || params.dateInitial === '' ? null : this.datePipe.transform(params.dateInitial, 'yyyy-MM-dd');
-     this.paramsData.dateFinal = params === undefined || params.dateFinal === undefined || params.dateFinal === null || params.dateFinal === '' ? null : this.datePipe.transform(params.dateFinal, 'yyyy-MM-dd');
-     this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
-     this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : this.paginationTokens[params.currentPage - 1];
-     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
-     this.paramsData.IdSeller = params.IdSeller;
- 
-     urlParams = + this.paramsData.IdSeller + '/' + this.paramsData.dateInitial + '/' + this.paramsData.dateFinal + '/' + this.paramsData.ean + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
-     return new Observable(observer => {
-       this.http.get<any>(this.api.get('getHistoricalOffersAdmin', [urlParams]), { observe: 'response' })
-         .subscribe(
-           data => {
-             observer.next(data);
-           },
-           error => {
-             observer.next(error);
-           }
-         );
-     });
-   }
- 
+      // Se crea variable que guardara los parámetros unidos para enviarle al servicio.
+      let urlParams: any;
+  
+      this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
+      this.paramsData.product = params === undefined || params.product === undefined || params.product === null || params.product === '' ? null : params.product.replace(/\ /g, '+');
+      // this.paramsData.stock = params === undefined || params.stock === undefined || params.stock === null || params.stock === '' ? null : params.stock;
+      this.paramsData.IdSeller = params.IdSeller;
+      this.paramsData.currentPage = params === undefined || params.currentPage === undefined || params.currentPage === null || params.currentPage === '' ? null : params.currentPage - 1;
+      this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
+  
+      urlParams = + this.paramsData.IdSeller + '/' + this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit;
+  
+      return new Observable(observer => {
+        this.http.get<any>(this.api.get('getOffers', [urlParams]), { observe: 'response' })
+          .subscribe(
+            data => {
+              observer.next(data);
+            },
+            error => {
+              observer.next(error);
+            }
+          );
+      });
+    }
 }

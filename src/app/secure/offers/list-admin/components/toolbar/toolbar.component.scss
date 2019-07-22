@@ -1,121 +1,105 @@
 @import '_variables';
 
 :host ::ng-deep {
-  mat-toolbar.toolbar-component {
-    border-bottom: 0.001em solid $color-bottom-bar;
-    padding: 0 25px;
-    position: fixed;
-    z-index: 1;
-
-    .toolbar-options {
-      &.view-mobile {
-        display: none;
-      }
-
-      &.view-desktop {
-        display: flex;
-      }
-
-      p {
-        margin: 0;
-        color: $color-black;
-        font-size: $font-size-principal +2;
-        font-family: $font-principal;
-        line-height: 21px;
-        font-weight: bold;
-
-        small {
-          color: $color-gray1;
-          font-weight: normal;
-        }
-      }
-
-      width: 100%;
-      height: 100%;
-
-      .options-toolbar {
-        width: 20%;
-
-        .btn {
-          &-filter {
-            width: 70px;
-            margin-right: 20px;
-            color: $color-gray1;
-            border-radius: 5px;
-
-            .mat-button-ripple-round {
-              border-radius: 5px;
-            }
-
-            small {
-              font-size: $font-size-principal - 4;
-              line-height: 14px;
-            }
-          }
-
-          &-paginator {
-            width: 40px;
-            color: $color-gray1;
-            border-radius: 5px;
-
-            .mat-button-ripple-round {
-              border-radius: 5px;
-            }
-
-            &[disabled] {
-              color: $color-gray3;
-            }
-          }
-        }
-
-        p.pagination-num {
-          font-size: $font-size-principal - 2;
-          color: $color-gray1;
-          margin: 0 10px;
-          font-weight: normal;
-        }
-      }
-
-      &.in-detail {
-        .hidde-in-detail {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .seller-search {
-    max-width: 537px;
-    width: 537px;
-  }
-
-
-  @media screen and (max-width: 768px) {
     mat-toolbar.toolbar-component {
-      // height: 100px;
-
-      &.in-detail {
-        height: 65px;
-      }
-
-      .toolbar-options {
-        &.menu {
-          justify-content: center;
+        border-bottom: 0.001em solid $color-bottom-bar;
+        padding: 0 25px;
+        position: fixed;
+        z-index: 1;
+        .toolbar-options {
+            &.view-mobile {
+                display: none;
+            }
+            &.view-desktop {
+                display: flex;
+            }
+            p {
+                margin: 0;
+                color: $color-black;
+                font-size: 18px;
+                line-height: 21px;
+                font-weight: bold;
+                small {
+                    color: $color-gray1;
+                    font-weight: normal;
+                }
+            }
+            width: 100%;
+            height: 100%;
+            .options-toolbar {
+                // width: 50%;
+                margin-left: auto;
+                .select-page-size {
+                    width: 120px;
+                    box-sizing: border-box;
+                    height: 40px;
+                    font-size: 15px;
+                    text-align: right;
+                    padding: 0px 5px;
+                    .mat-form-field-wrapper {
+                        height: 100%;
+                    }
+                }
+                .btn {
+                    &-filter {
+                        width: 100px;
+                        color: $color-gray1;
+                        border-radius: 5px;
+                        .mat-button-ripple-round {
+                            border-radius: 5px;
+                        }
+                        small {
+                            font-size: 12px;
+                            line-height: 14px;
+                        }
+                    }
+                    &-paginator {
+                        width: 40px;
+                        color: $color-gray1;
+                        border-radius: 5px;
+                        .mat-button-ripple-round {
+                            border-radius: 5px;
+                        }
+                        &[disabled]{
+                            color: $color-gray3;
+                        }
+                    }
+                }
+                p.pagination-num {
+                    font-size: 14px;
+                    color: $color-gray1;
+                    margin: 0 10px;
+                    font-weight: normal;
+                }
+            }
+            &.in-detail{
+                .hidde-in-detail {
+                    display: none;
+                }
+            }
         }
-
-        &.view-mobile.in-detail {
-          display: flex;
-        }
-
-        &.view-desktop.in-detail {
-          display: none;
-        }
-
-        .options-toolbar {
-          width: 100%;
-          justify-content: center;
-        }
-      }
     }
-  }
+    @media screen and (max-width: 768px) {
+        mat-toolbar.toolbar-component {
+            // height: 100px;
+            &.in-detail{
+                height: 65px;
+            }
+            .toolbar-options {
+                &.menu{
+                    justify-content: center;
+                }
+                &.view-mobile.in-detail {
+                    display: flex;
+                }
+                &.view-desktop.in-detail {
+                    display: none;
+                }
+                .options-toolbar{
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        }
+    }
 }

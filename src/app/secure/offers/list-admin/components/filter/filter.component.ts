@@ -1,16 +1,33 @@
 // 3rd party components
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
+  FormGroupDirective,
+  NgForm
 } from '@angular/forms';
 // our own custom components
 import { ModelFilter } from './filter.model';
 // import { ListAdminAdminComponent } from '@app/secure/offers/listAdmin-admin/listAdmin-admin/listAdminAdmin.component';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
+import { ErrorStateMatcher } from '@angular/material';
 
+
+/**
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @description Error when invalid control is dirty, touched, or submitted.
+ * @implements {ErrorStateMatcher}
+ */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 /**
  * @export
@@ -24,7 +41,7 @@ import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/lis
   styleUrls: ['./filter.component.scss']
 })
 
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit, OnChanges {
 
   /**
    * Variable que se usa para el funcionamiento de abrir y cerrar el menú
@@ -33,40 +50,30 @@ export class FilterComponent implements OnInit {
   @Input() sidenav;
 
   /**
-   * Variable para observar el input del filtro inicial
+   * Variable que recibe el filtro removido para limpiar el campo
    * @memberof FilterComponent
    */
-  @ViewChild('dateInitial') dateInitial;
-
-  /**
-   * Variable para observar el input del filtro final
-   * @memberof FilterComponent
-   */
-  @ViewChild('dateFinal') dateFinal;
+  @Input() filterRemoved;
 
   /**
    * Conjunto de variables necesaria para validar el formulario
    * @memberof FilterComponent
    */
-  public formFilter: ModelFilter;
-  public listAdminFilterForm: FormGroup;
+  public filterForm: FormGroup;
+  public product: FormControl;
+  public ean: FormControl;
+  public stock: FormControl;
+  public matcher: MyErrorStateMatcher;
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
-  public rangeDays = 14;
-  public milisecondsRangeDays = 1000 * 60 * 60 * 24 * this.rangeDays;
-  public rangeDateMax;
-  public rangeError = false;
 
   /**
    * Creates an instance of FilterComponent.
-   * @param {ListAdminComponent} listAdmin
+   * @param {ListAdminComponent} list
    * @memberof FilterComponent
    */
   constructor(
-    public listAdmin: ListAdminComponent,
-    private fb: FormBuilder
-  ) {
-    this.formFilter = new ModelFilter();
-  }
+      public list: ListAdminComponent
+  ) { }
 
   /**
    * @method ngOnInit
@@ -74,7 +81,43 @@ export class FilterComponent implements OnInit {
    * @memberof FilterComponent
    */
   ngOnInit() {
-    this.createForm();
+      this.createFormControls();
+      this.createForm();
+  }
+
+  /**
+   * @method ngOnChanges
+   * @description Metodo que se ejecuta cuando cambie algún miembro de la clase
+   * @param changes
+   * @memberof FilterComponent
+   */
+  ngOnChanges(changes: SimpleChanges) {
+      switch (changes.filterRemoved.currentValue) {
+          case 'filterProduct':
+              this.product.setValue(undefined);
+              break;
+          case 'filterEan':
+              this.ean.setValue(undefined);
+              break;
+          case 'filterStock':
+              this.stock.setValue(undefined);
+              break;
+          case 'all':
+              this.filterForm.reset();
+              break;
+      }
+  }
+
+  /**
+   * @method createFormControls
+   * @memberof FilterComponent
+   * @description Metodo para crear los controles el formulario
+   */
+  createFormControls() {
+      this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
+      this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
+      this.stock = new FormControl('', []);
+      this.matcher = new MyErrorStateMatcher();
   }
 
   /**
@@ -83,11 +126,11 @@ export class FilterComponent implements OnInit {
    * @description Metodo para crear el formulario
    */
   createForm() {
-    this.listAdminFilterForm = this.fb.group({
-      'dateInitial': [null, Validators.compose([Validators.required])],
-      'dateFinal': new FormControl(null, Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
-      'ean': [null, Validators.compose([Validators.pattern(this.regexNoSpaces)])]
-    });
+      this.filterForm = new FormGroup({
+          product: this.product,
+          ean: this.ean,
+          stock: this.stock
+      });
   }
 
   /**
@@ -96,58 +139,7 @@ export class FilterComponent implements OnInit {
    * @description Metodo para abrir o cerrar el menu
    */
   toggleMenu() {
-    this.sidenav.toggle();
-  }
-
-  /**
-   * @method setMaxDateRange
-   * @memberof FilterComponent
-   * @description Set the date final of filter
-   */
-  setMaxDateRange() {
-    if (this.listAdminFilterForm.value.dateInitial != null) {
-      this.rangeDateMax = new Date(this.listAdminFilterForm.value.dateInitial.getTime() + this.milisecondsRangeDays);
-    }
-  }
-
-  /**
-   * @method validateFinalRange
-   * @memberof FilterComponent
-   * @description Validate the range of dates for filter
-   */
-  validateFinalRange() {
-    if (this.listAdminFilterForm.value.dateFinal != null && this.listAdminFilterForm.value.dateInitial != null) {
-      if ((this.listAdminFilterForm.value.dateFinal.getTime() - this.listAdminFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++))) {
-        this.rangeError = true;
-      }
-    }
-  }
-
-  /**
-   * @method openDateInitial
-   * @description Metodo para abrir el popup del datepicker cuando se hace click en el input de fecha inicial
-   * @memberof FilterComponent
-   */
-  openDateInitial() {
-    this.dateInitial.open();
-  }
-
-  /**
-   * @method openDateFinal
-   * @description Metodo para abrir el popup del datepicker cuando se hace click en el input de fecha final
-   * @memberof FilterComponent
-   */
-  openDateFinal() {
-    this.dateFinal.open();
-  }
-
-  clearAndSubmit() {
-    this.listAdminFilterForm.reset();
-
-    if (this.listAdmin.filterActive) {
-      this.listAdmin.listAdminFilter(this.listAdminFilterForm);
-      this.listAdmin.filterActive = false;
-    }
+      this.sidenav.toggle();
   }
 
 }

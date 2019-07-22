@@ -5,7 +5,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { LoadingService, ModalService, UserLoginService, UserParametersService, Logger } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { Router } from '@angular/router';
-
+import { environment } from '@env/environment';
 import { BreakpointObserver } from '@angular/cdk/layout';
 // import { DownloadListAdminService } from '../../listAdmin-admin/download-listAdmin-modal/download-listAdmin.service';
 import { RoutesConst } from '@app/shared';
@@ -75,6 +75,9 @@ export class ListAdminComponent implements OnInit {
   // Filter enabled
   public isEnabled: boolean;
 
+    // Domains images
+    public domainImages = environment.domainImages;
+
   /**
    * Creates an instance of ListAdminComponent.
    * @param {ShellComponent} [shellComponent]
@@ -98,6 +101,7 @@ export class ListAdminComponent implements OnInit {
   ) {
     this.paramData = new ModelFilter();
     this.layoutChanges = breakpointObserver.observe('(min-width: 577px)');
+    this.isEnabled = false;
   }
 
   /**
@@ -123,6 +127,7 @@ export class ListAdminComponent implements OnInit {
     });
 
     this.searchSubscription = this.searchEventEmitter.eventSearchSeller.subscribe((seller: any) => {
+      this.isEnabled = true;
       this.seller = seller;
       const PARAMS = {
         IdSeller: seller.IdSeller
@@ -168,81 +173,79 @@ export class ListAdminComponent implements OnInit {
    * @param params
    * @memberof ListAdminComponent
    */
-  getListAdminOffers(params?: any, isPageChangue?: boolean) {
+  getListAdminOffers(params?: any) {
     this.loadingService.viewSpinner();
     this.listAdminService.getListAdminOffers(params).subscribe(
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
-
-          const response = result.body ? result.body.data : null;
-
-          // Pregunta si la respuesta tiene resultados
-          if (response) {
-            this.isEnabled = true;
-
-            // Pregunta si ya hay datos en la variable listAdminOffer
-            if (this.listAdminOffer && isPageChangue) {
-              if (response.paginationToken !== '{}') {
-                this.paginationToken.push(response.paginationToken);
-              }
-              this.listAdminService.savePaginationTokens(this.paginationToken);
-              this.listAdminOffer = response.offerListAdmins;
-              // Entra cuando no hay datos en la variable listAdminOffer
-            } else {
-              // Obtiene los valores iniciales de la primera consulta para poner datos en la variable listAdminOffer
-              this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
-              this.numberPages = Math.ceil(this.numberPages);
-              // this.downloadListAdminService.setCurrentFilterListAdmin(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, params.IdSeller);
-              if (response.paginationToken !== '{}') {
-                this.paginationToken.push(response.paginationToken);
-              }
-              this.listAdminService.savePaginationTokens(this.paginationToken);
-              this.listAdminOffer =  response.offerHistoricals;
-            }
-            // Entra cuando la respuesta no tiene resultados
-          } else {
-            // Pone en false la variable listAdminOffer y resetea los valores del páginador
-            this.listAdminOffer = false;
-            this.numberPages = 0;
-            this.currentPage = 0;
-            this.isEnabled = false;
-          }
+          const response = result.body.data;
+          this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
+          this.numberPages = Math.ceil(this.numberPages);
+          this.listAdminOffer = response.sellerOfferViewModels;
+          this.addDomainImages();
           this.loadingService.closeSpinner();
-          this.log.debug(response);
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
-          this.isEnabled = false;
         }
       }
     );
   }
 
-  /**
-   * @method listAdminFilter
+   /**
+   * @method filterOffers
    * @param params
-   * @description Metodo para filtrar el listado de ofertas
-   * @memberof ListAdminComponent
+   * @description Método para filtrar el listado de ofertas
+   * @memberof ListComponent
    */
-  listAdminFilter(params: any) {
-    this.listAdminOffer = false;
+  filterOffers(params: any) {
     this.currentPage = 1;
     this.filterActive = true;
-    this.paramData.dateInitial = params.get('dateInitial').value;
-    this.paramData.dateFinal = params.get('dateFinal').value;
-    this.paramData.ean = params.get('ean').value !== undefined && params.get('ean').value !== null ? params.get('ean').value.trim() : params.get('ean').value;
-    // this.paramData.currentPage = this.currentPage;
-    this.paramData.limit = this.limit;
     this.paramData.IdSeller = this.seller.IdSeller;
+    this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
+    this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
+    this.paramData.stock = params.stock;
+    this.paramData.currentPage = this.currentPage;
     this.getListAdminOffers(this.paramData);
-    // this.downloadListAdminService.setCurrentFilterListAdmin(this.paramData.dateInitial, this.paramData.dateFinal, this.paramData.ean, this.paramData.IdSeller); // Metodo para guardadr los parametros del filtro
-
-    this.paginationToken = []; // Clear paginationToken variable
-    this.paginationToken.push('null');
-    this.listAdminService.savePaginationTokens(this.paginationToken);
-    this.numberPages = 0; // Clear paginator
-
     this.sidenav.toggle();
+  }
+
+   /**
+   * Agrega el dominio de imagenes a las ofertas nuevas.
+   */
+  addDomainImages() {
+    this.listAdminOffer.map(el => {
+      if (el.imageUrl.indexOf('https') === -1) {
+        el.imageUrl = `${this.domainImages}${el.imageUrl}`;
+      }
+    });
+  }
+
+
+  /**
+   * @method removeFilter
+   * @param filter
+   * @description Método para remover filtros
+   * @memberof ListComponent
+   */
+  removeFilter(filter: any) {
+    switch (filter) {
+      case 'filterProduct':
+        this.paramData.product = undefined;
+        break;
+      case 'filterEan':
+        this.paramData.ean = undefined;
+        break;
+      case 'filterStock':
+        this.paramData.stock = undefined;
+        break;
+    }
+    this.filterRemove = filter;
+
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined) {
+      this.filterActive = false;
+    }
+    this.getListAdminOffers(this.paramData);
   }
 
   /**
@@ -255,7 +258,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.IdSeller = this.seller.IdSeller;
     this.paramData.currentPage = params === undefined || params.currentPage === undefined ? null : params.currentPage;
     this.paramData.limit = params === undefined || params.limit === undefined ? null : params.limit;
-    this.getListAdminOffers(this.paramData, true);
+    this.getListAdminOffers(this.paramData);
   }
 
   /**
