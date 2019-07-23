@@ -4,8 +4,33 @@
   <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="listAdminOffer">
 
     <!--list admin offers -->
-    <aside>
-      
+      <aside class="card-offer" *ngFor="let item of listAdminOffer">
+        <div class="container-card-img flexbox align-center justify-center">
+          <img [src]="item.imageUrl" alt="">
+          <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
+            <div class="flexbox justify-center align-center">
+              <p [innerHTML]="'Agotado'"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-desc-card flexbox flex-wrap align-center">
+          <h3 [innerHTML]="'EAN: ' + item.ean"></h3>
+          <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'" class="price-strikethrough"></p>
+          <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
+            class="price"></p>
+          <p [innerHTML]="item.name" class="name"></p>
+          <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"
+            class="stock"></p>
+        </div>
+
+        <footer class="container-last-modification flexbox align-center">
+          <p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+        </footer>
+        <footer class="container-last-modification mobile flexbox align-center">
+          <p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+          <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}" [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
+        </footer>
     </aside>
     <!-- list admin offers -->
 
