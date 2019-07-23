@@ -363,7 +363,9 @@ export class CategoriesComponent implements OnInit {
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
       value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
-      value.Tariff = parseFloat(parseFloat(value.Tariff).toFixed(2));
+      if (value.Tariff === '000' || value.Tariff === '0000'  || value.Tariff === '00' || value.Tariff === '0.00' ) {
+        value.Tariff = 0;
+      }
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
         try {
