@@ -77,7 +77,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Carnes frias',
+       Name: 'Carnes frías',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -222,7 +222,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Azucar, panela y endulzante',
+       Name: 'Azúcar, panela y endulzante',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -272,7 +272,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Aromanicas y Te',
+       Name: 'Aromanicas y Té',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -292,7 +292,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Cafe y Chocolates',
+       Name: 'Café y Chocolates',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -442,7 +442,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Yogurt y bebidas Lacteas',
+       Name: 'Yogurt y bebidas Lácteas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -587,7 +587,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Dulces tipicos',
+       Name: 'Dulces típicos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -617,7 +617,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Cuidado del bano',
+       Name: 'Cuidado del baño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -692,7 +692,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Coloracion',
+       Name: 'Coloración',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -717,7 +717,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios de bano',
+       Name: 'Accesorios de baño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -807,7 +807,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Pestanina',
+       Name: 'Pestañina',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -822,7 +822,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Lapices labios',
+       Name: 'Lápices labios',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -832,7 +832,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Lapices ojos',
+       Name: 'Lápices ojos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -847,7 +847,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios cosmeticos',
+       Name: 'Accesorios cosméticos',
        TipodeObjeto: 'Nivel 2'
      },
     //  {
@@ -1037,7 +1037,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Panales y Panitos',
+       Name: 'Pañales y Pañitos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1047,7 +1047,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Panales',
+       Name: 'Pañales',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1062,12 +1062,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Panuelos desechables',
+       Name: 'Pañuelos desechables',
        TipodeObjeto: 'Nivel 2'
      },
      {
        productType: 'Technology',
-       Name: 'Drogueria',
+       Name: 'Droguería',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1242,7 +1242,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Computadores Portatiles',
+       Name: 'Computadores Portátiles',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1277,7 +1277,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Audio y video',
+       Name: 'Audio y vídeo',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1342,7 +1342,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Telefonos',
+       Name: 'Teléfonos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1412,17 +1412,17 @@ export class VtexTree {
      },
      {
        productType: 'Clothing',
-       Name: 'Moda Nina',
+       Name: 'Moda Niña',
        TipodeObjeto: 'Nivel 2'
      },
      {
        productType: 'Clothing',
-       Name: 'Exterior Nina',
+       Name: 'Exterior Niña',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Clothing',
-       Name: 'Interior Nina',
+       Name: 'Interior Niña',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1437,22 +1437,22 @@ export class VtexTree {
      },
      {
        productType: 'Clothing',
-       Name: 'Ropa Deportiva Nina',
+       Name: 'Ropa Deportiva Niña',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Clothing',
-       Name: 'Moda Nino',
+       Name: 'Moda Niño',
        TipodeObjeto: 'Nivel 2'
      },
      {
        productType: 'Clothing',
-       Name: 'Exterior Nino',
+       Name: 'Exterior Niño',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Clothing',
-       Name: 'Interior Nino',
+       Name: 'Interior Niño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1467,7 +1467,7 @@ export class VtexTree {
      },
      {
        productType: 'Clothing',
-       Name: 'Ropa Deportiva Nino',
+       Name: 'Ropa Deportiva Niño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1537,12 +1537,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Panoletas',
+       Name: 'Pañoletas',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Panuelos y Pochette',
+       Name: 'Pañuelos y Pochette',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1582,7 +1582,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Tirantas Nino',
+       Name: 'Tirantas Niño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1612,12 +1612,12 @@ export class VtexTree {
      },
      {
        productType: 'Clothing',
-       Name: 'Bebe Nina',
+       Name: 'Bebe Niña',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Clothing',
-       Name: 'Bebe Nino',
+       Name: 'Bebe Niño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1657,7 +1657,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Rinoneras',
+       Name: 'Riñoneras',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1682,7 +1682,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Cuidado Alimentacion Bebe',
+       Name: 'Cuidado Alimentación Bebe',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1707,12 +1707,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Electrodomesticos',
+       Name: 'Electrodómesticos',
        TipodeObjeto: 'Nivel 1'
      },
      {
        productType: 'Technology',
-       Name: 'Grandes Electrodomesticos',
+       Name: 'Grandes Electrodomésticos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1727,22 +1727,22 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Calefaccion',
+       Name: 'Calefacción',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Coccion',
+       Name: 'Cocción',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Maquinas de coser, bordaras y fileteadoras',
+       Name: 'Máquinas de coser, bordaras y fileteadoras',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Pequenos Electromesticos',
+       Name: 'Pequeños Electromésticos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1752,7 +1752,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Coccion electrica',
+       Name: 'Cocción eléctrica',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -1857,7 +1857,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Decoracion',
+       Name: 'Decoración',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -1927,7 +1927,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Complementos Bano',
+       Name: 'Complementos Baño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2142,7 +2142,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Adornos arbol',
+       Name: 'Adornos árbol',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2172,7 +2172,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Vehiculos',
+       Name: 'Vehículos',
        TipodeObjeto: 'Nivel 1'
      },
      {
@@ -2262,7 +2262,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Neumatico',
+       Name: 'Neumático',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2272,7 +2272,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Baterias',
+       Name: 'Baterías',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -2417,7 +2417,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Literatura y ficcion',
+       Name: 'Literatura y ficción',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2427,7 +2427,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'No ficcion',
+       Name: 'No ficción',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2452,12 +2452,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Elementos de fijacion',
+       Name: 'Elementos de fijación',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Elementos De Sujecion',
+       Name: 'Elementos De Sujeción',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2492,7 +2492,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios para el Bano',
+       Name: 'Accesorios para el Baño',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2502,7 +2502,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Herramientas Electricas',
+       Name: 'Herramientas Eléctricas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2577,7 +2577,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Iluminacion',
+       Name: 'Iluminación',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -2587,7 +2587,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios Electricos',
+       Name: 'Accesorios Eléctricos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -2597,7 +2597,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios Electricos',
+       Name: 'Accesorios Eléctricos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2687,17 +2687,17 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Neveras termicas',
+       Name: 'Neveras térmicas',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Termos termicos',
+       Name: 'Termos térmicos',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Lamparas y linternas',
+       Name: 'Lámparas y linternas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2707,7 +2707,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Brujulas',
+       Name: 'Brújulas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2732,12 +2732,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Inflables acuaticos',
+       Name: 'Inflables acuáticos',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Natacion',
+       Name: 'Natación',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2777,7 +2777,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Estaticas',
+       Name: 'Estáticas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2787,17 +2787,17 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Maquinas Abdominales',
+       Name: 'Máquinas Abdominales',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Maquinas Multifuncionales',
+       Name: 'Máquinas Multifuncionales',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Musculacion',
+       Name: 'Musculación',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2827,12 +2827,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Balones Futbol',
+       Name: 'Balones Fútbol',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Proteccion Futbol',
+       Name: 'Proteccion Fútbol',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2872,7 +2872,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Montana',
+       Name: 'Montaña',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -2897,12 +2897,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Suministros Medicos',
+       Name: 'Suministros Médicos',
        TipodeObjeto: 'Nivel 1'
      },
      {
        productType: 'Technology',
-       Name: 'Equipos Medicos',
+       Name: 'Equipos Médicos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -2917,7 +2917,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Basculas',
+       Name: 'Básculas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2927,7 +2927,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios Medicos',
+       Name: 'Accesorios Médicos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2967,7 +2967,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Fajas Ortopedicas',
+       Name: 'Fajas Ortopédicas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2992,17 +2992,17 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Juegos didacticos',
+       Name: 'Juegos didácticos',
        TipodeObjeto: 'Nivel 2'
      },
      {
        productType: 'Technology',
-       Name: 'Munecas y accesorios',
+       Name: 'Muñecas y accesorios',
        TipodeObjeto: 'Nivel 2'
      },
      {
        productType: 'Technology',
-       Name: 'Munecas',
+       Name: 'Muñecas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3027,7 +3027,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Juegos Electronicos',
+       Name: 'Juegos Electrónicos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3057,12 +3057,12 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Juegos de Salon',
+       Name: 'Juegos de Salón',
        TipodeObjeto: 'Nivel 3'
      },
      {
        productType: 'Technology',
-       Name: 'Jugueteria Bebe',
+       Name: 'Jugueteria Bebé',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3082,7 +3082,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Bateria',
+       Name: 'Batería',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3102,7 +3102,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Vehiculos',
+       Name: 'Vehículos',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -3117,7 +3117,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Carros y Motos de Coleccion',
+       Name: 'Carros y Motos de Colección',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3132,7 +3132,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Figuras de Accion',
+       Name: 'Figuras de Acción',
        TipodeObjeto: 'Nivel 2'
      },
      {
@@ -3152,7 +3152,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Percusion',
+       Name: 'Percusión',
        TipodeObjeto: 'Nivel 2'
      },
      {
