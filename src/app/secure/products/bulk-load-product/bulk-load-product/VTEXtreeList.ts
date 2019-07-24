@@ -1480,126 +1480,126 @@ export class VtexTree {
        Name: 'Accesorios de Moda',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Relojes',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Gafas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Collar',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Aretas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Anillos',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Manillas y Pulseras',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Dijes',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Cadenas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Cinturones',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Correas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Bufandas y pashminas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Pañoletas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Pañuelos y Pochette',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Guantes',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Corbatas y Corbatines',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Mancornas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Gorras',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Sombrero',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Boinas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Tirantas Adulto',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Tirantas Niño',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Sombrillas y paraguas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Llaveros',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Accesorios para el Cabello',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Relojes',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Gafas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Collar',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Aretas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Anillos',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Manillas y Pulseras',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Dijes',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Cadenas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Cinturones',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Correas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Bufandas y pashminas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Pañoletas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Pañuelos y Pochette',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Guantes',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Corbatas y Corbatines',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Mancornas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Gorras',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Sombrero',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Boinas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Tirantas Adulto',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Tirantas Niño',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Sombrillas y paraguas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Llaveros',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Accesorios para el Cabello',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Clothing',
        Name: 'Moda Bebes',
@@ -1800,36 +1800,36 @@ export class VtexTree {
        Name: 'Colchones',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Sencillo',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Semidoble',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Doble',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Queen',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Semi King',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'King',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Sencillo',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Semidoble',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Doble',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Queen',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Semi King',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'King',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Muebles',
@@ -1867,7 +1867,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Relojes',
+       Name: 'Relojes Decorativos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2022,7 +2022,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Cocina',
+       Name: 'Organizadores de Cocina',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2055,121 +2055,121 @@ export class VtexTree {
        Name: 'Mesa',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Vajillas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Cubiertos',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Complementos de mesa',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Vasos y copas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Complementos de bar',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Recipientes para Servir',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Mugs',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Servicio de Mesa infantil',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Jarras',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Utensilios de mesa',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Vajillas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Cubiertos',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Complementos de mesa',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Vasos y copas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Complementos de bar',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Recipientes para Servir',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Mugs',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Servicio de Mesa infantil',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Jarras',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Utensilios de mesa',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Navidad',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Arboles de Navidad',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Adornos Casa',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Pesebres',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Adornos del arbol',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Luces',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Gorros y disfraces de navidad',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Adornos árbol',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Arboles de Navidad',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Adornos Casa',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Pesebres',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Adornos del arbol',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Luces',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Gorros y disfraces de navidad',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Adornos árbol',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Halloween',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Accesorios de Disfraces Halloween',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Decoracion de Casa Halloween',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Disfraces Halloween',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Luces Halloween',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Accesorios de Disfraces Halloween',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Decoracion de Casa Halloween',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Disfraces Halloween',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Luces Halloween',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Vehículos',
@@ -2180,66 +2180,66 @@ export class VtexTree {
        Name: 'Carros',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Taxis',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Automoviles',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Camperos',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Camiones',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Tractores',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Autos Usados',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Taxis',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Automoviles',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Camperos',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Camiones',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Tractores',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Autos Usados',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Motos',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Dos Ruedas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Tres Ruedas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Cuatro Ruedas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Scooter',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Accesorios Motos',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Dos Ruedas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Tres Ruedas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Cuatro Ruedas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Scooter',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Accesorios Motos',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Llantas',
@@ -2415,26 +2415,26 @@ export class VtexTree {
        Name: 'Libros',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Literatura y ficción',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Negocios y profesionales',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'No ficción',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Otros',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Literatura y ficción',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Negocios y profesionales',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'No ficción',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Otros',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Musica',
@@ -2450,51 +2450,51 @@ export class VtexTree {
        Name: 'Complementos del Hogar',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Elementos de fijación',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Elementos De Sujeción',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Repuestos Hogar',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Encendedores',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Cerrajeria',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Escaleras',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Elementos Seguridad',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Basculas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Accesorios para el Baño',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Elementos de fijación',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Elementos De Sujeción',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Repuestos Hogar',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Encendedores',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Cerrajeria',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Escaleras',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Elementos Seguridad',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Basculas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Accesorios para el Baño',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Herramientas',
@@ -2535,31 +2535,31 @@ export class VtexTree {
        Name: 'Jardineria',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Insumos de jardineria',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Herramientas de jardineria',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Accesorios Riego',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Materas',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Soportes',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Insumos de jardineria',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Herramientas de jardineria',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Accesorios Riego',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Materas',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Soportes',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Adhesivos y pegantes',
@@ -2712,7 +2712,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios',
+       Name: 'Accesorios de Camping',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -2825,26 +2825,26 @@ export class VtexTree {
        Name: 'Futbol',
        TipodeObjeto: 'Nivel 2'
      },
-     {
-       productType: 'Technology',
-       Name: 'Balones Fútbol',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Proteccion Fútbol',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Mallas y Porterias',
-       TipodeObjeto: 'Nivel 3'
-     },
-     {
-       productType: 'Technology',
-       Name: 'Balones infantiles',
-       TipodeObjeto: 'Nivel 3'
-     },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Balones Fútbol',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Proteccion Fútbol',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Mallas y Porterias',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
+    //  {
+    //    productType: 'Technology',
+    //    Name: 'Balones infantiles',
+    //    TipodeObjeto: 'Nivel 3'
+    //  },
      {
        productType: 'Technology',
        Name: 'Patinaje',
@@ -2932,7 +2932,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Monitores',
+       Name: 'Monitores Médicos',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3007,7 +3007,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios',
+       Name: 'Accesorios de Muñecas',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3052,7 +3052,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Playa',
+       Name: 'Juegos de Playa',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3082,7 +3082,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Batería',
+       Name: 'Montables de Batería',
        TipodeObjeto: 'Nivel 3'
      },
      {
@@ -3167,7 +3167,7 @@ export class VtexTree {
      },
      {
        productType: 'Technology',
-       Name: 'Accesorios',
+       Name: 'Accesorios Instrumentos',
        TipodeObjeto: 'Nivel 2'
      }
     ];
