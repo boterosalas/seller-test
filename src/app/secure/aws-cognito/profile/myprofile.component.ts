@@ -40,7 +40,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     cancelVacation = cancelVacacionFunctionality;
     canVacation: boolean;
     canCancelVacation: boolean;
+    enableEndVacation: boolean;
     permissionComponent: MenuModel;
+    endvacationStart: any;
+    tomorrow = DateService.getTomorrowDate();
 
     otherUser: any;
 
@@ -59,6 +62,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     ngOnInit() {
+        this.enableEndVacation = true;
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
@@ -173,6 +177,14 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             minWidth: '280px'
         });
         return dialogRef.componentInstance;
+    }
+
+    //** metodo para habilitar la fecha final y setear un dia despues de seleccionado las vacaciones */
+
+    startDate() {
+        this.enableEndVacation = false;
+        let date = moment(this.vacationForm.controls.StartDateVacation.value).add(1,'days').utc();
+        this.endvacationStart = date['_d'];
     }
 
     /**
