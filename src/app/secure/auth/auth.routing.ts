@@ -12,6 +12,9 @@ export class AuthService implements CanActivate {
     modulesRouting: ModuleModel[] = Modules;
     modulesBack: ModuleModel[];
     userData: any;
+    completeUserData: any =  {
+        country: 'Colombia'
+    };
     admin = 'administrator';
     adminType = 1;
     types = ['Tienda', 'Exito'];
@@ -259,7 +262,7 @@ export class AuthService implements CanActivate {
      */
     public getMenu(nameMenu: any): MenuModel {
         let moduleSelected: MenuModel;
-        Modules.forEach(item => {
+        this.modulesRouting.forEach(item => {
             const resultado = item.Menus.find(menu => nameMenu === menu.NameMenu);
             if (resultado) {
                 moduleSelected = resultado;

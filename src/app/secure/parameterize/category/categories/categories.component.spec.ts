@@ -21,6 +21,7 @@ describe('CategoriesComponent', () => {
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
     { Identifier: 'CategoryName', Value: '^[A-Za-zÑñ\\sá é í ó ú ü ñà è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$', Module: 'parametrizacion' },
     { Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores' },
+    { Identifier: 'integerNumber', Value: '^([0-9])*$', Module: 'vendedores' }
   ];
 
   const categoryList = [
@@ -308,6 +309,14 @@ describe('CategoriesComponent', () => {
 
     it('Should e exist IdVTEX', () => {
       expect(component.IdVTEX).toBeTruthy();
+    });
+
+    it('Should e exist Tariff', () => {
+      expect(component.Tariff).toBeTruthy();
+    });
+
+    it('Should e exist TariffCode', () => {
+      expect(component.TariffCode).toBeTruthy();
     });
 
     describe('With creation in batch', () => {
