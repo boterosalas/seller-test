@@ -93,6 +93,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   sendPermission: boolean;
   attachmentPermission: boolean;
   marketPermission: boolean;
+
+  profile: number;
   // Fin de variables de permisos.
 
   // varialbe que almacena el número de órdenes obtenidas
@@ -150,6 +152,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.getMenuSelected();
   }
 
+
   /**
    * Funcion para verificar el menu y los permisos que este posee.
    * Verifica si la ruta posee ID (esto indica que debe tener las ordenes de ese tipo)
@@ -162,25 +165,39 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
       // Mediante la categoria obtiene el menu al cual desea apuntar
       if (!category[0]) {
-        this.permissionComponent = this.authService.getMenu(allName);
+        this.getDataUser(allName);
       } else {
         const selected = category[0].id;
         if (selected.toString() === idSended) {
-          this.permissionComponent = this.authService.getMenu(sendedName);
+          this.getDataUser(sendedName);
         } else if (selected.toString() === idToSend) {
-          this.permissionComponent = this.authService.getMenu(toSendName);
+          this.getDataUser(toSendName);
         }
       }
       // Logica para cargar el componente
       this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
-      // Permisos del componente.
-      this.readPermission = this.getFunctionality(this.read);
-      this.downloadPermission = this.getFunctionality(this.download);
-      this.sendPermission = this.getFunctionality(this.send);
-      this.attachmentPermission = this.getFunctionality(this.attachment);
-      this.marketPermission = this.getFunctionality(this.market);
     });
+  }
+
+  async getDataUser(nameMenu: string) {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 0);
+      this.setPermission();
+    } else {
+      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 1);
+      this.setPermission();
+    }
+  }
+
+   setPermission() {
+    // Permisos del componente.
+    this.readPermission = this.getFunctionality(this.read);
+    this.downloadPermission = this.getFunctionality(this.download);
+    this.sendPermission = this.getFunctionality(this.send);
+    this.attachmentPermission = this.getFunctionality(this.attachment);
+    this.marketPermission = this.getFunctionality(this.market);
   }
 
   /**

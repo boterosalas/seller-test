@@ -3,8 +3,9 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Modules, ModuleModel, MenuModel, ProfileTypes } from './auth.consts';
 import { UserParametersService, UserLoginService, EndpointService } from '@app/core';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst} from '@app/shared';
 import { HttpClient } from '@angular/common/http';
+import { UserInformation } from '@shared/models';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -20,6 +21,8 @@ export class AuthService implements CanActivate {
     types = ['Tienda', 'Exito'];
     getData = false;
     profileTypeGlobal = null;
+    user: UserInformation;
+    userProfiel: any;
 
     // Modulos habilitados del usuario logeado
     availableModules;
@@ -264,6 +267,31 @@ export class AuthService implements CanActivate {
         let moduleSelected: MenuModel;
         this.modulesRouting.forEach(item => {
             const resultado = item.Menus.find(menu => nameMenu === menu.NameMenu);
+            if (resultado) {
+                moduleSelected = resultado;
+                return true;
+            }
+        });
+        if (moduleSelected && moduleSelected.ShowMenu) {
+            return moduleSelected;
+        } else {
+            return null;
+        }
+    }
+
+
+    async validateUserType() {
+        this.user = await this.userParams.getUserData();
+        return this.user;
+    }
+
+
+
+
+     public getMenuProfiel( nameMenu: any,  profile: any ): MenuModel {
+        let moduleSelected: MenuModel;
+        this.modulesRouting.forEach(item => {
+            const resultado = item.Menus.find(menu => nameMenu === menu.NameMenu && menu.ProfileType === profile);
             if (resultado) {
                 moduleSelected = resultado;
                 return true;

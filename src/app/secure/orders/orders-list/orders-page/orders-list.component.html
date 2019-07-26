@@ -4,8 +4,9 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options>
+      <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
       <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-search-pagination>
     </div>
 
     <!-- Tabla de órdenes -->

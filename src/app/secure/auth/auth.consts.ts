@@ -154,7 +154,7 @@ export const acceptFuncionality = 'Aceptar';
 export const refuseFuncionality = 'Rechazar';
 
 const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCase(), [
-    // 1. Todas (Consultar, Descargar).
+    // 1. Todas (Rol vendedor - Consultar, Descargar).
     new MenuModel(allName, showAll, allName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
@@ -162,7 +162,11 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
         new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterOrders),
-    // 2. Por enviar (Consultar, Descargar).
+    // 2. Todas (Rol administrador - Consultar)
+    new MenuModel(allName, showAll, allName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterOrders),
+    // 3. Por enviar (Rol vendedor - Consultar, Descargar).
     new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
@@ -170,7 +174,11 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
         new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idToSend, idToSend),
-    // 3. Enviadas (Consultar, Descargar).
+    // 4. Por enviar (Rol administrador - Consultar).
+    new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntOrdersState + '/' + idToSend, idToSend),
+    // 5. Enviadas (Rol vendedor - Consultar, Descargar).
     new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
@@ -178,28 +186,36 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality), // Enviar.
         new FunctionalitiesModel(marketFuncionality, showAll, marketFuncionality) // Marcar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
-    // 4. Cargar guias (Cargar, Descargar).
+    // 6. Enviadas (Rol administrador - Consultar)
+    new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
+    // 7. Cargar guias (Cargar, Descargar).
     new MenuModel(guideChargesName, showAll, guideChargesName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
     ], RoutesConst.sellerCenterIntOrderLoadGuide),
-    // 5. Devoluciones (Consultar, Aceptar, Rechazar)
+    // 8. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 6. Validaciónes (Consultar)
+    // 9. Devoluciones (Rol administrador - Consultar)
+    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // 10. Validaciónes (Consultar)
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 7. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
+    // 11. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
     new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
-    // 8. Facturación electronica (Consultar, Descargar).
+    // 12. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.

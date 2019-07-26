@@ -18,6 +18,7 @@ import { SendOrderComponent } from './send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 import { MaterialModule } from '@app/material.module';
 import { ngfModule } from 'angular-file';
+// import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { ngfModule } from 'angular-file';
     OrderService,
     EventEmitterOrders,
     ComponentsService,
-    OrdersListComponent
+    OrdersListComponent,
+    // SearchSellerComponent
   ],
   exports: [
     OrdersListComponent,
