@@ -177,12 +177,13 @@ export class ListAdminComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.listAdminService.getListAdminOffers(params).subscribe(
       (result: any) => {
+        console.log(result);
         if (result.status === 200 && result.body !== undefined) {
           const response = result.body.data;
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
-          this.listAdminOffer = response.sellerOfferViewModels;
-          this.addDomainImages();
+          this.listAdminOffer = response;
+          // this.addDomainImages();
           this.loadingService.closeSpinner();
         } else {
           this.loadingService.closeSpinner();
@@ -190,6 +191,19 @@ export class ListAdminComponent implements OnInit {
         }
       }
     );
+  }
+
+   /**
+   * @method openDetailOffer
+   * @param item
+   * @description Método para ver el detalle de la oferta
+   * @memberof ListComponent
+   */
+  openDetailOffer(item: any) {
+    console.log(item);
+    this.viewDetailOffer = true;
+    this.dataOffer = item;
+    this.inDetail = true;
   }
 
    /**
@@ -276,4 +290,22 @@ export class ListAdminComponent implements OnInit {
     }
     this.listAdminService.savePaginationTokens(this.paginationToken);
   }
+
+    /**
+   * @method receiveVarConsumeList
+   * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
+   * @param event
+   * @memberof ListComponent
+   */
+  receiveVarConsumeList(event: any) {
+    if (event && event !== undefined && event !== null) {
+      this.listAdminOffer = [];
+      this.currentPage = 1;
+      this.filterActive = false;
+      this.filterRemove = 'all';
+      this.paramData.clear();
+      this.getListAdminOffers();
+    }
+  }
+
 }

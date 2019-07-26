@@ -15,6 +15,7 @@ import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/lis
 import { ListAdminRoutingModule } from './list-admin.routing';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { DetailOfferComponent } from './components/detail-offer/detail-offer.component';
 
 
 
@@ -34,7 +35,8 @@ import { FilterComponent } from './components/filter/filter.component';
   declarations: [
     ListAdminComponent,
     ToolbarComponent,
-    FilterComponent
+    FilterComponent,
+    DetailOfferComponent
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
