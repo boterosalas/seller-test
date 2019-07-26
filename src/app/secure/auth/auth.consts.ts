@@ -165,6 +165,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
     // 2. Todas (Rol administrador - Consultar)
     new MenuModel(allName, showAll, allName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterOrders),
     // 3. Por enviar (Rol vendedor - Consultar, Descargar).
     new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -177,6 +178,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
     // 4. Por enviar (Rol administrador - Consultar).
     new MenuModel(toSendName, showAll, toSendName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idToSend, idToSend),
     // 5. Enviadas (Rol vendedor - Consultar, Descargar).
     new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -189,6 +191,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
     // 6. Enviadas (Rol administrador - Consultar)
     new MenuModel(sendedName, showAll, sendedName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterIntOrdersState + '/' + idSended, idSended),
     // 7. Cargar guias (Cargar, Descargar).
     new MenuModel(guideChargesName, showAll, guideChargesName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -204,6 +207,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
     // 9. Devoluciones (Rol administrador - Consultar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
     // 10. Validaciónes (Consultar)
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [

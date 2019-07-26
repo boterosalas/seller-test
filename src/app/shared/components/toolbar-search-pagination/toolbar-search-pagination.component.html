@@ -7,8 +7,7 @@
             <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle}}</small>
           </p>
         </button>
-
-        <div fxFlex="500px">
+        <div fxFlex="500px" *ngIf="Typeprofile == 1">
           <form id="search-store-form" class="search-store mat-typography" (keydown)="keyDownFunction($event)">
             <mat-form-field class="input-search">
               <!-- Icon search -->

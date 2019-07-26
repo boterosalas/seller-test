@@ -59,7 +59,7 @@ export class ToolbarOptionsComponent {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, null);
   }
 
   /**

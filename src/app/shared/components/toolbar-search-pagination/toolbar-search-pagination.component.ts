@@ -53,6 +53,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
+  @Input() idSeller: number;
+  @Input() Typeprofile: number;
 
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
@@ -88,29 +90,29 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.filteredOptions = this.textForSearch.valueChanges
-    .pipe(
+      .pipe(
         startWith(''),
         map((val: any) =>
-            this.filter(val)
+          this.filter(val)
         )
-    );
-// consulto las tiendas disponibles
-this.getAllSellers();
+      );
+    // consulto las tiendas disponibles
+    this.getAllSellers();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.searchSellerInput && changes.searchSellerInput.currentValue && changes.searchSellerInput.currentValue !== undefined &&
-        changes.searchSellerInput.currentValue !== null) {
-        this.viewStoreInformation(this.searchSellerInput);
+      changes.searchSellerInput.currentValue !== null) {
+      this.viewStoreInformation(this.searchSellerInput);
     }
-}
+  }
 
   /**
    * Funcionalidad para despelgar el menu de filtro de órdenes.
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller);
   }
 
   /**
@@ -179,33 +181,33 @@ this.getAllSellers();
   }
 
 
-    /**
-     * Método empleado para consultar la lista de tiendas disponibles
-     * @memberof SearchStoreComponent
-     */
-    public getAllSellers() {
-      this.loadingService.viewSpinner();
-      if (this.isFullSearch) {
-          this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
-              if (res.status === 200) {
-                  const body = JSON.parse(res.body.body);
-                  this.listSellers = body.Data;
-              } else {
-                  this.listSellers = res.message;
-              }
-              this.loadingService.closeSpinner();
-          });
-      } else {
-          this.storeService.getAllStores(this.user).subscribe((res: any) => {
-              if (res.status === 200) {
-                  const body = JSON.parse(res.body.body);
-                  this.listSellers = body.Data;
-              } else {
-                  this.listSellers = res.message;
-              }
-              this.loadingService.closeSpinner();
-          });
-      }
+  /**
+   * Método empleado para consultar la lista de tiendas disponibles
+   * @memberof SearchStoreComponent
+   */
+  public getAllSellers() {
+    this.loadingService.viewSpinner();
+    if (this.isFullSearch) {
+      this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+        if (res.status === 200) {
+          const body = JSON.parse(res.body.body);
+          this.listSellers = body.Data;
+        } else {
+          this.listSellers = res.message;
+        }
+        this.loadingService.closeSpinner();
+      });
+    } else {
+      this.storeService.getAllStores(this.user).subscribe((res: any) => {
+        if (res.status === 200) {
+          const body = JSON.parse(res.body.body);
+          this.listSellers = body.Data;
+        } else {
+          this.listSellers = res.message;
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   /**
@@ -214,9 +216,9 @@ this.getAllSellers();
    * @memberof SearchStoreComponent
    */
   public whatchValueInput(event: any): void {
-      if (event === '') {
-          this.textForSearch.reset();
-      }
+    if (event === '') {
+      this.textForSearch.reset();
+    }
   }
 
   /**
@@ -226,10 +228,10 @@ this.getAllSellers();
    * @memberof SearchStoreComponent
    */
   public filter(val: string): string[] {
-      if (val !== null && this.listSellers) {
-          return this.listSellers.filter(option =>
-             option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
-      }
+    if (val !== null && this.listSellers) {
+      return this.listSellers.filter(option =>
+        option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
+    }
   }
 
   /**
@@ -239,19 +241,19 @@ this.getAllSellers();
    * @memberof SearchStoreComponent
    */
   public keyDownFunction(event: any): void {
-      // keyCode 13 -> Enter
-      if (event.keyCode === 13) {
-          // Obtengo los ultimos registros almacenados sobre la lista de busqueda
-          const suscribe = this.filteredOptions.subscribe((res: any) => {
-              // busco dentro de los registro el que conincida con el cricterio de busqueda actual
-              const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
-              // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
-              if (found !== undefined) {
-                  this.viewStoreInformation(found);
-              }
-          });
-          suscribe.unsubscribe();
-      }
+    // keyCode 13 -> Enter
+    if (event.keyCode === 13) {
+      // Obtengo los ultimos registros almacenados sobre la lista de busqueda
+      const suscribe = this.filteredOptions.subscribe((res: any) => {
+        // busco dentro de los registro el que conincida con el cricterio de busqueda actual
+        const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
+        // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
+        if (found !== undefined) {
+          this.viewStoreInformation(found);
+        }
+      });
+      suscribe.unsubscribe();
+    }
   }
 
   /**
@@ -261,8 +263,8 @@ this.getAllSellers();
    * @memberof SearchStoreComponent
    */
   public viewStoreInformation(search_seller: StoreModel) {
-      // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
-      this.eventsSeller.searchSeller(search_seller);
+    // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
+    this.eventsSeller.searchSeller(search_seller);
   }
 
 }
