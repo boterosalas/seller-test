@@ -9,13 +9,13 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { LoadingService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { DetailOfferComponent } from './detail-offer.component';
-import { ListComponent } from '../../list/list.component';
-import { ListService } from '../../list.service';
+import { ListAdminService } from '../../list-admin.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ListAdminComponent } from '../../list-admin/list-admin.component';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -46,7 +46,7 @@ describe('Detail offer Component', () => {
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
-    const mockListService = jasmine.createSpyObj('ListService', ['getOffers']);
+    const mockListService = jasmine.createSpyObj('ListAdminService', ['getListAdminOffers']);
     const mockBulkLoadService = jasmine.createSpyObj('BulkLoadService', ['setOffers']);
     const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
     const formBuilder: FormBuilder = new FormBuilder();
@@ -74,11 +74,11 @@ describe('Detail offer Component', () => {
                 { provide: LoadingService, useValue: mockLoadingService },
                 { provide: AuthService, useValue: mockAuthService },
                 { provide: ModalService, useValue: mockDialogError },
-                { provide: ListService, useValue: mockListService },
+                { provide: ListAdminService, useValue: mockListService },
                 { provide: BulkLoadService, useValue: mockBulkLoadService },
                 { provide: SupportService, useValue: mockSuportService },
                 { provide: FormBuilder, useValue: formBuilder },
-                ListComponent
+                ListAdminComponent
             ]
         }).compileComponents();
 
@@ -115,7 +115,7 @@ describe('Detail offer Component', () => {
                 }
             };
 
-            mockListService.getOffers.and.returnValue(of(responseGetDetailOffer));
+            mockListService.getListAdminOffers.and.returnValue(of(responseGetDetailOffer));
         });
 
         it('sould be charge regex', () => {

@@ -398,7 +398,6 @@ export class DetailOfferComponent {
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(this.params).subscribe(
       (result: any) => {
-        console.log(result);
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {

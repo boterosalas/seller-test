@@ -127,6 +127,9 @@ export class ListAdminComponent implements OnInit {
     });
 
     this.searchSubscription = this.searchEventEmitter.eventSearchSeller.subscribe((seller: any) => {
+      this.currentPage = 1;
+      this.filterActive = false;
+      this.filterRemove = 'all';
       this.isEnabled = true;
       this.seller = seller;
       const PARAMS = {
@@ -177,12 +180,12 @@ export class ListAdminComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.listAdminService.getListAdminOffers(params).subscribe(
       (result: any) => {
-        console.log(result);
+        this.viewDetailOffer = false;
         if (result.status === 200 && result.body !== undefined) {
           const response = result.body.data;
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
-          this.listAdminOffer = response;
+          this.listAdminOffer = response.sellerOfferViewModels;
           // this.addDomainImages();
           this.loadingService.closeSpinner();
         } else {
@@ -200,7 +203,6 @@ export class ListAdminComponent implements OnInit {
    * @memberof ListComponent
    */
   openDetailOffer(item: any) {
-    console.log(item);
     this.viewDetailOffer = true;
     this.dataOffer = item;
     this.inDetail = true;
