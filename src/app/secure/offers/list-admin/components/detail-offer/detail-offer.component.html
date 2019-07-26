@@ -21,20 +21,9 @@
 
     <p [innerHTML]="'EAN: ' + dataOffer.ean" class="ean flexbox align-center"></p>
 
-    <div class="btn-edit-offer flexbox justify-end">
-      <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="editOffer()" *ngIf="!isUpdateOffer && isUpdateOffer === false && canEdit">
-        <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
-      </button>
-      <button type="button" color="primary" matTooltip="Cancelar" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="cancelEditOffer()" *ngIf="isUpdateOffer && isUpdateOffer === true">
-        <mat-icon class="flexbox align-center justify-center">close</mat-icon>
-      </button>
-    </div>
-
     <p [innerHTML]="dataOffer.name" class="name"></p>
 
-    <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
+    <div class="container-data-offer">
 
       <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'"
         class="price-strikethrough"></p>
@@ -105,118 +94,6 @@
         </div>
       </aside>
       <p [innerHTML]="'Última modificación: ' + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
-    </div>
-
-    <div class="container-form-edit-offer" *ngIf="isUpdateOffer && isUpdateOffer === true">
-
-      <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" (ngSubmit)="submitUpdateOffer()"
-        class="flexbox flex-wrap align-center justify-between" autocomplete="off">
-        <mat-form-field>
-          <input matInput placeholder="Inventario" id="detail-offer-stock" formControlName="Stock"
-            (keypress)="onlyNumber($event)" required>
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')" [innerHTML]="'Este campo es requerido'">
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Precio" id="detail-offer-Price" formControlName="Price"
-            [errorStateMatcher]="matcher" (blur)="validInput('Price')" required>
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="'Este campo es requerido'">
-          </mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')" [innerHTML]="'Formato inválido'">
-          </mat-error>
-          <mat-error
-            *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
-            [innerHTML]="'Precio inválido, el valor debe ser mayor o igual a 8.000'"></mat-error>
-          <mat-error
-            *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanDiscPrice')"
-            [innerHTML]="'Precio inválido, el valor debe ser mayor a Precio con Descuento'"></mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Precio con Descuento" [errorStateMatcher]="matcher"
-            formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')">
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')" [innerHTML]="'Formato inválido'">
-          </mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')"
-            [innerHTML]="'Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000'"></mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')"
-            [innerHTML]="'Precio con Descuento inválido, el valor debe ser menor a Precio'"></mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Costo de Flete Promedio" formControlName="AverageFreightCost"
-            [errorStateMatcher]="matcher" required>
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')"
-            [innerHTML]="'Formato inválido'"></mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('required')"
-            [innerHTML]="'Este campo es requerido'"></mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="Promesa de Entrega" formControlName="PromiseDelivery"
-            (blur)="validInput('PromiseDelivery')" required>
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd') || 
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvaldStart') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvalidEnd')"
-            [innerHTML]="'La promesa de entrega no es v&aacute;lida'"></mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')"
-            [innerHTML]="'Este campo es requerido'"></mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Garantía" formControlName="Warranty" required (keypress)="onlyNumber($event)">
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('Warranty').hasError('required')"
-            [innerHTML]="'Este campo es requerido'"></mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Tipo de moneda</mat-label>
-          <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)"
-            [disabled]="true">
-            <mat-option value="USD">USD</mat-option>
-            <mat-option value="COP">COP</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-slide-toggle color="primary" formControlName="IsFreeShipping" (change)="checkSlide($event, 'isFreeShipping')">Free
-                    Shipping
-                </mat-slide-toggle>
-
-                <mat-slide-toggle color="primary" formControlName="IsEnviosExito" (change)="checkSlide($event, 'isEnviosExito')">Indicador 
-                    Envíos Éxito</mat-slide-toggle>
-
-                <mat-slide-toggle color="primary" formControlName="IsFreightCalculator" (change)="checkSlide($event, 'isFreightCalculator')">Cotizador
-                    de Flete</mat-slide-toggle>
-
-                <mat-slide-toggle color="primary" formControlName="IsLogisticsExito" (change)="checkSlide($event, 'IsLogisticsExito')">Logística 
-                    Éxito
-                </mat-slide-toggle>
-
-                <mat-slide-toggle color="primary" formControlName="IsUpdatedStock" (change)="checkSlide($event, 'IsUpdatedStock')">Actualización
-                    de Inventario</mat-slide-toggle>
-<!-- 
-        <mat-slide-toggle color="primary" formControlName="IsFreeShipping">Free Shipping</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsEnviosExito">Indicador Envíos Éxito</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsFreightCalculator">Cotizador de Flete</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsLogisticsExito">Logística Éxito</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsUpdatedStock">Actualización de Inventario</mat-slide-toggle> -->
-
-        <div class="button-update-offert flexbox justify-center align-center">
-          <button [disabled]="!updateOffer.form.valid || !updateOffer.form.touched" type="submit" mat-raised-button color="primary"
-            [innerHTML]="'Editar'"></button>
-        </div>
-
-      </form>
     </div>
   </article>
 </section>

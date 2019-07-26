@@ -112,12 +112,7 @@ export class ListAdminComponent implements OnInit {
   ngOnInit() {
     // Borra el filtro del localstorage
     localStorage.removeItem('currentFilterListAdmin');
-    // Inicializa el valor del limite
-    this.limit = 100;
-    // Inicializa el array de paginationToken
-    this.paginationToken = [];
-    // Llena la primeara posición del paginationToken con null
-    this.paginationToken.push('null');
+   
     // Inicializa la instancia de Logger
     this.log = new Logger('ListAdminComponent');
 
@@ -186,7 +181,6 @@ export class ListAdminComponent implements OnInit {
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
           this.listAdminOffer = response.sellerOfferViewModels;
-          // this.addDomainImages();
           this.loadingService.closeSpinner();
         } else {
           this.loadingService.closeSpinner();
@@ -225,18 +219,6 @@ export class ListAdminComponent implements OnInit {
     this.getListAdminOffers(this.paramData);
     this.sidenav.toggle();
   }
-
-   /**
-   * Agrega el dominio de imagenes a las ofertas nuevas.
-   */
-  addDomainImages() {
-    this.listAdminOffer.map(el => {
-      if (el.imageUrl.indexOf('https') === -1) {
-        el.imageUrl = `${this.domainImages}${el.imageUrl}`;
-      }
-    });
-  }
-
 
   /**
    * @method removeFilter
@@ -277,21 +259,6 @@ export class ListAdminComponent implements OnInit {
     this.getListAdminOffers(this.paramData);
   }
 
-  /**
-   * @method removeLastPaginationToken
-   * @description Metodo eliminar el ultimo pagination Token
-   * @param currentPage
-   * @memberof ListAdminComponent
-   */
-  removeLastPaginationToken(currentPage: number) {
-    if (currentPage === this.paginationToken.length) {
-      this.paginationToken.pop();
-    } else {
-      this.paginationToken.pop();
-      this.paginationToken.pop();
-    }
-    this.listAdminService.savePaginationTokens(this.paginationToken);
-  }
 
     /**
    * @method receiveVarConsumeList
