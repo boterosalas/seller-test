@@ -3,9 +3,10 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Modules, ModuleModel, MenuModel, ProfileTypes } from './auth.consts';
 import { UserParametersService, UserLoginService, EndpointService } from '@app/core';
-import { RoutesConst} from '@app/shared';
+import { RoutesConst, UserInformation} from '@app/shared';
 import { HttpClient } from '@angular/common/http';
-import { UserInformation } from '@shared/models';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { AuthRoutingService } from './auth.service';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -13,9 +14,7 @@ export class AuthService implements CanActivate {
     modulesRouting: ModuleModel[] = Modules;
     modulesBack: ModuleModel[];
     userData: any;
-    completeUserData: any =  {
-        country: 'Colombia'
-    };
+    completeUserData: any;
     admin = 'administrator';
     adminType = 1;
     types = ['Tienda', 'Exito'];
@@ -35,7 +34,15 @@ export class AuthService implements CanActivate {
         public router: Router,
         public userService: UserLoginService,
         private http: HttpClient,
-        private api: EndpointService) { }
+        private api: EndpointService,
+        private userDataService: AuthRoutingService) { 
+            !!this.userService && this.userService.isLogin$.pipe(distinctUntilChanged()).subscribe(val => {
+                if (!val) {
+                    this.completeUserData = null;
+                    this.modulesBack = null;
+                }
+            });
+        }
 
     canActivate(
         route: ActivatedRouteSnapshot,
@@ -115,7 +122,15 @@ export class AuthService implements CanActivate {
     public getModulesFromService(): any {
         return new Promise((resolve, reject) => {
             if (!this.modulesBack) {
+                if (!this.completeUserData) {
+                    this.userDataService.getUser().subscribe((res: any) => {
+                        this.completeUserData = !!JSON.parse(res.body).Data ? JSON.parse(res.body).Data : null;
+                    });
+                }
                 this.http.get(this.api.get('getPermissions')).subscribe((result: any) => {
+                    if(this.userService.isLogin$.value === null) {
+                        this.userService.isLogin$.next(true);
+                    }
                     this.getData = true;
                     if (result.body) {
                         const data = JSON.parse(result.body);
@@ -150,6 +165,7 @@ export class AuthService implements CanActivate {
                                     }
                                 });
                             });
+                            this.modulesBack = this.modulesRouting;
                             resolve(this.modulesRouting);
                         }
                     }
