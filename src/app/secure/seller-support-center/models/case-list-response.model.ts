@@ -8,6 +8,7 @@ export class CaseListResponse implements IResponse {
     page: number;
     pageSize: number;
     cases: Array<CaseSummary>;
+    total: number;
   };
   message: string;
 }

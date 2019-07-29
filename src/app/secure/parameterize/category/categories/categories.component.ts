@@ -29,7 +29,8 @@ export class CategoriesComponent implements OnInit {
     IdMarketplace: '',
     IdParent: '',
     Name: '',
-    IdVTEX: ''
+    IdVTEX: '',
+    integerNumber: ''
   };
 
   /**
@@ -116,6 +117,11 @@ export class CategoriesComponent implements OnInit {
             return element;
           }
         }).Value;
+        this.categoryRegex.integerNumber = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'integerNumber' && element.Module === 'vendedores') {
+            return element;
+          }
+        }).Value;
         if (!!ids) {
           for (const val in this.categoryRegex) {
             if (!!val && val.includes('Id')) {
@@ -150,7 +156,9 @@ export class CategoriesComponent implements OnInit {
       NameParent: [''],
       Name: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Name)])],
       ProductType: ['', Validators.compose([Validators.required])],
-      IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])]
+      IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])],
+      Tariff: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), Validators.max(100), Validators.min(0), positiveNumber])],
+      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10), Validators.minLength(10)])]
     });
   }
 
@@ -355,6 +363,9 @@ export class CategoriesComponent implements OnInit {
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
       value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
+      if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000'  || value.Tariff === '00' || value.Tariff === '0.00' ) {
+        value.Tariff = 0;
+      }
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
         try {
@@ -486,6 +497,14 @@ export class CategoriesComponent implements OnInit {
 
   get IdVTEX(): FormControl {
     return this.form.get('IdVTEX') as FormControl;
+  }
+
+  get Tariff(): FormControl {
+    return this.form.get('Tariff') as FormControl;
+  }
+
+  get TariffCode(): FormControl {
+    return this.form.get('TariffCode') as FormControl;
   }
 
 }

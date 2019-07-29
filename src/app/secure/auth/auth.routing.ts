@@ -53,7 +53,6 @@ export class AuthService implements CanActivate {
         if (state.url !== '/' + RoutesConst.sellerCenterLogout && state.url) {
             return new Promise((resolve, reject) => {
                 this.getModulesFromService().then(resultModule => {
-                    console.log(resultModule);
                     this.modulesBack = resultModule;
                     const moduleSelected = this.validateModule(state.url); // Verfica a que menu desea ingresar
                     this.verifyLog(); // Verifica si esta logueado
@@ -123,8 +122,7 @@ export class AuthService implements CanActivate {
             if (!this.modulesBack) {
                 if (!this.completeUserData) {
                     this.userDataService.getUser().subscribe((res: any) => {
-                        const data = JSON.parse(res.body);
-                        console.log(data);
+                        this.completeUserData = !!JSON.parse(res.body).Data ? JSON.parse(res.body).Data : null;
                     });
                 }
                 this.http.get(this.api.get('getPermissions')).subscribe((result: any) => {

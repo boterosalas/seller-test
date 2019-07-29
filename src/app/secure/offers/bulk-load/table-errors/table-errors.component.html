@@ -44,6 +44,11 @@
             <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor a cero, sin decimales.
           </p>
 
+          <p matLine *ngIf="item.type == 'ThanZero'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor o igual a cero, sin decimales.
+          </p>
+
           <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">El dato en la
             <span class="error-string">columna #{{ item.columna }}</span> de la
             <span class="error-string">fila #{{item.fila}}</span> debería tener el formato (# a #), los números deben ser mayores a 0.

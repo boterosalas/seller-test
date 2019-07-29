@@ -63,6 +63,7 @@
     "moment": "^2.24.0",
     "ng2-currency-mask": "^5.3.1",
     "ng2-pdf-viewer": "5.2.3",
+    "ng2-sticky-nav": "^6.0.0",
     "ngx-color-picker": "^6.7.0",
     "npm": "^5.8.0",
     "pdfmake": "^0.1.35",
