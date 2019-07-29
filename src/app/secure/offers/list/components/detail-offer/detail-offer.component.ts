@@ -421,10 +421,22 @@ export class DetailOfferComponent {
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {
-            this.loadingService.closeSpinner();
-            this.goToListOffers();
-            this.consumeServiceList.emit(true);
-            this.params = [];
+            if (data.body.data.error > 0) {
+              this.loadingService.closeSpinner();
+              this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+                duration: 5000,
+              });
+              this.consumeServiceList.emit(true);
+              this.params = [];
+            } else {
+              this.loadingService.closeSpinner();
+              this.snackBar.open('Aplicó correctamente una oferta.', 'Cerrar', {
+                duration: 5000,
+              });
+              this.goToListOffers();
+              this.consumeServiceList.emit(true);
+              this.params = [];
+            }
           } else if (data.body.successful === 0 && data.body.error === 0) {
             this.modalService.showModal('errorService');
             this.params = [];

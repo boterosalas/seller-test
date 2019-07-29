@@ -118,7 +118,7 @@
                 <mat-error *ngIf="TariffCode.hasError('pattern') || TariffCode.hasError('maxlength') || TariffCode.hasError('minlength')">El valor no es válido.</mat-error>
             </mat-form-field>
             <mat-form-field class="half-width">
-                <input matInput id="tariff" placeholder="Arancel" autocomplete="false"
+                <input matInput id="tariff" placeholder="Arancel" autocomplete="false" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="5"
                     formControlName="Tariff" required>
                     <mat-error *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')">Este campo es
                         obligatorio.
