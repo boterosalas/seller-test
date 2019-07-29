@@ -65,7 +65,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   // Limite de registros
   lengthOrder = 100;
   // Numero de paginas por defecto
-  pageSizeOrder = 50;
+  pageSizeOrder: number;
 
   /**
    * Creates an instance of ToolbarOptionsComponent.
