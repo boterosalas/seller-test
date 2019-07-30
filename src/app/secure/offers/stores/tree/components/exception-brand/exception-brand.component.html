@@ -1,0 +1,39 @@
+<div class="header__wrapper">
+  <div>Excepciones</div>
+  <div>
+    <button mat-stroked-button color="primary">AGREGAR EXCEPCIONES DE COMISIÓN</button>
+  </div>
+</div>
+
+<div class="table-wrapper">
+  <div class="example-container">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="exception">
+        <th mat-header-cell *matHeaderCellDef> Excepción </th>
+        <td mat-cell *matCellDef="let element"> {{element.exception}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div class="options">
+            <mat-icon>
+              edit
+            </mat-icon>
+            <mat-icon>
+              delete
+            </mat-icon>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
