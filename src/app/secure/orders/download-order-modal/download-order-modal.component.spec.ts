@@ -22,6 +22,12 @@ fdescribe('DownloadOrderModalComponent', () => {
   let component: DownloadOrderModalComponent;
   let fixture: ComponentFixture<DownloadOrderModalComponent>;
 
+  const currentSeller = {
+    email: 'ccbustamante221@misena.edu.co',
+    idSeller: '11618',
+    sellerName: 'la tienda de cristian 2019 vs 512'
+  };
+
   const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
@@ -68,6 +74,16 @@ fdescribe('DownloadOrderModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('Funciones', () => {
+    beforeEach(() => {
+    });
+
+    it('Validar descarga de ordenes', () => {
+      fixture.detectChanges();
+      component.downloadOrders(currentSeller);
+    });
   });
 });
 

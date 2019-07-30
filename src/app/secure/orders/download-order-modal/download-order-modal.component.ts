@@ -96,8 +96,10 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   downloadOrders(form: any) {
+    console.log('form: ', form);
     log.info(this.downloadOrderService.getCurrentFilterOrders());
     const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
+    console.log('currentFiltersOrders: ', currentFiltersOrders);
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
