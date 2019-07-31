@@ -9,13 +9,14 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { MaterialModule } from '@app/material.module';
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DownloadOrderService } from './download-order.service';
 import { ComponentsService } from '@app/shared';
 import { UserParametersService, LoadingService, EndpointService, CognitoUtil } from '@app/core';
+import { of } from 'rxjs';
 
 
 fdescribe('DownloadOrderModalComponent', () => {
@@ -25,12 +26,24 @@ fdescribe('DownloadOrderModalComponent', () => {
   const currentSeller = {
     email: 'ccbustamante221@misena.edu.co',
     idSeller: '11618',
-    sellerName: 'la tienda de cristian 2019 vs 512'
+    sellerName: 'la tienda de cristian 2019 vs 512',
   };
+
+  const data = {
+    sellerId: '11618',
+    sellerProfile: 'seller',
+    sellerNit: '123',
+    sellerName: 'la tienda de cristian 2019 vs 512',
+    sellerEmail: 'ccbustamante221@misena.edu.co',
+  };
+
+  const res = 1954570;
 
   const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-
+  const mockDownloadOrderService = jasmine.createSpyObj('DownloadOrderService', ['downloadOrders', 'getCurrentFilterOrders']);
+  const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
+  const formBuilder: FormBuilder = new FormBuilder();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,9 +65,11 @@ fdescribe('DownloadOrderModalComponent', () => {
         FormBuilder,
         UserParametersService,
         { provide: LoadingService, useValue: mockLoadingService },
+        { provide: UserParametersService, useValue: mockUserParameterService },
         EndpointService,
         CognitoUtil,
         { provide: MAT_DIALOG_DATA, useValue: [] },
+        { provide: FormBuilder, useValue: formBuilder }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -69,21 +84,41 @@ fdescribe('DownloadOrderModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DownloadOrderModalComponent);
     component = fixture.componentInstance;
+    mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
+    mockUserParameterService.getUserData.and.returnValue(of(data));
     fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  describe('Funciones', () => {
-    beforeEach(() => {
-    });
+  // describe('Funciones', () => {
+  //   const myform = formBuilder.group({
+  //     email: { value: 'ccbustamante221@misena.edu.co' }
+  //   });
+  //   beforeEach(() => {
+  //     mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+  //     fixture.detectChanges();
+  //   });
+  //   it('MMétodo para realizar la descarga de las órdenes.', () => {
+  //     // data.sellerEmail = component.myform.controls.email.value;
+  //     // data.sellerId = component.user.sellerId;
+  //     // data.sellerName = component.user.sellerName;
+  //     // console.log('component.myform: ', component.myform);
+  //     component.downloadOrders(myform);
+  //   });
+  // });
 
-    it('Validar descarga de ordenes', () => {
-      fixture.detectChanges();
-      component.downloadOrders(currentSeller);
-    });
-  });
+  // describe('Funciones', () => {
+  //   beforeEach(() => {
+
+  //   });
+  //   it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
+  //     component.user.sellerEmail = data.sellerEmail;
+  //     component.downloadOrdersByService(currentSeller);
+  //   });
+  // });
 });
 
