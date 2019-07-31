@@ -426,3 +426,8 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
       width: 100% !important;
     }
   }
+
+.space-between {
+    display: inline-flex;
+    justify-content: space-between;
+}

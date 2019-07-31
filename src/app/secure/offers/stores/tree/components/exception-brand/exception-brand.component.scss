@@ -43,3 +43,7 @@ tr th:last-child {
 tr td:last-child {
  @include last-child();
 }
+
+.full-width.space-between {
+    margin: 15px 0;
+}
