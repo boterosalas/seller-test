@@ -49,6 +49,7 @@ export const endpoints = {
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
+      getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
       patchOffersProducts: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/registeruniqueoffer',
       getStatusOffers : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
@@ -199,6 +200,7 @@ export const endpoints = {
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
+      getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
       patchOffersProducts: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/registeruniqueoffer',
       getStatusOffers : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/status',
       // Historical

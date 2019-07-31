@@ -1733,24 +1733,24 @@ describe('BulkLoad Products Component', () => {
             });
         });
 
-        it('read file', () => {
-            const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
-            const fileUploadNativeElement = fileUpload.nativeElement;
-            fileUploadNativeElement.dispatchEvent(new Event('change'));
-            fixture.detectChanges();
-            component.readFileUpload(fileUploadNativeElement);
-            component.onFileChange(fileUploadNativeElement);
-            expect(mockSearchService.getCategories).toHaveBeenCalled();
-        });
+        // it('read file', () => {
+        //     const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+        //     const fileUploadNativeElement = fileUpload.nativeElement;
+        //     fileUploadNativeElement.dispatchEvent(new Event('change'));
+        //     fixture.detectChanges();
+        //     //component.readFileUpload(fileUploadNativeElement);
+        //     component.onFileChange(fileUploadNativeElement);
+        //     expect(mockSearchService.getCategories).toHaveBeenCalled();
+        // });
 
-        it('on file change', () => {
-            const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
-            const fileUploadNativeElement = fileUpload.nativeElement;
-            fileUploadNativeElement.dispatchEvent(new Event('change'));
-            fixture.detectChanges();
-            component.onFileChange(fileUploadNativeElement);
-            expect(mockSearchService.getCategories).toHaveBeenCalled();
-        });
+        // it('on file change', () => {
+        //     const fileUpload = fixture.debugElement.query(By.css('#uploadFile'));
+        //     const fileUploadNativeElement = fileUpload.nativeElement;
+        //     fileUploadNativeElement.dispatchEvent(new Event('change'));
+        //     fixture.detectChanges();
+        //     component.onFileChange(fileUploadNativeElement);
+        //     expect(mockSearchService.getCategories).toHaveBeenCalled();
+        // });
 
         it('on file change error', () => {
             component.onFileChange('');
