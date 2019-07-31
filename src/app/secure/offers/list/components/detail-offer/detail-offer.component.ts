@@ -442,10 +442,15 @@ export class DetailOfferComponent {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        } else {
+        }
+         else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];
+        }
+
+        if (result.body.data.error === 1) {
+          this.modalService.showModal('errorService');
         }
       }
     );
