@@ -161,7 +161,7 @@
 
         <!-- Acciones Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'"  fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
             fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Acciones</span>
           </mat-header-cell>
@@ -232,7 +232,7 @@
           <!-- Client Information -->
           <app-client-information [order]="element"></app-client-information>
           <!-- Product Information -->
-          <app-products-order  [user]="user" [dataSource]="dataSource" [order]="element"></app-products-order>
+          <app-products-order  [user]="user" [Typeprofile]="typeProfile"  [dataSource]="dataSource" [order]="element" ></app-products-order>
         </div>
       </div>
     </ng-template>
