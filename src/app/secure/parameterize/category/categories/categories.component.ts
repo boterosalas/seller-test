@@ -376,8 +376,7 @@ export class CategoriesComponent implements OnInit {
               dialogIntance.onNoClick();
               this.openStatusModal();
             } else if (responseValue === true) {
-              this.confirmationUpdate(value);
-              this.loadingService.closeSpinner();
+              this.getTree();
               dialogIntance.onNoClick();
               this.snackBar.open('Actualizado correctamente', 'Cerrar', {
                 duration: 3000,
@@ -399,31 +398,6 @@ export class CategoriesComponent implements OnInit {
     };
     dialog.afterClosed().subscribe(() => {
       this.form.reset();
-    });
-  }
-
-  updateCategory(list: any[], value: any) {
-    list.forEach((element) => {
-      if (element.Id === value.Id) {
-        for (const val in element) {
-          if (!!val) {
-            element[val] = value[val];
-          }
-        }
-      } else {
-        this.updateCategory(element.Son, value);
-      }
-    });
-  }
-
-  confirmationUpdate(value: any) {
-    this.ngZone.runOutsideAngular(() => {
-      if (!!value.Id) {
-        value.Show = this.categoryToUpdate.Show;
-        value.Son = this.categoryToUpdate.Son;
-        this.updateCategory(this.categoryList, value);
-        this.categoryToUpdate = null;
-      }
     });
   }
 

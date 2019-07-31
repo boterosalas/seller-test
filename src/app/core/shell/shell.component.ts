@@ -48,6 +48,8 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   };
   userLoggin: boolean;
 
+  idSeller: number;
+
 
   constructor(
     public dialog: MatDialog,
@@ -93,9 +95,11 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * Funcionalidad que permite desplegar el menú de filtro de órdenes.
    * @memberof SidebarComponent
    */
-  toggleMenuSearchOrder(informationToForm: SearchFormEntity) {
+  toggleMenuSearchOrder(informationToForm: SearchFormEntity, idSeller: number) {
+    console.log(idSeller);
     this.sidenavSearchOrder.toggle();
     this.informationToForm = informationToForm;
+    this.idSeller = idSeller;
     log.info('Sidenav Search order menu toggle', `type_form ${informationToForm.type_form}`);
   }
 

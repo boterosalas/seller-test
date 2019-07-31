@@ -13,8 +13,11 @@ import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-mo
 import { OrderService } from '../orders.service';
 import { SendOrderComponent } from '../send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
-import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName, marketFuncionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName, marketFuncionality, visualizeFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -88,11 +91,18 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   attachment = attachmentFunctionality;
   send = sendFunctionality;
   market = marketFuncionality;
+  visualizeFunctionality = visualizeFunctionality;
   readPermission: boolean;
   downloadPermission: boolean;
   sendPermission: boolean;
   attachmentPermission: boolean;
   marketPermission: boolean;
+  visualizePermission: boolean;
+
+  profile: number;
+  idSeller: number;
+  event: any;
+  typeProfile: number;
   // Fin de variables de permisos.
 
   // varialbe que almacena el número de órdenes obtenidas
@@ -122,6 +132,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public cognitoId: String;
   public numberLength: number;
   public lastCategory: number;
+  private searchSubscription: any;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -139,7 +150,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public userService: UserLoginService,
     public cognito: CognitoUtil,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    public eventsSeller: EventEmitterSeller,
   ) { }
 
   /**
@@ -148,7 +160,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.getMenuSelected();
+    this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.idSeller = seller.IdSeller;
+      if (this.event) {
+        this.getOrdersList(this.event);
+      }
+    });
   }
+
 
   /**
    * Funcion para verificar el menu y los permisos que este posee.
@@ -162,25 +181,41 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
       // Mediante la categoria obtiene el menu al cual desea apuntar
       if (!category[0]) {
-        this.permissionComponent = this.authService.getMenu(allName);
+        this.getDataUser(allName);
       } else {
         const selected = category[0].id;
         if (selected.toString() === idSended) {
-          this.permissionComponent = this.authService.getMenu(sendedName);
+          this.getDataUser(sendedName);
         } else if (selected.toString() === idToSend) {
-          this.permissionComponent = this.authService.getMenu(toSendName);
+          this.getDataUser(toSendName);
         }
       }
       // Logica para cargar el componente
       this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
-      // Permisos del componente.
-      this.readPermission = this.getFunctionality(this.read);
-      this.downloadPermission = this.getFunctionality(this.download);
-      this.sendPermission = this.getFunctionality(this.send);
-      this.attachmentPermission = this.getFunctionality(this.attachment);
-      this.marketPermission = this.getFunctionality(this.market);
     });
+  }
+
+  async getDataUser(nameMenu: string) {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 0);
+      this.setPermission(0);
+    } else {
+      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 1);
+      this.setPermission(1);
+    }
+  }
+
+   setPermission(typeProfile: number) {
+    // Permisos del componente.
+    this.typeProfile = typeProfile;
+    this.readPermission = this.getFunctionality(this.read);
+    this.downloadPermission = this.getFunctionality(this.download);
+    this.sendPermission = this.getFunctionality(this.send);
+    this.attachmentPermission = this.getFunctionality(this.attachment);
+    this.marketPermission = this.getFunctionality(this.market);
+    this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
   }
 
   /**
@@ -229,6 +264,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     if (this.subFilterOrder !== undefined) {
       this.subFilterOrder.unsubscribe();
     }
+    this.searchSubscription.unsubscribe();
   }
 
   /**
@@ -358,6 +394,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersList($event: any) {
+    this.event = $event ;
     this.setCategoryName();
     this.loadingService.viewSpinner();
     if ($event !== undefined) {
@@ -373,7 +410,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           category = this.lastCategory;
         }
         this.currentEventPaginate = $event;
-        this.orderService.getOrderList(category, $event.lengthOrder).subscribe((res: any) => {
+        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
           this.loadingService.closeSpinner();
           this.addCheckOptionInProduct(res, $event.paginator);
         }, err => {

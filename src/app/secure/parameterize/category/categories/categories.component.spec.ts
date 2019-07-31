@@ -249,24 +249,6 @@ describe('CategoriesComponent', () => {
       expect(mockMatDialog.open).toHaveBeenCalled();
     });
 
-    it('should be update a category', () => {
-      component.categoryToUpdate = categoryList[1];
-      const value = {
-        Commission: 15,
-        Id: 27177,
-        IdCarulla: null,
-        IdCatalogos: null,
-        IdExito: 'catmp1000000000',
-        IdMarketplace: 'catmp1000000000',
-        IdParent: 27176,
-        IdVTEX: null,
-        Name: 'Nacionales',
-        ProductType: 'Technology'
-      };
-      component.confirmationUpdate(value);
-      expect(component.categoryList).not.toEqual(categoryTree);
-    });
-
     it('Should e exist Comission', () => {
       expect(component.Commission).toBeTruthy();
     });
