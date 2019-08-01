@@ -67,7 +67,6 @@ export class DownloadOrderModalComponent implements OnInit {
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    console.log('user: ', this.user);
   }
 
   /**
@@ -97,10 +96,8 @@ export class DownloadOrderModalComponent implements OnInit {
    * @memberof DownloadOrderModalComponent
    */
   downloadOrders(form: any) {
-    console.log('form: ', form);
     log.info(this.downloadOrderService.getCurrentFilterOrders());
     const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
-    console.log('currentFiltersOrders: ', currentFiltersOrders);
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
@@ -117,7 +114,6 @@ export class DownloadOrderModalComponent implements OnInit {
    * @param currentFiltersOrders
    */
   downloadOrdersByService(currentFiltersOrders: any): void {
-    console.log('currentFiltersOrders: ', currentFiltersOrders);
     this.loadingService.viewSpinner();
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
       console.log('res: ', res);

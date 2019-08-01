@@ -16,7 +16,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DownloadOrderService } from './download-order.service';
 import { ComponentsService } from '@app/shared';
 import { UserParametersService, LoadingService, EndpointService, CognitoUtil } from '@app/core';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 
 fdescribe('DownloadOrderModalComponent', () => {
@@ -84,7 +84,7 @@ fdescribe('DownloadOrderModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DownloadOrderModalComponent);
     component = fixture.componentInstance;
-    mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
+    // mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
     mockUserParameterService.getUserData.and.returnValue(of(data));
     fixture.detectChanges();
   });
@@ -99,22 +99,52 @@ fdescribe('DownloadOrderModalComponent', () => {
       email: { value: 'ccbustamante221@misena.edu.co' }
     });
     beforeEach(() => {
+      mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
       mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
       component.user = data;
       fixture.detectChanges();
     });
-    it('MMétodo para realizar la descarga de las órdenes.', () => {
+    it('Método para realizar la descarga de las órdenes.', () => {
       component.downloadOrders(myform);
     });
   });
 
   describe('Funciones', () => {
     beforeEach(() => {
+      mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
       mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
-      mockDownloadOrderService.downloadBilling.and.returnValue(of(currentSeller));
       fixture.detectChanges();
     });
     it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
+      component.downloadOrdersByService(currentSeller);
+    });
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
+  });
+
+  describe('Funciones', () => {
+    beforeEach(() => {
+      // mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
+      // mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(throwError('falle'));
+      fixture.detectChanges();
+    });
+    it('Error servicio', () => {
+      component.downloadOrdersByService(currentSeller);
+    });
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
+  });
+
+  describe('Funciones', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.downloadOrders.and.returnValue(of(null));
+      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+      fixture.detectChanges();
+    });
+    it('Metodo para enviar al back el correo por el cual desea obtener las facturas ELSE', () => {
       component.downloadOrdersByService(currentSeller);
     });
   });
