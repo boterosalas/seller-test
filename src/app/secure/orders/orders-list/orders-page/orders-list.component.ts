@@ -253,19 +253,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
 
-  /**
-   * Funcionalidad para remover las suscripciones creadas.
-   * @memberof OrdersListComponent
-   */
-  ngOnDestroy() {
-    if (this.subStateOrder !== undefined) {
-      this.subStateOrder.unsubscribe();
-    }
-    if (this.subFilterOrder !== undefined) {
-      this.subFilterOrder.unsubscribe();
-    }
-    this.searchSubscription.unsubscribe();
-  }
+ 
 
   /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
@@ -301,7 +289,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceCurrentUrl() {
-
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
       if (this.currentRootPage !== undefined) {
@@ -320,10 +307,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
-
           // obtengo las órdenes con la función del componente ToolbarOptionsComponent
           this.toolbarOption.getOrdersList(this.currentRootPage);
-
           this.setTitleToolbar();
         } else {
           //  obtengo las órdenes sin ningun estado en especifico
@@ -338,6 +323,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.toolbarOption.getOrdersList();
       }
     });
+    this.ngOnDestroy();
   }
 
   /**
@@ -633,5 +619,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const timezone = new Date().getTimezoneOffset();
     const time = new Date(date).getTime(); // new Date('2019-02-03T00:42:06.177+00:00').getTime();
     return new Date( time + (timezone * 60 * 1000) );
+  }
+
+
+  ngOnDestroy() {
+    if (this.subStateOrder !== undefined) {
+      this.subStateOrder.unsubscribe();
+    }
+    if (this.subFilterOrder !== undefined) {
+      this.subFilterOrder.unsubscribe();
+    }
   }
 }

@@ -208,7 +208,7 @@ $height-input: 25px;
   align-items: center;
   justify-content: center;
   border-radius: 4px 4px 0 0;
-  width: 50 !important;
+  width: 100% !important;
   .mat-form-field-infix {
     top: -5px;
   }
@@ -218,6 +218,7 @@ $height-input: 25px;
   width: 100%;
   height: $height-input;
   font-size: 15px;
+  top: -14px;
   & .mat-icon {
     margin-top: 15px;
     padding-left: 9px;
@@ -258,7 +259,7 @@ $height-input: 25px;
 }
 
 ::ng-deep .mat-form-field-wrapper {
-  top: -14px;
+  top: initial;
 }
 
 ::ng-deep .mat-form-field.input-search .mat-form-field-underline {
@@ -271,4 +272,10 @@ $height-input: 25px;
   padding-left: 6px !important;
   font-size: 18px !important;
   font-family: Arial;
+  caret-color: #000000;
+}
+
+::ng-deep .input-search-black {
+  color: #000000;
+  caret-color: #000000;
 }
