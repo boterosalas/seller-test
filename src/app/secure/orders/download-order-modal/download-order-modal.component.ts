@@ -116,7 +116,6 @@ export class DownloadOrderModalComponent implements OnInit {
   downloadOrdersByService(currentFiltersOrders: any): void {
     this.loadingService.viewSpinner();
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
-      console.log('res: ', res);
       if (res != null) {
         this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
           'Cerrar', 10000);
