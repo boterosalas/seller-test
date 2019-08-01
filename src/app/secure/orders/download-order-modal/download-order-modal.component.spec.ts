@@ -41,7 +41,7 @@ fdescribe('DownloadOrderModalComponent', () => {
 
   const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-  const mockDownloadOrderService = jasmine.createSpyObj('DownloadOrderService', ['downloadOrders', 'getCurrentFilterOrders']);
+  const mockDownloadOrderService = jasmine.createSpyObj('DownloadOrderService', ['downloadOrders', 'getCurrentFilterOrders', 'downloadBilling']);
   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
   const formBuilder: FormBuilder = new FormBuilder();
 
@@ -60,7 +60,7 @@ fdescribe('DownloadOrderModalComponent', () => {
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
-        DownloadOrderService,
+        { provide: DownloadOrderService, useValue: mockDownloadOrderService },
         ComponentsService,
         FormBuilder,
         UserParametersService,
@@ -94,31 +94,39 @@ fdescribe('DownloadOrderModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // describe('Funciones', () => {
-  //   const myform = formBuilder.group({
-  //     email: { value: 'ccbustamante221@misena.edu.co' }
-  //   });
-  //   beforeEach(() => {
-  //     mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
-  //     fixture.detectChanges();
-  //   });
-  //   it('MMétodo para realizar la descarga de las órdenes.', () => {
-  //     // data.sellerEmail = component.myform.controls.email.value;
-  //     // data.sellerId = component.user.sellerId;
-  //     // data.sellerName = component.user.sellerName;
-  //     // console.log('component.myform: ', component.myform);
-  //     component.downloadOrders(myform);
-  //   });
-  // });
+  describe('Funciones', () => {
+    const myform = formBuilder.group({
+      email: { value: 'ccbustamante221@misena.edu.co' }
+    });
+    beforeEach(() => {
+      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+      component.user = data;
+      fixture.detectChanges();
+    });
+    it('MMétodo para realizar la descarga de las órdenes.', () => {
+      component.downloadOrders(myform);
+    });
+  });
 
-  // describe('Funciones', () => {
-  //   beforeEach(() => {
+  describe('Funciones', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+      mockDownloadOrderService.downloadBilling.and.returnValue(of(currentSeller));
+      fixture.detectChanges();
+    });
+    it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
+      component.downloadOrdersByService(currentSeller);
+    });
+  });
 
-  //   });
-  //   it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
-  //     component.user.sellerEmail = data.sellerEmail;
-  //     component.downloadOrdersByService(currentSeller);
-  //   });
-  // });
+  describe('Funciones', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.downloadBilling.and.returnValue(of(currentSeller));
+      fixture.detectChanges();
+    });
+    it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
+      component.downBillingByService(currentSeller);
+    });
+  });
 });
 

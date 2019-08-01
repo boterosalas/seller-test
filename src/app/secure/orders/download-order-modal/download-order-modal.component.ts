@@ -67,6 +67,7 @@ export class DownloadOrderModalComponent implements OnInit {
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+    console.log('user: ', this.user);
   }
 
   /**
@@ -116,26 +117,26 @@ export class DownloadOrderModalComponent implements OnInit {
    * @param currentFiltersOrders
    */
   downloadOrdersByService(currentFiltersOrders: any): void {
-    // console.log('currentFiltersOrders: ', currentFiltersOrders);
-    // this.loadingService.viewSpinner();
-    // this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
-    //   console.log('res: ', res);
-    //   if (res != null) {
-    //     this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
-    //       'Cerrar', 10000);
-    //     this.loadingService.closeSpinner();
+    console.log('currentFiltersOrders: ', currentFiltersOrders);
+    this.loadingService.viewSpinner();
+    this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
+      console.log('res: ', res);
+      if (res != null) {
+        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
+          'Cerrar', 10000);
+        this.loadingService.closeSpinner();
 
-    //   } else {
-    //     this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
-    //     this.loadingService.closeSpinner();
+      } else {
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+        this.loadingService.closeSpinner();
 
-    //   }
-    //   this.onNoClick();
-    // }, err => {
-    //   this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
-    //   this.loadingService.closeSpinner();
-    //   this.onNoClick();
-    // });
+      }
+      this.onNoClick();
+    }, err => {
+      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
   }
 
   /**
@@ -143,24 +144,24 @@ export class DownloadOrderModalComponent implements OnInit {
    * @param currentFiltersOrders
    */
   downBillingByService(currentFiltersOrders: any): void {
-    // this.loadingService.viewSpinner();
-    // this.downloadOrderService.downloadBilling(currentFiltersOrders).subscribe(res => {
-    //   if (res != null) {
-    //     this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
-    //       'Cerrar', 10000);
-    //     this.loadingService.closeSpinner();
+    this.loadingService.viewSpinner();
+    this.downloadOrderService.downloadBilling(currentFiltersOrders).subscribe(res => {
+      if (res != null) {
+        this.componentsService.openSnackBar('Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico',
+          'Cerrar', 10000);
+        this.loadingService.closeSpinner();
 
-    //   } else {
-    //     this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
-    //     this.loadingService.closeSpinner();
+      } else {
+        this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+        this.loadingService.closeSpinner();
 
-    //   }
-    //   this.onNoClick();
-    // }, err => {
-    //   this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
-    //   this.loadingService.closeSpinner();
-    //   this.onNoClick();
-    // });
+      }
+      this.onNoClick();
+    }, err => {
+      this.componentsService.openSnackBar('Se han presentado un error al realizar la descarga de las órdenes', 'Cerrar', 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
 
   }
 }
