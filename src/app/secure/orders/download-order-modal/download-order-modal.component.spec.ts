@@ -94,7 +94,7 @@ fdescribe('DownloadOrderModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('Funciones', () => {
+  describe('Funciones descarga de las órdene', () => {
     const myform = formBuilder.group({
       email: { value: 'ccbustamante221@misena.edu.co' }
     });
@@ -109,7 +109,7 @@ fdescribe('DownloadOrderModalComponent', () => {
     });
   });
 
-  describe('Funciones', () => {
+  describe('Funcion obtener orden', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
       mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
@@ -123,22 +123,7 @@ fdescribe('DownloadOrderModalComponent', () => {
     });
   });
 
-  describe('Funciones', () => {
-    beforeEach(() => {
-      // mockDownloadOrderService.downloadOrders.and.returnValue(of(res));
-      // mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
-      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(throwError('falle'));
-      fixture.detectChanges();
-    });
-    it('Error servicio', () => {
-      component.downloadOrdersByService(currentSeller);
-    });
-    afterAll(() => {
-      TestBed.resetTestingModule();
-    });
-  });
-
-  describe('Funciones', () => {
+  describe('Funcion obtener orden ELSE', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadOrders.and.returnValue(of(null));
       mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
@@ -149,13 +134,53 @@ fdescribe('DownloadOrderModalComponent', () => {
     });
   });
 
-  describe('Funciones', () => {
+  describe('Funcion obtener orden ERROR SERV', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.downloadOrders.and.returnValue(throwError('falle'));
+      fixture.detectChanges();
+    });
+    it('Error servicio', () => {
+      component.downloadOrdersByService(currentSeller);
+    });
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
+  });
+
+  describe('Funcion obtener las facturas', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadBilling.and.returnValue(of(currentSeller));
       fixture.detectChanges();
     });
     it('Metodo para enviar al back el correo por el cual desea obtener las facturas', () => {
       component.downBillingByService(currentSeller);
+    });
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
+  });
+
+  describe('Funcion obtener las facturas ELSE', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.downloadBilling.and.returnValue(of(null));
+      mockDownloadOrderService.getCurrentFilterOrders.and.returnValue(of(currentSeller));
+      fixture.detectChanges();
+    });
+    it('Metodo para enviar al back el correo por el cual desea obtener las facturas ELSE', () => {
+      component.downBillingByService(currentSeller);
+    });
+  });
+
+  describe('Funcion obtener las facturas ERROR SERV', () => {
+    beforeEach(() => {
+      mockDownloadOrderService.downloadBilling.and.returnValue(throwError('falle'));
+      fixture.detectChanges();
+    });
+    it('Error servicio', () => {
+      component.downBillingByService(currentSeller);
+    });
+    afterAll(() => {
+      TestBed.resetTestingModule();
     });
   });
 });
