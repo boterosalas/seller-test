@@ -8,6 +8,9 @@ import { EndpointService } from '../http';
 import { Logger } from '../util/logger.service';
 import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
 import { DynamoDBService } from './ddb.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { Behavior } from 'aws-sdk/clients/iot';
+import { BehaviorSubject } from 'rxjs';
 
 const log = new Logger('UserLoginService');
 
@@ -18,6 +21,8 @@ const cognitoEnv = environment.cognito;
 
 @Injectable()
 export class UserLoginService {
+
+  isLogin$ = new BehaviorSubject(null);
 
   constructor(
     private ddb: DynamoDBService,
@@ -147,6 +152,7 @@ export class UserLoginService {
       return null;
     }
     this.cognitoUtil.getCurrentUser().signOut();
+    this.isLogin$.next(false);
   }
 
   isAuthenticated(callback: LoggedInCallback) {

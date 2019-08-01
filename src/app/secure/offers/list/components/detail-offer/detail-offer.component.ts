@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { validateDataToEqual } from '@app/shared/util/validation-messages';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -205,19 +206,12 @@ export class DetailOfferComponent {
     });
   }
 
-
-
-
-
   /**
    * @method createValidators
    * @description Metodo para crear el formControl de cada input con sus validaciones.
    * @memberof DetailOfferComponent
    */
   createValidators() {
-    const formatNumber = /^[0-9]+$/;
-    const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-    const formatBoolean = /^[0-1]$/;
 
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
@@ -256,9 +250,17 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
+    this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
-      if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
+      this.validateOffertType(val);
+    });
+    const initialValue = Object.assign(this.formUpdateOffer.value, {});
+    this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
+  }
+
+  validateOffertType(val) {
+      if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
         this.formUpdateOffer.get('IsFreeShipping').setValue(0);
         this.formUpdateOffer.get('IsEnviosExito').setValue(0);
         this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
@@ -273,7 +275,6 @@ export class DetailOfferComponent {
         !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
         !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
       }
-    });
   }
 
   /**
@@ -441,10 +442,15 @@ export class DetailOfferComponent {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        } else {
+        }
+         else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];
+        }
+
+        if (result.body.data.error === 1) {
+          this.modalService.showModal('errorService');
         }
       }
     );

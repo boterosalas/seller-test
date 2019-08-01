@@ -39,6 +39,7 @@ import { ConversationComponent } from './components/conversation/conversation.co
 import { ConversationMessageComponent } from './components/conversation-message/conversation-message.component';
 import { ItemConversationDirective } from './components/conversation/item-conversation.directive';
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
+import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -100,7 +101,8 @@ import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
     CaseSummaryComponent,
     ConversationComponent,
     ItemConversationDirective,
-    DateNoGtmPipe
+    DateNoGtmPipe,
+    ToolbarSearchPaginationModule
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
