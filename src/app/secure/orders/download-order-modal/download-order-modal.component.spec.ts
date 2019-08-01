@@ -19,7 +19,7 @@ import { UserParametersService, LoadingService, EndpointService, CognitoUtil } f
 import { of, throwError } from 'rxjs';
 
 
-fdescribe('DownloadOrderModalComponent', () => {
+describe('DownloadOrderModalComponent', () => {
   let component: DownloadOrderModalComponent;
   let fixture: ComponentFixture<DownloadOrderModalComponent>;
 
