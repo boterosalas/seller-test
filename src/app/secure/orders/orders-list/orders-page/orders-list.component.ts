@@ -396,11 +396,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
         this.currentEventPaginate = $event;
         this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
-          this.loadingService.closeSpinner();
           this.addCheckOptionInProduct(res, $event.paginator);
           if (res && res.length === 0 && this.idSeller) {
             this.showMenssage = true;
           }
+          this.loadingService.closeSpinner();
         }, err => {
           this.orderListLength = true;
           this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);
