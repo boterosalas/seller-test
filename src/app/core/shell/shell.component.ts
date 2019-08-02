@@ -96,7 +96,6 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * @memberof SidebarComponent
    */
   toggleMenuSearchOrder(informationToForm: SearchFormEntity, idSeller: number) {
-    console.log(idSeller);
     this.sidenavSearchOrder.toggle();
     this.informationToForm = informationToForm;
     this.idSeller = idSeller;
