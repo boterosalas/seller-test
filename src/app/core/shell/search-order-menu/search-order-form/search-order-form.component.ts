@@ -27,6 +27,8 @@ export class SearchOrderFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
+  @Input() idSeller: number;
+
   /**
    * Creates an instance of SearchOrderFormComponent.
    * @param {UserService} userService
@@ -151,7 +153,7 @@ export class SearchOrderFormComponent implements OnInit {
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersFilter(100, stringSearch).subscribe((res: any) => {
+      this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
 
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.

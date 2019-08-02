@@ -27,6 +27,8 @@ export class SearchOrderMenuComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
+  @Input() idSeller: number;
+
   /**
    * Creates an instance of SearchOrderMenuComponent.
    * @param {ShellComponent} shellComponent

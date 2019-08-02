@@ -1,7 +1,7 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
   <div class="title-product-list">
     <div fxFlex="56px" class="sc-text-normal">
-      <div class="center-product-list">
+      <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox class="sc-check-personal"
                       *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
                       [checked]="order.sendAllProduct" (change)="checkAllProductInOrder(order)"></mat-checkbox>
@@ -51,7 +51,7 @@
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
          class="item-title-table sc-text-normal">
       <div class="title-table-product">
-        <p style="padding-left: 22px;">Acciones</p>
+        <p style="padding-left: 22px;" *ngIf="Typeprofile === 0">Acciones</p>
       </div>
     </div>
     <!-- <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table sc-text-normal">
@@ -63,7 +63,7 @@
 
   <div *ngFor="let product of order.products;let index=index" class="content-product-list">
     <div fxFlex="50px">
-      <div class="center-product-list">
+      <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
                       *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
                       [disabled]="product.tracking != null" (change)="validateCheckProductForSendAll(order)"
@@ -142,7 +142,7 @@
         <p class="sc-text-order" *ngIf="product.fulfillment == false && product.enviosExito == false">Estándar</p>
       </div>
     </div>
-    <div class="item-action-table">
+    <div class="item-action-table" *ngIf="Typeprofile === 0">
 
       <button id="dropdown-product-order-{{index}}" color="primary" class="button-toolbar" mat-button
               [matMenuTriggerFor]="orderOptions">
@@ -202,7 +202,7 @@
     <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" fxFlexOffset.lg="40%"
          fxFlexOffset.xl="40%"
          fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="100">
-      <div>
+      <div *ngIf="Typeprofile === 0">
         <button id="send-from-product-order-{{order.orderNumber}}" (click)="openDialogSendOrder(order)"
                 [disabled]="!order.sendAllProduct"
                 class="full-button sc-default-button sc-button" mat-raised-button color="accent">Enviar todo
