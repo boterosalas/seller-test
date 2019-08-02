@@ -98,6 +98,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   attachmentPermission: boolean;
   marketPermission: boolean;
   visualizePermission: boolean;
+  showMenssage= false;
 
   profile: number;
   idSeller: number;
@@ -253,8 +254,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
 
- 
-
   /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
@@ -399,6 +398,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
           this.loadingService.closeSpinner();
           this.addCheckOptionInProduct(res, $event.paginator);
+          if (res && res.length === 0 && this.idSeller) {
+            this.showMenssage = true;
+          }
         }, err => {
           this.orderListLength = true;
           this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);

@@ -208,7 +208,6 @@ $height-input: 25px;
   align-items: center;
   justify-content: center;
   border-radius: 4px 4px 0 0;
-  width: 100% !important;
   .mat-form-field-infix {
     top: -5px;
   }
@@ -259,7 +258,7 @@ $height-input: 25px;
 }
 
 ::ng-deep .mat-form-field-wrapper {
-  top: initial;
+ margin-top: 0px;
 }
 
 ::ng-deep .mat-form-field.input-search .mat-form-field-underline {
@@ -276,6 +275,6 @@ $height-input: 25px;
 }
 
 ::ng-deep .input-search-black {
-  color: #000000;
+  color: #000000 !important;
   caret-color: #000000;
 }
