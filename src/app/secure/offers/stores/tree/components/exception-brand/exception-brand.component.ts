@@ -4,7 +4,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService } from '@app/core';
 
@@ -65,25 +65,27 @@ export class ExceptionBrandComponent implements OnInit {
 
   regex;
 
-  constructor(private dialog: MatDialog, 
-    private fb: FormBuilder, 
+  constructor(private dialog: MatDialog,
+    private fb: FormBuilder,
     private regexService: BasicInformationService,
     private loadingService: LoadingService) {
     this.getRegex();
     this.dataSource = new MatTableDataSource(this.preDataSource);
   }
-  
+
   getRegex() {
     this.loadingService.viewSpinner();
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
-      const {Data} = !!res && !!res.body  && !!res.body.body && JSON.parse(res.body.body);
-      this.regex = Data.filter(element => {
-        if (element.Identifier === 'formatNumber' && element.Module === 'ofertas') {
-          return element;
-        }
-      }).Value;
-      this.loadingService.closeSpinner();
-      this.initForm();
+      const { Data } = !!res && !!res.body && !!res.body.body && JSON.parse(res.body.body);
+      if (!!Data && Data.length) {
+        this.regex = Data.find(element => {
+          if (element.Identifier === 'formatNumber' && element.Module === 'ofertas') {
+            return element;
+          }
+        }).Value;
+        this.loadingService.closeSpinner();
+        this.initForm();
+      }
     });
   }
 
@@ -127,6 +129,10 @@ export class ExceptionBrandComponent implements OnInit {
       minWidth: '280px'
     });
     this.configDialog(dialogRef.componentInstance);
+    dialogRef.afterClosed().subscribe(() => {
+      this.selectedBrands = [];
+      this.validation.next(true);
+    });
   }
 
   configDialog(dialog: any) {
@@ -134,10 +140,6 @@ export class ExceptionBrandComponent implements OnInit {
     dialog.confirmation = () => {
 
     };
-    dialog.onNoClick$.subscribe(() => {
-      this.selectedBrands = [];
-      this.validation.next(true);
-    });
   }
 
   putDataForUpdate(element: any) {
