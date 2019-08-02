@@ -10,12 +10,12 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="Brand">
         <th mat-header-cell *matHeaderCellDef> Marca </th>
-        <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Exception">
         <th mat-header-cell *matHeaderCellDef> Excepción </th>
-        <td mat-cell *matCellDef="let element"> {{element.exception}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.Exception}} </td>
       </ng-container>
 
       <ng-container matColumnDef="options">
@@ -45,25 +45,30 @@
 <ng-template #dialogContent>
   <form class="full-width space-between" [formGroup]="form">
     <!-- <div class="full-width space-between"> -->
-      <!-- <mat-form-field class="half-width">
+    <!-- <mat-form-field class="half-width">
         <input matInput id="brand" placeholder="Marca" autocomplete="false" formControlName="Brand">
         <mat-error *ngIf="reason.hasError('maxlength')">El nombre no debe superar los 120 caracteres.</mat-error>
             <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">Este campo es obligatorio.</mat-error>  
       </mat-form-field> -->
-      <mat-form-field class="half-width">
-          <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" id="brandProduct" required>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
-              {{brand.Name}}
-            </mat-option>
-          </mat-autocomplete>
-          <!-- <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" id="brandProduct" required>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
+          {{brand.Name}}
+        </mat-option>
+      </mat-autocomplete>
+      <!-- <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
           <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es válido</mat-error> -->
-        </mat-form-field>
+    </mat-form-field>
 
-      <mat-form-field class="half-width">
-        <input matInput id="exception" placeholder="Excepción" autocomplete="false" formControlName="Exception">
-      </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput id="exception" placeholder="Excepción" autocomplete="false" formControlName="Exception">
+      <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!Exception.value" (click)="addBrand()">
+        <mat-icon>
+          add_circle_outline
+        </mat-icon>
+      </button>
+    </mat-form-field>
     <!-- </div> -->
     <!-- <div class="full-width space-between">
       <button>
@@ -73,7 +78,25 @@
         Agegar
       </button>
     </div> -->
-    
-
   </form>
+  <ng-container *ngIf="selectedBrands.length > 0">
+      <!-- <div *ngFor="let brand of selectedBrands">
+        <div class="full-width">
+          {{brand.Brand}} - {{brand.Exception}}
+        </div>
+      </div> -->
+      <table mat-table [dataSource]="selectedBrandsSources">
+          <ng-container matColumnDef="Brand">
+            <th mat-header-cell *matHeaderCellDef> Marca </th>
+            <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Exception">
+            <th mat-header-cell *matHeaderCellDef> Excepción </th>
+            <td mat-cell *matCellDef="let element"> {{element.Exception}} </td>
+          </ng-container>    
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsInModal;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsInModal;"></tr>
+        </table>
+    </ng-container>
 </ng-template>
