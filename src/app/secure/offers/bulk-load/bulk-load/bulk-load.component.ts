@@ -114,7 +114,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     formatNumber: '',
     promiseDelivery: '',
     currency: '',
-    warranty: ''
+    warranty: '',
+    price: ''
   };
 
 
@@ -522,7 +523,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                 const isCurrency = this.validFormat(res[i][j], 'currency');
                 if (!isCurrency && isCurrency === false) {
                   this.countErrors += 1;
-                  this.countErrors += 1;
                   const row = i + 1, column = j + 1;
 
                   const itemLog = {
@@ -583,6 +583,24 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
 
                 }
+
+                const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
+                if (!correctVal) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
               } else {
                 const onlyNumber = this.validFormat(res[i][j], 'alphanumeric');
                 if (onlyNumber === false && !onlyNumber) {
@@ -669,6 +687,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     if (this.countErrors === 0) {
       this.sendJsonOffer();
     }
+  }
+
+  validPrice(price: any, currency: any) {
+    if (currency === 'COP') {
+      const regex = new RegExp(this.offertRegex.price);
+      return regex.test(price);
+    }
+    return true;
   }
 
   /**
