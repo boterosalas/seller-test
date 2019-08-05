@@ -75,7 +75,8 @@ export class DetailOfferComponent {
     promiseDelivery: '',
     currency: '',
     isUpdatedStock: '',
-    discountPrice: ''
+    discountPrice: '',
+    price: ''
   };
 
   /**
@@ -259,7 +260,7 @@ export class DetailOfferComponent {
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
   }
 
-  validateOffertType(val) {
+  validateOffertType(val: any) {
       if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
         this.formUpdateOffer.get('IsFreeShipping').setValue(0);
         this.formUpdateOffer.get('IsEnviosExito').setValue(0);
@@ -467,6 +468,16 @@ export class DetailOfferComponent {
     this.formUpdateOffer.controls['Price'].reset('');
     this.formUpdateOffer.controls['DiscountPrice'].reset('');
     this.formUpdateOffer.controls['AverageFreightCost'].reset('');
+    if (event === 'USD') {
+      this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+    } else {
+      this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.price)]);
+    }
+    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
       duration: 3000,
     });

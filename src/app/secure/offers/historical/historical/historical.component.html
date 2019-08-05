@@ -70,6 +70,9 @@
               <span [ngClass]="{'ligthen-gray' : item.isFreightCalculator == 0}">Cotizador de flete</span>
             </mat-grid-tile>
           </mat-grid-list>
+          <pre>
+            {{item | json}}
+          </pre>>
         </mat-expansion-panel>
       </mat-accordion>
     </aside>
