@@ -1235,22 +1235,28 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     */
     if (this.listCategories) {
       this.listCategories.forEach(element => {
-        if (element.Id === parseFloat(newObjectForSend.Category)) {
-          // newObjectForSend.Category = element.Name;
-          if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
-            newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
-            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
-          } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
-            newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
-            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
-          } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
-            newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
-            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
-          } else {
-            newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
-            newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+        if (newObjectForSend.Name) {
+          if (element.Id === parseFloat(newObjectForSend.Category)) {
+            // newObjectForSend.Category = element.Name;
+            if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
+              newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
+              newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+            } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
+              newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
+              newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+            } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
+              newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
+              newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+            } else {
+              newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
+              newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
+            }
           }
+        } else {
+          newObjectForSend.MetaTitle = null;
+          newObjectForSend.MetaDescription = null;
         }
+
       });
     } else {
       this.snackBar.open('Se produjo un error al realizar la petición al servidor.', 'Cerrar', {
@@ -1459,7 +1465,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
         .subscribe(
           (result: any) => {
-
             if (result.status === 201 || result.status === 200) {
               const data = result;
               if (data.body.data !== null && data.body.data !== undefined) {
@@ -1528,7 +1533,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.dialog.closeAll();
     }
   }
+
+  /*Funcion para validar el status de la carga y abrir o no el modal */
   verifyStateCharge() {
+    this.loadingService.viewSpinner();
     this.BulkLoadProductS.getCargasMasivas()
       .subscribe(
         (result: any) => {
@@ -1555,6 +1563,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
             }
           }
+          this.loadingService.closeSpinner();
         }
       );
   }
@@ -2201,12 +2210,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     });
   }
-/**
- * Funcion para somunir el listado de tallas
- *
- * @memberof BulkLoadProductComponent
- */
-listOfSize() {
+  /**
+   * Funcion para somunir el listado de tallas
+   *
+   * @memberof BulkLoadProductComponent
+   */
+  listOfSize() {
     this.loadingService.viewSpinner();
     this.service.getSizeProducts().subscribe(size => {
       const sizeArray = JSON.parse(size.body);
