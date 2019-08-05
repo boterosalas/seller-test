@@ -98,6 +98,7 @@ export class ActionReportNoveltyComponent implements OnInit {
     // busco la razon seleccionada por el usuario
 
     console.log('myform', myform);
+    console.log('this.reasonRejection: ', this.reasonRejection);
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
 
     // Json para realizar el envio
