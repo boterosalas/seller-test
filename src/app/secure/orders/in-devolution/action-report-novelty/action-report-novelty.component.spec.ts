@@ -75,9 +75,9 @@ fdescribe('ActionReportNoveltyComponent', () => {
       // component.user = data;
       fixture.detectChanges();
     });
-    it('Método para realizar la descarga de las órdenes.', () => {
-      component.reportNovelty(myform);
-    });
+    // it('Método para realizar la descarga de las órdenes.', () => {
+    //   component.reportNovelty(myform);
+    // });
   });
 });
 
