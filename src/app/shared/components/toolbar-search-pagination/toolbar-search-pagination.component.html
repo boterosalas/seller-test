@@ -24,7 +24,7 @@
         </button>
       </div>
     </div>
-    <div fxFlex fxLayoutAlign="center start">
+    <div fxFlex fxShow.xs="false" fxLayoutAlign="center start">
       <div *ngIf="Typeprofile == 1" style="width: 100%">
         <form id="search-store-form" class="search-store mat-typography" style="width: 100% !important;" (keydown)="keyDownFunction($event)">
           <mat-form-field class="input-search">
@@ -48,9 +48,9 @@
         </form>
       </div>
     </div>
-    <div fxFlex fxLayoutAlign="end start">
-      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="250px"
-        fxFlex.sm="250px" fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px" class="paginator-style orders-paginate"
+    <div fxFlex.xs="300px" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
+      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
+        fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px" class="paginator-style orders-paginate"
         itemsPerPageLabel="Items por pagina" #paginator [pageSize]="Typeprofile == 1 ? 1000 : pageSizeOrder"
         [length]="lengthOrder" [pageSizeOptions]="[50, 100, 200]">
       </mat-paginator>

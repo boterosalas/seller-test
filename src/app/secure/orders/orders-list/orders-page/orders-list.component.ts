@@ -194,6 +194,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       // Logica para cargar el componente
       this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
+      this.clearData();
     });
   }
 
@@ -280,6 +281,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
           this.setTitleToolbar();
         }
+      });
+  }
+
+  clearData() {
+    this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.getOrdersList(this.event);
       });
   }
 

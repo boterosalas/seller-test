@@ -85,6 +85,8 @@ export class SearchOrderFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    this.shellComponent.eventEmitterOrders.getClear();
+    this.shellComponent.sidenavSearchOrder.toggle();
   }
 
   /**
@@ -155,7 +157,6 @@ export class SearchOrderFormComponent implements OnInit {
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
       this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
-
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);

@@ -64,7 +64,7 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl=""
             *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Orden</span>
           </mat-header-cell>
@@ -83,7 +83,7 @@
 
         <!-- dateOrder Column -->
         <ng-container matColumnDef="dateOrder">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false"
             fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Fecha pedido</span>
           </mat-header-cell>
@@ -95,7 +95,7 @@
 
         <!-- dateMaxDeliveryOrder Column -->
         <ng-container matColumnDef="dateMaxDeliveryOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Fecha max entrega </span>
           </mat-header-cell>
@@ -107,7 +107,7 @@
 
         <!-- statusOrder Column -->
         <ng-container matColumnDef="statusOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Estado</span>
           </mat-header-cell>
@@ -148,7 +148,7 @@
 
         <!-- channel Column -->
         <ng-container matColumnDef="channel">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminTotal'" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
             fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef
             mat-sort-header>
             <span class="title-table-header">Canal</span>
