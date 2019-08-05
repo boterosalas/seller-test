@@ -48,6 +48,5 @@ export class TableErrorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.listLog);
   }
 }
