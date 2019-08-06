@@ -36,7 +36,7 @@
               multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
-              <button *ngIf="!isAdmin" color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+              <button  color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-raised-button>
               <mat-icon class="mat-18 text_white">file_download</mat-icon>
               DESCARGAR PLANTILLA
@@ -63,9 +63,9 @@
               <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
                 <span>Cargar archivo</span>
               </button>
-              <button *ngIf="!isAdmin" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+              <button id="download-file-button" (click)="openModalVtexTree()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-menu-item>
-              <span>DESCARGAR PLANTILLA</span>
+              <span>Descargar plantilla</span>
             </button>
               <!-- Se esconde formato de cargas, ticket 725 -->
               <div *ngIf="false">

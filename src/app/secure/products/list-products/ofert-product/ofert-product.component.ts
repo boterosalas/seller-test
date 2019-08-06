@@ -45,6 +45,7 @@ export class OfertExpandedProductComponent implements OnInit {
     offertRegex = {
         formatNumber: '',
         promiseDelivery: '',
+        price: ''
     };
 
 
@@ -76,14 +77,14 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct = this.fb.group({
             Stock: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Price: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             DiscountPrice: new FormControl('', [
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             PromiseDelivery: new FormControl('', [
                 Validators.required,
@@ -91,7 +92,7 @@ export class OfertExpandedProductComponent implements OnInit {
             ]),
             IsFreightCalculator: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Warranty: new FormControl('', [
                 Validators.required,
@@ -453,6 +454,16 @@ export class OfertExpandedProductComponent implements OnInit {
                 price.controls.ComboQuantity.reset('');
             });
         }
+
+        if (event === 'USD') {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+          } else {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
+          }
     }
 
     // Funcion para cargar datos de regex
