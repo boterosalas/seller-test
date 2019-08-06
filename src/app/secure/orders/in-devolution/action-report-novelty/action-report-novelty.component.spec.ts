@@ -17,7 +17,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { InDevolutionService } from '../in-devolution.service';
 import { UserParametersService, EndpointService } from '@app/core';
 
-fdescribe('ActionReportNoveltyComponent', () => {
+describe('ActionReportNoveltyComponent', () => {
   let component: ActionReportNoveltyComponent;
   let fixture: ComponentFixture<ActionReportNoveltyComponent>;
 
