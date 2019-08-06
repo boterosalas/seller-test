@@ -7,7 +7,7 @@ import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
-import { UserParametersService } from '@app/core';
+import { UserParametersService, LoadingService } from '@app/core';
 
 
 @Component({
@@ -45,7 +45,8 @@ export class SearchOrderFormComponent implements OnInit {
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
-    private userParams: UserParametersService
+    private userParams: UserParametersService,
+    private loadingService: LoadingService,
   ) { }
 
   /**
@@ -84,6 +85,8 @@ export class SearchOrderFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    this.shellComponent.eventEmitterOrders.getClear();
+    this.shellComponent.sidenavSearchOrder.toggle();
   }
 
   /**
@@ -112,7 +115,7 @@ export class SearchOrderFormComponent implements OnInit {
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
-
+    this.loadingService.viewSpinner();
     // aplico el formato para la fecha a emplear en la consulta
     const dateOrderFinal = datePipe.transform(data.value.dateOrderFinal, 'yyyy/MM/dd');
     const dateOrderInitial = datePipe.transform(data.value.dateOrderInitial, 'yyyy/MM/dd');
@@ -154,11 +157,11 @@ export class SearchOrderFormComponent implements OnInit {
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
       this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
-
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
+          this.loadingService.closeSpinner();
         } else {
           this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
         }

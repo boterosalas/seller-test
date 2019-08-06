@@ -27,6 +27,9 @@ export class OrderService {
     return new Observable(observer => {
       if (state !== undefined || state != null) {
         // tslint:disable-next-line:max-line-length
+        if (idSeller === undefined) {
+          idSeller = '';
+        }
         this.http.get<Order[]>(this.api.get('searchOrders', [ idSeller , limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
           observer.next(data);
         }, err => {
