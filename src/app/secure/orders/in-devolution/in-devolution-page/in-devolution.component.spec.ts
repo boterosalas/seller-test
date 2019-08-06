@@ -27,7 +27,7 @@ import { InDevolutionService } from '../in-devolution.service';
 class MockAppToolBarComponent {
 }
 
-fdescribe('InDevolutionComponent', () => {
+describe('InDevolutionComponent', () => {
   let component: InDevolutionComponent;
   let fixture: ComponentFixture<InDevolutionComponent>;
 
