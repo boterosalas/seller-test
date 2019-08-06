@@ -561,7 +561,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
               } else if (j === iVal.iPrecio || j === iVal.iPrecDesc) {
 
-                const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
+                const isGreaterThanZero = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
 
                 if (!isGreaterThanZero && isGreaterThanZero === false) {
 
@@ -692,9 +692,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   validPrice(price: any, currency: any) {
     if (currency === 'COP') {
       const regex = new RegExp(this.offertRegex.price);
+      return !!regex.test(price);
+    } else {
+      const regex = new RegExp(this.offertRegex.formatNumber);
       return regex.test(price);
     }
-    return true;
   }
 
   /**
