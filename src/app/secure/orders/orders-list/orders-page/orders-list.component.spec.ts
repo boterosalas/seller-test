@@ -208,7 +208,6 @@ describe('ordersList', () => {
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         dialogComponent = dialogFixture.componentInstance;
         mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
-        // mockOrderService.getOrderList.and.returnValue(of(response));
         const mockUser = Object.assign({}, userData);
         const responseGetUser = {
             body: {
@@ -223,24 +222,21 @@ describe('ordersList', () => {
         expect(orderService).toBeTruthy();
         expect(orderComponent).toBeTruthy();
     });
-    it('', () => {
-        orderComponent.dataSource = new MatTableDataSource();
-        orderComponent.applyFilter('123366523');
-    });
+    // it('', () => {
+    //     orderComponent.dataSource = new MatTableDataSource();
+    //     orderComponent.applyFilter('123366523');
+    // });
     it('', () => {
         orderComponent.stopPropagation(new Event('change'));
     });
-    it('', () => {
-        orderComponent.getDateWithOutGMT(19011990);
-    });
+    // it('', () => {
+    //     orderComponent.getDateWithOutGMT(19011990);
+    // });
     it('', () => {
         orderComponent.dataSource = new MatTableDataSource();
         orderComponent.isAllSelected();
     });
 
-    afterAll(() => {
-        TestBed.resetTestingModule();
-    });
     afterAll(() => {
         TestBed.resetTestingModule();
     });
