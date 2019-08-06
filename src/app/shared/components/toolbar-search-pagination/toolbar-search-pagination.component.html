@@ -55,7 +55,7 @@
             <mat-icon>filter_list</mat-icon>
             <span class="acction-text">Filtrar</span>
           </button>
-          <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" class="acction-text"
+          <button [disabled]="orderListLength" *ngIf="Typeprofile == 0" (click)="openModalDownloadOrder()" class="acction-text"
             id="download-order-button" mat-menu-item>
             <mat-icon>file_download</mat-icon>
             <span>Descargar</span>
