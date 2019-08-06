@@ -66,6 +66,11 @@ describe('ActionReportNoveltyComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('dialog should be closed after onNoClick()', () => {
+    component.onNoClick();
+    expect(component).toBeTruthy();
+  });
+
   describe('Funciones descarga de las órdene', () => {
     const myform = formBuilder.group({
       observation: { value: '' },

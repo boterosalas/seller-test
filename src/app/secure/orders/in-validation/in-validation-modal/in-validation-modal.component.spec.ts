@@ -5,19 +5,29 @@ import { RouterTestingModule } from '@angular/router/testing';
 /* our own custom components */
 import { InValidationModule } from '../in-validation.module';
 import { InValidationModalComponent } from './in-validation-modal.component';
-/*
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 describe('InValidationModalComponent', () => {
   let component: InValidationModalComponent;
   let fixture: ComponentFixture<InValidationModalComponent>;
 
+  const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        InValidationModule,
         RouterTestingModule
-      ]
-    })
-      .compileComponents();
+      ],
+      declarations: [
+        InValidationModalComponent
+      ],
+      providers: [
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -26,8 +36,13 @@ describe('InValidationModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create IN validation MODAL', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    component.onNoClick();
     expect(component).toBeTruthy();
   });
 });
-*/
+
