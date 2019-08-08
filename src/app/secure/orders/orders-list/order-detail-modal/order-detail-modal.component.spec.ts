@@ -9,7 +9,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/co
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
-fdescribe('OrderDetailModalComponent', () => {
+describe('OrderDetailModalComponent', () => {
   let component: OrderDetailModalComponent;
   let fixture: ComponentFixture<OrderDetailModalComponent>;
 
