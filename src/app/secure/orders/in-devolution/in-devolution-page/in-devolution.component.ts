@@ -22,7 +22,7 @@ import { InDevolutionService } from '../in-devolution.service';
 import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
-import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality, visualizeFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 
 // log component
@@ -97,6 +97,15 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   read = readFunctionality;
   accept = acceptFuncionality;
   refuse = refuseFuncionality;
+  visualizeFunctionality = visualizeFunctionality;
+
+  // Variables con los permisos que este componente posee.
+  readPermission: boolean;
+  acceptPermission: boolean;
+  refusePermission: boolean;
+  visualizePermission: boolean;
+  showMenssage = false;
+  typeProfile: number;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -109,16 +118,37 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // Datos del usuario autenticado.
-    this.permissionComponent = this.authService.getMenu(devolutionName);
     this.getDataUser();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(devolutionName, 0);
+      this.setPermission(0);
+    } else {
+      this.permissionComponent = this.authService.getMenuProfiel(devolutionName, 1);
+      this.setPermission(1);
+    }
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
+  }
+
+  setPermission(typeProfile: number) {
+    // Permisos del componente.
+    this.typeProfile = typeProfile;
+    this.readPermission = this.getFunctionality(this.read);
+    this.acceptPermission = this.getFunctionality(this.accept);
+    this.refusePermission = this.getFunctionality(this.refuse);
+    this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
+  }
+
+
+
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   ngOnDestroy() {
@@ -126,13 +156,14 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     this.subFilterOrderPending.unsubscribe();
   }
 
+
   /**
    * MEthod that get the permissions for the component
    */
-  public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
-  }
+  // public getFunctionality(functionality: string): boolean {
+  //   const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+  //   return permission && permission.ShowFunctionality;
+  // }
 
   /**
    * Otener los resultados obtenidos al momento de realizar

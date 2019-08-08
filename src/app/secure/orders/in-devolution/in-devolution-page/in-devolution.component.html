@@ -4,12 +4,12 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [Typeprofile] = "typeProfile" ></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
     <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="getFunctionality(read)">
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="readPermission">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
