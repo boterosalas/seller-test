@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 
-fdescribe('ProductDetailModalComponent', () => {
+describe('ProductDetailModalComponent', () => {
   let component: ProductDetailModalComponent;
   let fixture: ComponentFixture<ProductDetailModalComponent>;
 
