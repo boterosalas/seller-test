@@ -18,21 +18,21 @@ describe('SearchBillingFormComponent', () => {
   let fixture: ComponentFixture<SearchBillingFormComponent>;
 
   const userData = { sellerProfile: 'seller' };
-  // Mock Services 
+  // Mock Services
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
   const mockBillingService = jasmine.createSpyObj('BillingService', ['getBilling']);
 
   const responseGetBilling = {
-    billingNumber: "9406165195",
+    billingNumber: '9406165195',
     billingTotal: 95925,
     commission: 8975,
-    concept: "Venta Marketplace",
+    concept: 'Venta Marketplace',
     detail: [{
       commission: 8975,
-      detailName: "Videojuego Grand Theft Auto V PS4",
-      ean: "MP02080000000035",
+      detailName: 'Videojuego Grand Theft Auto V PS4',
+      ean: 'MP02080000000035',
       enviosExito: false,
       id: 636863783488493700,
       idBillingDetailPicking: 1036,
@@ -46,10 +46,10 @@ describe('SearchBillingFormComponent', () => {
     idBillingPicking: 1009,
     idSeller: 11618,
     iva: -1705.25,
-    orderNumber: "704359035",
-    paginationToken: "636863783488493620|11618",
-    payOrderNumber: "6200006051",
-    paymentDate: "2019-02-08T16:44:04.677+00:00"
+    orderNumber: '704359035',
+    paginationToken: '636863783488493620|11618',
+    payOrderNumber: '6200006051',
+    paymentDate: '2019-02-08T16:44:04.677+00:00'
   };
 
 
@@ -99,13 +99,13 @@ describe('SearchBillingFormComponent', () => {
           body: JSON.stringify({ Data: mockUser })
         }
       };
-      // Define la respuesta de la información de un usuario 
+      // Define la respuesta de la información de un usuario
       mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
       mockUserLoginService.isAuthenticated.and.returnValue(true);
       mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
     });
 
-    it('valid initial date', ()=> {
+    it('valid initial date', () => {
       const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
       expect(initialDate).toBeTruthy();
       const initialDateNativeElement = initialDate.nativeElement;
@@ -114,8 +114,8 @@ describe('SearchBillingFormComponent', () => {
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
     });
-  
-    it('invalid initial date', ()=> {
+
+    it('invalid initial date', () => {
       const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
       expect(initialDate).toBeTruthy();
       const initialDateNativeElement = initialDate.nativeElement;
@@ -124,8 +124,8 @@ describe('SearchBillingFormComponent', () => {
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
     });
-  
-    it('valid final date', ()=> {
+
+    it('valid final date', () => {
       const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
       expect(paymentDateFinal).toBeTruthy();
       const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
@@ -134,8 +134,8 @@ describe('SearchBillingFormComponent', () => {
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
     });
-  
-    it('invalid final date', ()=> {
+
+    it('invalid final date', () => {
       const paymentDateFinal = fixture.debugElement.query(By.css('#paymentDate-input-search-order'));
       expect(paymentDateFinal).toBeTruthy();
       const paymentDateFinalNativeElement = paymentDateFinal.nativeElement;
@@ -144,8 +144,8 @@ describe('SearchBillingFormComponent', () => {
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateFinal.errors).toBeNull();
     });
-  
-    it('valid bill', ()=> {
+
+    it('valid bill', () => {
       const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
       expect(bill).toBeTruthy();
       const billNativeElement = bill.nativeElement;
@@ -154,8 +154,8 @@ describe('SearchBillingFormComponent', () => {
       fixture.detectChanges();
       expect(component.myform.controls.billingNumber.errors).toBeNull();
     });
-  
-    it('invalid bill', ()=> {
+
+    it('invalid bill', () => {
       const bill = fixture.debugElement.query(By.css('#input-filter-billingNumber'));
       expect(bill).toBeTruthy();
       const billNativeElement = bill.nativeElement;

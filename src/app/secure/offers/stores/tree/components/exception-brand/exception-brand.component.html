@@ -1,0 +1,104 @@
+<div class="header__wrapper">
+  <div>Excepciones</div>
+  <div>
+    <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR EXCEPCIONES DE COMISIÓN</button>
+  </div>
+</div>
+
+<div class="table-wrapper">
+  <div class="example-container">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Brand">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Comission">
+        <th mat-header-cell *matHeaderCellDef> Comisión </th>
+        <td mat-cell *matCellDef="let element"> {{element.Comission}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div class="options">
+            <button mat-icon-button matTooltip="Editar" (click)="openDialog('edit', element)">
+              <mat-icon>
+                edit
+              </mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Eliminar" (click)="deleteElement(element)">
+              <mat-icon>
+                delete
+              </mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+<ng-template #dialogContent>
+
+  <div class="full-width">
+    <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
+      <mat-form-field class="half-width">
+      <mat-label>Tipo de excepción</mat-label>
+      <mat-select formControlName="type">
+        <mat-option  *ngFor="let type of typeException" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </form>
+    
+  </div>
+
+  <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value">
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" id="brandProduct" required>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
+          {{brand.Name}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('Brand').hasError('pattern')">La marca ingresada no es válido</mat-error>
+      <mat-error *ngIf="form.get('Brand').hasError('minLength')">La marca ingresada no es válido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <input matInput id="exception" placeholder="Comisión" autocomplete="false" formControlName="Comission">
+      <mat-error *ngIf="form.get('Comission').hasError('required')">Este campo es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('Comission').hasError('pattern')">La comisión ingresada no es válido</mat-error>
+      <mat-error *ngIf="form.get('Comission').hasError('trim')">Este campo es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 30</mat-error>
+      <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 30</mat-error>
+      <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!Comission.value"
+        (click)="addBrand()">
+        <mat-icon>
+          add_circle_outline
+        </mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <ng-container *ngIf="selectedBrands.length > 0">
+    <table mat-table [dataSource]="selectedBrandsSources">
+      <ng-container matColumnDef="Brand">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Comission">
+        <th mat-header-cell *matHeaderCellDef> Comisión </th>
+        <td mat-cell *matCellDef="let element"> {{element.Comission}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsInModal;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsInModal;"></tr>
+    </table>
+  </ng-container>
+</ng-template>
