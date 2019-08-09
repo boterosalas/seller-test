@@ -196,3 +196,12 @@ $amber: mat-palette($mat-amber);
     justify-content: center;
   }
 }
+
+.hideTableAction{
+  display: none;
+}
+
+.showTableAction{
+  display: inline-block;
+}
+

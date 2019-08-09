@@ -31,6 +31,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
+  @Input() idSeller: number;
+
   /**
    * Creates an instance of SearchOrderFormComponent.
    * @param {UserService} userService
@@ -108,7 +110,6 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
-
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta
@@ -137,9 +138,13 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
       objectSearch.identificationCard = data.value.identificationCard;
     }
 
+    if (this.idSeller === undefined) {
+      this.idSeller = null;
+    }
+
     if (stringSearch !== '') {
 
-      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}`;
+      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}&idSeller=${this.idSeller}`;
 
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);

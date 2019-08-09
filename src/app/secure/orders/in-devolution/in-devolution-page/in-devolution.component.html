@@ -4,7 +4,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [Typeprofile] = "typeProfile" ></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [idSeller]="idSeller" [Typeprofile] = "typeProfile" ></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
@@ -92,12 +92,12 @@
 
         <!-- ImprimirRecibo Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
             fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             Acciones
           </mat-header-cell>
           <mat-cell fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" *matCellDef="let element">
-            <div class="center-product-list">
+            <div class="center-product-list" *ngIf="typeProfile == 0">
               <button id="dropdown-button-order-{{element.orderNumber}}" color="primary" class="sc-button-toolbar no-button button-toolbar" mat-button
                 [matMenuTriggerFor]="orderOptions">
                 <mat-icon>arrow_drop_down</mat-icon>

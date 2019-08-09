@@ -38,6 +38,7 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
+  @Input() idSeller: number;
   @Input() Typeprofile: number;
 
 
@@ -128,7 +129,10 @@ export class ToolbarOptionsComponent implements OnInit {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, null);
+    if (this.idSeller === undefined) {
+      this.idSeller = null;
+    }
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller);
   }
 
   /**

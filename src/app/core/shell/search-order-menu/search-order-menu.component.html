@@ -14,7 +14,7 @@
 
     <app-search-billing-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'billing'"></app-search-billing-form>
 
-    <app-search-pending-devolution-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'pending-devolution'"></app-search-pending-devolution-form>
+    <app-search-pending-devolution-form [idSeller]="idSeller" [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'pending-devolution'"></app-search-pending-devolution-form>
 
     <app-search-envios-exito-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'envios-exito'"></app-search-envios-exito-form>
     

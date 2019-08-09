@@ -24,6 +24,8 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality, visualizeFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -61,6 +63,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     'comment',
     'detailOrder'
   ];
+
+  private searchSubscription: any;
   // Creo el elemento que se empleara para la tabla
   public dataSource: MatTableDataSource<any>;
   // Creo el elemento check para la tabla
@@ -106,6 +110,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   visualizePermission: boolean;
   showMenssage = false;
   typeProfile: number;
+  idSeller: number;
+  event: any;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -114,11 +120,19 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     private componentsService: ComponentsService,
     private loadingService: LoadingService,
     public userParams: UserParametersService,
-    private authService: AuthService
+    private authService: AuthService,
+    public eventsSeller: EventEmitterSeller,
   ) { }
 
   ngOnInit() {
     this.getDataUser();
+    this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.idSeller = seller.IdSeller;
+      if (this.event) {
+        this.getOrdersList(this.event);
+        this.getReasonsRejection();
+      }
+    });
   }
 
   async getDataUser() {
@@ -154,6 +168,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+    this.searchSubscription.unsubscribe();
   }
 
 
@@ -233,9 +248,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
+    this.event = $event ;
+    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusInDevolution}`;
     this.loadingService.viewSpinner();
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
+      console.log(res);
       this.loadingService.closeSpinner();
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
