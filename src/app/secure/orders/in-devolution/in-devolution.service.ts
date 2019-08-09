@@ -15,7 +15,6 @@ export class InDevolutionService {
 
   /**
    * Método para realiar la consulta de las órdenes en estado pendiente.
-   * 
    * @param guide
    * @returns Observable<[{}]>
    */
@@ -34,7 +33,6 @@ export class InDevolutionService {
 
   /**
    * Método para realiar la consulta de las opciones para realizar el rechazo.
-   * 
    * @returns {Observable<[{ListReasonRejectionResponseEntity}]>}
    * @memberof InDevolutionService
    */

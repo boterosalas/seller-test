@@ -208,7 +208,6 @@ $height-input: 25px;
   align-items: center;
   justify-content: center;
   border-radius: 4px 4px 0 0;
-  width: 50 !important;
   .mat-form-field-infix {
     top: -5px;
   }
@@ -218,6 +217,7 @@ $height-input: 25px;
   width: 100%;
   height: $height-input;
   font-size: 15px;
+  top: -14px;
   & .mat-icon {
     margin-top: 15px;
     padding-left: 9px;
@@ -258,7 +258,7 @@ $height-input: 25px;
 }
 
 ::ng-deep .mat-form-field-wrapper {
-  top: -14px;
+ margin-top: 0px;
 }
 
 ::ng-deep .mat-form-field.input-search .mat-form-field-underline {
@@ -271,4 +271,18 @@ $height-input: 25px;
   padding-left: 6px !important;
   font-size: 18px !important;
   font-family: Arial;
+  caret-color: #000000;
+}
+
+::ng-deep .input-search-black {
+  color: #000000 !important;
+  caret-color: #000000;
+}
+
+
+.center-search-orden{
+  @media only screen and (max-width: 500px) and (min-width: 341px) {  
+    padding-left: 10px;
+    padding-right: 30px;
+  } 
 }

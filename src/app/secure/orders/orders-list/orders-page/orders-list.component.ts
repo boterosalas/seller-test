@@ -98,6 +98,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   attachmentPermission: boolean;
   marketPermission: boolean;
   visualizePermission: boolean;
+  showMenssage= false;
 
   profile: number;
   idSeller: number;
@@ -193,6 +194,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       // Logica para cargar el componente
       this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
+      this.clearData();
     });
   }
 
@@ -254,20 +256,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Funcionalidad para remover las suscripciones creadas.
-   * @memberof OrdersListComponent
-   */
-  ngOnDestroy() {
-    if (this.subStateOrder !== undefined) {
-      this.subStateOrder.unsubscribe();
-    }
-    if (this.subFilterOrder !== undefined) {
-      this.subFilterOrder.unsubscribe();
-    }
-    this.searchSubscription.unsubscribe();
-  }
-
-  /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
    */
@@ -296,12 +284,18 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       });
   }
 
+  clearData() {
+    this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.getOrdersList(this.event);
+      });
+  }
+
   /**
    * Evento que permite obtener los parametros pasados por la url
    * @memberof OrdersListComponent
    */
   getOrdersListSinceCurrentUrl() {
-
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
       if (this.currentRootPage !== undefined) {
@@ -320,10 +314,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
-
           // obtengo las órdenes con la función del componente ToolbarOptionsComponent
           this.toolbarOption.getOrdersList(this.currentRootPage);
-
           this.setTitleToolbar();
         } else {
           //  obtengo las órdenes sin ningun estado en especifico
@@ -338,6 +330,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.toolbarOption.getOrdersList();
       }
     });
+    this.ngOnDestroy();
   }
 
   /**
@@ -411,8 +404,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
         this.currentEventPaginate = $event;
         this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
-          this.loadingService.closeSpinner();
           this.addCheckOptionInProduct(res, $event.paginator);
+          if (res && res.length === 0 && this.idSeller) {
+            this.showMenssage = true;
+          }
+          this.loadingService.closeSpinner();
         }, err => {
           this.orderListLength = true;
           this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);
@@ -633,5 +629,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const timezone = new Date().getTimezoneOffset();
     const time = new Date(date).getTime(); // new Date('2019-02-03T00:42:06.177+00:00').getTime();
     return new Date( time + (timezone * 60 * 1000) );
+  }
+
+
+  ngOnDestroy() {
+    if (this.subStateOrder !== undefined) {
+      this.subStateOrder.unsubscribe();
+    }
+    if (this.subFilterOrder !== undefined) {
+      this.subFilterOrder.unsubscribe();
+    }
   }
 }

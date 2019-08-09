@@ -190,8 +190,10 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     if (this.isFullSearch) {
       this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
         if (res.status === 200) {
-          const body = JSON.parse(res.body.body);
-          this.listSellers = body.Data;
+          if (res && res.body && res.body.body) {
+            const body = JSON.parse(res.body.body);
+            this.listSellers = body.Data;
+          }
         } else {
           this.listSellers = res.message;
         }
