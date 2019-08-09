@@ -1,7 +1,7 @@
-<div fxLayout="row"  class="toolbar-orders-options-table" fxLayoutAlign="space-between center">
+<div fxLayout="row wrap"  class="toolbar-orders-options-table" fxLayoutAlign="space-between center">
     <div fxFlex class="toolbar-options">
       <div class="normal-theme ">
-          <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true"
+          <button mat-button color="primary" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow="true"
           class="sc-title title-toolbar" (click)="getOrdersList($event)">
           <p>{{informationToForm.title}}
             <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle}}</small>
@@ -9,7 +9,7 @@
         </button>
       </div>
     </div>
-    <div fxFlex fxShow.xs="false" fxLayoutAlign="center start">
+    <div fxFlex fxShow.xs="true" fxLayoutAlign="center start" class="center-search-orden">
       <div *ngIf="Typeprofile == 1" style="width: 100%">
         <form id="search-store-form" class="search-store mat-typography" style="width: 100% !important;" (keydown)="keyDownFunction($event)">
           <mat-form-field class="input-search">
@@ -33,7 +33,7 @@
         </form>
       </div>
     </div>
-    <div fxFlex.xs="300px" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
+    <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
       <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
         fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px" class="paginator-style orders-paginate"
         itemsPerPageLabel="Items por pagina" #paginator [pageSize]="Typeprofile == 1 ? 1000 : pageSizeOrder"
