@@ -82,6 +82,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    this.shellComponent.eventEmitterOrders.getClear();
+    this.shellComponent.sidenavSearchOrder.toggle();
   }
 
   /**

@@ -30,7 +30,7 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminOrden'" ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
             mat-sort-header> Orden
           </mat-header-cell>
           <mat-cell ffxFlex.sm="" fxFlex.md="150px" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
@@ -41,7 +41,7 @@
 
         <!-- orderDate Column -->
         <ng-container matColumnDef="orderDate">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header> Fecha pedido
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
@@ -52,7 +52,7 @@
 
         <!-- creationDate Column -->
         <ng-container matColumnDef="creationDate">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>Fecha solicitud
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
@@ -63,7 +63,7 @@
 
         <!-- reversionRequestReason Column -->
         <ng-container matColumnDef="reversionRequestReason">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
             Motivo
           </mat-header-cell>
@@ -75,7 +75,7 @@
 
         <!-- comment Column -->
         <ng-container matColumnDef="comment">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : ''" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
             Comentario
           </mat-header-cell>

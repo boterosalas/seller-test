@@ -75,6 +75,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   public orderListLength = false;
   // user info
   public user: UserInformation;
+
   // suscriptions vars
   private subFilterOrderPending: any;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -133,6 +134,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         this.getReasonsRejection();
       }
     });
+    this.clearData();
   }
 
   async getDataUser() {
@@ -158,7 +160,12 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
   }
 
-
+  clearData() {
+    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.getOrdersList(this.event);
+      });
+  }
 
   public getFunctionality(functionality: string): boolean {
     const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
@@ -252,7 +259,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusInDevolution}`;
     this.loadingService.viewSpinner();
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
-      console.log(res);
       this.loadingService.closeSpinner();
       // guardo el filtro actual para la paginación.
       this.currentEventPaginate = $event;
