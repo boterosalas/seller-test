@@ -49,8 +49,7 @@ export class ExceptionBrandComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
     private regexService: BasicInformationService,
-    private loadingService: LoadingService,
-    private brandsService: BasicInformationService) {
+    private loadingService: LoadingService) {
       this.typeForm = this.fb.group({
         type: ['']
       })
@@ -68,7 +67,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   getBrands() {
     this.loadingService.viewSpinner();
-    this.brandsService.getActiveBrands().subscribe(brands => {
+    this.regexService.getActiveBrands().subscribe(brands => {
       this.loadingService.closeSpinner();
       const initialBrands = brands.Data.Brands;
 
