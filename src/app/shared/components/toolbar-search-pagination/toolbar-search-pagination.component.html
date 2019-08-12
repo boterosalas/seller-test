@@ -87,7 +87,12 @@
         <mat-icon>file_download</mat-icon>
         Descargar
       </button>
-      <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+      <button fxShow.xs="false" *ngIf="Typeprofile == 1"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+        id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        Filtrar
+      </button>
+      <button fxShow.xs="false"  *ngIf="Typeprofile == 0"  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
         Filtrar

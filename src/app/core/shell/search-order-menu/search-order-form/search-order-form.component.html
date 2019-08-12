@@ -38,7 +38,7 @@
            matInput
            placeholder="Filtrar por cédula del cliente">
   </mat-form-field>
-  <section class="example-section normal-theme">
+  <section class="example-section normal-theme" *ngIf="idSeller == 0">
     <mat-slide-toggle color="primary" id="processedOrder-input-search-order" formControlName="processedOrder">Solo mis
       órdenes marcadas
     </mat-slide-toggle>
