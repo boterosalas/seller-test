@@ -7,6 +7,9 @@ import { validateDataToEqual, trimField } from '@app/shared/util/validation-mess
 import { BehaviorSubject, timer } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService } from '@app/core';
+import { AuthRoutingService } from '@app/secure/auth/auth.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
 
 @Component({
   selector: 'app-exception-brand',
@@ -26,17 +29,19 @@ export class ExceptionBrandComponent implements OnInit {
   selectedBrands = [];
   selectedBrandsSources = new MatTableDataSource(this.selectedBrands);
   filterBrands = [];
+  canRead: boolean = false;
+  canUpdate: boolean = false;
   preDataSource = [
-    { Id: 1, Comission: 1, Brand: 'Hydrogen' },
-    { Id: 2, Comission: 2, Brand: 'Helium' },
-    { Id: 3, Comission: 3, Brand: 'Lithium' },
-    { Id: 4, Comission: 4, Brand: 'Beryllium' },
-    { Id: 5, Comission: 5, Brand: 'Boron' },
-    { Id: 6, Comission: 6, Brand: 'Carbon' },
-    { Id: 7, Comission: 7, Brand: 'Nitrogen' },
-    { Id: 8, Comission: 8, Brand: 'Oxygen' },
-    { Id: 9, Comission: 9, Brand: 'Fluorine' },
-    { Id: 10, Comission: 10, Brand: 'Neon' },
+    { Id: 1, Comission: 1, Brand: 'Hydrogen', type: 'Marca' },
+    { Id: 2, Comission: 2, Brand: 'Helium', type: 'Marca'  },
+    { Id: 3, Comission: 3, Brand: 'Lithium', type: 'Marca'  },
+    { Id: 4, Comission: 4, Brand: 'Beryllium', type: 'Marca'  },
+    { Id: 5, Comission: 5, Brand: 'Boron', type: 'Marca'  },
+    { Id: 6, Comission: 6, Brand: 'Carbon', type: 'Marca'  },
+    { Id: 7, Comission: 7, Brand: 'Nitrogen', type: 'Marca'  },
+    { Id: 8, Comission: 8, Brand: 'Oxygen', type: 'Marca'  },
+    { Id: 9, Comission: 9, Brand: 'Fluorine', type: 'Marca'  },
+    { Id: 10, Comission: 10, Brand: 'Neon', type: 'Marca'  },
   ];
 
   dataSource: MatTableDataSource<any>;
@@ -49,7 +54,8 @@ export class ExceptionBrandComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
     private regexService: BasicInformationService,
-    private loadingService: LoadingService) {
+    private loadingService: LoadingService,
+    private authService: AuthService) {
       this.typeForm = this.fb.group({
         type: ['']
       })
@@ -59,10 +65,24 @@ export class ExceptionBrandComponent implements OnInit {
     this.typeForm.get('type').valueChanges.subscribe( (val) => {
       this.changeType(val);
     });
+    this.getPermissions();
+    this.validatePermissions();
   }
 
   changeType(val: any) {
 
+  }
+
+  getPermissions() {
+    this.canRead =  this.authService.getPermissionForMenu(categoriesTreeName, readException);
+    this.canUpdate = this.authService.getPermissionForMenu(categoriesTreeName, editException);
+  }
+
+  validatePermissions() {
+    if(!this.canUpdate) {
+      const index = this.displayedColumns.findIndex(x => x === 'options');
+      if(index >= 0) this.displayedColumns.splice(index, 1);
+    }
   }
 
   getBrands() {
@@ -147,6 +167,7 @@ export class ExceptionBrandComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.selectedBrands = [];
       this.validation.next(true);
+      this.typeForm.reset();
     });
   }
 
@@ -183,6 +204,7 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   putDataForUpdate(element: any) {
+    this.typeForm.patchValue(element);
     this.form.patchValue(element);
     const initialValue = Object.assign(this.form.value, {});
     this.form.setValidators(validateDataToEqual(initialValue));
@@ -221,7 +243,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   removeElement(element) {
     const index = this.preDataSource.findIndex(value => value === element);
-    !!index && this.preDataSource.splice(index, 1);
+    (index >= 0) && this.preDataSource.splice(index, 1);
     this.dataSource.data = this.preDataSource;
   }
 

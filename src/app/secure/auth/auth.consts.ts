@@ -152,6 +152,8 @@ export const idSended = '170';
 export const idToSend = '35';
 export const acceptFuncionality = 'Aceptar';
 export const refuseFuncionality = 'Rechazar';
+export const editException = 'Editar Excepción';
+export const readException = 'Consultar excepción';
 
 const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCase(), [
     // 1. Todas (Rol vendedor - Consultar, Descargar).
@@ -434,10 +436,12 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Agregar
     ], RoutesConst.sellerCenterIntParamSpecs),
-    // 3. Arbol de categorias (Comisiones).
+    // 3. Arbol de Comisiones (Comisiones).
     new MenuModel(categoriesTreeName, showAll, categoriesTreeName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.,
+        new FunctionalitiesModel(readException, showAll, readException), // Consultar excepcion.
+        new FunctionalitiesModel(editException, showAll, editException), // Editar excepción.,
     ], RoutesConst.sellerCenterIntOferTreeCategory),
     // 4. Perfiles.
     new MenuModel(profileName, showAll, profileName.toLowerCase(), ProfileTypes.Administrador, [
