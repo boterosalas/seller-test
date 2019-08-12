@@ -78,7 +78,7 @@
       <mat-error *ngIf="form.get('Comission').hasError('trim')">Este campo es obligatorio</mat-error>
       <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 30</mat-error>
       <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 30</mat-error>
-      <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!Comission.value"
+      <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
         (click)="addBrand()">
         <mat-icon>
           add_circle_outline
