@@ -2650,11 +2650,11 @@ export class VtexTree {
       Name: 'Bicicletas',
       TipodeObjeto: 'Nivel 3'
     },
-    {
-      productType: 'Technology',
-      Name: 'Accesorios',
-      TipodeObjeto: 'Nivel 3'
-    },
+    // {
+    //   productType: 'Technology',
+    //   Name: 'Accesorios',
+    //   TipodeObjeto: 'Nivel 3'
+    // },
     {
       productType: 'Technology',
       Name: 'Repuestos',
