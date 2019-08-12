@@ -561,7 +561,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
               } else if (j === iVal.iPrecio || j === iVal.iPrecDesc) {
 
-                const isGreaterThanZero = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
+                const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
 
                 if (!isGreaterThanZero && isGreaterThanZero === false) {
 
@@ -601,6 +601,24 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
                 }
 
+              } else if (j === iVal.iCostFletProm) {
+                const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
+                if (!correctVal) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'AverageFreightCost'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
               } else {
                 const onlyNumber = this.validFormat(res[i][j], 'alphanumeric');
                 if (onlyNumber === false && !onlyNumber) {
@@ -616,7 +634,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
+                    dato: j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
