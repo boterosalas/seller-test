@@ -5,8 +5,8 @@
       <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR EXCEPCIONES DE COMISIÓN</button>
     </div>
     <div fxShow="false" [fxShow.xs]="true" *ngIf="canUpdate">
-        <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR</button>
-      </div>
+      <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR</button>
+    </div>
   </div>
 
   <div class="table-wrapper">
@@ -78,7 +78,8 @@
       <mat-form-field class="half-width">
         <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
           formControlName="Comission">
-        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">La comisión ingresada debe ser entero, o tener dos
+        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">La
+          comisión ingresada debe ser entero, o tener dos
           decimales</mat-error>
         <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 30</mat-error>
         <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 30</mat-error>
@@ -89,13 +90,6 @@
           </mat-icon>
         </button>
       </mat-form-field>
-      <pre class="half-width">
-        {{Comission.value | json}}
-      </pre>
-      <pre class="half-width">
-          {{Comission.errors | json}}
-        </pre>
-
     </form>
     <ng-container *ngIf="selectedBrands.length > 0">
       <table mat-table [dataSource]="selectedBrandsSources">
