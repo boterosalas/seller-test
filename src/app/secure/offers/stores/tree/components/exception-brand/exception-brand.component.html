@@ -76,11 +76,10 @@
       </mat-form-field>
 
       <mat-form-field class="half-width">
-        <input matInput id="exception" type="number" placeholder="Comisión" autocomplete="false"
+        <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
           formControlName="Comission">
-        <mat-error *ngIf="form.get('Comission').hasError('pattern')">La comisión ingresada debe ser entero, o tener dos
+        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">La comisión ingresada debe ser entero, o tener dos
           decimales</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('trim')">Este campo es obligatorio</mat-error>
         <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 30</mat-error>
         <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 30</mat-error>
         <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
@@ -90,6 +89,13 @@
           </mat-icon>
         </button>
       </mat-form-field>
+      <pre class="half-width">
+        {{Comission.value | json}}
+      </pre>
+      <pre class="half-width">
+          {{Comission.errors | json}}
+        </pre>
+
     </form>
     <ng-container *ngIf="selectedBrands.length > 0">
       <table mat-table [dataSource]="selectedBrandsSources">

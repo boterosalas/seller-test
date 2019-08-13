@@ -117,8 +117,8 @@ export class ExceptionBrandComponent implements OnInit {
   initForm() {
     this.form = this.fb.group({
       Id: ['',],
-      Brand: ['', Validators.compose([trimField, Validators.required, Validators.minLength(2)])],
-      Comission: ['', Validators.compose([trimField, Validators.required, Validators.max(30), Validators.min(0), Validators.pattern(this.regex)])]
+      Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
+      Comission: ['', Validators.compose([trimField, Validators.max(30), Validators.min(0), Validators.pattern(this.regex)])]
     });
     this.Comission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
