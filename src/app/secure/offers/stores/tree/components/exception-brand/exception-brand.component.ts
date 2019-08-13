@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime, first, takeUntil } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
-import { BehaviorSubject, timer } from 'rxjs';
+import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService } from '@app/core';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
+import { Subject } from 'aws-sdk/clients/sts';
 
 @Component({
   selector: 'app-exception-brand',
@@ -31,18 +32,7 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead: boolean = false;
   canUpdate: boolean = false;
-  preDataSource = [
-    { Id: 1, Comission: 1, Brand: 'Hydrogen', type: 'Marca' },
-    { Id: 2, Comission: 2, Brand: 'Helium', type: 'Marca'  },
-    { Id: 3, Comission: 3, Brand: 'Lithium', type: 'Marca'  },
-    { Id: 4, Comission: 4, Brand: 'Beryllium', type: 'Marca'  },
-    { Id: 5, Comission: 5, Brand: 'Boron', type: 'Marca'  },
-    { Id: 6, Comission: 6, Brand: 'Carbon', type: 'Marca'  },
-    { Id: 7, Comission: 7, Brand: 'Nitrogen', type: 'Marca'  },
-    { Id: 8, Comission: 8, Brand: 'Oxygen', type: 'Marca'  },
-    { Id: 9, Comission: 9, Brand: 'Fluorine', type: 'Marca'  },
-    { Id: 10, Comission: 10, Brand: 'Neon', type: 'Marca'  },
-  ];
+  preDataSource = [];
 
   dataSource: MatTableDataSource<any>;
 
@@ -50,6 +40,8 @@ export class ExceptionBrandComponent implements OnInit {
 
 
   typeException = ['Marca'];
+
+  editSubscribe: Subscription;
 
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
@@ -143,9 +135,9 @@ export class ExceptionBrandComponent implements OnInit {
       } else if (!val) {
         this.filterBrands = [];
         this.Brand.setErrors({ required: true });
-        this.Comission.disable();
+        this.Comission.disable()
       } else {
-        this.Brand.setErrors({ pattern: true });
+        this.Brand.setErrors({ pattern: true })
       }
 
     });
@@ -168,6 +160,7 @@ export class ExceptionBrandComponent implements OnInit {
       this.selectedBrands = [];
       this.validation.next(true);
       this.typeForm.reset();
+      !!this.editSubscribe  && this.editSubscribe.unsubscribe();
     });
   }
 
@@ -204,9 +197,10 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   putDataForUpdate(element: any) {
+    const {Id, Brand, Comission} = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
-    const initialValue = Object.assign(this.form.value, {});
+    const initialValue = Object.assign({Id, Brand, Comission}, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = 'Editar excepción';
@@ -231,7 +225,10 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   addBrand() {
-    this.selectedBrands.push(Object.assign(this.form.value, {}));
+    const {Brand, Comission} = this.form.value;
+    const {type} = this.typeForm.value;
+    const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0  ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
+    this.selectedBrands.push(Object.assign({Brand, Comission, type, Id}, {}));
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
