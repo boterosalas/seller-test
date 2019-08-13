@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { distinctUntilChanged, debounceTime, first, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
-import { BehaviorSubject, timer, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService } from '@app/core';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
@@ -41,7 +41,6 @@ export class ExceptionBrandComponent implements OnInit {
 
   typeException = ['Marca'];
 
-  editSubscribe: Subscription;
 
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
@@ -135,9 +134,9 @@ export class ExceptionBrandComponent implements OnInit {
       } else if (!val) {
         this.filterBrands = [];
         this.Brand.setErrors({ required: true });
-        this.Comission.disable()
+        this.Comission.disable();
       } else {
-        this.Brand.setErrors({ pattern: true })
+        this.Brand.setErrors({ pattern: true });
       }
 
     });
@@ -160,7 +159,6 @@ export class ExceptionBrandComponent implements OnInit {
       this.selectedBrands = [];
       this.validation.next(true);
       this.typeForm.reset();
-      !!this.editSubscribe  && this.editSubscribe.unsubscribe();
     });
   }
 
