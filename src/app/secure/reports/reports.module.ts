@@ -24,7 +24,7 @@ import { DownloadModalOffertReportComponent } from './report-offert/download-mod
         ReportOffertComponent
     ],
     entryComponents: [
-
+        DownloadModalOffertReportComponent
     ],
     providers: [
     ]
