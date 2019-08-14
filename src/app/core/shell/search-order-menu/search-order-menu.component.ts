@@ -28,6 +28,7 @@ export class SearchOrderMenuComponent implements OnInit {
   @Input() informationToForm: SearchFormEntity;
 
   @Input() idSeller: number;
+  @Input() typeProfiel: number;
 
   /**
    * Creates an instance of SearchOrderMenuComponent.
