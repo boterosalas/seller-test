@@ -384,7 +384,7 @@ export class DetailOfferComponent {
         if (this.DiscountPrice.value !== '') {
           if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value === 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
-          } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
+          } else if (parseFloat(this.DiscountPrice.value) >= parseFloat(this.Price.value)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
           } else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
