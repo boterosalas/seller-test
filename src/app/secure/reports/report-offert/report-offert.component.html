@@ -1,0 +1,32 @@
+<mat-drawer-container style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+  </mat-drawer>
+
+  <div class="height-full">
+    <mat-toolbar class="tree-toolbar">
+      <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+        <!--  Titulo del toolbar -->
+        <p fxShow [fxShow.xs]="false">
+          Reportes
+          <small class="sub-title">| Reportes de Ofertas</small>
+        </p>
+        <!--  Titulo del toolbar -->
+        <p fxShow="false" [fxShow.xs]="true">
+          Reportes de Ofertas
+        </p>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div fxLayout="column">
+    <!-- <div class="reportList"> -->
+    <div fxLayout="column" class="downloadReports">
+      <div class="icon-face">
+        <mat-icon class="material-icons">cloud_download</mat-icon>
+      </div>
+      <label class="icon-face-text">
+        Da clic al icono para descargar un reporte completo de las ofertas cargadas en su versión actualizada.
+      </label>
+    </div>
+    <!-- </div> -->
+  </div>
+</mat-drawer-container>

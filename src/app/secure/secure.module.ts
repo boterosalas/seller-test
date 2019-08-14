@@ -18,8 +18,8 @@ import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
 import { ListProductModule } from './products/list-products/list-products.module';
 import { SellerSupportCenterService } from './seller-support-center/services/seller-support-center.service';
-//SellerSupportCenterCase
 import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
+import { ListReportsModule } from './reports/reports.module';
 
 @NgModule({
   declarations: [],
@@ -55,7 +55,8 @@ import { SellerSupportCenterModule } from './seller-support-center/seller-suppor
     SellerModule,
     BillingOrdersModule,
     ParameterizeModule,
-    SellerSupportCenterModule
+    SellerSupportCenterModule,
+    ListReportsModule
   ],
   providers: [AuthService, SellerSupportCenterService],
 })
