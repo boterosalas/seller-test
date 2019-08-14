@@ -13,7 +13,9 @@ export class CaseSummaryComponent implements OnInit {
 
   @Input() disabled: false;
 
-  @Output() onClickResponse = new EventEmitter<any>();
+  @Input() disabledClass: false;
+
+  @Output() clickResponse = new EventEmitter<any>();
 
   configDialog = {
     width: '50%',
@@ -30,7 +32,7 @@ export class CaseSummaryComponent implements OnInit {
   }
 
   openResponseDialog(): void {
-    this.onClickResponse.emit(this.case);
+    this.clickResponse.emit(this.case);
   }
 
   onClickShowAllProducts() {
