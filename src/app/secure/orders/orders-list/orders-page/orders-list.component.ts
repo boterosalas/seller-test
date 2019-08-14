@@ -580,7 +580,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @param {any} currentValue
    * @memberof OrdersListComponent
    */
-  recordProcesSedOrder(orderId: any, currentValue: any) {
+  recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
     if (currentValue === true) {
       currentValue = false;
     } else {
@@ -589,6 +589,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const data = {
       idOrder: orderId,
       value: currentValue,
+      SellerId: idSeller
     };
     this.orderService.recordProcesSedOrder(data)
       .subscribe((result: any) => {
