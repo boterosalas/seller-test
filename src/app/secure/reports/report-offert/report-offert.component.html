@@ -20,8 +20,11 @@
   <div fxLayout="column">
     <!-- <div class="reportList"> -->
     <div fxLayout="column" class="downloadReports">
-      <div class="icon-face" (click)="openModalDownloadReportOffert()">
-        <mat-icon class="material-icons">cloud_download</mat-icon>
+      <div class="icon-face" >
+        <button mat-button (click)="openModalDownloadReportOffert()">
+            <mat-icon class="material-icons">cloud_download</mat-icon>
+        </button>
+        
       </div>
       <label class="icon-face-text">
         Da clic al icono para descargar un reporte completo de las ofertas cargadas en su versión actualizada.

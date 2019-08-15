@@ -6,6 +6,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ReportOffertComponent } from './report-offert/report-offert.component';
 import { ListReportRoutingModule } from './reports.routing';
 import { DownloadModalOffertReportComponent } from './report-offert/download-modal-offert-report/download-modal-offert-report.component';
+import { ReportOffertService } from './report-offert/report-offert.service';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { DownloadModalOffertReportComponent } from './report-offert/download-mod
         DownloadModalOffertReportComponent
     ],
     providers: [
+        ReportOffertService
     ]
 })
 export class ListReportsModule {
