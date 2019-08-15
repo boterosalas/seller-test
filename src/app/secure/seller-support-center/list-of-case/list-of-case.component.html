@@ -24,7 +24,7 @@
           <app-case-summary
             (clickResponse)="onEmitResponse($event)"
             [case]="item"
-            [disabledClass]="item.status == 'Cerrado'"
+            [disabledClass]="item.status === 'Cerrado'"
           ></app-case-summary>
         </ng-container>
       </app-drop-down-box>

@@ -8,11 +8,10 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
-import { Filter } from '../models/filter';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-case',
@@ -59,6 +58,7 @@ export class ListOfCaseComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private sellerSupportService: SellerSupportCenterService,
     public router: ActivatedRoute,
     private loadingService?: LoadingService,
@@ -100,7 +100,6 @@ export class ListOfCaseComponent implements OnInit {
         this.refreshPaginator(res.data.total, page, pageSize);
       },
       err => {
-        //this.log.debug(err);
         this.modalService.showModal('errorService');
         this.loadingService.closeSpinner();
       }
@@ -114,6 +113,20 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
+    if (caseResponse.status === 'Cerrado') {
+      this.snackBar.open(
+        'El caso ya se encuentra en estado cerrado, no es posible agregar comentarios.',
+        'Cerrar',
+        {
+          duration: 3000
+        }
+      );
+    } else {
+      this.showResponseModal(caseResponse);
+    }
+  }
+
+  showResponseModal(caseResponse: any) {
     this.configDialog.data = caseResponse;
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,

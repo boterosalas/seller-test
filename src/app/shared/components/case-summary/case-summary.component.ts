@@ -52,7 +52,7 @@ export interface Case {
   id: string;
   sellerId: string;
   caseId: string;
-  status: number;
+  status: string;
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
