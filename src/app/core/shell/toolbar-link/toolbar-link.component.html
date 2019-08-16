@@ -7,8 +7,10 @@
         <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="showModule(module)">
           <mat-icon>arrow_drop_down</mat-icon>
           {{getPersonalityName(module.NameModule)}}
+          <app-notification-circle *ngIf="module.NameModule === 'RECLAMACIONES'" [value]="10"></app-notification-circle>
         </button>
-        <mat-menu #orders="matMenu">
+
+      <mat-menu #orders="matMenu">
           <div *ngFor="let menu of module.Menus">
             <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
               <span>{{menu.NameMenu}}</span>
