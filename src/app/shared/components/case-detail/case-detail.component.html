@@ -29,7 +29,7 @@
           [message]="follow.description"
           [date]="follow.createDate"
           (replyEvent)="openResponseDialog()"
-          [disabledClass]="case.status == 'Cerrado'"
+          [disabledClass]="isClosed"
           [configuration]="{
             reply: i == 0,
             theme: 'ALTER'

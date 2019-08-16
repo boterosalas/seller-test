@@ -21,10 +21,13 @@ export class CaseDetailComponent implements OnInit {
 
   productsConfig: Array<any>;
 
+  isClosed: boolean;
+
   constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.productsConfig = productsConfig;
+    this.isClosed = this.case.status !== 'Cerrado';
   }
 
   openResponseDialog(): void {
