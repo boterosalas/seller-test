@@ -55,14 +55,15 @@
                 <mat-form-field class="register full-width">
                   <input matInput [placeholder]="isColombiaSelect?
                     'Departamento':'Región'" formControlName="State" autocomplete="off" [errorStateMatcher]="matcher"
-                    id="register-state" required>
+                    id="register-state" >
                   <mat-hint></mat-hint>
                   <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('maxlength') ||
                     State.hasError('minlength') || State.hasError('pattern')">
-                    El departamento no es válido
+                    <p ></p>
+                   {{departamento}} no es válido
                   </mat-error>
                   <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('required')">
-                    El departamento es requerido
+                    {{departamento}} es requerido
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -70,7 +71,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" style="padding-top: 26px;">
             <div *ngIf="isColombiaSelect; else cityInput" fxFlex="50%">
               <app-cities *ngIf="elementCityLoad" [elementLoad]="elementCityLoad" [idState]="idState"
                 (daneCodeEvent)="receiveDataCitie($event)" [disabledComponent]='disabledComponent'></app-cities>
@@ -81,7 +82,7 @@
                   <input matInput placeholder="Ciudad" formControlName="City" autocomplete="off"
                     [errorStateMatcher]="matcher" id="register-state" required>
                   <mat-hint></mat-hint>
-                  <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('maxlength') ||
+                  <mat-error  id="error-postal-code-invalid" *ngIf="City.hasError('maxlength') ||
                     City.hasError('minlength') || City.hasError('pattern')">
                     La ciudad no es válida
                   </mat-error>
@@ -95,7 +96,7 @@
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="isColombiaSelect? 'Código
                   DANE':'Código postal'" [readonly]="isColombiaSelect" formControlName="DaneCode"
-                  id="register-dane-code" required>
+                  id="register-dane-code" (keypress)="keyPress($event, 'daneCode')" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('maxlength') ||
                   PostalCode.hasError('minlength') ||
@@ -111,7 +112,7 @@
 
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" style="padding-top: 12px;" >
             <div fxFlex="50%" [ngStyle]="{'padding-right': (isColombiaSelect ?
               '5%' : '0')}">
               <mat-form-field class="register" style="width:100% !important;">
@@ -172,7 +173,7 @@
 
           </div>
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" >
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">

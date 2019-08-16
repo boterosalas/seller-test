@@ -85,6 +85,7 @@ export class ManageSellerComponent implements OnInit {
   profileSeller: string[] = [];
   profileAdmin: string[] = [];
   public showUpdate: boolean;
+  departamento = 'departamento';
 
 
   public country: FormControl;
@@ -107,7 +108,8 @@ export class ManageSellerComponent implements OnInit {
     internationalCity: '',
     daneCode: '',
     address: '',
-    warranty: ''
+    warranty: '',
+    onlyLetter: ''
   };
 
 
@@ -129,6 +131,7 @@ export class ManageSellerComponent implements OnInit {
   public selectedValue: string;
   public initialName: any;
   public initialEmail: any;
+  public edit = false;
 
   public initialNameSeller: any;
   public initialEmailSeller: any;
@@ -234,7 +237,6 @@ export class ManageSellerComponent implements OnInit {
               });
               this.elementStateLoad = this.currentSellerSelect.State;
               this.elementCityLoad = this.currentSellerSelect.City;
-
               this.country.setValue(this.currentSellerSelect.Country);
               this.payoneer.setValue(this.currentSellerSelect.Payoneer);
 
@@ -263,15 +265,16 @@ export class ManageSellerComponent implements OnInit {
   }
 
 
-/**
- * funcion para consultar la regex en base de datos por modulo
- *
- * @memberof ManageSellerComponent
- */
-getRegex() {
+  /**
+   * funcion para consultar la regex en base de datos por modulo
+   *
+   * @memberof ManageSellerComponent
+   */
+  getRegex() {
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
       let dataSellerRegex = JSON.parse(res.body.body);
       dataSellerRegex = dataSellerRegex.Data.filter(data => data.Module === 'vendedores');
+
       for (const val in this.sellerRegex) {
         if (!!val) {
           const element = dataSellerRegex.find(regex => regex.Identifier === val.toString());
@@ -313,7 +316,7 @@ getRegex() {
       Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
-    this.state = new FormControl({ value: '', disabled: disable });
+    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required ]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
@@ -402,11 +405,11 @@ getRegex() {
   validateExist(event: any, param: string): void {
     if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
       this.initialEmailSeller !== this.validateFormRegister.controls.Email.value || this.initialNameSeller !== this.validateFormRegister.controls.Name.value
-      ) {
-    const jsonExistParam = event.target.value;
-    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
-      this.loadingService.viewSpinner();
-      this.activeButton = true;
+    ) {
+      const jsonExistParam = event.target.value;
+      if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+        this.loadingService.viewSpinner();
+        this.activeButton = true;
         this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
           .subscribe(
             (result: any) => {
@@ -598,45 +601,40 @@ getRegex() {
    */
   addValidationsSellerForm() {
     this.Country.valueChanges.subscribe(val => {
-      if (val !== 'null' && val !== null) {
+      if (val !== 'null' && val !== null ) {
         if (this.colombia === val) {
-          this.idState = null;
-          this.city.reset({ value: '', disabled: true });
+          this.isColombiaSelect = true;
+          this.departamento = 'Departamento';
         } else {
-          this.idState = null;
-          this.city.reset({ value: '', disabled: false });
+          this.isColombiaSelect = false;
+          this.departamento = 'Región';
         }
-        this.isColombiaSelect = val === this.colombia;
-        this.state.reset({ value: '', disabled: false });
-      } else {
-        this.isColombiaSelect = false;
-        this.idState = null;
-        this.state.reset({ value: '', disabled: true });
+        if (this.edit) {
+          this.city.reset({ value: '', disabled: this.isColombiaSelect });
+          this.state.reset({ value: '', disabled: false });
+          this.PostalCode.reset({ value: '', disabled: false });
+          const selectedCountry = this.countries.find(element => element.CountryName === val);
+          if (selectedCountry) {
+            this.phoneNumber.reset({ value: selectedCountry.CountryIndicative, disabled: false });
+          }
+        }
+        this.edit = true;
+        this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
       }
-      const selectedCountry = this.countries.find(element => element.CountryName === val);
-      if (selectedCountry) {
-        this.phoneNumber.reset({ value: selectedCountry.CountryIndicative, disabled: true });
-      } else {
-        this.phoneNumber.reset({ value: '', disabled: true });
-      }
-      this.PostalCode.reset(null);
-      // this.city.enable();
-      this.PostalCode.enable();
-      this.phoneNumber.enable();
-      // this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
+
     });
   }
 
-/**
- * funcion para inicializar el formulario cuando el pais seleccionado es colombia (validaciones especificas)
- *
- * @memberof ManageSellerComponent
- */
-validationsForNotColombiaSelectSellerForm() {
+  /**
+   * funcion para inicializar el formulario cuando el pais seleccionado es colombia (validaciones especificas)
+   *
+   * @memberof ManageSellerComponent
+   */
+  validationsForNotColombiaSelectSellerForm() {
     this.nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalNit)]));
     this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
-    this.state.setValidators(Validators.compose([Validators.required, Validators.maxLength(60)]));
-    this.city.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalCity)]));
+    this.state.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
+    this.city.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.payoneer.enable();
     this.payoneer.setValidators(Validators.compose([Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
