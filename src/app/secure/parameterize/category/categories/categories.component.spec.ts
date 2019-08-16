@@ -15,12 +15,13 @@ import { MaterialModule } from '@app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 
-fdescribe('CategoriesComponent', () => {
+describe('CategoriesComponent', () => {
 
   const categoryRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
     { Identifier: 'CategoryName', Value: '^[A-Za-zÑñ\\sá é í ó ú ü ñà è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$', Module: 'parametrizacion' },
     { Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores' },
+    { Identifier: 'integerNumber', Value: '^([0-9])*$', Module: 'vendedores' }
   ];
 
   const categoryList = [
@@ -248,24 +249,6 @@ fdescribe('CategoriesComponent', () => {
       expect(mockMatDialog.open).toHaveBeenCalled();
     });
 
-    it('should be update a category', () => {
-      component.categoryToUpdate = categoryList[1];
-      const value = {
-        Commission: 15,
-        Id: 27177,
-        IdCarulla: null,
-        IdCatalogos: null,
-        IdExito: 'catmp1000000000',
-        IdMarketplace: 'catmp1000000000',
-        IdParent: 27176,
-        IdVTEX: null,
-        Name: 'Nacionales',
-        ProductType: 'Technology'
-      };
-      component.confirmationUpdate(value);
-      expect(component.categoryList).not.toEqual(categoryTree);
-    });
-
     it('Should e exist Comission', () => {
       expect(component.Commission).toBeTruthy();
     });
@@ -308,6 +291,14 @@ fdescribe('CategoriesComponent', () => {
 
     it('Should e exist IdVTEX', () => {
       expect(component.IdVTEX).toBeTruthy();
+    });
+
+    it('Should e exist Tariff', () => {
+      expect(component.Tariff).toBeTruthy();
+    });
+
+    it('Should e exist TariffCode', () => {
+      expect(component.TariffCode).toBeTruthy();
     });
 
     describe('With creation in batch', () => {

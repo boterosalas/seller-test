@@ -32,6 +32,7 @@ $blue: mat-palette($mat-indigo);
     // max-height: 500px;
     flex-direction: column;
     display: flex;
+    padding: 0;
     // padding: 0 0 200px;
   }
   & .sales-card {
@@ -100,15 +101,22 @@ $blue: mat-palette($mat-indigo);
   }
   // Configuración para el contenedor de la tabla principal
   & .content-table-orders {
-    padding-top: 10px;
+    padding: 10px 20px;
   }
   // Configuración para el toolbar que contiene las opciones del usuario en la vista órdenes
   & .toolbar-orders-options-table {
     & .toolbar-options {
 
       padding-left: 0;
+      /* Para 480px */  
+      @media only screen and (max-width: 500px) and (min-width: 341px) {  
+        text-align: center;
+      } 
       & .title-toolbar {
-        padding-right: 20px;
+        padding-right: 100px;
+        @media only screen and (max-width: 500px) and (min-width: 341px) {  
+          padding-right: 0px;
+        } 
       }
     }
     padding-left: 0;
@@ -164,6 +172,9 @@ $blue: mat-palette($mat-indigo);
     align-items: center;
     // justify-content: center;
     height: 100%;
+    @media only screen and (max-width: 500px) and (min-width: 341px) {  
+      margin-top: 8px;
+    } 
   }
   & .content-detail-order {
     background-color: #f4f4f4;
@@ -290,6 +301,22 @@ $blue: mat-palette($mat-indigo);
   p{
     margin: 0;
   }
+}
+
+
+.hideTableAction{
+  display: none;
+}
+
+.showTableAction{
+  display: inline-block;
+}
+
+.marginListAdmin{
+  max-width: 191px;
+}
+.marginListAdminTotal{
+  max-width: 352px !important;
 }
 
 

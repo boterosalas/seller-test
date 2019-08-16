@@ -336,6 +336,7 @@ export class InformationToForm {
  */
 export class SearchFormEntity {
   title: string;
+  subtitle: string;
   type_form: string;
   btn_title: string;
   title_for_search: string;

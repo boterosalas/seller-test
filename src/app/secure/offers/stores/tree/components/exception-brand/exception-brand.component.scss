@@ -1,0 +1,60 @@
+$color-gray: #BCBCBC;
+
+.options{
+    color: $color-gray;
+    & mat-icon:hover{
+        cursor: pointer;
+    }
+}
+
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-wrapper{
+    position: relative;
+    margin: 20px 0;
+}
+
+.example-container {
+    height: fit-content;
+    max-height: 200px;
+    position: relative;
+    overflow: auto;
+}
+
+table {
+width: 100%;
+}
+
+tbody {
+    overflow: auto;
+}
+
+@mixin last-child {
+   width: 90px;
+}
+
+tr th:last-child {
+    @include last-child();
+}
+
+tr td:last-child {
+ @include last-child();
+}
+
+.full-width.space-between {
+    margin: 15px 0;
+}
+
+.brands-position-option {
+    justify-content: center;
+    text-align: center;
+    padding: 12px 0;
+    margin-bottom: -24px;
+}
+
+.brands-position-option-cancel {
+    margin-left: 8px;
+}

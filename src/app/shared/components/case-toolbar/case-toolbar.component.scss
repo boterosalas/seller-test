@@ -1,0 +1,126 @@
+$primary-color: #485afa;
+$text-color: #757474;
+$hint-color: #5d5d5d;
+$underline: #909090;
+
+.ticket-toolbar {
+  background-color: white;
+  padding: 0px 32px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 45px !important;
+  max-height: 45px;
+  justify-content: space-between;
+  @media (max-width: 600px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 16px;
+  }
+}
+
+.toolbar-brand {
+  font-size: 18px;
+
+  span {
+    font-weight: bold;
+  }
+  small {
+    color: $hint-color;
+  }
+  @media (max-width: 768px) {
+    display: flex !important;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+  }
+  @media (max-width: 600px) {
+    &--title {
+      visibility: hidden;
+      display: none;
+    }
+    &--subtitle {
+      text-align: left;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+}
+
+.separator {
+  font-weight: normal;
+
+  @media (max-width: 768px) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+.toolbar {
+  &-item {
+    &--vertical-center {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &-right {
+    font-size: 14px;
+    &--item {
+      height: 40px !important;
+      max-height: 40px !important;
+    }
+  }
+}
+
+::ng-deep .mat-paginator-container {
+  min-height: 0 !important;
+  margin-top: -5px;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+}
+
+::ng-deep .mat-paginator-page-size-label {
+  visibility: hidden;
+  @media (max-width: 768px) {
+    display: none;
+    visibility: hidden;
+  }
+  @media (max-width: 992px) {
+    display: none;
+    visibility: hidden;
+  }
+  @media (max-width: 600px) {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+::ng-deep .mat-paginator-page-size-label::after {
+  content: 'Productos por pagina' !important;
+  visibility: visible;
+}
+
+::ng-deep .mat-form-field-underline {
+  color: $underline !important;
+}
+
+::ng-deep .mat-toolbar-row {
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+::ng-deep .mat-sidenav-content {
+  @media (max-width: 600px) {
+    justify-content: space-between !important;
+  }
+}
+
+.toolbar-content {
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}

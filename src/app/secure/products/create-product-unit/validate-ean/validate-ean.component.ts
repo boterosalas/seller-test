@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators, FormBuilder, FormGroupDirective, Ng
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ErrorStateMatcher } from '@angular/material';
 import { ProcessService } from '../component-process/component-process.service';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { CommonService } from '@app/shared';
 
 // Error when invalid control is dirty, touched, or submitted.
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -17,24 +19,42 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './validate-ean.component.html',
   styleUrls: ['./validate-ean.component.scss']
 })
-export class ValidateEanComponent implements OnInit {
+export class ValidateEanComponent {
   options: FormGroup;
   eanGroup: FormGroup;
   public validateEanExist;
-  public formatEan = /^((IZ)[0-9]{5,14})$|^([0-9]{7,16})$/;
+  public formatEan;
   public activeButtonCreacionUnitaria: boolean;
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
   public copy = null;
 
-  constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService) {
+  constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService,
+    private commonService: CommonService) {
+      this.getRegex();
   }
-  ngOnInit() {
+
+  getRegex() {
+    this.commonService.getAllRegex().subscribe(result => {
+      if (result.status === 200) {
+        const regex  = JSON.parse(result.body.body).Data;
+        this.formatEan = regex.find(reg => reg.Identifier === 'ean').Value;
+        this.initForm();
+      }
+    });
+  }
+
+  initForm() {
     // metodo para validar el input del form
     this.eanGroup = this.fb.group({
-      eanCtrl: ['', Validators.pattern(this.formatEan)],
+      eanCtrl: ['', Validators.compose([Validators.pattern(this.formatEan)])],
       associateEan: false,
       floatLabel: 'auto'
+    });
+    this.eanGroup.get('eanCtrl').valueChanges.pipe(distinctUntilChanged(), debounceTime(500)).subscribe(val => {
+      if (!!val && !!this.eanGroup.valid) {
+        this.validateEanServices();
+      }
     });
     this.validateEanExist = true;
     this.process.change.subscribe(data => {

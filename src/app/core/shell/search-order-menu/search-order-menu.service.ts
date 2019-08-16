@@ -41,9 +41,9 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(limit: any, stringSearch: any): Observable<[{}]> {
+  getOrdersFilter(limit: any, stringSearch: any, idSeller: number): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchOrders', ['', limit + stringSearch])).subscribe((data: any) => {
+      this.http.get(this.api.get('searchOrders', ['', limit + stringSearch + `&idSeller=${idSeller}`])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);

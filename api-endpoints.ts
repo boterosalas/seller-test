@@ -49,6 +49,7 @@ export const endpoints = {
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
+      getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
       patchOffersProducts: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/registeruniqueoffer',
       getStatusOffers : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
@@ -66,6 +67,7 @@ export const endpoints = {
       getZone: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas/{params}',
       transports: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters',
       getTransport: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters/{params}',
+      getSize: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtexsizelist',
       // Seller
       getListSellersName: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/{params}',
       getSpecificSeller: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/{idseller}/{allseller}',
@@ -142,7 +144,14 @@ export const endpoints = {
       // get active brands
       getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/',
       // get categories vetex
-      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/'
+      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/',
+      // Support Seller center
+      getAllStatusCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-status',
+      getAllCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/casesfilteredpaged',
+      getCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case',
+      patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow',
+      patchReadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/readcase',
+      exceptionBrandsManage: '',
     },
   },
   // Endpoints production
@@ -192,8 +201,9 @@ export const endpoints = {
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
-      patchOffersProducts: '',
-      getStatusOffers : '',
+      getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
+      patchOffersProducts: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/registeruniqueoffer',
+      getStatusOffers : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/status',
       // Historical
       getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/offerhistorical-pdn/{params}',
       downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/offerdownloadhistorical-pdn/{params}',
@@ -208,6 +218,7 @@ export const endpoints = {
       getZone: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn/{params}',
       transports: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn',
       getTransport: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn/{params}',
+      getSize: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtexsizelist',
       // Seller
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
       getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
@@ -283,9 +294,16 @@ export const endpoints = {
       // BRANDS CREATE - Crea una nueva marca
       validateBrandsExact: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetExactBrand/{params}',
       // get active brands
-      getActiveBrands: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/GetBrands/', // falta url pdn
+      getActiveBrands: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/GetBrands/',
       // get categories vetex
-      getCategoriesVetex: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/getspecsbycategoryname/' // falta url pdn
+      getCategoriesVetex: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/getspecsbycategoryname/',
+      // Support Seller center
+      getAllStatusCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-status',
+      getAllCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/casesfilteredpaged',
+      getCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case',
+      patchCaseResponse: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/respondcasefollow',
+      patchReadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/readcase',
+      exceptionBrandsManage: '',
     }
   }
 };

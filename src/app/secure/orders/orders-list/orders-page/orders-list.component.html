@@ -4,8 +4,9 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options>
+        <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
       <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission" [Typeprofile] = "typeProfile" ></app-toolbar-search-pagination>
     </div>
 
     <!-- Tabla de órdenes -->
@@ -52,7 +53,7 @@
           <mat-cell fxFlex.xl="250px" fxFlex.lg="130px" fxFlex.sm="60px" fxFlex.md="110px" fxFlex.xs="60px" *matCellDef="let element;let index=index">
 
             <div class="center-product-list">
-              <button *ngIf="marketPermission" id="flag-order-{{index}}" (click)="stopPropagation($event);recordProcesSedOrder(element.id,element.processedOrder)"
+              <button *ngIf="marketPermission" id="flag-order-{{index}}" (click)="stopPropagation($event);recordProcesSedOrder(element.id,element.processedOrder, element.idSeller)"
                 mat-icon-button>
                 <mat-icon [ngClass]="{'active': element.processedOrder}" class="sc-icon-flag">flag</mat-icon>
               </button>
@@ -63,7 +64,7 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl=""
             *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Orden</span>
           </mat-header-cell>
@@ -82,7 +83,7 @@
 
         <!-- dateOrder Column -->
         <ng-container matColumnDef="dateOrder">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false"
             fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Fecha pedido</span>
           </mat-header-cell>
@@ -94,7 +95,7 @@
 
         <!-- dateMaxDeliveryOrder Column -->
         <ng-container matColumnDef="dateMaxDeliveryOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header"> Fecha max entrega </span>
           </mat-header-cell>
@@ -106,7 +107,7 @@
 
         <!-- statusOrder Column -->
         <ng-container matColumnDef="statusOrder">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Estado</span>
           </mat-header-cell>
@@ -147,7 +148,7 @@
 
         <!-- channel Column -->
         <ng-container matColumnDef="channel">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminTotal'" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
             fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef
             mat-sort-header>
             <span class="title-table-header">Canal</span>
@@ -160,13 +161,13 @@
 
         <!-- Acciones Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'"  fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
             fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">Acciones</span>
           </mat-header-cell>
           <mat-cell fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xl="" fxFlex.xs=""
-            *matCellDef="let element;let index=index">
-            <div class="center-product-list">
+            *matCellDef="let element;let index=index" >
+            <div class="center-product-list" *ngIf="typeProfile == 0">
               <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)" class="sc-button-toolbar no-button button-toolbar"
                 mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon matPrefix>arrow_drop_down</mat-icon>
@@ -213,7 +214,7 @@
 
 
       <!-- Elemento para informar que no hay información -->
-      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength">
+      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
         <p>No se han encontrado &oacute;rdenes
         </p>
@@ -221,6 +222,15 @@
           color="primary">
           Cargar todas las &oacute;rdenes
         </button>
+      </div>
+      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 1 ">
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+        <div *ngIf="showMenssage == true && idSeller">
+            <p>No se han encontrado &oacute;rdenes</p>
+        </div>
+        <div *ngIf="showMenssage == false">
+            <p>Ingresa el nombre del vendedor en la barra de búsqueda para ver las ordenes.</p>
+        </div>
       </div>
     </div>
 
@@ -231,7 +241,7 @@
           <!-- Client Information -->
           <app-client-information [order]="element"></app-client-information>
           <!-- Product Information -->
-          <app-products-order  [user]="user" [dataSource]="dataSource" [order]="element"></app-products-order>
+          <app-products-order  [user]="user" [Typeprofile]="typeProfile"  [dataSource]="dataSource" [order]="element" ></app-products-order>
         </div>
       </div>
     </ng-template>

@@ -150,7 +150,7 @@
                 <mat-form-field class="register" style="width:100% !important">
                   <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')"
                     maxlength="isColombiaSelect ? 20 : 30" formControlName="Nit" autocomplete="off"
-                    (blur)="validateExist($event, 'Seller' ,'Nit')" [errorStateMatcher]="matcher" autofocus
+                    (blur)="validateExist($event, 'Seller' ,'Nit')" [errorStateMatcher]="matcher"
                     id="register-nit" (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
 
@@ -385,7 +385,7 @@
                 <mat-form-field class="register" style="width:100% !important">
                   <input matInput placeholder="NIT" (keypress)="keyPress($event, 'nit')" maxlength="20"
                     formControlName="Nit" autocomplete="off" (blur)="validateExist($event,'Admin' ,'Nit')"
-                    [errorStateMatcher]="matcher" autofocus id="register-nit" (ngModelChange)="activeButton = false"
+                    [errorStateMatcher]="matcher" id="register-nit" (ngModelChange)="activeButton = false"
                     required>
                   <mat-hint></mat-hint>
                   <mat-error id="error-nit-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">

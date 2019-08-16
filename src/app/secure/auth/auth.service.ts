@@ -13,4 +13,8 @@ export class AuthRoutingService {
         return this.http.get(this.api.get('getPermissions'));
         // return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
     }
+
+    getUser() {
+        return this.http.get(this.api.get('getSellerData'));
+    }
 }

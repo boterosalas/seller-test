@@ -177,8 +177,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Tipo de moneda</mat-label>
-          <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)"
-            [disabled]="true">
+          <mat-select name="Currency" formControlName="Currency">
             <mat-option value="USD">USD</mat-option>
             <mat-option value="COP">COP</mat-option>
           </mat-select>
@@ -212,7 +211,7 @@
         <mat-slide-toggle color="primary" formControlName="IsUpdatedStock">Actualización de Inventario</mat-slide-toggle> -->
 
         <div class="button-update-offert flexbox justify-center align-center">
-          <button [disabled]="!updateOffer.form.valid || !updateOffer.form.touched" type="submit" mat-raised-button color="primary"
+          <button [disabled]="!updateOffer.form.valid" type="submit" mat-raised-button color="primary"
             [innerHTML]="'Editar'"></button>
         </div>
 

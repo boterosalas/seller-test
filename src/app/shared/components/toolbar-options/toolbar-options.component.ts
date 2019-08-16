@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { Logger } from '@app/core/util';
 import { ShellComponent } from '@core/shell/shell.component';
@@ -7,6 +7,13 @@ import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal
 import { SearchFormEntity } from '@shared/models';
 import { getDutchPaginatorIntl } from '@shared/services';
 import { DownloadBillingpayModalComponent } from '@secure/billing/download-billingpay-modal/download-billingpay-modal.component';
+import { FormControl } from '@angular/forms';
+import { startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { LoadingService } from '@app/core';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 
 // log component
@@ -21,8 +28,9 @@ const log = new Logger('ToolbarOptionsComponent');
   ],
 })
 
-export class ToolbarOptionsComponent {
+export class ToolbarOptionsComponent implements OnInit {
 
+  public textForSearch: FormControl;
   //  Elemento paginador para la tabla
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // Variable que almacena la configuración para el formulario
@@ -30,6 +38,9 @@ export class ToolbarOptionsComponent {
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
+  @Input() idSeller: number;
+  @Input() Typeprofile: number;
+
 
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
@@ -37,10 +48,18 @@ export class ToolbarOptionsComponent {
   @Output() OnGetOrdersList = new EventEmitter<object>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
+
+  @Input() isFullSearch: boolean;
   // Limite de registros
   lengthOrder = 100;
+
+  public user: any;
+
+  // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
+  public filteredOptions: Observable<string[]>;
   // Numero de paginas por defecto
   pageSizeOrder = 50;
+  listSellers = [];
 
   /**
    * Creates an instance of ToolbarOptionsComponent.
@@ -50,8 +69,59 @@ export class ToolbarOptionsComponent {
    */
   constructor(
     public dialog: MatDialog,
-    public shellComponent: ShellComponent
+    public shellComponent: ShellComponent,
+    private loadingService: LoadingService,
+    public storeService: StoresService,
+    public eventsSeller: EventEmitterSeller,
   ) {
+    this.textForSearch = new FormControl();
+    this.isFullSearch = true;
+    this.user = {};
+  }
+
+
+  ngOnInit() {
+    this.filteredOptions = this.textForSearch.valueChanges
+      .pipe(
+        startWith(''),
+        map((val: any) =>
+          this.filter(val)
+        )
+      );
+    this.getAllSellers();
+    // consulto las tiendas disponibles
+  }
+
+
+  /**
+  * Método empleado para consultar la lista de tiendas disponibles
+  * @memberof SearchStoreComponent
+  */
+  public getAllSellers() {
+    this.loadingService.viewSpinner();
+    if (this.isFullSearch) {
+      this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+        if (res.status === 200) {
+          if (res && res.body && res.body.body) {
+            const body = JSON.parse(res.body.body);
+            this.listSellers = body.Data;
+          }
+        } else {
+          this.listSellers = res.message;
+        }
+        this.loadingService.closeSpinner();
+      });
+    } else {
+      this.storeService.getAllStores(this.user).subscribe((res: any) => {
+        if (res.status === 200) {
+          const body = JSON.parse(res.body.body);
+          this.listSellers = body.Data;
+        } else {
+          this.listSellers = res.message;
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   /**
@@ -59,7 +129,10 @@ export class ToolbarOptionsComponent {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm);
+    if (this.idSeller === undefined) {
+      this.idSeller = null;
+    }
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
   }
 
   /**
@@ -99,6 +172,17 @@ export class ToolbarOptionsComponent {
     this.paginator.pageSize = this.pageSizeOrder;
     this.OnChangeSizeOrderTable.emit(this.paginator);
   }
+  /*
+   *
+   * Evento que permite escuchar los cambios en el input de busqueda para saber si no hay un valor ingresado y setear el campo
+   * @param {*} event
+   * @memberof ToolbarOptionsComponent
+   */
+  public whatchValueInput(event: any): void {
+    if (event === '') {
+      this.textForSearch.reset();
+    }
+  }
 
   /**
    * Método que permite emitir un evento al contenedor padre para saber cuando consultar la lista de órdenes.
@@ -119,12 +203,53 @@ export class ToolbarOptionsComponent {
   }
 
   /**
+   * Evento que permite capturar cuando un usuario presiona enter al estar en el input,
+   * Este evento se agrega para poder obtener el primer resultado que se encuentre en la lista al momento de presionar enter
+   * @param {any} event
+   * @memberof SearchStoreComponent
+   */
+  public keyDownFunction(event: any): void {
+    // keyCode 13 -> Enter
+    if (event.keyCode === 13) {
+      // Obtengo los ultimos registros almacenados sobre la lista de busqueda
+      const suscribe = this.filteredOptions.subscribe((res: any) => {
+        // busco dentro de los registro el que conincida con el cricterio de busqueda actual
+        const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
+        // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
+        if (found !== undefined) {
+          this.viewStoreInformation(found);
+        }
+      });
+      suscribe.unsubscribe();
+    }
+  }
+
+  /**
    * Método para obtener la paginación actual de la tabla donde este cargado el componente
    * @returns {object}
    * @memberof ToolbarOptionsComponent
    */
   getPaginator(): object {
     return this.paginator;
+  }
+
+  /**
+ * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
+ * En la busqueda de tiendas
+ * @param {any} search_seller
+ * @memberof SearchStoreComponent
+ */
+  public viewStoreInformation(search_seller: StoreModel) {
+    // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
+    this.eventsSeller.searchSeller(search_seller);
+  }
+
+
+  public filter(val: string): string[] {
+    if (val !== null && this.listSellers) {
+      return this.listSellers.filter(option =>
+        option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
+    }
   }
 }
 

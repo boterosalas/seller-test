@@ -1,0 +1,40 @@
+<app-case-toolbar (toggleFilter)="toggleFilter($event)"> </app-case-toolbar>
+<mat-toolbar>
+  <div class="prev-view">
+    <a [routerLink]="['/securehome/seller-center/support-center']">
+      <mat-icon>keyboard_arrow_left</mat-icon>Volver a reclamaciones</a
+    >
+  </div>
+</mat-toolbar>
+
+<div *ngIf="case$ | async as case" class="detail-content">
+  <app-drop-down-list [data]="[case]" [configurations]="headerConfigurations">
+    <ng-container *itemDropDownList>
+      <app-drop-down-box [data]="case" [isOpen]="true">
+        <ng-container *itemCaseList>
+          <app-case-detail
+            (reply)="onEmitResponse($event)"
+            [case]="case"
+          ></app-case-detail>
+        </ng-container>
+      </app-drop-down-box>
+    </ng-container>
+  </app-drop-down-list>
+</div>
+
+<div
+  [ngClass]="
+    filter ? 'support-center-case__filter-container' : 'hidden-content'
+  "
+>
+  <div
+    [@slideInOut]="menuState"
+    [ngClass]="filter ? 'support-filter' : 'hidden-content'"
+  >
+    <app-case-filter
+      (eventFilter)="toggleFilter($event)"
+      [stateFilter]="filter"
+      [options]="options"
+    ></app-case-filter>
+  </div>
+</div>

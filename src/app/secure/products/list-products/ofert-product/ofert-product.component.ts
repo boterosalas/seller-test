@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
@@ -10,6 +10,7 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -44,6 +45,7 @@ export class OfertExpandedProductComponent implements OnInit {
     offertRegex = {
         formatNumber: '',
         promiseDelivery: '',
+        price: ''
     };
 
 
@@ -75,14 +77,14 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct = this.fb.group({
             Stock: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Price: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             DiscountPrice: new FormControl('', [
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             PromiseDelivery: new FormControl('', [
                 Validators.required,
@@ -90,7 +92,7 @@ export class OfertExpandedProductComponent implements OnInit {
             ]),
             IsFreightCalculator: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Warranty: new FormControl('', [
                 Validators.required,
@@ -112,6 +114,16 @@ export class OfertExpandedProductComponent implements OnInit {
         });
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
+        this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+            this.changeTypeCurrency(val);
+            if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').disable();
+            } else {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                !this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').enable();
+            }
+        });
     }
 
 
@@ -442,6 +454,16 @@ export class OfertExpandedProductComponent implements OnInit {
                 price.controls.ComboQuantity.reset('');
             });
         }
+
+        if (event === 'USD') {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+          } else {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
+          }
     }
 
     // Funcion para cargar datos de regex
@@ -457,5 +479,34 @@ export class OfertExpandedProductComponent implements OnInit {
             }
             this.createFormControls();
         });
+    }
+
+    notifyEvent(value) {
+        switch (value.toString()) {
+            case 'IsFreeShipping':
+                const radioIsFreeShipping = document.getElementById('isFreeShipping');
+                if (value === this.ofertProduct.get('ofertOption').value) {
+                    this.ofertProduct.get('ofertOption').setValue('');
+                    setTimeout(() => {
+                        radioIsFreeShipping && radioIsFreeShipping.classList.remove('mat-radio-checked');
+                    });
+                } else {
+                    this.ofertProduct.get('ofertOption').setValue('IsFreeShipping');
+                    radioIsFreeShipping && radioIsFreeShipping.classList.add('mat-radio-checked');
+                }
+                break;
+            case 'IsEnviosExito':
+                const radioIsEnviosExito = document.getElementById('isEnviosExito');
+                if (value === this.ofertProduct.get('ofertOption').value) {
+                    this.ofertProduct.get('ofertOption').setValue('');
+                    setTimeout(() => {
+                        radioIsEnviosExito && radioIsEnviosExito.classList.remove('mat-radio-checked');
+                    });
+                } else {
+                    this.ofertProduct.get('ofertOption').setValue('IsEnviosExito');
+                    radioIsEnviosExito && radioIsEnviosExito.classList.add('mat-radio-checked');
+                }
+                break;
+        }
     }
 }

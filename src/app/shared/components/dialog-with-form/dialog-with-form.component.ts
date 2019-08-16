@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, Inject, TemplateRef, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 interface DialogData {
   title: string;
@@ -11,6 +11,7 @@ interface DialogData {
   icon: string;
   showButtons: boolean;
   btnConfirmationText: string;
+  validation?: BehaviorSubject<boolean>;
 }
 
 @Component({
@@ -18,7 +19,7 @@ interface DialogData {
   templateUrl: './dialog-with-form.component.html',
   styleUrls: ['./dialog-with-form.component.scss']
 })
-export class DialogWithFormComponent {
+export class DialogWithFormComponent implements OnInit {
 
   content: TemplateRef<any>;
 
@@ -29,7 +30,10 @@ export class DialogWithFormComponent {
 
      }
 
-  onNoClick(): void {
+     ngOnInit() {
+     }
+
+  onNoClick:() => void = () => {
     !!this.data && !!this.data.form && this.data.form.reset();
     this.dialogRef.close();
   }

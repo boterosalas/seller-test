@@ -1,0 +1,30 @@
+<div class="preview-list-card">
+  <span class="preview-list-card__title preview-list-card--bottom-space">
+    {{ title }}</span
+  >
+
+  <div class="preview-list-card--bottom-space">
+    <ng-template [ngIf]="configuration && products">
+      <div
+        class="preview-list-card__product-item preview-list-card__secondary-text
+        preview-list-card--pointer"
+        *ngFor="let product of products"
+      >
+        <ng-container *ngFor="let itemConfig of configuration">
+          <span>{{ product[itemConfig.name] }}</span>
+          <ng-template [ngIf]="itemConfig.splitSymbol">
+            <span class="">{{ itemConfig.splitSymbol }}</span>
+          </ng-template>
+        </ng-container>
+      </div>
+    </ng-template>
+  </div>
+
+  <span
+    class="preview-list-card__title preview-list-card--underline
+          preview-list-card--pointer"
+    (click)="onClickShowAll.emit()"
+  >
+    Ver todos los productos
+  </span>
+</div>
