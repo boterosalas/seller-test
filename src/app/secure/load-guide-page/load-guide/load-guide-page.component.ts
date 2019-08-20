@@ -307,7 +307,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
         if (j === 0 || j === 2) {
           // LLamo el método que permite validar si el string actual es solo númerico,
           // retorna false si contiene letras y true si solo es número
-          const onlyNumber = this.alphanumeric(res[index][j]);
+          const onlyNumber = res[index][j] ? this.alphanumeric(res[index][j]) : false;
           /* si se obtiene true es por que el dato es un string */
           if (onlyNumber === false) {
             this.countErrors += 1;
@@ -327,7 +327,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
 
 
           }
-        } else if (res[index][j] === undefined || res[index][j] === '') {
+        } else if (!res[index][j]) {
 
           this.countErrors += 1;
           /* contadores para indicar en cual columna y fila esta el fallo */
