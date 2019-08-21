@@ -11,6 +11,7 @@ export function notificationReducer(
 ) {
   switch (action.type) {
     case Types.FetchUnreadCaseDone:
+      console.log('Done');
       return { ...state, unreadCases: action.payload };
     default:
       return state;

@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, catchError, exhaustMap } from 'rxjs/operators';
+import { map, exhaustMap, switchMap } from 'rxjs/operators';
 import * as NotificationActions from './actions';
-import { of } from 'rxjs';
+import { of, interval } from 'rxjs';
 
 import { SellerSupportCenterService } from '../../secure/seller-support-center/services/seller-support-center.service';
 
 @Injectable()
 export class NotificationEffects {
+  @Effect()
+  runNotificationDaemon = this.actions.pipe(
+    ofType(NotificationActions.Types.RunNotificationDaemon),
+    switchMap(() => interval(5000)),
+    map(() => new NotificationActions.FetchUnreadCase())
+  );
+
   @Effect()
   fetchUnreadCase = this.actions.pipe(
     ofType(NotificationActions.Types.FetchUnreadCase),
