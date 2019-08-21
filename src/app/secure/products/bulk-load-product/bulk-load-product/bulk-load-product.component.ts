@@ -429,7 +429,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
               this.iVal = {
                 iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
@@ -452,7 +452,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
                 iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
                 iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Product Type'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('ProductType'),
                 iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
                 iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
                 iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
@@ -495,7 +495,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
                 iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
                 iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Tipo de Producto'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('TipoProducto'),
                 iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
                 iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
                 iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
@@ -1857,7 +1857,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Ancho del producto': undefined,
       'Peso del producto': undefined,
       'Vendedor': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -1901,7 +1901,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Item Width': undefined,
       'Item Weight': undefined,
       'Seller': undefined,
-      'Product Type': undefined,
+      'ProductType': undefined,
       'Image URL 1': undefined,
       'Image URL 2': undefined,
       'Image URL 3': undefined,
@@ -2059,7 +2059,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Peso del producto': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -2110,7 +2110,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Peso del producto': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -2146,7 +2146,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         idVTEX: '',
         listCategories: [],
         specs: []
-      }
+      };
     }
   }
 
