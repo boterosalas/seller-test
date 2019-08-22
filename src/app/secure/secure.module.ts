@@ -39,7 +39,7 @@ import { SellerSupportCenterService } from './seller-support-center/services/sel
 import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
 import { CoreStoreModule, CoreState } from '../store';
 import { Store } from '@ngrx/store';
-import { RunNotificationDaemon } from '@app/store/notifications/actions';
+import { RunNotificationDaemon, FetchUnreadCase } from '@app/store/notifications/actions';
 
 @NgModule({
   declarations: [],
@@ -82,6 +82,7 @@ import { RunNotificationDaemon } from '@app/store/notifications/actions';
 })
 export class SecureModule {
   constructor(private store: Store<CoreState>) {
+    this.store.dispatch(new FetchUnreadCase());
     this.store.dispatch(new RunNotificationDaemon());
   }
 }

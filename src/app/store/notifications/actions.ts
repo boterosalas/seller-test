@@ -17,7 +17,7 @@ export class FetchUnreadCase implements Action {
 
 export class FetchUnreadCaseDone implements Action {
   readonly type = Types.FetchUnreadCaseDone;
-  constructor(public payload?: number) {}
+  constructor(public payload: number) {}
 }
 
 export class RunNotificationDaemon implements Action {
