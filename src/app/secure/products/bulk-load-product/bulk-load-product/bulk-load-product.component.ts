@@ -2146,7 +2146,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         idVTEX: '',
         listCategories: [],
         specs: []
-      }
+      };
     }
   }
 

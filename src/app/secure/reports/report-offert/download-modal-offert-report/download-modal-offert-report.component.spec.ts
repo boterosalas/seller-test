@@ -10,8 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserParametersService, LoadingService, EndpointService } from '@app/core';
 import { ReportOffertService } from '../report-offert.service';
 import { ComponentsService } from '@app/shared';
+import { of } from 'rxjs';
 
-fdescribe('DownloadModalOffertReportComponent', () => {
+describe('DownloadModalOffertReportComponent', () => {
   let component: DownloadModalOffertReportComponent;
   let fixture: ComponentFixture<DownloadModalOffertReportComponent>;
 
@@ -23,9 +24,20 @@ fdescribe('DownloadModalOffertReportComponent', () => {
     sellerEmail: 'ccbustamante221@misena.edu.co',
   };
 
+  const res = {
+    status: 200,
+    ok: true,
+    body: {
+      data: '',
+      error: '',
+      message: 'Solicitud enviada exitosamente. En unos minutos recibirá un correo con el archivo solicitado.  '
+    }
+  };
+
   const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
+  const mockreporOffertService = jasmine.createSpyObj('ReportOffertService', ['downloadReportOffertAdmin']);
   const formBuilder: FormBuilder = new FormBuilder();
 
   beforeEach(async(() => {
@@ -44,10 +56,10 @@ fdescribe('DownloadModalOffertReportComponent', () => {
         UserParametersService,
         { provide: LoadingService, useValue: mockLoadingService },
         { provide: UserParametersService, useValue: mockUserParameterService },
+        { provide: ReportOffertService, useValue: mockreporOffertService },
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         { provide: FormBuilder, useValue: formBuilder },
-        ReportOffertService,
         EndpointService,
         ComponentsService
       ],
@@ -59,31 +71,34 @@ fdescribe('DownloadModalOffertReportComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DownloadModalOffertReportComponent);
     component = fixture.componentInstance;
+    mockUserParameterService.getUserData.and.returnValue(of(data));
     fixture.detectChanges();
-    const myform = formBuilder.group({
-      email: { value: 'ccbustamante221@misena.edu.co' }
-    });
+    // const myform = formBuilder.group({
+    //   email: { value: 'ccbustamante221@misena.edu.co' }
+    // });
   });
 
   it('should create DownloadModalOffertReportComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('dialog should be closed after onNoClick()', () => {
-  //   component.onNoClick();
-  //   expect(component).toBeTruthy();
-  // });
+  it('dialog should be closed after onNoClick()', () => {
+    component.onNoClick();
+    expect(component).toBeTruthy();
+  });
 
-  // describe('Funciones descarga de las órdene', () => {
-  //   const myform = formBuilder.group({
-  //     email: { value: 'ccbustamante221@misena.edu.co' }
-  //   });
-  //   beforeEach(() => {
-  //     component.user = data;
-  //     fixture.detectChanges();
-  //   });
-  //   it('Método para realizar la descarga de las órdenes.', () => {
-  //     component.downloadReportOffertADmin(myform);
-  //   });
-  // });
+  describe('Funciones descarga de las órdene', () => {
+
+    const myform = formBuilder.group({
+      email: { value: 'ccbustamante221@misena.edu.co' }
+    });
+    beforeEach(() => {
+      component.user = data;
+      mockreporOffertService.downloadReportOffertAdmin.and.returnValue(of(res));
+      fixture.detectChanges();
+    });
+    it('Método para realizar la descarga de las órdenes.', () => {
+      component.downloadReportOffertADmin(myform);
+    });
+  });
 });
