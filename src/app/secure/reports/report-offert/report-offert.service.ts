@@ -16,29 +16,16 @@ export class ReportOffertService {
             Email: email,
         };
 
-        // return new Observable(observer => {
-        //     this.http.post<any>(this.api.get('exportBillingPays'), exportData)
-        //         .subscribe((data: any) => {
-        //             observer.next(data);
-        //         }, err => {
-        //             observer.error(err);
-        //         });
-        // });
+        return this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData, { observe: 'response' });
 
-        return of(
-            {
-                status: 200,
-                body: {
-                    'errors': [],
-                    'data': {
-                        'idSeller': 1,
-                        'status': 3,
-                        'response': '',
-                        'checked': 'false'
-                    },
-                    'message': 'Operación realizada éxitosamente.'
-                }
-            }
-        );
+        /*
+        return new Observable(observer => {
+            this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData,  {observe: 'response' })
+                .subscribe((data: any) => {
+                    observer.next(data);
+                }, err => {
+                    observer.error(err);
+                });
+        }); */
     }
 }

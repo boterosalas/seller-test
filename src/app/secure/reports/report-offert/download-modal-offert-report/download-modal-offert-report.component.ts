@@ -53,23 +53,17 @@ export class DownloadModalOffertReportComponent implements OnInit {
   downloadReportOffertADmin(form: any) {
     const email = form.get('email').value;
     this.loadingService.viewSpinner();
-    this.reporOffertService.downloadReportOffertAdmin(email)
-    .subscribe(res => {
-      console.log('res of: ', res);
-        this.loadingService.closeSpinner();
-          if (res != null) {
-            this.componentService.openSnackBar('Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.',
-              'Cerrar', 10000);
-          } else {
-            this.componentService.openSnackBar('Se ha presentado un error al realizar la descarga del reporte de ofertas', 'Cerrar', 5000);
-          }
-          this.onNoClick();
-        },
-        err => {
+    this.reporOffertService.downloadReportOffertAdmin(email).subscribe(
+      (result: any) => {
+        if (result && (result.status === 200 || result.status === 201)) {
+          this.componentService.openSnackBar('Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.', 'Cerrar', 10000);
+        } else {
           this.componentService.openSnackBar('Se ha presentado un error al realizar la descarga del reporte de ofertas', 'Cerrar', 5000);
-          this.onNoClick();
         }
-      );
+        this.onNoClick();
+        this.loadingService.closeSpinner();
+      }
+    );
   }
 
 }
