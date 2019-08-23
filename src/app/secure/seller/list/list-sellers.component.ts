@@ -85,7 +85,10 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canPutInVacation: boolean;
     canCancelVacation: boolean;
     canRead: boolean;
+    enableEndVacation: boolean;
+    endvacationStart: any;
     today = DateService.getToday();
+    tomorrow = DateService.getTomorrowDate();
 
     constructor(private storesService: StoresService,
         private loading: LoadingService,
@@ -115,6 +118,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.enableEndVacation = true;
         const drawer: any = document.querySelector('.mat-drawer-content.mat-sidenav-content');
         !!drawer && drawer.classList.remove('mat-drawer-content');
         const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
@@ -156,6 +160,14 @@ export class SellerListComponent implements OnInit, OnDestroy {
                 this.endPicker.open();
                 break;
         }
+    }
+
+    //** metodo para habilitar la fecha final y setear un dia despues de seleccionado las vacaciones */
+
+    startDate() {
+        this.enableEndVacation = false;
+        let date = moment(this.statusForm.controls.StartDateVacation.value).add(1,'days').utc();
+        this.endvacationStart = date['_d'];
     }
 
     /**
@@ -276,7 +288,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         const form = null;
         const messageCenter = false;
         const showButtons = true;
-        return {message, title, icon, form, messageCenter, showButtons};
+        return { message, title, icon, form, messageCenter, showButtons };
     }
 
     /**
@@ -384,7 +396,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         }
         this.statusForm.get('IdSeller').setValue(sellerData.IdSeller);
         form = this.statusForm;
-        return {title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**

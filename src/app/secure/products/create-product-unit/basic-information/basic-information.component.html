@@ -7,26 +7,41 @@
     <!-- NAME AND CATEGORY -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="name-product field">
-        <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name" (change)="detectForm()"
-          id="nameProduct" autofocus required>
+        <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name"
+          (change)="detectForm()" id="nameProduct" autofocus required>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | I18N | async}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="category-product field">
-        <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category" (change)="detectForm()"
-          id="categoryProduct">
+        <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category"
+          (change)="detectForm()" id="categoryProduct">
       </mat-form-field>
     </div>
 
     <!-- BRAND AND MODEL -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-      <mat-form-field class="brand-product field">
+      <!-- <mat-form-field class="brand-product field">
         <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand" (change)="detectForm()"
           id="brandProduct">
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | I18N | async}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
+      </mat-form-field> -->
+
+      <mat-form-field class="field">
+        <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
+          id="brandProduct" required>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
+            {{brand.Name}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | I18N | async}}</mat-error>
       </mat-form-field>
+
 
       <!-- <mat-form-field class="field">
           <mat-select placeholder="Marca" formControlName="Brand" id="Brand" (selectionChange)="detectForm()" required>
@@ -198,7 +213,8 @@
   <mat-divider></mat-divider>
 
   <!-- BUTTON TO ADD SONS -->
-  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'" class="sticky-position">
+  <div ngStickyNav fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
+    class="sticky-position">
     <div>
     </div>
     <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
@@ -257,10 +273,14 @@
           </div>
 
           <mat-form-field class="category-product field">
-            <input matInput placeholder="Ingresa la talla" class="input-category-product" formControlName="Size"
-              (change)="detectForm()" id="sizeProduct">
-            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.size_invalid' | I18N | async}}</mat-error>
-            <mat-error *ngIf="son.form.get('Size').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
+              <mat-label>Ingresa la talla</mat-label>
+              <mat-select formControlName="Size">
+                <mat-option *ngFor="let size of sizes" (change)="detectForm()"  class="input-category-product" [value]="size.Size">
+                  {{size.Size}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="son.form.get('Size').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.size_invalid' | I18N | async}}</mat-error>
+              <mat-error *ngIf="son.form.get('Size').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
           </mat-form-field>
         </div>
 
@@ -270,11 +290,14 @@
             <label class="label-color">Color</label>
             <div class="full-width flex-container">
               <div class="container-color" *ngFor="let color of colorList">
-                <div class="color-round-picker" [ngStyle]="{'background-color': color.color, 'border-color': color.border}"
-                  *ngIf="!color.multicolor" [matTooltip]="color.Name" (click)="selectColor(color, son)" [ngClass]="{'select-color': color.Name === son.colorSelected}">
+                <div class="color-round-picker"
+                  [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
+                  [matTooltip]="color.Name" (click)="selectColor(color, son)"
+                  [ngClass]="{'select-color': color.Name === son.colorSelected}">
                 </div>
-                <div class="material-icons multi-color" (click)="selectColor(color, son)" [ngClass]="{'select-color': color.Name === son.colorSelected}"
-                  *ngIf="color.multicolor" [matTooltip]="color.Name">
+                <div class="material-icons multi-color" (click)="selectColor(color, son)"
+                  [ngClass]="{'select-color': color.Name === son.colorSelected}" *ngIf="color.multicolor"
+                  [matTooltip]="color.Name">
                   <div class="multi-one"></div>
                   <div class="multi-two"></div>
                   <div class="multi-three"></div>
@@ -287,10 +310,13 @@
           </div>
 
           <mat-form-field class="field">
-            <mat-icon matPrefix class="material-icons color-prefix-icon" [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
-            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP" id="HexColorCodePDP">
-            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'" [(colorPicker)]="son.colorPick"
-              (colorPickerChange)="detectForm()" [style.background]="colorPick" [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
+            <mat-icon matPrefix class="material-icons color-prefix-icon"
+              [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
+            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP"
+              id="HexColorCodePDP">
+            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'"
+              [(colorPicker)]="son.colorPick" (colorPickerChange)="detectForm()" [style.background]="colorPick"
+              [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
               palette
             </mat-icon>
             <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</div>
@@ -302,7 +328,6 @@
           <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.specific_name_invalid' | I18N | async}}</mat-error>
           <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | I18N | async}}</mat-error>
         </mat-form-field>
-
       </form>
     </div>
   </div>

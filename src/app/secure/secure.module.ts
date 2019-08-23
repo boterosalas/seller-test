@@ -5,7 +5,7 @@ import { BillingModule } from '@app/secure/billing/billing.module';
 import { DashboardModule } from '@app/secure/dashboard/dashboard.module';
 import { ErrorModule } from '@app/secure/error-page/error-page.module';
 import { LoadGuideModule } from '@app/secure/load-guide-page/load-guide.module';
-import { BulkLoadModule, HistoricalModule, HistoricalModuleAdmin, ListModule, StoresModule } from '@app/secure/offers';
+import { BulkLoadModule, HistoricalModule, HistoricalModuleAdmin, ListModule, ListAdminModule, StoresModule } from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolutionModule } from '@app/secure/orders';
 import { BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
@@ -17,7 +17,9 @@ import { AuthService } from './auth/auth.routing';
 import { ParameterizeModule } from './parameterize/parameterize.module';
 import { BulkLoadProductModerationModule } from './products/bulk-load-product-moderation/bulk-load-product-moderation.module';
 import { ListProductModule } from './products/list-products/list-products.module';
-
+import { SellerSupportCenterService } from './seller-support-center/services/seller-support-center.service';
+import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
+import { ListReportsModule } from './reports/reports.module';
 
 @NgModule({
   declarations: [],
@@ -40,6 +42,7 @@ import { ListProductModule } from './products/list-products/list-products.module
     StoresModule,
     BulkLoadModule,
     ListModule,
+    ListAdminModule,
     HistoricalModule,
     BulkLoadProductModule,
     QuotingModule,
@@ -51,9 +54,11 @@ import { ListProductModule } from './products/list-products/list-products.module
     ListProductModule,
     SellerModule,
     BillingOrdersModule,
-    ParameterizeModule
+    ParameterizeModule,
+    SellerSupportCenterModule,
+    ListReportsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, SellerSupportCenterService],
 })
 export class SecureModule {
 }

@@ -114,7 +114,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
-    currency: ''
+    currency: '',
+    warranty: '',
+    price: ''
   };
 
 
@@ -524,7 +526,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                 const isCurrency = this.validFormat(res[i][j], 'currency');
                 if (!isCurrency && isCurrency === false) {
                   this.countErrors += 1;
-                  this.countErrors += 1;
                   const row = i + 1, column = j + 1;
 
                   const itemLog = {
@@ -541,7 +542,27 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
                 }
 
-              } else if (j === iVal.iPrecio || j === iVal.iPrecDesc || j === iVal.iGarantia) {
+              } else if (j === iVal.iGarantia) {
+                const iGarantia = this.validFormat(res[i][j], 'greaterWarranty');
+                if (!iGarantia && iGarantia === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'ThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iGarantia ? 'Warranty' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iPrecio || j === iVal.iPrecDesc) {
 
                 const isGreaterThanZero = this.validFormat(res[i][j], 'greaterThanZero');
 
@@ -558,13 +579,49 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : j === iVal.iGarantia ? 'Warranty' : null
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : null
                   };
 
                   this.listLog.push(itemLog);
                   errorInCell = true;
 
                 }
+
+                const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
+                if (!correctVal) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iPrecio ? 'Price' : j === iVal.iPrecDesc ? 'DiscountPrice' : null
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iCostFletProm) {
+                const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
+                if (!correctVal) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'LessThanZero',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: 'AverageFreightCost'
+                  };
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
               } else {
                 const onlyNumber = this.validFormat(res[i][j], 'alphanumeric');
                 if (onlyNumber === false && !onlyNumber) {
@@ -580,7 +637,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
-                    dato: j === iVal.iCostFletProm ? 'AverageFreightCost' : j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
+                    dato: j === iVal.iInv ? 'Stock' : j === iVal.iCantidadCombo ? 'ComboQuantity' : null
                   };
                   this.listLog.push(itemLog);
                   errorInCell = true;
@@ -653,6 +710,16 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     }
   }
 
+  validPrice(price: any, currency: any) {
+    if (currency === 'COP') {
+      const regex = new RegExp(this.offertRegex.price);
+      return !!regex.test(price);
+    } else {
+      const regex = new RegExp(this.offertRegex.formatNumber);
+      return regex.test(price);
+    }
+  }
+
   /**
    * Valida el precio del producto combo con sus componentes.
    *
@@ -717,8 +784,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
-      // Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
-      Currency: 'COP'
+      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
+      //Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -939,6 +1006,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
+          case 'greaterWarranty':
+          if ((inputtxt.match(this.offertRegex.warranty))) {
+            const num = parseInt(inputtxt, 10);
+            if (num >= 0) {
+              valueReturn = true;
+            } else {
+              valueReturn = false;
+            }
+          } else {
+            valueReturn = false;
+          }
+          break;
         case 'formatPromEntrega':
           if ((inputtxt.match(this.offertRegex.promiseDelivery))) {
             valueReturn = true;
@@ -969,11 +1048,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'Promesa de Entrega': undefined,
       'Free Shipping': undefined,
       'Indicador Envios Exito': undefined,
+      'Actualizacion de Inventario': undefined,
       'Cotizador de Flete': undefined,
       'Garantia': undefined,
       'Ean combo': undefined,
       'Cantidad en combo': undefined,
-      'Tipo de moneda': undefined
+      'Tipo de moneda': undefined,
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
@@ -990,6 +1070,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'Delivery Terms': undefined,
       'Free Shipping': undefined,
       'Envios Exito Indicator': undefined,
+      'Stock Update': undefined,
       'Freight Calculator': undefined,
       'Warranty': undefined,
       'Ean combo': undefined,

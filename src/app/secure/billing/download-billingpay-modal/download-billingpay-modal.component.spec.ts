@@ -19,16 +19,16 @@ describe('DownloadBillingpayModalComponent', () => {
   let component: DownloadBillingpayModalComponent;
   let fixture: ComponentFixture<DownloadBillingpayModalComponent>;
 
-  const userData = {sellerProfile: 'seller'};
+  const userData = { sellerProfile: 'seller' };
 
-   // Mock Services 
-   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']); 
-   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']); 
-   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-   const mockBillingService = jasmine.createSpyObj('BillingService', ['downloadBillingPay']);
-   const dialogMock = {close: () => { }};
+  // Mock Services
+  const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
+  const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+  const mockBillingService = jasmine.createSpyObj('BillingService', ['downloadBillingPay']);
+  const dialogMock = { close: () => { } };
 
-   let loadingService: LoadingService;
+  let loadingService: LoadingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,32 +44,32 @@ describe('DownloadBillingpayModalComponent', () => {
         BrowserAnimationsModule,
         SharedModule
       ],
-      declarations: [ 
+      declarations: [
         DownloadBillingpayModalComponent
       ],
-       providers: [
+      providers: [
         { provide: MatDialogRef, useValue: dialogMock },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         ComponentsService,
-        { provide: UserParametersService, useValue: mockUserParameterService }, 
+        { provide: UserParametersService, useValue: mockUserParameterService },
         { provide: UserLoginService, useValue: mockUserLoginService },
-        {provide: LoadingService, useValue: mockLoadingService},
-        {provide: BillingService, useValue: mockBillingService},
+        { provide: LoadingService, useValue: mockLoadingService },
+        { provide: BillingService, useValue: mockBillingService },
         CognitoUtil,
         EndpointService,
         DatePipe
-       ]
+      ]
     })
-    .compileComponents();
+      .compileComponents();
     const mockUser = Object.assign({}, userData);
-    const responseGetUser = { 
-      body: { 
-        body: JSON.stringify({ Data: mockUser }) 
-      } 
-    }; 
-    // Define la respuesta de la información de un usuario 
-    mockUserParameterService.getUserData.and.returnValue(of(responseGetUser)); 
-    mockUserLoginService.isAuthenticated.and.returnValue(true); 
+    const responseGetUser = {
+      body: {
+        body: JSON.stringify({ Data: mockUser })
+      }
+    };
+    // Define la respuesta de la información de un usuario
+    mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
+    mockUserLoginService.isAuthenticated.and.returnValue(true);
     mockBillingService.downloadBillingPay.and.returnValue(of('test@test.com'));
   }));
 
@@ -81,10 +81,10 @@ describe('DownloadBillingpayModalComponent', () => {
   });
 
   it('should create', () => {
-      expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it('valid email', ()=> {
+  it('valid email', () => {
     const emailField = fixture.debugElement.query(By.css('#emailPago'));
     expect(emailField).toBeTruthy();
     const emailNativeElement = emailField.nativeElement;
@@ -95,7 +95,7 @@ describe('DownloadBillingpayModalComponent', () => {
     expect(component.myform.controls.email.errors).toBeNull();
   });
 
-  it('invalid email', ()=> {
+  it('invalid email', () => {
     const emailField = fixture.debugElement.query(By.css('#emailPago'));
     expect(emailField).toBeTruthy();
     const emailNativeElement = emailField.nativeElement;

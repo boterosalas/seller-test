@@ -36,6 +36,118 @@
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            <div fxFlex="50%">
+              <mat-form-field class="register full-width">
+                <mat-label>País</mat-label>
+                <mat-select formControlName="Country" required>
+                  <mat-option *ngFor="let country of countries" [value]="country.CountryName">
+                    {{country.CountryName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngIf="isColombiaSelect; else stateInput" fxFlex="50%">
+              <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+            </div>
+            <ng-template #stateInput>
+              <div fxFlex="50%">
+                <mat-form-field class="register full-width">
+                  <input matInput [placeholder]="isColombiaSelect?
+                    'Departamento':'Región'" formControlName="State" autocomplete="off" [errorStateMatcher]="matcher"
+                    id="register-state" >
+                  <mat-hint></mat-hint>
+                  <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('maxlength') ||
+                    State.hasError('minlength') || State.hasError('pattern')">
+                    <p ></p>
+                   {{departamento}} no es válido
+                  </mat-error>
+                  <mat-error id="error-postal-code-invalid" *ngIf="State.hasError('required')">
+                    {{departamento}} es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </div>
+
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" style="padding-top: 26px;">
+            <div *ngIf="isColombiaSelect; else cityInput" fxFlex="50%">
+              <app-cities *ngIf="elementCityLoad" [elementLoad]="elementCityLoad" [idState]="idState"
+                (daneCodeEvent)="receiveDataCitie($event)" [disabledComponent]='disabledComponent'></app-cities>
+            </div>
+            <ng-template #cityInput>
+              <div fxFlex="50%">
+                <mat-form-field class="register full-width">
+                  <input matInput placeholder="Ciudad" formControlName="City" autocomplete="off"
+                    [errorStateMatcher]="matcher" id="register-state" required>
+                  <mat-hint></mat-hint>
+                  <mat-error  id="error-postal-code-invalid" *ngIf="City.hasError('maxlength') ||
+                    City.hasError('minlength') || City.hasError('pattern')">
+                    La ciudad no es válida
+                  </mat-error>
+                  <mat-error id="error-postal-code-invalid" *ngIf="City.hasError('required')">
+                    La ciudad es requerida
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </ng-template>
+            <div fxFlex="50%">
+              <mat-form-field class="register" style="width:100% !important;">
+                <input matInput [placeholder]="isColombiaSelect? 'Código
+                  DANE':'Código postal'" [readonly]="isColombiaSelect" formControlName="DaneCode"
+                  id="register-dane-code" (keypress)="keyPress($event, 'daneCode')" required>
+                <mat-hint></mat-hint>
+                <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('maxlength') ||
+                  PostalCode.hasError('minlength') ||
+                  PostalCode.hasError('pattern')">
+                  El código no es válido
+                </mat-error>
+                <mat-error id="error-postal-code-invalid" *ngIf="PostalCode.hasError('required')">
+                  El código es requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" style="padding-top: 12px;" >
+            <div fxFlex="50%" [ngStyle]="{'padding-right': (isColombiaSelect ?
+              '5%' : '0')}">
+              <mat-form-field class="register" style="width:100% !important;">
+                <input matInput placeholder="Tel&eacute;fono"  [maxlength]="isColombiaSelect? 10 : 20" minlength="7"
+                  formControlName="PhoneNumber" [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'phoneNumber')"
+                  id="register-phone-number" required>
+                <mat-hint></mat-hint>
+                <mat-error id="error-phone-number-required"
+                  *ngIf="validateFormRegister.get('PhoneNumber').hasError('required')"
+                  [innerHTML]="'Este campo es requerido.'"></mat-error>
+                <mat-error id="error-phone-number-invalid" *ngIf=" validateFormRegister.get('PhoneNumber').hasError('pattern')
+                  ||
+                  validateFormRegister.get('PhoneNumber').hasError('minlength')"
+                  [innerHTML]="'El tel&eacute;fono no es v&aacute;lido.'"></mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="!isColombiaSelect" fxFlex="50%">
+              <mat-form-field class="register" style="width:100% !important;">
+                <input matInput placeholder="Payoneer" maxlength="50" (blur)="validateExitPayoneerUser($event)"
+                  [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'payoneer')" id="register-phone-number"
+                  formControlName="Payoneer">
+                <mat-hint></mat-hint>
+                <mat-error id="error-phone-number-invalid"
+                  *ngIf="validateFormRegister.get('Payoneer').hasError('payoneer')"
+                  [innerHTML]="'El usuario no es valido.'"></mat-error>
+                <mat-error id="error-phone-number-invalid"
+                  *ngIf="validateFormRegister.get('Payoneer').hasError('required')"
+                  [innerHTML]="'El campo es requerido.'"></mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important">
@@ -60,7 +172,7 @@
 
           </div>
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" >
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
@@ -156,7 +268,7 @@
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_store_name_form' | I18N | async" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
-                  (ngModelChange)="activeButton = false" required>
+                  (ngModelChange)="activeButton= false" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
                     *ngIf="validateFormRegister.get('Name').hasError('required')">{{'errors.required' | I18N | async}}
@@ -169,6 +281,17 @@
               </mat-form-field>
             </div>
 
+            <div fxFlex="50%">
+              <mat-form-field class="register" style="width:100% !important;">
+                <input matInput appNoSpaces placeholder="Direcci&oacute;n de
+                  facturaci&oacute;n" formControlName="Address" [errorStateMatcher]="matcher" id="register-address"
+                  required>
+                <mat-hint></mat-hint>
+                <mat-error id="error-address-required" *ngIf="validateFormRegister.get('Address').hasError('required')
+                  || (!validateFormRegister.get('Address').valid &&
+                  !validateFormRegister.get('Address').pristine)" [innerHTML]="'Este campo es requerido.'"></mat-error>
+              </mat-form-field>
+            </div>
           </div>
 
           <!--Campo politicas y devoluciones-->
@@ -211,22 +334,22 @@
               <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap.md="20px" fxLayoutGap.lg="20px"
                 fxLayoutGap.xs="2%" fxLayoutGap.sm="2%">
                 <mat-card class="imageRegisterSeller">
-                  <img mat-card-image
-                    [src]="validateFormRegister.value.GotoExito ? imagesRegister[0].checked : imagesRegister[0].unchecked">
+                  <img mat-card-image [src]="validateFormRegister.value.GotoExito ?
+                    imagesRegister[0].checked : imagesRegister[0].unchecked">
                   <mat-card-actions class="register-actions-right">
                     <mat-checkbox id="register-go-exito" formControlName="GotoExito"></mat-checkbox>
                   </mat-card-actions>
                 </mat-card>
                 <mat-card class="imageRegisterSeller">
-                  <img mat-card-image
-                    [src]="validateFormRegister.value.GotoCarrulla ? imagesRegister[1].checked : imagesRegister[1].unchecked">
+                  <img mat-card-image [src]="validateFormRegister.value.GotoCarrulla ?
+                    imagesRegister[1].checked : imagesRegister[1].unchecked">
                   <mat-card-actions class="register-actions-right">
                     <mat-checkbox id="register-go-carulla" formControlName="GotoCarrulla"></mat-checkbox>
                   </mat-card-actions>
                 </mat-card>
                 <mat-card class="imageRegisterSeller">
-                  <img mat-card-image
-                    [src]="validateFormRegister.value.GotoCatalogo ? imagesRegister[2].checked : imagesRegister[2].unchecked">
+                  <img mat-card-image [src]="validateFormRegister.value.GotoCatalogo ?
+                    imagesRegister[2].checked : imagesRegister[2].unchecked">
                   <mat-card-actions class="register-actions-right">
                     <mat-checkbox id="register-go-catalogo" formControlName="GotoCatalogo"></mat-checkbox>
                   </mat-card-actions>
@@ -296,7 +419,7 @@
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_name_form' | I18N | async" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
-                  (ngModelChange)="activeButton = false" required>
+                  (ngModelChange)="activeButton= false" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
                     *ngIf="validateFormRegisterAdmin.get('Name').hasError('required')">

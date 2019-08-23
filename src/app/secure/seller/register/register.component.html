@@ -151,7 +151,7 @@
                   <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | I18N | async"
                     (keypress)="keyPress($event, 'nit')" maxlength="isColombiaSelect ? 20 : 30" formControlName="Nit"
                     autocomplete="off" (blur)="validateExist($event, 'Seller' ,'Nit')" [errorStateMatcher]="matcher"
-                    autofocus id="register-nit" (ngModelChange)="activeButton = false" required>
+                    id="register-nit" (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
 
                   <mat-error id="error-nit-required" *ngIf="validateFormRegister.get('Nit').hasError('required')">
@@ -382,7 +382,7 @@
                 <mat-form-field class="register" style="width:100% !important">
                   <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | I18N | async" (keypress)="keyPress($event, 'nit')" maxlength="20"
                     formControlName="Nit" autocomplete="off" (blur)="validateExist($event,'Admin' ,'Nit')"
-                    [errorStateMatcher]="matcher" autofocus id="register-nit" (ngModelChange)="activeButton = false"
+                    [errorStateMatcher]="matcher" id="register-nit" (ngModelChange)="activeButton = false"
                     required>
                   <mat-hint></mat-hint>
                   <mat-error id="error-nit-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">

@@ -4,13 +4,11 @@
         {{'secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean' | I18N | async}}
     </p>
   </div>
-  <form #createProductEan="ngForm" [formGroup]="eanGroup">
+  <form *ngIf="eanGroup" #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
       <input matInput placeholder="EAN" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off" maxlength="16" minlength="7">
       <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')">{{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format' | I18N | async}}</mat-error>
       <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB"> {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer' | I18N | async}}</mat-error>
-    </mat-form-field>
-
   <div class="distanceComponetInt">
       <mat-checkbox  #asignatedEanCheckBox 
       [checked]="asignatedEan"

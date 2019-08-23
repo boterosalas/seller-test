@@ -1,0 +1,288 @@
+@import '_variables';
+@import '~@angular/material/theming'; // always include only once per project
+@include mat-core();
+$green: mat-palette($mat-green);
+$amber: mat-palette($mat-amber);
+$blue: mat-palette($mat-indigo);
+
+:host ::ng-deep .toolbar-orders-options-table {
+  min-height: 45px;
+  border-bottom: 1px solid #e0e0e0;
+
+  & .toolbar-options {
+    padding-left: 0;
+
+    p {
+      margin: 0;
+      color: $color-black;
+      font-size: 18px;
+      line-height: 21px;
+      font-weight: bold;
+
+      small {
+        color: $color-gray1;
+        font-weight: normal;
+      }
+    }
+
+    & .title-toolbar {
+      padding-right: 20px;
+
+      .sub-title {
+        text-transform: uppercase;
+      }
+
+      .mat-button-focus-overlay {
+        background-color: transparent;
+      }
+    }
+
+    .btn-filter {
+      width: 100px;
+      color: $color-gray1;
+      border-radius: 5px;
+
+      .mat-button-ripple-round {
+        border-radius: 5px;
+      }
+
+      small {
+        font-size: 12px;
+        line-height: 14px;
+      }
+
+      .mat-button-focus-overlay {
+        background-color: rgba(0, 0, 0, .12);
+      }
+    }
+
+    .sc-default-button {
+      color: $color-gray1;
+
+      .mat-button-ripple-round {
+        border-radius: 5px;
+      }
+
+      small {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+
+  padding-left: 0;
+
+  & .orders-paginate {
+    & .mat-paginator-container {
+      flex-wrap: nowrap;
+
+      .mat-paginator-range-actions {
+        .mat-paginator-range-label {
+          font-size: 14px;
+          color: $color-gray1;
+          margin: 0 10px;
+          font-weight: normal;
+        }
+
+        .mat-icon-button {
+          color: $color-gray1;
+        }
+
+        .mat-icon-button[disabled][disabled] {
+          color: #909090;
+        }
+      }
+    }
+  }
+
+  & .toolbar-options-table {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding-left: 20px;
+
+    & .toolbar-paginate {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      // padding-right: 20px;
+      & .paginator-style {
+        background-color: transparent;
+      }
+
+      @media (max-width: 425px) {
+        & .mat-paginator-page-size {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        & .mat-paginator-page-size {
+          display: none;
+        }
+      }
+    }
+  }
+
+  & .list-length-order {
+    font-size: 12px;
+    height: 58px;
+    margin-right: 30px;
+    padding-bottom: 0;
+    margin-top: 2em;
+
+    & .mat-input-wrapper {
+      line-height: 1.8;
+    }
+  }
+
+  & .hidden-pagination {
+    display: none !important;
+  }
+
+  & .acction-text {
+    color: map-get($blue, A400) !important;
+  }
+
+  & .center-product-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+.selectPageSize {
+  width: 260px;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 74px;
+}
+
+.options-dropdwon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+@media only screen and (max-width: 1279px) {
+
+  .toolbar-paginate {
+    max-width: initial !important;
+  }
+
+  .toolbar-paginate {
+    justify-content: flex-end;
+  }
+
+  .toolbar-cont {
+    flex: initial !important;
+    place-content: center flex-end !important;
+  }
+}
+
+.mat-toolbar {
+
+  .toolbar-options {
+
+    p {
+      color: $color-black;
+      font-size: $font-size-principal +2;
+      font-family: $font-principal;
+    }
+  }
+
+}
+
+
+$height-input: 25px;
+::ng-deep .search-store {
+  padding: 10px;
+  background: #EFEDED;
+  border: 1px solid #fff;
+  height: $height-input;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px 4px 0 0;
+  .mat-form-field-infix {
+    top: -5px;
+  }
+}
+
+::ng-deep .input-search {
+  width: 100%;
+  height: $height-input;
+  font-size: 15px;
+  top: -14px;
+  & .mat-icon {
+    margin-top: 15px;
+    padding-left: 9px;
+    color: #9E9E9E;
+  }
+  & .mat-input-prefix {
+    width: 50px;
+    height: $height-input;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .mat-input-suffix {
+    width: 50px;
+    height: $height-input;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+::ng-deep .autocomplete-list {
+  & mat-icon {
+    font-size: 21px;
+    color: #9E9E9E;
+  }
+  & .mat-option-text {
+    color: #757474;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+::ng-deep .mat-form-field-prefix {
+  top: -1px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+ margin-top: 0px;
+}
+
+::ng-deep .mat-form-field.input-search .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-infix .search-store-input {
+  top: -7px;
+  color: #000000;
+  padding-left: 6px !important;
+  font-size: 18px !important;
+  font-family: Arial;
+  caret-color: #000000;
+}
+
+::ng-deep .input-search-black {
+  color: #000000 !important;
+  caret-color: #000000;
+}
+
+
+.center-search-orden{
+  @media only screen and (max-width: 500px) and (min-width: 341px) {  
+    padding-left: 10px;
+    padding-right: 30px;
+  } 
+}

@@ -40,9 +40,9 @@
     <input id="identificationCard-input-search-order" formControlName="identificationCard" type="text" pattern="[0-9.]+"
       matInput [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_id' | I18N | async">
   </mat-form-field>
-  <section class="example-section normal-theme">
+  <section class="example-section normal-theme" *ngIf="typeProfiel == 0">
     <mat-slide-toggle color="primary" id="processedOrder-input-search-order" formControlName="processedOrder">
-      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | I18N | async}}
+      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | I18N | async}}órdenes marcadas
     </mat-slide-toggle>
   </section>
 
@@ -51,8 +51,8 @@
       <mat-icon>clear_all</mat-icon>
       {{'filters.clear' | I18N | async}}
     </button>
-    <button id="apply-filter-button" [disabled]="!f.form.valid" class="sc-button" mat-raised-button color="primary"
-      type="submit" (click)="filterOrder(myform)">{{'actions.apply' | I18N | async}}
+    <button id="apply-filter-button" [disabled]="!f.form.valid || !f.form.touched" class="sc-button" mat-raised-button
+      color="primary" type="submit" (click)="filterOrder(myform)">{{'actions.apply' | I18N | async}}
     </button>
   </div>
 </form>

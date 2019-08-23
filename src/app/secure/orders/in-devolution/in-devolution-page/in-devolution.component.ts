@@ -22,9 +22,11 @@ import { InDevolutionService } from '../in-devolution.service';
 import { ProductDevolutionModalComponent } from '../product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
-import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refuseFuncionality, visualizeFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LanguageService } from '@app/core/translate/language.service';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -62,6 +64,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     'comment',
     'detailOrder'
   ];
+
+  private searchSubscription: any;
   // Creo el elemento que se empleara para la tabla
   public dataSource: MatTableDataSource<any>;
   // Creo el elemento check para la tabla
@@ -72,6 +76,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   public orderListLength = false;
   // user info
   public user: UserInformation;
+
   // suscriptions vars
   private subFilterOrderPending: any;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -80,7 +85,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'En Devolución',
+    title: 'Órdenes',
+    subtitle: 'En Devolución',
     title_for_search: 'Consultar solicitudes',
     btn_title: 'Consultar solicitudes',
     type_form: 'pending-devolution',
@@ -97,6 +103,17 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   read = readFunctionality;
   accept = acceptFuncionality;
   refuse = refuseFuncionality;
+  visualizeFunctionality = visualizeFunctionality;
+
+  // Variables con los permisos que este componente posee.
+  readPermission: boolean;
+  acceptPermission: boolean;
+  refusePermission: boolean;
+  visualizePermission: boolean;
+  showMenssage = false;
+  typeProfile: number;
+  idSeller: number;
+  event: any;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -107,33 +124,70 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     public userParams: UserParametersService,
     private authService: AuthService,
     private languageService: LanguageService,
+    public eventsSeller: EventEmitterSeller,
   ) { }
 
   ngOnInit() {
-    // Datos del usuario autenticado.
-    this.permissionComponent = this.authService.getMenu(devolutionName);
     this.getDataUser();
+    this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.idSeller = seller.IdSeller;
+      if (this.event) {
+        this.getOrdersList(this.event);
+        this.getReasonsRejection();
+      }
+    });
+    this.clearData();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(devolutionName, 0);
+      this.setPermission(0);
+    } else {
+      this.permissionComponent = this.authService.getMenuProfiel(devolutionName, 1);
+      this.setPermission(1);
+    }
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
   }
 
-  ngOnDestroy() {
-    // Remover las suscripciones creadas.
-    this.subFilterOrderPending.unsubscribe();
+  setPermission(typeProfile: number) {
+    // Permisos del componente.
+    this.typeProfile = typeProfile;
+    this.readPermission = this.getFunctionality(this.read);
+    this.acceptPermission = this.getFunctionality(this.accept);
+    this.refusePermission = this.getFunctionality(this.refuse);
+    this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
   }
 
-  /**
-   * MEthod that get the permissions for the component
-   */
+  clearData() {
+    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.getOrdersList(this.event);
+      });
+  }
+
   public getFunctionality(functionality: string): boolean {
     const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
     return permission && permission.ShowFunctionality;
   }
+
+  ngOnDestroy() {
+    // Remover las suscripciones creadas.
+    this.subFilterOrderPending.unsubscribe();
+    this.searchSubscription.unsubscribe();
+  }
+
+
+  /**
+   * MEthod that get the permissions for the component
+   */
+  // public getFunctionality(functionality: string): boolean {
+  //   const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+  //   return permission && permission.ShowFunctionality;
+  // }
 
   /**
    * Otener los resultados obtenidos al momento de realizar
@@ -203,7 +257,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInDevolution}`;
+    this.event = $event ;
+    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusInDevolution}`;
     this.loadingService.viewSpinner();
     this.inDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
       this.loadingService.closeSpinner();

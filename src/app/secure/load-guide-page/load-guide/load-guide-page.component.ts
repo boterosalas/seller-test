@@ -290,6 +290,48 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     }
   }
 
+  validateObligatoryNumber(data: any, index: number, column: number): any {
+    const validateData = data[index][column];
+    if (validateData) {
+      const onlyNumber = this.alphanumeric(validateData);
+      if (!onlyNumber) {
+        this.countErrors += 1;
+        /* contadores para indicar en cual columna y fila esta el fallo */
+        const logger = {
+          row: this.arrayInformation.length,
+          column: column,
+          type: 'NumberFormat',
+          columna: column + 1,
+          fila: index + 1,
+          positionRowPrincipal: index
+        };
+        /* agrego el log a la lista de logs. */
+        this.listLog.push(logger);
+        this.addRowToTable(data, index);
+      }
+    } else {
+      this.validateObligatoryString(data, index, column);
+    }
+  }
+
+  validateObligatoryString(data: any, index: number, column: number): any {
+    const validateData = data[index][column];
+    if (!validateData) {
+      this.countErrors += 1;
+      /* contadores para indicar en cual columna y fila esta el fallo */
+      const logger = {
+        row: this.arrayInformation.length,
+        column: column,
+        type: 'dateNotFound',
+        columna: column + 1,
+        fila: index + 1,
+        positionRowPrincipal: index
+      };
+      /* agrego el log a la lista de logs. */
+      this.listLog.push(logger);
+      this.addRowToTable(data, index);
+    }
+  }
 
   /**
    * Método que se encarga de crear la tabla
@@ -300,68 +342,32 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     // El array retornado por el excel es un array que indica en la primera posicion
     // El numero de filas, y cada fila posee los datos que obtuvo del excel.
     for (let index = 0; index < res.length; index++) {
-      let isErrroNumber = false;
-      let isErrorData = false;
-      /* Recorro las columnas obtenidas */
-      for (let j = 0; j < 5; j++) {
+      //  Campo 0 =  numero de ordenes
+      const orderNumber = res[index][0];
+      //  Campo 1 =  sku
+      const sku = res[index][1];
+      //  Campo 2 =  cantidad
+      const quantity = res[index][2];
+      // Campo 3 = Carrier
+      const carrier = res[index][3];
+      // Campo 4 = tracking
+      const tracking = res[index][4];
+      // Si posee datos verifica estos datos, si no tiene nada, no entra a verificar.
 
-        /* Validación para los primeros tres campos que son numericos */
-        if (j === 0 || j === 2) {
-          // LLamo el método que permite validar si el string actual es solo númerico,
-          // retorna false si contiene letras y true si solo es número
-          const onlyNumber = this.alphanumeric(res[index][j]);
-          /* si se obtiene true es por que el dato es un string */
-          if (onlyNumber === false) {
-            this.countErrors += 1;
-            /* contadores para indicar en cual columna y fila esta el fallo */
-            const row = index + 1, column = j + 1;
-            const logger = {
-              row: this.arrayInformation.length,
-              column: j,
-              type: 'NumberFormat',
-              columna: column,
-              fila: row,
-              positionRowPrincipal: index
-            };
-            /* agrego el log a la lista de logs. */
-            this.listLog.push(logger);
-            isErrroNumber = true;
-
-
-          }
-        } else if (res[index][j] === undefined || res[index][j] === '') {
-
-          this.countErrors += 1;
-          /* contadores para indicar en cual columna y fila esta el fallo */
-          const row = index + 1, column = j + 1;
-          const logger = {
-            row: this.arrayInformation.length,
-            column: j,
-            type: 'dateNotFound',
-            columna: column,
-            fila: row,
-            positionRowPrincipal: index
-          };
-          /* agrego el log a la lista de logs. */
-          this.listLog.push(logger);
-
-          isErrorData = true;
-
-        } else {
-          log.info('Dato cargado correctamente');
-        }
-
+      if (orderNumber || sku || quantity || carrier || tracking) {
+        // Validaciones de numero de ordenes. Campo 0 =  numero de ordenes
+        this.validateObligatoryNumber(res, index, 0);
+        // Validaciones de numero de ordenes. Campo 1 =  sku
+        this.validateObligatoryString(res, index, 1);
+        // Validaciones de numero de ordenes. Campo 2 =  quantity
+        this.validateObligatoryNumber(res, index, 2);
+        // Validaciones de numero de ordenes. Campo 3 =  carrier
+        this.validateObligatoryString(res, index, 3);
+        // Validaciones de numero de ordenes. Campo 4 =  tracking
+        this.validateObligatoryString(res, index, 4);
+        // Agrego todos los registros a una variable que sera empelada al momento de realizar el envío
+        this.addInfoTosend(res, index);
       }
-
-      if (isErrorData || isErrroNumber) {
-        // Agrego el registro para que se pueda visualizar en la tabla
-        this.addRowToTable(res, index);
-        isErrorData = false;
-        isErrroNumber = false;
-      }
-
-      // Agrego todos los registros a una variable que sera empelada al momento de realizar el envío
-      this.addInfoTosend(res, index);
     }
 
     /* almaceno el numero de filas cargadas correctamente */

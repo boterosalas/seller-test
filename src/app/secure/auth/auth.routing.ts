@@ -3,8 +3,10 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Modules, ModuleModel, MenuModel, ProfileTypes } from './auth.consts';
 import { UserParametersService, UserLoginService, EndpointService } from '@app/core';
-import { RoutesConst } from '@app/shared';
+import { RoutesConst, UserInformation } from '@app/shared';
 import { HttpClient } from '@angular/common/http';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { AuthRoutingService } from './auth.service';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -12,11 +14,14 @@ export class AuthService implements CanActivate {
     modulesRouting: ModuleModel[] = Modules;
     modulesBack: ModuleModel[];
     userData: any;
+    completeUserData: any;
     admin = 'administrator';
     adminType = 1;
     types = ['Tienda', 'Exito'];
     getData = false;
     profileTypeGlobal = null;
+    user: UserInformation;
+    userProfiel: any;
 
     // Modulos habilitados del usuario logeado
     availableModules;
@@ -29,7 +34,15 @@ export class AuthService implements CanActivate {
         public router: Router,
         public userService: UserLoginService,
         private http: HttpClient,
-        private api: EndpointService) { }
+        private api: EndpointService,
+        private userDataService: AuthRoutingService) {
+        !!this.userService && this.userService.isLogin$.pipe(distinctUntilChanged()).subscribe(val => {
+            if (!val) {
+                this.completeUserData = null;
+                this.modulesBack = null;
+            }
+        });
+    }
 
     canActivate(
         route: ActivatedRouteSnapshot,
@@ -109,7 +122,15 @@ export class AuthService implements CanActivate {
     public getModulesFromService(): any {
         return new Promise((resolve, reject) => {
             if (!this.modulesBack) {
+                if (!this.completeUserData) {
+                    this.userDataService.getUser().subscribe((res: any) => {
+                        this.completeUserData = !!JSON.parse(res.body).Data ? JSON.parse(res.body).Data : null;
+                    });
+                }
                 this.http.get(this.api.get('getPermissions')).subscribe((result: any) => {
+                    if (this.userService.isLogin$.value === null) {
+                        this.userService.isLogin$.next(true);
+                    }
                     this.getData = true;
                     if (result.body) {
                         const data = JSON.parse(result.body);
@@ -144,6 +165,7 @@ export class AuthService implements CanActivate {
                                     }
                                 });
                             });
+                            this.modulesBack = this.modulesRouting;
                             resolve(this.modulesRouting);
                         }
                     }
@@ -176,7 +198,9 @@ export class AuthService implements CanActivate {
                         if (menu.ShowMenu && oneTime) {
                             redirect = true;
                             oneTime = false;
-                            this.router.navigate([`/${menu.UrlRedirect}`]);
+                            if (!menu.UrlRedirect.includes('s3-website-us')) {
+                                this.router.navigate([`/${menu.UrlRedirect}`]);
+                            }
                         }
                     });
                 }
@@ -257,8 +281,33 @@ export class AuthService implements CanActivate {
      */
     public getMenu(nameMenu: any): MenuModel {
         let moduleSelected: MenuModel;
-        Modules.forEach(item => {
+        this.modulesRouting.forEach(item => {
             const resultado = item.Menus.find(menu => nameMenu === menu.NameMenu);
+            if (resultado) {
+                moduleSelected = resultado;
+                return true;
+            }
+        });
+        if (moduleSelected && moduleSelected.ShowMenu) {
+            return moduleSelected;
+        } else {
+            return null;
+        }
+    }
+
+
+    async validateUserType() {
+        this.user = await this.userParams.getUserData();
+        return this.user;
+    }
+
+
+
+
+    public getMenuProfiel(nameMenu: any, profile: any): MenuModel {
+        let moduleSelected: MenuModel;
+        this.modulesRouting.forEach(item => {
+            const resultado = item.Menus.find(menu => nameMenu === menu.NameMenu && menu.ProfileType === profile);
             if (resultado) {
                 moduleSelected = resultado;
                 return true;

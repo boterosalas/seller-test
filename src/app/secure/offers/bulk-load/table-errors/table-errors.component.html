@@ -58,8 +58,12 @@
               #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | I18N | async}}
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
+          <p matLine *ngIf="item.type == 'ThanZero'" style="white-space: normal;overflow: visible;">El dato en la
+            <span class="error-string">columna #{{ item.columna }}</span> de la
+            <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor o igual a cero, sin decimales.
+          </p>
+
+          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">{{'secure.products.table_errors_product.column_data' | I18N | async}}
             <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}

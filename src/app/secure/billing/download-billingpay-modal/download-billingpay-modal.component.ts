@@ -88,12 +88,12 @@ export class DownloadBillingpayModalComponent implements OnInit {
     });
   }
 
-   /**
-   * @method downloadHistorical
-   * @description Método para realizar la descarga de los pagos
-   * @param {any} form
-   * @memberof DownloadBillingPayModalComponent
-   */
+  /*
+  * @method downloadHistorical
+  * @description Método para realizar la descarga de los pagos
+  * @param {any} form
+  * @memberof DownloadBillingPayModalComponent
+  */
   downloadPay(form: any) {
     const email = form.get('email').value;
     this.loadingService.viewSpinner();

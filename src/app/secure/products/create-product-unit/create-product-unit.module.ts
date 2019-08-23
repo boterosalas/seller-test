@@ -27,6 +27,7 @@ import { BasicInformationService } from './basic-information/basic-information.c
 import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { SharedModule } from '@app/shared/shared.module';
+import { StickyNavModule } from 'ng2-sticky-nav';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { SharedModule } from '@app/shared/shared.module';
     FormsModule,
     ColorPickerModule,
     AngularEditorModule,
-    SharedModule
+    SharedModule,
+    StickyNavModule
   ],
   declarations: [
     CreateUnutaryProductComponent,

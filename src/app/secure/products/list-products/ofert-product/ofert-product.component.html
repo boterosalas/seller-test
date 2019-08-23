@@ -66,7 +66,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-label>{{'secure.offers.historical_admin.historical_admin.currency' | I18N | async}}</mat-label>
-        <mat-select name="Currency" formControlName="Currency" (ngModelChange)="changeTypeCurrency($event)" [disabled]="true" >
+        <mat-select name="Currency" formControlName="Currency">
               <mat-option value="USD">USD</mat-option>
               <mat-option value="COP">COP</mat-option>
         </mat-select>
@@ -84,6 +84,10 @@
         <mat-radio-button *ngIf="false" value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | I18N | async}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsLogisticsExito" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | I18N | async}}</mat-radio-button>
       </mat-radio-group>
+      <!-- <mat-slide-toggle formControlName="ofertOption" value="IsFreeShipping" class="radio-ofert" color="primary">
+        Flete gratis
+      </mat-slide-toggle>
+      <mat-checkbox formControlName="ofertOption" value="IsEnviosExito" class="radio-ofert">Indicador Envíos Éxito</mat-checkbox> -->
     </div>
     <div style="padding-right: 100px;">
       <mat-slide-toggle formControlName="IsUpdatedStock">

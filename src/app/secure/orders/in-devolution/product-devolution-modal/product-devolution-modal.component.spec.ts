@@ -4,21 +4,28 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
 import { ProductDevolutionModalComponent } from './product-devolution-modal.component';
-import { InDevolutionModule } from '@root/src/app/secure/orders/in-devolution/in-devolution.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-/*
 describe('ProductDevolutionModalComponent', () => {
   let component: ProductDevolutionModalComponent;
   let fixture: ComponentFixture<ProductDevolutionModalComponent>;
+
+  const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        InDevolutionModule
-      ]
-    })
-      .compileComponents();
+
+      ], declarations: [
+        ProductDevolutionModalComponent
+      ], providers: [
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -27,8 +34,13 @@ describe('ProductDevolutionModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create Component MODAL devolution', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    component.onNoClick();
     expect(component).toBeTruthy();
   });
 });
-*/
+

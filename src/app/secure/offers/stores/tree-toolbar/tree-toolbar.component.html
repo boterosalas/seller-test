@@ -1,5 +1,5 @@
 <!-- Movile option -->
-<div fxShow="false" fxShow.xs="true" fxShow.sm="true" fxShow.gt-md="false">
+<div fxShow="false" fxShow.xs="true" fxShow.sm="true" fxShow.gt-md="false" class="w-100">
   <mat-toolbar class="tree-toolbar" style="position:fixed; z-index: 1;">
     <div class="normal-theme toolbar-options-table">
       <!-- Titulo del toolbar -->
@@ -9,11 +9,11 @@
 
   <!-- Toolbar para el buscador -->
   <mat-toolbar class="tree-toolbar">
-    <div class="normal-theme toolbar-options-table">
+    <div class="normal-theme d-c toolbar-options-table pl-0">
       <!-- Componente para realizar la busqueda de una tienda -->
       <app-search-store id="contet-searc-store" [searchStoreInput]="searchStore" fxFlex="100%"></app-search-store>
 
-      <button *ngIf="informationForTreeIsLoad == true" color="primary" class="button-more-ver" mat-icon-button [matMenuTriggerFor]="TreeToolbar">
+      <button *ngIf="informationForTreeIsLoad == true" color="primary" class="button-more-ver btf ml-20" mat-icon-button [matMenuTriggerFor]="TreeToolbar">
         <mat-icon matPrefix>more_vert</mat-icon>
       </button>
       <mat-menu #TreeToolbar="matMenu">
