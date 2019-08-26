@@ -66,6 +66,7 @@ export interface Case {
   reasonPQR: string;
   reasonDetail: string;
   description: string;
+  descriptionSolution: string;
   createDate: string;
   updateDate: string;
   customerEmail: string;

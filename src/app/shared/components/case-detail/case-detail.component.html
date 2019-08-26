@@ -7,6 +7,14 @@
     ></app-basic-card>
   </div>
 
+  <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
+    <app-basic-card
+      class="sh-case-detail--bottom-space"
+      title="Detalle de la solución"
+      [description]="case.descriptionSolution"
+    ></app-basic-card>
+  </div>
+
   <div class="sh-case-detail__item ticket-detail--col">
     <span class="sh-case-detail__title sh-case-detail--bottom-space">
       Seguimiento

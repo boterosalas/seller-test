@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: "app-basic-card",
+  selector: 'app-basic-card',
   template: `
     <div class="basic-card">
       <span class="basic-card__title basic-card__title--bottom-space">
@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from "@angular/core";
       <p class="basic-card__description">{{ description }}</p>
     </div>
   `,
-  styleUrls: ["./basic-card.component.scss"]
+  styleUrls: ['./basic-card.component.scss']
 })
 export class BasicCardComponent implements OnInit {
   @Input() title: string;
