@@ -107,6 +107,10 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),*/
             Currency: new FormControl('COP')
         });
+
+        // Borrar esta linea, para Internacional
+        this.ofertProduct.get('Currency').disable();
+
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
         this.applyOffer.eanesCombos.forEach((element: any) => {

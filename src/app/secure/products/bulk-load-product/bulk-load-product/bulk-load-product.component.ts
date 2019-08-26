@@ -211,7 +211,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // }
     this.getDataUser();
     this.trasformTree();
-    this.prepareComponent();
+    this.getAvaliableLoads();
+    this.verifyStateCharge();
+    this.validateFormSupport();
+    this.listOfBrands();
+    this.getCategoriesList();
+    this.listOfSize();
+    // Prepare es el metodo que debe quedar
+    // this.prepareComponent();
     // this.listOfCategories();
     // this.listOfSpecs();
   }
@@ -264,12 +271,16 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
    */
   getAvaliableLoads(type?: any) {
+
+    this.loadingService.viewSpinner();
+    this.authService.profileType$.pipe(distinctUntilChanged()).subscribe(type => {
+
     /*Se muestra el loading*/
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
-    if (!this.profileTypeLoad && !!type) {
+    // if (!this.profileTypeLoad && !!type) {
       this.profileTypeLoad = type;
       this.isAdmin = type !== 'Tienda';
-    }
+    // }
       if (this.isAdmin) {
         this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
           (result: any) => {
@@ -282,9 +293,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               this.modalService.showModal('errorService');
             }
             /*Se oculta el loading*/
+            this.loadingService.closeSpinner();
           }
         );
       }
+    });
   }
 
   /**
@@ -1122,7 +1135,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Get categories from service, and storage in list categories.
   */
-  public getCategoriesList(result: any): void {
+  public getCategoriesList(resulta?: any): void {
+    this.searchService.getCategories().subscribe((result: any) => {
       // guardo el response
       if (result.status === 200) {
         const body = JSON.parse(result.body.body);
@@ -1130,6 +1144,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       } else {
         log.debug('BulkLoadProductComponent:' + result.message);
       }
+    });
   }
 
   /**
@@ -1496,7 +1511,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 if (data.body.successful !== 0 || data.body.error !== 0) {
                   // this.openDialogSendOrder(data);
                   this.progressStatus = false;
-                  this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
+                  this.verifyStateCharge();
+                  // this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
@@ -1526,7 +1542,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 if (data.body.successful !== 0 || data.body.error !== 0) {
                   // this.openDialogSendOrder(data);
                   this.progressStatus = false;
-                  this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
+                  this.verifyStateCharge();
+                  // this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
@@ -1560,8 +1577,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /*Funcion para validar el status de la carga y abrir o no el modal */
-  verifyStateCharge(result: any) {
-
+  verifyStateCharge(resulta?: any) {
+    this.loadingService.viewSpinner();
+     this.BulkLoadProductS.getCargasMasivas()
+       .subscribe(
+         (result: any) => {
           // Convertimos el string que nos envia el response a JSON que es el formato que acepta
           if (result.body.data.response) {
             result.body.data.response = JSON.parse(result.body.data.response);
@@ -1585,6 +1605,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
             }
           }
+          this.loadingService.closeSpinner();
+        });
   }
 
   /**
@@ -1993,7 +2015,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   // Funcion para cargar datos de regex
-  public validateFormSupport(res: any): void {
+  public validateFormSupport(resa?: any): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
       for (const val in this.productsRegex) {
@@ -2002,6 +2025,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.productsRegex[val] = element && `${element.Value}`;
         }
       }
+    });
   }
 
   /*Generar excel*/
@@ -2205,7 +2229,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Lista por marcas activas */
 
-  listOfBrands(brands: any) {
+  listOfBrands(brandsa?: any) {
+    this.loadingService.viewSpinner();
+     this.service.getActiveBrands().subscribe(brands => {
       const initialBrands = brands.Data.Brands;
       this.brands = initialBrands.sort((a, b) => {
         if (a.Name > b.Name) {
@@ -2219,17 +2245,23 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       initialBrands.forEach((element, i) => {
         this.brands[i] = { Marca: element.Name };
       });
+      this.loadingService.closeSpinner();
+    });
   }
   /**
    * Funcion para somunir el listado de tallas
    *
    * @memberof BulkLoadProductComponent
    */
-  listOfSize(size: any) {
+  listOfSize(sizea?: any) {
+    this.loadingService.viewSpinner();
+     this.service.getSizeProducts().subscribe(size => {
       const sizeArray = JSON.parse(size.body);
       sizeArray.forEach((element, i) => {
         this.size[i] = { Talla: element.Size };
       });
+      this.loadingService.closeSpinner();
+    });
   }
 
 

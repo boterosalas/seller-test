@@ -1606,31 +1606,33 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Get regex', () => {
-            const productsRegex = {
-                number: '',
-                eanProduct: '',
-                nameProduct: '',
-                eanComboProduct: '',
-                brandProduct: '',
-                keyWordsProduct: '',
-                detailProduct: '',
-                eanImageProduct: '',
-                SkuShippingSizeProduct: '',
-                Package: '',
-                forbiddenScript: '',
-                size: '',
-                hexColourCodePDPProduct: '',
-                limitCharsSixty: '',
-                sizeProduct: '',
-                colorProduct: '',
-                typeCategory: '',
-                descUnidadMedidaProduct: '',
-                factConversionProduct: '',
-                eanCombo: ''
-              };
-            expect(component.productsRegex).toEqual(productsRegex);
-            component.validateFormSupport(resRegex);
-            expect(component.productsRegex).not.toEqual(productsRegex);
+            component.validateFormSupport();
+             expect(mockSupportService.getRegexFormSupport).toHaveBeenCalled();
+            // const productsRegex = {
+            //     number: '',
+            //     eanProduct: '',
+            //     nameProduct: '',
+            //     eanComboProduct: '',
+            //     brandProduct: '',
+            //     keyWordsProduct: '',
+            //     detailProduct: '',
+            //     eanImageProduct: '',
+            //     SkuShippingSizeProduct: '',
+            //     Package: '',
+            //     forbiddenScript: '',
+            //     size: '',
+            //     hexColourCodePDPProduct: '',
+            //     limitCharsSixty: '',
+            //     sizeProduct: '',
+            //     colorProduct: '',
+            //     typeCategory: '',
+            //     descUnidadMedidaProduct: '',
+            //     factConversionProduct: '',
+            //     eanCombo: ''
+            //   };
+            // expect(component.productsRegex).toEqual(productsRegex);
+            // component.validateFormSupport(resRegex);
+            // expect(component.productsRegex).not.toEqual(productsRegex);
         });
 
         it('Download excel', () => {
@@ -1648,8 +1650,10 @@ describe('BulkLoad Products Component', () => {
 
         it('Validate status charge checked true', () => {
             response.body.data.status = 1;
-            component.verifyStateCharge(response);
-            expect(component.progressStatus).toBeFalsy();
+            component.verifyStateCharge();
+	        expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
+            // component.verifyStateCharge(response);
+            // expect(component.progressStatus).toBeFalsy();
         });
 
         it('Configuracion de la tabla', () => {
@@ -1659,11 +1663,13 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Lista por marcas', () => {
-            const componentBrands = [];
-            expect(component.brands).toEqual(componentBrands);
-            component.listOfBrands(brands);
-            expect(component.brands).not.toEqual(componentBrands);
-            expect(component.brands).toEqual(brands.Data.Brands);
+            component.listOfBrands();
+	        expect(mockBasicInformationService.getActiveBrands).toHaveBeenCalled();
+            // const componentBrands = [];
+            // expect(component.brands).toEqual(componentBrands);
+            // component.listOfBrands(brands);
+            // expect(component.brands).not.toEqual(componentBrands);
+            // expect(component.brands).toEqual(brands.Data.Brands);
         });
     });
 
@@ -1674,9 +1680,11 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Get quantity charges in seller', () => {
-            component.getAvaliableLoads(mockAuthService.profileType$.getValue());
+            component.getAvaliableLoads();
+            // component.getAvaliableLoads(mockAuthService.profileType$.getValue());
             expect(component.isAdmin).toBeTruthy();
             // Se verifica el llamado del metodo getAmountAvailableLoads
+            expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();
         });
 
         it('Reset variables', () => {
