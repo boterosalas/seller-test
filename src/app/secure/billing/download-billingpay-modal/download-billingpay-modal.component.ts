@@ -86,19 +86,19 @@ export class DownloadBillingpayModalComponent implements OnInit {
     });
   }
 
-   /**
-   * @method downloadHistorical
-   * @description Método para realizar la descarga de los pagos
-   * @param {any} form
-   * @memberof DownloadBillingPayModalComponent
-   */
+  /*
+  * @method downloadHistorical
+  * @description Método para realizar la descarga de los pagos
+  * @param {any} form
+  * @memberof DownloadBillingPayModalComponent
+  */
   downloadPay(form: any) {
     const email = form.get('email').value;
     this.loadingService.viewSpinner();
     this.billService.downloadBillingPay(email)
-    .subscribe(
-      res => {
-        this.loadingService.closeSpinner();
+      .subscribe(
+        res => {
+          this.loadingService.closeSpinner();
           if (res != null) {
             this.componentsService.openSnackBar('Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico',
               'Cerrar', 10000);

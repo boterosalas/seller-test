@@ -28,6 +28,7 @@ export class SearchOrderFormComponent implements OnInit {
   @Input() informationToForm: SearchFormEntity;
 
   @Input() idSeller: number;
+  @Input() typeProfiel: number;
 
   /**
    * Creates an instance of SearchOrderFormComponent.

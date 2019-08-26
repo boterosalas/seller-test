@@ -40,6 +40,7 @@ import { ConversationMessageComponent } from './components/conversation-message/
 import { ItemConversationDirective } from './components/conversation/item-conversation.directive';
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
 import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
+import { NotificationCircleComponent } from './components/notification-circle/notification-circle.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -73,7 +74,8 @@ import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagin
     ConversationComponent,
     ConversationMessageComponent,
     ItemConversationDirective,
-    DateNoGtmPipe
+    DateNoGtmPipe,
+    NotificationCircleComponent
   ],
   exports: [
     MaterialModule,
@@ -102,7 +104,8 @@ import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagin
     ConversationComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
-    ToolbarSearchPaginationModule
+    ToolbarSearchPaginationModule,
+    NotificationCircleComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

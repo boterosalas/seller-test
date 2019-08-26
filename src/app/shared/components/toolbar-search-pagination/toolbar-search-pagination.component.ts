@@ -112,7 +112,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
   }
 
   /**

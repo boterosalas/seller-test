@@ -53,7 +53,7 @@
           <mat-cell fxFlex.xl="250px" fxFlex.lg="130px" fxFlex.sm="60px" fxFlex.md="110px" fxFlex.xs="60px" *matCellDef="let element;let index=index">
 
             <div class="center-product-list">
-              <button *ngIf="marketPermission" id="flag-order-{{index}}" (click)="stopPropagation($event);recordProcesSedOrder(element.id,element.processedOrder)"
+              <button *ngIf="marketPermission" id="flag-order-{{index}}" (click)="stopPropagation($event);recordProcesSedOrder(element.id,element.processedOrder, element.idSeller)"
                 mat-icon-button>
                 <mat-icon [ngClass]="{'active': element.processedOrder}" class="sc-icon-flag">flag</mat-icon>
               </button>

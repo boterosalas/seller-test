@@ -132,7 +132,7 @@ export class ToolbarOptionsComponent implements OnInit {
     if (this.idSeller === undefined) {
       this.idSeller = null;
     }
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
   }
 
   /**

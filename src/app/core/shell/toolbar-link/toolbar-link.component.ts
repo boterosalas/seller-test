@@ -8,6 +8,9 @@ import { UserInformation } from '@app/shared/models';
 import { Logger } from '@app/core';
 import { ModuleModel, MenuModel, ProfileTypes } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { CoreState } from '@app/store';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 const log = new Logger('ToolbarLinkComponent');
 
@@ -40,6 +43,8 @@ export class ToolbarLinkComponent implements OnInit {
   // Define si la app esta en un entorno de producción.
   isProductionEnv = environment.production;
 
+  unreadCase: number;
+
   /**
    * Creates an instance of ToolbarLinkComponent.
    * @param {Router} route
@@ -49,7 +54,8 @@ export class ToolbarLinkComponent implements OnInit {
     private route: Router,
     public userService: UserLoginService,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private store: Store<CoreState>
   ) {
   }
 
@@ -60,6 +66,13 @@ export class ToolbarLinkComponent implements OnInit {
     }, error => {
       console.error(error);
     });
+
+    this.store
+      .pipe(select(state => state.notification))
+      .subscribe(
+        notificationState =>
+          (this.unreadCase = notificationState.unreadCases)
+      );
   }
 
   /**
