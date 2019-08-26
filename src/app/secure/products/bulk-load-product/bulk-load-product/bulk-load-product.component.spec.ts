@@ -1551,7 +1551,7 @@ describe('BulkLoad Products Component', () => {
             }
         };
         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of(result));
-        mockSupportService.getRegexFormSupport.and.returnValue(of(res));
+        mockSupportService.getRegexFormSupport.and.returnValue(of(resRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
         mockBulkLoadProductService.getCategoriesVTEX.and.returnValue(of(vetex));
