@@ -11,8 +11,13 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
-import { Filter } from '../models/filter';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  FetchUnreadCase,
+  FetchUnreadCaseDone
+} from '@app/store/notifications/actions';
+import { CoreState } from '@app/store';
 
 @Component({
   selector: 'app-list-of-case',
@@ -48,6 +53,7 @@ export class ListOfCaseComponent implements OnInit {
   pageIndex = 1;
   pageSize = 50;
   filterParams: any;
+  unreadCase: number;
 
   configDialog = {
     width: '70%',
@@ -61,6 +67,7 @@ export class ListOfCaseComponent implements OnInit {
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     public router: ActivatedRoute,
+    private store: Store<CoreState>,
     private loadingService?: LoadingService,
     private modalService?: ModalService
   ) {}
@@ -72,6 +79,9 @@ export class ListOfCaseComponent implements OnInit {
     this.router.queryParams.subscribe(res => {
       this.loadCases(res);
     });
+    this.store
+      .select(reduxState => reduxState.notification.unreadCases)
+      .subscribe(unreadCase => (this.unreadCase = unreadCase));
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -100,7 +110,6 @@ export class ListOfCaseComponent implements OnInit {
         this.refreshPaginator(res.data.total, page, pageSize);
       },
       err => {
-        //this.log.debug(err);
         this.modalService.showModal('errorService');
         this.loadingService.closeSpinner();
       }
@@ -146,5 +155,11 @@ export class ListOfCaseComponent implements OnInit {
   markAsRead(caseRead: any) {
     const caseId = { id: caseRead.id };
     this.sellerSupportService.patchReadCase(caseId).subscribe();
+
+    if (!caseRead.read) {
+      caseRead.read = true;
+      this.unreadCase--;
+      this.store.dispatch(new FetchUnreadCaseDone(this.unreadCase));
+    }
   }
 }

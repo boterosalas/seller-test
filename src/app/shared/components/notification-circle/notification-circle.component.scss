@@ -1,0 +1,21 @@
+.notification-circle {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: red;
+  border-radius: 16px;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  * span {
+    width: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
