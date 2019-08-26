@@ -153,6 +153,8 @@ export const endpoints = {
       patchReadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/readcase',
       getUnreadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/unreadscount',
       exceptionBrandsManage: '',
+      // Reporte de ofertas administrator
+      reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
     },
   },
   // Endpoints production
@@ -306,6 +308,8 @@ export const endpoints = {
       patchReadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/readcase',
       getUnreadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/unreadscount',
       exceptionBrandsManage: '',
+      // Reporte de ofertas administrator
+      reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
     }
   }
 };

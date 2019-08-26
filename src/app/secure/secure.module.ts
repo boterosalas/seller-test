@@ -40,6 +40,7 @@ import { SellerSupportCenterModule } from './seller-support-center/seller-suppor
 import { CoreStoreModule, CoreState } from '../store';
 import { Store } from '@ngrx/store';
 import { RunNotificationDaemon, FetchUnreadCase } from '@app/store/notifications/actions';
+import { ListReportsModule } from './reports/reports.module';
 
 @NgModule({
   declarations: [],
@@ -76,7 +77,8 @@ import { RunNotificationDaemon, FetchUnreadCase } from '@app/store/notifications
     BillingOrdersModule,
     ParameterizeModule,
     SellerSupportCenterModule,
-    CoreStoreModule
+    CoreStoreModule,
+    ListReportsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

@@ -469,8 +469,22 @@ new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), Profi
   new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
 ], RoutesConst.sellerCenterCases)]);
 
+/**
+ * Actualizado: 14/08/2019 - jbanguera.
+ * @version 1.0 (Creación del archivo).
+ * Modulo de documentación que posee menus:
+ * 1. Reporte de ofertas.
+ */
+
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas';
+const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
+new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
+  new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+  new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+], RoutesConst.sellerCenterIntOfferReportOffert)]);
+
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule, ReclaModule
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule
 ]; // Lista de modelo, menus a mostrar.
 
 

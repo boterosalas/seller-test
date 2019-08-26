@@ -15,6 +15,11 @@ import { RoutesConst } from '@app/shared';
 import { MenuModel, updateFunctionality, readFunctionality, administrateName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 
+
+import { countries } from '../../register/countries';
+import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
+import { PayoneerService } from '../../register/payoneer.service';
+
 const log = new Logger('ManageSellerComponent');
 
 /**
@@ -31,6 +36,10 @@ const log = new Logger('ManageSellerComponent');
 })
 
 export class ManageSellerComponent implements OnInit {
+
+  countries = countries;
+  colombia = 'COLOMBIA';
+  isColombiaSelect = false;
 
   public imagesRegister: Array<any> = [
     {
@@ -76,6 +85,32 @@ export class ManageSellerComponent implements OnInit {
   profileSeller: string[] = [];
   profileAdmin: string[] = [];
   public showUpdate: boolean;
+  departamento = 'departamento';
+
+
+  public country: FormControl;
+  public payoneer: FormControl;
+
+
+  sellerRegex = {
+    phoneNumber: '',
+    integerNumber: '',
+    contactName: '',
+    email: '',
+    nameStore: '',
+    nit: '',
+    rut: '',
+    internationalNit: '',
+    internationalRut: '',
+    internationalPostalCode: '',
+    payoneer: '',
+    internationalState: '',
+    internationalCity: '',
+    daneCode: '',
+    address: '',
+    warranty: '',
+    onlyLetter: ''
+  };
 
 
 
@@ -96,6 +131,7 @@ export class ManageSellerComponent implements OnInit {
   public selectedValue: string;
   public initialName: any;
   public initialEmail: any;
+  public edit = false;
 
   public initialNameSeller: any;
   public initialEmailSeller: any;
@@ -126,7 +162,9 @@ export class ManageSellerComponent implements OnInit {
     public userService: UserLoginService,
     private router: Router,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private regexService: BasicInformationService,
+    private payoneerService: PayoneerService,
   ) {
     this.matcher = new MyErrorStateMatcher();
     this.currentSellerSelect = new StoreModel(0, '');
@@ -199,6 +237,9 @@ export class ManageSellerComponent implements OnInit {
               });
               this.elementStateLoad = this.currentSellerSelect.State;
               this.elementCityLoad = this.currentSellerSelect.City;
+              this.country.setValue(this.currentSellerSelect.Country);
+              this.payoneer.setValue(this.currentSellerSelect.Payoneer);
+
             } else {
               this.showUpdate = false;
               this.nit.setValue(this.currentSellerSelect.Nit);
@@ -220,9 +261,30 @@ export class ManageSellerComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     });
-
+    this.getRegex();
   }
 
+
+  /**
+   * funcion para consultar la regex en base de datos por modulo
+   *
+   * @memberof ManageSellerComponent
+   */
+  getRegex() {
+    this.regexService.getRegexInformationBasic(null).subscribe(res => {
+      let dataSellerRegex = JSON.parse(res.body.body);
+      dataSellerRegex = dataSellerRegex.Data.filter(data => data.Module === 'vendedores');
+
+      for (const val in this.sellerRegex) {
+        if (!!val) {
+          const element = dataSellerRegex.find(regex => regex.Identifier === val.toString());
+          this.sellerRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createForm();
+      this.createFormControls(this.disabledComponent);
+    });
+  }
 
 
   /**
@@ -251,12 +313,10 @@ export class ManageSellerComponent implements OnInit {
       ]);
     this.phoneNumber = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-      Validators.minLength(7),
-      Validators.maxLength(10),
-      Validators.pattern('^[0-9]*$')]);
+      Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
-    this.state = new FormControl({ value: '', disabled: disable });
+    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required ]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
@@ -271,7 +331,11 @@ export class ManageSellerComponent implements OnInit {
     this.gotoCarrulla = new FormControl({ value: '', disabled: disable });
     this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
     this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
+
+    this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
+    this.payoneer = new FormControl({ value: '', disabled: disable });
     this.createForm();
+    this.addValidationsSellerForm();
   }
 
   /**
@@ -299,7 +363,10 @@ export class ManageSellerComponent implements OnInit {
       GotoExito: this.gotoExito,
       GotoCarrulla: this.gotoCarrulla,
       GotoCatalogo: this.gotoCatalogo,
-      Profile: this.profile
+      Profile: this.profile,
+
+      Country: this.country,
+      Payoneer: this.payoneer
     });
 
     this.validateFormRegisterAdmin = new FormGroup({
@@ -316,8 +383,13 @@ export class ManageSellerComponent implements OnInit {
    * @param event
    * @memberof RegisterSellerComponent
    */
-  keyPress(event: any): void {
-    const pattern = /[0-9]/;
+  keyPress(event: any, inputName: string): void {
+    if (inputName === 'phoneNumber' && this.isColombiaSelect === true) {
+      inputName = 'integerNumber';
+    } else {
+      inputName = 'phoneNumber';
+    }
+    const pattern = new RegExp(this.sellerRegex[inputName]);
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
@@ -333,11 +405,11 @@ export class ManageSellerComponent implements OnInit {
   validateExist(event: any, param: string): void {
     if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
       this.initialEmailSeller !== this.validateFormRegister.controls.Email.value || this.initialNameSeller !== this.validateFormRegister.controls.Name.value
-      ) {
-    const jsonExistParam = event.target.value;
-    if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
-      this.loadingService.viewSpinner();
-      this.activeButton = true;
+    ) {
+      const jsonExistParam = event.target.value;
+      if (jsonExistParam !== '' && jsonExistParam !== '' && jsonExistParam !== undefined && jsonExistParam !== null) {
+        this.loadingService.viewSpinner();
+        this.activeButton = true;
         this.registerService.fetchData(JSON.parse(JSON.stringify(jsonExistParam.replace(/\ /g, '+'))), param)
           .subscribe(
             (result: any) => {
@@ -519,4 +591,111 @@ export class ManageSellerComponent implements OnInit {
           }
         });
   }
+
+
+
+  /**
+   * funcion para agregar validacion cuando el pais seleccionado es colombia, y cuando es diferente de colombia se aplican otras validaciones
+   *
+   * @memberof ManageSellerComponent
+   */
+  addValidationsSellerForm() {
+    this.Country.valueChanges.subscribe(val => {
+      if (val !== 'null' && val !== null ) {
+        if (this.colombia === val) {
+          this.isColombiaSelect = true;
+          this.departamento = 'Departamento';
+        } else {
+          this.isColombiaSelect = false;
+          this.departamento = 'Región';
+        }
+        if (this.edit) {
+          this.city.reset({ value: '', disabled: this.isColombiaSelect });
+          this.state.reset({ value: '', disabled: false });
+          this.PostalCode.reset({ value: '', disabled: false });
+          const selectedCountry = this.countries.find(element => element.CountryName === val);
+          if (selectedCountry) {
+            this.phoneNumber.reset({ value: selectedCountry.CountryIndicative, disabled: false });
+          }
+        }
+        this.edit = true;
+        this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
+      }
+
+    });
+  }
+
+  /**
+   * funcion para inicializar el formulario cuando el pais seleccionado es colombia (validaciones especificas)
+   *
+   * @memberof ManageSellerComponent
+   */
+  validationsForNotColombiaSelectSellerForm() {
+    this.nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalNit)]));
+    this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
+    this.state.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
+    this.city.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
+    this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
+    this.payoneer.enable();
+    this.payoneer.setValidators(Validators.compose([Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
+  }
+  /**
+   * funcion cuando el pais seleccionado es diferente a colombia (validaciones espedcificas)
+   *
+   * @memberof ManageSellerComponent
+   */
+  validationsForColombiaSelectSellerForm() {
+    this.nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.nit)]));
+    this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]));
+    this.state.setValidators(null);
+    this.city.setValidators(null);
+    this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
+    this.payoneer.disable();
+  }
+  /**
+   * dejar seleccionado colombia por defecto
+   *
+   * @memberof ManageSellerComponent
+   */
+  putColombiaByDefault() {
+    const colombia = this.countries.find(element => element.CountryName === this.colombia);
+    // tslint:disable-next-line:curly
+    if (!!colombia) this.Country.setValue(colombia.CountryName);
+    this.Country.disable();
+  }
+  /**
+   * funcion para validar el payoneer user cuando el usuario lo ha cambiado
+   *
+   * @param {*} event
+   * @memberof ManageSellerComponent
+   */
+  validateExitPayoneerUser(event: any) {
+    const value = event.target.value;
+    if (!!value) {
+      this.loadingService.viewSpinner();
+      this.payoneerService.getStatusById(value).subscribe((val: any) => {
+        const body = JSON.parse(val.body.body);
+        if (body && !body.Data) {
+          this.Payoneer.setErrors({ payoneer: true });
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
+  }
+  get Country(): FormControl {
+    return this.validateFormRegister.get('Country') as FormControl;
+  }
+  get State(): FormControl {
+    return this.validateFormRegister.get('State') as FormControl;
+  }
+  get City(): FormControl {
+    return this.validateFormRegister.get('City') as FormControl;
+  }
+  get PostalCode(): FormControl {
+    return this.validateFormRegister.get('DaneCode') as FormControl;
+  }
+  get Payoneer(): FormControl {
+    return this.validateFormRegister.get('Payoneer') as FormControl;
+  }
+
 }
