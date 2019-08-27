@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, exhaustMap, switchMap, flatMap, filter } from 'rxjs/operators';
 import * as NotificationActions from './actions';
-import { of, interval, merge } from 'rxjs';
+import { interval } from 'rxjs';
 
 import { SellerSupportCenterService } from '../../secure/seller-support-center/services/seller-support-center.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
