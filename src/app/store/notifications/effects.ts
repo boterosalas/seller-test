@@ -13,7 +13,7 @@ export class NotificationEffects {
   runNotificationDaemon = this.actions.pipe(
     ofType(NotificationActions.Types.RunNotificationDaemon),
     switchMap(() => interval(30000)),
-    map(() => [new NotificationActions.FetchUnreadCase()])
+    map(() => new NotificationActions.FetchUnreadCase())
   );
 
   @Effect()
