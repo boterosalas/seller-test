@@ -222,6 +222,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // this.listOfCategories();
     // this.listOfSpecs();
   }
+  
 
   prepareComponent() {
     const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
