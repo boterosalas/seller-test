@@ -27,11 +27,11 @@ export class CaseDetailComponent implements OnInit {
 
   ngOnInit() {
     this.productsConfig = productsConfig;
-    this.isClosed = this.case.status !== 'Cerrado';
+    this.isClosed = this.case.status === 'Cerrado';
   }
 
   openResponseDialog(): void {
-    if (this.case.status === 'Cerrado') {
+    if (this.isClosed) {
       this.snackBar.open(
         'El caso ya se encuentra en estado cerrado, no es posible agregar comentarios.',
         'Cerrar',
