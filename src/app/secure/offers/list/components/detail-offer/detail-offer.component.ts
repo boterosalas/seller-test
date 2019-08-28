@@ -8,6 +8,9 @@ import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
 import { MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { validateDataToEqual } from '@app/shared/util/validation-messages';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -72,7 +75,8 @@ export class DetailOfferComponent {
     promiseDelivery: '',
     currency: '',
     isUpdatedStock: '',
-    discountPrice: ''
+    discountPrice: '',
+    price: ''
   };
 
   /**
@@ -124,8 +128,8 @@ export class DetailOfferComponent {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
-    public snackBar?: MatSnackBar,
-
+    public authService: AuthService,
+    public snackBar?: MatSnackBar
   ) {
     this.isUpdateOffer = false;
     this.params = [];
@@ -203,19 +207,12 @@ export class DetailOfferComponent {
     });
   }
 
-
-
-
-
   /**
    * @method createValidators
    * @description Metodo para crear el formControl de cada input con sus validaciones.
    * @memberof DetailOfferComponent
    */
   createValidators() {
-    const formatNumber = /^[0-9]+$/;
-    const formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
-    const formatBoolean = /^[0-1]$/;
 
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
@@ -230,7 +227,8 @@ export class DetailOfferComponent {
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
-    this.Currency = new FormControl(this.dataOffer.currency);
+    this.Currency = new FormControl('COP');
+    // this.Currency = new FormControl(this.dataOffer.currency);
   }
 
   /**
@@ -254,6 +252,34 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
+    this.formUpdateOffer.get('Currency').disable();
+    this.validateOffertType(this.formUpdateOffer.get('Currency').value);
+    this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+      this.changeTypeCurrency(val);
+      this.validateOffertType(val);
+    });
+    const initialValue = Object.assign(this.formUpdateOffer.value, {});
+    this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
+
+
+  }
+
+  validateOffertType(val: any) {
+      if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
+        this.formUpdateOffer.get('IsFreeShipping').setValue(0);
+        this.formUpdateOffer.get('IsEnviosExito').setValue(0);
+        this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
+        this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
+        this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
+        this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
+        this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+        this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
+      } else {
+        !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
+        !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
+        !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+        !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
+      }
   }
 
   /**
@@ -351,7 +377,7 @@ export class DetailOfferComponent {
         if (this.Price.value === '') {
         } else if (parseInt(this.Price.value, 10) < 8000 && this.Currency.value === 'COP') {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
-        } else if (parseInt(this.Price.value, 10) <= parseInt(this.DiscountPrice.value, 10)) {
+        } else if (parseFloat(this.Price.value) <= parseFloat(this.DiscountPrice.value)) {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
         } else {
           this.DiscountPrice.enable();
@@ -362,7 +388,7 @@ export class DetailOfferComponent {
         if (this.DiscountPrice.value !== '') {
           if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value === 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
-          } else if (parseInt(this.DiscountPrice.value, 10) >= parseInt(this.Price.value, 10)) {
+          } else if (parseFloat(this.DiscountPrice.value) >= parseFloat(this.Price.value)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
           } else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
@@ -401,18 +427,35 @@ export class DetailOfferComponent {
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {
-            this.loadingService.closeSpinner();
-            this.goToListOffers();
-            this.consumeServiceList.emit(true);
-            this.params = [];
+            if (data.body.data.error > 0) {
+              this.loadingService.closeSpinner();
+              this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+                duration: 5000,
+              });
+              this.consumeServiceList.emit(true);
+              this.params = [];
+            } else {
+              this.loadingService.closeSpinner();
+              this.snackBar.open('Aplicó correctamente una oferta.', 'Cerrar', {
+                duration: 5000,
+              });
+              this.goToListOffers();
+              this.consumeServiceList.emit(true);
+              this.params = [];
+            }
           } else if (data.body.successful === 0 && data.body.error === 0) {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        } else {
+        }
+         else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];
+        }
+
+        if (result.body.data.error === 1) {
+          this.modalService.showModal('errorService');
         }
       }
     );
@@ -429,6 +472,16 @@ export class DetailOfferComponent {
     this.formUpdateOffer.controls['Price'].reset('');
     this.formUpdateOffer.controls['DiscountPrice'].reset('');
     this.formUpdateOffer.controls['AverageFreightCost'].reset('');
+    if (event === 'USD') {
+      this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+    } else {
+      this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.price)]);
+    }
+    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
       duration: 3000,
     });

@@ -289,7 +289,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 }
 
 .mat-form-field-wrapper{
-    margin-top: 0px !important;
+    margin-top: -14px;
 }
 
 .normal-theme .mat-paginator{
@@ -409,6 +409,33 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     margin-left: 20px !important;
 }
 
+.ml-1{
+    margin-left: 1rem !important;
+}
+
+.ml-auto{
+    margin-left: auto !important;
+}
+
 .search-store{
     width: 100%;
+}
+
+.listAdmin{
+    .search-store{
+      width: 100% !important;
+    }
+  }
+
+.space-between {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.dis-flex {
+    display: flex;
 }

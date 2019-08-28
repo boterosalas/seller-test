@@ -7,6 +7,7 @@ import { Filter } from '../models/filter';
 import { CaseListResponse } from '../models/case-list-response.model';
 import { StatusResponse } from '../models/statusResponse';
 import { CaseDetailResponse } from '../models/case-detail-response.model';
+import { UnreadCaseResponse } from '../models/unread-case-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,13 @@ export class SellerSupportCenterService {
     return this._http.patch<StatusResponse>(URL, caseResponse);
   }
 
-  public patchReadCase(caseRead: any): Observable<any>{
+  public patchReadCase(caseRead: any): Observable<any> {
     const URL = this._api.get('patchReadCase');
     return this._http.patch<any>(URL, caseRead);
   }
 
+  public getUnreadCase(): Observable<UnreadCaseResponse> {
+    const URL = this._api.get('getUnreadCase');
+    return this._http.get<UnreadCaseResponse>(URL);
+  }
 }

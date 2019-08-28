@@ -10,11 +10,11 @@
   </mat-nav-list>
   <mat-card-content>
 
-    <app-search-order-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'orders'"></app-search-order-form>
+    <app-search-order-form [informationToForm]="informationToForm" [typeProfiel]="typeProfiel" [idSeller]="idSeller" *ngIf="informationToForm.type_form == 'orders'"></app-search-order-form>
 
     <app-search-billing-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'billing'"></app-search-billing-form>
 
-    <app-search-pending-devolution-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'pending-devolution'"></app-search-pending-devolution-form>
+    <app-search-pending-devolution-form [idSeller]="idSeller" [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'pending-devolution'"></app-search-pending-devolution-form>
 
     <app-search-envios-exito-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'envios-exito'"></app-search-envios-exito-form>
     

@@ -10,6 +10,9 @@ import { Logger } from '@core/util/logger.service';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Subscription } from 'rxjs';
+import { CoreState } from '@app/store';
+import { Store } from '@ngrx/store';
+import { FetchUnreadCaseDone } from '@app/store/notifications/actions';
 
 const log = new Logger('LoginComponent');
 
@@ -77,7 +80,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private loadingService: LoadingService,
     private userParams: UserParametersService,
     private authService: AuthService,
-    private authRoutingService: AuthRoutingService
+    private authRoutingService: AuthRoutingService,
+    private store: Store<CoreState>
   ) {
     this.userService.isAuthenticated(this);
   }
@@ -131,6 +135,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       }
     } else { // success
       this.ddb.writeLogEntry('login');
+      this.userService.isLogin$.next(true);
       await this.userParams.getParameters();
       this.getDataUser();
     }
@@ -138,27 +143,39 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    this.subscription = this.authRoutingService.getPermissions().subscribe((response) => {
-      const result = JSON.parse(response.body);
-      const modules = result.Data.Profile.Modules;
-      // const firstModule = modules[0].Menus[0].Name;
-      const firstModule = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Menus[0].Name;
-      // const moduleName = modules[0].Name;
-      const moduleName = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Name;
-      this.authService.getModules().then(data => {
-        const menu = data.find(menu => menu.NameModule.toLowerCase() === moduleName.toLowerCase());
-        const subMenu = menu.Menus.find(subMenu => subMenu.NameMenu.toLowerCase() === firstModule.toLowerCase());
-        const url: string = subMenu.UrlRedirect;
-        this.loadingService.closeSpinner();
-        if (result.Data.Profile.ProfileType === Const.ProfileTypesBack[1]) {
-          this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
-        } else {
-          if (!url.includes('s3-website-us')) {
-            this.router.navigate([`/${url}`]);
-          }
+    // this.subscription = this.authRoutingService.getPermissions().subscribe((response) => {
+    //   const result = JSON.parse(response.body);
+    //   const modules = result.Data.Profile.Modules;
+    //   // const firstModule = modules[0].Menus[0].Name;
+    //   const firstModule = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Menus[0].Name;
+    //   // const moduleName = modules[0].Name;
+    //   const moduleName = modules.find(modul => modul.Name.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Name;
+    //   this.authService.getModules().then(data => {
+    //     const menu = data.find(menu => menu.NameModule.toLowerCase() === moduleName.toLowerCase());
+    //     const subMenu = menu.Menus.find(subMenu => subMenu.NameMenu.toLowerCase() === firstModule.toLowerCase());
+    //     const url: string = subMenu.UrlRedirect;
+    //     this.loadingService.closeSpinner();
+    //     if (result.Data.Profile.ProfileType === Const.ProfileTypesBack[1]) {
+    //       this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
+    //     } else {
+    //       if (!url.includes('s3-website-us')) {
+    //         this.router.navigate([`/${url}`]);
+    //       }
+    //     }
+    //   });
+    // });
+    this.authService.getModules().then(modules => {
+      this.loadingService.closeSpinner();
+      const url = modules.find(modul => modul.NameModule.toLowerCase() !== 'DOCUMENTACIÓN'.toLowerCase()).Menus[0].UrlRedirect;
+      if (this.authService.profileTypeGlobal === Const.ProfileTypesBack[1]) {
+        this.router.navigate([`/${this.consts.sellerCenterIntDashboard}`]);
+      } else {
+        if (!url.includes('s3-website-us')) {
+          this.router.navigate([`/${url}`]);
         }
-      });
+      }
     });
+    this.store.dispatch(new FetchUnreadCaseDone(0));
   }
 
   handleMFAStep(challengeName: string, challengeParameters: ChallengeParameters, callback: (confirmationCode: string) => any): void {

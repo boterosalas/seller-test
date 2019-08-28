@@ -30,6 +30,7 @@ export class ProductsOrderComponent {
   @Input() order: Order = Const.EMPTYORDER;
   @Input() dataSource: any;
   @Input() user: any;
+  @Input() Typeprofile: number;
 
   /**
    * Creates an instance of ProductsOrderComponent.

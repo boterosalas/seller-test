@@ -1,42 +1,41 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
   style,
   transition,
   animate
-} from "@angular/animations";
-import { SellerSupportCenterService } from "../services/seller-support-center.service";
-import { ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
-import { CaseDetail } from "../models/case-detail.model";
-import { map } from "rxjs/operators";
-import { CaseDetailResponse } from "../models/case-detail-response.model";
-import { LoadingService, ModalService } from "@app/core";
-import { Logger } from "@core/util/logger.service";
-import { ResponseCaseDialogComponent } from "@shared/components/response-case-dialog/response-case-dialog.component";
-import { MatDialog } from "@angular/material";
+} from '@angular/animations';
+import { SellerSupportCenterService } from '../services/seller-support-center.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaseDetailResponse } from '../models/case-detail-response.model';
+import { LoadingService } from '@app/core';
+import { Logger } from '@core/util/logger.service';
+import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
-  selector: "app-detail-case",
-  templateUrl: "./detail-case.component.html",
-  styleUrls: ["./detail-case.component.scss"],
+  selector: 'app-detail-case',
+  templateUrl: './detail-case.component.html',
+  styleUrls: ['./detail-case.component.scss'],
   animations: [
-    trigger("slideInOut", [
+    trigger('slideInOut', [
       state(
-        "in",
+        'in',
         style({
-          transform: "translate3d(0, 0, 0)"
+          transform: 'translate3d(0, 0, 0)'
         })
       ),
       state(
-        "out",
+        'out',
         style({
-          transform: "translate3d(100%, 0, 0)"
+          transform: 'translate3d(100%, 0, 0)'
         })
       ),
-      transition("in => out", animate("400ms ease-in-out")),
-      transition("out => in", animate("400ms ease-in-out"))
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
     ])
   ]
 })
@@ -52,8 +51,8 @@ export class DetailCaseComponent implements OnInit {
   case$: Observable<any>;
 
   configDialog = {
-    width: "70%",
-    height: "fit-content",
+    width: '70%',
+    height: 'fit-content',
     data: null
   };
   filterParams: any;
@@ -73,7 +72,7 @@ export class DetailCaseComponent implements OnInit {
     this.getStatusCase();
 
     this.case$ = this.sellerSupportService
-      .getCase(this.route.snapshot.paramMap.get("idCase"))
+      .getCase(this.route.snapshot.paramMap.get('idCase'))
       .pipe(map((res: CaseDetailResponse) => res.data));
 
     this.case$.subscribe(() => this.loadingService.closeSpinner());
@@ -81,7 +80,7 @@ export class DetailCaseComponent implements OnInit {
 
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
-    this.menuState = stateFilter ? "in" : "out";
+    this.menuState = stateFilter ? 'in' : 'out';
   }
 
   onEmitResponse(caseResponse: any) {
@@ -94,11 +93,13 @@ export class DetailCaseComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadingService.viewSpinner();
       if (result !== undefined) {
-        this.sellerSupportService.patchCaseResponse(result.data).subscribe(res => {
-          this.case$ = of(res.data);
-          this.loadingService.closeSpinner();
-        });
-      }else {
+        this.sellerSupportService
+          .patchCaseResponse(result.data)
+          .subscribe(res => {
+            this.case$ = of(res.data);
+            this.loadingService.closeSpinner();
+          });
+      } else {
         this.loadingService.closeSpinner();
       }
     });

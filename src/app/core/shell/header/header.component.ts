@@ -8,6 +8,8 @@ import { UserInformation } from '@app/shared';
 import { MatDialog } from '@angular/material';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { LoadingService } from '@app/core/global';
+import { CoreState } from '@app/store';
+import { Store, select } from '@ngrx/store';
 
 
 // log component
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public sellerName: any;
   public sellerId: any;
   public routes: any;
+  public unreadCase: number;
 
   constructor(
     private userService: UserLoginService,
@@ -38,6 +41,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     private router: Router,
     private loadingService: LoadingService,
     public dialog: MatDialog,
+    private store: Store<CoreState>
   ) { }
 
   /**
@@ -45,6 +49,13 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
+
+    this.store
+      .pipe(select(state => state.notification))
+      .subscribe(
+        notificationState =>
+          (this.unreadCase = notificationState.unreadCases)
+      );
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {

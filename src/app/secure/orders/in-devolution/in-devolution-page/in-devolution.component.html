@@ -4,12 +4,12 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [idSeller]="idSeller" [Typeprofile] = "typeProfile" ></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
     <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="getFunctionality(read)">
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="readPermission">
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
@@ -30,7 +30,7 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminOrden'" ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
             mat-sort-header> Orden
           </mat-header-cell>
           <mat-cell ffxFlex.sm="" fxFlex.md="150px" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
@@ -41,7 +41,7 @@
 
         <!-- orderDate Column -->
         <ng-container matColumnDef="orderDate">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header> Fecha pedido
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
@@ -52,7 +52,7 @@
 
         <!-- creationDate Column -->
         <ng-container matColumnDef="creationDate">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>Fecha solicitud
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
@@ -63,7 +63,7 @@
 
         <!-- reversionRequestReason Column -->
         <ng-container matColumnDef="reversionRequestReason">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
             Motivo
           </mat-header-cell>
@@ -75,7 +75,7 @@
 
         <!-- comment Column -->
         <ng-container matColumnDef="comment">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : ''" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
             Comentario
           </mat-header-cell>
@@ -92,12 +92,12 @@
 
         <!-- ImprimirRecibo Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+          <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
             fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             Acciones
           </mat-header-cell>
           <mat-cell fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" *matCellDef="let element">
-            <div class="center-product-list">
+            <div class="center-product-list" *ngIf="typeProfile == 0">
               <button id="dropdown-button-order-{{element.orderNumber}}" color="primary" class="sc-button-toolbar no-button button-toolbar" mat-button
                 [matMenuTriggerFor]="orderOptions">
                 <mat-icon>arrow_drop_down</mat-icon>

@@ -12,6 +12,7 @@ export class EventEmitterOrders {
     filterBillingList = new EventEmitter<any>();
     filterOrdersWithStatus = new EventEmitter<any>();
     tableInformationUploadGuide = new EventEmitter<any>();
+    clearTable = new EventEmitter<any>();
 
 
     /**
@@ -31,6 +32,10 @@ export class EventEmitterOrders {
      */
     filterOrderListResponse(data) {
         this.filterOrderList.emit(data);
+    }
+
+    getClear() {
+        this.clearTable.emit();
     }
     /**
      * Evento eventEmitter que permite crear un suscribe para saber cuando consultar las órdenes de acuerdo al estado proporcionado.

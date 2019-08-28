@@ -49,6 +49,7 @@ export const endpoints = {
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
+      getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
       patchOffersProducts: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/registeruniqueoffer',
       getStatusOffers : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
@@ -149,7 +150,11 @@ export const endpoints = {
       getAllCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/casesfilteredpaged',
       getCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case',
       patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow',
-      patchReadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/readcase'
+      patchReadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/readcase',
+      getUnreadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/unreadscount',
+      exceptionBrandsManage: '',
+      // Reporte de ofertas administrator
+      reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
     },
   },
   // Endpoints production
@@ -199,6 +204,7 @@ export const endpoints = {
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
+      getOffersAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/listoffersbyseller/{params}',
       patchOffersProducts: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/registeruniqueoffer',
       getStatusOffers : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/status',
       // Historical
@@ -299,7 +305,11 @@ export const endpoints = {
       getAllCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/casesfilteredpaged',
       getCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case',
       patchCaseResponse: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/respondcasefollow',
-      patchReadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/readcase'
+      patchReadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/readcase',
+      getUnreadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/unreadscount',
+      exceptionBrandsManage: '',
+      // Reporte de ofertas administrator
+      reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
     }
   }
 };

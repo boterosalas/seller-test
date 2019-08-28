@@ -15,11 +15,13 @@ export class StoreModel {
         public IsShippingExito?: boolean,
         public Nit?: string,
         public Rut?: string,
+        public Payoneer?: string,
         public ContactName?: string,
         public Email?: string,
         public PhoneNumber?: string,
         public State?: string,
         public City?: string,
+        public Country?: string,
         public SincoDaneCode?: string,
         public Profile?: string,
         public Policy?: string

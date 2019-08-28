@@ -29,6 +29,7 @@ export class RoutesConst {
     static readonly orderInPendingDevolution: any = 'solicitudes-pendientes';
     static readonly orderInBillingOrders: any = 'factura-electronica';
     static readonly oferList: any = 'listado-ofertas';
+    static readonly oferListAdmin: any = 'listado-ofertas-admin';
     static readonly oferBulkLoad: any = 'carga-masiva';
     static readonly oferHistoricalBulkLoad: any = 'historico-carga-ofertas';
     static readonly oferHistoricalBulkLoadAdmin: any = 'historico-carga-ofertas-admin';
@@ -51,8 +52,10 @@ export class RoutesConst {
     static readonly paramBrands: any = 'marcas';
     static readonly listProducts: any = 'listado-productos';
     static readonly categoryTree: any = 'category-tree';
+    static readonly reportOffertAdmin: any = 'category-tree';
 
-/**Support Center */
+
+    /* Support Center */
     static readonly sellerSupportCenter: any = 'support-center';
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
@@ -63,16 +66,16 @@ export class RoutesConst {
     static readonly secureSeller: any = RoutesConst.securehome + '/' + RoutesConst.seller;
 
 
-    //Support Center DetaiTicket
+    // Support Center DetaiTicket
     static readonly sellerCenterCases: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter;
-    static readonly sellerCenterCasesDetail: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter+'/:idCase';
+    static readonly sellerCenterCasesDetail: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter + '/:idCase';
 
     static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
-    static readonly sellerCenterOrders: any =  RoutesConst.secureSeller + '/' + RoutesConst.orders;
-    static readonly sellerCenterOffers: any =  RoutesConst.secureSeller + '/' + RoutesConst.offers;
-    static readonly sellerCenterSellers: any =  RoutesConst.secureSeller + '/' + RoutesConst.sellers;
-    static readonly sellerCenterBilling: any =  RoutesConst.secureSeller + '/' + RoutesConst.billing;
-    static readonly sellerCenterShipmentsExito: any =  RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
+    static readonly sellerCenterOrders: any = RoutesConst.secureSeller + '/' + RoutesConst.orders;
+    static readonly sellerCenterOffers: any = RoutesConst.secureSeller + '/' + RoutesConst.offers;
+    static readonly sellerCenterSellers: any = RoutesConst.secureSeller + '/' + RoutesConst.sellers;
+    static readonly sellerCenterBilling: any = RoutesConst.secureSeller + '/' + RoutesConst.billing;
+    static readonly sellerCenterShipmentsExito: any = RoutesConst.secureSeller + '/' + RoutesConst.shipmentsExito;
     static readonly sellerCenterMyProfile: any = RoutesConst.securehome + '/' + RoutesConst.myProfile;
     static readonly sellerCenterLogout: any = RoutesConst.securehome + '/' + RoutesConst.logout;
     static readonly sellerCenterJwttokens: any = RoutesConst.securehome + '/' + RoutesConst.jwttokens;
@@ -89,11 +92,13 @@ export class RoutesConst {
     static readonly sellerCenterIntOrderBillingOrders: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInBillingOrders;
 
     static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
+    static readonly sellerCenterIntOfersListAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferListAdmin;
     static readonly sellerCenterIntOferBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferBulkLoad;
     static readonly sellerCenterIntOferHistoricalBulkLoad: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoad;
     static readonly sellerCenterIntOferHistoricalBulkLoadAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferHistoricalBulkLoadAdmin;
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
     static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
+    static readonly sellerCenterIntOfferReportOffert: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportOffertAdmin;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
     static readonly sellerCenterProductModerationBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productModerationBulkLoad;

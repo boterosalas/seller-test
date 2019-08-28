@@ -10,6 +10,7 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -44,6 +45,7 @@ export class OfertExpandedProductComponent implements OnInit {
     offertRegex = {
         formatNumber: '',
         promiseDelivery: '',
+        price: ''
     };
 
 
@@ -75,14 +77,14 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct = this.fb.group({
             Stock: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Price: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             DiscountPrice: new FormControl('', [
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             PromiseDelivery: new FormControl('', [
                 Validators.required,
@@ -90,7 +92,7 @@ export class OfertExpandedProductComponent implements OnInit {
             ]),
             IsFreightCalculator: new FormControl('', [
                 Validators.required,
-                Validators.pattern(this.offertRegex.formatNumber)
+                Validators.pattern(this.offertRegex.price)
             ]),
             Warranty: new FormControl('', [
                 Validators.required,
@@ -105,6 +107,10 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),*/
             Currency: new FormControl('COP')
         });
+
+        // Borrar esta linea, para Internacional
+        this.ofertProduct.get('Currency').disable();
+
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
         this.applyOffer.eanesCombos.forEach((element: any) => {
@@ -112,6 +118,16 @@ export class OfertExpandedProductComponent implements OnInit {
         });
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
+        this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+            this.changeTypeCurrency(val);
+            if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').disable();
+            } else {
+                this.ofertProduct.get('ofertOption').setValue(null);
+                !this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').enable();
+            }
+        });
     }
 
 
@@ -442,6 +458,16 @@ export class OfertExpandedProductComponent implements OnInit {
                 price.controls.ComboQuantity.reset('');
             });
         }
+
+        if (event === 'USD') {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+          } else {
+            this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
+          }
     }
 
     // Funcion para cargar datos de regex

@@ -29,7 +29,8 @@ export class CategoriesComponent implements OnInit {
     IdMarketplace: '',
     IdParent: '',
     Name: '',
-    IdVTEX: ''
+    IdVTEX: '',
+    integerNumber: ''
   };
 
   /**
@@ -116,6 +117,11 @@ export class CategoriesComponent implements OnInit {
             return element;
           }
         }).Value;
+        this.categoryRegex.integerNumber = !!dataSellerRegex && dataSellerRegex.find(element => {
+          if (element.Identifier === 'integerNumber' && element.Module === 'vendedores') {
+            return element;
+          }
+        }).Value;
         if (!!ids) {
           for (const val in this.categoryRegex) {
             if (!!val && val.includes('Id')) {
@@ -150,7 +156,9 @@ export class CategoriesComponent implements OnInit {
       NameParent: [''],
       Name: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Name)])],
       ProductType: ['', Validators.compose([Validators.required])],
-      IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])]
+      IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])],
+      Tariff: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), Validators.max(100), Validators.min(0), positiveNumber])],
+      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10), Validators.minLength(10)])]
     });
   }
 
@@ -355,6 +363,9 @@ export class CategoriesComponent implements OnInit {
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
       value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
+      if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000'  || value.Tariff === '00' || value.Tariff === '0.00' ) {
+        value.Tariff = 0;
+      }
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
         try {
@@ -365,8 +376,7 @@ export class CategoriesComponent implements OnInit {
               dialogIntance.onNoClick();
               this.openStatusModal();
             } else if (responseValue === true) {
-              this.confirmationUpdate(value);
-              this.loadingService.closeSpinner();
+              this.getTree();
               dialogIntance.onNoClick();
               this.snackBar.open('Actualizado correctamente', 'Cerrar', {
                 duration: 3000,
@@ -388,31 +398,6 @@ export class CategoriesComponent implements OnInit {
     };
     dialog.afterClosed().subscribe(() => {
       this.form.reset();
-    });
-  }
-
-  updateCategory(list: any[], value: any) {
-    list.forEach((element) => {
-      if (element.Id === value.Id) {
-        for (const val in element) {
-          if (!!val) {
-            element[val] = value[val];
-          }
-        }
-      } else {
-        this.updateCategory(element.Son, value);
-      }
-    });
-  }
-
-  confirmationUpdate(value: any) {
-    this.ngZone.runOutsideAngular(() => {
-      if (!!value.Id) {
-        value.Show = this.categoryToUpdate.Show;
-        value.Son = this.categoryToUpdate.Son;
-        this.updateCategory(this.categoryList, value);
-        this.categoryToUpdate = null;
-      }
     });
   }
 
@@ -486,6 +471,14 @@ export class CategoriesComponent implements OnInit {
 
   get IdVTEX(): FormControl {
     return this.form.get('IdVTEX') as FormControl;
+  }
+
+  get Tariff(): FormControl {
+    return this.form.get('Tariff') as FormControl;
+  }
+
+  get TariffCode(): FormControl {
+    return this.form.get('TariffCode') as FormControl;
   }
 
 }
