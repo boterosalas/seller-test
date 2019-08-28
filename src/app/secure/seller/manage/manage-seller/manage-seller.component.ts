@@ -40,6 +40,7 @@ export class ManageSellerComponent implements OnInit {
   countries = countries;
   colombia = 'COLOMBIA';
   isColombiaSelect = false;
+  department: string;
 
   public imagesRegister: Array<any> = [
     {
@@ -332,7 +333,7 @@ export class ManageSellerComponent implements OnInit {
     this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
     this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
 
-    this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
+    this.country = new FormControl({ value: '', disabled: true }, [Validators.required]);
     this.payoneer = new FormControl({ value: '', disabled: disable });
     this.createForm();
     this.addValidationsSellerForm();
@@ -456,7 +457,9 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['State'].setValue($event.Name);
       if (!this.firstEmit) {
         this.validateFormRegister.controls['City'].setValue('');
-        this.validateFormRegister.controls['DaneCode'].setValue(null);
+        if (!this.isColombiaSelect) {
+          this.validateFormRegister.controls['DaneCode'].setValue(null);
+        }
       }
       this.firstEmit = false;
     }
@@ -604,18 +607,24 @@ export class ManageSellerComponent implements OnInit {
       if (val !== 'null' && val !== null ) {
         if (this.colombia === val) {
           this.isColombiaSelect = true;
+          this.department = this.currentSellerSelect.State;
           this.departamento = 'Departamento';
         } else {
           this.isColombiaSelect = false;
           this.departamento = 'Región';
         }
         if (this.edit) {
-          this.city.reset({ value: '', disabled: this.isColombiaSelect });
-          this.state.reset({ value: '', disabled: false });
-          this.PostalCode.reset({ value: '', disabled: false });
-          const selectedCountry = this.countries.find(element => element.CountryName === val);
-          if (selectedCountry) {
-            this.phoneNumber.reset({ value: selectedCountry.CountryIndicative, disabled: false });
+          if (this.colombia === val) {
+            this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
+            this.daneCode.setValue(this.currentSellerSelect.DaneCode);
+          } else {
+            this.city.reset({ value: '', disabled: this.isColombiaSelect });
+            this.state.reset({ value: '', disabled: false });
+            this.PostalCode.reset({ value: '', disabled: false });
+            const selectedCountry = this.countries.find(element => element.CountryName === val);
+            if (selectedCountry) {
+              this.phoneNumber.reset({ value: selectedCountry.CountryIndicative, disabled: false });
+            }
           }
         }
         this.edit = true;

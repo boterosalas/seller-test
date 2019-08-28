@@ -27,8 +27,12 @@ export class StatesComponent implements OnInit {
   public validateFormRegister: FormGroup;
   public statesObject: State;
   public matcher: MyErrorStateMatcher;
+  public _elementLoad: any;
   @Output() idStateEvent = new EventEmitter<number>();
-  @Input() elementLoad: any;
+  @Input() set elementLoad(value: any){
+              this._elementLoad = value;
+              this.getStatesDropdown();
+  }
   @Input() disabledComponent: boolean;
 
   constructor(
@@ -85,8 +89,8 @@ export class StatesComponent implements OnInit {
           const data = data_response.Data;
           this.listItems = data;
           this.loadingService.closeSpinner();
-          if (this.elementLoad) {
-            this.validateFormRegister.controls['statesFormControl'].setValue(this.validateElementLoaded(this.elementLoad), {onlySelf: true});
+          if (this._elementLoad) {
+            this.validateFormRegister.controls['statesFormControl'].setValue(this.validateElementLoaded(this._elementLoad), {onlySelf: true});
             this.setParamToCitiesChange();
           }
         } else {

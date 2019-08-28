@@ -48,7 +48,7 @@
               </mat-form-field>
             </div>
             <div *ngIf="isColombiaSelect; else stateInput" fxFlex="50%">
-              <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+              <app-states-data (idStateEvent)="receiveDataState($event)" [elementLoad]="department"></app-states-data>
             </div>
             <ng-template #stateInput>
               <div fxFlex="50%">
