@@ -18,6 +18,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { map } from 'rxjs/operators';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -403,7 +404,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           category = this.lastCategory;
         }
         this.currentEventPaginate = $event;
-        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
+        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).pipe(map(data => data.slice(0, 200))).subscribe((res: any) => {
           this.addCheckOptionInProduct(res, $event.paginator);
           if (res && res.length === 0 && this.idSeller) {
             this.showMenssage = true;
