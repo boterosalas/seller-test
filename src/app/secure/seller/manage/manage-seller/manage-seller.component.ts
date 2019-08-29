@@ -212,6 +212,7 @@ export class ManageSellerComponent implements OnInit {
             this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
             this.currentSellerSelect = body.Data;
+            this.validateFormRegister.controls['DaneCode'].markAsUntouched();
             if (this.currentSellerSelect.Country === null || this.currentSellerSelect.Country === undefined) {
               this.country.setValue(this.colombia);
             } else {
@@ -481,11 +482,11 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
       this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
+      if (this.activeForm) {
+        this.validateFormRegister.controls['DaneCode'].markAsTouched();
+      }
+      this.activeForm = true;
     }
-    if (this.activeForm) {
-      this.validateFormRegister.controls['DaneCode'].markAsTouched();
-    }
-    this.activeForm = true;
   }
 
   submitUpdateSeller(): void {
