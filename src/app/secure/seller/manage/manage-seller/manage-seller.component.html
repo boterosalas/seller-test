@@ -48,7 +48,7 @@
               </mat-form-field>
             </div>
             <div *ngIf="isColombiaSelect; else stateInput" fxFlex="50%">
-              <app-states-data (idStateEvent)="receiveDataState($event)"></app-states-data>
+              <app-states-data (idStateEvent)="receiveDataState($event)" [elementLoad]="department"></app-states-data>
             </div>
             <ng-template #stateInput>
               <div fxFlex="50%">
@@ -196,7 +196,7 @@
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
-                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= false"
+                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= true"
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
@@ -219,7 +219,7 @@
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput placeholder="Nombre de la tienda" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
-                  (ngModelChange)="activeButton= false" required>
+                  (ngModelChange)="activeButton= true" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required" *ngIf="validateFormRegister.get('Name').hasError('required')"
                   [innerHTML]="'Este campo es requerido.'"></mat-error>
@@ -310,7 +310,6 @@
               </div>
             </div>
           </div>
-
           <div class="container" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <button id="register-send-form" class="button-seller-register" type="submit" mat-raised-button
               color="primary" [innerHTML]="'ACTUALIZAR'" [disabled]="!updateSeller.form.valid || disabledForService ||
@@ -345,13 +344,13 @@
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important">
                 <input matInput placeholder="NIT" formControlName="Nit" id="register-nit"
-                  (ngModelChange)="activeButton= false" [readonly]="true" required>
+                  (ngModelChange)="activeButton= true" [readonly]="true" required>
               </mat-form-field>
             </div>
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
-                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= false"
+                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= true"
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
@@ -372,7 +371,7 @@
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput placeholder="Nombre administrador" (blur)="validateExist($event, 'Name')"
                   formControlName="Name" [errorStateMatcher]="matcher" id="register-name-store"
-                  (ngModelChange)="activeButton= false" required>
+                  (ngModelChange)="activeButton= true" required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-name-store-required"
                   *ngIf="validateFormRegisterAdmin.get('Name').hasError('required')"
