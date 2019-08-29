@@ -40,7 +40,6 @@ export class ManageSellerComponent implements OnInit {
   countries = countries;
   colombia = 'COLOMBIA';
   isColombiaSelect = false;
-  department: string;
 
   public imagesRegister: Array<any> = [
     {
