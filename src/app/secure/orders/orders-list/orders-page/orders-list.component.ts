@@ -404,7 +404,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           category = this.lastCategory;
         }
         this.currentEventPaginate = $event;
-        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).pipe(map(data => data.slice(0, 200))).subscribe((res: any) => {
+        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
           this.addCheckOptionInProduct(res, $event.paginator);
           if (res && res.length === 0 && this.idSeller) {
             this.showMenssage = true;
