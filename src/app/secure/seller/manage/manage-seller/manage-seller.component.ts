@@ -87,6 +87,7 @@ export class ManageSellerComponent implements OnInit {
   profileAdmin: string[] = [];
   public showUpdate: boolean;
   departamento = 'departamento';
+  activeForm= false;
 
 
   public country: FormControl;
@@ -142,6 +143,7 @@ export class ManageSellerComponent implements OnInit {
   read = readFunctionality;
   update = updateFunctionality;
   disabledComponent = false;
+  department: string;
 
   /**
    * Creates an instance of ManageSellerComponent.
@@ -211,6 +213,12 @@ export class ManageSellerComponent implements OnInit {
             this.loadingService.viewSpinner();
             const body = JSON.parse(res.body.body);
             this.currentSellerSelect = body.Data;
+            this.validateFormRegister.controls['DaneCode'].markAsUntouched();
+            if (this.currentSellerSelect.Country === null || this.currentSellerSelect.Country === undefined) {
+              this.country.setValue(this.colombia);
+            } else {
+              this.country.setValue(this.currentSellerSelect.Country);
+            }
             if (this.currentSellerSelect && this.currentSellerSelect.City) {
               this.showUpdate = true;
               // this.currentSellerSelect = body.Data;
@@ -238,7 +246,7 @@ export class ManageSellerComponent implements OnInit {
               });
               this.elementStateLoad = this.currentSellerSelect.State;
               this.elementCityLoad = this.currentSellerSelect.City;
-              this.country.setValue(this.currentSellerSelect.Country);
+              // this.country.setValue(this.currentSellerSelect.Country);
               this.payoneer.setValue(this.currentSellerSelect.Payoneer);
 
             } else {
@@ -475,6 +483,10 @@ export class ManageSellerComponent implements OnInit {
       this.validateFormRegister.controls['DaneCode'].setValue($event.DaneCode);
       this.validateFormRegister.controls['City'].setValue($event.Name);
       this.validateFormRegister.controls['SincoDaneCode'].setValue($event.SincoDaneCode);
+      if (this.activeForm) {
+        this.validateFormRegister.controls['DaneCode'].markAsTouched();
+      }
+      this.activeForm = true;
     }
   }
 

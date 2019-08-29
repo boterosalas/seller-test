@@ -30,8 +30,8 @@ export class StatesComponent implements OnInit {
   public _elementLoad: any;
   @Output() idStateEvent = new EventEmitter<number>();
   @Input() set elementLoad(value: any){
-              this._elementLoad = value;
-              this.getStatesDropdown();
+    this._elementLoad = value;
+    this.getStatesDropdown();
   }
   @Input() disabledComponent: boolean;
 
