@@ -463,8 +463,8 @@ export class ManageSellerComponent implements OnInit {
       this.idState = $event.Id;
       this.validateFormRegister.controls['State'].setValue($event.Name);
       if (!this.firstEmit) {
-        this.validateFormRegister.controls['City'].setValue('');
         if (!this.isColombiaSelect) {
+          this.validateFormRegister.controls['City'].setValue('');
           this.validateFormRegister.controls['DaneCode'].setValue(null);
         }
       }
