@@ -96,7 +96,6 @@ export class SearchCategorizationComponent implements OnInit {
                 this.searchText = this.searchTextInput.Name;
             } else {
                 this.searchText = this.searchTextInput;
-            
         }
     }
 }

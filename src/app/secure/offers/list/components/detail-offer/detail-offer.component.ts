@@ -227,7 +227,8 @@ export class DetailOfferComponent {
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
-    this.Currency = new FormControl(this.dataOffer.currency);
+    this.Currency = new FormControl('COP');
+    // this.Currency = new FormControl(this.dataOffer.currency);
   }
 
   /**
@@ -251,6 +252,7 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
+    this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
@@ -258,6 +260,8 @@ export class DetailOfferComponent {
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
+
+
   }
 
   validateOffertType(val: any) {
