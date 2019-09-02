@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
 import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
@@ -8,6 +8,7 @@ import { LoadingService } from '@app/core/global/loading/loading.service';
 import { Const, RoutesConst, UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, UserLoginService } from '@app/core';
+import { ListProductService } from '../../list-products/list-products.service';
 
 @Component({
   selector: 'app-component-process',
@@ -34,6 +35,8 @@ export class ComponentProcessComponent implements OnInit {
   constantes = new Const();
   saving = false;
   public user: UserInformation;
+  @Input() ean: string;
+  detailProduct: any;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -41,6 +44,7 @@ export class ComponentProcessComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     public userParams: UserParametersService,
+    private productsService: ListProductService,
     public userService: UserLoginService) {
     this.options = fb.group({
       hideRequired: false,
@@ -75,6 +79,18 @@ export class ComponentProcessComponent implements OnInit {
       this.views = data;
       this.validateView();
     });
+    this.getDetailProduct();
+  }
+
+  getDetailProduct() {
+    if (this.ean) {
+      this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
+        if (result) {
+          this.detailProduct = result.data.list;
+        }
+      });
+    }
+
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SearchService } from './search.component.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -30,6 +30,12 @@ export class SearchCategorizationComponent implements OnInit {
     chargueList = false;
     searchText: string;
     searchTextInput: any;
+    _detailProduct: any;
+    @Input() set detailProduct(value: any){
+        if (value) {
+            this._detailProduct = value;
+        }
+    }
 
     /**
      * Creates an instance of SearchCategorizationComponent.

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { UserInformation } from '@app/shared';
 import { UserParametersService } from '@app/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 const log = new Logger('ExpandedProductComponent');
 
@@ -28,8 +29,8 @@ export class ExpandedProductComponent implements OnInit {
     public showOfer: boolean;
 
     constructor(
+        private router: Router,
         private userParams?: UserParametersService,
-
     ) {}
 
 
@@ -68,5 +69,8 @@ export class ExpandedProductComponent implements OnInit {
 
     applyOffert(): void {
         this.applyOffer = this.productsExpanded;
+    }
+    editProduct(productsExpanded: any) {
+        this.router.navigate(['securehome/products/creacion-unitaria', {ean: productsExpanded.ean} ] );
     }
 }

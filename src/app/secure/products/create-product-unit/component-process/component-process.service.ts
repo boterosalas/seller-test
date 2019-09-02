@@ -166,12 +166,19 @@ export class ProcessService {
      *
      * @memberof ProcessService
      */
+    // views = {
+    //     showEan: true,
+    //     showCat: false,
+    //     showInfo: true,
+    //     showSpec: true,
+    //     showImg: true,
+    // };
     views = {
-        showEan: true,
+        showEan: false,
         showCat: false,
-        showInfo: true,
-        showSpec: true,
-        showImg: true,
+        showInfo: false,
+        showSpec: false,
+        showImg: false,
     };
 
     /**

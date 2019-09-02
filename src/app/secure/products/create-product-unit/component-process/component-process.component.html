@@ -6,14 +6,14 @@
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
-      <app-validate-ean></app-validate-ean>
+      <app-validate-ean [ean]="ean"></app-validate-ean>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="categoryFormGroup">
     <form [formGroup]="categoryFormGroup">
       <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
-      <app-search-categorization></app-search-categorization>
+      <app-search-categorization [detailProduct]="detailProduct"></app-search-categorization>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
         <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">Continuar</button>
