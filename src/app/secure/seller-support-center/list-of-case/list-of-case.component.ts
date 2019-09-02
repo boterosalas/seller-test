@@ -78,7 +78,7 @@ export class ListOfCaseComponent implements OnInit {
     this.toggleFilter(this.filter);
     this.getStatusCase();
     this.router.queryParams.subscribe(res => {
-      this.loadCases(res);
+      this.loadCases({ ...res, init: true });
     });
     this.store
       .select(reduxState => reduxState.notification.unreadCases)
