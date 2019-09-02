@@ -18,6 +18,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { map } from 'rxjs/operators';
 
 // log component
 const log = new Logger('OrdersListComponent');

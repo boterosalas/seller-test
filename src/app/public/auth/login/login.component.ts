@@ -10,6 +10,9 @@ import { Logger } from '@core/util/logger.service';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Subscription } from 'rxjs';
+import { CoreState } from '@app/store';
+import { Store } from '@ngrx/store';
+import { FetchUnreadCaseDone } from '@app/store/notifications/actions';
 
 const log = new Logger('LoginComponent');
 
@@ -77,7 +80,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private loadingService: LoadingService,
     private userParams: UserParametersService,
     private authService: AuthService,
-    private authRoutingService: AuthRoutingService
+    private authRoutingService: AuthRoutingService,
+    private store: Store<CoreState>
   ) {
     this.userService.isAuthenticated(this);
   }
@@ -171,6 +175,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
         }
       }
     });
+    this.store.dispatch(new FetchUnreadCaseDone(0));
   }
 
   handleMFAStep(challengeName: string, challengeParameters: ChallengeParameters, callback: (confirmationCode: string) => any): void {
