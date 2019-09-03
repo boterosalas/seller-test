@@ -13,17 +13,18 @@
     [options]="options"
     [configurations]="listConfiguration"
   >
-    <ng-container *itemDropDownList >
+    <ng-container *itemDropDownList>
       <app-drop-down-box
         *ngFor="let item of cases"
         [data]="item"
         [read]="item.read"
         (opened)="markAsRead($event)"
-        >
+      >
         <ng-container *itemCaseList>
           <app-case-summary
-            (onClickResponse)="onEmitResponse($event)"
+            (clickResponse)="onEmitResponse($event)"
             [case]="item"
+            [disabledClass]="item.status === 'Cerrado'"
           ></app-case-summary>
         </ng-container>
       </app-drop-down-box>

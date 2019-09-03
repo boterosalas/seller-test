@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -65,6 +65,7 @@ export class ListOfCaseComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private sellerSupportService: SellerSupportCenterService,
     public router: ActivatedRoute,
     private store: Store<CoreState>,
@@ -77,7 +78,7 @@ export class ListOfCaseComponent implements OnInit {
     this.toggleFilter(this.filter);
     this.getStatusCase();
     this.router.queryParams.subscribe(res => {
-      this.loadCases(res);
+      this.loadCases({ ...res, init: true });
     });
     this.store
       .select(reduxState => reduxState.notification.unreadCases)
@@ -123,6 +124,20 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
+    if (caseResponse.status === 'Cerrado') {
+      this.snackBar.open(
+        'El caso ya se encuentra en estado cerrado, no es posible agregar comentarios.',
+        'Cerrar',
+        {
+          duration: 3000
+        }
+      );
+    } else {
+      this.showResponseModal(caseResponse);
+    }
+  }
+
+  showResponseModal(caseResponse: any) {
     this.configDialog.data = caseResponse;
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
