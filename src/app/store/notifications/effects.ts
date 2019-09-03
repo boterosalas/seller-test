@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, exhaustMap, switchMap, flatMap, filter } from 'rxjs/operators';
+import { map, exhaustMap, switchMap, filter } from 'rxjs/operators';
 import * as NotificationActions from './actions';
 import { interval } from 'rxjs';
 
@@ -12,24 +12,21 @@ export class NotificationEffects {
   @Effect()
   runNotificationDaemon = this.actions.pipe(
     ofType(NotificationActions.Types.RunNotificationDaemon),
-    switchMap(() => interval(30000)),
+    switchMap(() => interval(300000)),
     map(() => new NotificationActions.FetchUnreadCase())
   );
 
   @Effect()
   fetchUnreadCase = this.actions.pipe(
     ofType(NotificationActions.Types.FetchUnreadCase),
-    flatMap(() => this.authService.getModules()),
+    exhaustMap(() => this.authService.getModules()),
     filter((modules: any) => modules),
     map((modules: Array<any>) =>
       modules.filter(
         mod => mod.NameModule === 'RECLAMACIONES' && mod.ShowModule
       )
     ),
-    filter((modules: Array<any>) => {
-      //debugger;
-      return modules.length > 0;
-    }),
+    filter((modules: Array<any>) => modules.length > 0),
     exhaustMap(() => this.sellerSupportService.getUnreadCase()),
     map(res => res.data),
     map((data: number) => new NotificationActions.FetchUnreadCaseDone(data))

@@ -12,7 +12,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { Subscription } from 'rxjs';
 import { CoreState } from '@app/store';
 import { Store } from '@ngrx/store';
-import { FetchUnreadCase } from '@app/store/notifications/actions';
+import { FetchUnreadCase, RunNotificationDaemon } from '@app/store/notifications/actions';
 
 const log = new Logger('LoginComponent');
 
@@ -176,6 +176,7 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
       }
     });
     this.store.dispatch(new FetchUnreadCase());
+    this.store.dispatch(new RunNotificationDaemon());
   }
 
   handleMFAStep(challengeName: string, challengeParameters: ChallengeParameters, callback: (confirmationCode: string) => any): void {
