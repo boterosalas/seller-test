@@ -20,11 +20,15 @@ export class NotificationEffects {
   fetchUnreadCase = this.actions.pipe(
     ofType(NotificationActions.Types.FetchUnreadCase),
     flatMap(() => this.authService.getModules()),
-    filter((modules: Array<any>) => {
-      const moduleFounded = modules.filter(
+    filter((modules: any) => modules),
+    map((modules: Array<any>) =>
+      modules.filter(
         mod => mod.NameModule === 'RECLAMACIONES' && mod.ShowModule
-      );
-      return moduleFounded.length > 0;
+      )
+    ),
+    filter((modules: Array<any>) => {
+      //debugger;
+      return modules.length > 0;
     }),
     exhaustMap(() => this.sellerSupportService.getUnreadCase()),
     map(res => res.data),

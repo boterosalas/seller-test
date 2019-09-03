@@ -7,7 +7,8 @@ const withNamespace = action => `${NAMESPACE} - ${action}`;
 export const Types = {
   FetchUnreadCase: withNamespace('Fetch unread case'),
   FetchUnreadCaseDone: withNamespace('Fetch unread case done'),
-  RunNotificationDaemon: withNamespace('Run Notification Deamon')
+  RunNotificationDaemon: withNamespace('Run Notification Deamon'),
+  SetInitialNotifications: withNamespace('Set initial notifications')
 };
 
 export class FetchUnreadCase implements Action {
@@ -18,6 +19,11 @@ export class FetchUnreadCase implements Action {
 export class FetchUnreadCaseDone implements Action {
   readonly type = Types.FetchUnreadCaseDone;
   constructor(public payload: number) {}
+}
+
+export class SetInitialNotifications implements Action {
+  readonly type = Types.SetInitialNotifications;
+  constructor(public payload?: any) {}
 }
 
 export class RunNotificationDaemon implements Action {
