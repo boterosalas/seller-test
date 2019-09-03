@@ -18,6 +18,8 @@ import {
   FetchUnreadCaseDone
 } from '@app/store/notifications/actions';
 import { CoreState } from '@app/store';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-of-case',
@@ -77,12 +79,18 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    this.router.queryParams.subscribe(res => {
-      this.loadCases({ ...res, init: true });
-    });
+    this.filterByRoute(this.router.queryParams).subscribe(res =>
+      this.loadCases(res)
+    );
     this.store
       .select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
+  }
+
+  filterByRoute(queryParams: Observable<any>): Observable<any> {
+    return queryParams.pipe(
+      map(res => (res.Status ? res : { ...res, init: true }))
+    );
   }
 
   toggleFilter(stateFilter: boolean) {
