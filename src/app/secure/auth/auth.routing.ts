@@ -7,6 +7,9 @@ import { RoutesConst, UserInformation } from '@app/shared';
 import { HttpClient } from '@angular/common/http';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { AuthRoutingService } from './auth.service';
+import { CoreState } from '@app/store';
+import { Store } from '@ngrx/store';
+import { StartModules } from '@app/store/commons/actions';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -35,7 +38,8 @@ export class AuthService implements CanActivate {
         public userService: UserLoginService,
         private http: HttpClient,
         private api: EndpointService,
-        private userDataService: AuthRoutingService) {
+        private userDataService: AuthRoutingService,
+        private store: Store<CoreState>) {
         !!this.userService && this.userService.isLogin$.pipe(distinctUntilChanged()).subscribe(val => {
             if (!val) {
                 this.completeUserData = null;
@@ -166,14 +170,17 @@ export class AuthService implements CanActivate {
                                 });
                             });
                             this.modulesBack = this.modulesRouting;
+                            this.store.dispatch(new StartModules(this.modulesRouting));
                             resolve(this.modulesRouting);
                         }
                     }
                 }, error => {
                     // this.router.navigate([`/${RoutesConst.sellerCenterLogout}`]);
+                    this.store.dispatch(new StartModules(null));
                     resolve(false);
                 });
             } else {
+                this.store.dispatch(new StartModules(this.modulesBack));
                 resolve(this.modulesBack);
             }
         });
@@ -295,14 +302,10 @@ export class AuthService implements CanActivate {
         }
     }
 
-
     async validateUserType() {
         this.user = await this.userParams.getUserData();
         return this.user;
     }
-
-
-
 
     public getMenuProfiel(nameMenu: any, profile: any): MenuModel {
         let moduleSelected: MenuModel;

@@ -5,13 +5,23 @@ import {
   NotificationState,
   notificationReducer
 } from './notifications';
+import {
+  UserModulesActions,
+  UserModulesState,
+  userModulesReducer
+} from './user-modules';
 
 export interface CoreState {
   notification: NotificationState;
+  configuration: UserModulesState;
 }
 
 export const CoreReducers: ActionReducerMap<CoreState> = {
-  notification: notificationReducer
+  notification: notificationReducer,
+  configuration: userModulesReducer
 };
 
-export const CoreActionTypes = [NotificationActions.Types];
+export const CoreActionTypes = [
+  NotificationActions.Types,
+  UserModulesActions.Types
+];

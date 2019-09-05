@@ -1,14 +1,15 @@
 import { Action } from '@ngrx/store';
 
-const NAMESPACE = 'NOTIFICATION - ';
-const withNamespace = action => `${NAMESPACE} - ${action}`;
+const NAMESPACE = 'NOTIFICATION';
+const withNamespace = (action: String) => `${NAMESPACE} - ${action}`;
 
 // Action Types
 export const Types = {
   FetchUnreadCase: withNamespace('Fetch unread case'),
   FetchUnreadCaseDone: withNamespace('Fetch unread case done'),
   RunNotificationDaemon: withNamespace('Run Notification Deamon'),
-  SetInitialNotifications: withNamespace('Set initial notifications')
+  FinishNotifications: withNamespace('Finish notifications'),
+  StartNotifications: withNamespace('Start notifications')
 };
 
 export class FetchUnreadCase implements Action {
@@ -21,13 +22,18 @@ export class FetchUnreadCaseDone implements Action {
   constructor(public payload: number) {}
 }
 
-export class SetInitialNotifications implements Action {
-  readonly type = Types.SetInitialNotifications;
+export class FinishNotifications implements Action {
+  readonly type = Types.FinishNotifications;
   constructor(public payload?: any) {}
 }
 
 export class RunNotificationDaemon implements Action {
   readonly type = Types.RunNotificationDaemon;
+  constructor(public payload?: any) {}
+}
+
+export class StartNotifications implements Action {
+  readonly type = Types.StartNotifications;
   constructor(public payload?: any) {}
 }
 

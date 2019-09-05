@@ -10,7 +10,7 @@ export function notificationReducer(
   action: ActionsUnion
 ) {
   switch (action.type) {
-    case Types.SetInitialNotifications:
+    case Types.FinishNotifications:
       return { ...initialState };
     case Types.FetchUnreadCaseDone:
       return { ...state, unreadCases: action.payload };

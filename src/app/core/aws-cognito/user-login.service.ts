@@ -8,19 +8,14 @@ import { EndpointService } from '../http';
 import { Logger } from '../util/logger.service';
 import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
 import { DynamoDBService } from './ddb.service';
-import { AuthService } from '@app/secure/auth/auth.routing';
-import { Behavior } from 'aws-sdk/clients/iot';
+// import { AuthService } from '@app/secure/auth/auth.routing';
+// import { Behavior } from 'aws-sdk/clients/iot';
 import { BehaviorSubject } from 'rxjs';
-import { CoreState } from '@app/store';
-import { Store } from '@ngrx/store';
-import { SetInitialNotifications } from '@app/store/notifications/actions';
 
 const log = new Logger('UserLoginService');
 
-
 // Constantes de cognito
 const cognitoEnv = environment.cognito;
-
 
 @Injectable()
 export class UserLoginService {
@@ -30,8 +25,7 @@ export class UserLoginService {
   constructor(
     private ddb: DynamoDBService,
     private cognitoUtil: CognitoUtil,
-    private api: EndpointService,
-    private store: Store<CoreState>
+    private api: EndpointService
   ) { }
 
   configServerLogs() {
@@ -157,7 +151,6 @@ export class UserLoginService {
     }
     this.cognitoUtil.getCurrentUser().signOut();
     this.isLogin$.next(false);
-    this.store.dispatch(new SetInitialNotifications());
   }
 
   isAuthenticated(callback: LoggedInCallback) {
