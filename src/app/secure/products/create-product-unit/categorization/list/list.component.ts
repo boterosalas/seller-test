@@ -91,14 +91,14 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
 
     selectedCategoryCurrent(detailProduct: any) {
         if (detailProduct) {
-            this.selectedCategory = 'Pantalones';
-            this.selectedIdCategory = 28033;
-            this.idDetailProduct = 28033;
-            this.productType = 'Clothing';
+            this.selectedCategory = 'Televisores 4K Uhd';
+            this.selectedIdCategory = 28052;
+            this.idDetailProduct = 28052;
+            this.productType = 'Technology';
             const data = {
-                CategorySelected: 28033,
-                CategoryName: 'Pantalones',
-                CategoryType: 'Clothing'
+                CategorySelected: 28052,
+                CategoryName: 'Televisores 4K Uhd',
+                CategoryType: 'Technology'
             };
             this.process.validaData(data);
             this.getCategoriesList();

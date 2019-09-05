@@ -23,7 +23,7 @@
   <mat-step [stepControl]="basicInfoFormGroup">
     <form [formGroup]="basicInfoFormGroup">
       <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
-      <app-basic-information></app-basic-information>
+      <app-basic-information [detailProduct]="detailProduct"></app-basic-information>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
         <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">Continuar</button>
@@ -33,7 +33,7 @@
   <mat-step [stepControl]="especificFormGroup">
     <form [formGroup]="especificFormGroup">
       <ng-template matStepLabel>Especificaciones</ng-template>
-      <app-specification-product></app-specification-product>
+      <app-specification-product [detailProduct]="detailProduct" [ean]="ean"></app-specification-product>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
         <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
@@ -43,7 +43,7 @@
   <mat-step [stepControl]="imageFormGroup">
     <form [formGroup]="imageFormGroup">
       <ng-template matStepLabel>Im&aacute;genes</ng-template>
-      <app-assign-images [children]="children_created"></app-assign-images>
+      <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
           <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">Guardar</button>

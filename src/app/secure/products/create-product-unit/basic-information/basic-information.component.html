@@ -4,7 +4,6 @@
     deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
     variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
     sección</p>
-
   <!-- BASIC INFORMATION FORM-->
   <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
 
@@ -34,7 +33,7 @@
 
       <mat-form-field class="field">
         <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
-          id="brandProduct" required>
+          id="brandProduct">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
             {{brand.Name}}
@@ -214,7 +213,7 @@
 
     <mat-form-field class="keyword-field">
       <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct"
-        (keyup.enter)="saveKeyword()"  (change)="detectForm()" required>
+        (keyup.enter)="saveKeyword()"  (change)="detectForm()" [required]="inputRequired">
       <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
         add_circle_outline
       </mat-icon>
@@ -242,7 +241,7 @@
   <mat-divider></mat-divider>
 
   <!-- BUTTON TO ADD SONS -->
-  <div ngStickyNav fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
+  <div  fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
     class="sticky-position">
     <div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
@@ -32,6 +32,14 @@ export class ProductBasicInfoComponent implements OnInit {
     public validateEanSonExist;
     public validAfter = false;
     public descrip: string;
+    _detailProduct: any;
+    inputRequired = true;
+    @Input() set detailProduct(value: any) {
+        if (value) {
+            this._detailProduct = value;
+            this.getInformationBasic(value);
+        }
+    }
     /**
      *  Json  con los colores predefinidos.
      */
@@ -94,10 +102,10 @@ export class ProductBasicInfoComponent implements OnInit {
         private serviceEanSon: EanServicesService,
         private process: ProcessService
     ) {
+        this.initComponent();
     }
 
     ngOnInit() {
-        this.initComponent();
         this.listOfBrands();
     }
 
@@ -116,7 +124,32 @@ export class ProductBasicInfoComponent implements OnInit {
             if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category &&
                 this.formBasicInfo.controls.Category.value !== this.productData.CategoryName) {
                 this.formBasicInfo.controls.Category.setValue(this.productData.CategoryName);
-                this.sonList = [];
+                if (this.productData.ProductType === 'Clothing') {
+                    if (!this._detailProduct) {
+                        this.sonList = [];
+                        const views = this.process.getViews();
+                        views.showInfo = false;
+                        this.process.setViews(views);
+                    } else {
+                        if (this._detailProduct.category !== this.productData.CategoryName) {
+                            this.sonList = [];
+                            const views = this.process.getViews();
+                            views.showInfo = false;
+                            this.process.setViews(views);
+                        }
+                    }
+                } else {
+                    this.sonList = [];
+                    if (!this.formBasicInfo.invalid) {
+                        const views = this.process.getViews();
+                        views.showInfo = true;
+                        this.process.setViews(views);
+                    } else {
+                        const views = this.process.getViews();
+                        views.showInfo = false;
+                        this.process.setViews(views);
+                    }
+                }
             }
             this.showButton = data.showEan;
         });
@@ -221,7 +254,11 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
                 const exist = this.filterBrands.find(brand => brand.Name === val);
                 if (!exist) {
-                    this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    if (this._detailProduct && this._detailProduct.brand !== undefined && this._detailProduct.brand !== '') {
+                        this.formBasicInfo.get('Brand').clearValidators();
+                    } else {
+                        this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    }
                 } else {
                     this.formBasicInfo.get('Brand').setErrors(null);
                 }
@@ -247,11 +284,11 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
-                    if ( this.validateClothingProduct() ) {
+                    if (this.validateClothingProduct()) {
                         this.sendDataToService();
                     }
                 }
-                if (!views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
+                if (views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
                     views.showInfo = true;
                     this.process.setViews(views);
                 }
@@ -390,9 +427,10 @@ export class ProductBasicInfoComponent implements OnInit {
             t = newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             this.valInputEan = newForm.form.controls.Ean;
+            const views = this.process.getViews();
+            views.showInfo = false;
+            this.process.setViews(views);
         } else {
-            // error to show
-
             this.snackBar.open('Para agregar mas hijos es necesario que el ultimo tenga todos los datos correctos', 'Cerrar', {
                 duration: 3000,
             });
@@ -439,7 +477,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public validateEanSon(): void {
-        if(this.valInputEan.value !== '') {         
+        if (this.valInputEan.value !== '') {
             this.serviceEanSon.validateEan(this.valInputEan.value).subscribe(res => {
                 // Validar si la data es un booleano para validar si exiset el Ean del hijo
                 this.validateEanSonExist = (res['data']);
@@ -492,7 +530,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
-
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
@@ -589,16 +626,93 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-     /**
-      * Funcion para somunir el listado de tallas
-      *
-      * @memberof ProductBasicInfoComponent
-      */
-     listSize() {
+    /**
+     * Funcion para somunir el listado de tallas
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    listSize() {
         this.service.getSizeProducts().subscribe(size => {
             if (size.status === 200 || size.status === 201) {
                 this.sizes = JSON.parse(size.body);
             }
         });
+    }
+    getInformationBasic(detailProduct: any) {
+        if (detailProduct) {
+            if (this.formBasicInfo && this.formBasicInfo.controls) {
+                const source = {
+                    son: [
+                        { ean: '7001114217494', size: 'M', color: 'green', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
+                        { ean: '7001114217495', size: 'S', color: 'blue', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
+                    ]
+                };
+                detailProduct = { ...detailProduct, ...source };
+                const packingData = this.formBasicInfo.controls.packing as FormGroup;
+                const productDateSize = this.formBasicInfo.controls.product as FormGroup;
+                this.formBasicInfo.controls.Name.setValue(detailProduct.name);
+                this.formBasicInfo.controls.Brand.setValue(detailProduct.brand);
+                this.formBasicInfo.controls.Model.setValue(detailProduct.model);
+                this.formBasicInfo.controls.Detail.setValue('falta detalle de producto');
+                this.formBasicInfo.controls.MeasurementUnit.setValue('Metro');
+                this.formBasicInfo.controls.ConversionFactor.setValue(100);
+                this.formBasicInfo.controls.shippingSize.setValue(detailProduct.shipping_size);
+                packingData.controls.WidthPacking.setValue(detailProduct.package_width);
+                packingData.controls.HighPacking.setValue(detailProduct.package_height);
+                packingData.controls.LongPacking.setValue(detailProduct.package_length);
+                packingData.controls.WeightPacking.setValue(detailProduct.package_weight);
+                productDateSize.controls.WidthProduct.setValue(detailProduct.item_width);
+                productDateSize.controls.HighProduct.setValue(detailProduct.item_height);
+                productDateSize.controls.LongProduct.setValue(detailProduct.item_length);
+                productDateSize.controls.WeightProduct.setValue(detailProduct.item_weight);
+                this.formBasicInfo.controls.Description.setValue(detailProduct.description);
+                this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyword.join());
+                if (detailProduct.keyword.length > 0) {
+                    this.inputRequired = false;
+                }
+                this.saveKeyword();
+                this.sendDataToService();
+                if (detailProduct.son.length > 0) {
+                    this.setChildren(detailProduct);
+                }
+            }
+        }
+    }
+
+    setChildren(detailProduct: any) {
+        if (detailProduct && detailProduct.son && detailProduct.son.length > 0) {
+            for (let i = 0; i < detailProduct.son.length; i++) {
+                const newForm = {
+                    form: new FormGroup({
+                        Ean: new FormControl(detailProduct.son[i].ean,
+                            [
+                                Validators.required, Validators.pattern(this.getValue('ean'))
+                            ]),
+                        Size: new FormControl('M',
+                            [
+                                Validators.required, Validators.pattern(this.getValue('sizeProduct'))
+                            ]),
+                        HexColorCodePDP: new FormControl('#5f1f1f',
+                            [
+                                Validators.required,
+                            ]),
+                        HexColorCodeName: new FormControl('RED',
+                            [
+                                Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
+                            ]),
+                        associateEanSon: new FormControl(false
+                        )
+                    }),
+                    Show: false,
+                    colorPick: '#5f1f1f',
+                    colorPick2: null,
+                    colorSelected: 'green'
+                };
+                let t = newForm.form.controls.HexColorCodePDP.disable();
+                t = newForm.form.controls.HexColorCodeName.enable();
+                this.sonList.push(newForm);
+                this.valInputEan = newForm.form.controls.Ean;
+            }
+        }
     }
 }

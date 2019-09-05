@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { Logger } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
 import { FormControl } from '@angular/forms';
+import { EanServicesService } from '../validate-ean/ean-services.service';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -25,6 +26,16 @@ export class SpecificationProductComponent implements OnInit {
     specificationModel = new SpecificationModel(null, null, null);
     specsForm: FormControl;
     changeForm = false;
+    _detailProduct: any;
+    idCategory: number;
+    dataSpecification: any;
+    @Input() set detailProduct(value: any) {
+        if (value) {
+            this._detailProduct = value;
+            this.idCategory = 28216;
+        }
+    }
+    @Input() ean: any;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -34,22 +45,49 @@ export class SpecificationProductComponent implements OnInit {
     constructor(
         private specificationService: SpecificationService,
         public dialog: MatDialog,
-        public processService: ProcessService) { }
+        public processService: ProcessService) {
+        this.listSpecification();
+    }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
      *
      * @memberof SpecificationProductComponent
      */
-    ngOnInit() {
+    ngOnInit() { }
+
+    listSpecification() {
         this.specsForm = new FormControl();
         if (this.processService.specsByCategory) {
             this.processService.specsByCategory.subscribe(result => {
                 if (result && result.data) {
+                    this.dataSpecification = result.data;
                     this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+                    this.setSpecification(result.data);
+                    const views = this.processService.getViews();
+                    views.showSpec = false;
+                    this.processService.setViews(views);
                 }
                 this.chargeList = true;
             });
+        }
+    }
+
+
+    setSpecification(data: any) {
+        if (this.idCategory) {
+            if (data.length > 0) {
+                let count = 0;
+                data.forEach(element => {
+                    let specf = element.categories.replace(/'/g, '"');
+                    specf = JSON.parse(specf).find(x => x === this.idCategory.toString());
+                    if (specf) {
+                        this.specificationsGroups[count].Show = true;
+                    }
+                    count++;
+                });
+            }
+
         }
     }
 
@@ -64,12 +102,9 @@ export class SpecificationProductComponent implements OnInit {
     }
 
     public validForm(form: any): void {
-        if (form !== this.changeForm) {
-            this.changeForm = form;
-            const views = this.processService.getViews();
-            views.showSpec = !form;
-            this.processService.setViews(views);
-        }
+        const views = this.processService.getViews();
+        views.showSpec = !form;
+        this.processService.setViews(views);
     }
 
     /**
@@ -216,5 +251,15 @@ export class SpecificationProductComponent implements OnInit {
         }
         this.validFeatureData();
         this.ShowSpecTitle = cont;
+    }
+
+    setValueSpefici(index: number, form: any) {
+        if (this._detailProduct) {
+            if (form && form.form) {
+                if (form.form.controls['specs' + index]) {
+                    form.controls['specs' + index].setValue('Si');
+                }
+            }
+        }
     }
 }

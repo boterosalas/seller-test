@@ -15,6 +15,13 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   public parent_image_url_arrray: any = []; // Array principal de fotos
   public children_image_url_arrray: any = []; // Array de fotos de los hijos.
   cantidadHijos: any;
+  _detailProduct: any;
+  @Input() set detailProduct(value: any) {
+    if (value) {
+        this._detailProduct = value;
+        console.log(value);
+    }
+}
 
   constructor(private fb: FormBuilder, private service: AsignateimageService, private serviceChildrens: ProcessService) {
   }
