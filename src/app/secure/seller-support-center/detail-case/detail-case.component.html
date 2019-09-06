@@ -1,4 +1,19 @@
 <app-case-toolbar (toggleFilter)="toggleFilter($event)"> </app-case-toolbar>
+
+<!-- <input
+  placeholder="file upload"
+  name="fileUploadOption"
+  type="file"
+  (change)="onFileChange($event)"
+  multiple="false"
+  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  #fileUploadOption
+/>
+ -->
+<app-upload-button [accept]="accepts" (fileChange)="onFileChange($event)">
+  SELECCIONAR ARCHIVO PARA IMPORTAR
+</app-upload-button>
+
 <mat-toolbar>
   <div class="prev-view">
     <a [routerLink]="['/securehome/seller-center/support-center']">
