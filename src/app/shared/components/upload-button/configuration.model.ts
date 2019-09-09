@@ -19,4 +19,5 @@ export interface File {
   size: number;
   type: String;
   webkitRelativePath: String;
+  base64: String;
 }

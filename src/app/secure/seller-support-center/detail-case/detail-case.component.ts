@@ -15,10 +15,6 @@ import { LoadingService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
 import { MatDialog } from '@angular/material';
-import {
-  ACCEPT_TYPE,
-  File
-} from '@app/shared/components/upload-button/configuration.model';
 
 @Component({
   selector: 'app-detail-case',
@@ -56,19 +52,6 @@ export class DetailCaseComponent implements OnInit {
     data: null
   };
   filterParams: any;
-  accepts = [
-    ACCEPT_TYPE.APPLICATION_XML,
-    ACCEPT_TYPE.IMAGE_PNG,
-    ACCEPT_TYPE.IMAGE_JPEG,
-    ACCEPT_TYPE.PDF,
-    ACCEPT_TYPE.VIDEO_AVI,
-    ACCEPT_TYPE.VIDEO_3GP,
-    ACCEPT_TYPE.VIDEO_MOV,
-    ACCEPT_TYPE.VIDEO_WMV,
-    ACCEPT_TYPE.VIDEO_MPG,
-    ACCEPT_TYPE.VIDEO_MPEG,
-    ACCEPT_TYPE.VIDEO_MP4
-  ];
 
   constructor(
     public dialog: MatDialog,
@@ -122,9 +105,5 @@ export class DetailCaseComponent implements OnInit {
     this.sellerSupportService.getAllStatusCase().subscribe(res => {
       this.options = res.data;
     });
-  }
-
-  onFileChange(event: Array<File>) {
-    console.log(event);
   }
 }
