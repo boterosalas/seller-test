@@ -30,15 +30,21 @@
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two" fxShow.xs="false">
-      <h3>EAN: {{productsExpanded.ean}}</h3>
-      <div fxFlex fxLayoutAlign="end center">
-          <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
-          (click)="editProduct(productsExpanded)">
-          <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
-        </button>
+        <div fxFlex fxLayout="row wrap" fxLayoutAlign="center start" class="max-height-list-product"
+        style="max-height: 20px ; margin-bottom: -24px;">
+        <div fxFlex>
+          <h3>EAN: {{productsExpanded.ean}}</h3>
+        </div>
+        <div  fxFlex fxLayoutAlign="end center" style="height: 44px">
+            <button class="button-edit" type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
+            (click)="editProduct(productsExpanded)">
+            <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
+          </button>
+        </div>
       </div>
-
-      <p class="title divider-two">{{productsExpanded.name}}</p>
+    </div>
+    <div>
+        <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
       <p> <span class="color-gray">Fecha de creación:</span>  {{productsExpanded.createdDate}}</p>

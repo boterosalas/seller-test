@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
 import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatStepper } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { Const, RoutesConst, UserInformation } from '@app/shared';
@@ -16,12 +16,13 @@ import { ListProductService } from '../../list-products/list-products.service';
   styleUrls: ['./component-process.component.scss']
 })
 export class ComponentProcessComponent implements OnInit {
-  isLinear = false;
+  // isLinear = false;
   /* eanCtrl: FormGroup;
   categoryCtrl: FormGroup;
   basicInfoCtrl: FormGroup;
   especificCtrl: FormGroup;
   imageCtrl: FormGroup; */
+  isLinear = true;
   eanFormGroup: FormGroup;
   categoryFormGroup: FormGroup;
   basicInfoFormGroup: FormGroup;
@@ -34,9 +35,12 @@ export class ComponentProcessComponent implements OnInit {
   modalService: any;
   constantes = new Const();
   saving = false;
+  editFirstStep = true;
   public user: UserInformation;
   @Input() ean: string;
   detailProduct: any;
+  editProduct = false;
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -84,11 +88,15 @@ export class ComponentProcessComponent implements OnInit {
 
   getDetailProduct() {
     if (this.ean) {
+      this.stepper.selectedIndex = 1;
       this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
         if (result) {
           this.detailProduct = result.data.list;
         }
       });
+    } else {
+      this.stepper.selectedIndex = 0;
+      this.isLinear = true;
     }
 
   }
@@ -124,6 +132,9 @@ export class ComponentProcessComponent implements OnInit {
 
   public stepClick(event: any): void {
     try {
+      if (event && event.previouslySelectedStep && event.previouslySelectedStep.completed !== true ) {
+        event.previouslySelectedStep.completed = true;
+      }
       if (event && event.selectedIndex === 2) {
         document.getElementsByClassName('mat-horizontal-content-container')[0].scrollTop = 0;
       }
@@ -158,6 +169,11 @@ export class ComponentProcessComponent implements OnInit {
       this.imageFormGroup.controls.imageCtrl.setValue('1');
     } else if (!this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue(null);
+    }
+    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid ){
+      this.isLinear = false;
+    } else {
+      this.isLinear = true;
     }
 
   }

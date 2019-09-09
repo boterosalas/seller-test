@@ -2,8 +2,8 @@
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
 <div class="height-full">
-<mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
-  <mat-step [stepControl]="eanFormGroup">
+<mat-horizontal-stepper [linear]="isLinear"  #stepper  class="process__container height-full" (selectionChange)="stepClick($event)">
+  <mat-step [stepControl]="eanFormGroup" [editable]="!eanFormGroup.valid" [completed] ="eanFormGroup.valid">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
       <app-validate-ean [ean]="ean"></app-validate-ean>
@@ -20,17 +20,17 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="basicInfoFormGroup">
+  <mat-step [stepControl]="basicInfoFormGroup" [completed] ="ean">
     <form [formGroup]="basicInfoFormGroup">
       <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
-      <app-basic-information [detailProduct]="detailProduct"></app-basic-information>
+      <app-basic-information [detailProduct]="detailProduct" ></app-basic-information>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
         <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">Continuar</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="especificFormGroup">
+  <mat-step [stepControl]="especificFormGroup" [completed] ="ean">
     <form [formGroup]="especificFormGroup">
       <ng-template matStepLabel>Especificaciones</ng-template>
       <app-specification-product [detailProduct]="detailProduct" [ean]="ean"></app-specification-product>
@@ -40,7 +40,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="imageFormGroup">
+  <mat-step [stepControl]="imageFormGroup" [completed] ="ean">
     <form [formGroup]="imageFormGroup">
       <ng-template matStepLabel>Im&aacute;genes</ng-template>
       <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
