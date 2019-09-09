@@ -2,7 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
-import { of } from 'rxjs';
+import { of, observable } from 'rxjs';
 
 
 /**
@@ -362,7 +362,10 @@ export class ProcessService {
      */
     public saveInformationUnitreation(): Observable<{}> {
         this.sendFieldMeta();
-        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
+        return new Observable(observer => {
+            observer.next(this.productData);
+        });
+        // return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 
     resetProduct() {

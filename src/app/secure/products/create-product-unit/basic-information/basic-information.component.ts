@@ -460,6 +460,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public deleteSon(index: number): void {
         this.sonList.splice(index, 1);
+        this.sendDataToService();
     }
 
     public valdiateInfoBasic(): void {
@@ -639,15 +640,22 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
     getInformationBasic(detailProduct: any) {
+        console.log(detailProduct);
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
-                const source = {
-                    son: [
-                        { ean: '7001114217494', size: 'M', color: 'green', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
-                        { ean: '7001114217495', size: 'S', color: 'blue', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
-                    ]
-                };
-                detailProduct = { ...detailProduct, ...source };
+                if (this.productData.ProductType === 'Cloting') {
+                    const source = {
+                        son: [
+                            { ean: '7001114217494', size: 'M', color: 'green', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
+                            { ean: '7001114217495', size: 'S', color: 'blue', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
+                        ]
+                    };
+                    detailProduct = { ...detailProduct, ...source };
+                    if ( detailProduct.son && detailProduct.son.length > 0) {
+                        this.setChildren(detailProduct);
+                    }
+
+                }
                 const packingData = this.formBasicInfo.controls.packing as FormGroup;
                 const productDateSize = this.formBasicInfo.controls.product as FormGroup;
                 this.formBasicInfo.controls.Name.setValue(detailProduct.name);
@@ -671,10 +679,8 @@ export class ProductBasicInfoComponent implements OnInit {
                     this.inputRequired = false;
                 }
                 this.saveKeyword();
+               
                 this.sendDataToService();
-                if (detailProduct.son.length > 0) {
-                    this.setChildren(detailProduct);
-                }
             }
         }
     }

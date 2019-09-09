@@ -168,27 +168,28 @@ export class ComponentProcessComponent implements OnInit {
    * @memberof ComponentProcessComponent
    */
   saveInformationCreation() {
-    this.loadingService.viewSpinner();
-    // call to the bulk load product service
-    if (!this.saving) {
-      this.saving = true;
+    // this.loadingService.viewSpinner();
+    // // call to the bulk load product service
+    // if (!this.saving) {
+    //   this.saving = true;
       this.process.saveInformationUnitreation().subscribe(result => {
-        const data = result;
-        this.loadingService.closeSpinner();
-        this.saving = false;
-        if (data['data'] !== null && data['data'] !== undefined) {
-          if (data['data'].error === 0) {
-            this.process.resetProduct();
-          }
-          this.openDialogSendOrder2(data);
-        } else {
-          this.modalService.showModal('errorService');
-        }
-      }, error => {
-        this.saving = false;
-        this.loadingService.closeSpinner();
+        // console.log(result);
+    //     const data = result;
+    //     this.loadingService.closeSpinner();
+    //     this.saving = false;
+    //     if (data['data'] !== null && data['data'] !== undefined) {
+    //       if (data['data'].error === 0) {
+    //         this.process.resetProduct();
+    //       }
+    //       this.openDialogSendOrder2(data);
+    //     } else {
+    //       this.modalService.showModal('errorService');
+    //     }
+    //   }, error => {
+    //     this.saving = false;
+    //     this.loadingService.closeSpinner();
       });
-    }
+    // }
   }
 
   /**

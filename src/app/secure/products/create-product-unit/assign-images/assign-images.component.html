@@ -9,7 +9,7 @@
 </div>
 
 <div class="imageParent" *ngIf="children === 0">
-  <app-compo-images (toPpal)="setParentArray($event)"></app-compo-images>
+  <app-compo-images (toPpal)="setParentArray($event)" [arrayImageDadTecnology]="arrayImageDadTecnology"></app-compo-images>
 </div>
 
 <mat-divider></mat-divider>
@@ -22,7 +22,7 @@
 </div>
 -->
 <div class="imageChilds">
-  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index">
+  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index" >
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -30,7 +30,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div>
-        <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
+        <app-compo-images (toPpal)="setChildrenArray($event, i)" [arrayImageDadClothing]="arrayImageDadClothing[i]" ></app-compo-images>
       </div>
   </mat-expansion-panel>
 </mat-accordion>
