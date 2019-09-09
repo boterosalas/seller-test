@@ -15,7 +15,7 @@ _arrayImageDadClothing: any = ['', '', '', '', ''];
         this._arrayImageDadClothing = value;
     }
 }
-_arrayImageDadTecnology: any;
+_arrayImageDadTecnology: any = ['', '', '', '', ''];
 
 @Input() set arrayImageDadTecnology(value: any){
     if (value) {

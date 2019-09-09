@@ -640,10 +640,8 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
     getInformationBasic(detailProduct: any) {
-        console.log(detailProduct);
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
-                if (this.productData.ProductType === 'Cloting') {
                     const source = {
                         son: [
                             { ean: '7001114217494', size: 'M', color: 'green', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
@@ -654,8 +652,6 @@ export class ProductBasicInfoComponent implements OnInit {
                     if ( detailProduct.son && detailProduct.son.length > 0) {
                         this.setChildren(detailProduct);
                     }
-
-                }
                 const packingData = this.formBasicInfo.controls.packing as FormGroup;
                 const productDateSize = this.formBasicInfo.controls.product as FormGroup;
                 this.formBasicInfo.controls.Name.setValue(detailProduct.name);
@@ -679,7 +675,6 @@ export class ProductBasicInfoComponent implements OnInit {
                     this.inputRequired = false;
                 }
                 this.saveKeyword();
-               
                 this.sendDataToService();
             }
         }
