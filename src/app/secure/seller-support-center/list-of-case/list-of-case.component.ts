@@ -89,7 +89,9 @@ export class ListOfCaseComponent implements OnInit {
 
   filterByRoute(queryParams: Observable<any>): Observable<any> {
     return queryParams.pipe(
-      map(res => (res.Status ? res : { ...res, init: true }))
+      map((res: any) =>
+        res.Status && res.Status.length > 0 ? res : { ...res, init: true }
+      )
     );
   }
 
