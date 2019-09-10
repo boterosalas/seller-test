@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { SearchService } from '../search.component.service';
-import { Logger } from '@app/core';
+import { Logger, LoadingService } from '@app/core';
 import { CategoryModel } from './category.model';
 import { ProcessService } from '../../component-process/component-process.service';
 import { Subscription } from 'rxjs';
@@ -36,6 +36,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
             this.selectedCategoryCurrent(null);
         }
     }
+    @Input() ean: any;
 
     subs: Subscription = new Subscription();
 
@@ -48,6 +49,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
         private searchService: SearchService,
         private process: ProcessService,
         private snackBar: MatSnackBar,
+        private loadingService?: LoadingService,
         ) { }
 
     /**
@@ -90,6 +92,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     }
 
     selectedCategoryCurrent(detailProduct: any) {
+        this.loadingService.viewSpinner();
         if (detailProduct) {
             // this.selectedCategory = 'Pantalones';
             // this.selectedIdCategory = 28033;
@@ -222,11 +225,14 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
+           
             if (result.status === 200) {
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
+                this.loadingService.closeSpinner();
             } else {
+                this.loadingService.closeSpinner();
                 log.debug('ListCategorizationComponent:' + result.message);
             }
         });
@@ -252,6 +258,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
                 }
             }
             this.finishCharge = true;
+           
         }
     }
 

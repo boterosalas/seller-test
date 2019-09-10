@@ -3,7 +3,7 @@
 </button> -->
 <div class="height-full">
 <mat-horizontal-stepper [linear]="isLinear"  #stepper  class="process__container height-full" (selectionChange)="stepClick($event)">
-  <mat-step [stepControl]="eanFormGroup" [editable]="!eanFormGroup.valid" [completed] ="eanFormGroup.valid">
+  <mat-step [stepControl]="eanFormGroup" [editable]="editFirstStep" [completed] ="eanFormGroup.valid">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
       <app-validate-ean [ean]="ean"></app-validate-ean>
@@ -13,7 +13,7 @@
   <mat-step [stepControl]="categoryFormGroup">
     <form [formGroup]="categoryFormGroup">
       <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
-      <app-search-categorization [detailProduct]="detailProduct"></app-search-categorization>
+      <app-search-categorization [detailProduct]="detailProduct" [ean]="ean"></app-search-categorization>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
         <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">Continuar</button>

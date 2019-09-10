@@ -89,6 +89,8 @@ export class ComponentProcessComponent implements OnInit {
   getDetailProduct() {
     if (this.ean) {
       this.stepper.selectedIndex = 1;
+      this.editFirstStep = false;
+      this.isLinear = false;
       this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
         if (result) {
           this.detailProduct = result.data.list;
@@ -97,6 +99,7 @@ export class ComponentProcessComponent implements OnInit {
     } else {
       this.stepper.selectedIndex = 0;
       this.isLinear = true;
+      this.editFirstStep = true;
     }
 
   }

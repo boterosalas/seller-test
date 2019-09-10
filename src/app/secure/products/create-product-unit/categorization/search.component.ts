@@ -36,6 +36,7 @@ export class SearchCategorizationComponent implements OnInit {
             this._detailProduct = value;
         }
     }
+    @Input() ean: any;
 
     /**
      * Creates an instance of SearchCategorizationComponent.
