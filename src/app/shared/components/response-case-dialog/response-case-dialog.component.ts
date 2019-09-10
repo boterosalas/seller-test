@@ -45,20 +45,22 @@ export class ResponseCaseDialogComponent {
   }
 
   submitResponse() {
-    this.response.id = this.data.id;
-    this.dialogRef.close({ data: this.response });
+    this.dialogRef.close({
+      data: {
+        ...this.response,
+        id: this.data.id
+      }
+    });
     this.dialogRef.afterClosed().subscribe(res => {});
   }
 
-  onFileChange(event: Array<File>) {
-    const filesSelected = event.map(
-      (att: File): Attachment => ({
-        name: att.name,
-        type: att.type,
-        base64: att.base64
-      })
-    );
-    this.attachments = this.attachments.concat(filesSelected);
+  onFileChange(file: any) {
+    console.log(file);
+    /* this.response.attachments.push({
+      name: file.name,
+      type: file.type,
+      base64: file.base64
+    }); */
   }
 }
 
