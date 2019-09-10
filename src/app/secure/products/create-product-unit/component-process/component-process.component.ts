@@ -9,6 +9,7 @@ import { Const, RoutesConst, UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, UserLoginService } from '@app/core';
 import { ListProductService } from '../../list-products/list-products.service';
+import { EanServicesService } from '../validate-ean/ean-services.service';
 
 @Component({
   selector: 'app-component-process',
@@ -29,7 +30,7 @@ export class ComponentProcessComponent implements OnInit {
   especificFormGroup: FormGroup;
   imageFormGroup: FormGroup;
   options: FormGroup;
-  isOptional = false;
+  isOptional = true;
   views: any;
   children_created: any = 0;
   modalService: any;
@@ -49,6 +50,7 @@ export class ComponentProcessComponent implements OnInit {
     public router: Router,
     public userParams: UserParametersService,
     private productsService: ListProductService,
+    private service: EanServicesService,
     public userService: UserLoginService) {
     this.options = fb.group({
       hideRequired: false,
@@ -91,11 +93,23 @@ export class ComponentProcessComponent implements OnInit {
       this.stepper.selectedIndex = 1;
       this.editFirstStep = false;
       this.isLinear = false;
-      this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
-        if (result) {
-          this.detailProduct = result.data.list;
+      this.service.validateEan(this.ean).subscribe(res => {
+        if (res['data']) {
+           this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
+          if (result && result.data.list.brand) {
+            this.detailProduct = result.data.list;
+          }
+        });
+        } else {
+          this.detailProduct = null;
+          this.router.navigate([`/`]);
         }
       });
+      // this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
+      //   if (result) {
+      //     this.detailProduct = result.data.list;
+      //   }
+      // });
     } else {
       this.stepper.selectedIndex = 0;
       this.isLinear = true;

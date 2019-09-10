@@ -644,8 +644,8 @@ export class ProductBasicInfoComponent implements OnInit {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
                     const source = {
                         son: [
-                            { ean: '7001114217494', size: 'M', color: 'green', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
-                            { ean: '7001114217495', size: 'S', color: 'blue', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
+                            { ean: '7001114217494', size: 'M', color: 'Verde', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
+                            { ean: '7001114217495', size: 'S', color: 'Azul', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
                         ]
                     };
                     detailProduct = { ...detailProduct, ...source };
@@ -670,9 +670,12 @@ export class ProductBasicInfoComponent implements OnInit {
                 productDateSize.controls.LongProduct.setValue(detailProduct.item_length);
                 productDateSize.controls.WeightProduct.setValue(detailProduct.item_weight);
                 this.formBasicInfo.controls.Description.setValue(detailProduct.description);
-                this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyword.join());
-                if (detailProduct.keyword.length > 0) {
+                if ( detailProduct.keyword && detailProduct.keyword.length > 0) {
+                    this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyword.join());
                     this.inputRequired = false;
+                } else {
+                    this.formBasicInfo.controls.Keyword.setValue(null);
+                    this.inputRequired = true;
                 }
                 this.saveKeyword();
                 this.sendDataToService();
@@ -707,7 +710,7 @@ export class ProductBasicInfoComponent implements OnInit {
                     Show: false,
                     colorPick: '#5f1f1f',
                     colorPick2: null,
-                    colorSelected: 'green'
+                    colorSelected: 'Verde'
                 };
                 let t = newForm.form.controls.HexColorCodePDP.disable();
                 t = newForm.form.controls.HexColorCodeName.enable();

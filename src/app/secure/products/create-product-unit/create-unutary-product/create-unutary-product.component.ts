@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./create-unutary-product.component.scss']
 })
 export class CreateUnutaryProductComponent implements OnInit {
-  ean: number;
+  ean: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -17,7 +17,7 @@ export class CreateUnutaryProductComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if ( params['ean'] != null) {
-        this.ean = +params['ean'];
+        this.ean = params['ean'];
       }
     });
   }

@@ -94,24 +94,24 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     selectedCategoryCurrent(detailProduct: any) {
         this.loadingService.viewSpinner();
         if (detailProduct) {
-            // this.selectedCategory = 'Pantalones';
-            // this.selectedIdCategory = 28033;
-            // this.idDetailProduct = 28033;
-            // this.productType = 'Clothing';
-            // const data = {
-            //     CategorySelected: 28033,
-            //     CategoryName: 'Pantalones',
-            //     CategoryType: 'Clothing'
-            // };
-            this.selectedCategory = 'Televisores 4K Uhd';
-            this.selectedIdCategory = 28052;
-            this.idDetailProduct = 28052;
-            this.productType = 'Technology';
+            this.selectedCategory = 'Pantalones';
+            this.selectedIdCategory = 28033;
+            this.idDetailProduct = 28033;
+            this.productType = 'Clothing';
             const data = {
-                CategorySelected: 28052,
-                CategoryName: 'Televisores 4K Uhd',
-                CategoryType: 'Technology'
+                CategorySelected: 28033,
+                CategoryName: 'Pantalones',
+                CategoryType: 'Clothing'
             };
+            // this.selectedCategory = 'Televisores 4K Uhd';
+            // this.selectedIdCategory = 28052;
+            // this.idDetailProduct = 28052;
+            // this.productType = 'Technology';
+            // const data = {
+            //     CategorySelected: 28052,
+            //     CategoryName: 'Televisores 4K Uhd',
+            //     CategoryType: 'Technology'
+            // };
             this.process.validaData(data);
             this.getCategoriesList();
         } else {
@@ -225,7 +225,6 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
             // guardo el response
-           
             if (result.status === 200) {
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;

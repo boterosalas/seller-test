@@ -2,15 +2,15 @@
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
 <div class="height-full">
-<mat-horizontal-stepper [linear]="isLinear"  #stepper  class="process__container height-full" (selectionChange)="stepClick($event)">
-  <mat-step [stepControl]="eanFormGroup" [editable]="editFirstStep" [completed] ="eanFormGroup.valid">
+<mat-horizontal-stepper linear  #stepper  class="process__container height-full" (selectionChange)="stepClick($event)">
+  <mat-step [stepControl]="eanFormGroup" [optional]="isOptional" [editable]="editFirstStep" [completed] ="eanFormGroup.valid">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>EAN</ng-template>
       <app-validate-ean [ean]="ean"></app-validate-ean>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="categoryFormGroup">
+  <mat-step [stepControl]="categoryFormGroup" [optional]="isOptional">
     <form [formGroup]="categoryFormGroup">
       <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
       <app-search-categorization [detailProduct]="detailProduct" [ean]="ean"></app-search-categorization>
