@@ -48,6 +48,7 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
+    public validateNumberOrder: boolean;
 
     constructor(
         public SUPPORT: SupportService,
@@ -335,7 +336,6 @@ export class OfertExpandedProductComponent implements OnInit {
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
             Currency: this.ofertProduct.controls.Currency.value,
         };
-
         let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
@@ -463,11 +463,11 @@ export class OfertExpandedProductComponent implements OnInit {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
             this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
             this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-          } else {
+        } else {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
             this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
             this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
-          }
+        }
     }
 
     // Funcion para cargar datos de regex
@@ -485,7 +485,7 @@ export class OfertExpandedProductComponent implements OnInit {
         });
     }
 
-    notifyEvent(value) {
+    notifyEvent(value: any) {
         switch (value.toString()) {
             case 'IsFreeShipping':
                 const radioIsFreeShipping = document.getElementById('isFreeShipping');
@@ -512,5 +512,20 @@ export class OfertExpandedProductComponent implements OnInit {
                 }
                 break;
         }
+    }
+
+
+    validatePromiseDeliveri() {
+        const promiseDeliExample = this.ofertProduct.controls.PromiseDelivery.value;
+        const tes_splitted = promiseDeliExample.split(/\s(a|-|to)\s/);
+        const result = tes_splitted[0] + ' a ' + tes_splitted[2];
+        this.validateNumberOrder = Number(tes_splitted[2]) > Number(tes_splitted[0]);
+        if (this.validateNumberOrder === true) {
+        } else {
+            this.snackBar.open('El primer número no debe ser mayor al segundo', 'Cerrar', {
+                duration: 3000,
+            });
+        }
+        console.log('result: ', result);
     }
 }
