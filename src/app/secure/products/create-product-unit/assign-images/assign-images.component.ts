@@ -21,31 +21,34 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   @Input() set detailProduct(value: any) {
     if (value) {
       this._detailProduct = value;
+      const userArray = false;
 
-      this.arrayImageDadTecnology = [
-        'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-        'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-        'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-        'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-        'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-      ];
-
-      this.arrayImageDadClothing = [
-        [
+      if ( userArray) {
+        this.arrayImageDadTecnology = [
           'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
           'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
           'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
           'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
-        ],
-        [
           'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          // 'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
-        ]
-      ];
+        ];
+      } else {
+        this.arrayImageDadClothing = [
+          [
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
+          ],
+          [
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            // 'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
+          ]
+        ];
+      }
     }
   }
 

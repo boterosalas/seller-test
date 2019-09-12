@@ -10,12 +10,13 @@ export class CompoImagesComponent implements OnInit {
 public urlArrayDad: any = ['', '', '', '', ''];
 @Output() toPpal = new EventEmitter();
 _arrayImageDadClothing: any = ['', '', '', '', ''];
+_arrayImageDadTecnology: any = ['', '', '', '', ''];
 @Input() set arrayImageDadClothing (value: any){
     if (value) {
         this._arrayImageDadClothing = value;
     }
 }
-_arrayImageDadTecnology: any = ['', '', '', '', ''];
+
 
 @Input() set arrayImageDadTecnology(value: any){
     if (value) {

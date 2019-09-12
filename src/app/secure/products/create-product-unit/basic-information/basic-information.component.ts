@@ -131,6 +131,9 @@ export class ProductBasicInfoComponent implements OnInit {
                         views.showInfo = false;
                         this.process.setViews(views);
                     } else {
+                        // BORRAR ESTA LINEA
+                        this._detailProduct.category = this.productData.CategoryName;
+                        //
                         if (this._detailProduct.category !== this.productData.CategoryName) {
                             this.sonList = [];
                             const views = this.process.getViews();
@@ -644,8 +647,8 @@ export class ProductBasicInfoComponent implements OnInit {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
                     const source = {
                         son: [
-                            { ean: '7001114217494', size: 'M', color: 'Verde', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
-                            { ean: '7001114217495', size: 'S', color: 'Azul', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
+                            { ean: '7001114217466', size: 'M', color: 'Verde', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
+                            { ean: '7001114217560', size: 'S', color: 'Azul', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
                         ]
                     };
                     detailProduct = { ...detailProduct, ...source };

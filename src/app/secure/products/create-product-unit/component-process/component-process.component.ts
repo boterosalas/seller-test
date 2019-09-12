@@ -105,11 +105,6 @@ export class ComponentProcessComponent implements OnInit {
           this.router.navigate([`/`]);
         }
       });
-      // this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
-      //   if (result) {
-      //     this.detailProduct = result.data.list;
-      //   }
-      // });
     } else {
       this.stepper.selectedIndex = 0;
       this.isLinear = true;
