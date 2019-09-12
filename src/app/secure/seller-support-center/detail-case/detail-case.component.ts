@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of, from } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaseDetailResponse } from '../models/case-detail-response.model';
 import { LoadingService } from '@app/core';

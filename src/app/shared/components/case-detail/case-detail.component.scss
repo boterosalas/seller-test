@@ -47,6 +47,23 @@ $hint-color: #9e9e9e;
     }
   }
 
+  &__icon {
+    font-size: 18px;
+  }
+
+  &__attachments {
+    margin-bottom: 24px;
+    &-files {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__attach {
+    padding: 4px;
+    display: block;
+  }
+
   &--bottom-space {
     margin-bottom: 21px;
   }

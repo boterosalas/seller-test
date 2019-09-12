@@ -36,14 +36,14 @@
       </ng-container>
     </app-conversation>
 
-    <div
-      class="ticket-content__controls ticket-content__controls--left"
-    >
+    <div class="ticket-content__controls ticket-content__controls--left">
       <button
         [disabled]="disabled"
         (click)="openResponseDialog()"
         class="mat-raised-button ticket-content__button ticket-content__button--secondary"
-        [ngClass]="disabledClass ? 'ticket-content__button--secondary-disabled' : ''"
+        [ngClass]="
+          disabledClass ? 'ticket-content__button--secondary-disabled' : ''
+        "
       >
         RESPONDER
       </button>
