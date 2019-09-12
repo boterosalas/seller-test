@@ -37,7 +37,7 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>local_shipping</mat-icon>
-        <input matInput placeholder="Promesa de entrega" formControlName="PromiseDelivery" [errorStateMatcher]="matcher">
+        <input matInput placeholder="Promesa de entrega" formControlName="PromiseDelivery" [errorStateMatcher]="matcher" (onblur)="validatePromiseDeliveri()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">Promesa de entrega inválido</mat-error>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">Promesaes campo obligatorio</mat-error>
@@ -131,6 +131,6 @@
 
   <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
     <button mat-stroked-button color="primary" type="button" [innerHTML]="'Cancelar'" (click)="cleanFilter()"></button>
-    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"  [disabled]="!createOfertExpandetProduct.form.valid || showButton === true" (click)="sendDataToService()"></button>
+    <button mat-flat-button color="primary" type="submit" [innerHTML]="'Ofertar'"  [disabled]="!createOfertExpandetProduct.form.valid || showButton === true || validateNumberOrder === false" (click)="sendDataToService()"></button>
   </div>
 </form>
