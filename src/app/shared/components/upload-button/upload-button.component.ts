@@ -21,7 +21,7 @@ export class UploadButtonComponent {
       .pipe(map((file: File) => [...this.attachments, file]))
       .subscribe(
         (filesB64: Array<File>) => (this.attachments = filesB64),
-        error => console.log(error),
+        error => error,
         () => this.fileChange.emit(this.attachments)
       );
   }

@@ -4,6 +4,8 @@ import {
   ACCEPT_TYPE,
   File
 } from '@app/shared/components/upload-button/configuration.model';
+import { from } from 'rxjs';
+import { map, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-case-modal',
@@ -16,8 +18,6 @@ export class ResponseCaseDialogComponent {
     description: null,
     attachments: new Array<Attachment>()
   };
-
-  attachments: Array<Attachment>;
 
   accepts = [
     ACCEPT_TYPE.APPLICATION_XML,
@@ -36,9 +36,7 @@ export class ResponseCaseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ResponseCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    this.attachments = new Array<Attachment>();
-  }
+  ) {}
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -54,13 +52,22 @@ export class ResponseCaseDialogComponent {
     this.dialogRef.afterClosed().subscribe(res => {});
   }
 
-  onFileChange(file: any) {
-    console.log(file);
-    /* this.response.attachments.push({
-      name: file.name,
-      type: file.type,
-      base64: file.base64
-    }); */
+  onFileChange(files: Array<File>) {
+    from(files)
+      .pipe(
+        map(
+          (file: File): Attachment => ({
+            name: file.name,
+            type: file.type,
+            base64: file.base64
+          })
+        ),
+        toArray()
+      )
+      .subscribe(
+        (attachments: Array<Attachment>) =>
+          (this.response.attachments = attachments)
+      );
   }
 }
 
