@@ -252,6 +252,7 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
+    // Se borra esta linea o se comenta cuando se despliegue MPI
     this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
@@ -265,21 +266,21 @@ export class DetailOfferComponent {
   }
 
   validateOffertType(val: any) {
-      if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
-        this.formUpdateOffer.get('IsFreeShipping').setValue(0);
-        this.formUpdateOffer.get('IsEnviosExito').setValue(0);
-        this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
-        this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
-        this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
-        this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
-        this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
-        this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
-      } else {
-        !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
-        !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
-        !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
-        !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
-      }
+    if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
+      this.formUpdateOffer.get('IsFreeShipping').setValue(0);
+      this.formUpdateOffer.get('IsEnviosExito').setValue(0);
+      this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
+      this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
+      this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
+      this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
+      this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+      this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
+    } else {
+      !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
+      !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
+      !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+      !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
+    }
   }
 
   /**
@@ -447,8 +448,7 @@ export class DetailOfferComponent {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        }
-         else {
+        } else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];

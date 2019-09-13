@@ -4,7 +4,9 @@ phases:
 
   install:
     commands:
+      - sudo apt-get clean
       - sudo apt-get update
+      - sudo apt-get install dpkg
       - sudo apt-get install -y libappindicator1 fonts-liberation
       - sudo apt-get install -y libgconf2-4 libnss3-1d libxss1 libasound2
       - sudo apt-get install -y xdg-utils
