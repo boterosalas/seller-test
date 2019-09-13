@@ -4,8 +4,8 @@
         <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
             <!-- Titulo del toolbar -->
             <p class="tree-title">
-                {{'secure.seller.contracts.lb_title_toolbar' | I18N | async}}
-                <small class="sub-title">| {{'secure.seller.contracts.lb_subtitle_toolbar' | I18N | async}}</small>
+                {{'secure.seller.contracts.lb_title_toolbar' | translate}}
+                <small class="sub-title">| {{'secure.seller.contracts.lb_subtitle_toolbar' | translate}}</small>
             </p>
 
             <!-- Componente para realizar la busqueda de una tienda -->
@@ -21,19 +21,19 @@
         <div class="icon-face">
             <mat-icon>face</mat-icon>
         </div>
-        <p class="icon-face-text">{{'secure.seller.manage.txt_serch_seller' | I18N | async}}</p>
+        <p class="icon-face-text">{{'secure.seller.manage.txt_serch_seller' | translate}}</p>
     </div>
 
     <div *ngIf="sellerData && !agreementsSeller.length">
         <div class="icon-face">
             <mat-icon>insert_drive_file</mat-icon>
         </div>
-        <p class="icon-face-text">{{'secure.seller.contracts.txt_no_contract_seller' | I18N | async}}</p>
+        <p class="icon-face-text">{{'secure.seller.contracts.txt_no_contract_seller' | translate}}</p>
     </div>
 
     <div *ngIf="sellerData && agreementsSeller.length" class="agreement">
         <div class="agreement-title">
-            <p>{{'shared.name' | I18N | async}}</p>
+            <p>{{'shared.name' | translate}}</p>
         </div>
         <div *ngFor="let agreement of agreementsSeller" fxLayout="row" fxLayoutAlign="space-between center" class="list-agreement">
             <div fxLayoutAlign="start center" fxLayout="row" class="width-80">

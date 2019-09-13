@@ -9,14 +9,14 @@
     <div *ngIf="Success && !inProcess && data.successText">
       <h3 class="succes-string" mat-subheader>
         <mat-icon>check</mat-icon>
-        {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | I18N | async}}
+        {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
       </h3>
     </div>
     <div *ngIf="!Success && !inProcess && data.failText">
       <h4 class="error-string" mat-subheader>
         <mat-icon>warning</mat-icon>
-        {{'secure.offers.bulk_upload.finish_upload_information.error_upload' | I18N | async}} {{countError}}
-        {{'secure.offers.bulk_upload.finish_upload_information.error_upload_2' | I18N | async}}
+        {{'secure.offers.bulk_upload.finish_upload_information.error_upload' | translate}} {{countError}}
+        {{'secure.offers.bulk_upload.finish_upload_information.error_upload_2' | translate}}
       </h4>
     </div>
     <mat-divider></mat-divider>
@@ -26,8 +26,8 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let error of listError">
           <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-          <h4 matLine>{{'secure.offers.historical_admin.components.filter.EAN' | I18N | async}}: {{error.Ean}}</h4>
-          <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | I18N | async}}:
+          <h4 matLine>{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: {{error.Ean}}</h4>
+          <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
             {{error.Message}}</p>
         </mat-list-item>
       </mat-nav-list>
@@ -37,12 +37,12 @@
   <div>
     <mat-dialog-actions align="center">
       <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
-        mat-dialog-close>{{'actions.close' | I18N | async}}</button>
+        mat-dialog-close>{{'actions.close' | translate}}</button>
       <button id="export-to-excel-button" *ngIf="countError > 0" mat-raised-button color="primary"
-        (click)="exportAsExcelFile(listError,'OffersLog')">{{'actions.export_excel' | I18N | async}}
+        (click)="exportAsExcelFile(listError,'OffersLog')">{{'actions.export_excel' | translate}}
       </button>
       <button id="close-finish-upload-button" *ngIf="inProcess" mat-raised-button color="primary"
-        [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'actions.go_to_start' | I18N | async}}</button>
+        [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'actions.go_to_start' | translate}}</button>
     </mat-dialog-actions>
   </div>
 </div>

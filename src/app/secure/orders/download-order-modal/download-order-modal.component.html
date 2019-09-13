@@ -1,22 +1,22 @@
 <div *ngIf="myform">
-  <h2 mat-dialog-title>{{'secure.orders.download_order_modal.title' | I18N | async}}
-    <span *ngIf="!billingType"> {{'secure.orders.download_order_modal.title_2' | I18N | async}} </span>
-    <span *ngIf="billingType"> {{'secure.orders.download_order_modal.title_3' | I18N | async}} </span>
-    {{'secure.orders.download_order_modal.title_4' | I18N | async}}</h2>
+  <h2 mat-dialog-title>{{'secure.orders.download_order_modal.title' | translate}}
+    <span *ngIf="!billingType"> {{'secure.orders.orders' | translate}} </span>
+    <span *ngIf="billingType"> {{'secure.orders.download_order_modal.title_3' | translate}} </span>
+    {{'secure.orders.download_order_modal.title_4' | translate}}</h2>
   <mat-dialog-content>
     <form #f="ngForm" [formGroup]="myform" class="form-login">
       <div fxLayout="column" fxLayoutGap="20px">
         <div fxLayout="row" fxFlex="100">
           <mat-form-field fxFlex="100" class="input-style">
-            <input name="email" formControlName="email" matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | I18N | async" type="email" required>
+            <input name="email" formControlName="email" matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate" type="email" required>
 
             <!-- dirty: si el campo cambia -->
             <button disabled="{{!f.form.dirty}}" matSuffix type="button" color="primary" mat-icon-button (click)="createForm()">
-              <mat-icon [matTooltip]="'secure.offers.historical_admin.download_historical.tooltip_email' | I18N | async" matTooltipPosition="below" matSuffix>
+              <mat-icon [matTooltip]="'secure.offers.historical_admin.download_historical.tooltip_email' | translate" matTooltipPosition="below" matSuffix>
                 autorenew
               </mat-icon>
             </button>
-            <mat-error>{{'errors.email_required' | I18N | async}}</mat-error>
+            <mat-error>{{'errors.email_required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -24,11 +24,11 @@
   </mat-dialog-content>
   <mat-dialog-actions class="dialog-buttons">
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | I18N | async}}</button>
+    <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | translate}}</button>
 
     <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">
-      <span *ngIf="!billingType">{{'secure.orders.download_order_modal.btn_send_order' | I18N | async}}</span>
-      <span *ngIf="billingType">{{'secure.orders.download_order_modal.btn_send_invoice' | I18N | async}} </span>
+      <span *ngIf="!billingType">{{'secure.orders.download_order_modal.btn_send_order' | translate}}</span>
+      <span *ngIf="billingType">{{'secure.orders.download_order_modal.btn_send_invoice' | translate}} </span>
     </button>
   </mat-dialog-actions>
 </div>

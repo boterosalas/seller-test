@@ -11,7 +11,7 @@ import {
   UserParametersService,
   LoadingService
 } from '@app/core';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('DownloadHistoricalComponent');
@@ -60,7 +60,7 @@ export class DownloadHistoricalModalComponent implements OnInit {
     private fb: FormBuilder,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // Capturo el limite de registros indicados por el usuario
@@ -117,16 +117,16 @@ export class DownloadHistoricalModalComponent implements OnInit {
       .subscribe(
         res => {
           if (res != null) {
-            this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_succes'),
-            this.languageService.getValue('actions.close'), 10000);
+            this.componentsService.openSnackBar(this.languageService.instant('secure.offers.historical_admin.download_historical.snackbar_succes'),
+            this.languageService.instant('actions.close'), 10000);
           } else {
-            this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.getValue('actions.close'), 5000);
+            this.componentsService.openSnackBar(this.languageService.instant('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.instant('actions.close'), 5000);
           }
           this.onNoClick();
           this.loadingService.closeSpinner();
         },
         err => {
-          this.componentsService.openSnackBar(this.languageService.getValue('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.getValue('actions.close'), 5000);
+          this.componentsService.openSnackBar(this.languageService.instant('secure.offers.historical_admin.download_historical.snackbar_error'), this.languageService.instant('actions.close'), 5000);
           this.onNoClick();
         this.loadingService.closeSpinner();
         }

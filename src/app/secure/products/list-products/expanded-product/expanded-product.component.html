@@ -35,46 +35,46 @@
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
     <div class="divider-one">
-      <p> <span class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.creation_date' | I18N | async}}:</span>  {{productsExpanded.createdDate}}</p>
+      <p> <span class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.creation_date' | translate}}:</span>  {{productsExpanded.createdDate}}</p>
       <span class="separator"> | </span>
-      <p> <span class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.modification_date' | I18N | async}}:</span> {{productsExpanded.updatedDate}}</p>
+      <p> <span class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.modification_date' | translate}}:</span> {{productsExpanded.updatedDate}}</p>
     </div>
 
-    <div class="text"> {{'shared.category' | I18N | async}}: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
-    <div class="text">{{'shared.brand' | I18N | async}}:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
-    <div class="divider-one"> {{'shared.model' | I18N | async}}: <span class="color-gray"></span>  <label> {{productsExpanded.model}} </label></div>
+    <div class="text"> {{'shared.category' | translate}}: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
+    <div class="text">{{'shared.brand' | translate}}:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
+    <div class="divider-one"> {{'shared.model' | translate}}: <span class="color-gray"></span>  <label> {{productsExpanded.model}} </label></div>
     <div class="divider-one"> Shipping-size: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
 
 
     <div class="text" fxLayout="row">
       <div *ngIf="productsExpanded.colour.length !== 0">
         <i class="material-icons"> color_lens </i>
-        {{'secure.products.create_product_unit.list_products.expanded_product.color' | I18N | async}}:
+        {{'secure.products.create_product_unit.list_products.expanded_product.color' | translate}}:
         <div class="color-product" [ngStyle]="{'background': '#'+productsExpanded.colour}"></div>
       </div>
       <div *ngIf="productsExpanded.colour.length !== 0">
         <i class="material-icons"> style </i>
-        {{'secure.products.create_product_unit.list_products.expanded_product.size' | I18N | async}}:
+        {{'secure.products.create_product_unit.list_products.expanded_product.size' | translate}}:
         <label> {{productsExpanded.size}}</label>
       </div>
     </div>
 
     <div class="text">
       <i class="material-icons"> shopping_basket </i>
-      {{'secure.products.create_product_unit.list_products.expanded_product.packaging_form' | I18N | async}}:
-      <label> {{'secure.products.create_product_unit.list_products.expanded_product.height' | I18N | async}}-{{productsExpanded.package_height}}cm {{'secure.products.create_product_unit.list_products.expanded_product.width' | I18N | async}}-{{productsExpanded.package_width}}cm
-          {{'secure.products.create_product_unit.list_products.expanded_product.length' | I18N | async}}-{{productsExpanded.package_length}}cm {{'secure.products.create_product_unit.list_products.expanded_product.weight' | I18N | async}}-{{productsExpanded.package_weight}}kg </label>
+      {{'secure.products.create_product_unit.list_products.expanded_product.packaging_form' | translate}}:
+      <label> {{'secure.products.create_product_unit.list_products.expanded_product.height' | translate}}-{{productsExpanded.package_height}}cm {{'secure.products.create_product_unit.list_products.expanded_product.width' | translate}}-{{productsExpanded.package_width}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.length' | translate}}-{{productsExpanded.package_length}}cm {{'secure.products.create_product_unit.list_products.expanded_product.weight' | translate}}-{{productsExpanded.package_weight}}kg </label>
     </div>
 
     <div class="text">
       <i class="material-icons"> local_shipping </i>
-      {{'secure.products.create_product_unit.list_products.expanded_product.products' | I18N | async}}
-      <label>{{'secure.products.create_product_unit.list_products.expanded_product.height' | I18N | async}}-{{productsExpanded.item_height}}cm {{'secure.products.create_product_unit.list_products.expanded_product.width' | I18N | async}}-{{productsExpanded.item_width}}cm
-          {{'secure.products.create_product_unit.list_products.expanded_product.length' | I18N | async}}-{{productsExpanded.item_length}}cm {{'secure.products.create_product_unit.list_products.expanded_product.weight' | I18N | async}}-{{productsExpanded.item_weight}}kg </label>
+      {{'secure.products.create_product_unit.list_products.expanded_product.products' | translate}}
+      <label>{{'secure.products.create_product_unit.list_products.expanded_product.height' | translate}}-{{productsExpanded.item_height}}cm {{'secure.products.create_product_unit.list_products.expanded_product.width' | translate}}-{{productsExpanded.item_width}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.length' | translate}}-{{productsExpanded.item_length}}cm {{'secure.products.create_product_unit.list_products.expanded_product.weight' | translate}}-{{productsExpanded.item_weight}}kg </label>
     </div>
 
     <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productsExpanded.bestOffer !== '0.00'">
-      <p>{{'secure.products.create_product_unit.list_products.expanded_product.best_offer' | I18N | async}}</p>
+      <p>{{'secure.products.create_product_unit.list_products.expanded_product.best_offer' | translate}}</p>
       <p [innerHTML]="productsExpanded.bestOffer | currency: '$' : 'symbol' : '1.2-2'" *ngIf="productsExpanded.bestOffer !== '0.00'">
       </p>
     </div>
@@ -87,13 +87,13 @@
       <div *ngIf="productsExpanded.availableToOffer === true"  fxLayout="row" fxLayoutAlign="space-around center" >
         <mat-icon matPrefix>add</mat-icon>
         <h3>
-            {{'secure.products.create_product_unit.list_products.expanded_product.add_offer' | I18N | async}}
+            {{'secure.products.create_product_unit.list_products.expanded_product.add_offer' | translate}}
         </h3>
       </div>
       <div *ngIf="productsExpanded.availableToOffer === false"  fxLayout="row" fxLayoutAlign="space-around center" >
         <mat-icon matPrefix>add_alert</mat-icon>
         <h3>
-            {{'secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer' | I18N | async}}
+            {{'secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer' | translate}}
         </h3>
         <mat-icon matPrefix>add_alert</mat-icon>
       </div>
@@ -104,18 +104,18 @@
 
 <div class="expanded-information-product">
   <mat-tab-group>
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.description' | I18N | async">
+    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.description' | translate">
       <p class="description-product" [innerHtml]="productsExpanded.description"></p>
     </mat-tab>
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | I18N | async" class="flex">
+    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate" class="flex">
       <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
         <mat-chip>{{keywords}}</mat-chip>
       </div>
     </mat-tab>
     
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.specifications' | I18N | async">
+    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.specifications' | translate">
       <span class="no-specs" *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
-          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | I18N | async}}
+          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | translate}}
       </span>
       <div class="container">
         <div class="container-sub" *ngFor="let spec of productsExpanded.features">
@@ -136,7 +136,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-            {{'shared.descripcion' | I18N | async}}
+            {{'shared.descripcion' | translate}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-form-field>
@@ -147,7 +147,7 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-            {{'secure.products.create_product_unit.list_products.expanded_product.keywords' | I18N | async}}
+            {{'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="keywords-products" *ngFor="let keywords of productsExpanded.keyword">
@@ -157,11 +157,11 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-            {{'secure.products.create_product_unit.list_products.expanded_product.specifications' | I18N | async}}
+            {{'secure.products.create_product_unit.list_products.expanded_product.specifications' | translate}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <span *ngIf="!productsExpanded.features  || !productsExpanded.features.length">
-          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | I18N | async}}
+          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | translate}}
       </span>
       <div class="container">
         <div class="container-sub" *ngFor="let spec of productsExpanded.features">

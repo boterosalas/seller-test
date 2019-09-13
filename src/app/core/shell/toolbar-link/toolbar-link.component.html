@@ -6,16 +6,19 @@
       <div *ngFor="let module of modules">
         <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="showModule(module)">
           <mat-icon>arrow_drop_down</mat-icon>
-          {{( 'module.' + getPersonalityName(module.NameModule)) | I18N | async}}
+          {{('module.' + getPersonalityName(module.NameModule)) | translate}}
+          <app-notification-circle *ngIf="module.NameModule === 'RECLAMACIONES'" [value]="unreadCase"
+          id="circle-notification-toolbar"></app-notification-circle>
         </button>
-        <mat-menu #orders="matMenu">
+
+      <mat-menu #orders="matMenu">
           <div *ngFor="let menu of module.Menus">
             <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
-              <span>{{('menu.' + menu.NameMenu) | I18N | async}}</span>
+              <span>{{('menu.' + menu.NameMenu) | translate}}</span>
             </button>
             <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
               target="_blank">
-              <h3 matLine>{{('menu.' + menu.NameMenu) | I18N | async}}</h3>
+              <h3 matLine>{{('menu.' + menu.NameMenu) | translate}}</h3>
             </a>
           </div>
         </mat-menu>

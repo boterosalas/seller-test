@@ -7,7 +7,7 @@ import { ComponentsService } from '@app/shared/services/components.service';
 
 import { DownloadOrderService } from './download-order.service';
 import { UserInformation } from '@app/shared';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('DownloadOrderComponent');
@@ -52,7 +52,7 @@ export class DownloadOrderModalComponent implements OnInit {
     public componentsService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     private loadingService: LoadingService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -119,15 +119,15 @@ export class DownloadOrderModalComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
       if (res != null) {
-        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_download_order'), this.languageService.getValue('actions.close'), 10000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_download_order'), this.languageService.instant('actions.close'), 10000);
         this.loadingService.closeSpinner();
       } else {
-        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
         this.loadingService.closeSpinner();
       }
       this.onNoClick();
     }, err => {
-      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
       this.onNoClick();
     });
@@ -141,15 +141,15 @@ export class DownloadOrderModalComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.downloadOrderService.downloadBilling(currentFiltersOrders).subscribe(res => {
       if (res != null) {
-        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_download_order'), this.languageService.getValue('actions.close'), 10000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_download_order'), this.languageService.instant('actions.close'), 10000);
         this.loadingService.closeSpinner();
       } else {
-        this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
         this.loadingService.closeSpinner();
       }
       this.onNoClick();
     }, err => {
-      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.download_order_modal.sn_error_download'), this.languageService.getValue('actions.close'), 5000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
       this.onNoClick();
     });

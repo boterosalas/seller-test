@@ -21,7 +21,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { trimField } from '../../../../shared/util/validation-messages';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
-import { LanguageService } from '@app/core/translate/language.service';
+import { combineLatest } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -178,7 +179,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     public fb: FormBuilder,
     private searchService: SearchService,
     private snackBar: MatSnackBar,
-    private languageService: LanguageService
+    private languageService: TranslateService
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -210,16 +211,47 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // if (this.getFunctionality(this.load)) {
     //   this.getAvaliableLoads();
     // }
-    this.getAvaliableLoads();
-    this.verifyStateCharge();
     this.getDataUser();
-    this.validateFormSupport();
-    this.listOfBrands();
     this.trasformTree();
-    this.getCategoriesList();
-    this.listOfSize();
+    // Prepare es el metodo que debe quedar
+    this.prepareComponent();
     // this.listOfCategories();
     // this.listOfSpecs();
+  }
+  
+
+  prepareComponent() {
+    const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
+    const verifyStateCharge$ = this.BulkLoadProductS.getCargasMasivas();
+    const validateRegex$ = this.SUPPORT.getRegexFormSupport(null);
+    const getBrands$ = this.service.getActiveBrands();
+    const categoryList$ = this.searchService.getCategories();
+    const listOfSize$ = this.service.getSizeProducts();
+
+    this.loadingService.viewSpinner();
+    combineLatest(
+      availableLoads$,
+      verifyStateCharge$,
+      validateRegex$,
+      getBrands$,
+      categoryList$,
+      listOfSize$
+      ).subscribe(([
+        availableLoads,
+        verifyStateCharge,
+        validateRegex,
+        getBrands,
+        categoryList,
+        listOfSize
+      ]) => {
+        this.getAvaliableLoads(availableLoads);
+        this.verifyStateCharge(verifyStateCharge);
+        this.validateFormSupport(validateRegex);
+        this.listOfBrands(getBrands);
+        this.getCategoriesList(categoryList);
+        this.listOfSize(listOfSize);
+        this.loadingService.closeSpinner();
+      });
   }
 
   async getDataUser() {
@@ -235,14 +267,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @method getAvaliableLoads
    * @description Metodo que consume el servicio de productos y obtiene cuantas cargas se pueden realizar
    */
-  getAvaliableLoads() {
-    /*Se muestra el loading*/
-    // this.loadingService.viewSpinner();
-    /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
+  getAvaliableLoads(type?: any) {
 
-    this.authService.profileType$.pipe(distinctUntilChanged()).subscribe(type => {
+    /*Se muestra el loading*/
+    /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
+    if (!this.profileTypeLoad && !!type) {
       this.profileTypeLoad = type;
       this.isAdmin = type !== 'Tienda';
+    }
       if (this.isAdmin) {
         this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
           (result: any) => {
@@ -254,12 +286,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
               this.modalService.showModal('errorService');
             }
-            /*Se oculta el loading*/
-            this.loadingService.closeSpinner();
           }
         );
       }
-    });
   }
 
   /**
@@ -305,7 +334,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.error_has_uploading'), 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), 'Aceptar', 4000);
     });
   }
 
@@ -362,7 +391,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     */
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.limit_for_day'), 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.limit_for_day'), 'Aceptar', 10000);
     } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
@@ -429,9 +458,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         * else si no lo tiene significa que el formato es invalido y manda un error*/
         if ((res.length - contEmptyRow) === 1) {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
         } else {
-          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Tipo de Producto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('Product Type')) {
+          if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')) {
             if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
               this.iVal = {
                 iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
@@ -454,7 +483,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
                 iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
                 iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Product Type'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('ProductType'),
                 iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
                 iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
                 iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
@@ -497,7 +526,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
                 iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
                 iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('Tipo de Producto'),
+                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('TipoProducto'),
                 iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
                 iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
                 iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
@@ -527,10 +556,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             */
               if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.contains_more_assets'), 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.contains_more_assets'), 'Aceptar', 10000);
               } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.getValue('secure.products.bulk_upload.amount_allowed') , 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.instant('secure.products.bulk_upload.amount_allowed') , 'Aceptar', 10000);
               } else {
                 this.fileName = file.target.files[0].name;
                 this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -541,13 +570,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             }
           } else {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 10000);
+            this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 10000);
           }
         }
 
       } else {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
       }
     }
   }
@@ -935,7 +964,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 4000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
@@ -1097,8 +1126,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Get categories from service, and storage in list categories.
   */
-  public getCategoriesList(): void {
-    this.searchService.getCategories().subscribe((result: any) => {
+  public getCategoriesList(result?: any): void {
       // guardo el response
       if (result.status === 200) {
         const body = JSON.parse(result.body.body);
@@ -1106,7 +1134,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       } else {
         log.debug('BulkLoadProductComponent:' + result.message);
       }
-    });
   }
 
   /**
@@ -1473,7 +1500,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 if (data.body.successful !== 0 || data.body.error !== 0) {
                   // this.openDialogSendOrder(data);
                   this.progressStatus = false;
-                  this.verifyStateCharge();
+                  this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
@@ -1503,7 +1530,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 if (data.body.successful !== 0 || data.body.error !== 0) {
                   // this.openDialogSendOrder(data);
                   this.progressStatus = false;
-                  this.verifyStateCharge();
+                  this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
@@ -1537,11 +1564,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /*Funcion para validar el status de la carga y abrir o no el modal */
-  verifyStateCharge() {
-    this.loadingService.viewSpinner();
-    this.BulkLoadProductS.getCargasMasivas()
-      .subscribe(
-        (result: any) => {
+  verifyStateCharge(result?: any) {
           // Convertimos el string que nos envia el response a JSON que es el formato que acepta
           if (result.body.data.response) {
             result.body.data.response = JSON.parse(result.body.data.response);
@@ -1565,9 +1588,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
             }
           }
-          this.loadingService.closeSpinner();
-        }
-      );
   }
 
   /**
@@ -1859,7 +1879,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Ancho del producto': undefined,
       'Peso del producto': undefined,
       'Vendedor': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -1903,7 +1923,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Item Width': undefined,
       'Item Weight': undefined,
       'Seller': undefined,
-      'Product Type': undefined,
+      'ProductType': undefined,
       'Image URL 1': undefined,
       'Image URL 2': undefined,
       'Image URL 3': undefined,
@@ -1976,8 +1996,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   // Funcion para cargar datos de regex
-  public validateFormSupport(): void {
-    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+  public validateFormSupport(res?: any): void {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
       for (const val in this.productsRegex) {
@@ -1986,7 +2005,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.productsRegex[val] = element && `${element.Value}`;
         }
       }
-    });
   }
 
   /*Generar excel*/
@@ -2061,7 +2079,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Peso del producto': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -2112,7 +2130,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Peso del producto': undefined,
       'Descripcion Unidad de Medida': undefined,
       'Factor de conversion': undefined,
-      'Tipo de Producto': undefined,
+      'TipoProducto': undefined,
       'URL de Imagen 1': undefined,
       'URL de Imagen 2': undefined,
       'URL de Imagen 3': undefined,
@@ -2190,12 +2208,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /* Lista por marcas activas */
 
-  listOfBrands() {
-    this.loadingService.viewSpinner();
-    this.service.getActiveBrands().subscribe(brands => {
-      this.loadingService.closeSpinner();
+  listOfBrands(brands?: any) {
       const initialBrands = brands.Data.Brands;
-
       this.brands = initialBrands.sort((a, b) => {
         if (a.Name > b.Name) {
           return 1;
@@ -2205,27 +2219,20 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         }
         return 0;
       });
-
       initialBrands.forEach((element, i) => {
         this.brands[i] = { Marca: element.Name };
       });
-
-    });
   }
   /**
    * Funcion para somunir el listado de tallas
    *
    * @memberof BulkLoadProductComponent
    */
-  listOfSize() {
-    this.loadingService.viewSpinner();
-    this.service.getSizeProducts().subscribe(size => {
+  listOfSize(size?: any) {
       const sizeArray = JSON.parse(size.body);
-      this.loadingService.closeSpinner();
       sizeArray.forEach((element, i) => {
         this.size[i] = { Talla: element.Size };
       });
-    });
   }
 
 

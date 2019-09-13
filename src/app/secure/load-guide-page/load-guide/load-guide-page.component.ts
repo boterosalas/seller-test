@@ -11,7 +11,7 @@ import { FinishUploadInformationComponent } from '../finish-upload-information/f
 import { LoadGuideService } from '../load-guide.service';
 import { MenuModel, guideChargesName, loadFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('LoadGuideComponent');
@@ -86,7 +86,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     private router: Router,
     public userParams: UserParametersService,
     public authService: AuthService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
   ) {
     this.user = {};
   }
@@ -224,7 +224,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.error_has_uploading'), this.languageService.getValue('actions.accpet_min'), 4000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
     }).catch(err => {
 
     });
@@ -243,7 +243,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       if (res.length === 2 && res[1][0] === undefined && res[1][1] === undefined &&
         res[1][2] === undefined && res[1][3] === undefined && res[1][4] === undefined) {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), this.languageService.getValue('actions.accpet_min'), 10000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
         // validación de los campos necesarios para el archivo
         if (res[0][0] === 'Orden' && res[0][1] === 'Sku' && res[0][2] === 'Cantidad' &&
@@ -252,7 +252,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
           // validación para el número de registros
           if (res.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar(this.languageService.getValue('secure.load_guide_page.load_guide.amount_not_allowed'), this.languageService.getValue('actions.accpet_min'), 10000);
+            this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.amount_not_allowed'), this.languageService.instant('actions.accpet_min'), 10000);
           } else {
             /* Funcionalidad que se necarga de cargar los datos del excel */
             this.fileName = file.target.files[0];
@@ -262,12 +262,12 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
           }
         } else {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.formt_invalid'), this.languageService.getValue('actions.accpet_min'), 10000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), this.languageService.instant('actions.accpet_min'), 10000);
         }
       }
     } else {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar(this.languageService.getValue('secure.products.bulk_upload.no_information_contains'), this.languageService.getValue('actions.accpet_min'), 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
     }
   }
 
@@ -511,7 +511,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       this.openDialogSendOrder(res);
       this.loadingService.closeSpinner();
     }, err => {
-      this.componentService.openSnackBar(this.languageService.getValue('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.getValue('actions.accpet_min'), 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
       this.loadingService.closeSpinner();
 
     });

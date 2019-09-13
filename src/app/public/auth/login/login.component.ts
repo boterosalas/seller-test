@@ -7,7 +7,7 @@ import { ChallengeParameters, CognitoCallback, DynamoDBService, LoadingService, 
 import { RoutesConst, UserInformation, Const } from '@app/shared';
 import { environment } from '@env/environment';
 import { Logger } from '@core/util/logger.service';
-import { AuthRoutingService } from '@app/secure/auth/auth.service';
+// import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Subscription } from 'rxjs';
 
@@ -76,8 +76,8 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback, OnInit
     private fb: FormBuilder,
     private loadingService: LoadingService,
     private userParams: UserParametersService,
-    private authService: AuthService,
-    private authRoutingService: AuthRoutingService
+    private authService: AuthService// ,
+    // private authRoutingService: AuthRoutingService
   ) {
     this.userService.isAuthenticated(this);
   }

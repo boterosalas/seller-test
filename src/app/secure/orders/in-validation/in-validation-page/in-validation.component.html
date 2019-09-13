@@ -44,7 +44,7 @@
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
           <mat-header-cell ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" fxFlex.xl=""
-            *matHeaderCellDef mat-sort-header> {{'secure.orders.in_devolution.in_devolution_page.order' | I18N | async}}
+            *matHeaderCellDef mat-sort-header> {{'secure.orders.in_devolution.in_devolution_page.order' | translate}}
           </mat-header-cell>
           <mat-cell ffxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-order">{{element.orderNumber}}</p>
@@ -55,7 +55,7 @@
         <!-- orderDate Column -->
         <ng-container matColumnDef="orderDate">
           <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="true"
-            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header>{{'secure.orders.in_devolution.in_devolution_page.date_order' | I18N | async}}
+            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header>{{'secure.orders.in_devolution.in_devolution_page.date_order' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
@@ -66,7 +66,7 @@
         <!-- creationDate Column -->
         <ng-container matColumnDef="creationDate">
           <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
-            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>{{'secure.orders.in_devolution.in_devolution_page.date_request' | I18N | async}}
+            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header>{{'secure.orders.in_devolution.in_devolution_page.date_request' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
@@ -77,7 +77,7 @@
         <!-- maximumDeliveryDate Column -->
         <ng-container matColumnDef="maximumDeliveryDate">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
-            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header> {{'secure.orders.in_validation.in_validation_page.max_response_date' | I18N | async}}
+            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matHeaderCellDef mat-sort-header> {{'secure.orders.in_validation.in_validation_page.max_response_date' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" fxFlex.sm="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
@@ -89,7 +89,7 @@
         <ng-container matColumnDef="reversionRequestReason">
           <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
-            {{'secure.seller.list.reason' | I18N | async}}
+            {{'secure.seller.list.reason' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
@@ -101,13 +101,13 @@
         <ng-container matColumnDef="comment">
           <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" fxShow.xs="false" fxShow.sm="false"
             fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header class="center-product-list">
-            {{'secure.orders.in_devolution.in_devolution_page.commnet' | I18N | async}}
+            {{'secure.orders.in_devolution.in_devolution_page.commnet' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
             <div class="center-product-list">
               <button (click)="openModalCommentOrder(element)" id="button-order-{{element.orderNumber}}-comment" color="primary" class="sc-button-toolbar no-button button-toolbar"
-                mat-button>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | I18N | async}}
+                mat-button>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}
               </button>
             </div>
           </mat-cell>
@@ -118,25 +118,25 @@
         <ng-container matColumnDef="detailOrder">
           <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
             *matHeaderCellDef mat-sort-header>
-            {{'shared.actions' | I18N | async}}
+            {{'shared.actions' | translate}}
           </mat-header-cell>
           <mat-cell fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" *matCellDef="let element">
             <div class="center-product-list">
               <button id="dropdown-button-order-{{element.orderNumber}}" color="primary" class="sc-button-toolbar no-button button-toolbar" mat-button
                 [matMenuTriggerFor]="orderOptions">
                 <mat-icon>arrow_drop_down</mat-icon>
-                <span>{{'shared.actions' | I18N | async}}</span>
+                <span>{{'shared.actions' | translate}}</span>
               </button>
               <mat-menu #orderOptions="matMenu">
                 <button fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false" (click)="openModalCommentOrder(element)"
                   id="button-order-{{element.orderNumber}}-comment" mat-menu-item>
                   <mat-icon>comment</mat-icon>
-                  <span>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | I18N | async}}</span>
+                  <span>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}</span>
                 </button>
 
                 <button id="viewDetail-button-order-{{element.orderNumber}}" (click)="openModalDetailOrder(element)" mat-menu-item>
                   <mat-icon>more_vert</mat-icon>
-                  <span>{{'actions.show_detail' | I18N | async}}</span>
+                  <span>{{'actions.show_detail' | translate}}</span>
                 </button>
               </mat-menu>
             </div>
@@ -153,10 +153,10 @@
 
       <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength ">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | I18N | async}}
+        <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
         </p>
         <button id="load-all-orders-button" (click)="getOrdersList()" mat-button color="primary">
-          {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | I18N | async}}
+          {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | translate}}
         </button>
       </div>
     </div>

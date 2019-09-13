@@ -1,47 +1,47 @@
 <h1 mat-dialog-title *ngIf="!dataToEdit">
-    {{'secure.parametize.profiles.dialog.modal_title_add_profile' | I18N | async}}
+    {{'secure.parametize.profiles.dialog.modal_title_add_profile' | translate}}
 </h1>
 
 <h1 mat-dialog-title *ngIf="dataToEdit">
-    {{'secure.parametize.profiles.dialog.modal_title_edit_profile' | I18N | async}}
+    {{'secure.parametize.profiles.dialog.modal_title_edit_profile' | translate}}
 </h1>
 <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" name="profileForm" class="profileForm">
     <div mat-dialog-content >
         <!-- INPUT NAME -->
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
             <mat-form-field class="name-form input-form">
-                <input matInput formControlName="Name" [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_profile_name' | I18N | async">
+                <input matInput formControlName="Name" [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_profile_name' | translate">
                 <mat-error *ngIf="profileForm.get('Name').hasError('required')">
-                    {{'errors.required' | I18N | async}}
+                    {{'errors.required' | translate}}
                 </mat-error>
             </mat-form-field>
             <!-- RADIO BUTTON TYPE -->
             <mat-radio-group class="profile-radio-group" color="primary" (change)="changeRadio()" formControlName="Type" [disabled]="(editMode && !canUpdate)">
                 <mat-radio-button value="0">
-                    {{'secure.parametize.profiles.dialog.modal_rdn_exito' | I18N | async}}
+                    {{'secure.parametize.profiles.dialog.modal_rdn_exito' | translate}}
                 </mat-radio-button>
                 <mat-radio-button value="1">
-                    {{'secure.parametize.profiles.dialog.modal_rdn_store' | I18N | async}}</mat-radio-button>
+                    {{'secure.parametize.profiles.dialog.modal_rdn_store' | translate}}</mat-radio-button>
             </mat-radio-group>
         </div>
         <mat-divider></mat-divider>
         <div *ngIf="(editMode && canUpdate)|| !editMode">
             <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="profileForm.controls.Type.value !== ''">
                 <mat-form-field class="select-form">
-                    <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_menu' | I18N | async" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
-                        <mat-optgroup *ngFor="let module of menuShowList" [label]="('module.' + module.Name) | I18N | async">
+                    <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_menu' | translate" formControlName="Menu" name="Menu" (selectionChange)="changeMenu()">
+                        <mat-optgroup *ngFor="let module of menuShowList" [label]="('module.' + module.Name) | translate">
                             <mat-option *ngFor="let menu of module.Menus" [value]="menu" [ngClass]="{'no-show': showMenu(menu)}">
-                                {{('menu.' + menu.Name) |I18N | async}}
+                                {{('menu.' + menu.Name) |translate}}
                             </mat-option>
                         </mat-optgroup>
                     </mat-select>
                 </mat-form-field>
                 <div class="select-to-add" fxLayout="row" fxLayoutAlign="start center">
                     <mat-form-field class="select-form-full">
-                        <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_functionality' | I18N | async" formControlName="Funcionality" name="Funcionality"
+                        <mat-select [placeholder]="'secure.parametize.profiles.dialog.modal_placeholder_select_functionality' | translate" formControlName="Funcionality" name="Funcionality"
                             multiple (selectionChange)="changeFunctionality()">
                             <mat-option *ngFor="let functionality of functionalitiesList" [value]="functionality">
-                                {{('permissions.' + functionality.Name) | I18N | async}}
+                                {{('permissions.' + functionality.Name) | translate}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -56,11 +56,11 @@
         </div>
         <div *ngFor="let menu of menuAddList; let i = index" fxLayout="row" fxLayoutAlign="space-between center" class="menu-added">
             <div class="list-add-menu">
-                {{('menu.' + menu.Name) |I18N | async}}
+                {{('menu.' + menu.Name) |translate}}
             </div>
             <ul fxLayout="column" class="list-add-menu">
                 <li *ngFor="let functionality of menu.Functionalities">
-                    {{('permissions.' + functionality.Name) | I18N | async}}
+                    {{('permissions.' + functionality.Name) | translate}}
                 </li>
             </ul>
             <button mat-icon-button class="remove-menu" (click)="removeMenu(i)" type="button" *ngIf="(editMode && canUpdate)|| !editMode">
@@ -72,7 +72,7 @@
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions *ngIf="(editMode && canUpdate)|| !editMode">
-        <button mat-raised-button color="secondary" type="button" mat-button (click)="onNoClick()">{{'actions.cancel' | I18N | async}}</button>
-        <button mat-raised-button color="primary" mat-button type="submit" cdkFocusInitial>{{'actions.save' | I18N | async}}</button>
+        <button mat-raised-button color="secondary" type="button" mat-button (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
+        <button mat-raised-button color="primary" mat-button type="submit" cdkFocusInitial>{{'actions.save' | translate}}</button>
     </div>
 </form>

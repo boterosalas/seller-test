@@ -10,8 +10,8 @@ import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service'
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
 import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
-import { LanguageService } from '@app/core/translate/language.service';
 import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -51,7 +51,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
 
     constructor(
-        private languageService: LanguageService,
+        private languageService: TranslateService,
         public SUPPORT: SupportService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
@@ -109,6 +109,10 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),*/
             Currency: new FormControl('COP')
         });
+
+        // Borrar esta linea, para Internacional
+        this.ofertProduct.get('Currency').disable();
+
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable
         this.applyOffer.eanesCombos.forEach((element: any) => {
@@ -193,7 +197,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
         if (total <= 8000 && this.ofertProduct.value.Currency === 'COP') {
-            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_must_less'), this.languageService.getValue('actions.close'), {
+            this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.price_must_less'), this.languageService.instant('actions.close'), {
                 duration: 3000,
             });
         }
@@ -213,13 +217,13 @@ export class OfertExpandedProductComponent implements OnInit {
                 errors = false;
                 if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                     if (showErrors) {
-                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_lower_discount'), this.languageService.getValue('actions.close'), {
+                        this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.price_lower_discount'), this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     }
                 } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                     if (showErrors) {
-                        this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.getValue('actions.close'), {
+                        this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -229,13 +233,13 @@ export class OfertExpandedProductComponent implements OnInit {
                     errors = false;
                     if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                         if (showErrors) {
-                            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_lower_discount'), this.languageService.getValue('actions.close'), {
+                            this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.price_lower_discount'), this.languageService.instant('actions.close'), {
                                 duration: 3000,
                             });
                         }
                     } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                         if (showErrors) {
-                            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.getValue('actions.close'), {
+                            this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
                                 duration: 3000,
                             });
                         }
@@ -341,7 +345,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
-                    this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.offer_has_been_correctly'), this.languageService.getValue('actions.close'), {
+                    this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
                     this.loadingService.closeSpinner();
@@ -351,7 +355,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     window.location.reload();
 
                 } else {
-                    log.error(this.languageService.getValue('secure.products.bulk_upload.error_trying_apply_offer'));
+                    log.error(this.languageService.instant('secure.products.bulk_upload.error_trying_apply_offer'));
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
@@ -375,7 +379,7 @@ export class OfertExpandedProductComponent implements OnInit {
             this.showButton = true;
         } else if (this.applyOffer.eanesCombos.length !== 0 && ((!this.ofertProduct.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.ofertProduct.controls.Price.value))))) {
             this.showButton = true;
-            this.snackBar.open(this.languageService.getValue('secure.products.bulk_upload.price_must_equal_combos'), this.languageService.getValue('actions.close'), {
+            this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.price_must_equal_combos'), this.languageService.instant('actions.close'), {
                 duration: 3000,
             });
         } else {
@@ -446,7 +450,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.Price.reset('');
         this.ofertProduct.controls.DiscountPrice.reset('');
         this.ofertProduct.controls.IsFreightCalculator.reset('');
-        this.snackBar.open( this.languageService.getValue('secure.products.bulk_upload.changed_currency') + '(' + event + ')', this.languageService.getValue('actions.close'), {
+        this.snackBar.open( this.languageService.instant('secure.products.bulk_upload.changed_currency') + '(' + event + ')', this.languageService.instant('actions.close'), {
             duration: 3000,
         });
 

@@ -1,36 +1,31 @@
 @import '_variables';
 
 :host {
-    .principal-toolbar {
-        background-color: $color-white;
-        position: fixed;
-        overflow: hidden;
-        z-index: 2;
-    }
-    .mat-toolbar-row, .mat-toolbar-single-row{
-        height: 64px;
-    }
+  .principal-toolbar {
+    background-color: $color-white;
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+  }
+  .mat-toolbar-row,
+  .mat-toolbar-single-row {
+    height: 64px;
+  }
 }
-
 
 .principal-toolbar {
-    font-family: $font-principal;
-    
-    .name-user{
-        font-size: $font-size-head;
-    }
-
-    .logo-application{
-        background-position: 0px -10px;
-    }
-
-    .sc-button-toolbar{
-        font-size: $font-size-head - 2;
-        color:$color-gray-light;
-    }
+  font-family: $font-principal;
 }
-// Esto viene de spike
-.mat-form-field {
-    padding-top: 14px;
-    font-size: 14px;
+
+.name-user {
+  font-size: $font-size-head;
+}
+
+.logo-application {
+  background-position: 0px -10px;
+}
+
+.sc-button-toolbar {
+  font-size: $font-size-head - 2;
+  color: $color-gray-light;
 }

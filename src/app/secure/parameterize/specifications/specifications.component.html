@@ -1,7 +1,7 @@
 <!-- SPECIFICATIONS SECTION -->
 <section id="app-specifications" class="flexbox flex-wrap">
     <!-- TOOLBAR WITH TITLE AND SUBTITLE-->
-    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'secure.parametize.specifications.txt_title_toolbar' | I18N | async" [subtitleBar]="'secure.parametize.specifications.txt_subtitle_toolbar' | I18N | async"></app-toolbar-tittle>
+    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'secure.parametize.specifications.txt_title_toolbar' | translate" [subtitleBar]="'secure.parametize.specifications.txt_subtitle_toolbar' | translate"></app-toolbar-tittle>
 
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
@@ -10,7 +10,7 @@
             <mat-icon class="material-icons">
                 control_point
             </mat-icon>
-            {{'secure.parametize.specifications.btn_add_specifications_group' | I18N | async}}
+            {{'secure.parametize.specifications.btn_add_specifications_group' | translate}}
         </button>
     </div>
 
@@ -35,13 +35,13 @@
                             <mat-icon class="material-icons">
                                 edit
                             </mat-icon>
-                            <span>{{'actions.edit' | I18N | async}}</span>
+                            <span>{{'actions.edit' | translate}}</span>
                         </button>
                         <button mat-menu-item (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
                             <mat-icon class="material-icons">
                                 delete
                             </mat-icon>
-                            <span>{{'actions.delete' | I18N | async}}</span>
+                            <span>{{'actions.delete' | translate}}</span>
                         </button>
                     </mat-menu>
                     <button mat-icon-button *ngIf="!group.Show" (click)="toggleGroupSpecification(group)">
@@ -60,10 +60,10 @@
                 <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <div  fxLayout="row" fxLayoutAlign="center center" class="icon-container">
-                            <mat-icon class="type-spec" *ngIf="spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_list' | I18N | async">
+                            <mat-icon class="type-spec" *ngIf="spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_list' | translate">
                                 list
                             </mat-icon>
-                            <mat-icon class="type-spec" *ngIf="!spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_text' | I18N | async">
+                            <mat-icon class="type-spec" *ngIf="!spec.List.length" [matTooltip]="'parametize.specifications.tooltip_type_text' | translate">
                                 text_fields
                             </mat-icon>
                         </div>
@@ -93,7 +93,7 @@
                         <mat-icon class="material-icons">
                             control_point
                         </mat-icon>
-                        {{'secure.parametize.specifications.btn_add_specifications' | I18N | async}}
+                        {{'secure.parametize.specifications.btn_add_specifications' | translate}}
                     </button>
                 </div>
             </div>

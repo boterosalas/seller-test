@@ -4,21 +4,21 @@
     <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
       <!-- Titulo del toolbar -->
       <p class="tree-title">
-        {{'secure.orders.orders' | I18N | async}}
-        <small class="sub-title">| {{'secure.orders.billing_orders.subtitle_toolbar' | I18N | async}}</small>
+        {{'secure.orders.orders' | translate}}
+        <small class="sub-title">| {{'secure.orders.billing_orders.subtitle_toolbar' | translate}}</small>
       </p>
       <!-- Componente para realizar la busqueda de una tienda -->
       <form #getBillings="ngForm" [formGroup]="billingGroup" class="search-store">
         <div fxLayout="row" fxLayoutAlign=" center">
           <mat-icon class="icon-search" matPrefix>search</mat-icon>
-          <input matInput [placeholder]="'secure.orders.billing_orders.txt_serch_order' | I18N | async" class="search-input" formControlName="billingOrderCtrl" (keyup.enter)="chargeBillingOrders()"
+          <input matInput [placeholder]="'secure.orders.billing_orders.txt_serch_order' | translate" class="search-input" formControlName="billingOrderCtrl" (keyup.enter)="chargeBillingOrders()"
             autocomplete="off" *ngIf="getFunctionality(read)">
         </div>
       </form>
 
       <div class="downloadAll">
         <button mat-icon-button (click)="downloadAllPDF(billingAll)" id="downloadAllStyle" *ngIf="false">
-          <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon>{{'actions.all_download' | I18N | async}}
+          <mat-icon class="icon-search-all" matPrefix>get_app</mat-icon>{{'actions.all_download' | translate}}
         </button>
       </div>
     </div>
@@ -29,20 +29,20 @@
     <div class="icon-face">
       <mat-icon>mms</mat-icon>
     </div>
-    <p class="icon-face-text">{{'secure.orders.billing_orders.txt_no_order' | I18N | async}}</p>
+    <p class="icon-face-text">{{'secure.orders.billing_orders.txt_no_order' | translate}}</p>
   </div>
 
   <div *ngIf="sellerData === null">
     <div class="icon-face">
       <mat-icon>insert_drive_file</mat-icon>
     </div>
-    <p class="icon-face-text">{{'secure.orders.billing_orders.txt_no_invoices' | I18N | async}}</p>
+    <p class="icon-face-text">{{'secure.orders.billing_orders.txt_no_invoices' | translate}}</p>
   </div>
 
 
   <div *ngIf="sellerData" class="agreement">
     <div class="agreement-title">
-      <p>{{'secure.orders.order' | I18N | async}}: {{billingGroup.controls.billingOrderCtrl.value}}</p>
+      <p>{{'secure.orders.order' | translate}}: {{billingGroup.controls.billingOrderCtrl.value}}</p>
     </div>
     <div *ngFor="let billing of keysBilling; let i = index" fxLayout="row" class="list-agreement">
       <div fxLayoutAlign="start center" fxLayout="row" class="width-80">

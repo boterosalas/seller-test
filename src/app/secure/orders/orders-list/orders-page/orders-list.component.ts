@@ -15,10 +15,11 @@ import { SendOrderComponent } from '../send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 import { MenuModel, readFunctionality, downloadFunctionality, sendFunctionality, attachmentFunctionality, allName, idSended, idToSend, sendedName, toSendName, marketFuncionality, visualizeFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LanguageService } from '@app/core/translate/language.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -153,7 +154,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public cognito: CognitoUtil,
     public userParams: UserParametersService,
     public authService: AuthService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
   ) { }
 
@@ -389,7 +390,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersList($event: any) {
-    const closeSnack = this.languageService.getValue('actions.close');
+    const closeSnack = this.languageService.instant('actions.close');
     this.event = $event;
     this.setCategoryName();
     this.loadingService.viewSpinner();
@@ -414,16 +415,16 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.loadingService.closeSpinner();
         }, err => {
           this.orderListLength = true;
-          const message = this.languageService.getValue('secure.orders.order_list.order_page.wrong_to_search_orders');
+          const message = this.languageService.instant('secure.orders.order_list.order_page.wrong_to_search_orders');
           this.componentService.openSnackBar(message, closeSnack, 10000);
           log.error(message, err);
         });
       } else {
-        const message = this.languageService.getValue('secure.orders.order_list.order_page.insert_limit');
+        const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
         this.componentService.openSnackBar(message, closeSnack, 1000);
       }
     } else {
-      const message = this.languageService.getValue('secure.orders.order_list.order_page.insert_limit');
+      const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
       this.componentService.openSnackBar(message, closeSnack, 1000);
     }
   }
@@ -516,10 +517,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
     if (numberElements === 0) {
-      const message = this.languageService.getValue('secure.orders.order_list.order_page.info_no_more_products');
+      const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_more_products');
       log.info(message);
     } else {
-      const message = this.languageService.getValue('secure.orders.order_list.order_page.info_total_products');
+      const message = this.languageService.instant('secure.orders.order_list.order_page.info_total_products');
       log.info(message, numberElements);
     }
     return numberElements;
@@ -531,9 +532,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   openDialogSendOrder(item: any): void {
-    const closeSnack = this.languageService.getValue('actions.close');
+    const closeSnack = this.languageService.instant('actions.close');
     if (this.getLengthProductForSend(item) === 0) {
-      const message = this.languageService.getValue('secure.orders.order_list.order_page.no_pending_products');
+      const message = this.languageService.instant('secure.orders.order_list.order_page.no_pending_products');
       this.componentService.openSnackBar(message, closeSnack, 3000);
     } else {
       this.loadingService.viewProgressBar();
@@ -560,7 +561,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           // this.dataSource = new MatTableDataSource(JSON.parse(data));
           this.dataSource._updateChangeSubscription();
         } else {
-          const message = this.languageService.getValue('secure.orders.order_list.order_page.info_no_send_products');
+          const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
           log.info(message);
         }
         this.loadingService.closeProgressBar();
@@ -592,7 +593,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
-    const closeSnack = this.languageService.getValue('actions.close');
+    const closeSnack = this.languageService.instant('actions.close');
     if (currentValue === true) {
       currentValue = false;
     } else {
@@ -614,11 +615,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.dataSource.data[index].processedOrder = currentValue;
 
           if (currentValue) {
-            const message = this.languageService.getValue('secure.orders.order_list.order_page.successfully_mark');
+            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_mark');
             this.componentService.openSnackBar(message, closeSnack, 10000);
 
           } else {
-            const message = this.languageService.getValue('secure.orders.order_list.order_page.successfully_remove_mark');
+            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_remove_mark');
             this.componentService.openSnackBar(message, closeSnack, 10000);
           }
         }

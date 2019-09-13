@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef } from '@an
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -37,14 +37,14 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     public dialogRef: MatDialogRef<FinishUploadProductInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cd: ChangeDetectorRef,
-    private languageService: LanguageService
+    private languageService: TranslateService
   ) {
 
     this.response = data.response;
-    this.has = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.has');
-    this.have = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.have');
-    this.errors = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.errors');
-    this.error = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.error');
+    this.has = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.has');
+    this.have = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.have');
+    this.errors = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.errors');
+    this.error = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.error');
   }
 
   ngAfterViewInit() {

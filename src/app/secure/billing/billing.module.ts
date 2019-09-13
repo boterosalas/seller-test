@@ -30,7 +30,6 @@ import { ToolbarOptionsModule } from '@app/shared/components';
     BrowserAnimationsModule,
     HttpClientModule,
     MatSortModule,
-    ToolbarOptionsModule
   ],
   declarations: [
     BillingComponent,

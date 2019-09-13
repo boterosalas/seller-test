@@ -8,29 +8,29 @@
   </div>
 
   <h1 class="center-text" mat-dialog-title>
-    {{'secure.parametize.dialogAddSpecs.modal_title' | I18N | async}}
+    {{'secure.parametize.dialogAddSpecs.modal_title' | translate}}
   </h1>
 
   <form [formGroup]="formAddSpecs" class="form-add" (ngSubmit)="saveSpec()">
     <div mat-dialog-content class="form-container">
-      <p> {{'secure.parametize.dialogAddSpecs.modal_text_1' | I18N | async}} 
-        <strong class="special" [ngClass]="{'transition': showErrorMin}">{{'secure.parametize.dialogAddSpecs.modal_text_2' | I18N | async}}</strong>
-        {{'secure.parametize.dialogAddSpecs.modal_text_3' | I18N | async}}
+      <p> {{'secure.parametize.dialogAddSpecs.modal_text_1' | translate}} 
+        <strong class="special" [ngClass]="{'transition': showErrorMin}">{{'secure.parametize.dialogAddSpecs.modal_text_2' | translate}}</strong>
+        {{'secure.parametize.dialogAddSpecs.modal_text_3' | translate}}
       </p>
       <div fxLayout="row" style="width: 100%;" fxLayout.xs="column" fxLayoutAlign="space-between start">
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
-            <input matInput formControlName="nameSpec" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_specification_name' | I18N | async">
-            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">{{'errors.spec_name_max_length' | I18N | async}}</mat-error>
-          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">{{'errors.required' | I18N | async}}</mat-error>
+            <input matInput formControlName="nameSpec" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_specification_name' | translate">
+            <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+          <mat-error *ngIf="formAddSpecs.get('nameSpec').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
-          <mat-checkbox class="input-add" formControlName="requiredSpec">{{'secure.parametize.dialogAddSpecs.modal_chk_required' | I18N | async}}</mat-checkbox>
+          <mat-checkbox class="input-add" formControlName="requiredSpec">{{'secure.parametize.dialogAddSpecs.modal_chk_required' | translate}}</mat-checkbox>
         </div>
         <div class="container-form vis" fxLayout="column">
-          <h3 class="title">{{'secure.parametize.dialogAddSpecs.modal_lbl_vendedor' | I18N | async}}</h3>
+          <h3 class="title">{{'secure.parametize.dialogAddSpecs.modal_lbl_vendedor' | translate}}</h3>
           <mat-radio-group formControlName="optionSpec">
-            <mat-radio-button value="text">{{'secure.parametize.dialogAddSpecs.modal_rdn_text' | I18N | async}}</mat-radio-button>
-            <mat-radio-button value="list">{{'secure.parametize.dialogAddSpecs.modal_rdn_list_action' | I18N | async}}</mat-radio-button>
+            <mat-radio-button value="text">{{'secure.parametize.dialogAddSpecs.modal_rdn_text' | translate}}</mat-radio-button>
+            <mat-radio-button value="list">{{'secure.parametize.dialogAddSpecs.modal_rdn_list_action' | translate}}</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
@@ -38,8 +38,8 @@
       <div class="addoption">
         <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
           <mat-form-field class="width-full">
-            <input matInput [formControlName]="opc.name" placeholder="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | I18N | async">
-            <mat-error>{{'errors.required' | I18N | async}}</mat-error>
+            <input matInput [formControlName]="opc.name" placeholder="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | translate">
+            <mat-error>{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
 
           <button mat-icon-button (click)="removeOpt(opc, i)" type="button">
@@ -61,11 +61,11 @@
           <mat-icon class="material-icons">
             control_point
           </mat-icon>
-          {{'secure.parametize.dialogAddSpecs.modal_btn_add_option' | I18N | async}}
+          {{'secure.parametize.dialogAddSpecs.modal_btn_add_option' | translate}}
         </button>
       </div>
-      <button type="button" id="btn-create-transporter" mat-button color="primary" (click)="close()">{{'actions.cancel' | I18N | async}}</button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary">{{'actions.accept' | I18N | async}}</button>
+      <button type="button" id="btn-create-transporter" mat-button color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary">{{'actions.accept' | translate}}</button>
     </div>
   </form>
 </div>

@@ -9,7 +9,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util/validation-messages';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-categories',
@@ -84,7 +84,7 @@ export class CategoriesComponent implements OnInit {
     private regexService: BasicInformationService,
     private snackBar: MatSnackBar,
     private modalService: ModalService,
-    private languageService: LanguageService
+    private languageService: TranslateService
   ) {
   }
 
@@ -298,8 +298,8 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataCreateDialog(category: any) {
-    const title = this.languageService.getValue('secure.parametize.category.categories.modal_create_title');
-    const message = this.languageService.getValue('secure.parametize.category.categories.modal_create_description');
+    const title = this.languageService.instant('secure.parametize.category.categories.modal_create_title');
+    const message = this.languageService.instant('secure.parametize.category.categories.modal_create_description');
     const icon = null;
     let form = null;
     const messageCenter = false;
@@ -323,8 +323,8 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
-    const title = this.languageService.getValue('secure.parametize.category.categories.modal_update_title');
-    const message = this.languageService.getValue('secure.parametize.category.categories.modal_update_description');
+    const title = this.languageService.instant('secure.parametize.category.categories.modal_update_title');
+    const message = this.languageService.instant('secure.parametize.category.categories.modal_update_description');
     const icon = null;
     let form = null;
     const messageCenter = false;
@@ -380,7 +380,7 @@ export class CategoriesComponent implements OnInit {
             } else if (responseValue === true) {
               this.getTree();
               dialogIntance.onNoClick();
-              this.snackBar.open(this.languageService.getValue('shared.update_successfully'), this.languageService.getValue('actions.close'), {
+              this.snackBar.open(this.languageService.instant('shared.update_successfully'), this.languageService.instant('actions.close'), {
                 duration: 3000,
               });
             }
@@ -388,7 +388,7 @@ export class CategoriesComponent implements OnInit {
             const responseValue = JSON.parse(response.body).Errors;
             const message = responseValue[0].Message;
             this.loadingService.closeSpinner();
-            this.snackBar.open(message, this.languageService.getValue('actions.close'), {
+            this.snackBar.open(message, this.languageService.instant('actions.close'), {
               duration: 3000,
             });
           }
@@ -423,7 +423,7 @@ export class CategoriesComponent implements OnInit {
     dialogIntance.processFinish$.subscribe((val) => {
       if (!!val) {
         this.getTree();
-        this.snackBar.open(this.languageService.getValue('shared.create_successfully'), this.languageService.getValue('actions.close'), {
+        this.snackBar.open(this.languageService.instant('shared.create_successfully'), this.languageService.instant('actions.close'), {
           duration: 3000
         });
       }

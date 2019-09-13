@@ -8,16 +8,14 @@ import { EndpointService } from '../http';
 import { Logger } from '../util/logger.service';
 import { CognitoCallback, CognitoUtil, LoggedInCallback } from './cognito.service';
 import { DynamoDBService } from './ddb.service';
-import { AuthService } from '@app/secure/auth/auth.routing';
-import { Behavior } from 'aws-sdk/clients/iot';
+// import { AuthService } from '@app/secure/auth/auth.routing';
+// import { Behavior } from 'aws-sdk/clients/iot';
 import { BehaviorSubject } from 'rxjs';
 
 const log = new Logger('UserLoginService');
 
-
 // Constantes de cognito
 const cognitoEnv = environment.cognito;
-
 
 @Injectable()
 export class UserLoginService {

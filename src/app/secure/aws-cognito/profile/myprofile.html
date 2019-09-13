@@ -1,21 +1,21 @@
-<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | I18N | async}}</h1>
+<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
 <div class="profile-content">
   <div class="sub-content">
     <form [formGroup]="form">
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | I18N | async" autocomplete="false"
+        <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
           formControlName="IdSeller">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | I18N | async)"
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)"
           autocomplete="false" formControlName="Nit">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | I18N | async)"
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
           autocomplete="false" formControlName="Name">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | I18N | async)"
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)"
           autocomplete="false" formControlName="Email">
       </mat-form-field>
     </form>
@@ -39,13 +39,13 @@
         <div class="content-contaienr">
           <mat-card-title>
             <p class="title-text">
-              <strong>{{'secure.seller.list.vacation_title_modal' | I18N | async}}</strong>
+              <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
             </p>
           </mat-card-title>
           <mat-card-content>
             <label class="label-result">
-              <strong>{{'secure.seller.list.start_date' | I18N | async}}:</strong>{{user.StartVacations}} -
-              <strong>{{'secure.seller.list.end_date' | I18N | async}}:</strong>{{user.EndVacations}}
+              <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+              <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
             </label>
           </mat-card-content>
         </div>
@@ -53,7 +53,7 @@
     </ng-container>
     <ng-template #programVacations>
       <button mat-stroked-button id="btn-program-vacation" color="primary"
-        (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | I18N | async}}</button>
+        (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
     </ng-template>
   </div>
 </div>
@@ -62,7 +62,7 @@
   <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
     <mat-form-field class="half-width">
       <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true"
-        placeholder="'secure.seller.list.start_date' | I18N | async" formControlName="StartDateVacation"
+        placeholder="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation"
         (click)="openPicker(1)" (dateInput)="startDate()">
       <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
       <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
@@ -70,7 +70,7 @@
 
     <mat-form-field class="half-width">
       <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart"
-        placeholder="'secure.seller.list.end_date' | I18N | async" formControlName="EndDateVacation"
+        placeholder="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation"
         (click)="openPicker(2)" [disabled]="enableEndVacation">
       <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
       <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>

@@ -3,7 +3,7 @@
 
   <h3 class="succes-string" mat-subheader *ngIf="response.successful != 0">
     <mat-icon>check</mat-icon>
-    {{response.successful}} {{'secure.laod_guide_page.finish_upload_info.title' | I18N | async}}
+    {{response.successful}} {{'secure.laod_guide_page.finish_upload_info.title' | translate}}
   </h3>
   <mat-divider *ngIf="response.successful != 0"></mat-divider>
 
@@ -13,24 +13,24 @@
 
   <h4 class="error-string" mat-subheader *ngIf="response.error != 0">
     <mat-icon>warning</mat-icon>
-    {{'secure.laod_guide_page.finish_upload_info.error_guide' | I18N | async}} {{response.error}}
-    {{'secure.laod_guide_page.finish_upload_info.error_guide_2' | I18N | async}}
+    {{'secure.laod_guide_page.finish_upload_info.error_guide' | translate}} {{response.error}}
+    {{'secure.laod_guide_page.finish_upload_info.error_guide_2' | translate}}
   </h4>
   <mat-divider *ngIf="response.error != 0"></mat-divider>
 
   <mat-nav-list *ngIf="response.error != 0">
     <mat-list-item *ngFor="let item of response.listError">
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-      <h4 matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | I18N | async}}:: {{item.message}}</h4>
-      <p matLine>{{'secure.orders.in_devolution.product_devolution_modal.sku' | I18N | async}}:{{item.sku}}</p>
-      <p matLine>{{'secure.laod_guide_page.finish_upload_info.order_number' | I18N | async}}:{{item.orderNumber}}</p>
+      <h4 matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:: {{item.message}}</h4>
+      <p matLine>{{'secure.orders.in_devolution.product_devolution_modal.sku' | translate}}:{{item.sku}}</p>
+      <p matLine>{{'secure.laod_guide_page.finish_upload_info.order_number' | translate}}:{{item.orderNumber}}</p>
     </mat-list-item>
   </mat-nav-list>
 </div>
 
 <mat-dialog-actions class="footer-dialog">
-  <button id="close-finish-upload-button" mat-button mat-dialog-close>{{'actions.close_menu' | I18N | async}}</button>
+  <button id="close-finish-upload-button" mat-button mat-dialog-close>{{'actions.close_menu' | translate}}</button>
   <button id="export-to-excel-button" *ngIf="response.error != 0" mat-raised-button color="primary"
-    (click)="exportAsExcelFile(response.listError,'sellerLog')">{{'actions.export_excel' | I18N | async}}
+    (click)="exportAsExcelFile(response.listError,'sellerLog')">{{'actions.export_excel' | translate}}
   </button>
 </mat-dialog-actions>

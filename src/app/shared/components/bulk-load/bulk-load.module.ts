@@ -8,13 +8,14 @@ import { ShowErrorsComponent } from './errors-load/errors-load.component';
 import { CommonService } from '@app/shared/services/common.service';
 import { SendModerationFormatModalService } from '@app/secure/products/bulk-load-product-moderation/send-moderation-format-modal/send-moderation-format-modal.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserAnimationsModule,
     MaterialModule,
-    SharedModule
+    TranslateModule
   ],
   declarations: [
     BulkLoadComponent,

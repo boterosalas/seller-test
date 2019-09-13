@@ -8,7 +8,7 @@ import { BillingService } from '@secure/billing/billing.service';
 import { isEmpty } from 'lodash';
 import { UserParametersService } from '@app/core/aws-cognito/user-parameters.service';
 import { LoadingService } from '@app/core';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-billing-form',
@@ -34,7 +34,7 @@ export class SearchBillingFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     private loadingService?: LoadingService
   ) {
   }
@@ -139,13 +139,13 @@ export class SearchBillingFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar(this.languageService.getValue('secure.billing.no_payment'), this.languageService.getValue('actions.close'), 3000);
+          this.componentsService.openSnackBar(this.languageService.instant('secure.billing.no_payment'), this.languageService.instant('actions.close'), 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar(this.languageService.getValue('errors.error_check_payment'), this.languageService.getValue('actions.close'), 3000);
+        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_payment'), this.languageService.instant('actions.close'), 3000);
       });
     } else {
-      this.componentsService.openSnackBar(this.languageService.getValue('errors.error_no_searh_criteria'), this.languageService.getValue('actions.close'), 3000);
+      this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 3000);
     }
   }
 }

@@ -14,13 +14,13 @@
     <!-- Orders table -->
     <div class="dashboard__orders orders">
       <div class="orders__header">
-        <h3 class="orders__title">{{'secure.orders.orders' | I18N | async}}</h3>
+        <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
       </div>
       <div class="orders__body">
         <div class="orders__row">
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.all' | I18N | async}}
+              {{'secure.dashboard.all' | translate}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -43,7 +43,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.in_transit' | I18N | async}}
+              {{'secure.dashboard.in_transit' | translate}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -68,7 +68,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.delievered' | I18N | async}}
+              {{'secure.dashboard.delievered' | translate}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -94,7 +94,7 @@
 
           <div class="orders__colum">
             <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.expired' | I18N | async}}
+              {{'secure.dashboard.expired' | translate}}
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
@@ -127,7 +127,7 @@
     <!-- Sells -->
     <div class="dashboard__sales sales">
       <div class="sales__header">
-        <h3 class="sales__title">{{'secure.dashboard.sales' | I18N | async}}</h3>
+        <h3 class="sales__title">{{'secure.dashboard.sales' | translate}}</h3>
       </div>
       <div class="sales__body">
         <div class="sales__date-box">
@@ -142,8 +142,8 @@
           </div>
           <mat-form-field style="display: none" class="sales__date">
             <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
-              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | I18N | async" (click)="openDatePicker()">
-            <mat-datepicker-toggle matSuffix [for]="picker">{{'secure.dashboard.selected_months' | I18N | async}}</mat-datepicker-toggle>
+              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate" (click)="openDatePicker()">
+            <mat-datepicker-toggle matSuffix [for]="picker">{{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
             <mat-datepicker touchUi #picker startView="year" [startAt]="startDate" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
           </mat-form-field>
         </div>
@@ -163,7 +163,7 @@
             </div>
             <div class="graph__info">
               <p>
-                {{'secure.dashboard.info_cancel_sale' | I18N | async}}
+                {{'secure.dashboard.info_cancel_sale' | translate}}
               </p>
             </div>
           </div>

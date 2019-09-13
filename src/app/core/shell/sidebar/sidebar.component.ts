@@ -10,8 +10,6 @@ import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/translate/language.service';
-import { distinctUntilChanged } from 'rxjs/operators';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -37,8 +35,6 @@ export class SidebarComponent implements OnInit {
 
   form: FormGroup;
 
-  public languages = AVAILABLE_LANGUAGES;
-
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
@@ -46,7 +42,6 @@ export class SidebarComponent implements OnInit {
     public userParams: UserParametersService,
     public authService: AuthService,
     private fb: FormBuilder,
-    private languageService: LanguageService
   ) { }
 
   /**
@@ -58,21 +53,6 @@ export class SidebarComponent implements OnInit {
       this.modules = data;
     }, error => {
       console.error(error);
-    });
-    this.initForm();
-  }
-
-  private initForm() {
-    this.form = this.fb.group({
-      language: ['', Validators.required]
-    });
-    this.languageService.lenguage$.pipe(distinctUntilChanged()).subscribe((val) => {
-      if (this.form.get('language').value !== val)
-      this.form.get('language').setValue(val);
-    });
-    this.form.get('language').valueChanges.subscribe((idLeng) => {
-      if(this.languageService.lenguage$.getValue() !== idLeng)
-      this.languageService.setLanguage(idLeng);
     });
   }
 

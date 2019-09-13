@@ -5,12 +5,30 @@ import { BillingModule } from '@app/secure/billing/billing.module';
 import { DashboardModule } from '@app/secure/dashboard/dashboard.module';
 import { ErrorModule } from '@app/secure/error-page/error-page.module';
 import { LoadGuideModule } from '@app/secure/load-guide-page/load-guide.module';
-import { BulkLoadModule, HistoricalModule, HistoricalModuleAdmin, ListModule, ListAdminModule, StoresModule } from '@app/secure/offers';
+import {
+  BulkLoadModule,
+  HistoricalModule,
+  HistoricalModuleAdmin,
+  ListModule,
+  ListAdminModule,
+  StoresModule
+} from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
-import { InDevolutionModule, InValidationModule, OrdersModule, PendingDevolutionModule } from '@app/secure/orders';
+import {
+  InDevolutionModule,
+  InValidationModule,
+  OrdersModule,
+  PendingDevolutionModule
+} from '@app/secure/orders';
 import { BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
 import { ManageModule, RegisterModule } from '@app/secure/seller';
-import { DetailModule, DispatchModule, HistoricModule, PendingModule, ReportsModule } from '@app/secure/shipments';
+import {
+  DetailModule,
+  DispatchModule,
+  HistoricModule,
+  PendingModule,
+  ReportsModule
+} from '@app/secure/shipments';
 import { SellerModule } from './seller/seller.module';
 import { BillingOrdersModule } from './orders/billing-orders/billing-orders.module';
 import { AuthService } from './auth/auth.routing';
@@ -19,6 +37,7 @@ import { BulkLoadProductModerationModule } from './products/bulk-load-product-mo
 import { ListProductModule } from './products/list-products/list-products.module';
 import { SellerSupportCenterService } from './seller-support-center/services/seller-support-center.service';
 import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
+import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 
 @NgModule({
@@ -56,9 +75,9 @@ import { ListReportsModule } from './reports/reports.module';
     BillingOrdersModule,
     ParameterizeModule,
     SellerSupportCenterModule,
+    CoreStoreModule,
     ListReportsModule
   ],
-  providers: [AuthService, SellerSupportCenterService],
+  providers: [AuthService, SellerSupportCenterService]
 })
-export class SecureModule {
-}
+export class SecureModule {}

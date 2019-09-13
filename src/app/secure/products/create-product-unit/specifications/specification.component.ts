@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 import { Logger } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
 import { FormControl } from '@angular/forms';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -36,7 +36,7 @@ export class SpecificationProductComponent implements OnInit {
         private specificationService: SpecificationService,
         public dialog: MatDialog,
         public processService: ProcessService,
-        private languageService: LanguageService) { }
+        private languageService: TranslateService) { }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
@@ -87,7 +87,7 @@ export class SpecificationProductComponent implements OnInit {
             this.chargeList = true;
         }, error => {
             this.chargeList = false;
-            log.error(this.languageService.getValue('secure.products.create_product_unit.specifications.error_has_occured_uploading'));
+            log.error(this.languageService.instant('secure.products.create_product_unit.specifications.error_has_occured_uploading'));
         });
     }
 
@@ -141,13 +141,13 @@ export class SpecificationProductComponent implements OnInit {
                 const errors = Object.keys(form.controls['specs' + index].errors);
                 switch (errors[0]) {
                     case 'required':
-                        return this.languageService.getValue('secure.products.create_product_unit.specifications.input_mandatory');
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.input_mandatory');
                         break;
                     case 'pattern':
-                        return  this.languageService.getValue('secure.products.create_product_unit.specifications.200_characters');
+                        return  this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');
                         break;
                     default:
-                        return this.languageService.getValue('secure.products.create_product_unit.specifications.error_field');
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.error_field');
                 }
             }
         } catch (e) {

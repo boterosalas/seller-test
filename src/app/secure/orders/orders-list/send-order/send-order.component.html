@@ -1,9 +1,9 @@
 <!-- Product Information -->
 <div class="container-product content-send-order">
   <div class="title-page">
-    <span class="sc-title">{{'secure.orders.order_list.send_order.title_order' | I18N | async}}: {{order.orderNumber}}
+    <span class="sc-title">{{'secure.orders.order_list.send_order.title_order' | translate}}: {{order.orderNumber}}
     </span>
-    <a id="close-finish-send-order" [matTooltip]="'actions.close' | I18N | async" mat-icon-button matTooltipPosition="below" mat-button>
+    <a id="close-finish-send-order" [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>
@@ -18,7 +18,7 @@
       <div fxFlex.gt-sm="230px" fxFlex.xs="120px">
         <div class="center-product-list">
           <mat-form-field class="select-send-options sc-text-normal" id="quantity-product" color="accent">
-            <mat-select name="Transporter" required formControlName="Transporter" [placeholder]="'secure.orders.order_list.product_order.conveyor' | I18N | async">
+            <mat-select name="Transporter" required formControlName="Transporter" [placeholder]="'secure.orders.order_list.product_order.conveyor' | translate">
               <mat-option *ngFor="let trans of Carries" [value]="trans.name">{{trans.name}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -28,7 +28,7 @@
         <div class="center-product-list">
           <mat-form-field class="textarea-send-options sc-text-normal">
             <textarea name="Guide" required formControlName="Guide" matInput placeholder="Guía"></textarea>
-            <mat-error>{{'errors.error_guide' | I18N | async}}</mat-error>
+            <mat-error>{{'errors.error_guide' | translate}}</mat-error>
           </mat-form-field>
         </div>
 
@@ -39,7 +39,7 @@
                   (click)="sendAllProductsOrder(order)"
                   [disabled]="!myF.form.valid" class="sc-button" mat-raised-button color="accent">
             <mat-icon>local_shipping</mat-icon>
-            {{'actions.send_all' | I18N | async}}
+            {{'actions.send_all' | translate}}
           </button>
           <button mat-mini-fab color="accent" (click)="sendAllProductsOrder(order)" [disabled]="!myF.form.valid"
                   fxShow.gt-sm="false"
@@ -54,10 +54,10 @@
 
     <div [@detailExpand] class="orders-no-data " *ngIf="getLengthProductForSend() == 0">
       <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-      <p>{{'secure.orders.order_list.send_order.no_send_products' | I18N | async}}
+      <p>{{'secure.orders.order_list.send_order.no_send_products' | translate}}
       </p>
       <button id="load-all-orders-button" (click)="onNoClick();" mat-button color="primary">
-        {{'actions.close' | I18N | async}}
+        {{'actions.close' | translate}}
       </button>
     </div>
     <ng-container *ngFor="let product of order.products">
@@ -78,22 +78,22 @@
                   </div>
                   <mat-card-subtitle class="mat-subtitle">
                     <b>{{product.nameProduct}}</b>
-                    <br> {{'secure.orders.order_list.product_order.ref' | I18N | async}}: {{product.reference}}
+                    <br> {{'secure.orders.order_list.product_order.ref' | translate}}: {{product.reference}}
                     <br>
-                    <span>{{'secure.orders.order_list.product_order.sku' | I18N | async}}: {{product.sku}}</span>
+                    <span>{{'secure.orders.order_list.product_order.sku' | translate}}: {{product.sku}}</span>
                     <br>
-                    <span>{{'secure.billing.amount' | I18N | async}}: {{product.quantity}}</span>
+                    <span>{{'secure.billing.amount' | translate}}: {{product.quantity}}</span>
                     <br>
-                    <span *ngIf="product.fulfillment == true">{{'secure.orders.order_list.send_order.full_fillment' | I18N | async}}</span>
-                    <span *ngIf="product.enviosExito == true">{{'secure.orders.order_list.send_order.envios_exito' | I18N | async}}</span>
+                    <span *ngIf="product.fulfillment == true">{{'secure.orders.order_list.send_order.full_fillment' | translate}}</span>
+                    <span *ngIf="product.enviosExito == true">{{'secure.orders.order_list.send_order.envios_exito' | translate}}</span>
                     <span
-                      *ngIf="product.fulfillment == false && product.enviosExito == false">{{'secure.orders.order_list.send_order.standar' | I18N | async}}</span>
+                      *ngIf="product.fulfillment == false && product.enviosExito == false">{{'secure.orders.order_list.send_order.standar' | translate}}</span>
                   </mat-card-subtitle>
 
                 </mat-panel-title>
                 <mat-panel-description fxShow.gt-sm="true" fxShow="false" class="dropdown-content-header-panel">
                   <span class="sku-product sc-link-text">
-                    {{'secure.orders.order_list.send_order.send_products' | I18N | async}}</span>
+                    {{'secure.orders.order_list.send_order.send_products' | translate}}</span>
                 </mat-panel-description>
 
               </mat-expansion-panel-header>

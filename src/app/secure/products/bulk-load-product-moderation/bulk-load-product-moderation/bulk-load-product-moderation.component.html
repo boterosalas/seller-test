@@ -1,12 +1,12 @@
 <!-- Template para el contenido principal. -->
 <ng-template #mainContentTpl>
   <p>
-      {{'secure.products.bulk_load_product_moderation.text_may_upload_product' | I18N | async}}
-    <a (click)="requestMail()" class="link-text" [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_load_product_moderation.download_the_format' | I18N | async}}
-    </a>{{'secure.products.bulk_load_product_moderation.text_file_may_update' | I18N | async}}
+      {{'secure.products.bulk_load_product_moderation.text_may_upload_product' | translate}}
+    <a (click)="requestMail()" class="link-text" [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_load_product_moderation.download_the_format' | translate}}
+    </a>{{'secure.products.bulk_load_product_moderation.text_file_may_update' | translate}}
   </p>
   <p>
-    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()"  [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_upload.text_select_import' | I18N | async}}</span> {{'secure.products.bulk_upload.text_select_import_type' | I18N | async}}
+    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()"  [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_upload.text_select_import' | translate}}</span> {{'secure.products.bulk_upload.text_select_import_type' | translate}}
   </p>
 </ng-template>
 

@@ -2,11 +2,11 @@
     <mat-icon class="material-icons icon-warning">
         warning
     </mat-icon>
-    {{'core.http.dialog_token_expired.title' | I18N | async}}
+    {{'core.http.dialog_token_expired.title' | translate}}
 </h1>
 <div mat-dialog-content>
-    <p>{{'core.http.dialog_token_expired.body' | I18N | async}}</p>
+    <p>{{'core.http.dialog_token_expired.body' | translate}}</p>
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end end">
-    <button mat-button (click)="closeDialog()" cdkFocusInitial>{{'actions.accpet_min' | I18N | async}}</button>
+    <button mat-button (click)="closeDialog()" cdkFocusInitial>{{'actions.accpet_min' | translate}}</button>
 </div>

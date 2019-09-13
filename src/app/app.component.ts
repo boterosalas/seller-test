@@ -1,9 +1,10 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, ModalComponent, ModalService, UserLoginService } from '@app/core';
 import { environment } from '@env/environment';
-import { LanguageService } from './core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AppComponent');
+export const langs = ['en', 'es'];
 
 @Component({
   selector: 'app-root',
@@ -32,9 +33,11 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private loadingService: LoadingService,
     private modalService: ModalService,
     private cdRef: ChangeDetectorRef,
-    private languageService: LanguageService
+    private translate: TranslateService
   ) {
-    console.log('debo ser lo primero en esta perra vida en instanciarme');
+    this.translate.addLangs(langs); 
+    this.translate.setDefaultLang('en'); 
+    this.translate.use('en'); 
   }
 
   ngOnInit() {

@@ -1,27 +1,27 @@
 <div class="content-modal">
-  <h2 mat-dialog-title class="sc-title">{{'secure.orders.in_devolution.view_comment.comment_request' | I18N | async}}</h2>
+  <h2 mat-dialog-title class="sc-title">{{'secure.orders.in_devolution.view_comment.comment_request' | translate}}</h2>
   <mat-dialog-content>
 
 
     <div class="title-comment">
       <mat-icon color="primary" mat-list-icon matPrefix>comment</mat-icon>
-      <p>{{'secure.orders.in_devolution.view_comment.commnet_ser_client' | I18N | async}}</p>
+      <p>{{'secure.orders.in_devolution.view_comment.commnet_ser_client' | translate}}</p>
     </div>
 
     <p mat-subheader class="text-comment" *ngIf="order.sacObservationReversionRequestRefuse != null">{{order.sacObservationReversionRequestRefuse}}</p>
-    <p mat-subheader class="text-comment" *ngIf="order.sacObservationReversionRequestRefuse == null">{{'secure.orders.in_devolution.view_comment.no_commnet' | I18N | async}}</p>
+    <p mat-subheader class="text-comment" *ngIf="order.sacObservationReversionRequestRefuse == null">{{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}</p>
 
     <div class="title-comment">
       <mat-icon color="primary" mat-list-icon matPrefix>comment</mat-icon>
-      <p>{{'secure.orders.in_devolution.view_comment.commnet_seller' | I18N | async}}</p>
+      <p>{{'secure.orders.in_devolution.view_comment.commnet_seller' | translate}}</p>
     </div>
 
     <p mat-subheader class="text-comment" *ngIf="order.sellerObservationReversionRequestRefuse != null">{{order.sellerObservationReversionRequestRefuse}}</p>
-    <p mat-subheader class="text-comment" *ngIf="order.sellerObservationReversionRequestRefuse == null">{{'secure.orders.in_devolution.view_comment.no_commnet' | I18N | async}}</p>
+    <p mat-subheader class="text-comment" *ngIf="order.sellerObservationReversionRequestRefuse == null">{{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}</p>
 
   </mat-dialog-content>
   <mat-dialog-actions class="button-content" fxLayoutAlign="end center">
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button color="primary" [mat-dialog-close]="true">{{'actions.close' | I18N | async}</button>
+    <button mat-button color="primary" [mat-dialog-close]="true">{{'actions.close' | translate}</button>
   </mat-dialog-actions>
 </div>

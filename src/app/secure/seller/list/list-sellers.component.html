@@ -3,7 +3,7 @@
     <!-- Formulario para realizar filtro de listado de vendedores -->
     <form class="basic-info" #createfilterSeller="ngForm" [formGroup]="filterSeller" class="seller-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>{{'secure.seller.list.seller_filter' | I18N | async}}</h3>
+        <h3>{{'secure.seller.list.seller_filter' | translate}}</h3>
         <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
@@ -12,28 +12,28 @@
 
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayoutAlign.xs="center center" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput [placeholder]="'secure.seller.list.id' | I18N | async" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+          <input matInput [placeholder]="'secure.seller.list.id' | translate" formControlName="id" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterSeller.get('id').hasError('pattern')">{{'errors.invalid_id' | I18N | async}}</mat-error>
+          <mat-error *ngIf="filterSeller.get('id').hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [placeholder]="'secure.seller.list.seller_name' | I18N | async" formControlName="sellerName" [errorStateMatcher]="matcher"
+          <input matInput [placeholder]="'secure.seller.list.seller_name' | translate" formControlName="sellerName" [errorStateMatcher]="matcher"
             (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">{{'errors.invalid_name' | I18N | async}}</mat-error>
+            <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">{{'errors.invalid_name' | translate}}</mat-error>
           <!-- <mat-hint></mat-hint>
   <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
         <mat-form-field>
-          <input matInput [placeholder]="'secure.seller.list.nit' | I18N | async" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
+          <input matInput [placeholder]="'secure.seller.list.nit' | translate" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" >
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')">{{'errors.invalid_nit' | I18N | async}}</mat-error>
+          <mat-error *ngIf="filterSeller.get('nit').hasError('pattern')">{{'errors.invalid_nit' | translate}}</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-          <button mat-stroked-button color="primary" (click)="cleanFilter()">{{'filters.clear' | I18N | async}}</button>
+          <button mat-stroked-button color="primary" (click)="cleanFilter()">{{'filters.clear' | translate}}</button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterListSeller()">{{'filters.filter' | I18N | async}}</button>
+          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterListSeller()">{{'filters.filter' | translate}}</button>
         </div>
 
       </div>
@@ -46,19 +46,19 @@
         <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
           <!--  Titulo del toolbar -->
           <p class="seller-list-title" fxShow [fxShow.xs]="false">
-            {{'secure.seller.list.toolbar_title' | I18N | async}}
-            <small class="sub-title">{{'secure.seller.list.toolbar_subtitle' | I18N | async}}</small>
+            {{'secure.seller.list.toolbar_title' | translate}}
+            <small class="sub-title">{{'secure.seller.list.toolbar_subtitle' | translate}}</small>
           </p>
           <!--  Titulo del toolbar -->
           <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-            {{'secure.seller.list.toolbar_title_phone' | I18N | async}}
+            {{'secure.seller.list.toolbar_title_phone' | translate}}
           </p>
           <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
           </mat-paginator> -->
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter">{{'filters.filter' | I18N | async}}</small>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
       </mat-toolbar>
       <!-- Resultado Filtro -->
@@ -78,27 +78,27 @@
         <div id="header-list" class="header-list" fxLayout="row" fxLayoutAlign="space-around center"  fxHide.xs>
           <div id="id" class="label-container id">
             <label class="label-list">{{'
-              secure.seller.list.id' | I18N | async}}
+              secure.seller.list.id' | translate}}
             </label>
           </div>
           <div id="nit" class="label-container nit">
               <label class="label-list">{{'
-                secure.seller.list.nit' | I18N | async}}
+                secure.seller.list.nit' | translate}}
               </label>
             </div>
           <div id="name" class="label-container name">
             <label class="label-list">{{'
-              secure.seller.list.seller_name' | I18N | async}}
+              secure.seller.list.seller_name' | translate}}
             </label>
           </div>
           <div id="status" class="label-container status">
             <label class="label-list">{{'
-              secure.seller.list.status' | I18N | async}}
+              secure.seller.list.status' | translate}}
             </label>
           </div>
           <div id="vacations" class="label-container vacations">
             <label class="label-list">{{'
-              secure.seller.list.vacations' | I18N | async}}
+              secure.seller.list.vacations' | translate}}
             </label>
           </div>
         </div>
@@ -109,14 +109,14 @@
         <!-- SELLER HEADER LIST--> 
           <div id="body-list" class="header-list">
                 <div id="id" class="label-container id">
-                    <button mat-icon-button [matTooltip]="'secure.seller.list.tooltip_manage' | I18N | async" class="btn__visibility" (click)="redirectToSeller(seller.IdSeller)"
+                    <button mat-icon-button [matTooltip]="'secure.seller.list.tooltip_manage' | translate" class="btn__visibility" (click)="redirectToSeller(seller.IdSeller)"
                       fxShow [fxShow.xs]="false" *ngIf="canVisualize">
                       <mat-icon class="material-icons">
                         visibility
                       </mat-icon>
                     </button>
                     <p class="title-list">{{'
-                      secure.seller.list.nit' | I18N | async}}
+                      secure.seller.list.nit' | translate}}
                     </p>
                     <label class="label-result">
                       {{seller.IdSeller}}
@@ -124,7 +124,7 @@
                   </div>
                   <div id="nit" class="label-container nit">
                       <p class="title-list">{{'
-                        secure.seller.list.nit' | I18N | async}}
+                        secure.seller.list.nit' | translate}}
                       </p>
                     <label class="label-result">
                       {{seller.Nit}}
@@ -132,7 +132,7 @@
                   </div>
                   <div id="name" class="label-container name">
                       <p class="title-list">{{'
-                        secure.seller.list.seller_name' | I18N | async}}
+                        secure.seller.list.seller_name' | translate}}
                       </p>
                     <label class="label-result">
                       {{seller.Name}}
@@ -141,7 +141,7 @@
                 <div id="status" class="label-container status">
                     <button mat-icon-button
                     id ="btn-enabled-seller"
-                    [matTooltip]="'secure.seller.list.tooltip_enable' | I18N | async"
+                    [matTooltip]="'secure.seller.list.tooltip_enable' | translate"
                     (click) = "changeSellerStatus(seller, 'enabled', i)"
                     [ngClass]="seller.Status == 'Enable' ? 'enabledSellerButton' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Enable'">
@@ -151,7 +151,7 @@
                     </button>
                     <button mat-icon-button
                     id="btn-disabled-seller"
-                    [matTooltip]="'secure.seller.list.tooltip_disable' | I18N | async"
+                    [matTooltip]="'secure.seller.list.tooltip_disable' | translate"
                     (click) = "changeSellerStatus(seller, 'disabled', i)"
                     [ngClass]="seller.Status == 'Disable' ? 'warnColor' : 'button--disabled' " 
                     [disabled]="!seller.Status || seller.Status == 'Disable'">
@@ -161,7 +161,7 @@
                     </button>
                     <button mat-icon-button
                     id="btn-vacation-seller" 
-                    [matTooltip]="'secure.seller.list.tooltip_vacations' | I18N | async"
+                    [matTooltip]="'secure.seller.list.tooltip_vacations' | translate"
                     (click) = "changeSellerStatus(seller, 'vacation', i)"
                     [ngClass]="seller.Status == 'Vacations' ? 'primaryColor' : 'button--disabled' " 
                     [disabled]=" !seller.Status || seller.Status == 'Disable'">
@@ -172,12 +172,12 @@
                   </div>
                   <div id="vacations" class="label-container vacations">
                     <p class="title-list">{{'
-                      secure.seller.list.vacations' | I18N | async}}
+                      secure.seller.list.vacations' | translate}}
                     </p>
                     <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
                          <div>
-                            <strong>{{'secure.seller.list.start_date' | I18N | async}}: </strong>{{seller.StartVacations}}<br/>
-                            <strong>{{'secure.seller.list.end_date' | I18N | async}}: </strong>{{seller.EndVacations}}
+                            <strong>{{'secure.seller.list.start_date' | translate}}: </strong>{{seller.StartVacations}}<br/>
+                            <strong>{{'secure.seller.list.end_date' | translate}}: </strong>{{seller.EndVacations}}
                          </div>
                           <mat-icon *ngIf="canCancelVacation" (click)="sendToOpenCancelVacationDialog(i)">
                             delete
@@ -185,7 +185,7 @@
                     </label>
                     <ng-template #ProgramDate>
                         <label class="label-result">{{'
-                          secure.seller.list.program_vacation' | I18N | async}}
+                          secure.seller.list.program_vacation' | translate}}
                       </label>                     
                     </ng-template>
                   </div>
@@ -201,13 +201,13 @@
   <ng-container *ngIf="status.status == 'vacation'">
     <form [formGroup]="statusForm" class="full-width space-between">
       <mat-form-field class="half-width">
-        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="'secure.seller.list.start_date' | I18N | async" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
         <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="half-width" >
-        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" placeholder="'secure.seller.list.end_date' | I18N | async" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
+        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" placeholder="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
         <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
         <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
       </mat-form-field>
@@ -217,15 +217,15 @@
   <ng-container *ngIf="status.status == 'disabled'">
     <form [formGroup]="statusForm">
         <mat-form-field class="full-width">
-          <input matInput [placeholder]="('secure.seller.list.reason' | I18N) | async" id="inputReason" autocomplete="false" formControlName="Reasons">
-          <mat-error *ngIf="reason.hasError('maxlength')">{{'errors.reason_max_length'  | I18N | async }}</mat-error>
-          <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">{{'errors.required'  | I18N | async }}</mat-error>  
+          <input matInput [placeholder]="'secure.seller.list.reason' | translate" id="inputReason" autocomplete="false" formControlName="Reasons">
+          <mat-error *ngIf="reason.hasError('maxlength')">{{'errors.reason_max_length'  | translate }}</mat-error>
+          <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">{{'errors.required'  | translate }}</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput [placeholder]="('secure.seller.list.observtion' | I18N) | async" id="inputObservation" autocomplete="false" formControlName="Observations"></textarea>
+          <textarea matInput [placeholder]="'secure.seller.list.observtion' | translate" id="inputObservation" autocomplete="false" formControlName="Observations"></textarea>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="observation.hasError('maxlength')">{{'errors.observation_max_length'  | I18N | async }}</mat-error>
-          <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">{{'errors.required'  | I18N | async }}</mat-error>  
+          <mat-error *ngIf="observation.hasError('maxlength')">{{'errors.observation_max_length'  | translate }}</mat-error>
+          <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">{{'errors.required'  | translate }}</mat-error>  
         </mat-form-field>
     </form>
   </ng-container>

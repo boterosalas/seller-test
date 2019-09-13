@@ -5,7 +5,7 @@
     <button fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
       style="margin-left:20px" (click)="loadGuide.resetVariableUploadFile()" id="clear-guide-button" color="primary"
       mat-raised-button>
-      <span>{{'secure.products.bulk_upload.clear_current_data' | I18N | async}}</span>
+      <span>{{'secure.products.bulk_upload.clear_current_data' | translate}}</span>
     </button>
   </div>
 
@@ -16,7 +16,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>check</mat-icon>
           <span>{{countRowUpload}}</span>
-          <b>{{'secure.laod_guide_page.table_load.records_found' | I18N | async}}</b>
+          <b>{{'secure.laod_guide_page.table_load.records_found' | translate}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -29,7 +29,7 @@
       <ng-container matColumnDef="orderNumber">
         <mat-header-cell fxFlex.sm="120px" fxFlex.md="130px" fxFlex.lg="130px" fxFlex.xs="130px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.orders.orders' | I18N | async}}
+          {{'secure.orders.orders' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn1 == true }" fxFlex.sm="120px" fxFlex.md="130px"
           fxFlex.lg="130px" fxFlex.xs="130px" *matCellDef="let element">
@@ -39,7 +39,7 @@
           </div>
 
           <div class="information" *ngIf="element.orderNumber == undefined || element.orderNumber == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | I18N | async}}
+            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -52,7 +52,7 @@
       <ng-container matColumnDef="sku">
         <mat-header-cell fxFlex.sm="145px" fxFlex.md="145px" fxFlex.lg="145px" fxFlex.xs="145px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.orders.order_list.product_order.sku' | I18N | async}}
+          {{'secure.orders.order_list.product_order.sku' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" fxFlex.sm="145px" fxFlex.md="145px"
           fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
@@ -60,7 +60,7 @@
             <p class="sc-text-normal">{{element.sku}}</p>
           </div>
           <div class="information" *ngIf="element.sku == undefined || element.sku == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | I18N | async}}
+            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -73,7 +73,7 @@
       <ng-container matColumnDef="quantity">
         <mat-header-cell fxFlex.sm="120px" fxFlex.md="120px" fxFlex.lg="120px" fxFlex.xs="120px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.billing.amount' | I18N | async}}
+          {{'secure.billing.amount' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" fxFlex.sm="120px" fxFlex.md="120px"
           fxFlex.lg="120px" fxFlex.xs="120px" *matCellDef="let element">
@@ -81,7 +81,7 @@
             <p class="sc-text-normal">{{element.quantity}}</p>
           </div>
           <div class="information" *ngIf="element.quantity == undefined || element.quantity == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | I18N | async}}
+            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -94,7 +94,7 @@
       <ng-container matColumnDef="carrier">
         <mat-header-cell fxFlex.sm="150px" fxFlex.md="150px" fxFlex.lg="150px" fxFlex.xs="150px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.laod_guide_page.table_load.shipping_company' | I18N | async}}
+          {{'secure.laod_guide_page.table_load.shipping_company' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" fxFlex.sm="150px" fxFlex.md="150px"
           fxFlex.lg="150px" fxFlex.xs="150px" *matCellDef="let element">
@@ -102,7 +102,7 @@
             <p class="sc-text-normal">{{element.carrier}}</p>
           </div>
           <div class="information" *ngIf="element.carrier == undefined || element.carrier == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | I18N | async}}
+            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -115,7 +115,7 @@
       <ng-container matColumnDef="tracking">
         <mat-header-cell fxFlex.sm="100px" fxFlex.md="100px" fxFlex.lg="100px" fxFlex.xs="100px" fxShow.xs="false"
           fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" *matHeaderCellDef>
-          {{'secure.orders.order_list.product_detail.guide' | I18N | async}}
+          {{'secure.orders.order_list.product_detail.guide' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" fxShow.xs="false" fxShow.sm="true"
           fxShow.gt-lg="false" fxShow="true" fxFlex.sm="120px" fxFlex.md="135px" fxFlex.lg="1100pxx" fxFlex.xs="70"
@@ -124,7 +124,7 @@
             <p class="sc-text-normal">{{element.tracking}}</p>
           </div>
           <div class="information" *ngIf="element.tracking == undefined || element.tracking == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | I18N | async}}
+            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning

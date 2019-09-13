@@ -7,7 +7,7 @@
       <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
                 (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
                 (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
-        <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | I18N | async}}</span>
+        <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
         <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
 
         <div class="filter-desc first flexbox align-center justify-between" *ngIf="paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== ''">
@@ -38,13 +38,13 @@
           <img [src]="item.imageUrl" alt="">
           <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
             <div class="flexbox justify-center align-center">
-              <p>{{'secure.offers.list.list.with_out_stock' | I18N | async}}</p>
+              <p>{{'secure.offers.list.list.with_out_stock' | translate}}</p>
             </div>
           </div>
         </div>
 
         <div class="container-desc-card flexbox flex-wrap align-center">
-          <h3>{{'secure.offers.list.list.EAN_offert' | I18N | async}} {{item.ean}}</h3>
+          <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{item.ean}}</h3>
           <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'" class="price-strikethrough"></p>
           <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
             class="price"></p>
@@ -69,7 +69,7 @@
       <div class="icon-sentiment-dissatisfied">
         <mat-icon>sentiment_dissatisfied</mat-icon>
       </div>
-      <p>{{'secure.offers.list.list.without_offert' | I18N | async}}</p>
+      <p>{{'secure.offers.list.list.without_offert' | translate}}</p>
     </section>
     <section *ngIf="viewDetailOffer && viewDetailOffer == true">
         <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)" [canEdit]="updatePermission"></app-detail-offer>

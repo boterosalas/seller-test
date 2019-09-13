@@ -1,22 +1,28 @@
 <div>
   <div>
     <p id="textCreateEan">
-        {{'secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean' | I18N | async}}
+      {{'secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean' | translate}}
     </p>
   </div>
   <form *ngIf="eanGroup" #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off" maxlength="16" minlength="7">
-      <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')">{{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format' | I18N | async}}</mat-error>
-      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB"> {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer' | I18N | async}}</mat-error>
-  <div class="distanceComponetInt">
-      <mat-checkbox  #asignatedEanCheckBox 
-      [checked]="asignatedEan"
-      (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)"
-      formControlName="associateEan">{{'secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code' | I18N | async}}</mat-checkbox>
+      <input matInput placeholder="EAN" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off"
+        maxlength="16" minlength="7">
+      <mat-error *ngIf="eanGroup.get('eanCtrl').hasError('pattern')">
+        {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format' | translate}}</mat-error>
+      <mat-error *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB">
+        {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer' | translate}}
+      </mat-error>
+    </mat-form-field>
+    <div class="distanceComponetInt">
+      <mat-checkbox #asignatedEanCheckBox [checked]="asignatedEan"
+        (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)" formControlName="associateEan">
+        {{'secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code' | translate}}
+      </mat-checkbox>
     </div>
     <div class="buttonProcess">
-      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="permitContinue() || !createProductEan.form.valid">{{'secure.products.create_product_unit.specifications.validate-ean.continue' | I18N | async}}</button>
+      <button mat-button matStepperNext class="buttonProcessContinuar"
+        [disabled]="permitContinue() || !createProductEan.form.valid">{{'secure.products.create_product_unit.specifications.validate-ean.continue' | translate}}</button>
     </div>
   </form>
 </div>

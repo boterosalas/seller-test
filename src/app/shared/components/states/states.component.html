@@ -1,5 +1,5 @@
 <mat-form-field class="register"  style="width:100% !important;" [formGroup]="validateFormRegister">
-    <mat-select [placeholder]="'secure.seller.register_seller.lb_state_form' | I18N | async"  formControlName="statesFormControl" id="register-state" required (blur)="setParamToCitiesChange()">
+    <mat-select [placeholder]="'secure.seller.register_seller.lb_state_form' | translate"  formControlName="statesFormControl" id="register-state" required (blur)="setParamToCitiesChange()">
         <mat-option *ngFor='let item of listItems' [value]="item.Id" [innerHTML]="item.Name" 
         (click)="setParamToCities(item)"></mat-option>
     </mat-select>

@@ -1,6 +1,6 @@
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatStepper } from '@angular/material';
 import { Component, Inject } from '@angular/core';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-dialog-save',
@@ -17,13 +17,13 @@ export class SaveProcessDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<SaveProcessDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public res: any,
-        private languageService: LanguageService
+        private languageService: TranslateService
       ) {
         this.response = res;
-        this.has = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.has');
-        this.have = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.have');
-        this.errors = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.errors');
-        this.error = this.languageService.getValue('secure.products.create_product_unit.component_process.dialog_save.there.error');
+        this.has = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.has');
+        this.have = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.have');
+        this.errors = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.errors');
+        this.error = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.error');
       }
 
     onNoClick(): void {

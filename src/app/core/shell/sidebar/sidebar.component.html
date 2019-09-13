@@ -2,7 +2,7 @@
 
   <mat-nav-list class="light-content">
     <mat-toolbar color="primary">
-      <button id="closeMenuApplication" color="accent" [matTooltip]="'actions.close_menu' | I18N | async" matTooltipPosition="below"
+      <button id="closeMenuApplication" color="accent" [matTooltip]="'actions.close_menu' | translate" matTooltipPosition="below"
         mat-icon-button mat-button (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
       </button>
@@ -13,18 +13,7 @@
 
     </mat-toolbar>
 
-    <ng-container>
-        <form [formGroup]="form">
-          <mat-form-field>
-            <mat-label>{{'language' | I18N | async}}</mat-label>
-              <mat-select formControlName="language">
-                <mat-option *ngFor="let language of languages" [value]="language.id">
-                  {{language.id}}
-                </mat-option>
-              </mat-select>
-          </mat-form-field>
-        </form>
-      </ng-container>
+    <app-select-language></app-select-language>
 
     <div class="content-menu-list" *ngIf="user">
       <div *ngFor="let module of modules">
@@ -239,12 +228,12 @@
     </mat-list-item> -->
     <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterMyProfile]">
       <mat-icon matListIcon class="mat-18">person</mat-icon>
-      <h6 matLine>{{'shell.header.profile' | I18N | async}}</h6>
+      <h6 matLine>{{'core.shell.header.profile' | translate}}</h6>
     </mat-list-item>
 
     <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]" (click)="toggleMenu()">
       <mat-icon matListIcon class="mat-18">input</mat-icon>
-      <h6 matLine>{{'shell.header.logout' | I18N | async}}</h6>
+      <h6 matLine>{{'core.shell.header.logout' | translate}}</h6>
     </mat-list-item>
 
     <!--

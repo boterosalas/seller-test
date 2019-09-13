@@ -8,11 +8,18 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
-import { Filter } from '../models/filter';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  FetchUnreadCase,
+  FetchUnreadCaseDone
+} from '@app/store/notifications/actions';
+import { CoreState } from '@app/store';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-of-case',
@@ -48,6 +55,7 @@ export class ListOfCaseComponent implements OnInit {
   pageIndex = 1;
   pageSize = 50;
   filterParams: any;
+  unreadCase: number;
 
   configDialog = {
     width: '70%',
@@ -59,8 +67,10 @@ export class ListOfCaseComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private sellerSupportService: SellerSupportCenterService,
     public router: ActivatedRoute,
+    private store: Store<CoreState>,
     private loadingService?: LoadingService,
     private modalService?: ModalService
   ) {}
@@ -69,9 +79,20 @@ export class ListOfCaseComponent implements OnInit {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    this.router.queryParams.subscribe(res => {
-      this.loadCases(res);
-    });
+    this.filterByRoute(this.router.queryParams).subscribe(res =>
+      this.loadCases(res)
+    );
+    this.store
+      .select(reduxState => reduxState.notification.unreadCases)
+      .subscribe(unreadCase => (this.unreadCase = unreadCase));
+  }
+
+  filterByRoute(queryParams: Observable<any>): Observable<any> {
+    return queryParams.pipe(
+      map((res: any) =>
+        res.Status && res.Status.length > 0 ? res : { ...res, init: true }
+      )
+    );
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -100,7 +121,6 @@ export class ListOfCaseComponent implements OnInit {
         this.refreshPaginator(res.data.total, page, pageSize);
       },
       err => {
-        //this.log.debug(err);
         this.modalService.showModal('errorService');
         this.loadingService.closeSpinner();
       }
@@ -114,6 +134,20 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   onEmitResponse(caseResponse: any) {
+    if (caseResponse.status === 'Cerrado') {
+      this.snackBar.open(
+        'El caso ya se encuentra en estado cerrado, no es posible agregar comentarios.',
+        'Cerrar',
+        {
+          duration: 3000
+        }
+      );
+    } else {
+      this.showResponseModal(caseResponse);
+    }
+  }
+
+  showResponseModal(caseResponse: any) {
     this.configDialog.data = caseResponse;
     const dialogRef = this.dialog.open(
       ResponseCaseDialogComponent,
@@ -146,5 +180,11 @@ export class ListOfCaseComponent implements OnInit {
   markAsRead(caseRead: any) {
     const caseId = { id: caseRead.id };
     this.sellerSupportService.patchReadCase(caseId).subscribe();
+
+    if (!caseRead.read) {
+      caseRead.read = true;
+      this.unreadCase--;
+      this.store.dispatch(new FetchUnreadCaseDone(this.unreadCase));
+    }
   }
 }

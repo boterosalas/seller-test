@@ -5,7 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Logger, UserParametersService } from '@app/core';
 import { ComponentsService, FAKE, ListReasonRejectionResponseEntity, OrderDevolutionsModel, UserInformation } from '@app/shared';
 import { InDevolutionService } from '@root/src/app/secure/orders/in-devolution/in-devolution.service';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 
 // log component
@@ -45,7 +46,7 @@ export class ActionReportNoveltyComponent implements OnInit {
     public dialogRef: MatDialogRef<ActionReportNoveltyComponent>,
     private inDevolutionService: InDevolutionService,
     private userParams: UserParametersService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
@@ -111,11 +112,11 @@ export class ActionReportNoveltyComponent implements OnInit {
     };
     this.inDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
-      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.in_devolution.action_report_novelty.rejected_request'), this.languageService.getValue('actions.accpet_min'), 12000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.action_report_novelty.rejected_request'), this.languageService.instant('actions.accpet_min'), 12000);
     }, error => {
       log.error(error);
       this.dialogRef.close(false);
-      this.componentsService.openSnackBar(this.languageService.getValue('secure.orders.in_devolution.action_report_novelty.error_rejected'), this.languageService.getValue('actions.accpet_min'), 12000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.action_report_novelty.error_rejected'), this.languageService.instant('actions.accpet_min'), 12000);
     });
   }
 }

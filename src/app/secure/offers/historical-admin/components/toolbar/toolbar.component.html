@@ -3,8 +3,8 @@
 
     <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
 
-      <p>{{'secure.offers.historical_admin.components.toolbar.title_offert' | I18N | async}}
-        <small class="sub-title"><span class="bar"> | </span> {{'secure.offers.historical_admin.components.toolbar.subtitle_offert' | I18N | async}}</small>
+      <p>{{'secure.offers.historical_admin.components.toolbar.title_offert' | translate}}
+        <small class="sub-title"><span class="bar"> | </span> {{'secure.offers.historical_admin.components.toolbar.subtitle_offert' | translate}}</small>
       </p>
       <div class="seller-search">
         <app-search-seller  *ngIf="getFunctionality(read)" [isFullSearch]="false"></app-search-seller>
@@ -36,7 +36,7 @@
         <!-- Filter button -->
         <button *ngIf="isEnabled" class="btn-filter" mat-icon-button (click)="toggleMenu()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter">{{'filters.filter' | I18N | async}}</small>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
         <!-- /Filter button -->
       </div>

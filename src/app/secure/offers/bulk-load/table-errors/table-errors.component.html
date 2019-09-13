@@ -1,6 +1,6 @@
 <div class="container-error" *ngIf="countErrors > 0">
   <div class="name-file-upload">
-    <p>{{'secure.products.table_errors_product.selected_file' | I18N | async}}:</p>
+    <p>{{'secure.products.table_errors_product.selected_file' | translate}}:</p>
     <b>{{ fileName}}</b>
   </div>
   <mat-expansion-panel expanded="true" [@detailExpand] class="list-information-table card-err-process"
@@ -10,7 +10,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span>{{countErrors}} </span>
-          <b> {{'errors.errors_detected' | I18N | async}}</b>
+          <b> {{'errors.errors_detected' | translate}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -19,7 +19,7 @@
 
       <mat-nav-list dense>
         <mat-list-item>
-          <p class="wrap" matLine>{{'errors.errors_upload_offer_again' | I18N | async}}
+          <p class="wrap" matLine>{{'errors.errors_upload_offer_again' | translate}}
           </p>
         </mat-list-item>
         <mat-list-item id="error-list-guide-button" (click)="bulkLoad.selectErrorLog(item)"
@@ -27,35 +27,35 @@
           <mat-icon class="icon-color-error">error</mat-icon>
 
           <p matLine *ngIf="item.type == 'NumberFormat'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'dateNotFound'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.products.table_errors_product.mandatory' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.mandatory' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.products.table_errors_product.boolean' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.boolean' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.products.table_errors_product.number_positive' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'ThanZero'" style="white-space: normal;overflow: visible;">El dato en la
@@ -63,52 +63,52 @@
             <span class="error-string">fila #{{item.fila}}</span> debe ser numérico positivo mayor o igual a cero, sin decimales.
           </p>
 
-          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">{{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_promise_delivery' | I18N | async}}
+          <p matLine *ngIf="item.type == 'InvalidFormatPromEntrega'" style="white-space: normal;overflow: visible;">{{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_promise_delivery' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'InvalidFormatCurrency'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_currency' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.error_currency' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'InvalidEanCombo'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.diferent_ean' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.diferent_ean' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'InvalidExistEan'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.incomplete_info' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.incomplete_info' | translate}}
             [{{item.msg}}].
           </p>
 
           <p matLine *ngIf="item.type == 'InvalidPriceCombo'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'InvalidPriceOfferCombo'" style="white-space: normal;overflow: visible;">
-            {{'secure.products.table_errors_product.column_data' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | I18N | async}}
-              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | I18N | async}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | I18N | async}}
-              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price_component' | I18N | async}}
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price_component' | translate}}
           </p>
 
 

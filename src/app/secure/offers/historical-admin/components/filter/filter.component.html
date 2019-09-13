@@ -9,12 +9,12 @@
 
     <!-- Clear form button -->
     <article class="flexbox align-center justify-between">
-      <span>{{'secure.offers.historical_admin.components.filter.title' | I18N | async}}</span>
+      <span>{{'secure.offers.historical_admin.components.filter.title' | translate}}</span>
       <button
         id="closeMenuApplication"
         type="button"
         color="primary"
-        [matTooltip]="'secure.offers.historical_admin.components.filter.tooltip_close' | I18N | async"
+        [matTooltip]="'secure.offers.historical_admin.components.filter.tooltip_close' | translate"
         matTooltipPosition="below"
         mat-icon-button
         mat-button
@@ -28,7 +28,7 @@
     <mat-form-field color="primary">
       <input
         id="sinceDate-input"
-        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_initial_date' | I18N | async"
+        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_initial_date' | translate"
         formControlName="dateInitial"
         name="dateInitial"
         [readonly]="true"
@@ -45,7 +45,7 @@
     <mat-form-field color="primary">
       <input
         id="untilDate-input"
-        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_final_date' | I18N | async"
+        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_final_date' | translate"
         formControlName="dateFinal"
         name="dateFinal"
         [readonly]="true"
@@ -56,28 +56,28 @@
         (click)="openDateFinal()">
       <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
-      <mat-error *ngIf="rangeError">{{'errors.error_date' | I18N | async}}</mat-error>
+      <mat-error *ngIf="rangeError">{{'errors.error_date' | translate}}</mat-error>
     </mat-form-field>
     <!-- /Input date final -->
 
     <!-- Input EAN -->
     <mat-form-field>
       <input matInput
-        [placeholder]="'secure.offers.historical_admin.components.filter.EAN' | I18N | async"
+        [placeholder]="'secure.offers.historical_admin.components.filter.EAN' | translate"
         formControlName="ean"
         matInput>
       <mat-hint></mat-hint>
-      <mat-error *ngIf="historicalFilterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | I18N | async}}</mat-error>
+      <mat-error *ngIf="historicalFilterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | translate}}</mat-error>
     </mat-form-field>
     <!-- /Input EAN -->
 
     <!-- Filter action button -->
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset" (click)="clearAndSubmit()">{{'filters.clear' | I18N | async}}</button>
+      <button mat-stroked-button color="primary" type="reset" (click)="clearAndSubmit()">{{'filters.clear' | translate}}</button>
       <button mat-flat-button
         color="primary"
         type="submit"
-        [disabled]="!f.form.valid">{{'filters.filter' | I18N | async}}
+        [disabled]="!f.form.valid">{{'filters.filter' | translate}}
       </button>
     </article>
     <!-- /Filter action button -->

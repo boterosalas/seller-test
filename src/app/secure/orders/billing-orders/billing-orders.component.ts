@@ -6,7 +6,7 @@ import { LoadingService } from '@app/core';
 import { ComponentsService } from '@app/shared';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { onlineBillName, MenuModel, readFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('BillingOrderComponent');
 
@@ -35,7 +35,7 @@ export class BillingOrderComponent implements OnInit {
         private loadingService: LoadingService,
         public componentsService: ComponentsService,
         public authService: AuthService,
-        private languageService: LanguageService
+        private languageService: TranslateService
     ) { }
     ngOnInit() {
         this.permissionComponent = this.authService.getMenu(onlineBillName);
@@ -64,8 +64,8 @@ export class BillingOrderComponent implements OnInit {
      */
     public chargeBillingOrders(): void {
         if (this.billingGroup.controls.billingOrderCtrl.value === undefined || this.billingGroup.controls.billingOrderCtrl.value === null ||  this.billingGroup.controls.billingOrderCtrl.value === '') {
-            const message = this.languageService.getValue('secure.orders.billing_orders.must_enter_order');
-            this.componentsService.openSnackBar(message, this.languageService.getValue('actions.close'), 4000);
+            const message = this.languageService.instant('secure.orders.billing_orders.must_enter_order');
+            this.componentsService.openSnackBar(message, this.languageService.instant('actions.close'), 4000);
         }else {
         this.loadingService.viewSpinner();
         this.billingOrdersService.getBillingOrders(this.billingGroup.controls.billingOrderCtrl.value).subscribe(result => {

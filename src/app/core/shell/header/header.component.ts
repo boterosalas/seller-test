@@ -8,9 +8,8 @@ import { UserInformation } from '@app/shared';
 import { MatDialog } from '@angular/material';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { LoadingService } from '@app/core/global';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AVAILABLE_LANGUAGES, LanguageService } from '@app/core/translate/language.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { CoreState } from '@app/store';
+import { Store, select } from '@ngrx/store';
 
 
 // log component
@@ -34,10 +33,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public sellerName: any;
   public sellerId: any;
   public routes: any;
-  public form: FormGroup;
-  public languages = AVAILABLE_LANGUAGES;
-  selectedLenguage: any;
-  matSelect;
+  public unreadCase: number;
 
   constructor(
     private userService: UserLoginService,
@@ -45,8 +41,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     private router: Router,
     private loadingService: LoadingService,
     public dialog: MatDialog,
-    private fb: FormBuilder,
-    private languageService: LanguageService
+    private store: Store<CoreState>
   ) { }
 
   /**
@@ -54,23 +49,13 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
-    this.initForm();
-    this.matSelect = document.querySelector('.header_select>.mat-select-trigger>.mat-select-value');
 
-  }
-
-  private initForm() {
-    this.form = this.fb.group({
-      language: ['', Validators.required]
-    });
-    this.languageService.lenguage$.pipe(distinctUntilChanged()).subscribe((val) => {
-      if (this.form.get('language').value !== val)
-      this.form.get('language').setValue(val);
-    });
-    this.form.get('language').valueChanges.subscribe((idLeng) => {
-      if(this.languageService.lenguage$.getValue() !== idLeng)
-      this.languageService.setLanguage(idLeng);
-    });
+    this.store
+      .pipe(select(state => state.notification))
+      .subscribe(
+        notificationState =>
+          (this.unreadCase = notificationState.unreadCases)
+      );
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {

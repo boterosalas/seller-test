@@ -9,7 +9,7 @@
         <div class="normal-theme toolbar-options-table">
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
             <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="sc-title title-toolbar">{{'secure.offers.bulk_upload.bulk_upload.title_toolbar' | I18N | async}}
+              class="sc-title title-toolbar">{{'secure.offers.bulk_upload.bulk_upload.title_toolbar' | translate}}
             </h3>
           </div>
 
@@ -22,14 +22,14 @@
               <a download class="sc-default-button" id="download-file-button"
                 (click)="downloadFormatMassiveOfferLoadInternational()" mat-button>
                 <mat-icon class="mat-18">file_download</mat-icon>
-                {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | I18N | async}}
+                {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}}
               </a>
             </div>
             <!-- Input para subir archivo Excel -->
             <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad()"
               mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
-              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | I18N | async}}
+              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}}
             </a>
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
@@ -39,7 +39,7 @@
             <button color="primary" class="sc-default-button" id="load-file-button" (click)="fileUploadOption.click()"
               mat-button>
               <mat-icon class="mat-18 ">file_upload</mat-icon>
-              {{'secure.offers.bulk_upload.bulk_upload.upload_format' | I18N | async}}
+              {{'secure.offers.bulk_upload.bulk_upload.upload_format' | translate}}
             </button>
 
           </div>
@@ -48,22 +48,22 @@
             class="center-product-list" fxFlex="130px">
             <button id="dropdown-options-load-guide" class="button-toolbar" mat-button
               [matMenuTriggerFor]="toolbarOptions">
-              <span>{{'actions.options' | I18N | async}}</span>
+              <span>{{'actions.options' | translate}}</span>
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu dense #toolbarOptions="matMenu">
               <button id="upload-file-guide-button" (click)="fileUploadOption.click()" mat-menu-item>
-                <span>{{'secure.products.bulk_upload.upload_file' | I18N | async}}</span>
+                <span>{{'secure.products.bulk_upload.upload_file' | translate}}</span>
               </button>
               <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
-                {{'secure.products.bulk_upload.download_format' | I18N | async}}</a>
+                {{'secure.products.bulk_upload.download_format' | translate}}</a>
               <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
                 mat-menu-item>
-                <span>{{'secure.products.bulk_upload.clear_current_data' | I18N | async}}</span>
+                <span>{{'secure.products.bulk_upload.clear_current_data' | translate}}</span>
               </button>
               <button id="send-guide-button" (click)="sendJsonInformation()"
                 [disabled]="countErrors != 0 || countRowUpload == 0" color="accent"
-                mat-menu-item>{{'secure.products.bulk_upload.send_data' | I18N | async}}
+                mat-menu-item>{{'secure.products.bulk_upload.send_data' | translate}}
               </button>
             </mat-menu>
           </div>
@@ -101,15 +101,15 @@
         </mat-icon>
       </div>
       <div class="content-information-no-data">
-        <p>{{'secure.products.bulk_upload.text_step_import' | I18N | async}}
+        <p>{{'secure.products.bulk_upload.text_step_import' | translate}}
           <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
-            class="link-text">{{'secure.products.bulk_upload.download_the_format' | I18N | async}}
-          </a>, {{'secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer' | I18N | async}}
+            class="link-text">{{'secure.products.bulk_upload.download_the_format' | translate}}
+          </a>, {{'secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer' | translate}}
         </p>
         <p>
           <span class="link-text" id="upload-file-guide-button"
-            (click)="fileUploadOption.click()">{{'secure.products.bulk_upload.text_select_import' | I18N | async}}</span>
-          {{'secure.products.bulk_upload.text_select_import_type' | I18N | async}}</p>
+            (click)="fileUploadOption.click()">{{'secure.products.bulk_upload.text_select_import' | translate}}</span>
+          {{'secure.products.bulk_upload.text_select_import_type' | translate}}</p>
       </div>
     </div>
   </div>
@@ -123,8 +123,8 @@
         <mat-list-item *ngFor="let item of ListError">
           <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
           <h4 matLine>{{item.NAME === null ? ('EAN : ' + item.EAN) : ('Nombre del producto: ' + item.NAME)}}</h4>
-          <p matLine>{{'secure.offers.bulk_upload.bulk_upload.list_error' | I18N | async}} {{item.EAN}}
-            {{'secure.offers.bulk_upload.bulk_upload.list_error_2' | I18N | async}} </p>
+          <p matLine>{{'secure.offers.bulk_upload.bulk_upload.list_error' | translate}} {{item.EAN}}
+            {{'secure.offers.bulk_upload.bulk_upload.list_error_2' | translate}} </p>
         </mat-list-item>
       </mat-nav-list>
     </div>

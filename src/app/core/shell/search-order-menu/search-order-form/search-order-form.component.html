@@ -1,7 +1,7 @@
 <form #f="ngForm" [formGroup]="myform" class="search-form light-content">
   <mat-form-field id="sinceDate-input-search-order" color="accent">
     <input id="sinceDate-input" [max]="myform.value.dateOrderFinal" formControlName="dateOrderInitial"
-      [placeholder]="'core.shell.search_order_menu.search_order_form.from' | I18N | async" matInput
+      [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" matInput
       [matDatepicker]="dateOrderInitial">
     <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateOrderInitial"></mat-datepicker-toggle>
     <mat-datepicker touchUi="true" startView="year" #dateOrderInitial></mat-datepicker>
@@ -9,7 +9,7 @@
 
   <mat-form-field id="untilDate-input-search-order" color="accent">
     <input id="untilDate-input" [min]="myform.value.dateOrderInitial" formControlName="dateOrderFinal"
-      [placeholder]="'core.shell.search_order_menu.search_order_form.to' | I18N | async" matInput
+      [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" matInput
       [matDatepicker]="dateOrderFinal">
     <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateOrderFinal">
     </mat-datepicker-toggle>
@@ -19,12 +19,12 @@
   <mat-form-field id="chanelOrder-input-search-order" class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">device_hub</mat-icon>
     <mat-select id="select-chanelOrder" formControlName="idChannel" placeholder="Filtrar por canal">
-      <mat-option>{{'core.shell.search_order_menu.search_envios_exito_form.none' | I18N | async}}</mat-option>
-      <mat-option value="11">{{'core.shell.search_order_menu.search_envios_exito_form.exito' | I18N | async}}
+      <mat-option>{{'core.shell.search_order_menu.search_envios_exito_form.none' | translate}}</mat-option>
+      <mat-option value="11">{{'core.shell.search_order_menu.search_envios_exito_form.exito' | translate}}
       </mat-option>
-      <mat-option value="13">{{'core.shell.search_order_menu.search_envios_exito_form.carulla' | I18N | async}}
+      <mat-option value="13">{{'core.shell.search_order_menu.search_envios_exito_form.carulla' | translate}}
       </mat-option>
-      <mat-option value="16">{{'core.shell.search_order_menu.search_envios_exito_form.digital_catalog' | I18N | async}}
+      <mat-option value="16">{{'core.shell.search_order_menu.search_envios_exito_form.digital_catalog' | translate}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -32,27 +32,27 @@
   <mat-form-field class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">format_list_bulleted</mat-icon>
     <input id="orderNumber-input-search-order" formControlName="orderNumber" type="text" pattern="[0-9.]+" matInput
-      [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_number' | I18N | async">
+      [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_number' | translate">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">person_pin</mat-icon>
     <input id="identificationCard-input-search-order" formControlName="identificationCard" type="text" pattern="[0-9.]+"
-      matInput [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_id' | I18N | async">
+      matInput [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_id' | translate">
   </mat-form-field>
   <section class="example-section normal-theme" *ngIf="typeProfiel == 0">
     <mat-slide-toggle color="primary" id="processedOrder-input-search-order" formControlName="processedOrder">
-      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | I18N | async}}órdenes marcadas
+      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | translate}}órdenes marcadas
     </mat-slide-toggle>
   </section>
 
   <div class="orders-search-option normal-theme">
     <button id="clear-filter-button" class="sc-button" mat-button (click)="clearForm()">
       <mat-icon>clear_all</mat-icon>
-      {{'filters.clear' | I18N | async}}
+      {{'filters.clear' | translate}}
     </button>
     <button id="apply-filter-button" [disabled]="!f.form.valid || !f.form.touched" class="sc-button" mat-raised-button
-      color="primary" type="submit" (click)="filterOrder(myform)">{{'actions.apply' | I18N | async}}
+      color="primary" type="submit" (click)="filterOrder(myform)">{{'actions.apply' | translate}}
     </button>
   </div>
 </form>

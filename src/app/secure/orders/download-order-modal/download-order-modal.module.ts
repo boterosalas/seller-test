@@ -9,7 +9,7 @@ import { MaterialModule } from '@app/material.module';
 
 import { DownloadOrderModalComponent } from './download-order-modal.component';
 import { DownloadOrderService } from './download-order.service';
-import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { SharedModule } from '@app/shared/shared.module';
     MaterialModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    TranslateModule
   ],
   declarations: [
     DownloadOrderModalComponent

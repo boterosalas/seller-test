@@ -1,16 +1,16 @@
 <p class="specification-text">
-  {{'secure.products.create_product_unit.specifications.text_must_specifications' | I18N | async}}
+  {{'secure.products.create_product_unit.specifications.text_must_specifications' | translate}}
 </p>
 <div class="specification-container" *ngIf="chargeList">
   {{validForm(specsForm.invalid)}}
   <form name="specsForm" #specsForm="ngForm">
     <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-        <span class="specification-name" [matTooltip]="'secure.products.create_product_unit.specifications.group_mandatory_specifications' | I18N | async"
+        <span class="specification-name" [matTooltip]="'secure.products.create_product_unit.specifications.group_mandatory_specifications' | translate"
           [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
           {{specification.Name}}
           <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
-            {{'secure.products.create_product_unit.specifications.info' | I18N | async}}
+            {{'secure.products.create_product_unit.specifications.info' | translate}}
           </mat-icon>
         </span>
         <button mat-icon-button (click)="toggleSpecification(specification, true)">
@@ -61,17 +61,17 @@
 
 <div fxLayout="row" class="new-specs-title" *ngIf="ShowSpecTitle" fxHide.xs>
   <p>
-    {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
+    {{'secure.products.create_product_unit.specifications.specifications' | translate}}
   </p>
   <p>
-    {{'shared.name' | I18N | async}}
+    {{'shared.name' | translate}}
   </p>
 </div>
 
 <div *ngFor="let spec of specificationListToAdd; let i = index">
   <div fxLayout="row" fxLayout.xs="column" class="new-specs" *ngIf="spec.Show">
     <p fxShow.xs fxShow="false">
-            {{'secure.products.create_product_unit.specifications.specifications' | I18N | async}}
+            {{'secure.products.create_product_unit.specifications.specifications' | translate}}
     </p>
     <span>
       {{spec.Name}}

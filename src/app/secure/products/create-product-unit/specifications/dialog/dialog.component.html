@@ -5,7 +5,7 @@
         </mat-icon>
     </div>
     <h1>
-            {{'secure.products.create_product_unit.specifications.dialog.add_specifications' | I18N | async}}
+            {{'secure.products.create_product_unit.specifications.dialog.add_specifications' | translate}}
     </h1>
     <p class="text">
         Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te
@@ -19,10 +19,10 @@
                 <mat-form-field class="specification-form-field">
                     <input matInput formControlName="Name" placeholder="Nombre de especificación" (blur)="onBlur('Name')">
                     <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.required">
-                            {{'secure.products.create_product_unit.specifications.dialog.add_specifications' | I18N | async}}
+                            {{'secure.products.create_product_unit.specifications.dialog.add_specifications' | translate}}
                     </mat-error>
                     <mat-error *ngIf="formSpecification.controls.Name.errors && formSpecification.controls.Name.errors.maxlength">
-                            {{'secure.products.create_product_unit.specifications.200_characters' | I18N | async}}
+                            {{'secure.products.create_product_unit.specifications.200_characters' | translate}}
                     </mat-error>
                 </mat-form-field>
 
@@ -30,10 +30,10 @@
                 <mat-form-field class="specification-form-field">
                     <input matInput formControlName="Value" placeholder="Especificación" (blur)="onBlur('Value')">
                     <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.required">
-                            {{'secure.products.create_product_unit.specifications.field_mandatory' | I18N | async}}200_characters
+                            {{'secure.products.create_product_unit.specifications.field_mandatory' | translate}}200_characters
                     </mat-error>
                     <mat-error *ngIf="formSpecification.controls.Value.errors && formSpecification.controls.Value.errors.maxlength">
-                            {{'secure.products.create_product_unit.specifications.200_characters' | I18N | async}}
+                            {{'secure.products.create_product_unit.specifications.200_characters' | translate}}
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -42,12 +42,12 @@
                 <div fxFlex="46" fxLayout="row" fxLayoutAlign="end center">
                     <button type="button" id="btn-create-transporter" mat-stroked-button color="primary"
                         (click)="closeDialog(false)">
-                        {{'actions.close' | I18N | async}}
+                        {{'actions.close' | translate}}
                     </button>
                 </div>
                 <div fxFlex="46" fxLayout="row" fxLayoutAlign="start center">
                     <button id="btn-create-transporter" [disabled]="!formSpecification.valid" mat-raised-button color="primary" >
-                     {{'actions.save' | I18N | async}}
+                     {{'actions.save' | translate}}
                     </button>
                 </div>
             </div>

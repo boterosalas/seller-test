@@ -7,7 +7,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UserInformation, ComponentsService } from '@app/shared';
 import { Logger, UserParametersService, LoadingService } from '@app/core';
 import { BillingService } from '../billing.service';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 // import { DownloadBillingPayService } from './download-billingpay.service';
 
 
@@ -46,7 +46,7 @@ export class DownloadBillingpayModalComponent implements OnInit {
     private loadingService: LoadingService,
     // public downloadBillingpayService: DownloadBillingPayService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private languageService: LanguageService
+    private languageService: TranslateService
   ) {
     // Capturo el limite de registros indicados por el usuario
     this.limitLengthBillingpay = data.limit;
@@ -101,20 +101,20 @@ export class DownloadBillingpayModalComponent implements OnInit {
     .subscribe(
       res => {
         this.loadingService.closeSpinner();
-        const closeSnackBar = this.languageService.getValue('actions.close');
+        const closeSnackBar = this.languageService.instant('actions.close');
         let message;
           if (res != null) {
-            message = this.languageService.getValue('secure.billing.correctly_download');
+            message = this.languageService.instant('secure.billing.correctly_download');
             this.componentsService.openSnackBar(message, closeSnackBar, 10000);
           } else {
-            message = this.languageService.getValue('secure.billing.error_download');
+            message = this.languageService.instant('secure.billing.error_download');
             this.componentsService.openSnackBar(message, closeSnackBar, 5000);
           }
           this.onNoClick();
         },
         err => {
-          const closeSnackBar = this.languageService.getValue('actions.close');
-          const message = this.languageService.getValue('secure.billing.error_download');
+          const closeSnackBar = this.languageService.instant('actions.close');
+          const message = this.languageService.instant('secure.billing.error_download');
           this.componentsService.openSnackBar(message, closeSnackBar, 5000);
           this.onNoClick();
         }

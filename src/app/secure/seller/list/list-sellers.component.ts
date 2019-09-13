@@ -14,7 +14,7 @@ import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionali
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
 import * as moment from 'moment';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface ListFilterSeller {
     name: string;
@@ -98,7 +98,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         public authService: AuthService,
         private modalService: ModalService,
-        private languageService: LanguageService) {
+        private languageService: TranslateService) {
     }
 
     get reason(): FormControl {
@@ -282,8 +282,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * Metodo encargado de cambiar la data del dialogo para cancelar vacaciones
      */
     setDataCancelVacationsDialog() {
-        const message = this.languageService.getValue('secure.seller.list.cancel_message_modal');
-        const title = this.languageService.getValue('secure.seller.list.cancel_title_modal');
+        const message = this.languageService.instant('secure.seller.list.cancel_message_modal');
+        const title = this.languageService.instant('secure.seller.list.cancel_title_modal');
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;
@@ -369,19 +369,19 @@ export class SellerListComponent implements OnInit, OnDestroy {
         const showButtons = true;
         const btnConfirmationText = null;
         if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
-            message = this.languageService.getValue('secure.seller.list.enabled_message_modal');
+            message = this.languageService.instant('secure.seller.list.enabled_message_modal');
             icon = null;
-            title = this.languageService.getValue('secure.seller.list.enabled_title_modal');
+            title = this.languageService.instant('secure.seller.list.enabled_title_modal');
             messageCenter = true;
             this.needFormStates$.next({ posSeller: index, status: 'enabled' });
         } else if (status === 'disabled' && sellerData.Status !== 'Disable' && this.canDisabled) {
-            message = this.languageService.getValue('secure.seller.list.disabled_message_modal');
+            message = this.languageService.instant('secure.seller.list.disabled_message_modal');
             icon = null;
-            title = this.languageService.getValue('secure.seller.list.disabled_title_modal');
+            title = this.languageService.instant('secure.seller.list.disabled_title_modal');
             this.needFormStates$.next({ posSeller: index, status: status.toString() });
         } else if (status === 'vacation' && sellerData.Status !== 'Disable' && this.canPutInVacation) {
-            title = this.languageService.getValue('secure.seller.list.vacation_title_modal');
-            message = this.languageService.getValue('secure.seller.list.vacation_message_modal');
+            title = this.languageService.instant('secure.seller.list.vacation_title_modal');
+            message = this.languageService.instant('secure.seller.list.vacation_message_modal');
             icon = 'local_airport';
             this.needFormStates$.next({ posSeller: index, status: status.toString() });
             if (this.sellerList[index].StartVacations && this.sellerList[index].EndVacations) {

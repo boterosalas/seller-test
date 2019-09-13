@@ -3,8 +3,8 @@
 
     <div class="toolbar-options menu flexbox flex-wrap align-center justify-between view-desktop" [class.in-detail]="inDetail">
       
-      <p>{{'secure.offers.historical_admin.components.toolbar.title_offert' | I18N | async}}
-        <small class="sub-title">| {{'secure.offers.historical_admin.components.toolbar.subtitle_offert' | I18N | async}}</small>
+      <p>{{'secure.offers.historical_admin.components.toolbar.title_offert' | translate}}
+        <small class="sub-title">| {{'secure.offers.historical_admin.components.toolbar.subtitle_offert' | translate}}</small>
       </p>
 
       <div class="options-toolbar flexbox align-center justify-end hidde-in-detail">
@@ -33,7 +33,7 @@
         <!-- Filter button -->
         <button class="btn-filter" mat-icon-button (click)="toggleMenu()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter">{{'filters.filter' | I18N | async}}</small>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
         <!-- /Filter button -->
       </div>

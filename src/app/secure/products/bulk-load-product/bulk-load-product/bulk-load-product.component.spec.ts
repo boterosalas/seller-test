@@ -1511,6 +1511,12 @@ describe('BulkLoad Products Component', () => {
         }
     }
 
+    const resRegex = {
+        body: {
+            body: JSON.stringify({ Data: registerRegex })
+        }
+    };
+
 
     let fixture: ComponentFixture<BulkLoadProductComponent>;
     let component: BulkLoadProductComponent;
@@ -1547,12 +1553,7 @@ describe('BulkLoad Products Component', () => {
             }
         };
         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of(result));
-        const res = {
-            body: {
-                body: JSON.stringify({ Data: registerRegex })
-            }
-        };
-        mockSupportService.getRegexFormSupport.and.returnValue(of(res));
+        mockSupportService.getRegexFormSupport.and.returnValue(of(resRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
         mockBulkLoadProductService.getCategoriesVTEX.and.returnValue(of(vetex));
@@ -1607,8 +1608,31 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Get regex', () => {
-            component.validateFormSupport();
-            expect(mockSupportService.getRegexFormSupport).toHaveBeenCalled();
+            const productsRegex = {
+                number: '',
+                eanProduct: '',
+                nameProduct: '',
+                eanComboProduct: '',
+                brandProduct: '',
+                keyWordsProduct: '',
+                detailProduct: '',
+                eanImageProduct: '',
+                SkuShippingSizeProduct: '',
+                Package: '',
+                forbiddenScript: '',
+                size: '',
+                hexColourCodePDPProduct: '',
+                limitCharsSixty: '',
+                sizeProduct: '',
+                colorProduct: '',
+                typeCategory: '',
+                descUnidadMedidaProduct: '',
+                factConversionProduct: '',
+                eanCombo: ''
+              };
+            expect(component.productsRegex).toEqual(productsRegex);
+            component.validateFormSupport(resRegex);
+            expect(component.productsRegex).not.toEqual(productsRegex);
         });
 
         it('Download excel', () => {
@@ -1619,15 +1643,15 @@ describe('BulkLoad Products Component', () => {
             component.downloadFormatMassiveOfferLoad();
         });
 
-        it('Validate status charge', () => {
-            component.verifyStateCharge();
-            expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
-        });
+        // it('Validate status charge', () => {
+        //     component.verifyStateCharge(response);
+        //     expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
+        // });
 
         it('Validate status charge checked true', () => {
             response.body.data.status = 1;
-            component.verifyStateCharge();
-            expect(mockBulkLoadProductService.getCargasMasivas).toHaveBeenCalled();
+            component.verifyStateCharge(response);
+            expect(component.progressStatus).toBeFalsy();
         });
 
         it('Configuracion de la tabla', () => {
@@ -1637,8 +1661,11 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Lista por marcas', () => {
-            component.listOfBrands();
-            expect(mockBasicInformationService.getActiveBrands).toHaveBeenCalled();
+            const componentBrands = [];
+            expect(component.brands).toEqual(componentBrands);
+            component.listOfBrands(brands);
+            expect(component.brands).not.toEqual(componentBrands);
+            expect(component.brands).toEqual(brands.Data.Brands);
         });
     });
 
@@ -1649,7 +1676,7 @@ describe('BulkLoad Products Component', () => {
         });
 
         it('Get quantity charges in seller', () => {
-            component.getAvaliableLoads();
+            component.getAvaliableLoads(mockAuthService.profileType$.getValue());
             expect(component.isAdmin).toBeTruthy();
             // Se verifica el llamado del metodo getAmountAvailableLoads
             expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();

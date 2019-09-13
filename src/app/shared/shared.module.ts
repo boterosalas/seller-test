@@ -38,15 +38,31 @@ import { ConversationMessageComponent } from './components/conversation-message/
 import { ItemConversationDirective } from './components/conversation/item-conversation.directive';
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
 import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
+import { NotificationCircleComponent } from './components/notification-circle/notification-circle.component';
 import { StatesComponent } from './components/states/states.component';
 import { CitiesComponent } from './components/cities/cities.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'; 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { SelectLanguageComponent } from './components/select-language/select-language.component';
+
+export function createTranslateLaoder(http: HttpClient) { 
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json'); 
+} 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule.forRoot({ 
+      loader: { 
+        provide: TranslateLoader, 
+        useFactory: (createTranslateLaoder), 
+        deps: [HttpClient] 
+      } 
+    }) 
   ],
   declarations: [
     CdkDetailRowDirective,
@@ -74,8 +90,10 @@ import { CitiesComponent } from './components/cities/cities.component';
     ConversationMessageComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
+    NotificationCircleComponent,
     StatesComponent,
-    CitiesComponent
+    CitiesComponent,
+    SelectLanguageComponent
   ],
   exports: [
     MaterialModule,
@@ -104,7 +122,10 @@ import { CitiesComponent } from './components/cities/cities.component';
     ConversationComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
-    ToolbarSearchPaginationModule
+    ToolbarSearchPaginationModule,
+    NotificationCircleComponent,
+    TranslateModule,
+    SelectLanguageComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

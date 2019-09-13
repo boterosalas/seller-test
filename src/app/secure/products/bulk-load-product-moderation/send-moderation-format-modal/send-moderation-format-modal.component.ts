@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Logger } from '@app/core';
 
 import { SendModerationFormatModalService } from './send-moderation-format-modal.service';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 const log = new Logger('SendModerationFormatModalComponent');
@@ -26,7 +26,7 @@ export class SendModerationFormatModalComponent implements OnInit {
     private service: SendModerationFormatModalService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -60,9 +60,9 @@ export class SendModerationFormatModalComponent implements OnInit {
     this.service.getModeration(data).subscribe(res => {
       let message;
       if (res.status === 200) {
-        message = this.languageService.getValue('secure.products.bulk_load_product_moderation.validation_sent_succesfully');
+        message = this.languageService.instant('secure.products.bulk_load_product_moderation.validation_sent_succesfully');
       } else {
-        message = this.languageService.getValue('secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent');
+        message = this.languageService.instant('secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent');
       }
       this.snackBar.open(message, 'Cerrar', {
         duration: 3000

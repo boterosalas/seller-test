@@ -1,49 +1,37 @@
 <div class="light-content">
   <mat-toolbar id="principal-toolbar" color="primary" class="principal-toolbar" style="position:fixed;background-color:#fff;">
-    <button color="accent" id="menuElement" [matTooltip]="'menu.Menu' | I18N | async" matTooltipPosition="below" mat-icon-button mat-button
+    <button color="accent" id="menuElement" [matTooltip]="'menu.Menu' | translate" matTooltipPosition="below" mat-icon-button mat-button
       (click)="toggleMenu()">
       <mat-icon class="mat-24">menu</mat-icon>
+      <app-notification-circle [value]="unreadCase" id="circle-notification-header"></app-notification-circle>
     </button>
     <div (click)="goToHome()" class="logo-application"></div>
-    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">{{'shell.header.welcome' | I18N | async}}:
+    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">{{'core.shell.header.welcome' | translate}}:
       <b>{{user?.sellerName}}</b>
-      <span class="sc-header-name-seller">{{'shared.id' | I18N | async}}: {{user?.sellerId}}</span>
+      <span class="sc-header-name-seller">{{'shared.id' | translate}}: {{user?.sellerId}}</span>
     </p>
     <span class="spacer-content"></span>
 
-    <ng-container>
-      <form [formGroup]="form">
-        <mat-form-field>
-          <mat-label>{{'language' | I18N | async}}</mat-label>
-            <mat-select formControlName="language" class="header_select">
-              <mat-option *ngFor="let language of languages" [value]="language.id">
-                <span>
-                  {{language.id}}
-                </span>
-              </mat-option>
-            </mat-select>
-        </mat-form-field>
-      </form>
-    </ng-container>
+    <app-select-language></app-select-language>
 
     <div fxLayoutGap="10px">
       <!--<button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
         (click)="shellComponent.goToEnviosExito()" id="envios-exito-button" mat-button color="accent">
         Envíos Éxito
       </buton>-->
-      
+
         <button *ngIf="user?.sellerProfile === 'seller'" class="sc-button-toolbar" (click)="openDialogSupport()" fxShow.xs="true" fxShow.sm="false"
           fxShow.lg="true" fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
           <mat-icon class="mat-24">help</mat-icon>
-          {{'core.shell.header.support' | I18N | async}}
+          {{'core.shell.header.support' | translate}}
         </button>
-      
 
-      <button class="sc-button-toolbar" [matTooltip]="'shell.header.profile' | I18N | async" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
+
+      <button class="sc-button-toolbar" [matTooltip]="'core.shell.header.profile' | translate" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
         id="profile-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <button class="sc-button-toolbar" [matTooltip]="'shell.header.logout' | I18N | async" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
+      <button class="sc-button-toolbar" [matTooltip]="'core.shell.header.logout' | translate" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
         id="logout-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">exit_to_app</mat-icon>
       </button>

@@ -1,14 +1,14 @@
 <div class="container-product-list">
   <div class="title-page">
-    <span class="sc-title">{{'secure.orders.order' | I18N | async}}: {{order.orderNumber}}
+    <span class="sc-title">{{'secure.orders.order' | translate}}: {{order.orderNumber}}
     </span>
-    <a [matTooltip]="'actions.close' | I18N | async" mat-icon-button matTooltipPosition="below" mat-button>
+    <a [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>
   <mat-list class="card-info" fxFlex="100">
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'secure.orders.order' | I18N | async}}
+      <h4 mat-line>{{'secure.orders.order' | translate}}
         <p mat-subheader class="sub-text-list">{{order.orderNumber}}</p>
       </h4>
 
@@ -16,14 +16,14 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_date' | I18N | async}}
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_date' | translate}}
         <p mat-subheader class="sub-text-list">{{order.dateOrder | date}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'secure.orders.order_list.detail_modal.deadline' | I18N | async}}
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.deadline' | translate}}
         <p mat-subheader class="sub-text-list">{{order.dateMaxDeliveryOrder | date}}</p>
       </h4>
 
@@ -31,7 +31,7 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'shared.status' | I18N | async}}
+      <h4 mat-line>{{'shared.status' | translate}}
         <p mat-subheader class="sub-text-list">{{order.statusOrder}}</p>
       </h4>
 
@@ -39,14 +39,14 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'secure.orders.order_list.detail_modal.channel' | I18N | async}}
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.channel' | translate}}
         <p mat-subheader class="sub-text-list">{{order.channel}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_type' | I18N | async}}
+      <h4 mat-line>{{'secure.orders.order_list.detail_modal.order_type' | translate}}
         <p mat-subheader class="sub-text-list">{{order.typeDespatchOrder}}</p>
       </h4>
     </mat-list-item>

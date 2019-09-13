@@ -8,10 +8,10 @@ import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
 import { MatSnackBar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
-import { LanguageService } from '@app/core/translate/language.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { validateDataToEqual } from '@app/shared/util/validation-messages';
+import { TranslateService } from '@ngx-translate/core';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -129,7 +129,7 @@ export class DetailOfferComponent {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
-    private languageService: LanguageService,
+    private languageService: TranslateService,
     public authService: AuthService,
     public snackBar?: MatSnackBar
   ) {
@@ -178,7 +178,7 @@ export class DetailOfferComponent {
       this.createValidators();
       this.createForm();
     } else {
-      this.snackBar.open(this.languageService.getValue('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.getValue('actions.close'), {
+      this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
         duration: 5000,
       });
     }
@@ -229,7 +229,8 @@ export class DetailOfferComponent {
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
-    this.Currency = new FormControl(this.dataOffer.currency);
+    this.Currency = new FormControl('COP');
+    // this.Currency = new FormControl(this.dataOffer.currency);
   }
 
   /**
@@ -253,6 +254,8 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
+    // Se borra esta linea o se comenta cuando se despliegue MPI
+    this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
@@ -260,6 +263,8 @@ export class DetailOfferComponent {
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
+
+
   }
 
   validateOffertType(val: any) {
@@ -479,7 +484,7 @@ export class DetailOfferComponent {
       this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.price)]);
     }
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.snackBar.open(`${this.languageService.getValue('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.getValue('actions.close'), {
+    this.snackBar.open(`${this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.instant('actions.close'), {
       duration: 3000,
     });
   }

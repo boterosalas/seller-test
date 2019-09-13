@@ -5,7 +5,7 @@
     <button fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
       style="margin-left:20px" (click)="bulkLoad.resetVariableUploadFile()" id="clear-guide-button" color="primary"
       mat-raised-button>
-      <span>{{'secure.offers.bulk_upload.table_load.title_offer_charge' | I18N | async}}</span>
+      <span>{{'secure.offers.bulk_upload.table_load.title_offer_charge' | translate}}</span>
     </button>
   </div>
 
@@ -15,7 +15,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span [innerHTML]="countRowUpload - 1"></span>
-          <b>{{'secure.products.table_load_product.records_found' | I18N | async}}</b>
+          <b>{{'secure.products.table_load_product.records_found' | translate}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -27,7 +27,7 @@
         <ng-container matColumnDef="EAN" sticky>
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.components.filter.EAN' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.components.filter.EAN' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorEan == true }" *matCellDef="let element">
@@ -35,7 +35,7 @@
               <p class="sc-text-normal">{{element.EAN}}</p>
             </div>
             <div class="information" *ngIf="element.EAN == undefined || element.EAN == ''">
-              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | I18N | async}}
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -45,7 +45,7 @@
         <ng-container matColumnDef="Stock">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.stock' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.stock' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorStock == true }" *matCellDef="let element">
@@ -53,7 +53,7 @@
               <p class="sc-text-normal">{{element.Stock}}</p>
             </div>
             <div class="information" *ngIf="element.Stock == undefined || element.Stock == ''">
-              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | I18N | async}}
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -63,7 +63,7 @@
         <ng-container matColumnDef="Price">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.price' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.price' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPrice == true }" *matCellDef="let element">
@@ -71,7 +71,7 @@
               <p class="sc-text-normal">{{element.Price}}</p>
             </div>
             <div class="information" *ngIf="element.Price == undefined || element.Price == ''">
-              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | I18N | async}}
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -81,7 +81,7 @@
         <ng-container matColumnDef="DiscountPrice">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDiscountPrice == true }" *matCellDef="let element">
@@ -99,7 +99,7 @@
         <ng-container matColumnDef="AverageFreightCost">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.list.components.averageFreightCost' | I18N | async}</p>
+              <p>{{'secure.offers.list.components.averageFreightCost' | translate}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorAverageFreightCost == true }"
@@ -120,7 +120,7 @@
         <ng-container matColumnDef="PromiseDelivery">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.promise' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.promise' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPromiseDelivery == true }" *matCellDef="let element">
@@ -138,7 +138,7 @@
         <ng-container matColumnDef="IsFreeShipping">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.free_shipping' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsFreeShipping == true }" *matCellDef="let element">
@@ -156,7 +156,7 @@
         <ng-container matColumnDef="IsEnviosExito">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.shiping_exito' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsEnviosExito == true }" *matCellDef="let element">
@@ -174,7 +174,7 @@
         <ng-container matColumnDef="IsFreightCalculator">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.freight_calculator' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsFreightCalculator == true }"
@@ -195,7 +195,7 @@
         <ng-container matColumnDef="Warranty">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.warranty' | I18N | async}}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.warranty' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorWarranty == true }" *matCellDef="let element">
@@ -213,7 +213,7 @@
         <ng-container matColumnDef="IsLogisticsExito">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.exito_logistic' | I18N | async}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsLogisticsExito == true }" *matCellDef="let element">
@@ -231,7 +231,7 @@
         <ng-container matColumnDef="IsUpdatedStock">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.list.components.update_stock' | I18N | async}</p>
+              <p>{{'secure.offers.list.components.update_stock' | translate}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsUpdatedStock == true }" *matCellDef="let element">
@@ -250,7 +250,7 @@
         <ng-container matColumnDef="EanCombo">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.bulk_upload.table_load.ean_combo' | I18N | async}
+              <p>{{'secure.offers.bulk_upload.table_load.ean_combo' | translate}
               </p>
             </div>
           </th>
@@ -270,7 +270,7 @@
         <ng-container matColumnDef="ComboQuantity">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.bulk_upload.table_load.quantity_combo' | I18N | async}
+              <p>{{'secure.offers.bulk_upload.table_load.quantity_combo' | translate}
               </p>
             </div>
           </th>
@@ -289,7 +289,7 @@
         <ng-container matColumnDef="Currency">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>{{'secure.offers.historical_admin.historical_admin.currency' | I18N | async}</p>
+              <p>{{'secure.offers.historical_admin.historical_admin.currency' | translate}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorCurrency == true }" *matCellDef="let element">
