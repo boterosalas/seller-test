@@ -1,73 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MaterialModule } from '@app/material.module';
-import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
-import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
-import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
-import { ToolbarOptionsModule } from './components/toolbar-options';
-import { ToolbarTittleModule } from './components/toolbar-tittle';
-import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
-import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
-import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
-import { CreateProcessDialogComponent } from './components/create-process-dialog/create-process-dialog.component';
-import { RouterModule } from '@angular/router';
-import { TranslatePipe } from './pipes/translate.pipe';
-import { TranslateDirective } from './directives/translate/translate.directive';
-import { CitiesComponent } from './components/cities/cities.component';
-import { StatesComponent } from './components/states/states.component';
-
-
-@NgModule({
-  imports: [
-    CommonModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule
-  ],
-  declarations: [
-    CdkDetailRowDirective,
-    NoWhitespaceDirective,
-    SearchSellerComponent,
-    ControlMessagesComponent,
-    ErrorDialogComponent,
-    DialogWithFormComponent,
-    CreateProcessDialogComponent,
-    TranslatePipe,
-    TranslateDirective,
-    CitiesComponent,
-    StatesComponent
-  ],
-  exports: [
-    MaterialModule,
-    CdkDetailRowDirective,
-    NoWhitespaceDirective,
-    ToolbarTittleModule,
-    SearchSellerComponent,
-    ControlMessagesComponent,
-    ErrorDialogComponent,
-    DialogWithFormComponent,
-    CreateProcessDialogComponent,
-    TranslatePipe,
-    TranslateDirective,
-    CitiesComponent,
-    StatesComponent
-  ],
-  entryComponents: [
-    ErrorDialogComponent,
-    DialogWithFormComponent,
-    CreateProcessDialogComponent
-  ],
-  providers: [
-    EventEmitterSeller,
-  ]
-})
-export class SharedModule {
-}
-
-/*
 import { CommonModule, PercentPipe } from '@angular/common';
 import {
   NgModule,
@@ -82,12 +12,10 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
 
 import { RouterModule } from '@angular/router';
-import { StatesModule } from './components/states';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 
 import { ToolbarOptionsModule } from './components/toolbar-options';
 import { ToolbarTittleModule } from './components/toolbar-tittle';
-import { CitiesModule } from './components/cities';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
 import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 import { CreateProcessDialogComponent } from './components/create-process-dialog/create-process-dialog.component';
@@ -110,6 +38,8 @@ import { ConversationMessageComponent } from './components/conversation-message/
 import { ItemConversationDirective } from './components/conversation/item-conversation.directive';
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
 import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
+import { StatesComponent } from './components/states/states.component';
+import { CitiesComponent } from './components/cities/cities.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -143,15 +73,17 @@ import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagin
     ConversationComponent,
     ConversationMessageComponent,
     ItemConversationDirective,
-    DateNoGtmPipe
+    DateNoGtmPipe,
+    StatesComponent,
+    CitiesComponent
   ],
   exports: [
     MaterialModule,
     ToolbarOptionsModule,
     CdkDetailRowDirective,
     NoWhitespaceDirective,
-    StatesModule,
-    CitiesModule,
+    StatesComponent,
+    CitiesComponent,
     ToolbarTittleModule,
     SearchSellerComponent,
     ControlMessagesComponent,
@@ -185,4 +117,3 @@ import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagin
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule {}
-*/
