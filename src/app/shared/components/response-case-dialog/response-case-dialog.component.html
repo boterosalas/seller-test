@@ -33,12 +33,6 @@
     ></textarea>
   </div>
 
-  <div class="response-case-dialog__attachments">
-    <a *ngFor="let attached of attachments" href="/">
-      <mat-icon class="mat-18 response-case-dialog__attached-icon">attach_file</mat-icon>
-      {{ attached.name }}
-    </a>
-  </div>
   <app-upload-button [accept]="accepts" (fileChange)="onFileChange($event)">
     SELECCIONAR ARCHIVO PARA IMPORTAR
   </app-upload-button>
