@@ -2301,7 +2301,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
    */
   configDataDialog() {
-    const title = 'Árbol de categorías';
+    let title = '';
+    this.languageService.stream('secure.parametize.category.categories.subtitle').subscribe(val => {
+      title = val;
+    });
     const message = null;
     const icon = null;
     const form = this.categoryForm;
