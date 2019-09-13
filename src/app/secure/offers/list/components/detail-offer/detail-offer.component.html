@@ -159,15 +159,14 @@
 
         <mat-form-field>
           <input matInput placeholder="Promesa de Entrega" formControlName="PromiseDelivery"
-            (blur)="validInput('PromiseDelivery')" required>
+            (keyup)="validatePromiseDeliveriOffert()" required>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd') || 
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvaldStart') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvalidEnd')"
-            [innerHTML]="'La promesa de entrega no es v&aacute;lida'"></mat-error>
           <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')"
             [innerHTML]="'Este campo es requerido'"></mat-error>
+          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern')"
+            [innerHTML]="'Promesa de entrega inválido'"></mat-error>
+          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd')"
+            [innerHTML]="'El primer número no debe ser mayor al segundo'"></mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Garantía" formControlName="Warranty" required (keypress)="onlyNumber($event)">
@@ -183,23 +182,28 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-slide-toggle color="primary" formControlName="IsFreeShipping" (change)="checkSlide($event, 'isFreeShipping')">Free
-                    Shipping
-                </mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsFreeShipping"
+          (change)="checkSlide($event, 'isFreeShipping')">Free
+          Shipping
+        </mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsEnviosExito" (change)="checkSlide($event, 'isEnviosExito')">Indicador 
-                    Envíos Éxito</mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsEnviosExito"
+          (change)="checkSlide($event, 'isEnviosExito')">Indicador
+          Envíos Éxito</mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsFreightCalculator" (change)="checkSlide($event, 'isFreightCalculator')">Cotizador
-                    de Flete</mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsFreightCalculator"
+          (change)="checkSlide($event, 'isFreightCalculator')">Cotizador
+          de Flete</mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsLogisticsExito" (change)="checkSlide($event, 'IsLogisticsExito')">Logística 
-                    Éxito
-                </mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsLogisticsExito"
+          (change)="checkSlide($event, 'IsLogisticsExito')">Logística
+          Éxito
+        </mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsUpdatedStock" (change)="checkSlide($event, 'IsUpdatedStock')">Actualización
-                    de Inventario</mat-slide-toggle>
-<!-- 
+        <mat-slide-toggle color="primary" formControlName="IsUpdatedStock"
+          (change)="checkSlide($event, 'IsUpdatedStock')">Actualización
+          de Inventario</mat-slide-toggle>
+        <!-- 
         <mat-slide-toggle color="primary" formControlName="IsFreeShipping">Free Shipping</mat-slide-toggle>
 
         <mat-slide-toggle color="primary" formControlName="IsEnviosExito">Indicador Envíos Éxito</mat-slide-toggle>

@@ -121,6 +121,8 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   public isProductionEnv = environment.production;
+  convertPromise: string;
+  validateNumberOrder: boolean;
 
   constructor(
     public list: ListComponent,
@@ -398,10 +400,11 @@ export class DetailOfferComponent {
           this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
+        /*
       case 'PromiseDelivery':
         let val = this.PromiseDelivery.value;
         let start, end;
-        const pattern = /(\d+ a \d+)$/;
+        const pattern = /(\d+ (a|-|to) \d+)$/;
         if (val.match(pattern)) {
           val = val.trim();
           start = parseInt(val.split('a')[0], 10);
@@ -411,9 +414,22 @@ export class DetailOfferComponent {
             this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
           }
         }
-        break;
+        break; */
     }
   }
+
+  validatePromiseDeliveriOffert() {
+    const promiseDeli = this.formUpdateOffer.controls.PromiseDelivery.value;
+    const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
+    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+    this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
+    if (this.validateNumberOrder !== true) {
+        // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
+        //     duration: 5000,
+        // });
+        this.formUpdateOffer.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
+    }
+}
 
   /**
    * @description Metodo para enviar los datos al servicio y actualizar la oferta.
@@ -421,6 +437,10 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer() {
+    const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
+    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+    this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
+    console.log(this.formUpdateOffer.value);
     this.params.push(this.formUpdateOffer.value);
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(this.params).subscribe(

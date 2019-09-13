@@ -37,10 +37,11 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>local_shipping</mat-icon>
-        <input matInput placeholder="Promesa de entrega" formControlName="PromiseDelivery" [errorStateMatcher]="matcher" (onblur)="validatePromiseDeliveri()">
+        <input matInput placeholder="Promesa de entrega" formControlName="PromiseDelivery" [errorStateMatcher]="matcher" (keyup)="validatePromiseDeliveri()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">Promesa de entrega inválido</mat-error>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">Promesaes campo obligatorio</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('startIsGreaterThanEnd')">El primer número no debe ser mayor al segundo.</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">

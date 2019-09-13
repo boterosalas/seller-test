@@ -48,7 +48,7 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
-    public validateNumberOrder: boolean;
+    public validateNumberOrder = true;
     convertPromise: string;
 
     constructor(
@@ -317,15 +317,21 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     validatePromiseDeliveri() {
+        console.log('valor: ', this.ofertProduct.controls.PromiseDelivery.value);
         const promiseDeli = this.ofertProduct.controls.PromiseDelivery.value;
-        const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
-        this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-        this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
-        if (this.validateNumberOrder !== true) {
-            this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
-                duration: 5000,
-            });
+        if (this.ofertProduct.controls.PromiseDelivery.value !== '') {
+            console.log('entra');
+            const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
+            this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+            this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
+            if (this.validateNumberOrder !== true) {
+                // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
+                //     duration: 5000,
+                // });
+                this.ofertProduct.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
+            }
         }
+
     }
 
 
