@@ -1,7 +1,8 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { ACCEPT_TYPE, File } from './configuration.model';
-import { UploadButtonService } from './upload-button.service';
 import { map } from 'rxjs/operators';
+import { ACCEPT_TYPE } from '@app/shared/models';
+import { UploadButtonService } from './upload-button.service';
+import { File } from './configuration.model';
 
 @Component({
   selector: 'app-upload-button',

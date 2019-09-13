@@ -28,7 +28,15 @@
     <div class="sh-case-detail__attachments-files">
       <div
         *ngFor="let attach of case.attachments; let i = index"
-        (click)="downloadFileFromUrl(attach.url, attach.name, attach.type)"
+        (click)="
+          commonServices.downloadFileFromUrl(
+            attach.url,
+            attach.name,
+            attach.type
+          )
+        "
+        class="sh-case-detail__attach sh-case-detail--pointer"
+        id="attach-{i}"
       >
         {{ attach.name }}
       </div>

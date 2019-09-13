@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import * as FileSaver from 'file-saver';
 
+import { CommonService } from '@shared/services/common.service';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
-import { HttpClient } from '@angular/common/http';
-import { File, ACCEPT_TYPE } from '../upload-button/configuration.model';
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -30,7 +28,7 @@ export class CaseDetailComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private httpClient: HttpClient
+    public commonServices: CommonService
   ) {}
 
   ngOnInit() {
@@ -62,19 +60,6 @@ export class CaseDetailComponent implements OnInit {
 
   closeDialog(): void {
     this.dialog.closeAll();
-  }
-
-  /**
-   * Método que permite generar el excel con los datos pasados.
-   * @param {*} buffer
-   * @param {string} fileName
-   * @memberof DownloadFormatComponent
-   */
-  downloadFileFromUrl(url: string, fileName: string, type: ACCEPT_TYPE): void {
-    this.httpClient.get(url, { responseType: 'arraybuffer' }).subscribe(s => {
-      const blob = new Blob([s], { type });
-      FileSaver.saveAs(blob, fileName);
-    });
   }
 }
 

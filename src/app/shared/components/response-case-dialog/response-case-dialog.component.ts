@@ -1,11 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {
-  ACCEPT_TYPE,
-  File
-} from '@app/shared/components/upload-button/configuration.model';
+import { File } from '@app/shared/components/upload-button/configuration.model';
 import { from } from 'rxjs';
 import { map, toArray } from 'rxjs/operators';
+import { ACCEPT_TYPE } from '@app/shared/models';
 
 @Component({
   selector: 'app-case-modal',
