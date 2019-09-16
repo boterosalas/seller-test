@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 import { ACCEPT_TYPE } from '@app/shared/models';
 import { UploadButtonService } from './upload-button.service';
 import { File, TYPE_VALIDATION, Validation } from './configuration.model';
-import { Observable, from } from 'rxjs';
 
 @Component({
   selector: 'app-upload-button',
@@ -13,9 +12,7 @@ import { Observable, from } from 'rxjs';
 export class UploadButtonComponent {
   @Input() accept: Array<ACCEPT_TYPE>;
 
-  @Input() error: Array<Validation>;
-
-  @Input() maxSize: number;
+  @Input() validations: Array<Validation>;
 
   @Output() fileChange = new EventEmitter<Array<File>>();
 
@@ -25,50 +22,55 @@ export class UploadButtonComponent {
 
   isError = false;
 
+  messageError: string;
+
   emitingChange(files: Array<File>) {
     this.uploadService
       .base64FromArray(files)
       .pipe(
-        map((file: File) => [
-          ...this.attachments,
-          file
-        ]) /* ,
-        map(filesB64 => {
-          let totalSize = 0;
-          filesB64.forEach(file => (totalSize += file.size));
-          if (this.maxSize != null && totalSize > this.maxSize) {
-            throw new Error(this.error);
+        map((file: File) => [...this.attachments, file]),
+        map((filesB64: Array<File>) => {
+          let errors = null;
+          this.validations.forEach(
+            (validation: Validation) =>
+              (errors = this.validator(filesB64, validation))
+          );
+          if (errors) {
+            throw new Error(errors.toString());
           }
-
           return filesB64;
-        }) */
+        })
       )
       .subscribe(
         (filesB64: Array<File>) => (this.attachments = filesB64),
         error => {
           this.isError = true;
-          this.catchError.emit([error]);
+          this.messageError = error;
+          this.catchError.emit(error);
         },
         () => this.fileChange.emit(this.attachments)
       );
   }
 
-  /*   validate(values: Array<File>, validation: Validation): Observable<string> {
-    from(values)
-    .pipe(
-
-    )
-
-    switch (validation.type) {
-      case TYPE_VALIDATION.MAX_SIZE:
-        return value.size > this.maxSize ? validation.message : null;
-      default:
-        return null;
-    }
+  validator(values: Array<File>, validation: Validation): Array<string> {
+    let totalSize = 0;
+    const errors = Array<string>();
+    values.forEach((file: File) => {
+      switch (validation.type) {
+        case TYPE_VALIDATION.MAX_SIZE:
+          totalSize += file.size;
+          if (totalSize > validation.value) {
+            errors.push(validation.message);
+          }
+          break;
+      }
+    });
+    return errors.length > 0 ? errors : null;
   }
- */
+
   removeFile(index: number) {
     this.attachments.splice(index - 1, 1);
+    this.isError = false;
     this.fileChange.emit(this.attachments);
   }
 
