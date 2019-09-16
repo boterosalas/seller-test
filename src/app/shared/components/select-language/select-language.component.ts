@@ -17,7 +17,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
 
   langs: string[];
   form: FormGroup;
-  subs:  Subscription[] = [];
+  subs: Subscription[] = [];
 
   constructor(private translate: LanguageService, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -26,18 +26,16 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     this.langs = this.translate.getLangs();
     this.getLang().setValue(this.translate.getCurrentLanguage());
     const subschange = this.getLang().valueChanges.subscribe(val => {
-      console.log('forValueChanges', val);
       val !== this.translate.getCurrentLanguage() && this.translate.setLanguage(val);
     });
     const subsLang = this.translate.language$.subscribe(val => {
-      console.log('forLangChange', val);
       this.getLang().value !== val && this.getLang().setValue(val);
     });
     this.subs.push(subsLang, subschange);
   }
 
   getLang() {
-    return this.form.get('lang') as FormControl; 
+    return this.form.get('lang') as FormControl;
   }
 
   ngOnInit() {

@@ -35,9 +35,9 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private cdRef: ChangeDetectorRef,
     private translate: TranslateService
   ) {
-    this.translate.addLangs(langs); 
-    this.translate.setDefaultLang('en'); 
-    this.translate.use('en'); 
+    this.translate.addLangs(langs);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
   }
 
   ngOnInit() {

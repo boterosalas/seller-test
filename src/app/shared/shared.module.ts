@@ -46,9 +46,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 
-export function createTranslateLaoder(http: HttpClient) { 
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json'); 
-} 
+export function createTranslateLaoder(http: HttpClient){
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -56,13 +57,13 @@ export function createTranslateLaoder(http: HttpClient) {
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    TranslateModule.forRoot({ 
-      loader: { 
-        provide: TranslateLoader, 
-        useFactory: (createTranslateLaoder), 
-        deps: [HttpClient] 
-      } 
-    }) 
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLaoder),
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     CdkDetailRowDirective,
