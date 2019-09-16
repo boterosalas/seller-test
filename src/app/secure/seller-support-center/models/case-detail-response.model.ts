@@ -1,4 +1,4 @@
-import { CaseDetail } from "./case-detail.model";
+import { CaseDetail } from './case-detail.model';
 
 export class CaseDetailResponse {
   errors: Array<any>;

@@ -41,14 +41,34 @@ $hint-color: #9e9e9e;
     &--center {
       text-align: center;
     }
+  }
 
-    &--pointer {
-      cursor: pointer;
+  &__icon {
+    font-size: 18px;
+  }
+
+  &__attachments {
+    margin-bottom: 24px;
+    &-files {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__attach {
+    padding: 4px;
+    display: block;
+    &:hover {
+      text-decoration: underline;
     }
   }
 
   &--bottom-space {
     margin-bottom: 21px;
+  }
+
+  &--pointer {
+    cursor: pointer;
   }
 
   @media (max-width: 425px) {

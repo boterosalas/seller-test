@@ -7,12 +7,40 @@
     ></app-basic-card>
   </div>
 
-  <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
+  <div
+    class="sh-case-detail__item ticket-detail ticket-detail--col"
+    *ngIf="case.descriptionSolution"
+  >
     <app-basic-card
       class="sh-case-detail--bottom-space"
       title="Detalle de la solución"
       [description]="case.descriptionSolution"
     ></app-basic-card>
+  </div>
+
+  <div class="sh-case-detail__attachments">
+    <div class="sh-case-detail__title">
+      <mat-icon class="sh-case-detail__icon">
+        attach_file
+      </mat-icon>
+      <span>Adjuntos</span>
+    </div>
+    <div class="sh-case-detail__attachments-files">
+      <div
+        *ngFor="let attach of case.attachments; let i = index"
+        (click)="
+          commonServices.downloadFileFromUrl(
+            attach.url,
+            attach.name,
+            attach.type
+          )
+        "
+        class="sh-case-detail__attach sh-case-detail--pointer"
+        id="attach-{i}"
+      >
+        {{ attach.name }}
+      </div>
+    </div>
   </div>
 
   <div class="sh-case-detail__item ticket-detail--col">

@@ -40,16 +40,12 @@ import { MatDialog } from '@angular/material';
   ]
 })
 export class DetailCaseComponent implements OnInit {
+  public log: Logger;
   menuState: string;
   options: any;
   filter: boolean;
-
-  public log: Logger;
-
   headerConfigurations: any;
-
   case$: Observable<any>;
-
   configDialog = {
     width: '70%',
     height: 'fit-content',
