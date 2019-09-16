@@ -317,10 +317,8 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     validatePromiseDeliveri() {
-        console.log('valor: ', this.ofertProduct.controls.PromiseDelivery.value);
         const promiseDeli = this.ofertProduct.controls.PromiseDelivery.value;
         if (this.ofertProduct.controls.PromiseDelivery.value !== '') {
-            console.log('entra');
             const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
             this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
             this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);

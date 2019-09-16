@@ -273,14 +273,22 @@ export class DetailOfferComponent {
       this.formUpdateOffer.get('IsEnviosExito').setValue(0);
       this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
       this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
+      // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
+      // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
+      // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+      // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
     } else {
+      // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
+      // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
+      // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+      // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
     }
   }
@@ -400,36 +408,43 @@ export class DetailOfferComponent {
           this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
-        /*
-      case 'PromiseDelivery':
-        let val = this.PromiseDelivery.value;
-        let start, end;
-        const pattern = /(\d+ (a|-|to) \d+)$/;
-        if (val.match(pattern)) {
-          val = val.trim();
-          start = parseInt(val.split('a')[0], 10);
-          end = parseInt(val.split('a')[1], 10);
+      /*
+    case 'PromiseDelivery':
+      let val = this.PromiseDelivery.value;
+      let start, end;
+      const pattern = /(\d+ (a|-|to) \d+)$/;
+      if (val.match(pattern)) {
+        val = val.trim();
+        start = parseInt(val.split('a')[0], 10);
+        end = parseInt(val.split('a')[1], 10);
 
-          if (start >= end) {
-            this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
-          }
+        if (start >= end) {
+          this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
         }
-        break; */
+      }
+      break; */
     }
   }
 
+  /**
+   * Metodo para validar el formato de la promesa de entrega
+   * Y validar que el primer numero no sea mayor que el segundo.
+   * @memberof DetailOfferComponent
+   */
   validatePromiseDeliveriOffert() {
     const promiseDeli = this.formUpdateOffer.controls.PromiseDelivery.value;
-    const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
-    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-    this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
-    if (this.validateNumberOrder !== true) {
+    if (this.formUpdateOffer.controls.PromiseDelivery.value !== '') {
+      const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
+      this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+      this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
+      if (this.validateNumberOrder !== true) {
         // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
         //     duration: 5000,
         // });
         this.formUpdateOffer.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
+      }
     }
-}
+  }
 
   /**
    * @description Metodo para enviar los datos al servicio y actualizar la oferta.
@@ -440,7 +455,6 @@ export class DetailOfferComponent {
     const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
     this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
     this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
-    console.log(this.formUpdateOffer.value);
     this.params.push(this.formUpdateOffer.value);
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(this.params).subscribe(
@@ -506,6 +520,4 @@ export class DetailOfferComponent {
       duration: 3000,
     });
   }
-
-
 }
