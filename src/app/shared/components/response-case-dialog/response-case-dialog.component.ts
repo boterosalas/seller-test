@@ -1,5 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { File } from '@app/shared/components/upload-button/configuration.model';
+import { from } from 'rxjs';
+import { map, toArray } from 'rxjs/operators';
+import { ACCEPT_TYPE } from '@app/shared/models';
 
 @Component({
   selector: 'app-case-modal',
@@ -7,11 +11,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./response-case-dialog.component.scss']
 })
 export class ResponseCaseDialogComponent {
-
   response = {
     id: null,
-    description: null
-  }
+    description: null,
+    attachments: new Array<Attachment>()
+  };
+
+  accepts = [
+    ACCEPT_TYPE.APPLICATION_XML,
+    ACCEPT_TYPE.IMAGE_PNG,
+    ACCEPT_TYPE.IMAGE_JPEG,
+    ACCEPT_TYPE.PDF,
+    ACCEPT_TYPE.VIDEO_AVI,
+    ACCEPT_TYPE.VIDEO_3GP,
+    ACCEPT_TYPE.VIDEO_MOV,
+    ACCEPT_TYPE.VIDEO_WMV,
+    ACCEPT_TYPE.VIDEO_MPG,
+    ACCEPT_TYPE.VIDEO_MPEG,
+    ACCEPT_TYPE.VIDEO_MP4
+  ];
 
   constructor(
     public dialogRef: MatDialogRef<ResponseCaseDialogComponent>,
@@ -23,10 +41,36 @@ export class ResponseCaseDialogComponent {
   }
 
   submitResponse() {
-
-    this.response.id = this.data.id;
-    this.dialogRef.close({ data: this.response });
-    this.dialogRef.afterClosed().subscribe(res => {
+    this.dialogRef.close({
+      data: {
+        ...this.response,
+        id: this.data.id
+      }
     });
+    this.dialogRef.afterClosed().subscribe(res => {});
   }
+
+  onFileChange(files: Array<File>) {
+    from(files)
+      .pipe(
+        map(
+          (file: File): Attachment => ({
+            name: file.name,
+            type: file.type,
+            base64: file.base64
+          })
+        ),
+        toArray()
+      )
+      .subscribe(
+        (attachments: Array<Attachment>) =>
+          (this.response.attachments = attachments)
+      );
+  }
+}
+
+interface Attachment {
+  name: String;
+  type: String;
+  base64: String;
 }

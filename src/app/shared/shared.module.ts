@@ -41,6 +41,7 @@ import { ItemConversationDirective } from './components/conversation/item-conver
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
 import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
 import { NotificationCircleComponent } from './components/notification-circle/notification-circle.component';
+import { UploadButtonComponent } from './components/upload-button/upload-button.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -75,7 +76,8 @@ import { NotificationCircleComponent } from './components/notification-circle/no
     ConversationMessageComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
-    NotificationCircleComponent
+    NotificationCircleComponent,
+    UploadButtonComponent
   ],
   exports: [
     MaterialModule,
@@ -105,7 +107,8 @@ import { NotificationCircleComponent } from './components/notification-circle/no
     ItemConversationDirective,
     DateNoGtmPipe,
     ToolbarSearchPaginationModule,
-    NotificationCircleComponent
+    NotificationCircleComponent,
+    UploadButtonComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

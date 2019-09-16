@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
+
+import { CommonService } from '@shared/services/common.service';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
 const productsConfig = require('./products-list-configuration.json');
 
@@ -23,7 +25,11 @@ export class CaseDetailComponent implements OnInit {
 
   isClosed: boolean;
 
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public commonServices: CommonService
+  ) {}
 
   ngOnInit() {
     this.productsConfig = productsConfig;
@@ -72,4 +78,5 @@ export interface Case {
   customerEmail: string;
   read: boolean;
   follow: Array<any>;
+  attachments: Array<any>;
 }

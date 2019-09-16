@@ -1,8 +1,10 @@
 import { Injectable, Output } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
 import { EventEmitter } from '@angular/core';
+import * as FileSaver from 'file-saver';
+import { ACCEPT_TYPE } from '../models';
 
 @Injectable()
 export class CommonService {
@@ -54,5 +56,18 @@ export class CommonService {
      */
     public postBillOrders(body: any): Observable<any> {
         return this.http.patch(this.api.get('uploadBilling'), body, { observe: 'response' });
+    }
+
+    /**
+     * Descargar archivos.
+     * @param {string} url
+     * @param {string} fileName
+     * @memberof *
+     */
+    public downloadFileFromUrl(url: string, fileName: string, type: ACCEPT_TYPE): void {
+      this.http.get(url, { responseType: 'arraybuffer' }).subscribe(s => {
+        const blob = new Blob([s], { type });
+        FileSaver.saveAs(blob, fileName);
+      });
     }
 }
