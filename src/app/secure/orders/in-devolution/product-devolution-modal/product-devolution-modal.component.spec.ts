@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProductDevolutionModalComponent } from './product-devolution-modal.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ProductDevolutionModalComponent', () => {
   let component: ProductDevolutionModalComponent;
@@ -17,7 +18,7 @@ describe('ProductDevolutionModalComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-
+        TranslateModule.forRoot({}),
       ], declarations: [
         ProductDevolutionModalComponent
       ], providers: [

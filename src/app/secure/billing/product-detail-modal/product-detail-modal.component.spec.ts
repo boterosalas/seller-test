@@ -8,8 +8,8 @@ import { ProductDetailBillingModalComponent } from './product-detail-modal.compo
 import { ShellModule } from '@app/core/shell/shell.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { LanguageService } from '@app/core/translate/language.service';
 import { LoadingService } from '@app/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 
 describe('ProductDetailBillingModalComponent', () => {
@@ -23,10 +23,10 @@ describe('ProductDetailBillingModalComponent', () => {
         RouterTestingModule,
         BillingModule,
         ShellModule,
-        SharedModule
+        SharedModule,
+        TranslateModule.forRoot({})
       ],
       providers: [
-        LanguageService,
         {provide: LoadingService, useValue: mockLoadingService},
       ],
       schemas: [NO_ERRORS_SCHEMA]

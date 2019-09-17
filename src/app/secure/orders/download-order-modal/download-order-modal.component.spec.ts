@@ -17,6 +17,7 @@ import { DownloadOrderService } from './download-order.service';
 import { ComponentsService } from '@app/shared';
 import { UserParametersService, LoadingService, EndpointService, CognitoUtil } from '@app/core';
 import { of, throwError } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 describe('DownloadOrderModalComponent', () => {
@@ -53,7 +54,8 @@ describe('DownloadOrderModalComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         DownloadOrderModalComponent,

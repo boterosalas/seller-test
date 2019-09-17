@@ -8,8 +8,8 @@ import { BillingProductsOrderComponent } from './billing-products-order.componen
 import { MatSidenavModule } from '@angular/material';
 import { ShellModule } from '@app/core/shell/shell.module';
 import { By } from '@angular/platform-browser';
-import { LanguageService } from '@app/core/translate/language.service';
 import { LoadingService } from '@app/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 
 describe('BillingProductsOrderComponent', () => {
@@ -23,12 +23,12 @@ describe('BillingProductsOrderComponent', () => {
         RouterTestingModule,
         BillingModule,
         MatSidenavModule,
-        ShellModule
+        ShellModule,
+        TranslateModule.forRoot({})
       ],
       declarations: [
       ],
       providers: [
-        LanguageService,
         {provide: LoadingService, useValue: mockLoadingService},
         
       ]

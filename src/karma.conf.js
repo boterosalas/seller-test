@@ -39,7 +39,7 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     singleRun: true,
     // browsers: ['Chrome'],
-    // singleRun: false
+    // singleRun: false,
     captureTimeout: 210000,
     browserDisconnectTolerance: 3, 
     browserDisconnectTimeout : 210000,

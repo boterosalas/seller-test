@@ -20,7 +20,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LanguageService } from '@app/core/translate/language.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -75,6 +75,7 @@ describe('Detail offer Component', () => {
                 BrowserAnimationsModule,
                 SharedModule,
                 HttpClientTestingModule,
+                TranslateModule.forRoot({})
             ],
             providers: [
                 { provide: StoresService, useValue: mockStoresService },
@@ -86,7 +87,6 @@ describe('Detail offer Component', () => {
                 { provide: SupportService, useValue: mockSuportService },
                 { provide: FormBuilder, useValue: formBuilder },
                 ListComponent,
-                LanguageService
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();

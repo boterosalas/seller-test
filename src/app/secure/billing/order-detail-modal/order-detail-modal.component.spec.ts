@@ -7,9 +7,9 @@ import { OrderBillingDetailModalComponent } from './order-detail-modal.component
 import { BillingModule } from '../billing.module';
 import { ShellModule } from '@app/core/shell/shell.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { LanguageService } from '@app/core/translate/language.service';
 import { LoadingService } from '@app/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 
 describe('OrderBillingDetailModalComponent', () => {
@@ -23,10 +23,10 @@ describe('OrderBillingDetailModalComponent', () => {
         RouterTestingModule,
         BillingModule,
         ShellModule,
-        SharedModule
+        SharedModule,
+        TranslateModule.forRoot({})
       ],
       providers: [
-        LanguageService,
         {provide: LoadingService, useValue: mockLoadingService},
       ],
       schemas: [NO_ERRORS_SCHEMA]

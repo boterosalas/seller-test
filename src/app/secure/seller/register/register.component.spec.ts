@@ -17,7 +17,7 @@ import { By } from '@angular/platform-browser';
 import { detectChanges } from '@angular/core/src/render3';
 import { PayoneerService } from './payoneer.service';
 import { SharedModule } from '@app/shared/shared.module';
-import { LanguageService, LanguageServiceTest } from '@app/core/translate/language.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const registerRegex = [
   {Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores'},
@@ -74,7 +74,8 @@ describe('RegisterSellerComponent', () => {
         RouterTestingModule,
         BrowserAnimationsModule,
         HttpClientTestingModule,
-        SharedModule
+        SharedModule,
+        TranslateModule.forRoot({})
       ],
       providers: [
         { provide: RegisterService, useValue: mockRegisterService },
@@ -88,7 +89,6 @@ describe('RegisterSellerComponent', () => {
         { provide: BasicInformationService, useValue: mockBasicInformationService },
         { provide: PayoneerService, useValue: mockPayoneerService},
         EndpointService,
-        { provide: LanguageService, useClass: LanguageServiceTest}
       ],
       // No_Errors_schema (Evita errores de importación de otros Componentes)
       schemas: [NO_ERRORS_SCHEMA]

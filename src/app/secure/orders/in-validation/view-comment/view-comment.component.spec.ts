@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ViewCommentComponent } from './view-comment.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ViewCommentComponent', () => {
   let component: ViewCommentComponent;
@@ -16,7 +17,8 @@ describe('ViewCommentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({}),
       ], declarations: [
         ViewCommentComponent
       ], providers: [

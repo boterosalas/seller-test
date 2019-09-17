@@ -7,6 +7,7 @@ import { ProductDetailModalComponent } from './product-detail-modal.component';
 import { OrdersModule } from '../orders.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -19,7 +20,8 @@ describe('ProductDetailModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         ProductDetailModalComponent

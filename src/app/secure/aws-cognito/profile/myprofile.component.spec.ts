@@ -33,8 +33,8 @@ import { of, BehaviorSubject } from 'rxjs';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { LanguageService } from '@app/core/translate/language.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 const userData = {
     Address: 'calle falsa de algun lugar de este mundo',
@@ -114,7 +114,8 @@ describe('My Profile', () => {
                 BrowserAnimationsModule,
                 FormsModule,
                 CoreModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                TranslateModule.forRoot({})
             ],
             providers: [
                 {provide: UserLoginService, useValue: userMockService},
@@ -126,7 +127,6 @@ describe('My Profile', () => {
                 {provide: MatDialogRef, useValue: mockDialogRef},
                 {provide: ModalService, useValue: mockDialogError},
                 {provide: AuthService, useValue: mockAuthService},
-                LanguageService,
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
