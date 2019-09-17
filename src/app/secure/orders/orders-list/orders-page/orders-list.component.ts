@@ -641,5 +641,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     if (this.subFilterOrder !== undefined) {
       this.subFilterOrder.unsubscribe();
     }
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 }
