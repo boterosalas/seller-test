@@ -644,7 +644,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             } else if (j === iVal.iPromEntrega) {
 
               const validFormatPromEntrega = this.validFormat(res[i][j], 'formatPromEntrega');
-
               if (!validFormatPromEntrega && validFormatPromEntrega === false) {
 
                 this.countErrors += 1;
@@ -1003,7 +1002,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
-          case 'greaterWarranty':
+        case 'greaterWarranty':
           if ((inputtxt.match(this.offertRegex.warranty))) {
             const num = parseInt(inputtxt, 10);
             if (num >= 0) {
@@ -1162,12 +1161,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Funcion para enviar la informacion luego de que pasa las validacion del front 
+   * Funcion para enviar la informacion luego de que pasa las validacion del front
    *
    * @memberof BulkLoadComponent
    */
   sendJsonOffer() {
     this.arrayInformationForSend.splice(0, 1);
+    // Validacion para que siempre se envie la promesa de entrega # a #.
+    this.arrayInformationForSend.forEach(element => {
+      const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
+      const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+      element['PromiseDelivery'] = convertPromise;
+    });
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
