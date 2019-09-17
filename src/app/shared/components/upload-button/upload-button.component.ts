@@ -24,48 +24,70 @@ export class UploadButtonComponent {
 
   messageError: string;
 
+  totalSize = 0;
+
   emitingChange(files: Array<File>) {
     this.uploadService
       .base64FromArray(files)
       .pipe(
-        map((file: File) => [...this.attachments, file]),
-        map((filesB64: Array<File>) => {
-          let errors = null;
-          this.validations.forEach(
-            (validation: Validation) =>
-              (errors = this.validator(filesB64, validation))
-          );
+        map((filesB64: File) => {
+          const errors = this.launchValidations([
+            ...this.attachments,
+            filesB64
+          ]);
           if (errors) {
-            throw new Error(errors.toString());
+            throw new Error(errors);
           }
           return filesB64;
         })
       )
       .subscribe(
-        (filesB64: Array<File>) => (this.attachments = filesB64),
+        (fileB64: File) => (this.attachments = [...this.attachments, fileB64]),
         error => {
           this.isError = true;
           this.messageError = error;
           this.catchError.emit(error);
         },
-        () => this.fileChange.emit(this.attachments)
+        () => {
+          this.fileChange.emit(this.attachments);
+        }
       );
   }
 
-  validator(values: Array<File>, validation: Validation): Array<string> {
-    let totalSize = 0;
-    const errors = Array<string>();
-    values.forEach((file: File) => {
-      switch (validation.type) {
-        case TYPE_VALIDATION.MAX_SIZE:
-          totalSize += file.size;
-          if (totalSize > validation.value) {
-            errors.push(validation.message);
-          }
-          break;
-      }
+  launchValidations(attachments: Array<File>): string {
+    let errors = '';
+
+    attachments.forEach((attach: File) => {
+      this.validations.forEach((validation: Validation) => {
+        const message = this.validator(attach, validation);
+        errors += message ? message : '';
+      });
     });
-    return errors.length > 0 ? errors : null;
+    return errors === '' ? null : errors;
+  }
+
+  validator(file: File, validation: Validation): string {
+    switch (validation.type) {
+      case TYPE_VALIDATION.MAX_SIZE:
+        this.totalSize += file.size;
+        if (this.totalSize > validation.value) {
+          return validation.message;
+        }
+        break;
+
+      case TYPE_VALIDATION.ACCEPT_TYPES:
+        let formatAccept = false;
+
+        if (validation.value.indexOf(file.type) > 0) {
+          formatAccept = true;
+        }
+        if (!formatAccept) {
+          return validation.message;
+        }
+        break;
+    }
+
+    return null;
   }
 
   removeFile(index: number) {
