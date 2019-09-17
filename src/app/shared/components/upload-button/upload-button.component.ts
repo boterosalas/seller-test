@@ -16,7 +16,7 @@ export class UploadButtonComponent {
 
   @Output() fileChange = new EventEmitter<Array<File>>();
 
-  @Output() catchError = new EventEmitter<Array<string>>();
+  @Output() catchError = new EventEmitter<string>();
 
   attachments = new Array<File>();
 
@@ -43,7 +43,7 @@ export class UploadButtonComponent {
       )
       .subscribe(
         (fileB64: File) => (this.attachments = [...this.attachments, fileB64]),
-        error => {
+        (error: string) => {
           this.isError = true;
           this.messageError = error;
           this.catchError.emit(error);
