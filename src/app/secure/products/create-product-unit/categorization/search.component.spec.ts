@@ -5,6 +5,7 @@ import { MaterialModule } from '@app/material.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
+import { LoadingService } from '@app/core';
 
 import { SearchCategorizationComponent } from './search.component';
 import { SearchService } from './search.component.service';
@@ -68,6 +69,8 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         }
     };
 
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -78,6 +81,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
             providers: [
                 { provide: SearchService, useValue: searchService },
                 { provide: ProcessService, useValue: processService },
+                { provide: LoadingService, useValue: mockLoadingService },
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,
@@ -157,7 +161,6 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
 
         componentList.searchText = 'market';
         componentList.organizedLisSearchText(componentList.listCategories);
-
         expect(componentList.listCategories[0].Show).toBeTruthy();
 
         componentList.searchText = 'academi';

@@ -495,8 +495,10 @@ export class ProductBasicInfoComponent implements OnInit {
     onAsignatedEanSonChanged(value: boolean, ean: any) {
         this.asignatedEanSon = value;
         if (this.asignatedEanSon === true) {
-            ean.setValue('');
-            ean.disable();
+            if (ean) {
+                ean.setValue('');
+                ean.disable();
+            }
             if (!this.valInputEan.value) {
                 const data = {
                     AssignEan: this.asignatedEanSon
@@ -511,7 +513,9 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 this.sendEanSon();
             }
-            ean.enable();
+            if (ean) {
+                ean.enable();
+            }
         }
         this.detectForm();
     }
