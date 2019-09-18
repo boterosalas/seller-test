@@ -87,8 +87,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public reasonRejection: Array<ListReasonRejectionResponseEntity>;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
-    subtitle: 'Solicitudes pendientes',
+    title: 'secure.orders.orders',
+    subtitle: 'menu.Solicitudespendientes',
     btn_title: 'Consultar solicitudes',
     title_for_search: 'Consultar solicitudes',
     type_form: 'pending-devolution',

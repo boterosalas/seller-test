@@ -76,8 +76,8 @@ export class InValidationComponent implements OnInit, OnDestroy {
   // canRead = false;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
-    subtitle: 'En Validación',
+    title: 'secure.orders.orders',
+    subtitle: 'menu.Validaciones',
     btn_title: 'Consultar solicitudes',
     title_for_search: 'Consultar solicitudes',
     type_form: 'pending-devolution',
