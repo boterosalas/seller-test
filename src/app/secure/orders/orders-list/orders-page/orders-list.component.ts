@@ -125,11 +125,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
-    subtitle: `${this.currentCategory.name} ${this.numberElements}`,
+    subtitle: '',
     btn_title: 'Consultar órdenes',
     title_for_search: 'Consultar órdenes',
     type_form: 'orders',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: this.numberElements.toString()
   };
 
   public cognitoId: String;

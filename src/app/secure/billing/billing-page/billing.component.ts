@@ -68,7 +68,8 @@ export class BillingComponent implements OnInit, OnDestroy {
     title_for_search: 'Consultar pagos',
     btn_title: 'Consultar pagos',
     type_form: 'billing',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: ''
   };
 
   public iva = (100 / 19);

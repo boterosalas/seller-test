@@ -83,7 +83,8 @@ export class InValidationComponent implements OnInit, OnDestroy {
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInValidation
-    }
+    },
+    count: ''
   };
 
   constructor(

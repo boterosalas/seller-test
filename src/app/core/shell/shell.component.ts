@@ -44,7 +44,8 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     btn_title: 'Buscar',
     title_for_search: 'Buscar',
     type_form: 'orders',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: ''
   };
   userLoggin: boolean;
 

@@ -92,7 +92,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInDevolution
-    }
+    },
+    count: ''
   };
 
   permissionComponent: MenuModel;
