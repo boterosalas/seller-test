@@ -1,5 +1,6 @@
 export enum ACCEPT_TYPE {
-  APPLICATION_XML = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  APPLICATION_XLS = 'application/vnd.ms-excel',
+  APPLICATION_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   IMAGE_PNG = 'image/png',
   IMAGE_JPEG = 'image/jpeg',
   VIDEO_AVI = 'video/avi',

@@ -1,6 +1,5 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { ACCEPT_TYPE } from '@app/shared/models';
 import { UploadButtonService } from './upload-button.service';
 import { File, TYPE_VALIDATION, Validation } from './configuration.model';
 
@@ -9,9 +8,7 @@ import { File, TYPE_VALIDATION, Validation } from './configuration.model';
   templateUrl: './upload-button.component.html',
   styleUrls: ['./upload-button.component.scss']
 })
-export class UploadButtonComponent {
-  @Input() accept: Array<ACCEPT_TYPE>;
-
+export class UploadButtonComponent implements OnInit {
   @Input() validations: Array<Validation>;
 
   @Output() fileChange = new EventEmitter<Array<File>>();
@@ -25,6 +22,8 @@ export class UploadButtonComponent {
   messageError: string;
 
   totalSize = 0;
+
+  accept: any;
 
   emitingChange(files: Array<File>) {
     this.uploadService
@@ -42,7 +41,10 @@ export class UploadButtonComponent {
         })
       )
       .subscribe(
-        (fileB64: File) => (this.attachments = [...this.attachments, fileB64]),
+        (fileB64: File) => {
+          this.isError = false;
+          this.attachments = [...this.attachments, fileB64];
+        },
         (error: string) => {
           this.isError = true;
           this.messageError = error;
@@ -71,6 +73,7 @@ export class UploadButtonComponent {
       case TYPE_VALIDATION.MAX_SIZE:
         this.totalSize += file.size;
         if (this.totalSize > validation.value) {
+          this.totalSize -= file.size;
           return validation.message;
         }
         break;
@@ -78,7 +81,7 @@ export class UploadButtonComponent {
       case TYPE_VALIDATION.ACCEPT_TYPES:
         let formatAccept = false;
 
-        if (validation.value.indexOf(file.type) > 0) {
+        if (validation.value.indexOf(file.type) >= 0) {
           formatAccept = true;
         }
         if (!formatAccept) {
@@ -94,6 +97,13 @@ export class UploadButtonComponent {
     this.attachments.splice(index - 1, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
+  }
+
+  ngOnInit() {
+    const acceptValidations = this.validations.filter(
+      validation => validation.type === TYPE_VALIDATION.ACCEPT_TYPES
+    );
+    this.accept = acceptValidations[0].value;
   }
 
   constructor(private uploadService: UploadButtonService) {}
