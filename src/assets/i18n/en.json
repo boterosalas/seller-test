@@ -269,6 +269,7 @@
  
     "secure.client_information.client": "Client",  
     "secure.client_information.address": "Address", 
+    "secure.client_information.phone": "Phone", 
  
  
     "secure.dashboard.all": "All",  
@@ -329,6 +330,7 @@
  
     "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",  
     "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",  
+    "secure.orders.order_list.order_page.all_orders": "All the orders",  
     "secure.orders.order_list.order_page.without_invoice": "Without attached invoice",  
     "secure.orders.order_list.order_page.with_invoice": "With attached invoice",  
     "secure.orders.order_list.order_page.wrong_to_search_orders": "An error has occurred when loading the order list",  

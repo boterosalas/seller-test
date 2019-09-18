@@ -269,6 +269,7 @@
  
     "secure.client_information.client": "Cliente",  
     "secure.client_information.address": "Dirección", 
+    "secure.client_information.phone": "Teléfono", 
  
  
     "secure.dashboard.all": "Todas",  
@@ -329,6 +330,7 @@
      
     "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdene4s",  
     "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",  
+    "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",  
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",  
     "secure.orders.order_list.order_page.with_invoice": "Con factura adjunta",  
     "secure.orders.order_list.order_page.wrong_to_search_orders": "Se ha presentado un error al consultar la lista de órdenes",  

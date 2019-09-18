@@ -124,7 +124,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
+    title: 'secure.orders.orders',
     subtitle: `${this.currentCategory.name} ${this.numberElements}`,
     btn_title: 'Consultar órdenes',
     title_for_search: 'Consultar órdenes',
