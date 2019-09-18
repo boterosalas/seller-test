@@ -37,6 +37,9 @@ export class ProductBasicInfoComponent implements OnInit {
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
+            if (!this.formBasicInfo && !this.formBasicInfo.controls) {
+                this.initComponent();
+            }
             this.getInformationBasic(value);
         }
     }
@@ -646,6 +649,12 @@ export class ProductBasicInfoComponent implements OnInit {
             }
         });
     }
+    /**
+     * informacion basica - llena la información
+     *
+     * @param {*} detailProduct
+     * @memberof ProductBasicInfoComponent
+     */
     getInformationBasic(detailProduct: any) {
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
@@ -689,8 +698,13 @@ export class ProductBasicInfoComponent implements OnInit {
             }
         }
     }
-
-    setChildren(detailProduct: any) {
+/**
+ * setea los hijos registrados en el formulario
+ *
+ * @param {*} detailProduct
+ * @memberof ProductBasicInfoComponent
+ */
+setChildren(detailProduct: any) {
         if (detailProduct && detailProduct.son && detailProduct.son.length > 0) {
             for (let i = 0; i < detailProduct.son.length; i++) {
                 const newForm = {
