@@ -220,7 +220,6 @@ export class ListAdminComponent implements OnInit {
     this.paramData.currentPage = this.currentPage;
     this.getListAdminOffers(this.paramData);
     this.sidenav.toggle();
-    console.log('this.paramData: ', this.paramData);
   }
 
   /**

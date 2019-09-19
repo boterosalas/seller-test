@@ -4,14 +4,14 @@
     <div class="offer-button-back flexbox align-center">
       <button class="btn-back" mat-icon-button (click)="goToListOffers()">
         <mat-icon>arrow_back</mat-icon>
-        <small class="sub-title-back" [innerHTML]="'Volver'"></small>
+        <small class="sub-title-back" [innerHTML]="'secure.offers.list.components.detail_offer.return' | translate"></small>
       </button>
     </div>
     <div class="offer-img flexbox align-center justify-center">
       <img [src]="dataOffer.imageUrl" alt="">
       <div class="sold-out flexbox justify-center align-center" *ngIf="dataOffer.stock === 0 || !dataOffer.stock">
         <div class="flexbox justify-center align-center">
-          <p [innerHTML]="'Agotado'"></p>
+          <p [innerHTML]="'secure.offers.list.list.with_out_stock' | translate"></p>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
 
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
 
-    <p [innerHTML]="'EAN: ' + dataOffer.ean" class="ean flexbox align-center"></p>
+    <p [innerHTML]="['secure.offers.list.list.EAN_offert' | translate] + dataOffer.ean" class="ean flexbox align-center"></p>
 
     <p [innerHTML]="dataOffer.name" class="name"></p>
 
@@ -34,6 +34,8 @@
       <div class="container-stock flexbox">
         <p [innerHTML]="'ID de Oferta: <strong> &nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
           class="stock flexbox flex-wrap align-center separator"></p>
+          <!-- <p [innerHTML]="['secure.offers.list.components.detail_offer.id_offer' | translate] + '</strong>&nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
+            class="stock flexbox flex-wrap align-center separator"></p> -->
         <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? 'En stock: <strong>&nbsp;' + (dataOffer.stock | number) + '<strong>' : '<strong class=sold-out>En stock: Agotado<strong>'"
           class="stock flexbox flex-wrap align-center padding-left-1"></p>
       </div>

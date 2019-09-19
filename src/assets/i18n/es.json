@@ -536,6 +536,7 @@
     "secure.offers.list.components.detail_offer.business_days": "días hábiles",  
     "secure.offers.list.components.detail_offer.months": "meses",  
     "secure.offers.list.components.detail_offer.last_modify": "Última modificación: ", 
+    "secure.offers.list.components.detail_offer.last_mod": "Última mod: ", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Filtro ofertas",  
     "secure.offers.list.components.filter.placeholder_products": "Producto", 
