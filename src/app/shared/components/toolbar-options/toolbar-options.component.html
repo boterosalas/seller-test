@@ -8,8 +8,8 @@
         <button (click)="getOrdersList($event)">Recargar</button> -->
 
         <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">
-          <p>{{informationToForm.title}}
-            <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle}}</small>
+          <p>{{informationToForm.title | translate}}
+            <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle| translate}}</small>
           </p>
         </button>
         <div fxFlex="160px" *ngIf="Typeprofile == 1">

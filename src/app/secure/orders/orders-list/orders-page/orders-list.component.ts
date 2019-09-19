@@ -632,7 +632,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   setTitleToolbar() {
-    this.informationToForm.subtitle = `${this.currentCategory.name} ${this.numberElements}`;
+    this.informationToForm.subtitle = `${this.currentCategory.name}`;
   }
 
   /**
