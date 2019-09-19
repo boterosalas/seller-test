@@ -15,13 +15,13 @@ export class UploadButtonComponent implements OnInit {
 
   @Output() catchError = new EventEmitter<string>();
 
-  attachments = new Array<File>();
+  attachments: Array<File>;
 
-  isError = false;
+  isError: boolean;
 
   messageError: string;
 
-  totalSize = 0;
+  totalSize: number;
 
   accept: any;
 
@@ -100,11 +100,15 @@ export class UploadButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    const acceptValidations = this.validations.filter(
-      validation => validation.type === TYPE_VALIDATION.ACCEPT_TYPES
-    );
-    this.accept = acceptValidations[0].value;
+    this.validations
+      .filter(validation => validation.type === TYPE_VALIDATION.ACCEPT_TYPES)
+      .forEach(validation => (this.accept = validation.value));
   }
 
-  constructor(private uploadService: UploadButtonService) {}
+  constructor(private uploadService: UploadButtonService) {
+    this.validations = new Array();
+    this.attachments = new Array();
+    this.isError = false;
+    this.totalSize = 0;
+  }
 }

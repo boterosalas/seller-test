@@ -1,20 +1,21 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { UploadButtonComponent } from './upload-button.component';
+import { UploadButtonComponent } from './upload-button.component';
+import { MatIconModule } from '@angular/material';
 
-/* describe('ConversationMessageComponent', () => {
-  let component: ConversationMessageComponent;
-  let fixture: ComponentFixture<ConversationMessageComponent>;
+describe('UploadButtonComponent', () => {
+  let component: UploadButtonComponent;
+  let fixture: ComponentFixture<UploadButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConversationMessageComponent ]
-    })
-    .compileComponents();
+      declarations: [UploadButtonComponent],
+      imports: [MatIconModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConversationMessageComponent);
+    fixture = TestBed.createComponent(UploadButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,4 +24,3 @@
     expect(component).toBeTruthy();
   });
 });
- */
