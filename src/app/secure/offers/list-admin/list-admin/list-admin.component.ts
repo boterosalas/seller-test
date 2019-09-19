@@ -75,8 +75,8 @@ export class ListAdminComponent implements OnInit {
   // Filter enabled
   public isEnabled: boolean;
 
-    // Domains images
-    public domainImages = environment.domainImages;
+  // Domains images
+  public domainImages = environment.domainImages;
 
   /**
    * Creates an instance of ListAdminComponent.
@@ -112,7 +112,7 @@ export class ListAdminComponent implements OnInit {
   ngOnInit() {
     // Borra el filtro del localstorage
     localStorage.removeItem('currentFilterListAdmin');
-   
+
     // Inicializa la instancia de Logger
     this.log = new Logger('ListAdminComponent');
 
@@ -134,6 +134,7 @@ export class ListAdminComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
@@ -190,11 +191,12 @@ export class ListAdminComponent implements OnInit {
     );
   }
 
-   /**
-   * @method openDetailOffer
-   * @param item
-   * @description Método para ver el detalle de la oferta
-   * @memberof ListComponent
+
+  /**
+   * Metodo para ver el detalle de la oferta
+   *
+   * @param {*} item
+   * @memberof ListAdminComponent
    */
   openDetailOffer(item: any) {
     this.viewDetailOffer = true;
@@ -202,11 +204,11 @@ export class ListAdminComponent implements OnInit {
     this.inDetail = true;
   }
 
-   /**
+  /**
    * @method filterOffers
-   * @param params
    * @description Método para filtrar el listado de ofertas
-   * @memberof ListComponent
+   * @param {*} params
+   * @memberof ListAdminComponent
    */
   filterOffers(params: any) {
     this.currentPage = 1;
@@ -218,6 +220,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.currentPage = this.currentPage;
     this.getListAdminOffers(this.paramData);
     this.sidenav.toggle();
+    console.log('this.paramData: ', this.paramData);
   }
 
   /**
@@ -260,11 +263,12 @@ export class ListAdminComponent implements OnInit {
   }
 
 
-    /**
+
+  /**
    * @method receiveVarConsumeList
    * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
-   * @param event
-   * @memberof ListComponent
+   * @param {*} event
+   * @memberof ListAdminComponent
    */
   receiveVarConsumeList(event: any) {
     if (event && event !== undefined && event !== null) {

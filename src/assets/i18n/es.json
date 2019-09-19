@@ -521,7 +521,8 @@
     "secure.offers.list.list.with_stock": "Con inventario",  
     "secure.offers.list.list.with_out_stock": "Agotado",  
     "secure.offers.list.list.EAN_offert": "EAN: ",  
-    "secure.offers.list.list.without_offert": "No se han encontrado registros en el listado de ofertas.", 
+    "secure.offers.list.list.without_offert": "No se han encontrado registros en el listado de ofertas.",
+    "secure.offers.list.list.units": " uds.",
  
     "secure.offers.list.components.detail_offer.return": "Volver",  
     "secure.offers.list.components.detail_offer.averageFreightCost": "Costo de Flete Promedio",  
