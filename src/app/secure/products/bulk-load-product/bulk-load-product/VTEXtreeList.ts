@@ -1277,6 +1277,11 @@ export class VtexTree {
     },
     {
       productType: 'Technology',
+      Name: 'UPS',
+      TipodeObjeto: 'Nivel 3'
+    },
+    {
+      productType: 'Technology',
       Name: 'Audio y vídeo',
       TipodeObjeto: 'Nivel 2'
     },
