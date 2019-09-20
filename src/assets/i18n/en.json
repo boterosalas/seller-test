@@ -523,6 +523,11 @@
     "secure.offers.list.list.EAN_offert": "EAN: ",  
     "secure.offers.list.list.without_offert": "There is no offer list registry.", 
     "secure.offers.list.list.units": " uds.",
+    "secure.offers.list.list.stock": "In stock: Sold out",
+    "secure.offers.list.list.promise": "Delivery Promise: ",
+    "secure.offers.list.list.averageFreightCost": "Shipping Costo: ",
+    "secure.offers.list.list.warranty": "Warranty: ",
+    "secure.offers.list.list.currency": "Currency: ",
      
     "secure.offers.list.components.detail_offer.return": "Back",  
     "secure.offers.list.components.detail_offer.averageFreightCost": "Shipping Cost",  

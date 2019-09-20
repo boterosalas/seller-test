@@ -4,7 +4,8 @@
     <div class="offer-button-back flexbox align-center">
       <button class="btn-back" mat-icon-button (click)="goToListOffers()">
         <mat-icon>arrow_back</mat-icon>
-        <small class="sub-title-back" [innerHTML]="'secure.offers.list.components.detail_offer.return' | translate"></small>
+        <small class="sub-title-back"
+          [innerHTML]="'secure.offers.list.components.detail_offer.return' | translate"></small>
       </button>
     </div>
     <div class="offer-img flexbox align-center justify-center">
@@ -19,7 +20,8 @@
 
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
 
-    <p [innerHTML]="['secure.offers.list.list.EAN_offert' | translate] + dataOffer.ean" class="ean flexbox align-center"></p>
+    <p [innerHTML]="['secure.offers.list.list.EAN_offert' | translate] + dataOffer.ean"
+      class="ean flexbox align-center"></p>
 
     <p [innerHTML]="dataOffer.name" class="name"></p>
 
@@ -32,70 +34,75 @@
         class="price"></p>
 
       <div class="container-stock flexbox">
-        <p [innerHTML]="'ID de Oferta: <strong> &nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
+        <p [innerHTML]="['secure.offers.list.components.detail_offer.id_offer' | translate] + '<strong>&nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
           class="stock flexbox flex-wrap align-center separator"></p>
-          <!-- <p [innerHTML]="['secure.offers.list.components.detail_offer.id_offer' | translate] + '</strong>&nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
-            class="stock flexbox flex-wrap align-center separator"></p> -->
-        <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? 'En stock: <strong>&nbsp;' + (dataOffer.stock | number) + '<strong>' : '<strong class=sold-out>En stock: Agotado<strong>'"
+        <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? ['secure.offers.list.components.detail_offer.in_stock' | translate] + '<strong>&nbsp;' + (dataOffer.stock | number) + '</strong>' : '<strong class=sold-out>' + ['secure.offers.list.list.stock' | translate] + '</strong>'"
           class="stock flexbox flex-wrap align-center padding-left-1"></p>
       </div>
 
       <span class="flexbox align-center" *ngIf="dataOffer.size">
         <mat-icon>tab_unselected</mat-icon>
-        <p [innerHTML]="'Talla: <strong>' + dataOffer.size + '</strong>'"></p>
+        <p [innerHTML]="['secure.products.bulk_upload.size' | translate] + '<strong>' + dataOffer.size + '</strong>'">
+        </p>
       </span>
 
       <span class="flexbox align-center" *ngIf="dataOffer.hexColourCodePDP">
         <mat-icon>color_lens</mat-icon>
-        <p class="text-color" [innerHTML]="'Color:'"></p>
+        <p class="text-color" [innerHTML]="['secure.products.bulk_upload.color' | translate]"></p>
         <mat-icon [ngStyle]="{'color':'#' + dataOffer.hexColourCodePDP}">brightness_1</mat-icon>
       </span>
 
       <span class="flexbox align-center">
         <mat-icon>date_range</mat-icon>
-        <p [innerHTML]="'Promesa de Entrega: <strong>' + dataOffer.promiseDelivery + ' días hábiles </strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.promise' | translate] + '<strong>' + dataOffer.promiseDelivery + ' días hábiles </strong>'">
+        </p>
       </span>
 
       <span class="flexbox align-center">
         <mat-icon>local_shipping</mat-icon>
         <p
-          [innerHTML]="'Costo de Flete Promedio: <strong>' + (dataOffer.shippingCost | currency: '$' : 'symbol' : '1.2-2') + '</strong>'">
+          [innerHTML]="['secure.offers.list.list.averageFreightCost' | translate] + '<strong>' + (dataOffer.shippingCost | currency: '$' : 'symbol' : '1.2-2') + '</strong>'">
         </p>
       </span>
 
       <span class="flexbox align-center">
         <mat-icon>beenhere</mat-icon>
-        <p [innerHTML]="'Garantía: <strong>' + dataOffer.warranty + ' meses </strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.warranty' | translate] + '<strong>' + dataOffer.warranty + ' meses </strong>'">
+        </p>
       </span>
       <span class="flexbox align-center">
         <mat-icon>attach_money</mat-icon>
-        <p [innerHTML]="'Tipo de moneda: <strong>' + dataOffer.currency + '  </strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.currency' | translate] + '<strong>' + dataOffer.currency + '  </strong>'">
+        </p>
       </span>
 
       <aside class="flexbox align-center justify-center flex-wrap">
         <div class="flexbox align-center justify-center sep-right" [ngClass]="{'check' : dataOffer.isFreeShipping}">
           <mat-icon *ngIf="dataOffer.isFreeShipping && dataOffer.isFreeShipping === true">check</mat-icon>
           <mat-icon *ngIf="!dataOffer.isFreeShipping || dataOffer.isFreeShipping === false">clear</mat-icon>
-          <p [innerHTML]="'Free Shipping'"></p>
+          <p [innerHTML]="['secure.offers.historical_admin.historical_admin.free_shipping' | translate]"></p>
         </div>
         <div class="flexbox align-center justify-center" [ngClass]="{'check' : dataOffer.isEnviosExito}">
           <mat-icon *ngIf="dataOffer.isEnviosExito && dataOffer.isEnviosExito === true">check</mat-icon>
           <mat-icon *ngIf="!dataOffer.isEnviosExito || dataOffer.isEnviosExito === false">clear</mat-icon>
-          <p [innerHTML]="'Envios Exito'"></p>
+          <p [innerHTML]="['secure.offers.historical_admin.historical_admin.shiping_exito' | translate]"></p>
         </div>
         <div class="flexbox align-center justify-center sep-right sep-top"
           [ngClass]="{'check' : dataOffer.isFreightCalculator}">
           <mat-icon *ngIf="dataOffer.isFreightCalculator && dataOffer.isFreightCalculator === true">check</mat-icon>
           <mat-icon *ngIf="!dataOffer.isFreightCalculator || dataOffer.isFreightCalculator === false">clear</mat-icon>
-          <p [innerHTML]="'Cotizador de flete'"></p>
+          <p [innerHTML]="['secure.offers.historical_admin.historical_admin.freight_calculator' | translate]"></p>
         </div>
         <div class="flexbox align-center justify-center sep-top" [ngClass]="{'check' : dataOffer.isLogisticsExito}">
           <mat-icon *ngIf="dataOffer.isLogisticsExito && dataOffer.isLogisticsExito === true">check</mat-icon>
           <mat-icon *ngIf="!dataOffer.isLogisticsExito || dataOffer.isLogisticsExito === false">clear</mat-icon>
-          <p [innerHTML]="'Logistica Éxito'"></p>
+          <p [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic' | translate]"></p>
         </div>
       </aside>
-      <p [innerHTML]="'Última modificación: ' + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
+      <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
     </div>
   </article>
 </section>
