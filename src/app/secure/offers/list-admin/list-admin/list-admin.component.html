@@ -7,7 +7,8 @@
     <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
       (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
       (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
-      <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span>
+      <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
+      <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
 
       <div class="filter-desc first flexbox align-center justify-between"
         *ngIf="paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== ''">
@@ -27,7 +28,7 @@
 
       <div class="filter-desc flexbox align-center justify-between"
         *ngIf="paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''">
-        <span [innerHTML]="paramData.stock == '1' ? 'Con inventario' : paramData.stock == 0 ? 'Agotado' : '' "></span>
+        <span [innerHTML]="paramData.stock == '1' ? ['secure.offers.list.list.with_stock' | translate] : paramData.stock == 0 ? ['secure.offers.list.list.with_out_stock' | translate] : '' "></span>
         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterStock')">
           <mat-icon>add_circle</mat-icon>
         </span>
@@ -41,30 +42,30 @@
         <img [src]="item.imageUrl" alt="">
         <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
           <div class="flexbox justify-center align-center">
-            <p [innerHTML]="'Agotado'"></p>
+            <p [innerHTML]="'secure.offers.list.list.with_out_stock' | translate"></p>
           </div>
         </div>
       </div>
 
       <div class="container-desc-card flexbox flex-wrap align-center">
-        <h3 [innerHTML]="'EAN: ' + item.ean"></h3>
+        <h3 [innerHTML]="['secure.offers.list.list.EAN_offert' | translate] + item.ean"></h3>
         <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'"
           class="price-strikethrough"></p>
         <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
           class="price"></p>
         <p [innerHTML]="item.name" class="name"></p>
         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-          [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'" class="stock"></p>
+          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]" class="stock"></p>
       </div>
 
       <footer class="container-last-modification flexbox align-center">
-        <p [innerHTML]="'Última modificación: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+        <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
         </p>
       </footer>
       <footer class="container-last-modification mobile flexbox align-center">
-        <p [innerHTML]="'Última mod: ' + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+        <p [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-          [innerHTML]="item.stock > 0 ? (item.stock | number) + ' uds.' : 'Agotado'"></p>
+          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"></p>
       </footer>
     </aside>
     <!-- list admin offers -->
@@ -77,7 +78,7 @@
     <div class="icon-sentiment-dissatisfied">
       <mat-icon>sentiment_dissatisfied</mat-icon>
     </div>
-    <p [innerHTML]="'No se han encontrado registros en el listado de ofertas.'"></p>
+    <p [innerHTML]="'secure.offers.list.list.without_offert' | translate"></p>
   </section>
   <!-- Message for not offers -->
 
