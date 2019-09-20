@@ -36,7 +36,7 @@
     "menu.Listarreclamaciones": "Listar reclamaciones", 
     "menu.Validaciones": "Validaciones", 
     "menu.Devoluciones": "Devoluciones", 
-    "menu.Solicitudespendientes": "Solicitudes pendientes", 
+    "menu.Solicitudes pendientes": "Solicitudes pendientes", 
     "menu.Todas": "Todas", 
     "menu.Por enviar": "Por enviar", 
     "menu.Enviadas": "Enviadas", 
@@ -141,6 +141,7 @@
     "actions.enter": "INGRESAR",  
     "actions.download_orders": "Descargar órdenes",  
     "actions.recover_password": "recuperar contraseña", 
+    "actions.pagina": "pagina", 
  
  
     "errors.required": "Este cambio es obligatorio",  
@@ -308,6 +309,7 @@
  
     "secure.orders.orders": "Órdenes", 
     "secure.orders.order": "Órden", 
+    "secure.orders.filter.title": "Consultar Órdenes", 
  
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",  
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",  

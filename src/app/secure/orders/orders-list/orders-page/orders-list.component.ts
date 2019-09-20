@@ -82,7 +82,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   stateToListOrders: CategoryList;
   // Variable que contiene la categoría por defecto que se empleara en la consulta inicial
   currentCategory: any = {
-    name: 'Todas las órdenes',
+    name: 'secure.orders.order_list.order_page.all_orders',
     id: ''
   };
 
@@ -126,8 +126,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
     subtitle: '',
-    btn_title: 'Consultar órdenes',
-    title_for_search: 'Consultar órdenes',
+    btn_title: 'secure.orders.filter.title',
+    title_for_search: 'secure.orders.filter.title',
     type_form: 'orders',
     information: new InformationToForm,
     count: this.numberElements.toString()
@@ -377,7 +377,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     } else {
       this.currentCategory = {
-        name: 'Todas las órdenes',
+        // name: 'Todas las órdenes',
+        name: 'secure.orders.order_list.order_page.all_orders',
         id: ''
       };
     }

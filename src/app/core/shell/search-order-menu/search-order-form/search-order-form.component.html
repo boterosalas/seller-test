@@ -18,7 +18,7 @@
 
   <mat-form-field id="chanelOrder-input-search-order" class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">device_hub</mat-icon>
-    <mat-select id="select-chanelOrder" formControlName="idChannel" placeholder="Filtrar por canal">
+    <mat-select id="select-chanelOrder" formControlName="idChannel" [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_channel' | translate">
       <mat-option>{{'core.shell.search_order_menu.search_envios_exito_form.none' | translate}}</mat-option>
       <mat-option value="11">{{'core.shell.search_order_menu.search_envios_exito_form.exito' | translate}}
       </mat-option>
@@ -42,7 +42,7 @@
   </mat-form-field>
   <section class="example-section normal-theme" *ngIf="typeProfiel == 0">
     <mat-slide-toggle color="primary" id="processedOrder-input-search-order" formControlName="processedOrder">
-      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | translate}}órdenes marcadas
+      {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | translate}}
     </mat-slide-toggle>
   </section>
 

@@ -36,7 +36,7 @@
     "menu.Listar reclamaciones": "Claims list", 
     "menu.Validaciones": "In Validation", 
     "menu.Devoluciones": "In Return", 
-    "menu.Solicitudespendientes": "Pending Requests", 
+    "menu.Solicitudes pendientes": "Pending Requests", 
     "menu.Todas": "All", 
     "menu.Por enviar": "Pending shipping", 
     "menu.Enviadas": "Sent", 
@@ -141,6 +141,7 @@
     "actions.enter": "ENTER",  
     "actions.download_orders": "Download orders",  
     "actions.recover_password": "Recover password", 
+    "actions.pagina": "page", 
  
  
     "errors.required": "Field required",  
@@ -308,6 +309,7 @@
  
     "secure.orders.orders": "Orders", 
     "secure.orders.order": "Order", 
+    "secure.orders.filter.title": "Check orders",
  
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",  
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",  

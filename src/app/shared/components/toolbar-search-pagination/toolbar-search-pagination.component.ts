@@ -13,6 +13,8 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { LoadingService } from '@app/core';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { TranslateService } from '@ngx-translate/core';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 
 
 const log = new Logger('ToolbarOptionsComponent');
@@ -23,7 +25,10 @@ const log = new Logger('ToolbarOptionsComponent');
   templateUrl: './toolbar-search-pagination.component.html',
   styleUrls: ['./toolbar-search-pagination.component.scss'],
   providers: [
-    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorI18nService,
+    }
   ],
 })
 export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
@@ -79,7 +84,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
     public shell: ShellComponent,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {
     this.textForSearch = new FormControl();
     this.user = {};
@@ -96,7 +101,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
           this.filter(val)
         )
       );
-    // consulto las tiendas disponibles
     this.getAllSellers();
   }
 
