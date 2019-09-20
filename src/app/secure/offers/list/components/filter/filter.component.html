@@ -35,8 +35,8 @@
     </article>
 
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'">{{'filters.clear' | translate}}</button>
-      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'"
+      <button mat-stroked-button color="primary" type="reset" [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]"
         [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value)">{{'filters.filter' | translate}}</button>
     </article>
 
