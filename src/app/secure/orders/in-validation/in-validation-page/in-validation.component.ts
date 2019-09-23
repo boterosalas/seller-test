@@ -78,8 +78,8 @@ export class InValidationComponent implements OnInit, OnDestroy {
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
     subtitle: 'menu.Validaciones',
-    btn_title: 'Consultar solicitudes',
-    title_for_search: 'Consultar solicitudes',
+    btn_title: 'secure.orders.filter.title_filter',
+    title_for_search: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInValidation

@@ -14,6 +14,7 @@ import { LoadingService } from '@app/core';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 
 
 // log component
@@ -24,7 +25,10 @@ const log = new Logger('ToolbarOptionsComponent');
   templateUrl: './toolbar-options.component.html',
   styleUrls: ['./toolbar-options.component.scss'],
   providers: [
-    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorI18nService,
+    }
   ],
 })
 

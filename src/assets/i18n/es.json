@@ -310,6 +310,7 @@
     "secure.orders.orders": "Órdenes", 
     "secure.orders.order": "Órden", 
     "secure.orders.filter.title": "Consultar Órdenes", 
+    "secure.orders.filter.title_filter": "Consultar solicitudes", 
  
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",  
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",  

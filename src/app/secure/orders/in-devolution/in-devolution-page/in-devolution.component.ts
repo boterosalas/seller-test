@@ -87,8 +87,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
     subtitle: 'menu.Devoluciones',
-    title_for_search: 'Consultar solicitudes',
-    btn_title: 'Consultar solicitudes',
+    title_for_search: 'secure.orders.filter.title_filter',
+    btn_title: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInDevolution
