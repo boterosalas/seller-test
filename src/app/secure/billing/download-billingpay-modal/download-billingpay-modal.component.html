@@ -10,7 +10,7 @@
           <input
             name="email"
             formControlName="email"
-            matInput placeholder="Correo electrónico"
+            matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
             type="email"
             id="emailPago"
             required>
@@ -24,7 +24,7 @@
             color="primary"
             mat-icon-button
             (click)="createForm()">            
-            <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>
+            <mat-icon [matTooltip]="'secure.offers.historical_admin.download_historical.tooltip_email' | translate" matTooltipPosition="below" matSuffix>
               autorenew
             </mat-icon>
           </button>
