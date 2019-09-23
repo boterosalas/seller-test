@@ -37,7 +37,7 @@
     <mat-icon class="mat-18 ">file_upload</mat-icon>
     <ng-content></ng-content>
   </button>
-  <div *ngIf="isError" class="sh-button-upload__error-box">
+  <div *ngIf="isError" class="sh-button-upload__error-box" id="upload-error-message">
     {{ messageError }}
   </div>
 </div>
