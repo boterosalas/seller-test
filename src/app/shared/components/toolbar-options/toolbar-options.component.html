@@ -66,7 +66,7 @@
               <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" class="acction-text" id="download-order-button"
                 mat-menu-item>
                 <mat-icon>file_download</mat-icon>
-                <span>Descargar</span>
+                <span>{{'actions.download' | translate}}</span>
               </button>
               <!--
               <mat-form-field class="selectPageSize">
@@ -95,19 +95,19 @@
           fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-order-button"
           mat-button color="primary" *ngIf="!billingType && downloadPermission">
           <mat-icon>file_download</mat-icon>
-          Descargar
+          {{'actions.download' | translate}}
         </button>
 
         <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
           fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-pay-button"
           mat-button color="primary" *ngIf="downloadBillingPay">
           <mat-icon>file_download</mat-icon>
-          Descargar
+          {{'actions.download' | translate}}
         </button>
         <button fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter" id="search-order-button"
           (click)="toggleMenuOrderSearch()" mat-button color="primary">
           <mat-icon>filter_list</mat-icon>
-          Filtrar
+          {{'filters.filter' | translate}}
         </button>
       </div>
     </div>

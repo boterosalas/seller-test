@@ -248,6 +248,7 @@
     "secure.aws_cognito.profile.seller_id": "Id seller", 
  
     "secure.billing.invoice": "Factura",  
+    "secure.billing.check_billing": "Consultar pagos",  
     "secure.billing.order_number": "# Pedido",  
     "secure.billing.payment_number": "# Orden de pago",  
     "secure.billing.concept": "Concepto",  

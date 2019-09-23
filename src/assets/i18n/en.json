@@ -249,6 +249,7 @@
  
     "secure.billing.invoice": "Invoice",  
     "secure.billing.order_number": "Order number",  
+    "secure.billing.check_billing": "Check billing",  
     "secure.billing.payment_number": "Payment order number",  
     "secure.billing.concept": "Concept",  
     "secure.billing.payment_date": "Payment date", 

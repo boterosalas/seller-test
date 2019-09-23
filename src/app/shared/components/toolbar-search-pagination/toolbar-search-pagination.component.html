@@ -58,7 +58,7 @@
           <button [disabled]="orderListLength" *ngIf="Typeprofile == 0" (click)="openModalDownloadOrder()" class="acction-text"
             id="download-order-button" mat-menu-item>
             <mat-icon>file_download</mat-icon>
-            <span>Descargar</span>
+            <span>{{'actions.download' | translate}}</span>
           </button>
           <mat-form-field class="selectPageSize">
             <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
