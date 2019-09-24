@@ -715,6 +715,11 @@
     "secure.products.create_product_unit.basic_information.write_description_here": "Write your description here…",  
     "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 20 keywords are valid.",  
     "secure.products.create_product_unit.basic_information.order_to_add_necessary": "In order to add more variations it is necessary for the last variation to have correct data", 
+    "secure.products.create_product_unit.basic_information.mesasuring":"Measuring unit",
+    "secure.products.create_product_unit.basic_information.ean_son":"EAN son",
+    "secure.products.create_product_unit.basic_information.size":"Enter size",
+    "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
+    "secure.products.create_product_unit.basic_information.color_spec":"Name color specific",
  
     "secure.products.create_product_unit.categorization.search_category": "Search category",  
     "secure.products.create_product_unit.categorization.now_you_must": "Now you must categorize your product. In order to do this select the most apropiate category from the tree bellow. You may only select one specific subcategory for the product, if you need to look up the subcategory you need use the search bar entering the name and selection from the list.", 

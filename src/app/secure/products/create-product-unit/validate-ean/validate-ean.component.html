@@ -6,7 +6,7 @@
   </div>
   <form *ngIf="eanGroup" #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off"
+      <input matInput [placeholder]="'shared.ean' | translate" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off"
         maxlength="16" minlength="7">
       <mat-error *ngIf="eanGroup.get('eanCtrl').hasError('pattern')">
         {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format' | translate}}</mat-error>
