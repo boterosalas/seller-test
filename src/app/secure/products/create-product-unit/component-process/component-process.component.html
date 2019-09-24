@@ -5,7 +5,7 @@
 <mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
-      <ng-template matStepLabel>EAN</ng-template>
+      <ng-template matStepLabel>{{'shared.ean' | translate}}</ng-template>
       <app-validate-ean></app-validate-ean>
     </form>
   </mat-step>

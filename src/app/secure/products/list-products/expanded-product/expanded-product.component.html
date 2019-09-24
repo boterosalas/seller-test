@@ -3,7 +3,7 @@
   <div class="info-product" fxShow.xs="true" fxShow="false">
     <div class="subtitle divider-two">
       <h3>{{productsExpanded.name}}</h3>
-      <p class="title divider-two">EAN: {{productsExpanded.ean}}</p>
+      <p class="title divider-two">{{'secure.offers.list.list.EAN_offert' | translate}} {{productsExpanded.ean}}</p>
     </div>
   </div>
 
@@ -30,7 +30,7 @@
 
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two" fxShow.xs="false">
-      <h3>EAN: {{productsExpanded.ean}}</h3>
+      <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{productsExpanded.ean}}</h3>
 
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
@@ -43,7 +43,7 @@
     <div class="text"> {{'shared.category' | translate}}: <span class="color-gray"></span>  <label> {{productsExpanded.category}} </label></div>
     <div class="text">{{'shared.brand' | translate}}:<span class="color-gray"></span> <label> {{productsExpanded.brand}} </label></div>
     <div class="divider-one"> {{'shared.model' | translate}}: <span class="color-gray"></span>  <label> {{productsExpanded.model}} </label></div>
-    <div class="divider-one"> Shipping-size: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
+    <div class="divider-one"> {{'secure.products.create_product_unit.basic_information.shipping_size' | translate}}: <span class="color-gray"></span> <label> {{productsExpanded.shipping_size}} </label></div>
 
 
     <div class="text" fxLayout="row">

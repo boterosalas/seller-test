@@ -671,6 +671,7 @@
     "secure.products.create_product_unit.assing_images.text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",  
     "secure.products.create_product_unit.assing_images.assign_child_image": "Hijo", 
  
+    "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "El formato es inválido",  
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "La imagen no es válida", 
  
@@ -760,7 +761,9 @@
     "secure.products.create_product_unit.specifications.dialog.been": "presentado",  
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "al momento de crear el producto. Intentelo nuevamente... Gracias",  
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",  
-    "secure.products.create_product_unit.specifications.dialog.error": "error", 
+    "secure.products.create_product_unit.specifications.dialog.error": "error",
+    "secure.products.create_product_unit.specifications.complete_name": "Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te proveemos.",
+    "secure.products.create_product_unit.specifications.specs": "Especificación",
  
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",  
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Formato inválido de EAN (7-16 caraceteres alfanúmericos).",  
@@ -849,7 +852,7 @@
     "secure.parametize.dialog.modal_title_spec": "Agregar grupo de especificaciones",  
     "secure.parametize.dialog.modal_title_brand": "Agregar una marca",  
     "secure.parametize.dialog.modal_text": "Ingresa un nombre para el grupo de especificaciones e ingresa todos los códigos de categoría para los cuales se deba mostrar el mismo. Para ingresar las categorías puedes hacerlo una a una dando enter o ingresando todas separadas por coma. Recuerda que las categorías deben ser válidas para continuar.",  
-    "secure.parametize.dialog.modal_placeholder_specification_name": "Nombre de la especificacion",  
+    "secure.parametize.dialog.modal_placeholder_specification_name": "Nombre de la especificación",  
     "secure.parametize.dialog.modal_placeholder_category": "Categoria",  
     "secure.parametize.dialog.modal_placeholder_add_category": "Para agregar es necesario, dar clic en (+).",  
     "secure.parametize.dialog.modal_placeholder_rd_add_all": "Agregar todos",  

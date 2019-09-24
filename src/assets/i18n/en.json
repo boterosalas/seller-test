@@ -671,6 +671,7 @@
     "secure.products.create_product_unit.assing_images.text_assign_images": "In this section you must enter the correspondinge image URL for the producto you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",  
     "secure.products.create_product_unit.assing_images.assign_child_image": "child", 
  
+    "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "The format is invalid",  
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "The image is invalid", 
  
@@ -760,8 +761,10 @@
     "secure.products.create_product_unit.specifications.dialog.been": "been",  
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",  
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",  
-    "secure.products.create_product_unit.specifications.dialog.error": "error", 
- 
+    "secure.products.create_product_unit.specifications.dialog.error": "error",
+    "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
+    "secure.products.create_product_unit.specifications.specs": "Specification",
+
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": "First you must enter a valid EAN or Bar Code for your product. Remember that this code must be real, since it identifies your product worldwide. For the EAN you may only enter numbers ranging from 7 to 13 characters. If you EAN contains less than 13 characters take into acount that it will be autocompleted with 0 to it's left until it has 13 characters. If you are a manufacturer or your product is generic you may pick the 'I don't have an EAN for my product' option and we will assign a code.",  
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Invalid EAN Format (7-16 alfanumeric characters)",  
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",  
