@@ -39,7 +39,7 @@
         <mat-icon matPrefix>local_shipping</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.promise_invalid' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.promise_invalid' | translate}}</mat-error>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.create_product_unit.offer_product.promise_mandatoy' | translate}}</mat-error>
       </mat-form-field>
     </div>
@@ -80,7 +80,7 @@
     <div style="width: 100%">
       <mat-radio-group formControlName="ofertOption">
         <mat-radio-button value="IsFreeShipping" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</mat-radio-button>
-        <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.create_product_unit.offer_product.envios_exito_indicator' | translate}}</mat-radio-button>
+        <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator' | translate}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsLogisticsExito" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}</mat-radio-button>
       </mat-radio-group>
@@ -91,7 +91,7 @@
     </div>
     <div style="padding-right: 100px;">
       <mat-slide-toggle formControlName="IsUpdatedStock">
-          {{'secure.products.create_product_unit.offer_product.stock_update' | translate}}
+          {{'secure.products.create_product_unit.list_products.ofert_product.stock_update' | translate}}
       </mat-slide-toggle>
     </div>
   </div>
