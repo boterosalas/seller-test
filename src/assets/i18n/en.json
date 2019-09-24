@@ -142,7 +142,8 @@
     "actions.download_orders": "Download orders",  
     "actions.recover_password": "Recover password", 
     "actions.pagina": "page", 
- 
+    "actions.next_page": "Next page", 
+    "actions.previous_page": "Previous page", 
  
     "errors.required": "Field required",  
     "errors.invalid_name": "Invalid name",  

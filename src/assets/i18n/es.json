@@ -141,8 +141,9 @@
     "actions.enter": "INGRESAR",  
     "actions.download_orders": "Descargar órdenes",  
     "actions.recover_password": "recuperar contraseña", 
-    "actions.pagina": "pagina", 
- 
+    "actions.pagina": "Página", 
+    "actions.next_page": "Página siguiente", 
+    "actions.previous_page": "Página anterior", 
  
     "errors.required": "Este cambio es obligatorio",  
     "errors.invalid_name": "Nombre invalido",  
