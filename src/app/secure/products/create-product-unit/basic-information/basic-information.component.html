@@ -289,7 +289,7 @@
           <div class="name-product field">
             <mat-form-field id="inputValidEanSon">
               <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean"
-                (blur)="validateEanSon()" (change)="detectForm()" id="validateEanSonProduct">
+                (blur)="validateEanSon()" (change)="detectForm()">
               <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido
               </mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
@@ -297,9 +297,9 @@
               <mat-error *ngIf="son.form.get('Ean').hasError('required')">El campo es obligatorio</mat-error>
             </mat-form-field>
             <div class="distanceComponetInt">
-              <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon"
+              <mat-checkbox #asignatedEanSonCheckBox
                 (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
-                formControlName="associateEanSon" id="associateEanSon">No tengo EAN asociado</mat-checkbox>
+                formControlName="associateEanSon">No tengo EAN asociado</mat-checkbox>
             </div>
           </div>
 
