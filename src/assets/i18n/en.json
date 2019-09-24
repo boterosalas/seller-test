@@ -141,7 +141,7 @@
     "actions.enter": "ENTER",  
     "actions.download_orders": "Download orders",  
     "actions.recover_password": "Recover password", 
-    "actions.pagina": "page", 
+    "actions.page": "Items per page", 
     "actions.next_page": "Next page", 
     "actions.previous_page": "Previous page", 
  
@@ -802,7 +802,7 @@
     "secure.products.create_product_unit.list_products.expanded_product.width": "Width",  
     "secure.products.create_product_unit.list_products.expanded_product.length": "Length",  
     "secure.products.create_product_unit.list_products.expanded_product.weight": "weight",  
-    "secure.products.create_product_unit.list_products.expanded_product.add_offer": "add offer",  
+    "secure.products.create_product_unit.list_products.expanded_product.add_offer": "Add offer",  
     "secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications": "No elements of specifications",  
     "secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer": "This product is not ready to have an offer associated to it, please try again later.",  
     "secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos": "The price must be equal to the sum of the combos if there is no discounted price.", 

@@ -141,7 +141,7 @@
     "actions.enter": "INGRESAR",  
     "actions.download_orders": "Descargar órdenes",  
     "actions.recover_password": "recuperar contraseña", 
-    "actions.pagina": "Página", 
+    "actions.page": "Ítems por página", 
     "actions.next_page": "Página siguiente", 
     "actions.previous_page": "Página anterior", 
  

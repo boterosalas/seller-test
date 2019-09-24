@@ -12,6 +12,7 @@ import { ReturnStatement } from '@angular/compiler';
 import { MenuModel, listProductsName, readFunctionality, offerFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 
 export interface ListFilterProducts {
     name: string;
@@ -34,8 +35,11 @@ const log = new Logger('ListProductsComponent');
     styleUrls: ['list-products.component.scss'],
     templateUrl: 'list-products.component.html',
     providers: [
-        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
-    ]
+        {
+          provide: MatPaginatorIntl,
+          useClass: MatPaginatorI18nService,
+        }
+      ],
 })
 
 export class ListProductsComponent implements OnInit {

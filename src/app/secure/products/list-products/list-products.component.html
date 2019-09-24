@@ -19,7 +19,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
-          <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
           <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
         </mat-form-field>
@@ -37,13 +37,13 @@
         <div *ngIf="optionDates">
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="classDatapicker">
-              <input matInput [matDatepicker]="picker" placeholder="De" disabled formControlName="initialDate">
+              <input matInput [matDatepicker]="picker" [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" disabled formControlName="initialDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker disabled="false"></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field class="classDatapicker">
-              <input matInput [matDatepicker]="picker1" placeholder="Hasta" disabled formControlName="finalDate">
+              <input matInput [matDatepicker]="picker1" [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" disabled formControlName="finalDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1 disabled="false"></mat-datepicker>
             </mat-form-field>
