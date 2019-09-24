@@ -247,7 +247,7 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
-                    if ( this.validateClothingProduct() ) {
+                    if (this.validateClothingProduct()) {
                         this.sendDataToService();
                     }
                 }
@@ -439,7 +439,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public validateEanSon(): void {
-        if(this.valInputEan.value !== '') {         
+        if (this.valInputEan.value !== '') {
             this.serviceEanSon.validateEan(this.valInputEan.value).subscribe(res => {
                 // Validar si la data es un booleano para validar si exiset el Ean del hijo
                 this.validateEanSonExist = (res['data']);
@@ -453,8 +453,10 @@ export class ProductBasicInfoComponent implements OnInit {
     onAsignatedEanSonChanged(value: boolean, ean: any) {
         this.asignatedEanSon = value;
         if (this.asignatedEanSon === true) {
-            ean.setValue('');
-            this.valInputEan.disable();
+            if (ean) {
+                ean.setValue('');
+                ean.disable();
+            }
             if (!this.valInputEan.value) {
                 const data = {
                     AssignEan: this.asignatedEanSon
@@ -469,7 +471,9 @@ export class ProductBasicInfoComponent implements OnInit {
             } else {
                 this.sendEanSon();
             }
-            this.valInputEan.enable();
+            if (ean) {
+                ean.enable();
+            }
         }
         this.detectForm();
     }
@@ -589,12 +593,12 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-     /**
-      * Funcion para somunir el listado de tallas
-      *
-      * @memberof ProductBasicInfoComponent
-      */
-     listSize() {
+    /**
+     * Funcion para somunir el listado de tallas
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    listSize() {
         this.service.getSizeProducts().subscribe(size => {
             if (size.status === 200 || size.status === 201) {
                 this.sizes = JSON.parse(size.body);
