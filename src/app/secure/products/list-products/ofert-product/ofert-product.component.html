@@ -37,10 +37,11 @@
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>local_shipping</mat-icon>
-        <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery" [errorStateMatcher]="matcher">
+        <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery" [errorStateMatcher]="matcher" (keyup)="validatePromiseDeliveri()">
         <mat-hint></mat-hint>
         <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.promise_invalid' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.create_product_unit.offer_product.promise_mandatoy' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.promise_mandatoy' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('startIsGreaterThanEnd')">{{'secure.products.create_product_unit.list_products.ofert_product.promise_higher' | translate}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">

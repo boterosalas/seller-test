@@ -260,15 +260,15 @@
           <div class="name-product field">
             <mat-form-field id="inputValidEanSon">
               <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.ean_son' | translate" class="input-name-product" formControlName="Ean" (blur)="validateEanSon()"
-                (change)="detectForm()" id="validateEanSonProduct">
+                (change)="detectForm()">
               <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.ean_invalida' | translate}}</mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
                   {{'secure.products.create_product_unit.basic_information.ean_invalida_multioffer' | translate}}</mat-error>
               <mat-error *ngIf="son.form.get('Ean').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
             <div class="distanceComponetInt">
-              <mat-checkbox #asignatedEanSonCheckBox [checked]="asignatedEanSon" (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
-                formControlName="associateEanSon" id="associateEanSon">{{'secure.products.create_product_unit.basic_information.dont_have_ean' | translate}}</mat-checkbox>
+              <mat-checkbox #asignatedEanSonCheckBox  (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
+                formControlName="associateEanSon">{{'secure.products.create_product_unit.basic_information.dont_have_ean' | translate}}</mat-checkbox>
             </div>
           </div>
 

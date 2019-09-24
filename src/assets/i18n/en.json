@@ -813,6 +813,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.price_higher_product": "The price must be higher or equal to 8000",  
     "secure.products.create_product_unit.list_products.ofert_product.discount_price_higher": "The discount price must be higher or equal to 8000",  
     "secure.products.create_product_unit.list_products.ofert_product.promise_invalid": "The delivery promise entered is invalid",  
+    "secure.products.create_product_unit.list_products.ofert_product.promise_higher": "The first number cannot be greater than the second.",  
     "secure.products.create_product_unit.list_products.ofert_product.promise_mandatoy": "The delivery promise field is mandatory",  
     "secure.products.create_product_unit.list_products.ofert_product.shipping_cost": "shipping cost",  
     "secure.products.create_product_unit.list_products.ofert_product.shipping_cost_mandatory": "The shipping cost field is mandatory",  

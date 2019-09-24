@@ -49,6 +49,8 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
+    public validateNumberOrder = true;
+    convertPromise: string;
 
     constructor(
         private languageService: TranslateService,
@@ -124,9 +126,11 @@ export class OfertExpandedProductComponent implements OnInit {
             this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
                 this.ofertProduct.get('ofertOption').setValue(null);
+                // tslint:disable-next-line: no-unused-expression
                 this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').disable();
             } else {
                 this.ofertProduct.get('ofertOption').setValue(null);
+                // tslint:disable-next-line:no-unused-expression
                 !this.ofertProduct.get('ofertOption').enabled && this.ofertProduct.get('ofertOption').enable();
             }
         });
@@ -189,9 +193,6 @@ export class OfertExpandedProductComponent implements OnInit {
         this.Combos.controls.forEach((price: any) => {
             total += (price.value.ofertPriceComponet * price.value.ComboQuantity);
         });
-
-        /* Agrege los valores a los imputs tiene q crear una regla donde compare si son iguales OK,
-        pero si son diferentes q precio sea mayor eso lo hace en el validate del control */
 
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
@@ -311,6 +312,30 @@ export class OfertExpandedProductComponent implements OnInit {
         return result;
     }
 
+    /**
+     * Metodo para:
+     * 1. Validar que la promesa de entrega siempre valla 'a', ya sea que pongan 'a', '-' or 'to'.
+     * 2. Validar que el primer numero de la promesa de entrega no sea mayor que el segundo.
+     * @memberof OfertExpandedProductComponent
+     */
+    validatePromiseDeliveri() {
+        const promiseDeli = this.ofertProduct.controls.PromiseDelivery.value;
+        if (promiseDeli.match(this.offertRegex.promiseDelivery)) {
+            if (this.ofertProduct.controls.PromiseDelivery.value !== '') {
+                const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
+                this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+                this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
+                if (this.validateNumberOrder !== true) {
+                    // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
+                    //     duration: 5000,
+                    // });
+                    this.ofertProduct.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
+                }
+            }
+        }
+
+    }
+
 
     /**
      * Metodo para concatenar todo el arreglo y enviar la data
@@ -318,15 +343,14 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(): void {
-        // this.getVerifyPrice(true);
-        // this.getPriceDescount();
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
             Price: this.ofertProduct.controls.Price.value,
             DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
             AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-            PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
+            // PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
+            PromiseDelivery: this.convertPromise,
             Warranty: this.ofertProduct.controls.Warranty.value,
             IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
             IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
@@ -337,7 +361,6 @@ export class OfertExpandedProductComponent implements OnInit {
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
             Currency: this.ofertProduct.controls.Currency.value,
         };
-
         let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
@@ -346,13 +369,13 @@ export class OfertExpandedProductComponent implements OnInit {
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
                     this.snackBar.open(this.languageService.instant('secure.products.bulk_upload.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                        duration: 3000,
+                        duration: 5000,
                     });
                     this.loadingService.closeSpinner();
 
                     // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
                     this.listService.changeEmitter();
-                    window.location.reload();
+                    // window.location.reload();
 
                 } else {
                     log.error(this.languageService.instant('secure.products.bulk_upload.error_trying_apply_offer'));
@@ -385,16 +408,6 @@ export class OfertExpandedProductComponent implements OnInit {
         } else {
             this.showButton = false;
             // this.sendDataToService();
-        }
-    }
-
-    public abc() {
-        if (this.comboForm.controls.ComboQuantity.value !== 0) {
-            if (this.applyOffer.eanesCombos.length !== 0) {
-                if (this.ofertProduct.controls.DiscountPrice.value === null || this.ofertProduct.controls.DiscountPrice.value === '') {
-                    this.ofertProduct.controls.Price.setValue(this.totalCombo);
-                }
-            }
         }
     }
 
@@ -465,11 +478,11 @@ export class OfertExpandedProductComponent implements OnInit {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
             this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
             this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-          } else {
+        } else {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
             this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
             this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
-          }
+        }
     }
 
     // Funcion para cargar datos de regex
@@ -487,17 +500,19 @@ export class OfertExpandedProductComponent implements OnInit {
         });
     }
 
-    notifyEvent(value) {
+    notifyEvent(value: any) {
         switch (value.toString()) {
             case 'IsFreeShipping':
                 const radioIsFreeShipping = document.getElementById('isFreeShipping');
                 if (value === this.ofertProduct.get('ofertOption').value) {
                     this.ofertProduct.get('ofertOption').setValue('');
                     setTimeout(() => {
+                        // tslint:disable-next-line:no-unused-expression
                         radioIsFreeShipping && radioIsFreeShipping.classList.remove('mat-radio-checked');
                     });
                 } else {
                     this.ofertProduct.get('ofertOption').setValue('IsFreeShipping');
+                    // tslint:disable-next-line:no-unused-expression
                     radioIsFreeShipping && radioIsFreeShipping.classList.add('mat-radio-checked');
                 }
                 break;
@@ -506,10 +521,12 @@ export class OfertExpandedProductComponent implements OnInit {
                 if (value === this.ofertProduct.get('ofertOption').value) {
                     this.ofertProduct.get('ofertOption').setValue('');
                     setTimeout(() => {
+                        // tslint:disable-next-line:no-unused-expression
                         radioIsEnviosExito && radioIsEnviosExito.classList.remove('mat-radio-checked');
                     });
                 } else {
                     this.ofertProduct.get('ofertOption').setValue('IsEnviosExito');
+                    // tslint:disable-next-line:no-unused-expression
                     radioIsEnviosExito && radioIsEnviosExito.classList.add('mat-radio-checked');
                 }
                 break;

@@ -158,16 +158,15 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.promise' | translate]" formControlName="PromiseDelivery"
-            (blur)="validInput('PromiseDelivery')" required>
+          <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery"
+            (keyup)="validatePromiseDeliveriOffert()" required>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd') || 
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvaldStart') ||
-                        formUpdateOffer.get('PromiseDelivery').hasError('isInvalidEnd')"
-            [innerHTML]="'errors.error_promise' | translate"></mat-error>
           <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')"
-            [innerHTML]="['errors.error_required' | translate]"></mat-error>
+            [innerHTML]="'errors.error_required' | translate"></mat-error>
+          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern')"
+            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_invalid' | translate"></mat-error>
+          <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd')"
+            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_higher' | translate"></mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.warranty' | translate]" formControlName="Warranty" required (keypress)="onlyNumber($event)">
