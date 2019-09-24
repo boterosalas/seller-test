@@ -3,8 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
 
 const ITEMS_PER_PAGE = 'actions.pagina';
-const NEXT_PAGE = 'Next page';
-const PREV_PAGE = 'Previous page';
+const NEXT_PAGE = 'actions.next_page';
+const PREV_PAGE = 'actions.previous_page';
 const FIRST_PAGE = 'First page';
 const LAST_PAGE = 'Last page';
 
