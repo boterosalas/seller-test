@@ -313,6 +313,11 @@
     "secure.orders.order": "Órden", 
     "secure.orders.filter.title": "Consultar Órdenes", 
     "secure.orders.filter.title_filter": "Consultar solicitudes", 
+    "secure.orders.assigned.Asignado": "Asignado", 
+    "secure.orders.delivered.Entregado": "Entregado", 
+    "secure.orders.sent.En envío": "En envío", 
+    "secure.orders.sent.Facturado Enviado": "Facturado Enviado", 
+
  
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",  
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",  

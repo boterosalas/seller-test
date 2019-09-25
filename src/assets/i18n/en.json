@@ -313,6 +313,10 @@
     "secure.orders.order": "Order", 
     "secure.orders.filter.title": "Browse orders",
     "secure.orders.filter.title_filter": "Browse requests", 
+    "secure.orders.assigned.Asignado": "Assigned", 
+    "secure.orders.delivered.Entregado": "Delivered", 
+    "secure.orders.sent.En envío": "In shipping", 
+    "secure.orders.sent.Facturado Enviado": "Sent", 
  
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",  
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",  
