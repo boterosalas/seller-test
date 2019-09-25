@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AppComponent');
-export const langs = ['en', 'es'];
+export const langs = ['EN', 'ES'];
 
 @Component({
   selector: 'app-root',
@@ -36,15 +36,15 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private translate: TranslateService
   ) {
     this.translate.addLangs(langs);
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.setDefaultLang('ES');
+    this.translate.use('ES');
   }
 
   ngOnInit() {
 
-    //toolbar position
+    // toolbar position
 
-    window.onscroll = function() {
+    window.onscroll = function () {
       toolbarTop()
     };
 
@@ -53,17 +53,17 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
       const classtop = document.querySelector('.toolbar-component');
       const classtop2 = document.querySelector('.tree-toolbar');
       // const secondTool= document.querySelector('.toolbar-component');
-      if(window.innerWidth > 959){
-        if(classtop){
-          if(window.scrollY > 45){
+      if (window.innerWidth > 959) {
+        if (classtop) {
+          if (window.scrollY > 45) {
             classtop.classList.add("top-toolbar");
           } else {
             classtop.classList.remove("top-toolbar");
           }
         }
-  
-        if(classtop2){
-          if(window.scrollY > 45){
+
+        if (classtop2) {
+          if (window.scrollY > 45) {
             classtop2.classList.add("top-toolbar");
           } else {
             classtop2.classList.remove("top-toolbar");
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
         }
       }
     }
-      
+
     // Configurar logs.
     if (environment.production) {
       Logger.enableProductionMode();
@@ -108,6 +108,6 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     });
   }
 
- 
+
 }
 
