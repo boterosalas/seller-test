@@ -37,15 +37,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
   addCulture(req: HttpRequest<any>) {
     if (req && req.url) {
+      const userId = localStorage.getItem('userId') ? localStorage.getItem('userId') : 'current';
+      const currencyCulture = localStorage.getItem('culture_' + userId) ? localStorage.getItem('culture_' + userId) : 'es';
       const validate = req.url.includes('?') || req.url.includes('&') ;
         if (validate) {
-          const culture = '&culture=es-CO';
+          const culture = '&culture=' + currencyCulture;
           return  culture;
         } else {
-          const culture = '/?culture=es-CO';
+          const culture = '/?culture=' + currencyCulture;
           return  culture;
         }
-
     }
   }
 }
