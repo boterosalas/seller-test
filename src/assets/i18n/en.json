@@ -317,6 +317,10 @@
     "secure.orders.delivered.Entregado": "Delivered", 
     "secure.orders.sent.En envío": "In shipping", 
     "secure.orders.sent.Facturado Enviado": "Sent", 
+    "secure.orders.assigned.product.Asignado": "Assigned", 
+    "secure.orders.delivered.product.Entregado": "Delivered", 
+    "secure.orders.sent.product.En envío": "In shipping", 
+    "secure.orders.sent.product.Facturado Enviado": "Sent", 
  
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",  
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",  

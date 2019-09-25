@@ -98,27 +98,27 @@
         <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameProductAsignado">
           <mat-icon [ngClass]="{'status-orange': product.statusProduct === const.NameProductAsignado}">notifications
           </mat-icon>
-          {{const.AppProductAsignado}}
+          {{'secure.orders.assigned.product.' + const.AppProductAsignado | translate}}
         </p>
 
         <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameProductEntregado">
           <mat-icon [ngClass]="{'status-orange': product.statusProduct === const.NameProductEntregado}">notifications
           </mat-icon>
-          {{const.AppProductEntregado}}
+          {{'secure.orders.delivered.product.' + const.AppProductEntregado | translate}}
         </p>
 
         <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameProductEnProcesoDeEnvio">
           <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameProductEnProcesoDeEnvio}">
             notifications
           </mat-icon>
-          {{const.AppProductEnviado}}
+          {{'secure.orders.sent.product.' + const.AppProductEnviado | translate}}
         </p>
 
         <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameOrderEnFacturadoEnviado">
           <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameOrderEnFacturadoEnviado}">
             notifications
           </mat-icon>
-          {{const.AppOrderFacturadoEnviado}}
+          {{'secure.orders.sent.' + const.AppOrderFacturadoEnviado | translate}}
         </p>
       </div>
     </div>

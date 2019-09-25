@@ -316,8 +316,11 @@
     "secure.orders.assigned.Asignado": "Asignado", 
     "secure.orders.delivered.Entregado": "Entregado", 
     "secure.orders.sent.En envío": "En envío", 
-    "secure.orders.sent.Facturado Enviado": "Facturado Enviado", 
-
+    "secure.orders.sent.Facturado Enviado": "Facturado Enviado",
+    "secure.orders.assigned.product.Asignado": "Asignado", 
+    "secure.orders.delivered.product.Entregado": "Entregado", 
+    "secure.orders.sent.product.En envío": "En envío", 
+    "secure.orders.sent.product.Facturado Enviado": "Facturado Enviado",  
  
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",  
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",  
