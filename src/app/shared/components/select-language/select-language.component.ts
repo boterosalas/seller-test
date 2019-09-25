@@ -30,8 +30,20 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     });
     const subsLang = this.translate.language$.subscribe(val => {
       this.getLang().value !== val && this.getLang().setValue(val);
+      this.setLocalStorageCulture(val);
     });
     this.subs.push(subsLang, subschange);
+  }
+  setLocalStorageCulture(culture: string) {
+    let userId  = 'current';
+    if (localStorage.getItem('userId')) {
+       userId = localStorage.getItem('userId');
+    }
+    if (culture) {
+      localStorage.setItem('culture_' + userId, culture);
+    } else {
+      localStorage.setItem('culture_' + userId, 'es');
+    }
   }
 
   getLang() {

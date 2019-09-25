@@ -61,6 +61,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   async isLoggedIn(message: string, isLoggedIn: boolean) {
     if (isLoggedIn) {
       this.user = await this.userParams.getUserData();
+      if (this.user && this.user.sellerId) {
+        localStorage.setItem('userId', this.user.sellerId);
+      }
       this.routes = RoutesConst;
     }
   }
