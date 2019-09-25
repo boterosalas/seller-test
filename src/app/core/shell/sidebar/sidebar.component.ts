@@ -76,6 +76,17 @@ export class SidebarComponent implements OnInit {
   }
 
   /**
+   * Retorna el menu solo con la primera en mayuscula.
+   *
+   * @param {string} name
+   * @returns {string}
+   * @memberof ToolbarLinkComponent
+   */
+  public getPersonalityName(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
+
+  /**
    * Funcion que se encarga de verificar que menus se debe de mostrar y cuales no, aqui debe ir la enumeracion que envia back con los menus pertenecientes al usuario.
    *
    * @param {MenuModel} menu
