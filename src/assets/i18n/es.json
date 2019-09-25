@@ -60,7 +60,7 @@
     "permissions.Editar": "Editar",  
     "permissions.Descargar": "Descargar",  
     "permissions.Cargar": "Cargar",  
-    "permissions.Crear": "Create",  
+    "permissions.Crear": "Crear",  
     "permissions.Visualizar": "Visualizar",  
     "permissions.Habilitar": "Habilitar",  
     "permissions.Deshabilitar": "Deshabilitar",  
@@ -249,8 +249,8 @@
     "secure.aws_cognito.profile.seller_id": "Id seller", 
  
     "secure.billing.invoice": "Factura",  
-    "secure.billing.check_billing": "Consultar pagos",  
     "secure.billing.order_number": "# Pedido",  
+    "secure.billing.check_billing": "Consultar pagos",  
     "secure.billing.payment_number": "# Orden de pago",  
     "secure.billing.concept": "Concepto",  
     "secure.billing.payment_date": "Fecha de pago",  
