@@ -595,7 +595,7 @@
     "secure.products.bulk_upload.text_step_import_two": "en este archivo podrás cargar productos",  
     "secure.products.bulk_upload.text_select_import": "selecciona el archivo",  
     "secure.products.bulk_upload.text_select_import_type": "que desees importar (.xlsx, .xls) al Seller Center y listo.",  
-    "secure.products.bulk_upload.text_import_product": "Para importar los productos al Seller Center podrás utilizar las plantillas de creación actualizadas que te fueron enviadas previamente, si no tienes las plantillas, primero debes solicitarlas al responsable de tu cuenta. Recuerda llenar la plantilla de la categoría correspondiente a tus productos completamente y revisando las restricciones de cada campo. En caso de que tus productos no tengan EAN, debes enviar el campo con un <b>cero (0)</b> en la plantilla.",  
+    "secure.products.bulk_upload.text_import_product": "Para importar los productos al Seller Center deberás SIEMPRE descargar la plantilla de la categoría para la cual desees crear productos. Recuerda llenar la plantilla de la categoría correspondiente a tus productos completamente y revisando las restricciones de cada campo. En caso de que tus productos no tengan EAN, debes enviar el campo con un cero (0) en la plantilla.",  
     "secure.products.bulk_upload.select_product_category": "Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes",  
     "secure.products.bulk_upload.select_category": "Categoría seleccionada",  
     "secure.products.bulk_upload.limit_for_day": "Has llegado  al limite de carga por el día de hoy",  
@@ -613,8 +613,8 @@
     "secure.products.Finish_upload_product_information.successful_upload": "Carga realizada con éxito",  
     "secure.products.Finish_upload_product_information.product_Name": "Nombre de producto",  
     "secure.products.Finish_upload_product_information.error_ocurred": "Error presentado",  
-    "secure.products.Finish_upload_product_information.home_seller_center": "ir al inicio",  
-    "secure.products.Finish_upload_product_information.when_uploading_products": "ocurred when uploading the products", 
+    "secure.products.Finish_upload_product_information.home_seller_center": "Ir al inicio",  
+    "secure.products.Finish_upload_product_information.when_uploading_products": "ocurrió un problema al realizar la carga de los productos", 
  
     "secure.products.table_errors_product.selected_file": "Archivo seleccionado",  
     "secure.products.table_errors_product.column_data": "El dato en la",  
@@ -746,7 +746,7 @@
     "secure.products.create_product_unit.create_unutary_product.products": "Productos",  
     "secure.products.create_product_unit.create_unutary_product.unitary_creation": "Creación Unitaria", 
  
-    "secure.products.create_product_unit.specifications.text_must_specifications": "En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás las especificaciones que consideramos importantes para el tipo específico de producto, si tu tipo de producto no está en las listas podrás agregar especificaciones en la parte inferior o podrás diligenciarlas bajo la lista de 'Todas las especificaciones'",  
+    "secure.products.create_product_unit.specifications.text_must_specifications": "En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás las especificaciones que consideramos importantes para el tipo específico de producto.",  
     "secure.products.create_product_unit.specifications.info": "Info",  
     "secure.products.create_product_unit.specifications.error_has_occured_uploading": "Error al intentar obtener las especificaciones",  
     "secure.products.create_product_unit.specifications.200_characters": "Maximo 200 caracteres.",  
@@ -767,7 +767,7 @@
     "secure.products.create_product_unit.specifications.specs": "Especificación",
  
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",  
-    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Formato inválido de EAN (7-16 caraceteres alfanúmericos).",  
+    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Formato inválido de EAN (7-13 caraceteres alfanúmericos).",  
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",  
     "secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code": "No tengo EAN asociado",  
     "secure.products.create_product_unit.specifications.validate-ean.continue": "Continuar", 
