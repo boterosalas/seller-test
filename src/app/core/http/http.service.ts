@@ -50,6 +50,7 @@ class HttpInterceptorHandler implements HttpHandler {
   }
 
   handle(request: HttpRequest<any>): Observable<HttpEvent<any>> {
+    // console.log(request);
     return this.interceptor.intercept(request, this.next);
   }
 
