@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AppComponent');
-export const langs = ['en', 'es'];
+export const langs = ['EN', 'ES'];
 
 @Component({
   selector: 'app-root',
@@ -36,13 +36,13 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     private translate: TranslateService
   ) {
     this.translate.addLangs(langs);
-    this.translate.setDefaultLang('es');
-    this.translate.use('es');
+    this.translate.setDefaultLang('ES');
+    this.translate.use('ES');
   }
 
   ngOnInit() {
 
-    //toolbar position
+    // toolbar position
 
     window.onscroll = function () {
       toolbarTop()
