@@ -1,6 +1,9 @@
 :host ::ng-deep .mat-select-value-text {
     font-size: 14px
 }
+:host ::ng-deep .mat-form-field {
+    display: inline;
+}
  .mat-option-text {
     font-size: 14px
 }
