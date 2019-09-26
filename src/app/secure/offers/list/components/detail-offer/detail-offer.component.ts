@@ -255,7 +255,7 @@ export class DetailOfferComponent {
       Currency: this.Currency
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
-    this.formUpdateOffer.get('Currency').disable();
+    // this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
