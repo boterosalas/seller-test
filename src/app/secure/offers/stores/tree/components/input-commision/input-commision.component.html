@@ -2,5 +2,5 @@
   <input matInput [value]="inputValue.commission" type="number" placeholder="0.0" required name="price" min="0" value="0" step=".1"
     [title]="'shared.commission' | translate" pattern="^\d+(?:\.\d{1})?$" onblur="
   this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.border=/^\d+(?:\.\d{1})?$/.test(this.value)?'none':'solid 1px red'
-  " (change)="setNewCommission(inputValue, $event)" id="id-category-{{inputValue.idCategory}}" [disabled]="updateFunction">
+  " (change)="setNewCommission(inputValue, $event)" id="id-category-{{inputValue.idCategory}}" [disabled]="updateFunction" class="input-commision-text">
 </mat-form-field>
