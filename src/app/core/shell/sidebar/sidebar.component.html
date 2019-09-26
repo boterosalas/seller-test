@@ -15,6 +15,7 @@
 
     <div class="sidebar-text-align">
       <app-select-language></app-select-language>
+      <div class="sidebar-label-language">{{'select.language' | translate}}</div>
     </div>
     
 
@@ -231,12 +232,12 @@
     </mat-list-item> -->
     <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterMyProfile]">
       <mat-icon matListIcon class="mat-18">person</mat-icon>
-      <h6 matLine>{{'core.shell.header.profile' | translate}}</h6>
+      <h6 matLine class="sidebar-margin-left">{{'core.shell.header.profile' | translate}}</h6>
     </mat-list-item>
 
     <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]" (click)="toggleMenu()">
       <mat-icon matListIcon class="mat-18">input</mat-icon>
-      <h6 matLine>{{'core.shell.header.logout' | translate}}</h6>
+      <h6 matLine class="sidebar-margin-left">{{'core.shell.header.logout' | translate}}</h6>
     </mat-list-item>
 
     <!--
