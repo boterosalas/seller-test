@@ -116,4 +116,18 @@ mat-toolbar {
 
 .sidebar-text-align{
   text-align: center;
+  border-bottom: 0.001em solid #D3D3D3;
+  margin-bottom: 10px;
+}
+
+.sidebar-label-language{
+  margin-top: -17px;
+  margin-right: 70px;
+  font-size: 11px;
+  color: darkgray;
+  margin-bottom: 10px;
+}
+
+.sidebar-margin-left{
+  margin-left: -57px !important
 }
