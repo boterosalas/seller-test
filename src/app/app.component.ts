@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     // toolbar position
 
     window.onscroll = function () {
-      toolbarTop()
+      toolbarTop();
     };
 
     function toolbarTop() {
@@ -56,17 +56,17 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
       if (window.innerWidth > 959) {
         if (classtop) {
           if (window.scrollY > 45) {
-            classtop.classList.add("top-toolbar");
+            classtop.classList.add('top-toolbar');
           } else {
-            classtop.classList.remove("top-toolbar");
+            classtop.classList.remove('top-toolbar');
           }
         }
 
         if (classtop2) {
           if (window.scrollY > 45) {
-            classtop2.classList.add("top-toolbar");
+            classtop2.classList.add('top-toolbar');
           } else {
-            classtop2.classList.remove("top-toolbar");
+            classtop2.classList.remove('top-toolbar');
           }
         }
       }
