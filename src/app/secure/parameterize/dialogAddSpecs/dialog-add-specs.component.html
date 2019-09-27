@@ -38,7 +38,7 @@
       <div class="addoption">
         <div class="widthOption" *ngFor="let opc of listOptions; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
           <mat-form-field class="width-full">
-            <input matInput [formControlName]="opc.name" placeholder="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | translate">
+            <input matInput [formControlName]="opc.name" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_add_option' | translate">
             <mat-error>{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
 
