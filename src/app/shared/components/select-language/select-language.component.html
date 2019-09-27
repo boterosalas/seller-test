@@ -1,10 +1,26 @@
+<form [formGroup]="form">
+  <!-- <mat-form-field>
+    <mat-select formControlName="lang" class="mat-option-text">
+      <mat-option *ngFor="let lang of langs" [value]="lang" >
+        <span *ngIf="lang === 'EN'" class="flag-icon flag-icon-us flag-icon-squared"></span>
+        <span *ngIf="lang === 'ES'" class="flag-icon flag-icon-es flag-icon-squared"></span>
+        {{lang}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
 
-<form [formGroup]="form"> 
   <mat-form-field>
-    <mat-select formControlName="lang" class="mat-option-text"> 
-      <mat-option *ngFor="let lang of langs" [value]="lang"> 
-        {{lang}} 
-      </mat-option> 
-    </mat-select> 
+    <mat-select formControlName="lang" [(value)]="lang">
+      <mat-select-trigger>
+        <span class="flag-icon flag-icon-{{ lang | lowercase }}"> </span>
+        {{lang}}
+      </mat-select-trigger>
+      <mat-option *ngFor="let lang of langs" [value]="lang">
+        <span class="flag-icon flag-icon-{{ lang | lowercase}}"></span>
+        {{lang}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
-</form> 
+</form>
+
+
