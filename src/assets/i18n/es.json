@@ -354,6 +354,7 @@
     "secure.orders.order_list.order_page.info_no_send_products": "No se han enviado productos de la orden",  
     "secure.orders.order_list.order_page.successfully_mark": "Se ha marcado la orden correctamente",  
     "secure.orders.order_list.order_page.successfully_remove_mark": "Se ha removido la marca de la orden correctamente", 
+    "secure.orders.order_list.order_page.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las ordenes.", 
  
     "secure.orders.order_list.product_detail.product": "Producto",  
     "secure.orders.order_list.product_detail.cost": "Costo",  
