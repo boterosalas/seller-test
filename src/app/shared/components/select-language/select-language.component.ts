@@ -54,4 +54,12 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  setText(lang: String) {
+    if (lang === 'US') {
+      return 'EN';
+    } else {
+      return lang;
+    }
+  }
+
 }
