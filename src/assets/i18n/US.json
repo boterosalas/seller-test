@@ -880,6 +880,8 @@
     "secure.parametize.dialogAddSpecs.modal_chk_required": "Mandatory",  
     "secure.parametize.dialogAddSpecs.modal_placeholder_add_option": "Enter an option",  
     "secure.parametize.dialogAddSpecs.modal_btn_add_option": "Add an option", 
+
+    "secure.parametize.commission.add": "Add commission exceptions", 
  
     "secure.parametize.profiles.profile.toolbar_title": "Sellers",  
     "secure.parametize.profiles.profile.toolbar_subtitle": "Profile configuration",  
@@ -915,6 +917,7 @@
     "secure.parametize.category.categories.lb_id_exito_form": "ID Éxito",  
     "secure.parametize.category.categories.lb_id_catalogo_form": "ID Cátalogos",  
     "secure.parametize.category.categories.lb_id_market_form": "ID Marketplace", 
+    "secure.parametize.category.categories.exception": "Exceptions", 
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category", 
  

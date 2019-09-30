@@ -4,7 +4,7 @@
     <form class="basic-info" #createfilterSeller="ngForm" [formGroup]="filterSeller" class="seller-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3>{{'secure.seller.list.seller_filter' | translate}}</h3>
-        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
         </button>
@@ -175,8 +175,7 @@
                           </mat-icon>
                     </label>
                     <ng-template #ProgramDate>
-                        <label class="label-result">{{'
-                          secure.seller.list.program_vacation' | translate}}
+                        <label class="label-result">{{'secure.seller.list.program_vacation' | translate}}
                       </label>                     
                     </ng-template>
                   </div>
