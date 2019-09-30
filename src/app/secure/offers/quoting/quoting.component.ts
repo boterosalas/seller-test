@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UserInformation, RoutesConst } from '@app/shared';
 import { UserLoginService, UserParametersService } from '@app/core';
 import { Router } from '@angular/router';
-import { LanguageService } from '@app/shared/components/select-language/Language.service';
+import { SelectLanguageService } from '@app/shared/components/select-language/select-language.service';
 
 @Component({
   selector: 'app-quoting',
@@ -18,7 +18,7 @@ export class QuotingComponent implements OnInit {
     private userService: UserLoginService,
     private router: Router,
     private userParams: UserParametersService,
-    private languageService: LanguageService
+    private languageService: SelectLanguageService
   ) { }
 
   ngOnInit(): void {

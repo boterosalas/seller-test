@@ -1,12 +1,12 @@
 // import { TestBed } from '@angular/core/testing';
 
-// import { LanguageService } from './language.service';
+// import { SelectLanguageService } from './select-language.service';
 
-// describe('LanguageService', () => {
+// describe('SelectLanguageService', () => {
 //   beforeEach(() => TestBed.configureTestingModule({}));
 
 //   it('should be created', () => {
-//     const service: LanguageService = TestBed.get(LanguageService);
+//     const service: SelectLanguageService = TestBed.get(SelectLanguageService);
 //     expect(service).toBeTruthy();
 //   });
 // });

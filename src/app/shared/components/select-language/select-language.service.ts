@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LanguageService {
+export class SelectLanguageService {
 
   language$ = new BehaviorSubject(this.translate.currentLang);
 

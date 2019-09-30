@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 // import { LanguageService } from './language.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { LanguageService } from '../select-language/Language.service';
+import { SelectLanguageService } from './select-language.service';
 
 @Component({
   selector: 'app-select-language',
@@ -19,9 +19,9 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   langs: string[];
   form: FormGroup;
   subs: Subscription[] = [];
-  lang= 'ES';
+  lang = 'ES';
 
-  constructor(private translate: LanguageService, private fb: FormBuilder) {
+  constructor(private translate: SelectLanguageService, private fb: FormBuilder) {
     this.form = this.fb.group({
       lang: ['']
     });
@@ -37,9 +37,9 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     this.subs.push(subsLang, subschange);
   }
   setLocalStorageCulture(culture: string) {
-    let userId  = 'current';
+    let userId = 'current';
     if (localStorage.getItem('userId')) {
-       userId = localStorage.getItem('userId');
+      userId = localStorage.getItem('userId');
     }
     if (culture) {
       localStorage.setItem('culture_' + userId, culture);
