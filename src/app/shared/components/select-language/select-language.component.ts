@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { LanguageService } from './Language.service';
+import { LanguageService } from '../select-language/language.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
