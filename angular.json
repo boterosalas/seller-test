@@ -28,7 +28,8 @@
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/flag-icon-css/css/flag-icon.css"
             ],
             "scripts": []
           },

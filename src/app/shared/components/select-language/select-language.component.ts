@@ -18,6 +18,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   langs: string[];
   form: FormGroup;
   subs: Subscription[] = [];
+  lang= 'ES';
 
   constructor(private translate: LanguageService, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -51,6 +52,14 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  setText(lang: String) {
+    if (lang === 'US') {
+      return 'EN';
+    } else {
+      return lang;
+    }
   }
 
 }
