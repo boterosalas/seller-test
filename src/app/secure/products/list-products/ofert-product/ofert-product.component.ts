@@ -113,7 +113,7 @@ export class OfertExpandedProductComponent implements OnInit {
         });
 
         // Borrar esta linea, para Internacional
-        this.ofertProduct.get('Currency').disable();
+        // this.ofertProduct.get('Currency').disable();
 
         this.matcher = new MyErrorStateMatcher();
         // tslint:disable-next-line:no-shadowed-variable

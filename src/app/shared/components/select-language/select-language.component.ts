@@ -54,6 +54,13 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  /**
+   * Metodo para retornar la Palabra EN para pintarla ya que el flag aparece en US.
+   *
+   * @param {String} lang
+   * @returns
+   * @memberof SelectLanguageComponent
+   */
   setText(lang: String) {
     if (lang === 'US') {
       return 'EN';
