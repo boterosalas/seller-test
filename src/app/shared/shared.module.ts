@@ -41,13 +41,14 @@ import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagin
 import { NotificationCircleComponent } from './components/notification-circle/notification-circle.component';
 import { StatesComponent } from './components/states/states.component';
 import { CitiesComponent } from './components/cities/cities.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core'; 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { UploadButtonComponent } from './components/upload-button/upload-button.component';
+import { LanguageService } from './components/select-language/Language.service';
 
-export function createTranslateLaoder(http: HttpClient){
+export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
@@ -138,7 +139,7 @@ export function createTranslateLaoder(http: HttpClient){
     DialogWithFormComponent,
     CreateProcessDialogComponent
   ],
-  providers: [EventEmitterSeller],
+  providers: [EventEmitterSeller, LanguageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
-export class SharedModule {}
+export class SharedModule { }
