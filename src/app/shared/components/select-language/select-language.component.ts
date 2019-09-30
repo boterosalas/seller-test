@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { LanguageService } from '../select-language/language.service';
+// import { LanguageService } from './language.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { LanguageService } from '../select-language/Language.service';
 
 @Component({
   selector: 'app-select-language',
