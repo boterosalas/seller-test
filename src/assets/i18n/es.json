@@ -859,6 +859,8 @@
     "secure.parametize.specifications.btn_add_specifications": "Agregar especificaciones",  
     "secure.parametize.specifications.tooltip_type_text": "Especificación de tipo texto",  
     "secure.parametize.specifications.tooltip_type_list": "Especificación de tipo lista", 
+    
+    "secure.parametize.commission.add": "Agregar excepciones de Comisión", 
  
     "secure.parametize.dialog.modal_title_spec": "Agregar grupo de especificaciones",  
     "secure.parametize.dialog.modal_title_brand": "Agregar una marca",  
@@ -915,6 +917,7 @@
     "secure.parametize.category.categories.lb_id_exito_form": "Éxito ID",  
     "secure.parametize.category.categories.lb_id_catalogo_form": "Category ID",  
     "secure.parametize.category.categories.lb_id_market_form": "Marketplace ID", 
+    "secure.parametize.category.categories.exception": "Excepciones", 
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija", 
  

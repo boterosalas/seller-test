@@ -1,11 +1,12 @@
 <ng-container *ngIf="canRead">
   <div class="header__wrapper">
-    <div>Excepciones</div>
+    <!-- <div>{{'secure.parametize.category.categories.exception'| translate}}</div> -->
+    <div>{{'secure.parametize.category.categories.exception' | translate}}</div>
     <div *ngIf="canUpdate" fxShow="true" [fxShow.xs]="false">
-      <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR EXCEPCIONES DE COMISIÓN</button>
+      <button mat-stroked-button color="primary" (click)="openDialog('create')">{{'secure.parametize.commission.add' | translate}}</button>
     </div>
     <div fxShow="false" [fxShow.xs]="true" *ngIf="canUpdate">
-      <button mat-stroked-button color="primary" (click)="openDialog('create')">AGREGAR</button>
+      <button mat-stroked-button color="primary" (click)="openDialog('create')">{{'actions.add'| translate}}</button>
     </div>
   </div>
 
@@ -13,7 +14,7 @@
     <div class="example-container">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="Brand">
-          <th mat-header-cell *matHeaderCellDef> Marca </th>
+          <th mat-header-cell *matHeaderCellDef> {{'shared.brand' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
         </ng-container>
 

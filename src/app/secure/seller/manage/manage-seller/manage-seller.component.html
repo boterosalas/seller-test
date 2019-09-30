@@ -194,13 +194,8 @@
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-<<<<<<< HEAD
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate" formControlName="Email"
                   [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton = false"
-=======
-                <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
-                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= true"
->>>>>>> 5ae90459b08197a5a2c7381e2ef3dbdd534cb665
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
@@ -288,8 +283,7 @@
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-                <input matInput appNoSpaces placeholder="Direcci&oacute;n de
-                  facturaci&oacute;n" formControlName="Address" [errorStateMatcher]="matcher" id="register-address"
+                <input matInput appNoSpaces [placeholder]="'secure.seller.register_seller.lb_address_form' | translate" formControlName="Address" [errorStateMatcher]="matcher" id="register-address"
                   required>
                 <mat-hint></mat-hint>
                 <mat-error id="error-address-required" *ngIf="validateFormRegister.get('Address').hasError('required')
@@ -400,13 +394,8 @@
             </div>
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
-<<<<<<< HEAD
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate" formControlName="Email"
                   [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton = false"
-=======
-                <input matInput placeholder="Correo electr&oacute;nico" formControlName="Email"
-                  [errorStateMatcher]="matcher" id="register-email" (ngModelChange)="activeButton= true"
->>>>>>> 5ae90459b08197a5a2c7381e2ef3dbdd534cb665
                   (blur)="validateExist($event, 'Email')" required>
                 <mat-hint></mat-hint>
 
