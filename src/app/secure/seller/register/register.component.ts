@@ -289,7 +289,8 @@ export class RegisterSellerComponent implements OnInit {
     const colombia = this.countries.find(element => element.CountryName === this.colombia);
     // tslint:disable-next-line:curly
     if (!!colombia) this.Country.setValue(colombia.CountryName);
-    this.Country.disable();
+    // Linea comentada para habilitar internacional.
+    // this.Country.disable();
   }
 
   validateExitPayoneerUser(event: any) {

@@ -86,7 +86,7 @@ export class ManageSellerComponent implements OnInit {
   profileAdmin: string[] = [];
   public showUpdate: boolean;
   departamento = 'departamento';
-  activeForm= false;
+  activeForm = false;
 
 
   public country: FormControl;
@@ -324,7 +324,7 @@ export class ManageSellerComponent implements OnInit {
       Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
-    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required ]);
+    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
@@ -340,7 +340,8 @@ export class ManageSellerComponent implements OnInit {
     this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
     this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
 
-    this.country = new FormControl({ value: '', disabled: true }, [Validators.required]);
+    // disable = true ; Se quita el disable true para prueba internacional
+    this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.payoneer = new FormControl({ value: '', disabled: disable });
     this.createForm();
     this.addValidationsSellerForm();
@@ -615,7 +616,7 @@ export class ManageSellerComponent implements OnInit {
    */
   addValidationsSellerForm() {
     this.Country.valueChanges.subscribe(val => {
-      if (val !== 'null' && val !== null ) {
+      if (val !== 'null' && val !== null) {
         if (this.colombia === val) {
           this.isColombiaSelect = true;
           this.department = this.currentSellerSelect.State;
