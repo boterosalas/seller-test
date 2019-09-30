@@ -859,8 +859,13 @@
     "secure.parametize.specifications.btn_add_specifications": "Agregar especificaciones",  
     "secure.parametize.specifications.tooltip_type_text": "Especificación de tipo texto",  
     "secure.parametize.specifications.tooltip_type_list": "Especificación de tipo lista", 
-    
+
+
     "secure.parametize.commission.add": "Agregar excepciones de Comisión", 
+    "secure.parametize.commission.delete": "Eliminar comisión", 
+    "secure.parametize.commission.message": "Estás seguro que deseas eliminar esta excepción", 
+    "secure.parametize.commission.edit": "Editar excepción", 
+    "secure.parametize.commission.addTariffs": "Agregar excepción", 
  
     "secure.parametize.dialog.modal_title_spec": "Agregar grupo de especificaciones",  
     "secure.parametize.dialog.modal_title_brand": "Agregar una marca",  

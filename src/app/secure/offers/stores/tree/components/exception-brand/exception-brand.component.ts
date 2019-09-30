@@ -11,6 +11,7 @@ import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
 import { Subject } from 'aws-sdk/clients/sts';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-exception-brand',
@@ -46,6 +47,7 @@ export class ExceptionBrandComponent implements OnInit {
     private fb: FormBuilder,
     private regexService: BasicInformationService,
     private loadingService: LoadingService,
+    private languageService: TranslateService,
     private authService: AuthService) {
       this.typeForm = this.fb.group({
         type: ['']
@@ -185,8 +187,8 @@ export class ExceptionBrandComponent implements OnInit {
 
   putDataForDelete() {
     const form = null;
-    const title = 'Eliminar excepción';
-    const message = 'Estás seguro que deseas eliminar esta excepción';
+    const title = this.languageService.instant('secure.parametize.commission.delete');
+    const message = this.languageService.instant('secure.parametize.commission.message');
     const messageCenter = true;
     const showButtons = true;
     const icon = null;
@@ -201,7 +203,7 @@ export class ExceptionBrandComponent implements OnInit {
     const initialValue = Object.assign({Id, Brand, Comission}, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
-    const title = 'Editar excepción';
+    const title = this.languageService.instant('secure.parametize.commission.edit');
     const message = null;
     const messageCenter = false;
     const showButtons = true;
@@ -212,7 +214,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   putDataForCreate() {
     const form = this.form;
-    const title = 'Agregar excepción';
+    const title = this.languageService.instant('secure.parametize.commission.addTariffs');
     const message = null;
     const messageCenter = false;
     const showButtons = true;

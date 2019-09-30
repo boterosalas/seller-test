@@ -881,7 +881,11 @@
     "secure.parametize.dialogAddSpecs.modal_placeholder_add_option": "Enter an option",  
     "secure.parametize.dialogAddSpecs.modal_btn_add_option": "Add an option", 
 
-    "secure.parametize.commission.add": "Add commission exceptions", 
+    "secure.parametize.commission.add": "Add tariffs exceptions", 
+    "secure.parametize.commission.delete": "Delete tariffs", 
+    "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?", 
+    "secure.parametize.commission.edit": "Edit tariffis", 
+    "secure.parametize.commission.addTariffs": "add tariffs", 
  
     "secure.parametize.profiles.profile.toolbar_title": "Sellers",  
     "secure.parametize.profiles.profile.toolbar_subtitle": "Profile configuration",  
