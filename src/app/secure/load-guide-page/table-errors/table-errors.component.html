@@ -27,8 +27,8 @@
           <mat-icon class="icon-color-error">warning</mat-icon>
           <p matLine *ngIf="item.type == 'NumberFormat'">{{'secure.products.table_errors_product.column_data' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span> {{'secure.laod_guide_page.table_errors.numeric' | translate}}</p>
-          <p matLine *ngIf="item.type == 'dateNotFound'">{{'secure.laod_guide_page.table_errors.missinf_info' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span> {{'secure.load_guide_page.table_errors.numeric' | translate}}</p>
+          <p matLine *ngIf="item.type == 'dateNotFound'">{{'secure.load_guide_page.table_errors.missinf_info' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
           </p>
@@ -40,12 +40,12 @@
   <mat-card class="card-ok-process" *ngIf="countErrors == 0">
     <div class="succes-data">
       <mat-icon>check</mat-icon>
-      {{'secure.laod_guide_page.table_errors.ok' | translate}}
+      {{'secure.load_guide_page.table_errors.ok' | translate}}
     </div>
     <mat-card-actions>
       <button id="finish-send-guide-button" (click)="loadGuide.sendJsonInformation()"
               [disabled]="countErrors != 0 || countRowUpload == 0"
-              mat-raised-button class="sc-default-button full-width" color="accent">{{'secure.products.bulk_upload.send_data' | translate}
+              mat-raised-button class="sc-default-button full-width" color="accent">{{'secure.products.bulk_upload.send_data' | translate}}
       </button>
     </mat-card-actions>
   </mat-card>

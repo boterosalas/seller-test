@@ -15,7 +15,7 @@
 
     <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
       <mat-icon>warning</mat-icon>
-      {{'secure.products.create_product_unit.component_process.dialog_save.there' | translate}} {{response.body.error > 1 ? has: have }} {{'secure.products.create_product_unit.component_process.dialog_save.been' | translate}} {{response.body.error}} {{response.body.error > 1 ? errors : error }} {{'secure.products.Finish_upload_product_information.when_uploading_products' | translate}}
+      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.body.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.body.error}} {{response.body.error > 1 ? errors : error }} {{'secure.products.Finish_upload_product_information.when_uploading_products' | translate}}
     </h4>
     <mat-divider *ngIf="response.body.data.status ===3"></mat-divider>
 

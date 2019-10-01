@@ -20,10 +20,10 @@ export class SaveProcessDialogComponent {
         private languageService: TranslateService
       ) {
         this.response = res;
-        this.has = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.has');
-        this.have = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.have');
-        this.errors = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.errors');
-        this.error = this.languageService.instant('secure.products.create_product_unit.component_process.dialog_save.there.error');
+        this.has = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.has');
+        this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
+        this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
+        this.error = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.error');
       }
 
     onNoClick(): void {

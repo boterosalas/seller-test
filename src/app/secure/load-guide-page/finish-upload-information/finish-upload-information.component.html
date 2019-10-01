@@ -3,7 +3,7 @@
 
   <h3 class="succes-string" mat-subheader *ngIf="response.successful != 0">
     <mat-icon>check</mat-icon>
-    {{response.successful}} {{'secure.laod_guide_page.finish_upload_info.title' | translate}}
+    {{response.successful}} {{'secure.load_guide_page.finish_upload_info.title' | translate}}
   </h3>
   <mat-divider *ngIf="response.successful != 0"></mat-divider>
 
@@ -13,8 +13,8 @@
 
   <h4 class="error-string" mat-subheader *ngIf="response.error != 0">
     <mat-icon>warning</mat-icon>
-    {{'secure.laod_guide_page.finish_upload_info.error_guide' | translate}} {{response.error}}
-    {{'secure.laod_guide_page.finish_upload_info.error_guide_2' | translate}}
+    {{'secure.load_guide_page.finish_upload_info.error_guide' | translate}} {{response.error}}
+    {{'secure.load_guide_page.finish_upload_info.error_guide_2' | translate}}
   </h4>
   <mat-divider *ngIf="response.error != 0"></mat-divider>
 
@@ -23,7 +23,7 @@
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
       <h4 matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:: {{item.message}}</h4>
       <p matLine>{{'secure.orders.in_devolution.product_devolution_modal.sku' | translate}}:{{item.sku}}</p>
-      <p matLine>{{'secure.laod_guide_page.finish_upload_info.order_number' | translate}}:{{item.orderNumber}}</p>
+      <p matLine>{{'secure.load_guide_page.finish_upload_info.order_number' | translate}}:{{item.orderNumber}}</p>
     </mat-list-item>
   </mat-nav-list>
 </div>

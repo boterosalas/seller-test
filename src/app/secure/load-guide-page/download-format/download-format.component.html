@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>{{'secure.laod_guide_page.download_format.title' | translate}}</h2>
+<h2 mat-dialog-title>{{'secure.load_guide_page.download_format.title' | translate}}</h2>
 <mat-dialog-content>
   <form #f="ngForm" [formGroup]="myform" class="form-login">
     <div fxLayout="column" fxLayoutGap="20px">
       <div fxLayout="row" fxFlex="100">
         <mat-form-field fxFlex="100" class="input-style">
           <input name="limit" formControlName="limit" matInput
-            [placeholder]="'secure.laod_guide_page.download_format.ph_record_limit' | translate" type="number"
+            [placeholder]="'secure.load_guide_page.download_format.ph_record_limit' | translate" type="number"
             required>
           <mat-error>{{'errors.error_limit_format' | translate}}</mat-error>
         </mat-form-field>

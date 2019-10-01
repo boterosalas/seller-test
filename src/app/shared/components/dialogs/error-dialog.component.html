@@ -1,17 +1,17 @@
  <h4 mat-dialog-title class="process-text" *ngIf="typeDialog.Success ===
   response.type" fxLayout="row" fxLayoutAlign="start center">
   <mat-icon class="process-success">check</mat-icon>
-  Carga realizada exitosamente
+  {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
 </h4>
 
 <h4 mat-dialog-title class="process-text" fxLayout="row" mat-subheader
   *ngIf="typeDialog.Process ===
   response.type">
   <mat-spinner class="process-charge" [diameter]="60"></mat-spinner>
-  {{response.processing}} Carga en proceso ...
+  {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}} ...
 </h4>
 
-<h4 mat-dialog-title *ngIf="typeDialog.Error === response.type"> Se
+<h4 mat-dialog-title *ngIf="typeDialog.Error === response.type"> {{'secure.products.create_product_unit.specifications.dialog.there' | translate}}
   {{response.errors.length > 1 ? 'han': 'ha' }}
   presentado
   {{response.errors.length}} {{response.errors.length > 1 ? 'errores': 'error'

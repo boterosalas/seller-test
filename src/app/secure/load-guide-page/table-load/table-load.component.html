@@ -16,7 +16,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>check</mat-icon>
           <span>{{countRowUpload}}</span>
-          <b>{{'secure.laod_guide_page.table_load.records_found' | translate}}</b>
+          <b> {{'secure.load_guide_page.table_load.records_found' | translate}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="information" *ngIf="element.orderNumber == undefined || element.orderNumber == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -60,7 +60,7 @@
             <p class="sc-text-normal">{{element.sku}}</p>
           </div>
           <div class="information" *ngIf="element.sku == undefined || element.sku == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -81,7 +81,7 @@
             <p class="sc-text-normal">{{element.quantity}}</p>
           </div>
           <div class="information" *ngIf="element.quantity == undefined || element.quantity == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -94,7 +94,7 @@
       <ng-container matColumnDef="carrier">
         <mat-header-cell fxFlex.sm="150px" fxFlex.md="150px" fxFlex.lg="150px" fxFlex.xs="150px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.laod_guide_page.table_load.shipping_company' | translate}}
+          {{'secure.load_guide_page.table_load.shipping_company' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" fxFlex.sm="150px" fxFlex.md="150px"
           fxFlex.lg="150px" fxFlex.xs="150px" *matCellDef="let element">
@@ -102,7 +102,7 @@
             <p class="sc-text-normal">{{element.carrier}}</p>
           </div>
           <div class="information" *ngIf="element.carrier == undefined || element.carrier == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning
@@ -124,7 +124,7 @@
             <p class="sc-text-normal">{{element.tracking}}</p>
           </div>
           <div class="information" *ngIf="element.tracking == undefined || element.tracking == ''">
-            <p class="text-error"> {{'secure.laod_guide_page.table_load.missing_data' | translate}}
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
               class="text-error">warning

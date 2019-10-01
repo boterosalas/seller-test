@@ -40,7 +40,7 @@
     "menu.Todas": "Todas", 
     "menu.Por enviar": "Por enviar", 
     "menu.Enviadas": "Enviadas", 
-    "menu.Cargarguías": "Cargar guías", 
+    "menu.Cargar guías": "Cargar guías", 
     "menu.Menu": "Menú", 
  
  
@@ -133,7 +133,7 @@
     "actions.send_all": "Enviar todo",  
     "actions.print_receipt": "Imprimir recibo",  
     "actions.print_label": "Imprimir rótulo",  
-    "actions.Attach invoice": "Adjuntar factura",  
+    "actions.attach_invoice": "Adjuntar factura",  
     "actions.go_to_start": "Ir al inicio",  
     "actions.update": "ACTUALIZAR",  
     "actions.apply": "Aplicar",  
@@ -306,7 +306,7 @@
  
     "secure.load_guide_page.table_load.records_found": "Registros encontrados", 
     "secure.load_guide_page.table_load.missing_data": "Dato faltante", 
-    "secure.load_guide_page.table_load.shipping_company": "Transportador", 
+    "secure.load_guide_page.table_load.shipping_company": "Transportadora", 
  
  
     "secure.orders.orders": "Órdenes", 
@@ -427,7 +427,7 @@
     "secure.seller.list.status": "Estado",  
     "secure.seller.list.vacations": "vacaciones",  
     "secure.seller.list.reason": "Motivo",  
-    "secure.seller.list.observtion": "Observación",  
+    "secure.seller.list.observation": "Observación",  
     "secure.seller.list.start_date": "Fecha inicio",  
     "secure.seller.list.end_date": "Fecha final",  
     "secure.seller.list.seller_filter": "Filtro vendedores",  
@@ -623,7 +623,7 @@
     "secure.products.Finish_upload_product_information.product_Name": "Nombre de producto",  
     "secure.products.Finish_upload_product_information.error_ocurred": "Error presentado",  
     "secure.products.Finish_upload_product_information.home_seller_center": "Ir al inicio",  
-    "secure.products.Finish_upload_product_information.when_uploading_products": "ocurrió un problema al realizar la carga de los productos", 
+    "secure.products.Finish_upload_product_information.when_uploading_products": "ocurrió un problema al realizar la carga de los productos.", 
  
     "secure.products.table_errors_product.selected_file": "Archivo seleccionado",  
     "secure.products.table_errors_product.column_data": "El dato en la",  
