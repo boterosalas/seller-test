@@ -619,9 +619,10 @@
     "secure.products.bulk_upload.color": "Color ", 
  
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",  
-    "secure.products.Finish_upload_product_information.successful_upload": "Successful upload",  
+    "secure.products.Finish_upload_product_information.successful_upload": "Successful upload", 
+    "secure.products.Finish_upload_product_information.error_upload": "Could not load",  
     "secure.products.Finish_upload_product_information.product_Name": "Product name",  
-    "secure.products.Finish_upload_product_information.error_ocurred": "Error has ocurred",  
+    "secure.products.Finish_upload_product_information.error_ocurred": "An error has ocurred",  
     "secure.products.Finish_upload_product_information.home_seller_center": "Go to dashboard",  
     "secure.products.Finish_upload_product_information.when_uploading_products": "ocurred when uploading the products.", 
  
@@ -810,7 +811,7 @@
     "secure.products.create_product_unit.list_products.expanded_product.height": "Height",  
     "secure.products.create_product_unit.list_products.expanded_product.width": "Width",  
     "secure.products.create_product_unit.list_products.expanded_product.length": "Length",  
-    "secure.products.create_product_unit.list_products.expanded_product.weight": "weight",  
+    "secure.products.create_product_unit.list_products.expanded_product.weight": "Weight",  
     "secure.products.create_product_unit.list_products.expanded_product.add_offer": "Add offer",  
     "secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications": "No elements of specifications",  
     "secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer": "This product is not ready to have an offer associated to it, please try again later.",  
@@ -966,5 +967,7 @@
     "secure.parametize.support_modal.limit_field": "This field has 2.000 characters as it's maximum.",  
     "secure.parametize.support_modal.field_invalid": "Invalid field",  
     "secure.parametize.support_modal.tutorial": "TUTORIALS",  
-    "secure.parametize.support_modal.contact_mail": "Contact e-mail"
+    "secure.parametize.support_modal.contact_mail": "Contact e-mail",
+
+    "secure.products.bulk_upload.process": "when uploading the products."
 }

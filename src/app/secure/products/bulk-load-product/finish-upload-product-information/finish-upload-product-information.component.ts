@@ -26,6 +26,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   public have: string;
   public errors: string;
   public error: string;
+  public name: string;
 
   /**
    * Creates an instance of FinishUploadProductInformationComponent.
@@ -45,6 +46,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
     this.error = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.error');
+    this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
   }
 
   ngAfterViewInit() {

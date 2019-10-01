@@ -1,6 +1,6 @@
 <div class="content-modal">
   <div class="title-page">
-    <h2 class="sc-title mat-h2">{{'secure.orders.in_devolution.action_report_novelty.title' | translate}}</h2>
+    <h2 class="sc-title mat-h2">{{'secure.orders.in_devolution.action_report_novelty.placeholder_denied' | translate}}</h2>
     <a id="close-finish-send-order" [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
@@ -9,7 +9,7 @@
     <mat-dialog-content class="full-width">
 
       <mat-form-field class="full-width">
-        <mat-select required formControlName="reason" [placeholder]="'secure.orders.in_devolution.action_report_novelty.title' | translate">
+        <mat-select required formControlName="reason" [placeholder]="'secure.orders.in_devolution.action_report_novelty.placeholder_denied' | translate">
           <mat-option *ngFor="let reasonReject of reasonRejection" [value]="reasonReject.idMotivoSolicitudReversion">
             {{ reasonReject.nombreMotivoSolicitudReversion }}
           </mat-option>

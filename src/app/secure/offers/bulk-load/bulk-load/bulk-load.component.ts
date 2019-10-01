@@ -1243,9 +1243,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.intervalTime = 6000;
     }
     const data = {
-      successText: 'Carga realizada con éxito',
-      failText: 'No se pudo realizar la carga',
-      processText: 'Carga en proceso',
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
       initTime: 500,
       intervalTime: this.intervalTime,
       listError: listError,

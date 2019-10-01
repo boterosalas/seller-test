@@ -191,13 +191,13 @@
   <ng-container *ngIf="status.status == 'vacation'">
     <form [formGroup]="statusForm" class="full-width space-between">
       <mat-form-field class="half-width">
-        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
+        <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" [placeholder]="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
         <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
         <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="half-width" >
-        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" placeholder="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
+        <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" [placeholder]="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
         <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
         <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
       </mat-form-field>

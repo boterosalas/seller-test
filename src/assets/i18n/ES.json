@@ -620,6 +620,7 @@
  
     "secure.products.Finish_upload_product_information.upload_progress": "Carga en proceso",  
     "secure.products.Finish_upload_product_information.successful_upload": "Carga realizada con éxito",  
+    "secure.products.Finish_upload_product_information.error_upload": "No se pudo realizar la carga",  
     "secure.products.Finish_upload_product_information.product_Name": "Nombre de producto",  
     "secure.products.Finish_upload_product_information.error_ocurred": "Error presentado",  
     "secure.products.Finish_upload_product_information.home_seller_center": "Ir al inicio",  
@@ -966,5 +967,7 @@
     "secure.parametize.support_modal.limit_field": "Este campo contiene máximo 2000 caracteres.",  
     "secure.parametize.support_modal.field_invalid": "Campo inválido.",  
     "secure.parametize.support_modal.tutorial": "TUTORIALES",  
-    "secure.parametize.support_modal.contact_mail": "Correo contacto"
+    "secure.parametize.support_modal.contact_mail": "Correo contacto",
+
+    "secure.products.bulk_upload.process": "al momento de cargar los productos."
 }
