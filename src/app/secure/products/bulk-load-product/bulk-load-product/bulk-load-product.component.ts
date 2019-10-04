@@ -136,13 +136,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // size
   size: any = [];
 
+  culture= 'ES';
+
   // specName
 
   modelSpecs: any;
 
   // variable para la  creacion del excel
   dataTheme;
-
 
   // tipo extension XLSX
   EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -218,7 +219,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // this.listOfCategories();
     // this.listOfSpecs();
   }
-  
 
   prepareComponent() {
     const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
@@ -490,8 +490,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
                 iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-                iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
+                iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                 iSize: this.arrayNecessaryData[0].indexOf('Size'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -2010,6 +2010,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /*Generar excel*/
 
   exportExcel() {
+    if (localStorage.getItem('culture_current')) {
+      this.culture = localStorage.getItem('culture_current');
+    } else {
+      this.culture = 'ES';
+    }
+    // this.translateFile(this.culture, this.categoryType.value);
 
     if (this.categoryType.value === 'Technology') {
       this.dataTheme = this.getDataFormFileTechnology();
@@ -2023,6 +2029,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const worksheetCategory: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.categoria);
     const worksheetBrands: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.marcas);
     const worksheetSpecifications: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.especificaciones);
+    let workbook: XLSX.WorkBook ;
 
     // SheetNames: Arreglo con el nombre de la hoja
     // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
@@ -2032,19 +2039,51 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     if (this.categoryType.value === 'Clothing') {
       const worksheetSize: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.talla);
       XLSX.utils.sheet_add_json(worksheetSize, [
-        { B: 'Color' }, { B: 'Beige' }, { B: 'Negro' }, { B: 'Blanco' }, { B: 'Azul' }, { B: 'Amarillo' }, { B: 'Cafe' }, { B: 'Gris' }, { B: 'Verde' }, { B: 'Naranja' }, { B: 'Rosa' }, { B: 'Morado' }, { B: 'Rojo' }, { B: 'Plata' }, { B: 'Dorado' }, { B: 'MultiColor' }
+        { B: this.languageService.instant('secure.products.bulk_upload.color')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.White')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.gray')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.green')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.orange')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.pink')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.purple')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.red')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.silver')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.golden')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.multicolored')}
       ], { skipHeader: true, origin: 'B1' });
+
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications, 'Tallas y Colores': worksheetSize }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones', 'Tallas y Colores'] };
+      if (this.culture === 'ES') {
+        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications, 'Tallas y Colores': worksheetSize }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones', 'Tallas y Colores'] };
+      } else {
+        worksheetBrands['A1'].v = 'BRANDS';
+        worksheetSize['A1'].v = 'SIZE';
+        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications, 'Color and size': worksheetSize }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications', 'Color and size'] };
+      }
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcel(excelBuffer, `Plantilla general Clothing ${this.categoryName.value}`);
+      this.saveAsExcel(excelBuffer, this.languageService.instant('secure.products.bulk_load_product_moderation.template_download_clothing') + ' ' + this.categoryName.value);
     } else {
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+      if (this.culture === 'ES') {
+        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications}, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones']};
+      } else {
+        worksheetBrands['A1'].v = 'BRANDS';
+        if (worksheetCategory['A1'] && worksheetCategory['B1']) {
+          worksheetCategory['A1'].v = 'Category Code';
+          worksheetCategory['B1'].v = 'Specific Category';
+        }
+        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications']};
+      }
+
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
+      this.saveAsExcel(excelBuffer, this.languageService.instant('secure.products.bulk_load_product_moderation.template_download_technology') + ' ' + this.categoryName.value);
     }
   }
 
@@ -2055,102 +2094,187 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     FileSaver.saveAs(data, fileName);
   }
 
+
+
   /* Datos de plantilla Technology */
 
   getDataFormFileTechnology() {
-    const productos = [{
-      'Grupo EAN Combo': undefined,
-      'EAN': undefined,
-      'Nombre del producto': undefined,
-      'Categoria': undefined,
-      'Marca': undefined,
-      'Modelo': undefined,
-      'Detalles': undefined,
-      'Descripcion': undefined,
-      'Palabras Clave': undefined,
-      'Alto del empaque': undefined,
-      'Largo del empaque': undefined,
-      'Ancho del empaque': undefined,
-      'Peso del empaque': undefined,
-      'skuShippingsize': undefined,
-      'Alto del producto': undefined,
-      'Largo del producto': undefined,
-      'Ancho del producto': undefined,
-      'Peso del producto': undefined,
-      'Descripcion Unidad de Medida': undefined,
-      'Factor de conversion': undefined,
-      'TipoProducto': undefined,
-      'URL de Imagen 1': undefined,
-      'URL de Imagen 2': undefined,
-      'URL de Imagen 3': undefined,
-      'URL de Imagen 4': undefined,
-      'URL de Imagen 5': undefined,
-      'Logistica Exito': undefined,
-    },
-    this.modelSpecs
-    ];
-
-    const categoria = this.listOfCategories();
-
-    const marcas = this.brands;
-
-    const especificaciones = this.listOfSpecs();
-
-    return { productos, categoria, marcas, especificaciones };
-
+   const productos = this.setCultureColumnsTechnology();
+   const categoria = this.listOfCategories();
+   const marcas = this.brands;
+   const especificaciones = this.listOfSpecs();
+  return { productos, categoria, marcas, especificaciones };
   }
+
 
   /* Datos de plantilla Clothing */
 
+
+  setCultureColumnsTechnology() {
+    let productos = [];
+    if (this.culture === 'ES') {
+      productos = [{
+        'Grupo EAN Combo': undefined,
+        'EAN': undefined,
+        'Nombre del producto': undefined,
+        'Categoria': undefined,
+        'Marca': undefined,
+        'Modelo': undefined,
+        'Detalles': undefined,
+        'Descripcion': undefined,
+        'Palabras Clave': undefined,
+        'Alto del empaque': undefined,
+        'Largo del empaque': undefined,
+        'Ancho del empaque': undefined,
+        'Peso del empaque': undefined,
+        'skuShippingsize': undefined,
+        'Alto del producto': undefined,
+        'Largo del producto': undefined,
+        'Ancho del producto': undefined,
+        'Peso del producto': undefined,
+        'Descripcion Unidad de Medida': undefined,
+        'Factor de conversion': undefined,
+        'TipoProducto': undefined,
+        'URL de Imagen 1': undefined,
+        'URL de Imagen 2': undefined,
+        'URL de Imagen 3': undefined,
+        'URL de Imagen 4': undefined,
+        'URL de Imagen 5': undefined,
+        'Logistica Exito': undefined,
+      },
+      this.modelSpecs
+      ];
+
+    } else {
+      productos = [{
+        'Combo EAN Group': undefined,
+        'EAN': undefined,
+        'Product Name': undefined,
+        'Category': undefined,
+        'Brand': undefined,
+        'Model': undefined,
+        'Product Details': undefined,
+        'Description': undefined,
+        'Keywords': undefined,
+        'Package Height': undefined,
+        'Package Lenght': undefined,
+        'Package Width': undefined,
+        'Package Weight': undefined,
+        'skuShippingsize': undefined,
+        'Item Height': undefined,
+        'Item Leght': undefined,
+        'Item Width': undefined,
+        'Item Weight': undefined,
+        'Measuring Unit': undefined,
+        'Conversion Factor': undefined,
+        'ProductType': undefined,
+        'Image URL 1': undefined,
+        'Image URL 2': undefined,
+        'Image URL 3': undefined,
+        'Image URL 4': undefined,
+        'Image URL 5': undefined,
+        'Exito Logistics': undefined,
+      },
+      this.modelSpecs
+      ];
+    }
+    return productos;
+  }
+
   getDataFormFileClothing() {
-    const productos = [{
-      'Grupo EAN Combo': undefined,
-      'EAN': undefined,
-      'Referencia Hijo': undefined,
-      'Referencia Padre': undefined,
-      'Nombre del producto': undefined,
-      'Categoria': undefined,
-      'Marca': undefined,
-      'Modelo': undefined,
-      'Detalles': undefined,
-      'Descripcion': undefined,
-      'Palabras Clave': undefined,
-      'Talla': undefined,
-      'Color': undefined,
-      'hexColourCodePDP': undefined,
-      'hexColourName': undefined,
-      'Alto del empaque': undefined,
-      'Largo del empaque': undefined,
-      'Ancho del empaque': undefined,
-      'Peso del empaque': undefined,
-      'skuShippingsize': undefined,
-      'Alto del producto': undefined,
-      'Largo del producto': undefined,
-      'Ancho del producto': undefined,
-      'Peso del producto': undefined,
-      'Descripcion Unidad de Medida': undefined,
-      'Factor de conversion': undefined,
-      'TipoProducto': undefined,
-      'URL de Imagen 1': undefined,
-      'URL de Imagen 2': undefined,
-      'URL de Imagen 3': undefined,
-      'URL de Imagen 4': undefined,
-      'URL de Imagen 5': undefined,
-      'Logistica Exito': undefined,
-    },
-    this.modelSpecs
-    ];
-
+    const productos = this.setCultureColumnsClothing();
     const categoria = this.listOfCategories();
-
     const marcas = this.brands;
-
     const especificaciones = this.listOfSpecs();
-
     const talla = this.size;
-
     return { productos, categoria, marcas, especificaciones, talla };
   }
+
+
+  setCultureColumnsClothing() {
+    let productos = [];
+    if (this.culture === 'ES') {
+       productos = [{
+        'Grupo EAN Combo': undefined,
+        'EAN': undefined,
+        'Referencia Hijo': undefined,
+        'Referencia Padre': undefined,
+        'Nombre del producto': undefined,
+        'Categoria': undefined,
+        'Marca': undefined,
+        'Modelo': undefined,
+        'Detalles': undefined,
+        'Descripcion': undefined,
+        'Palabras Clave': undefined,
+        'Talla': undefined,
+        'Color': undefined,
+        'hexColourCodePDP': undefined,
+        'hexColourName': undefined,
+        'Alto del empaque': undefined,
+        'Largo del empaque': undefined,
+        'Ancho del empaque': undefined,
+        'Peso del empaque': undefined,
+        'skuShippingsize': undefined,
+        'Alto del producto': undefined,
+        'Largo del producto': undefined,
+        'Ancho del producto': undefined,
+        'Peso del producto': undefined,
+        'Descripcion Unidad de Medida': undefined,
+        'Factor de conversion': undefined,
+        'TipoProducto': undefined,
+        'URL de Imagen 1': undefined,
+        'URL de Imagen 2': undefined,
+        'URL de Imagen 3': undefined,
+        'URL de Imagen 4': undefined,
+        'URL de Imagen 5': undefined,
+        'Logistica Exito': undefined,
+      },
+      this.modelSpecs
+      ];
+    } else {
+      productos = [{
+        'Combo EAN Group': undefined,
+        'EAN': undefined,
+        'Child reference': undefined,
+        'Parent reference': undefined,
+        'Product Name': undefined,
+        'Category': undefined,
+        'Brand': undefined,
+        'Model': undefined,
+        'Product Details': undefined,
+        'Description': undefined,
+        'Keywords': undefined,
+        'Size': undefined,
+        'Color': undefined,
+        'hexColourCodePDP': undefined,
+        'hexColourName': undefined,
+        'Package Height': undefined,
+        'Package Lenght': undefined,
+        'Package Width': undefined,
+        'Package Weight': undefined,
+        'skuShippingsize': undefined,
+        'Item Height': undefined,
+        'Item Leght': undefined,
+        'Item Width': undefined,
+        'Item Weight': undefined,
+        'Measuring Unit': undefined,
+        'Conversion Factor': undefined,
+        'ProductType': undefined,
+        'Image URL 1': undefined,
+        'Image URL 2': undefined,
+        'Image URL 3': undefined,
+        'Image URL 4': undefined,
+        'Image URL 5': undefined,
+        'Exito Logistics': undefined,
+      },
+      this.modelSpecs
+      ];
+    }
+    return productos;
+  }
+
+
+
 
   /* Lista por marcas activas */
   listOfCategories() {
@@ -2310,7 +2434,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const form = this.categoryForm;
     const messageCenter = false;
     const showButtons = true;
-    const btnConfirmationText = 'Descargar';
+    const btnConfirmationText = this.languageService.instant('actions.download');
     return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 

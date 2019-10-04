@@ -3,6 +3,7 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 // import { LanguageService } from './language.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SelectLanguageService } from './select-language.service';
+import { DateAdapter } from '@angular/material';
 
 @Component({
   selector: 'app-select-language',
@@ -21,7 +22,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   lang = 'ES';
 
-  constructor(private translate: SelectLanguageService, private fb: FormBuilder) {
+  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>) {
     this.form = this.fb.group({
       lang: ['']
     });
@@ -29,13 +30,30 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     this.getLang().setValue(this.translate.getCurrentLanguage());
     const subschange = this.getLang().valueChanges.subscribe(val => {
       val !== this.translate.getCurrentLanguage() && this.translate.setLanguage(val);
+      const languageDatePicker = this.setText(val);
+      this.dateAdapter.setLocale(languageDatePicker);
     });
     const subsLang = this.translate.language$.subscribe(val => {
-      this.getLang().value !== val && this.getLang().setValue(val);
-      this.setLocalStorageCulture(val);
+      if (localStorage.getItem('culture_current')) {
+        const languageCurrent = localStorage.getItem('culture_current')
+        this.getLang().value !== languageCurrent && this.getLang().setValue(languageCurrent);
+        this.lang = languageCurrent;
+        this.setLocalStorageCulture(val);
+      } else {
+        this.getLang().value !== val && this.getLang().setValue(val);
+        this.lang = val;
+        this.setLocalStorageCulture(val);
+      }
     });
     this.subs.push(subsLang, subschange);
   }
+
+  /**
+   * Metodo para setear el idioma en el localstorage
+   *
+   * @param {string} culture
+   * @memberof SelectLanguageComponent
+   */
   setLocalStorageCulture(culture: string) {
     let userId = 'current';
     if (localStorage.getItem('userId')) {
@@ -43,8 +61,10 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     }
     if (culture) {
       localStorage.setItem('culture_' + userId, culture);
+      localStorage.setItem('culture_current', culture);
     } else {
       localStorage.setItem('culture_' + userId, 'es');
+      localStorage.setItem('culture_current', 'es');
     }
   }
 
@@ -53,6 +73,13 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('culture_current')) {
+      const langCurrent = localStorage.getItem('culture_current');
+      this.lang = localStorage.getItem('culture_current');
+      if (this.form && this.form.controls['lang']) {
+        this.form.controls['lang'].setValue(langCurrent);
+      }
+    }
   }
 
   /**

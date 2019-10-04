@@ -101,6 +101,16 @@
     "shared.product": "Product", 
     "shared.ean": "EAN", 
     "shared.phone": "Phone number", 
+    "shared.components.load_file.title": "",
+    "shared.components.load_file.subtitle": "",
+    "shared.components.load_file.subtitle2": "",
+    "shared.components.load_file.subtitle3": "",
+    "shared.components.load_file.subtitle4": "",
+    "shared.components.load_file.text1": "",
+    "shared.components.load_file.text2": "",
+    "shared.components.load_file.text3": "",
+    "shared.components.load_file.snackbar_ko": "",
+    "shared.components.load_file.snackbar_error": "",
  
  
     "filters.clear": "Clear", 
@@ -290,6 +300,7 @@
  
     "secure.load_guide_page.download_format.title": "Enter the amount of records you want to download in the file.",  
     "secure.load_guide_page.download_format.ph_record_limit": "Record limit",  
+    "secure.load_guide_page.download_format.guide_format": "Guide format",  
     "secure.load_guide_page.download_format.ts_download_ok": "The information was downloaded correctly.",  
     "secure.load_guide_page.download_format.ts_want_download": "Do you want to download an empty format?", 
  
@@ -668,6 +679,7 @@
     "secure.products.table_load_product.conversion_factor ": "Conversion Factor",  
     "secure.products.table_load_product.drained_factor ": "Drained Factor",  
     "secure.products.table_load_product.combo_ean_group ": "Combo EAN Group", 
+    "secure.products.table_load_product.image": "Image URL",
  
     "secure.products.bulk_load_product_moderation.text_may_upload_product": "In order to import files to the Seller Center, first you must",  
     "secure.products.bulk_load_product_moderation.download_the_format": "Download the format",  
@@ -678,6 +690,8 @@
     "secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent": "Something happened, the validation couldn't be sent",  
     "secure.products.bulk_load_product_moderation.download_file": "Download file",  
     "secure.products.bulk_load_product_moderation.download_file_import": "Select file to import", 
+    "secure.products.bulk_load_product_moderation.template_download_clothing": "General template clothing", 
+    "secure.products.bulk_load_product_moderation.template_download_technology": "General template technology", 
  
     "secure.products.create_product_unit.assing_images.text_assign_images": "In this section you must enter the corresponding image URL for the product you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",  
     "secure.products.create_product_unit.assing_images.assign_child_image": "child", 

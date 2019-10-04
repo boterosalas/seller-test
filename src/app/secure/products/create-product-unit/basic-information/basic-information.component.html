@@ -164,7 +164,7 @@
       <mat-form-field class="field">
         <mat-select [placeholder]="'secure.products.create_product_unit.basic_information.mesasuring' | translate" formControlName="MeasurementUnit" (change)="detectForm()" required>
           <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit">
-            {{unit}}
+            {{unit | translate}}
           </mat-option>
         </mat-select>
         
@@ -292,12 +292,12 @@
               <div class="container-color" *ngFor="let color of colorList">
                 <div class="color-round-picker"
                   [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
-                  [matTooltip]="color.Name" (click)="selectColor(color, son)"
+                  [matTooltip]="color.Name | translate" (click)="selectColor(color, son)"
                   [ngClass]="{'select-color': color.Name === son.colorSelected}">
                 </div>
                 <div class="material-icons multi-color" (click)="selectColor(color, son)"
                   [ngClass]="{'select-color': color.Name === son.colorSelected}" *ngIf="color.multicolor"
-                  [matTooltip]="color.Name">
+                  [matTooltip]="color.Name | translate">
                   <div class="multi-one"></div>
                   <div class="multi-two"></div>
                   <div class="multi-three"></div>

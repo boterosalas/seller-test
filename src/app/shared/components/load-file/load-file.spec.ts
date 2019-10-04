@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { MaterialModule } from '@app/material.module';
 import { ngfModule } from 'angular-file';
 import { CommonService } from '@app/shared/services/common.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('Probando componente para subir archivos.', () => {
 
@@ -14,7 +15,7 @@ describe('Probando componente para subir archivos.', () => {
     let httpClient: HttpClient;
     httpClient = <HttpClient>{};
 
-    beforeEach(async() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
             declarations: [
                 LoadFileComponent
@@ -29,7 +30,9 @@ describe('Probando componente para subir archivos.', () => {
             ],
             imports: [
                 MaterialModule,
-                ngfModule
+                ngfModule,
+                TranslateModule.forRoot({})
+
             ]
         }).compileComponents();
     });

@@ -65,7 +65,7 @@
               </button>
               <button id="download-file-button" (click)="openModalVtexTree()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-menu-item>
-              <span>Descargar plantilla</span>
+              <span>{{'secure.products.bulk_upload.download_template' | translate}}</span>
             </button>
               <!-- Se esconde formato de cargas, ticket 725 -->
               <div *ngIf="false">

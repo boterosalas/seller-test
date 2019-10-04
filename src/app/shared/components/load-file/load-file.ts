@@ -4,6 +4,7 @@ import { HttpEvent, HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { CommonService } from '@app/shared/services/common.service';
 import { Logger } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('LoadFileComponent');
 @Component({
@@ -45,7 +46,8 @@ export class LoadFileComponent implements OnInit {
         public dialogRef: MatDialogRef<LoadFileComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private service: CommonService,
-        public snackBar: MatSnackBar) {
+        public snackBar: MatSnackBar,
+        private languageService: TranslateService) {
         this.dataToSend = data;
     }
 
@@ -107,20 +109,20 @@ export class LoadFileComponent implements OnInit {
                 this.service.postBillOrders(bodyToSend).subscribe(result => {
                     if (result.body.data) {
                         // Success
-                        this.snackBar.open(result.body.message, 'Cerrar', {
+                        this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                         this.dialogRef.close(true);
                     } else {
                         // Error
-                        this.snackBar.open(result.body.message, 'Cerrar', {
+                        this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     }
                     this.showProgress = false;
                 }, error => {
                     // Error
-                    this.snackBar.open('No se pudo adjuntar el PDF, ocurrió un error.', 'Cerrar', {
+                    this.snackBar.open(this.languageService.instant('shared.components.load_file.snackbar_ko'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
                     log.error(error);
@@ -128,7 +130,7 @@ export class LoadFileComponent implements OnInit {
                 });
 
             } catch (e) {
-                log.error('error al intentar transformar el pdf', e);
+                log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
             }
         });
     }

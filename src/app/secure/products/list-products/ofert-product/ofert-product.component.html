@@ -5,8 +5,8 @@
         <mat-icon matPrefix>list_alt</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.stock' | translate" formControlName="Stock" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Stock').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.stock_invalid' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Stock').hasError('required')">{{'secure.products.create_product_unit.offer_product.stock_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Stock').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.stock_invalid' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Stock').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.stock_mandatory' | translate}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
@@ -14,10 +14,10 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.price' | translate" formControlName="Price" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">{{'secure.products.create_product_unit.offer_product.price_mandatoy' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.price_mandatoy' | translate}}</mat-error>
         <mat-error *ngIf="ofertProduct.controls.Price.hasError('priceReal')">
-            {{'secure.products.create_product_unit.offer_product.price_higher_product' | translate}}
+            {{'secure.products.create_product_unit.list_products.ofert_product.price_higher_product' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -26,9 +26,9 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate" formControlName="DiscountPrice" [errorStateMatcher]="matcher" (blur)="getVerifyPrice()">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">
-            {{'secure.products.create_product_unit.offer_product.discount_price_higher' | translate}}
+            {{'secure.products.create_product_unit.list_products.ofert_product.discount_price_higher' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -49,8 +49,8 @@
         <mat-icon matPrefix>attach_money</mat-icon>
         <input matInput [placeholder]="'secure.products.create_product_unit.list_products.ofert_product.shipping_cost' | translate" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.format_invalidate' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.create_product_unit.offer_product.shipping_cost_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'errors.format_invalidat' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.shipping_cost_mandatory' | translate}}</mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
@@ -58,8 +58,8 @@
         <mat-icon matPrefix>beenhere</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.warranty' | translate" formControlName="Warranty" [errorStateMatcher]="matcher">
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_warranty' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_warranty' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.invalid_warranty' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty' | translate}}</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -111,8 +111,8 @@
                 <mat-icon matPrefix>attach_money</mat-icon>
                 <input (change)="getPriceDescount()" matInput [placeholder]="'secure.offers.historical_admin.historical_admin.price' | translate" formControlName="ofertPriceComponet" [errorStateMatcher]="matcher">
                 <mat-hint></mat-hint>
-                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_price_ean_combo' | translate}}</mat-error>
-                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_price_ean_combo' | translate}}</mat-error>
+                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo' | translate}}</mat-error>
+                <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo' | translate}}</mat-error>
               </mat-form-field>
             </div>
             <div class="ofert-information">
@@ -120,8 +120,8 @@
                 <mat-icon matPrefix>add_shopping_cart</mat-icon>
                 <input (change)="getPriceDescount()" matInput [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo' | translate" (blur)="getVerifyPrice()" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
                 <mat-hint></mat-hint>
-                <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">{{'secure.products.create_product_unit.offer_product.mandatory_amount_ean_combo' | translate}}</mat-error>
-                <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')">{{'secure.products.create_product_unit.offer_product.invalid_amount_ean_combo' | translate}}</mat-error>
+                <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo' | translate}}}</mat-error>
+                <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')">{{'secure.products.create_product_unit.list_products.ofert_product.invalid_amount_ean_combo' | translate}}</mat-error>
               </mat-form-field>
             </div>
           </ng-container>

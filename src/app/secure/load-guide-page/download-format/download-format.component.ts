@@ -76,7 +76,7 @@ export class DownloadFormatComponent implements OnInit {
     this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${this.user.sellerId}&limit=${form.value.limit}`)
       .subscribe((res: Array<{}>) => {
         if (res.length > 0) {
-          this.componentService.openSnackBar(this.languageService.instant('secure.laod_guide_page.download_format.ts_download_ok'), this.languageService.instant('actions.close'), 3000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.download_format.ts_download_ok'), this.languageService.instant('actions.close'), 3000);
           // aplico el formato al json para los campos tracking y guide
           this.applyFormatToJson(res);
         } else {
@@ -90,7 +90,7 @@ export class DownloadFormatComponent implements OnInit {
                   'Transportadora': undefined,
                   'Guía': undefined
                 }];
-                this.exportAsExcelFile(emptyFile, 'Formato de guías');
+                this.exportAsExcelFile(emptyFile, this.languageService.instant('secure.load_guide_page.download_format.guide_format'));
               }
             });
         }
@@ -110,7 +110,7 @@ export class DownloadFormatComponent implements OnInit {
       res[i].guide = null;
       res[i] = this.renameKeys(res[i], newKeys);
     }
-    this.exportAsExcelFile(res, 'Formato de guías');
+    this.exportAsExcelFile(res, this.languageService.instant('secure.load_guide_page.download_format.guide_format'));
   }
 
   /**

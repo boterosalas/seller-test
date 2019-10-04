@@ -91,7 +91,7 @@ export class ListProductsComponent implements OnInit {
         public authService?: AuthService,
     ) { }
     ngOnInit() {
-        this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
+        // this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.validateFormSupport();
     }
 
