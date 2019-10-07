@@ -278,7 +278,8 @@
     "secure.billing.send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",  
     "secure.billing.correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",  
     "secure.billing.error_download": "Se ha presentado un error al realizar la descarga de los pagos", 
- 
+    "secure.billing.Venta Marketplace": "Venta MarketPlace", 
+    "secure.billing.Logistica Exito": "Logistica Exito", 
  
     "secure.client_information.client": "Cliente",  
     "secure.client_information.address": "Dirección", 
