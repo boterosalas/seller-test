@@ -307,6 +307,7 @@
  
  
     "secure.load_guide_page.finish_upload_info.title": "Correct records", 
+    "secure.load_guide_page.finish_upload_info.error_guide": "There have been",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errors have occurred when trying to register the tracking numbers.",  
     "secure.load_guide_page.finish_upload_info.order_number": "Order number", 
  
@@ -651,6 +652,7 @@
     "secure.products.table_errors_product.errorneous_format": "has an erroneous format",  
     "secure.products.table_errors_product.input_option": "The data in",  
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.", 
+    "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
  
     "secure.products.table_load_product.records_found": "Records found, the following have errors",  
     "secure.products.table_load_product.upload_all": "Upload all products again",  

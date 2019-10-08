@@ -237,6 +237,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    * @memberof LoadGuidePageComponent
    */
   validateDataFromFile(res: any, file: any) {
+    console.log(res);
     /* Elimino la posicion 0 que es la parte de titulo del excel */
     if (res.length !== 1 && res.length !== 0) {
 
@@ -246,8 +247,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
         // validación de los campos necesarios para el archivo
-        if (res[0][0] === 'Orden' && res[0][1] === 'Sku' && res[0][2] === 'Cantidad' &&
-          res[0][3] === 'Transportadora' && res[0][4] === 'Guía') {
+        if (res[0][0] === 'Orden' || res[0][0] === 'Order' && res[0][1] === 'Sku' && res[0][2] === 'Cantidad' || res[0][2] === 'Quantity' &&
+          res[0][3] === 'Transportadora' || res[0][3] === 'Shipping Company'  && res[0][4] === 'Guía' || res[0][4] === 'Guide' ) {
 
           // validación para el número de registros
           if (res.length > this.limitRowExcel) {
@@ -507,14 +508,15 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       // dateTime: datePipe.transform(new Date(), 'yyyy/MM/dd'),
       listOrderTracking: this.arrayInformationForSend
     };
-    this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
-      this.openDialogSendOrder(res);
-      this.loadingService.closeSpinner();
-    }, err => {
-      this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
-      this.loadingService.closeSpinner();
+    console.log(jsonToSend);
+    // this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
+    //   this.openDialogSendOrder(res);
+    //   this.loadingService.closeSpinner();
+    // }, err => {
+    //   this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
+    //   this.loadingService.closeSpinner();
 
-    });
+    // });
   }
 
   /**
