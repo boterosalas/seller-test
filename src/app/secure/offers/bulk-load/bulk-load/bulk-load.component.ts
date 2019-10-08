@@ -108,6 +108,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public intervalTime = 2000;
 
+  public language = 'ES';
+
   // Validación de las regex
   validateRegex: any;
 
@@ -159,6 +161,13 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.validateFormSupport();
     this.verifyProccesOffert();
+    this.selectLanguage();
+  }
+
+  selectLanguage() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      this.language = e['lang'];
+    });
   }
 
   /**
@@ -1037,25 +1046,30 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    */
 
   /* Massive offer load*/
-  downloadFormatMassiveOfferLoad() {
-    const emptyFile = [{
-      'EAN': undefined,
-      'Inventario': undefined,
-      'Precio': undefined,
-      'Precio con Descuento': undefined,
-      'Costo de Flete Promedio': undefined,
-      'Promesa de Entrega': undefined,
-      'Free Shipping': undefined,
-      'Indicador Envios Exito': undefined,
-      'Actualizacion de Inventario': undefined,
-      'Cotizador de Flete': undefined,
-      'Garantia': undefined,
-      'Ean combo': undefined,
-      'Cantidad en combo': undefined,
-      'Tipo de moneda': undefined,
-    }];
-    log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
+  downloadFormatMassiveOfferLoad(culture: any) {
+    if (culture === 'ES') {
+      const emptyFile = [{
+        'EAN': undefined,
+        'Inventario': undefined,
+        'Precio': undefined,
+        'Precio con Descuento': undefined,
+        'Costo de Flete Promedio': undefined,
+        'Promesa de Entrega': undefined,
+        'Free Shipping': undefined,
+        'Indicador Envios Exito': undefined,
+        'Actualizacion de Inventario': undefined,
+        'Cotizador de Flete': undefined,
+        'Garantia': undefined,
+        'Ean combo': undefined,
+        'Cantidad en combo': undefined,
+        'Tipo de moneda': undefined,
+      }];
+      log.info(emptyFile);
+      this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
+    } else {
+      this.downloadFormatMassiveOfferLoadInternational();
+    }
+
   }
 
   /* Massive offer load Internacional*/

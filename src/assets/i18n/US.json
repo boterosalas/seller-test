@@ -278,7 +278,8 @@
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",  
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",  
     "secure.billing.error_download": "An error has occurred when downloading the payment information", 
- 
+    "secure.billing.Venta Marketplace": "Marketplace Sales",
+    "secure.billing.Logistica Exito": "Exito Logistics",  
  
     "secure.client_information.client": "Client",  
     "secure.client_information.address": "Address", 

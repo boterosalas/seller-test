@@ -65,7 +65,8 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal">{{ element.concept || '------' }}</p>
+            {{ 'secure.billing.'+ element.concept | translate}}
+            <p class="sc-text-normal"></p>
           </mat-cell>
         </ng-container>
 
