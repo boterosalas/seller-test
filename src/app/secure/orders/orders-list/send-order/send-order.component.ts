@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Logger, UserParametersService } from '@app/core';
+import { Logger, UserParametersService, LoadingService } from '@app/core';
 import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity, UserInformation } from '@app/shared';
 import * as _ from 'lodash';
 
@@ -43,6 +43,9 @@ export class SendOrderComponent implements OnInit {
   public sendAllForm: FormGroup;
   // Lista de transportadoras.
   public Carries: Array<Carries> = [];
+  public CarriesInternational: Array<Carries> = [];
+  public CarriesNational: Array<Carries> = [];
+
   // Boolean que permite saber si se han editado productos de la orden
   public productIsUpdating = false;
 
@@ -60,6 +63,7 @@ export class SendOrderComponent implements OnInit {
     public componentService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
+    private loadingService: LoadingService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     // _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
@@ -270,9 +274,21 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   getCarries() {
+    this.loadingService.viewSpinner();
     this.orderService.getCarries().subscribe((res: any) => {
-      this.Carries = res;
+      // this.Carries = res;
+      res.forEach(el => {
+        if (el.name !== 'INTERNATIONAL SHIPPING') {
+          this.CarriesNational.push(el);
+          this.Carries = this.CarriesNational;
+
+        } else {
+          this.CarriesInternational.push(el);
+          this.Carries = this.CarriesInternational;
+        }
+      });
     });
+    this.loadingService.closeSpinner();
   }
 
   /**
