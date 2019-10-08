@@ -28,6 +28,10 @@
     width: 45%;
 }
 
+.whole-width {
+    width: 100%;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -45,4 +49,5 @@ margin-top: 15px;
     width: 100%;
     display: inline-flex;
     justify-content: space-between;
+    padding-bottom: 2%;
 }
