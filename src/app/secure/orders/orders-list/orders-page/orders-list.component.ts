@@ -537,7 +537,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   openDialogSendOrder(item: any): void {
-    this.loadingService.viewSpinner();
     const closeSnack = this.languageService.instant('actions.close');
     if (this.getLengthProductForSend(item) === 0) {
       const message = this.languageService.instant('secure.orders.order_list.order_page.no_pending_products');
@@ -573,7 +572,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.loadingService.closeProgressBar();
       });
     }
-    this.loadingService.closeSpinner();
   }
 
   /**
