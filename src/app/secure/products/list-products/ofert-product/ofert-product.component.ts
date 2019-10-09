@@ -230,35 +230,41 @@ export class OfertExpandedProductComponent implements OnInit {
                     }
                 }
             } else {
-                if (this.ofertProduct.controls.Currency.value === 'USD') {
-                    errors = false;
-                    if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
-                        if (showErrors) {
-                            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
-                                duration: 3000,
-                            });
-                        }
-                    } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
-                        if (showErrors) {
-                            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
-                                duration: 3000,
-                            });
+                this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+                    this.changeTypeCurrency(val);
+                    if (val === 'USD') {
+                        errors = false;
+                        if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
+                            if (showErrors) {
+                                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+                                    duration: 3000,
+                                });
+                            }
+                        } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
+                            if (showErrors) {
+                                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
+                                    duration: 3000,
+                                });
+                            }
                         }
                     }
-                }
-                this.setCategoryError(errors);
+                    this.setCategoryError(errors);
+                });
             }
         } else {
             // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                if (this.ofertProduct.controls.Currency.value === 'COP') {
-                    this.setCategoryErrorPrice(errors);
-                } else {
-                    errors = false;
-                    this.setCategoryErrorPrice(errors);
-                }
+                this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+                    this.changeTypeCurrency(val);
+                    if (val === 'COP') {
+                        this.setCategoryErrorPrice(errors);
+                    } else {
+                        errors = false;
+                        this.setCategoryErrorPrice(errors);
+                    }
+                });
             }
         }
         this.sendArray();
@@ -463,7 +469,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.Price.reset('');
         this.ofertProduct.controls.DiscountPrice.reset('');
         this.ofertProduct.controls.IsFreightCalculator.reset('');
-        this.snackBar.open( this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.changed_currency') + '(' + event + ')', this.languageService.instant('actions.close'), {
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.changed_currency') + '(' + event + ')', this.languageService.instant('actions.close'), {
             duration: 3000,
         });
 
