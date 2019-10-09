@@ -543,7 +543,8 @@
     "secure.offers.historical_admin.historical_admin.without_offert": "No se han encontrado registros en el historico de ofertas.",  
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Inventario inválido",  
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "El campo inventario es obligatorio.", 
- 
+    "secure.offers.historical_admin.a": "a", 
+
     "secure.offers.list.list.filter_answer": "Resultado de filtro:",  
     "secure.offers.list.list.with_stock": "Con inventario",  
     "secure.offers.list.list.with_out_stock": "Agotado",  
@@ -569,6 +570,7 @@
     "secure.offers.list.components.detail_offer.months": "meses",  
     "secure.offers.list.components.detail_offer.last_modify": "Última modificación: ", 
     "secure.offers.list.components.detail_offer.last_mod": "Última mod: ", 
+    "secure.offers.list.components.detail_offer.a": "a", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Filtro ofertas",  
     "secure.offers.list.components.filter.placeholder_products": "Producto", 

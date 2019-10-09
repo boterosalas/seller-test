@@ -71,6 +71,10 @@ export class DetailOfferComponent {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
 
+  promiseFirts: string;
+  promiseSeconds: string;
+  to: string;
+
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
@@ -143,6 +147,7 @@ export class DetailOfferComponent {
   ngOnInit() {
     this.validateFormSupport();
     this.createValidators();
+    this.setPromise();
   }
 
   /**
@@ -167,6 +172,14 @@ export class DetailOfferComponent {
   goToListOffers() {
     this.list.viewDetailOffer = false;
     this.list.inDetail = false;
+  }
+
+  setPromise() {
+    const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+    this.promiseFirts = promiseDe [0];
+    this.to = promiseDe[1];
+    this.promiseSeconds = promiseDe [2];
+
   }
 
   /**
@@ -217,13 +230,12 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   createValidators() {
-
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(this.offertRegex.promiseDelivery)]);
+    this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
@@ -233,6 +245,13 @@ export class DetailOfferComponent {
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
     this.Currency = new FormControl('COP');
     // this.Currency = new FormControl(this.dataOffer.currency);
+    this.setCurrentPromise();
+  }
+
+  setCurrentPromise(){
+    this.languageService.stream('secure.offers.list.components.detail_offer.a').subscribe(val => {
+      this.PromiseDelivery.setValue(this.promiseFirts + ' ' + val + ' ' + this.promiseSeconds);
+    });
   }
 
   /**
