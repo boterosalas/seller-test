@@ -237,7 +237,6 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    * @memberof LoadGuidePageComponent
    */
   validateDataFromFile(res: any, file: any) {
-    console.log(res);
     /* Elimino la posicion 0 que es la parte de titulo del excel */
     if (res.length !== 1 && res.length !== 0) {
 
@@ -508,15 +507,13 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       // dateTime: datePipe.transform(new Date(), 'yyyy/MM/dd'),
       listOrderTracking: this.arrayInformationForSend
     };
-    console.log(jsonToSend);
-    // this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
-    //   this.openDialogSendOrder(res);
-    //   this.loadingService.closeSpinner();
-    // }, err => {
-    //   this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
-    //   this.loadingService.closeSpinner();
-
-    // });
+    this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
+      this.openDialogSendOrder(res);
+      this.loadingService.closeSpinner();
+    }, err => {
+      this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
+      this.loadingService.closeSpinner();
+    });
   }
 
   /**
