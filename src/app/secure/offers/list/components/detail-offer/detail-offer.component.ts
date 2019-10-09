@@ -145,9 +145,9 @@ export class DetailOfferComponent {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.setPromise();
     this.validateFormSupport();
     this.createValidators();
-    this.setPromise();
   }
 
   /**
@@ -173,13 +173,22 @@ export class DetailOfferComponent {
     this.list.viewDetailOffer = false;
     this.list.inDetail = false;
   }
-
+  /**
+   * Descomponer la promesa de entrega
+   *
+   * @memberof DetailOfferComponent
+   */
   setPromise() {
-    const promiseDe = this.dataOffer.promiseDelivery.split(' ');
-    this.promiseFirts = promiseDe [0];
-    this.to = promiseDe[1];
-    this.promiseSeconds = promiseDe [2];
-
+    if (this.editOffer && this.dataOffer.promiseDelivery) {
+      const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+      this.promiseFirts = promiseDe[0];
+      this.to = promiseDe[1];
+      this.promiseSeconds = promiseDe[2];
+    } else {
+      this.promiseFirts = '';
+      this.to = '';
+      this.promiseSeconds = '';
+    }
   }
 
   /**
@@ -247,8 +256,12 @@ export class DetailOfferComponent {
     // this.Currency = new FormControl(this.dataOffer.currency);
     this.setCurrentPromise();
   }
-
-  setCurrentPromise(){
+  /**
+   * Setear la promesa de entrega, se descompone y luego se le asigna al controlador en el html
+   *
+   * @memberof DetailOfferComponent
+   */
+  setCurrentPromise() {
     this.languageService.stream('secure.offers.list.components.detail_offer.a').subscribe(val => {
       this.PromiseDelivery.setValue(this.promiseFirts + ' ' + val + ' ' + this.promiseSeconds);
     });
