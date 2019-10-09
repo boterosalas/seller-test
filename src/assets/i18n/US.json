@@ -543,6 +543,7 @@
     "secure.offers.historical_admin.historical_admin.without_offert": "There is no offer registry available.",  
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Invalid stock",  
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "The stock field is mandatory", 
+    "secure.offers.historical_admin.a": "to", 
  
     "secure.offers.list.list.filter_answer": "Filter results: ",  
     "secure.offers.list.list.with_stock": "In stock",  
@@ -569,6 +570,7 @@
     "secure.offers.list.components.detail_offer.months": "months",  
     "secure.offers.list.components.detail_offer.last_modify": "Last modification: ", 
     "secure.offers.list.components.detail_offer.last_mod": "Last modification: ",
+    "secure.offers.list.components.detail_offer.a": "to", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Offer filter",  
     "secure.offers.list.components.filter.placeholder_products": "Product", 
