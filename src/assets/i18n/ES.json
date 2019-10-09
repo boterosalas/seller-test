@@ -278,7 +278,8 @@
     "secure.billing.send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",  
     "secure.billing.correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",  
     "secure.billing.error_download": "Se ha presentado un error al realizar la descarga de los pagos", 
- 
+    "secure.billing.Venta Marketplace": "Venta MarketPlace", 
+    "secure.billing.Logistica Exito": "Logistica Exito", 
  
     "secure.client_information.client": "Cliente",  
     "secure.client_information.address": "Dirección", 
@@ -300,12 +301,13 @@
  
     "secure.load_guide_page.download_format.title": "Indica el número de registros que quieres descargar en el archivo.",  
     "secure.load_guide_page.download_format.ph_record_limit": "Limite de registros",  
-    "secure.load_guide_page.download_format.guide_format": "Formato de guia",  
+    "secure.load_guide_page.download_format.guide_format": "Formato de guía",  
     "secure.load_guide_page.download_format.ts_download_ok": "Se ha descargado correctamente la información.",  
     "secure.load_guide_page.download_format.ts_want_download": "¿Quieres descargar el formato de envío vacío?", 
  
  
     "secure.load_guide_page.finish_upload_info.title": "Registro correctos", 
+    "secure.load_guide_page.finish_upload_info.error_guide": "Se han presentado",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errores al momento de realizar los registros de las guías.",  
     "secure.load_guide_page.finish_upload_info.order_number": "Número de orden", 
  
@@ -650,6 +652,7 @@
     "secure.products.table_errors_product.errorneous_format": "no cumple con el formato requerido.",  
     "secure.products.table_errors_product.input_option": "El campo opcional de la",  
     "secure.products.table_errors_product.duplication_ean": "tiene eanes repetidos.", 
+    "secure.products.table_errors_product.must_positive_decimal": "debe ser numérico positivo mayor o igual a cero, sin decimales.", 
  
     "secure.products.table_load_product.records_found": "Registros encontrados, los siguientes cuentan con errores",  
     "secure.products.table_load_product.upload_all": "Vuelve a cargar todas los productos",  
