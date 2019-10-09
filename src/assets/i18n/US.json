@@ -253,7 +253,19 @@
     "public.auth.login.ph_user": "User",  
     "public.auth.login.ph_psw": "Password",  
     "public.auth.login.forgot_psw": "I forgot my password", 
- 
+    "public.auth.forgot.placeholder_code": "Verification code",
+    "public.auth.forgot.code_error_required": "The verification code is required",
+    "public.auth.forgot.new_psw": "New password",
+    "public.auth.forgot.new_psw_required": "The new password is required",
+    "public.auth.forgot.confirm_new_psw": "Confirm new password",
+    "public.auth.forgot.error_psw": "The passwords do not match",
+    "public.auth.forgot.confirm_new_psw_required": "The confirmation for the new password is required.",
+    "public.auth.forgot.psw": "RESETPASSWORD",
+    "public.auth.forgot.error_try_again": "An error has occurred, please try again later",
+    "public.auth.forgot.user_not_found": "User not found",
+    "public.auth.forgot.pattern_psw": "The password must contain at least a letter, a number and a symbol, and must contain at least 7 characters.",
+    "public.auth.forgot.code_not_valid": "The verification code is invalid, please try again later.",
+
  
     "secure.aws_cognito.profile.profile": "My profile",  
     "secure.aws_cognito.profile.seller_id": "Seller id", 
