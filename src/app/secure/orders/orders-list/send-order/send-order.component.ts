@@ -2,11 +2,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Logger, UserParametersService } from '@app/core';
-import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity, UserInformation } from '@app/shared';
+import { Logger, UserParametersService, LoadingService } from '@app/core';
+import { Carries, ComponentsService, Const, FAKE, Order, ProductsEntity, UserInformation, RoutesConst } from '@app/shared';
 import * as _ from 'lodash';
 
 import { OrderService } from '../orders.service';
+import { Router } from '@angular/router';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 // log component
 const log = new Logger('SendOrderComponent');
@@ -37,12 +39,17 @@ export class SendOrderComponent implements OnInit {
 
   // User information
   public user: UserInformation;
+  public allUser: any;
+
   // Información de la orden
   public order: Order;
   // Formulario para realizar el envio de toda la orden
   public sendAllForm: FormGroup;
   // Lista de transportadoras.
   public Carries: Array<Carries> = [];
+  public CarriesInternational: Array<Carries> = [];
+  public CarriesNational: Array<Carries> = [];
+
   // Boolean que permite saber si se han editado productos de la orden
   public productIsUpdating = false;
 
@@ -60,6 +67,9 @@ export class SendOrderComponent implements OnInit {
     public componentService: ComponentsService,
     private fb: FormBuilder,
     public userParams: UserParametersService,
+    private loadingService: LoadingService,
+    public router: Router,
+    private profileService: MyProfileService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     // _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
@@ -86,6 +96,7 @@ export class SendOrderComponent implements OnInit {
    */
   ngOnInit() {
     this.getDataUser();
+    this.getAllDataUser();
     // Si solo hay un registro de producto para ingresar tracking y guía, y la opción enviar
     // todo esta seleccionada, paso a false la opción de envío de todos los productos
     if (this.getLengthProductForSend() === 1) {
@@ -94,13 +105,31 @@ export class SendOrderComponent implements OnInit {
       }
     }
     // obtengo la lista  de transportadores
-    this.getCarries();
     // creo el formulario de envío
     this.createForm();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+  }
+
+  /**
+   * Metodo apra traer toda la informacion de quien esta logueado.
+   *
+   * @memberof SendOrderComponent
+   */
+  async getAllDataUser() {
+    this.loadingService.viewSpinner();
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      this.allUser = userData;
+      this.loadingService.closeSpinner();
+      return userData;
+    });
+    this.loadingService.closeSpinner();
+    this.getCarries();
   }
 
   /**
@@ -127,7 +156,7 @@ export class SendOrderComponent implements OnInit {
    * @param {any} item
    * @memberof SendOrderComponent
    */
-  validateCheckProductForSendAll(item) {
+  validateCheckProductForSendAll(item: any) {
     log.info('--validateCheckProductForSendAll');
     for (let j = 0; j < this.order.products.length; j++) {
       // si un elemento check esta en false, desactivo el boton enviar todo.
@@ -146,7 +175,7 @@ export class SendOrderComponent implements OnInit {
    * @param {any} item
    * @memberof SendOrderComponent
    */
-  validateAllCheckProducts(item) {
+  validateAllCheckProducts(item: any) {
     // si la variable isAllChecked no cambia a false, es por que se puede activar el boton enviar todo.
     let isAllChecked = true;
 
@@ -155,7 +184,6 @@ export class SendOrderComponent implements OnInit {
         isAllChecked = false;
       }
     }
-
     // si todos los check estan seleccionados, activo el boton enviar todo.
     if (isAllChecked) {
       this.order.sendAllProduct = true;
@@ -172,8 +200,7 @@ export class SendOrderComponent implements OnInit {
    * @param {any} item
    * @memberof SendOrderComponent
    */
-  checkAllProductInOrder(item) {
-
+  checkAllProductInOrder(item: any) {
     if (this.order.sendAllProduct === true) {
       this.order.sendAllProduct = false;
       this.sendAllForm.disable();
@@ -194,13 +221,11 @@ export class SendOrderComponent implements OnInit {
    * @param {any} order
    * @memberof SendOrderComponent
    */
-  sendAllProductsOrder(order) {
-
+  sendAllProductsOrder(order: any) {
     const productList = [];
     for (let index = 0; index < order.products.length; index++) {
       productList.push(order.products[index].id);
     }
-
     const jsonOrder = {
       tracking: this.sendAllForm.value.Guide,
       carrier: this.sendAllForm.value.Transporter,
@@ -209,9 +234,7 @@ export class SendOrderComponent implements OnInit {
       idSeller: this.user.sellerId,
       products: productList
     };
-
     this.orderService.sendAllProductInOrder(jsonOrder, this.order.id).subscribe((res: any) => {
-
       if (res.errors !== 0) {
         this.componentService.openSnackBar('Hubo un error procesando la solicitud.', 'Cerrar', 15000);
       } else {
@@ -224,12 +247,10 @@ export class SendOrderComponent implements OnInit {
             // Actualizo el estado del producto local.
             this.order.products[i].idStatusProduct = Const.ProductEnProcesoDeEnvio;
             this.order.products[i].statusProduct = Const.NameProductEnProcesoDeEnvio;
-
             // Indico que se realizaron cambios en uno o mas productos. para que al cerrar el modal se actualice la lista de productos.
             this.productIsUpdating = true;
           }
         }
-
         // Si la orden ya no posee mas productos para ser editados. paso a actualizar el estado de la orden
         if (this.getLengthProductForSend() === 0) {
           this.order.idStatusOrder = Const.OrderEnProcesoDeEnvio;
@@ -251,7 +272,6 @@ export class SendOrderComponent implements OnInit {
    */
   getLengthProductForSend() {
     let numberElements = 0;
-
     for (let i = 0; i < this.order.products.length; i++) {
       if (this.order.products[i].tracking == null) {
         numberElements += 1;
@@ -270,9 +290,25 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   getCarries() {
+    this.loadingService.viewSpinner();
     this.orderService.getCarries().subscribe((res: any) => {
-      this.Carries = res;
+      // this.Carries = res;
+      res.forEach(el => {
+        if (this.allUser.Country && this.allUser.Country !== 'COLOMBIA') {
+          if (el.name === 'INTERNATIONAL SHIPPING') {
+            this.CarriesInternational.push(el);
+            this.Carries = this.CarriesInternational;
+          }
+        } else {
+          if (el.name !== 'INTERNATIONAL SHIPPING') {
+            this.CarriesInternational.push(el);
+            this.Carries = this.CarriesInternational;
+          }
+        }
+      });
+      this.loadingService.closeSpinner();
     });
+    this.loadingService.closeSpinner();
   }
 
   /**
