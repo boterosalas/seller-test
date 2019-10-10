@@ -4,6 +4,7 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SelectLanguageService } from './select-language.service';
 import { DateAdapter } from '@angular/material';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-language',
@@ -22,7 +23,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   lang = 'ES';
 
-  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>) {
+  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>,   private languageService: TranslateService){
     this.form = this.fb.group({
       lang: ['']
     });
@@ -80,6 +81,12 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
         this.form.controls['lang'].setValue(langCurrent);
       }
     }
+    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.lang = event['lang'];
+      if (this.form && this.form.controls['lang']) {
+        this.form.controls['lang'].setValue(event['lang']);
+      }
+    });
   }
 
   /**

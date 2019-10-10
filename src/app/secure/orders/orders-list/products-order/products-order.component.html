@@ -130,7 +130,7 @@
 
       <div>
         <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int: <strong>{{product.internationalTracking}}</strong></p>
-        <p class="sc-text-order-international">Loc: <strong>{{product.tracking}}</strong></p>
+        <p class="sc-text-order-international" *ngIf="!!product.tracking">Loc: <strong>{{product.tracking}}</strong></p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"

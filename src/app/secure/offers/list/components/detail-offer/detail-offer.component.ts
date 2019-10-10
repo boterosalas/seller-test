@@ -71,6 +71,10 @@ export class DetailOfferComponent {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
 
+  promiseFirts: string;
+  promiseSeconds: string;
+  to: string;
+
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
@@ -141,6 +145,7 @@ export class DetailOfferComponent {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.setPromise();
     this.validateFormSupport();
     this.createValidators();
   }
@@ -167,6 +172,23 @@ export class DetailOfferComponent {
   goToListOffers() {
     this.list.viewDetailOffer = false;
     this.list.inDetail = false;
+  }
+  /**
+   * Descomponer la promesa de entrega
+   *
+   * @memberof DetailOfferComponent
+   */
+  setPromise() {
+    if (this.editOffer && this.dataOffer.promiseDelivery) {
+      const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+      this.promiseFirts = promiseDe[0];
+      this.to = promiseDe[1];
+      this.promiseSeconds = promiseDe[2];
+    } else {
+      this.promiseFirts = '';
+      this.to = '';
+      this.promiseSeconds = '';
+    }
   }
 
   /**
@@ -217,13 +239,12 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   createValidators() {
-
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(this.offertRegex.promiseDelivery)]);
+    this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
@@ -231,8 +252,19 @@ export class DetailOfferComponent {
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
-    this.Currency = new FormControl('COP');
-    // this.Currency = new FormControl(this.dataOffer.currency);
+    // this.Currency = new FormControl('COP');
+    this.Currency = new FormControl(this.dataOffer.currency);
+    this.setCurrentPromise();
+  }
+  /**
+   * Setear la promesa de entrega, se descompone y luego se le asigna al controlador en el html
+   *
+   * @memberof DetailOfferComponent
+   */
+  setCurrentPromise() {
+    this.languageService.stream('secure.offers.list.components.detail_offer.a').subscribe(val => {
+      this.PromiseDelivery.setValue(this.promiseFirts + ' ' + val + ' ' + this.promiseSeconds);
+    });
   }
 
   /**

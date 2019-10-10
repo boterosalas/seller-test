@@ -319,6 +319,7 @@
  
  
     "secure.load_guide_page.finish_upload_info.title": "Correct records", 
+    "secure.load_guide_page.finish_upload_info.error_guide": "There have been",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errors have occurred when trying to register the tracking numbers.",  
     "secure.load_guide_page.finish_upload_info.order_number": "Order number", 
  
@@ -554,6 +555,7 @@
     "secure.offers.historical_admin.historical_admin.without_offert": "There is no offer registry available.",  
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Invalid stock",  
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "The stock field is mandatory", 
+    "secure.offers.historical_admin.a": "to", 
  
     "secure.offers.list.list.filter_answer": "Filter results: ",  
     "secure.offers.list.list.with_stock": "In stock",  
@@ -580,6 +582,7 @@
     "secure.offers.list.components.detail_offer.months": "months",  
     "secure.offers.list.components.detail_offer.last_modify": "Last modification: ", 
     "secure.offers.list.components.detail_offer.last_mod": "Last modification: ",
+    "secure.offers.list.components.detail_offer.a": "to", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Offer filter",  
     "secure.offers.list.components.filter.placeholder_products": "Product", 
@@ -663,6 +666,7 @@
     "secure.products.table_errors_product.errorneous_format": "has an erroneous format",  
     "secure.products.table_errors_product.input_option": "The data in",  
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.", 
+    "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
  
     "secure.products.table_load_product.records_found": "Records found, the following have errors",  
     "secure.products.table_load_product.upload_all": "Upload all products again",  
@@ -687,11 +691,11 @@
     "secure.products.table_load_product.image ": "Image",  
     "secure.products.table_load_product.size": "Size",  
     "secure.products.table_load_product.color": "Color",  
-    "secure.products.table_load_product.exito_logistics ": "Exito Logistics",  
-    "secure.products.table_load_product.measuring_unit_description ": "Measuring Unit Description",  
-    "secure.products.table_load_product.conversion_factor ": "Conversion Factor",  
-    "secure.products.table_load_product.drained_factor ": "Drained Factor",  
-    "secure.products.table_load_product.combo_ean_group ": "Combo EAN Group", 
+    "secure.products.table_load_product.exito_logistics": "Exito Logistics",  
+    "secure.products.table_load_product.measuring_unit_description": "Measuring Unit Description",  
+    "secure.products.table_load_product.conversion_factor": "Conversion Factor",  
+    "secure.products.table_load_product.drained_factor": "Drained Factor",  
+    "secure.products.table_load_product.combo_ean_group": "Combo EAN Group", 
     "secure.products.table_load_product.image": "Image URL",
  
     "secure.products.bulk_load_product_moderation.text_may_upload_product": "In order to import files to the Seller Center, first you must",  

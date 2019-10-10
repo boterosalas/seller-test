@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <mat-form-field>
-    <mat-select formControlName="lang" [(value)]="lang" class="mat-option-text">
+    <mat-select formControlName="lang" [(value)]="lang"  class="mat-option-text">
       <mat-select-trigger>
         <span class="flag-icon flag-icon-{{ lang | lowercase}} flag-icon-squared"> </span>
         {{setText(lang)}}
