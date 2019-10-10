@@ -354,7 +354,7 @@
     "secure.orders.order_list.detail_modal.order_type": "Tipo de orden",  
     "secure.orders.order_list.detail_modal.channel": "Canal", 
      
-    "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdene4s",  
+    "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",  
     "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",  
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",  
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",  
