@@ -38,7 +38,6 @@ export class AuthInterceptor implements HttpInterceptor {
     if (req && req.url) {
       const userId = localStorage.getItem('userId') ? localStorage.getItem('userId') : 'current';
       let currencyCulture = localStorage.getItem('culture_' + userId) ? localStorage.getItem('culture_' + userId) : 'es-CO';
-      console.log(currencyCulture);
       if (currencyCulture === 'es' || currencyCulture === 'ES' || currencyCulture === 'es-CO') {
         currencyCulture = 'es-CO';
       } else {
