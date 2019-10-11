@@ -430,7 +430,7 @@
     "secure.orders.in_devolution.view_comment.commnet_seller": "Comentario del vendedor", 
     "secure.orders.in_devolution.view_comment.no_commnet": "No hay comentarios", 
  
-    "secure.orders.in_validationin_validation_page.max_response_date": "Fecha max respuesta", 
+    "secure.orders.in_validation.in_validation_page.max_response_date": "Fecha max respuesta", 
  
     "secure.orders.pending_devolution.action_accept_devolution.title": "Aceptar devolución", 
     "secure.orders.pending_devolution.action_accept_devolution.body": "La solicitud ha sido aceptada, le notificaremos al cliente para que envié el producto.", 
