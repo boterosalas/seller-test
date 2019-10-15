@@ -692,11 +692,11 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   validateExitPayoneerUser(event: any) {
+    this.loadingService.viewSpinner();
     const value = event.target.value;
     if (!!value) {
-      this.loadingService.viewSpinner();
       this.payoneerService.getStatusById(value).subscribe((val: any) => {
-        const body = JSON.parse(val.body.body);
+        const body = JSON.parse(val.body);
         if (body && !body.Data) {
           this.Payoneer.setErrors({ payoneer: true });
         }
