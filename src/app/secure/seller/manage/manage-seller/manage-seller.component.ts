@@ -703,6 +703,7 @@ export class ManageSellerComponent implements OnInit {
         this.loadingService.closeSpinner();
       });
     }
+    this.loadingService.closeSpinner();
   }
   get Country(): FormControl {
     return this.validateFormRegister.get('Country') as FormControl;
