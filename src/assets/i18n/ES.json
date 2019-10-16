@@ -644,7 +644,8 @@
     "secure.products.bulk_upload.image ": "Imagen",  
     "secure.products.bulk_upload.size": "Talla",  
     "secure.products.bulk_upload.color": "Color ", 
- 
+    "secure.products.bulk_upload.filter.plu": "PLU", 
+
     "secure.products.Finish_upload_product_information.upload_progress": "Carga en proceso",  
     "secure.products.Finish_upload_product_information.successful_upload": "Carga realizada con éxito",  
     "secure.products.Finish_upload_product_information.error_upload": "No se pudo realizar la carga",  

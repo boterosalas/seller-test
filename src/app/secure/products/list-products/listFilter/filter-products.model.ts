@@ -6,7 +6,8 @@ export class ModelFilterProducts {
         public initialDate?: any,
         public finalDate?: any,
         public page?: any,
-        public limit?: any
+        public limit?: any,
+        public PluVtex?: any
         ) { }
 
     /**
@@ -22,5 +23,6 @@ export class ModelFilterProducts {
         this.finalDate = undefined;
         this.page = undefined;
         this.limit = undefined;
+        this.PluVtex = undefined;
     }
 }

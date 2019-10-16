@@ -46,13 +46,14 @@ export class ListProductService {
 
     this.paramsData.ean = params === undefined || params.ean === undefined || params.ean === null || params.ean === '' ? null : params.ean;
     this.paramsData.productName = params === undefined || params.productName === undefined || params.productName === null;
+    this.paramsData.PluVtex = params === undefined || params.PluVtex === undefined || params.PluVtex === null;
     this.paramsData.creationDate = params === undefined || params.creationDate === undefined || params.creationDate === null;
     this.paramsData.initialDate = params === undefined || params.initialDate === undefined || params.initialDate === null;
     this.paramsData.finalDate = params === undefined || params.finalDate === undefined || params.finalDate === null;
     this.paramsData.page = params === undefined || params.page === undefined || params.page === null;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
-    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit;
+    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/'  + this.paramsData.PluVtex + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit;
 
     return this.http.get(this.api.get('getProductList', urlParams));
   }
