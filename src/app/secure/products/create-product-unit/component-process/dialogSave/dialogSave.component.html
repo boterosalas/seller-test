@@ -4,8 +4,8 @@
     {{'secure.products.create_product_unit.component_process.dialog_save.product_creation_request' | translate}}
   </h4>
 
-  <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> {{'secure.products.create_product_unit.component_process.dialog_save.there' | translate}} {{response.errors > 1 ? has: have }} {{'secure.products.create_product_unit.component_process.dialog_save.been' | translate}}
-    {{response.errors}} {{response.errors > 1 ? errors : error }} {{'secure.products.create_product_unit.component_process.dialog_save.try_create_products' | translate}}
+  <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.errors > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}}
+    {{response.errors}} {{response.errors > 1 ? errors : error }} {{'secure.products.create_product_unit.specifications.dialog.try_create_products' | translate}}
   </h4>
 
   <mat-divider *ngIf="response.response.data.error > 0"></mat-divider>

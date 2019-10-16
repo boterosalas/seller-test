@@ -71,7 +71,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%" style="padding-top: 26px;">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
             <div *ngIf="isColombiaSelect; else cityInput" fxFlex="50%">
               <app-cities *ngIf="elementCityLoad" [elementLoad]="elementCityLoad" [idState]="idState"
                 (daneCodeEvent)="receiveDataCitie($event)" [disabledComponent]='disabledComponent'></app-cities>
@@ -112,8 +112,7 @@
 
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%"
-            style="padding-top: 12px;">
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
             <div fxFlex="50%" [ngStyle]="{'padding-right': (isColombiaSelect ?
               '5%' : '0')}">
               <mat-form-field class="register" style="width:100% !important;">

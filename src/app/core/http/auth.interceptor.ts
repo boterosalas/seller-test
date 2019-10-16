@@ -26,7 +26,8 @@ export class AuthInterceptor implements HttpInterceptor {
        encabezados actualizados con la autorización.
       colocar la variable de url modificada para la cultura (idioma) */
       const authReq = req.clone({
-        headers: headers
+        headers: headers,
+        url: req.url + culture
       });
       return next.handle(authReq);
     }
@@ -36,7 +37,12 @@ export class AuthInterceptor implements HttpInterceptor {
   addCulture(req: HttpRequest<any>) {
     if (req && req.url) {
       const userId = localStorage.getItem('userId') ? localStorage.getItem('userId') : 'current';
-      const currencyCulture = localStorage.getItem('culture_' + userId) ? localStorage.getItem('culture_' + userId) : 'es';
+      let currencyCulture = localStorage.getItem('culture_' + userId) ? localStorage.getItem('culture_' + userId) : 'es-CO';
+      if (currencyCulture === 'es' || currencyCulture === 'ES' || currencyCulture === 'es-CO') {
+        currencyCulture = 'es-CO';
+      } else {
+        currencyCulture = 'en-US';
+      }
       const validate = req.url.includes('?') || req.url.includes('&') ;
         if (validate) {
           const culture = '&culture=' + currencyCulture;

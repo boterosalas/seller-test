@@ -150,7 +150,7 @@
     "actions.close_menu": "Cerrar menú",  
     "actions.enter": "INGRESAR",  
     "actions.download_orders": "Descargar órdenes",  
-    "actions.recover_password": "recuperar contraseña", 
+    "actions.recover_password": "Recuperar contraseña", 
     "actions.page": "Ítems por página", 
     "actions.next_page": "Página siguiente", 
     "actions.previous_page": "Página anterior", 
@@ -255,6 +255,18 @@
     "public.auth.login.ph_user": "Usuario",  
     "public.auth.login.ph_psw": "Contraseña",  
     "public.auth.login.forgot_psw": "Olvidé mi contraseña", 
+    "public.auth.forgot.placeholder_code": "Código de verificación",
+    "public.auth.forgot.code_error_required": "El código de verificación es requerido",
+    "public.auth.forgot.new_psw": "Nueva contraseña",
+    "public.auth.forgot.new_psw_required": "La nueva contraseña es requerida",
+    "public.auth.forgot.confirm_new_psw": "Confirmar nueva contraseña",
+    "public.auth.forgot.error_psw": "Las contraseñas no coinciden",
+    "public.auth.forgot.confirm_new_psw_required": "La confirmación de la nueva contraseña es requerida.",
+    "public.auth.forgot.psw": "ESTABLECER CONTRASEÑA",
+    "public.auth.forgot.error_try_again": "Se ha producido un error, por favor intente más tarde.",
+    "public.auth.forgot.user_not_found": "Usuario no encontrado",
+    "public.auth.forgot.pattern_psw": "La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.",
+    "public.auth.forgot.code_not_valid": "El código de verificación no es válido, por favor intente de nuevo.",
  
  
     "secure.aws_cognito.profile.profile": "Mi Perfil",  
@@ -303,12 +315,13 @@
  
     "secure.load_guide_page.download_format.title": "Indica el número de registros que quieres descargar en el archivo.",  
     "secure.load_guide_page.download_format.ph_record_limit": "Limite de registros",  
-    "secure.load_guide_page.download_format.guide_format": "Formato de guia",  
+    "secure.load_guide_page.download_format.guide_format": "Formato de guía",  
     "secure.load_guide_page.download_format.ts_download_ok": "Se ha descargado correctamente la información.",  
     "secure.load_guide_page.download_format.ts_want_download": "¿Quieres descargar el formato de envío vacío?", 
  
  
     "secure.load_guide_page.finish_upload_info.title": "Registro correctos", 
+    "secure.load_guide_page.finish_upload_info.error_guide": "Se han presentado",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errores al momento de realizar los registros de las guías.",  
     "secure.load_guide_page.finish_upload_info.order_number": "Número de orden", 
  
@@ -355,7 +368,7 @@
     "secure.orders.order_list.detail_modal.order_type": "Tipo de orden",  
     "secure.orders.order_list.detail_modal.channel": "Canal", 
      
-    "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdene4s",  
+    "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",  
     "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",  
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",  
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",  
@@ -419,7 +432,7 @@
     "secure.orders.in_devolution.view_comment.commnet_seller": "Comentario del vendedor", 
     "secure.orders.in_devolution.view_comment.no_commnet": "No hay comentarios", 
  
-    "secure.orders.in_validationin_validation_page.max_response_date": "Fecha max respuesta", 
+    "secure.orders.in_validation.in_validation_page.max_response_date": "Fecha max respuesta", 
  
     "secure.orders.pending_devolution.action_accept_devolution.title": "Aceptar devolución", 
     "secure.orders.pending_devolution.action_accept_devolution.body": "La solicitud ha sido aceptada, le notificaremos al cliente para que envié el producto.", 
@@ -488,7 +501,7 @@
     "secure.seller.contracts.lb_subtitle_toolbar": "Buscar acuerdos",  
     "secure.seller.contracts.txt_no_contract_seller": "No hay acuerdos asociados a este vendendor", 
  
-    "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.", 
+    "secure.offers.stores.txt_no_seller": "Ingrese el nombre de la tienda en la  barra de búsqueda para ver las categorías.", 
  
     "secure.offers.quoting.quoting_admin": "Cotizador administrador.",  
     "secure.offers.quoting.quoting_seller": "Cotizador vendedor.", 
@@ -544,7 +557,8 @@
     "secure.offers.historical_admin.historical_admin.without_offert": "No se han encontrado registros en el historico de ofertas.",  
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Inventario inválido",  
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "El campo inventario es obligatorio.", 
- 
+    "secure.offers.historical_admin.a": "a", 
+
     "secure.offers.list.list.filter_answer": "Resultado de filtro:",  
     "secure.offers.list.list.with_stock": "Con inventario",  
     "secure.offers.list.list.with_out_stock": "Agotado",  
@@ -570,6 +584,7 @@
     "secure.offers.list.components.detail_offer.months": "meses",  
     "secure.offers.list.components.detail_offer.last_modify": "Última modificación: ", 
     "secure.offers.list.components.detail_offer.last_mod": "Última mod: ", 
+    "secure.offers.list.components.detail_offer.a": "a", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Filtro ofertas",  
     "secure.offers.list.components.filter.placeholder_products": "Producto", 
@@ -653,6 +668,7 @@
     "secure.products.table_errors_product.errorneous_format": "no cumple con el formato requerido.",  
     "secure.products.table_errors_product.input_option": "El campo opcional de la",  
     "secure.products.table_errors_product.duplication_ean": "tiene eanes repetidos.", 
+    "secure.products.table_errors_product.must_positive_decimal": "debe ser numérico positivo mayor o igual a cero, sin decimales.", 
  
     "secure.products.table_load_product.records_found": "Registros encontrados, los siguientes cuentan con errores",  
     "secure.products.table_load_product.upload_all": "Vuelve a cargar todas los productos",  
@@ -677,8 +693,8 @@
     "secure.products.table_load_product.image ": "Imagen",  
     "secure.products.table_load_product.size": "Talla",  
     "secure.products.table_load_product.color": "Color ",  
-    "secure.products.table_load_product.exito_logistics ": "Logistica Exito",  
-    "secure.products.table_load_product.measuring_unit_description ": "Des. Unidad Medida",  
+    "secure.products.table_load_product.exito_logistics": "Logistica Exito",  
+    "secure.products.table_load_product.measuring_unit_description": "Des. Unidad Medida",  
     "secure.products.table_load_product.conversion_factor": "Factor Conversión",  
     "secure.products.table_load_product.drained_factor": "Factor Escurrido",  
     "secure.products.table_load_product.combo_ean_group": "Grupo EAN Combo", 

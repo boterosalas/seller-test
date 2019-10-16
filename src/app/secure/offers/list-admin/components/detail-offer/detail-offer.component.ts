@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from '@env/environment';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
@@ -15,7 +15,7 @@ import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/lis
   styleUrls: ['./detail-offer.component.scss']
 })
 
-export class DetailOfferComponent {
+export class DetailOfferComponent implements OnInit {
 
   /**
    * @description Variable para controlar si el usuario esta editando la oferta.
@@ -64,6 +64,10 @@ export class DetailOfferComponent {
    */
   @Input() dataOffer;
 
+  promiseFirts: string;
+  promiseSeconds: string;
+  to: string;
+
   /**
    * @description Variable que almancena un booleano que se le envia al listado de ofertas para volver a consumir el servicio
    * de listado de ofertas.
@@ -108,5 +112,25 @@ export class DetailOfferComponent {
     this.list.viewDetailOffer = false;
     this.list.inDetail = false;
   }
- 
+
+  ngOnInit() {
+    this.setPromise();
+  }
+  /**
+   * Descomponer la promesa de entrega
+   *
+   * @memberof DetailOfferComponent
+   */
+  setPromise() {
+    if (this.dataOffer && this.dataOffer.promiseDelivery) {
+      const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+      this.promiseFirts = promiseDe[0];
+      this.to = promiseDe[1];
+      this.promiseSeconds = promiseDe[2];
+    } else {
+      this.promiseFirts = '';
+      this.to = '';
+      this.promiseSeconds = '';
+    }
+  }
 }
