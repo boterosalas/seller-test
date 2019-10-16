@@ -439,6 +439,14 @@
  
     "secure.orders.pending_devolution.view_comment.commnet_client": "Comentario cliente", 
  
+    "secure.orders.send.no_more_sent_products": "La orden ya no posee mas productos para ser enviados",
+    "secure.orders.send.total_sent_order": "Total del productos a ser enviados en la orden",
+    "secure.orders.send.error_ocurred_processing": "Hubo un error procesando la solicitud.",
+    "secure.orders.send.check_without": "Hay uno o mas checks sin seleccionar, no se activa el boton enviar todo",
+    "secure.orders.send.send_correctly": "Se ha enviado el producto correctamente",
+    "secure.orders.send.error_ocurred_product": "Se ha presentado un error al enviar el producto",
+    "secure.orders.send.cant_not_sent": "El producto seleccionado no puede ser enviado",
+
     "secure.seller.list.enabled_title_modal": "Activación",  
     "secure.seller.list.disabled_title_modal": "Desactivación",  
     "secure.seller.list.vacation_title_modal": "Vacaciones",  

@@ -438,7 +438,15 @@
     "secure.orders.pending_devolution.action_accept_devolution.body": "The request has been approved, we will notify the client so they can send you the product back.", 
  
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment", 
- 
+
+    "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
+    "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
+    "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
+    "secure.orders.send.check_without": "There are one or more checks without marking, the Send All button will not be activated",
+    "secure.orders.send.send_correctly": "The product has ben sent correctly",
+    "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
+    "secure.orders.send.cant_not_sent": "The product can not be sent",
+    
     "secure.seller.list.enabled_title_modal": "Enable user",  
     "secure.seller.list.disabled_title_modal": "Disable user",  
     "secure.seller.list.vacation_title_modal": "Program vacations",  

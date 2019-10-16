@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { OrderService } from '../orders.service';
 import { Router } from '@angular/router';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('SendOrderComponent');
@@ -68,6 +69,7 @@ export class SendOrderComponent implements OnInit {
     private fb: FormBuilder,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
+    private languageService: TranslateService,
     public router: Router,
     private profileService: MyProfileService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -163,7 +165,7 @@ export class SendOrderComponent implements OnInit {
       if (this.order.products[j].checkProductToSend === false) {
         this.order.sendAllProduct = false;
         this.sendAllForm.disable();
-        log.info('Hay uno o mas checks sin seleccionar, no se activa el boton enviar todo');
+        log.info(this.languageService.instant('secure.orders.send.check_without'));
       }
     }
     // Luego de validar el estado false de los check, paso a validar el estado true para ver si el boton se puede activar o no.
@@ -236,9 +238,9 @@ export class SendOrderComponent implements OnInit {
     };
     this.orderService.sendAllProductInOrder(jsonOrder, this.order.id).subscribe((res: any) => {
       if (res.errors !== 0) {
-        this.componentService.openSnackBar('Hubo un error procesando la solicitud.', 'Cerrar', 15000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), 15000);
       } else {
-        this.componentService.openSnackBar('Se han enviado los productos correctamente', 'Cerrar', 15000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.orders.send.send_correctly'), this.languageService.instant('actions.close'), 15000);
 
         for (let i = 0; i < this.order.products.length; i++) {
           if (this.order.products[i].tracking == null) {
@@ -278,9 +280,9 @@ export class SendOrderComponent implements OnInit {
       }
     }
     if (numberElements === 0) {
-      log.info('La orden ya no posee mas productos para ser enviados');
+      log.info(this.languageService.instant('secure.orders.send.no_more_sent_products'));
     } else {
-      log.info('Total del productos a ser enviados en la orden', numberElements);
+      log.info(this.languageService.instant('secure.orders.send.total_sent_order'), numberElements);
     }
     return numberElements;
   }
