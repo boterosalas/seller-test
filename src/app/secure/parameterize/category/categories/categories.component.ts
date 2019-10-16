@@ -140,7 +140,6 @@ export class CategoriesComponent implements OnInit {
         this.modalService.showModal('errorService');
       }
       this.initForm();
-      console.log('this.categoryRegex: ', this.categoryRegex);
     });
   }
 
