@@ -23,11 +23,16 @@
       <mat-hint></mat-hint>
       <mat-error *ngIf="filterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | translate}}</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="PluVtex" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterForm.get('PluVtex').hasError('pattern')">{{'errors.invalid_plu' | translate}}</mat-error>
+    </mat-form-field>
 
     <article class="container-buttons flexbox align-center justify-between">
       <button mat-stroked-button color="primary" type="reset" [innerHTML]="'filters.clear' | translate"></button>
       <button mat-flat-button color="primary" type="submit" [innerHTML]="'filters.filter' | translate"
-        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value)"></button>
+        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !PluVtex.value)"></button>
     </article>
 
   </form>

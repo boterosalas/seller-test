@@ -183,6 +183,7 @@
     "errors.spec_name_max_length": "The name must not exceed 200 characters",  
     "errors.error_date": "The maximum date range is 15 days",  
     "errors.invalid_EAN": "Invalid EAN",  
+    "errors.invalid_plu": "Invalid PLU",  
     "errors.errors_detected": "Errors have occurred",  
     "errors.errors_upload_product_again": "Please fix the file's errors.and upload the products again.",  
     "errors.errors_upload_offer_again": "Please fix the errors.in the file and upload the offer information again.",  

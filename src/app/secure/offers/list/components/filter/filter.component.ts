@@ -64,9 +64,11 @@ export class FilterComponent implements OnInit, OnChanges {
     public filterForm: FormGroup;
     public product: FormControl;
     public ean: FormControl;
+    public PluVtex: FormControl;
     public stock: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
+    public regexOnlyNumber = /^[0-9]*$/;
 
     /**
      * Creates an instance of FilterComponent.
@@ -101,6 +103,9 @@ export class FilterComponent implements OnInit, OnChanges {
             case 'filterEan':
                 this.ean.setValue(undefined);
                 break;
+            case 'filterPluVtex':
+                this.PluVtex.setValue(undefined);
+                break;
             case 'filterStock':
                 this.stock.setValue(undefined);
                 break;
@@ -118,6 +123,7 @@ export class FilterComponent implements OnInit, OnChanges {
     createFormControls() {
         this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
+        this.PluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
         this.stock = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
     }
@@ -131,7 +137,8 @@ export class FilterComponent implements OnInit, OnChanges {
         this.filterForm = new FormGroup({
             product: this.product,
             ean: this.ean,
-            stock: this.stock
+            stock: this.stock,
+            PluVtex: this.PluVtex
         });
     }
 
