@@ -124,6 +124,7 @@ export class ListComponent implements OnInit {
     this.filterActive = true;
     this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
+    this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
     this.paramData.stock = params.stock;
     this.paramData.currentPage = this.currentPage;
     this.getListOffers(this.paramData);
@@ -144,13 +145,16 @@ export class ListComponent implements OnInit {
       case 'filterEan':
         this.paramData.ean = undefined;
         break;
+      case 'filterPluVtex':
+        this.paramData.pluVtex = undefined;
+        break;
       case 'filterStock':
         this.paramData.stock = undefined;
         break;
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined) {
       this.filterActive = false;
     }
     this.getListOffers(this.paramData);
@@ -163,6 +167,7 @@ export class ListComponent implements OnInit {
    */
   getListOffers(params?: any) {
     this.loadingService.viewSpinner();
+    console.log('params: ', params);
     this.offerService.getOffers(params).subscribe(
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
