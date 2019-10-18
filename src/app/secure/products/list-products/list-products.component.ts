@@ -316,7 +316,7 @@ export class ListProductsComponent implements OnInit {
         }
 
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.pluVtexList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
+            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}`;
         }
 
         this.loadingService.viewSpinner(); // Mostrar el spinner
@@ -330,7 +330,9 @@ export class ListProductsComponent implements OnInit {
         this.showProducts = false;
 
         // osea aqui se puede demorar 1 seg o 10 segundos
+        console.log('urlParams2: ', urlParams2);
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
+            console.log('result: ', result);
             this.showProducts = true;
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);
