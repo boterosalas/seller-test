@@ -160,7 +160,8 @@ export class CategoriesComponent implements OnInit {
       ProductType: ['', Validators.compose([Validators.required])],
       IdVTEX: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])],
       Tariff: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), Validators.max(100), Validators.min(0), positiveNumber])],
-      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10), Validators.minLength(10)])]
+      TariffCode: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.integerNumber), Validators.maxLength(10), Validators.minLength(10)])],
+      VtexIdCarulla: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdVTEX)])]
     });
   }
 
@@ -284,6 +285,7 @@ export class CategoriesComponent implements OnInit {
     const dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       width: '70%',
+      height: '90%',
       minWidth: '280px',
       maxHeight: '80vh',
       data: dataDialog
@@ -364,8 +366,8 @@ export class CategoriesComponent implements OnInit {
       this.loadingService.viewSpinner();
       let value = Object.assign({}, this.form.value);
       value = !!value.Id ? value : (delete value.Id && value);
-      value.Commission =  !!value.Commission ? value.Commission : this.Commission.value;
-      if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000'  || value.Tariff === '00' || value.Tariff === '0.00' ) {
+      value.Commission = !!value.Commission ? value.Commission : this.Commission.value;
+      if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000' || value.Tariff === '00' || value.Tariff === '0.00') {
         value.Tariff = 0;
       }
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
@@ -384,7 +386,7 @@ export class CategoriesComponent implements OnInit {
                 duration: 3000,
               });
             }
-          }  else if ( !!response && !!response.statusCode && response.statusCode === 400) {
+          } else if (!!response && !!response.statusCode && response.statusCode === 400) {
             const responseValue = JSON.parse(response.body).Errors;
             const message = responseValue[0].Message;
             this.loadingService.closeSpinner();
@@ -406,9 +408,9 @@ export class CategoriesComponent implements OnInit {
   openStatusModal() {
     this.loadingService.viewSpinner();
     const data = {
-      successText: 'Creación realizada con éxito',
-      failText: 'No se pudo crear la categoría',
-      processText: 'Creación en proceso',
+      successText: this.languageService.instant('secure.parametize.category.categories.creation_succesfully'),
+      failText: this.languageService.instant('secure.parametize.category.categories.not_create_category'),
+      processText: this.languageService.instant('secure.parametize.category.categories.create_in_process'),
       initTime: 500,
       intervalTime: 5000
     };
@@ -473,6 +475,10 @@ export class CategoriesComponent implements OnInit {
 
   get IdVTEX(): FormControl {
     return this.form.get('IdVTEX') as FormControl;
+  }
+
+  get VtexIdCarulla(): FormControl {
+    return this.form.get('VtexIdCarulla') as FormControl;
   }
 
   get Tariff(): FormControl {

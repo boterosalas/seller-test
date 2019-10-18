@@ -7,6 +7,7 @@ import { CognitoCallback, DynamoDBService, UserLoginService, UserParametersServi
 import { ShellComponent } from '@app/core/shell';
 import { RoutesConst, UserInformation } from '@app/shared';
 import { Logger } from '@core/util/logger.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('ForgotPasswordComponent');
 
@@ -49,6 +50,7 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
     public userService: UserLoginService,
     public shell: ShellComponent,
     private fb: FormBuilder,
+    private languageService: TranslateService,
     private loadingService?: LoadingService
   ) {
     this.errorMessage = null;
@@ -79,10 +81,10 @@ export class ForgotPasswordStep1Component implements CognitoCallback, OnInit {
       log.debug(message);
       switch (message) {
         case 'Username/client id combination not found.':
-          this.errorMessage = 'Usuario no encontrado';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.user_not_found');
           break;
         default:
-          this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.error_try_again');
       }
       this.loadingService.closeSpinner();
     }
@@ -150,6 +152,7 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
     private fb: FormBuilder,
     public ddb: DynamoDBService,
     public userParams: UserParametersService,
+    private languageService: TranslateService,
     private loadingService?: LoadingService
   ) { }
 
@@ -219,22 +222,22 @@ export class ForgotPassword2Component implements CognitoCallback, OnInit, OnDest
       log.error('result: ' + message);
       switch (message) {
         case '1 validation error detected: Value at \'password\' failed to satisfy constraint: Member must have length greater than or equal to 6': // Pass menor a 6
-          this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.pattern_psw');
           break;
         case 'Password does not conform to policy: Password must have lowercase characters': // Debe tener minusculas
-          this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.pattern_psw');
           break;
         case 'Password does not conform to policy: Password must have uppercase characters': // Debe tener mayúsculas
-          this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.pattern_psw');
           break;
         case 'Password does not conform to policy: Password must have symbol characters': // Debe tener caracteres especiales
-          this.errorMessage = 'La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.pattern_psw');
           break;
         case 'Invalid verification code provided, please try again.':
-          this.errorMessage = 'El código de verificación no es válido, por favor intente de nuevo.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.code_not_valid');
           break;
         default:
-          this.errorMessage = 'Se ha producido un error, por favor intente más tarde.';
+          this.errorMessage = this.languageService.instant('public.auth.forgot.error_try_again');
       }
       this.loadingService.closeSpinner();
     } else { // success

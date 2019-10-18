@@ -159,6 +159,7 @@
     "errors.invalid_name": "Invalid name",  
     "errors.invalid_nit": "Invalid nit",  
     "errors.invalid_id": "Invalid id",  
+    "errors.invalid_VtexIdCarulla": "Invalid VTEX ID",
     "errors.reason_max_length": "The reason must not exceed 120 characters",  
     "errors.observation_max_length": "The observation must not exceed 2000 characters",  
     "errors.state_invalid": "The state entered is invalid",  
@@ -207,6 +208,7 @@
     "errors.error_guide_upload": "Please fix the file's errors.and upload the tracking numbers again.",  
     "errors.error_format_invalid": "The format is invalid", 
     "errors.error_present": "There have been", 
+    "errors.error.categories.valid": "The value is not valid",
  
  
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID", 
@@ -253,7 +255,19 @@
     "public.auth.login.ph_user": "User",  
     "public.auth.login.ph_psw": "Password",  
     "public.auth.login.forgot_psw": "I forgot my password", 
- 
+    "public.auth.forgot.placeholder_code": "Verification code",
+    "public.auth.forgot.code_error_required": "The verification code is required",
+    "public.auth.forgot.new_psw": "New password",
+    "public.auth.forgot.new_psw_required": "The new password is required",
+    "public.auth.forgot.confirm_new_psw": "Confirm new password",
+    "public.auth.forgot.error_psw": "The passwords do not match",
+    "public.auth.forgot.confirm_new_psw_required": "The confirmation for the new password is required.",
+    "public.auth.forgot.psw": "RESETPASSWORD",
+    "public.auth.forgot.error_try_again": "An error has occurred, please try again later",
+    "public.auth.forgot.user_not_found": "User not found",
+    "public.auth.forgot.pattern_psw": "The password must contain at least a letter, a number and a symbol, and must contain at least 7 characters.",
+    "public.auth.forgot.code_not_valid": "The verification code is invalid, please try again later.",
+
  
     "secure.aws_cognito.profile.profile": "My profile",  
     "secure.aws_cognito.profile.seller_id": "Seller id", 
@@ -307,6 +321,7 @@
  
  
     "secure.load_guide_page.finish_upload_info.title": "Correct records", 
+    "secure.load_guide_page.finish_upload_info.error_guide": "There have been",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errors have occurred when trying to register the tracking numbers.",  
     "secure.load_guide_page.finish_upload_info.order_number": "Order number", 
  
@@ -423,7 +438,15 @@
     "secure.orders.pending_devolution.action_accept_devolution.body": "The request has been approved, we will notify the client so they can send you the product back.", 
  
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment", 
- 
+
+    "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
+    "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
+    "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
+    "secure.orders.send.check_without": "There are one or more checks without marking, the Send All button will not be activated",
+    "secure.orders.send.send_correctly": "The product has ben sent correctly",
+    "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
+    "secure.orders.send.cant_not_sent": "The product can not be sent",
+    
     "secure.seller.list.enabled_title_modal": "Enable user",  
     "secure.seller.list.disabled_title_modal": "Disable user",  
     "secure.seller.list.vacation_title_modal": "Program vacations",  
@@ -542,6 +565,7 @@
     "secure.offers.historical_admin.historical_admin.without_offert": "There is no offer registry available.",  
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Invalid stock",  
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "The stock field is mandatory", 
+    "secure.offers.historical_admin.a": "to", 
  
     "secure.offers.list.list.filter_answer": "Filter results: ",  
     "secure.offers.list.list.with_stock": "In stock",  
@@ -568,6 +592,7 @@
     "secure.offers.list.components.detail_offer.months": "months",  
     "secure.offers.list.components.detail_offer.last_modify": "Last modification: ", 
     "secure.offers.list.components.detail_offer.last_mod": "Last modification: ",
+    "secure.offers.list.components.detail_offer.a": "to", 
  
     "secure.offers.list.components.filter.title_filter_offer": "Offer filter",  
     "secure.offers.list.components.filter.placeholder_products": "Product", 
@@ -651,6 +676,7 @@
     "secure.products.table_errors_product.errorneous_format": "has an erroneous format",  
     "secure.products.table_errors_product.input_option": "The data in",  
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.", 
+    "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
  
     "secure.products.table_load_product.records_found": "Records found, the following have errors",  
     "secure.products.table_load_product.upload_all": "Upload all products again",  
@@ -675,11 +701,11 @@
     "secure.products.table_load_product.image ": "Image",  
     "secure.products.table_load_product.size": "Size",  
     "secure.products.table_load_product.color": "Color",  
-    "secure.products.table_load_product.exito_logistics ": "Exito Logistics",  
-    "secure.products.table_load_product.measuring_unit_description ": "Measuring Unit Description",  
-    "secure.products.table_load_product.conversion_factor ": "Conversion Factor",  
-    "secure.products.table_load_product.drained_factor ": "Drained Factor",  
-    "secure.products.table_load_product.combo_ean_group ": "Combo EAN Group", 
+    "secure.products.table_load_product.exito_logistics": "Exito Logistics",  
+    "secure.products.table_load_product.measuring_unit_description": "Measuring Unit Description",  
+    "secure.products.table_load_product.conversion_factor": "Conversion Factor",  
+    "secure.products.table_load_product.drained_factor": "Drained Factor",  
+    "secure.products.table_load_product.combo_ean_group": "Combo EAN Group", 
     "secure.products.table_load_product.image": "Image URL",
  
     "secure.products.bulk_load_product_moderation.text_may_upload_product": "In order to import files to the Seller Center, first you must",  
@@ -934,10 +960,14 @@
     "secure.parametize.category.categories.lb_parent_name_category_form": "Parent category name",  
     "secure.parametize.category.categories.lb_id_vtex_form": "ID VTEX",  
     "secure.parametize.category.categories.lb_id_carulla_form": "ID Carulla",  
+    "secure.parametize.category.categories.lb_vtex_id_carulla_form": "VTEX ID Carulla",  
     "secure.parametize.category.categories.lb_id_exito_form": "ID Éxito",  
     "secure.parametize.category.categories.lb_id_catalogo_form": "ID Cátalogos",  
     "secure.parametize.category.categories.lb_id_market_form": "ID Marketplace", 
-    "secure.parametize.category.categories.exception": "Exceptions", 
+    "secure.parametize.category.categories.exception": "Exceptions",
+    "secure.parametize.category.categories.creation_succesfully": "Creation was successful",
+    "secure.parametize.category.categories.not_create_category": "Could not create the category",
+    "secure.parametize.category.categories.create_in_process": "Creation in progress", 
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category", 
  
