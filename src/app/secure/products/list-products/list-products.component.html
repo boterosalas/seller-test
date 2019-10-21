@@ -25,7 +25,7 @@
         </mat-form-field>
         <!-- Nuevo campo PLU VTEXT -->
         <mat-form-field color="primary">
-            <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="pluVtex" [errorStateMatcher]="matcher">
+            <input matInput (keypress)="onlyNumber($event)" [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="pluVtex" [errorStateMatcher]="matcher">
             <mat-hint></mat-hint>
             <mat-error *ngIf="filterProduts.get('pluVtex').hasError('pattern')">
                 {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}

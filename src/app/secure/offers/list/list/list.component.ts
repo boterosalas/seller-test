@@ -167,7 +167,6 @@ export class ListComponent implements OnInit {
    */
   getListOffers(params?: any) {
     this.loadingService.viewSpinner();
-    console.log('params: ', params);
     this.offerService.getOffers(params).subscribe(
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {

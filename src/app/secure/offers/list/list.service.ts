@@ -35,7 +35,6 @@ export class ListService {
     urlParams = this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit + '/' + this.paramsData.pluVtex;
 
     return new Observable(observer => {
-      console.log('urlParams: ', urlParams);
       this.http.get<any>(this.api.get('getOffers', [urlParams]), { observe: 'response' })
         .subscribe(
           data => {

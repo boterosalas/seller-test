@@ -36,10 +36,10 @@ const log = new Logger('ListProductsComponent');
     templateUrl: 'list-products.component.html',
     providers: [
         {
-          provide: MatPaginatorIntl,
-          useClass: MatPaginatorI18nService,
+            provide: MatPaginatorIntl,
+            useClass: MatPaginatorI18nService,
         }
-      ],
+    ],
 })
 
 export class ListProductsComponent implements OnInit {
@@ -119,6 +119,20 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
+
+    /**
+     * Funcion que permite solo números
+     *
+     * @param {*} event
+     * @memberof ListProductsComponent
+     */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
+    }
 
 
     // Funcion para limpiar formulario
@@ -330,9 +344,7 @@ export class ListProductsComponent implements OnInit {
         this.showProducts = false;
 
         // osea aqui se puede demorar 1 seg o 10 segundos
-        console.log('urlParams2: ', urlParams2);
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
-            console.log('result: ', result);
             this.showProducts = true;
             if (result.data !== undefined) {
                 // const body = JSON.parse(result.data);
