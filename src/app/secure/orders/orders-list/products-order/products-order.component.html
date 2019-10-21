@@ -3,8 +3,8 @@
     <div fxFlex="56px" class="sc-text-normal">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox class="sc-check-personal"
-                      *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
-                      [checked]="order.sendAllProduct" (change)="checkAllProductInOrder(order)"></mat-checkbox>
+          *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
+          [checked]="order.sendAllProduct" (change)="checkAllProductInOrder(order)"></mat-checkbox>
       </div>
     </div>
     <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="265px" class="sc-text-normal">
@@ -13,43 +13,43 @@
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="sc-text-normal item-title-table">
+      class="sc-text-normal item-title-table">
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_detail.cost' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="sc-text-normal item-title-table">
+      class="sc-text-normal item-title-table">
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_detail.freight' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table sc-text-normal">
+      class="item-title-table sc-text-normal">
       <div class="title-table-product">
         <p>{{'shared.status' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table sc-text-normal">
+      class="item-title-table sc-text-normal">
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_detail.guide' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table sc-text-normal">
+      class="item-title-table sc-text-normal">
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_order.conveyor' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table sc-text-normal">
+      class="item-title-table sc-text-normal">
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_order.delivery_type' | translate}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table sc-text-normal">
+      class="item-title-table sc-text-normal">
       <div class="title-table-product">
         <p style="padding-left: 22px;" *ngIf="Typeprofile === 0">{{'shared.actions' | translate}}</p>
       </div>
@@ -65,34 +65,36 @@
     <div fxFlex="50px">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
-                      *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
-                      [disabled]="product.tracking != null" (change)="validateCheckProductForSendAll(order)"
-                      [(ngModel)]="product.checkProductToSend"></mat-checkbox>
+          *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
+          [disabled]="product.tracking != null" (change)="validateCheckProductForSendAll(order)"
+          [(ngModel)]="product.checkProductToSend"></mat-checkbox>
       </div>
     </div>
     <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="265px">
       <div class="productName-table-option">
         <div class="product-name n-margin">
           {{product.nameProduct}}
-          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.ref' | translate}}: {{product.reference}}</p>
-          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.sku' | translate}}: {{product.sku}}</p>
+          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.ref' | translate}}:
+            {{product.reference}}</p>
+          <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.sku' | translate}}:
+            {{product.sku}}</p>
         </div>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <div>
         <p class="sc-text-normal">${{product.costProduct | number}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <div>
         <p class="sc-text-normal">${{product.costShippingProduct | number}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <div class=" mat-icon-status-order">
 
         <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameProductAsignado">
@@ -123,34 +125,39 @@
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <!-- <div>
         <p class="sc-text-order">{{product.tracking}}</p>
       </div> -->
 
       <div>
-        <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int: <strong>{{product.internationalTracking}}</strong></p>
         <p class="sc-text-order-international" *ngIf="!!product.tracking">Loc: <strong>{{product.tracking}}</strong></p>
+        <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int:
+          <strong>{{product.internationalTracking}}</strong></p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <div>
-        <p class="sc-text-order">{{product.carrier}}</p>
+        <p class="sc-text-order-carrier" *ngIf="!!product.carrier">Loc: {{product.carrier}}</p>
+        <p class="sc-text-order-carrier" *ngIf="!!product.internationalCarrier">Int: {{product.internationalCarrier}}</p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
-         class="item-title-table">
+      class="item-title-table">
       <div>
-        <p class="sc-text-order" *ngIf="product.fulfillment == true">{{'secure.orders.order_list.product_order.fulfillment' | translate}}</p>
-        <p class="sc-text-order" *ngIf="product.enviosExito == true">{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</p>
-        <p class="sc-text-order" *ngIf="product.fulfillment == false && product.enviosExito == false">{{'secure.orders.order_list.product_order.standar' | translate}}</p>
+        <p class="sc-text-order" *ngIf="product.fulfillment == true">
+          {{'secure.orders.order_list.product_order.fulfillment' | translate}}</p>
+        <p class="sc-text-order" *ngIf="product.enviosExito == true">
+          {{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</p>
+        <p class="sc-text-order" *ngIf="product.fulfillment == false && product.enviosExito == false">
+          {{'secure.orders.order_list.product_order.standar' | translate}}</p>
       </div>
     </div>
     <div class="item-action-table" *ngIf="Typeprofile === 0">
 
       <button id="dropdown-product-order-{{index}}" color="primary" class="button-toolbar" mat-button
-              [matMenuTriggerFor]="orderOptions">
+        [matMenuTriggerFor]="orderOptions">
         <mat-icon>arrow_drop_down</mat-icon>
         <span>{{'shared.actions' | translate}}</span>
       </button>
@@ -160,15 +167,14 @@
           <span>{{'actions.label' | translate}}</span>
         </button>
         <button id="send-product-inDetail-{{index}}"
-                *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
-                (click)="openDialogSendOrder(order,true)" mat-menu-item>
+          *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
+          (click)="openDialogSendOrder(order,true)" mat-menu-item>
           <mat-icon>local_shipping</mat-icon>
           <span>{{'actions.send' | translate}}</span>
         </button>
 
         <button id="dropdown-product-viewDetail-{{index}}" (click)="openModalDetailProduct(product)" fxShow.xs="true"
-                fxShow.sm="true"
-                fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+          fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
           <mat-icon>more_vert</mat-icon>
           <span>{{'actions.show_detail' | translate}}</span>
         </button>
@@ -179,7 +185,7 @@
 
   <!-- Total row -->
 
-  <div class="content-total-product">
+  <div>
     <div fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px" fxFlex.xs="96px">
       <div class="total-product-text">
         <p class="sc-text-bold-order">{{'secure.orders.order_list.product_order.total' | translate}}:</p>
@@ -189,7 +195,7 @@
       <div>
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
-                fxHide.xl="true">{{'secure.orders.order_list.product_detail.cost' | translate}}:</span>
+            fxHide.xl="true">{{'secure.orders.order_list.product_detail.cost' | translate}}:</span>
           <strong class="sc-text-normal">${{order.costTotalOrder | number}}</strong>
         </p>
       </div>
@@ -198,19 +204,18 @@
       <div>
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
-                fxHide.xl="true">
-                {{'secure.orders.order_list.product_detail.freight' | translate}}:</span>
+            fxHide.xl="true">
+            {{'secure.orders.order_list.product_detail.freight' | translate}}:</span>
           <strong class="sc-text-normal">${{order.costTotalShipping | number}}</strong>
         </p>
       </div>
     </div>
     <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" fxFlexOffset.lg="40%"
-         fxFlexOffset.xl="40%"
-         fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="100">
+      fxFlexOffset.xl="40%" fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="100">
       <div *ngIf="Typeprofile === 0">
         <button id="send-from-product-order-{{order.orderNumber}}" (click)="openDialogSendOrder(order)"
-                [disabled]="!order.sendAllProduct"
-                class="full-button sc-default-button sc-button" mat-raised-button color="accent">{{'actions.send_all' | translate}}
+          [disabled]="!order.sendAllProduct" class="full-button sc-default-button sc-button" mat-raised-button
+          color="accent">{{'actions.send_all' | translate}}
         </button>
       </div>
     </div>

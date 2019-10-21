@@ -2,7 +2,7 @@
   fxFlex.gt-sm="100%">
   <div fxFlex.gt-sm="250px" fxFlex.xs="200px">
     <div class="center-product-list">
-      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px" class="select-send-options sc-text-normal" id="quantity-product" color="accent">
+      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px" class="select-send-options sc-text-normal" id="quantity-product" color="accent"  class="send-guide">
         <mat-select name="Transporter" required formControlName="Transporter" [placeholder]="'secure.orders.order_list.product_order.conveyor'| translate">
           <mat-option *ngFor="let trans of carries" [value]="trans.name">{{trans.name}}</mat-option>
         </mat-select>
@@ -11,8 +11,8 @@
   </div>
   <div fxFlex.gt-sm="230px" fxFlex.xs="200px">
     <div class="center-product-list">
-      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px" class="textarea-send-options sc-text-normal">
-        <textarea required name="Guide" formControlName="Guide" matInput [placeholder]="'secure.orders.order_list.product_detail.guide' | translate"></textarea>
+      <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px">
+        <textarea required name="Guide" class="textarea-guide" formControlName="Guide" matInput [placeholder]="'secure.orders.order_list.product_detail.guide' | translate"></textarea>
         <mat-error>{{'errors.error_guide' | translate}}</mat-error>
       </mat-form-field>
     </div>

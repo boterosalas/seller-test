@@ -159,6 +159,7 @@
     "errors.invalid_name": "Invalid name",  
     "errors.invalid_nit": "Invalid nit",  
     "errors.invalid_id": "Invalid id",  
+    "errors.invalid_VtexIdCarulla": "Invalid VTEX ID",
     "errors.reason_max_length": "The reason must not exceed 120 characters",  
     "errors.observation_max_length": "The observation must not exceed 2000 characters",  
     "errors.state_invalid": "The state entered is invalid",  
@@ -208,6 +209,7 @@
     "errors.error_guide_upload": "Please fix the file's errors.and upload the tracking numbers again.",  
     "errors.error_format_invalid": "The format is invalid", 
     "errors.error_present": "There have been", 
+    "errors.error.categories.valid": "The value is not valid",
  
  
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID", 
@@ -437,7 +439,15 @@
     "secure.orders.pending_devolution.action_accept_devolution.body": "The request has been approved, we will notify the client so they can send you the product back.", 
  
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment", 
- 
+
+    "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
+    "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
+    "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
+    "secure.orders.send.check_without": "There are one or more checks without marking, the Send All button will not be activated",
+    "secure.orders.send.send_correctly": "The product has ben sent correctly",
+    "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
+    "secure.orders.send.cant_not_sent": "The product can not be sent",
+    
     "secure.seller.list.enabled_title_modal": "Enable user",  
     "secure.seller.list.disabled_title_modal": "Disable user",  
     "secure.seller.list.vacation_title_modal": "Program vacations",  
@@ -952,10 +962,14 @@
     "secure.parametize.category.categories.lb_parent_name_category_form": "Parent category name",  
     "secure.parametize.category.categories.lb_id_vtex_form": "ID VTEX",  
     "secure.parametize.category.categories.lb_id_carulla_form": "ID Carulla",  
+    "secure.parametize.category.categories.lb_vtex_id_carulla_form": "VTEX ID Carulla",  
     "secure.parametize.category.categories.lb_id_exito_form": "ID Éxito",  
     "secure.parametize.category.categories.lb_id_catalogo_form": "ID Cátalogos",  
     "secure.parametize.category.categories.lb_id_market_form": "ID Marketplace", 
-    "secure.parametize.category.categories.exception": "Exceptions", 
+    "secure.parametize.category.categories.exception": "Exceptions",
+    "secure.parametize.category.categories.creation_succesfully": "Creation was successful",
+    "secure.parametize.category.categories.not_create_category": "Could not create the category",
+    "secure.parametize.category.categories.create_in_process": "Creation in progress", 
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category", 
  

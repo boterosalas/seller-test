@@ -159,6 +159,7 @@
     "errors.invalid_name": "Nombre invalido",  
     "errors.invalid_nit": "Nit invalido",  
     "errors.invalid_id": "Id invalido",  
+    "errors.invalid_VtexIdCarulla": "VTEX ID invalido",
     "errors.reason_max_length": "El motivo no debe superar los 120 caracteres",  
     "errors.observation_max_length": "La observación no debe superar los 2000 caracteres",  
     "errors.state_invalid": "El departamento es inválido",  
@@ -208,6 +209,7 @@
     "errors.error_guide_upload": "Por favor corrige los errores en el archivo y vuelve a realizar la carga de las guías.",  
     "errors.error_format_invalid": "El formato no es válido", 
     "errors.error_present": "Se han presentado", 
+    "errors.error.categories.valid": "El valor no es válido",
  
  
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.", 
@@ -438,6 +440,14 @@
  
     "secure.orders.pending_devolution.view_comment.commnet_client": "Comentario cliente", 
  
+    "secure.orders.send.no_more_sent_products": "La orden ya no posee mas productos para ser enviados",
+    "secure.orders.send.total_sent_order": "Total del productos a ser enviados en la orden",
+    "secure.orders.send.error_ocurred_processing": "Hubo un error procesando la solicitud.",
+    "secure.orders.send.check_without": "Hay uno o mas checks sin seleccionar, no se activa el boton enviar todo",
+    "secure.orders.send.send_correctly": "Se ha enviado el producto correctamente",
+    "secure.orders.send.error_ocurred_product": "Se ha presentado un error al enviar el producto",
+    "secure.orders.send.cant_not_sent": "El producto seleccionado no puede ser enviado",
+
     "secure.seller.list.enabled_title_modal": "Activación",  
     "secure.seller.list.disabled_title_modal": "Desactivación",  
     "secure.seller.list.vacation_title_modal": "Vacaciones",  
@@ -951,11 +961,15 @@
     "secure.parametize.category.categories.lb_comission_form": "Comisión por defecto",  
     "secure.parametize.category.categories.lb_parent_name_category_form": "Parent category name",  
     "secure.parametize.category.categories.lb_id_vtex_form": "VTEX ID",  
-    "secure.parametize.category.categories.lb_id_carulla_form": "Carulla ID",  
+    "secure.parametize.category.categories.lb_id_carulla_form": "Carulla ID",
+    "secure.parametize.category.categories.lb_vtex_id_carulla_form": "VTEX ID Carulla",  
     "secure.parametize.category.categories.lb_id_exito_form": "Éxito ID",  
     "secure.parametize.category.categories.lb_id_catalogo_form": "Category ID",  
     "secure.parametize.category.categories.lb_id_market_form": "Marketplace ID", 
     "secure.parametize.category.categories.exception": "Excepciones", 
+    "secure.parametize.category.categories.creation_succesfully": "Creación realizada con éxito",
+    "secure.parametize.category.categories.not_create_category": "No se pudo crear la categoría",
+    "secure.parametize.category.categories.create_in_process": "Creación en proceso",
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija", 
  
