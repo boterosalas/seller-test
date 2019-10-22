@@ -155,6 +155,8 @@ export const endpoints = {
       exceptionBrandsManage: '',
       // Reporte de ofertas administrator
       reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
+      // Get vtex TREET
+      getVtexTree: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtextree',
     },
   },
   // Endpoints production
@@ -310,6 +312,8 @@ export const endpoints = {
       exceptionBrandsManage: '',
       // Reporte de ofertas administrator
       reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
+       // Get vtex TREET
+       getVtexTree: '',
     }
   }
 };
