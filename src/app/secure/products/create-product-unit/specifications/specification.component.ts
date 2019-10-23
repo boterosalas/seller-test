@@ -49,7 +49,6 @@ export class SpecificationProductComponent implements OnInit {
         // if (this.processService.specsByCategory) {
         this.processService.isLoad.subscribe(result => {
             this.isLoad = result;
-            console.log(result);
         });
         this.processService.specsByCategory.subscribe(result => {
             if (result && result.data) {
