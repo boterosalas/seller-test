@@ -45,14 +45,16 @@ export class SpecificationProductComponent implements OnInit {
      */
     ngOnInit() {
         this.specsForm = new FormControl();
-        if (this.processService.specsByCategory) {
+        // if (this.processService.specsByCategory) {
             this.processService.specsByCategory.subscribe(result => {
                 if (result && result.data) {
                     this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+                } else {
+                    this.specificationsGroups = [];
                 }
                 this.chargeList = true;
             });
-        }
+        // }
     }
 
     public validateObligatoryGroup(group: any): boolean {
