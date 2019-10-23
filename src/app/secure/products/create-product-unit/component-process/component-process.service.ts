@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
 import { of } from 'rxjs';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
 
 
 /**
@@ -111,6 +113,8 @@ export class ProcessService {
         ]
     }];
 
+    idCategory: any;
+
 
 
     /**
@@ -188,9 +192,13 @@ export class ProcessService {
      * @param {HttpClient} http
      * @memberof ProcessService
      */
-    constructor(private http: HttpClient,
-        private api: EndpointService) {
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService,
+        private languageService: TranslateService
+        ) {
         this.productData.AssignEan = false;
+        this.refreshSpecifications();
     }
 
     /**
@@ -221,6 +229,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getSpecsByCategories(idCategory: string): void {
+        this.idCategory = idCategory;
         this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
             // if (data) {
                 this.specsByCategory.emit(data);
@@ -228,6 +237,14 @@ export class ProcessService {
         }, error => {
             console.error(error);
         });
+    }
+
+    public refreshSpecifications () {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.getSpecsByCategories(this.idCategory);
+            // console.log(e);
+          });
     }
 
     /**

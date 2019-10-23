@@ -23,30 +23,23 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   lang = 'ES';
 
-  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>,   private languageService: TranslateService){
+  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private languageService: TranslateService) {
     this.form = this.fb.group({
       lang: ['']
     });
     this.langs = this.translate.getLangs();
-    this.getLang().setValue(this.translate.getCurrentLanguage());
-    const subschange = this.getLang().valueChanges.subscribe(val => {
-      val !== this.translate.getCurrentLanguage() && this.translate.setLanguage(val);
-      const languageDatePicker = this.setText(val);
-      this.dateAdapter.setLocale(languageDatePicker);
-    });
+    this.setLanguegeCurrent();
     const subsLang = this.translate.language$.subscribe(val => {
       if (localStorage.getItem('culture_current')) {
-        const languageCurrent = localStorage.getItem('culture_current')
-        this.getLang().value !== languageCurrent && this.getLang().setValue(languageCurrent);
+        const languageCurrent = localStorage.getItem('culture_current');
         this.lang = languageCurrent;
         this.setLocalStorageCulture(val);
       } else {
-        this.getLang().value !== val && this.getLang().setValue(val);
         this.lang = val;
         this.setLocalStorageCulture(val);
       }
     });
-    this.subs.push(subsLang, subschange);
+    this.subs.push(subsLang);
   }
 
   /**
@@ -101,6 +94,21 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
       return 'EN';
     } else {
       return lang;
+    }
+  }
+
+  select(lang: any) {
+    this.translate.setLanguage(lang);
+    const languageDatePicker = this.setText(lang);
+    this.dateAdapter.setLocale(languageDatePicker);
+  }
+
+  setLanguegeCurrent() {
+    if (localStorage.getItem('culture_current')) {
+      const currentLanguege = localStorage.getItem('culture_current');
+      this.translate.setLanguage(currentLanguege);
+    } else {
+      this.translate.setLanguage(this.translate.getCurrentLanguage());
     }
   }
 
