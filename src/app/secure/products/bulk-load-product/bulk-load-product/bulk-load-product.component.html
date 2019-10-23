@@ -8,7 +8,8 @@
         <div class="normal-theme toolbar-options-table">
           <div fxFlex.gt-lg="60" fxFlex.gt-xs="auto">
             <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="sc-title title-toolbar"><b>{{'secure.products.bulk_upload.title_module' | translate}}</b> | {{'secure.products.bulk_upload.title_bar' | translate}}</h3>
+              class="sc-title title-toolbar"><b>{{'secure.products.bulk_upload.title_module' | translate}}</b> |
+              {{'secure.products.bulk_upload.title_bar' | translate}}</h3>
           </div>
 
           <!-- Paginación de la tabla -->
@@ -32,11 +33,11 @@
             </div>
 
             <!-- Input para subir archivo Excel -->
-            <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
-              multiple="false"
+            <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
+              (change)="onFileChange($event)" multiple="false"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
               #fileUploadOption>
-              <button  color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
+            <button color="primary" class="sc-default-button" id="download-file-button" (click)="openModalVtexTree()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-raised-button>
               <mat-icon class="mat-18 text_white">file_download</mat-icon>
               {{'secure.products.bulk_upload.download_template' | translate}}
@@ -64,9 +65,9 @@
                 <span>{{'secure.products.bulk_upload.upload_file' | translate}}</span>
               </button>
               <button id="download-file-button" (click)="openModalVtexTree()"
-              [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-menu-item>
-              <span>{{'secure.products.bulk_upload.download_template' | translate}}</span>
-            </button>
+                [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin" mat-menu-item>
+                <span>{{'secure.products.bulk_upload.download_template' | translate}}</span>
+              </button>
               <!-- Se esconde formato de cargas, ticket 725 -->
               <div *ngIf="false">
                 <a download id="download-file-guide-button" href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
@@ -77,7 +78,8 @@
                 </button>
 
                 <button id="send-guide-button" (click)="sendJsonInformation()"
-                  [disabled]="countErrors != 0 || countRowUpload == 0" color="accent" mat-menu-item>{{'secure.products.bulk_upload.send_data' | translate}}
+                  [disabled]="countErrors != 0 || countRowUpload == 0" color="accent"
+                  mat-menu-item>{{'secure.products.bulk_upload.send_data' | translate}}
                 </button>
               </div>
             </mat-menu>
@@ -112,19 +114,22 @@
         <div class="flexbox align-center justify-center">
           <mat-icon>get_app</mat-icon>
           <p>
-              {{'secure.products.bulk_upload.allowed_uploads_day' | translate}}: <strong> {{dataAvaliableLoads.maximumAmountAvailableLoads}} </strong>
+            {{'secure.products.bulk_upload.allowed_uploads_day' | translate}}: <strong>
+              {{dataAvaliableLoads.maximumAmountAvailableLoads}} </strong>
           </p>
         </div>
         <div class="flexbox align-center justify-center">
           <mat-icon>check_circle</mat-icon>
           <p>
-              {{'secure.products.bulk_upload.successful_uploads_today' | translate}}: <strong>{{dataAvaliableLoads.amountSuccessfulLoads}}</strong>
+            {{'secure.products.bulk_upload.successful_uploads_today' | translate}}:
+            <strong>{{dataAvaliableLoads.amountSuccessfulLoads}}</strong>
           </p>
         </div>
         <div class="flexbox align-center justify-center">
           <mat-icon>priority_hight</mat-icon>
           <p>
-              {{'secure.products.bulk_upload.available_uploads' | translate}}:  <strong> {{dataAvaliableLoads.amountAvailableLoads}}</strong>
+            {{'secure.products.bulk_upload.available_uploads' | translate}}: <strong>
+              {{dataAvaliableLoads.amountAvailableLoads}}</strong>
           </p>
         </div>
       </aside>
@@ -141,15 +146,16 @@
         </div>
         <div class="content-information-no-data">
           <p>{{'secure.products.bulk_upload.text_step_import' | translate}}
-            <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()"
-              class="link-text"> {{'secure.products.bulk_upload.download_the_format' | translate}}
+            <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad()" class="link-text">
+              {{'secure.products.bulk_upload.download_the_format' | translate}}
             </a> <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoadinternacional()"
-              class="link-text">(Download format)</a>, {{'secure.products.bulk_upload.text_step_import_two' | translate}}
+              class="link-text">(Download format)</a>,
+            {{'secure.products.bulk_upload.text_step_import_two' | translate}}
           </p>
           <p>
             <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">{{'secure.products.bulk_upload.text_select_import' | translate}}</span>
-              {{'secure.products.bulk_upload.text_select_import_type' | translate}}</p>
+            {{'secure.products.bulk_upload.text_select_import_type' | translate}}</p>
         </div>
       </div>
     </div>
@@ -164,13 +170,13 @@
         </div>
         <div class="content-information-no-data">
           <p>
-              {{'secure.products.bulk_upload.text_import_product' | translate}}
+            {{'secure.products.bulk_upload.text_import_product' | translate}}
             <!-- Para importar los productos al Seller Center deberás SIEMPRE descargar la plantilla de la categoría para la cual desees crear productos. Recuerda llenar la plantilla de la categoría correspondiente a tus productos completamente y revisando las restricciones de cada campo. En caso de que tus productos no tengan EAN, debes enviar el campo con un <b>cero (0)</b> en la plantilla. -->
           </p>
           <p>
             <span class="link-text" id="upload-file-guide-button" (click)="fileUploadOption.click()"
               [class.no-data-avaliable]="!dataAvaliableLoads && isAdmin">{{'secure.products.bulk_upload.text_select_import' | translate}}</span>
-              {{'secure.products.bulk_upload.text_select_import_type' | translate}}</p>
+            {{'secure.products.bulk_upload.text_select_import_type' | translate}}</p>
 
         </div>
       </div>
@@ -181,9 +187,16 @@
 <ng-template #modalContent>
   <div class="container--text__sticky">
     <p>{{'secure.products.bulk_upload.select_product_category' | translate}}</p>
-     <p>{{'secure.products.bulk_upload.select_category' | translate}} <span class="badge badge-blue" *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span></p>
+    <p>{{'secure.products.bulk_upload.select_category' | translate}} <span class="badge badge-blue"
+        *ngIf="!!categoryName && !!categoryName.value">{{categoryName.value}}</span></p>
   </div>
-  <div>
-      <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false" [margin]="0"></app-category-tree>
+  <div *ngIf="isLoad" class="loading-indicator">
+    <mat-spinner [diameter]="60" mode="indeterminate"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoad">
+    <div>
+      <app-category-tree [categoryList]="vtextree" [categoryComponent]="this" [canCreate]="false" [canUpdate]="false"
+        [margin]="0"></app-category-tree>
+    </div>
   </div>
 </ng-template>

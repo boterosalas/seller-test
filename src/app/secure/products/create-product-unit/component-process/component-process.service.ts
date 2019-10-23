@@ -243,7 +243,6 @@ export class ProcessService {
         this.languageService.onLangChange.subscribe((e: Event) => {
             localStorage.setItem('culture_current', e['lang']);
             this.getSpecsByCategories(this.idCategory);
-            // console.log(e);
           });
     }
 
