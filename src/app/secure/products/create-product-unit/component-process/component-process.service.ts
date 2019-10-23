@@ -186,6 +186,7 @@ export class ProcessService {
      */
     @Output() change: EventEmitter<any> = new EventEmitter();
     @Output() specsByCategory: EventEmitter<any> = new EventEmitter();
+    @Output() isLoad: EventEmitter<any> = new EventEmitter();
 
     /**
      * Crea una instancia del servicio.
@@ -241,9 +242,9 @@ export class ProcessService {
 
     public refreshSpecifications () {
         this.languageService.onLangChange.subscribe((e: Event) => {
+            this.isLoad.emit(true);
             localStorage.setItem('culture_current', e['lang']);
             this.getSpecsByCategories(this.idCategory);
-            // console.log(e);
           });
     }
 

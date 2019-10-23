@@ -26,6 +26,7 @@ export class SpecificationProductComponent implements OnInit {
     specificationModel = new SpecificationModel(null, null, null);
     specsForm: FormControl;
     changeForm = false;
+    isLoad = false;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -46,14 +47,21 @@ export class SpecificationProductComponent implements OnInit {
     ngOnInit() {
         this.specsForm = new FormControl();
         // if (this.processService.specsByCategory) {
-            this.processService.specsByCategory.subscribe(result => {
-                if (result && result.data) {
-                    this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
-                } else {
-                    this.specificationsGroups = [];
-                }
-                this.chargeList = true;
-            });
+        this.processService.isLoad.subscribe(result => {
+            this.isLoad = result;
+            console.log(result);
+        });
+        this.processService.specsByCategory.subscribe(result => {
+            if (result && result.data) {
+                this.isLoad = false;
+                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+            } else {
+                this.specificationsGroups = [];
+            }
+            this.chargeList = true;
+        });
+
+
         // }
     }
 
@@ -146,7 +154,7 @@ export class SpecificationProductComponent implements OnInit {
                         return this.languageService.instant('secure.products.create_product_unit.specifications.input_mandatory');
                         break;
                     case 'pattern':
-                        return  this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');
                         break;
                     default:
                         return this.languageService.instant('secure.products.create_product_unit.specifications.error_field');
