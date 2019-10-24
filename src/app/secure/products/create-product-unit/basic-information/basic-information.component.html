@@ -163,7 +163,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="field">
         <mat-select [placeholder]="'secure.products.create_product_unit.basic_information.mesasuring' | translate" formControlName="MeasurementUnit" (change)="detectForm()" required>
-          <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit">
+          <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit | translate">
             {{unit | translate}}
           </mat-option>
         </mat-select>
