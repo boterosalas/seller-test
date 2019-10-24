@@ -885,7 +885,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer": "An error has ocurred when trying to apply and offer",  
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",  
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid", 
- 
+    "secure.products.create_product_unit.list_products.please_wait" : "Loading, please wait...",
+
     "secure.parametize.title_toolbar": "Configuration", 
     "secure.parametize.brands.title_filter_brand": "Brand filter",  
     "secure.parametize.brands.txt_brand_name": "Brand's name",  

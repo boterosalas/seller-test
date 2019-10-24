@@ -5,8 +5,8 @@
   {{validForm(specsForm.invalid)}}
   <form name="specsForm" #specsForm="ngForm">
     <div *ngIf="isLoad">
-      <mat-spinner [diameter]="40" style="margin-left: 48%; margin-right: 55%;"></mat-spinner>
-      <p class="loading-waiting">cargando, espere por favor...</p>
+      <mat-spinner [diameter]="40" class="margin-loading"></mat-spinner>
+      <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
     </div>
     <div *ngIf="!isLoad">
         <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">

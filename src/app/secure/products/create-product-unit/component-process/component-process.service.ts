@@ -373,7 +373,10 @@ export class ProcessService {
      */
     public saveInformationUnitreation(): Observable<{}> {
         this.sendFieldMeta();
-        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
+        return new Observable(observer => {
+            observer.next(this.productData);
+          });
+        // return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 
     resetProduct() {
