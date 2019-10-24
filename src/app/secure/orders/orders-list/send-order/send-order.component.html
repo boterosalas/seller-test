@@ -75,7 +75,6 @@
       </button>
     </div>
     <ng-container *ngFor="let product of order.products">
-      <div *ngIf="product.idStatusProduct === 35">
         <mat-card [@detailExpand] *ngIf="product.tracking == null"
           class="example-card"
           [hidden]="product.tracking != null" fxFlex="100">
@@ -136,7 +135,6 @@
             </mat-accordion>
           </mat-card-content>
         </mat-card>
-      </div>
     </ng-container>
   </div>
 </div>

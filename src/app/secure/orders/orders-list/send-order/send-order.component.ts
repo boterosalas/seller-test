@@ -78,6 +78,7 @@ export class SendOrderComponent implements OnInit {
     this.order = _.cloneDeep(data.order);
     this.user = data.user;
     this.order = this.order || FAKE.FAKEORDER;
+    this.order.products = this.order.products.filter(x => x.idStatusProduct === 35);
   }
 
   /**
