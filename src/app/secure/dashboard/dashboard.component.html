@@ -148,26 +148,32 @@
           </mat-form-field>
         </div>
 
-        <div class="sales__graph-box">
-
-          <div class="sales__graph graph">
-            <div class="graph__content">
-              <div class="graph__table">
-                <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                  <div class="graph__value">${{colum.value | number}}</div>
-                  <div class="graph__bar" [style.minHeight]="colum.percent">
-                    <div class="graph__label">{{colum.monthName}}</div>
+        <div *ngIf="!isLoading">
+          <div class="sales__graph-box">
+            <div class="sales__graph graph">
+              <div class="graph__content">
+                <div class="graph__table">
+                  <div *ngFor="let colum of last_sales" class="graph__bar-box">
+                    <div class="graph__value">${{colum.value | number}}</div>
+                    <div class="graph__bar" [style.minHeight]="colum.percent">
+                      <div class="graph__label">{{colum.monthName}}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="graph__info">
-              <p>
-                {{'secure.dashboard.info_cancel_sale' | translate}}
-              </p>
+              <div class="graph__info">
+                <p>
+                  {{'secure.dashboard.info_cancel_sale' | translate}}
+                </p>
+              </div>
             </div>
           </div>
-
+        </div>
+        <div *ngIf="isLoading">
+          <div>
+            <mat-spinner [diameter]="40" style="margin-left: 48%; margin-right: 55%;"></mat-spinner>
+            <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+          </div>
         </div>
       </div>
     </div>

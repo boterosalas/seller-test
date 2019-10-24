@@ -37,12 +37,16 @@ export class DashboardComponent implements OnInit {
     // Fecha inicial del datepicker
     public visibleDate: string;
 
+    public dateCurrent: any;
+
     // Fecha máxima del datePicker
     public dateMax: Date;
 
     public monthEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     public monthES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     lang = 'ES';
+    public isLoad = true;
+    public isLoading = false;
 
     /**
      * Variable para observar el input del filtro inicial
@@ -89,6 +93,7 @@ export class DashboardComponent implements OnInit {
         // this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
         this.getUserData();
+        this.changeLanguage();
     }
 
     /**
@@ -118,6 +123,7 @@ export class DashboardComponent implements OnInit {
         this.loadingService.viewSpinner();
         this._dashboard.getOrdersByStatus(this.user.sellerId)
             .subscribe(res => {
+                console.log(res);
                 this.orders = res;
                 this.loadingService.closeSpinner();
             }, err => {
@@ -133,16 +139,39 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     private getLastSales(date?: any) {
-        this.loadingService.viewSpinner();
-        this._dashboard.getLastSales(this.user.sellerId, date)
+        this.dateCurrent = date;
+        if (this.isLoad) {
+            this.loadingService.viewSpinner();
+        }
+        if (this.user && this.user.sellerId) {
+            this._dashboard.getLastSales(this.user.sellerId, date)
             .subscribe((res: any[]) => {
-                this.loadingService.closeSpinner();
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
                 this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
             }, err => {
-                this.loadingService.closeSpinner();
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
                 this.log.debug(err);
                 this.modalService.showModal('errorService');
             });
+        }
+    }
+
+    changeLanguage() {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            this.isLoad = false;
+            this.isLoading = true;
+            localStorage.setItem('culture_current', e['lang']);
+            this.getLastSales(this.dateCurrent);
+          });
+
     }
 
     /**
