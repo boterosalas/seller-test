@@ -123,7 +123,6 @@ export class DashboardComponent implements OnInit {
         this.loadingService.viewSpinner();
         this._dashboard.getOrdersByStatus(this.user.sellerId)
             .subscribe(res => {
-                console.log(res);
                 this.orders = res;
                 this.loadingService.closeSpinner();
             }, err => {
