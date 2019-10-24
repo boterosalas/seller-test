@@ -494,7 +494,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                 iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
+                // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                 iSize: this.arrayNecessaryData[0].indexOf('Size'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -537,7 +537,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                 iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                 iSize: this.arrayNecessaryData[0].indexOf('Talla'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -1188,7 +1188,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     if (variant && variant === true) {
       newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
-      newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
+      // newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
       newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
       newObjectForSend['Color'] = res[i][iVal.iColor] ? res[i][iVal.iColor].trim() : null;
       newObjectForSend['HexColourCodePDP'] = res[i][iVal.iHexColourCodePDP] ? res[i][iVal.iHexColourCodePDP].trim() : null;
@@ -1369,7 +1369,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       HexColourCodePDP: res[index][iVal.iHexColourCodePDP],
       HexColourName: res[index][iVal.iHexColourName],
       ParentReference: res[index][iVal.iParentReference],
-      SonReference: res[index][iVal.iSonReference],
+      // SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
       IsLogisticsExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
@@ -2200,7 +2200,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       productos = [{
         'Grupo EAN Combo': undefined,
         'EAN': undefined,
-        'Referencia Hijo': undefined,
+        // 'Referencia Hijo': undefined,
         'Referencia Padre': undefined,
         'Nombre del producto': undefined,
         'Categoria': undefined,
@@ -2238,7 +2238,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       productos = [{
         'Combo EAN Group': undefined,
         'EAN': undefined,
-        'Child reference': undefined,
+        // 'Child reference': undefined,
         'Parent reference': undefined,
         'Product Name': undefined,
         'Category': undefined,
