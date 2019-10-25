@@ -2,6 +2,7 @@ export class SpecificationModel {
 
     Id?: number;
     Name: string;
+    Label: string;
     Value: string;
     Show: boolean;
     Sons: SpecificationModel[];
@@ -14,6 +15,7 @@ export class SpecificationModel {
     constructor(
         Name: string,
         Show: boolean,
+        Label: string,
         Sons?: SpecificationModel[],
         Id?: number,
         IdParent?: number,
@@ -23,6 +25,7 @@ export class SpecificationModel {
         this.Id = Id;
         this.IdParent = IdParent;
         this.Show = Show;
+        this.Label = Label;
         this.Sons = Sons;
         this.List = List;
         this.Name = Name;
@@ -61,6 +64,7 @@ export class SpecificationModel {
         model = new SpecificationModel(
             specification.groupName,
             false,
+            specification.label,
             this.getSons(specification.specs),
             specification.idGroup,
             null,
@@ -89,6 +93,7 @@ export class SpecificationModel {
                 new SpecificationModel(
                     data.specName,
                     false,
+                    data.label,
                     null,
                     data.idSpec,
                     null,

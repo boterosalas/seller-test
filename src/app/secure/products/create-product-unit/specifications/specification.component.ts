@@ -123,8 +123,8 @@ export class SpecificationProductComponent implements OnInit {
         const cont = this.verifyExist(model, indexParent, indexSon);
         if (cont === null) {
             this.specificationListToAdd.push({
-                Name: model.Name,
-                Key: model.Name,
+                Name: model.Label,
+                Key: model.Label,
                 Value: model.Value,
                 ExistId: indexParent + '-' + indexSon
             });

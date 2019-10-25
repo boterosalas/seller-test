@@ -157,18 +157,17 @@ export class ComponentProcessComponent implements OnInit {
     if (!this.saving) {
       this.saving = true;
       this.process.saveInformationUnitreation().subscribe(result => {
-        console.log(result);
-        // const data = result;
-        // this.loadingService.closeSpinner();
-        // this.saving = false;
-        // if (data['data'] !== null && data['data'] !== undefined) {
-        //   if (data['data'].error === 0) {
-        //     this.process.resetProduct();
-        //   }
-        //   this.openDialogSendOrder2(data);
-        // } else {
-        //   this.modalService.showModal('errorService');
-        // }
+        const data = result;
+        this.loadingService.closeSpinner();
+        this.saving = false;
+        if (data['data'] !== null && data['data'] !== undefined) {
+          if (data['data'].error === 0) {
+            this.process.resetProduct();
+          }
+          this.openDialogSendOrder2(data);
+        } else {
+          this.modalService.showModal('errorService');
+        }
       }, error => {
         this.saving = false;
         this.loadingService.closeSpinner();
