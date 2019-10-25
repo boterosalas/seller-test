@@ -78,6 +78,7 @@ export class SendOrderComponent implements OnInit {
     this.order = _.cloneDeep(data.order);
     this.user = data.user;
     this.order = this.order || FAKE.FAKEORDER;
+    this.order.products = this.order.products.filter(x => x.idStatusProduct === 35);
   }
 
   /**
@@ -241,7 +242,6 @@ export class SendOrderComponent implements OnInit {
         this.componentService.openSnackBar(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), 15000);
       } else {
         this.componentService.openSnackBar(this.languageService.instant('secure.orders.send.send_correctly'), this.languageService.instant('actions.close'), 15000);
-
         for (let i = 0; i < this.order.products.length; i++) {
           if (this.order.products[i].tracking == null) {
             this.order.products[i].tracking = this.sendAllForm.value.Guide;
@@ -260,6 +260,7 @@ export class SendOrderComponent implements OnInit {
         }
         // retorno la orden para que se actualice la información
         this.dialogRef.close(this.order);
+        window.location.reload();
       }
       this.onNoClick();
     }, error => {

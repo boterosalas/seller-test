@@ -142,6 +142,19 @@ export class FilterComponent implements OnInit, OnChanges {
     }
 
     /**
+     * Metodo que permite solo números
+     * @param {*} event
+     * @memberof FilterComponent
+     */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
+    }
+
+    /**
      * @method toggleMenu
      * @memberof FilterComponent
      * @description Metodo para abrir o cerrar el menu
