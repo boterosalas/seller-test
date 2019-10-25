@@ -750,7 +750,7 @@
     "secure.products.create_product_unit.basic_information.specific_name_invalid": "El Nombre específico de color ingresado no es válido, no debe tener espacios.",  
     "secure.products.create_product_unit.basic_information.beige": "Beige",  
     "secure.products.create_product_unit.basic_information.black": "Negro",  
-    "secure.products.create_product_unit.basic_information.White": "Blanco",  
+    "secure.products.create_product_unit.basic_information.white": "Blanco",  
     "secure.products.create_product_unit.basic_information.blue": "Azul",  
     "secure.products.create_product_unit.basic_information.yellow": "Amarillo",  
     "secure.products.create_product_unit.basic_information.brown": "Café",  

@@ -1321,7 +1321,7 @@ describe('SpecificationProductComponent', () => {
             }
         ]
     }];
-    const specificationModel2 = new SpecificationModel(specification[0].specName, false, [], specification[0].idGroup);
+    const specificationModel2 = new SpecificationModel(specification[0].specName, false, null, [], specification[0].idGroup);
 
     const structureJson = {
         statusCode: 200,
