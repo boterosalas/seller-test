@@ -30,7 +30,7 @@
                 (filesChange)="lastFileAt=getDate()">
                 <strong *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1' | translate}}</strong>
                 <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
-                <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}</strong>
+                <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong>
                 <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
                     attach_file
                 </mat-icon>

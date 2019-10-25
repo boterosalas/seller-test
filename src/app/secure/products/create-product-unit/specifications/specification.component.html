@@ -4,47 +4,53 @@
 <div class="specification-container" *ngIf="chargeList">
   {{validForm(specsForm.invalid)}}
   <form name="specsForm" #specsForm="ngForm">
-    <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
-      <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
-        <span class="specification-name" [matTooltip]="'secure.products.create_product_unit.specifications.group_mandatory_specifications' | translate"
-          [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
-          {{specification.Name}}
-          <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
-            {{'secure.products.create_product_unit.specifications.info' | translate}}
-          </mat-icon>
-        </span>
-        <button mat-icon-button (click)="toggleSpecification(specification, true)">
-          <mat-icon class="material-icons" *ngIf="!specification.Show">
-            keyboard_arrow_down
-          </mat-icon>
-          <mat-icon class="material-icons" *ngIf="specification.Show">
-            keyboard_arrow_up
-          </mat-icon>
-        </button>
-      </div>
-      <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
-        <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
-          <mat-form-field *ngIf="!spec.List.length" class="specification-input">
-            <input [required]="spec.Required" matInput placeholder="{{spec.Name}}"
-              (keyup.enter)="specificationChange(spec, i, e)" name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value"
-              (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
-            <mat-error>
-              {{showError(e, specsForm)}}
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field *ngIf="spec.List.length" class="specification-input">
-            <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}" id="specs{{e}}"
-              name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
-              <mat-option *ngFor="let item of spec.List" [value]="item.label">
-                {{item.displayName}}
-              </mat-option>
-            </mat-select>
-            <mat-error>
-              {{showError(e, specsForm)}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
+    <div *ngIf="isLoad">
+      <mat-spinner [diameter]="40" class="margin-loading"></mat-spinner>
+      <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+    </div>
+    <div *ngIf="!isLoad">
+        <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">
+              <span class="specification-name" [matTooltip]="'secure.products.create_product_unit.specifications.group_mandatory_specifications' | translate"
+                [ngClass]="{'label-black': specification.Show}" fxLayout="row" fxLayoutAlign="start center">
+                {{specification.Name}}
+                <mat-icon class="material-icons badge-obligatory" *ngIf="validateObligatoryGroup(specification)">
+                  {{'secure.products.create_product_unit.specifications.info' | translate}}
+                </mat-icon>
+              </span>
+              <button mat-icon-button (click)="toggleSpecification(specification, true)">
+                <mat-icon class="material-icons" *ngIf="!specification.Show">
+                  keyboard_arrow_down
+                </mat-icon>
+                <mat-icon class="material-icons" *ngIf="specification.Show">
+                  keyboard_arrow_up
+                </mat-icon>
+              </button>
+            </div>
+            <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
+              <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
+                <mat-form-field *ngIf="!spec.List.length" class="specification-input">
+                  <input [required]="spec.Required" matInput placeholder="{{spec.Name}}"
+                    (keyup.enter)="specificationChange(spec, i, e)" name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value"
+                    (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
+                  <mat-error>
+                    {{showError(e, specsForm)}}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="spec.List.length" class="specification-input">
+                  <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}" id="specs{{e}}"
+                    name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
+                    <mat-option *ngFor="let item of spec.List" [value]="item.label">
+                      {{item.displayName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    {{showError(e, specsForm)}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
     </div>
   </form>
 </div>
