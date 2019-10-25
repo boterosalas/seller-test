@@ -168,6 +168,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   public isLoad = false;
 
   @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  copySizeArray: any;
 
   constructor(
     public componentService: ComponentsService,
@@ -1486,6 +1487,21 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /**
+   * Metodo para validar la talla del servicio de tallas y enviar siempre el label en español.
+   * @memberof BulkLoadProductComponent
+   */
+  changeSize() {
+    this.arrayInformationForSend.splice(0, 1);
+    this.arrayInformationForSend.forEach((element) => {
+      this.copySizeArray.forEach((el) => {
+        if (el.Size === element['Size']) {
+          element['Size'] = el.Label;
+        }
+      });
+    });
+  }
+
+  /**
    * Método que permite realizar el envío del json cargado del excel
    * @memberof BulkLoadProductComponent
    */
@@ -2357,6 +2373,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   listOfSize(size?: any) {
     const sizeArray = JSON.parse(size.body);
+    this.copySizeArray = sizeArray;
     sizeArray.forEach((element, i) => {
       this.size[i] = { Talla: element.Size };
     });
@@ -2414,6 +2431,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.isLoad = true;
       this.vtextree = [];
       this.trasformTree();
+      this.prepareComponent();
     });
   }
 
