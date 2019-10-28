@@ -165,8 +165,6 @@ export class ComponentProcessComponent implements OnInit {
             this.process.resetProduct();
           }
           this.openDialogSendOrder2(data);
-        } else {
-          this.modalService.showModal('errorService');
         }
       }, error => {
         this.saving = false;
