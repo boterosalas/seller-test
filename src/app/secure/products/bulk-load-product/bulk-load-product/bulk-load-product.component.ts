@@ -2042,7 +2042,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         { B: this.languageService.instant('secure.products.bulk_upload.color')},
         { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige')},
         { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black')},
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.White')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.white')},
         { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue')},
         { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow')},
         { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown')},
