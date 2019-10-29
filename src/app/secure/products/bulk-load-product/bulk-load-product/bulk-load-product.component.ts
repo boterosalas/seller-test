@@ -2063,22 +2063,22 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     if (this.categoryType.value === 'Clothing') {
       const worksheetSize: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.talla);
       XLSX.utils.sheet_add_json(worksheetSize, [
-        { B: this.languageService.instant('secure.products.bulk_upload.color') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.White') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.gray') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.green') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.orange') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.pink') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.purple') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.red') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.silver') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.golden') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.multicolored') }
+        { B: this.languageService.instant('secure.products.bulk_upload.color')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.white')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.gray')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.green')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.orange')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.pink')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.purple')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.red')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.silver')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.golden')},
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.multicolored')}
       ], { skipHeader: true, origin: 'B1' });
 
       // SheetNames: Arreglo con el nombre de la hoja

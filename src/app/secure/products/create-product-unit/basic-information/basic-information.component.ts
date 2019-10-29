@@ -122,6 +122,7 @@ export class ProductBasicInfoComponent implements OnInit {
             }
             this.showButton = data.showEan;
         });
+        this.reloadByCulture();
     }
 
     /**
@@ -259,6 +260,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
             }
         });
+
+
     }
 
     public validateClothingProduct(): boolean {
@@ -604,6 +607,29 @@ export class ProductBasicInfoComponent implements OnInit {
         this.service.getSizeProducts().subscribe(size => {
             if (size.status === 200 || size.status === 201) {
                 this.sizes = JSON.parse(size.body);
+                if (this.sonList.length > 0) {
+                    for (let i = 0; i < this.sonList.length; i++) {
+                        this.sonList[i].form.controls.Size.enable();
+                    }
+                }
+            }
+        });
+    }
+
+/**
+ * funcion para recarga el input de tallas dependiendo del idioma seleccionado
+ *
+ * @memberof ProductBasicInfoComponent
+ */
+reloadByCulture() {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            if (this.sonList.length > 0) {
+                for (let i = 0; i < this.sonList.length; i++) {
+                    this.sonList[i].form.controls.Size.setValue();
+                    this.sonList[i].form.controls.Size.disable();
+                }
+                this.sizes = [];
+                this.listSize();
             }
         });
     }

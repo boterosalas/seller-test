@@ -83,8 +83,8 @@ export class AddDialogSpecsComponent implements OnInit {
         if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length) {
             this.dataToEdit.List.forEach(element => {
                 this.listOptions.push({
-                    option: element,
-                    formControl: new FormControl(element, Validators.required),
+                    option: {'displayName': element.displayName, 'label': element.label},
+                    formControl: new FormControl(element.displayName, Validators.required),
                     name: 'option' + this.listOptions.length
                 });
                 this.formAddSpecs.addControl(this.listOptions[this.listOptions.length - 1].name, this.listOptions[this.listOptions.length - 1].formControl);
@@ -106,7 +106,7 @@ export class AddDialogSpecsComponent implements OnInit {
             if (this.listOptions.length && this.formAddSpecs.controls.optionSpec.value === this.typeList) {
                 data.ListValues = [];
                 this.listOptions.forEach(element => {
-                    data.ListValues.push(element.formControl.value);
+                    data.ListValues.push(element.option.label);
                 });
             }
             this.dialogRef.close(data);
