@@ -3,6 +3,7 @@ import { SearchService } from '../search.component.service';
 import { Logger } from '@app/core';
 import { CategoryModel } from './category.model';
 import { ProcessService } from '../../component-process/component-process.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('ListCategorizationComponent');
@@ -27,13 +28,17 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     selectedCategory: string;
     selectedIdCategory: number;
 
+    // Variable para mostrar loading
+    public isLoad = false;
+
     /**
      * Creates an instance of ListCategorizationComponent.
      * @param {SearchService} searchService
      * @memberof ListCategorizationComponent
      */
     constructor(private searchService: SearchService,
-                private process: ProcessService) { }
+        private process: ProcessService,
+        private languageService: TranslateService) { }
 
     /**
      * Initialize component get categories list.
@@ -41,7 +46,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @memberof ListCategorizationComponent
      */
     ngOnInit() {
-        this.getCategoriesList();
+        // this.getCategoriesList();
         this.searchService.change.subscribe((result: any) => {
             this.selectedCategory = result.Name;
             if (this.selectedIdCategory !== result.Id) {
@@ -54,6 +59,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             };
             this.process.validaData(data);
         });
+        this.refreshVtexTree();
     }
 
     /** When list changes need organized  */
@@ -157,6 +163,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             } else {
                 log.debug('ListCategorizationComponent:' + result.message);
             }
+            this.isLoad = false;
         });
     }
 
@@ -234,5 +241,15 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
 
         }
         return categories;
+    }
+
+    public refreshVtexTree() {
+        this.getCategoriesList();
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.isLoad = true;
+            this.openAllItems = false;
+            this.getCategoriesList();
+        });
     }
 }

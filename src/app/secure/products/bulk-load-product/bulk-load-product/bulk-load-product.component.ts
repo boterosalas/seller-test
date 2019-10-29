@@ -2422,7 +2422,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /**
-   * metodo para escuchar el evento del lenguaje para poder armar el arbol de categoria de vtex
+   * Metodo para escuchar el evento del lenguaje para poder armar el arbol de categoria de vtex
    * @memberof BulkLoadProductComponent
    */
   public refreshVtexTree() {

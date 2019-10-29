@@ -171,7 +171,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: true,
+        showEan: false,
         showCat: false,
         showInfo: true,
         showSpec: true,

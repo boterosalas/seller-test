@@ -1,19 +1,25 @@
-<div style="margin: 20px;">
-    <div fxLayout="row" fxLayout="row" fxLayoutAlign="space-between center">
-        <div></div>
-        <div>
-            <div *ngIf="selectedCategory">
-                    {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}:  <strong [innerHTML]="selectedCategory"></strong>
-            </div>
-        </div>
-        <button mat-button (click)="openAll()">
-            <span *ngIf="!openAllItems">
-                    {{'secure.products.create_product_unit.categorization.list.expand' | translate}}
-            </span>
-            <span *ngIf="openAllItems">
-                    {{'secure.products.create_product_unit.categorization.list.colapse' | translate}}
-            </span>
-        </button>
+<!-- <div *ngIf="isLoad" style="margin-left: 47%; margin-right: 50%; padding-top: 20px"> -->
+<div *ngIf="isLoad" class="loading-spinner-service">
+  <mat-spinner [diameter]="60" mode="indeterminate"></mat-spinner>
+  Cargando arbol
+</div>
+<div style="margin: 20px;" *ngIf="!isLoad">
+  <div fxLayout="row" fxLayout="row" fxLayoutAlign="space-between center">
+    <div></div>
+    <div>
+      <div *ngIf="selectedCategory">
+        {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
+          [innerHTML]="selectedCategory"></strong>
+      </div>
     </div>
-    <app-tree [treeData]=listCategories [idSelected]="selectedIdCategory" [open]="true" *ngIf="finishCharge"></app-tree>
+    <button mat-button (click)="openAll()">
+      <span *ngIf="!openAllItems">
+        {{'secure.products.create_product_unit.categorization.list.expand' | translate}}
+      </span>
+      <span *ngIf="openAllItems">
+        {{'secure.products.create_product_unit.categorization.list.colapse' | translate}}
+      </span>
+    </button>
+  </div>
+  <app-tree [treeData]=listCategories [idSelected]="selectedIdCategory" [open]="true" *ngIf="finishCharge"></app-tree>
 </div>
