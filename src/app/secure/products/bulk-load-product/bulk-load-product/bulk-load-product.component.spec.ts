@@ -53,7 +53,7 @@ describe('BulkLoad Products Component', () => {
     const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openSnackBar']);
     const mockBulkLoadProductService = jasmine.createSpyObj('BulkLoadProductService', ['getAmountAvailableLoads', 'setProductsModeration',
-        'setProducts', 'getCargasMasivas', 'verifyStateCharge', 'getCategoriesVTEX']);
+        'setProducts', 'getCargasMasivas', 'verifyStateCharge', 'getCategoriesVTEX', 'getVtexTree']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     // const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu', 'profileType$']);
     const mockUserParametersService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
@@ -1252,7 +1252,7 @@ describe('BulkLoad Products Component', () => {
             }
         ],
         Show: false
-    }
+    };
 
     const lastlvl = {
         Name: 'Lavadoras',
@@ -1481,7 +1481,7 @@ describe('BulkLoad Products Component', () => {
         sellerName: 'la tienda de cristian 2019 vs 5',
         sellerNit: '1128438122',
         sellerProfile: 'seller',
-    }
+    };
 
     const UserInformationAdmin = {
         sellerEmail: 'ccbustamante2@misena.edu.co',
@@ -1489,7 +1489,7 @@ describe('BulkLoad Products Component', () => {
         sellerName: 'la tienda de cristian 2019 vs 5',
         sellerNit: '1128438122',
         sellerProfile: 'admin',
-    }
+    };
 
     const categories: any = {
         headers: {
@@ -1509,7 +1509,7 @@ describe('BulkLoad Products Component', () => {
             body: "{\"Errors\":[],\"Data\":[{\"Id\":27316,\"IdParent\":27195,\"Name\":\"A Gas\",\"IdExito\":\"cat790026000\",\"IdCarulla\":\"567_300030040000000\",\"IdCatalogos\":\"k_900010000000000\",\"IdMarketplace\":\"catmp1111000000\",\"ProductType\":\"Technology\",\"SkuShippingSize\":\"5\",\"Promisedelivery\":\"2 a 5\",\"IsExitoShipping\":true,\"Commission\":15.0,\"IdVTEX\":\"34185600\"},{\"Id\":27352,\"IdParent\":27231,\"Name\":\"Abdominales\",\"IdExito\":\"35_900120030040000\",\"IdCarulla\":\"567_300030010060000\",\"IdCatalogos\":\"k_900020020000000\",\"IdMarketplace\":\"catmp1141000000\",\"ProductType\":\"Technology\",\"SkuShippingSize\":\"4\",\"Promisedelivery\":\"2 a 5\",\"IsExitoShipping\":true,\"Commission\":15.0,\"IdVTEX\":\"34185334\"}],\"Message\":\"Operación realizada éxitosamente.\"}",
             isBase64Encoded: false
         }
-    }
+    };
 
     const resRegex = {
         body: {
@@ -1553,6 +1553,7 @@ describe('BulkLoad Products Component', () => {
             }
         };
         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of(result));
+        mockBulkLoadProductService.getVtexTree.and.returnValue(of(vetex));
         mockSupportService.getRegexFormSupport.and.returnValue(of(resRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));
@@ -1720,10 +1721,10 @@ describe('BulkLoad Products Component', () => {
                 { id: 27707, name: 'Carga Frontal' },
                 { id: 27714, name: 'Carga Superior' }],
                 specs: [
-                    { idSpec: "636945656167650094", specName: "Voltaje", required: false, values: null, listValues: Array(0) },
-                    { idSpec: "636945656198371143", specName: "Compatibilidad", required: false, values: null, listValues: Array(0) }
+                    { idSpec: '636945656167650094', specName: 'Voltaje', required: false, values: null, listValues: Array(0) },
+                    { idSpec: '636945656198371143', specName: 'Compatibilidad', required: false, values: null, listValues: Array(0) }
                 ]
-            }
+            };
             component.modelSpecs = { pruebas: '1', testeo: '2' };
             component.categoryType.setValue('Technology');
             component.exportExcel();
@@ -1738,7 +1739,7 @@ describe('BulkLoad Products Component', () => {
                 idVTEX: '',
                 listCategories: [],
                 specs: []
-            }
+            };
             component.modelSpecs = { pruebas: '1', testeo: '2' };
             component.categoryType.setValue('Clothing');
             component.exportExcel();

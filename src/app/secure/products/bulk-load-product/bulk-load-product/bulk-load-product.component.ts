@@ -136,7 +136,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // size
   size: any = [];
 
-  culture= 'ES';
+  culture = 'ES';
 
   // specName
 
@@ -164,8 +164,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /*arabol vtex*/
   vtextree: any[] = [];
 
-  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  // Variable para mostrar loading
+  public isLoad = false;
 
+  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  copySizeArray: any;
 
   constructor(
     public componentService: ComponentsService,
@@ -213,6 +216,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     //   this.getAvaliableLoads();
     // }
     this.getDataUser();
+    this.refreshVtexTree();
     this.trasformTree();
     // Prepare es el metodo que debe quedar
     this.prepareComponent();
@@ -236,22 +240,22 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       getBrands$,
       categoryList$,
       listOfSize$
-      ).subscribe(([
-        availableLoads,
-        verifyStateCharge,
-        validateRegex,
-        getBrands,
-        categoryList,
-        listOfSize
-      ]) => {
-        this.getAvaliableLoads(availableLoads);
-        this.verifyStateCharge(verifyStateCharge);
-        this.validateFormSupport(validateRegex);
-        this.listOfBrands(getBrands);
-        this.getCategoriesList(categoryList);
-        this.listOfSize(listOfSize);
-        this.loadingService.closeSpinner();
-      });
+    ).subscribe(([
+      availableLoads,
+      verifyStateCharge,
+      validateRegex,
+      getBrands,
+      categoryList,
+      listOfSize
+    ]) => {
+      this.getAvaliableLoads(availableLoads);
+      this.verifyStateCharge(verifyStateCharge);
+      this.validateFormSupport(validateRegex);
+      this.listOfBrands(getBrands);
+      this.getCategoriesList(categoryList);
+      this.listOfSize(listOfSize);
+      this.loadingService.closeSpinner();
+    });
   }
 
   async getDataUser() {
@@ -275,20 +279,20 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.profileTypeLoad = type;
       this.isAdmin = type !== 'Tienda';
     }
-      if (this.isAdmin) {
-        this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
-          (result: any) => {
-            /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-            if (result.status === 200 && result.body.data) {
-              /*Se guardan los datos en una variable*/
-              this.dataAvaliableLoads = result.body.data;
-            } else {
-              /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
-              this.modalService.showModal('errorService');
-            }
+    if (this.isAdmin) {
+      this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+        (result: any) => {
+          /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
+          if (result.status === 200 && result.body.data) {
+            /*Se guardan los datos en una variable*/
+            this.dataAvaliableLoads = result.body.data;
+          } else {
+            /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
+            this.modalService.showModal('errorService');
           }
-        );
-      }
+        }
+      );
+    }
   }
 
   /**
@@ -491,7 +495,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                 iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
+                // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                 iSize: this.arrayNecessaryData[0].indexOf('Size'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -534,7 +538,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
                 iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                 iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                 iSize: this.arrayNecessaryData[0].indexOf('Talla'),
                 iColor: this.arrayNecessaryData[0].indexOf('Color'),
                 iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -559,7 +563,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.contains_more_assets'), 'Aceptar', 10000);
               } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.instant('secure.products.bulk_upload.amount_allowed') , 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.instant('secure.products.bulk_upload.amount_allowed'), 'Aceptar', 10000);
               } else {
                 this.fileName = file.target.files[0].name;
                 this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -1127,13 +1131,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Get categories from service, and storage in list categories.
   */
   public getCategoriesList(result?: any): void {
-      // guardo el response
-      if (result.status === 200) {
-        const body = JSON.parse(result.body.body);
-        this.listCategories = body.Data;
-      } else {
-        log.debug('BulkLoadProductComponent:' + result.message);
-      }
+    // guardo el response
+    if (result.status === 200) {
+      const body = JSON.parse(result.body.body);
+      this.listCategories = body.Data;
+    } else {
+      log.debug('BulkLoadProductComponent:' + result.message);
+    }
   }
 
   /**
@@ -1185,7 +1189,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     if (variant && variant === true) {
       newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
-      newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
+      // newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
       newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
       newObjectForSend['Color'] = res[i][iVal.iColor] ? res[i][iVal.iColor].trim() : null;
       newObjectForSend['HexColourCodePDP'] = res[i][iVal.iHexColourCodePDP] ? res[i][iVal.iHexColourCodePDP].trim() : null;
@@ -1366,7 +1370,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       HexColourCodePDP: res[index][iVal.iHexColourCodePDP],
       HexColourName: res[index][iVal.iHexColourName],
       ParentReference: res[index][iVal.iParentReference],
-      SonReference: res[index][iVal.iSonReference],
+      // SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
       IsLogisticsExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
@@ -1483,6 +1487,21 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /**
+   * Metodo para validar la talla del servicio de tallas y enviar siempre el label en español.
+   * @memberof BulkLoadProductComponent
+   */
+  changeSize() {
+    this.arrayInformationForSend.splice(0, 1);
+    this.arrayInformationForSend.forEach((element) => {
+      this.copySizeArray.forEach((el) => {
+        if (el.Size === element['Size']) {
+          element['Size'] = el.Label;
+        }
+      });
+    });
+  }
+
+  /**
    * Método que permite realizar el envío del json cargado del excel
    * @memberof BulkLoadProductComponent
    */
@@ -1565,29 +1584,29 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /*Funcion para validar el status de la carga y abrir o no el modal */
   verifyStateCharge(result?: any) {
-          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
-          if (result.body.data.response) {
-            result.body.data.response = JSON.parse(result.body.data.response);
-          }
-          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
-          } else if (result.body.data.status === 1 || result.body.data.status === 4) {
-            result.body.data.status = 1;
-            if (!this.progressStatus) {
-              this.openDialogSendOrder(result);
-            }
-            this.progressStatus = true;
-          } else if (result.body.data.status === 2) {
-            this.closeActualDialog();
-            this.openDialogSendOrder(result);
-          } else if (result.body.data.status === 3) {
-            this.closeActualDialog();
-            if (result.body.data.response.Errors['0']) {
-              this.modalService.showModal('errorService');
-            } else {
-              this.openDialogSendOrder(result);
+    // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+    if (result.body.data.response) {
+      result.body.data.response = JSON.parse(result.body.data.response);
+    }
+    if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+    } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+      result.body.data.status = 1;
+      if (!this.progressStatus) {
+        this.openDialogSendOrder(result);
+      }
+      this.progressStatus = true;
+    } else if (result.body.data.status === 2) {
+      this.closeActualDialog();
+      this.openDialogSendOrder(result);
+    } else if (result.body.data.status === 3) {
+      this.closeActualDialog();
+      if (result.body.data.response.Errors['0']) {
+        this.modalService.showModal('errorService');
+      } else {
+        this.openDialogSendOrder(result);
 
-            }
-          }
+      }
+    }
   }
 
   /**
@@ -1997,14 +2016,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   // Funcion para cargar datos de regex
   public validateFormSupport(res?: any): void {
-      let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
-      for (const val in this.productsRegex) {
-        if (!!val) {
-          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
-          this.productsRegex[val] = element && `${element.Value}`;
-        }
+    let dataOffertRegex = JSON.parse(res.body.body);
+    dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+    for (const val in this.productsRegex) {
+      if (!!val) {
+        const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+        this.productsRegex[val] = element && `${element.Value}`;
       }
+    }
   }
 
   /*Generar excel*/
@@ -2029,7 +2048,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const worksheetCategory: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.categoria);
     const worksheetBrands: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.marcas);
     const worksheetSpecifications: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.especificaciones);
-    let workbook: XLSX.WorkBook ;
+    let workbook: XLSX.WorkBook;
 
     // SheetNames: Arreglo con el nombre de la hoja
     // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
@@ -2072,14 +2091,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
       if (this.culture === 'ES') {
-        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications}, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones']};
+        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
       } else {
         worksheetBrands['A1'].v = 'BRANDS';
         if (worksheetCategory['A1'] && worksheetCategory['B1']) {
           worksheetCategory['A1'].v = 'Category Code';
           worksheetCategory['B1'].v = 'Specific Category';
         }
-        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications']};
+        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications'] };
       }
 
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -2099,11 +2118,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Datos de plantilla Technology */
 
   getDataFormFileTechnology() {
-   const productos = this.setCultureColumnsTechnology();
-   const categoria = this.listOfCategories();
-   const marcas = this.brands;
-   const especificaciones = this.listOfSpecs();
-  return { productos, categoria, marcas, especificaciones };
+    const productos = this.setCultureColumnsTechnology();
+    const categoria = this.listOfCategories();
+    const marcas = this.brands;
+    const especificaciones = this.listOfSpecs();
+    return { productos, categoria, marcas, especificaciones };
   }
 
 
@@ -2194,10 +2213,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   setCultureColumnsClothing() {
     let productos = [];
     if (this.culture === 'ES') {
-       productos = [{
+      productos = [{
         'Grupo EAN Combo': undefined,
         'EAN': undefined,
-        'Referencia Hijo': undefined,
+        // 'Referencia Hijo': undefined,
         'Referencia Padre': undefined,
         'Nombre del producto': undefined,
         'Categoria': undefined,
@@ -2235,7 +2254,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       productos = [{
         'Combo EAN Group': undefined,
         'EAN': undefined,
-        'Child reference': undefined,
+        // 'Child reference': undefined,
         'Parent reference': undefined,
         'Product Name': undefined,
         'Category': undefined,
@@ -2333,19 +2352,19 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Lista por marcas activas */
 
   listOfBrands(brands?: any) {
-      const initialBrands = brands.Data.Brands;
-      this.brands = initialBrands.sort((a, b) => {
-        if (a.Name > b.Name) {
-          return 1;
-        }
-        if (a.Name < b.Name) {
-          return -1;
-        }
-        return 0;
-      });
-      initialBrands.forEach((element, i) => {
-        this.brands[i] = { Marca: element.Name };
-      });
+    const initialBrands = brands.Data.Brands;
+    this.brands = initialBrands.sort((a, b) => {
+      if (a.Name > b.Name) {
+        return 1;
+      }
+      if (a.Name < b.Name) {
+        return -1;
+      }
+      return 0;
+    });
+    initialBrands.forEach((element, i) => {
+      this.brands[i] = { Marca: element.Name };
+    });
   }
   /**
    * Funcion para somunir el listado de tallas
@@ -2353,10 +2372,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @memberof BulkLoadProductComponent
    */
   listOfSize(size?: any) {
-      const sizeArray = JSON.parse(size.body);
-      sizeArray.forEach((element, i) => {
-        this.size[i] = { Talla: element.Size };
-      });
+    const sizeArray = JSON.parse(size.body);
+    this.copySizeArray = sizeArray;
+    sizeArray.forEach((element, i) => {
+      this.size[i] = { Talla: element.Size };
+    });
   }
 
 
@@ -2364,41 +2384,62 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Generación del arbol VTEX
    */
   trasformTree() {
-    // Copia el Listado del insumo
-    const arrayTree = [...VtexTree.VTEX_TREE];
-    // Agrega los atributos SON y SHOW a cada elemento
-    const vtexTree: any[] = arrayTree.map((element: any) => {
-      element.Son = [];
-      element.Show = false;
-      return element;
+    this.BulkLoadProductS.getVtexTree().subscribe((result: any) => {
+      // Copia el Listado del insumo
+      const arrayTree = [...VtexTree.VTEX_TREE];
+      if (result && result.body) {
+        // Agrega los atributos SON y SHOW a cada elemento
+        const vtexTree: any[] = result.body.map((element: any) => {
+          element.Son = [];
+          element.Show = false;
+          return element;
+        });
+        let lastFirst: number, lastSecond = -1;
+        // transforma la lista de categorias VTEX a un arreglo de árboles
+        this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
+            lastFirst = i;
+            previous.push(current);
+          }
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
+            lastSecond = i;
+            if (lastFirst >= 0) {
+              vtexTree[lastFirst].Son.push(current);
+            }
+          }
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
+            if (lastSecond >= 0) {
+              vtexTree[lastSecond].Son.push(current);
+            }
+          }
+          return previous;
+        }, []);
+      } else {
+        this.languageService.instant('public.auth.forgot.error_try_again');
+      }
+      this.isLoad = false;
     });
-    let lastFirst: number, lastSecond: number = -1;
-    // transforma la lista de categorias VTEX a un arreglo de árboles
-    this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
-        lastFirst = i;
-        previous.push(current);
-      }
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
-        lastSecond = i;
-        if (lastFirst >= 0) {
-          vtexTree[lastFirst].Son.push(current);
-        }
-      }
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
-        if (lastSecond >= 0) {
-          vtexTree[lastSecond].Son.push(current);
-        }
-      }
-      return previous;
-    }, []);
+  }
 
+  /**
+   * metodo para escuchar el evento del lenguaje para poder armar el arbol de categoria de vtex
+   * @memberof BulkLoadProductComponent
+   */
+  public refreshVtexTree() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.isLoad = true;
+      this.vtextree = [];
+      this.trasformTree();
+      this.prepareComponent();
+    });
   }
 
   /**
    * Abre la modal para seleccionar una categoría
    */
   openModalVtexTree() {
+    // this.loadingService.viewSpinner();
     const dataDialog = this.configDataDialog();
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       width: '70%',
@@ -2449,7 +2490,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.categoryForm.patchValue(element);
       // Aca se debe lanzar la petición para consultar el grupo de especificaciones
       this.loadingService.viewSpinner();
-      this.BulkLoadProductS.getCategoriesVTEX(element.Name).subscribe(resp => {
+      this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
         this.loadingService.closeSpinner();
         this.vetex = resp;
         this.listOfCategories();
