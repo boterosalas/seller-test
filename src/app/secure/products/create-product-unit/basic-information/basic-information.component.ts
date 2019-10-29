@@ -616,8 +616,12 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-
-    reloadByCulture() {
+/**
+ * funcion para recarga el input de tallas dependiendo del idioma seleccionado
+ *
+ * @memberof ProductBasicInfoComponent
+ */
+reloadByCulture() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             if (this.sonList.length > 0) {
                 for (let i = 0; i < this.sonList.length; i++) {
