@@ -213,7 +213,7 @@
   <mat-divider></mat-divider>
 
   <!-- BUTTON TO ADD SONS -->
-  <div ngStickyNav fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
+  <div  fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
     class="sticky-position">
     <div>
     </div>
@@ -285,7 +285,6 @@
         </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-
           <div class="field">
             <label class="label-color">{{'secure.products.bulk_upload.color' | translate}}</label>
             <div class="full-width flex-container">

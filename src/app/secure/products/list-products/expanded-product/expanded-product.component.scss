@@ -1,4 +1,5 @@
 @import '_variables';
+$color-gray: #BCBCBC;
 
 .tree-toolbar {
   border-bottom: 0.001em solid #D3D3D3;
@@ -387,4 +388,14 @@ mat-card {
 
 .mat-drawer-container {
   color: $color-gray1;
+}
+
+.button-edit{
+    color: $color-gray;
+    & mat-icon:hover{
+        cursor: pointer;
+    }
+    width: 50px;
+    color: #5D5D5D;
+    border-radius: 5px;
 }

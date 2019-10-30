@@ -782,6 +782,8 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "You selected",  
     "secure.products.create_product_unit.categorization.list.expand": "Expand",  
     "secure.products.create_product_unit.categorization.list.colapse": "Colapse", 
+    "secure.products.create_product_unit.categorization.list.standard_variant": "No puedes cambiar la categoría de Estandar a Variante o de Variante a Estandar", 
+
  
     "secure.products.create_product_unit.component_process.categorization": "Categorization",  
     "secure.products.create_product_unit.component_process.back": "Back",  

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
 import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatStepper } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { Const, RoutesConst, UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, UserLoginService } from '@app/core';
+import { ListProductService } from '../../list-products/list-products.service';
+import { EanServicesService } from '../validate-ean/ean-services.service';
 
 @Component({
   selector: 'app-component-process',
@@ -15,25 +17,31 @@ import { UserParametersService, UserLoginService } from '@app/core';
   styleUrls: ['./component-process.component.scss']
 })
 export class ComponentProcessComponent implements OnInit {
-  isLinear = false;
+  // isLinear = false;
   /* eanCtrl: FormGroup;
   categoryCtrl: FormGroup;
   basicInfoCtrl: FormGroup;
   especificCtrl: FormGroup;
   imageCtrl: FormGroup; */
+  isLinear = true;
   eanFormGroup: FormGroup;
   categoryFormGroup: FormGroup;
   basicInfoFormGroup: FormGroup;
   especificFormGroup: FormGroup;
   imageFormGroup: FormGroup;
   options: FormGroup;
-  isOptional = false;
+  isOptional = true;
   views: any;
   children_created: any = 0;
   modalService: any;
   constantes = new Const();
   saving = false;
+  editFirstStep = true;
   public user: UserInformation;
+  @Input() ean: string;
+  detailProduct: any;
+  editProduct = false;
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -41,6 +49,8 @@ export class ComponentProcessComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     public userParams: UserParametersService,
+    private productsService: ListProductService,
+    private service: EanServicesService,
     public userService: UserLoginService) {
     this.options = fb.group({
       hideRequired: false,
@@ -75,6 +85,32 @@ export class ComponentProcessComponent implements OnInit {
       this.views = data;
       this.validateView();
     });
+    this.getDetailProduct();
+  }
+
+  getDetailProduct() {
+    if (this.ean) {
+      this.stepper.selectedIndex = 1;
+      this.editFirstStep = false;
+      this.isLinear = false;
+      this.service.validateEan(this.ean).subscribe(res => {
+        if (res['data']) {
+           this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
+          if (result && result.data.list.brand) {
+            this.detailProduct = result.data.list;
+          }
+        });
+        } else {
+          this.detailProduct = null;
+          this.router.navigate([`/`]);
+        }
+      });
+    } else {
+      this.stepper.selectedIndex = 0;
+      this.isLinear = true;
+      this.editFirstStep = true;
+    }
+
   }
 
   /**
@@ -108,6 +144,9 @@ export class ComponentProcessComponent implements OnInit {
 
   public stepClick(event: any): void {
     try {
+      if (event && event.previouslySelectedStep && event.previouslySelectedStep.completed !== true ) {
+        event.previouslySelectedStep.completed = true;
+      }
       if (event && event.selectedIndex === 2) {
         document.getElementsByClassName('mat-horizontal-content-container')[0].scrollTop = 0;
       }
@@ -142,6 +181,11 @@ export class ComponentProcessComponent implements OnInit {
       this.imageFormGroup.controls.imageCtrl.setValue('1');
     } else if (!this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue(null);
+    }
+    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid ){
+      this.isLinear = false;
+    } else {
+      this.isLinear = true;
     }
 
   }

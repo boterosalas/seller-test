@@ -2,9 +2,8 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
-import { of } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-
+import { of, observable } from 'rxjs';
 
 
 /**
@@ -170,12 +169,19 @@ export class ProcessService {
      *
      * @memberof ProcessService
      */
+    // views = {
+    //     showEan: true,
+    //     showCat: false,
+    //     showInfo: true,
+    //     showSpec: true,
+    //     showImg: true,
+    // };
     views = {
         showEan: false,
         showCat: false,
-        showInfo: true,
-        showSpec: true,
-        showImg: true,
+        showInfo: false,
+        showSpec: false,
+        showImg: false,
     };
 
     /**
@@ -373,6 +379,9 @@ export class ProcessService {
      */
     public saveInformationUnitreation(): Observable<{}> {
         this.sendFieldMeta();
+        // return new Observable(observer => {
+        //     observer.next(this.productData);
+        // });
         return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
     }
 

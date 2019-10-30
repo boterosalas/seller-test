@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { SearchService } from '../search.component.service';
-import { Logger } from '@app/core';
+import { Logger, LoadingService } from '@app/core';
 import { CategoryModel } from './category.model';
 import { ProcessService } from '../../component-process/component-process.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 // log component
 const log = new Logger('ListCategorizationComponent');
@@ -13,8 +15,7 @@ const log = new Logger('ListCategorizationComponent');
     templateUrl: './list.component.html'
 })
 
-export class ListCategorizationComponent implements OnInit, OnChanges {
-
+export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Initialize data
      *
@@ -27,6 +28,18 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     openAllItems = false;
     selectedCategory: string;
     selectedIdCategory: number;
+    idDetailProduct: number;
+    productType: string;
+    @Input() set detailProduct(value: any) {
+        if (value) {
+            this.selectedCategoryCurrent(value);
+        } else {
+            this.selectedCategoryCurrent(null);
+        }
+    }
+    @Input() ean: any;
+
+    subs: Subscription = new Subscription();
 
     // Variable para mostrar loading
     public isLoad = false;
@@ -36,9 +49,13 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @param {SearchService} searchService
      * @memberof ListCategorizationComponent
      */
-    constructor(private searchService: SearchService,
+    constructor(
+        private searchService: SearchService,
         private process: ProcessService,
-        private languageService: TranslateService) { }
+        private snackBar: MatSnackBar,
+        private languageService: TranslateService,
+        private loadingService?: LoadingService,
+        ) { }
 
     /**
      * Initialize component get categories list.
@@ -46,20 +63,75 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @memberof ListCategorizationComponent
      */
     ngOnInit() {
-        // this.getCategoriesList();
-        this.searchService.change.subscribe((result: any) => {
-            this.selectedCategory = result.Name;
-            if (this.selectedIdCategory !== result.Id) {
-                this.selectedIdCategory = result.Id;
+        this.subs = this.searchService.change.subscribe((result: any) => {
+            if (this.productType) {
+                if (this.productType === result.ProductType) {
+                    this.selectedCategory = result.Name;
+                    this.selectedIdCategory = result.Id;
+                    const data = {
+                        CategorySelected: result.Id,
+                        CategoryName: result.Name,
+                        CategoryType: result.ProductType
+                    };
+                    this.process.validaData(data);
+                } else {
+                    const msg = this.languageService.instant('secure.products.create_product_unit.categorization.list.standard_variant');
+                    this.snackBar.open(msg, this.languageService.instant('actions.close'), {
+                        duration: 3000
+                    });
+                }
+
+            } else {
+                this.selectedCategory = result.Name;
+                if (this.selectedIdCategory !== result.Id) {
+                    this.selectedIdCategory = result.Id;
+                }
+                const data = {
+                    CategorySelected: result.Id,
+                    CategoryName: result.Name,
+                    CategoryType: result.ProductType
+                };
+                this.process.validaData(data);
             }
+        });
+    }
+
+    selectedCategoryCurrent(detailProduct: any) {
+        this.loadingService.viewSpinner();
+        if (detailProduct) {
+            this.selectedCategory = 'Pantalones';
+            this.selectedIdCategory = 28033;
+            this.idDetailProduct = 28033;
+            this.productType = 'Clothing';
             const data = {
-                CategorySelected: result.Id,
-                CategoryName: result.Name,
-                CategoryType: result.ProductType
+                CategorySelected: 28033,
+                CategoryName: 'Pantalones',
+                CategoryType: 'Clothing'
+            };
+            // this.selectedCategory = 'Televisores 4K Uhd';
+            // this.selectedIdCategory = 28052;
+            // this.idDetailProduct = 28052;
+            // this.productType = 'Technology';
+            // const data = {
+            //     CategorySelected: 28052,
+            //     CategoryName: 'Televisores 4K Uhd',
+            //     CategoryType: 'Technology'
+            // };
+            this.process.validaData(data);
+            this.getCategoriesList();
+        } else {
+            this.selectedCategory = undefined;
+            this.selectedIdCategory = undefined;
+            this.idDetailProduct = undefined;
+            this.productType = undefined;
+            const data = {
+                CategorySelected: undefined,
+                CategoryName: undefined,
+                CategoryType: undefined
             };
             this.process.validaData(data);
-        });
-        this.refreshVtexTree();
+            this.getCategoriesList();
+        }
     }
 
     /** When list changes need organized  */
@@ -85,7 +157,9 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @memberof ListCategorizationComponent
      */
     public searchTextIn(modelName: string): boolean {
-        return modelName.toLowerCase().search(this.searchText.toLowerCase()) !== -1;
+        if (this.searchText) {
+            return modelName.toLowerCase().search(this.searchText.toLowerCase()) !== -1;
+        }
     }
 
     /**
@@ -160,7 +234,9 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
+                this.loadingService.closeSpinner();
             } else {
+                this.loadingService.closeSpinner();
                 log.debug('ListCategorizationComponent:' + result.message);
             }
             this.isLoad = false;
@@ -177,6 +253,9 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     public showOnlyWithSon(): void {
         if (this.listCategories && this.listCategories.length) {
             this.organizedCategoriesList(this.listCategories);
+            if (this.listCategories && this.idDetailProduct) {
+                this.showCategorySelect(this.idDetailProduct);
+            }
             for (let i = 0; i < this.listCategories.length; i++) {
                 if (this.listCategories[i].IdParent || !this.listCategories[i].Son.length) {
                     this.listCategories.splice(i, 1);
@@ -184,6 +263,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                 }
             }
             this.finishCharge = true;
+           
         }
     }
 
@@ -251,5 +331,18 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             this.openAllItems = false;
             this.getCategoriesList();
         });
+    }
+    showCategorySelect(idCategorySelect: number) {
+        const idParent = this.listCategories.find(x => x.Id === idCategorySelect).IdParent;
+        if (idParent != null) {
+            this.listCategories.find(x => x.Id === idCategorySelect).Show = true;
+            this.showCategorySelect(idParent);
+        } else {
+            this.listCategories.find(x => x.Id === idCategorySelect).Show = true;
+        }
+    }
+
+    ngOnDestroy(): void {
+        !!this.subs && this.subs.unsubscribe();
     }
 }

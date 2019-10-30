@@ -28,27 +28,28 @@
               </button>
             </div>
             <div class="specification-group" [ngClass]="{'no-show': !specification.Show}">
-              <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
-                <mat-form-field *ngIf="!spec.List.length" class="specification-input">
-                  <input [required]="spec.Required" matInput placeholder="{{spec.Name}}"
-                    (keyup.enter)="specificationChange(spec, i, e)" name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value"
-                    (change)="specificationChange(spec, i, e)" pattern="^[\w\W\s\d]{1,200}$">
-                  <mat-error>
-                    {{showError(e, specsForm)}}
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field *ngIf="spec.List.length" class="specification-input">
-                  <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}" id="specs{{e}}"
-                    name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
-                    <mat-option *ngFor="let item of spec.List" [value]="item.label">
-                      {{item.displayName}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error>
-                    {{showError(e, specsForm)}}
-                  </mat-error>
-                </mat-form-field>
-              </div>
+                <div *ngFor="let spec of specification.Sons; let e = index" class="specification-son">
+                    <mat-form-field *ngIf="!spec.List.length" class="specification-input">
+                        <input [required]="spec.Required" matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
+                            name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)"
+                            pattern="^[\w\W\s\d]{1,200}$">
+                        <mat-error>
+                            {{showError(e, specsForm)}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="spec.List.length" class="specification-input">
+                        <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}"
+                            id="specs{{e}}" name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
+                            <mat-option *ngFor="let item of spec.List" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            {{showError(e, specsForm)}}
+                        </mat-error>
+                    </mat-form-field>
+                    {{setValueSpefici(e, specsForm)}}
+                </div>
             </div>
           </div>
     </div>
