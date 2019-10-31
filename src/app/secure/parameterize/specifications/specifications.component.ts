@@ -79,11 +79,15 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     changeLanguage() {
-        if (localStorage.getItem('current_culture') !== 'US') {
+        if (localStorage.getItem('culture_current') !== 'US') {
         this.isDisabled = false;
+        this.currentLanguage = 'ES';
+        } else {
+            this.isDisabled = true;
+            this.currentLanguage = 'US';
         }
-
         this.languageService.onLangChange.subscribe((e: Event) => {
+            this.specificationsGroups = [];
             this.getSpecifications(true);
             this.currentLanguage = e['lang'];
             const lang = e['lang'];
@@ -441,6 +445,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public deleteSpec(group: any, index: number): void {
+        console.log(this.currentLanguage);
         if (this.currentLanguage !== 'US') {
             this.groupDelete = group.Sons[index];
             this.openDialogDeleteSpecsandGroupSpec(this.groupDelete);
