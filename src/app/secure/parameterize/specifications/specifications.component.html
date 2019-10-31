@@ -31,13 +31,13 @@
                         </mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item [disabled]="isDisabled" (click)="updateGroupSpec(group, i)" *ngIf="getFunctionality(update)">
+                        <button mat-menu-item  (click)="updateGroupSpec(group, i)" *ngIf="getFunctionality(update)">
                             <mat-icon class="material-icons">
                                 edit
                             </mat-icon>
                             <span>{{'actions.edit' | translate}}</span>
                         </button>
-                        <button mat-menu-item [disabled]="isDisabled" (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
+                        <button mat-menu-item  (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
                             <mat-icon class="material-icons">
                                 delete
                             </mat-icon>

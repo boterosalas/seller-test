@@ -79,7 +79,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     changeLanguage() {
+        if (localStorage.getItem('current_culture') !== 'US') {
+        this.isDisabled = false;
+        }
+
         this.languageService.onLangChange.subscribe((e: Event) => {
+            this.getSpecifications(true);
             this.currentLanguage = e['lang'];
             const lang = e['lang'];
             if (lang === 'US') {
@@ -127,8 +132,14 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public updateGroupSpec(group: any, index: any): void {
-        this.modeSave = false;
-        this.openDialog(group);
+        if (this.currentLanguage !== 'US') {
+            this.modeSave = false;
+            this.openDialog(group);
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_delete'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
     public blurInput(data: any, isGroup: boolean): void {
@@ -394,12 +405,15 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public removeSpec(data: any): void {
-        this.modeSave = true;
-        this.openDialogDeleteSpecsandGroupSpec(null);
-        this.groupDelete = data;
-        /*
-        data.ShowNewSon = true;
-        const element = this.render.selectRootElement('#input1'); */
+        if (this.currentLanguage !== 'US') {
+            this.modeSave = true;
+            this.openDialogDeleteSpecsandGroupSpec(null);
+            this.groupDelete = data;
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_edit'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
 
