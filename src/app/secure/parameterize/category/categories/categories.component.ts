@@ -62,6 +62,8 @@ export class CategoriesComponent implements OnInit {
    */
   canCreate = false;
 
+  category: any;
+
   /**
    * Attribute that represent the content for the form
    */
@@ -325,6 +327,7 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
+    this.category = category;
     const title = this.languageService.instant('secure.parametize.category.categories.modal_update_title');
     const message = this.languageService.instant('secure.parametize.category.categories.modal_update_description');
     const icon = null;
@@ -370,6 +373,11 @@ export class CategoriesComponent implements OnInit {
       if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000' || value.Tariff === '00' || value.Tariff === '0.00') {
         value.Tariff = 0;
       }
+
+      if (this.category) {
+        value.Label = this.category.Label;
+      }
+      console.log(value);
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
         try {
