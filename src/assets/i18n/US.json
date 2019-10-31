@@ -904,6 +904,8 @@
     "secure.parametize.specifications.btn_add_specifications": "Add specifications to a group",  
     "secure.parametize.specifications.tooltip_type_text": "Text especification",  
     "secure.parametize.specifications.tooltip_type_list": "Value list especification" , 
+    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" , 
+    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish" , 
  
     "secure.parametize.dialog.modal_title_spec": "Add specification group",  
     "secure.parametize.dialog.modal_title_brand": "Add brand",  

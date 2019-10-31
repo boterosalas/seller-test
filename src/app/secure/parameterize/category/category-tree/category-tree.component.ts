@@ -45,9 +45,6 @@ export class CategoryTreeComponent implements OnInit {
 
   isDisabled = false;
 
-  @ViewChild('btnEditCategory') element: ElementRef;
-
-
   constructor(
     private languageService: TranslateService,
     private snackBar: MatSnackBar,
