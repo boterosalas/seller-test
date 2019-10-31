@@ -971,6 +971,8 @@
     "secure.parametize.category.categories.creation_succesfully": "Creación realizada con éxito",
     "secure.parametize.category.categories.not_create_category": "No se pudo crear la categoría",
     "secure.parametize.category.categories.create_in_process": "Creación en proceso",
+    "secure.parametize.category.categories.change_language_english_edit": "Ha cambiado el idioma al inglés, si desea editar categorías, vuelva al español",
+    "secure.parametize.category.categories.change_language_english_add": "Ha cambiado el idioma al inglés, si desea agregar categorías, vuelva al español",
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija", 
  

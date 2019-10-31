@@ -95,6 +95,7 @@ export class CategoriesComponent implements OnInit {
     this.verifyProccesCategory();
     this.getTree();
     this.getRegex();
+    this.changeLanguage();
   }
 
   /**
@@ -439,6 +440,13 @@ export class CategoriesComponent implements OnInit {
       }
     });
     this.loadingService.closeSpinner();
+  }
+
+  changeLanguage() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+        localStorage.setItem('culture_current', e['lang']);
+        this.getTree();
+    });
   }
 
   get Commission(): FormControl {

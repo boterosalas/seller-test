@@ -971,6 +971,8 @@
     "secure.parametize.category.categories.creation_succesfully": "Creation was successful",
     "secure.parametize.category.categories.not_create_category": "Could not create the category",
     "secure.parametize.category.categories.create_in_process": "Creation in progress", 
+    "secure.parametize.category.categories.change_language_english_edit": "You have switched the language to english, if you wish to edit categories please switch back to spanish",
+    "secure.parametize.category.categories.change_language_english_add": "You have switched the language to english, if you wish to add categories please switch back to spanish",
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category", 
  
