@@ -4,7 +4,8 @@ export class ModelFilter {
         public product?: any,
         public stock?: any,
         public currentPage?: any,
-        public limit?: any
+        public limit?: any,
+        public pluVtex?: any
     ) { }
 
     /**
@@ -18,5 +19,6 @@ export class ModelFilter {
         this.stock = undefined;
         this.currentPage = undefined;
         this.limit = undefined;
+        this.pluVtex = undefined;
     }
 }
