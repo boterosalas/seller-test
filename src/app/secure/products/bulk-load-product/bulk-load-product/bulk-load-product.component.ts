@@ -216,7 +216,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     // this.listOfCategories();
     // this.listOfSpecs();
   }
-  
+
 
   prepareComponent() {
     const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
@@ -234,22 +234,22 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       getBrands$,
       categoryList$,
       listOfSize$
-      ).subscribe(([
-        availableLoads,
-        verifyStateCharge,
-        validateRegex,
-        getBrands,
-        categoryList,
-        listOfSize
-      ]) => {
-        this.getAvaliableLoads(availableLoads);
-        this.verifyStateCharge(verifyStateCharge);
-        this.validateFormSupport(validateRegex);
-        this.listOfBrands(getBrands);
-        this.getCategoriesList(categoryList);
-        this.listOfSize(listOfSize);
-        this.loadingService.closeSpinner();
-      });
+    ).subscribe(([
+      availableLoads,
+      verifyStateCharge,
+      validateRegex,
+      getBrands,
+      categoryList,
+      listOfSize
+    ]) => {
+      this.getAvaliableLoads(availableLoads);
+      this.verifyStateCharge(verifyStateCharge);
+      this.validateFormSupport(validateRegex);
+      this.listOfBrands(getBrands);
+      this.getCategoriesList(categoryList);
+      this.listOfSize(listOfSize);
+      this.loadingService.closeSpinner();
+    });
   }
 
   async getDataUser() {
@@ -273,20 +273,20 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.profileTypeLoad = type;
       this.isAdmin = type !== 'Tienda';
     }
-      if (this.isAdmin) {
-        this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
-          (result: any) => {
-            /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
-            if (result.status === 200 && result.body.data) {
-              /*Se guardan los datos en una variable*/
-              this.dataAvaliableLoads = result.body.data;
-            } else {
-              /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
-              this.modalService.showModal('errorService');
-            }
+    if (this.isAdmin) {
+      this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
+        (result: any) => {
+          /*se valida que el status de la respuesta del servicio sea 200 y traiga datos*/
+          if (result.status === 200 && result.body.data) {
+            /*Se guardan los datos en una variable*/
+            this.dataAvaliableLoads = result.body.data;
+          } else {
+            /*si el status es diferente de 200 y el servicio devolvio datos se muestra el modal de error*/
+            this.modalService.showModal('errorService');
           }
-        );
-      }
+        }
+      );
+    }
   }
 
   /**
@@ -459,91 +459,180 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')) {
-            if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
-              this.iVal = {
-                iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-                iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
-                iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
-                iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
-                iModelo: this.arrayNecessaryData[0].indexOf('Model'),
-                iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
-                iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
-                iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
-                iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
-                iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
-                iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
-                ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
-                iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
-                iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
-                iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
-                iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
-                iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
-                iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
-                iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
-                iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('ProductType'),
-                iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
-                iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
-                iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
-                iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
-                iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
-                iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-                iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
-                iSize: this.arrayNecessaryData[0].indexOf('Size'),
-                iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
-                iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-                iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-                iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
-                iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
-                iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
-                iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
-              };
-              // this.eanComboPosition = this.iVal.iEanCombo;
+            if (this.profileTypeLoad === 'Tienda') {
+              if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
+                this.iVal = {
+                  iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                  iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
+                  iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
+                  iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
+                  iModelo: this.arrayNecessaryData[0].indexOf('Model'),
+                  iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
+                  iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
+                  iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
+                  iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
+                  iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
+                  iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
+                  iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
+                  iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
+                  iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                  iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
+                  iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
+                  iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
+                  iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
+                  iTipoDeProducto: this.arrayNecessaryData[0].indexOf('ProductType'),
+                  iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
+                  iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
+                  iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
+                  iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
+                  iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                  // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iSize: this.arrayNecessaryData[0].indexOf('Size'),
+                  iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                  iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
+                  iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
+                  iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
+                };
+                // this.eanComboPosition = this.iVal.iEanCombo;
+              } else {
+                /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
+                this.iVal = {
+                  iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                  iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
+                  iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
+                  iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
+                  iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
+                  iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
+                  iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
+                  iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
+                  iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
+                  iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
+                  iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
+                  iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
+                  iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
+                  iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                  iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
+                  iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
+                  iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
+                  iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
+                  iTipoDeProducto: this.arrayNecessaryData[0].indexOf('TipoProducto'),
+                  iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
+                  iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
+                  iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
+                  iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
+                  iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                  // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iSize: this.arrayNecessaryData[0].indexOf('Talla'),
+                  iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                  iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+                  iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+                  iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
+                };
+              }
             } else {
-              /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
-              this.iVal = {
-                iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-                iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
-                iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
-                iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
-                iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
-                iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
-                iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
-                iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
-                iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
-                iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
-                iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
-                ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
-                iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
-                iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
-                iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
-                iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
-                iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
-                iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
-                iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
-                iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
-                iTipoDeProducto: this.arrayNecessaryData[0].indexOf('TipoProducto'),
-                iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
-                iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
-                iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
-                iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
-                iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
-                iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-                iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
-                iSize: this.arrayNecessaryData[0].indexOf('Talla'),
-                iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
-                iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-                iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
-                iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
-                iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
-                iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
-                iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
-              };
+              if (this.arrayNecessaryData[0].indexOf('Product Name') !== -1) {
+                this.iVal = {
+                  iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                  iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
+                  iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
+                  iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
+                  iModelo: this.arrayNecessaryData[0].indexOf('Model'),
+                  iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
+                  iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
+                  iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
+                  iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
+                  iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
+                  iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
+                  iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
+                  iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
+                  iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                  iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
+                  iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
+                  iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
+                  iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
+                  iTipoDeProducto: this.arrayNecessaryData[0].indexOf('ProductType'),
+                  iURLDeImagen1: this.arrayNecessaryData[0].indexOf('Image URL 1'),
+                  iURLDeImagen2: this.arrayNecessaryData[0].indexOf('Image URL 2'),
+                  iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
+                  iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
+                  iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                  iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iSize: this.arrayNecessaryData[0].indexOf('Size'),
+                  iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                  iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
+                  iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
+                  iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
+                };
+                // this.eanComboPosition = this.iVal.iEanCombo;
+              } else {
+                /*Constante en donse se guardara la posicion en que se encuentran los datos necesarios para la carga*/
+                this.iVal = {
+                  iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+                  iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
+                  iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
+                  iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
+                  iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
+                  iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
+                  iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
+                  iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
+                  iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
+                  iPalabrasClave: this.arrayNecessaryData[0].indexOf('Palabras Clave'),
+                  iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Alto del empaque'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Largo del empaque'),
+                  iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Ancho del empaque'),
+                  iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Peso del empaque'),
+                  iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
+                  iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Alto del producto'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Largo del producto'),
+                  iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Ancho del producto'),
+                  iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Peso del producto'),
+                  iVendedor: this.arrayNecessaryData[0].indexOf('Vendedor'),
+                  iTipoDeProducto: this.arrayNecessaryData[0].indexOf('TipoProducto'),
+                  iURLDeImagen1: this.arrayNecessaryData[0].indexOf('URL de Imagen 1'),
+                  iURLDeImagen2: this.arrayNecessaryData[0].indexOf('URL de Imagen 2'),
+                  iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
+                  iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
+                  iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
+                  iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iSize: this.arrayNecessaryData[0].indexOf('Talla'),
+                  iColor: this.arrayNecessaryData[0].indexOf('Color'),
+                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
+                  iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
+                  iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
+                  iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
+                };
+              }
             }
+
             this.eanComboPosition = this.iVal.iEanCombo;
 
             if (this.isAdmin) {
@@ -1125,13 +1214,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Get categories from service, and storage in list categories.
   */
   public getCategoriesList(result?: any): void {
-      // guardo el response
-      if (result.status === 200) {
-        const body = JSON.parse(result.body.body);
-        this.listCategories = body.Data;
-      } else {
-        log.debug('BulkLoadProductComponent:' + result.message);
-      }
+    // guardo el response
+    if (result.status === 200) {
+      const body = JSON.parse(result.body.body);
+      this.listCategories = body.Data;
+    } else {
+      log.debug('BulkLoadProductComponent:' + result.message);
+    }
   }
 
   /**
@@ -1563,29 +1652,29 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /*Funcion para validar el status de la carga y abrir o no el modal */
   verifyStateCharge(result?: any) {
-          // Convertimos el string que nos envia el response a JSON que es el formato que acepta
-          if (result.body.data.response) {
-            result.body.data.response = JSON.parse(result.body.data.response);
-          }
-          if (result.body.data.status === 0 || result.body.data.checked === 'true') {
-          } else if (result.body.data.status === 1 || result.body.data.status === 4) {
-            result.body.data.status = 1;
-            if (!this.progressStatus) {
-              this.openDialogSendOrder(result);
-            }
-            this.progressStatus = true;
-          } else if (result.body.data.status === 2) {
-            this.closeActualDialog();
-            this.openDialogSendOrder(result);
-          } else if (result.body.data.status === 3) {
-            this.closeActualDialog();
-            if (result.body.data.response.Errors['0']) {
-              this.modalService.showModal('errorService');
-            } else {
-              this.openDialogSendOrder(result);
+    // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+    if (result.body.data.response) {
+      result.body.data.response = JSON.parse(result.body.data.response);
+    }
+    if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+    } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+      result.body.data.status = 1;
+      if (!this.progressStatus) {
+        this.openDialogSendOrder(result);
+      }
+      this.progressStatus = true;
+    } else if (result.body.data.status === 2) {
+      this.closeActualDialog();
+      this.openDialogSendOrder(result);
+    } else if (result.body.data.status === 3) {
+      this.closeActualDialog();
+      if (result.body.data.response.Errors['0']) {
+        this.modalService.showModal('errorService');
+      } else {
+        this.openDialogSendOrder(result);
 
-            }
-          }
+      }
+    }
   }
 
   /**
@@ -1995,14 +2084,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   // Funcion para cargar datos de regex
   public validateFormSupport(res?: any): void {
-      let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
-      for (const val in this.productsRegex) {
-        if (!!val) {
-          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
-          this.productsRegex[val] = element && `${element.Value}`;
-        }
+    let dataOffertRegex = JSON.parse(res.body.body);
+    dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+    for (const val in this.productsRegex) {
+      if (!!val) {
+        const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+        this.productsRegex[val] = element && `${element.Value}`;
       }
+    }
   }
 
   /*Generar excel*/
@@ -2207,19 +2296,19 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Lista por marcas activas */
 
   listOfBrands(brands?: any) {
-      const initialBrands = brands.Data.Brands;
-      this.brands = initialBrands.sort((a, b) => {
-        if (a.Name > b.Name) {
-          return 1;
-        }
-        if (a.Name < b.Name) {
-          return -1;
-        }
-        return 0;
-      });
-      initialBrands.forEach((element, i) => {
-        this.brands[i] = { Marca: element.Name };
-      });
+    const initialBrands = brands.Data.Brands;
+    this.brands = initialBrands.sort((a, b) => {
+      if (a.Name > b.Name) {
+        return 1;
+      }
+      if (a.Name < b.Name) {
+        return -1;
+      }
+      return 0;
+    });
+    initialBrands.forEach((element, i) => {
+      this.brands[i] = { Marca: element.Name };
+    });
   }
   /**
    * Funcion para somunir el listado de tallas
@@ -2227,10 +2316,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @memberof BulkLoadProductComponent
    */
   listOfSize(size?: any) {
-      const sizeArray = JSON.parse(size.body);
-      sizeArray.forEach((element, i) => {
-        this.size[i] = { Talla: element.Size };
-      });
+    const sizeArray = JSON.parse(size.body);
+    sizeArray.forEach((element, i) => {
+      this.size[i] = { Talla: element.Size };
+    });
   }
 
 
