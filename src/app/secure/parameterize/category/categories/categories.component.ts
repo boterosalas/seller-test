@@ -378,7 +378,6 @@ export class CategoriesComponent implements OnInit {
       if (this.category) {
         value.Label = this.category.Label;
       }
-      console.log(value);
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
         try {
