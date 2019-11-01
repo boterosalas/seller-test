@@ -51,8 +51,9 @@ export class ListProductService {
     this.paramsData.finalDate = params === undefined || params.finalDate === undefined || params.finalDate === null;
     this.paramsData.page = params === undefined || params.page === undefined || params.page === null;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
+    this.paramsData.pluVtex = params === undefined || params.pluVtex === undefined || params.pluVtex === null;
 
-    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit;
+    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit  + '/'  + this.paramsData.pluVtex;
 
     return this.http.get(this.api.get('getProductList', urlParams));
   }
