@@ -195,8 +195,10 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 };
                 dataToSend.Specs.push({
                     SpecName: res.nameSpec,
+                    Label: res.Label,
                     Required: res.requiredSpec === true ? 'true' : 'false',
                     ListValues: !res.ListValues ? [] : res.ListValues,
+                    Values: res.Values,
                     IdSpec: res.idSpec
                 });
                 if (!data) {
@@ -445,7 +447,6 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public deleteSpec(group: any, index: number): void {
-        console.log(this.currentLanguage);
         if (this.currentLanguage !== 'US') {
             this.groupDelete = group.Sons[index];
             this.openDialogDeleteSpecsandGroupSpec(this.groupDelete);

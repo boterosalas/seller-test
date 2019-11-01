@@ -105,10 +105,13 @@ export class AddDialogSpecsComponent implements OnInit {
             data.idSpec = this.dataToEdit !== null ? this.dataToEdit.Id : null;
             if (this.listOptions.length && this.formAddSpecs.controls.optionSpec.value === this.typeList) {
                 data.ListValues = [];
+                data.Values = [];
                 this.listOptions.forEach(element => {
-                    data.ListValues.push(element.option.label);
+                    data.ListValues.push(element.formControl.value);
+                    data.Values.push({displayName: element.formControl.value, label: element.option.label});
                 });
             }
+            data.Label = this.dataToEdit.Label;
             this.dialogRef.close(data);
         }
     }
