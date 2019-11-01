@@ -82,11 +82,15 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         if (localStorage.getItem('culture_current') !== 'US') {
         this.isDisabled = false;
         this.currentLanguage = 'ES';
+        localStorage.setItem('culture_current', 'ES');
         } else {
             this.isDisabled = true;
             this.currentLanguage = 'US';
+            localStorage.setItem('culture_current', 'US');
         }
         this.languageService.onLangChange.subscribe((e: Event) => {
+            console.log('pasa sin cambiar');
+            localStorage.setItem('culture_current', e['lang']);
             this.specificationsGroups = [];
             this.getSpecifications(true);
             this.currentLanguage = e['lang'];
