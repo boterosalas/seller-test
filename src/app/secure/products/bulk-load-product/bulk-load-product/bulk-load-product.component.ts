@@ -2190,43 +2190,84 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /* Datos de plantilla Clothing */
 
   getDataFormFileClothing() {
-    const productos = [{
-      'Grupo EAN Combo': undefined,
-      'EAN': undefined,
-      'Referencia Hijo': undefined,
-      'Referencia Padre': undefined,
-      'Nombre del producto': undefined,
-      'Categoria': undefined,
-      'Marca': undefined,
-      'Modelo': undefined,
-      'Detalles': undefined,
-      'Descripcion': undefined,
-      'Palabras Clave': undefined,
-      'Talla': undefined,
-      'Color': undefined,
-      'hexColourCodePDP': undefined,
-      'hexColourName': undefined,
-      'Alto del empaque': undefined,
-      'Largo del empaque': undefined,
-      'Ancho del empaque': undefined,
-      'Peso del empaque': undefined,
-      'skuShippingsize': undefined,
-      'Alto del producto': undefined,
-      'Largo del producto': undefined,
-      'Ancho del producto': undefined,
-      'Peso del producto': undefined,
-      'Descripcion Unidad de Medida': undefined,
-      'Factor de conversion': undefined,
-      'TipoProducto': undefined,
-      'URL de Imagen 1': undefined,
-      'URL de Imagen 2': undefined,
-      'URL de Imagen 3': undefined,
-      'URL de Imagen 4': undefined,
-      'URL de Imagen 5': undefined,
-      'Logistica Exito': undefined,
-    },
-    this.modelSpecs
-    ];
+    let productos = [];
+    if (this.profileTypeLoad === 'Tienda') {
+      productos = [{
+        'Grupo EAN Combo': undefined,
+        'EAN': undefined,
+        // 'Referencia Hijo': undefined,
+        'Referencia Padre': undefined,
+        'Nombre del producto': undefined,
+        'Categoria': undefined,
+        'Marca': undefined,
+        'Modelo': undefined,
+        'Detalles': undefined,
+        'Descripcion': undefined,
+        'Palabras Clave': undefined,
+        'Talla': undefined,
+        'Color': undefined,
+        'hexColourCodePDP': undefined,
+        'hexColourName': undefined,
+        'Alto del empaque': undefined,
+        'Largo del empaque': undefined,
+        'Ancho del empaque': undefined,
+        'Peso del empaque': undefined,
+        'skuShippingsize': undefined,
+        'Alto del producto': undefined,
+        'Largo del producto': undefined,
+        'Ancho del producto': undefined,
+        'Peso del producto': undefined,
+        'Descripcion Unidad de Medida': undefined,
+        'Factor de conversion': undefined,
+        'TipoProducto': undefined,
+        'URL de Imagen 1': undefined,
+        'URL de Imagen 2': undefined,
+        'URL de Imagen 3': undefined,
+        'URL de Imagen 4': undefined,
+        'URL de Imagen 5': undefined,
+        'Logistica Exito': undefined,
+      },
+      this.modelSpecs
+      ];
+    } else {
+      productos = [{
+        'Grupo EAN Combo': undefined,
+        'EAN': undefined,
+        'Referencia Hijo': undefined,
+        'Referencia Padre': undefined,
+        'Nombre del producto': undefined,
+        'Categoria': undefined,
+        'Marca': undefined,
+        'Modelo': undefined,
+        'Detalles': undefined,
+        'Descripcion': undefined,
+        'Palabras Clave': undefined,
+        'Talla': undefined,
+        'Color': undefined,
+        'hexColourCodePDP': undefined,
+        'hexColourName': undefined,
+        'Alto del empaque': undefined,
+        'Largo del empaque': undefined,
+        'Ancho del empaque': undefined,
+        'Peso del empaque': undefined,
+        'skuShippingsize': undefined,
+        'Alto del producto': undefined,
+        'Largo del producto': undefined,
+        'Ancho del producto': undefined,
+        'Peso del producto': undefined,
+        'Descripcion Unidad de Medida': undefined,
+        'Factor de conversion': undefined,
+        'TipoProducto': undefined,
+        'URL de Imagen 1': undefined,
+        'URL de Imagen 2': undefined,
+        'URL de Imagen 3': undefined,
+        'URL de Imagen 4': undefined,
+        'URL de Imagen 5': undefined,
+        'Logistica Exito': undefined,
+      },
+      this.modelSpecs
+      ];
+    }
 
     const categoria = this.listOfCategories();
 
@@ -2335,6 +2376,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       element.Show = false;
       return element;
     });
+    // tslint:disable-next-line:no-inferrable-types
     let lastFirst: number, lastSecond: number = -1;
     // transforma la lista de categorias VTEX a un arreglo de árboles
     this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
