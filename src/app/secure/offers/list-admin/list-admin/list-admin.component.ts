@@ -75,8 +75,8 @@ export class ListAdminComponent implements OnInit {
   // Filter enabled
   public isEnabled: boolean;
 
-    // Domains images
-    public domainImages = environment.domainImages;
+  // Domains images
+  public domainImages = environment.domainImages;
 
   /**
    * Creates an instance of ListAdminComponent.
@@ -112,7 +112,7 @@ export class ListAdminComponent implements OnInit {
   ngOnInit() {
     // Borra el filtro del localstorage
     localStorage.removeItem('currentFilterListAdmin');
-   
+
     // Inicializa la instancia de Logger
     this.log = new Logger('ListAdminComponent');
 
@@ -134,6 +134,7 @@ export class ListAdminComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
@@ -190,11 +191,11 @@ export class ListAdminComponent implements OnInit {
     );
   }
 
-   /**
+  /**
    * @method openDetailOffer
-   * @param item
    * @description Método para ver el detalle de la oferta
-   * @memberof ListComponent
+   * @param {*} item
+   * @memberof ListAdminComponent
    */
   openDetailOffer(item: any) {
     this.viewDetailOffer = true;
@@ -202,11 +203,12 @@ export class ListAdminComponent implements OnInit {
     this.inDetail = true;
   }
 
-   /**
+
+  /**
    * @method filterOffers
-   * @param params
    * @description Método para filtrar el listado de ofertas
-   * @memberof ListComponent
+   * @param {*} params
+   * @memberof ListAdminComponent
    */
   filterOffers(params: any) {
     this.currentPage = 1;
@@ -214,6 +216,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.IdSeller = this.seller.IdSeller;
     this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
+    this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
     this.paramData.stock = params.stock;
     this.paramData.currentPage = this.currentPage;
     this.getListAdminOffers(this.paramData);
@@ -234,13 +237,16 @@ export class ListAdminComponent implements OnInit {
       case 'filterEan':
         this.paramData.ean = undefined;
         break;
+      case 'filterPluVtex':
+        this.paramData.pluVtex = undefined;
+        break;
       case 'filterStock':
         this.paramData.stock = undefined;
         break;
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined) {
       this.filterActive = false;
     }
     this.getListAdminOffers(this.paramData);
@@ -259,12 +265,11 @@ export class ListAdminComponent implements OnInit {
     this.getListAdminOffers(this.paramData);
   }
 
-
-    /**
+  /**
    * @method receiveVarConsumeList
    * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
-   * @param event
-   * @memberof ListComponent
+   * @param {*} event
+   * @memberof ListAdminComponent
    */
   receiveVarConsumeList(event: any) {
     if (event && event !== undefined && event !== null) {

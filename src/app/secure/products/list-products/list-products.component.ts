@@ -50,9 +50,11 @@ export class ListProductsComponent implements OnInit {
     finalDateList: any;
     fechaInicial: any;
     fechaFinal: any;
+    pluVtexList: any;
     showProducts = false;
 
     eanVariable = false;
+    pluVariable = false;
     nameVariable = false;
     fechaInicialVariable = false;
     fechaFinalVariable = false;
@@ -104,6 +106,7 @@ export class ListProductsComponent implements OnInit {
             /* ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])),
              nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
             ean: new FormControl(''),
+            pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
@@ -111,7 +114,19 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-
+    /**
+     * Funcion que permite solo números
+     *
+     * @param {*} event
+     * @memberof ListProductsComponent
+     */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
+    }
 
     // Funcion para limpiar formulario
     public cleanFilterListProducts(): void {
@@ -120,6 +135,7 @@ export class ListProductsComponent implements OnInit {
         this.creationDateList = null;
         this.initialDateList = null;
         this.finalDateList = null;
+        this.pluVtexList = null;
         this.listFilterProducts = [];
 
     }
@@ -209,6 +225,7 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = null;
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
+        this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         if (this.filterProduts.controls.initialDate.value) {
@@ -234,6 +251,13 @@ export class ListProductsComponent implements OnInit {
             this.nameVariable = true;
         } else {
             this.nameVariable = false;
+            countFilter++;
+        }
+        if (this.pluVtexList) {
+            this.pluVariable = true;
+            countFilter++;
+        } else {
+            this.eanVariable = false;
             countFilter++;
         }
         if (this.eanList) {
@@ -299,7 +323,7 @@ export class ListProductsComponent implements OnInit {
         }
 
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/`;
+            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}`;
         }
 
         this.loadingService.viewSpinner(); // Mostrar el spinner
@@ -335,6 +359,7 @@ export class ListProductsComponent implements OnInit {
         this.cleanFilterListProducts();
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
+        this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
         if (!fecha) {
             this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         }
@@ -344,6 +369,7 @@ export class ListProductsComponent implements OnInit {
         const data = [];
         data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+        data.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
         data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         this.add(data);
 
@@ -356,6 +382,10 @@ export class ListProductsComponent implements OnInit {
         if (!this.eanVariable) {
             this.filterProduts.controls.ean.setValue('');
             this.eanList = null;
+        }
+        if (!this.pluVariable) {
+            this.filterProduts.controls.pluVtex.setValue('');
+            this.pluVtexList = null;
         }
         if (!this.nameVariable) {
             this.filterProduts.controls.productName.setValue('');

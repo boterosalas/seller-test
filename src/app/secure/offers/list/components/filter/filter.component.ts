@@ -64,9 +64,11 @@ export class FilterComponent implements OnInit, OnChanges {
     public filterForm: FormGroup;
     public product: FormControl;
     public ean: FormControl;
+    public pluVtex: FormControl;
     public stock: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
+    public regexOnlyNumber = /^[0-9]*$/;
 
     /**
      * Creates an instance of FilterComponent.
@@ -101,6 +103,9 @@ export class FilterComponent implements OnInit, OnChanges {
             case 'filterEan':
                 this.ean.setValue(undefined);
                 break;
+            case 'filterPluVtex':
+                this.pluVtex.setValue(undefined);
+                break;
             case 'filterStock':
                 this.stock.setValue(undefined);
                 break;
@@ -118,8 +123,22 @@ export class FilterComponent implements OnInit, OnChanges {
     createFormControls() {
         this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
+        this.pluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
         this.stock = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
+    }
+
+    /**
+     * Metodo que permite solo números
+     * @param {*} event
+     * @memberof FilterComponent
+     */
+    onlyNumber(event: any) {
+        const pattern = /[0-9]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
     }
 
     /**
@@ -131,7 +150,8 @@ export class FilterComponent implements OnInit, OnChanges {
         this.filterForm = new FormGroup({
             product: this.product,
             ean: this.ean,
-            stock: this.stock
+            stock: this.stock,
+            pluVtex: this.pluVtex
         });
     }
 
