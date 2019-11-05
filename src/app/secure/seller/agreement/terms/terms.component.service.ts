@@ -12,8 +12,8 @@ import { EndpointService, UserParametersService } from '@app/core';
 @Injectable()
 export class TermsService implements CanActivate {
 
-    // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
-    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_10-09-2019_Versi%C3%B3n_Mostrar.pdf';
+    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
+    // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_10-09-2019_Versi%C3%B3n_Mostrar.pdf';
 
     constantes = new Const();
 
