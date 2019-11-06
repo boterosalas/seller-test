@@ -35,12 +35,14 @@ export class ProductBasicInfoComponent implements OnInit {
     public descrip: string;
     _detailProduct: any;
     inputRequired = true;
+    disabledEanChildren= false;
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
             if (!this.formBasicInfo && !this.formBasicInfo.controls) {
                 this.initComponent();
             }
+            this.disabledEanChildren = true;
             this.getInformationBasic(value);
         }
     }
@@ -739,7 +741,7 @@ setChildren(detailProduct: any) {
             for (let i = 0; i < detailProduct.son.length; i++) {
                 const newForm = {
                     form: new FormGroup({
-                        Ean: new FormControl(detailProduct.son[i].ean,
+                        Ean: new FormControl({value: detailProduct.son[i].ean, disabled: true},
                             [
                                 Validators.required, Validators.pattern(this.getValue('ean'))
                             ]),
@@ -755,7 +757,7 @@ setChildren(detailProduct: any) {
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
                             ]),
-                        associateEanSon: new FormControl(false
+                        associateEanSon: new FormControl({value: false, disabled: true}
                         )
                     }),
                     Show: false,

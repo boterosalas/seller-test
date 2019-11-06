@@ -66,10 +66,16 @@ export class SpecificationProductComponent implements OnInit {
         });
         if (this.processService.specsByCategory) {
             this.processService.specsByCategory.subscribe(result => {
+                this.isLoad = false;
                 if (result && result.data) {
                     this.dataSpecification = result.data;
                     this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
                     this.setSpecification(result.data);
+                    const views = this.processService.getViews();
+                    views.showSpec = false;
+                    this.processService.setViews(views);
+                } else {
+                    this.specificationsGroups = [];
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);

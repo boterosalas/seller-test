@@ -237,7 +237,9 @@ export class ProcessService {
      */
     public getSpecsByCategories(idCategory: string): void {
         this.idCategory = idCategory;
+        console.log(idCategory);
         this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
+            console.log(data);
             // if (data) {
                 this.specsByCategory.emit(data);
             // }
