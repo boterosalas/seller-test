@@ -292,10 +292,10 @@
                 <div class="color-round-picker"
                   [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
                   [matTooltip]="color.Name | translate" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Name === son.colorSelected}">
+                  [ngClass]="{'select-color': color.Label === son.colorSelected}">
                 </div>
                 <div class="material-icons multi-color" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Name === son.colorSelected}" *ngIf="color.multicolor"
+                  [ngClass]="{'select-color': color.Label === son.colorSelected}" *ngIf="color.multicolor"
                   [matTooltip]="color.Name | translate">
                   <div class="multi-one"></div>
                   <div class="multi-two"></div>

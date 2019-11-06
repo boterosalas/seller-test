@@ -50,21 +50,21 @@ export class ProductBasicInfoComponent implements OnInit {
      *  Json  con los colores predefinidos.
      */
     colorList = [
-        { Name: 'secure.products.create_product_unit.basic_information.beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
-        { Name: 'secure.products.create_product_unit.basic_information.black', color: '#000000', border: '#000000', hexColorCode: 0 },
-        { Name: 'secure.products.create_product_unit.basic_information.white', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
-        { Name: 'secure.products.create_product_unit.basic_information.blue', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
-        { Name: 'secure.products.create_product_unit.basic_information.yellow', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
-        { Name: 'secure.products.create_product_unit.basic_information.brown', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
-        { Name: 'secure.products.create_product_unit.basic_information.gray', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
-        { Name: 'secure.products.create_product_unit.basic_information.green', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
-        { Name: 'secure.products.create_product_unit.basic_information.orange', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
-        { Name: 'secure.products.create_product_unit.basic_information.pink', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
-        { Name: 'secure.products.create_product_unit.basic_information.purple', color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
-        { Name: 'secure.products.create_product_unit.basic_information.red', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
-        { Name: 'secure.products.create_product_unit.basic_information.silver', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
-        { Name: 'secure.products.create_product_unit.basic_information.golden', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
-        { Name: 'secure.products.create_product_unit.basic_information.multicolored', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
+        { Name: 'secure.products.create_product_unit.basic_information.beige', Label: 'Beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
+        { Name: 'secure.products.create_product_unit.basic_information.black', Label: 'Negro', color: '#000000', border: '#000000', hexColorCode: 0 },
+        { Name: 'secure.products.create_product_unit.basic_information.white', Label: 'Blanco', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
+        { Name: 'secure.products.create_product_unit.basic_information.blue', Label: 'Azul', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
+        { Name: 'secure.products.create_product_unit.basic_information.yellow', Label: 'Amarillo', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
+        { Name: 'secure.products.create_product_unit.basic_information.brown', Label: 'Café', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
+        { Name: 'secure.products.create_product_unit.basic_information.gray', Label: 'Gris', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
+        { Name: 'secure.products.create_product_unit.basic_information.green', Label: 'Verde', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
+        { Name: 'secure.products.create_product_unit.basic_information.orange', Label: 'Naranja', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
+        { Name: 'secure.products.create_product_unit.basic_information.pink', Label: 'Rosa', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
+        { Name: 'secure.products.create_product_unit.basic_information.purple', Label: 'Morado',  color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
+        { Name: 'secure.products.create_product_unit.basic_information.red', Label: 'Rojo',  color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
+        { Name: 'secure.products.create_product_unit.basic_information.silver', Label: 'Plata',  color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
+        { Name: 'secure.products.create_product_unit.basic_information.golden', Label: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
+        { Name: 'secure.products.create_product_unit.basic_information.multicolored', Label: 'Multicolor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
 
     public UnitMeasurementList = ['secure.products.create_product_unit.basic_information.gram', 'secure.products.create_product_unit.basic_information.mililitre', 'secure.products.create_product_unit.basic_information.metre', 'secure.products.create_product_unit.basic_information.Unit'];
@@ -365,7 +365,8 @@ export class ProductBasicInfoComponent implements OnInit {
      * selectColor
      */
     public selectColor(color: any, son: any): void {
-        son.colorSelected = color.Name;
+        console.log(color.Label);
+        son.colorSelected = color.Label;
         this.detectForm();
     }
 
@@ -763,7 +764,7 @@ setChildren(detailProduct: any) {
                     Show: false,
                     colorPick: '#5f1f1f',
                     colorPick2: null,
-                    colorSelected: 'Verde'
+                    colorSelected: 'Azul'
                 };
                 let t = newForm.form.controls.HexColorCodePDP.disable();
                 t = newForm.form.controls.HexColorCodeName.enable();
