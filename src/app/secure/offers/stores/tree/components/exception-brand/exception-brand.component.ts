@@ -33,7 +33,7 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead = false;
   canUpdate = false;
-  preDataSource = [];
+  preDataSource = [{Brand: '123', Comission: 12, type: 'Marca', Id: 1}];
 
   dataSource: MatTableDataSource<any>;
 
@@ -80,6 +80,10 @@ export class ExceptionBrandComponent implements OnInit {
     }
   }
 
+  /**
+   * Llamar servicio de marcas y traer todas las marcas.
+   * @memberof ExceptionBrandComponent
+   */
   getBrands() {
     this.loadingService.viewSpinner();
     this.regexService.getActiveBrands().subscribe(brands => {
@@ -102,6 +106,10 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que obtiene las regex de la BD y se utiliza para valdiar el formulario.
+   * @memberof ExceptionBrandComponent
+   */
   getRegex() {
     this.loadingService.viewSpinner();
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
@@ -118,6 +126,10 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
+  /**
+   * Se inicializa el formulario con sus respectivas validaciones.
+   * @memberof ExceptionBrandComponent
+   */
   initForm() {
     this.form = this.fb.group({
       Id: [''],
@@ -147,6 +159,8 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(1, this.dataSource);
+    console.log(2, this.preDataSource);
   }
 
   openDialog(action: string, element?: any) {
@@ -177,6 +191,7 @@ export class ExceptionBrandComponent implements OnInit {
             this.preDataSource.push(element);
           });
           this.dataSource.data = this.preDataSource;
+          console.log(1.2, this.dataSource.data);
           break;
         case 'edit':
           break;
