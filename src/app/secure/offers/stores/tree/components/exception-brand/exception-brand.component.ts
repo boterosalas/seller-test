@@ -31,8 +31,8 @@ export class ExceptionBrandComponent implements OnInit {
   selectedBrands = [];
   selectedBrandsSources = new MatTableDataSource(this.selectedBrands);
   filterBrands = [];
-  canRead: boolean = false;
-  canUpdate: boolean = false;
+  canRead = false;
+  canUpdate = false;
   preDataSource = [];
 
   dataSource: MatTableDataSource<any>;
@@ -49,13 +49,13 @@ export class ExceptionBrandComponent implements OnInit {
     private loadingService: LoadingService,
     private languageService: TranslateService,
     private authService: AuthService) {
-      this.typeForm = this.fb.group({
-        type: ['']
-      })
+    this.typeForm = this.fb.group({
+      type: ['']
+    });
     this.getRegex();
     this.getBrands();
     this.dataSource = new MatTableDataSource(this.preDataSource);
-    this.typeForm.get('type').valueChanges.subscribe( (val) => {
+    this.typeForm.get('type').valueChanges.subscribe((val) => {
       this.changeType(val);
     });
     this.getPermissions();
@@ -67,14 +67,16 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   getPermissions() {
-    this.canRead =  this.authService.getPermissionForMenu(categoriesTreeName, readException);
+    this.canRead = this.authService.getPermissionForMenu(categoriesTreeName, readException);
     this.canUpdate = this.authService.getPermissionForMenu(categoriesTreeName, editException);
   }
 
   validatePermissions() {
-    if(!this.canUpdate) {
+    if (!this.canUpdate) {
       const index = this.displayedColumns.findIndex(x => x === 'options');
-      if(index >= 0) this.displayedColumns.splice(index, 1);
+      if (index >= 0) {
+        this.displayedColumns.splice(index, 1);
+      }
     }
   }
 
@@ -118,9 +120,9 @@ export class ExceptionBrandComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      Id: ['',],
+      Id: [''],
       Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
-      Comission: ['', Validators.compose([trimField, Validators.max(30), Validators.min(0), Validators.pattern(this.regex)])]
+      Comission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])]
     });
     this.Comission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
@@ -165,7 +167,7 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   configDialog(dialog: any, data: any) {
-    if (data.action !== 'delete'){
+    if (data.action !== 'delete') {
       dialog.content = this.content;
     }
     dialog.confirmation = () => {
@@ -181,7 +183,7 @@ export class ExceptionBrandComponent implements OnInit {
         case 'delete':
           this.removeElement(data.element);
           break;
-      };
+      }
     };
   }
 
@@ -197,10 +199,10 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   putDataForUpdate(element: any) {
-    const {Id, Brand, Comission} = element;
+    const { Id, Brand, Comission } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
-    const initialValue = Object.assign({Id, Brand, Comission}, {});
+    const initialValue = Object.assign({ Id, Brand, Comission }, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
@@ -225,10 +227,10 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   addBrand() {
-    const {Brand, Comission} = this.form.value;
-    const {type} = this.typeForm.value;
-    const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0  ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
-    this.selectedBrands.push(Object.assign({Brand, Comission, type, Id}, {}));
+    const { Brand, Comission } = this.form.value;
+    const { type } = this.typeForm.value;
+    const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0 ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
+    this.selectedBrands.push(Object.assign({ Brand, Comission, type, Id }, {}));
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
@@ -238,8 +240,9 @@ export class ExceptionBrandComponent implements OnInit {
     this.openDialog('delete', element);
   }
 
-  removeElement(element) {
+  removeElement(element: any) {
     const index = this.preDataSource.findIndex(value => value === element);
+    // tslint:disable-next-line:no-unused-expression
     (index >= 0) && this.preDataSource.splice(index, 1);
     this.dataSource.data = this.preDataSource;
   }

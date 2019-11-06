@@ -29,5 +29,5 @@ export class ExceptionBrandService {
 
   constructor(private api: EndpointService, private http: HttpClient) { }
 
-  
+
 }

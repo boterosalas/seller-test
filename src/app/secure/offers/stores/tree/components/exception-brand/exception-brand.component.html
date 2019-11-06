@@ -27,12 +27,12 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <div class="options">
-              <button mat-icon-button matTooltip="Editar" (click)="openDialog('edit', element)">
+              <button mat-icon-button [matTooltip]="'actions.edit' | translate" (click)="openDialog('edit', element)">
                 <mat-icon>
                   edit
                 </mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Eliminar" (click)="deleteElement(element)">
+              <button mat-icon-button [matTooltip]="'actions.delete' | translate" (click)="deleteElement(element)">
                 <mat-icon>
                   delete
                 </mat-icon>
@@ -80,10 +80,9 @@
         <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
           formControlName="Comission">
         <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">La
-          comisión ingresada debe ser entero, o tener dos
-          decimales</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 30</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 30</mat-error>
+          comisión ingresada debe ser entero positivo, y/o tener dos decimales</mat-error>
+        <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 100</mat-error>
+        <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 0</mat-error>
         <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
           (click)="addBrand()">
           <mat-icon>
