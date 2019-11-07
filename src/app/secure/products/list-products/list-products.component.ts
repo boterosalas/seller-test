@@ -119,7 +119,6 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-
     /**
      * Funcion que permite solo números
      *
@@ -133,7 +132,6 @@ export class ListProductsComponent implements OnInit {
             event.preventDefault();
         }
     }
-
 
     // Funcion para limpiar formulario
     public cleanFilterListProducts(): void {
