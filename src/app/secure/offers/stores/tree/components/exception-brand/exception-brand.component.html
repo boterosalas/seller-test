@@ -65,24 +65,23 @@
 
     <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value">
       <mat-form-field class="half-width">
-        <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" id="brandProduct" required>
+        <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand" id="brandProduct" required>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
             {{brand.Name}}
           </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="form.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-        <mat-error *ngIf="form.get('Brand').hasError('pattern')">La marca ingresada no es válido</mat-error>
-        <mat-error *ngIf="form.get('Brand').hasError('minLength')">La marca ingresada no es válido</mat-error>
+        <mat-error *ngIf="form.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Brand').hasError('minLength')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="half-width">
         <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
           formControlName="Comission">
-        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">La
-          comisión ingresada debe ser entero positivo, y/o tener dos decimales</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('max')">La comisión no puede ser mayor a 100</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('min')">La comisión no puede ser menor a 0</mat-error>
+        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">{{'error.exception_brand.number_int' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Comission').hasError('max')">{{'error.exception_brand.max_error' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Comission').hasError('min')">{{'error.exception_brand.min_error' | translate}}</mat-error>
         <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
           (click)="addBrand()">
           <mat-icon>

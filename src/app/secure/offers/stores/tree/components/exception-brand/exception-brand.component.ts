@@ -33,7 +33,7 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead = false;
   canUpdate = false;
-  preDataSource = [{Brand: '123', Comission: 12, type: 'Marca', Id: 1}];
+  preDataSource = [{ Brand: '123', Comission: 12, type: 'Marca', Id: 1 }];
 
   dataSource: MatTableDataSource<any>;
 

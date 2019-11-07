@@ -210,6 +210,9 @@
     "errors.error_format_invalid": "The format is invalid", 
     "errors.error_present": "There have been", 
     "errors.error.categories.valid": "The value is not valid",
+    "error.exception_brand.max_error": "The entered tariffs can not be over 100",
+    "error.exception_brand.min_error": "The entered tariffs can not be under 0",
+    "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
  
  
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID", 
@@ -918,7 +921,7 @@
     "secure.parametize.commission.delete": "Delete tariffs", 
     "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?", 
     "secure.parametize.commission.edit": "Edit tariffis", 
-    "secure.parametize.commission.addTariffs": "add tariffs",
+    "secure.parametize.commission.addTariffs": "Add tariffs",
  
     "secure.parametize.dialogAddSpecs.modal_title": "Add specifications to a group",  
     "secure.parametize.dialogAddSpecs.modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",  
