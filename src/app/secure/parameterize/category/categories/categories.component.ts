@@ -180,7 +180,6 @@ export class CategoriesComponent implements OnInit {
    * Method that get the category list
    */
   getTree() {
-    this.loadingService.viewSpinner();
     this.categoryService.getCategoryTree().subscribe((response: any) => {
       if (!!response && !!response.status && response.status === 200) {
         this.initialCategotyList = JSON.parse(response.body.body).Data;
