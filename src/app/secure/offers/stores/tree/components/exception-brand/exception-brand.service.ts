@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs/Observable';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +29,42 @@ export class ExceptionBrandService {
 
   constructor(private api: EndpointService, private http: HttpClient) { }
 
+  /**
+   * Serivio que crea las excepciones de marcas
+   * @param {*} body
+   * @returns {Observable<{}>}
+   * @memberof ExceptionBrandService
+   */
+  public createExceptionBrand(body: any): Observable<{}> {
+    return this.http.patch<any>(this.api.get('exceptionBrand'), [body]);
+  }
 
+  /**
+   * Serivio que obtiene las excepciones de marcas
+   * @returns {Observable<{}>}
+   * @memberof ExceptionBrandService
+   */
+  public getExceptionBrand(): Observable<{}> {
+    return this.http.get(this.api.get('transports'), { observe: 'response' });
+  }
+
+  /**
+   * Serivio que actualiza las excepciones de marcas
+   * @param {*} body
+   * @returns {Observable<{}>}
+   * @memberof ExceptionBrandService
+   */
+  public updateExceptionBrand(body: any): Observable<{}> {
+    return this.http.post(this.api.get('transports'), [body]);
+  }
+
+  /**
+   * Serivio que elimina las excepciones de marcas
+   * @param {number} idBrand
+   * @returns {Observable<{}>}
+   * @memberof ExceptionBrandService
+   */
+  public deleteExceptionBrand(idBrand: number): Observable<{}> {
+    return this.http.delete<any>(this.api.get('getTransport', [idBrand]));
+  }
 }
