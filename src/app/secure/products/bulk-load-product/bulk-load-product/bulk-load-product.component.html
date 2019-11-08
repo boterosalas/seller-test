@@ -101,7 +101,7 @@
   <div *ngIf="!orderListLength && countErrors > 0" fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="60" fxFlex.lg="60"
     fxFlex.xl="50" class="content-table-orders">
     <!-- Componente para visualizar la lista de resultados obtenidos -->
-    <app-table-load-product  [countErrors]="countErrors" [countRowUpload]="countRowUpload"></app-table-load-product>
+    <app-table-load-product  [countErrors]="countErrors" [profielType]= "profileTypeLoad" [countRowUpload]="countRowUpload"></app-table-load-product>
 
   </div>
 
