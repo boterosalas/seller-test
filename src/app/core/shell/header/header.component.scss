@@ -36,3 +36,12 @@
   font-size: 11px;
   color: darkgray;
 }
+.select-hide {
+  display: block;
+}
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+  .select-hide {
+    display: none;
+  }
+}
