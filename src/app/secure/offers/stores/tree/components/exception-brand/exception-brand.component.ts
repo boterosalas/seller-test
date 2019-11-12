@@ -12,6 +12,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
 import { Subject } from 'aws-sdk/clients/sts';
 import { TranslateService } from '@ngx-translate/core';
+import { ExceptionBrandService } from './exception-brand.service';
 
 @Component({
   selector: 'app-exception-brand',
@@ -33,7 +34,8 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead = false;
   canUpdate = false;
-  preDataSource = [{ Brand: '123', Comission: 12, type: 'Marca', Id: 1 }];
+  // preDataSource = [{ Brand: '123', Comission: 12, type: 'Marca', Id: 1 }];
+  preDataSource = [];
 
   dataSource: MatTableDataSource<any>;
 
@@ -48,6 +50,7 @@ export class ExceptionBrandComponent implements OnInit {
     private regexService: BasicInformationService,
     private loadingService: LoadingService,
     private languageService: TranslateService,
+    private exceptionBrandService: ExceptionBrandService,
     private authService: AuthService) {
     this.typeForm = this.fb.group({
       type: ['']
@@ -60,6 +63,12 @@ export class ExceptionBrandComponent implements OnInit {
     });
     this.getPermissions();
     this.validatePermissions();
+  }
+
+  ngOnInit() {
+    console.log(1, this.dataSource);
+    console.log(2, this.preDataSource);
+    this.getExceptionBrand();
   }
 
   changeType(val: any) {
@@ -158,11 +167,6 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    console.log(1, this.dataSource);
-    console.log(2, this.preDataSource);
-  }
-
   openDialog(action: string, element?: any) {
     this.form.setValidators(null);
     const data = !!(action === 'edit') ? this.putDataForUpdate(element) : !!(action === 'create') ? this.putDataForCreate() : this.putDataForDelete();
@@ -255,11 +259,25 @@ export class ExceptionBrandComponent implements OnInit {
     this.openDialog('delete', element);
   }
 
+  /**
+   * Metodo para eliminar elementos de comisiones
+   * @param {*} element
+   * @memberof ExceptionBrandComponent
+   */
   removeElement(element: any) {
     const index = this.preDataSource.findIndex(value => value === element);
     // tslint:disable-next-line:no-unused-expression
     (index >= 0) && this.preDataSource.splice(index, 1);
     this.dataSource.data = this.preDataSource;
+  }
+
+  public getExceptionBrand() {
+    this.exceptionBrandService.getExceptionBrandComision().subscribe(res => {
+      console.log('res 123', res['ExceptionValue']);
+      this.preDataSource = res['ExceptionValue'];
+      this.dataSource = new MatTableDataSource(this.preDataSource);
+      console.log(this.preDataSource, 22);
+    });
   }
 
   get Brand(): FormControl {

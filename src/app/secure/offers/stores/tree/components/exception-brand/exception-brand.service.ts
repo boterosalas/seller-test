@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,25 @@ export class ExceptionBrandService {
     { Name: 'Neon 7' },
   ];
 
+  data = {
+    'Type': 1,
+    'SellerId': '11226',
+    'ExceptionValue': [
+      {
+        'Id': 1,
+        'Comission': 7,
+        'IdVTEX': '90066',
+        'Brand': 'Clau'
+      },
+      {
+        'Id': 2,
+        'Comission': 8,
+        'IdVTEX': '90002',
+        'Brand': 'Clau2'
+      }
+    ]
+  };
+
   constructor(private api: EndpointService, private http: HttpClient) { }
 
   /**
@@ -44,8 +64,9 @@ export class ExceptionBrandService {
    * @returns {Observable<{}>}
    * @memberof ExceptionBrandService
    */
-  public getExceptionBrand(): Observable<{}> {
-    return this.http.get(this.api.get('transports'), { observe: 'response' });
+  public getExceptionBrandComision(): Observable<{}> {
+    return of(this.data);
+    // return this.http.get(this.api.get('transports'), { observe: 'response' });
   }
 
   /**
