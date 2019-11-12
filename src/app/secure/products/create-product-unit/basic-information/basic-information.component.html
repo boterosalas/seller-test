@@ -217,7 +217,7 @@
     class="sticky-position">
     <div>
     </div>
-    <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
+    <button fxLayout="row" [disabled]="disabledEanChildren" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
       <mat-icon class="material-icons">
         add_circle_outline
       </mat-icon>
@@ -244,7 +244,7 @@
     <div *ngIf="son.Show" class="son-container">
 
       <div class="text-right">
-        <button mat-icon-button [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
+        <button mat-icon-button [disabled]="disabledEanChildren" [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
           <mat-icon class="material-icons">
             delete
           </mat-icon>

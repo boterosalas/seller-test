@@ -15,7 +15,6 @@ import { TreeComponent } from './list/tree.component';
 import { EventEmitter } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '@app/shared/shared.module';
-import { LoadingService } from '@app/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
@@ -72,8 +71,6 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         }
     };
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
-
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
