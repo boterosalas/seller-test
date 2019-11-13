@@ -671,7 +671,7 @@
     "secure.products.table_errors_product.for": "for",  
     "secure.products.table_errors_product.row": "row",  
     "secure.products.table_errors_product.mandatory": "is mandatory.",  
-    "secure.products.table_errors_product.boolean": "must be a boolean (1 or 2).",  
+    "secure.products.table_errors_product.boolean": "must be a boolean (0 or 1).",  
     "secure.products.table_errors_product.number_positive": "must be a numeric positive value greater than 0, without decimals.",  
     "secure.products.table_errors_product.tech_cloting": "must be either 'Technology' or 'Clothing'.",  
     "secure.products.table_errors_product.gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",  
