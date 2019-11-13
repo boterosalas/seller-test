@@ -56,7 +56,7 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public createExceptionBrand(body: any): Observable<{}> {
-    return this.http.patch<any>(this.api.get('exceptionBrand'), [body]);
+    return this.http.patch<any>(this.api.get(''), body);
   }
 
   /**
@@ -64,7 +64,7 @@ export class ExceptionBrandService {
    * @returns {Observable<{}>}
    * @memberof ExceptionBrandService
    */
-  public getExceptionBrandComision(): Observable<{}> {
+  public getExceptionBrand(): Observable<{}> {
     return of(this.data);
     // return this.http.get(this.api.get('transports'), { observe: 'response' });
   }
@@ -76,7 +76,7 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public updateExceptionBrand(body: any): Observable<{}> {
-    return this.http.post(this.api.get('transports'), [body]);
+    return this.http.post(this.api.get(''), [body]);
   }
 
   /**
@@ -86,6 +86,6 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public deleteExceptionBrand(idBrand: number): Observable<{}> {
-    return this.http.delete<any>(this.api.get('getTransport', [idBrand]));
+    return this.http.delete<any>(this.api.get('', [idBrand]));
   }
 }

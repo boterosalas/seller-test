@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -6,13 +6,14 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
 import { BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
-import { LoadingService } from '@app/core';
+import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
 import { Subject } from 'aws-sdk/clients/sts';
 import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
+import { UserInformation } from '@app/shared';
 
 @Component({
   selector: 'app-exception-brand',
@@ -24,6 +25,11 @@ export class ExceptionBrandComponent implements OnInit {
   form: FormGroup;
   typeForm: FormGroup;
   @ViewChild('dialogContent') content: TemplateRef<any>;
+  @Input() currentStoreSelect: any;
+
+
+  /* Información del usuario*/
+  public user: UserInformation;
 
   displayedColumns = ['Brand', 'Comission', 'options'];
   displayedColumnsInModal = ['Brand', 'Comission'];
@@ -41,8 +47,20 @@ export class ExceptionBrandComponent implements OnInit {
 
   regex;
 
-
   typeException = ['Marca'];
+  // Objeto para enviar a la creacion de la excepcion de marca.
+  createData: {
+    'Type': number,
+    'SellerId': number,
+    'ExceptionValue': [
+      {
+        'Id': number,
+        'Comission': number,
+        'IdVTEX': number,
+        'Brand': string
+      }
+    ]
+  };
 
 
   constructor(private dialog: MatDialog,
@@ -51,6 +69,8 @@ export class ExceptionBrandComponent implements OnInit {
     private loadingService: LoadingService,
     private languageService: TranslateService,
     private exceptionBrandService: ExceptionBrandService,
+    private modalService: ModalService,
+    private userParams: UserParametersService,
     private authService: AuthService) {
     this.typeForm = this.fb.group({
       type: ['']
@@ -66,9 +86,7 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(1, this.dataSource);
-    console.log(2, this.preDataSource);
-    this.getExceptionBrand();
+    this.getExceptionBrandComision();
   }
 
   changeType(val: any) {
@@ -109,7 +127,7 @@ export class ExceptionBrandComponent implements OnInit {
         return 0;
       });
       this.brands = this.brands.map(element => {
-        const newElement = { Name: element.Name };
+        const newElement = { Name: element.Name, IdVTEX: element.IdVTEX };
         return newElement;
       });
     });
@@ -189,9 +207,18 @@ export class ExceptionBrandComponent implements OnInit {
       dialog.content = this.content;
     }
     dialog.confirmation = () => {
+      let vtexId = '';
       switch (data.action) {
         case 'create':
           this.selectedBrands.forEach(element => {
+            this.brands.forEach(el => {
+              if (el.Name === element.Brand) {
+                console.log('si');
+                // this.element.push(el.IdVTEX);
+                vtexId = el.IdVTEX;
+              }
+            });
+            element.IdVTEX = vtexId;
             this.preDataSource.push(element);
           });
           this.dataSource.data = this.preDataSource;
@@ -235,6 +262,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   putDataForCreate() {
     const form = this.form;
+    console.log('form: ', form);
     const title = this.languageService.instant('secure.parametize.commission.addTariffs');
     const message = null;
     const messageCenter = false;
@@ -247,9 +275,9 @@ export class ExceptionBrandComponent implements OnInit {
 
   addBrand() {
     const { Brand, Comission } = this.form.value;
-    const { type } = this.typeForm.value;
-    const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0 ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
-    this.selectedBrands.push(Object.assign({ Brand, Comission, type, Id }, {}));
+    const IdVTEX = '';
+    // const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0 ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
+    this.selectedBrands.push(Object.assign({ Brand, Comission, IdVTEX}, {}));
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
@@ -271,12 +299,24 @@ export class ExceptionBrandComponent implements OnInit {
     this.dataSource.data = this.preDataSource;
   }
 
-  public getExceptionBrand() {
-    this.exceptionBrandService.getExceptionBrandComision().subscribe(res => {
-      console.log('res 123', res['ExceptionValue']);
+  public getExceptionBrandComision() {
+    this.exceptionBrandService.getExceptionBrand().subscribe(res => {
       this.preDataSource = res['ExceptionValue'];
       this.dataSource = new MatTableDataSource(this.preDataSource);
-      console.log(this.preDataSource, 22);
+    });
+  }
+
+  public createException() {
+    this.loadingService.viewSpinner();
+    this.createData.Type = 1;
+    this.createData.SellerId = this.currentStoreSelect;
+    this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
+      try {
+        const response = res;
+        this.loadingService.closeSpinner();
+      } catch {
+        this.modalService.showModal('errorService');
+      }
     });
   }
 
