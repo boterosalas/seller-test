@@ -6,11 +6,9 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
 import { BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
-import { LoadingService, ModalService, UserParametersService } from '@app/core';
-import { AuthRoutingService } from '@app/secure/auth/auth.service';
+import { LoadingService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
-import { Subject } from 'aws-sdk/clients/sts';
 import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
@@ -49,18 +47,13 @@ export class ExceptionBrandComponent implements OnInit {
 
   typeException = ['Marca'];
   // Objeto para enviar a la creacion de la excepcion de marca.
-  createData: {
-    'Type': number,
-    'SellerId': number,
-    'ExceptionValue': [
-      {
-        'Id': number,
-        'Comission': number,
-        'IdVTEX': number,
-        'Brand': string
-      }
-    ]
-  };
+  // createData: {
+  //   Type: number,
+  //   SellerId: string,
+  //   ExceptionValue: any
+  // };
+
+  createData: any;
 
 
   constructor(private dialog: MatDialog,
@@ -70,7 +63,6 @@ export class ExceptionBrandComponent implements OnInit {
     private languageService: TranslateService,
     private exceptionBrandService: ExceptionBrandService,
     private modalService: ModalService,
-    private userParams: UserParametersService,
     private authService: AuthService) {
     this.typeForm = this.fb.group({
       type: ['']
@@ -214,7 +206,6 @@ export class ExceptionBrandComponent implements OnInit {
             this.brands.forEach(el => {
               if (el.Name === element.Brand) {
                 console.log('si');
-                // this.element.push(el.IdVTEX);
                 vtexId = el.IdVTEX;
               }
             });
@@ -222,6 +213,7 @@ export class ExceptionBrandComponent implements OnInit {
             this.preDataSource.push(element);
           });
           this.dataSource.data = this.preDataSource;
+          this.createException();
           console.log(1.2, this.dataSource.data);
           break;
         case 'edit':
@@ -262,7 +254,6 @@ export class ExceptionBrandComponent implements OnInit {
 
   putDataForCreate() {
     const form = this.form;
-    console.log('form: ', form);
     const title = this.languageService.instant('secure.parametize.commission.addTariffs');
     const message = null;
     const messageCenter = false;
@@ -300,16 +291,21 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   public getExceptionBrandComision() {
-    this.exceptionBrandService.getExceptionBrand().subscribe(res => {
-      this.preDataSource = res['ExceptionValue'];
-      this.dataSource = new MatTableDataSource(this.preDataSource);
-    });
+    // this.exceptionBrandService.getExceptionBrand().subscribe(res => {
+    //   this.preDataSource = res['ExceptionValue'];
+    //   this.dataSource = new MatTableDataSource(this.preDataSource);
+    // });
   }
 
   public createException() {
-    this.loadingService.viewSpinner();
-    this.createData.Type = 1;
-    this.createData.SellerId = this.currentStoreSelect;
+    // this.createData.Type = 1;
+    // this.createData.SellerId = this.currentStoreSelect;
+    // this.createData.ExceptionValue = this.dataSource.data;
+    this.createData = {'Type': 1,
+    'SellerId': this.currentStoreSelect.toString(),
+    'ExceptionValue': this.dataSource.data};
+    console.log('createdata: ', this.createData );
+
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
       try {
         const response = res;

@@ -56,7 +56,7 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public createExceptionBrand(body: any): Observable<{}> {
-    return this.http.patch<any>(this.api.get(''), body);
+    return this.http.patch<any>(this.api.get('createBrand'), body);
   }
 
   /**
