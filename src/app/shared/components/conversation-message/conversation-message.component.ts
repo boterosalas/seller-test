@@ -18,6 +18,10 @@ export class ConversationMessageComponent {
 
   @Input() date: string;
 
+  @Input() disabled: false;
+
+  @Input() disabledClass: false;
+
   @Input() configuration: Configuration = {
     theme: this._THEMES.BASIC,
     reply: false

@@ -5,14 +5,14 @@ import {
   Input,
   Output,
   EventEmitter
-} from "@angular/core";
-import { ContentDropDownBoxDirective } from "./content-drop-down-box.directive";
-import { IData } from "./models/data.model";
+} from '@angular/core';
+import { ContentDropDownBoxDirective } from './content-drop-down-box.directive';
+import { IData } from './models/data.model';
 
 @Component({
-  selector: "app-drop-down-box",
-  templateUrl: "./drop-down-box.component.html",
-  styleUrls: ["./drop-down-box.component.scss"]
+  selector: 'app-drop-down-box',
+  templateUrl: './drop-down-box.component.html',
+  styleUrls: ['./drop-down-box.component.scss']
 })
 export class DropDownBoxComponent {
   @ContentChildren(ContentDropDownBoxDirective)

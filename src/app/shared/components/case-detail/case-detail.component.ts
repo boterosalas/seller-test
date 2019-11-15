@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
 const productsConfig = require('./products-list-configuration.json');
 
@@ -21,14 +21,27 @@ export class CaseDetailComponent implements OnInit {
 
   productsConfig: Array<any>;
 
-  constructor(public dialog: MatDialog) {}
+  isClosed: boolean;
+
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.productsConfig = productsConfig;
+    this.isClosed = this.case.status === 'Cerrado';
   }
 
   openResponseDialog(): void {
-    this.reply.emit(this.case);
+    if (this.isClosed) {
+      this.snackBar.open(
+        'El caso ya se encuentra en estado cerrado, no es posible agregar comentarios.',
+        'Cerrar',
+        {
+          duration: 3000
+        }
+      );
+    } else {
+      this.reply.emit(this.case);
+    }
   }
 
   onClickShowAllProducts() {
@@ -48,11 +61,12 @@ export interface Case {
   id: string;
   sellerId: string;
   caseId: string;
-  status: number;
+  status: string;
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
   description: string;
+  descriptionSolution: string;
   createDate: string;
   updateDate: string;
   customerEmail: string;
