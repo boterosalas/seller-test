@@ -157,6 +157,10 @@ export const endpoints = {
       reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
       // Get vtex TREET
       getVtexTree: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtextree',
+      // Get excecion brand comisiones
+      getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/CreateComsnExc/{params}',
     },
   },
   // Endpoints production

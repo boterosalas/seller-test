@@ -23,8 +23,15 @@ export class ExceptionBrandComponent implements OnInit {
   form: FormGroup;
   typeForm: FormGroup;
   @ViewChild('dialogContent') content: TemplateRef<any>;
-  @Input() currentStoreSelect: any;
+  currentStoreSelect_Id: any;
+  // @Input() currentStoreSelect: any;
 
+  @Input() set currentStoreSelect(value: number) {
+    if (value !== undefined) {
+      this.currentStoreSelect_Id = value;
+      this.getExceptionBrandComision();
+    }
+  }
 
   /* Información del usuario*/
   public user: UserInformation;
@@ -78,7 +85,9 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExceptionBrandComision();
+    // console.log('qw: ', this.currentStoreSelect);
+    // // this.getExceptionBrandComision();
+
   }
 
   changeType(val: any) {
@@ -191,6 +200,7 @@ export class ExceptionBrandComponent implements OnInit {
       this.selectedBrands = [];
       this.validation.next(true);
       this.typeForm.reset();
+      // colocar funcion q obtiene todas las excepciones por marca
     });
   }
 
@@ -199,22 +209,20 @@ export class ExceptionBrandComponent implements OnInit {
       dialog.content = this.content;
     }
     dialog.confirmation = () => {
-      let vtexId = '';
+      // let vtexId = '';
       switch (data.action) {
         case 'create':
-          this.selectedBrands.forEach(element => {
-            this.brands.forEach(el => {
-              if (el.Name === element.Brand) {
-                console.log('si');
-                vtexId = el.IdVTEX;
-              }
-            });
-            element.IdVTEX = vtexId;
-            this.preDataSource.push(element);
-          });
-          this.dataSource.data = this.preDataSource;
+          // this.selectedBrands.forEach(element => {
+          //   this.brands.forEach(el => {
+          //     if (el.Name === element.Brand) {
+          //       vtexId = el.IdVTEX;
+          //     }
+          //   });
+          //   element.IdVTEX = vtexId;
+          //   this.preDataSource.push(element);
+          // });
+          // this.dataSource.data = this.preDataSource;
           this.createException();
-          console.log(1.2, this.dataSource.data);
           break;
         case 'edit':
           break;
@@ -248,7 +256,7 @@ export class ExceptionBrandComponent implements OnInit {
     const messageCenter = false;
     const showButtons = true;
     const icon = null;
-    const btnConfirmationText = null;
+    const btnConfirmationText = 'Editar';
     return { form, title, message, messageCenter, showButtons, icon, btnConfirmationText };
   }
 
@@ -265,10 +273,10 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   addBrand() {
+    // Capturar valores del formulario.
     const { Brand, Comission } = this.form.value;
-    const IdVTEX = '';
-    // const Id = this.selectedBrands.length > 0 ? (this.selectedBrands[this.selectedBrands.length - 1].Id + 1) : this.preDataSource.length > 0 ? (this.preDataSource[this.preDataSource.length - 1].Id + 1) : 1;
-    this.selectedBrands.push(Object.assign({ Brand, Comission, IdVTEX}, {}));
+    // Objeto nuevo que tiene Brand y Comision
+    this.selectedBrands.push(Object.assign({ Brand, Comission }, {}));
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
@@ -290,26 +298,71 @@ export class ExceptionBrandComponent implements OnInit {
     this.dataSource.data = this.preDataSource;
   }
 
+  /**
+   * Metodo para obtener todas las excepciones de comisiones
+   * @memberof ExceptionBrandComponent
+   */
   public getExceptionBrandComision() {
-    // this.exceptionBrandService.getExceptionBrand().subscribe(res => {
-    //   this.preDataSource = res['ExceptionValue'];
-    //   this.dataSource = new MatTableDataSource(this.preDataSource);
-    // });
+    this.loadingService.viewSpinner();
+    this.exceptionBrandService.getExceptionBrand(this.currentStoreSelect_Id).subscribe(res => {
+      if (res['status'] === 200 || res['status'] === 201) {
+        const data = res['body']['body'];
+        const dataComision = JSON.parse(data);
+        if (dataComision.Data.length > 0) {
+          const dataSourceException = dataComision.Data[0].ExceptionValues;
+          this.dataSource = new MatTableDataSource(dataSourceException);
+          this.loadingService.closeSpinner();
+        } else {
+          this.modalService.showModal('errorService');
+        }
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
+    });
   }
 
+  /**
+   * Metodo para crear la excepcion de comision por marca.
+   * @memberof ExceptionBrandComponent
+   */
   public createException() {
-    // this.createData.Type = 1;
-    // this.createData.SellerId = this.currentStoreSelect;
-    // this.createData.ExceptionValue = this.dataSource.data;
-    this.createData = {'Type': 1,
-    'SellerId': this.currentStoreSelect.toString(),
-    'ExceptionValue': this.dataSource.data};
-    console.log('createdata: ', this.createData );
-
+    let vtexId = '';
+    const sellerId = this.currentStoreSelect_Id.toString();
+    console.log('sellerId: ', sellerId);
+    this.createData = {
+      'Type': '1',
+      'SellerId': sellerId,
+      'ExceptionValue': [{
+        'Brand': 'SLAPPA',
+        'Comission': 7,
+        'IdVTEX': '90066'
+      },
+      {
+        'Brand': 'SLAPPA',
+        'Comission': 7,
+        'IdVTEX': '90066'
+      }
+    ]
+    };
+    console.log('createdata: ', this.createData);
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
+      console.log('res: ', res);
       try {
-        const response = res;
-        this.loadingService.closeSpinner();
+        if (res) {
+          this.selectedBrands.forEach(element => {
+            this.brands.forEach(el => {
+              if (el.Name === element.Brand) {
+                vtexId = el.IdVTEX;
+              }
+            });
+            element.IdVTEX = vtexId;
+            this.preDataSource.push(element);
+          });
+          // this.dataSource.data = this.preDataSource;
+          this.loadingService.closeSpinner();
+        }
+
       } catch {
         this.modalService.showModal('errorService');
       }

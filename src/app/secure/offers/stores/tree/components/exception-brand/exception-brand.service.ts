@@ -3,6 +3,7 @@ import { EndpointService } from '@app/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
+import { StoreModel } from '../../../models/store.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -56,7 +57,9 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public createExceptionBrand(body: any): Observable<{}> {
-    return this.http.patch<any>(this.api.get('createBrand'), body);
+    // return this.http.patch<any>(this.api.get('patchExceptionBrand'), body);
+    // return this.http.patch(`${this.api.get('getExceptionBrand')}/CreateComsnExc/${body}`, { observe: 'response' });
+    return this.http.patch(`${this.api.get('exceptionComissionBrand')}/CreateComsnExc`, body, { observe: 'response' });
   }
 
   /**
@@ -64,9 +67,8 @@ export class ExceptionBrandService {
    * @returns {Observable<{}>}
    * @memberof ExceptionBrandService
    */
-  public getExceptionBrand(): Observable<{}> {
-    return of(this.data);
-    // return this.http.get(this.api.get('transports'), { observe: 'response' });
+  public getExceptionBrand(param: any): Observable<{}> {
+    return this.http.get(`${this.api.get('getExceptionBrand')}/GetComsnExcsBySeller/${param}`, { observe: 'response' });
   }
 
   /**
@@ -76,7 +78,7 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public updateExceptionBrand(body: any): Observable<{}> {
-    return this.http.post(this.api.get(''), [body]);
+    return this.http.patch(`${this.api.get('exceptionComissionBrand')}/UpdateComsnExc`, body, { observe: 'response' });
   }
 
   /**
@@ -85,7 +87,7 @@ export class ExceptionBrandService {
    * @returns {Observable<{}>}
    * @memberof ExceptionBrandService
    */
-  public deleteExceptionBrand(idBrand: number): Observable<{}> {
-    return this.http.delete<any>(this.api.get('', [idBrand]));
+  public deleteExceptionBrand(idBrand: any): Observable<{}> {
+    return this.http.patch(`${this.api.get('exceptionComissionBrand')}/DeleteComsnExc`, idBrand, { observe: 'response' });
   }
 }
