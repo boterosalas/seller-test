@@ -159,15 +159,11 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             // Copia del arreglo de todas las categories para hacer la busqueda y traducir la que ha selelcionado.
             this.copyDataCategory = JSON.parse(result.body.body);
             // guardo el response
-            if (result.status === 200) {
+            if (result.status === 200 && result.body.body) {
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
-            } else {
-                log.debug('ListCategorizationComponent:' + result.message);
-            }
-            this.isLoad = false;
-            this.selectedCategory = '';
+                this.selectedCategory = '';
             // Hacemos una busqueda de la categoria con el clone del arreglo para mostrar cual seleccionó y enviarla al 3 paso traducido.
             this.copyDataCategory.Data.forEach(el => {
                 if (el.Id === this.selectedIdCategory) {
@@ -180,6 +176,10 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                     this.process.validaData(data);
                 }
             });
+            } else {
+                log.debug('ListCategorizationComponent:' + result.message);
+            }
+            this.isLoad = false;
         });
     }
 
