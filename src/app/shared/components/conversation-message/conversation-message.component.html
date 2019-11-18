@@ -22,8 +22,12 @@
     *ngIf="configuration.reply"
   >
     <button
+      [disabled]="disabled"
       (click)="replyEvent.emit()"
       class="mat-raised-button sh-message__button sh-message__button--secondary"
+      [ngClass]="
+        disabledClass ? 'sh-message__button--secondary-disabled' : ''
+      "
     >
       RESPONDER
     </button>

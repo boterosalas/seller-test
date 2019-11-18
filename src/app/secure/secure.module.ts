@@ -37,9 +37,7 @@ import { BulkLoadProductModerationModule } from './products/bulk-load-product-mo
 import { ListProductModule } from './products/list-products/list-products.module';
 import { SellerSupportCenterService } from './seller-support-center/services/seller-support-center.service';
 import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
-import { CoreStoreModule, CoreState } from '../store';
-import { Store } from '@ngrx/store';
-import { RunNotificationDaemon, FetchUnreadCase } from '@app/store/notifications/actions';
+import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 
 @NgModule({
@@ -82,9 +80,4 @@ import { ListReportsModule } from './reports/reports.module';
   ],
   providers: [AuthService, SellerSupportCenterService]
 })
-export class SecureModule {
-  constructor(private store: Store<CoreState>) {
-    this.store.dispatch(new FetchUnreadCase());
-    this.store.dispatch(new RunNotificationDaemon());
-  }
-}
+export class SecureModule {}

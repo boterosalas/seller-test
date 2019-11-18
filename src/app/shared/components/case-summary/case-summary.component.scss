@@ -70,6 +70,18 @@ $hint-color: #9e9e9e;
       border: 1px solid $accent-color;
       color: $accent-color;
 
+      &-disabled {
+        background-color: rgba(0, 0, 0, 0.12);
+        outline: rgba(0, 0, 0, 0.12);
+        border-color: rgba(0, 0, 0, 0.12);
+        color: rgba(0, 0, 0, 0.5);
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.12) !important;
+          color: rgba(0, 0, 0, 0.5) !important;
+        }
+      }
+
       &:hover {
         background-color: $accent-color;
         color: white;
