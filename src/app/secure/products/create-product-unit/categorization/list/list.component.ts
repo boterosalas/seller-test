@@ -30,6 +30,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
 
     // Variable para mostrar loading
     public isLoad = false;
+    copyDataCategory: any;
 
     /**
      * Creates an instance of ListCategorizationComponent.
@@ -155,6 +156,8 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      */
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
+            // Copia del arreglo de todas las categories para hacer la busqueda y traducir la que ha selelcionado.
+            this.copyDataCategory = JSON.parse(result.body.body);
             // guardo el response
             if (result.status === 200) {
                 const body = JSON.parse(result.body.body);
@@ -164,6 +167,19 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
                 log.debug('ListCategorizationComponent:' + result.message);
             }
             this.isLoad = false;
+            this.selectedCategory = '';
+            // Hacemos una busqueda de la categoria con el clone del arreglo para mostrar cual seleccionó y enviarla al 3 paso traducido.
+            this.copyDataCategory.Data.forEach(el => {
+                if (el.Id === this.selectedIdCategory) {
+                    this.selectedCategory = el.Name;
+                    const data = {
+                        CategorySelected: el.Id,
+                        CategoryName: el.Name,
+                        CategoryType: el.ProductType
+                    };
+                    this.process.validaData(data);
+                }
+            });
         });
     }
 
