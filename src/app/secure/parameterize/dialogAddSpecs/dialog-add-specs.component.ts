@@ -80,7 +80,7 @@ export class AddDialogSpecsComponent implements OnInit {
             optionSpec: new FormControl(optionData, Validators.required),
         });
 
-        if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length) {
+        if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length > 0) {
             this.dataToEdit.List.forEach(element => {
                 this.listOptions.push({
                     option: {'displayName': element.displayName, 'label': element.label},

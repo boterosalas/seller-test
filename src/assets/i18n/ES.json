@@ -671,7 +671,7 @@
     "secure.products.table_errors_product.for": "de la",  
     "secure.products.table_errors_product.row": "fila",  
     "secure.products.table_errors_product.mandatory": "es obligatorio.",  
-    "secure.products.table_errors_product.boolean": "debe ser booleano (1 ó 2).",  
+    "secure.products.table_errors_product.boolean": "debe ser booleano (1 ó 0).",  
     "secure.products.table_errors_product.number_positive": "debe ser numérico positivo mayor a cero, sin decimales.",  
     "secure.products.table_errors_product.tech_cloting": "deber ser 'Technology' o 'Clothing'.",  
     "secure.products.table_errors_product.gram_milili": "deber ser 'Gramo', 'Mililitro', 'Metro' o 'Unidad'.",  
