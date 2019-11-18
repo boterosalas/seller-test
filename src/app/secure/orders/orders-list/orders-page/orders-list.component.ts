@@ -86,6 +86,25 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     id: ''
   };
 
+
+
+  public idSeller = '';
+  public event: any;
+  public paginationToken = '{}';
+  public params: any;
+  public onlyOne = true;
+  public onlyOneCall = true;
+  public call = true;
+  public positionPagination: any;
+  public arrayPosition = [];
+  public listOrdens: any;
+
+
+  public length = 0;
+  public pageSize = [50];
+
+
+
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
   read = readFunctionality;
@@ -102,9 +121,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   visualizePermission: boolean;
   showMenssage = false;
 
-  profile: number;
-  idSeller: number;
-  event: any;
+
   typeProfile: number;
   // Fin de variables de permisos.
 
@@ -391,47 +408,109 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @param {any} [state]
    * @memberof OrdersListComponent
    */
-  getOrdersList($event: any) {
-    const closeSnack = this.languageService.instant('actions.close');
-    this.event = $event;
-    this.setCategoryName();
+  getOrdersList(params?: any) {
+    console.log(params);
     this.loadingService.viewSpinner();
-    if ($event !== undefined) {
-      if ($event.lengthOrder > 0) {
-        let category = null;
-        if ($event.lengthOrder === this.numberLength || !this.numberLength || $event.category) {
-          this.numberLength = $event.lengthOrder;
-          if ($event.category !== '') {
-            category = $event.category;
-            this.lastCategory = category;
-          }
-        } else {
-          category = this.lastCategory;
-        }
-        this.currentEventPaginate = $event;
-        // this.orderService.getOrderList(category, $event.lengthOrder).subscribe((res: any) => {
-        //   this.loadingService.closeSpinner();
-        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
-          this.addCheckOptionInProduct(res, $event.paginator);
-          this.loadingService.closeSpinner();
-          if (res && res.length === 0 && this.idSeller) {
-            this.showMenssage = true;
-          }
-          this.loadingService.closeSpinner();
-        }, err => {
-          this.orderListLength = true;
-          const message = this.languageService.instant('secure.orders.order_list.order_page.wrong_to_search_orders');
-          this.componentService.openSnackBar(message, closeSnack, 10000);
-          log.error(message, err);
-        });
-      } else {
-        const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
-        this.componentService.openSnackBar(message, closeSnack, 1000);
-      }
+    this.params = this.setParameters(params);
+    this.orderService.getOrderList(this.params).subscribe((res: any) => {
+      this.setTable(res);
+      this.loadingService.closeSpinner();
+    });
+    // const closeSnack = this.languageService.instant('actions.close');
+    // this.event = $event;
+    // this.setCategoryName();
+    // this.loadingService.viewSpinner();
+    // if ($event !== undefined) {
+    //   if ($event.lengthOrder > 0) {
+    //     let category = null;
+    //     if ($event.lengthOrder === this.numberLength || !this.numberLength || $event.category) {
+    //       this.numberLength = $event.lengthOrder;
+    //       if ($event.category !== '') {
+    //         category = $event.category;
+    //         this.lastCategory = category;
+    //       }
+    //     } else {
+    //       category = this.lastCategory;
+    //     }
+    //     this.currentEventPaginate = $event;
+    //     // this.orderService.getOrderList(category, $event.lengthOrder).subscribe((res: any) => {
+    //     //   this.loadingService.closeSpinner();
+    //     this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
+    //       this.addCheckOptionInProduct(res, $event.paginator);
+    //       this.loadingService.closeSpinner();
+    //       if (res && res.length === 0 && this.idSeller) {
+    //         this.showMenssage = true;
+    //       }
+    //       this.loadingService.closeSpinner();
+    //     }, err => {
+    //       this.orderListLength = true;
+    //       const message = this.languageService.instant('secure.orders.order_list.order_page.wrong_to_search_orders');
+    //       this.componentService.openSnackBar(message, closeSnack, 10000);
+    //       log.error(message, err);
+    //     });
+    //   } else {
+    //     const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
+    //     this.componentService.openSnackBar(message, closeSnack, 1000);
+    //   }
+    // } else {
+    //   const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
+    //   this.componentService.openSnackBar(message, closeSnack, 1000);
+    // }
+  }
+
+  setParameters(params: any) {
+    if (params && params.category !== undefined && params.lengthOrder !== undefined) {
     } else {
-      const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
-      this.componentService.openSnackBar(message, closeSnack, 1000);
+      params = {
+        'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': '',
+      };
     }
+    return params;
+  }
+
+
+  setTable(res: any) {
+    if (res) {
+      if (this.onlyOne) {
+        this.length = res.count;
+        this.arrayPosition.push('');
+      }
+      this.listOrdens = res.viewModel;
+      this.savePaginationToken(res.paginationToken);
+    } else {
+      this.clearTable();
+    }
+    this.onlyOne = false;
+  }
+
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
+  }
+
+  clearTable() {
+    this.length = 0;
+  }
+
+  paginations(event: any) {
+    const index = event.param.pageIndex;
+
+    if (index === 0) {
+      this.paginationToken = '';
+    }
+
+    const isExist = this.arrayPosition.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayPosition.push(this.paginationToken);
+    }
+    this.paginationToken = this.arrayPosition[index];
+    const params = {
+      'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': '',
+    };
+    this.getOrdersList(params);
   }
 
   /**
@@ -466,7 +545,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
     // Creo el elemento que permite pintar la tabla
     this.currentOrderList = res;
-    this.dataSource = new MatTableDataSource(res);
+    this.dataSource = new MatTableDataSource(res.viewModel);
     paginator.pageIndex = 0;
     this.dataSource.paginator = paginator;
     this.dataSource.sort = this.sort;

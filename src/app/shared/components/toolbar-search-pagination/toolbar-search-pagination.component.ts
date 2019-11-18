@@ -65,10 +65,12 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() orderListLength: boolean;
   // Evento que permite consultar las órdenes
   @Output() OnGetOrdersList = new EventEmitter<object>();
+  @Output() paginationListOrdens = new EventEmitter<object>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
   // Limite de registros
-  lengthOrder = 100;
+  // lengthOrder = 100;
+  @Input() lengthOrder: number;
   // Numero de paginas por defecto
   pageSizeOrder: number;
 
@@ -273,4 +275,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     this.eventsSeller.searchSeller(search_seller);
   }
 
+
+  public changePaginatorOrdens(param: any): any {
+    this.paginationListOrdens.emit({ param });
+  }
 }
