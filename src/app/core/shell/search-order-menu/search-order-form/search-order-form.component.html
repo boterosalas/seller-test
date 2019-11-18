@@ -4,7 +4,7 @@
       [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" matInput
       [matDatepicker]="dateOrderInitial">
     <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateOrderInitial"></mat-datepicker-toggle>
-    <mat-datepicker touchUi="true" startView="year" #dateOrderInitial></mat-datepicker>
+    <mat-datepicker touchUi="true" startView="year" #dateOrderInitial disabled="false"></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field id="untilDate-input-search-order" color="accent">
@@ -13,7 +13,7 @@
       [matDatepicker]="dateOrderFinal">
     <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateOrderFinal">
     </mat-datepicker-toggle>
-    <mat-datepicker touchUi="true" startView="year" #dateOrderFinal></mat-datepicker>
+    <mat-datepicker touchUi="true" startView="year" #dateOrderFinal disabled="false"></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field id="chanelOrder-input-search-order" class="example-full-width" color="accent">
