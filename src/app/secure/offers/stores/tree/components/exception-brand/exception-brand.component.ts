@@ -304,6 +304,7 @@ export class ExceptionBrandComponent implements OnInit {
    */
   public getExceptionBrandComision() {
     this.loadingService.viewSpinner();
+    console.log('id: ', this.currentStoreSelect_Id);
     this.exceptionBrandService.getExceptionBrand(this.currentStoreSelect_Id).subscribe(res => {
       if (res['status'] === 200 || res['status'] === 201) {
         const data = res['body']['body'];
@@ -331,14 +332,9 @@ export class ExceptionBrandComponent implements OnInit {
     const sellerId = this.currentStoreSelect_Id.toString();
     console.log('sellerId: ', sellerId);
     this.createData = {
-      'Type': '1',
+      'Type': 1,
       'SellerId': sellerId,
       'ExceptionValue': [{
-        'Brand': 'SLAPPA',
-        'Comission': 7,
-        'IdVTEX': '90066'
-      },
-      {
         'Brand': 'SLAPPA',
         'Comission': 7,
         'IdVTEX': '90066'
