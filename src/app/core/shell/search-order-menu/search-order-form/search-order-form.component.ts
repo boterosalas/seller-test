@@ -30,6 +30,7 @@ export class SearchOrderFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
+  @Input() state: number;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -155,7 +156,12 @@ export class SearchOrderFormComponent implements OnInit {
     }
 
     if (stringSearch !== '') {
-
+      let status = '';
+      stringSearch += '&paginationToken=' + encodeURI('{}');
+      if (this.state && this.state !== undefined) {
+        status = '&idStatusOrder=' + this.state;
+      }
+      stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado

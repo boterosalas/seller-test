@@ -60,6 +60,12 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() downloadBillingPay: boolean;
   @Input() idSeller: number;
   @Input() Typeprofile: number;
+  @Input() state: number;
+  @Input() set isClear(value: boolean) {
+    if (value) {
+      this.paginator.firstPage();
+    }
+  }
 
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
@@ -118,7 +124,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
   }
 
   /**
@@ -165,7 +171,14 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   getOrdersList(category?: any) {
-    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
+    this.paginator.firstPage();
+    this.OnGetOrdersList.emit({
+        'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': category,
+        'callOne': true
+      }
+    );
   }
 
   /**

@@ -25,7 +25,7 @@ export class OrderService {
    */
   getOrderList(params: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit])).subscribe((data: any) => {
+      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${params.state}`])).subscribe((data: any) => {
         observer.next(data);
       }, err => {
         observer.error(err);

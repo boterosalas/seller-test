@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections';
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, } from '@app/core';
@@ -20,6 +20,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import * as _ from 'lodash';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -86,6 +87,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     id: ''
   };
 
+  
+
 
 
   public idSeller = '';
@@ -120,6 +123,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   marketPermission: boolean;
   visualizePermission: boolean;
   showMenssage = false;
+  isClear= false;
 
 
   typeProfile: number;
@@ -139,6 +143,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentRootPage: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
+
+  
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
@@ -152,7 +158,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   public cognitoId: String;
   public numberLength: number;
-  public lastCategory: number;
+  public lastState: number;
   private searchSubscription: any;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
@@ -184,9 +190,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.getMenuSelected();
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.idSeller = seller.IdSeller;
-      if (this.event) {
-        this.getOrdersList(this.event);
-      }
+      const paramsArray = {
+        'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'callOne': true
+      };
+      this.getOrdersList(paramsArray);
+
     });
   }
 
@@ -284,22 +295,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
         if (data != null) {
-          if (data.length === 0) {
+          if (data.viewModel.length === 0) {
             this.orderListLength = true;
           } else {
             this.orderListLength = false;
           }
-
-          /* this.currentCategory.name = 'órdenes encontradas'; */
-
-          this.dataSource = new MatTableDataSource(data);
-
+          this.length = data.count;
+          this.isClear = true;
+          this.dataSource = new MatTableDataSource(data.viewModel);
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
           this.dataSource.paginator = paginator;
           this.dataSource.sort = this.sort;
           this.numberElements = this.dataSource.data.length;
-
           this.setTitleToolbar();
         }
       });
@@ -308,7 +316,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   clearData() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
-        this.getOrdersList(this.event);
+        const paramsArray = {
+          'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+          'idSeller': this.idSeller,
+          'state': this.lastState,
+          'callOne': true
+        };
+        this.isClear = true;
+        this.getOrdersList(paramsArray);
       });
   }
 
@@ -359,7 +374,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getAllOrderList() {
-    this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    // this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
   }
 
   /**
@@ -409,11 +424,23 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersList(params?: any) {
-    console.log(params);
     this.loadingService.viewSpinner();
+    this.isClear = false;
     this.params = this.setParameters(params);
+    let stateCurrent = null;
+    this.setCategoryName();
     this.orderService.getOrderList(this.params).subscribe((res: any) => {
+      if (params.state !== '') {
+        stateCurrent = params.state;
+        this.lastState = stateCurrent;
+      }
       this.setTable(res);
+      if (params && params.callOne) {
+        this.length = res.count;
+        this.isClear = true;
+      }
+      const paginator = {'pageIndex': 0};
+      this.addCheckOptionInProduct(res.viewModel, paginator);
       this.loadingService.closeSpinner();
     });
     // const closeSnack = this.languageService.instant('actions.close');
@@ -459,14 +486,16 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   setParameters(params: any) {
-    if (params && params.category !== undefined && params.lengthOrder !== undefined) {
-    } else {
-      params = {
-        'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
-        'idSeller': '',
-      };
+    if (params && params.callOne) {
+      this.paginationToken = '{}';
+      this.arrayPosition = [];
     }
-    return params;
+    const paramsArray = {
+      'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+      'state': params.state
+    };
+    return paramsArray;
   }
 
 
@@ -474,9 +503,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     if (res) {
       if (this.onlyOne) {
         this.length = res.count;
-        this.arrayPosition.push('');
+        this.arrayPosition = [];
+        this.arrayPosition.push('{}');
       }
-      this.listOrdens = res.viewModel;
+      this.dataSource = new MatTableDataSource(res.viewModel);
       this.savePaginationToken(res.paginationToken);
     } else {
       this.clearTable();
@@ -498,17 +528,22 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const index = event.param.pageIndex;
 
     if (index === 0) {
-      this.paginationToken = '';
+      this.paginationToken = '{}';
     }
-
+    const isExistInitial = this.arrayPosition.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayPosition.push('{}');
+    }
     const isExist = this.arrayPosition.includes(this.paginationToken);
     if (isExist === false) {
       this.arrayPosition.push(this.paginationToken);
     }
+
     this.paginationToken = this.arrayPosition[index];
     const params = {
       'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
-      'idSeller': '',
+      'idSeller': this.idSeller,
+      'state': this.lastState
     };
     this.getOrdersList(params);
   }
@@ -544,27 +579,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     }
 
     // Creo el elemento que permite pintar la tabla
-    this.currentOrderList = res;
-    this.dataSource = new MatTableDataSource(res.viewModel);
-    paginator.pageIndex = 0;
-    this.dataSource.paginator = paginator;
-    this.dataSource.sort = this.sort;
-    this.numberElements = this.dataSource.data.length;
+    // this.currentOrderList = res;
+    // // this.dataSource = new MatTableDataSource(res.viewModel);
+    // // paginator.pageIndex = 0;
+    // this.dataSource.paginator = paginator;
+    // this.dataSource.sort = this.sort;
+    // this.numberElements = this.dataSource.data.length;
 
     this.setTitleToolbar();
-  }
-
-  /**
-   * Funcionalidad para poder filtrar los datos de la tabla
-   * @param {string} filterValue
-   * @memberof OrdersListComponent
-   */
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    //  Remove whitespace
-    filterValue = filterValue.toLowerCase();
-    //  Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
   }
 
   /**
@@ -677,6 +699,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
+
     const closeSnack = this.languageService.instant('actions.close');
     if (currentValue === true) {
       currentValue = false;
