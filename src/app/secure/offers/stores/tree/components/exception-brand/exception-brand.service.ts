@@ -47,6 +47,8 @@ export class ExceptionBrandService {
       }
     ]
   };
+  IdSeller: string;
+  Id: string;
 
   constructor(private api: EndpointService, private http: HttpClient) { }
 
@@ -59,7 +61,7 @@ export class ExceptionBrandService {
   public createExceptionBrand(body: any): Observable<{}> {
     // return this.http.patch<any>(this.api.get('patchExceptionBrand'), body);
     // return this.http.patch(`${this.api.get('getExceptionBrand')}/CreateComsnExc/${body}`, { observe: 'response' });
-    return this.http.patch(`${this.api.get('exceptionComissionBrand')}/CreateComsnExc`, body, { observe: 'response' });
+    return this.http.post(`${this.api.get('exceptionComissionBrand')}/CreateComsnExc`, body, { observe: 'response' });
   }
 
   /**
@@ -87,7 +89,14 @@ export class ExceptionBrandService {
    * @returns {Observable<{}>}
    * @memberof ExceptionBrandService
    */
-  public deleteExceptionBrand(idBrand: any): Observable<{}> {
-    return this.http.patch(`${this.api.get('exceptionComissionBrand')}/DeleteComsnExc`, idBrand, { observe: 'response' });
+  public deleteExceptionBrand(param?: any): Observable<{}> {
+    // const deleteComission = `${this.api.get('exceptionComissionBrand')}/DeleteComsnExc`;
+    let urlParams: any;
+    // this.IdSeller = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
+    // this.this.Id = params === undefined || params.pluVtex === undefined || params.pluVtex === null;
+    urlParams = this.IdSeller + '/' + this.Id;
+    return this.http.delete(`${this.api.get('exceptionComissionBrand')}/DeleteComsnExc/` + param);
+    // return this.http.delete<any>(this.api.get('deleteComission', param));
+
   }
 }

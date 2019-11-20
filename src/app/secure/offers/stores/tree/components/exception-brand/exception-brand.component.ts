@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { categoriesTreeName, readException, editException } from '@app/secure/au
 import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
+import { templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-exception-brand',
@@ -24,6 +25,7 @@ export class ExceptionBrandComponent implements OnInit {
   typeForm: FormGroup;
   @ViewChild('dialogContent') content: TemplateRef<any>;
   currentStoreSelect_Id: any;
+  vtexIdUpdate: any;
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
@@ -36,8 +38,8 @@ export class ExceptionBrandComponent implements OnInit {
   /* Información del usuario*/
   public user: UserInformation;
 
-  displayedColumns = ['Brand', 'Comission', 'options'];
-  displayedColumnsInModal = ['Brand', 'Comission'];
+  displayedColumns = ['Brand', 'Commission', 'options'];
+  displayedColumnsInModal = ['Brand', 'Commission'];
   validation = new BehaviorSubject(true);
   brands = [];
   selectedBrands = [];
@@ -45,7 +47,7 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead = false;
   canUpdate = false;
-  // preDataSource = [{ Brand: '123', Comission: 12, type: 'Marca', Id: 1 }];
+  // preDataSource = [{ Brand: '123', Commission: 12, type: 'Marca', Id: 1 }];
   preDataSource = [];
 
   dataSource: MatTableDataSource<any>;
@@ -61,7 +63,8 @@ export class ExceptionBrandComponent implements OnInit {
   // };
 
   createData: any;
-
+  updateData: any;
+  deleteData: any;
 
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
@@ -70,6 +73,7 @@ export class ExceptionBrandComponent implements OnInit {
     private languageService: TranslateService,
     private exceptionBrandService: ExceptionBrandService,
     private modalService: ModalService,
+    private snackBar: MatSnackBar,
     private authService: AuthService) {
     this.typeForm = this.fb.group({
       type: ['']
@@ -85,20 +89,26 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('qw: ', this.currentStoreSelect);
-    // // this.getExceptionBrandComision();
-
+    // this.getExceptionBrandComision();
   }
 
   changeType(val: any) {
 
   }
 
+  /**
+   * Metodo para darle permisos
+   * @memberof ExceptionBrandComponent
+   */
   getPermissions() {
     this.canRead = this.authService.getPermissionForMenu(categoriesTreeName, readException);
     this.canUpdate = this.authService.getPermissionForMenu(categoriesTreeName, editException);
   }
 
+  /**
+   * Metodo para validar los permisos
+   * @memberof ExceptionBrandComponent
+   */
   validatePermissions() {
     if (!this.canUpdate) {
       const index = this.displayedColumns.findIndex(x => x === 'options');
@@ -162,9 +172,9 @@ export class ExceptionBrandComponent implements OnInit {
     this.form = this.fb.group({
       Id: [''],
       Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
-      Comission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])]
+      Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])]
     });
-    this.Comission.disable();
+    this.Commission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
@@ -173,12 +183,12 @@ export class ExceptionBrandComponent implements OnInit {
           this.Brand.setErrors({ pattern: true });
         } else {
           this.Brand.setErrors(null);
-          this.Comission.enable();
+          this.Commission.enable();
         }
       } else if (!val) {
         this.filterBrands = [];
         this.Brand.setErrors({ required: true });
-        this.Comission.disable();
+        this.Commission.disable();
       } else {
         this.Brand.setErrors({ pattern: true });
       }
@@ -195,7 +205,7 @@ export class ExceptionBrandComponent implements OnInit {
       minWidth: '280px'
     });
     const dataToConfig = !!element ? { action, element } : { action };
-    this.configDialog(dialogRef.componentInstance, dataToConfig);
+    this.configDialog(dialogRef.componentInstance, dataToConfig, element);
     dialogRef.afterClosed().subscribe(() => {
       this.selectedBrands = [];
       this.validation.next(true);
@@ -204,35 +214,48 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
-  configDialog(dialog: any, data: any) {
+  /**
+   * Metodo para pasarle la configuracion al dialogo, si es EDITAR, Crear o Eliminar
+   * @param {*} dialog
+   * @param {*} data
+   * @param {*} element
+   * @memberof ExceptionBrandComponent
+   */
+  configDialog(dialog: any, data: any, element: any) {
     if (data.action !== 'delete') {
       dialog.content = this.content;
     }
     dialog.confirmation = () => {
-      // let vtexId = '';
+      const sellerId = this.currentStoreSelect_Id.toString();
+      // const pruebaComi = this.form.controls.Commission.value;
       switch (data.action) {
         case 'create':
-          // this.selectedBrands.forEach(element => {
-          //   this.brands.forEach(el => {
-          //     if (el.Name === element.Brand) {
-          //       vtexId = el.IdVTEX;
-          //     }
-          //   });
-          //   element.IdVTEX = vtexId;
-          //   this.preDataSource.push(element);
-          // });
-          // this.dataSource.data = this.preDataSource;
           this.createException();
           break;
         case 'edit':
+          this.updateData = {
+            'IdSeller': sellerId,
+            'ExceptionValues': [{
+              'Id': element.Id,
+              'Commission': this.form.controls.Commission.value,
+              'IdVTEX': element.IdVTEX
+            }]
+          };
+          this.updateException(this.updateData);
           break;
         case 'delete':
-          this.removeElement(data.element);
+          this.deleteData = `${sellerId}/${element.Id}`;
+          this.deletException(this.deleteData);
           break;
       }
     };
   }
 
+  /**
+   * Metodo que obtiene la data para eliminar una excepcion por marca
+   * @returns
+   * @memberof ExceptionBrandComponent
+   */
   putDataForDelete() {
     const form = null;
     const title = this.languageService.instant('secure.parametize.commission.delete');
@@ -244,22 +267,32 @@ export class ExceptionBrandComponent implements OnInit {
     return { form, title, message, messageCenter, showButtons, icon, btnConfirmationText };
   }
 
+  /**
+   *  Metodo que obtiene la data para editar una excepcion por marca
+   * @param {*} element
+   * @returns
+   * @memberof ExceptionBrandComponent
+   */
   putDataForUpdate(element: any) {
-    const { Id, Brand, Comission } = element;
+    const { Id, Brand, Commission } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
-    const initialValue = Object.assign({ Id, Brand, Comission }, {});
+    const initialValue = Object.assign({ Id, Brand, Commission }, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
-    const message = null;
-    const messageCenter = false;
     const showButtons = true;
     const icon = null;
+    // const validation = this.validation;
     const btnConfirmationText = 'Editar';
-    return { form, title, message, messageCenter, showButtons, icon, btnConfirmationText };
+    return { form, title, showButtons, icon, btnConfirmationText };
   }
 
+  /**
+   *  Metodo que obtiene la data para crear una excepcion por marca
+   * @returns
+   * @memberof ExceptionBrandComponent
+   */
   putDataForCreate() {
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.addTariffs');
@@ -274,9 +307,9 @@ export class ExceptionBrandComponent implements OnInit {
 
   addBrand() {
     // Capturar valores del formulario.
-    const { Brand, Comission } = this.form.value;
+    const { Brand, Commission } = this.form.value;
     // Objeto nuevo que tiene Brand y Comision
-    this.selectedBrands.push(Object.assign({ Brand, Comission }, {}));
+    this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
@@ -304,7 +337,6 @@ export class ExceptionBrandComponent implements OnInit {
    */
   public getExceptionBrandComision() {
     this.loadingService.viewSpinner();
-    console.log('id: ', this.currentStoreSelect_Id);
     this.exceptionBrandService.getExceptionBrand(this.currentStoreSelect_Id).subscribe(res => {
       if (res['status'] === 200 || res['status'] === 201) {
         const data = res['body']['body'];
@@ -314,7 +346,7 @@ export class ExceptionBrandComponent implements OnInit {
           this.dataSource = new MatTableDataSource(dataSourceException);
           this.loadingService.closeSpinner();
         } else {
-          this.modalService.showModal('errorService');
+          // this.modalService.showModal('errorService');
         }
       } else {
         this.modalService.showModal('errorService');
@@ -328,40 +360,100 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   public createException() {
+    this.loadingService.viewSpinner();
     let vtexId = '';
     const sellerId = this.currentStoreSelect_Id.toString();
-    console.log('sellerId: ', sellerId);
+    this.selectedBrands.forEach(element => {
+      this.brands.forEach(el => {
+        if (el.Name === element.Brand) {
+          vtexId = el.IdVTEX;
+        }
+      });
+      element.IdVTEX = vtexId;
+      this.preDataSource.push(element);
+    });
     this.createData = {
       'Type': 1,
-      'SellerId': sellerId,
-      'ExceptionValue': [{
-        'Brand': 'SLAPPA',
-        'Comission': 7,
-        'IdVTEX': '90066'
-      }
-    ]
+      'IdSeller': sellerId,
+      'ExceptionValues': this.preDataSource
     };
-    console.log('createdata: ', this.createData);
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
-      console.log('res: ', res);
+      const resCreate = JSON.parse(res['body'].body);
       try {
-        if (res) {
-          this.selectedBrands.forEach(element => {
-            this.brands.forEach(el => {
-              if (el.Name === element.Brand) {
-                vtexId = el.IdVTEX;
-              }
+        if (res && res['status'] === 200) {
+          if (resCreate.Data === true) {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ok'), this.languageService.instant('actions.close'), {
+              duration: 5000,
             });
-            element.IdVTEX = vtexId;
-            this.preDataSource.push(element);
-          });
-          // this.dataSource.data = this.preDataSource;
-          this.loadingService.closeSpinner();
+            this.getExceptionBrandComision();
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+          }
         }
-
       } catch {
         this.modalService.showModal('errorService');
       }
+      this.loadingService.closeSpinner();
+    });
+  }
+
+  /**
+   * Metodo para editar la excepcion de marca consumiendo el servicio
+   * @param {*} dataUpdate
+   * @memberof ExceptionBrandComponent
+   */
+  public updateException(dataUpdate: any) {
+    this.loadingService.viewSpinner();
+    this.exceptionBrandService.updateExceptionBrand(dataUpdate).subscribe(res => {
+      const resUpdate = JSON.parse(res['body'].body);
+      try {
+        if (res && res['status'] === 200) {
+          if (resUpdate.Data === true) {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_update_ok'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+            this.getExceptionBrandComision();
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_update_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+          }
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
+    });
+  }
+
+  /**
+   * Metodo para crear la excepcion de marca consumiendo el servicio
+   * @param {*} dataDelete
+   * @memberof ExceptionBrandComponent
+   */
+  public deletException(dataDelete: any) {
+    this.loadingService.viewSpinner();
+    this.exceptionBrandService.deleteExceptionBrand(dataDelete).subscribe(res => {
+      const resDelete = JSON.parse(res['body']);
+      try {
+        if (res && res['statusCode'] === 200) {
+          if (resDelete.Data === true) {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_delete_ok'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+            this.getExceptionBrandComision();
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_delete_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+          }
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -369,7 +461,7 @@ export class ExceptionBrandComponent implements OnInit {
     return this.form.get('Brand') as FormControl;
   }
 
-  get Comission(): FormControl {
-    return this.form.get('Comission') as FormControl;
+  get Commission(): FormControl {
+    return this.form.get('Commission') as FormControl;
   }
 }

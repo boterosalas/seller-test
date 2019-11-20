@@ -18,9 +18,9 @@
           <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="Comission">
+        <ng-container matColumnDef="Commission">
           <th mat-header-cell *matHeaderCellDef> {{'shared.commission' | translate}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.Comission}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.Commission}} </td>
         </ng-container>
 
         <ng-container matColumnDef="options">
@@ -78,12 +78,14 @@
 
       <mat-form-field class="half-width">
         <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
-          formControlName="Comission">
-        <mat-error *ngIf="form.get('Comission').hasError('pattern') || form.get('Comission').hasError('trim')">{{'error.exception_brand.number_int' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('max')">{{'error.exception_brand.max_error' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('Comission').hasError('min')">{{'error.exception_brand.min_error' | translate}}</mat-error>
+          formControlName="Commission">
+        <mat-error *ngIf="form.get('Commission').hasError('pattern') || form.get('Commission').hasError('trim')">{{'error.exception_brand.number_int' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Commission').hasError('max')">{{'error.exception_brand.max_error' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}</mat-error>
         <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
           (click)="addBrand()">
+          <!-- <button mat-button mat-icon-button matSuffix 
+          (click)="addBrand()"> -->
           <mat-icon>
             add_circle_outline
           </mat-icon>
@@ -97,9 +99,9 @@
           <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="Comission">
+        <ng-container matColumnDef="Commission">
           <th mat-header-cell *matHeaderCellDef> Comisión </th>
-          <td mat-cell *matCellDef="let element"> {{element.Comission}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.Commission}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsInModal;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsInModal;"></tr>
