@@ -60,15 +60,27 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() downloadBillingPay: boolean;
   @Input() idSeller: number;
   @Input() Typeprofile: number;
+  @Input() state: number;
+  @Input() set isClear(value: boolean) {
+    if (value) {
+      this.paginator.firstPage();
+    }
+  }
+
+  @Input() set pageIndexChange(value: number){
+    // this.paginator.pageIndex = value;
+  }
 
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
   // Evento que permite consultar las órdenes
   @Output() OnGetOrdersList = new EventEmitter<object>();
+  @Output() paginationListOrdens = new EventEmitter<object>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
   // Limite de registros
-  lengthOrder = 100;
+  // lengthOrder = 100;
+  @Input() lengthOrder: number;
   // Numero de paginas por defecto
   pageSizeOrder: number;
 
@@ -116,7 +128,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
   }
 
   /**
@@ -163,7 +175,14 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   getOrdersList(category?: any) {
-    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
+    this.paginator.firstPage();
+    this.OnGetOrdersList.emit({
+        'limit': this.lengthOrder + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': category,
+        'callOne': true
+      }
+    );
   }
 
   /**
@@ -273,4 +292,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     this.eventsSeller.searchSeller(search_seller);
   }
 
+
+  public changePaginatorOrdens(param: any): any {
+    this.paginationListOrdens.emit({ param });
+  }
 }
