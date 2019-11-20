@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { MatDialog, MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material';
 import { Logger } from '@app/core/util';
 import { ShellComponent } from '@core/shell/shell.component';
 import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal';
@@ -40,6 +40,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   public user: any;
   // variable que almacena la lista de tiendas disponibles para buscar
   public listSellers: any;
+
+  pageEvent: PageEvent;
 
   // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
   public filteredOptions: Observable<string[]>;
