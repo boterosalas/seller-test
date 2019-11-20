@@ -453,13 +453,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
     });
   }
-  /**
-   * funcion para setear variables de busqueda 
-   *
-   * @param {*} params
-   * @returns
-   * @memberof OrdersListComponent
-   */
+
   setParameters(params: any) {
     if (params && params.callOne) {
       this.paginationToken = '{}';
