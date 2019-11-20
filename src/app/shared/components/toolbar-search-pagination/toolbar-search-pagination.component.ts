@@ -67,6 +67,10 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     }
   }
 
+  @Input() set pageIndexChange(value: number){
+    // this.paginator.pageIndex = value;
+  }
+
   // Boolean que indica si hay órdenes o no
   @Input() orderListLength: boolean;
   // Evento que permite consultar las órdenes
@@ -173,7 +177,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   getOrdersList(category?: any) {
     this.paginator.firstPage();
     this.OnGetOrdersList.emit({
-        'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+        'limit': this.lengthOrder + '&paginationToken=' + encodeURI('{}'),
         'idSeller': this.idSeller,
         'state': category,
         'callOne': true

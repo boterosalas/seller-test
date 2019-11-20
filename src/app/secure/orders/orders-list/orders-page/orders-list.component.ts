@@ -87,7 +87,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     id: ''
   };
 
-  
+
 
 
 
@@ -104,7 +104,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   public length = 0;
-  public pageSize = [50];
+  public pageSize = 50;
+  public querySearch= '';
 
 
 
@@ -123,7 +124,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   marketPermission: boolean;
   visualizePermission: boolean;
   showMenssage = false;
-  isClear= false;
+  isClear = false;
+  pageIndexChange= 0;
 
 
   typeProfile: number;
@@ -144,7 +146,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
 
-  
+
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
@@ -191,7 +193,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.idSeller = seller.IdSeller;
       const paramsArray = {
-        'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
         'idSeller': this.idSeller,
         'state': this.lastState,
         'callOne': true
@@ -317,7 +319,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
         const paramsArray = {
-          'limit': 50 + '&paginationToken=' + encodeURI('{}'),
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
           'idSeller': this.idSeller,
           'state': this.lastState,
           'callOne': true
@@ -388,7 +390,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   /**
    * Método para cambiar el page size de la tabla órdenes
-   * @param {any} pageSize
    * @memberof OrdersListComponent
    */
   changeSizeOrderTable($event: any) {
@@ -439,7 +440,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.length = res.count;
         this.isClear = true;
       }
-      const paginator = {'pageIndex': 0};
+      const paginator = { 'pageIndex': 0 };
       this.addCheckOptionInProduct(res.viewModel, paginator);
       this.loadingService.closeSpinner();
     });
@@ -491,7 +492,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.arrayPosition = [];
     }
     const paramsArray = {
-      'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
       'idSeller': this.idSeller,
       'state': params.state
     };
@@ -506,6 +507,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.arrayPosition = [];
         this.arrayPosition.push('{}');
       }
+
+      // if (res.paginationTokens.length > 0) {
+      //   this.arrayPosition = [];
+      //   this.arrayPosition = res.paginationTokens;
+      // }
       this.dataSource = new MatTableDataSource(res.viewModel);
       this.savePaginationToken(res.paginationToken);
     } else {
@@ -526,7 +532,17 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   paginations(event: any) {
     const index = event.param.pageIndex;
-
+    if (event.param.pageSize !== this.pageSize) {
+      this.pageSize = event.param.pageSize;
+      if (this.arrayPosition && this.arrayPosition.length > 0) {
+        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
+        // this.pageIndexChange = this.arrayPosition.length - 1;
+        this.arrayPosition = [];
+        this.isClear = true;
+      }
+    } else {
+      this.querySearch = '';
+    }
     if (index === 0) {
       this.paginationToken = '{}';
     }
@@ -540,8 +556,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     }
 
     this.paginationToken = this.arrayPosition[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+      this.isClear = true;
+    }
     const params = {
-      'limit': 50 + '&paginationToken=' + encodeURI(this.paginationToken),
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
       'idSeller': this.idSeller,
       'state': this.lastState
     };
