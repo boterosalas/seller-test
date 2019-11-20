@@ -292,8 +292,14 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     this.eventsSeller.searchSeller(search_seller);
   }
 
-
-  public changePaginatorOrdens(param: any): any {
+/**
+ * funcion que emite el cambio de la paginacion y rango de busqueda
+ *
+ * @param {*} param
+ * @returns {*}
+ * @memberof ToolbarSearchPaginationComponent
+ */
+public changePaginatorOrdens(param: any): any {
     this.paginationListOrdens.emit({ param });
   }
 }
