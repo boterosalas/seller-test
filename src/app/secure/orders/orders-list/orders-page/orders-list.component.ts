@@ -105,7 +105,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   public length = 0;
   public pageSize = 50;
-  public querySearch= '';
+  public querySearch = '';
 
 
 
@@ -125,7 +125,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   visualizePermission: boolean;
   showMenssage = false;
   isClear = false;
-  pageIndexChange= 0;
+  pageIndexChange = 0;
 
 
   typeProfile: number;
@@ -242,7 +242,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.setPermission(1);
     }
   }
-
+  /**
+   * Funcion para obtener los permisos del componente
+   * @param {number} typeProfile
+   * @memberof OrdersListComponent
+   */
   setPermission(typeProfile: number) {
     // Permisos del componente.
     this.typeProfile = typeProfile;
@@ -314,7 +318,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
       });
   }
-
+  /**
+   * limpia la tabla
+   *
+   * @memberof OrdersListComponent
+   */
   clearData() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
@@ -444,48 +452,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.addCheckOptionInProduct(res.viewModel, paginator);
       this.loadingService.closeSpinner();
     });
-    // const closeSnack = this.languageService.instant('actions.close');
-    // this.event = $event;
-    // this.setCategoryName();
-    // this.loadingService.viewSpinner();
-    // if ($event !== undefined) {
-    //   if ($event.lengthOrder > 0) {
-    //     let category = null;
-    //     if ($event.lengthOrder === this.numberLength || !this.numberLength || $event.category) {
-    //       this.numberLength = $event.lengthOrder;
-    //       if ($event.category !== '') {
-    //         category = $event.category;
-    //         this.lastCategory = category;
-    //       }
-    //     } else {
-    //       category = this.lastCategory;
-    //     }
-    //     this.currentEventPaginate = $event;
-    //     // this.orderService.getOrderList(category, $event.lengthOrder).subscribe((res: any) => {
-    //     //   this.loadingService.closeSpinner();
-    //     this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
-    //       this.addCheckOptionInProduct(res, $event.paginator);
-    //       this.loadingService.closeSpinner();
-    //       if (res && res.length === 0 && this.idSeller) {
-    //         this.showMenssage = true;
-    //       }
-    //       this.loadingService.closeSpinner();
-    //     }, err => {
-    //       this.orderListLength = true;
-    //       const message = this.languageService.instant('secure.orders.order_list.order_page.wrong_to_search_orders');
-    //       this.componentService.openSnackBar(message, closeSnack, 10000);
-    //       log.error(message, err);
-    //     });
-    //   } else {
-    //     const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
-    //     this.componentService.openSnackBar(message, closeSnack, 1000);
-    //   }
-    // } else {
-    //   const message = this.languageService.instant('secure.orders.order_list.order_page.insert_limit');
-    //   this.componentService.openSnackBar(message, closeSnack, 1000);
-    // }
   }
-
+  /**
+   * funcion para setear variables de busqueda 
+   *
+   * @param {*} params
+   * @returns
+   * @memberof OrdersListComponent
+   */
   setParameters(params: any) {
     if (params && params.callOne) {
       this.paginationToken = '{}';
@@ -499,7 +473,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     return paramsArray;
   }
 
-
+  /**
+   * funcion para resetear la data 
+   *
+   * @param {*} res
+   * @memberof OrdersListComponent
+   */
   setTable(res: any) {
     if (res) {
       if (this.onlyOne) {
@@ -519,17 +498,31 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     }
     this.onlyOne = false;
   }
-
+  /**
+   * funcion para salvar el token de la paginacion
+   *
+   * @param {string} paginationToken
+   * @memberof OrdersListComponent
+   */
   savePaginationToken(paginationToken: string) {
     if (paginationToken) {
       this.paginationToken = paginationToken;
     }
   }
-
+  /**
+   * limpiar el contador de la tabla
+   *
+   * @memberof OrdersListComponent
+   */
   clearTable() {
     this.length = 0;
   }
-
+  /**
+   * funcion que escucha el cambio de paginacion y el rango de busqueda
+   *
+   * @param {*} event
+   * @memberof OrdersListComponent
+   */
   paginations(event: any) {
     const index = event.param.pageIndex;
     if (event.param.pageSize !== this.pageSize) {
@@ -774,7 +767,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     return new Date(time + (timezone * 60 * 1000));
   }
 
-
+  /**
+   * funcion para destruir las subcripciones abiertas
+   *
+   * @memberof OrdersListComponent
+   */
   ngOnDestroy() {
     if (this.subStateOrder !== undefined) {
       this.subStateOrder.unsubscribe();
