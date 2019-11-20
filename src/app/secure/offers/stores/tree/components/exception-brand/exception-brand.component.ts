@@ -6,13 +6,16 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
 import { BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, Logger } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
 import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
 import { templateJitUrl } from '@angular/compiler';
+import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
+
+const log = new Logger('ExceptionBrandComponent');
 
 @Component({
   selector: 'app-exception-brand',
@@ -390,6 +393,7 @@ export class ExceptionBrandComponent implements OnInit {
             this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ko'), this.languageService.instant('actions.close'), {
               duration: 5000,
             });
+            this.openDialogSendOrder(resCreate);
           }
         }
       } catch {
@@ -454,6 +458,36 @@ export class ExceptionBrandComponent implements OnInit {
         this.modalService.showModal('errorService');
       }
       this.loadingService.closeSpinner();
+    });
+  }
+
+  openDialogSendOrder(res: any): void {
+    console.log('entra aqui');
+    console.log('res: ', res);
+    // if (!res) {
+    //   res.body.data = {};
+    //   res.body.data.status = 3;
+    //   res.productNotifyViewModel = res.body.productNotifyViewModel;
+    // } else {
+    //   // Condicional apra mostrar errores mas profundos. ;
+    //   if (res.body.data.response) {
+    //     res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+    //   } else {
+    //     if (res.body.data.status === undefined) {
+    //       res.body.data.status = 3;
+    //       res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+    //     }
+    //   }
+    // }
+    const dialogRef = this.dialog.open(ModalErrorsComponent, {
+      width: '95%',
+      // disableClose: res.body.data.status === 1,
+      data: {
+        response: res
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The dialog was closed');
     });
   }
 
