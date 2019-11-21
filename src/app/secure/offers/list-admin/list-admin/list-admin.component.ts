@@ -77,6 +77,7 @@ export class ListAdminComponent implements OnInit {
 
   // Domains images
   public domainImages = environment.domainImages;
+  applyFilter: boolean;
 
   /**
    * Creates an instance of ListAdminComponent.
@@ -282,6 +283,16 @@ export class ListAdminComponent implements OnInit {
       this.paramData.clear();
       this.getListAdminOffers();
     }
+  }
+
+  public cleanAllFilter() {
+    this.applyFilter = false;
+    this.paramData.ean = null;
+    this.paramData.stock = null;
+    this.paramData.product = null;
+    this.paramData.pluVtex = null;
+    this.filterOffers(this.paramData);
+    // this.getListOffers(this.paramData);
   }
 
 }
