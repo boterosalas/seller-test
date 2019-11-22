@@ -5,7 +5,8 @@ export class ModelFilter {
       public stock?: any,
       public currentPage?: any,
       public limit?: any,
-      public IdSeller?: string
+      public IdSeller?: string,
+      public pluVtex?: any
   ) { }
 
   /**
@@ -19,5 +20,6 @@ export class ModelFilter {
       this.stock = undefined;
       this.currentPage = undefined;
       this.limit = undefined;
+      this.pluVtex = undefined;
   }
 }

@@ -25,11 +25,13 @@ export class TableLoadProductComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   //  Elemento paginador
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  // Tipo de perfil
+  @Input() profielType;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'EAN',
     'ParentReference',
-    'SonReference',
+    // 'SonReference',
     'Name',
     'Category',
     'Brand',
@@ -79,6 +81,9 @@ export class TableLoadProductComponent implements OnInit {
    * @memberof TableLoadProductComponent
    */
   ngOnInit() {
+    if (this.profielType && this.profielType !== 'Tienda') {
+      this.displayedColumns.splice(1, 0, 'SonReference');
+    }
     setTimeout(res => {
       this.bulkLoad.paginator = this.paginator;
       this.bulkLoad.sort = this.sort;
