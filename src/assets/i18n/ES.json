@@ -521,6 +521,7 @@
     "secure.offers.stores.treee.components.exception_brand_update_ko": "Error al tratar de editar una excepción por marca. Intentalo de nuevo.",
     "secure.offers.stores.treee.components.exception_brand_delete_ok": "Eliminó correctamente una excepción por marca.",
     "secure.offers.stores.treee.components.exception_brand_delete_ko": "Error al tratar de eliminaruna excepción por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_exist": "Solo puedes agregar una excepción por marca.",
  
     "secure.offers.quoting.quoting_admin": "Cotizador administrador.",  
     "secure.offers.quoting.quoting_seller": "Cotizador vendedor.", 

@@ -521,7 +521,8 @@
     "secure.offers.stores.treee.components.exception_brand_update_ko": "An error has occurred when trying to modify the brand exception. Please try again.",
     "secure.offers.stores.treee.components.exception_brand_delete_ok": "You have eliminated the brand exception correctly.",
     "secure.offers.stores.treee.components.exception_brand_delete_ko": "An error has occurred when trying to eliminate de the brand exception. Please try again.",
- 
+    "secure.offers.stores.treee.components.exception_brand_exist": "You can only add one exception per brand.",
+
     "secure.offers.quoting.quoting_admin": "ADMINISTRATOR FREIGHT CALCULATOR.",  
     "secure.offers.quoting.quoting_seller": "SELLER FREIGHT CALCULATOR.", 
  

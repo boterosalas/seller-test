@@ -313,7 +313,19 @@ export class ExceptionBrandComponent implements OnInit {
     // Capturar valores del formulario.
     const { Brand, Commission } = this.form.value;
     // Objeto nuevo que tiene Brand y Comision
-    this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+    if (this.selectedBrands.length === 0) {
+      this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+    } else {
+      this.selectedBrands.forEach( el => {
+        if (el.Brand === this.form.controls.Brand.value) {
+          this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_exist'), this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+        } else {
+          this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+        }
+      });
+    }
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
