@@ -111,7 +111,7 @@ export class AddDialogSpecsComponent implements OnInit {
                     data.Values.push({displayName: element.formControl.value, label: element.option.label});
                 });
             }
-            data.Label = this.dataToEdit.Label;
+            data.Label = this.dataToEdit !== null ? this.dataToEdit.Label : null;
             this.dialogRef.close(data);
         }
     }
@@ -124,23 +124,29 @@ export class AddDialogSpecsComponent implements OnInit {
      */
     public validOptions(): boolean {
         let changes = true;
-        if (this.listOptions.length) {
-            if (this.listOptions.length > 1) {
-                this.listOptions.forEach(element => {
-                    if (!element.formControl.value) {
-                        changes = false;
-                        return changes;
-                    }
-                });
+        if (this.formAddSpecs.controls.optionSpec.value === this.typeList) {
+            if (this.listOptions.length) {
+                if (this.listOptions.length > 1) {
+                    this.listOptions.forEach(element => {
+                        if (!element.formControl.value) {
+                            changes = false;
+                            return changes;
+                        }
+                    });
+                } else {
+                    changes = false;
+                    this.showErrorMin = true;
+                }
             } else {
                 changes = false;
                 this.showErrorMin = true;
             }
+            return changes;
         } else {
-            changes = false;
-            this.showErrorMin = true;
+            changes = true;
+            this.showErrorMin = false;
+            return changes;
         }
-        return changes;
     }
 
     /**
