@@ -52,11 +52,11 @@ export class SpecificationProductComponent implements OnInit {
         });
         this.processService.specsByCategory.subscribe(result => {
             if (result && result.data) {
-                this.isLoad = false;
                 this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
             } else {
                 this.specificationsGroups = [];
             }
+            this.isLoad = false;
             this.chargeList = true;
         });
 
@@ -150,7 +150,7 @@ export class SpecificationProductComponent implements OnInit {
                 const errors = Object.keys(form.controls['specs' + index].errors);
                 switch (errors[0]) {
                     case 'required':
-                        return this.languageService.instant('secure.products.create_product_unit.specifications.input_mandatory');
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.field_mandatory');
                         break;
                     case 'pattern':
                         return this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');

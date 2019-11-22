@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
@@ -81,6 +81,7 @@ export class ListProductsComponent implements OnInit {
     read = readFunctionality;
     offer = offerFuncionality;
     offerPermission = false;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
         private languageService: TranslateService,
@@ -156,6 +157,8 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterApply(param: any) {
+        this.pagepaginator = 0;
+        this.paginator.firstPage();
         this.filterListProducts(param, true);
     }
 

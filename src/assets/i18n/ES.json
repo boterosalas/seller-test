@@ -216,7 +216,7 @@
  
  
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.", 
-    "modal.success.register title": "¡Registro realizado con exíto!", 
+    "modal.success.register title": "¡Registro realizado con éxito!", 
     "modal.fail.register": "¡Tú registro ha sido rechazado! Por favor revisa que todos los campos cumplan con las debidas validaciones. Cualquier duda con las reglas de registro por favor consultar el manual de uso del formulario.", 
     "modal.fail.register.title": "¡El registro no se pudo realizar!", 
     "modal.problems": "¡Estamos teniendo problemas! Por favor, vuelve a cargar la página para diligenciar nuevamente la información. Disculpa este inconveniente", 
@@ -682,7 +682,7 @@
     "secure.products.table_errors_product.for": "de la",  
     "secure.products.table_errors_product.row": "fila",  
     "secure.products.table_errors_product.mandatory": "es obligatorio.",  
-    "secure.products.table_errors_product.boolean": "debe ser booleano (1 ó 2).",  
+    "secure.products.table_errors_product.boolean": "debe ser booleano (1 ó 0).",  
     "secure.products.table_errors_product.number_positive": "debe ser numérico positivo mayor a cero, sin decimales.",  
     "secure.products.table_errors_product.tech_cloting": "deber ser 'Technology' o 'Clothing'.",  
     "secure.products.table_errors_product.gram_milili": "deber ser 'Gramo', 'Mililitro', 'Metro' o 'Unidad'.",  
@@ -796,7 +796,7 @@
  
     "secure.products.create_product_unit.component_process.categorization": "Categorización",  
     "secure.products.create_product_unit.component_process.back": "Atrás",  
-    "secure.products.create_product_unit.component_process.continue": "Continue",  
+    "secure.products.create_product_unit.component_process.continue": "Continuar",  
     "secure.products.create_product_unit.component_process.basic_information": "Información básica",  
     "secure.products.create_product_unit.component_process.specifications": "Especificaciones",  
     "secure.products.create_product_unit.component_process.images": "Imágenes",  
@@ -982,6 +982,8 @@
     "secure.parametize.category.categories.creation_succesfully": "Creación realizada con éxito",
     "secure.parametize.category.categories.not_create_category": "No se pudo crear la categoría",
     "secure.parametize.category.categories.create_in_process": "Creación en proceso",
+    "secure.parametize.category.categories.change_language_english_edit": "Ha cambiado el idioma al inglés, si desea editar categorías, vuelva al español",
+    "secure.parametize.category.categories.change_language_english_add": "Ha cambiado el idioma al inglés, si desea agregar categorías, vuelva al español",
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija", 
  

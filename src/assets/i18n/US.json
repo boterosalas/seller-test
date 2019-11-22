@@ -682,7 +682,7 @@
     "secure.products.table_errors_product.for": "for",  
     "secure.products.table_errors_product.row": "row",  
     "secure.products.table_errors_product.mandatory": "is mandatory.",  
-    "secure.products.table_errors_product.boolean": "must be a boolean (1 or 2).",  
+    "secure.products.table_errors_product.boolean": "must be a boolean (0 or 1).",  
     "secure.products.table_errors_product.number_positive": "must be a numeric positive value greater than 0, without decimals.",  
     "secure.products.table_errors_product.tech_cloting": "must be either 'Technology' or 'Clothing'.",  
     "secure.products.table_errors_product.gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",  
@@ -915,6 +915,8 @@
     "secure.parametize.specifications.btn_add_specifications": "Add specifications to a group",  
     "secure.parametize.specifications.tooltip_type_text": "Text especification",  
     "secure.parametize.specifications.tooltip_type_list": "Value list especification" , 
+    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" , 
+    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish" , 
  
     "secure.parametize.dialog.modal_title_spec": "Add specification group",  
     "secure.parametize.dialog.modal_title_brand": "Add brand",  
@@ -982,6 +984,8 @@
     "secure.parametize.category.categories.creation_succesfully": "Creation was successful",
     "secure.parametize.category.categories.not_create_category": "Could not create the category",
     "secure.parametize.category.categories.create_in_process": "Creation in progress", 
+    "secure.parametize.category.categories.change_language_english_edit": "You have switched the language to english, if you wish to edit categories please switch back to spanish",
+    "secure.parametize.category.categories.change_language_english_add": "You have switched the language to english, if you wish to add categories please switch back to spanish",
  
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category", 
  

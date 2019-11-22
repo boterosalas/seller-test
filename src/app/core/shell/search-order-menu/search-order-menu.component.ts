@@ -29,6 +29,7 @@ export class SearchOrderMenuComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
+  @Input() state: number;
 
   /**
    * Creates an instance of SearchOrderMenuComponent.

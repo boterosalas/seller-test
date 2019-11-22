@@ -11,10 +11,10 @@
               </ng-container>
             </div>
             <div *ngIf="canUpdate" (click)="editCategory(category)" [ngClass]=" (category.Son.length > 0) ? '' : 'addPadding'" class="row__btn">
-                <mat-icon id="btn-edit-category" [matTooltip]="'actions.edit' | translate">edit</mat-icon>
+                <mat-icon id="btn-edit-category" [ngClass]="(isDisabled === false) ? 'disabled' : 'enabled'" [matTooltip]="'actions.edit' | translate">edit</mat-icon>
             </div>
             <div *ngIf="canCreate" (click)="createCategory(category)" class="row__btn">
-                <mat-icon id="btn-add-category" [matTooltip]="'secure.parametize.category.category_tree.tooltip_add_son' | translate">control_point</mat-icon>
+                <mat-icon id="btn-add-category" [ngClass]="(isDisabled === false) ? 'disabled' : 'enabled'" [matTooltip]="'secure.parametize.category.category_tree.tooltip_add_son' | translate">control_point</mat-icon>
             </div>
             <div id="category" [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="eventName(category)" class="row__name row__btn">
               {{category.Name}}

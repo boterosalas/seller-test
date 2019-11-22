@@ -170,7 +170,6 @@ export class DashboardComponent implements OnInit {
             localStorage.setItem('culture_current', e['lang']);
             this.getLastSales(this.dateCurrent);
           });
-
     }
 
     /**
