@@ -234,6 +234,7 @@ export class ExceptionBrandComponent implements OnInit {
       switch (data.action) {
         case 'create':
           this.createException();
+          this.createData.reset();
           break;
         case 'edit':
           this.updateData = {
@@ -245,6 +246,7 @@ export class ExceptionBrandComponent implements OnInit {
             }]
           };
           this.updateException(this.updateData);
+          this.form.reset();
           break;
         case 'delete':
           this.deleteData = `${sellerId}/${element.Id}`;
@@ -286,7 +288,6 @@ export class ExceptionBrandComponent implements OnInit {
     const title = this.languageService.instant('secure.parametize.commission.edit');
     const showButtons = true;
     const icon = null;
-    // const validation = this.validation;
     const btnConfirmationText = 'Editar';
     return { form, title, showButtons, icon, btnConfirmationText };
   }
@@ -386,16 +387,10 @@ export class ExceptionBrandComponent implements OnInit {
       try {
         if (res && res['status'] === 200) {
           if (resCreate.Data === true) {
-            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ok'), this.languageService.instant('actions.close'), {
-              duration: 5000,
-            });
             this.getExceptionBrandComision();
             this.openDialogSendOrder(res);
-            this.createData.reset();
+            this.preDataSource = [];
           } else {
-            this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ko'), this.languageService.instant('actions.close'), {
-              duration: 5000,
-            });
             this.openDialogSendOrder(res);
           }
         }
@@ -403,7 +398,7 @@ export class ExceptionBrandComponent implements OnInit {
         this.modalService.showModal('errorService');
       }
       this.loadingService.closeSpinner();
-      this.createData = [];
+      this.preDataSource = [];
     });
   }
 
@@ -451,6 +446,7 @@ export class ExceptionBrandComponent implements OnInit {
             this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_delete_ok'), this.languageService.instant('actions.close'), {
               duration: 5000,
             });
+            // this.openDialogSendOrder(res);
             this.getExceptionBrandComision();
           } else {
             this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_delete_ko'), this.languageService.instant('actions.close'), {
@@ -466,23 +462,6 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   openDialogSendOrder(res: any): void {
-    console.log('entra aqui');
-    console.log('res: ', res);
-    // if (!res) {
-    //   res.body.data = {};
-    //   res.body.data.status = 3;
-    //   res.productNotifyViewModel = res.body.productNotifyViewModel;
-    // } else {
-    //   // Condicional apra mostrar errores mas profundos. ;
-    //   if (res.body.data.response) {
-    //     res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
-    //   } else {
-    //     if (res.body.data.status === undefined) {
-    //       res.body.data.status = 3;
-    //       res.productNotifyViewModel = res.body.data.productNotifyViewModel;
-    //     }
-    //   }
-    // }
     const dialogRef = this.dialog.open(ModalErrorsComponent, {
       width: '95%',
       // disableClose: res.body.data.status === 1,

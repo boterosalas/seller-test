@@ -1,21 +1,18 @@
 <div>
   <div class="error-list-content list-log">
 
-    <!-- <h3 class="processing-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode">
-      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
-      OK
-    </h3> -->
-    <!-- <mat-divider *ngIf="response.processing != 0"></mat-divider> -->
-
     <h3 class="succes-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 200">
       <mat-icon>check</mat-icon>
-      Excepcion creada exitosamente
+      {{'secure.offers.stores.treee.components.exception_brand_create_ok' | translate}}
     </h3>
     <mat-divider *ngIf="response.status === 200"></mat-divider>
-
-    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400">
+    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400 && errorExcepcion.Errors.length === 1">
       <mat-icon>warning</mat-icon>
-      Error al crear la excepcion
+      {{'secure.offers.stores.treee.components.exception_brand_create_ko' | translate}}
+    </h4>
+    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400 && errorExcepcion.Errors.length > 1">
+      <mat-icon>warning</mat-icon>
+      {{'secure.offers.stores.treee.components.exception_brand_create_kos' | translate}}
     </h4>
     <mat-divider *ngIf="response.status === 200 && response.body.statusCode"></mat-divider>
     <mat-nav-list *ngIf="response.body.statusCode === 400">
@@ -27,11 +24,6 @@
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <!-- <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center' | translate}}</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
-    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
-      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel' | translate}}
-    </button> -->
+    <button id="close-finish-upload-button" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
   </mat-dialog-actions>
 </div>

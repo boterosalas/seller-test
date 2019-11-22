@@ -564,7 +564,6 @@ export class BrandsComponent implements OnInit {
             });
         } else {
             this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
-                console.log(55, result);
                 if (result.statusCode === 200) {
                     this.getAllBrands();
                     this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {

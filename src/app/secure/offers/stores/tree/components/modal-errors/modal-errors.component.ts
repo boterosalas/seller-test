@@ -20,7 +20,6 @@ export class ModalErrorsComponent implements AfterViewInit {
   public error: string;
   public name: string;
   errorExcepcion: any;
-  prueba: any;
 
   /**
    * Creates an instance of ModalErrorsComponent.
@@ -41,27 +40,10 @@ export class ModalErrorsComponent implements AfterViewInit {
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
     this.error = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.error');
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
-    console.log('this.response 0:', this.response);
-    console.log('this.response status:', this.response.status);
-    console.log('this.response status code:', this.response.body.statusCode);
-    console.log('this.response body:', JSON.parse(this.response['body']['body']));
     this.errorExcepcion = JSON.parse(this.response.body.body);
-    this.prueba = this.errorExcepcion.Errors;
-
-    // console.log('this.response boby', this.response.body.body);
-
-
   }
 
   ngAfterViewInit() {
-    // if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
-    //   this.response.productNotifyViewModel.map(element => {
-    //     element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
-    //     element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
-    //   });
-    //   this.cd.detectChanges();
-    // }
-    console.log('this.response:', this.response);
   }
 
   /**
@@ -72,56 +54,4 @@ export class ModalErrorsComponent implements AfterViewInit {
     this.dialogRef.close(false);
   }
 
-  verifyStateCharge() {
-    this.dialogRef.close(true);
-  }
-
-  // Funcion para recargar la pagina.
-  reloadPage() {
-    window.location.reload();
-  }
-
-
-  /**
-   * Método que genera el dato json en el formato que emplea excel para.
-   * @param {any[]} json
-   * @param {string} excelFileName
-   * @memberof ModalErrorsComponent
-   */
-  exportAsExcelFile(json: any[], excelFileName: string): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
-    this.saveAsExcelFile(excelBuffer, excelFileName);
-  }
-
-  /**
-   * Método que permite dar el formato correcto al archivo excel generado
-   * @param {*} s
-   * @returns
-   * @memberof ModalErrorsComponent
-   */
-  s2ab(s: any) {
-    const buf = new ArrayBuffer(s.length);
-    const view = new Uint8Array(buf);
-    // tslint:disable-next-line:curly
-    for (let i = 0; i !== s.length; ++i) {
-      // tslint:disable-next-line:no-bitwise
-      view[i] = s.charCodeAt(i) & 0xFF;
-    }
-    return buf;
-  }
-
-  /**
-   * Método que permite generar el excel con los datos pasados.
-   * @param {*} buffer
-   * @param {string} fileName
-   * @memberof ModalErrorsComponent
-   */
-  saveAsExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([this.s2ab(buffer)], {
-      type: ''
-    });
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-  }
 }
