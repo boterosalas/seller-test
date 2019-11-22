@@ -11,7 +11,7 @@ import { File, TYPE_VALIDATION, Validation } from './configuration.model';
 export class UploadButtonComponent implements OnInit {
   @Input() validations: Array<Validation>;
 
-  @Input() showGeneralError = true;
+  @Input() showGeneralError: boolean;
 
   @Input() generalMessageError: string;
 
