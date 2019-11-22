@@ -234,7 +234,6 @@ export class ExceptionBrandComponent implements OnInit {
       switch (data.action) {
         case 'create':
           this.createException();
-          this.createData.reset();
           break;
         case 'edit':
           this.updateData = {
