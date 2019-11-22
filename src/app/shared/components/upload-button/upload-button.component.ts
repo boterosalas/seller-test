@@ -11,6 +11,10 @@ import { File, TYPE_VALIDATION, Validation } from './configuration.model';
 export class UploadButtonComponent implements OnInit {
   @Input() validations: Array<Validation>;
 
+  @Input() showGeneralError = true;
+
+  @Input() generalMessageError: string;
+
   @Output() fileChange = new EventEmitter<Array<File>>();
 
   @Output() catchError = new EventEmitter<string>();
@@ -21,7 +25,7 @@ export class UploadButtonComponent implements OnInit {
 
   messageError: string;
 
-  totalSize: number;
+  maxSizeAllowed: number;
 
   accept: any;
 
@@ -30,12 +34,13 @@ export class UploadButtonComponent implements OnInit {
       .base64FromArray(files)
       .pipe(
         map((filesB64: File) => {
-          const errors = this.launchValidations([
+          const messageError = this.launchValidations([
             ...this.attachments,
             filesB64
           ]);
-          if (errors) {
-            throw new Error(errors);
+
+          if (messageError) {
+            throw new Error(messageError);
           }
           return filesB64;
         })
@@ -57,34 +62,55 @@ export class UploadButtonComponent implements OnInit {
   }
 
   launchValidations(attachments: Array<File>): string {
-    let errors = '';
+    let messageError = '';
 
-    attachments.forEach((attach: File) => {
-      this.validations.forEach((validation: Validation) => {
-        const message = this.validator(attach, validation);
-        errors += message ? message : '';
-      });
-    });
-    return errors === '' ? null : errors;
+    for (let i = 0; i < attachments.length; i++) {
+      const attach = attachments[i];
+      const message = this.messageErrorByFile(attach, this.validations);
+      if (this.showGeneralError && message.length > 0) {
+        return !this.generalMessageError ? `GENERAL_ERROR` : this.generalMessageError;
+      } else if (message.length !== 0) {
+        messageError += message;
+      }
+    }
+
+    return messageError === '' ? null : messageError;
   }
 
+  messageErrorByFile(attach: File, validations: Array<Validation>): string {
+    let messageError = '';
+    for (let i = 0; i < validations.length; i++) {
+      const validation = validations[i];
+      const message = this.validator(attach, validation);
+      messageError += message ? message : '';
+
+    }
+    return messageError;
+  }
+
+  /**
+   * Only can validate 1 file and return the message error for current file
+   *
+   * @param file
+   * @param validation
+   */
   validator(file: File, validation: Validation): string {
     switch (validation.type) {
       case TYPE_VALIDATION.MAX_SIZE:
-        this.totalSize += file.size;
-        if (this.totalSize > validation.value) {
-          this.totalSize -= file.size;
+        this.maxSizeAllowed += file.size;
+        if (this.maxSizeAllowed > validation.value) {
+          this.maxSizeAllowed -= file.size;
           return validation.message;
         }
         break;
 
       case TYPE_VALIDATION.ACCEPT_TYPES:
-        let formatAccept = false;
+        let isValidFormat = false;
 
         if (validation.value.indexOf(file.type) >= 0) {
-          formatAccept = true;
+          isValidFormat = true;
         }
-        if (!formatAccept) {
+        if (!isValidFormat) {
           return validation.message;
         }
         break;
@@ -109,6 +135,6 @@ export class UploadButtonComponent implements OnInit {
     this.validations = new Array();
     this.attachments = new Array();
     this.isError = false;
-    this.totalSize = 0;
+    this.maxSizeAllowed = 0;
   }
 }
