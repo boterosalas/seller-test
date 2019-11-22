@@ -19,6 +19,8 @@ export class ModalErrorsComponent implements AfterViewInit {
   public errors: string;
   public error: string;
   public name: string;
+  errorExcepcion: any;
+  prueba: any;
 
   /**
    * Creates an instance of ModalErrorsComponent.
@@ -39,16 +41,27 @@ export class ModalErrorsComponent implements AfterViewInit {
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
     this.error = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.error');
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
+    console.log('this.response 0:', this.response);
+    console.log('this.response status:', this.response.status);
+    console.log('this.response status code:', this.response.body.statusCode);
+    console.log('this.response body:', JSON.parse(this.response['body']['body']));
+    this.errorExcepcion = JSON.parse(this.response.body.body);
+    this.prueba = this.errorExcepcion.Errors;
+
+    // console.log('this.response boby', this.response.body.body);
+
+
   }
 
   ngAfterViewInit() {
-    if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
-      this.response.productNotifyViewModel.map(element => {
-        element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
-        element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
-      });
-      this.cd.detectChanges();
-    }
+    // if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
+    //   this.response.productNotifyViewModel.map(element => {
+    //     element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
+    //     element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
+    //   });
+    //   this.cd.detectChanges();
+    // }
+    console.log('this.response:', this.response);
   }
 
   /**

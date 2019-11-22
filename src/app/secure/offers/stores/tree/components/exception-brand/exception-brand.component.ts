@@ -382,6 +382,7 @@ export class ExceptionBrandComponent implements OnInit {
     };
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
       const resCreate = JSON.parse(res['body'].body);
+      // const resDialog = res;
       try {
         if (res && res['status'] === 200) {
           if (resCreate.Data === true) {
@@ -389,17 +390,20 @@ export class ExceptionBrandComponent implements OnInit {
               duration: 5000,
             });
             this.getExceptionBrandComision();
+            this.openDialogSendOrder(res);
+            this.createData.reset();
           } else {
             this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_create_ko'), this.languageService.instant('actions.close'), {
               duration: 5000,
             });
-            this.openDialogSendOrder(resCreate);
+            this.openDialogSendOrder(res);
           }
         }
       } catch {
         this.modalService.showModal('errorService');
       }
       this.loadingService.closeSpinner();
+      this.createData = [];
     });
   }
 

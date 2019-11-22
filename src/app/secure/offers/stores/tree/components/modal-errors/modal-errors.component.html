@@ -1,39 +1,37 @@
 <div>
   <div class="error-list-content list-log">
 
-    <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
-        <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
-      {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
-    </h3>
-    <mat-divider *ngIf="response.processing != 0"></mat-divider>
+    <!-- <h3 class="processing-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode">
+      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      OK
+    </h3> -->
+    <!-- <mat-divider *ngIf="response.processing != 0"></mat-divider> -->
 
-    <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status ===2">
+    <h3 class="succes-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 200">
       <mat-icon>check</mat-icon>
-      {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
+      Excepcion creada exitosamente
     </h3>
-    <mat-divider *ngIf="response.successful != 0"></mat-divider>
+    <mat-divider *ngIf="response.status === 200"></mat-divider>
 
-    <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
+    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400">
       <mat-icon>warning</mat-icon>
-      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.body.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.body.error}} {{response.body.error > 1 ? errors : error }} {{'secure.products.bulk_upload.process' | translate}}
+      Error al crear la excepcion
     </h4>
-    <mat-divider *ngIf="response.body.data.status ===3"></mat-divider>
-
-    <mat-nav-list *ngIf="response.body.data.status ===3">
-      <mat-list-item *ngFor="let item of response.productNotifyViewModel">
+    <mat-divider *ngIf="response.status === 200 && response.body.statusCode"></mat-divider>
+    <mat-nav-list *ngIf="response.body.statusCode === 400">
+      <mat-list-item *ngFor="let item of errorExcepcion.Errors">
         <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : (name + ': '+ item.ProductName)}}</h4>
-        <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.message}}{{item.Message}}</p>
+        {{item.Message}}
       </mat-list-item>
     </mat-nav-list>
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
+    <!-- <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center' | translate}}</button>
     <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
     <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
       (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel' | translate}}
-    </button>
+    </button> -->
   </mat-dialog-actions>
 </div>
