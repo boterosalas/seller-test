@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationCircleComponent } from './notification-circle.component';
 
-fdescribe('NotificationCircleComponent', () => {
+describe('NotificationCircleComponent', () => {
   let component: NotificationCircleComponent;
   let fixture: ComponentFixture<NotificationCircleComponent>;
 
