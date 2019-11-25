@@ -4,7 +4,7 @@ import { Input, Component } from '@angular/core';
   selector: 'app-notification-circle',
   template: `
     <div *ngIf="value && value > 0" class="notification-circle">
-      <span>{{ value }}</span>
+      <span id="notification-value">{{ value }}</span>
     </div>
   `,
   styleUrls: ['./notification-circle.component.scss']

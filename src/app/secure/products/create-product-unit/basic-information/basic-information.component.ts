@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { LoadingService } from '@app/core';
+import { trimField, withArray } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -16,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class ProductBasicInfoComponent implements OnInit {
 
+    otherForm: FormGroup;
     /** Initialize variables */
     formBasicInfo: FormGroup;
     packing: FormGroup;
@@ -102,11 +105,14 @@ export class ProductBasicInfoComponent implements OnInit {
     brands = [];
     filterBrands = [];
 
+    combos = [];
+
     constructor(
         private snackBar: MatSnackBar,
         private service: BasicInformationService,
         private serviceEanSon: EanServicesService,
         private process: ProcessService,
+        private loadingService: LoadingService,
         private languageService: TranslateService,
     ) {
         this.initComponent();
@@ -189,6 +195,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     private createForm(): void {
+
         this.formKeyword = new FormGroup({
         });
 
@@ -204,6 +211,8 @@ export class ProductBasicInfoComponent implements OnInit {
             shippingSize: new FormControl(1,
                 [
                 ]),
+            IsCombo: new FormControl(false, []),
+            EanCombo: new FormControl('', [Validators.pattern(this.getValue('ean'))]),
             Model: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('modelProduct'))
@@ -258,6 +267,18 @@ export class ProductBasicInfoComponent implements OnInit {
                 [
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
+        });
+        this.formBasicInfo.controls.EanCombo.disable();
+        this.formBasicInfo.get('IsCombo').valueChanges.subscribe(val => {
+            if (!val) {
+                this.combos = [];
+                this.formBasicInfo.controls.EanCombo.disable();
+                this.formBasicInfo.setValidators(null);
+            } else {
+                this.formBasicInfo.controls.EanCombo.enable();
+                this.formBasicInfo.controls.EanCombo.reset();
+                this.formBasicInfo.setValidators(withArray(this.combos));
+            }
         });
 
         this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
@@ -563,6 +584,24 @@ export class ProductBasicInfoComponent implements OnInit {
         }
     }
 
+    public checkVerify(value: boolean) {
+        if (this.combos && this.combos.length === 0) {
+            this.combos = [];
+        }
+        let data = {
+            IsCombo: !value,
+            EanCombo: this.combos
+        };
+        if (!value === false) {
+            data = {
+                IsCombo: !value,
+                EanCombo: null
+            };
+        }
+        this.process.validaData(data);
+    }
+
+
     /** Enviar datos al servicio */
     public sendDataToService(): void {
         const packingData = this.formBasicInfo.controls.packing as FormGroup;
@@ -573,6 +612,7 @@ export class ProductBasicInfoComponent implements OnInit {
             Details: this.formBasicInfo.controls.Detail.value,
             Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
+            IsCombo: this.formBasicInfo.controls.IsCombo.value,
             PackageWidth: packingData.controls.WidthPacking.value,
             PackageHeight: packingData.controls.HighPacking.value,
             PackageLength: packingData.controls.LongPacking.value,
@@ -587,6 +627,7 @@ export class ProductBasicInfoComponent implements OnInit {
             KeyWords: this.keywords.join(),
             Children: this.getSonData()
         };
+
         this.process.validaData(data);
     }
 
@@ -597,7 +638,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Ean: this.sonList[i].form.controls.Ean.value,
                 HasEAN: !this.sonList[i].form.controls.associateEanSon.value,
                 Size: this.sonList[i].form.controls.Size.value,
-                Color: this.sonList[i].colorSelected,
+                Color: this.languageService.instant(this.sonList[i].colorSelected),
                 HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value
             });
@@ -665,12 +706,12 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-/**
- * funcion para recarga el input de tallas dependiendo del idioma seleccionado
- *
- * @memberof ProductBasicInfoComponent
- */
-reloadByCulture() {
+    /**
+     * funcion para recarga el input de tallas dependiendo del idioma seleccionado
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    reloadByCulture() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             if (this.sonList.length > 0) {
                 for (let i = 0; i < this.sonList.length; i++) {
@@ -772,5 +813,40 @@ setChildren(detailProduct: any) {
                 this.valInputEan = newForm.form.controls.Ean;
             }
         }
+    }
+
+    addEanCombo() {
+        if (!!this.formBasicInfo.controls.EanCombo.value && this.formBasicInfo.controls.EanCombo.valid && !this.combos.includes(this.formBasicInfo.controls.EanCombo.value)) {
+            this.loadingService.viewSpinner();
+            this.serviceEanSon.validateEan(this.formBasicInfo.controls.EanCombo.value).subscribe(res => {
+                // Validar si la data es un booleano para validar si exiset el Ean del hijo
+                this.validateEanSonExist = (res['data']);
+                if (this.validateEanSonExist) {
+                    this.combos.push(this.formBasicInfo.controls.EanCombo.value);
+                    const data = {
+                        EanCombo: this.combos
+                    };
+                    this.process.validaData(data);
+                    this.formBasicInfo.controls.EanCombo.reset();
+                } else {
+                    this.formBasicInfo.controls.EanCombo.setErrors({ existBD: true });
+                }
+                this.loadingService.closeSpinner();
+            });
+        } else {
+            this.formBasicInfo.controls.EanCombo.setErrors({ exist: true });
+        }
+    }
+
+    deleteEan(index: number) {
+        this.combos.splice(index, 1);
+        const data = {
+            EanCombo: this.combos
+        };
+        this.process.validaData(data);
+    }
+
+    get IsCombo(): FormControl {
+        return this.formBasicInfo.controls.IsCombo as FormControl;
     }
 }

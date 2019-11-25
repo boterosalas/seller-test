@@ -1,0 +1,29 @@
+<div>
+  <div class="error-list-content list-log">
+
+    <h3 class="succes-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 200">
+      <mat-icon>check</mat-icon>
+      {{'secure.offers.stores.treee.components.exception_brand_create_ok' | translate}}
+    </h3>
+    <mat-divider *ngIf="response.status === 200"></mat-divider>
+    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400 && errorExcepcion.Errors.length === 1">
+      <mat-icon>warning</mat-icon>
+      {{'secure.offers.stores.treee.components.exception_brand_create_ko' | translate}}
+    </h4>
+    <h4 class="error-string" mat-subheader *ngIf="response.status === 200 && response.body.statusCode === 400 && errorExcepcion.Errors.length > 1">
+      <mat-icon>warning</mat-icon>
+      {{'secure.offers.stores.treee.components.exception_brand_create_kos' | translate}}
+    </h4>
+    <mat-divider *ngIf="response.status === 200 && response.body.statusCode"></mat-divider>
+    <mat-nav-list *ngIf="response.body.statusCode === 400">
+      <mat-list-item *ngFor="let item of errorExcepcion.Errors">
+        <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+        {{item.Message}}
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+
+  <mat-dialog-actions class="footer-dialog">
+    <button id="close-finish-upload-button" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+  </mat-dialog-actions>
+</div>

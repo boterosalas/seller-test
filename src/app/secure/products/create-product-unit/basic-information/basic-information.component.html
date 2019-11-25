@@ -122,7 +122,7 @@
         </div>
       </div>
       <div class="sub-form product-form" formGroupName="product">
-        <label class="label-shipping">Producto (cm/kg)</label>
+        <label class="label-shipping">{{'shared.product' | translate}} (cm/kg)</label>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
@@ -185,20 +185,66 @@
       <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | translate}}</mat-error>
     </div>
 
+    <mat-divider></mat-divider>
     <mat-form-field class="keyword-field">
-        <input type="tel" matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate" formControlName="Keyword" id="keywordProduct" (keyup.enter)="saveKeyword()" required>
-        <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
-          add_circle_outline
-        </mat-icon>
-        <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
-      </mat-form-field>
+      <input type="tel" matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate" formControlName="Keyword" id="keywordProduct"
+        (keyup.enter)="saveKeyword()" (change)="detectForm()" required>
+      <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
+        add_circle_outline
+      </mat-icon>
+      <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
+    </mat-form-field>
+
+    <div style="flex-wrap: wrap; display: flex;">
+
+        <mat-chip-list>
+            <mat-chip
+            *ngFor="let key of keywords; let i = index"
+            (removed)="deleteKeywork(i)">
+            {{key}}
+            <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+    </div>
+    <mat-divider class="my-1"></mat-divider>
+
+    <mat-checkbox formControlName="IsCombo" (click)="checkVerify(IsCombo.value)">{{'secure.products.create_product_unit.basic_information.kit' | translate}}</mat-checkbox>
+
+    <ng-container *ngIf="!!IsCombo.value">
+      <div>
+        <mat-form-field class="keyword-field my-1">
+          <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.kit_ean' | translate" class="input-packing-width"
+          formControlName="EanCombo" (keyup.enter)="addEanCombo()">
+          <mat-icon matSuffix class="material-icons"  (click)="addEanCombo()" class="add-keyword-icon">
+            add_circle_outline
+          </mat-icon>
+          <mat-error *ngIf="formBasicInfo.get('EanCombo').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.invalid_ean' | translate}}</mat-error>
+          <mat-error *ngIf="formBasicInfo.get('EanCombo').hasError('existBD')">{{'secure.products.create_product_unit.basic_information.not_exist_ean' | translate}}</mat-error>
+          <mat-error *ngIf="formBasicInfo.get('EanCombo').hasError('exist')">{{'secure.products.create_product_unit.basic_information.alredy_added_ean' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div style="flex-wrap: wrap; display: flex;">
+
+        <mat-chip-list>
+            <mat-chip
+            *ngFor="let ean of combos; let i = index"
+            (removed)="deleteEan(i)">
+            {{ean}}
+            <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+    </div>
+    <mat-divider></mat-divider>
+
   </form>
 
   <!-- FORM KEYWORD-->
   <!-- <form [formGroup]="formKeyword" (ngSubmit)="saveKeyword()" class="form-keyword">
   
   </form> -->
-  <div style="flex-wrap: wrap; display: flex;">
+  <!-- <div style="flex-wrap: wrap; display: flex;">
     <div *ngFor="let key of keywords; let i = index">
       <span>
         {{key}}
@@ -210,7 +256,7 @@
       </button>
     </div>
   </div>
-  <mat-divider></mat-divider>
+  <mat-divider></mat-divider> -->
 
   <!-- BUTTON TO ADD SONS -->
   <div  fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"

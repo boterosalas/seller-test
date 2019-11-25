@@ -23,30 +23,13 @@ export class OrderService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrderList(state: any, limit: any, idSeller: any): Observable<[{}]> {
+  getOrderList(params: any): Observable<[{}]> {
     return new Observable(observer => {
-      if (state !== undefined || state != null) {
-        // tslint:disable-next-line:max-line-length
-        if (idSeller === undefined) {
-          idSeller = '';
-        }
-        this.http.get<Order[]>(this.api.get('searchOrders', [ idSeller , limit + `&idStatusOrder=${state}`])).subscribe((data: any) => {
-          observer.next(data);
-        }, err => {
-          observer.error(err);
-
-        });
-      } else {
-        if (idSeller === undefined) {
-          idSeller = '';
-        }
-        this.http.get<Order[]>(this.api.get('searchOrders', [idSeller, limit ]),
-        ).subscribe((data: any) => {
-          observer.next(data);
-        }, error => {
-          observer.error(error);
-        });
-      }
+      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${params.state}`])).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+        observer.error(err);
+      });
     });
   }
 

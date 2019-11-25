@@ -56,6 +56,7 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() isFullSearch: boolean;
   // Limite de registros
   lengthOrder = 100;
+  state= undefined;
 
   public user: any;
 
@@ -136,7 +137,7 @@ export class ToolbarOptionsComponent implements OnInit {
     if (this.idSeller === undefined) {
       this.idSeller = null;
     }
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
   }
 
   /**

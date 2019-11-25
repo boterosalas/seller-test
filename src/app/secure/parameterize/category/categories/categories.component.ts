@@ -62,6 +62,8 @@ export class CategoriesComponent implements OnInit {
    */
   canCreate = false;
 
+  category: any;
+
   /**
    * Attribute that represent the content for the form
    */
@@ -93,6 +95,7 @@ export class CategoriesComponent implements OnInit {
     this.verifyProccesCategory();
     this.getTree();
     this.getRegex();
+    this.changeLanguage();
   }
 
   /**
@@ -177,7 +180,6 @@ export class CategoriesComponent implements OnInit {
    * Method that get the category list
    */
   getTree() {
-    this.loadingService.viewSpinner();
     this.categoryService.getCategoryTree().subscribe((response: any) => {
       if (!!response && !!response.status && response.status === 200) {
         this.initialCategotyList = JSON.parse(response.body.body).Data;
@@ -325,6 +327,7 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
+    this.category = category;
     const title = this.languageService.instant('secure.parametize.category.categories.modal_update_title');
     const message = this.languageService.instant('secure.parametize.category.categories.modal_update_description');
     const icon = null;
@@ -369,6 +372,10 @@ export class CategoriesComponent implements OnInit {
       value.Commission = !!value.Commission ? value.Commission : this.Commission.value;
       if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000' || value.Tariff === '00' || value.Tariff === '0.00') {
         value.Tariff = 0;
+      }
+
+      if (this.category) {
+        value.Label = this.category.Label;
       }
       const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       serviceResponse.subscribe(response => {
@@ -431,6 +438,13 @@ export class CategoriesComponent implements OnInit {
       }
     });
     this.loadingService.closeSpinner();
+  }
+
+  changeLanguage() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+        localStorage.setItem('culture_current', e['lang']);
+        this.getTree();
+    });
   }
 
   get Commission(): FormControl {

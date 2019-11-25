@@ -638,6 +638,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 };
               }
             }
+
             this.eanComboPosition = this.iVal.iEanCombo;
 
             if (this.isAdmin) {

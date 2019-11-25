@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Logger } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 /* log component */
 const log = new Logger('SearchCategorizationComponent');
@@ -43,7 +44,8 @@ export class SearchCategorizationComponent implements OnInit {
      * @param {SearchService} searchService
      * @memberof SearchCategorizationComponent
      */
-    constructor(private searchService: SearchService) {
+    constructor(private searchService: SearchService,
+        private languageService: TranslateService) {
     }
 
     /**
@@ -52,7 +54,7 @@ export class SearchCategorizationComponent implements OnInit {
      * @memberof SearchCategorizationComponent
      */
     ngOnInit() {
-        this.getCategoriesList();
+        this.refreshCategoryTree();
     }
 
     /**
@@ -98,11 +100,21 @@ export class SearchCategorizationComponent implements OnInit {
      * @memberof SearchCategorizationComponent
      */
     public keyDownFunction(event: any): void {
-            this.searchTextInput = event;
-            if (this.searchTextInput.Name) {
-                this.searchText = this.searchTextInput.Name;
-            } else {
-                this.searchText = this.searchTextInput;
+        this.searchTextInput = event;
+        if (this.searchTextInput.Name) {
+            this.searchText = this.searchTextInput.Name;
+        } else {
+            this.searchText = this.searchTextInput;
         }
     }
+
+    public refreshCategoryTree() {
+        this.getCategoriesList();
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.searchCategory.setValue('');
+            this.getCategoriesList();
+        });
+    }
+
 }

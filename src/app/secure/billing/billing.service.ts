@@ -8,20 +8,20 @@ import { DatePipe } from '@angular/common';
 @Injectable()
 export class BillingService {
 
-   // Variable para almacenar la fecha de inicio del filtro
-   public dateInitial: string;
+  // Variable para almacenar la fecha de inicio del filtro
+  public dateInitial: string;
 
-   // Variable para almacenar la fecha de fin del filtro
-   public dateFinal: string;
- 
-   // Variable para almacenar el bill del filtro
-   public bill: string;
+  // Variable para almacenar la fecha de fin del filtro
+  public dateFinal: string;
 
-   // Variable del id del vendedor
-   public sellerId;
+  // Variable para almacenar el bill del filtro
+  public bill: string;
 
-   // Variable del id del vendedor
-   public sellerName;
+  // Variable del id del vendedor
+  public sellerId;
+
+  // Variable del id del vendedor
+  public sellerName;
 
   constructor(
     private http: HttpClient,
@@ -36,7 +36,7 @@ export class BillingService {
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getBilling(user, stringSearch): Observable<Billing[]> {
+  getBilling(user: any, stringSearch: any): Observable<Billing[]> {
     return new Observable(observer => {
       // Id del vendedor.
       this.sellerId = user.sellerId;
@@ -58,7 +58,7 @@ export class BillingService {
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getOrdersBillingFilter(user: any, limit, stringSearch): Observable<Billing[]> {
+  getOrdersBillingFilter(user: any, limit: any, stringSearch: any): Observable<Billing[]> {
     return new Observable(observer => {
       // Id del vendedor.
       this.sellerId = user.sellerId;
@@ -90,7 +90,7 @@ export class BillingService {
    * @param {any} data
    * @memberof BillingService
    */
-  setCurrentFilterOrders(data) {
+  setCurrentFilterOrders(data: any) {
     localStorage.setItem('currentFilter', JSON.stringify(data));
   }
 
@@ -101,7 +101,7 @@ export class BillingService {
    */
   getCurrentFilterPay() {
     const currentFilterBillingPay = JSON.parse(localStorage.getItem('currentFilterBillingPay'));
-    return currentFilterBillingPay|| {};
+    return currentFilterBillingPay || {};
   }
 
   /**
@@ -121,26 +121,26 @@ export class BillingService {
     localStorage.setItem('currentFilterBillingPay', JSON.stringify(objParamsFilter));
   }
 
-    downloadBillingPay(email: string): Observable<[{}]> {
+  downloadBillingPay(email: string): Observable<[{}]> {
     const paramsFilter = this.getCurrentFilterPay();
 
     const exportData = {
-      PaymentDateInitial: paramsFilter.dateInitial === undefined ? null: paramsFilter.dateInitial,
-      PaymentDateFinal: paramsFilter.dateFinal === undefined ? null: paramsFilter.dateFinal,
+      PaymentDateInitial: paramsFilter.dateInitial === undefined ? null : paramsFilter.dateInitial,
+      PaymentDateFinal: paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal,
       IdSeller: this.sellerId,
-      BillingNumber: paramsFilter.bill === undefined ? null: paramsFilter.bill,
+      BillingNumber: paramsFilter.bill === undefined ? null : paramsFilter.bill,
       Email: email,
       SellerName: this.sellerName
-    }
+    };
 
     return new Observable(observer => {
       this.http.post<any>(this.api.get('exportBillingPays'), exportData)
-      .subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
           observer.error(err);
-      });
+        });
     });
   }
-  
+
 }

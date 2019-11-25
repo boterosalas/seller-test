@@ -14,6 +14,12 @@ export function trimField(control: AbstractControl): ValidationErrors | null {
   return !!value.toString().trim() ? null : { trim: true };
 }
 
+export function withArray(array: any[]) {
+  return (control: AbstractControl) => {
+    return array.length > 0 ? null : {isEmpty: true};
+  };
+}
+
 export function positiveNumber(control: AbstractControl): ValidationErrors | null {
   const value = !!control.value ? control.value : '';
   return !!value.toString().trim() && (Number(value) >= 0) ? null : { positiveNumber : true };

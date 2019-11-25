@@ -74,6 +74,7 @@ export class SearchBillingFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    this.getAllPayOrders();
   }
 
   /**
@@ -147,5 +148,17 @@ export class SearchBillingFormComponent implements OnInit {
     } else {
       this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 3000);
     }
+  }
+
+  getAllPayOrders() {
+    this.loadingService.viewSpinner();
+    this.billingService.getOrdersBillingFilter(this.user, 100, '').subscribe(res => {
+      if (res) {
+        // Indicar los elementos que esten suscriptos al evento.
+        this.shellComponent.eventEmitterOrders.filterBillingListResponse(res);
+        this.toggleMenu();
+      }
+      this.loadingService.closeSpinner();
+    });
   }
 }

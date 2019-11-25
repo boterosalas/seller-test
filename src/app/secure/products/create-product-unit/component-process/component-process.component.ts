@@ -182,7 +182,7 @@ export class ComponentProcessComponent implements OnInit {
     } else if (!this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue(null);
     }
-    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid ){
+    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid ) {
       this.isLinear = false;
     } else {
       this.isLinear = true;

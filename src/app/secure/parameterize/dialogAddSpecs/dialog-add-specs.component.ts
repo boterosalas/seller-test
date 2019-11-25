@@ -80,7 +80,7 @@ export class AddDialogSpecsComponent implements OnInit {
             optionSpec: new FormControl(optionData, Validators.required),
         });
 
-        if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length) {
+        if (this.dataToEdit && this.dataToEdit.List && this.dataToEdit.List.length > 0) {
             this.dataToEdit.List.forEach(element => {
                 this.listOptions.push({
                     option: {'displayName': element.displayName, 'label': element.label},
@@ -105,10 +105,13 @@ export class AddDialogSpecsComponent implements OnInit {
             data.idSpec = this.dataToEdit !== null ? this.dataToEdit.Id : null;
             if (this.listOptions.length && this.formAddSpecs.controls.optionSpec.value === this.typeList) {
                 data.ListValues = [];
+                data.Values = [];
                 this.listOptions.forEach(element => {
-                    data.ListValues.push(element.option.label);
+                    data.ListValues.push(element.formControl.value);
+                    data.Values.push({displayName: element.formControl.value, label: element.option.label});
                 });
             }
+            data.Label = this.dataToEdit !== null ? this.dataToEdit.Label : null;
             this.dialogRef.close(data);
         }
     }
@@ -121,23 +124,29 @@ export class AddDialogSpecsComponent implements OnInit {
      */
     public validOptions(): boolean {
         let changes = true;
-        if (this.listOptions.length) {
-            if (this.listOptions.length > 1) {
-                this.listOptions.forEach(element => {
-                    if (!element.formControl.value) {
-                        changes = false;
-                        return changes;
-                    }
-                });
+        if (this.formAddSpecs.controls.optionSpec.value === this.typeList) {
+            if (this.listOptions.length) {
+                if (this.listOptions.length > 1) {
+                    this.listOptions.forEach(element => {
+                        if (!element.formControl.value) {
+                            changes = false;
+                            return changes;
+                        }
+                    });
+                } else {
+                    changes = false;
+                    this.showErrorMin = true;
+                }
             } else {
                 changes = false;
                 this.showErrorMin = true;
             }
+            return changes;
         } else {
-            changes = false;
-            this.showErrorMin = true;
+            changes = true;
+            this.showErrorMin = false;
+            return changes;
         }
-        return changes;
     }
 
     /**
