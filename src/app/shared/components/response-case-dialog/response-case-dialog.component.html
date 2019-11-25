@@ -33,7 +33,10 @@
     ></textarea>
   </div>
 
-  <app-upload-button [accept]="accepts" (fileChange)="onFileChange($event)">
+  <app-upload-button
+    [validations]="validations"
+    (fileChange)="onFileChange($event)"
+  >
     SELECCIONAR ARCHIVO PARA IMPORTAR
   </app-upload-button>
 
