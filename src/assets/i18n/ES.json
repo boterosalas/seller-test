@@ -786,6 +786,12 @@
     "secure.products.create_product_unit.basic_information.size":"Ingresa la talla",
     "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
     "secure.products.create_product_unit.basic_information.color_spec":"Nombre específico de color",
+     
+    "secure.products.create_product_unit.basic_information.kit": "Producto Combo",
+    "secure.products.create_product_unit.basic_information.kit_ean": "Ean del producto combo",
+    "secure.products.create_product_unit.basic_information.invalid_ean": "Ean Invalido",
+    "secure.products.create_product_unit.basic_information.not_exist_ean": "El ean no existe",
+    "secure.products.create_product_unit.basic_information.alredy_added_ean": "El ean ya fue agregado",
  
     "secure.products.create_product_unit.categorization.search_category": "Buscar categoría",  
     "secure.products.create_product_unit.categorization.now_you_must": "Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más apropiada para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si necesitas buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista desplegable.", 
