@@ -1,69 +1,79 @@
-<h1 class="text-center">Mi Perfil</h1>
+<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
 <div class="profile-content">
-    <div class="sub-content">
-        <form [formGroup]="form">
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Id seller" autocomplete="false" formControlName="IdSeller">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Nit" autocomplete="false" formControlName="Nit">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Nombre tienda" autocomplete="false" formControlName="Name">
-            </mat-form-field>        
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Correo" autocomplete="false" formControlName="Email">
-            </mat-form-field>
-        </form>
-    </div>
-    <div *ngIf="canVacation" class="sub-content">
-        <ng-container *ngIf="isInVacation; else programVacations">
-            <mat-card id="info-vacation" class="mat card">
-                <div class="options">
-                    <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()">
-                        edit
-                    </mat-icon>
-                    <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations"(click)="sendToOpenCancelVacationDialog()">
-                        delete
-                    </mat-icon>
-                </div>
-                <div class="icon-container">
-                    <mat-icon>
-                        local_airport
-                    </mat-icon>
-                </div>
-                <div class="content-contaienr">
-                    <mat-card-title>
-                        <p class="title-text">
-                            <strong>Vacaciones</strong>
-                        </p>
-                    </mat-card-title>
-                    <mat-card-content>
-                        <label class="label-result">
-                                <strong>Inicio:</strong>{{user.StartVacations}} - <strong>Fin:</strong>{{user.EndVacations}}
-                            </label>
-                    </mat-card-content>
-                </div>
-            </mat-card>
-        </ng-container>
-        <ng-template #programVacations>
-            <button mat-stroked-button id="btn-program-vacation" color="primary" (click)="sendToOpenVacationDialog()">PROGRAMAR VACACIONES</button>
-        </ng-template>
-    </div>
+  <div class="sub-content">
+    <form [formGroup]="form">
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
+          formControlName="IdSeller">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)"
+          autocomplete="false" formControlName="Nit">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
+          autocomplete="false" formControlName="Name">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)"
+          autocomplete="false" formControlName="Email">
+      </mat-form-field>
+    </form>
+  </div>
+  <div *ngIf="canVacation" class="sub-content">
+    <ng-container *ngIf="isInVacation; else programVacations">
+      <mat-card id="info-vacation" class="mat card">
+        <div class="options">
+          <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()">
+            edit
+          </mat-icon>
+          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()">
+            delete
+          </mat-icon>
+        </div>
+        <div class="icon-container">
+          <mat-icon>
+            local_airport
+          </mat-icon>
+        </div>
+        <div class="content-contaienr">
+          <mat-card-title>
+            <p class="title-text">
+              <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
+            </p>
+          </mat-card-title>
+          <mat-card-content>
+            <label class="label-result">
+              <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+              <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
+            </label>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </ng-container>
+    <ng-template #programVacations>
+      <button mat-stroked-button id="btn-program-vacation" color="primary"
+        (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
+    </ng-template>
+  </div>
 </div>
 
 <ng-template #dialogTemplate>
-    <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
-        <mat-form-field class="half-width">
-            <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" placeholder="Fecha inicio" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
-            <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
-            <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
-        </mat-form-field>
+  <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
+    <mat-form-field class="half-width">
+      <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true"
+        [placeholder]="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation"
+        (click)="openPicker(1)" (dateInput)="startDate()">
+      <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
+      <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field class="half-width">
-            <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" placeholder="Fecha final" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
-            <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
-            <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
-        </mat-form-field>
-    </form>
+    <mat-form-field class="half-width">
+      <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart"
+        [placeholder]="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation"
+        (click)="openPicker(2)" [disabled]="enableEndVacation">
+      <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
+    </mat-form-field>
+  </form>
 </ng-template>

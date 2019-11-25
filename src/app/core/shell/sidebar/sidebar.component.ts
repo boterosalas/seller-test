@@ -9,6 +9,7 @@ import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -32,12 +33,15 @@ export class SidebarComponent implements OnInit {
   prueba = 'solicitudes-pendientes';
   modules: ModuleModel[] = null;
 
+  form: FormGroup;
+
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private fb: FormBuilder,
   ) { }
 
   /**
@@ -69,6 +73,17 @@ export class SidebarComponent implements OnInit {
     if (category.Id !== '') {
       this.route.navigate([category.UrlRedirect, category.Id]);
     }
+  }
+
+  /**
+   * Retorna el menu solo con la primera en mayuscula.
+   *
+   * @param {string} name
+   * @returns {string}
+   * @memberof ToolbarLinkComponent
+   */
+  public getPersonalityName(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
 
   /**

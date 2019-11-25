@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class ModalComponent implements OnInit {
   public title: string;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private languageService: TranslateService
   ) {
   }
 
@@ -38,42 +40,36 @@ export class ModalComponent implements OnInit {
       case 'success':
         dataModal = {
           'status': 'done',
-          'message': `¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario
-                y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de
-                vendedor para su registro.`,
-          'title': '¡Registro realizado con exíto!'
+          'message': this.languageService.instant('modal.success.register'),
+          'title': this.languageService.instant('modal.success.register title')
         };
         break;
       case 'error':
         dataModal = {
           'status': 'clear',
-          'message': `¡Tú registro ha sido rechazado! Por favor revisa que todos los campos cumplan con las debidas
-                validaciones. Cualquier duda con las reglas de registro por favor consultar el manual de uso del
-                formulario.`,
-          'title': '¡El registro no se pudo realizar!'
+          'message': this.languageService.instant('modal.fail.register'),
+          'title': this.languageService.instant('modal.fail.register.title')
         };
         break;
       case 'errorService':
         dataModal = {
           'status': 'clear',
-          'message': `¡Estamos teniendo problemas! Por favor, vuelve a cargar la página para diligenciar nuevamente la
-                información. Disculpa este inconveniente`,
-          'title': '¡Oops!.'
+          'message': this.languageService.instant('modal.problems'),
+          'title': this.languageService.instant('modal.problems.title')
         };
         break;
       case 'soldOut':
         dataModal = {
           'status': 'clear',
-          'message': `¡Este producto esta agotado!
-                Por favor intenta con otro`,
-          'title': '¡Oops!.'
+          'message': this.languageService.instant('modal.product.no_stock'),
+          'title': this.languageService.instant('modal.problems.title')
         };
         break;
       case 'successUpdate':
         dataModal = {
           'status': 'done',
-          'message': `¡Tú actualización ha sido exitosa!`,
-          'title': '¡Actualización realizada con éxito!'
+          'message': this.languageService.instant('modal.success.update'),
+          'title': this.languageService.instant('modal.success.update.title')
         };
         break;
     }

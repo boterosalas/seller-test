@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { componentRefresh } from '@angular/core/src/render3/instructions';
 import { By } from '@angular/platform-browser';
+import { SharedModule } from '@app/shared/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 export const registerRegex = [
     { Identifier: 'number', Value: '^[0-9]+$', Module: 'productos' },
@@ -51,7 +53,7 @@ describe('BulkLoad Products Component', () => {
     const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openSnackBar']);
     const mockBulkLoadProductService = jasmine.createSpyObj('BulkLoadProductService', ['getAmountAvailableLoads', 'setProductsModeration',
-        'setProducts', 'getCargasMasivas', 'verifyStateCharge', 'getCategoriesVTEX']);
+        'setProducts', 'getCargasMasivas', 'verifyStateCharge', 'getCategoriesVTEX', 'getVtexTree']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     // const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu', 'profileType$']);
     const mockUserParametersService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
@@ -1523,7 +1525,7 @@ describe('BulkLoad Products Component', () => {
         TestBed.configureTestingModule({
             // Se declara el componente a testear
             declarations: [BulkLoadProductComponent],
-            imports: [MaterialModule],
+            imports: [MaterialModule, SharedModule, HttpClientTestingModule],
             providers: [{ provide: ComponentsService, useValue: mockComponentsService },
             { provide: BulkLoadProductService, useValue: mockBulkLoadProductService },
             { provide: MatDialog, useValue: mockMatDialog },
@@ -1551,6 +1553,7 @@ describe('BulkLoad Products Component', () => {
             }
         };
         mockBulkLoadProductService.getAmountAvailableLoads.and.returnValue(of(result));
+        mockBulkLoadProductService.getVtexTree.and.returnValue(of(vetex));
         mockSupportService.getRegexFormSupport.and.returnValue(of(resRegex));
         mockBasicInformationService.getActiveBrands.and.returnValue(of(brands));
         mockBulkLoadProductService.getCargasMasivas.and.returnValue(of(response));

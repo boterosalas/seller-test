@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import { LoadGuideService } from '../load-guide.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -26,6 +27,8 @@ export class DownloadFormatComponent implements OnInit {
   // Formulario para realizar la descarga
   public myform: FormGroup;
 
+  language = 'ES';
+
   /**
    * Creates an instance of DownloadFormatComponent.
    * @param {LoadGuideService} loadGuide
@@ -40,7 +43,8 @@ export class DownloadFormatComponent implements OnInit {
     private componentService: ComponentsService,
     public dialogRef: MatDialogRef<DownloadFormatComponent>,
     private fb: FormBuilder,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private languageService: TranslateService,
   ) {
     this.user = {};
   }
@@ -71,28 +75,51 @@ export class DownloadFormatComponent implements OnInit {
    * @memberof DownloadFormatComponent
    */
   downloadInformationForGuide(form) {
+    this.setLanguage();
     this.loadGuide.downloadInformationForGuide(this.user, `?sellerId=${this.user.sellerId}&limit=${form.value.limit}`)
       .subscribe((res: Array<{}>) => {
+        let emptyFile = [];
         if (res.length > 0) {
-          this.componentService.openSnackBar('Se ha descargado correctamente la información', 'Cerrar', 3000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.download_format.ts_download_ok'), this.languageService.instant('actions.close'), 3000);
           // aplico el formato al json para los campos tracking y guide
           this.applyFormatToJson(res);
         } else {
-          this.componentService.openConfirmAlert('No se han encontrado órdenes', '¿Quieres descargar el formato de envío vació?')
+          this.componentService.openConfirmAlert(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.instant('secure.laod_guide_page.download_format.ts_want_download'))
             .then(response => {
               if (response) {
-                const emptyFile = [{
-                  'Orden': undefined,
-                  'Sku': undefined,
-                  'Cantidad': undefined,
-                  'Transportadora': undefined,
-                  'Guía': undefined
-                }];
-                this.exportAsExcelFile(emptyFile, 'Formato de guías');
+                if (this.language === 'ES') {
+                   emptyFile = [{
+                    'Orden': undefined,
+                    'Sku': undefined,
+                    'Cantidad': undefined,
+                    'Transportadora': undefined,
+                    'Guía': undefined
+                  }];
+                } else {
+                  emptyFile = [{
+                    'Order': undefined,
+                    'Sku': undefined,
+                    'Amount': undefined,
+                    'Shipping Company': undefined,
+                    'Guide': undefined
+                  }];
+                }
+                this.exportAsExcelFile(emptyFile, this.languageService.instant('secure.load_guide_page.download_format.guide_format'));
               }
             });
         }
       });
+  }
+
+  setLanguage() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      this.language = e['lang'];
+    });
+    if (localStorage.getItem('culture_current')) {
+      this.language = localStorage.getItem('culture_current');
+    } else {
+      this.language = 'ES';
+    }
   }
 
   /**
@@ -102,13 +129,17 @@ export class DownloadFormatComponent implements OnInit {
    */
   applyFormatToJson(res) {
 
-    const newKeys = { orderId: 'Orden', sku: 'Sku', quantity: 'Cantidad', tracking: 'Transportadora', guide: 'Guía' };
+    let newKeys = { orderId: 'Orden', sku: 'Sku', quantity: 'Cantidad', tracking: 'Transportadora', guide: 'Guía' };
+    if (this.language === 'US') {
+      newKeys =  { orderId: 'Order', sku: 'Sku', quantity: 'Quantity', tracking: 'Shipping Company', guide: 'Guide' };
+    }
+
     for (let i = 0; i < res.length; i++) {
       res[i].tracking = null;
       res[i].guide = null;
       res[i] = this.renameKeys(res[i], newKeys);
     }
-    this.exportAsExcelFile(res, 'Formato de guías');
+    this.exportAsExcelFile(res, this.languageService.instant('secure.load_guide_page.download_format.guide_format'));
   }
 
   /**

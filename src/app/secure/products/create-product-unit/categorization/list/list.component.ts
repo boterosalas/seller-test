@@ -3,6 +3,7 @@ import { SearchService } from '../search.component.service';
 import { Logger } from '@app/core';
 import { CategoryModel } from './category.model';
 import { ProcessService } from '../../component-process/component-process.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('ListCategorizationComponent');
@@ -27,13 +28,18 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
     selectedCategory: string;
     selectedIdCategory: number;
 
+    // Variable para mostrar loading
+    public isLoad = false;
+    copyDataCategory: any;
+
     /**
      * Creates an instance of ListCategorizationComponent.
      * @param {SearchService} searchService
      * @memberof ListCategorizationComponent
      */
     constructor(private searchService: SearchService,
-                private process: ProcessService) { }
+        private process: ProcessService,
+        private languageService: TranslateService) { }
 
     /**
      * Initialize component get categories list.
@@ -41,7 +47,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      * @memberof ListCategorizationComponent
      */
     ngOnInit() {
-        this.getCategoriesList();
+        // this.getCategoriesList();
         this.searchService.change.subscribe((result: any) => {
             this.selectedCategory = result.Name;
             if (this.selectedIdCategory !== result.Id) {
@@ -54,6 +60,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
             };
             this.process.validaData(data);
         });
+        this.refreshVtexTree();
     }
 
     /** When list changes need organized  */
@@ -149,14 +156,30 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
      */
     public getCategoriesList(): void {
         this.searchService.getCategories().subscribe((result: any) => {
+            // Copia del arreglo de todas las categories para hacer la busqueda y traducir la que ha selelcionado.
+            this.copyDataCategory = JSON.parse(result.body.body);
             // guardo el response
-            if (result.status === 200) {
+            if (result.status === 200 && result.body.body) {
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
+                this.selectedCategory = '';
+            // Hacemos una busqueda de la categoria con el clone del arreglo para mostrar cual seleccionó y enviarla al 3 paso traducido.
+            this.copyDataCategory.Data.forEach(el => {
+                if (el.Id === this.selectedIdCategory) {
+                    this.selectedCategory = el.Name;
+                    const data = {
+                        CategorySelected: el.Id,
+                        CategoryName: el.Name,
+                        CategoryType: el.ProductType
+                    };
+                    this.process.validaData(data);
+                }
+            });
             } else {
                 log.debug('ListCategorizationComponent:' + result.message);
             }
+            this.isLoad = false;
         });
     }
 
@@ -234,5 +257,15 @@ export class ListCategorizationComponent implements OnInit, OnChanges {
 
         }
         return categories;
+    }
+
+    public refreshVtexTree() {
+        this.getCategoriesList();
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.isLoad = true;
+            this.openAllItems = false;
+            this.getCategoriesList();
+        });
     }
 }

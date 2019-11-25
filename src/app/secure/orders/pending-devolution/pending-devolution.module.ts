@@ -17,6 +17,7 @@ import {
     ProductPendingDevolutionModalComponent,
 } from './product-pending-devolution-modal/product-pending-devolution-modal.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
         PendingDevolutionRoutingModule,
         SharedModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToolbarOptionsModule
     ],
     declarations: [
         PendingDevolutionComponent,

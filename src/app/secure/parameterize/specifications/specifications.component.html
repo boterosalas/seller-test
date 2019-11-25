@@ -1,16 +1,16 @@
 <!-- SPECIFICATIONS SECTION -->
 <section id="app-specifications" class="flexbox flex-wrap">
     <!-- TOOLBAR WITH TITLE AND SUBTITLE-->
-    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'Parametrizar reglas'" subtitleBar="Parametrización de especificaciones"></app-toolbar-tittle>
+    <app-toolbar-tittle class="app-toolbar-title" [tittleBar]="'secure.parametize.specifications.txt_title_toolbar' | translate" [subtitleBar]="'secure.parametize.specifications.txt_subtitle_toolbar' | translate"></app-toolbar-tittle>
 
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
         <!-- BUTTON TO ADD-->
-        <button mat-button (click)="addGroupSpec()" *ngIf="getFunctionality(create)">
+        <button mat-button (click)="addGroupSpec()" [disabled]="isDisabled" *ngIf="getFunctionality(create)">
             <mat-icon class="material-icons">
                 control_point
             </mat-icon>
-            Agregar grupo de especificaciones
+            {{'secure.parametize.specifications.btn_add_specifications_group' | translate}}
         </button>
     </div>
 
@@ -31,17 +31,17 @@
                         </mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="updateGroupSpec(group, i)" *ngIf="getFunctionality(update)">
+                        <button mat-menu-item  (click)="updateGroupSpec(group, i)" *ngIf="getFunctionality(update)">
                             <mat-icon class="material-icons">
                                 edit
                             </mat-icon>
-                            <span>Editar</span>
+                            <span>{{'actions.edit' | translate}}</span>
                         </button>
-                        <button mat-menu-item (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
+                        <button mat-menu-item  (click)="removeSpec(group)" *ngIf="getFunctionality(delete)">
                             <mat-icon class="material-icons">
                                 delete
                             </mat-icon>
-                            <span>Eliminar</span>
+                            <span>{{'actions.delete' | translate}}</span>
                         </button>
                     </mat-menu>
                     <button mat-icon-button *ngIf="!group.Show" (click)="toggleGroupSpecification(group)">
@@ -60,10 +60,10 @@
                 <div *ngFor="let spec of group.Sons; let e = index" class="specs-items" fxLayout="row" fxLayoutAlign="space-between center">
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <div  fxLayout="row" fxLayoutAlign="center center" class="icon-container">
-                            <mat-icon class="type-spec" *ngIf="spec.List.length" matTooltip="Especificación de tipo lista">
+                            <mat-icon class="type-spec" *ngIf="spec.List.length" [matTooltip]="'secure.parametize.specifications.tooltip_type_list' | translate">
                                 list
                             </mat-icon>
-                            <mat-icon class="type-spec" *ngIf="!spec.List.length" matTooltip="Especificación de tipo texto">
+                            <mat-icon class="type-spec" *ngIf="!spec.List.length" [matTooltip]="'secure.parametize.specifications.tooltip_type_text' | translate">
                                 text_fields
                             </mat-icon>
                         </div>
@@ -71,11 +71,11 @@
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
 
-                        <button mat-icon-button>
-                            <mat-icon class="material-icons color-gray" (click)="deleteSpec(group, e)" *ngIf="getFunctionality(delete)">delete</mat-icon>
+                        <button mat-icon-button [disabled]="isDisabled">
+                            <mat-icon class="material-icons color-gray"  (click)="deleteSpec(group, e)" *ngIf="getFunctionality(delete)">delete</mat-icon>
                         </button>
-                        <button mat-icon-button>
-                            <mat-icon class="material-icons color-gray" (click)="editSpec(group, e)" *ngIf="getFunctionality(update)">edit</mat-icon>
+                        <button mat-icon-button [disabled]="isDisabled">
+                            <mat-icon class="material-icons color-gray" (click)="editSpec(group, e)" *ngIf="getFunctionality(update)" >edit</mat-icon>
                         </button>
                     </div>
                 </div>
@@ -89,11 +89,11 @@
                 <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
                 <div id="addButton" class="container-group-add-button">
                     <!-- BUTTON TO ADD-->
-                    <button mat-button (click)="addSpec(group)" *ngIf="getFunctionality(create)">
+                    <button mat-button (click)="addSpec(group)" [disabled]="isDisabled" *ngIf="getFunctionality(create)">
                         <mat-icon class="material-icons">
                             control_point
                         </mat-icon>
-                        Agregar especificaciones
+                        {{'secure.parametize.specifications.btn_add_specifications' | translate}}
                     </button>
                 </div>
             </div>

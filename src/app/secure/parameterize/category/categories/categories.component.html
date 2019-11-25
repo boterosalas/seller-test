@@ -1,130 +1,161 @@
 <mat-toolbar class="category-tree-toolbar">
-    <div class="normal-theme toolbar-options-tree" fxLayout="row" fxLayoutAlign="space-between center">
-        <!--  Titulo del toolbar -->
-        <p class="seller-list-title" fxShow [fxShow.xs]="false">
-            Parametrización
-            <small class="sub-title">| Árbol de categorías</small>
-        </p>
-        <!--  Titulo del toolbar -->
-        <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-            Árbol de categorías
-        </p>
-        <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+  <div class="normal-theme toolbar-options-tree" fxLayout="row" fxLayoutAlign="space-between center">
+    <!--  Titulo del toolbar -->
+    <p class="seller-list-title" fxShow [fxShow.xs]="false">
+      {{'secure.parametize.category.categories.title' | translate}}
+      <small class="sub-title">| {{'secure.parametize.category.categories.subtitle' | translate}}</small>
+    </p>
+    <!--  Titulo del toolbar -->
+    <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+      {{'secure.parametize.category.categories.subtitle' | translate}}
+    </p>
+    <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
         </mat-paginator> -->
-        <div class="float-rigth">
-            <button mat-button matTooltip="Expandir árbol" (click)="expandTree()">
-                    <mat-icon>keyboard_arrow_down</mat-icon>
-                Expandir
-            </button>
-            <button mat-button matTooltip="Contraer árbol" (click)="contractTree()">
-                    <mat-icon>keyboard_arrow_up</mat-icon>
-                Contraer
-            </button>
-        </div>
+    <div class="float-rigth">
+      <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_expand' | translate"
+        (click)="expandTree()">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+        {{'secure.parametize.category.categories.btn_expand' | translate}}
+      </button>
+      <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_contract' | translate"
+        (click)="contractTree()">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+        {{'secure.parametize.category.categories.btn_contract' | translate}}
+      </button>
     </div>
+  </div>
 </mat-toolbar>
 <div class="content-flex-start">
-    <button *ngIf="canCreate && false" mat-button matTooltip="Crear cateoría" (click)="openCategoryDialog()">
-        <mat-icon class="material-icons">
-            control_point
-        </mat-icon>
-        Crear categoría nivel 1
-    </button>
+  <button *ngIf="canCreate && false" mat-button
+    [matTooltip]="'secure.parametize.category.categories.tooltip_add' | translate" (click)="openCategoryDialog()">
+    <mat-icon class="material-icons">
+      control_point
+    </mat-icon>
+    {{'secure.parametize.category.categories.btn_add_category' | translate}}
+  </button>
 </div>
 <div class="container__tree">
-    <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
-        [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
+  <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
+    [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
 </div>
 
 <ng-template #dialogContent>
-    <form [formGroup]="form" class="full-width form margin-top__15">
-        <div class="container-fields">
-            <mat-form-field class="register full-width">
-                <mat-label>Tipo de producto*</mat-label>
-                <mat-select formControlName="ProductType">
-                    <mat-option *ngFor="let type of productTypes" [value]="type">
-                        {{type}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="container-fields">
-            <mat-form-field class="half-width">
-                <input matInput id="Name" placeholder="Nombre*" autocomplete="false" formControlName="Name">
-                <mat-error *ngIf="Name.hasError('required') || Name.hasError('trim')">Este campo es
-                    obligatorio.</mat-error>
-                <mat-error *ngIf="Name.hasError('pattern')">El nombre no es válido.</mat-error>
-            </mat-form-field>
-            <mat-form-field class="half-width">
-                <input matInput id="Commission" placeholder="Comisión por defecto*" autocomplete="false"
-                    formControlName="Commission">
-                <mat-error *ngIf="Commission.hasError('required') || Commission.hasError('trim')">Este campo es
-                    obligatorio.
-                </mat-error>
-                <mat-error *ngIf="Commission.hasError('pattern') || Commission.hasError('positiveNumber')">La comisión no es válida.</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="container-fields">
-            <mat-form-field class="half-width">
-                <input matInput id="IdCatalogos" placeholder="ID Catalogos*" autocomplete="false"
-                    formControlName="IdCatalogos">
-                <mat-error *ngIf="IdCatalogos.hasError('required') || IdCatalogos.hasError('trim')">Este campo es
-                    obligatorio.</mat-error>
-                    <mat-error *ngIf="IdCatalogos.hasError('pattern')">El id no es válido.</mat-error>
-            </mat-form-field>
-            <mat-form-field class="half-width">
-                <input matInput id="IdExito" placeholder="ID Exito*" autocomplete="false" formControlName="IdExito">
-                <mat-error *ngIf="IdExito.hasError('required') || IdExito.hasError('trim')">Este campo es
-                    obligatorio.</mat-error>
-                    <mat-error *ngIf="IdExito.hasError('pattern')">El id no es válido.</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="container-fields">
-            <mat-form-field class="half-width">
-                <input matInput id="IdMarketplace" placeholder="ID Marketplace*" autocomplete="false"
-                    formControlName="IdMarketplace">
-                <mat-error *ngIf="IdMarketplace.hasError('required') || IdMarketplace.hasError('trim')">Este campo es
-                    obligatorio.</mat-error>
-                    <mat-error *ngIf="IdMarketplace.hasError('pattern')">El id no es válido.</mat-error>
-            </mat-form-field>
-            <mat-form-field class="half-width">
-                <input matInput id="IdVTEX" placeholder="ID VTEX*" autocomplete="false" formControlName="IdVTEX">
-                <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">Este campo es
-                    obligatorio.</mat-error>
-                    <mat-error *ngIf="IdVTEX.hasError('pattern')">El id no es válido.</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="container-fields">
-            <mat-form-field class="half-width">
-                <input matInput id="IdCarulla" placeholder="ID Carulla*" autocomplete="false"
-                    formControlName="IdCarulla">
-                <mat-error *ngIf="IdCarulla.hasError('required') || IdCarulla.hasError('trim')">Este campo es
-                    obligatorio.
-                </mat-error>
-                <mat-error *ngIf="IdCarulla.hasError('pattern')">El id no es válido.</mat-error>
-            </mat-form-field>
-            <mat-form-field class="half-width">
-                <input matInput id="NameParent" placeholder="Nombre de la categoría padre" autocomplete="false"
-                    formControlName="NameParent">
-            </mat-form-field>
-        </div>
-        <div class="container-fields">
-            <mat-form-field class="half-width">
-                <input matInput id="tariffCode" placeholder="Partida arancelaria" autocomplete="false"  onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
-                    formControlName="TariffCode" required>
-                <mat-error *ngIf="TariffCode.hasError('required') || TariffCode.hasError('trim')">Este campo es
-                    obligatorio.
-                </mat-error>
-                <mat-error *ngIf="TariffCode.hasError('pattern') || TariffCode.hasError('maxlength') || TariffCode.hasError('minlength')">El valor no es válido.</mat-error>
-            </mat-form-field>
-            <mat-form-field class="half-width">
-                <input matInput id="tariff" placeholder="Arancel" autocomplete="false" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="5"
-                    formControlName="Tariff" required>
-                    <mat-error *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')">Este campo es
-                        obligatorio.
-                    </mat-error>
-                    <mat-error *ngIf="Tariff.hasError('pattern') || Tariff.hasError('max') || Tariff.hasError('min')">El valor no es válido.</mat-error>
-            </mat-form-field>
-        </div>
-    </form>
+  <form [formGroup]="form" class="full-width form margin-top__15">
+    <div class="container-fields">
+      <mat-form-field class="register full-width">
+        <mat-label>{{'shared.product_type' | translate}}</mat-label>
+        <mat-select formControlName="ProductType" required>
+          <mat-option *ngFor="let type of productTypes" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="Name" [placeholder]="'shared.name' | translate" autocomplete="false" formControlName="Name"
+          required>
+        <mat-error *ngIf="Name.hasError('required') || Name.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="Name.hasError('pattern')">{{'errors.invalid_name' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput id="Commission"
+          [placeholder]="'secure.parametize.category.categories.lb_comission_form' | translate" autocomplete="false"
+          formControlName="Commission" required>
+        <mat-error *ngIf="Commission.hasError('required') || Commission.hasError('trim')">
+          {{'errors.required' | translate}}</mat-error>
+        <mat-error *ngIf="Commission.hasError('pattern') || Commission.hasError('positiveNumber')">
+          {{'errors.commission_invalid' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="IdCatalogos"
+          [placeholder]="'secure.parametize.category.categories.lb_id_catalogo_form' | translate" autocomplete="false"
+          formControlName="IdCatalogos" required>
+        <mat-error *ngIf="IdCatalogos.hasError('required') || IdCatalogos.hasError('trim')">
+          {{'errors.required' | translate}}</mat-error>
+        <mat-error *ngIf="IdCatalogos.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput id="IdExito"
+          [placeholder]="'secure.parametize.category.categories.lb_id_exito_form' | translate" autocomplete="false"
+          formControlName="IdExito" required>
+        <mat-error *ngIf="IdExito.hasError('required') || IdExito.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="IdExito.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="IdMarketplace"
+          [placeholder]="'secure.parametize.category.categories.lb_id_market_form' | translate" autocomplete="false"
+          formControlName="IdMarketplace" required>
+        <mat-error *ngIf="IdMarketplace.hasError('required') || IdMarketplace.hasError('trim')">
+          {{'errors.required' | translate}}</mat-error>
+        <mat-error *ngIf="IdMarketplace.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput id="IdVTEX" [placeholder]="'secure.parametize.category.categories.lb_id_vtex_form' | translate"
+          autocomplete="false" formControlName="IdVTEX" required>
+        <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="IdVTEX.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="IdCarulla"
+          [placeholder]="'secure.parametize.category.categories.lb_id_carulla_form' | translate" autocomplete="false"
+          formControlName="IdCarulla" required>
+        <mat-error *ngIf="IdCarulla.hasError('required') || IdCarulla.hasError('trim')">
+          {{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="IdCarulla.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+      <!-- NUEVO CAMPO VTEX ID CARULLA -->
+      <mat-form-field class="half-width">
+        <input matInput id="VtexIdCarulla"
+          [placeholder]="'secure.parametize.category.categories.lb_vtex_id_carulla_form' | translate"
+          autocomplete="false" formControlName="VtexIdCarulla" required>
+        <mat-error *ngIf="VtexIdCarulla.hasError('required') || VtexIdCarulla.hasError('trim')">
+          {{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="VtexIdCarulla.hasError('pattern')">{{'errors.invalid_VtexIdCarulla' | translate}}</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="container-fields">
+      <mat-form-field class="whole-width">
+        <input matInput id="NameParent"
+          [placeholder]="'secure.parametize.category.categories.lb_parent_name_category_form' | translate"
+          autocomplete="false" formControlName="NameParent">
+      </mat-form-field>
+    </div>
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="tariffCode" placeholder="Partida arancelaria" autocomplete="false"
+          onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+          formControlName="TariffCode" required>
+        <mat-error *ngIf="TariffCode.hasError('required') || TariffCode.hasError('trim')">
+          {{'errors.required' | translate}}
+        </mat-error>
+        <mat-error
+          *ngIf="TariffCode.hasError('pattern') || TariffCode.hasError('maxlength') || TariffCode.hasError('minlength')">
+          {{'errors.error.categories.valid' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput id="tariff" placeholder="Arancel" autocomplete="false"
+          onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="5"
+          formControlName="Tariff" required>
+        <mat-error *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="Tariff.hasError('pattern') || Tariff.hasError('max') || Tariff.hasError('min')">
+          {{'errors.error.categories.valid' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
 </ng-template>

@@ -1,24 +1,20 @@
 <!-- FORM CONTAINER -->
 <div fxFlex="100" fxLayout="column" class="basic-info-container" *ngIf="formCreate" id="textCreateBasicInfo">
-  <p>En esta sección deberás diligenciar la información básica del producto a crear. Recuerda que todos los campos
-    deben estar diligenciado correctamente o no podrás avanzar. Si tu producto es variante debes agregar cada
-    variación como un "hijo" diligenciando completamente la información de cada uno en la parte inferior de la
-    sección</p>
-
+  <p>{{'secure.products.create_product_unit.basic_information.basic_product_information' | translate}}</p>
   <!-- BASIC INFORMATION FORM-->
   <form class="basic-info" [formGroup]="formBasicInfo" (ngSubmit)="saveBasicInfo()">
 
     <!-- NAME AND CATEGORY -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="name-product field">
-        <input matInput placeholder="Nombre del producto" class="input-name-product" formControlName="Name"
+        <input matInput [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate" class="input-name-product" formControlName="Name"
           (change)="detectForm()" id="nameProduct" autofocus required>
-        <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">El formato es inv&aacute;lido</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">Este campo es obligatorio</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="category-product field">
-        <input matInput placeholder="Categoria" class="input-category-product" formControlName="Category"
+        <input matInput [placeholder]="'shared.category' | translate" class="input-category-product" formControlName="Category"
           (change)="detectForm()" id="categoryProduct">
       </mat-form-field>
     </div>
@@ -28,20 +24,22 @@
       <!-- <mat-form-field class="brand-product field">
         <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand" (change)="detectForm()"
           id="brandProduct">
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
       </mat-form-field> -->
 
       <mat-form-field class="field">
-        <input matInput placeholder="Marca" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
+        <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
           id="brandProduct" required>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
             {{brand.Name}}
           </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es válido</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
       </mat-form-field>
 
 
@@ -56,29 +54,26 @@
         </mat-form-field>-->
 
       <mat-form-field class="model-product field">
-        <input matInput placeholder="Modelo" class="input-model-product" formControlName="Model" (change)="detectForm()"
+        <input matInput [placeholder]="'shared.model' | translate" class="input-model-product" formControlName="Model" (change)="detectForm()"
           id="modelProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('Model').hasError('pattern')">El modelo ingresado no es v&aacute;lido
-        </mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Model').hasError('required') && formBasicInfo.get('Model').touched">Este
-          campo es obligatorio</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.model_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Model').hasError('required') && formBasicInfo.get('Model').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
     </div>
 
     <!-- DETAIL AND SHIPPING SIZE -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="detail-product field">
-        <input matInput placeholder="Detalle" class="input-detail-product" formControlName="Detail"
-          (change)="detectForm()" id="detailProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('pattern')">El detalle ingresado no es v&aacute;lido
-        </mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('required')">Este campo es obligatorio</mat-error>
+        <input matInput [placeholder]="'shared.details' | translate" class="input-detail-product" formControlName="Detail" (change)="detectForm()"
+          id="detailProduct" required>
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.detail_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Detail').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
 
       <div class="shipping-product field">
-        <label class="label-shipping">Shipping size</label>
-        <mat-slider min="1" max="5" tickInterval="true" class="shipping-slider" (change)="detectForm()"
-          formControlName="shippingSize" id="shippingProduct"></mat-slider>
+        <label class="label-shipping">{{'secure.products.create_product_unit.basic_information.shipping_size' | translate}}</label>
+        <mat-slider min="1" max="5" tickInterval="true" class="shipping-slider" (change)="detectForm()" formControlName="shippingSize"
+          id="shippingProduct"></mat-slider>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="items-slider">
           <label class="items-slider-label">1</label>
           <label class="items-slider-label">2</label>
@@ -93,86 +88,70 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
       class="container-sub-forms">
       <div class="sub-form" formGroupName="packing">
-        <label class="label-shipping">Empaque (cm/kg)</label>
+        <label class="label-shipping">{{'secure.products.create_product_unit.basic_information.packaging' | translate}} </label>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighPacking"
-                (change)="detectForm()" id="highPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">La dimensión
-                ingresada no es v&aacute;lida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.height' | translate" class="input-packing-high" formControlName="HighPacking" (change)="detectForm()"
+                id="highPackingProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}} </mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('HighPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongPacking"
-                (change)="detectForm()" id="longPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.length' | translate"  class="input-packing-long" formControlName="LongPacking" (change)="detectForm()"
+                id="longPackingProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('LongPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
           </div>
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthPacking"
-                (change)="detectForm()" id="widthPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.width' | translate" class="input-packing-width" formControlName="WidthPacking" (change)="detectForm()"
+                id="widthPackingProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('WidthPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightPacking"
-                (change)="detectForm()" id="weightPackingProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.weight' | translate" class="input-packing-weight" formControlName="WeightPacking" (change)="detectForm()"
+                id="weightPackingProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.packing.get('WeightPacking').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
 
             </mat-form-field>
           </div>
         </div>
       </div>
       <div class="sub-form product-form" formGroupName="product">
-        <label class="label-shipping">Producto (cm/kg)</label>
+        <label class="label-shipping">{{'shared.product' | translate}} (cm/kg)</label>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Alto" class="input-packing-high" formControlName="HighProduct"
-                (change)="detectForm()" id="highProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">La dimensión
-                ingresada no es v&aacute;lida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.height' | translate" class="input-packing-high" formControlName="HighProduct" (change)="detectForm()"
+                id="highProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('HighProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Largo" class="input-packing-long" formControlName="LongProduct"
-                (change)="detectForm()" id="longProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.length' | translate"  class="input-packing-long" formControlName="LongProduct" (change)="detectForm()"
+                id="longProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('LongProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
 
             </mat-form-field>
           </div>
           <div class="packing-sub-level" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Ancho" class="input-packing-width" formControlName="WidthProduct"
-                (change)="detectForm()" id="widthProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.width' | translate" class="input-packing-width" formControlName="WidthProduct" (change)="detectForm()"
+                id="widthProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('WidthProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
 
             </mat-form-field>
             <mat-form-field class="packing-field">
-              <input matInput placeholder="Peso" class="input-packing-weight" formControlName="WeightProduct"
-                (change)="detectForm()" id="weightProduct" required>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">La dimensión
-                ingresada no es válida</mat-error>
-              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('required')">Este campo es
-                obligatorio</mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.weight' | translate" class="input-packing-weight" formControlName="WeightProduct" (change)="detectForm()"
+                id="weightProduct" required>
+              <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.dimension_invalid' | translate}}</mat-error>
+                <mat-error *ngIf="formBasicInfo.controls.product.get('WeightProduct').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
 
             </mat-form-field>
           </div>
@@ -183,44 +162,36 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="field">
-        <mat-select placeholder="Unidad de medida" formControlName="MeasurementUnit" (change)="detectForm()" required>
-          <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit">
-            {{unit}}
+        <mat-select [placeholder]="'secure.products.create_product_unit.basic_information.mesasuring' | translate" formControlName="MeasurementUnit" (change)="detectForm()" required>
+          <mat-option *ngFor="let unit of UnitMeasurementList" [value]="unit | translate">
+            {{unit | translate}}
           </mat-option>
         </mat-select>
-
-        <mat-error *ngIf="formBasicInfo.get('MeasurementUnit').hasError('required')">Este campo es obligatorio
-        </mat-error>
+        
+        <mat-error *ngIf="formBasicInfo.get('MeasurementUnit').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="field">
-        <input matInput placeholder="Factor de conversión" class="input-packing-width"
-          formControlName="ConversionFactor" (change)="detectForm()" id="conversionFactorProduct" required>
-        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('required')">Este campo es obligatorio
-        </mat-error>
-        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('pattern')">El formato no es válido</mat-error>
+        <input matInput [placeholder]="'secure.products.table_load_product.conversion_factor' | translate" class="input-packing-width" formControlName="ConversionFactor"
+          (change)="detectForm()" id="conversionFactorProduct" required>
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('ConversionFactor').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | translate}}</mat-error>
       </mat-form-field>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
-      style="width: 100%;">
-      <angular-editor formControlName="Description" id="Description" [config]="config" style="width: 100%;"
-        (change)="detectForm()" required></angular-editor>
-      <mat-error
-        *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">Este
-        campo es obligatorio</mat-error>
-      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">El formato no es válido</mat-error>
+    <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column" style="width: 100%;">
+      <angular-editor formControlName="Description" id="Description" [config]="config" style="width: 100%;" (change)="detectForm()" required></angular-editor>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+      <mat-error *ngIf="formBasicInfo.get('Description').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | translate}}</mat-error>
     </div>
 
     <mat-form-field class="keyword-field">
-      <input type="tel" matInput placeholder="Palabras clave" formControlName="Keyword" id="keywordProduct"
-        (keyup.enter)="saveKeyword()"  (change)="detectForm()" required>
-      <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
-        add_circle_outline
-      </mat-icon>
-      <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">Este campo es
-        obligatorio</div>
-    </mat-form-field>
+        <input type="tel" matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate" formControlName="Keyword" id="keywordProduct" (keyup.enter)="saveKeyword()" required>
+        <mat-icon matSuffix class="material-icons" (click)="saveKeyword()"  class="add-keyword-icon">
+          add_circle_outline
+        </mat-icon>
+        <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
+      </mat-form-field>
   </form>
 
   <!-- FORM KEYWORD-->
@@ -250,7 +221,7 @@
       <mat-icon class="material-icons">
         add_circle_outline
       </mat-icon>
-      <span>Añadir hijo</span>
+      <span>{{'secure.products.create_product_unit.basic_information.add_variation' | translate}}</span>
     </button>
   </div>
 
@@ -258,7 +229,7 @@
   <div *ngFor="let son of sonList; let i = index" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="border-bottom-gray">
       <label>
-        Agregar hijo {{i+1}}
+          {{'secure.products.create_product_unit.basic_information.add_variation' | translate}} {{i+1}}
       </label>
       <button mat-icon-button (click)="toggleSon(son)">
         <mat-icon class="material-icons" *ngIf="son.Show">
@@ -273,7 +244,7 @@
     <div *ngIf="son.Show" class="son-container">
 
       <div class="text-right">
-        <button mat-icon-button matTooltip="Eliminar hijo" (click)="deleteSon(i)">
+        <button mat-icon-button [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
           <mat-icon class="material-icons">
             delete
           </mat-icon>
@@ -288,47 +259,45 @@
           <!-- EAN -->
           <div class="name-product field">
             <mat-form-field id="inputValidEanSon">
-              <input matInput placeholder="Ean hijo" class="input-name-product" formControlName="Ean"
-                (blur)="validateEanSon()" (change)="detectForm()">
-              <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">El EAN ingresado no es v&aacute;lido
-              </mat-error>
+              <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.ean_son' | translate" class="input-name-product" formControlName="Ean" (blur)="validateEanSon()"
+                (change)="detectForm()">
+              <mat-error *ngIf="son.form.get('Ean').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.ean_invalida' | translate}}</mat-error>
               <mat-error *ngIf="son.form.controls.Ean.errors &&  son.form.controls.Ean.errors.validExistEanSonDB">El
-                EAN ya existe, por favor asocia una multioferta.</mat-error>
-              <mat-error *ngIf="son.form.get('Ean').hasError('required')">El campo es obligatorio</mat-error>
+                  {{'secure.products.create_product_unit.basic_information.ean_invalida_multioffer' | translate}}</mat-error>
+              <mat-error *ngIf="son.form.get('Ean').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
             </mat-form-field>
             <div class="distanceComponetInt">
-              <mat-checkbox #asignatedEanSonCheckBox
-                (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
-                formControlName="associateEanSon">No tengo EAN asociado</mat-checkbox>
+              <mat-checkbox #asignatedEanSonCheckBox  (change)="onAsignatedEanSonChanged(asignatedEanSonCheckBox.checked, son.form.get('Ean'))"
+                formControlName="associateEanSon">{{'secure.products.create_product_unit.basic_information.dont_have_ean' | translate}}</mat-checkbox>
             </div>
           </div>
 
           <mat-form-field class="category-product field">
-              <mat-label>Ingresa la talla</mat-label>
+              <mat-label>{{'secure.products.create_product_unit.basic_information.size' | translate}}</mat-label>
               <mat-select formControlName="Size">
                 <mat-option *ngFor="let size of sizes" (change)="detectForm()"  class="input-category-product" [value]="size.Size">
                   {{size.Size}}
                 </mat-option>
               </mat-select>
-            <mat-error *ngIf="son.form.get('Size').hasError('pattern')">La talla ingresada no es v&aacute;lida</mat-error>
-            <mat-error *ngIf="son.form.get('Size').hasError('required')">EL campo es obligatorio</mat-error>
+              <mat-error *ngIf="son.form.get('Size').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.size_invalid' | translate}}</mat-error>
+              <mat-error *ngIf="son.form.get('Size').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
           </mat-form-field>
         </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
 
           <div class="field">
-            <label class="label-color">Color</label>
+            <label class="label-color">{{'secure.products.bulk_upload.color' | translate}}</label>
             <div class="full-width flex-container">
               <div class="container-color" *ngFor="let color of colorList">
                 <div class="color-round-picker"
                   [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
-                  [matTooltip]="color.Name" (click)="selectColor(color, son)"
+                  [matTooltip]="color.Name | translate" (click)="selectColor(color, son)"
                   [ngClass]="{'select-color': color.Name === son.colorSelected}">
                 </div>
                 <div class="material-icons multi-color" (click)="selectColor(color, son)"
                   [ngClass]="{'select-color': color.Name === son.colorSelected}" *ngIf="color.multicolor"
-                  [matTooltip]="color.Name">
+                  [matTooltip]="color.Name | translate">
                   <div class="multi-one"></div>
                   <div class="multi-two"></div>
                   <div class="multi-three"></div>
@@ -343,24 +312,21 @@
           <mat-form-field class="field">
             <mat-icon matPrefix class="material-icons color-prefix-icon"
               [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
-            <input matInput placeholder="HexColorCodePDP" [value]="son.colorPick" formControlName="HexColorCodePDP"
+            <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.colorPDP' | translate" [value]="son.colorPick" formControlName="HexColorCodePDP"
               id="HexColorCodePDP">
             <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'"
               [(colorPicker)]="son.colorPick" (colorPickerChange)="detectForm()" [style.background]="colorPick"
               [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
               palette
             </mat-icon>
-            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">Este campo es obligatorio</div>
+            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
           </mat-form-field>
         </div>
 
         <mat-form-field class="category-product field">
-          <input matInput placeholder="Nombre específico de color" formControlName="HexColorCodeName"
-            (change)="detectForm()" id="hexColorNameProduct">
-          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">El Nombre específico de color
-            ingresado no es
-            v&aacute;lido, no debe tener espacios.</mat-error>
-          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">EL campo es obligatorio</mat-error>
+          <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.color_spec' | translate" formControlName="HexColorCodeName" (change)="detectForm()" id="hexColorNameProduct">
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.specific_name_invalid' | translate}}</mat-error>
+          <mat-error *ngIf="son.form.get('HexColorCodeName').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
         </mat-form-field>
       </form>
     </div>

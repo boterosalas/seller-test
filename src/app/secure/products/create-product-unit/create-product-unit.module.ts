@@ -26,6 +26,7 @@ import { SpecificationDialogComponent } from './specifications/dialog/dialog.com
 import { BasicInformationService } from './basic-information/basic-information.component.service';
 import { SaveProcessDialogComponent } from './component-process/dialogSave/dialogSave.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { SharedModule } from '@app/shared/shared.module';
 import { StickyNavModule } from 'ng2-sticky-nav';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { StickyNavModule } from 'ng2-sticky-nav';
     FormsModule,
     ColorPickerModule,
     AngularEditorModule,
+    SharedModule,
     StickyNavModule
   ],
   declarations: [

@@ -6,19 +6,30 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { OrderBillingDetailModalComponent } from './order-detail-modal.component';
 import { BillingModule } from '../billing.module';
 import { ShellModule } from '@app/core/shell/shell.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { LoadingService } from '@app/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 
 describe('OrderBillingDetailModalComponent', () => {
   let component: OrderBillingDetailModalComponent;
   let fixture: ComponentFixture<OrderBillingDetailModalComponent>;
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         BillingModule,
-        ShellModule
-      ]
+        ShellModule,
+        SharedModule,
+        TranslateModule.forRoot({})
+      ],
+      providers: [
+        {provide: LoadingService, useValue: mockLoadingService},
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));

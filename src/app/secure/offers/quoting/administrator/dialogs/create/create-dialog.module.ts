@@ -5,6 +5,7 @@ import { MaterialModule } from '@app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateDialogService } from './create-dialog.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CreateDialogService } from './create-dialog.service';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SharedModule
   ],
   exports: [
     CreateDialogComponent

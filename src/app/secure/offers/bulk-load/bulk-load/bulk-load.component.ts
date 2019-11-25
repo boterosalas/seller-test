@@ -12,6 +12,7 @@ import { FinishUploadInformationComponent } from '../finish-upload-information/f
 import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
@@ -107,6 +108,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public intervalTime = 2000;
 
+  public language = 'ES';
+
   // Validación de las regex
   validateRegex: any;
 
@@ -134,7 +137,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private languageService: TranslateService,
+
 
   ) {
     this.user = {};
@@ -156,6 +161,13 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.validateFormSupport();
     this.verifyProccesOffert();
+    this.selectLanguage();
+  }
+
+  selectLanguage() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      this.language = e['lang'];
+    });
   }
 
   /**
@@ -239,7 +251,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
     });
   }
 
@@ -348,7 +360,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
       if (this.arrayNecessaryData.length === 1) {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
 
         if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock')) &&
@@ -374,19 +386,19 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
-              .openSnackBar('El número de registros supera los 1,048,576, no se permite esta cantidad', 'Aceptar', 10000);
+              .openSnackBar(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.exceeds_limits'), this.languageService.instant('actions.accpet_min'), 10000);
           } else {
             this.fileName = file.target.files[0].name;
             this.createTable(this.arrayNecessaryData, iVal, numCol);
           }
         } else {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar('El formato seleccionado es invalido', 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), this.languageService.instant('actions.accpet_min'), 10000);
         }
       }
     } else {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
     }
   }
 
@@ -428,7 +440,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         try {
           element.totalPrice += (parseFloat(price) * parseFloat(cantidadCombo));
         } catch (e) {
-          console.error('El precio del producto no es un numero', e);
+          console.error(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.no_number'), e);
         }
       }
       // si viene vacio o alguna letra lo convierte a numero 0 para queno explote.
@@ -644,7 +656,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             } else if (j === iVal.iPromEntrega) {
 
               const validFormatPromEntrega = this.validFormat(res[i][j], 'formatPromEntrega');
-
               if (!validFormatPromEntrega && validFormatPromEntrega === false) {
 
                 this.countErrors += 1;
@@ -1003,7 +1014,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
-          case 'greaterWarranty':
+        case 'greaterWarranty':
           if ((inputtxt.match(this.offertRegex.warranty))) {
             const num = parseInt(inputtxt, 10);
             if (num >= 0) {
@@ -1035,25 +1046,30 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    */
 
   /* Massive offer load*/
-  downloadFormatMassiveOfferLoad() {
-    const emptyFile = [{
-      'EAN': undefined,
-      'Inventario': undefined,
-      'Precio': undefined,
-      'Precio con Descuento': undefined,
-      'Costo de Flete Promedio': undefined,
-      'Promesa de Entrega': undefined,
-      'Free Shipping': undefined,
-      'Indicador Envios Exito': undefined,
-      'Actualizacion de Inventario': undefined,
-      'Cotizador de Flete': undefined,
-      'Garantia': undefined,
-      'Ean combo': undefined,
-      'Cantidad en combo': undefined,
-      'Tipo de moneda': undefined,
-    }];
-    log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
+  downloadFormatMassiveOfferLoad(culture: any) {
+    if (culture === 'ES') {
+      const emptyFile = [{
+        'EAN': undefined,
+        'Inventario': undefined,
+        'Precio': undefined,
+        'Precio con Descuento': undefined,
+        'Costo de Flete Promedio': undefined,
+        'Promesa de Entrega': undefined,
+        'Free Shipping': undefined,
+        'Indicador Envios Exito': undefined,
+        'Actualizacion de Inventario': undefined,
+        'Cotizador de Flete': undefined,
+        'Garantia': undefined,
+        'Ean combo': undefined,
+        'Cantidad en combo': undefined,
+        'Tipo de moneda': undefined,
+      }];
+      log.info(emptyFile);
+      this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
+    } else {
+      this.downloadFormatMassiveOfferLoadInternational();
+    }
+
   }
 
   /* Massive offer load Internacional*/
@@ -1162,12 +1178,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Funcion para enviar la informacion luego de que pasa las validacion del front 
+   * Funcion para enviar la informacion luego de que pasa las validacion del front
    *
    * @memberof BulkLoadComponent
    */
   sendJsonOffer() {
     this.arrayInformationForSend.splice(0, 1);
+    // Validacion para que siempre se envie la promesa de entrega # a #.
+    this.arrayInformationForSend.forEach(element => {
+      const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
+      const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+      element['PromiseDelivery'] = convertPromise;
+    });
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
         (result: any) => {
@@ -1235,9 +1257,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.intervalTime = 6000;
     }
     const data = {
-      successText: 'Carga realizada con éxito',
-      failText: 'No se pudo realizar la carga',
-      processText: 'Carga en proceso',
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
       initTime: 500,
       intervalTime: this.intervalTime,
       listError: listError,

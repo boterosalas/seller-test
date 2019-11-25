@@ -8,11 +8,14 @@ import { BillingProductsOrderComponent } from './billing-products-order.componen
 import { MatSidenavModule } from '@angular/material';
 import { ShellModule } from '@app/core/shell/shell.module';
 import { By } from '@angular/platform-browser';
+import { LoadingService } from '@app/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 
 describe('BillingProductsOrderComponent', () => {
   let component: BillingProductsOrderComponent;
   let fixture: ComponentFixture<BillingProductsOrderComponent>;
+  const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,9 +23,14 @@ describe('BillingProductsOrderComponent', () => {
         RouterTestingModule,
         BillingModule,
         MatSidenavModule,
-        ShellModule
+        ShellModule,
+        TranslateModule.forRoot({})
       ],
       declarations: [
+      ],
+      providers: [
+        {provide: LoadingService, useValue: mockLoadingService},
+        
       ]
     })
       .compileComponents();

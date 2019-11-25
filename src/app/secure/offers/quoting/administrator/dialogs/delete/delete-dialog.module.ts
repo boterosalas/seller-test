@@ -4,6 +4,7 @@ import { DeleteDialogComponent } from './delete-dialog.component';
 import { MaterialModule } from '@app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SharedModule
   ],
   exports: [
     DeleteDialogComponent

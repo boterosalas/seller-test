@@ -10,6 +10,7 @@ import { SupportService } from './support.service';
 import { UserInformation } from '@app/shared';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { BasicInformationService } from '../products/create-product-unit/basic-information/basic-information.component.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -47,7 +48,8 @@ export class SupportModalComponent implements OnInit {
     public COMPONENT: ComponentsService,
     public SUPPORT: SupportService,
     public userParams: UserParametersService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private languageService: TranslateService,
   ) { }
 
   /**
@@ -84,13 +86,13 @@ export class SupportModalComponent implements OnInit {
   createForm(user: any) {
     this.myform = new FormGroup({
       nit: new FormControl(user.sellerNit, Validators.compose([Validators.required])),
-      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('nameCaseOrders'))])),
+      caseMarketplaceName: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.instant('nameCaseOrders'))])),
       account: new FormControl(user.sellerName, Validators.compose([Validators.required])),
       emailContact: new FormControl(user.sellerEmail, Validators.compose([Validators.required, Validators.email])),
       typeOfRequirement: new FormControl('', Validators.compose([Validators.required])),
       reason: new FormControl('', Validators.compose([Validators.required])),
-      description: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('descriptionOrders'))])),
-      contact: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.getValue('contactOrders'))])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.instant('descriptionOrders'))])),
+      contact: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.instant('contactOrders'))])),
     });
   }
 
@@ -108,7 +110,7 @@ export class SupportModalComponent implements OnInit {
 
   }
 
-  public getValue(name: string): string {
+  public instant(name: string): string {
     if (this.validateRegex && this.validateRegex.Data.length) {
       for (let i = 0; i < this.validateRegex.Data.length; i++) {
         if (this.validateRegex.Data[i].Identifier === name) {
@@ -145,11 +147,11 @@ export class SupportModalComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(this.user['access_token'], messageSupport).subscribe((res: any) => {
       this.loadingService.closeSpinner();
-      this.COMPONENT.openSnackBar('Se ha enviado tu mensaje de soporte.', 'Aceptar', 10000);
+      this.COMPONENT.openSnackBar(this.languageService.instant('secure.support_modal.ts_send_msj'), this.languageService.instant('actions.accpet_min'), 10000);
       this.onNoClick();
     }, err => {
       this.loadingService.closeSpinner();
-      this.COMPONENT.openSnackBar('Se ha presentado un error al enviar el mensaje de soporte', 'Aceptar', 10000);
+      this.COMPONENT.openSnackBar(this.languageService.instant('secure.support_modal.ts_error_msj_support'), this.languageService.instant('actions.accpet_min'), 10000);
     });
   }
 

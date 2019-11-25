@@ -8,6 +8,7 @@ import { ActionConfirmReceiptComponent } from './action-confirm-receipt.componen
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 describe('ActionConfirmReceiptComponent', () => {
@@ -18,6 +19,7 @@ describe('ActionConfirmReceiptComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         ActionConfirmReceiptComponent,

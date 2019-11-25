@@ -1,14 +1,14 @@
 <div class="container-product-list">
   <div class="title-page">
-    <span class="sc-title">Producto: {{product.nameProduct}}
+    <span class="sc-title">{{'secure.orders.order_list.product_detail.product' | translate}}: {{product.nameProduct}}
     </span>
-    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+    <a [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>
   <mat-list class="card-info" fxFlex="100">
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Producto
+      <h4 mat-line>{{'secure.orders.order_list.product_detail.product' | translate}}
         <p mat-subheader class="sub-text-list">{{product.nameProduct}}</p>
       </h4>
 
@@ -16,14 +16,14 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Costo
+      <h4 mat-line>{{'secure.orders.order_list.product_detail.cost' | translate}}
         <p mat-subheader class="sub-text-list">${{product.costProduct | number}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Flete
+      <h4 mat-line>{{'secure.orders.order_list.product_detail.freight' | translate}}
         <p mat-subheader class="sub-text-list">${{product.costShippingProduct | number}}</p>
       </h4>
 
@@ -31,7 +31,7 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Estado
+      <h4 mat-line>{{'shared.status' | translate}}
         <p mat-subheader class="sub-text-list">{{product.statusProduct}}</p>
       </h4>
 
@@ -39,7 +39,7 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Guía
+      <h4 mat-line>{{'secure.orders.order_list.product_detail.guide' | translate}}
         <p mat-subheader class="sub-text-list">{{product.reference}}</p>
       </h4>
     </mat-list-item>

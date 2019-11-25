@@ -2,9 +2,9 @@
 
   <mat-nav-list class="light-content">
     <mat-toolbar color="primary">
-      <button id="closeMenuApplication" color="accent" matTooltip="Cerrar menú" matTooltipPosition="below"
+      <button id="closeMenuApplication" color="accent" [matTooltip]="'actions.close_menu' | translate" matTooltipPosition="below"
         mat-icon-button mat-button (click)="toggleMenu()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon>close</mat-icon>
       </button>
 
       <span class="spacer-content"></span>
@@ -13,23 +13,29 @@
 
     </mat-toolbar>
 
+    <div class="sidebar-text-align">
+      <app-select-language></app-select-language>
+      <div class="sidebar-label-language">{{'select.language' | translate}}</div>
+    </div>
+    
+
     <div class="content-menu-list" *ngIf="user">
       <div *ngFor="let module of modules">
         <mat-expansion-panel class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
           <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
             <mat-panel-title>
-              {{module.NameModule}}
+              {{('module.' + getPersonalityName(module.NameModule)) | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <div *ngFor="let menu of module.Menus">
             <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
-              <h6 matLine>{{menu.NameMenu}}</h6>
+              <h6 matLine>{{('menu.' + menu.NameMenu) | translate}}</h6>
             </mat-list-item>
 
             <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
               target="_blank">
-              <h3 matLine style="margin-left:50px;">{{menu.NameMenu}}</h3>
+              <h3 matLine style="margin-left:50px;">{{('menu.' + menu.NameMenu) | translate}}</h3>
             </a>
           </div>
         </mat-expansion-panel>
@@ -226,12 +232,12 @@
     </mat-list-item> -->
     <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterMyProfile]">
       <mat-icon matListIcon class="mat-18">person</mat-icon>
-      <h6 matLine>Perfil</h6>
+      <h6 matLine class="sidebar-margin-left">{{'core.shell.header.profile' | translate}}</h6>
     </mat-list-item>
 
     <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]" (click)="toggleMenu()">
       <mat-icon matListIcon class="mat-18">input</mat-icon>
-      <h6 matLine>Salir</h6>
+      <h6 matLine class="sidebar-margin-left">{{'core.shell.header.logout' | translate}}</h6>
     </mat-list-item>
 
     <!--

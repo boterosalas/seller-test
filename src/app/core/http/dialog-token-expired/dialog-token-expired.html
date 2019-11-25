@@ -2,11 +2,11 @@
     <mat-icon class="material-icons icon-warning">
         warning
     </mat-icon>
-    La sesión ha expirado
+    {{'core.http.dialog_token_expired.title' | translate}}
 </h1>
 <div mat-dialog-content>
-    <p>La sesión ha expirado o caducado por inactividad prolongada. Por favor vuelva a ingresar.</p>
+    <p>{{'core.http.dialog_token_expired.body' | translate}}</p>
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end end">
-    <button mat-button (click)="closeDialog()" cdkFocusInitial>Aceptar</button>
+    <button mat-button (click)="closeDialog()" cdkFocusInitial>{{'actions.accpet_min' | translate}}</button>
 </div>

@@ -49,7 +49,8 @@ export class PendingComponent implements OnInit {
     btn_title: 'Consultar órdenes pendientes',
     title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: ''
   };
 
   @ViewChild(MatSort) sort: MatSort;

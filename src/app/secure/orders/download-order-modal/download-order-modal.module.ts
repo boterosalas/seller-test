@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/material.module';
 
 import { DownloadOrderModalComponent } from './download-order-modal.component';
 import { DownloadOrderService } from './download-order.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DownloadOrderService } from './download-order.service';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TranslateModule
   ],
   declarations: [
     DownloadOrderModalComponent

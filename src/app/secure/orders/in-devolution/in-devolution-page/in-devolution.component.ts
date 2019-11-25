@@ -26,6 +26,7 @@ import { MenuModel, readFunctionality, devolutionName, acceptFuncionality, refus
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('InDevolutionComponent');
@@ -84,14 +85,15 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   currentEventPaginate: any;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
-    subtitle: 'En Devolución',
-    title_for_search: 'Consultar solicitudes',
-    btn_title: 'Consultar solicitudes',
+    title: 'secure.orders.orders',
+    subtitle: 'menu.Devoluciones',
+    title_for_search: 'secure.orders.filter.title_filter',
+    btn_title: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInDevolution
-    }
+    },
+    count: ''
   };
 
   permissionComponent: MenuModel;
@@ -122,6 +124,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     public userParams: UserParametersService,
     private authService: AuthService,
+    private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
   ) { }
 
@@ -352,11 +355,11 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         this.getOrdersList(this.currentEventPaginate);
         this.dialogAcceptDevolution();
       } else {
-        this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.sn_error_request'), this.languageService.instant('actions.accpet_min'), 12000);
       }
     }, error => {
       log.error(error);
-      this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.sn_error_request'), this.languageService.instant('actions.accpet_min'), 12000);
     });
   }
 

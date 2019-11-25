@@ -6,6 +6,7 @@ import { MaterialModule } from '@app/material.module';
 import { CreateDialogModule } from '../dialogs/create/create-dialog.module';
 import { DeleteDialogModule } from '../dialogs/delete/delete-dialog.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     CreateDialogModule,
     DeleteDialogModule,
     MatDialogModule,
+    SharedModule
   ],
   exports: [
     ListZonesComponent

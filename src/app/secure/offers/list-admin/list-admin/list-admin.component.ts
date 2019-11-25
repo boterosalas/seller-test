@@ -77,6 +77,7 @@ export class ListAdminComponent implements OnInit {
 
   // Domains images
   public domainImages = environment.domainImages;
+  applyFilter: boolean;
 
   /**
    * Creates an instance of ListAdminComponent.
@@ -191,9 +192,10 @@ export class ListAdminComponent implements OnInit {
     );
   }
 
+
   /**
-   * @method openDetailOffer
-   * @description Método para ver el detalle de la oferta
+   * Metodo para ver el detalle de la oferta
+   *
    * @param {*} item
    * @memberof ListAdminComponent
    */
@@ -202,7 +204,6 @@ export class ListAdminComponent implements OnInit {
     this.dataOffer = item;
     this.inDetail = true;
   }
-
 
   /**
    * @method filterOffers
@@ -265,6 +266,8 @@ export class ListAdminComponent implements OnInit {
     this.getListAdminOffers(this.paramData);
   }
 
+
+
   /**
    * @method receiveVarConsumeList
    * @description Metodo que recibe un booleano y si es true consume el listado de ofertas.
@@ -280,6 +283,16 @@ export class ListAdminComponent implements OnInit {
       this.paramData.clear();
       this.getListAdminOffers();
     }
+  }
+
+  public cleanAllFilter() {
+    this.applyFilter = false;
+    this.paramData.ean = null;
+    this.paramData.stock = null;
+    this.paramData.product = null;
+    this.paramData.pluVtex = null;
+    this.filterOffers(this.paramData);
+    // this.getListOffers(this.paramData);
   }
 
 }

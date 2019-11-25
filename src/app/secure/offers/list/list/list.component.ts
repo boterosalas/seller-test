@@ -56,6 +56,7 @@ export class ListComponent implements OnInit {
   // Domains images
   public domainImages = environment.domainImages;
 
+  applyFilter = false;
 
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
@@ -222,5 +223,19 @@ export class ListComponent implements OnInit {
       this.paramData.clear();
       this.getListOffers();
     }
+  }
+
+  /**
+   * Funcion que limia parametros del filtro para obtener la data del listado de ofertas completo.
+   * @memberof ListComponent
+   */
+  public cleanAllFilter() {
+    this.applyFilter = false;
+    this.paramData.ean = null;
+    this.paramData.stock = null;
+    this.paramData.product = null;
+    this.paramData.pluVtex = null;
+    this.filterOffers(this.paramData);
+    // this.getListOffers(this.paramData);
   }
 }

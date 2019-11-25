@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/do
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    DownloadOrderModalModule
+    DownloadOrderModalModule,
+    TranslateModule
   ],
   declarations: [
     ToolbarSearchPaginationComponent

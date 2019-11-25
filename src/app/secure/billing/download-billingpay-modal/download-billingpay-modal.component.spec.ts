@@ -13,6 +13,7 @@ import { EndpointService } from '@app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('DownloadBillingpayModalComponent', () => {
   let component: DownloadBillingpayModalComponent;
@@ -40,7 +41,8 @@ describe('DownloadBillingpayModalComponent', () => {
         MatSnackBarModule,
         HttpClientModule,
         MatInputModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        SharedModule
       ],
       declarations: [
         DownloadBillingpayModalComponent

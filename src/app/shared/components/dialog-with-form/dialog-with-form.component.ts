@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, TemplateRef, OnDestroy } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -26,17 +26,19 @@ export class DialogWithFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogWithFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-    ) {
+  ) {
 
-     }
+  }
 
-     ngOnInit() {
-     }
+  ngOnInit() {
+  }
 
-  onNoClick:() => void = () => {
+  onNoClick: () => void = () => {
+    // tslint:disable-next-line:no-unused-expression
     !!this.data && !!this.data.form && this.data.form.reset();
     this.dialogRef.close();
   }
 
+  // tslint:disable-next-line:member-ordering
   confirmation: () => void;
 }

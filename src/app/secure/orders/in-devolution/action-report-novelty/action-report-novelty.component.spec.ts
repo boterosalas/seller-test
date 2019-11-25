@@ -16,6 +16,7 @@ import { ComponentsService } from '@app/shared';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { InDevolutionService } from '../in-devolution.service';
 import { UserParametersService, EndpointService } from '@app/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ActionReportNoveltyComponent', () => {
   let component: ActionReportNoveltyComponent;
@@ -33,7 +34,8 @@ describe('ActionReportNoveltyComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         ActionReportNoveltyComponent,

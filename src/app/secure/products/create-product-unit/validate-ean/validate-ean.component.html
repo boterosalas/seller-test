@@ -1,28 +1,28 @@
 <div>
   <div>
     <p id="textCreateEan">
-      Primero debes ingresar un EAN o Código de Barras válido para tu producto. 
-      Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. 
-      Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres
-       ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. 
-       Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.
+      {{'secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean' | translate}}
     </p>
   </div>
   <form *ngIf="eanGroup" #createProductEan="ngForm" [formGroup]="eanGroup">
     <mat-form-field class="distanceComponetInt">
-      <input matInput placeholder="EAN" formControlName="eanCtrl" autocomplete="off">
-      <mat-error  *ngIf="eanGroup.get('eanCtrl').hasError('pattern')" [innerHTML]="'Formato inv&aacute;lido de EAN (5-16 caraceteres alfan&uacute;mericos).'"></mat-error>
-      <mat-error  *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB" [innerHTML]="'El EAN ya existe, por favor asocia una multioferta'"></mat-error>
+      <input matInput [placeholder]="'shared.ean' | translate" formControlName="eanCtrl" (keyup)="validateEanServices()" autocomplete="off"
+        maxlength="16" minlength="7">
+      <mat-error *ngIf="eanGroup.get('eanCtrl').hasError('pattern')">
+        {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format' | translate}}</mat-error>
+      <mat-error *ngIf="eanGroup.controls.eanCtrl.errors &&  eanGroup.controls.eanCtrl.errors.validExistEanDB">
+        {{'secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer' | translate}}
+      </mat-error>
     </mat-form-field>
-  <div class="distanceComponetInt">
-      <mat-checkbox  #asignatedEanCheckBox 
-      [checked]="asignatedEan"
-      (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)"
-      formControlName="associateEan">No tengo EAN asociado</mat-checkbox>
+    <div class="distanceComponetInt">
+      <mat-checkbox #asignatedEanCheckBox [checked]="asignatedEan"
+        (change)="onAsignatedEanChanged(asignatedEanCheckBox.checked)" formControlName="associateEan">
+        {{'secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code' | translate}}
+      </mat-checkbox>
     </div>
-
     <div class="buttonProcess">
-      <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="permitContinue() || !createProductEan.form.valid">Continuar</button>
+      <button mat-button matStepperNext class="buttonProcessContinuar"
+        [disabled]="permitContinue() || !createProductEan.form.valid">{{'secure.products.create_product_unit.specifications.validate-ean.continue' | translate}}</button>
     </div>
   </form>
 </div>

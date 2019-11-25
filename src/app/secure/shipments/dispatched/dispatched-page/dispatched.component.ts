@@ -50,7 +50,8 @@ export class DispatchedComponent implements OnInit {
     btn_title: 'Filtrar envíos',
     title_for_search: 'Consultar órdenes (Envios Éxito)',
     type_form: 'envios-exito',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: ''
   };
   @ViewChild(MatSort) sort: MatSort;
 

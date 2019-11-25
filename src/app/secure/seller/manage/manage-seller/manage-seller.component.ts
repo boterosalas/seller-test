@@ -86,7 +86,7 @@ export class ManageSellerComponent implements OnInit {
   profileAdmin: string[] = [];
   public showUpdate: boolean;
   departamento = 'departamento';
-  activeForm= false;
+  activeForm = false;
 
 
   public country: FormControl;
@@ -304,35 +304,36 @@ export class ManageSellerComponent implements OnInit {
     this.nit = new FormControl({ value: '', disabled: disable }, [
       Validators.required,
       Validators.maxLength(20),
-      Validators.pattern('^[0-9]*$')
+      Validators.pattern(this.sellerRegex.nit)
     ]);
     this.rut = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
       Validators.maxLength(20),
-      Validators.pattern('^[0-9]*$')
+      Validators.pattern(this.sellerRegex.rut)
       ]);
     this.contactName = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-      Validators.pattern('^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$')
+      Validators.pattern(this.sellerRegex.contactName)
       ]);
     this.email = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-      Validators.pattern(this.emailRegex)
+      Validators.pattern(this.sellerRegex.email),
       ]);
     this.phoneNumber = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
+        Validators.pattern(this.sellerRegex.phoneNumber),
       Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
-    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required ]);
+    this.state = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
     this.name = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-      Validators.pattern(this.nameStoreRegex)]);
+      Validators.pattern(this.sellerRegex.nameStore)]);
     this.policy = new FormControl({ value: '', disabled: disable },
-      [Validators.required, Validators.pattern(this.warrantyRegex)]);
+      [Validators.required, Validators.pattern(this.sellerRegex.warranty)]);
     this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
     this.isShippingExito = new FormControl({ value: '', disabled: disable });
     this.gotoExito = new FormControl({ value: '', disabled: disable });
@@ -340,7 +341,8 @@ export class ManageSellerComponent implements OnInit {
     this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
     this.profile = new FormControl({ value: '', disabled: disable }, [Validators.required]);
 
-    this.country = new FormControl({ value: '', disabled: true }, [Validators.required]);
+    // disable = true ; Se quita el disable true para prueba internacional
+    this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.payoneer = new FormControl({ value: '', disabled: disable });
     this.createForm();
     this.addValidationsSellerForm();
@@ -615,7 +617,7 @@ export class ManageSellerComponent implements OnInit {
    */
   addValidationsSellerForm() {
     this.Country.valueChanges.subscribe(val => {
-      if (val !== 'null' && val !== null ) {
+      if (val !== 'null' && val !== null) {
         if (this.colombia === val) {
           this.isColombiaSelect = true;
           this.department = this.currentSellerSelect.State;
@@ -690,17 +692,18 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   validateExitPayoneerUser(event: any) {
+    this.loadingService.viewSpinner();
     const value = event.target.value;
     if (!!value) {
-      this.loadingService.viewSpinner();
       this.payoneerService.getStatusById(value).subscribe((val: any) => {
-        const body = JSON.parse(val.body.body);
+        const body = JSON.parse(val.body);
         if (body && !body.Data) {
           this.Payoneer.setErrors({ payoneer: true });
         }
         this.loadingService.closeSpinner();
       });
     }
+    this.loadingService.closeSpinner();
   }
   get Country(): FormControl {
     return this.validateFormRegister.get('Country') as FormControl;

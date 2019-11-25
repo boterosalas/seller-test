@@ -18,6 +18,7 @@ import { SendOrderComponent } from './send-order/send-order.component';
 import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 import { MaterialModule } from '@app/material.module';
 import { ngfModule } from 'angular-file';
+import { ToolbarOptionsModule } from '@app/shared/components';
 // import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ngfModule } from 'angular-file';
     ClientInformationModule,
     OrdersRoutingModule,
     MaterialModule,
-    ngfModule
+    ngfModule,
+    ToolbarOptionsModule
   ],
   declarations: [
     ConfirmAlertComponent,

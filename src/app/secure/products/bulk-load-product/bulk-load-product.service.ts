@@ -124,14 +124,14 @@ export class BulkLoadProductService {
     });
   }
 
-   /**
-   * @method getCategoriesVTEX()
-   * @returns {Observable}
-   * @description Método para obtener las categorias de vetex
+
+  /**
+   * Método para obtener las categorias de vetex
+   * @param {*} categoria
+   * @returns {Observable<any>}
    * @memberof BulkLoadProductService
    */
-
-  getCategoriesVTEX(categoria):Observable<any> {
+  getCategoriesVTEX(categoria: any): Observable<any> {
     return this.http.get(this.api.get('getCategoriesVetex') + categoria);
   }
 
@@ -153,25 +153,25 @@ export class BulkLoadProductService {
           }
         );
     });
+  }
 
-   
-
-    /*
-        return of(
-          {
-            body: {
-              'errors': [],
-              'data': {
-                'idSeller': 1,
-                'status': 3,
-                'response': '{\"TotalProcess\":1,\"Error\":1,\"Successful\":0,\"FileName\":\"\",\"ProductNotify\":[{\"Ean\":\"5555255555555\",\"Message\":\"Categoría no existe.\"}]}',
-                'checked': 'false'
-              },
-              'message': 'Operación realizada éxitosamente.'
-            }
+  /**
+   * Endpoint para obtener el arbol de categoria de VTEX
+   * @returns {Observable<{}>}
+   * @memberof BulkLoadProductService
+   */
+  getVtexTree(): Observable<{}> {
+    return new Observable(observer => {
+      this.http.get<any>(this.api.get('getVtexTree'), { observe: 'response' })
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          error => {
+            observer.next(error);
           }
-        );*/
-
+        );
+    });
   }
 
 }

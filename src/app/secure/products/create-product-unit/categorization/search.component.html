@@ -1,10 +1,5 @@
 <p id="textCreateCategorization">
-    Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más
-    apropiada
-    para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si
-    necesitas
-    buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista
-    desplegable.
+    {{'secure.products.create_product_unit.categorization.now_you_must' | translate}}
 </p>
 <div fxLayout="row" fxLayoutAlign="center center" class="sticky-position">
 
@@ -15,7 +10,7 @@
 
             <!-- Input search -->
             <input id="input-search" class="search-input" type="search"
-                [formControl]="searchCategory" matInput [matAutocomplete]="auto" placeholder="Buscar categoría" >
+                [formControl]="searchCategory" matInput [matAutocomplete]="auto" [placeholder]="'secure.products.create_product_unit.categorization.search_category' | translate" >
         </mat-form-field>
 
         <!-- Autocomplete -->

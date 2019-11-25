@@ -28,13 +28,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * Variable que almacena el texto que se mostrara en el titulo
    * @memberof ToolbarComponent
    */
-  public tittleBar: String = 'Ofertas';
+  public tittleBar: String = 'secure.offers.historical_admin.components.toolbar.title_offert';
 
   /**
    * Variable que almacena el texto que se mostrara en el subtitulo
    * @memberof ToolbarComponent
    */
-  public subtitleBar: String = 'Listado de ofertas';
+  public subtitleBar: String = 'secure.offers.list.components.toolbar.subtitle_offert_list';
 
   /**
    * Variable que almacena las varibales del páginados que se enviaran al servicio

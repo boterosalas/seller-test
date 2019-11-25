@@ -15,11 +15,6 @@
   font-size: 12px;
 }
 
-.content-total-product {
-  // background: #f2f2e7;
-  // font-weight: bold;
-}
-
 .product-name {
   padding: 15px 0px;
 }
@@ -38,6 +33,7 @@
 
 .item-title-table {
   width: 130px;
+
   @media (max-width: 960px) {
     width: 120px;
   }
@@ -45,9 +41,11 @@
 
 .item-action-table {
   width: 130px;
+
   @media (max-width: 960px) {
     width: 100%;
     padding: 10px;
+
     & button {
       width: 100%;
     }
@@ -73,7 +71,23 @@
   align-items: center;
   height: 100%;
   justify-content: flex-start;
+
   & p {
     padding-left: 55px;
   }
+}
+
+.sc-text-order-international {
+  color: gray;
+  font-size: 13px !important;
+}
+
+.sc-text-order-tracking {
+  color: black;
+  font-size: 13px !important;
+}
+
+.sc-text-order-carrier {
+  color: #000000 !important;
+  font-size: 12px !important;
 }

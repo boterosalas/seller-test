@@ -70,6 +70,12 @@ export class FilterComponent implements OnInit, OnChanges {
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
 
+    listFilterOfferts: any[];
+    eanList: any;
+    productList: any;
+    stockList: any;
+    pluVtexList: any;
+
     /**
      * Creates an instance of FilterComponent.
      * @param {ListComponent} list
@@ -162,6 +168,28 @@ export class FilterComponent implements OnInit, OnChanges {
      */
     toggleMenu() {
         this.sidenav.toggle();
+    }
+
+    /**
+     * Funcion que resetea el formulario y llama el listado de ofertas
+     * @memberof FilterComponent
+     */
+    cleanFilter() {
+        this.filterForm.reset();
+        this.cleanFilterListOfferts();
+        this.list.cleanAllFilter();
+    }
+
+    /**
+     * Limpiamos variables del filtro
+     * @memberof FilterComponent
+     */
+    public cleanFilterListOfferts(): void {
+        this.eanList = null;
+        this.productList = null;
+        this.stockList = null;
+        this.pluVtexList = null;
+        this.listFilterOfferts = [];
     }
 
 }
