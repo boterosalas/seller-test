@@ -34,8 +34,8 @@
     "menu.Creación Unitaria": "Creación unitaria",
     "menu.Creación unitaria": "Creación unitaria",
     "menu.Listarreclamaciones": "Listar reclamaciones", 
-    "menu.Validaciones": "Validaciones", 
-    "menu.Devoluciones": "Devoluciones", 
+    "menu.En validación": "En validación", 
+    "menu.En devolución": "En devolución", 
     "menu.Solicitudes pendientes": "Solicitudes pendientes", 
     "menu.Todas": "Todas", 
     "menu.Por enviar": "Por enviar", 
@@ -54,7 +54,8 @@
     "module.Perfil": "Perfil",   
     "module.Reclamaciones": "Reclamaciones", 
     "module.Reportes": "Reportes",
- 
+    "module.Devoluciones": "Devoluciones",
+
  
     "permissions.Consultar": "Consultar",  
     "permissions.Editar": "Editar",  

@@ -54,6 +54,7 @@
     "module.Perfil": "Profile",   
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
+    "module.Devoluciones": "Returns",
  
  
     "permissions.Consultar": "Browse",  
