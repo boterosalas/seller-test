@@ -10,7 +10,6 @@
   </a>
 </div>
 <form #f="ngForm" [formGroup]="myform" *ngIf="myform">
-
   <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start"
     fxLayout="row wrap" class="example-form">
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
@@ -56,20 +55,6 @@
 
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
 
-      <mat-form-field class="example-full-width">
-        <input id="suport-modal-input-caseMarketplaceName" required matInput formControlName="caseMarketplaceName"
-          [placeholder]="'secure.parametize.support_modal.name_case' | translate">
-        <mat-icon matPrefix class="icon-support-modal">mode_edit</mat-icon>
-        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.title_case' | translate"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">
-          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">
-          {{'secure.parametize.support_modal.desc_case' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('pattern')">
-          {{'secure.parametize.support_modal.field_invalid' | translate}}</mat-error>
-      </mat-form-field>
-
       <mat-form-field class="example-full-width" id="suport-modal-input-typeOfRequirement-content">
         <mat-icon matPrefix class="icon-support-modal">assignment</mat-icon>
         <mat-select id="suport-modal-input-typeOfRequirement" required formControlName="typeOfRequirement"
@@ -99,8 +84,8 @@
       <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
 
-        <mat-select id="suport-modal-input-reason" required formControlName="reason"
-          [placeholder]="'secure.parametize.support_modal.case_motive' | translate">
+        <mat-select id="suport-modal-input-reason" formControlName="reason"
+          [placeholder]="'secure.parametize.support_modal.clasification' | translate">
           <mat-option value="Contenidos">
             <span id="option-reason-1">{{'secure.parametize.support_modal.content' | translate}}</span>
           </mat-option>
@@ -130,19 +115,43 @@
             <span
               id="option-reason-9">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}</span>
             </mat-option>
-          </mat-select>
-          <mat-icon color="primary" matSuffix [matTooltip]="'secure.support_modal.list_case' | translate"
-            matTooltipPosition="below">help_outline</mat-icon>
-          <mat-error *ngIf="myform.get('reason').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
-              </mat-error>
+        </mat-select>
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.clasification_tips' | translate"
+          matTooltipPosition="below">help_outline</mat-icon>
+        <mat-error *ngIf="myform.get('reason').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field id="suport-modal-input-category-content" class="example-full-width">
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+        <mat-select id="suport-modal-input-reason" formControlName="category"
+          [placeholder]="'secure.parametize.support_modal.category_case' | translate">
+          <mat-option value="Contenidos">
+            <span id="option-category-1">{{'secure.parametize.support_modal.content' | translate}}</span>
+          </mat-option>
+          <mat-option value="Uso de la plataforma">
+            <span id="option-category-2">{{'secure.parametize.support_modal.platform_use' | translate}}</span>
+          </mat-option>
+          <mat-option value="Problemas técnicos plataforma">
+            <span id="option-category-3">{{'secure.parametize.support_modal.problems_techincal' | translate}}</span>
+          </mat-option>
+        </mat-select>
+
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.category_tips' | translate"
+          matTooltipPosition="below">
+          help_outline
+        </mat-icon>
+
+        <mat-error *ngIf="myform.get('reason').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width">
-
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-
-        <mat-select id="suport-modal-input-reason" required formControlName="subCategory"
-          [placeholder]="'secure.parametize.support_modal.case_motive' | translate">
+        <mat-select id="suport-modal-input-reason" formControlName="subCategory"
+          [placeholder]="'secure.parametize.support_modal.subcategory_case' | translate">
           <mat-option value="Contenidos">
             <span id="option-subCategory-1">{{'secure.parametize.support_modal.content' | translate}}</span>
           </mat-option>
@@ -154,7 +163,7 @@
           </mat-option>
         </mat-select>
 
-        <mat-icon color="primary" matSuffix [matTooltip]="'secure.support_modal.list_case' | translate"
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.subcategory_tips' | translate"
           matTooltipPosition="below">
           help_outline
         </mat-icon>
@@ -165,15 +174,13 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-
         <mat-icon matPrefix class="icon-support-modal">comment</mat-icon>.
-
-        <textarea id="suport-modal-textarea-description" formControlName="description" matInput
+        <textarea id="suport-modal-textarea-description" required formControlName="description" matInput maxlength="2000"
           [placeholder]="'shared.descripcion' | translate">
         </textarea>
 
         <mat-icon color="primary" matSuffix
-          [matTooltip]="'secure.parametize.support_modal.description_case' | translate" matTooltipPosition="below">
+          [matTooltip]="'secure.parametize.support_modal.description_tips' | translate" matTooltipPosition="below">
           help_outline
         </mat-icon>
 
