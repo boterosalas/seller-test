@@ -318,6 +318,10 @@ export const endpoints = {
       reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
        // Get vtex TREET
        getVtexTree: '',
+        // Get excecion brand comisiones
+      getExceptionBrand: '',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: '',
     }
   }
 };
