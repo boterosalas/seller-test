@@ -95,10 +95,11 @@ export class ComponentProcessComponent implements OnInit {
       this.isLinear = false;
       this.service.validateEan(this.ean).subscribe(res => {
         if (res['data']) {
-           this.productsService.getListProductsExpanded(this.ean).subscribe((result: any) => {
-          if (result && result.data.list.brand) {
-            this.detailProduct = result.data.list;
-          }
+           this.productsService.getProductsDetails(this.ean).subscribe((result: any) => {
+             console.log(result);
+          // if (result && result.data.list.brand) {
+          //   this.detailProduct = result.data.list;
+          // }
         });
         } else {
           this.detailProduct = null;

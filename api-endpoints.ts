@@ -126,6 +126,8 @@ export const endpoints = {
       getSpecByCategory: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/{params}',
       // Obtener lista producto expandido
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
+      // Obtener detalles del producto
+      getProductDetails: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
       // Payoneer
