@@ -134,7 +134,7 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant("contactOrders"))
         ])
       ),
-      reason: new FormControl("", Validators.compose([Validators.required])),
+      reason: new FormControl(""),
       subCategory: new FormControl(""),
       category: new FormControl("")
     });

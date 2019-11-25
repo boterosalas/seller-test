@@ -118,9 +118,6 @@
         </mat-select>
         <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.clasification_tips' | translate"
           matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('reason').hasError('required')">
-          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field id="suport-modal-input-category-content" class="example-full-width">
@@ -142,10 +139,6 @@
           matTooltipPosition="below">
           help_outline
         </mat-icon>
-
-        <mat-error *ngIf="myform.get('reason').hasError('required')">
-          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width">
@@ -167,10 +160,6 @@
           matTooltipPosition="below">
           help_outline
         </mat-icon>
-
-        <mat-error *ngIf="myform.get('reason').hasError('required')">
-          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
