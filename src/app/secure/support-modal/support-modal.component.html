@@ -16,8 +16,8 @@
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
 
       <mat-form-field class="example-full-width">
-        <input readonly id="suport-modal-input-nit" required matInput formControlName="nit" 
-        [placeholder]="'secure.seller.list.nit' | translate">
+        <input readonly id="suport-modal-input-nit" required matInput formControlName="nit"
+          [placeholder]="'secure.seller.list.nit' | translate">
         <mat-icon matPrefix class="icon-support-modal">assignment_ind</mat-icon>
         <!-- <mat-icon color="primary" matSuffix matTooltip="Ingresa el NIT de tu empresa incluyendo el dígitio de verificación. No debes utilizar guiones."
           matTooltipPosition="below">help_outline</mat-icon> -->
@@ -31,49 +31,25 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input id="suport-modal-input-contact" required matInput formControlName="contact" [placeholder]="'secure.seller.register_seller.lb_contact_form' | translate">
+        <input id="suport-modal-input-contact" required matInput formControlName="contact"
+          [placeholder]="'secure.seller.register_seller.lb_contact_form' | translate">
         <mat-icon matPrefix class="icon-support-modal">import_contacts</mat-icon>
         <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.tooltip_case' | translate"
           matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('contact').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('contact').hasError('pattern')">{{'secure.parametize.support_modal.invalid_fiel' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('contact').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('contact').hasError('pattern')">
+          {{'secure.parametize.support_modal.invalid_fiel' | translate}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
-        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-
-        <mat-select id="suport-modal-input-reason" required formControlName="reason" [placeholder]="'secure.parametize.support_modal.case_motive' | translate">
-          <mat-option value="Contenidos">
-            <span id="option-reason-1">{{'secure.parametize.support_modal.content' | translate}}</span>
-          </mat-option>
-          <mat-option value="Uso de la plataforma">
-            <span id="option-reason-2">{{'secure.parametize.support_modal.platform_use' | translate}}</span>
-          </mat-option>
-          <mat-option value="Problemas técnicos plataforma">
-            <span id="option-reason-3">{{'secure.parametize.support_modal.problems_techincal' | translate}}</span>
-          </mat-option>
-          <mat-option value="Pagos y facturación">
-            <span id="option-reason-4">{{'secure.parametize.support_modal.pay_invoice' | translate}}</span>
-          </mat-option>
-          <mat-option value="Transporte">
-            <span id="option-reason-5">{{'secure.parametize.support_modal.shipping' | translate}}</span>
-          </mat-option>
-          <mat-option value="Servicio - Atención">
-            <span id="option-reason-6">{{'secure.parametize.support_modal.service' | translate}}</span>
-          </mat-option>
-          <mat-option value="Evaluación vendedores">
-            <span id="option-reason-7">{{'secure.parametize.support_modal.seller_evaluation' | translate}}</span>
-          </mat-option>
-          <mat-option value="Envíos Éxito">
-            <span id="option-reason-8">{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</span>
-          </mat-option>
-          <mat-option value="Logistica éxito">
-            <span id="option-reason-9">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}</span>
-          </mat-option>
-        </mat-select>
-        <mat-icon color="primary" matSuffix [matTooltip]="'secure.support_modal.list_case' | translate"
+      <mat-form-field class="example-full-width">
+        <mat-icon matPrefix class="icon-support-modal">email</mat-icon>
+        <input id="suport-modal-input-emailContact" required matInput formControlName="emailContact"
+          [placeholder]="'secure.parametize.support_modal.contact_mail' | translate">
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.email_contact' | translate"
           matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('reason').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('emailContact').hasError('email')">
+          {{'secure.parametize.support_modal.error_email' | translate}}</mat-error>
       </mat-form-field>
 
     </div>
@@ -84,14 +60,15 @@
         <input id="suport-modal-input-caseMarketplaceName" required matInput formControlName="caseMarketplaceName"
           [placeholder]="'secure.parametize.support_modal.name_case' | translate">
         <mat-icon matPrefix class="icon-support-modal">mode_edit</mat-icon>
-        <mat-icon color="primary" matSuffix
-          [matTooltip]="'secure.parametize.support_modal.title_case' | translate"
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.title_case' | translate"
           matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">{{'secure.parametize.support_modal.desc_case' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('pattern')">{{'secure.parametize.support_modal.field_invalid' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">
+          {{'secure.parametize.support_modal.desc_case' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('pattern')">
+          {{'secure.parametize.support_modal.field_invalid' | translate}}</mat-error>
       </mat-form-field>
-
 
       <mat-form-field class="example-full-width" id="suport-modal-input-typeOfRequirement-content">
         <mat-icon matPrefix class="icon-support-modal">assignment</mat-icon>
@@ -115,50 +92,133 @@
         </mat-select>
         <mat-icon color="primary" matSuffix [matTooltip]="'secure.parametize.support_modal.list_type_case' | translate"
           matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('typeOfRequirement').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="myform.get('typeOfRequirement').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
 
+      <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
 
-      <mat-form-field class="example-full-width">
-        <mat-icon matPrefix class="icon-support-modal">email</mat-icon>
-        <input id="suport-modal-input-emailContact" required matInput formControlName="emailContact"
-          [placeholder]="'secure.parametize.support_modal.contact_mail' | translate">
-        <mat-icon color="primary" matSuffix
-          [matTooltip]="'secure.parametize.support_modal.email_contact' | translate"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('emailContact').hasError('email')">{{'secure.parametize.support_modal.error_email' | translate}}</mat-error>
+        <mat-select id="suport-modal-input-reason" required formControlName="reason"
+          [placeholder]="'secure.parametize.support_modal.case_motive' | translate">
+          <mat-option value="Contenidos">
+            <span id="option-reason-1">{{'secure.parametize.support_modal.content' | translate}}</span>
+          </mat-option>
+          <mat-option value="Uso de la plataforma">
+            <span id="option-reason-2">{{'secure.parametize.support_modal.platform_use' | translate}}</span>
+          </mat-option>
+          <mat-option value="Problemas técnicos plataforma">
+            <span id="option-reason-3">{{'secure.parametize.support_modal.problems_techincal' | translate}}</span>
+          </mat-option>
+          <mat-option value="Pagos y facturación">
+            <span id="option-reason-4">{{'secure.parametize.support_modal.pay_invoice' | translate}}</span>
+          </mat-option>
+          <mat-option value="Transporte">
+            <span id="option-reason-5">{{'secure.parametize.support_modal.shipping' | translate}}</span>
+          </mat-option>
+          <mat-option value="Servicio - Atención">
+            <span id="option-reason-6">{{'secure.parametize.support_modal.service' | translate}}</span>
+          </mat-option>
+          <mat-option value="Evaluación vendedores">
+            <span id="option-reason-7">{{'secure.parametize.support_modal.seller_evaluation' | translate}}</span>
+          </mat-option>
+          <mat-option value="Envíos Éxito">
+            <span
+              id="option-reason-8">{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</span>
+          </mat-option>
+          <mat-option value="Logistica éxito">
+            <span
+              id="option-reason-9">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}</span>
+            </mat-option>
+          </mat-select>
+          <mat-icon color="primary" matSuffix [matTooltip]="'secure.support_modal.list_case' | translate"
+            matTooltipPosition="below">help_outline</mat-icon>
+          <mat-error *ngIf="myform.get('reason').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
+              </mat-error>
       </mat-form-field>
 
+      <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width">
 
-      <mat-form-field class="example-full-width">
-        <mat-icon matPrefix class="icon-support-modal">comment</mat-icon>
-        <textarea id="suport-modal-textarea-description" formControlName="description" matInput
-          [placeholder]="'shared.descripcion' | translate"></textarea>
-        <mat-icon color="primary" matSuffix
-          [matTooltip]="'secure.parametize.support_modal.description_case' | translate"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('description').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-        <mat-error *ngIf="myform.get('description').hasError('maxlength')">{{'secure.parametize.support_modal.limit_field' | translate}}
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+
+        <mat-select id="suport-modal-input-reason" required formControlName="subCategory"
+          [placeholder]="'secure.parametize.support_modal.case_motive' | translate">
+          <mat-option value="Contenidos">
+            <span id="option-subCategory-1">{{'secure.parametize.support_modal.content' | translate}}</span>
+          </mat-option>
+          <mat-option value="Uso de la plataforma">
+            <span id="option-subCategory-2">{{'secure.parametize.support_modal.platform_use' | translate}}</span>
+          </mat-option>
+          <mat-option value="Problemas técnicos plataforma">
+            <span id="option-subCategory-3">{{'secure.parametize.support_modal.problems_techincal' | translate}}</span>
+          </mat-option>
+        </mat-select>
+
+        <mat-icon color="primary" matSuffix [matTooltip]="'secure.support_modal.list_case' | translate"
+          matTooltipPosition="below">
+          help_outline
+        </mat-icon>
+
+        <mat-error *ngIf="myform.get('reason').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
         </mat-error>
-        <mat-error *ngIf="myform.get('description').hasError('pattern')">{{'secure.parametize.support_modal.field_invalid' | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+
+        <mat-icon matPrefix class="icon-support-modal">comment</mat-icon>.
+
+        <textarea id="suport-modal-textarea-description" formControlName="description" matInput
+          [placeholder]="'shared.descripcion' | translate">
+        </textarea>
+
+        <mat-icon color="primary" matSuffix
+          [matTooltip]="'secure.parametize.support_modal.description_case' | translate" matTooltipPosition="below">
+          help_outline
+        </mat-icon>
+
+        <mat-error *ngIf="myform.get('description').hasError('required')">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}
+        </mat-error>
+
+        <mat-error *ngIf="myform.get('description').hasError('maxlength')">
+          {{'secure.parametize.support_modal.limit_field' | translate}}
+        </mat-error>
+
+        <mat-error *ngIf="myform.get('description').hasError('pattern')">
+          {{'secure.parametize.support_modal.field_invalid' | translate}}
+        </mat-error>
 
       </mat-form-field>
     </div>
 
     <mat-dialog-actions fxFlex="100" class="footer-dialog normal-theme dialog-buttons">
+
+      <div>
+        <app-upload-button [accept]="accepts" (fileChange)="onFileChange($event)">
+          SELECCIONAR ARCHIVO PARA IMPORTAR
+        </app-upload-button>
+      </div>
+
       <div class="class-tutorial" fxLayout="row" fxLayoutAlign="space-between center">
         <mat-icon>video_library</mat-icon>
         <a href="https://www.youtube.com/channel/UCxCSSIsUl92fe7iqKH4nqPg/videos?view_as=subscriber" rel="noopener"
           target="_blank" id="id-color-tutorial">
           {{'secure.parametize.support_modal.tutorial' | translate}}</a>
       </div>
+
       <button id="suport-modal-button-close-modal" class="sc-button" (click)="clearForm()" mat-button>
         <mat-icon>clear_all</mat-icon>
         {{'filters.clear' | translate}}
       </button>
+
       <button id="suport-modal-button-sendInformation" class="sc-button" [disabled]="!f.form.valid"
-        (click)="sendSupportMessage(myform)" type="submit" mat-raised-button color="primary">{{'actions.send' | translate}}</button>
+        (click)="sendSupportMessage(myform)" type="submit" mat-raised-button
+        color="primary">{{'actions.send' | translate}}
+      </button>
+
     </mat-dialog-actions>
+
   </div>
 
 </form>
