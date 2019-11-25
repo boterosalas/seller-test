@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ACCEPT_TYPE } from '@app/shared/models';
 import { UploadButtonService } from './upload-button.service';
@@ -10,6 +10,7 @@ import { File } from './configuration.model';
   styleUrls: ['./upload-button.component.scss']
 })
 export class UploadButtonComponent {
+
   @Input() accept: Array<ACCEPT_TYPE>;
 
   @Output() fileChange = new EventEmitter<Array<File>>();
@@ -32,5 +33,6 @@ export class UploadButtonComponent {
     this.fileChange.emit(this.attachments);
   }
 
-  constructor(private uploadService: UploadButtonService) {}
+  constructor(private uploadService: UploadButtonService) { }
+
 }
