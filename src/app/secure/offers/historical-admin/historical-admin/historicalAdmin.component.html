@@ -43,6 +43,13 @@
             <p>{{'secure.offers.historical_admin.historical_admin.warranty' | translate}}: <span>{{ item.warranty }} meses</span></p>
             <p>{{'secure.offers.historical_admin.historical_admin.promise' | translate}}: <span>{{ item.promiseDelivery }} días</span></p>
             <p>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}: <span>{{ item.currency }} </span></p>
+            <p>
+                {{'secure.offers.list.components.detail_offer.update_stock' | translate}}: 
+                <span class="">
+                    <mat-icon *ngIf="item.isUpdatedStock == 1" class="icon checkIsUpdatedStock">check</mat-icon>
+                    <mat-icon *ngIf="item.isUpdatedStock == 0" class="icon closeIsUpdatedStock">close</mat-icon>
+                </span>
+              </p>
           </span>
 
           <mat-grid-list class="grid-list" cols="4" rowHeight="30px">
