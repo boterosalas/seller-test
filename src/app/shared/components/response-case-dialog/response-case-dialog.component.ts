@@ -70,7 +70,6 @@ export class ResponseCaseDialogComponent {
         ACCEPT_TYPE.APPLICATION_PPSM,
         ACCEPT_TYPE.APPLICATION_MDB,
         ACCEPT_TYPE.APPLICATION_PDF,
-        ACCEPT_TYPE.APPLICATION_WORD,
 
       ],
       message:

@@ -27,7 +27,6 @@ export enum ACCEPT_TYPE {
   APPLICATION_PPSM = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12',
   APPLICATION_MDB = 'application/vnd.ms-access',
   APPLICATION_PDF = 'application/pdf',
-  APPLICATION_WORD = 'application/pdf',
   IMAGE_PNG = 'image/png',
   IMAGE_JPEG = 'image/jpeg',
   VIDEO_AVI = 'video/avi',
