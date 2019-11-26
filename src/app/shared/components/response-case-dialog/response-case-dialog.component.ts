@@ -43,7 +43,6 @@ export class ResponseCaseDialogComponent {
         ACCEPT_TYPE.VIDEO_MPEG,
         ACCEPT_TYPE.VIDEO_MP4,
         ACCEPT_TYPE.APPLICATION_DOC,
-        ACCEPT_TYPE.APPLICATION_DOT,
         ACCEPT_TYPE.APPLICATION_DOCX,
         ACCEPT_TYPE.APPLICATION_DOTX,
         ACCEPT_TYPE.APPLICATION_DOCM,
@@ -63,7 +62,6 @@ export class ResponseCaseDialogComponent {
         ACCEPT_TYPE.APPLICATION_PPSM,
         ACCEPT_TYPE.APPLICATION_MDB,
         ACCEPT_TYPE.APPLICATION_PDF,
-
       ],
       message:
         'El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word'

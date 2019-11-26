@@ -88,7 +88,6 @@ export class UploadButtonComponent implements OnInit {
    * @param validation
    */
   validator(file: File, validation: Validation): string {
-    debugger
     switch (validation.type) {
       case TYPE_VALIDATION.MAX_SIZE:
         this.maxSizeAllowed += file.size;
@@ -114,9 +113,15 @@ export class UploadButtonComponent implements OnInit {
   }
 
   removeFile(index: number) {
+    this.restCurrentFileSizeToTotalFilesSize(index);
+    console.log(this.maxSizeAllowed);
     this.attachments.splice(index - 1, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
+  }
+
+  restCurrentFileSizeToTotalFilesSize(index: number) {
+    this.maxSizeAllowed -= this.attachments[index].size;
   }
 
   ngOnInit() {
