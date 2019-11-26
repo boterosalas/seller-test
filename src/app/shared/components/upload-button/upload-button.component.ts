@@ -30,7 +30,6 @@ export class UploadButtonComponent implements OnInit {
   accept: any;
 
   emitingChange(files: Array<File>) {
-    debugger
     try {
       this.launchValidations(files);
 
