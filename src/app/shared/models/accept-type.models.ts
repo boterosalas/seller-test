@@ -6,6 +6,8 @@ export enum ACCEPT_TYPE {
   APPLICATION_DOCM = 'application/vnd.ms-word.document.macroEnabled.12',
   APPLICATION_DOTM = 'application/vnd.ms-word.template.macroEnabled.12',
   APPLICATION_XLS = 'application/vnd.ms-excel',
+  APPLICATION_XLT = 'application/vnd.ms-excel',
+  APPLICATION_XLA = 'application/vnd.ms-excel',
   APPLICATION_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   APPLICATION_XLTX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
   APPLICATION_XLSM = 'application/vnd.ms-excel.sheet.macroEnabled.12',
