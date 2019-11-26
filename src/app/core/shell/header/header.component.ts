@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public sellerId: any;
   public routes: any;
   public unreadCase: number;
+  sumadevolution: number;
+
 
   constructor(
     private userService: UserLoginService,
@@ -53,8 +55,10 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     this.store
       .pipe(select(state => state.notification))
       .subscribe(
-        notificationState =>
-          (this.unreadCase = notificationState.unreadCases)
+        notificationState => {
+          this.unreadCase = notificationState.unreadCases;
+          this.sumadevolution = notificationState.sumaUnreadDevolutions;
+        }
       );
   }
 

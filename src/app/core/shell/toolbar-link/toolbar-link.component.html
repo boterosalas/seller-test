@@ -1,5 +1,4 @@
 <mat-toolbar class="toolbar-orders-list" color="primary">
-
   <mat-toolbar-row class="toolbar-orders-list">
     <div class="content-options-toolbar">
 
@@ -8,6 +7,12 @@
           <mat-icon>arrow_drop_down</mat-icon>
           {{('module.' + getPersonalityName(module.NameModule)) | translate}}
           <app-notification-circle *ngIf="module.NameModule === 'RECLAMACIONES'" [value]="unreadCase"
+          id="circle-notification-toolbar"></app-notification-circle>
+
+          <app-notification-circle *ngIf="module.NameModule === 'DEVOLUCIONES'" [value]="sumadevolution"
+          id="circle-notification-toolbar"></app-notification-circle>
+
+          <app-notification-circle *ngIf="module.Menus === 'Solicitudes pendientes'" [value]="pending"
           id="circle-notification-toolbar"></app-notification-circle>
         </button>
 

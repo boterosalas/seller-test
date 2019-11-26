@@ -10,6 +10,7 @@ import { AuthRoutingService } from './auth.service';
 import { CoreState } from '@app/store';
 import { Store } from '@ngrx/store';
 import { StartModules } from '@app/store/commons/actions';
+import { GetAllDevolutions } from '@app/store/notifications/actions';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -171,16 +172,19 @@ export class AuthService implements CanActivate {
                             });
                             this.modulesBack = this.modulesRouting;
                             this.store.dispatch(new StartModules(this.modulesRouting));
+                            this.store.dispatch(new GetAllDevolutions());
                             resolve(this.modulesRouting);
                         }
                     }
                 }, error => {
                     // this.router.navigate([`/${RoutesConst.sellerCenterLogout}`]);
                     this.store.dispatch(new StartModules(null));
+                    this.store.dispatch(new GetAllDevolutions());
                     resolve(false);
                 });
             } else {
                 this.store.dispatch(new StartModules(this.modulesBack));
+                this.store.dispatch(new GetAllDevolutions());
                 resolve(this.modulesBack);
             }
         });

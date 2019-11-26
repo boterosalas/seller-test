@@ -44,6 +44,9 @@ export class ToolbarLinkComponent implements OnInit {
   isProductionEnv = environment.production;
 
   unreadCase: number;
+  sumadevolution: number;
+  devolution: number;
+  pending: number;
 
   /**
    * Creates an instance of ToolbarLinkComponent.
@@ -70,8 +73,12 @@ export class ToolbarLinkComponent implements OnInit {
     this.store
       .pipe(select(state => state.notification))
       .subscribe(
-        notificationState =>
-          (this.unreadCase = notificationState.unreadCases)
+        notificationState => {
+          this.unreadCase = notificationState.unreadCases;
+          this.sumadevolution = notificationState.sumaUnreadDevolutions;
+          this.devolution = notificationState.unreadDevolutions;
+          this.pending = notificationState.unreadPendings;
+        }
       );
   }
 
@@ -133,13 +140,13 @@ export class ToolbarLinkComponent implements OnInit {
     }
   }
 
- /**
-  * Solo abre nuevas pestañas de rutas que no poseen http en la cabecera.
-  *
-  * @param {string} url
-  * @returns {boolean}
-  * @memberof SidebarComponent
-  */
+  /**
+   * Solo abre nuevas pestañas de rutas que no poseen http en la cabecera.
+   *
+   * @param {string} url
+   * @returns {boolean}
+   * @memberof SidebarComponent
+   */
   public showOnlyLocalMenus(url: string): boolean {
     return url.search('http') === -1;
   }
