@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
 import { of } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { isUndefined } from 'util';
 
 
 
@@ -53,6 +54,8 @@ export interface ProductModel {
     ImageUrl5: string;
     MetaTitle: string;
     MetaDescription: string;
+    IsCombo: boolean;
+    EanCombo: any;
 }
 
 /**
@@ -162,7 +165,9 @@ export class ProcessService {
         ImageUrl4: null,
         ImageUrl5: null,
         MetaTitle: null,
-        MetaDescription: null
+        MetaDescription: null,
+        IsCombo: null,
+        EanCombo: null
     };
 
     /**
@@ -313,6 +318,16 @@ export class ProcessService {
                 this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
             }
         }
+        if (!isUndefined(data.IsCombo)) {
+            this.productData.IsCombo = data.IsCombo;
+            if (data.IsCombo === false) {
+                this.productData.EanCombo = null;
+            }
+        }
+
+        if (data.EanCombo && data.EanCombo.length > 0) {
+            this.productData.EanCombo = data.EanCombo.join();
+        }
         this.change.emit(this.views);
     }
 
@@ -416,7 +431,9 @@ export class ProcessService {
             ImageUrl4: null,
             ImageUrl5: null,
             MetaTitle: null,
-            MetaDescription: null
+            MetaDescription: null,
+            IsCombo: null,
+            EanCombo: null
         };
         this.views.showCat = false;
     }

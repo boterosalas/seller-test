@@ -158,7 +158,11 @@ export const endpoints = {
       // Get vtex TREET
       getVtexTree: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtextree',
       // Get ordenes Pendientes
-      getPendinOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/reversions/amount'
+      getPendinOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/reversions/amount',
+      // Get excecion brand comisiones
+      getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
     },
   },
   // Endpoints production
@@ -317,7 +321,11 @@ export const endpoints = {
       // Get vtex TREET
       getVtexTree: '',
       // Get ordenes Pendientes
-      getPendinOrders: ''
+      getPendinOrders: '',
+      // Get excecion brand comisiones
+      getExceptionBrand: '',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: '',
     }
   }
 };
