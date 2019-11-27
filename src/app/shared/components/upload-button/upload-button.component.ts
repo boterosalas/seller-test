@@ -30,51 +30,44 @@ export class UploadButtonComponent implements OnInit {
   accept: any;
 
   emitingChange(files: Array<File>) {
-    this.uploadService
-      .base64FromArray(files)
-      .pipe(
-        map((filesB64: File) => {
-          const messageError = this.launchValidations([
-            ...this.attachments,
-            filesB64
-          ]);
+    try {
+      this.launchValidations(files);
 
-          if (messageError) {
-            throw new Error(messageError);
-          }
-          return filesB64;
-        })
-      )
-      .subscribe(
-        (fileB64: File) => {
-          this.isError = false;
-          this.attachments = [...this.attachments, fileB64];
-        },
-        (error: string) => {
-          this.isError = true;
-          this.messageError = error;
-          this.catchError.emit(error);
-        },
-        () => {
-          this.fileChange.emit(this.attachments);
-        }
-      );
+      this.uploadService
+        .base64FromArray(files)
+        .subscribe(
+          (fileB64: File) => {
+            this.isError = false;
+            this.attachments = [...this.attachments, fileB64];
+          },
+          null,
+          () => this.fileChange.emit(this.attachments)
+        );
+
+    } catch (error) {
+      this.isError = true;
+      this.messageError = error.message;
+      this.catchError.emit(error.message);
+    }
   }
 
-  launchValidations(attachments: Array<File>): string {
+  launchValidations(attachments: Array<File>): void {
     let messageError = '';
 
     for (let i = 0; i < attachments.length; i++) {
       const attach = attachments[i];
       const message = this.messageErrorByFile(attach, this.validations);
+
       if (this.showGeneralError && message.length > 0) {
-        return !this.generalMessageError ? `GENERAL_ERROR` : this.generalMessageError;
+        throw new Error(!this.generalMessageError ? `GENERAL_ERROR` : this.generalMessageError);
       } else if (message.length !== 0) {
         messageError += message;
       }
     }
 
-    return messageError === '' ? null : messageError;
+    if (messageError !== '') {
+      throw new Error(messageError);
+    }
   }
 
   messageErrorByFile(attach: File, validations: Array<Validation>): string {
@@ -120,9 +113,14 @@ export class UploadButtonComponent implements OnInit {
   }
 
   removeFile(index: number) {
+    this.restCurrentFileSizeToTotalFilesSize(index);
     this.attachments.splice(index - 1, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
+  }
+
+  restCurrentFileSizeToTotalFilesSize(index: number) {
+    this.maxSizeAllowed -= this.attachments[index].size;
   }
 
   ngOnInit() {
