@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { TermsComponent } from './terms.component';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService, UserParametersService } from '@app/core';
+import { UnreadCaseResponse } from '@app/secure/seller-support-center/models/unread-case-response.model';
 
 @Injectable()
 export class TermsService implements CanActivate {
@@ -116,5 +117,10 @@ export class TermsService implements CanActivate {
         dialogRef.afterClosed().subscribe(result => {
         });
     }
+
+    public getPendingDevolutions(): Observable<UnreadCaseResponse> {
+        const URL = this.api.get('getPendinOrders');
+        return this.http.get<UnreadCaseResponse>(URL);
+      }
 
 }
