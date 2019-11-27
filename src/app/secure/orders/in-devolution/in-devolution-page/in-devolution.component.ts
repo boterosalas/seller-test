@@ -86,7 +86,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
-    subtitle: 'menu.Devoluciones',
+    subtitle: 'menu.En devolución',
     title_for_search: 'secure.orders.filter.title_filter',
     btn_title: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',

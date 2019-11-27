@@ -32,8 +32,18 @@ export class NotificationEffects {
     map((data: number) => new NotificationActions.FetchUnreadCaseDone(data))
   );
 
+  @Effect()
+  getUnreadDevolution = this.actions.pipe(
+    ofType(NotificationActions.Types.GetAllDevolutions),
+    switchMap(() => this.sellerSupportService.getPendingDevolutions().pipe(
+      map(res => res.data),
+      map((data: number) => {
+        return new NotificationActions.GetAllDevolutionsDone(data);
+      }))),
+  );
+
   constructor(
     private actions: Actions,
     private sellerSupportService: SellerSupportCenterService
-  ) {}
+  ) { }
 }

@@ -47,4 +47,9 @@ export class SellerSupportCenterService {
     const URL = this._api.get('getUnreadCase');
     return this._http.get<UnreadCaseResponse>(URL);
   }
+
+  public getPendingDevolutions(): Observable<UnreadCaseResponse> {
+    const URL = this._api.get('getPendinOrders');
+    return this._http.get<UnreadCaseResponse>(URL);
+  }
 }
