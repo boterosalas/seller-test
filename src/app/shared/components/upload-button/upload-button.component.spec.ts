@@ -4,7 +4,7 @@ import { UploadButtonComponent } from './upload-button.component';
 import { MatIconModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
-fdescribe('UploadButtonComponent', () => {
+describe('UploadButtonComponent', () => {
   let component: UploadButtonComponent;
   let fixture: ComponentFixture<UploadButtonComponent>;
 
