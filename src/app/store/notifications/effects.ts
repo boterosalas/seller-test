@@ -35,8 +35,6 @@ export class NotificationEffects {
   @Effect()
   getUnreadDevolution = this.actions.pipe(
     ofType(NotificationActions.Types.GetAllDevolutions),
-
-    // colocar servicio
     switchMap(() => this.sellerSupportService.getPendingDevolutions().pipe(
       map(res => res.data),
       map((data: number) => {

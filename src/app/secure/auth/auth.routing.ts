@@ -41,6 +41,7 @@ export class AuthService implements CanActivate {
         private api: EndpointService,
         private userDataService: AuthRoutingService,
         private store: Store<CoreState>) {
+        // tslint:disable-next-line:no-unused-expression
         !!this.userService && this.userService.isLogin$.pipe(distinctUntilChanged()).subscribe(val => {
             if (!val) {
                 this.completeUserData = null;
@@ -172,7 +173,9 @@ export class AuthService implements CanActivate {
                             });
                             this.modulesBack = this.modulesRouting;
                             this.store.dispatch(new StartModules(this.modulesRouting));
-                            this.store.dispatch(new GetAllDevolutions());
+                            if (profileTye === 'Tienda') {
+                                this.store.dispatch(new GetAllDevolutions());
+                            }
                             resolve(this.modulesRouting);
                         }
                     }

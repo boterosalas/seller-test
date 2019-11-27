@@ -3,31 +3,37 @@
     <div class="content-options-toolbar">
 
       <div *ngFor="let module of modules">
-        <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders" *ngIf="showModule(module)">
+        <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders"
+          *ngIf="showModule(module)">
           <mat-icon>arrow_drop_down</mat-icon>
           {{('module.' + getPersonalityName(module.NameModule)) | translate}}
           <app-notification-circle *ngIf="module.NameModule === 'RECLAMACIONES'" [value]="unreadCase"
-          id="circle-notification-toolbar"></app-notification-circle>
+            id="circle-notification-toolbar"></app-notification-circle>
 
           <app-notification-circle *ngIf="module.NameModule === 'DEVOLUCIONES'" [value]="sumadevolution"
-          id="circle-notification-toolbar"></app-notification-circle>
+            id="circle-notification-toolbar"></app-notification-circle>
 
           <app-notification-circle *ngIf="module.Menus === 'Solicitudes pendientes'" [value]="pending"
-          id="circle-notification-toolbar"></app-notification-circle>
+            id="circle-notification-toolbar"></app-notification-circle>
         </button>
 
-      <mat-menu #orders="matMenu">
+        <mat-menu #orders="matMenu">
           <div *ngFor="let menu of module.Menus">
             <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
               <span>{{('menu.' + menu.NameMenu) | translate}}</span>
+              <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
+            id="circle-notification-toolbar"></app-notification-circle>
+            <app-notification-circle *ngIf="menu.NameMenu === 'En devolución'" [value]="devolution"
+            id="circle-notification-toolbar"></app-notification-circle>
             </button>
-            <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
-              target="_blank">
+            <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation"
+              href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)" target="_blank">
               <h3 matLine>{{('menu.' + menu.NameMenu) | translate}}</h3>
             </a>
           </div>
         </mat-menu>
       </div>
+      
       <!-- MENU VERSION 0.1
       <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
         <mat-icon>arrow_drop_down</mat-icon>
