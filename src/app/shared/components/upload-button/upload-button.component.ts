@@ -25,7 +25,7 @@ export class UploadButtonComponent implements OnInit {
 
   messageError: string;
 
-  maxSizeAllowed: number;
+  totalSizeAllowed: number;
 
   accept: any;
 
@@ -53,7 +53,6 @@ export class UploadButtonComponent implements OnInit {
 
   launchValidations(attachments: Array<File>): void {
     let messageError = '';
-
     for (let i = 0; i < attachments.length; i++) {
       const attach = attachments[i];
       const message = this.messageErrorByFile(attach, this.validations);
@@ -88,15 +87,15 @@ export class UploadButtonComponent implements OnInit {
    * @param validation
    */
   validator(file: File, validation: Validation): string {
+
     switch (validation.type) {
       case TYPE_VALIDATION.MAX_SIZE:
-        this.maxSizeAllowed += file.size;
-        if (this.maxSizeAllowed > validation.value) {
-          this.maxSizeAllowed -= file.size;
+        this.totalSizeAllowed += file.size;
+        if (this.totalSizeAllowed > validation.value) {
+          this.totalSizeAllowed -= file.size;
           return validation.message;
         }
         break;
-
       case TYPE_VALIDATION.ACCEPT_TYPES:
         let isValidFormat = false;
 
@@ -108,19 +107,22 @@ export class UploadButtonComponent implements OnInit {
         }
         break;
     }
-
     return null;
   }
 
   removeFile(index: number) {
     this.restCurrentFileSizeToTotalFilesSize(index);
-    this.attachments.splice(index - 1, 1);
+    this.attachments.splice(index, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
+    console.log(this.attachments);
+
   }
 
   restCurrentFileSizeToTotalFilesSize(index: number) {
-    this.maxSizeAllowed -= this.attachments[index].size;
+    this.totalSizeAllowed -= this.attachments[index].size;
+    console.log(this.totalSizeAllowed);
+
   }
 
   ngOnInit() {
@@ -133,6 +135,6 @@ export class UploadButtonComponent implements OnInit {
     this.validations = new Array();
     this.attachments = new Array();
     this.isError = false;
-    this.maxSizeAllowed = 0;
+    this.totalSizeAllowed = 0;
   }
 }
