@@ -13,8 +13,11 @@ import { UnreadCaseResponse } from '@app/secure/seller-support-center/models/unr
 @Injectable()
 export class TermsService implements CanActivate {
 
+    // Contrato actual
     // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
-    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_10-09-2019_Versi%C3%B3n_Mostrar.pdf';
+    // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_10-09-2019_Versi%C3%B3n_Mostrar.pdf';
+    // Contrato nuevo NOVIEMBRE
+    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-11-2019_Versi%C3%B3n_Mostrar.pdf';
 
     constantes = new Const();
 
