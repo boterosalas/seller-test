@@ -622,7 +622,9 @@
  
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",  
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",  
-    "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo", 
+    "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
+    "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
+    "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
  
     "secure.products.bulk_upload.title_module": "Productos",  
     "secure.products.bulk_upload.title_bar": "Carga masiva",  

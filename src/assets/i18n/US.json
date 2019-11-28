@@ -623,6 +623,8 @@
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",  
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",  
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo", 
+    "secure.offers.bulk_upload.table_load.address": "Picking Address",
+    "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
  
     "secure.products.bulk_upload.title_module": "Products",  
     "secure.products.bulk_upload.title_bar": "Bulk upload",  
