@@ -17,9 +17,17 @@ import { LoadingService } from "@app/core/global/loading/loading.service";
 import { BasicInformationService } from "../products/create-product-unit/basic-information/basic-information.component.service";
 import { TranslateService } from "@ngx-translate/core";
 import { from } from "rxjs";
-import { map, toArray } from "rxjs/operators";
+import {
+  map,
+  toArray,
+  groupBy,
+  mergeMap,
+  switchMap,
+  filter
+} from "rxjs/operators";
 import { File } from "@app/shared/components/upload-button/configuration.model";
 import { ACCEPT_TYPE } from "@app/shared/models";
+import { CaseCategory } from "@app/shared/models/case-category";
 
 // log component
 const log = new Logger("SupportModalComponent");
@@ -65,6 +73,10 @@ export class SupportModalComponent implements OnInit {
     ACCEPT_TYPE.VIDEO_MPEG,
     ACCEPT_TYPE.VIDEO_MP4
   ];
+  omsCategories = [];
+  scCategories = [];
+  scSubcategories = [];
+  scReasonTypes = [];
 
   constructor(
     private fb: FormBuilder,
@@ -81,6 +93,74 @@ export class SupportModalComponent implements OnInit {
    */
   ngOnInit() {
     this.getInfoSeller();
+    this.SUPPORT.getClasification().subscribe(
+      categories => (this.omsCategories = categories.data)
+    );
+  }
+
+  getClasification(omsCategories: Array<CaseCategory>) {
+    return this.groupByKey(omsCategories, "clasification").pipe(
+      map(options => options[0]),
+      toArray()
+    );
+  }
+
+  groupByKey(datas: Array<CaseCategory>, query: string, include?: Object) {
+    return from(datas).pipe(
+      filter(data => (include ? this.matchQuery(data, include) : true)),
+      groupBy(item => item[query]),
+      mergeMap(group => group.pipe(toArray()))
+    );
+  }
+
+  matchQuery(data: Object, where: Object) {
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const dataElement = data[key];
+        for (const whereKey in where) {
+          if (where.hasOwnProperty(whereKey)) {
+            const whereElement = where[whereKey];
+            if (dataElement === whereElement && key === whereKey) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  onClickClasificationOption(value: string) {
+    this.groupByKey(this.omsCategories, "clasification", {
+      clasification: value
+    })
+      .pipe(
+        switchMap(options => from(options)),
+        toArray()
+      )
+      .subscribe((categories: Array<CaseCategory>) => {
+        this.scSubcategories = [];
+        this.scReasonTypes = [];
+        this.scCategories = categories;
+      });
+  }
+
+  onClickCategoryOption(value: string) {
+    this.groupByKey(this.omsCategories, "category", {
+      category: value
+    })
+      .pipe(
+        switchMap(options => from(options)),
+        toArray()
+      )
+      .subscribe((subcategories: Array<CaseCategory>) => {
+        this.scReasonTypes = [];
+        this.scSubcategories = subcategories;
+      });
+  }
+
+  onClickSubcategoryOption(value: CaseCategory) {
+    this.scReasonTypes = value.type;
   }
 
   public getInfoSeller(): void {
@@ -172,7 +252,6 @@ export class SupportModalComponent implements OnInit {
   sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
-    console.log(form.value);
     const messageSupport = {
       contact: form.value.contact.trim(),
       description: form.value.description.trim(),
