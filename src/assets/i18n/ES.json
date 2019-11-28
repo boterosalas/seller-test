@@ -1037,5 +1037,8 @@
     "secure.parametize.support_modal.tutorial": "TUTORIALES",  
     "secure.parametize.support_modal.contact_mail": "Correo contacto",
 
-    "secure.products.bulk_upload.process": "al momento de cargar los productos."
+    "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+
+    "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas."
 }

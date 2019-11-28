@@ -1039,5 +1039,8 @@
     "secure.parametize.support_modal.tutorial": "TUTORIALS",  
     "secure.parametize.support_modal.contact_mail": "Contact e-mail",
 
-    "secure.products.bulk_upload.process": "when uploading the products."
+    "secure.products.bulk_upload.process": "when uploading the products.",
+
+    "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file."
 }
