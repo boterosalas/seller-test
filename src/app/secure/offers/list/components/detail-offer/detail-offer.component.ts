@@ -1,5 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { LoadingService, ModalService } from '@app/core';
@@ -35,7 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./detail-offer.component.scss']
 })
 
-export class DetailOfferComponent {
+export class DetailOfferComponent implements OnInit {
 
   /**
    * @description Variable para controlar si el usuario esta editando la oferta.
@@ -70,10 +70,12 @@ export class DetailOfferComponent {
   public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
+  public comboForm: FormGroup;
 
   promiseFirts: string;
   promiseSeconds: string;
   to: string;
+  showCombos = false;
 
   offertRegex = {
     formatNumber: '',
@@ -137,6 +139,7 @@ export class DetailOfferComponent {
     public SUPPORT: SupportService,
     private languageService: TranslateService,
     public authService: AuthService,
+    private fb?: FormBuilder,
     public snackBar?: MatSnackBar
   ) {
     this.isUpdateOffer = false;
@@ -148,6 +151,8 @@ export class DetailOfferComponent {
     this.setPromise();
     this.validateFormSupport();
     this.createValidators();
+    
+
   }
 
   /**
@@ -198,9 +203,11 @@ export class DetailOfferComponent {
    */
   editOffer() {
     if (this.dataOffer.availableToOffer === true) {
+
       this.isUpdateOffer = true;
       this.createValidators();
       this.createForm();
+      this.setCombos();
     } else {
       this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
         duration: 5000,
@@ -273,7 +280,7 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   createForm() {
-    this.formUpdateOffer = new FormGroup({
+    this.formUpdateOffer = this.fb.group({
       EAN: this.Ean,
       Stock: this.Stock,
       Price: this.Price,
@@ -286,7 +293,8 @@ export class DetailOfferComponent {
       Warranty: this.Warranty,
       IsLogisticsExito: this.IsLogisticsExito,
       IsUpdatedStock: this.IsUpdatedStock,
-      Currency: this.Currency
+      Currency: this.Currency,
+      Combos: this.fb.array([]),
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
     // this.formUpdateOffer.get('Currency').disable();
@@ -297,7 +305,6 @@ export class DetailOfferComponent {
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
-
 
   }
 
@@ -488,47 +495,48 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer() {
-    const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
-    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-    this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
-    this.params.push(this.formUpdateOffer.value);
-    this.loadingService.viewSpinner();
-    this.loadOfferService.setOffersProducts(this.params).subscribe(
-      (result: any) => {
-        if (result.status === 200) {
-          const data = result;
-          if (data.body.successful !== 0 || data.body.error !== 0) {
-            if (data.body.data.error > 0) {
-              this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
-              this.consumeServiceList.emit(true);
-              this.params = [];
-            } else {
-              this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
-              this.goToListOffers();
-              this.consumeServiceList.emit(true);
-              this.params = [];
-            }
-          } else if (data.body.successful === 0 && data.body.error === 0) {
-            this.modalService.showModal('errorService');
-            this.params = [];
-          }
-        } else {
-          this.modalService.showModal('errorService');
-          this.loadingService.closeSpinner();
-          this.params = [];
-        }
+    console.log(this.formUpdateOffer);
+    // const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
+    // this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+    // this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
+    // this.params.push(this.formUpdateOffer.value);
+    // this.loadingService.viewSpinner();
+    // this.loadOfferService.setOffersProducts(this.params).subscribe(
+    //   (result: any) => {
+    //     if (result.status === 200) {
+    //       const data = result;
+    //       if (data.body.successful !== 0 || data.body.error !== 0) {
+    //         if (data.body.data.error > 0) {
+    //           this.loadingService.closeSpinner();
+    //           this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
+    //             duration: 5000,
+    //           });
+    //           this.consumeServiceList.emit(true);
+    //           this.params = [];
+    //         } else {
+    //           this.loadingService.closeSpinner();
+    //           this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+    //             duration: 5000,
+    //           });
+    //           this.goToListOffers();
+    //           this.consumeServiceList.emit(true);
+    //           this.params = [];
+    //         }
+    //       } else if (data.body.successful === 0 && data.body.error === 0) {
+    //         this.modalService.showModal('errorService');
+    //         this.params = [];
+    //       }
+    //     } else {
+    //       this.modalService.showModal('errorService');
+    //       this.loadingService.closeSpinner();
+    //       this.params = [];
+    //     }
 
-        if (result.body.data.error === 1) {
-          this.modalService.showModal('errorService');
-        }
-      }
-    );
+    //     if (result.body.data.error === 1) {
+    //       this.modalService.showModal('errorService');
+    //     }
+    //   }
+    // );
   }
 
 
@@ -555,5 +563,29 @@ export class DetailOfferComponent {
     this.snackBar.open(`${this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.instant('actions.close'), {
       duration: 3000,
     });
+  }
+
+  setCombos() {
+    if (this.dataOffer && this.dataOffer.offerComponents.length > 0) {
+      this.dataOffer.offerComponents.forEach((element: any) => {
+            this.addItem(element);
+        });
+    }
+  }
+
+  addItem(element: any): void {
+    console.log(element);
+    this.comboForm = this.fb.group({
+      EAN: 15599633211,
+      ofertPriceComponet: new FormControl('', [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
+      ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.offertRegex.formatNumber)])],
+      nameCombo: new FormControl('123456789'),
+    });
+    this.Combos.push(this.comboForm);
+  }
+
+
+  get Combos(): FormArray {
+    return this.formUpdateOffer.get('Combos') as FormArray;
   }
 }

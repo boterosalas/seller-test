@@ -18,16 +18,14 @@
   </article>
 
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
-
     <p class="ean flexbox align-center">{{'shared.ean' | translate}}: {{dataOffer.ean}}</p>
-
     <div class="btn-edit-offer flexbox justify-end">
-      <button type="button" color="primary" [matTooltip]="'actions.edit' | translate" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="editOffer()" *ngIf="!isUpdateOffer && isUpdateOffer === false && canEdit">
+      <button type="button" color="primary" [matTooltip]="'actions.edit' | translate" matTooltipPosition="below"
+        mat-icon-button mat-button (click)="editOffer()" *ngIf="!isUpdateOffer && isUpdateOffer === false && canEdit">
         <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
       </button>
-      <button type="button" color="primary" [matTooltip]="'actions.cancel' | translate" matTooltipPosition="below" mat-icon-button mat-button
-        (click)="cancelEditOffer()" *ngIf="isUpdateOffer && isUpdateOffer === true">
+      <button type="button" color="primary" [matTooltip]="'actions.cancel' | translate" matTooltipPosition="below"
+        mat-icon-button mat-button (click)="cancelEditOffer()" *ngIf="isUpdateOffer && isUpdateOffer === true">
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
@@ -51,7 +49,8 @@
 
       <span class="flexbox align-center" *ngIf="dataOffer.size">
         <mat-icon>tab_unselected</mat-icon>
-        <p [innerHTML]="['secure.products.bulk_upload.size' | translate] + '<strong>' + dataOffer.size + '</strong>'"></p>
+        <p [innerHTML]="['secure.products.bulk_upload.size' | translate] + '<strong>' + dataOffer.size + '</strong>'">
+        </p>
       </span>
 
       <span class="flexbox align-center" *ngIf="dataOffer.hexColourCodePDP">
@@ -62,7 +61,9 @@
 
       <span class="flexbox align-center">
         <mat-icon>date_range</mat-icon>
-        <p [innerHTML]="['secure.offers.list.list.promise' | translate] + '<strong>' + promiseFirts + ' ' + ['secure.offers.list.components.detail_offer.' + to | translate] + ' ' + promiseSeconds + ' ' + ['secure.offers.list.components.detail_offer.business_days' | translate]  + ' </strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.promise' | translate] + '<strong>' + promiseFirts + ' ' + ['secure.offers.list.components.detail_offer.' + to | translate] + ' ' + promiseSeconds + ' ' + ['secure.offers.list.components.detail_offer.business_days' | translate]  + ' </strong>'">
+        </p>
       </span>
 
       <span class="flexbox align-center">
@@ -74,11 +75,15 @@
 
       <span class="flexbox align-center">
         <mat-icon>beenhere</mat-icon>
-        <p [innerHTML]="['secure.offers.list.list.warranty' | translate] + '<strong>' + dataOffer.warranty + ' ' +['secure.offers.list.components.detail_offer.months' | translate] + '</strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.warranty' | translate] + '<strong>' + dataOffer.warranty + ' ' +['secure.offers.list.components.detail_offer.months' | translate] + '</strong>'">
+        </p>
       </span>
       <span class="flexbox align-center">
         <mat-icon>attach_money</mat-icon>
-        <p [innerHTML]="['secure.offers.list.list.currency' | translate] + '<strong>' + dataOffer.currency + '  </strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.list.currency' | translate] + '<strong>' + dataOffer.currency + '  </strong>'">
+        </p>
       </span>
 
       <aside class="flexbox align-center justify-center flex-wrap">
@@ -104,7 +109,8 @@
           <p [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic' | translate]"></p>
         </div>
       </aside>
-      <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
+      <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')"
+        class="udpade-date"></p>
     </div>
 
     <div class="container-form-edit-offer" *ngIf="isUpdateOffer && isUpdateOffer === true">
@@ -112,20 +118,24 @@
       <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" (ngSubmit)="submitUpdateOffer()"
         class="flexbox flex-wrap align-center justify-between" autocomplete="off">
         <mat-form-field>
-          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.stock' | translate]" id="detail-offer-stock" formControlName="Stock"
-            (keypress)="onlyNumber($event)" required>
+          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.stock' | translate]"
+            id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" required>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')" [innerHTML]="['errors.error_required' | translate]">
+          <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')"
+            [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]" id="detail-offer-Price" formControlName="Price"
-            [errorStateMatcher]="matcher" (blur)="validInput('Price')" required>
+          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]"
+            id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
+            required>
           <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')" [innerHTML]="['errors.error_required' | translate]">
+          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')"
+            [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
-          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')" [innerHTML]="['errors.format_invalidate' | translate]">
+          <mat-error *ngIf="formUpdateOffer.get('Price').hasError('pattern')"
+            [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error
             *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
@@ -136,10 +146,11 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate" [errorStateMatcher]="matcher"
-            formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')">
+          <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate"
+            [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')" [innerHTML]="['errors.format_invalidate' | translate]">
+          <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')"
+            [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')"
             [innerHTML]="['errors.error_price_discount' | translate]"></mat-error>
@@ -148,8 +159,8 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [placeholder]="['secure.offers.list.components.detail_offer.averageFreightCost' | translate]" formControlName="AverageFreightCost"
-            [errorStateMatcher]="matcher" required>
+          <input matInput [placeholder]="['secure.offers.list.components.detail_offer.averageFreightCost' | translate]"
+            formControlName="AverageFreightCost" [errorStateMatcher]="matcher" required>
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]"></mat-error>
@@ -158,18 +169,21 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery"
-            (keyup)="validatePromiseDeliveriOffert()" required>
+          <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate"
+            formControlName="PromiseDelivery" (keyup)="validatePromiseDeliveriOffert()" required>
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')"
             [innerHTML]="'errors.error_required' | translate"></mat-error>
           <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('pattern')"
-            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_invalid' | translate"></mat-error>
+            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_invalid' | translate">
+          </mat-error>
           <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('startIsGreaterThanEnd')"
-            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_higher' | translate"></mat-error>
+            [innerHTML]="'secure.products.create_product_unit.list_products.ofert_product.promise_higher' | translate">
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.warranty' | translate]" formControlName="Warranty" required (keypress)="onlyNumber($event)">
+          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.warranty' | translate]"
+            formControlName="Warranty" required (keypress)="onlyNumber($event)">
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('Warranty').hasError('required')"
             [innerHTML]="['errors.error_required' | translate]"></mat-error>
@@ -182,34 +196,76 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-slide-toggle color="primary" formControlName="IsFreeShipping" (change)="checkSlide($event, 'isFreeShipping')">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}
-                </mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsFreeShipping"
+          (change)="checkSlide($event, 'isFreeShipping')">
+          {{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}
+        </mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsEnviosExito" (change)="checkSlide($event, 'isEnviosExito')">{{'secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator' | translate}}</mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsEnviosExito"
+          (change)="checkSlide($event, 'isEnviosExito')">
+          {{'secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator' | translate}}
+        </mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsFreightCalculator" (change)="checkSlide($event, 'isFreightCalculator')">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsFreightCalculator"
+          (change)="checkSlide($event, 'isFreightCalculator')">
+          {{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsLogisticsExito" (change)="checkSlide($event, 'IsLogisticsExito')">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}
-                </mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsLogisticsExito"
+          (change)="checkSlide($event, 'IsLogisticsExito')">
+          {{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}
+        </mat-slide-toggle>
 
-                <mat-slide-toggle color="primary" formControlName="IsUpdatedStock" (change)="checkSlide($event, 'IsUpdatedStock')">{{'secure.offers.list.components.detail_offer.update_stock' | translate}}</mat-slide-toggle>
-<!-- 
-        <mat-slide-toggle color="primary" formControlName="IsFreeShipping">Free Shipping</mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="IsUpdatedStock"
+          (change)="checkSlide($event, 'IsUpdatedStock')">
+          {{'secure.offers.list.components.detail_offer.update_stock' | translate}}</mat-slide-toggle>
 
-        <mat-slide-toggle color="primary" formControlName="IsEnviosExito">Indicador Envíos Éxito</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsFreightCalculator">Cotizador de Flete</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsLogisticsExito">Logística Éxito</mat-slide-toggle>
-
-        <mat-slide-toggle color="primary" formControlName="IsUpdatedStock">Actualización de Inventario</mat-slide-toggle> -->
-
-        <div class="button-update-offert flexbox justify-center align-center">
-          <button [disabled]="!updateOffer.form.valid" type="submit" mat-raised-button color="primary"
-            [innerHTML]="'permissions.Editar' | translate"></button>
+        <div fxLayout="row wrap" *ngIf="dataOffer.offerComponents.length > 0">
+          <div fxLayout="row" class="titleListCombo">Listado de combos <span class="countCombo">({{Combos.controls.length}})</span></div>
+          <div fxLayout="row wrap" style="height: 170px; overflow-y: scroll;" fxFlex="100">
+            <div fxFlex="100" style="height: auto;" *ngFor="let comp of Combos.controls">
+                <ng-container [formGroup]="comp">
+              <div class="nameCombo">{{comp.get('nameCombo').value}}</div>
+              <div>
+                <mat-form-field color="primary" class="marginInput">
+                  <mat-icon matPrefix>attach_money</mat-icon>
+                  <input (change)="getPriceDescount()" matInput
+                    [placeholder]="'secure.offers.historical_admin.historical_admin.price' | translate"
+                    formControlName="ofertPriceComponet" [errorStateMatcher]="matcher">
+                  <mat-hint></mat-hint>
+                  <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">
+                    {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo' | translate}}
+                  </mat-error>
+                  <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">
+                    {{'secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo' | translate}}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field color="primary" class="marginInput">
+                  <mat-icon matPrefix>add_shopping_cart</mat-icon>
+                  <input (change)="getPriceDescount()" matInput
+                    [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo' | translate"
+                    (blur)="getVerifyPrice()" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
+                  <mat-hint></mat-hint>
+                  <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">
+                    {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo' | translate}}}
+                  </mat-error>
+                  <mat-error *ngIf="comp.get('ComboQuantity').hasError('pattern')">
+                    {{'secure.products.create_product_unit.list_products.ofert_product.invalid_amount_ean_combo' | translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              </ng-container>
+            </div>
+          </div>
         </div>
+    
 
-      </form>
+
+    <div class="button-update-offert flexbox justify-center align-center">
+      <button [disabled]="!updateOffer.form.valid" type="submit" mat-raised-button color="primary"
+        [innerHTML]="'permissions.Editar' | translate"></button>
     </div>
+    </form>
+    </div>
+
   </article>
 </section>

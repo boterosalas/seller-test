@@ -149,8 +149,9 @@ $color-green: #6FB63E;
                     }
                     &.name {
                         width: 70%;
-                        font-size: 26px;
+                        font-size: 20px;
                         color: $color-gray1;
+                        margin-bottom: 17px;
                     }
                     &.price-strikethrough {
                         font-size: 22px;
@@ -281,4 +282,37 @@ $color-green: #6FB63E;
             }
         }
     }
+    .marginInput{
+        padding: 5px;
+    }
+    .titleListCombo{
+        font-size: 20px;
+        margin-bottom: 25px;
+        margin-top: 15px;
+        width: 100%;
+        display: initial;
+    }
+}
+
+.listCombo {
+    width: 100%;
+    margin-top: 21px;
+    margin-bottom: 19px;
+}
+
+
+
+.containerScrollCombos{
+    height: 170px;
+    overflow-y: scroll;
+}
+
+.nameCombo{
+    font-size: 14px;
+}
+
+.countCombo{
+    vertical-align: middle;
+    font-size: 12px;
+    display: contents;
 }
