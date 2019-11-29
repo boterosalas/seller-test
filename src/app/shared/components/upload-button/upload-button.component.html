@@ -4,10 +4,8 @@
     class="sh-button-upload__attached-item"
     id="upload-button-file-item"
   >
-    <mat-icon class="mat-18 sh-button-upload__attached-item-icon"
-      >attach_file
-    </mat-icon>
-    {{ attached.name }}
+    <mat-icon class="mat-18 sh-button-upload__attached-item-icon">attach_file</mat-icon>
+    <span id="attached-file-name">{{ attached.name }}</span>
     <mat-icon
       class="mat-18 sh-button-upload__attached-item-icon sh-button-upload__attached-item-icon--red sh-button-upload--ponter"
       (click)="removeFile(i)"
@@ -16,23 +14,28 @@
   </div>
 </div>
 
-<input
-  placeholder="file upload"
-  hidden
-  name="fileUploadOption"
-  type="file"
-  multiple="false"
-  (change)="emitingChange($event.srcElement.files)"
-  [accept]="accept ? accept.toString() : ''"
-  #fileUploadOption
-/>
-<button
-  color="primary"
-  class="sc-default-button"
-  id="load-file-button"
-  (click)="fileUploadOption.click()"
-  mat-button
->
-  <mat-icon class="mat-18 ">file_upload</mat-icon>
-  <ng-content></ng-content>
-</button>
+<div class="sh-button-upload__control-box">
+  <input
+    placeholder="file upload"
+    hidden
+    name="fileUploadOption"
+    type="file"
+    multiple="false"
+    (change)="emitingChange($event.srcElement.files)"
+    [accept]="accept ? accept.toString() : ''"
+    #fileUploadOption
+  />
+  <button
+    color="primary"
+    class="sc-default-button sh-button-upload__button"
+    id="load-file-button"
+    (click)="fileUploadOption.click()"
+    mat-button
+  >
+    <mat-icon class="mat-18 ">file_upload</mat-icon>
+    <ng-content></ng-content>
+  </button>
+  <div *ngIf="isError" class="sh-button-upload__error-box" id="upload-error-message">
+    {{ messageError }}
+  </div>
+</div>

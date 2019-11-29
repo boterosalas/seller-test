@@ -109,13 +109,12 @@ export class FormProductComponent implements OnInit {
     if (this.product.id != null) {
       this.orderService.sendProductOrder(jsonProduct, this.order.id, this.product.id).subscribe((res: any) => {
         this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.send_correctly'), this.languageService.instant('actions.close'), 4000);
-        window.location.reload();
-        // armo un json con la información del producto y actualizo la guía y la transportadora.
         const productUpdate: ProductsEntity = product;
         productUpdate.tracking = form.value.Guide;
         productUpdate.carrier = form.value.Transporter;
         this.changeTrackingAndCarrierForProduct(productUpdate);
-        // this.dialogRef.close(false);
+        this.dialogRef.close(false);
+        window.location.reload();
       }, error => {
         this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.error_ocurred_product'), this.languageService.instant('actions.close'), 4000);
         log.error(error);

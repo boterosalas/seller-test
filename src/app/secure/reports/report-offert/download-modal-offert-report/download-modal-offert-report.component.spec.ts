@@ -11,6 +11,7 @@ import { UserParametersService, LoadingService, EndpointService } from '@app/cor
 import { ReportOffertService } from '../report-offert.service';
 import { ComponentsService } from '@app/shared';
 import { of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('DownloadModalOffertReportComponent', () => {
   let component: DownloadModalOffertReportComponent;
@@ -48,7 +49,8 @@ describe('DownloadModalOffertReportComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot({})
       ],
       declarations: [DownloadModalOffertReportComponent],
       providers: [

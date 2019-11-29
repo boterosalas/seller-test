@@ -10,7 +10,7 @@
   </mat-nav-list>
   <mat-card-content>
 
-    <app-search-order-form [informationToForm]="informationToForm" [typeProfiel]="typeProfiel" [idSeller]="idSeller" *ngIf="informationToForm.type_form == 'orders'"></app-search-order-form>
+    <app-search-order-form [informationToForm]="informationToForm" [state]="state" [typeProfiel]="typeProfiel" [idSeller]="idSeller" *ngIf="informationToForm.type_form == 'orders'"></app-search-order-form>
 
     <app-search-billing-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'billing'"></app-search-billing-form>
 

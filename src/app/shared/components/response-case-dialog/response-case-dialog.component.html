@@ -33,7 +33,12 @@
     ></textarea>
   </div>
 
-  <app-upload-button [accept]="accepts" (fileChange)="onFileChange($event)">
+  <app-upload-button
+    [validations]="validations"
+    [showGeneralError]="true"
+    generalMessageError="El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Los formatos permitidos son: AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word"
+    (fileChange)="onFileChange($event)"
+  >
     SELECCIONAR ARCHIVO PARA IMPORTAR
   </app-upload-button>
 

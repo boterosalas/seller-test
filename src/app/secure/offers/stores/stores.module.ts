@@ -18,6 +18,7 @@ import { NoContentComponent } from './tree/components/no-content/no-content.comp
 import { TreeComponentComponent } from './tree/components/tree-component/tree-component.component';
 import { TreeCategoriesComponent } from './tree/tree-categories/tree-categories.component';
 import { ExceptionBrandComponent } from './tree/components/exception-brand/exception-brand.component';
+import { ModalErrorsComponent } from './tree/components/modal-errors/modal-errors.component';
 
 
 @NgModule({
@@ -39,12 +40,19 @@ import { ExceptionBrandComponent } from './tree/components/exception-brand/excep
     TreeToolbarComponent,
     SearchStoreComponent,
     InputCommisionComponent,
-    ExceptionBrandComponent
+    ExceptionBrandComponent,
+    ModalErrorsComponent
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     EventEmitterStore,
     StoresService
+  ],
+  entryComponents: [
+    ModalErrorsComponent,
+  ],
+  exports: [
+    ModalErrorsComponent
   ]
 })
 export class StoresModule {

@@ -13,6 +13,7 @@ import {
   UserInformation,
 } from '@app/shared';
 import { Logger, UserParametersService } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('ActionRefuseDevolutionComponent');
@@ -51,6 +52,8 @@ export class ActionRefuseDevolutionComponent implements OnInit {
     public dialogRef: MatDialogRef<ActionRefuseDevolutionComponent>,
     public pendingDevolutionService: PendingDevolutionService,
     public userParams: UserParametersService,
+    private languageService: TranslateService,
+
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.currentOrder = data.order || FAKE.FAKEPENDINGDEVOLUTION;
     this.reasonRejection = data.reasonRejection;
@@ -101,7 +104,7 @@ export class ActionRefuseDevolutionComponent implements OnInit {
    * Método para rechazar una orden
    * @memberof ActionRefuseDevolutionComponent
    */
-  refuseOrder(myform) {
+  refuseOrder(myform: any) {
 
     // busco la razon seleccionada por el usuario
     const reason = this.reasonRejection.find(x => x.idMotivoSolicitudReversion === myform.value.reason);
@@ -116,11 +119,11 @@ export class ActionRefuseDevolutionComponent implements OnInit {
     };
     this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       this.dialogRef.close(true);
-      this.componentsService.openSnackBar('La solicitud ha sido rechazada, nuestro equipo evaluará tu respuesta.', 'Aceptar', 12000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.action_report_novelty.rejected_request'), this.languageService.instant('actions.accpet_min'), 12000);
     }, error => {
       log.error(error);
       this.dialogRef.close(false);
-      this.componentsService.openSnackBar('Se ha presentado un error al realizar el rechazo de la solicitud.', 'Aceptar', 12000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.action_report_novelty.error_rejected'), this.languageService.instant('actions.accpet_min'), 12000);
     });
   }
 

@@ -47,7 +47,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     'valueToPay',
     'detailOrder'
   ];
-  //permiso de descarga
+  // Permiso de descarga
   downloadPermission: boolean;
   //  Creo el elemento que se empleara para la tabla
   public dataSource: MatTableDataSource<Billing>;
@@ -108,31 +108,31 @@ export class BillingComponent implements OnInit, OnDestroy {
 
     // remove storage from export billing pay when refresh page
 
-    if ( performance.navigation.type == 1) {
+    if (performance.navigation.type === 1) {
       localStorage.removeItem('currentFilterBillingPay');
     }
 
   }
 
   async getDataUser() {
-    this.user =  !!this.user ? this.user : await this.userParams.getUserData();
+    this.user = !!this.user ? this.user : await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
   }
 
-   /**
-    * @method getUserData
-    * @description Método que carga los datos del vendedor para obtener la sellerId.
-    * @memberof DashboardComponent
-    */
-   public async getUserData() {
-    this.user =  !!this.user ? this.user : await this.userParams.getUserData();
+  /**
+   * @method getUserData
+   * @description Método que carga los datos del vendedor para obtener la sellerId.
+   * @memberof DashboardComponent
+   */
+  public async getUserData() {
+    this.user = !!this.user ? this.user : await this.userParams.getUserData();
 
     if (this.user.sellerProfile !== 'seller') {
-        this.router.navigate([`/${RoutesConst.securehome}`]);
+      this.router.navigate([`/${RoutesConst.securehome}`]);
     } else {
-        // this.getOrdersList(Event);
-        // this.getLastSales();
+      // this.getOrdersList(Event);
+      // this.getLastSales();
     }
   }
 
@@ -142,7 +142,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     // this.subFilterOrderBilling.unsubscribe();
-      localStorage.removeItem('currentFilterBillingPay');
+    localStorage.removeItem('currentFilterBillingPay');
   }
 
   /**
@@ -192,9 +192,9 @@ export class BillingComponent implements OnInit, OnDestroy {
 
           // se reccorre la respuesta de la lista y se pone la comision en negativo
           this.dataSource.data.forEach(element => {
-            element.commission *=-1;
+            element.commission *= -1;
           });
-          
+
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
           this.dataSource.paginator = paginator;
@@ -233,7 +233,7 @@ export class BillingComponent implements OnInit, OnDestroy {
 
       // se reccorre la respuesta de la lista y se pone la comision en negativo
       this.dataSource.data.forEach(element => {
-        element.commission *=-1;
+        element.commission *= -1;
       });
 
       // this.paginator.pageIndex = 0;
@@ -262,12 +262,12 @@ export class BillingComponent implements OnInit, OnDestroy {
     * @param isLoggedIn
     * @memberof DashboardComponent
     */
-   public isLoggedIn(message: string, isLoggedIn: boolean) {
+  public isLoggedIn(message: string, isLoggedIn: boolean) {
     if (!isLoggedIn) {
-        // this.router.navigate([`/${RoutesConst.home}`]);
+      // this.router.navigate([`/${RoutesConst.home}`]);
     } else {
-        this.getUserData();
+      this.getUserData();
     }
-}
+  }
 
 }

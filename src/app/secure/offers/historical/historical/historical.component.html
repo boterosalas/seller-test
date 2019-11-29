@@ -24,25 +24,32 @@
               <p>{{'secure.offers.historical_admin.historical_admin.stock' | translate}}: <span>{{ item.stock | number }} {{'secure.offers.historical_admin.historical_admin.units' | translate}}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-md">
-              <p>{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price.replace('.', '').slice(0, -2) | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-lg">
-              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice.replace('.', '').slice(0, -2) | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-xl">
-              <p>{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost.replace('.', '').slice(0, -2) | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
           <span class="extension-panel-down">
             <p class="d-none-sm">{{'secure.offers.historical_admin.historical_admin.stock' | translate}}: <span>{{ item.stock | number }} {{'secure.offers.historical_admin.historical_admin.units' | translate}}</span></p>
-            <p class="d-none-md">{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
-            <p class="d-none-lg ">{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice | currency: '$' : 'symbol' :
+            <p class="d-none-md">{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price.replace('.', '') | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
+            <p class="d-none-lg ">{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice.replace('.', '') | currency: '$' : 'symbol' :
                 '1.2-2' }}</span></p>
-            <p class="d-none-xl ">{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
+            <p class="d-none-xl ">{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost.replace('.', '') | currency: '$' : 'symbol' : '1.2-2' }}</span></p>
             <p>{{'secure.offers.historical_admin.historical_admin.warranty' | translate}}: <span>{{ item.warranty }} {{'secure.offers.list.components.detail_offer.months' | translate}}</span></p>
             <p>{{'secure.offers.historical_admin.historical_admin.promise' | translate}}: <span>{{ item.promiseDelivery }} {{'secure.offers.list.components.detail_offer.business_days' | translate}}</span></p>
             <p>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}: <span>{{ item.currency }} </span></p>
+            <p>
+              {{'secure.offers.list.components.detail_offer.update_stock' | translate}}: 
+              <span class="">
+                  <mat-icon *ngIf="item.isUpdatedStock == 1" class="icon checkIsUpdatedStock">check</mat-icon>
+                  <mat-icon *ngIf="item.isUpdatedStock == 0" class="icon closeIsUpdatedStock">close</mat-icon>
+              </span>
+            </p>
           </span>
 
           <mat-grid-list class="grid-list" cols="4" rowHeight="30px">

@@ -34,8 +34,8 @@
     "menu.Creación Unitaria": "Creación unitaria",
     "menu.Creación unitaria": "Creación unitaria",
     "menu.Listarreclamaciones": "Listar reclamaciones", 
-    "menu.Validaciones": "Validaciones", 
-    "menu.Devoluciones": "Devoluciones", 
+    "menu.En validación": "En validación", 
+    "menu.En devolución": "En devolución", 
     "menu.Solicitudes pendientes": "Solicitudes pendientes", 
     "menu.Todas": "Todas", 
     "menu.Por enviar": "Por enviar", 
@@ -54,7 +54,8 @@
     "module.Perfil": "Perfil",   
     "module.Reclamaciones": "Reclamaciones", 
     "module.Reportes": "Reportes",
- 
+    "module.Devoluciones": "Devoluciones",
+
  
     "permissions.Consultar": "Consultar",  
     "permissions.Editar": "Editar",  
@@ -210,10 +211,13 @@
     "errors.error_format_invalid": "El formato no es válido", 
     "errors.error_present": "Se han presentado", 
     "errors.error.categories.valid": "El valor no es válido",
+    "error.exception_brand.max_error": "La comisión no puede ser mayor a 100",
+    "error.exception_brand.min_error": "La comisión no puede ser menor a 0",
+    "error.exception_brand.number_int": "La  comisión ingresada debe ser entero positivo, y/o tener dos decimales",
  
  
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.", 
-    "modal.success.register title": "¡Registro realizado con exíto!", 
+    "modal.success.register title": "¡Registro realizado con éxito!", 
     "modal.fail.register": "¡Tú registro ha sido rechazado! Por favor revisa que todos los campos cumplan con las debidas validaciones. Cualquier duda con las reglas de registro por favor consultar el manual de uso del formulario.", 
     "modal.fail.register.title": "¡El registro no se pudo realizar!", 
     "modal.problems": "¡Estamos teniendo problemas! Por favor, vuelve a cargar la página para diligenciar nuevamente la información. Disculpa este inconveniente", 
@@ -511,6 +515,14 @@
     "secure.seller.contracts.txt_no_contract_seller": "No hay acuerdos asociados a este vendendor", 
  
     "secure.offers.stores.txt_no_seller": "Ingrese el nombre de la tienda en la  barra de búsqueda para ver las categorías.", 
+    "secure.offers.stores.treee.components.exception_brand_create_ok": "Agregó correctamente una excepción por marca.",
+    "secure.offers.stores.treee.components.exception_brand_create_ko": "Error al tratar de crear una excepción por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_create_kos": "Error al tratar de crear las excepciones por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_update_ok": "Editó correctamente una excepción por marca.",
+    "secure.offers.stores.treee.components.exception_brand_update_ko": "Error al tratar de editar una excepción por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_delete_ok": "Eliminó correctamente una excepción por marca.",
+    "secure.offers.stores.treee.components.exception_brand_delete_ko": "Error al tratar de eliminaruna excepción por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_exist": "Solo puedes agregar una excepción por marca.",
  
     "secure.offers.quoting.quoting_admin": "Cotizador administrador.",  
     "secure.offers.quoting.quoting_seller": "Cotizador vendedor.", 
@@ -779,6 +791,12 @@
     "secure.products.create_product_unit.basic_information.size":"Ingresa la talla",
     "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
     "secure.products.create_product_unit.basic_information.color_spec":"Nombre específico de color",
+     
+    "secure.products.create_product_unit.basic_information.kit": "Producto Combo",
+    "secure.products.create_product_unit.basic_information.kit_ean": "Ean del producto combo",
+    "secure.products.create_product_unit.basic_information.invalid_ean": "Ean Invalido",
+    "secure.products.create_product_unit.basic_information.not_exist_ean": "El ean no existe",
+    "secure.products.create_product_unit.basic_information.alredy_added_ean": "El ean ya fue agregado",
  
     "secure.products.create_product_unit.categorization.search_category": "Buscar categoría",  
     "secure.products.create_product_unit.categorization.now_you_must": "Ahora debes categorizar el producto. Para hacer esto selecciona del árbol de categorías aquella que sea más apropiada para tu producto. Solo podrás seleccionar una subcategoría específica para el producto que estas creando, si necesitas buscar la subcategoría que necesitas utiliza el buscador ingresando el nombre y seleccionando de la lista desplegable.", 
@@ -1023,5 +1041,8 @@
     "secure.parametize.support_modal.tutorial": "TUTORIALES",  
     "secure.parametize.support_modal.contact_mail": "Correo contacto",
 
-    "secure.products.bulk_upload.process": "al momento de cargar los productos."
+    "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+
+    "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas."
 }
