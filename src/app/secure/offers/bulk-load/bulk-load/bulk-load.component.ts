@@ -649,7 +649,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
                 }
                 const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
-                console.log(66, correctVal);
                 if (!correctVal) {
                   this.countErrors += 1;
                   const row = i + 1, column = j + 1;
@@ -813,7 +812,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         };
         // InvalidPriceOfferCombo DiscountPrice
         this.listLog.push(itemLog);
-        console.log(' this.listLog: ',  this.listLog);
 
         if (!exist) {
           this.countErrors++;
@@ -883,7 +881,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     };
 
     this.arrayInformation.push(newObject);
-    console.log('this.arrayInformation; ', this.arrayInformation);
   }
 
   /**
@@ -1094,8 +1091,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           }
           break;
         case 'address':
-          console.log('inputtxt: ', inputtxt);
-          console.log('this.offertRegex.address: ', this.offertRegex.address);
           if ((inputtxt.match(this.offertRegex.address))) {
             valueReturn = true;
           } else {
@@ -1264,7 +1259,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    */
   sendJsonOffer() {
     this.arrayInformationForSend.splice(0, 1);
-    console.log(1, this.arrayInformationForSend);
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
       if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
