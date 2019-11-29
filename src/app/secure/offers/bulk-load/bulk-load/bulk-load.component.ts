@@ -41,7 +41,7 @@ export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO = 'Amount in combo';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
-export const OFFERS_HEADERS_DIRECCION = 'Dirección de Recogida';
+export const OFFERS_HEADERS_DIRECCION = 'Direccion de Recogida';
 export const OFFERS_HEADERS_ADDRESS = 'Picking Address';
 export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
 export const OFFERS_HEADERS_DANECODE = 'Picking City';
@@ -883,6 +883,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     };
 
     this.arrayInformation.push(newObject);
+    console.log('this.arrayInformation; ', this.arrayInformation);
   }
 
   /**
@@ -1138,7 +1139,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Ean combo': undefined,
         'Cantidad en combo': undefined,
         'Tipo de moneda': undefined,
-        'Dirección de Recogida': undefined,
+        'Direccion de Recogida': undefined,
         'Ciudad de Recogida': undefined
       }];
       log.info(emptyFile);
