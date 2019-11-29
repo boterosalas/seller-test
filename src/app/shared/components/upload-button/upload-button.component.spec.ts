@@ -40,7 +40,6 @@ describe('UploadButtonComponent', () => {
     component.attachments.push(file);
 
     const compiled = fixture.debugElement.query(By.css('#attached-file-name'));
-    console.log(compiled);
     fixture.detectChanges();
     expect(compiled).toBe(file.name);
   })); */

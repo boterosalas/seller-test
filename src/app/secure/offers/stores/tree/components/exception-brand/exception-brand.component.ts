@@ -29,6 +29,8 @@ export class ExceptionBrandComponent implements OnInit {
   @ViewChild('dialogContent') content: TemplateRef<any>;
   currentStoreSelect_Id: any;
   vtexIdUpdate: any;
+  body: any;
+  IdVtex: any;
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
@@ -50,6 +52,7 @@ export class ExceptionBrandComponent implements OnInit {
   filterBrands = [];
   canRead = false;
   canUpdate = false;
+  actionsEdit = false;
   // preDataSource = [{ Brand: '123', Commission: 12, type: 'Marca', Id: 1 }];
   preDataSource = [];
 
@@ -100,6 +103,15 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   /**
+   * Cerrar dialogo de editar
+   * @memberof ExceptionBrandComponent
+   */
+  close() {
+    this.dialog.closeAll();
+    this.form.reset();
+  }
+
+  /**
    * Metodo para darle permisos
    * @memberof ExceptionBrandComponent
    */
@@ -128,9 +140,7 @@ export class ExceptionBrandComponent implements OnInit {
   getBrands() {
     this.loadingService.viewSpinner();
     this.regexService.getActiveBrands().subscribe(brands => {
-      this.loadingService.closeSpinner();
       const initialBrands = brands.Data.Brands;
-
       this.brands = initialBrands.sort((a, b) => {
         if (a.Name > b.Name) {
           return 1;
@@ -144,6 +154,7 @@ export class ExceptionBrandComponent implements OnInit {
         const newElement = { Name: element.Name, IdVTEX: element.IdVTEX };
         return newElement;
       });
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -161,9 +172,9 @@ export class ExceptionBrandComponent implements OnInit {
             return element;
           }
         }).Value;
-        this.loadingService.closeSpinner();
         this.initForm();
       }
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -207,6 +218,9 @@ export class ExceptionBrandComponent implements OnInit {
       width: '55%',
       minWidth: '280px'
     });
+    if (action === 'edit') {
+      this.actionsEdit = true;
+    }
     const dataToConfig = !!element ? { action, element } : { action };
     this.configDialog(dialogRef.componentInstance, dataToConfig, element);
     dialogRef.afterClosed().subscribe(() => {
@@ -225,6 +239,9 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   configDialog(dialog: any, data: any, element: any) {
+    if (element && element.IdVTEX) {
+      this.IdVtex = element.IdVTEX;
+    }
     if (data.action !== 'delete') {
       dialog.content = this.content;
     }
@@ -244,7 +261,7 @@ export class ExceptionBrandComponent implements OnInit {
               'IdVTEX': element.IdVTEX
             }]
           };
-          this.updateException(this.updateData);
+          // this.updateException(this.updateData);
           this.form.reset();
           break;
         case 'delete':
@@ -281,11 +298,12 @@ export class ExceptionBrandComponent implements OnInit {
     const { Id, Brand, Commission } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
+    this.form.controls.Brand.disable();
     const initialValue = Object.assign({ Id, Brand, Commission }, {});
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
-    const showButtons = true;
+    const showButtons = false;
     const icon = null;
     const btnConfirmationText = 'Editar';
     return { form, title, showButtons, icon, btnConfirmationText };
@@ -315,7 +333,7 @@ export class ExceptionBrandComponent implements OnInit {
     if (this.selectedBrands.length === 0) {
       this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
     } else {
-      this.selectedBrands.forEach( el => {
+      this.selectedBrands.forEach(el => {
         if (el.Brand === this.form.controls.Brand.value) {
           this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_exist'), this.languageService.instant('actions.close'), {
             duration: 5000,
@@ -435,11 +453,27 @@ export class ExceptionBrandComponent implements OnInit {
             });
           }
         }
+        this.close();
       } catch {
         this.modalService.showModal('errorService');
+        this.close();
       }
       this.loadingService.closeSpinner();
     });
+  }
+
+  confirmationEdit() {
+    const sellerId = this.currentStoreSelect_Id.toString();
+    this.body = this.form.value;
+    this.updateData = {
+      'IdSeller': sellerId,
+      'ExceptionValues': [{
+        'Id': this.body.Id,
+        'Commission': this.body.Commission,
+        'IdVtex': this.IdVtex
+      }]
+    };
+    this.updateException(this.updateData);
   }
 
   /**
