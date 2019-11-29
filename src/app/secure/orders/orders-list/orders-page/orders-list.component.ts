@@ -300,21 +300,27 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        if (data != null) {
-          if (data.viewModel.length === 0) {
-            this.orderListLength = true;
-          } else {
-            this.orderListLength = false;
+        if (data && data.count > 0) {
+          if (data != null) {
+            if (data && data && data.viewModel && data.viewModel.length === 0) {
+              this.orderListLength = true;
+            } else {
+              this.orderListLength = false;
+            }
+            if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
+              this.numberElements = this.dataSource.data.length;
+            } else {
+              this.numberElements = 0;
+            }
+            this.length = data.count;
+            this.isClear = true;
+            this.dataSource = new MatTableDataSource(data.viewModel);
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.setTitleToolbar();
           }
-          this.length = data.count;
-          this.isClear = true;
-          this.dataSource = new MatTableDataSource(data.viewModel);
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-          this.setTitleToolbar();
         }
       });
   }
