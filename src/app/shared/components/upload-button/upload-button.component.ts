@@ -115,13 +115,11 @@ export class UploadButtonComponent implements OnInit {
     this.attachments.splice(index, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
-    console.log(this.attachments);
 
   }
 
   restCurrentFileSizeToTotalFilesSize(index: number) {
     this.totalSizeAllowed -= this.attachments[index].size;
-    console.log(this.totalSizeAllowed);
 
   }
 

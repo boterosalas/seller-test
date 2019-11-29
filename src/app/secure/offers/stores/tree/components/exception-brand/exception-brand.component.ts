@@ -210,6 +210,12 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que abre el modal para crear, eliminar o editar.
+   * @param {string} action
+   * @param {*} [element]
+   * @memberof ExceptionBrandComponent
+   */
   openDialog(action: string, element?: any) {
     this.form.setValidators(null);
     const data = !!(action === 'edit') ? this.putDataForUpdate(element) : !!(action === 'create') ? this.putDataForCreate() : this.putDataForDelete();
@@ -326,6 +332,10 @@ export class ExceptionBrandComponent implements OnInit {
     return { form, title, message, messageCenter, showButtons, icon, btnConfirmationText, validation };
   }
 
+  /**
+   * Funcion que se encarga de ir añadiendo las marcas que se van agregando por excepcion
+   * @memberof ExceptionBrandComponent
+   */
   addBrand() {
     // Capturar valores del formulario.
     const { Brand, Commission } = this.form.value;
@@ -348,6 +358,11 @@ export class ExceptionBrandComponent implements OnInit {
     this.validation.next(false);
   }
 
+  /**
+   * Metodo para eliminar una marca del listado
+   * @param {*} element
+   * @memberof ExceptionBrandComponent
+   */
   deleteElement(element: any) {
     this.openDialog('delete', element);
   }
@@ -462,6 +477,10 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcion que llama al servicio de editar y se pasa los parametros requeridos
+   * @memberof ExceptionBrandComponent
+   */
   confirmationEdit() {
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
@@ -506,6 +525,11 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para abrir el modal de errores o exito
+   * @param {*} res
+   * @memberof ExceptionBrandComponent
+   */
   openDialogSendOrder(res: any): void {
     const dialogRef = this.dialog.open(ModalErrorsComponent, {
       width: '95%',
