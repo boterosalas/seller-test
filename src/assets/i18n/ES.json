@@ -1018,7 +1018,7 @@
     "secure.parametize.support_modal.field_invalid": "Campo inválido.",
     "secure.parametize.support_modal.tutorial": "TUTORIALES",
     "secure.parametize.support_modal.contact_mail": "Correo contacto",
-    "secure.parametize.support_modal.clasification": "Selecciona la clasificación del caso",
+    "secure.parametize.support_modal.classification": "Selecciona la clasificación del caso",
     "secure.parametize.support_modal.category_case": "Selecciona la categoría del caso (si aplica)",
     "secure.parametize.support_modal.subcategory_case": "Selecciona la subcategoría del caso (si aplica)",
     "secure.parametize.support_modal.clasification_tips": "Selecciona de la lista desplegable el motivo del caso",

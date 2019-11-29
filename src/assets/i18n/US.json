@@ -1020,7 +1020,7 @@
     "secure.parametize.support_modal.field_invalid": "Invalid field",
     "secure.parametize.support_modal.tutorial": "TUTORIALS",
     "secure.parametize.support_modal.contact_mail": "Contact e-mail",
-    "secure.parametize.support_modal.clasification": "Select the case classification",
+    "secure.parametize.support_modal.classification": "Select the case classification",
     "secure.parametize.support_modal.category_case": "Select the category of the case (if applicable)",
     "secure.parametize.support_modal.subcategory_case": "Select the subcategory of the case (if applicable)",
     "secure.parametize.support_modal.clasification_tips": "Select the reason for the case from the drop-down list",

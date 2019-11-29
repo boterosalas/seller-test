@@ -47,8 +47,6 @@
           [placeholder]="'secure.seller.list.nit' | translate"
         />
         <mat-icon matPrefix class="icon-support-modal">assignment_ind</mat-icon>
-        <!-- <mat-icon color="primary" matSuffix matTooltip="Ingresa el NIT de tu empresa incluyendo el dígitio de verificación. No debes utilizar guiones."
-          matTooltipPosition="below">help_outline</mat-icon> -->
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -65,7 +63,6 @@
         <mat-icon matPrefix class="icon-support-modal"
           >account_balance</mat-icon
         >
-        <!-- <mat-icon color="primary" matSuffix matTooltip="Lorem" matTooltipPosition="below">help_outline</mat-icon> -->
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -146,23 +143,23 @@
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
         <mat-select
           id="suport-modal-input-reason"
-          formControlName="reason"
+          formControlName="classification"
           [placeholder]="
-            'secure.parametize.support_modal.clasification' | translate
+            'secure.parametize.support_modal.classification' | translate
           "
         >
           <ng-container
             *ngFor="
-              let item of getClasification(omsCategories) | async;
+              let item of getClassification(omsCategories) | async;
               let i = index
             "
           >
-            <mat-option [value]="item.clasification">
+            <mat-option [value]="item.classification">
               <span
-                id="{{ item.clasification }}-{{ i }}"
-                (click)="onClickClasificationOption(item.clasification)"
+                id="{{ item.classification }}-{{ i }}"
+                (click)="onClickClassificationOption(item.classification)"
               >
-                {{ item.clasification }}
+                {{ item.classification }}
               </span>
             </mat-option>
           </ng-container>
@@ -171,7 +168,7 @@
           color="primary"
           matSuffix
           [matTooltip]="
-            'secure.parametize.support_modal.clasification_tips' | translate
+            'secure.parametize.support_modal.classification_tips' | translate
           "
           matTooltipPosition="below"
           >help_outline</mat-icon

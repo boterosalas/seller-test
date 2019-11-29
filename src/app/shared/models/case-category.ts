@@ -3,7 +3,7 @@
  */
 export class CaseCategory {
   idMatrix: string;
-  clasification: string;
+  classification: string;
   category: string;
   subcategory: string;
   type: Array<string>;

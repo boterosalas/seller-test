@@ -93,13 +93,13 @@ export class SupportModalComponent implements OnInit {
    */
   ngOnInit() {
     this.getInfoSeller();
-    this.SUPPORT.getClasification().subscribe(
-      categories => (this.omsCategories = categories.data)
-    );
+    this.SUPPORT.getClassification()
+      .pipe(filter(response => response && response.data))
+      .subscribe(categories => (this.omsCategories = categories.data));
   }
 
-  getClasification(omsCategories: Array<CaseCategory>) {
-    return this.groupByKey(omsCategories, "clasification").pipe(
+  getClassification(omsCategories: Array<CaseCategory>) {
+    return this.groupByKey(omsCategories, "classification").pipe(
       map(options => options[0]),
       toArray()
     );
@@ -130,9 +130,9 @@ export class SupportModalComponent implements OnInit {
     return false;
   }
 
-  onClickClasificationOption(value: string) {
-    this.groupByKey(this.omsCategories, "clasification", {
-      clasification: value
+  onClickClassificationOption(value: string) {
+    this.groupByKey(this.omsCategories, "classification", {
+      classification: value
     })
       .pipe(
         switchMap(options => from(options)),
@@ -214,7 +214,7 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant("contactOrders"))
         ])
       ),
-      reason: new FormControl(""),
+      classification: new FormControl(""),
       subCategory: new FormControl(""),
       category: new FormControl("")
     });
