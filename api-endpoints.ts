@@ -319,13 +319,13 @@ export const endpoints = {
       // Reporte de ofertas administrator
       reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
       // Get vtex TREET
-      getVtexTree: '',
+      getVtexTree: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtextree',
       // Get ordenes Pendientes
-      getPendinOrders: '',
+      getPendinOrders: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/reversions/amount',
       // Get excecion brand comisiones
-      getExceptionBrand: '',
+      getExceptionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn',
       // Crear/Editar/Elminar comision execpcion marca
-      exceptionComissionBrand: '',
+      exceptionComissionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/{params}',
     }
   }
 };
