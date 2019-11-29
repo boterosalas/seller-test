@@ -116,6 +116,7 @@ $color-green: #6FB63E;
                                 width: 45%;
                                 margin: 5px 0 10px;
                                 margin-bottom: 10px;
+                                padding-bottom: 13px;
                             }
                             div {
                                 &.button-update-offert {
@@ -130,6 +131,12 @@ $color-green: #6FB63E;
                     margin: 7px 0;
                     color: $color-gray2;
                     font-size: 14px;
+                    &.alingIcon{
+                        vertical-align: middle;
+                        font-size: 20px;
+                        margin: initial;
+                        color: #6e7ccc;
+                    }
                 }
                 span {
                     .mat-icon {
@@ -309,6 +316,7 @@ $color-green: #6FB63E;
 
 .nameCombo{
     font-size: 14px;
+    margin-bottom: 14px;
 }
 
 .countCombo{

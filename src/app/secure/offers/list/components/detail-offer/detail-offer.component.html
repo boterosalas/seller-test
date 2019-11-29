@@ -224,13 +224,16 @@
           <div fxLayout="row wrap" style="height: 170px; overflow-y: scroll;" fxFlex="100">
             <div fxFlex="100" style="height: auto;" *ngFor="let comp of Combos.controls">
                 <ng-container [formGroup]="comp">
-              <div class="nameCombo">{{comp.get('nameCombo').value}}</div>
+              <div class="nameCombo">
+                  <mat-icon matPrefix class="alingIcon">move_to_inbox</mat-icon>
+                {{comp.get('nameCombo').value}}
+              </div>
               <div>
                 <mat-form-field color="primary" class="marginInput">
                   <mat-icon matPrefix>attach_money</mat-icon>
                   <input (change)="getPriceDescount()" matInput
                     [placeholder]="'secure.offers.historical_admin.historical_admin.price' | translate"
-                    formControlName="ofertPriceComponet" [errorStateMatcher]="matcher">
+                    formControlName="ofertPriceComponet" (blur)="validInput('Price'); getVerifyPrice()" [errorStateMatcher]="matcher">
                   <mat-hint></mat-hint>
                   <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">
                     {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo' | translate}}

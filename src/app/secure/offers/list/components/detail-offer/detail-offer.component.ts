@@ -22,6 +22,24 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+export interface Oferts {
+  EAN: string;
+  Stock: string;
+  Price: string;
+  AverageFreightCost: string;
+  PromiseDelivery: string;
+  IsFreeShipping: string;
+  IsEnviosExito: string;
+  IsFreightCalculator: string;
+  IsLogisticsExito: string;
+  IsUpdatedStock?: string;
+  DiscountPrice?: number;
+  Currency?: string;
+  Warranty?: string;
+  EanCombo?: string;
+  ComboQuantity?: number;
+}
+
 
 /**
  *
@@ -130,6 +148,9 @@ export class DetailOfferComponent implements OnInit {
   public isProductionEnv = environment.production;
   convertPromise: string;
   validateNumberOrder: boolean;
+  public valuePrice: any;
+  public totalCombo: any;
+  public oferts: Oferts[];
 
   constructor(
     public list: ListComponent,
@@ -151,8 +172,6 @@ export class DetailOfferComponent implements OnInit {
     this.setPromise();
     this.validateFormSupport();
     this.createValidators();
-    
-
   }
 
   /**
@@ -425,7 +444,6 @@ export class DetailOfferComponent implements OnInit {
   validInput(input: any) {
     switch (input) {
       case 'Price':
-        // this.DiscountPrice.reset(); Se elimina linea, con error al siempre hacer unfocus en precio borraba el precio de descuento.
         if (this.Price.value === '') {
         } else if (parseInt(this.Price.value, 10) < 8000 && this.Currency.value === 'COP') {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
@@ -449,21 +467,6 @@ export class DetailOfferComponent implements OnInit {
           this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
-      /*
-    case 'PromiseDelivery':
-      let val = this.PromiseDelivery.value;
-      let start, end;
-      const pattern = /(\d+ (a|-|to) \d+)$/;
-      if (val.match(pattern)) {
-        val = val.trim();
-        start = parseInt(val.split('a')[0], 10);
-        end = parseInt(val.split('a')[1], 10);
-
-        if (start >= end) {
-          this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
-        }
-      }
-      break; */
     }
   }
 
@@ -495,11 +498,49 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer() {
-    console.log(this.formUpdateOffer);
-    // const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
-    // this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-    // this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
-    // this.params.push(this.formUpdateOffer.value);
+    const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
+    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+    this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
+    this.params.push(this.formUpdateOffer.value);
+    const combos = this.formUpdateOffer.controls.Combos.value;
+    this.oferts = [
+      {
+        EAN: this.dataOffer.ean,
+        Stock: this.params[0].Stock,
+        Price: this.params[0].Price,
+        DiscountPrice: this.params[0].DiscountPrice,
+        AverageFreightCost: this.params[0].AverageFreightCost,
+        PromiseDelivery: this.params[0].PromiseDelivery,
+        Warranty: this.params[0].Warranty,
+        IsFreeShipping: this.params[0].IsFreeShipping,
+        IsEnviosExito: this.params[0].IsEnviosExito,
+        IsFreightCalculator: this.params[0].IsFreightCalculator,
+        IsLogisticsExito: this.params[0].IsLogisticsExito,
+        IsUpdatedStock: this.params[0].IsUpdatedStock,
+        Currency: 'COP'
+      }
+    ];
+
+    if (combos.length > 0) {
+      combos.forEach((element: any) => {
+        this.oferts.push({
+          'EanCombo': this.dataOffer.ean,
+          'Price': element.ofertPriceComponet,
+          'ComboQuantity': element.ComboQuantity,
+          'EAN': element.EAN,
+          'Stock': null,
+          'AverageFreightCost': null,
+          'IsEnviosExito': null,
+          'IsFreeShipping': null,
+          'IsFreightCalculator': null,
+          'PromiseDelivery': null,
+          'IsLogisticsExito': '0'
+        });
+      });
+    }
+
+    console.log(this.oferts);
+
     // this.loadingService.viewSpinner();
     // this.loadOfferService.setOffersProducts(this.params).subscribe(
     //   (result: any) => {
@@ -568,20 +609,116 @@ export class DetailOfferComponent implements OnInit {
   setCombos() {
     if (this.dataOffer && this.dataOffer.offerComponents.length > 0) {
       this.dataOffer.offerComponents.forEach((element: any) => {
-            this.addItem(element);
-        });
+        this.addItem(element);
+      });
     }
   }
 
   addItem(element: any): void {
-    console.log(element);
     this.comboForm = this.fb.group({
-      EAN: 15599633211,
-      ofertPriceComponet: new FormControl('', [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
-      ComboQuantity: ['', Validators.compose([Validators.required, Validators.pattern(this.offertRegex.formatNumber)])],
-      nameCombo: new FormControl('123456789'),
+      EAN: element.ean,
+      ofertPriceComponet: new FormControl(element.price, [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
+      ComboQuantity: [element.quantity, Validators.compose([Validators.required, Validators.pattern(this.offertRegex.formatNumber)])],
+      nameCombo: new FormControl('nombre largo para probar si se desmaqueta o si se ve presentable, esperemos que no se desmaquete por si no hay madre mia'),
     });
     this.Combos.push(this.comboForm);
+  }
+
+
+  getPriceDescount() {
+    let total = 0;
+    this.Combos.controls.forEach((price: any) => {
+      total += (price.value.ofertPriceComponet * price.value.ComboQuantity);
+    });
+
+    this.formUpdateOffer.controls.DiscountPrice.setValue(total);
+    this.valuePrice = this.formUpdateOffer.controls.Price.setValue(total);
+    this.totalCombo = total;
+    if (total <= 8000 && this.formUpdateOffer.value.Currency === 'COP') {
+      this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
+    }
+    return total;
+  }
+
+  getVerifyPrice(showErrors: boolean = true, total?: number) {
+    let errors = true;
+    if (this.formUpdateOffer.controls.DiscountPrice.value) {
+      if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= 8000) {
+        errors = false;
+        if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
+          if (showErrors) {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+              duration: 3000,
+            });
+          }
+        } if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.dataOffer.offerComponents.length !== 0) {
+          if (showErrors) {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
+              duration: 3000,
+            });
+          }
+        }
+      } else {
+        this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+          this.changeTypeCurrency(val);
+          if (val === 'USD') {
+            errors = false;
+            if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
+              if (showErrors) {
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+                  duration: 3000,
+                });
+              }
+            } if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.dataOffer.offerComponents.length !== 0) {
+              if (showErrors) {
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
+                  duration: 3000,
+                });
+              }
+            }
+          }
+          this.setCategoryError(errors);
+        });
+      }
+    } else {
+      // this.ofertProduct.controls.Price.setValue(this.totalCombo);
+      if (this.formUpdateOffer.controls.Price.value && this.formUpdateOffer.controls.Price.value >= 8000) {
+        errors = false;
+      } else {
+        this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
+          this.changeTypeCurrency(val);
+          if (val === 'COP') {
+            this.setCategoryErrorPrice(errors);
+          } else {
+            errors = false;
+            this.setCategoryErrorPrice(errors);
+          }
+        });
+      }
+    }
+    // this.sendArray();
+  }
+
+  public setCategoryError(show: boolean): void {
+    if (show) {
+      if (this.formUpdateOffer.controls.DiscountPrice.value <= 8000 && this.formUpdateOffer.controls.Currency.value === 'COP') {
+        this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: show });
+      }
+    } else {
+      this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
+    }
+  }
+
+  public setCategoryErrorPrice(show: boolean): void {
+    if (show) {
+      if (this.formUpdateOffer.controls.Price.value <= 8000) {
+        this.formUpdateOffer.controls.Price.setErrors({ priceReal: show });
+      }
+    } else {
+      this.formUpdateOffer.controls.Price.setErrors(null);
+    }
   }
 
 
