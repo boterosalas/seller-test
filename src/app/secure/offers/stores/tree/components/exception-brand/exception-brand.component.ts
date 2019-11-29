@@ -468,6 +468,7 @@ export class ExceptionBrandComponent implements OnInit {
             });
           }
         }
+        this.actionsEdit = false;
         this.close();
       } catch {
         this.modalService.showModal('errorService');
@@ -493,6 +494,8 @@ export class ExceptionBrandComponent implements OnInit {
       }]
     };
     this.updateException(this.updateData);
+    this.form.controls.Brand.enable();
+
   }
 
   /**
