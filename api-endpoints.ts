@@ -158,8 +158,12 @@ export const endpoints = {
       reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
       // Get vtex TREET
       getVtexTree: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtextree',
-      //Clasification of cases
+      // Classification of cases
       getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
+      // Get excecion brand comisiones
+      getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
     },
   },
   // Endpoints production
@@ -318,8 +322,12 @@ export const endpoints = {
       reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
        // Get vtex TREET
        getVtexTree: '',
-       //Clasification of cases
+       // Clasification of cases
        getCaseCategories: '',
+        // Get excecion brand comisiones
+      getExceptionBrand: '',
+      // Crear/Editar/Elminar comision execpcion marca
+      exceptionComissionBrand: '',
     }
   }
 };

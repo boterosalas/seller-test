@@ -28,6 +28,24 @@ $node-radio: 2px;
     }
   }
 
+  &__error-box {
+    color: red;
+    font-size: 12px;
+    margin: 16px;
+    margin-top: 0;
+    line-height: 18px;
+  }
+
+  &__control-box {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    width: max-content;
+  }
+
   &--ponter {
     cursor: pointer;
   }

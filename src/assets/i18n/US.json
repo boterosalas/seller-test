@@ -210,6 +210,9 @@
     "errors.error_format_invalid": "The format is invalid",
     "errors.error_present": "There have been",
     "errors.error.categories.valid": "The value is not valid",
+    "error.exception_brand.max_error": "The entered tariffs can not be over 100",
+    "error.exception_brand.min_error": "The entered tariffs can not be under 0",
+    "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
 
 
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID",
@@ -511,6 +514,14 @@
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
 
     "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.",
+    "secure.offers.stores.treee.components.exception_brand_create_ok": "Brand exception has been added correctly.",
+    "secure.offers.stores.treee.components.exception_brand_create_ko": "An error has occurred when trying to create a brand exception. Please try again.",
+    "secure.offers.stores.treee.components.exception_brand_create_kos": "An error has occurred when trying to create exceptions by brands. Please try again.",
+    "secure.offers.stores.treee.components.exception_brand_update_ok": "The brand exception has been modified correctly.",
+    "secure.offers.stores.treee.components.exception_brand_update_ko": "An error has occurred when trying to modify the brand exception. Please try again.",
+    "secure.offers.stores.treee.components.exception_brand_delete_ok": "You have eliminated the brand exception correctly.",
+    "secure.offers.stores.treee.components.exception_brand_delete_ko": "An error has occurred when trying to eliminate de the brand exception. Please try again.",
+    "secure.offers.stores.treee.components.exception_brand_exist": "You can only add one exception per brand.",
 
     "secure.offers.quoting.quoting_admin": "ADMINISTRATOR FREIGHT CALCULATOR.",
     "secure.offers.quoting.quoting_seller": "SELLER FREIGHT CALCULATOR.",
@@ -776,6 +787,12 @@
     "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
     "secure.products.create_product_unit.basic_information.color_spec":"Specific color name",
 
+    "secure.products.create_product_unit.basic_information.kit": "Kit",
+    "secure.products.create_product_unit.basic_information.kit_ean": "Kit's Ean",
+    "secure.products.create_product_unit.basic_information.invalid_ean": "Invalid Ean",
+    "secure.products.create_product_unit.basic_information.not_exist_ean": "The Ean entered does not exist",
+    "secure.products.create_product_unit.basic_information.alredy_added_ean": "The Ean has already been added",
+
     "secure.products.create_product_unit.categorization.search_category": "Search category",
     "secure.products.create_product_unit.categorization.now_you_must": "Now you must categorize your product. In order to do this select the most apropiate category from the tree bellow. You may only select one specific subcategory for the product, if you need to look up the subcategory you need use the search bar entering the name and select it from the list.",
 
@@ -920,7 +937,7 @@
     "secure.parametize.commission.delete": "Delete tariffs",
     "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?",
     "secure.parametize.commission.edit": "Edit tariffis",
-    "secure.parametize.commission.addTariffs": "add tariffs",
+    "secure.parametize.commission.addTariffs": "Add tariffs",
 
     "secure.parametize.dialogAddSpecs.modal_title": "Add specifications to a group",
     "secure.parametize.dialogAddSpecs.modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",

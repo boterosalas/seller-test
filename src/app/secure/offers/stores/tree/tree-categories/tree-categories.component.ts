@@ -135,7 +135,7 @@ export class TreeCategoriesComponent implements OnInit {
    */
   configTreeInformation(information: IsLoadInformationForTree) {
     this.arbol = null;
-    let node: any = {};
+    const node: any = {};
     const listCategories = Object.assign([], information.data.allGetSellerCommissionCategory);
     const sellerCategories = Object.assign([], information.data.getSellerCommissionCategory);
     // for (let i = 0; i < listCategories.length; i++) {
@@ -158,7 +158,7 @@ export class TreeCategoriesComponent implements OnInit {
     });
     return otherList.reduce((previous, current) => {
       otherList.map((element) => {
-        const sellerCategoryComission = sellerCategories.find(x => x.IdCategory ===  element.Id);
+        const sellerCategoryComission = sellerCategories.find(x => x.IdCategory === element.Id);
         element.commission = !!sellerCategoryComission && !!sellerCategoryComission.Commission ? sellerCategoryComission.Commission : 0;
         if (!!element.IdParent && current.Id === element.IdParent) {
           current.nodes.push(element);
@@ -170,7 +170,7 @@ export class TreeCategoriesComponent implements OnInit {
       }
       return previous;
     }, []);
-    
+
     // this.obtenerRelacionesCategorias(parent, sellerCategories);
     // const hijos = [];
     // for (let i = 0; i < listCategories.length; i++) {
