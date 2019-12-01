@@ -323,7 +323,7 @@ export class SupportModalComponent implements OnInit {
       (res: any) => {
         this.loadingService.closeSpinner();
         this.COMPONENT.openSnackBar(
-          this.languageService.instant('secure.support_modal.ts_send_msj'),
+          this.languageService.instant('secure.parametize.support_modal.ts_send_msj'),
           this.languageService.instant('actions.accpet_min'),
           10000
         );
