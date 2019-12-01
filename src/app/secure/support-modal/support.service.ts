@@ -23,7 +23,7 @@ export class SupportService {
   sendSupportMessage(user: any, supportMessage: any) {
     return new Observable(observer => {
       this.http
-        .post(this.api.get('supporMessage'), supportMessage)
+        .post(this.api.get('createcaseseller'), supportMessage)
         .subscribe((data: any) => {
           observer.next(data);
         });

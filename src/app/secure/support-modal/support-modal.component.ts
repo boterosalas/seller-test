@@ -1,22 +1,22 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormControl
-} from "@angular/forms";
-import { MatDialogRef } from "@angular/material";
+} from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
 
-import { UserParametersService } from "@app/core/aws-cognito";
-import { Logger } from "@app/core/util/logger.service";
-import { ComponentsService } from "@shared/services/components.service";
+import { UserParametersService } from '@app/core/aws-cognito';
+import { Logger } from '@app/core/util/logger.service';
+import { ComponentsService } from '@shared/services/components.service';
 
-import { SupportService } from "./support.service";
-import { UserInformation } from "@app/shared";
-import { LoadingService } from "@app/core/global/loading/loading.service";
-import { BasicInformationService } from "../products/create-product-unit/basic-information/basic-information.component.service";
-import { TranslateService } from "@ngx-translate/core";
-import { from } from "rxjs";
+import { SupportService } from './support.service';
+import { UserInformation } from '@app/shared';
+import { LoadingService } from '@app/core/global/loading/loading.service';
+import { BasicInformationService } from '../products/create-product-unit/basic-information/basic-information.component.service';
+import { TranslateService } from '@ngx-translate/core';
+import { from } from 'rxjs';
 import {
   map,
   toArray,
@@ -24,21 +24,21 @@ import {
   mergeMap,
   switchMap,
   filter
-} from "rxjs/operators";
-import { File } from "@app/shared/components/upload-button/configuration.model";
-import { ACCEPT_TYPE } from "@app/shared/models";
-import { CaseCategory } from "@app/shared/models/case-category";
+} from 'rxjs/operators';
+import { File } from '@app/shared/components/upload-button/configuration.model';
+import { ACCEPT_TYPE } from '@app/shared/models';
+import { CaseCategory } from '@app/shared/models/case-category';
 
 // log component
-const log = new Logger("SupportModalComponent");
+const log = new Logger('SupportModalComponent');
 
 /**
  * Component que permite desplegar un modal donde se solicitaran unos datos para realizar el envió del mensaje de soporte
  */
 @Component({
-  selector: "app-support-modal",
-  templateUrl: "./support-modal.component.html",
-  styleUrls: ["./support-modal.component.scss"],
+  selector: 'app-support-modal',
+  templateUrl: './support-modal.component.html',
+  styleUrls: ['./support-modal.component.scss'],
   providers: [SupportService, ComponentsService]
 })
 
@@ -47,7 +47,7 @@ const log = new Logger("SupportModalComponent");
  */
 export class SupportModalComponent implements OnInit {
   // Input file de la vista
-  @ViewChild("fileInput") fileInput: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
   //  Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
@@ -77,6 +77,7 @@ export class SupportModalComponent implements OnInit {
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
+  classificationSelected = null;
 
   constructor(
     private fb: FormBuilder,
@@ -99,7 +100,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
-    return this.groupByKey(omsCategories, "classification").pipe(
+    return this.groupByKey(omsCategories, 'classification').pipe(
       map(options => options[0]),
       toArray()
     );
@@ -130,37 +131,53 @@ export class SupportModalComponent implements OnInit {
     return false;
   }
 
-  onClickClassificationOption(value: string) {
-    this.groupByKey(this.omsCategories, "classification", {
-      classification: value
+  onClickClassificationOption(item: CaseCategory) {
+    this.scCategories = [];
+    this.scSubcategories = [];
+    this.scReasonTypes = [];
+    this.classificationSelected = item;
+    this.groupByKey(this.omsCategories, 'classification', {
+      classification: item.classification
     })
       .pipe(
         switchMap(options => from(options)),
         toArray()
       )
       .subscribe((categories: Array<CaseCategory>) => {
-        this.scSubcategories = [];
-        this.scReasonTypes = [];
         this.scCategories = categories;
       });
   }
 
-  onClickCategoryOption(value: string) {
-    this.groupByKey(this.omsCategories, "category", {
-      category: value
+  onClickCategoryOption(item: CaseCategory) {
+    this.scSubcategories = [];
+    this.scReasonTypes = [];
+    this.classificationSelected = item;
+    this.groupByKey(this.omsCategories, 'category', {
+      category: item.category
     })
       .pipe(
-        switchMap(options => from(options)),
+        switchMap(options =>
+          from(options).pipe(
+            filter(
+              option => option.subcategory != null || option.category != null
+            )
+          )
+        ),
         toArray()
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
-        this.scReasonTypes = [];
         this.scSubcategories = subcategories;
       });
   }
 
-  onClickSubcategoryOption(value: CaseCategory) {
-    this.scReasonTypes = value.type;
+  onClickSubcategoryOption(item: CaseCategory) {
+    this.scReasonTypes = [];
+    this.classificationSelected = item;
+    this.scReasonTypes = item.type;
+  }
+
+  onClickTypeOption(item: CaseCategory) {
+    this.classificationSelected = item;
   }
 
   public getInfoSeller(): void {
@@ -197,27 +214,29 @@ export class SupportModalComponent implements OnInit {
         Validators.compose([Validators.required, Validators.email])
       ),
       typeOfRequirement: new FormControl(
-        "",
+        'null',
         Validators.compose([Validators.required])
       ),
       description: new FormControl(
-        "",
+        '',
         Validators.compose([
           Validators.required,
-          Validators.pattern(this.instant("descriptionOrders"))
+          Validators.pattern(this.instant('descriptionOrders'))
         ])
       ),
       contact: new FormControl(
         user.sellerName,
         Validators.compose([
           Validators.required,
-          Validators.pattern(this.instant("contactOrders"))
+          Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl(""),
-      subCategory: new FormControl(""),
-      category: new FormControl("")
+      classification: new FormControl('null'),
+      subCategory: new FormControl('null'),
+      category: new FormControl('null')
     });
+
+    this.myform.valueChanges.subscribe(console.log);
   }
 
   /**
@@ -226,7 +245,7 @@ export class SupportModalComponent implements OnInit {
    * @memberof SupportModalComponent
    */
   public valdiateFormSupport(): void {
-    const param = ["orders", null];
+    const param = ['orders', null];
     this.SUPPORT.getRegexFormSupport(param).subscribe(res => {
       this.validateRegex = JSON.parse(res.body.body);
       this.createForm(this.user);
@@ -258,22 +277,24 @@ export class SupportModalComponent implements OnInit {
       emailContact: form.value.emailContact,
       account: this.user.sellerName,
       nit: this.user.sellerNit,
-      reason: form.value.reason,
+      idCategory: this.classificationSelected.idMatrix,
       typeOfRequirement: form.value.typeOfRequirement.trim(),
-      caseOrigin: "Sitio web marketplace",
-      caseMarketplaceOwner: "Soporte MarketPlace",
-      attachedFile: this.response.attachments
+      //caseOrigin: "Sitio web marketplace",
+      //caseMarketplaceOwner: "Soporte MarketPlace",
+      attachments: this.response.attachments
     };
+    console.log(messageSupport);
+    debugger;
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(
-      this.user["access_token"],
+      this.user['access_token'],
       messageSupport
     ).subscribe(
       (res: any) => {
         this.loadingService.closeSpinner();
         this.COMPONENT.openSnackBar(
-          this.languageService.instant("secure.support_modal.ts_send_msj"),
-          this.languageService.instant("actions.accpet_min"),
+          this.languageService.instant('secure.support_modal.ts_send_msj'),
+          this.languageService.instant('actions.accpet_min'),
           10000
         );
         this.onNoClick();
@@ -282,9 +303,9 @@ export class SupportModalComponent implements OnInit {
         this.loadingService.closeSpinner();
         this.COMPONENT.openSnackBar(
           this.languageService.instant(
-            "secure.support_modal.ts_error_msj_support"
+            'secure.support_modal.ts_error_msj_support'
           ),
-          this.languageService.instant("actions.accpet_min"),
+          this.languageService.instant('actions.accpet_min'),
           10000
         );
       }

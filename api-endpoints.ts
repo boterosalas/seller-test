@@ -25,6 +25,7 @@ export const endpoints = {
       refuseOrAcceptDevolution: '',
       // Support message
       supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
+      createcaseseller: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/createcaseseller',
       getreasonsrejection: 'https://g7n20mhxc4.execute-api.us-east-1.amazonaws.com/ReasonsRejection{stringParams}',
       // shipments
       getShipmentById: 'service/shipping/{id}',
@@ -183,6 +184,7 @@ export const endpoints = {
       refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
+      createcaseseller: '',
       getreasonsrejection: 'https://m9rdnx8wog.execute-api.us-east-1.amazonaws.com/reasonrejection-pdn{stringParams}',
       // shipments
       getShipmentById: 'service/shipping/{id}',

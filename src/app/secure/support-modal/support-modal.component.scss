@@ -61,3 +61,13 @@
 #id-color-tutorial {
   color: #3d5afe;
 }
+
+.loading-box {
+  display: flex;
+  border-bottom: 1px solid #949494;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+  &__loading-animation {
+    width: 100%;
+  }
+}
