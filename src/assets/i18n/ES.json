@@ -33,9 +33,11 @@
     "menu.Perfil": "Perfil",
     "menu.Creación Unitaria": "Creación unitaria",
     "menu.Creación unitaria": "Creación unitaria",
-    "menu.Listarreclamaciones": "Listar reclamaciones",
     "menu.Validaciones": "Validaciones",
     "menu.Devoluciones": "Devoluciones",
+    "menu.Listarreclamaciones": "Listar reclamaciones",
+    "menu.En validación": "En validación",
+    "menu.En devolución": "En devolución",
     "menu.Solicitudes pendientes": "Solicitudes pendientes",
     "menu.Todas": "Todas",
     "menu.Por enviar": "Por enviar",
@@ -54,6 +56,7 @@
     "module.Perfil": "Perfil",
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
+    "module.Devoluciones": "Devoluciones",
 
 
     "permissions.Consultar": "Consultar",
@@ -1043,5 +1046,8 @@
     "secure.parametize.support_modal.subcategory_tips": "La lista de subcategorías se despliega según la categoría elegida",
     "secure.parametize.support_modal.description_tips": "Ingresa una descripción con el mayor detalle posible de la novedad. Este campo tiene un limite de 2000 caracteres.",
 
-    "secure.products.bulk_upload.process": "al momento de cargar los productos."
+    "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+
+    "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas."
 }

@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Cargar guias
  * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías', devolutionName = 'Devoluciones', validationName = 'Validaciones', pendingName = 'Solicitudes pendientes';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -201,26 +201,26 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
     ], RoutesConst.sellerCenterIntOrderLoadGuide),
     // 8. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
-    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
-        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 9. Devoluciones (Rol administrador - Consultar)
-    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
-    ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 10. Validaciónes (Consultar)
-    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 11. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
-    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
-        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
+    // new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
+    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    //     new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+    //     new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    // ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // // 9. Devoluciones (Rol administrador - Consultar)
+    // new MenuModel(devolutionNameAdmin, showAll, devolutionNameAdmin.toLowerCase(), ProfileTypes.Administrador, [
+    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    //     new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
+    // ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // // 10. Validaciónes (Consultar)
+    // new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
+    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    // ], RoutesConst.sellerCenterIntOrderInValidation),
+    // // 11. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
+    // new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
+    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    //     new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+    //     new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    // ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
     // 12. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
@@ -269,6 +269,44 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
     ], RoutesConst.sellerCenterIntOfersListAdmin),
 ]);
+
+/**
+ * Actualizado: 25/11/2019
+ * @version 1.0 (Creación del archivo).
+ *
+ * Para incluir un menu en el modulo de ofertas un menu o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
+ *
+ * Modulo de devoluciones que posee menus:
+ * 1. Solicitudes pendientes
+ * 2. En devolucion
+ * 3. En devolucion (administrator)
+ * 4. Validacion
+ */
+export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación';
+const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
+    // 1. Solicitudes pendientes
+    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
+    // 2. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
+    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // 9. Devoluciones (Rol administrador - Consultar)
+    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
+    ], RoutesConst.sellerCenterIntOrderInDevolution),
+    // 3. Validaciónes (Consultar)
+    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderInValidation),
+]);
+
 
 /**
  * Actualizado: 29-01-2019 - lecheverry.
@@ -465,9 +503,9 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
 
 export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
 const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCase(), [
-new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Vendedor, [
-  new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-], RoutesConst.sellerCenterCases)]);
+    new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterCases)]);
 
 /**
  * Actualizado: 14/08/2019 - jbanguera.
@@ -478,13 +516,13 @@ new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), Profi
 
 export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
-new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
-  new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-  new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-], RoutesConst.sellerCenterIntOfferReportOffert)]);
+    new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntOfferReportOffert)]);
 
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule,
 ]; // Lista de modelo, menus a mostrar.
 
 

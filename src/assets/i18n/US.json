@@ -54,8 +54,7 @@
     "module.Perfil": "Profile",
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
-
-
+    "module.Devoluciones": "Returns",
     "permissions.Consultar": "Browse",
     "permissions.Editar": "Update",
     "permissions.Descargar": "Download",
@@ -82,8 +81,6 @@
     "permissions.Editarzonas": "Edit zones",
     "permissions.Eliminartransportadora": "Remove shipping company",
     "permissions.Eliminarzonas": "Remove zones",
-
-
     "shared.name": "Name",
     "shared.category": "Category",
     "shared.brand": "Brand",
@@ -1045,5 +1042,8 @@
     "secure.parametize.support_modal.subcategory_tips": "The list of subcategories is displayed according to the chosen category",
     "secure.parametize.support_modal.description_tips": "Enter a description in as much detail as possible of the novelty. This field has a limit of 2000 characters",
 
-    "secure.products.bulk_upload.process": "when uploading the products."
+    "secure.products.bulk_upload.process": "when uploading the products.",
+
+    "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file."
 }

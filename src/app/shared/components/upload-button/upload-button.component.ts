@@ -1,12 +1,12 @@
-import { Component, Input, EventEmitter, Output, OnInit } from "@angular/core";
-import { map } from "rxjs/operators";
-import { UploadButtonService } from "./upload-button.service";
-import { File, TYPE_VALIDATION, Validation } from "./configuration.model";
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { UploadButtonService } from './upload-button.service';
+import { File, TYPE_VALIDATION, Validation } from './configuration.model';
 
 @Component({
-  selector: "app-upload-button",
-  templateUrl: "./upload-button.component.html",
-  styleUrls: ["./upload-button.component.scss"]
+  selector: 'app-upload-button',
+  templateUrl: './upload-button.component.html',
+  styleUrls: ['./upload-button.component.scss']
 })
 export class UploadButtonComponent implements OnInit {
   @Input() validations: Array<Validation>;
@@ -25,7 +25,7 @@ export class UploadButtonComponent implements OnInit {
 
   messageError: string;
 
-  maxSizeAllowed: number;
+  totalSizeAllowed: number;
 
   accept: any;
 
@@ -49,8 +49,7 @@ export class UploadButtonComponent implements OnInit {
   }
 
   launchValidations(attachments: Array<File>): void {
-    let messageError = "";
-
+    let messageError = '';
     for (let i = 0; i < attachments.length; i++) {
       const attach = attachments[i];
       const message = this.messageErrorByFile(attach, this.validations);
@@ -64,17 +63,17 @@ export class UploadButtonComponent implements OnInit {
       }
     }
 
-    if (messageError !== "") {
+    if (messageError !== '') {
       throw new Error(messageError);
     }
   }
 
   messageErrorByFile(attach: File, validations: Array<Validation>): string {
-    let messageError = "";
+    let messageError = '';
     for (let i = 0; i < validations.length; i++) {
       const validation = validations[i];
       const message = this.validator(attach, validation);
-      messageError += message ? message : "";
+      messageError += message ? message : '';
     }
     return messageError;
   }
@@ -88,13 +87,12 @@ export class UploadButtonComponent implements OnInit {
   validator(file: File, validation: Validation): string {
     switch (validation.type) {
       case TYPE_VALIDATION.MAX_SIZE:
-        this.maxSizeAllowed += file.size;
-        if (this.maxSizeAllowed > validation.value) {
-          this.maxSizeAllowed -= file.size;
+        this.totalSizeAllowed += file.size;
+        if (this.totalSizeAllowed > validation.value) {
+          this.totalSizeAllowed -= file.size;
           return validation.message;
         }
         break;
-
       case TYPE_VALIDATION.ACCEPT_TYPES:
         let isValidFormat = false;
 
@@ -106,14 +104,20 @@ export class UploadButtonComponent implements OnInit {
         }
         break;
     }
-
     return null;
   }
 
   removeFile(index: number) {
-    this.attachments.splice(index - 1, 1);
+    this.restCurrentFileSizeToTotalFilesSize(index);
+    this.attachments.splice(index, 1);
     this.isError = false;
     this.fileChange.emit(this.attachments);
+
+  }
+
+  restCurrentFileSizeToTotalFilesSize(index: number) {
+    this.totalSizeAllowed -= this.attachments[index].size;
+
   }
 
   ngOnInit() {
@@ -126,6 +130,6 @@ export class UploadButtonComponent implements OnInit {
     this.validations = new Array();
     this.attachments = new Array();
     this.isError = false;
-    this.maxSizeAllowed = 0;
+    this.totalSizeAllowed = 0;
   }
 }

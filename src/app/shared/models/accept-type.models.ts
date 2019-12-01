@@ -1,6 +1,5 @@
 export enum ACCEPT_TYPE {
   APPLICATION_DOC = 'application/msword',
-  APPLICATION_DOT = ' application / msword',
   APPLICATION_DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   APPLICATION_DOTX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
   APPLICATION_DOCM = 'application/vnd.ms-word.document.macroEnabled.12',

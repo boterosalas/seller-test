@@ -41,7 +41,6 @@ export class ResponseCaseDialogComponent {
         ACCEPT_TYPE.VIDEO_MPEG,
         ACCEPT_TYPE.VIDEO_MP4,
         ACCEPT_TYPE.APPLICATION_DOC,
-        ACCEPT_TYPE.APPLICATION_DOT,
         ACCEPT_TYPE.APPLICATION_DOCX,
         ACCEPT_TYPE.APPLICATION_DOTX,
         ACCEPT_TYPE.APPLICATION_DOCM,
@@ -61,7 +60,6 @@ export class ResponseCaseDialogComponent {
         ACCEPT_TYPE.APPLICATION_PPSM,
         ACCEPT_TYPE.APPLICATION_MDB,
         ACCEPT_TYPE.APPLICATION_PDF,
-
       ],
       message:
         'El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word'
@@ -71,7 +69,7 @@ export class ResponseCaseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ResponseCaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -84,18 +82,20 @@ export class ResponseCaseDialogComponent {
         id: this.data.id
       }
     });
-    this.dialogRef.afterClosed().subscribe(res => {});
+    this.dialogRef.afterClosed().subscribe(res => { });
   }
 
   onFileChange(files: Array<File>) {
     from(files)
       .pipe(
         map(
-          (file: File): Attachment => ({
-            name: file.name,
-            type: file.type,
-            base64: file.base64
-          })
+          (file: File): Attachment => {
+            return {
+              name: file.name,
+              type: this.getExtensionName(file),
+              base64: file.base64
+            };
+          }
         ),
         toArray()
       )
@@ -103,6 +103,11 @@ export class ResponseCaseDialogComponent {
         (attachments: Array<Attachment>) =>
           (this.response.attachments = attachments)
       );
+  }
+
+  getExtensionName(file: File): string {
+    const extensionName = file.name.split(/(\.\w+$)/)[1];
+    return extensionName.slice(1, extensionName.length);
   }
 }
 
