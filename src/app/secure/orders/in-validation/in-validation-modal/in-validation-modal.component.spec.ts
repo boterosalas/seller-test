@@ -7,6 +7,7 @@ import { InValidationModule } from '../in-validation.module';
 import { InValidationModalComponent } from './in-validation-modal.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('InValidationModalComponent', () => {
   let component: InValidationModalComponent;
@@ -17,7 +18,8 @@ describe('InValidationModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         InValidationModalComponent

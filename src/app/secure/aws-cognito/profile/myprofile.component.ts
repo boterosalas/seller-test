@@ -13,6 +13,7 @@ import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-awscognito',
@@ -57,7 +58,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private modalService: ModalService,
         private profileService: MyProfileService,
         public authService: AuthService,
-        private snackBar: MatSnackBar) {
+        private snackBar: MatSnackBar,
+        private languageService: TranslateService) {
             this.loading.viewSpinner();
     }
 
@@ -191,8 +193,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Metodo que retorna la data del dialogo de programar vacaciones
      */
     setDataVacationsDialog() {
-        const title = 'Vacaciones';
-        const message = 'Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+        const title = this.languageService.instant('secure.seller.list.vacation_title_modal');;
+        const message = this.languageService.instant('secure.seller.list.vacation_message_modal');
         const icon = 'local_airport';
         const form = this.vacationForm;
         const showButtons = true;
@@ -296,7 +298,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         this.startDateVacation.reset(null);
                         this.endDateVacation.reset(null);
                         this.isInVacation = false;
-                        this.snackBar.open('Actualizado correctamente: ' + this.user.Name, 'Cerrar', {
+                        this.snackBar.open(this.languageService.instant('shared.update_successfully_2') + this.user.Name, this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     } else {
@@ -333,8 +335,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Metodo que setea la data del formulario de cancelación de vacaciones programadas
      */
     setDataCancelVacationsDialog() {
-        const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
-        const title = 'Cancelar vacaciones';
+        const message = this.languageService.instant('secure.seller.list.cancel_message_modal');
+        const title = this.languageService.instant('secure.seller.list.cancel_title_modal');
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;

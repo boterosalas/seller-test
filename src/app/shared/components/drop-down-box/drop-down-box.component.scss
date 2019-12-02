@@ -43,6 +43,10 @@ $line-color: #d3d3d3;
     width: inherit;
     max-width: 30%;
   }
+
+  &--content-center {
+    text-align: center;
+  }
 }
 .case-list-expandable {
   height: 62px;
@@ -55,12 +59,12 @@ $line-color: #d3d3d3;
   visibility: hidden !important;
 }
 
-::ng-deep .mat-expansion-panel{
+::ng-deep .mat-expansion-panel {
   @media (max-width: 600px) {
     max-width: 100% !important;
   }
 }
 
-.bold-text{
+.bold-text {
   font-weight: bold;
 }

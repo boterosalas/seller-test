@@ -4,7 +4,7 @@
       [length]="100" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
     <button fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" style="margin-left:20px"
       (click)="bulkLoad.resetVariableUploadFile()" id="clear-guide-button" color="primary" mat-raised-button>
-      <span [innerHTML]="'Vuelve a cargar todas los productos'"></span>
+      <span>{{'secure.products.table_load_product.upload_all' | translate}}</span>
     </button>
   </div>
 
@@ -14,7 +14,7 @@
         <div class="title-expansion-panel-table">
           <mat-icon>error</mat-icon>
           <span [innerHTML]="countRowUpload - 1"></span>
-          <b [innerHTML]="' Registros encontrados, los siguientes cuentan con errores'"></b>
+          <b>{{'secure.products.table_load_product.records_found' | translate}}</b>
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -35,7 +35,7 @@
               <p class="sc-text-normal">{{element.Ean}}</p>
             </div>
             <div class="information" *ngIf="element.Ean == undefined || element.Ean == ''">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error">{{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -45,7 +45,7 @@
         <ng-container matColumnDef="ParentReference">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Referencia Padre</p>
+              <p>{{'secure.products.table_load_product.parent_reference' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorParentReference == true }" *matCellDef="let element"
@@ -54,7 +54,7 @@
               <p class="sc-text-normal">{{element.ParentReference}}</p>
             </div>
             <div class="information" *ngIf="element.isVariant && (element.ParentReference == undefined || element.ParentReference == '' || element.ParentReference == null)">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
             <div class="information" *ngIf="!element.isVariant && (element.ParentReference == undefined || element.ParentReference == '' || element.ParentReference == null)">
@@ -68,7 +68,7 @@
         <ng-container matColumnDef="SonReference">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Referencia Hijo</p>
+              <p>{{'secure.products.table_load_product.child_reference' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSonReference == true }" *matCellDef="let element"
@@ -77,7 +77,7 @@
               <p class="sc-text-normal">{{element.SonReference}}</p>
             </div>
             <div class="information" *ngIf="element.isVariant && (element.SonReference == undefined || element.SonReference == '' || element.SonReference == null)">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
             <div class="information" *ngIf="!element.isVariant && (element.SonReference == undefined || element.SonReference == '' || element.SonReference == null)">
@@ -91,7 +91,7 @@
         <ng-container matColumnDef="Name">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Nombre</p>
+              <p>{{'shared.name' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorName == true }" *matCellDef="let element" matTooltip="{{element.Name}}">
@@ -109,7 +109,7 @@
         <ng-container matColumnDef="Category">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Categoria</p>
+              <p>{{'shared.category' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorCategory == true }" *matCellDef="let element"
@@ -118,7 +118,7 @@
               <p class="sc-text-normal">{{element.Category}}</p>
             </div>
             <div class="information" *ngIf="element.Category == undefined || element.Category == ''">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -128,7 +128,7 @@
         <ng-container matColumnDef="Brand">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Marca</p>
+              <p>{{'shared.brand' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorBrand == true }" *matCellDef="let element" matTooltip="{{element.Brand}}">
@@ -146,7 +146,7 @@
         <ng-container matColumnDef="Model">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Modelo</p>
+              <p>{{'shared.model' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorModel == true }" *matCellDef="let element" matTooltip="{{element.Model}}">
@@ -164,7 +164,7 @@
         <ng-container matColumnDef="Details">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Detalles</p>
+              <p>{{'shared.details' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDetails == true }" *matCellDef="let element"
@@ -183,7 +183,7 @@
         <ng-container matColumnDef="Description">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Descripción</p>
+              <p>{{'shared.descripcion' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDescription == true }" *matCellDef="let element"
@@ -202,7 +202,7 @@
         <ng-container matColumnDef="MetaTitle">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Meta Titulo</p>
+              <p>{{'secure.products.table_load_product.meta_title' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorMetaTitle == true }" *matCellDef="let element"
@@ -221,7 +221,7 @@
         <ng-container matColumnDef="MetaDescription">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Meta Descripción</p>
+              <p>{{'secure.products.table_load_product.meta_description' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorMetaDescription == true }" *matCellDef="let element"
@@ -240,7 +240,7 @@
         <ng-container matColumnDef="KeyWords">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Palabras Clave</p>
+              <p>{{'secure.products.table_load_product.keywords' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorKeyWords == true }" *matCellDef="let element"
@@ -259,7 +259,7 @@
         <ng-container matColumnDef="PackageHeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Alto de empaque</p>
+              <p>{{'secure.products.table_load_product.package_height' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageHeight == true }" *matCellDef="let element"
@@ -278,7 +278,7 @@
         <ng-container matColumnDef="PackageLength">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Largo de empaque</p>
+              <p>{{'secure.products.table_load_product.package_lenght' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageLength == true }" *matCellDef="let element"
@@ -297,7 +297,7 @@
         <ng-container matColumnDef="PackageWidth">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Ancho de empaque</p>
+              <p>{{'secure.products.table_load_product.package_width' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageWidth == true }" *matCellDef="let element"
@@ -316,7 +316,7 @@
         <ng-container matColumnDef="PackageWeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Peso de empaque</p>
+              <p>{{'secure.products.table_load_product.package_weight' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorPackageWeight == true }" *matCellDef="let element"
@@ -335,7 +335,7 @@
         <ng-container matColumnDef="SkuShippingSize">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>SkuShippingSize</p>
+              <p>{{'secure.products.table_load_product.sku_shipping_size' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSkuShippingSize == true }" *matCellDef="let element"
@@ -354,7 +354,7 @@
         <ng-container matColumnDef="ProductHeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Alto del producto</p>
+              <p>{{'secure.products.table_load_product.item_height' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductHeight == true }" *matCellDef="let element"
@@ -373,7 +373,7 @@
         <ng-container matColumnDef="ProductLength">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Largo del producto</p>
+              <p>{{'secure.products.table_load_product.item_lenght' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductLength == true }" *matCellDef="let element"
@@ -392,7 +392,7 @@
         <ng-container matColumnDef="ProductWidth">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Ancho del producto</p>
+              <p>{{'secure.products.table_load_product.item_width' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductWidth == true }" *matCellDef="let element"
@@ -411,7 +411,7 @@
         <ng-container matColumnDef="ProductWeight">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Peso del producto</p>
+              <p>{{'secure.products.table_load_product.item_weight' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductWeight == true }" *matCellDef="let element"
@@ -430,7 +430,7 @@
         <ng-container matColumnDef="Seller">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Vendedor</p>
+              <p>{{'secure.products.table_load_product.seller' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSeller == true }" *matCellDef="let element"
@@ -449,7 +449,7 @@
         <ng-container matColumnDef="ProductType">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Tipo del producto</p>
+              <p>{{'secure.products.table_load_product.product_type' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorProductType == true }" *matCellDef="let element"
@@ -458,7 +458,7 @@
               <p class="sc-text-normal">{{element.ProductType}}</p>
             </div>
             <div class="information" *ngIf="element.ProductType == undefined || element.ProductType == ''">
-              <p class="text-error"> Dato obligatorio
+              <p class="text-error"> {{'secure.products.table_load_product.mandatory_data' | translate}}
               </p>
             </div>
           </td>
@@ -468,7 +468,7 @@
         <ng-container matColumnDef="ModifyImage">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Modificación Imagen</p>
+              <p>{{'secure.products.table_load_product.image_modification' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorModifyImage == true }" *matCellDef="let element"
@@ -487,7 +487,7 @@
         <ng-container matColumnDef="ImageUrl1">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Imagen 1</p>
+              <p>{{'secure.products.table_load_product.image' | translate}} 1</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl1 == true }" *matCellDef="let element"
@@ -506,7 +506,7 @@
         <ng-container matColumnDef="ImageUrl2">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Imagen 2</p>
+              <p>{{'secure.products.table_load_product.image' | translate}} 2</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl2 == true }" *matCellDef="let element"
@@ -525,7 +525,7 @@
         <ng-container matColumnDef="ImageUrl3">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Imagen 3</p>
+              <p>{{'secure.products.table_load_product.image' | translate}} 3</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl3 == true }" *matCellDef="let element"
@@ -544,7 +544,7 @@
         <ng-container matColumnDef="ImageUrl4">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Imagen 4</p>
+              <p>{{'secure.products.table_load_product.image' | translate}} 4</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl4 == true }" *matCellDef="let element"
@@ -563,7 +563,7 @@
         <ng-container matColumnDef="ImageUrl5">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Imagen 5</p>
+              <p>{{'secure.products.table_load_product.image' | translate}} 5</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorImageUrl5 == true }" *matCellDef="let element"
@@ -582,7 +582,7 @@
         <ng-container matColumnDef="Size">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Talla</p>
+              <p>{{'secure.products.table_load_product.size' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorSize == true }" *matCellDef="let element" matTooltip="{{element.Size}}">
@@ -600,7 +600,7 @@
         <ng-container matColumnDef="Color">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Color</p>
+              <p>{{'secure.products.table_load_product.color' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorColor == true }" *matCellDef="let element" matTooltip="{{element.Color}}">
@@ -656,7 +656,7 @@
         <ng-container matColumnDef="IsLogisticsExito">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Logistica Exito</p>
+              <p>{{'secure.products.table_load_product.exito_logistics' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorIsLogisticsExito == true }" *matCellDef="let element"
@@ -675,7 +675,7 @@
         <ng-container matColumnDef="MeasurementUnit">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Des. Unidad Medida</p>
+              <p>{{'secure.products.table_load_product.measuring_unit_description' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorMeasurementUnit == true }" *matCellDef="let element"
@@ -694,7 +694,7 @@
             <ng-container matColumnDef="ConversionFactor">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Factor Conversion</p>
+              <p>{{'secure.products.table_load_product.conversion_factor' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorConversionFactor == true }" *matCellDef="let element" matTooltip="{{element.ConversionFactor}}">
@@ -713,7 +713,7 @@
          <ng-container matColumnDef="DrainedFactor">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Factor Escurrido</p>
+              <p>{{'secure.products.table_load_product.drained_factor' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorDrainedFactor == true }" *matCellDef="let element"
@@ -732,7 +732,7 @@
         <ng-container matColumnDef="EanCombo">
           <th mat-header-cell *matHeaderCellDef>
             <div class="information th">
-              <p>Grupo EAN Combo</p>
+              <p>{{'secure.products.table_load_product.combo_ean_group' | translate}}</p>
             </div>
           </th>
           <td mat-cell [ngClass]="{'selected-error': element.errorEanCombo == true }" *matCellDef="let element"

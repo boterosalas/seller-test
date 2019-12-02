@@ -1,6 +1,6 @@
 <div class="container-product-list">
   <div class="title-page">
-    <span class="sc-title">Producto
+    <span class="sc-title">{{'secure.billing.product' | translate}}
     </span>
     <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
@@ -8,7 +8,7 @@
   </div>
   <mat-list class="card-info" fxFlex="100">
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Producto
+      <h4 mat-line>{{'secure.billing.product' | translate}}
         <p mat-subheader class="sub-text-list">{{product.detailName}}</p>
       </h4>
 
@@ -16,21 +16,21 @@
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Ean
+      <h4 mat-line>{{'secure.billing.ean' | translate}}
         <p mat-subheader class="sub-text-list">{{product.ean}}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Cantidad
+      <h4 mat-line>{{'secure.billing.amount' | translate}}
         <p mat-subheader class="sub-text-list">{{product.quantity }}</p>
       </h4>
     </mat-list-item>
     <mat-divider></mat-divider>
 
     <mat-list-item class="mat-list-item-order">
-      <h4 mat-line>Comisión
+      <h4 mat-line>{{'secure.billing.commission' | translate}}
         <p mat-subheader class="sub-text-list">${{product.commission | number}}</p>
       </h4>
 

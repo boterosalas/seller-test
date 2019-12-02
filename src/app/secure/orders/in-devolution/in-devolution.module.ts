@@ -13,6 +13,7 @@ import { BillingRoutingModule } from './in-devolution.routing';
 import { ProductDevolutionModalComponent } from './product-devolution-modal/product-devolution-modal.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
 import { InDevolutionService } from './in-devolution.service';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { InDevolutionService } from './in-devolution.service';
         BillingRoutingModule,
         SharedModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToolbarOptionsModule
     ],
     declarations: [
         InDevolutionComponent,

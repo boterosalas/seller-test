@@ -341,5 +341,6 @@ export class SearchFormEntity {
   btn_title: string;
   title_for_search: string;
   information: InformationToForm;
+  count: string;
 }
 

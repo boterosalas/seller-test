@@ -1,24 +1,14 @@
 <section id="section-historical-filter-offers" class="flexbox flex-wrap">
 
-  <form
-    novalidate
-    #f="ngForm"
-    [formGroup]="historicalFilterForm"
-    (ngSubmit)="historical.historicalFilter(historicalFilterForm)"
-    class="flexbox flex-wrap justify-center">
+  <form novalidate #f="ngForm" [formGroup]="historicalFilterForm"
+    (ngSubmit)="historical.historicalFilter(historicalFilterForm)" class="flexbox flex-wrap justify-center">
 
     <!-- Clear form button -->
     <article class="flexbox align-center justify-between">
-      <span [innerHTML]="'Filtro histórico'"></span>
-      <button
-        id="closeMenuApplication"
-        type="button"
-        color="primary"
-        matTooltip="Cerrar"
-        matTooltipPosition="below"
-        mat-icon-button
-        mat-button
-        (click)="toggleMenu()">
+      <span>{{'secure.offers.historical_admin.components.filter.title' | translate}}</span>
+      <button id="closeMenuApplication" type="button" color="primary"
+        [matTooltip]="'secure.offers.historical_admin.components.filter.tooltip_close' | translate"
+        matTooltipPosition="below" mat-icon-button mat-button (click)="toggleMenu()">
         <mat-icon>clear</mat-icon>
       </button>
     </article>
@@ -26,16 +16,10 @@
 
     <!-- Input date initial -->
     <mat-form-field color="primary">
-      <input
-        id="sinceDate-input"
-        placeholder="Fecha inicio"
-        formControlName="dateInitial"
-        name="dateInitial"
-        [readonly]="true"
-        matInput
-        [matDatepicker]="dateInitial"
-        (dateChange)="setMaxDateRange();validateFinalRange();"
-        (click)="openDateInitial()">
+      <input id="sinceDate-input"
+        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_initial_date' | translate"
+        formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput [matDatepicker]="dateInitial"
+        (dateChange)="setMaxDateRange();validateFinalRange();" (click)="openDateInitial()">
       <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
     </mat-form-field>
@@ -43,42 +27,31 @@
 
     <!-- Input date final -->
     <mat-form-field color="primary">
-      <input
-        id="untilDate-input"
-        placeholder="Fecha final"
-        formControlName="dateFinal"
-        name="dateFinal"
-        [readonly]="true"
-        [min]="historicalFilterForm.value.dateInitial"
-        [max]="rangeDateMax"
-        matInput
-        [matDatepicker]="dateFinal"
-        (click)="openDateFinal()">
+      <input id="untilDate-input"
+        [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_final_date' | translate"
+        formControlName="dateFinal" name="dateFinal" [readonly]="true" [min]="historicalFilterForm.value.dateInitial"
+        [max]="rangeDateMax" matInput [matDatepicker]="dateFinal" (click)="openDateFinal()">
       <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
-      <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
+      <mat-error *ngIf="rangeError">{{'errors.error_date' | translate}}</mat-error>
     </mat-form-field>
     <!-- /Input date final -->
 
     <!-- Input EAN -->
     <mat-form-field>
-      <input matInput
-        placeholder="EAN"
-        formControlName="ean"
-        matInput>
+      <input matInput [placeholder]="'secure.offers.historical_admin.components.filter.EAN' | translate"
+        formControlName="ean" matInput>
       <mat-hint></mat-hint>
-      <mat-error *ngIf="historicalFilterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
+      <mat-error *ngIf="historicalFilterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | translate}}
+      </mat-error>
     </mat-form-field>
     <!-- /Input EAN -->
 
     <!-- Filter action button -->
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
-      <button mat-flat-button
-        color="primary"
-        type="submit"
-        [innerHTML]="'Filtrar'"
-        [disabled]="!f.form.valid">
+      <button mat-stroked-button color="primary" type="reset">{{'filters.clear' | translate}}</button>
+      <button mat-flat-button color="primary" type="submit"
+        [disabled]="!f.form.valid">{{'filters.filter' | translate}}
       </button>
     </article>
     <!-- /Filter action button -->

@@ -16,6 +16,11 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
+import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -40,7 +45,7 @@ const detailOffer = [
         'imageUrl': null
     }];
 
-describe('Detail offer Component', () => {
+describe('Detail offer Component SELLER', () => {
 
     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
@@ -61,13 +66,16 @@ describe('Detail offer Component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [DetailOfferComponent, DialogWithFormComponent],
+            declarations: [DetailOfferComponent],
             imports: [
                 MaterialModule,
                 ReactiveFormsModule,
                 FormsModule,
                 RouterTestingModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                SharedModule,
+                HttpClientTestingModule,
+                TranslateModule.forRoot({})
             ],
             providers: [
                 { provide: StoresService, useValue: mockStoresService },
@@ -78,8 +86,9 @@ describe('Detail offer Component', () => {
                 { provide: BulkLoadService, useValue: mockBulkLoadService },
                 { provide: SupportService, useValue: mockSuportService },
                 { provide: FormBuilder, useValue: formBuilder },
-                ListComponent
-            ]
+                ListComponent,
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
 
 

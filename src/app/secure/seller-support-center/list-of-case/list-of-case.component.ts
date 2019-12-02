@@ -73,7 +73,7 @@ export class ListOfCaseComponent implements OnInit {
     private store: Store<CoreState>,
     private loadingService?: LoadingService,
     private modalService?: ModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();

@@ -1,8 +1,10 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AwsUtil, CognitoUtil, LoadingService, LoggedInCallback, Logger, ModalComponent, ModalService, UserLoginService } from '@app/core';
 import { environment } from '@env/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AppComponent');
+export const langs = ['US', 'ES'];
 
 @Component({
   selector: 'app-root',
@@ -19,21 +21,31 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
 
   @ViewChild(ModalComponent) private modalComponent: ModalComponent;
 
+
+  /**
+   * Un comentario para elminar
+   */
+
   constructor(
     private awsUtil: AwsUtil,
     private userService: UserLoginService,
     private cognito: CognitoUtil,
     private loadingService: LoadingService,
     private modalService: ModalService,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {
+    this.translate.addLangs(langs);
+    this.translate.setDefaultLang('ES');
+    this.translate.use('ES');
+  }
 
   ngOnInit() {
 
-    //toolbar position
+    // toolbar position
 
-    window.onscroll = function() {
-      toolbarTop()
+    window.onscroll = function () {
+      toolbarTop();
     };
 
     function toolbarTop() {
@@ -41,25 +53,25 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
       const classtop = document.querySelector('.toolbar-component');
       const classtop2 = document.querySelector('.tree-toolbar');
       // const secondTool= document.querySelector('.toolbar-component');
-      if(window.innerWidth > 959){
-        if(classtop){
-          if(window.scrollY > 45){
-            classtop.classList.add("top-toolbar");
+      if (window.innerWidth > 959) {
+        if (classtop) {
+          if (window.scrollY > 45) {
+            classtop.classList.add('top-toolbar');
           } else {
-            classtop.classList.remove("top-toolbar");
+            classtop.classList.remove('top-toolbar');
           }
         }
-  
-        if(classtop2){
-          if(window.scrollY > 45){
-            classtop2.classList.add("top-toolbar");
+
+        if (classtop2) {
+          if (window.scrollY > 45) {
+            classtop2.classList.add('top-toolbar');
           } else {
-            classtop2.classList.remove("top-toolbar");
+            classtop2.classList.remove('top-toolbar');
           }
         }
       }
     }
-      
+
     // Configurar logs.
     if (environment.production) {
       Logger.enableProductionMode();
@@ -96,6 +108,6 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     });
   }
 
- 
+
 }
 

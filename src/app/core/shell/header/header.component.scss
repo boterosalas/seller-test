@@ -15,17 +15,33 @@
 
 .principal-toolbar {
   font-family: $font-principal;
+}
 
-  .name-user {
-    font-size: $font-size-head;
-  }
+.name-user {
+  font-size: $font-size-head;
+}
 
-  .logo-application {
-    background-position: 0px -10px;
-  }
+.logo-application {
+  background-position: 0px -10px;
+}
 
-  .sc-button-toolbar {
-    font-size: $font-size-head - 2;
-    color: $color-gray-light;
+.sc-button-toolbar {
+  font-size: $font-size-head - 2;
+  color: $color-gray-light;
+}
+
+.sidebar-label-language{
+  margin-top: -31px;
+  margin-right: 82px;
+  font-size: 11px;
+  color: darkgray;
+}
+.select-hide {
+  display: block;
+}
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+  .select-hide {
+    display: none;
   }
 }

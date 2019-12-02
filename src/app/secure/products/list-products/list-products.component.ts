@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
@@ -11,6 +11,8 @@ import { CustomPaginator } from './listFilter/paginatorList';
 import { ReturnStatement } from '@angular/compiler';
 import { MenuModel, listProductsName, readFunctionality, offerFuncionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { TranslateService } from '@ngx-translate/core';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 
 export interface ListFilterProducts {
     name: string;
@@ -33,8 +35,11 @@ const log = new Logger('ListProductsComponent');
     styleUrls: ['list-products.component.scss'],
     templateUrl: 'list-products.component.html',
     providers: [
-        { provide: MatPaginatorIntl, useValue: CustomPaginator() }
-    ]
+        {
+            provide: MatPaginatorIntl,
+            useClass: MatPaginatorI18nService,
+        }
+    ],
 })
 
 export class ListProductsComponent implements OnInit {
@@ -76,16 +81,17 @@ export class ListProductsComponent implements OnInit {
     read = readFunctionality;
     offer = offerFuncionality;
     offerPermission = false;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
+        private languageService: TranslateService,
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
         private modalService?: ModalService,
         private fb?: FormBuilder,
         public SUPPORT?: SupportService,
         public snackBar?: MatSnackBar,
-        public authService?: AuthService
-
+        public authService?: AuthService,
     ) { }
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
@@ -151,6 +157,8 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterApply(param: any) {
+        this.pagepaginator = 0;
+        this.paginator.firstPage();
         this.filterListProducts(param, true);
     }
 
@@ -276,7 +284,7 @@ export class ListProductsComponent implements OnInit {
                 if (final < inicial) {
                     fecha++;
                     if (showErrors) {
-                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -285,7 +293,7 @@ export class ListProductsComponent implements OnInit {
             } else {
                 fecha++;
                 if (showErrors) {
-                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
                 }
@@ -300,7 +308,7 @@ export class ListProductsComponent implements OnInit {
                     fecha++;
                     // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     if (showErrors) {
-                        this.snackBar.open('La fecha inicial NO debe ser mayor a la fecha final', 'Cerrar', {
+                        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.instant('actions.close'), {
                             duration: 3000,
                         });
                     }
@@ -310,7 +318,7 @@ export class ListProductsComponent implements OnInit {
                 fecha++;
                 if (showErrors) {
                     // alert('Debes igresar fecha inicial y final para realizar filtro');
-                    this.snackBar.open('Debes igresar fecha inicial y final para realizar filtro', 'Cerrar', {
+                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
                 }

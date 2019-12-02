@@ -25,11 +25,17 @@ $color-blue: #485AFA;
         }
 
         button {
+          & span {
+              color: inherit;
+              font-size: inherit;
+              font-weight: inherit;
+          }
           &.mat-icon-button {
             span {
               display: flex;
               align-items: center;
               justify-content: center;
+              
             }
           }
         }

@@ -44,12 +44,14 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     btn_title: 'Buscar',
     title_for_search: 'Buscar',
     type_form: 'orders',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: ''
   };
   userLoggin: boolean;
 
   idSeller: number;
   typeProfiel: number;
+  state: number;
 
 
   constructor(
@@ -96,11 +98,12 @@ export class ShellComponent implements OnInit, LoggedInCallback {
    * Funcionalidad que permite desplegar el menú de filtro de órdenes.
    * @memberof SidebarComponent
    */
-  toggleMenuSearchOrder(informationToForm: SearchFormEntity, idSeller: number, typeProfiel: number) {
+  toggleMenuSearchOrder(informationToForm: SearchFormEntity, idSeller: number, typeProfiel: number, state: number) {
     this.sidenavSearchOrder.toggle();
     this.informationToForm = informationToForm;
     this.idSeller = idSeller;
     this.typeProfiel = typeProfiel;
+    this.state = state;
     log.info('Sidenav Search order menu toggle', `type_form ${informationToForm.type_form}`);
   }
 

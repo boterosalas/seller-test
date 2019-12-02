@@ -18,6 +18,7 @@ import { BillingService } from './billing.service';
 import { OrderBillingDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
 import { ProductDetailBillingModalComponent } from './product-detail-modal/product-detail-modal.component';
 import { DownloadBillingpayModalComponent } from './download-billingpay-modal/download-billingpay-modal.component';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { DownloadBillingpayModalComponent } from './download-billingpay-modal/do
     BillingRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatSortModule
+    MatSortModule,
   ],
   declarations: [
     BillingComponent,

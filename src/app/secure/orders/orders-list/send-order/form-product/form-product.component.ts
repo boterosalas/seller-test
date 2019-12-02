@@ -5,6 +5,7 @@ import { Carries, ComponentsService, Const, Order, ProductsEntity } from '@app/s
 
 import { OrderService } from '../../orders.service';
 import { SendOrderComponent } from '../send-order.component';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('FormProductComponent');
@@ -49,6 +50,7 @@ export class FormProductComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public componentsService: ComponentsService,
     public sendOrderComponent: SendOrderComponent,
+    private languageService: TranslateService,
     public orderService: OrderService) {
   }
 
@@ -106,20 +108,19 @@ export class FormProductComponent implements OnInit {
 
     if (this.product.id != null) {
       this.orderService.sendProductOrder(jsonProduct, this.order.id, this.product.id).subscribe((res: any) => {
-        this.componentsService.openSnackBar('Se ha enviado el producto correctamente', 'Cerrar', 4000);
-
-        // armo un json con la información del producto y actualizo la guía y la transportadora.
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.send_correctly'), this.languageService.instant('actions.close'), 4000);
         const productUpdate: ProductsEntity = product;
         productUpdate.tracking = form.value.Guide;
         productUpdate.carrier = form.value.Transporter;
         this.changeTrackingAndCarrierForProduct(productUpdate);
-        // this.dialogRef.close(false);
+        this.dialogRef.close(false);
+        window.location.reload();
       }, error => {
-        this.componentsService.openSnackBar('Se ha presentado un error al enviar el producto', 'Cerrar', 4000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.error_ocurred_product'), this.languageService.instant('actions.close'), 4000);
         log.error(error);
       });
     } else {
-      this.componentsService.openSnackBar('El producto seleccionado no puede ser enviado', 'Cerrar', 4000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.cant_not_sent'), this.languageService.instant('actions.close'), 4000);
     }
   }
 

@@ -15,6 +15,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { of, throwError } from 'rxjs';
 import { SortDirection, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const registerRegex = [
     { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
@@ -118,11 +119,11 @@ describe('BrandsComponent', () => {
                 FormsModule,
                 RouterTestingModule,
                 BrowserAnimationsModule,
-                HttpClientModule
+                HttpClientModule,
+                SharedModule
             ],
             declarations: [
                 BrandsComponent,
-                DialogWithFormComponent
             ],
             providers: [
                 { provide: BrandService, useValue: mockBrandsService },

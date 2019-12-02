@@ -8,6 +8,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
 import { UserParametersService, LoadingService } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class SearchOrderFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
+  @Input() state: number;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -47,6 +49,7 @@ export class SearchOrderFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
+    private languageService: TranslateService,
     private loadingService: LoadingService,
   ) { }
 
@@ -70,8 +73,8 @@ export class SearchOrderFormComponent implements OnInit {
   createForm() {
     // Estructura para los datos del formulario de consulta.
     this.myform = this.fb.group({
-      'dateOrderInitial': [null, Validators.compose([])],
-      'dateOrderFinal': [null, Validators.compose([])],
+      'dateOrderInitial': { disabled: true, value: '' },
+      'dateOrderFinal': { disabled: true, value: '' },
       'processedOrder': [null, Validators.compose([])],
       'identificationCard': [null, Validators.compose([])],
       // 'typeOrder': [null, Validators.compose([])],
@@ -118,8 +121,8 @@ export class SearchOrderFormComponent implements OnInit {
     const datePipe = new DatePipe(this.locale);
     this.loadingService.viewSpinner();
     // aplico el formato para la fecha a emplear en la consulta
-    const dateOrderFinal = datePipe.transform(data.value.dateOrderFinal, 'yyyy/MM/dd');
-    const dateOrderInitial = datePipe.transform(data.value.dateOrderInitial, 'yyyy/MM/dd');
+    const dateOrderFinal = datePipe.transform(this.myform.controls.dateOrderFinal.value, 'yyyy/MM/dd');
+    const dateOrderInitial = datePipe.transform(this.myform.controls.dateOrderInitial.value, 'yyyy/MM/dd');
 
     // creo el string que indicara los parametros de la consulta
     let stringSearch = '';
@@ -153,7 +156,12 @@ export class SearchOrderFormComponent implements OnInit {
     }
 
     if (stringSearch !== '') {
-
+      let status = '';
+      stringSearch += '&paginationToken=' + encodeURI('{}');
+      if (this.state && this.state !== undefined) {
+        status = '&idStatusOrder=' + this.state;
+      }
+      stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
@@ -164,13 +172,13 @@ export class SearchOrderFormComponent implements OnInit {
           this.toggleMenu();
           this.loadingService.closeSpinner();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.instant('actions.close'), 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 3000);
       });
     } else {
-      this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);
+      this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 3000);
     }
   }
 

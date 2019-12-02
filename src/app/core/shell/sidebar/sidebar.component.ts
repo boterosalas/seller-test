@@ -9,6 +9,9 @@ import { Logger } from '@core/util/logger.service';
 import { ShellComponent } from '@core/shell/shell.component';
 import { Modules, MenuModel, ProfileTypes, ModuleModel } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+import { CoreState } from '@app/store';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -32,12 +35,21 @@ export class SidebarComponent implements OnInit {
   prueba = 'solicitudes-pendientes';
   modules: ModuleModel[] = null;
 
+  form: FormGroup;
+
+  unreadCase: number;
+  sumadevolution: number;
+  devolution: number;
+  pending: number;
+
   constructor(
     private route: Router,
     public shellComponent: ShellComponent,
     public userService: UserLoginService,
     public userParams: UserParametersService,
-    public authService: AuthService
+    public authService: AuthService,
+    private fb: FormBuilder,
+    private store: Store<CoreState>
   ) { }
 
   /**
@@ -45,11 +57,22 @@ export class SidebarComponent implements OnInit {
    */
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
-    this.authService.getModules().then( data => {
+    this.authService.getModules().then(data => {
       this.modules = data;
     }, error => {
       console.error(error);
     });
+
+    this.store
+      .pipe(select(state => state.notification))
+      .subscribe(
+        notificationState => {
+          this.unreadCase = notificationState.unreadCases;
+          this.sumadevolution = notificationState.sumaUnreadDevolutions;
+          this.devolution = notificationState.unreadDevolutions;
+          this.pending = notificationState.unreadPendings;
+        }
+      );
   }
 
   /**
@@ -69,6 +92,17 @@ export class SidebarComponent implements OnInit {
     if (category.Id !== '') {
       this.route.navigate([category.UrlRedirect, category.Id]);
     }
+  }
+
+  /**
+   * Retorna el menu solo con la primera en mayuscula.
+   *
+   * @param {string} name
+   * @returns {string}
+   * @memberof ToolbarLinkComponent
+   */
+  public getPersonalityName(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
 
   /**
@@ -107,7 +141,7 @@ export class SidebarComponent implements OnInit {
    */
   public showModule(moduleR: ModuleModel): boolean {
     // const menu = moduleR.Menus.find(result => (result.ShowMenu === true && this.validateUserType(result.ProfileType)));
-    const menu = moduleR.Menus.find(result => (result.ShowMenu === true ));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true));
     return menu !== undefined;
   }
 

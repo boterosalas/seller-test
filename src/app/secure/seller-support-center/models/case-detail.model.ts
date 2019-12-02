@@ -1,4 +1,5 @@
-import { ICase } from "./case.interface";
+import { ICase } from './case.interface';
+import { Attachment } from './attachment.model';
 
 export class CaseDetail implements ICase {
   id: string;
@@ -14,4 +15,5 @@ export class CaseDetail implements ICase {
   customerEmail: string;
   read: boolean;
   follow: Array<any>;
+  attachments: Array<Attachment>;
 }

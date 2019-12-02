@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { LoadingService } from '@app/core';
+import { trimField, withArray } from '@app/shared/util/validation-messages';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-basic-information',
@@ -15,6 +18,7 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 export class ProductBasicInfoComponent implements OnInit {
 
+    otherForm: FormGroup;
     /** Initialize variables */
     formBasicInfo: FormGroup;
     packing: FormGroup;
@@ -36,24 +40,24 @@ export class ProductBasicInfoComponent implements OnInit {
      *  Json  con los colores predefinidos.
      */
     colorList = [
-        { Name: 'Beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
-        { Name: 'Negro', color: '#000000', border: '#000000', hexColorCode: 0 },
-        { Name: 'Blanco', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
-        { Name: 'Azul', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
-        { Name: 'Amarillo', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
-        { Name: 'Cafe', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
-        { Name: 'Gris', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
-        { Name: 'Verde', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
-        { Name: 'Naranja', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
-        { Name: 'Rosa', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
-        { Name: 'Morado', color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
-        { Name: 'Rojo', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
-        { Name: 'Plata', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
-        { Name: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
-        { Name: 'MultiColor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
+        { Name: 'secure.products.create_product_unit.basic_information.beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
+        { Name: 'secure.products.create_product_unit.basic_information.black', color: '#000000', border: '#000000', hexColorCode: 0 },
+        { Name: 'secure.products.create_product_unit.basic_information.white', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
+        { Name: 'secure.products.create_product_unit.basic_information.blue', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
+        { Name: 'secure.products.create_product_unit.basic_information.yellow', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
+        { Name: 'secure.products.create_product_unit.basic_information.brown', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
+        { Name: 'secure.products.create_product_unit.basic_information.gray', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
+        { Name: 'secure.products.create_product_unit.basic_information.green', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
+        { Name: 'secure.products.create_product_unit.basic_information.orange', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
+        { Name: 'secure.products.create_product_unit.basic_information.pink', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
+        { Name: 'secure.products.create_product_unit.basic_information.purple', color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
+        { Name: 'secure.products.create_product_unit.basic_information.red', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
+        { Name: 'secure.products.create_product_unit.basic_information.silver', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
+        { Name: 'secure.products.create_product_unit.basic_information.golden', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
+        { Name: 'secure.products.create_product_unit.basic_information.multicolored', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
 
-    public UnitMeasurementList = ['Gramo', 'Mililitro', 'Metro', 'Unidad'];
+    public UnitMeasurementList = ['secure.products.create_product_unit.basic_information.gram', 'secure.products.create_product_unit.basic_information.mililitre', 'secure.products.create_product_unit.basic_information.metre', 'secure.products.create_product_unit.basic_information.Unit'];
     validateRegex: any;
     newForm: any;
     valInputEan: any;
@@ -65,7 +69,7 @@ export class ProductBasicInfoComponent implements OnInit {
         spellcheck: true,
         height: '15rem',
         minHeight: '5rem',
-        placeholder: 'Escriba aquí la descripción...',
+        // placeholder: this.languageService.instant('secure.products.create_product_unit.basic_information.write_description_here'),
         translate: 'no',
         customClasses: [
             {
@@ -88,11 +92,15 @@ export class ProductBasicInfoComponent implements OnInit {
     brands = [];
     filterBrands = [];
 
+    combos = [];
+
     constructor(
         private snackBar: MatSnackBar,
         private service: BasicInformationService,
         private serviceEanSon: EanServicesService,
-        private process: ProcessService
+        private process: ProcessService,
+        private loadingService: LoadingService,
+        private languageService: TranslateService,
     ) {
     }
 
@@ -120,6 +128,7 @@ export class ProductBasicInfoComponent implements OnInit {
             }
             this.showButton = data.showEan;
         });
+        this.reloadByCulture();
     }
 
     /**
@@ -145,6 +154,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     private createForm(): void {
+
         this.formKeyword = new FormGroup({
         });
 
@@ -160,6 +170,8 @@ export class ProductBasicInfoComponent implements OnInit {
             shippingSize: new FormControl(1,
                 [
                 ]),
+            IsCombo: new FormControl(false, []),
+            EanCombo: new FormControl('', [Validators.pattern(this.getValue('ean'))]),
             Model: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('modelProduct'))
@@ -215,6 +227,18 @@ export class ProductBasicInfoComponent implements OnInit {
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
         });
+        this.formBasicInfo.controls.EanCombo.disable();
+        this.formBasicInfo.get('IsCombo').valueChanges.subscribe(val => {
+            if (!val) {
+                this.combos = [];
+                this.formBasicInfo.controls.EanCombo.disable();
+                this.formBasicInfo.setValidators(null);
+            } else {
+                this.formBasicInfo.controls.EanCombo.enable();
+                this.formBasicInfo.controls.EanCombo.reset();
+                this.formBasicInfo.setValidators(withArray(this.combos));
+            }
+        });
 
         this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
             if (!!val && val.length >= 2) {
@@ -257,6 +281,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
             }
         });
+
+
     }
 
     public validateClothingProduct(): boolean {
@@ -287,7 +313,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.formBasicInfo.controls.Keyword.clearValidators();
                 this.formBasicInfo.controls.Keyword.reset();
             } else {
-                this.snackBar.open('Solo acepta un máximo de 20 palabras claves', 'Cerrar', {
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.basic_information.only_up_to_20_keywords'), 'Cerrar', {
                     duration: 3000,
                 });
             }
@@ -393,7 +419,7 @@ export class ProductBasicInfoComponent implements OnInit {
         } else {
             // error to show
 
-            this.snackBar.open('Para agregar mas hijos es necesario que el ultimo tenga todos los datos correctos', 'Cerrar', {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.basic_information.order_to_add_necessary'), this.languageService.instant('actions.close'), {
                 duration: 3000,
             });
         }
@@ -509,6 +535,24 @@ export class ProductBasicInfoComponent implements OnInit {
         }
     }
 
+    public checkVerify(value: boolean) {
+        if (this.combos && this.combos.length === 0) {
+            this.combos = [];
+        }
+        let data = {
+            IsCombo: !value,
+            EanCombo: this.combos
+        };
+        if (!value === false) {
+            data = {
+                IsCombo: !value,
+                EanCombo: null
+            };
+        }
+        this.process.validaData(data);
+    }
+
+
     /** Enviar datos al servicio */
     public sendDataToService(): void {
         const packingData = this.formBasicInfo.controls.packing as FormGroup;
@@ -519,6 +563,7 @@ export class ProductBasicInfoComponent implements OnInit {
             Details: this.formBasicInfo.controls.Detail.value,
             Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
+            IsCombo: this.formBasicInfo.controls.IsCombo.value,
             PackageWidth: packingData.controls.WidthPacking.value,
             PackageHeight: packingData.controls.HighPacking.value,
             PackageLength: packingData.controls.LongPacking.value,
@@ -533,6 +578,7 @@ export class ProductBasicInfoComponent implements OnInit {
             KeyWords: this.keywords.join(),
             Children: this.getSonData()
         };
+
         this.process.validaData(data);
     }
 
@@ -543,7 +589,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Ean: this.sonList[i].form.controls.Ean.value,
                 HasEAN: !this.sonList[i].form.controls.associateEanSon.value,
                 Size: this.sonList[i].form.controls.Size.value,
-                Color: this.sonList[i].colorSelected,
+                Color: this.languageService.instant(this.sonList[i].colorSelected),
                 HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value
             });
@@ -579,6 +625,7 @@ export class ProductBasicInfoComponent implements OnInit {
      */
 
     listOfBrands() {
+        this.loadingService.viewSpinner();
         this.service.getActiveBrands().subscribe(brands => {
             const initialBrands = brands.Data.Brands;
             this.brands = initialBrands.sort((a, b) => {
@@ -590,6 +637,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
                 return 0;
             });
+            this.loadingService.closeSpinner();
         });
     }
 
@@ -602,7 +650,65 @@ export class ProductBasicInfoComponent implements OnInit {
         this.service.getSizeProducts().subscribe(size => {
             if (size.status === 200 || size.status === 201) {
                 this.sizes = JSON.parse(size.body);
+                if (this.sonList.length > 0) {
+                    for (let i = 0; i < this.sonList.length; i++) {
+                        this.sonList[i].form.controls.Size.enable();
+                    }
+                }
             }
         });
+    }
+
+    /**
+     * funcion para recarga el input de tallas dependiendo del idioma seleccionado
+     *
+     * @memberof ProductBasicInfoComponent
+     */
+    reloadByCulture() {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            if (this.sonList.length > 0) {
+                for (let i = 0; i < this.sonList.length; i++) {
+                    this.sonList[i].form.controls.Size.setValue();
+                    this.sonList[i].form.controls.Size.disable();
+                }
+                this.sizes = [];
+                this.listSize();
+            }
+        });
+    }
+
+    addEanCombo() {
+        if (!!this.formBasicInfo.controls.EanCombo.value && this.formBasicInfo.controls.EanCombo.valid && !this.combos.includes(this.formBasicInfo.controls.EanCombo.value)) {
+            this.loadingService.viewSpinner();
+            this.serviceEanSon.validateEan(this.formBasicInfo.controls.EanCombo.value).subscribe(res => {
+                // Validar si la data es un booleano para validar si exiset el Ean del hijo
+                this.validateEanSonExist = (res['data']);
+                if (this.validateEanSonExist) {
+                    this.combos.push(this.formBasicInfo.controls.EanCombo.value);
+                    const data = {
+                        EanCombo: this.combos
+                    };
+                    this.process.validaData(data);
+                    this.formBasicInfo.controls.EanCombo.reset();
+                } else {
+                    this.formBasicInfo.controls.EanCombo.setErrors({ existBD: true });
+                }
+                this.loadingService.closeSpinner();
+            });
+        } else {
+            this.formBasicInfo.controls.EanCombo.setErrors({ exist: true });
+        }
+    }
+
+    deleteEan(index: number) {
+        this.combos.splice(index, 1);
+        const data = {
+            EanCombo: this.combos
+        };
+        this.process.validaData(data);
+    }
+
+    get IsCombo(): FormControl {
+        return this.formBasicInfo.controls.IsCombo as FormControl;
     }
 }

@@ -3,8 +3,8 @@
       <div class="normal-theme ">
           <button mat-button color="primary" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow="true"
           class="sc-title title-toolbar" (click)="getOrdersList($event)">
-          <p>{{informationToForm.title}}
-            <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle}}</small>
+          <p>{{informationToForm.title | translate}}
+            <small class="sub-title"><span class="bar">| </span>{{informationToForm.subtitle | translate}}</small>
           </p>
         </button>
       </div>
@@ -36,8 +36,8 @@
     <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
       <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
         fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px" class="paginator-style orders-paginate"
-        itemsPerPageLabel="Items por pagina" #paginator [pageSize]="Typeprofile == 1 ? 50 : pageSizeOrder"
-        [length]="lengthOrder" [pageSizeOptions]="[50]">
+        itemsPerPageLabel="" #paginator [pageSize]="Typeprofile == 1 ? 50 : pageSizeOrder"
+        [length]="lengthOrder" [pageSizeOptions]="[50, 100, 150]" (page)="pageEvent = changePaginatorOrdens($event)">
       </mat-paginator>
       <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">
@@ -53,12 +53,12 @@
           </div>
           <button id="search-order-button" (click)="toggleMenuOrderSearch()" mat-menu-item>
             <mat-icon>filter_list</mat-icon>
-            <span class="acction-text">Filtrar</span>
+            <span class="acction-text">{{'filters.filter' | translate}}</span>
           </button>
           <button [disabled]="orderListLength" *ngIf="Typeprofile == 0" (click)="openModalDownloadOrder()" class="acction-text"
             id="download-order-button" mat-menu-item>
             <mat-icon>file_download</mat-icon>
-            <span>Descargar</span>
+            <span>{{'actions.download' | translate}}</span>
           </button>
           <mat-form-field class="selectPageSize">
             <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
@@ -79,23 +79,23 @@
         fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter input-search-black" style="top: 11px" id="download-order-button"
         mat-button color="primary" *ngIf="!billingType && downloadPermission">
         <mat-icon>file_download</mat-icon>
-        Descargar
+        {{'actions.download' | translate}}
       </button>
       <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
         fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter input-search-black" style="top: 11px" id="download-pay-button"
         mat-button color="primary" *ngIf="downloadBillingPay">
         <mat-icon>file_download</mat-icon>
-        Descargar
+        {{'actions.download' | translate}}
       </button>
       <button fxShow.xs="false" *ngIf="Typeprofile == 1"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
-        Filtrar
+        {{'filters.filter' | translate}}
       </button>
       <button fxShow.xs="false"  *ngIf="Typeprofile == 0"  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
-        Filtrar
+        {{'filters.filter' | translate}}
       </button>
     </div>
   </div>

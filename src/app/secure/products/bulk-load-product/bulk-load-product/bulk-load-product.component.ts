@@ -22,6 +22,7 @@ import { trimField } from '../../../../shared/util/validation-messages';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
 import { TreeSelected } from '@app/secure/parameterize/category/category-tree/category-tree.component';
 import { combineLatest } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 /* log component */
 const log = new Logger('BulkLoadProductComponent');
@@ -135,13 +136,14 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // size
   size: any = [];
 
+  culture = 'ES';
+
   // specName
 
   modelSpecs: any;
 
   // variable para la  creacion del excel
   dataTheme;
-
 
   // tipo extension XLSX
   EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -162,8 +164,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /*arabol vtex*/
   vtextree: any[] = [];
 
-  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  // Variable para mostrar loading
+  public isLoad = false;
 
+  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  copySizeArray: any;
 
   constructor(
     public componentService: ComponentsService,
@@ -177,7 +182,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     private service: BasicInformationService,
     public fb: FormBuilder,
     private searchService: SearchService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private languageService: TranslateService
   ) {
     /*Se le asigna valor a todas las variables*/
     this.arrayInformation = [];
@@ -210,13 +216,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     //   this.getAvaliableLoads();
     // }
     this.getDataUser();
+    this.refreshVtexTree();
     this.trasformTree();
     // Prepare es el metodo que debe quedar
     this.prepareComponent();
     // this.listOfCategories();
     // this.listOfSpecs();
   }
-
 
   prepareComponent() {
     const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
@@ -332,7 +338,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
-      this.componentService.openSnackBar('Se ha presentado un error al cargar la información', 'Aceptar', 4000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), 'Aceptar', 4000);
     });
   }
 
@@ -389,7 +395,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     */
     if (this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads <= 0) {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar('Has llegado  al limite de carga por el día de hoy', 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.limit_for_day'), 'Aceptar', 10000);
     } else if ((this.dataAvaliableLoads && this.dataAvaliableLoads.amountAvailableLoads > 0) || !this.isAdmin) {
       /*
       * if Valido que el excel tenga mas de 1 registro (por lo general el primer registro son los titulos)
@@ -456,7 +462,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         * else si no lo tiene significa que el formato es invalido y manda un error*/
         if ((res.length - contEmptyRow) === 1) {
           this.loadingService.closeSpinner();
-          this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')) {
             if (this.profileTypeLoad === 'Tienda') {
@@ -473,12 +479,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
                   iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
                   iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
-                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Length'),
                   iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
                   iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
                   iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
                   iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
-                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Length'),
                   iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
                   iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
                   iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
@@ -489,8 +495,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                   iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                  // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
+                  // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -559,12 +565,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
                   iPalabrasClave: this.arrayNecessaryData[0].indexOf('Keywords'),
                   iAltoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Height'),
-                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Lenght'),
+                  ilargoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Length'),
                   iAnchoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Width'),
                   iPesoDelEmpaque: this.arrayNecessaryData[0].indexOf('Package Weight'),
                   iSkuShippingSize: this.arrayNecessaryData[0].indexOf('skuShippingsize'),
                   iAltoDelProducto: this.arrayNecessaryData[0].indexOf('Item Height'),
-                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Leght'),
+                  iLargoDelProducto: this.arrayNecessaryData[0].indexOf('Item Length'),
                   iAnchoDelProducto: this.arrayNecessaryData[0].indexOf('Item Width'),
                   iPesoDelProducto: this.arrayNecessaryData[0].indexOf('Item Weight'),
                   iVendedor: this.arrayNecessaryData[0].indexOf('Seller'),
@@ -575,8 +581,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                   iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
-                  iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                  iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
+                  iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
@@ -643,10 +649,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             */
               if (numberRegister > this.dataAvaliableLoads.amountAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El archivo contiene más activos de los permitidos por el día de hoy', 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.contains_more_assets'), 'Aceptar', 10000);
               } else if (numberRegister > this.dataAvaliableLoads.maximumAvailableLoads) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El número de registros supera los ' + this.dataAvaliableLoads.maximumAvailableLoads + ', no se permite esta cantidad', 'Aceptar', 10000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.amount_records') + this.dataAvaliableLoads.maximumAvailableLoads + this.languageService.instant('secure.products.bulk_upload.amount_allowed'), 'Aceptar', 10000);
               } else {
                 this.fileName = file.target.files[0].name;
                 this.createTable(this.arrayNecessaryData, this.iVal, numCol);
@@ -657,13 +663,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             }
           } else {
             this.loadingService.closeSpinner();
-            this.componentService.openSnackBar('El formato seleccionado es inválido', 'Aceptar', 10000);
+            this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 10000);
           }
         }
 
       } else {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar('El archivo seleccionado no posee información', 'Aceptar', 10000);
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
       }
     }
   }
@@ -1051,7 +1057,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             } else if (variant === true) {
               if (iVal.iParentReference === -1 || iVal.iSonReference === -1) {
                 this.loadingService.closeSpinner();
-                this.componentService.openSnackBar('El fortmato es inválido.', 'Aceptar', 4000);
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), 'Aceptar', 4000);
                 return;
               } else if (j === iVal.iParentReference || j === iVal.iSonReference) {
                 if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
@@ -1570,6 +1576,21 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   /**
+   * Metodo para validar la talla del servicio de tallas y enviar siempre el label en español.
+   * @memberof BulkLoadProductComponent
+   */
+  changeSize() {
+    this.arrayInformationForSend.splice(0, 1);
+    this.arrayInformationForSend.forEach((element) => {
+      this.copySizeArray.forEach((el) => {
+        if (el.Size === element['Size']) {
+          element['Size'] = el.Label;
+        }
+      });
+    });
+  }
+
+  /**
    * Método que permite realizar el envío del json cargado del excel
    * @memberof BulkLoadProductComponent
    */
@@ -2001,12 +2022,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       'Meta Description': undefined,
       'Keywords': undefined,
       'Package Height': undefined,
-      'Package Lenght': undefined,
+      'Package Length': undefined,
       'Package Width': undefined,
       'Package Weight': undefined,
       'skuShippingsize': undefined,
       'Item Height': undefined,
-      'Item Leght': undefined,
+      'Item Length': undefined,
       'Item Width': undefined,
       'Item Weight': undefined,
       'Seller': undefined,
@@ -2097,6 +2118,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /*Generar excel*/
 
   exportExcel() {
+    if (localStorage.getItem('culture_current')) {
+      this.culture = localStorage.getItem('culture_current');
+    } else {
+      this.culture = 'ES';
+    }
+    // this.translateFile(this.culture, this.categoryType.value);
 
     if (this.categoryType.value === 'Technology') {
       this.dataTheme = this.getDataFormFileTechnology();
@@ -2110,6 +2137,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const worksheetCategory: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.categoria);
     const worksheetBrands: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.marcas);
     const worksheetSpecifications: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.especificaciones);
+    let workbook: XLSX.WorkBook;
 
     // SheetNames: Arreglo con el nombre de la hoja
     // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
@@ -2119,19 +2147,51 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     if (this.categoryType.value === 'Clothing') {
       const worksheetSize: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.talla);
       XLSX.utils.sheet_add_json(worksheetSize, [
-        { B: 'Color' }, { B: 'Beige' }, { B: 'Negro' }, { B: 'Blanco' }, { B: 'Azul' }, { B: 'Amarillo' }, { B: 'Cafe' }, { B: 'Gris' }, { B: 'Verde' }, { B: 'Naranja' }, { B: 'Rosa' }, { B: 'Morado' }, { B: 'Rojo' }, { B: 'Plata' }, { B: 'Dorado' }, { B: 'MultiColor' }
+        { B: this.languageService.instant('secure.products.bulk_upload.color') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.white') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.gray') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.green') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.orange') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.pink') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.purple') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.red') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.silver') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.golden') },
+        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.multicolored') }
       ], { skipHeader: true, origin: 'B1' });
+
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications, 'Tallas y Colores': worksheetSize }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones', 'Tallas y Colores'] };
+      if (this.culture === 'ES') {
+        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications, 'Tallas y Colores': worksheetSize }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones', 'Tallas y Colores'] };
+      } else {
+        worksheetBrands['A1'].v = 'BRANDS';
+        worksheetSize['A1'].v = 'SIZE';
+        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications, 'Color and size': worksheetSize }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications', 'Color and size'] };
+      }
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcel(excelBuffer, `Plantilla general Clothing ${this.categoryName.value}`);
+      this.saveAsExcel(excelBuffer, this.languageService.instant('secure.products.bulk_load_product_moderation.template_download_clothing') + ' ' + this.categoryName.value);
     } else {
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
-      const workbook: XLSX.WorkBook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+      if (this.culture === 'ES') {
+        workbook = { Sheets: { 'Productos': worksheetProducts, 'Categoría': worksheetCategory, 'Marcas': worksheetBrands, 'Especificaciones': worksheetSpecifications }, SheetNames: ['Productos', 'Categoría', 'Marcas', 'Especificaciones'] };
+      } else {
+        worksheetBrands['A1'].v = 'BRANDS';
+        if (worksheetCategory['A1'] && worksheetCategory['B1']) {
+          worksheetCategory['A1'].v = 'Category Code';
+          worksheetCategory['B1'].v = 'Specific Category';
+        }
+        workbook = { Sheets: { 'Products': worksheetProducts, 'Category': worksheetCategory, 'Brands': worksheetBrands, 'Specifications': worksheetSpecifications }, SheetNames: ['Products', 'Category', 'Brands', 'Specifications'] };
+      }
+
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcel(excelBuffer, `Plantilla general Technology ${this.categoryName.value}`);
+      this.saveAsExcel(excelBuffer, this.languageService.instant('secure.products.bulk_load_product_moderation.template_download_technology') + ' ' + this.categoryName.value);
     }
   }
 
@@ -2142,61 +2202,28 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     FileSaver.saveAs(data, fileName);
   }
 
+
+
   /* Datos de plantilla Technology */
 
   getDataFormFileTechnology() {
-    const productos = [{
-      'Grupo EAN Combo': undefined,
-      'EAN': undefined,
-      'Nombre del producto': undefined,
-      'Categoria': undefined,
-      'Marca': undefined,
-      'Modelo': undefined,
-      'Detalles': undefined,
-      'Descripcion': undefined,
-      'Palabras Clave': undefined,
-      'Alto del empaque': undefined,
-      'Largo del empaque': undefined,
-      'Ancho del empaque': undefined,
-      'Peso del empaque': undefined,
-      'skuShippingsize': undefined,
-      'Alto del producto': undefined,
-      'Largo del producto': undefined,
-      'Ancho del producto': undefined,
-      'Peso del producto': undefined,
-      'Descripcion Unidad de Medida': undefined,
-      'Factor de conversion': undefined,
-      'TipoProducto': undefined,
-      'URL de Imagen 1': undefined,
-      'URL de Imagen 2': undefined,
-      'URL de Imagen 3': undefined,
-      'URL de Imagen 4': undefined,
-      'URL de Imagen 5': undefined,
-      'Logistica Exito': undefined,
-    },
-    this.modelSpecs
-    ];
-
+    const productos = this.setCultureColumnsTechnology();
     const categoria = this.listOfCategories();
-
     const marcas = this.brands;
-
     const especificaciones = this.listOfSpecs();
-
     return { productos, categoria, marcas, especificaciones };
-
   }
+
 
   /* Datos de plantilla Clothing */
 
-  getDataFormFileClothing() {
+
+  setCultureColumnsTechnology() {
     let productos = [];
-    if (this.profileTypeLoad === 'Tienda') {
+    if (this.culture === 'ES') {
       productos = [{
         'Grupo EAN Combo': undefined,
         'EAN': undefined,
-        // 'Referencia Hijo': undefined,
-        'Referencia Padre': undefined,
         'Nombre del producto': undefined,
         'Categoria': undefined,
         'Marca': undefined,
@@ -2204,10 +2231,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'Detalles': undefined,
         'Descripcion': undefined,
         'Palabras Clave': undefined,
-        'Talla': undefined,
-        'Color': undefined,
-        'hexColourCodePDP': undefined,
-        'hexColourName': undefined,
         'Alto del empaque': undefined,
         'Largo del empaque': undefined,
         'Ancho del empaque': undefined,
@@ -2229,56 +2252,218 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       },
       this.modelSpecs
       ];
+
     } else {
       productos = [{
-        'Grupo EAN Combo': undefined,
+        'Combo EAN Group': undefined,
         'EAN': undefined,
-        'Referencia Hijo': undefined,
-        'Referencia Padre': undefined,
-        'Nombre del producto': undefined,
-        'Categoria': undefined,
-        'Marca': undefined,
-        'Modelo': undefined,
-        'Detalles': undefined,
-        'Descripcion': undefined,
-        'Palabras Clave': undefined,
-        'Talla': undefined,
-        'Color': undefined,
-        'hexColourCodePDP': undefined,
-        'hexColourName': undefined,
-        'Alto del empaque': undefined,
-        'Largo del empaque': undefined,
-        'Ancho del empaque': undefined,
-        'Peso del empaque': undefined,
+        'Product Name': undefined,
+        'Category': undefined,
+        'Brand': undefined,
+        'Model': undefined,
+        'Product Details': undefined,
+        'Description': undefined,
+        'Keywords': undefined,
+        'Package Height': undefined,
+        'Package Length': undefined,
+        'Package Width': undefined,
+        'Package Weight': undefined,
         'skuShippingsize': undefined,
-        'Alto del producto': undefined,
-        'Largo del producto': undefined,
-        'Ancho del producto': undefined,
-        'Peso del producto': undefined,
-        'Descripcion Unidad de Medida': undefined,
-        'Factor de conversion': undefined,
-        'TipoProducto': undefined,
-        'URL de Imagen 1': undefined,
-        'URL de Imagen 2': undefined,
-        'URL de Imagen 3': undefined,
-        'URL de Imagen 4': undefined,
-        'URL de Imagen 5': undefined,
-        'Logistica Exito': undefined,
+        'Item Height': undefined,
+        'Item Length': undefined,
+        'Item Width': undefined,
+        'Item Weight': undefined,
+        'Measuring Unit': undefined,
+        'Conversion Factor': undefined,
+        'ProductType': undefined,
+        'Image URL 1': undefined,
+        'Image URL 2': undefined,
+        'Image URL 3': undefined,
+        'Image URL 4': undefined,
+        'Image URL 5': undefined,
+        'Exito Logistics': undefined,
       },
       this.modelSpecs
       ];
     }
+    return productos;
+  }
 
+  getDataFormFileClothing() {
+    const productos = this.setCultureColumnsClothing();
     const categoria = this.listOfCategories();
-
     const marcas = this.brands;
-
     const especificaciones = this.listOfSpecs();
-
     const talla = this.size;
-
     return { productos, categoria, marcas, especificaciones, talla };
   }
+
+
+  setCultureColumnsClothing() {
+    let productos = [];
+    if (this.profileTypeLoad === 'Tienda') {
+      if (this.culture === 'ES') {
+        productos = [{
+          'Grupo EAN Combo': undefined,
+          'EAN': undefined,
+          // 'Referencia Hijo': undefined,
+          'Referencia Padre': undefined,
+          'Nombre del producto': undefined,
+          'Categoria': undefined,
+          'Marca': undefined,
+          'Modelo': undefined,
+          'Detalles': undefined,
+          'Descripcion': undefined,
+          'Palabras Clave': undefined,
+          'Talla': undefined,
+          'Color': undefined,
+          'hexColourCodePDP': undefined,
+          'hexColourName': undefined,
+          'Alto del empaque': undefined,
+          'Largo del empaque': undefined,
+          'Ancho del empaque': undefined,
+          'Peso del empaque': undefined,
+          'skuShippingsize': undefined,
+          'Alto del producto': undefined,
+          'Largo del producto': undefined,
+          'Ancho del producto': undefined,
+          'Peso del producto': undefined,
+          'Descripcion Unidad de Medida': undefined,
+          'Factor de conversion': undefined,
+          'TipoProducto': undefined,
+          'URL de Imagen 1': undefined,
+          'URL de Imagen 2': undefined,
+          'URL de Imagen 3': undefined,
+          'URL de Imagen 4': undefined,
+          'URL de Imagen 5': undefined,
+          'Logistica Exito': undefined,
+        },
+        this.modelSpecs
+        ];
+      } else {
+        productos = [{
+          'Combo EAN Group': undefined,
+          'EAN': undefined,
+          // 'Child reference': undefined,
+          'Parent reference': undefined,
+          'Product Name': undefined,
+          'Category': undefined,
+          'Brand': undefined,
+          'Model': undefined,
+          'Product Details': undefined,
+          'Description': undefined,
+          'Keywords': undefined,
+          'Size': undefined,
+          'Color': undefined,
+          'hexColourCodePDP': undefined,
+          'hexColourName': undefined,
+          'Package Height': undefined,
+          'Package Length': undefined,
+          'Package Width': undefined,
+          'Package Weight': undefined,
+          'skuShippingsize': undefined,
+          'Item Height': undefined,
+          'Item Length': undefined,
+          'Item Width': undefined,
+          'Item Weight': undefined,
+          'Measuring Unit': undefined,
+          'Conversion Factor': undefined,
+          'ProductType': undefined,
+          'Image URL 1': undefined,
+          'Image URL 2': undefined,
+          'Image URL 3': undefined,
+          'Image URL 4': undefined,
+          'Image URL 5': undefined,
+          'Exito Logistics': undefined,
+        },
+        this.modelSpecs
+        ];
+      }
+    } else {
+      if (this.culture === 'ES') {
+        productos = [{
+          'Grupo EAN Combo': undefined,
+          'EAN': undefined,
+          'Referencia Hijo': undefined,
+          'Referencia Padre': undefined,
+          'Nombre del producto': undefined,
+          'Categoria': undefined,
+          'Marca': undefined,
+          'Modelo': undefined,
+          'Detalles': undefined,
+          'Descripcion': undefined,
+          'Palabras Clave': undefined,
+          'Talla': undefined,
+          'Color': undefined,
+          'hexColourCodePDP': undefined,
+          'hexColourName': undefined,
+          'Alto del empaque': undefined,
+          'Largo del empaque': undefined,
+          'Ancho del empaque': undefined,
+          'Peso del empaque': undefined,
+          'skuShippingsize': undefined,
+          'Alto del producto': undefined,
+          'Largo del producto': undefined,
+          'Ancho del producto': undefined,
+          'Peso del producto': undefined,
+          'Descripcion Unidad de Medida': undefined,
+          'Factor de conversion': undefined,
+          'TipoProducto': undefined,
+          'URL de Imagen 1': undefined,
+          'URL de Imagen 2': undefined,
+          'URL de Imagen 3': undefined,
+          'URL de Imagen 4': undefined,
+          'URL de Imagen 5': undefined,
+          'Logistica Exito': undefined,
+        },
+        this.modelSpecs
+        ];
+      } else {
+        productos = [{
+          'Combo EAN Group': undefined,
+          'EAN': undefined,
+          'Child reference': undefined,
+          'Parent reference': undefined,
+          'Product Name': undefined,
+          'Category': undefined,
+          'Brand': undefined,
+          'Model': undefined,
+          'Product Details': undefined,
+          'Description': undefined,
+          'Keywords': undefined,
+          'Size': undefined,
+          'Color': undefined,
+          'hexColourCodePDP': undefined,
+          'hexColourName': undefined,
+          'Package Height': undefined,
+          'Package Length': undefined,
+          'Package Width': undefined,
+          'Package Weight': undefined,
+          'skuShippingsize': undefined,
+          'Item Height': undefined,
+          'Item Length': undefined,
+          'Item Width': undefined,
+          'Item Weight': undefined,
+          'Measuring Unit': undefined,
+          'Conversion Factor': undefined,
+          'ProductType': undefined,
+          'Image URL 1': undefined,
+          'Image URL 2': undefined,
+          'Image URL 3': undefined,
+          'Image URL 4': undefined,
+          'Image URL 5': undefined,
+          'Exito Logistics': undefined,
+        },
+        this.modelSpecs
+        ];
+      }
+    }
+    return productos;
+  }
+
+
+
+
 
   /* Lista por marcas activas */
   listOfCategories() {
@@ -2358,6 +2543,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   listOfSize(size?: any) {
     const sizeArray = JSON.parse(size.body);
+    this.copySizeArray = sizeArray;
     sizeArray.forEach((element, i) => {
       this.size[i] = { Talla: element.Size };
     });
@@ -2368,42 +2554,62 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Generación del arbol VTEX
    */
   trasformTree() {
-    // Copia el Listado del insumo
-    const arrayTree = [...VtexTree.VTEX_TREE];
-    // Agrega los atributos SON y SHOW a cada elemento
-    const vtexTree: any[] = arrayTree.map((element: any) => {
-      element.Son = [];
-      element.Show = false;
-      return element;
+    this.BulkLoadProductS.getVtexTree().subscribe((result: any) => {
+      // Copia el Listado del insumo
+      const arrayTree = [...VtexTree.VTEX_TREE];
+      if (result && result.body) {
+        // Agrega los atributos SON y SHOW a cada elemento
+        const vtexTree: any[] = result.body.map((element: any) => {
+          element.Son = [];
+          element.Show = false;
+          return element;
+        });
+        let lastFirst: number, lastSecond = -1;
+        // transforma la lista de categorias VTEX a un arreglo de árboles
+        this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
+            lastFirst = i;
+            previous.push(current);
+          }
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
+            lastSecond = i;
+            if (lastFirst >= 0) {
+              vtexTree[lastFirst].Son.push(current);
+            }
+          }
+          if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
+            if (lastSecond >= 0) {
+              vtexTree[lastSecond].Son.push(current);
+            }
+          }
+          return previous;
+        }, []);
+      } else {
+        this.languageService.instant('public.auth.forgot.error_try_again');
+      }
+      this.isLoad = false;
     });
-    // tslint:disable-next-line:no-inferrable-types
-    let lastFirst: number, lastSecond: number = -1;
-    // transforma la lista de categorias VTEX a un arreglo de árboles
-    this.vtextree = vtexTree.reduce((previous: any[], current: any, i: number) => {
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 1') {
-        lastFirst = i;
-        previous.push(current);
-      }
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 2') {
-        lastSecond = i;
-        if (lastFirst >= 0) {
-          vtexTree[lastFirst].Son.push(current);
-        }
-      }
-      if (!!current && !!current.TipodeObjeto && current.TipodeObjeto === 'Nivel 3') {
-        if (lastSecond >= 0) {
-          vtexTree[lastSecond].Son.push(current);
-        }
-      }
-      return previous;
-    }, []);
+  }
 
+  /**
+   * Metodo para escuchar el evento del lenguaje para poder armar el arbol de categoria de vtex
+   * @memberof BulkLoadProductComponent
+   */
+  public refreshVtexTree() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.isLoad = true;
+      this.vtextree = [];
+      this.trasformTree();
+      this.prepareComponent();
+    });
   }
 
   /**
    * Abre la modal para seleccionar una categoría
    */
   openModalVtexTree() {
+    // this.loadingService.viewSpinner();
     const dataDialog = this.configDataDialog();
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       width: '70%',
@@ -2430,13 +2636,16 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * Selecciona una categoría de producto para descargar el archivo de carga con los campos correspondientes
    */
   configDataDialog() {
-    const title = 'Árbol de categorías';
+    let title = '';
+    this.languageService.stream('secure.parametize.category.categories.subtitle').subscribe(val => {
+      title = val;
+    });
     const message = null;
     const icon = null;
     const form = this.categoryForm;
     const messageCenter = false;
     const showButtons = true;
-    const btnConfirmationText = 'Descargar';
+    const btnConfirmationText = this.languageService.instant('actions.download');
     return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
@@ -2451,7 +2660,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.categoryForm.patchValue(element);
       // Aca se debe lanzar la petición para consultar el grupo de especificaciones
       this.loadingService.viewSpinner();
-      this.BulkLoadProductS.getCategoriesVTEX(element.Name).subscribe(resp => {
+      this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
         this.loadingService.closeSpinner();
         this.vetex = resp;
         this.listOfCategories();

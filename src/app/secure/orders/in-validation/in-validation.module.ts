@@ -10,6 +10,7 @@ import { InValidationModalComponent } from './in-validation-modal/in-validation-
 import { InValidationComponent } from './in-validation-page/in-validation.component';
 import { InValidationRoutingModule } from './in-validation.routing';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
         InValidationRoutingModule,
         SharedModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ToolbarOptionsModule
     ],
     declarations: [
         InValidationComponent,

@@ -41,6 +41,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DialogProfileComponent } from './dialog/profile-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { CommonModule } from '@angular/common';
         MatRadioModule,
         ReactiveFormsModule,
         MatSelectModule,
-        MatDividerModule
+        MatDividerModule,
+        SharedModule
     ],
     declarations: [
         ProfileComponent,

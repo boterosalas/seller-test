@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
 import { of } from 'rxjs';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { isUndefined } from 'util';
+
 
 
 /**
@@ -51,6 +54,8 @@ export interface ProductModel {
     ImageUrl5: string;
     MetaTitle: string;
     MetaDescription: string;
+    IsCombo: boolean;
+    EanCombo: any;
 }
 
 /**
@@ -111,6 +116,8 @@ export class ProcessService {
         ]
     }];
 
+    idCategory: any;
+
 
 
     /**
@@ -158,7 +165,9 @@ export class ProcessService {
         ImageUrl4: null,
         ImageUrl5: null,
         MetaTitle: null,
-        MetaDescription: null
+        MetaDescription: null,
+        IsCombo: null,
+        EanCombo: null
     };
 
     /**
@@ -167,7 +176,7 @@ export class ProcessService {
      * @memberof ProcessService
      */
     views = {
-        showEan: true,
+        showEan: false,
         showCat: false,
         showInfo: true,
         showSpec: true,
@@ -182,15 +191,20 @@ export class ProcessService {
      */
     @Output() change: EventEmitter<any> = new EventEmitter();
     @Output() specsByCategory: EventEmitter<any> = new EventEmitter();
+    @Output() isLoad: EventEmitter<any> = new EventEmitter();
 
     /**
      * Crea una instancia del servicio.
      * @param {HttpClient} http
      * @memberof ProcessService
      */
-    constructor(private http: HttpClient,
-        private api: EndpointService) {
+    constructor(
+        private http: HttpClient,
+        private api: EndpointService,
+        private languageService: TranslateService
+        ) {
         this.productData.AssignEan = false;
+        this.refreshSpecifications();
     }
 
     /**
@@ -221,13 +235,22 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getSpecsByCategories(idCategory: string): void {
+        this.idCategory = idCategory;
         this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
-            if (data) {
+            // if (data) {
                 this.specsByCategory.emit(data);
-            }
+            // }
         }, error => {
             console.error(error);
         });
+    }
+
+    public refreshSpecifications () {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            this.isLoad.emit(true);
+            localStorage.setItem('culture_current', e['lang']);
+            this.getSpecsByCategories(this.idCategory);
+          });
     }
 
     /**
@@ -294,6 +317,16 @@ export class ProcessService {
                 this.productData.Children[i].ImageUrl4 = data.children_image_url_arrray[i][3];
                 this.productData.Children[i].ImageUrl5 = data.children_image_url_arrray[i][4];
             }
+        }
+        if (!isUndefined(data.IsCombo)) {
+            this.productData.IsCombo = data.IsCombo;
+            if (data.IsCombo === false) {
+                this.productData.EanCombo = null;
+            }
+        }
+
+        if (data.EanCombo && data.EanCombo.length > 0) {
+            this.productData.EanCombo = data.EanCombo.join();
         }
         this.change.emit(this.views);
     }
@@ -398,7 +431,9 @@ export class ProcessService {
             ImageUrl4: null,
             ImageUrl5: null,
             MetaTitle: null,
-            MetaDescription: null
+            MetaDescription: null,
+            IsCombo: null,
+            EanCombo: null
         };
         this.views.showCat = false;
     }

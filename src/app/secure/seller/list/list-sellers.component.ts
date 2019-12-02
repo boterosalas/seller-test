@@ -14,6 +14,7 @@ import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionali
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface ListFilterSeller {
     name: string;
@@ -72,8 +73,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
     @ViewChild('sidenav') sidenav: MatSidenav;
     nameSellerListFilter: any;
 
-    // Variables con los permisos que este componente posee
-    permissionComponent: MenuModel;
     read = readFunctionality;
     visualize = visualizeFunctionality;
     enable = enableFunctionality;
@@ -85,6 +84,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
     canVisualize: boolean;
     canPutInVacation: boolean;
     canCancelVacation: boolean;
+    canRead: boolean;
     enableEndVacation: boolean;
     endvacationStart: any;
     today = DateService.getToday();
@@ -97,7 +97,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private dialog: MatDialog,
         public authService: AuthService,
-        private modalService: ModalService) {
+        private modalService: ModalService,
+        private languageService: TranslateService) {
     }
 
     get reason(): FormControl {
@@ -122,16 +123,16 @@ export class SellerListComponent implements OnInit, OnDestroy {
         !!drawer && drawer.classList.remove('mat-drawer-content');
         const drawerContainer = document.querySelector('.drawer-container.mat-drawer-container');
         !!drawerContainer && drawerContainer.classList.add('height_seller-list');
-        this.permissionComponent = this.authService.getMenu(sellerListName);
         this.loading.viewSpinner();
         this.getRequiredData();
         this.createFormControls();
         this.initStatusForm();
-        this.canDisabled = this.getFunctionality(this.disable);
-        this.canEnabled = this.getFunctionality(this.enable);
-        this.canVisualize = this.getFunctionality(this.visualize);
-        this.canPutInVacation = this.getFunctionality(this.vacation);
-        this.canCancelVacation = this.getFunctionality(this.cancelVacation);
+        this.canDisabled = this.authService.getPermissionForMenu(sellerListName, this.disable);
+        this.canEnabled = this.authService.getPermissionForMenu(sellerListName, this.enable);
+        this.canVisualize = this.authService.getPermissionForMenu(sellerListName,this.visualize);
+        this.canPutInVacation = this.authService.getPermissionForMenu(sellerListName,this.vacation);
+        this.canCancelVacation = this.authService.getPermissionForMenu(sellerListName,this.cancelVacation);
+        this.canRead = this.authService.getPermissionForMenu(sellerListName,this.read);
     }
 
     /**
@@ -144,18 +145,6 @@ export class SellerListComponent implements OnInit, OnDestroy {
         this.subs.push(this.needFormStates$.subscribe(status => {
             !!status && this.putComplementDataInStatusForm(status);
         }));
-    }
-
-    /**
-     * Funcion que verifica si la funcion del modulo posee permisos
-     *
-     * @param {string} functionality
-     * @returns {boolean}
-     * @memberof ToolbarComponent
-     */
-    public getFunctionality(functionality: string): boolean {
-        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-        return permission && permission.ShowFunctionality;
     }
 
     /**
@@ -293,8 +282,8 @@ export class SellerListComponent implements OnInit, OnDestroy {
      * Metodo encargado de cambiar la data del dialogo para cancelar vacaciones
      */
     setDataCancelVacationsDialog() {
-        const message = '¿Estas seguro que deseas cancelar tu periodo de vacaciones? Si confirmas esta acción volverás a estado activo, si el periodo ya empezó deberás ofertar nuevamente todas tus ofertas';
-        const title = 'Cancelar vacaciones';
+        const message = this.languageService.instant('secure.seller.list.cancel_message_modal');
+        const title = this.languageService.instant('secure.seller.list.cancel_title_modal');
         const icon = 'local_airport';
         const form = null;
         const messageCenter = false;
@@ -380,19 +369,19 @@ export class SellerListComponent implements OnInit, OnDestroy {
         const showButtons = true;
         const btnConfirmationText = null;
         if (status === 'enabled' && sellerData.Status !== 'Enable' && this.canEnabled) {
-            message = '¿Estas seguro que deseas activar este vendedor?';
+            message = this.languageService.instant('secure.seller.list.enabled_message_modal');
             icon = null;
-            title = 'Activación';
+            title = this.languageService.instant('secure.seller.list.enabled_title_modal');
             messageCenter = true;
             this.needFormStates$.next({ posSeller: index, status: 'enabled' });
         } else if (status === 'disabled' && sellerData.Status !== 'Disable' && this.canDisabled) {
-            message = 'Para desactivar este vendedor debes ingresar un motivo y una observación que describan al vendedor la razón por la cual su tienda está siendo desactivada. Una vez ingresados podrás dar clic al botón ACEPTAR.';
+            message = this.languageService.instant('secure.seller.list.disabled_message_modal');
             icon = null;
-            title = 'Desactivación';
+            title = this.languageService.instant('secure.seller.list.disabled_title_modal');
             this.needFormStates$.next({ posSeller: index, status: status.toString() });
         } else if (status === 'vacation' && sellerData.Status !== 'Disable' && this.canPutInVacation) {
-            title = 'Vacaciones';
-            message = 'Para programar la tienda en estado de vacaciones, debes ingresar una fecha inicial, una fecha final para el periodo y dar clic al botón PROGRAMAR. Los efectos solo tendrán lugar una vez empiece la fecha programada. Recuerda ofertar nuevamente una vez el periodo se haya cumplido, de lo contrario tus ofertas no se verán en los sitios.';
+            title = this.languageService.instant('secure.seller.list.vacation_title_modal');
+            message = this.languageService.instant('secure.seller.list.vacation_message_modal');
             icon = 'local_airport';
             this.needFormStates$.next({ posSeller: index, status: status.toString() });
             if (this.sellerList[index].StartVacations && this.sellerList[index].EndVacations) {

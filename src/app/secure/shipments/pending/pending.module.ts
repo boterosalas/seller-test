@@ -6,13 +6,15 @@ import { ShipmentsService } from '../shipments.service';
 import { PendingComponent } from './pending-page/pending.component';
 import { PendingRoutinModule } from './pending.routing';
 import { PendingService } from './pending.service';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        PendingRoutinModule
+        PendingRoutinModule,
+        ToolbarOptionsModule
     ],
     declarations: [
         PendingComponent

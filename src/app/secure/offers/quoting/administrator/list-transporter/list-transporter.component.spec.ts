@@ -18,6 +18,10 @@ import { CreateDialogComponent } from '../dialogs/create/create-dialog.component
 import { ShippingMethodsService } from '../shipping-methods/shipping-methods.service';
 import { TransportModel } from '../dialogs/models/transport.model';
 import { ShippingMethodsModel } from '../shipping-methods/shipping-methods.model';
+import { SharedModule } from '@app/shared/shared.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ListTransporterComponent', () => {
 
@@ -108,8 +112,11 @@ describe('ListTransporterComponent', () => {
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
-                FormsModule
-            ]
+                FormsModule,
+                SharedModule,
+                HttpClientTestingModule
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 

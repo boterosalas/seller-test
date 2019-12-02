@@ -1,7 +1,7 @@
 <div class="content-modal">
   <div class="title-page">
-    <h2 class="sc-title mat-h2">Ingresar observación</h2>
-    <a id="close-finish-send-order" matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+    <h2 class="sc-title mat-h2">{{'secure.orders.in_devolution.action_report_novelty.title' | translate}}</h2>
+    <a id="close-finish-send-order" [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>
@@ -9,7 +9,8 @@
     <mat-dialog-content class="full-width">
 
       <mat-form-field class="full-width">
-        <mat-select required formControlName="reason" placeholder="Motivo del rechazo">
+        <mat-select required formControlName="reason"
+          [placeholder]="'secure.orders.in_devolution.action_report_novelty.title' | translate">
           <mat-option *ngFor="let reasonReject of reasonRejection" [value]="reasonReject.idMotivoSolicitudReversion">
             {{ reasonReject.nombreMotivoSolicitudReversion }}
           </mat-option>
@@ -17,7 +18,8 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <textarea formControlName="observation" matInput placeholder="Observación"></textarea>
+        <textarea formControlName="observation" matInput
+          [placeholder]="'secure.seller.list.observation' | translate"></textarea>
       </mat-form-field>
 
     </mat-dialog-content>
@@ -26,10 +28,10 @@
 
       <button class="sc-button" (click)="clearForm()" mat-button>
         <mat-icon>clear_all</mat-icon>
-        Limpiar
+        {{'filters.clear' | translate}}
       </button>
       <button class="sc-button" [disabled]="!f.form.valid" (click)="refuseOrder(myform)" type="submit" mat-raised-button
-              color="primary">Enviar
+        color="primary">{{'actions.send' | translate}}
       </button>
     </mat-dialog-actions>
   </form>

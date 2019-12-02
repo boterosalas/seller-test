@@ -9,6 +9,7 @@ import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 // log component
@@ -48,6 +49,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     private route: Router,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
+    private languageService: TranslateService,
     private fb: FormBuilder) {
   }
 
@@ -158,13 +160,13 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
           this.toggleMenu();
         } else {
-          this.componentsService.openSnackBar('No se han encontrado órdenes.', 'Cerrar', 3000);
+          this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
         }
       }, err => {
-        this.componentsService.openSnackBar('Se ha presentado un error al consultar las órdenes.', 'Cerrar', 3000);
+        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
       });
     } else {
-      this.componentsService.openSnackBar('No se ha indicado ningún criterio de búsqueda.', 'Cerrar', 3000);
+      this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 5000);
     }
   }
 

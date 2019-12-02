@@ -5,48 +5,48 @@
 <mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
   <mat-step [stepControl]="eanFormGroup">
     <form [formGroup]="eanFormGroup">
-      <ng-template matStepLabel>EAN</ng-template>
+      <ng-template matStepLabel>{{'shared.ean' | translate}}</ng-template>
       <app-validate-ean></app-validate-ean>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="categoryFormGroup">
     <form [formGroup]="categoryFormGroup">
-      <ng-template matStepLabel>Categorizaci&oacute;n</ng-template>
+      <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.categorization' | translate}}</ng-template>
       <app-search-categorization></app-search-categorization>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
+        <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="basicInfoFormGroup">
     <form [formGroup]="basicInfoFormGroup">
-      <ng-template matStepLabel>Informaci&oacute;n b&aacute;sica</ng-template>
+      <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.basic_information' | translate}}</ng-template>
       <app-basic-information></app-basic-information>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="especificFormGroup">
     <form [formGroup]="especificFormGroup">
-      <ng-template matStepLabel>Especificaciones</ng-template>
+      <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.specifications' | translate}}</ng-template>
       <app-specification-product></app-specification-product>
       <div class="buttonProcess">
-        <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-        <button mat-button matStepperNext class="buttonProcessContinuar">Continuar</button>
+        <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
+        <button mat-button matStepperNext class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="imageFormGroup">
     <form [formGroup]="imageFormGroup">
-      <ng-template matStepLabel>Im&aacute;genes</ng-template>
+      <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
       <app-assign-images [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
-          <button mat-button matStepperPrevious class="buttonProcessAtras">Atrás</button>
-          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">Guardar</button>
+          <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
+          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
         </div>
     </form>
   </mat-step>

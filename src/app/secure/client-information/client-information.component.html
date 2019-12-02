@@ -1,7 +1,7 @@
 <div class="client-information-container" fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
   <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
     <div class="content-information-client">
-      <p class="client-information n-margin ">Cliente</p>
+      <p class="client-information n-margin ">{{'secure.client_information.client' | translate}}</p>
       <p class="client-data n-margin ">{{order.clientName}}
         <br> {{order.identificationCard}}
       </p>
@@ -9,13 +9,13 @@
   </div>
   <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
     <div class="content-information-client">
-      <p class="client-information n-margin">Dirección</p>
+      <p class="client-information n-margin">{{'secure.client_information.address' | translate}}</p>
       <p class="client-data n-margin">{{order.clientAddress}}
     </div>
   </div>
   <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
     <div class="content-information-client">
-      <p class="client-information n-margin ">Tel&eacute;fono</p>
+      <p class="client-information n-margin ">{{'secure.client_information.phone' | translate}}</p>
       <p class="client-data n-margin">{{order.clientTelephone}}</p>
     </div>
   </div>

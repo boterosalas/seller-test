@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SelectionModel } from '@angular/cdk/collections';
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, } from '@app/core';
@@ -19,6 +19,8 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import * as _ from 'lodash';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -81,9 +83,31 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   stateToListOrders: CategoryList;
   // Variable que contiene la categoría por defecto que se empleara en la consulta inicial
   currentCategory: any = {
-    name: 'Todas las órdenes',
+    name: 'secure.orders.order_list.order_page.all_orders',
     id: ''
   };
+
+
+
+
+
+  public idSeller = '';
+  public event: any;
+  public paginationToken = '{}';
+  public params: any;
+  public onlyOne = true;
+  public onlyOneCall = true;
+  public call = true;
+  public positionPagination: any;
+  public arrayPosition = [];
+  public listOrdens: any;
+
+
+  public length = 0;
+  public pageSize = 50;
+  public querySearch = '';
+
+
 
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
@@ -99,11 +123,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   attachmentPermission: boolean;
   marketPermission: boolean;
   visualizePermission: boolean;
-  showMenssage= false;
+  showMenssage = false;
+  isClear = false;
+  pageIndexChange = 0;
 
-  profile: number;
-  idSeller: number;
-  event: any;
+
   typeProfile: number;
   // Fin de variables de permisos.
 
@@ -121,19 +145,22 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentRootPage: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
+
+
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
-    subtitle: `${this.currentCategory.name} ${this.numberElements}`,
-    btn_title: 'Consultar órdenes',
-    title_for_search: 'Consultar órdenes',
+    title: 'secure.orders.orders',
+    subtitle: '',
+    btn_title: 'secure.orders.filter.title',
+    title_for_search: 'secure.orders.filter.title',
     type_form: 'orders',
-    information: new InformationToForm
+    information: new InformationToForm,
+    count: this.numberElements.toString()
   };
 
   public cognitoId: String;
   public numberLength: number;
-  public lastCategory: number;
+  public lastState: number;
   private searchSubscription: any;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
@@ -153,6 +180,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public cognito: CognitoUtil,
     public userParams: UserParametersService,
     public authService: AuthService,
+    private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
   ) { }
 
@@ -164,9 +192,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.getMenuSelected();
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.idSeller = seller.IdSeller;
-      if (this.event) {
-        this.getOrdersList(this.event);
-      }
+      const paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'callOne': true
+      };
+      this.getOrdersList(paramsArray);
+
     });
   }
 
@@ -202,15 +235,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   async getDataUser(nameMenu: string) {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
-      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 0);
+      this.permissionComponent = this.authService.getMenuProfiel(nameMenu, 0);
       this.setPermission(0);
     } else {
-      this.permissionComponent =  this.authService.getMenuProfiel(nameMenu, 1);
+      this.permissionComponent = this.authService.getMenuProfiel(nameMenu, 1);
       this.setPermission(1);
     }
   }
-
-   setPermission(typeProfile: number) {
+  /**
+   * Funcion para obtener los permisos del componente
+   * @param {number} typeProfile
+   * @memberof OrdersListComponent
+   */
+  setPermission(typeProfile: number) {
     // Permisos del componente.
     this.typeProfile = typeProfile;
     this.readPermission = this.getFunctionality(this.read);
@@ -263,32 +300,46 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        if (data != null) {
-          if (data.length === 0) {
-            this.orderListLength = true;
-          } else {
-            this.orderListLength = false;
+        if (data && data.count > 0) {
+          if (data != null) {
+            if (data && data && data.viewModel && data.viewModel.length === 0) {
+              this.orderListLength = true;
+            } else {
+              this.orderListLength = false;
+            }
+            if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
+              this.numberElements = this.dataSource.data.length;
+            } else {
+              this.numberElements = 0;
+            }
+            this.length = data.count;
+            this.isClear = true;
+            this.dataSource = new MatTableDataSource(data.viewModel);
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.setTitleToolbar();
           }
-
-          /* this.currentCategory.name = 'órdenes encontradas'; */
-
-          this.dataSource = new MatTableDataSource(data);
-
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-
-          this.setTitleToolbar();
         }
       });
   }
-
+  /**
+   * limpia la tabla
+   *
+   * @memberof OrdersListComponent
+   */
   clearData() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
-        this.getOrdersList(this.event);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'idSeller': this.idSeller,
+          'state': this.lastState,
+          'callOne': true
+        };
+        this.isClear = true;
+        this.getOrdersList(paramsArray);
       });
   }
 
@@ -339,7 +390,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getAllOrderList() {
-    this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    // this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
   }
 
   /**
@@ -353,7 +404,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   /**
    * Método para cambiar el page size de la tabla órdenes
-   * @param {any} pageSize
    * @memberof OrdersListComponent
    */
   changeSizeOrderTable($event: any) {
@@ -374,7 +424,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     } else {
       this.currentCategory = {
-        name: 'Todas las órdenes',
+        // name: 'Todas las órdenes',
+        name: 'secure.orders.order_list.order_page.all_orders',
         id: ''
       };
     }
@@ -387,40 +438,127 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @param {any} [state]
    * @memberof OrdersListComponent
    */
-  getOrdersList($event: any) {
-    this.event = $event ;
-    this.setCategoryName();
+  getOrdersList(params?: any) {
     this.loadingService.viewSpinner();
-    if ($event !== undefined) {
-      if ($event.lengthOrder > 0) {
-        let category = null;
-        if ($event.lengthOrder === this.numberLength || !this.numberLength || $event.category) {
-          this.numberLength = $event.lengthOrder;
-          if ($event.category !== '') {
-            category = $event.category;
-            this.lastCategory = category;
-          }
-        } else {
-          category = this.lastCategory;
-        }
-        this.currentEventPaginate = $event;
-        this.orderService.getOrderList(category, $event.lengthOrder, this.idSeller).subscribe((res: any) => {
-          this.addCheckOptionInProduct(res, $event.paginator);
-          if (res && res.length === 0 && this.idSeller) {
-            this.showMenssage = true;
-          }
-          this.loadingService.closeSpinner();
-        }, err => {
-          this.orderListLength = true;
-          this.componentService.openSnackBar('Se ha presentado un error al consultar la lista de órdenes', 'Cerrar', 10000);
-          log.error('Se ha presentado un error al consultar la lista de órdenes', err);
-        });
-      } else {
-        this.componentService.openSnackBar('Indique un limite de registros', 'Cerrar', 1000);
+    this.isClear = false;
+    this.params = this.setParameters(params);
+    let stateCurrent = null;
+    this.setCategoryName();
+    this.orderService.getOrderList(this.params).subscribe((res: any) => {
+      if (params.state !== '') {
+        stateCurrent = params.state;
+        this.lastState = stateCurrent;
+      }
+      this.setTable(res);
+      if (params && params.callOne) {
+        this.length = res.count;
+        this.isClear = true;
+      }
+      const paginator = { 'pageIndex': 0 };
+      this.addCheckOptionInProduct(res.viewModel, paginator);
+      this.loadingService.closeSpinner();
+    });
+  }
+
+  setParameters(params: any) {
+    if (params && params.callOne) {
+      this.paginationToken = '{}';
+      this.arrayPosition = [];
+    }
+    const paramsArray = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
+      'idSeller': this.idSeller,
+      'state': params.state
+    };
+    return paramsArray;
+  }
+
+  /**
+   * funcion para resetear la data 
+   *
+   * @param {*} res
+   * @memberof OrdersListComponent
+   */
+  setTable(res: any) {
+    if (res) {
+      if (this.onlyOne) {
+        this.length = res.count;
+        this.arrayPosition = [];
+        this.arrayPosition.push('{}');
+      }
+
+      // if (res.paginationTokens.length > 0) {
+      //   this.arrayPosition = [];
+      //   this.arrayPosition = res.paginationTokens;
+      // }
+      this.dataSource = new MatTableDataSource(res.viewModel);
+      this.savePaginationToken(res.paginationToken);
+    } else {
+      this.clearTable();
+    }
+    this.onlyOne = false;
+  }
+  /**
+   * funcion para salvar el token de la paginacion
+   *
+   * @param {string} paginationToken
+   * @memberof OrdersListComponent
+   */
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
+  }
+  /**
+   * limpiar el contador de la tabla
+   *
+   * @memberof OrdersListComponent
+   */
+  clearTable() {
+    this.length = 0;
+  }
+  /**
+   * funcion que escucha el cambio de paginacion y el rango de busqueda
+   *
+   * @param {*} event
+   * @memberof OrdersListComponent
+   */
+  paginations(event: any) {
+    const index = event.param.pageIndex;
+    if (event.param.pageSize !== this.pageSize) {
+      this.pageSize = event.param.pageSize;
+      if (this.arrayPosition && this.arrayPosition.length > 0) {
+        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
+        // this.pageIndexChange = this.arrayPosition.length - 1;
+        this.arrayPosition = [];
+        this.isClear = true;
       }
     } else {
-      this.componentService.openSnackBar('Indique un limite de registros', 'Cerrar', 1000);
+      this.querySearch = '';
     }
+    if (index === 0) {
+      this.paginationToken = '{}';
+    }
+    const isExistInitial = this.arrayPosition.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayPosition.push('{}');
+    }
+    const isExist = this.arrayPosition.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayPosition.push(this.paginationToken);
+    }
+
+    this.paginationToken = this.arrayPosition[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+      this.isClear = true;
+    }
+    const params = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+      'state': this.lastState
+    };
+    this.getOrdersList(params);
   }
 
   /**
@@ -454,27 +592,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     }
 
     // Creo el elemento que permite pintar la tabla
-    this.currentOrderList = res;
-    this.dataSource = new MatTableDataSource(res);
-    paginator.pageIndex = 0;
-    this.dataSource.paginator = paginator;
-    this.dataSource.sort = this.sort;
-    this.numberElements = this.dataSource.data.length;
+    // this.currentOrderList = res;
+    // // this.dataSource = new MatTableDataSource(res.viewModel);
+    // // paginator.pageIndex = 0;
+    // this.dataSource.paginator = paginator;
+    // this.dataSource.sort = this.sort;
+    // this.numberElements = this.dataSource.data.length;
 
     this.setTitleToolbar();
-  }
-
-  /**
-   * Funcionalidad para poder filtrar los datos de la tabla
-   * @param {string} filterValue
-   * @memberof OrdersListComponent
-   */
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    //  Remove whitespace
-    filterValue = filterValue.toLowerCase();
-    //  Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
   }
 
   /**
@@ -511,9 +636,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
     if (numberElements === 0) {
-      log.info('La orden ya no posee mas productos para ser enviados');
+      const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_more_products');
+      log.info(message);
     } else {
-      log.info('Total del productos a ser enviados en la orden', numberElements);
+      const message = this.languageService.instant('secure.orders.order_list.order_page.info_total_products');
+      log.info(message, numberElements);
     }
     return numberElements;
   }
@@ -524,8 +651,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   openDialogSendOrder(item: any): void {
+    const closeSnack = this.languageService.instant('actions.close');
     if (this.getLengthProductForSend(item) === 0) {
-      this.componentService.openSnackBar('La orden seleccionada no posee productos para ser enviados.', 'Cerrar', 3000);
+      const message = this.languageService.instant('secure.orders.order_list.order_page.no_pending_products');
+      this.componentService.openSnackBar(message, closeSnack, 3000);
     } else {
       this.loadingService.viewProgressBar();
       const dialogRef = this.dialog.open(SendOrderComponent, {
@@ -551,7 +680,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           // this.dataSource = new MatTableDataSource(JSON.parse(data));
           this.dataSource._updateChangeSubscription();
         } else {
-          log.info('No se han enviado productos de la orden');
+          const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
+          log.info(message);
         }
         this.loadingService.closeProgressBar();
       });
@@ -582,6 +712,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
+
+    const closeSnack = this.languageService.instant('actions.close');
     if (currentValue === true) {
       currentValue = false;
     } else {
@@ -603,10 +735,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.dataSource.data[index].processedOrder = currentValue;
 
           if (currentValue) {
-            this.componentService.openSnackBar('Se ha marcado la orden correctamente', 'Cerrar', 10000);
+            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_mark');
+            this.componentService.openSnackBar(message, closeSnack, 10000);
 
           } else {
-            this.componentService.openSnackBar('Se ha removido la marca de la orden correctamente', 'Cerrar', 10000);
+            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_remove_mark');
+            this.componentService.openSnackBar(message, closeSnack, 10000);
           }
         }
       });
@@ -617,7 +751,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   setTitleToolbar() {
-    this.informationToForm.subtitle = `${this.currentCategory.name} ${this.numberElements}`;
+    this.informationToForm.subtitle = `${this.currentCategory.name}`;
   }
 
   /**
@@ -630,10 +764,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public getDateWithOutGMT(date: any): any {
     const timezone = new Date().getTimezoneOffset();
     const time = new Date(date).getTime(); // new Date('2019-02-03T00:42:06.177+00:00').getTime();
-    return new Date( time + (timezone * 60 * 1000) );
+    return new Date(time + (timezone * 60 * 1000));
   }
 
-
+  /**
+   * funcion para destruir las subcripciones abiertas
+   *
+   * @memberof OrdersListComponent
+   */
   ngOnDestroy() {
     if (this.subStateOrder !== undefined) {
       this.subStateOrder.unsubscribe();

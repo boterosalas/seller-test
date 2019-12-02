@@ -4,48 +4,53 @@
     class="flexbox flex-wrap justify-center">
 
     <article class="flexbox align-center justify-between">
-      <span [innerHTML]="'Filtro ofertas'"></span>
-      <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
-        mat-icon-button mat-button (click)="toggleMenu()">
+      <span>{{'secure.offers.list.components.filter.title_filter_offer' | translate}}</span>
+      <button id="closeMenuApplication" type="button" color="primary"
+        [matTooltip]="'secure.offers.historical_admin.components.filter.tooltip_close' | translate"
+        matTooltipPosition="below" mat-icon-button mat-button (click)="toggleMenu()">
         <mat-icon>clear</mat-icon>
       </button>
     </article>
 
     <mat-form-field color="primary">
-      <input matInput placeholder="Producto" formControlName="product" [errorStateMatcher]="matcher">
+      <input matInput [placeholder]="'secure.offers.list.components.filter.placeholder_products' | translate"
+        formControlName="product" [errorStateMatcher]="matcher">
       <mat-hint></mat-hint>
-      <mat-error *ngIf="filterForm.get('product').hasError('pattern')" [innerHTML]="'Producto invalido'"></mat-error>
+      <mat-error *ngIf="filterForm.get('product').hasError('pattern')">{{'errors.error_product' | translate}}
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="EAN" formControlName="ean" [errorStateMatcher]="matcher">
+      <input matInput [placeholder]="'secure.offers.historical_admin.components.filter.EAN' | translate"
+        formControlName="ean" [errorStateMatcher]="matcher">
       <mat-hint></mat-hint>
-      <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
+      <mat-error *ngIf="filterForm.get('ean').hasError('pattern')">{{'errors.invalid_EAN' | translate}}</mat-error>
     </mat-form-field>
-
     <!-- Campo nuevo PLU -->
     <mat-form-field>
       <input matInput (keypress)="onlyNumber($event)"
-        placeholder="PLU" formControlName="pluVtex"
+        [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="pluVtex"
         [errorStateMatcher]="matcher">
       <mat-hint></mat-hint>
-      <mat-error *ngIf="filterForm.get('pluVtex').hasError('pattern')">PLU inválido</mat-error>
+      <mat-error *ngIf="filterForm.get('pluVtex').hasError('pattern')">{{'errors.invalid_plu' | translate}}</mat-error>
     </mat-form-field>
 
     <article class="container-radio-buttons flexbox align-center justify-between">
       <div class="inputGroup flexbox align-center justify-center">
         <input id="stock-sold-out" name="stock" type="radio" value="0" formControlName="stock" />
-        <label class="flexbox align-center" for="stock-sold-out" [innerHTML]="'Agotado'"></label>
+        <label class="flexbox align-center"
+          for="stock-sold-out">{{'secure.offers.list.list.with_out_stock' | translate}}</label>
       </div>
       <div class="inputGroup flexbox align-center justify-center">
         <input id="stock" name="stock" type="radio" value="1" formControlName="stock" />
-        <label class="flexbox align-center" for="stock" [innerHTML]="'Con inventario'"></label>
+        <label class="flexbox align-center" for="stock">{{'secure.offers.list.list.with_stock' | translate}}</label>
       </div>
     </article>
 
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset" [innerHTML]="'Limpiar'"></button>
-      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'"
-        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value)"></button>
+      <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()"
+        [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]"
+        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value)">{{'filters.filter' | translate}}</button>
     </article>
 
   </form>

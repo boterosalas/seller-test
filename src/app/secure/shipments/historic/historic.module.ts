@@ -6,13 +6,15 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ShipmentsService } from '../shipments.service';
 import { HistoricComponent } from './historic-page/historic.component';
 import { HistoricRoutingModule } from './historic.routing';
+import { ToolbarOptionsModule } from '@app/shared/components';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    HistoricRoutingModule
+    HistoricRoutingModule,
+    ToolbarOptionsModule
   ],
   declarations: [
     HistoricComponent

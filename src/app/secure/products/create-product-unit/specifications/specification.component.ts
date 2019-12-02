@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { Logger } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
 import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -25,6 +26,7 @@ export class SpecificationProductComponent implements OnInit {
     specificationModel = new SpecificationModel(null, null, null);
     specsForm: FormControl;
     changeForm = false;
+    isLoad = false;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -34,7 +36,8 @@ export class SpecificationProductComponent implements OnInit {
     constructor(
         private specificationService: SpecificationService,
         public dialog: MatDialog,
-        public processService: ProcessService) { }
+        public processService: ProcessService,
+        private languageService: TranslateService) { }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
@@ -43,14 +46,22 @@ export class SpecificationProductComponent implements OnInit {
      */
     ngOnInit() {
         this.specsForm = new FormControl();
-        if (this.processService.specsByCategory) {
-            this.processService.specsByCategory.subscribe(result => {
-                if (result && result.data) {
-                    this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
-                }
-                this.chargeList = true;
-            });
-        }
+        // if (this.processService.specsByCategory) {
+        this.processService.isLoad.subscribe(result => {
+            this.isLoad = result;
+        });
+        this.processService.specsByCategory.subscribe(result => {
+            if (result && result.data) {
+                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+            } else {
+                this.specificationsGroups = [];
+            }
+            this.isLoad = false;
+            this.chargeList = true;
+        });
+
+
+        // }
     }
 
     public validateObligatoryGroup(group: any): boolean {
@@ -85,7 +96,7 @@ export class SpecificationProductComponent implements OnInit {
             this.chargeList = true;
         }, error => {
             this.chargeList = false;
-            log.error('Error al intentar obtener las especificaciones');
+            log.error(this.languageService.instant('secure.products.create_product_unit.specifications.error_has_occured_uploading'));
         });
     }
 
@@ -112,8 +123,8 @@ export class SpecificationProductComponent implements OnInit {
         const cont = this.verifyExist(model, indexParent, indexSon);
         if (cont === null) {
             this.specificationListToAdd.push({
-                Name: model.Name,
-                Key: model.Name,
+                Name: model.Label,
+                Key: model.Label,
                 Value: model.Value,
                 ExistId: indexParent + '-' + indexSon
             });
@@ -139,13 +150,13 @@ export class SpecificationProductComponent implements OnInit {
                 const errors = Object.keys(form.controls['specs' + index].errors);
                 switch (errors[0]) {
                     case 'required':
-                        return 'Este campo es obligatorio.';
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.field_mandatory');
                         break;
                     case 'pattern':
-                        return 'Maximo 200 caracteres.';
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');
                         break;
                     default:
-                        return 'Error en el campo.';
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.error_field');
                 }
             }
         } catch (e) {

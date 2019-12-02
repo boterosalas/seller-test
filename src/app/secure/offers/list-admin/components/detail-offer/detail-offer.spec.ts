@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailOfferComponent } from './detail-offer.component';
 import { ListAdminService } from '../../list-admin.service';
 import { of } from 'rxjs';
-import { FormBuilder} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ListAdminComponent } from '../../list-admin/list-admin.component';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { LoadingService } from '../../../../../core/global/loading/loading.service';
@@ -21,16 +21,17 @@ import { DynamoDBService } from '../../../../../core/aws-cognito/ddb.service';
 import { CognitoUtil } from '../../../../../core/aws-cognito/cognito.service';
 import { EndpointService } from '../../../../../core/http/endpoint.service';
 import { UserParametersService } from '../../../../../core/aws-cognito/user-parameters.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 
-const detailOffer = {"total":188,"sellerOfferViewModels":[{"idSeller":11811,"ean":"4995795003717","imageUrl":"https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/319/PMK0000006147319/MK00000006147319_xl_a.jpg","price":"15000.00","discountPrice":"10000.00","name":"Yoyo de Carga 3 en 1 Magic - Rojo","stock":970,"lastUpdate":"2019-07-19T09:30:03.835503Z","idOffer":"636990898603920539","promiseDelivery":"2 a 5","shippingCost":"4000.00","warranty":20,"isFreeShipping":false,"isEnviosExito":false,"isFreightCalculator":false,"size":"","hexColourCodePDP":"","isLogisticsExito":false,"isUpdatedStock":true,"currency":"COP","availableToOffer":true,"isProcessed":true,"nit":"26327963","sku":"MK00000006147319"}]};
+const detailOffer = { "total": 188, "sellerOfferViewModels": [{ "idSeller": 11811, "ean": "4995795003717", "imageUrl": "https://s3.amazonaws.com/seller.center.exito.images/imagesDev/products/319/PMK0000006147319/MK00000006147319_xl_a.jpg", "price": "15000.00", "discountPrice": "10000.00", "name": "Yoyo de Carga 3 en 1 Magic - Rojo", "stock": 970, "lastUpdate": "2019-07-19T09:30:03.835503Z", "idOffer": "636990898603920539", "promiseDelivery": "2 a 5", "shippingCost": "4000.00", "warranty": 20, "isFreeShipping": false, "isEnviosExito": false, "isFreightCalculator": false, "size": "", "hexColourCodePDP": "", "isLogisticsExito": false, "isUpdatedStock": true, "currency": "COP", "availableToOffer": true, "isProcessed": true, "nit": "26327963", "sku": "MK00000006147319" }] };
 
-describe('Detail offer Component', () => {
+describe('Detail offer Component ADMIN', () => {
 
     const mockListService = jasmine.createSpyObj('ListAdminService', ['getListAdminOffers']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
-    
+
     const formBuilder: FormBuilder = new FormBuilder();
 
     // Create Variables for services and component
@@ -49,7 +50,8 @@ describe('Detail offer Component', () => {
                 ReactiveFormsModule,
                 FormsModule,
                 RouterTestingModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                TranslateModule.forRoot({})
             ],
             providers: [
                 { provide: ListAdminService, useValue: mockListService },
@@ -68,7 +70,7 @@ describe('Detail offer Component', () => {
                 UserParametersService
             ],
             schemas: [NO_ERRORS_SCHEMA]
-            
+
         }).compileComponents();
 
 
@@ -89,23 +91,23 @@ describe('Detail offer Component', () => {
         detailOfferComponent.list.inDetail = false;
         detailOfferComponent.goToListOffers();
         expect(detailOfferComponent.list.viewDetailOffer).toBeFalsy();
-        expect( detailOfferComponent.list.inDetail).toBeFalsy();
+        expect(detailOfferComponent.list.inDetail).toBeFalsy();
     });
 
-    it('press esc', () => {  
+    it('press esc', () => {
         const escapeEvent: any = document.createEvent('CustomEvent');
         escapeEvent.which = 27;
         escapeEvent.initEvent('keypress', true, true);
         document.dispatchEvent(escapeEvent);
-        detailOfferComponent.handleKeyboardEvent(escapeEvent); 
+        detailOfferComponent.handleKeyboardEvent(escapeEvent);
     });
-    
-    
+
+
 
     describe('List with data', () => {
         beforeEach(() => {
             mockListService.getListAdminOffers.and.returnValue(of(detailOffer));
-            
+
         });
 
     });

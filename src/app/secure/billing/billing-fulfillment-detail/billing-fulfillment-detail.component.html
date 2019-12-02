@@ -2,11 +2,11 @@
   <mat-list>
     <div class="head">
       <p>
-        <strong>Factura: </strong>
+        <strong>{{'secure.billing.invoice' | translate}}: </strong>
         <span class="billingNumber">{{ data.billingNumber }}</span>
       </p>
       <p>
-        <strong>Fecha de pago: </strong>
+        <strong>{{'secure.billing.payment_date' | translate}}: </strong>
         <span class="paymentDate">{{ data.paymentDate | date}}</span>
       </p>
     </div>
@@ -14,7 +14,7 @@
     <mat-list-item>
       <mat-icon mat-list-icon>local_shipping</mat-icon>
       <p mat-line>
-        <strong>Cobro Movimiento: </strong>
+        <strong>{{'secure.billing.movement_charge' | translate}}: </strong>
         <span class="totalMovement">{{ data.fulfillmentDetail.totalMovement | currency: 'COP' }}</span>
       </p>
     </mat-list-item>
@@ -22,7 +22,7 @@
     <mat-list-item>
       <mat-icon mat-list-icon>store</mat-icon>
       <p mat-line>
-        <strong>Cobro Almacenamiento: </strong>
+        <strong>{{'secure.billing.storage_charge' | translate}}: </strong>
         <span class="totalStorage">{{ data.fulfillmentDetail.totalStorage | currency: 'COP' }}</span>
       </p>
     </mat-list-item>
@@ -30,7 +30,7 @@
     <mat-list-item>
       <mat-icon mat-list-icon>local_atm</mat-icon>
       <p mat-line>
-        <strong>Total Cobrado: </strong>
+        <strong>{{'secure.billing.total_charged' | translate}}: </strong>
         <span class="totalCharged">
           {{ data.fulfillmentDetail.totalMovement + data.fulfillmentDetail.totalStorage | currency: 'COP' }}
         </span>

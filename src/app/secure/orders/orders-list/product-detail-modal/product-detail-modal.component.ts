@@ -40,7 +40,6 @@ export class ProductDetailModalComponent {
     this.user = data.user;
 
     this.product = this.product || FAKE.FAKEORDER.products[0];
-
   }
 
   /**

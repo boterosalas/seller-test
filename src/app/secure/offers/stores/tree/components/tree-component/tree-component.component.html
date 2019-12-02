@@ -1,7 +1,7 @@
 <div class="content-tree">
   <div class="header-tree-component">
-    <p>Nombre</p>
-    <p>Comisi&oacute;n</p>
+    <p>{{'shared.name' | translate}}</p>
+    <p>{{'shared.commission' | translate}}</p>
   </div>
   <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node class="tree-col" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>

@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-select formControlName="lang" [(value)]="lang" class="mat-option-text">
+      <mat-select-trigger>
+        <span class="flag-icon flag-icon-{{ lang | lowercase}} flag-icon-squared"> </span>
+        {{setText(lang)}}
+      </mat-select-trigger>
+      <mat-option *ngFor="let lang of langs" [value]="lang" (click)="select(lang)">
+        <span class="flag-icon flag-icon-{{ lang | lowercase}} flag-icon-squared"></span>
+        {{setText(lang)}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

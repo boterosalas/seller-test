@@ -1,16 +1,24 @@
 <div class="light-content">
   <mat-toolbar id="principal-toolbar" color="primary" class="principal-toolbar" style="position:fixed;background-color:#fff;">
-    <button color="accent" id="menuElement" matTooltip="Menú" matTooltipPosition="below" mat-icon-button mat-button
+    <button color="accent" id="menuElement" [matTooltip]="'menu.Menu' | translate" matTooltipPosition="below" mat-icon-button mat-button
       (click)="toggleMenu()">
       <mat-icon class="mat-24">menu</mat-icon>
-      <app-notification-circle [value]="unreadCase" id="circle-notification-header"></app-notification-circle>
+      <app-notification-circle [value]="unreadCase + sumadevolution" id="circle-notification-header"></app-notification-circle>
     </button>
     <div (click)="goToHome()" class="logo-application"></div>
-    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">Bienvenido:
+    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="name-user" style="margin-left:20px;">{{'core.shell.header.welcome' | translate}}:
       <b>{{user?.sellerName}}</b>
-      <span class="sc-header-name-seller">ID: {{user?.sellerId}}</span>
+      <span class="sc-header-name-seller">{{'shared.id' | translate}}: {{user?.sellerId}}</span>
     </p>
     <span class="spacer-content"></span>
+
+    <div class="select-hide" *ngIf="false">
+      <div><app-select-language></app-select-language></div>
+      <div class="sidebar-label-language">{{'select.language' | translate}}</div>
+    </div>
+    
+    
+
     <div fxLayoutGap="10px">
       <!--<button class="sc-button-toolbar" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
         (click)="shellComponent.goToEnviosExito()" id="envios-exito-button" mat-button color="accent">
@@ -20,15 +28,15 @@
         <button *ngIf="user?.sellerProfile === 'seller'" class="sc-button-toolbar" (click)="openDialogSupport()" fxShow.xs="true" fxShow.sm="false"
           fxShow.lg="true" fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
           <mat-icon class="mat-24">help</mat-icon>
-          Soporte
+          {{'core.shell.header.support' | translate}}
         </button>
 
 
-      <button class="sc-button-toolbar" matTooltip="Perfil" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
+      <button class="sc-button-toolbar" [matTooltip]="'core.shell.header.profile' | translate" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterMyProfile]"
         id="profile-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">person</mat-icon>
       </button>
-      <button class="sc-button-toolbar" matTooltip="Salir" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
+      <button class="sc-button-toolbar" [matTooltip]="'core.shell.header.logout' | translate" matTooltipPosition="below" [routerLink]="['/' + routes?.sellerCenterLogout]"
         id="logout-button" mat-icon-button mat-button color="accent">
         <mat-icon class="mat-24">exit_to_app</mat-icon>
       </button>

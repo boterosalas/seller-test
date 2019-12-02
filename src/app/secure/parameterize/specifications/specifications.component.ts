@@ -11,6 +11,7 @@ import { AddDialogSpecsComponent } from '../dialogAddSpecs/dialog-add-specs.comp
 import { DeleteDialogSpecsComponent } from '../dialogDelete/dialog-delete.component';
 import { MenuModel, readFunctionality, deleteFunctionality, updateFunctionality, createFunctionality, specsName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -38,6 +39,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     delete = deleteFunctionality;
     update = updateFunctionality;
     create = createFunctionality;
+    isDisabled = true;
+    currentLanguage: string;
 
     constructor(
         private specificationService: ParamSpecsService,
@@ -47,7 +50,8 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         public snackBar: MatSnackBar,
         public el: ElementRef,
         private render: Renderer,
-        public authService: AuthService
+        public authService: AuthService,
+        private languageService: TranslateService,
     ) {
 
     }
@@ -56,6 +60,7 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         this.permissionComponent = this.authService.getMenu(specsName);
         this.loadingService.viewSpinner();
         this.getSpecifications(true);
+        this.changeLanguage();
     }
 
     /**
@@ -71,6 +76,30 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
+    }
+
+    changeLanguage() {
+        if (localStorage.getItem('culture_current') !== 'US') {
+        this.isDisabled = false;
+        this.currentLanguage = 'ES';
+        localStorage.setItem('culture_current', 'ES');
+        } else {
+            this.isDisabled = true;
+            this.currentLanguage = 'US';
+            localStorage.setItem('culture_current', 'US');
+        }
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.specificationsGroups = [];
+            this.getSpecifications(true);
+            this.currentLanguage = e['lang'];
+            const lang = e['lang'];
+            if (lang === 'US') {
+                this.isDisabled = true;
+            } else {
+                this.isDisabled = false;
+            }
+        });
     }
 
     /**
@@ -110,8 +139,14 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public updateGroupSpec(group: any, index: any): void {
-        this.modeSave = false;
-        this.openDialog(group);
+        if (this.currentLanguage !== 'US') {
+            this.modeSave = false;
+            this.openDialog(group);
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_delete'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
     public blurInput(data: any, isGroup: boolean): void {
@@ -163,8 +198,10 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
                 };
                 dataToSend.Specs.push({
                     SpecName: res.nameSpec,
+                    Label: res.Label,
                     Required: res.requiredSpec === true ? 'true' : 'false',
-                    ListValues: !res.ListValues ?  [] : res.ListValues ,
+                    ListValues: !res.ListValues ? [] : res.ListValues,
+                    Values: res.Values,
                     IdSpec: res.idSpec
                 });
                 if (!data) {
@@ -357,8 +394,14 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public editSpec(data: any, index: number): void {
-        this.groupSpecToAdd = data;
-        this.openDialogAddSpecs(data, index);
+        if (this.currentLanguage !== 'US') {
+            this.groupSpecToAdd = data;
+            this.openDialogAddSpecs(data, index);
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_edit'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
     public addSpec(data: any): void {
@@ -371,12 +414,15 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public removeSpec(data: any): void {
-        this.modeSave = true;
-        this.openDialogDeleteSpecsandGroupSpec(null);
-        this.groupDelete = data;
-        /*
-        data.ShowNewSon = true;
-        const element = this.render.selectRootElement('#input1'); */
+        if (this.currentLanguage !== 'US') {
+            this.modeSave = true;
+            this.openDialogDeleteSpecsandGroupSpec(null);
+            this.groupDelete = data;
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_edit'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
 
@@ -404,8 +450,14 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
     }
 
     public deleteSpec(group: any, index: number): void {
-        this.groupDelete = group.Sons[index];
-        this.openDialogDeleteSpecsandGroupSpec(this.groupDelete);
+        if (this.currentLanguage !== 'US') {
+            this.groupDelete = group.Sons[index];
+            this.openDialogDeleteSpecsandGroupSpec(this.groupDelete);
+        } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.specifications.change_lang_english_delete'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+            });
+        }
     }
 
 }

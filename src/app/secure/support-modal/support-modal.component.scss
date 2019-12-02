@@ -3,10 +3,12 @@
   // max-width: 500px;
   width: 100%;
   max-height: 400px;
+  min-height: 360px;
   overflow: auto;
   padding-bottom: 30px;
   width: 100%;
   padding-left: 5px;
+  padding-top: 15px;
 }
 
 .example-full-width {
@@ -56,6 +58,16 @@
   font-weight: bold;
 }
 
-#id-color-tutorial{
+#id-color-tutorial {
   color: #3d5afe;
+}
+
+.loading-box {
+  display: flex;
+  border-bottom: 1px solid #949494;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+  &__loading-animation {
+    width: 100%;
+  }
 }

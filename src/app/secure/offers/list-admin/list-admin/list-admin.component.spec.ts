@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ListAdminComponent', () => {
   let component: ListAdminComponent;
@@ -42,7 +43,8 @@ describe('ListAdminComponent', () => {
         MatDialogModule,
         MatSnackBarModule,
         RouterTestingModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot({})
       ],
       providers: [
         { provide: ModalService, useValue: mockDialogError },

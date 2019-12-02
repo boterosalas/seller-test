@@ -2,31 +2,27 @@
   <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
     <form class="basic-info" [formGroup]="filterBrands" class="brands-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h3>Filtro Marcas</h3>
-        <button id="closeMenuApplication" type="button" color="primary" matTooltip="Cerrar" matTooltipPosition="below"
+        <h3>{{'secure.parametize.brands.title_filter_brand' | translate}}</h3>
+        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate" matTooltipPosition="below"
           mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput placeholder="Id" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'shared.id' | translate" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')" [innerHTML]="'Id invalido'">
-          </mat-error>
+          <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')">{{'errors.invalid_id'}}</mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
-          <input matInput placeholder="Nombre de la marca" style="text-transform: uppercase;"
+          <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name' | translate" style="text-transform: uppercase;"
             formControlName="filterBrandsName" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')"
-            [innerHTML]="'Nombre de la marca invalido'"></mat-error>
+          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')">{{'errors.brand_invalidate' | translate}}</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" type="button" [innerHTML]="'Limpiar'"
-            (click)="cleanAllFilter()"></button>
-          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid"
-            [innerHTML]="'Filtrar'" (click)="filterApply(drawer)"></button>
+          <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | translate}}</button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid" (click)="filterApply(drawer)">{{'filters.filter' | translate}}</button>
         </div>
       </div>
     </form>
@@ -36,11 +32,11 @@
     <mat-toolbar class="tree-toolbar">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <p class="parameterize-brands-title" fxShow [fxShow.xs]="false">
-          Parametrización
-          <small class="sub-title">| Listado de marcas</small>
+          {{'secure.parametize.title_toolbar'| translate}}
+          <small class="sub-title">| {{'secure.parametize.brands.subtitle_toolbar'| translate}}</small>
         </p>
         <p class="parameterize-brands-title" fxShow="false" [fxShow.xs]="true">
-          Listado de marcas
+          {{'secure.parametize.brands.subtitle_toolbar'| translate}}
         </p>
         <div class="hide-page">
           <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
@@ -49,7 +45,7 @@
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
-        <small class="sub-title-filter" [innerHTML]="'Filtrar'"></small>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
       </button>
     </mat-toolbar>
   </div>
@@ -73,20 +69,20 @@
             <mat-icon class="material-icons">
               control_point
             </mat-icon>
-            Agregar marca
+            {{'secure.parametize.brands.btn_add_brand'| translate}}
           </button>
         </div>
       </div>
       <table matSort (matSortChange)="sortData($event)" class="table mat-table">
         <tr class="mat-header-row">
           <th style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Id</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.id' | translate}}</th>
           <th style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Nombre de la marca</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'secure.parametize.brands.txt_brand_name'| translate}}</th>
           <th style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Estado</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.status' | translate}}</th>
           <th style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">Acciones</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.actions' | translate}}</th>
         </tr>
         <tr style="height: 56px;" *ngFor="let brand of sortedData" class="mat-row">
           <td class="mat-cell mat-style-td">{{brand.Id}}</td>
@@ -95,12 +91,12 @@
             <section class="example-section">
               <mat-slide-toggle class="example-margin" [color]="color" id="id_slide_toggle_{{brand.Id}}"
                 (click)="changeStatusBrands($event, brand)"
-                [matTooltip]="brand.Status == true ? 'Desactivar' : 'activar'" [checked]=brand.Status>
+                [matTooltip]="brand.Status == true ? ('actions.disable' | translate) : ('actions.enable'| translate)" [checked]=brand.Status>
               </mat-slide-toggle>
             </section>
           </td>
           <td class="mat-cell mat-style-td">
-            <button mat-icon-button matTooltip="Editar" *ngIf="canUpdate" (click)="upsetBrands(brand)">
+            <button mat-icon-button [matTooltip]="'actions.edit' | translate" *ngIf="canUpdate" (click)="upsetBrands(brand)">
               <mat-icon class="edit-profile material-icons">create</mat-icon>
             </button>
           </td>
@@ -108,13 +104,13 @@
       </table>
       <div *ngIf="!sortedData" class="brands-table-null">
         <label class="">
-          No se han encontrado marcas registradas
+          {{'secure.parametize.brands.txt_no_brands'| translate}}
         </label>
       </div>
     </div>
     <div *ngIf="!canRead" class="brands-not-permission">
       <div class="brands-permission">
-        <label>No posee permisos para visualizar el listado.</label>
+        <label>{{'secure.parametize.brands.txt_no_permissions_view'| translate}}</label>
       </div>
       <div class="brands-permission brands-icon-permission">
         <mat-icon class="material-icons">
@@ -128,18 +124,17 @@
   <form [formGroup]="form" class="full-width brands-modal-margin">
     <div class="brands-input-spinner">
       <mat-form-field class="half-width">
-        <input matInput placeholder="Nombre de la marca" style="text-transform: uppercase;" formControlName="nameBrands"
+        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
           [errorStateMatcher]="matcher" (blur)="validateExist($event)" required>
-        <mat-error *ngIf="form.get('nameBrands').hasError('required')" [innerHTML]="'Este campo es requerido'">
-        </mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')" [innerHTML]="'Formato inválido'"></mat-error>
+        <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
       </mat-form-field>
       <mat-spinner [diameter]="20" *ngIf="showSpinner"></mat-spinner>
     </div>
     <div class="brands-position-option">
-      <button type="button" mat-button color="primary" (click)="onNoClick()">CANCELAR</button>
+      <button type="button" mat-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
       <button type="submit" mat-raised-button color="primary" class="brands-position-option-cancel"
-        (click)="confirmation()" [disabled]="form && form.invalid || validateExit">ACEPTAR</button>
+        (click)="confirmation()" [disabled]="form && form.invalid || validateExit">{{'actions.accept' | translate}}</button>
     </div>
   </form>
 </ng-template>

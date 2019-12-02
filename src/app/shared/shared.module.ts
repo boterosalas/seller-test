@@ -12,12 +12,10 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
 
 import { RouterModule } from '@angular/router';
-import { StatesModule } from './components/states';
 import { CdkDetailRowDirective, NoWhitespaceDirective } from './directives';
 
 import { ToolbarOptionsModule } from './components/toolbar-options';
 import { ToolbarTittleModule } from './components/toolbar-tittle';
-import { CitiesModule } from './components/cities';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog.component';
 import { DialogWithFormComponent } from './components/dialog-with-form/dialog-with-form.component';
 import { CreateProcessDialogComponent } from './components/create-process-dialog/create-process-dialog.component';
@@ -41,13 +39,32 @@ import { ItemConversationDirective } from './components/conversation/item-conver
 import { DateNoGtmPipe } from './pipes/date-no-gtm.pipe';
 import { ToolbarSearchPaginationModule } from './components/toolbar-search-pagination/toolbar-search-pagination.module';
 import { NotificationCircleComponent } from './components/notification-circle/notification-circle.component';
+import { StatesComponent } from './components/states/states.component';
+import { CitiesComponent } from './components/cities/cities.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'; 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { SelectLanguageComponent } from './components/select-language/select-language.component';
+import { UploadButtonComponent } from './components/upload-button/upload-button.component';
+
+export function createTranslateLaoder(http: HttpClient){
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLaoder),
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     CdkDetailRowDirective,
@@ -75,15 +92,19 @@ import { NotificationCircleComponent } from './components/notification-circle/no
     ConversationMessageComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
-    NotificationCircleComponent
+    NotificationCircleComponent,
+    StatesComponent,
+    CitiesComponent,
+    SelectLanguageComponent,
+    UploadButtonComponent
   ],
   exports: [
     MaterialModule,
     ToolbarOptionsModule,
     CdkDetailRowDirective,
     NoWhitespaceDirective,
-    StatesModule,
-    CitiesModule,
+    StatesComponent,
+    CitiesComponent,
     ToolbarTittleModule,
     SearchSellerComponent,
     ControlMessagesComponent,
@@ -105,7 +126,10 @@ import { NotificationCircleComponent } from './components/notification-circle/no
     ItemConversationDirective,
     DateNoGtmPipe,
     ToolbarSearchPaginationModule,
-    NotificationCircleComponent
+    NotificationCircleComponent,
+    TranslateModule,
+    SelectLanguageComponent,
+    UploadButtonComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

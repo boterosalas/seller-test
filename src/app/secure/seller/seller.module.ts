@@ -11,6 +11,7 @@ import { StoresService } from '../offers/stores/stores.service';
 import { MatSidenav, MatSidenavModule } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { CoreModule } from '@angular/flex-layout';
 
 
 @NgModule({

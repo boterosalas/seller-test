@@ -16,6 +16,8 @@ import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { detectChanges } from '@angular/core/src/render3';
 import { PayoneerService } from './payoneer.service';
+import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const registerRegex = [
   {Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores'},
@@ -71,7 +73,9 @@ describe('RegisterSellerComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule,
+        TranslateModule.forRoot({})
       ],
       providers: [
         { provide: RegisterService, useValue: mockRegisterService },
@@ -84,7 +88,7 @@ describe('RegisterSellerComponent', () => {
         { provide: StatesService, useValue: mockStatesSiervice },
         { provide: BasicInformationService, useValue: mockBasicInformationService },
         { provide: PayoneerService, useValue: mockPayoneerService},
-        EndpointService
+        EndpointService,
       ],
       // No_Errors_schema (Evita errores de importación de otros Componentes)
       schemas: [NO_ERRORS_SCHEMA]
@@ -98,6 +102,7 @@ describe('RegisterSellerComponent', () => {
     stateService = TestBed.get(StatesService);
     fixture = TestBed.createComponent(RegisterSellerComponent);
     component = fixture.componentInstance;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
   });
 
   it('should create', () => {
@@ -109,7 +114,7 @@ describe('RegisterSellerComponent', () => {
 
   describe('Admin login', () => {
     // BeforeEach asincrono debido a la ejecución del metodo de logeo
-    beforeEach(async () => {
+    beforeAll(async () => {
       // clona el modelo de respuesta de un usuario
       const mockUser = Object.assign({}, userData);
       // construccion del modelo de respuesta del regex del servicio

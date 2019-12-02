@@ -11,6 +11,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { validateDataToEqual } from '@app/shared/util/validation-messages';
+import { TranslateService } from '@ngx-translate/core';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -70,6 +71,10 @@ export class DetailOfferComponent {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
 
+  promiseFirts: string;
+  promiseSeconds: string;
+  to: string;
+
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
@@ -121,6 +126,8 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   public isProductionEnv = environment.production;
+  convertPromise: string;
+  validateNumberOrder: boolean;
 
   constructor(
     public list: ListComponent,
@@ -128,6 +135,7 @@ export class DetailOfferComponent {
     private loadingService: LoadingService,
     private modalService: ModalService,
     public SUPPORT: SupportService,
+    private languageService: TranslateService,
     public authService: AuthService,
     public snackBar?: MatSnackBar
   ) {
@@ -137,6 +145,7 @@ export class DetailOfferComponent {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.setPromise();
     this.validateFormSupport();
     this.createValidators();
   }
@@ -164,6 +173,23 @@ export class DetailOfferComponent {
     this.list.viewDetailOffer = false;
     this.list.inDetail = false;
   }
+  /**
+   * Descomponer la promesa de entrega
+   *
+   * @memberof DetailOfferComponent
+   */
+  setPromise() {
+    if (this.editOffer && this.dataOffer.promiseDelivery) {
+      const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+      this.promiseFirts = promiseDe[0];
+      this.to = promiseDe[1];
+      this.promiseSeconds = promiseDe[2];
+    } else {
+      this.promiseFirts = '';
+      this.to = '';
+      this.promiseSeconds = '';
+    }
+  }
 
   /**
    * @method editOffer
@@ -176,7 +202,7 @@ export class DetailOfferComponent {
       this.createValidators();
       this.createForm();
     } else {
-      this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+      this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
         duration: 5000,
       });
     }
@@ -213,13 +239,12 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   createValidators() {
-
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.PromiseDelivery = new FormControl(this.dataOffer.promiseDelivery, [Validators.pattern(this.offertRegex.promiseDelivery)]);
+    this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
@@ -227,8 +252,19 @@ export class DetailOfferComponent {
     this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
-    this.Currency = new FormControl('COP');
-    // this.Currency = new FormControl(this.dataOffer.currency);
+    // this.Currency = new FormControl('COP');
+    this.Currency = new FormControl(this.dataOffer.currency);
+    this.setCurrentPromise();
+  }
+  /**
+   * Setear la promesa de entrega, se descompone y luego se le asigna al controlador en el html
+   *
+   * @memberof DetailOfferComponent
+   */
+  setCurrentPromise() {
+    this.languageService.stream('secure.offers.list.components.detail_offer.a').subscribe(val => {
+      this.PromiseDelivery.setValue(this.promiseFirts + ' ' + val + ' ' + this.promiseSeconds);
+    });
   }
 
   /**
@@ -252,7 +288,8 @@ export class DetailOfferComponent {
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency
     });
-    this.formUpdateOffer.get('Currency').disable();
+    // Se borra esta linea o se comenta cuando se despliegue MPI
+    // this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
@@ -265,21 +302,29 @@ export class DetailOfferComponent {
   }
 
   validateOffertType(val: any) {
-      if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
-        this.formUpdateOffer.get('IsFreeShipping').setValue(0);
-        this.formUpdateOffer.get('IsEnviosExito').setValue(0);
-        this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
-        this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
-        this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
-        this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
-        this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
-        this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
-      } else {
-        !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
-        !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
-        !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
-        !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
-      }
+    if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
+      this.formUpdateOffer.get('IsFreeShipping').setValue(0);
+      this.formUpdateOffer.get('IsEnviosExito').setValue(0);
+      this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
+      this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
+      // tslint:disable-next-line:no-unused-expression
+      this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
+      // tslint:disable-next-line:no-unused-expression
+      this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
+      // tslint:disable-next-line:no-unused-expression
+      this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+      // tslint:disable-next-line:no-unused-expression
+      this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
+    } else {
+      // tslint:disable-next-line:no-unused-expression
+      !this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').enable();
+      // tslint:disable-next-line:no-unused-expression
+      !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
+      // tslint:disable-next-line:no-unused-expression
+      !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+      // tslint:disable-next-line:no-unused-expression
+      !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
+    }
   }
 
   /**
@@ -397,20 +442,43 @@ export class DetailOfferComponent {
           this.formUpdateOffer.controls['Price'].reset(this.Price.value);
         }
         break;
-      case 'PromiseDelivery':
-        let val = this.PromiseDelivery.value;
-        let start, end;
-        const pattern = /(\d+ a \d+)$/;
-        if (val.match(pattern)) {
-          val = val.trim();
-          start = parseInt(val.split('a')[0], 10);
-          end = parseInt(val.split('a')[1], 10);
+      /*
+    case 'PromiseDelivery':
+      let val = this.PromiseDelivery.value;
+      let start, end;
+      const pattern = /(\d+ (a|-|to) \d+)$/;
+      if (val.match(pattern)) {
+        val = val.trim();
+        start = parseInt(val.split('a')[0], 10);
+        end = parseInt(val.split('a')[1], 10);
 
-          if (start >= end) {
-            this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
-          }
+        if (start >= end) {
+          this.formUpdateOffer.controls[input].setErrors({ 'startIsGreaterThanEnd': true });
         }
-        break;
+      }
+      break; */
+    }
+  }
+
+  /**
+   * Metodo para validar el formato de la promesa de entrega
+   * Y validar que el primer numero no sea mayor que el segundo.
+   * @memberof DetailOfferComponent
+   */
+  validatePromiseDeliveriOffert() {
+    const promiseDeli = this.formUpdateOffer.controls.PromiseDelivery.value;
+    if (promiseDeli.match(this.offertRegex.promiseDelivery)) {
+      if (this.formUpdateOffer.controls.PromiseDelivery.value !== '') {
+        const promiseSplited = promiseDeli.split(/\s(a|-|to)\s/);
+        this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+        this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
+        if (this.validateNumberOrder !== true) {
+          // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
+          //     duration: 5000,
+          // });
+          this.formUpdateOffer.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
+        }
+      }
     }
   }
 
@@ -420,6 +488,9 @@ export class DetailOfferComponent {
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer() {
+    const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
+    this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+    this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
     this.params.push(this.formUpdateOffer.value);
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(this.params).subscribe(
@@ -429,14 +500,14 @@ export class DetailOfferComponent {
           if (data.body.successful !== 0 || data.body.error !== 0) {
             if (data.body.data.error > 0) {
               this.loadingService.closeSpinner();
-              this.snackBar.open('Este producto no está listo para ofertar, por favor intentalo más tarde.', 'Cerrar', {
+              this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
                 duration: 5000,
               });
               this.consumeServiceList.emit(true);
               this.params = [];
             } else {
               this.loadingService.closeSpinner();
-              this.snackBar.open('Aplicó correctamente una oferta.', 'Cerrar', {
+              this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
                 duration: 5000,
               });
               this.goToListOffers();
@@ -447,8 +518,7 @@ export class DetailOfferComponent {
             this.modalService.showModal('errorService');
             this.params = [];
           }
-        }
-         else {
+        } else {
           this.modalService.showModal('errorService');
           this.loadingService.closeSpinner();
           this.params = [];
@@ -482,10 +552,8 @@ export class DetailOfferComponent {
       this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.price)]);
     }
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.snackBar.open(`El tipo de moneda se ha cambiado a (${event})`, 'Cerrar', {
+    this.snackBar.open(`${this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.instant('actions.close'), {
       duration: 3000,
     });
   }
-
-
 }

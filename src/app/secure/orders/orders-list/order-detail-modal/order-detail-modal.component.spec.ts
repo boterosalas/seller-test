@@ -7,6 +7,7 @@ import { OrderDetailModalComponent } from './order-detail-modal.component';
 import { OrdersModule } from '../orders.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 describe('OrderDetailModalComponent', () => {
@@ -18,7 +19,8 @@ describe('OrderDetailModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         OrderDetailModalComponent

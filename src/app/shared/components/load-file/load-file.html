@@ -1,11 +1,10 @@
 <div class="load-file-container" fxLayout="column" fxLayoutAlign="space-around center">
-    <h1 mat-dialog-title>Adjuntar factura</h1>
+    <h1 mat-dialog-title>{{'shared.components.load_file.title' | translate}}</h1>
     <div mat-dialog-content>
         <p>
-            La factura electrónica solo <strong>puede ser enviada una vez</strong>, Por favor verifique que éste
-            adjuntando el archivo correcto.
+            {{'shared.components.load_file.subtitle' | translate}} <strong>{{'shared.components.load_file.subtitle2' | translate}}</strong>{{'shared.components.load_file.subtitle3' | translate}}
         </p>
-        <p>Archivo PDF de máximo 3 Megabytes y que solo podrá ser enviado una vez.</p>
+        <p>{{'shared.components.load_file.subtitle4' | translate}}</p>
 
         <div class="logo" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
             <div class="container-logo" fxLayout="row" fxLayoutAlign="center center">
@@ -29,9 +28,9 @@
                 [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
                 fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
                 (filesChange)="lastFileAt=getDate()">
-                <strong *ngIf="!files.length && !lastInvalids?.length">Arrastre y suelte el archivo aqui</strong>
+                <strong *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1' | translate}}</strong>
                 <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
-                <strong *ngIf="lastInvalids?.length">El archivo no posee un formato valido (Debe ser PDF maximo 3 MB)</strong>
+                <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong>
                 <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
                     attach_file
                 </mat-icon>
@@ -43,7 +42,7 @@
                 </mat-icon>
                 <div class="button-fake" fxLayout="column" fxLayoutAlign="center center">
                     <span>
-                        ADJUNTAR ARCHIVO
+                        {{'shared.components.load_file.text3' | translate}}
                     </span>
                 </div>
             </div>
@@ -55,7 +54,7 @@
     </div>
 
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button [mat-dialog-close]="null" [disabled]="showProgress">CANCELAR</button>
-        <button mat-button (click)="saveFile()" [disabled]="(!(files.length && !lastInvalids?.length) || showProgress)" cdkFocusInitial mat-raised-button color="primary">GUARDAR</button>
+        <button mat-button [mat-dialog-close]="null" [disabled]="showProgress">{{'actions.cancel' | translate}}</button>
+        <button mat-button (click)="saveFile()" [disabled]="(!(files.length && !lastInvalids?.length) || showProgress)" cdkFocusInitial mat-raised-button color="primary">{{'actions.save' | translate}}</button>
     </div>
 </div>

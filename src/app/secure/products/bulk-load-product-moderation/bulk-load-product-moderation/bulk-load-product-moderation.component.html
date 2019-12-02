@@ -1,12 +1,12 @@
 <!-- Template para el contenido principal. -->
 <ng-template #mainContentTpl>
   <p>
-    Para importar archivos al Seller Center, primero debes
-    <a (click)="requestMail()" class="link-text" [ngClass]="{'block-link' : !getFunctionality(load)}">Descargar el formato
-    </a>, en este archivo podrás cargar la validación de productos.
+      {{'secure.products.bulk_load_product_moderation.text_may_upload_product' | translate}}
+    <a (click)="requestMail()" class="link-text" [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_load_product_moderation.download_the_format' | translate}}
+    </a>{{'secure.products.bulk_load_product_moderation.text_file_may_update' | translate}}
   </p>
   <p>
-    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()"  [ngClass]="{'block-link' : !getFunctionality(load)}">Selecciona el archivo</span> que desees importar (.xlsx, .xls) al Seller Center y listo.
+    <span class="link-text" (click)="bulkLoadCmp.fileUploadInputClick()"  [ngClass]="{'block-link' : !getFunctionality(load)}">{{'secure.products.bulk_upload.text_select_import' | translate}}</span> {{'secure.products.bulk_upload.text_select_import_type' | translate}}
   </p>
 </ng-template>
 

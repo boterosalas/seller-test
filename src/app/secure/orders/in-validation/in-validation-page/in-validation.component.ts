@@ -76,14 +76,15 @@ export class InValidationComponent implements OnInit, OnDestroy {
   // canRead = false;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'Órdenes',
-    subtitle: 'En Validación',
-    btn_title: 'Consultar solicitudes',
-    title_for_search: 'Consultar solicitudes',
+    title: 'secure.orders.orders',
+    subtitle: 'menu.En validación',
+    btn_title: 'secure.orders.filter.title_filter',
+    title_for_search: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
       reversionRequestStatusId: Const.StatusInValidation
-    }
+    },
+    count: ''
   };
 
   constructor(
@@ -254,7 +255,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
    *
    * @param item
    */
-  openModalCommentOrder(item): void {
+  openModalCommentOrder(item: any): void {
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',
       data: {

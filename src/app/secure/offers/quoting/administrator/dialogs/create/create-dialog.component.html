@@ -1,19 +1,14 @@
 <!-- TRANSPORT TEXT DIALOG -->
-<ng-template #addTransportBlock>Crear transportadora</ng-template>
-<ng-template #updateTransportBlock>Modificar transportadora</ng-template>
-<ng-template #addTransportParagraphBlock>Ingresa una nombre de transportadora y un método de envío asociado para que
-  aparezca
-  en la lista de los vendedores al momento de configurar el método de envío seleccionado.</ng-template>
-<ng-template #updateTransportParagraphBlock>Reemplaza el nombre de transportadora existente y da clic a Guardar para
-  modificar el nombre de esta transportadora.</ng-template>
+<ng-template #addTransportBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_title_new_shipping' | translate}}</ng-template>
+<ng-template #updateTransportBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_title_update_shipping' | translate}}</ng-template>
+<ng-template #addTransportParagraphBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_text_new_shipping' | translate}}</ng-template>
+<ng-template #updateTransportParagraphBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_text_update_shipping' | translate}}</ng-template>
 
 <!-- ZONE TEXT DIALOG -->
-<ng-template #addZoneBlock>Crear zona</ng-template>
-<ng-template #updateZoneBlock>Modificar zona</ng-template>
-<ng-template #addZoneParagraphBlock>Ingresa un nombre de zona y los códigos DANE relacionados separados por coma para
-  que aparezca en la lista de los vendedores al momento de configurar un método de envío.</ng-template>
-<ng-template #updateZoneParagraphBlock>Reemplaza el nombre de la zona existente o los códigos DANE configurados para la
-  zona y da clic a Guardar para modificar esta zona</ng-template>
+<ng-template #addZoneBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_title_new_zone' | translate}}</ng-template>
+<ng-template #updateZoneBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_title_update_zone' | translate}}</ng-template>
+<ng-template #addZoneParagraphBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_text_new_zone' | translate}}</ng-template>
+<ng-template #updateZoneParagraphBlock>{{'secure.offers.quoting.administrator.dialogs.create.modal_text_update_zone' | translate}}</ng-template>
 
 <!-- END TEXT -->
 
@@ -60,13 +55,13 @@
             <!-- Name input Field -->
             <mat-form-field [ngClass]="{'name-transport': dialogMode, 'name-transport-update': !dialogMode}">
               <mat-icon matPrefix>local_shipping</mat-icon>
-              <input matInput formControlName="Name" placeholder="Nombre transportadora">
-              <mat-error>Campo obligatorio </mat-error>
+              <input matInput formControlName="Name" [placeholder]="'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_transporter_name' | translate" required>
+              <mat-error>{{'errors.required' | translate}}</mat-error>
             </mat-form-field>
 
             <!-- Method transport select Field -->
             <mat-form-field fxFlex="48" class="select-transport" *ngIf="!dialogMode">
-              <mat-select placeholder="Seleccionar método" formControlName="IdShippingMethod">
+              <mat-select [placeholder]="'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_shipping_method' | translate" formControlName="IdShippingMethod">
                 <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
                   {{type.Name}}
                 </mat-option>
@@ -78,12 +73,10 @@
           <div class="buton-create flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">
             <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
-                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
-                  (click)="closeDialog()"></button>
+                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" (click)="closeDialog()">{{'actions.cancel' | translate}}</button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'" [disabled]="formTransporter.invalid">
-                </button>
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formTransporter.invalid">{{'actions.accept' | translate}}</button>
               </div>
             </div>
           </div>
@@ -102,15 +95,15 @@
             <!-- Name input Field -->
             <mat-form-field fxFill="48" fxFlex="48">
               <mat-icon matPrefix>map</mat-icon>
-              <input matInput formControlName="Name" placeholder="Nombre zona">
-              <mat-error>Campo obligatorio</mat-error>
+              <input matInput formControlName="Name" [placeholder]="'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_name_zone' | translate" required>
+              <mat-error>{{'errors.required' | translate}}</mat-error>
             </mat-form-field>
 
             <!-- DANE code input Field -->
             <mat-form-field fxFill="48" fxFlex="48">
-              <input matInput formControlName="DaneCode" placeholder="Código DANE">
-              <mat-error *ngIf="formZone.controls.DaneCode.errors && formZone.controls.DaneCode.errors.pattern">Campo invalido (8 caraceteres separados por coma)</mat-error>
-              <mat-error *ngIf="formZone.controls.DaneCode.errors && formZone.controls.DaneCode.errors.required">Este campo es obligatorio</mat-error>
+              <input matInput formControlName="DaneCode" [placeholder]="'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code' | translate" required>
+              <mat-error *ngIf="formZone.controls.DaneCode.errors && formZone.controls.DaneCode.errors.pattern">{{'errors.quoting_postal_code_invalid' | translate}}</mat-error>
+              <mat-error *ngIf="formZone.controls.DaneCode.errors && formZone.controls.DaneCode.errors.required">{{'errors.required' | translate}}</mat-error>
             </mat-form-field>
           </div>
 
@@ -118,12 +111,10 @@
           <div class="buttons-container flexbox" fxLayout="row" fxLayout.fx="column" fxLayoutAlign="center center">
             <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="end center">
-                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
-                  (click)="closeDialog()"></button>
+                <button type="button" id="btn-create-transporter" mat-stroked-button color="primary" (click)="closeDialog()">{{'actions.cancel' | translate}}</button>
               </div>
               <div fxFlex="48" fxLayout="row" fxLayoutAlign="start center">
-                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [innerHTML]="'ACEPTAR'" [disabled]="formZone.invalid">
-                </button>
+                <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone.invalid">{{'actions.accept' | translate}}</button>
               </div>
             </div>
           </div>

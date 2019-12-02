@@ -1,40 +1,40 @@
 <article id="list-transporter">
-  <h4>Transportadoras</h4>
+  <h4>{{'secure.offers.quoting.administrator.list_transporter.title_component' | translate}}</h4>
 
   <!-- Transporters title table CRUD-->
   <aside fxLayout="row" fxHide.xs>
-    <p class="title-list-transporter" fxFlex="40">Nombre</p>
+    <p class="title-list-transporter" fxFlex="40">{{'shared.name' | translate}}</p>
     <div fxFlex="42" fxLayout="row" fxLayoutAlign="end end">
-      <p class="title-list-transporter">M&eacute;todo de env&iacute;o</p>
+      <p class="title-list-transporter">{{'secure.offers.quoting.administrator.list_transporter.lb_table_shipping_method' | translate}}</p>
     </div>
   </aside>
 
   <div *ngIf="!listTransporters || (listTransporters && !listTransporters.length)" class="no-items" fxLayout="row"
     fxLayoutAlign="center center">
     <p class="title-list-transporter">
-      No hay elementos creados.
+      {{'secure.offers.quoting.administrator.list_transporter.txt_not_elements' | translate}}
     </p>
   </div>
 
   <aside class="cont-list-comp" fxLayout="row" *ngFor="let item of listTransporters; let i = index">
     <div class="info-transporter" fxLayout="row" fxLayout.xs="column" fxFlex="100">
-      <p class="title-list-transporter" fxShow.xs="true" fxShow="false">Nombre</p>
+      <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'shared.name' | translate}}</p>
       <p fxFlex="40">
         {{item.Name}}
       </p>
       <div fxFlex="60" fxLayout="row" fxLayoutAlign.xs="start start">
         <div fxFlex="70" fxLayout.xs="column" fxLayoutAlign="end end" fxLayoutAlign.xs="start start">
-          <p class="title-list-transporter" fxShow.xs="true" fxShow="false">M&eacute;todo de env&iacute;o</p>
+          <p class="title-list-transporter" fxShow.xs="true" fxShow="false">{{'secure.offers.quoting.administrator.list_transporter.lb_table_shipping_method' | translate}}</p>
           <p>{{ getNameMethod( item.IdShippingMethod ) }}</p>
         </div>
 
         <div fxFlex="30" class="button-list-transporter" fxLayout="row" fxLayoutAlign.xs="end center" class="options-transporter flexbox flex-wrap align-center justify-end">
-          <button type="button" color="primary" matTooltip="Elimiar" matTooltipPosition="below" mat-icon-button
+          <button type="button" color="primary" [matTooltip]="'actions.delete' | translate" matTooltipPosition="below" mat-icon-button
             mat-button (click)="deleteTransporter(item.Id, i)">
             <mat-icon class="flexbox align-center justify-center" *ngIf="canDelete">delete</mat-icon>
           </button>
 
-          <button type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button
+          <button type="button" color="primary" [matTooltip]="'actions.edit' | translate" matTooltipPosition="below" mat-icon-button
             mat-button (click)="editTransporter(item)" *ngIf="canEdit">
             <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
           </button>
@@ -43,7 +43,7 @@
     </div>
   </aside>
   <aside class="flexbox flex-wrap align-center justify-center" [ngClass]="{'button-create': listTransporters && listTransporters.length}">
-    <button id="btn-create-transporter" type="submit" mat-stroked-button color="primary" [innerHTML]="'CREAR'"  *ngIf="canCreate" (click)="createTransporter()"></button>
+    <button id="btn-create-transporter" type="submit" mat-stroked-button color="primary" *ngIf="canCreate" (click)="createTransporter()">{{'actions.create' | translate}}</button>
   </aside>
 
 </article>

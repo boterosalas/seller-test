@@ -1,9 +1,10 @@
 export interface IData {
   id?: string;
-  caseNumber: string
+  caseNumber: string;
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
   createDate: string;
   status: string;
+  attachments: Array<any>;
 }

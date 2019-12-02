@@ -1,0 +1,31 @@
+:host ::ng-deep .mat-select-value-text {
+  font-size: 14px
+}
+
+:host ::ng-deep .mat-form-field {
+  display: inline;
+}
+
+.mat-option-text {
+  font-size: 14px
+}
+
+.select-languege-label {
+  margin-top: -31px;
+  font-size: 10px;
+  color: darkgray;
+}
+
+.flag-icon {
+  border-radius: 38%;
+
+  .mat-option-text {
+    font-size: 14px
+  }
+}
+
+.select-languege-label {
+  margin-top: -31px;
+  font-size: 10px;
+  color: darkgray;
+}

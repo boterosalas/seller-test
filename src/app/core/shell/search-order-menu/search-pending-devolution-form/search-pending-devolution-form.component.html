@@ -1,7 +1,7 @@
 <form #f="ngForm" [formGroup]="myform" class="search-form light-content">
   <mat-form-field id="sinceDate-input-search-order" color="accent">
     <input id="sinceDate-input" [max]="myform.value.dateReversionRequestFinal"
-           formControlName="dateReversionRequestInitial" placeholder="Fecha pedido"
+           formControlName="dateReversionRequestInitial" [placeholder]="'secure.orders.in_devolution.in_devolution_page.date_order' | translate"
            matInput [matDatepicker]="dateReversionRequestInitial">
     <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateReversionRequestInitial"></mat-datepicker-toggle>
     <mat-datepicker touchUi="true" startView="year" #dateReversionRequestInitial></mat-datepicker>
@@ -9,7 +9,7 @@
 
   <mat-form-field id="untilDate-input-search-order" color="accent">
     <input id="untilDate-input" [min]="myform.value.dateReversionRequestInitial"
-           formControlName="dateReversionRequestFinal" placeholder="Fecha solicitud"
+           formControlName="dateReversionRequestFinal" [placeholder]="'secure.orders.in_devolution.in_devolution_page.date_request' | translate"
            matInput [matDatepicker]="dateReversionRequestFinal">
     <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateReversionRequestFinal">
     </mat-datepicker-toggle>
@@ -19,25 +19,25 @@
   <mat-form-field id="orderNumber-input-search-order" class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">format_list_bulleted</mat-icon>
     <input id="orderNumber-input-search-order" formControlName="orderNumber" type="text" pattern="[0-9.]+" matInput
-           placeholder="Filtrar por número de pedido">
+           [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_number' | translate">
   </mat-form-field>
 
   <mat-form-field id="identificationCard-input-search-order" class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">person_pin</mat-icon>
     <input id="identificationCard-input-search-order" formControlName="identificationCard" type="text" pattern="[0-9.]+"
            matInput
-           placeholder="Filtrar por cédula del cliente">
+           [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_by_id' | translate">
   </mat-form-field>
 
 
   <div class="orders-search-option normal-theme">
     <button id="clear-filter-button" class="sc-button" mat-button (click)="clearForm()">
       <mat-icon>clear_all</mat-icon>
-      Limpiar
+      {{'filters.clear' | translate}}
     </button>
     <button id="apply-filter-button" [disabled]="!f.form.valid" class="sc-button" mat-raised-button color="primary"
             type="submit"
-            (click)="filterOrder(myform)">Aplicar
+            (click)="filterOrder(myform)">{{'actions.apply' | translate}}
     </button>
   </div>
 </form>

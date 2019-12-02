@@ -3,7 +3,7 @@
   <mat-toolbar class="tree-toolbar" style="position:fixed; z-index: 1;">
     <div class="normal-theme toolbar-options-table">
       <!-- Titulo del toolbar -->
-      <p  fxShow.sm="false" fxShow.xs="false" class="tree-title">&Aacute;rbol de categor&iacute;as </p>
+      <p  fxShow.sm="false" fxShow.xs="false" class="tree-title">{{'secure.parametize.category.categories.subtitle' | translate}}</p>
     </div>
   </mat-toolbar>
 
@@ -18,16 +18,16 @@
       </button>
       <mat-menu #TreeToolbar="matMenu">
         <button (click)="modifyCommission()" id="btn-save-tree" mat-menu-item fxFlex="170px" class="buttn-toolbar-options">
-          <span>Guardar</span>
+          <span>{{'actions.save' | translate}}</span>
         </button>
         <button id="btn-file-tree" mat-menu-item fxFlex="170px" class="buttn-toolbar-options" (click)="saveTreeToExcel()">
-          <span>Descargar</span>
+          <span>{{'actions.download' | translate}}</span>
         </button>
         <button (click)="expandAllNodes(true)" id="btn-expand-tree" mat-menu-item fxFlex="170px" class="buttn-toolbar-options">
-          <span>Expandinr</span>
+          <span>{{'secure.parametize.category.categories.btn_expand' | translate}}</span>
         </button>
         <button (click)="expandAllNodes(false)" id="btn-collapse-tree" mat-menu-item fxFlex="170px" class="buttn-toolbar-options">
-          <span>Colapsar</span>
+          <span>{{'secure.parametize.category.categories.btn_contract' | translate}}</span>
         </button>
       </mat-menu>
     </div>
@@ -40,8 +40,8 @@
   <mat-toolbar class="tree-toolbar" style="position:fixed; z-index: 1;">
     <div class="normal-theme toolbar-options-table">
       <!-- Titulo del toolbar -->
-      <p class="tree-title">Categor&iacute;as
-        <small class="sub-title">| &Aacute;rbol de categor&iacute;as</small>
+      <p class="tree-title">{{'secure.parametize.category.categories.categories' | translate}}
+        <small class="sub-title">| {{'secure.parametize.category.categories.subtitle' | translate}}</small>
       </p>
 
       <!-- Componente para realizar la busqueda de una tienda -->
@@ -51,9 +51,9 @@
       <!-- Botones del toolbar -->
       <div *ngIf="informationForTreeIsLoad == true" class="options-toolbar" fxFlex="400px" fxFlex.xs="400px" fxFlex.sm="400px"
         fxFlex.md="400px" fxFlex.lg="400px" fxFlex.xl="400px" fxLayoutGap="20px">
-        <button id="btn-save-tree" class="sc-default-button" (click)="modifyCommission()" mat-button>Guardar</button>
-        <button id="btn-expand-tree" class="sc-default-button" (click)="expandAllNodes(true)" mat-button>Expandir</button>
-        <button id="btn-collapse-tree" class="sc-default-button" (click)="expandAllNodes(false)" mat-button>Colapsar</button>
+        <button id="btn-save-tree" class="sc-default-button" (click)="modifyCommission()" mat-button>{{'actions.save' | translate}}</button>
+        <button id="btn-expand-tree" class="sc-default-button" (click)="expandAllNodes(true)" mat-button>{{'secure.parametize.category.categories.btn_expand' | translate}}</button>
+        <button id="btn-collapse-tree" class="sc-default-button" (click)="expandAllNodes(false)" mat-button>{{'secure.parametize.category.categories.btn_contract' | translate}}</button>
         <button id="btn-file-tree" (click)="saveTreeToExcel()" mat-icon-button>
           <mat-icon>archive</mat-icon>
         </button>

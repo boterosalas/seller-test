@@ -11,29 +11,32 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export class SupportService {
+  constructor(private http: HttpClient, private api: EndpointService) {}
 
-    constructor(
-        private http: HttpClient,
-        private api: EndpointService
-    ) { }
-
-    /**
-     * Método para realiar el envío del mensaje de soporte
-     * @param {any} token
-     * @param {any} supportMessage
-     * @returns
-     * @memberof SupportService
-     */
-    sendSupportMessage(user: any, supportMessage: any) {
-        return new Observable(observer => {
-            this.http.post(this.api.get('supporMessage'), supportMessage).subscribe((data: any) => {
-                observer.next(data);
-            });
+  /**
+   * Método para realiar el envío del mensaje de soporte
+   * @param {any} token
+   * @param {any} supportMessage
+   * @returns
+   * @memberof SupportService
+   */
+  sendSupportMessage(user: any, supportMessage: any) {
+    return new Observable(observer => {
+      this.http
+        .post(this.api.get('createcaseseller'), supportMessage)
+        .subscribe((data: any) => {
+          observer.next(data);
         });
-    }
+    });
+  }
 
-    public getRegexFormSupport(params: any): Observable<any> {
-        return this.http.get(this.api.get('getRegexBasic', params), { observe: 'response' });
-    }
+  public getRegexFormSupport(params: any): Observable<any> {
+    return this.http.get(this.api.get('getRegexBasic', params), {
+      observe: 'response'
+    });
+  }
+
+  public getClassification(): Observable<any> {
+    return this.http.get(this.api.get('getCaseCategories'));
+  }
 }
-

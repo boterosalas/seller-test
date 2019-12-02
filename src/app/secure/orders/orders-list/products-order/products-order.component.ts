@@ -72,8 +72,7 @@ export class ProductsOrderComponent {
    * @param {any} item
    * @memberof ProductsOrderComponent
    */
-  validateAllCheckProducts(item) {
-
+  validateAllCheckProducts(item: any) {
     /* si la variable isAllChecked no cambia a false, es por que se puede activar el boton enviar todo. */
     let isAllChecked = true;
 
@@ -81,7 +80,6 @@ export class ProductsOrderComponent {
       if (item.products[j].checkProductToSend !== true) {
         isAllChecked = false;
       }
-
     }
 
     /* si todos los check estan seleccionados, activo el boton enviar todo. */
@@ -99,7 +97,7 @@ export class ProductsOrderComponent {
    * @param {any} item
    * @memberof ProductsOrderComponent
    */
-  checkAllProductInOrder(item) {
+  checkAllProductInOrder(item: any) {
 
     for (let index = 0; index < this.dataSource.data.length; index++) {
       if (this.dataSource.data[index].orderNumber === item.orderNumber) {
@@ -124,7 +122,7 @@ export class ProductsOrderComponent {
    * @param {any} item
    * @memberof ProductsOrderComponent
    */
-  openModalDetailProduct(item): void {
+  openModalDetailProduct(item: any): void {
     const dialogRef = this.dialog.open(ProductDetailModalComponent, {
       data: {
         user: this.user,
@@ -142,7 +140,7 @@ export class ProductsOrderComponent {
    * @param {any} [product]
    * @memberof ProductsOrderComponent
    */
-  openDialogSendOrder(order, product?) {
+  openDialogSendOrder(order: any, product?: any) {
     if (product === true) {
       order.sendAllProduct = false;
     }

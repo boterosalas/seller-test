@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Te enviaremos el hist&oacute;rico de ofertas al siguiente correo electrónico.</h2>
+<h2 mat-dialog-title>{{'secure.offers.historical_admin.download_historical.title' | translate}}</h2>
 <mat-dialog-content>
 
   <form #f="ngForm" [formGroup]="myform" class="form-login">
@@ -10,7 +10,7 @@
           <input
             name="email"
             formControlName="email"
-            matInput placeholder="Correo electrónico"
+            matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
             type="email"
             required>
           <!-- /Email imput -->
@@ -23,14 +23,14 @@
             color="primary"
             mat-icon-button
             (click)="createForm()">            
-            <mat-icon matTooltip="Volver a seleccionar mi corre electrónico" matTooltipPosition="below" matSuffix>
+            <mat-icon [matTooltip]="'secure.offers.historical_admin.download_historical.tooltip_email' | translate" matTooltipPosition="below" matSuffix>
               autorenew
             </mat-icon>
           </button>
           <!-- Clean email input -->
           
           <!-- Error message -->
-          <mat-error>El correo electrónico no puede estar en blanco</mat-error>
+          <mat-error>{{'errors.email_required' | translate}}</mat-error>
           <!-- /Error message -->
 
         </mat-form-field>
@@ -42,7 +42,7 @@
 <mat-dialog-actions class="dialog-buttons">
 
   <!-- Cancel button -->
-  <button class="sc-button" mat-button [mat-dialog-close]="true">Cancelar</button>
+  <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel' | translate}}</button>
   <!-- /Cancel button -->
 
   <!-- Send historical button -->
@@ -50,7 +50,7 @@
     class="sc-button"
     [disabled]="!f.form.valid"
     (click)="downloadHistorical(myform)"
-    mat-raised-button color="accent">Enviar hist&oacute;rico
+    mat-raised-button color="accent">{{'actions.send_historical' | translate}}
   </button>
   <!-- /Send historical button -->
 

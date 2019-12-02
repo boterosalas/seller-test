@@ -5,6 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('DialogWithFormComponent', () => {
   let component: DialogWithFormComponent;
@@ -16,7 +18,9 @@ describe('DialogWithFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DialogWithFormComponent],
-      imports: [MaterialModule],
+      imports: [MaterialModule,
+        TranslateModule.forRoot({})
+      ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
         { provide: MAT_DIALOG_DATA, useValue: data }

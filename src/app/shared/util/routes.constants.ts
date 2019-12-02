@@ -136,14 +136,14 @@ export class RoutesConst {
         },
         {
             root: RoutesConst.sellerCenterIntOrdersState,
-            name: 'Por enviar',
+            name: 'menu.Por enviar',
             id: '35',
             buttonId: 'for-send-orders',
             count: 13
         },
         {
             root: RoutesConst.sellerCenterIntOrdersState,
-            name: 'Enviadas',
+            name: 'menu.Enviadas',
             id: '170',
             buttonId: 'send-orders',
             count: 15

@@ -6,6 +6,7 @@ import { UserLoginService, UserParametersService, LoadingService, ModalService }
 import { Logger } from '@core/util/logger.service';
 import { DashboardService } from './services/dashboard.service';
 import { RoutesConst } from '@app/shared';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 /**
  * @export
@@ -36,8 +37,16 @@ export class DashboardComponent implements OnInit {
     // Fecha inicial del datepicker
     public visibleDate: string;
 
+    public dateCurrent: any;
+
     // Fecha máxima del datePicker
     public dateMax: Date;
+
+    public monthEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    public monthES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    lang = 'ES';
+    public isLoad = true;
+    public isLoading = false;
 
     /**
      * Variable para observar el input del filtro inicial
@@ -54,6 +63,7 @@ export class DashboardComponent implements OnInit {
      */
     constructor(
         private _dashboard: DashboardService,
+        private languageService: TranslateService,
         public userService?: UserLoginService,
         public userParams?: UserParametersService,
         private loadingService?: LoadingService,
@@ -71,7 +81,7 @@ export class DashboardComponent implements OnInit {
 
         this.startDate = new Date();
         this.dateMax = this.startDate;
-        this.visibleDate = this.getVisibleDate(this.startDate.getMonth());
+        this.getMonthVisible(this.startDate.getMonth());
     }
 
     /**
@@ -83,6 +93,7 @@ export class DashboardComponent implements OnInit {
         // this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
         this.getUserData();
+        this.changeLanguage();
     }
 
     /**
@@ -127,16 +138,38 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     private getLastSales(date?: any) {
-        this.loadingService.viewSpinner();
-        this._dashboard.getLastSales(this.user.sellerId, date)
+        this.dateCurrent = date;
+        if (this.isLoad) {
+            this.loadingService.viewSpinner();
+        }
+        if (this.user && this.user.sellerId) {
+            this._dashboard.getLastSales(this.user.sellerId, date)
             .subscribe((res: any[]) => {
-                this.loadingService.closeSpinner();
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
                 this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
             }, err => {
-                this.loadingService.closeSpinner();
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
                 this.log.debug(err);
                 this.modalService.showModal('errorService');
             });
+        }
+    }
+
+    changeLanguage() {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            this.isLoad = false;
+            this.isLoading = true;
+            localStorage.setItem('culture_current', e['lang']);
+            this.getLastSales(this.dateCurrent);
+          });
     }
 
     /**
@@ -186,7 +219,7 @@ export class DashboardComponent implements OnInit {
     public chosenMonthHandler(month: any, dp: any) {
         const date = new Date(month);
         this.startDate = date;
-        this.visibleDate = this.getVisibleDate(date.getMonth());
+        this.getMonthVisible(date.getMonth());
         this.getLastSales(date);
         dp.close();
     }
@@ -198,6 +231,22 @@ export class DashboardComponent implements OnInit {
      */
     public openDatePicker() {
         this.picker.open();
+    }
+
+    getMonthVisible(month: any) {
+        this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+            if ('ES' === event.lang) {
+                this.visibleDate = this.monthES[month];
+            } else {
+                this.visibleDate = this.monthEN[month];
+            }
+        });
+        this.lang = localStorage.getItem('culture_current');
+        if (this.lang === 'ES') {
+            this.visibleDate = this.monthES[month];
+        } else {
+            this.visibleDate = this.monthEN[month];
+        }
     }
 
     /**

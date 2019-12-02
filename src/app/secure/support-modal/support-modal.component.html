@@ -1,156 +1,414 @@
 <div class="title-page">
   <div class="title">
-    <h2 class="sc-title mat-h2">Crea tu caso</h2>
-    <h4 class="description-title mat-h4">Registra aqu&iacute; la informaci&oacute;n para registrar un caso a nuestro
-      equipo de soporte</h4>
+    <h2 class="sc-title mat-h2">
+      {{ "secure.parametize.support_modal.title" | translate }}
+    </h2>
+    <h4 class="description-title mat-h4">
+      {{ "secure.parametize.support_modal.description" | translate }}
+    </h4>
   </div>
 
-  <a id="close-finish-send-order" matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button (click)="onNoClick()">
+  <a
+    id="close-finish-send-order"
+    [matTooltip]="'actions.close_menu' | translate"
+    mat-icon-button
+    matTooltipPosition="below"
+    mat-button
+    (click)="onNoClick()"
+  >
     <mat-icon>close</mat-icon>
   </a>
 </div>
 <form #f="ngForm" [formGroup]="myform" *ngIf="myform">
-
-  <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start"
-    fxLayout="row wrap" class="example-form">
-    <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
-
+  <div
+    fxFlex="100"
+    fxLayoutGap.md="50px"
+    fxLayoutGap.lg="50px"
+    fxLayoutGap.xl="50px"
+    fxLayoutAlign="center start"
+    fxLayout="row wrap"
+    class="example-form"
+  >
+    <div
+      fxFlex="45"
+      fxFlex.xs="100"
+      fxFlex.sm="100"
+      fxFlex.md="40"
+      fxFlex.lg="45"
+      fxFlex.xl="45"
+    >
       <mat-form-field class="example-full-width">
-        <input readonly id="suport-modal-input-nit" required matInput formControlName="nit" placeholder="Nit">
+        <input
+          readonly
+          id="suport-modal-input-nit"
+          required
+          matInput
+          formControlName="nit"
+          [placeholder]="'secure.seller.list.nit' | translate"
+        />
         <mat-icon matPrefix class="icon-support-modal">assignment_ind</mat-icon>
-        <!-- <mat-icon color="primary" matSuffix matTooltip="Ingresa el NIT de tu empresa incluyendo el dígitio de verificación. No debes utilizar guiones."
-          matTooltipPosition="below">help_outline</mat-icon> -->
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input readonly id="suport-modal-input-account" required matInput formControlName="account" placeholder="Vendedor">
-        <mat-icon matPrefix class="icon-support-modal">account_balance</mat-icon>
-        <!-- <mat-icon color="primary" matSuffix matTooltip="Lorem" matTooltipPosition="below">help_outline</mat-icon> -->
+        <input
+          readonly
+          id="suport-modal-input-account"
+          required
+          matInput
+          formControlName="account"
+          [placeholder]="
+            'secure.products.table_load_product.seller' | translate
+          "
+        />
+        <mat-icon matPrefix class="icon-support-modal"
+          >account_balance</mat-icon
+        >
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input id="suport-modal-input-contact" required matInput formControlName="contact" placeholder="Contacto">
-        <mat-icon matPrefix class="icon-support-modal">import_contacts</mat-icon>
-        <mat-icon color="primary" matSuffix matTooltip="Ingresa el nombre de la persona que registra el caso."
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('contact').hasError('required')">Este campo es obligatorio.</mat-error>
-        <mat-error *ngIf="myform.get('contact').hasError('pattern')">Campo inválido.</mat-error>
+        <input
+          id="suport-modal-input-contact"
+          required
+          matInput
+          formControlName="contact"
+          [placeholder]="
+            'secure.seller.register_seller.lb_contact_form' | translate
+          "
+        />
+        <mat-icon matPrefix class="icon-support-modal"
+          >import_contacts</mat-icon
+        >
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.tooltip_case' | translate
+          "
+          matTooltipPosition="below"
+          >help_outline</mat-icon
+        >
+        <mat-error *ngIf="myform.get('contact').hasError('required')">
+          {{
+            "secure.products.create_product_unit.basic_information.input_mandatory"
+              | translate
+          }}</mat-error
+        >
+        <mat-error *ngIf="myform.get('contact').hasError('pattern')">
+          {{
+            "secure.parametize.support_modal.invalid_fiel" | translate
+          }}</mat-error
+        >
       </mat-form-field>
-
-      <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
-        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-
-        <mat-select id="suport-modal-input-reason" required formControlName="reason" placeholder="Motivo de caso">
-          <mat-option value="Contenidos">
-            <span id="option-reason-1">Contenidos</span>
-          </mat-option>
-          <mat-option value="Uso de la plataforma">
-            <span id="option-reason-2">Uso de la plataforma</span>
-          </mat-option>
-          <mat-option value="Problemas técnicos plataforma">
-            <span id="option-reason-3">Problemas técnicos plataforma</span>
-          </mat-option>
-          <mat-option value="Pagos y facturación">
-            <span id="option-reason-4">Pagos y facturación</span>
-          </mat-option>
-          <mat-option value="Transporte">
-            <span id="option-reason-5">Transporte</span>
-          </mat-option>
-          <mat-option value="Servicio - Atención">
-            <span id="option-reason-6">Servicio - Atención</span>
-          </mat-option>
-          <mat-option value="Evaluación vendedores">
-            <span id="option-reason-7">Evaluación vendedores</span>
-          </mat-option>
-          <mat-option value="Envíos Éxito">
-            <span id="option-reason-8">Envíos Éxito</span>
-          </mat-option>
-          <mat-option value="Logistica éxito">
-            <span id="option-reason-9">Logistica éxito</span>
-          </mat-option>
-        </mat-select>
-        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el motivo del caso"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('reason').hasError('required')">Este campo es obligatorio.</mat-error>
-      </mat-form-field>
-
-    </div>
-
-    <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
-
-      <mat-form-field class="example-full-width">
-        <input id="suport-modal-input-caseMarketplaceName" required matInput formControlName="caseMarketplaceName"
-          placeholder="Nombre del caso">
-        <mat-icon matPrefix class="icon-support-modal">mode_edit</mat-icon>
-        <mat-icon color="primary" matSuffix matTooltip="Ingresa un título para tu caso. Este campo tiene un límite de 120 caracteres"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('required')">Este campo es obligatorio.</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('maxlength')">Este campo contiene máximo 120
-          caracteres.</mat-error>
-        <mat-error *ngIf="myform.get('caseMarketplaceName').hasError('pattern')">Campo inválido.</mat-error>
-      </mat-form-field>
-
-
-      <mat-form-field class="example-full-width" id="suport-modal-input-typeOfRequirement-content">
-        <mat-icon matPrefix class="icon-support-modal">assignment</mat-icon>
-        <mat-select id="suport-modal-input-typeOfRequirement" required formControlName="typeOfRequirement" placeholder="Tipo de caso">
-          <mat-option value="Queja">
-            <span id="typeOfRequirement-1">Queja</span>
-          </mat-option>
-          <mat-option value="Petición">
-            <span id="typeOfRequirement-2">Petición</span>
-          </mat-option>
-          <mat-option value="Reclamo">
-            <span id="typeOfRequirement-3">Reclamo</span>
-          </mat-option>
-          <mat-option value="Felicitación">
-            <span id="typeOfRequirement-4">Felicitación</span>
-          </mat-option>
-          <mat-option value="Sugerencia">
-            <span id="typeOfRequirement-5">Sugerencia</span>
-          </mat-option>
-        </mat-select>
-        <mat-icon color="primary" matSuffix matTooltip="Selecciona de la lista desplegable el tipo de caso"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('typeOfRequirement').hasError('required')">Este campo es obligatorio.</mat-error>
-      </mat-form-field>
-
 
       <mat-form-field class="example-full-width">
         <mat-icon matPrefix class="icon-support-modal">email</mat-icon>
-        <input id="suport-modal-input-emailContact" required matInput formControlName="emailContact" placeholder="Correo contacto">
-        <mat-icon color="primary" matSuffix matTooltip="Ingresa un correo para contactarte. Si el correo diligenciado esta errado por favor corrígelo. IMPORTANTE: A este correo llegará la respuesta del caso"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('emailContact').hasError('email')">El correo electrónico no es válido.</mat-error>
-      </mat-form-field>
-
-
-      <mat-form-field class="example-full-width">
-        <mat-icon matPrefix class="icon-support-modal">comment</mat-icon>
-        <textarea id="suport-modal-textarea-description" formControlName="description" matInput placeholder="Descripción"></textarea>
-        <mat-icon color="primary" matSuffix matTooltip="Ingresa una descripción con el mayor detalle posible de la incidencia. Este campo tiene un límite de 2.000 caracteres"
-          matTooltipPosition="below">help_outline</mat-icon>
-        <mat-error *ngIf="myform.get('description').hasError('required')">Este campo es obligatorio.</mat-error>
-        <mat-error *ngIf="myform.get('description').hasError('maxlength')">Este campo contiene máximo 2000 caracteres.</mat-error>
-        <mat-error *ngIf="myform.get('description').hasError('pattern')">Campo inválido.</mat-error>
-
+        <input
+          id="suport-modal-input-emailContact"
+          required
+          matInput
+          formControlName="emailContact"
+          [placeholder]="
+            'secure.parametize.support_modal.contact_mail' | translate
+          "
+        />
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.email_contact' | translate
+          "
+          matTooltipPosition="below"
+          >help_outline</mat-icon
+        >
+        <mat-error *ngIf="myform.get('emailContact').hasError('email')">
+          {{
+            "secure.parametize.support_modal.error_email" | translate
+          }}</mat-error
+        >
       </mat-form-field>
     </div>
 
-    <mat-dialog-actions fxFlex="100" class="footer-dialog normal-theme dialog-buttons">
-      <div class="class-tutorial" fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-icon>video_library</mat-icon>
-        <a href="https://www.youtube.com/channel/UCxCSSIsUl92fe7iqKH4nqPg/videos?view_as=subscriber" rel="noopener"
-          target="_blank" id="id-color-tutorial">
-          TUTORIALES</a>
+    <div
+      fxFlex="45"
+      fxFlex.xs="100"
+      fxFlex.sm="100"
+      fxFlex.md="40"
+      fxFlex.lg="45"
+      fxFlex.xl="45"
+    >
+      <div
+        *ngIf="omsCategories.length == 0; else classificationField"
+        class="loading-box"
+      >
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+        <div class="loading-box__loading-animation">
+          <mat-spinner color="accent" [diameter]="24"></mat-spinner>
+        </div>
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.classification_tips' | translate
+          "
+          matTooltipPosition="below"
+        >
+          help_outline
+        </mat-icon>
       </div>
-      <button id="suport-modal-button-close-modal" class="sc-button" (click)="clearForm()" mat-button>
+
+      <ng-template #classificationField>
+        <mat-form-field
+          id="suport-modal-input-reason-content"
+          class="example-full-width"
+        >
+          <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+          <mat-select
+            id="suport-modal-input-reason"
+            formControlName="classification"
+            required
+            [placeholder]="
+              'secure.parametize.support_modal.classification' | translate
+            "
+          >
+            <ng-container
+              *ngFor="
+                let item of getClassification(omsCategories) | async;
+                let i = index
+              "
+            >
+              <mat-option [value]="item.classification">
+                <span
+                  id="{{ item.classification }}-{{ i }}"
+                  (click)="onClickClassificationOption(item)"
+                >
+                  {{
+                    item.classification != null
+                      ? item.classification
+                      : "Sin titulo"
+                  }}
+                </span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-icon
+            color="primary"
+            matSuffix
+            [matTooltip]="
+              'secure.parametize.support_modal.classification_tips' | translate
+            "
+            matTooltipPosition="below"
+            >help_outline</mat-icon
+          >
+        </mat-form-field>
+      </ng-template>
+
+      <mat-form-field
+        id="suport-modal-input-category-content"
+        class="example-full-width"
+        *ngIf="scCategories.length > 0"
+      >
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+        <mat-select
+          id="suport-modal-input-reason1"
+          formControlName="category"
+          required
+          [placeholder]="
+            'secure.parametize.support_modal.category_case' | translate
+          "
+        >
+          <ng-container *ngFor="let item of scCategories; let i = index">
+            <mat-option
+              [value]="item.category ? item.category : 'null'"
+              (click)="onClickCategoryOption(item)"
+            >
+              <span id="{{ item.category }}-{{ i }}">
+                {{ item.category ? item.category : item.idMatrix }}
+              </span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.category_tips' | translate
+          "
+          matTooltipPosition="below"
+        >
+          help_outline
+        </mat-icon>
+      </mat-form-field>
+
+      <mat-form-field
+        id="suport-modal-input-subCategory-content"
+        class="example-full-width"
+        *ngIf="scSubcategories.length > 0"
+      >
+        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+        <mat-select
+          id="suport-modal-input-reason"
+          formControlName="subCategory"
+          required
+          [placeholder]="
+            'secure.parametize.support_modal.subcategory_case' | translate
+          "
+        >
+          <ng-container *ngFor="let item of scSubcategories; let i = index">
+            <mat-option
+              [value]="item.subcategory ? item.subcategory : 'null'"
+              (click)="onClickSubcategoryOption(item)"
+            >
+              <span id="{{ item.subcategory }}-{{ i }}">
+                {{ item.subcategory ? item.subcategory : item.idMatrix }}
+              </span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.subcategory_tips' | translate
+          "
+          matTooltipPosition="below"
+        >
+          help_outline
+        </mat-icon>
+      </mat-form-field>
+
+      <mat-form-field
+        class="example-full-width"
+        id="suport-modal-input-typeOfRequirement-content"
+        *ngIf="scReasonTypes.length > 0"
+      >
+        <mat-icon matPrefix class="icon-support-modal">assignment</mat-icon>
+        <mat-select
+          id="suport-modal-input-typeOfRequirement"
+          required
+          formControlName="typeOfRequirement"
+          [placeholder]="
+            'secure.parametize.support_modal.type_case' | translate
+          "
+        >
+          <ng-container *ngFor="let item of scReasonTypes; let i = index">
+            <mat-option [value]="item" (click)="onClickTypeOption(item)">
+              <span id="{{ item }}-{{ i }}">
+                {{ item }}
+              </span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.list_type_case' | translate
+          "
+          matTooltipPosition="below"
+          >help_outline</mat-icon
+        >
+        <mat-error *ngIf="myform.get('typeOfRequirement').hasError('required')">
+          {{
+            "secure.products.create_product_unit.basic_information.input_mandatory"
+              | translate
+          }}</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-icon matPrefix class="icon-support-modal">comment</mat-icon>
+        <textarea
+          id="suport-modal-textarea-description"
+          required
+          formControlName="description"
+          matInput
+          maxlength="2000"
+          [placeholder]="'shared.descripcion' | translate"
+        >
+        </textarea>
+
+        <mat-icon
+          color="primary"
+          matSuffix
+          [matTooltip]="
+            'secure.parametize.support_modal.description_tips' | translate
+          "
+          matTooltipPosition="below"
+        >
+          help_outline
+        </mat-icon>
+
+        <mat-error *ngIf="myform.get('description').hasError('required')">
+          {{
+            "secure.products.create_product_unit.basic_information.input_mandatory"
+              | translate
+          }}
+        </mat-error>
+
+        <mat-error *ngIf="myform.get('description').hasError('maxlength')">
+          {{ "secure.parametize.support_modal.limit_field" | translate }}
+        </mat-error>
+
+        <mat-error *ngIf="myform.get('description').hasError('pattern')">
+          {{ "secure.parametize.support_modal.field_invalid" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-dialog-actions
+      fxFlex="100"
+      class="footer-dialog normal-theme dialog-buttons"
+    >
+      <div>
+        <app-upload-button
+          [validations]="validations"
+          [showGeneralError]="true"
+          generalMessageError="El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word"
+          (fileChange)="onFileChange($event)"
+        >
+          SELECCIONAR ARCHIVO PARA IMPORTAR
+        </app-upload-button>
+      </div>
+
+      <div
+        class="class-tutorial"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <mat-icon>video_library</mat-icon>
+        <a
+          href="https://www.youtube.com/channel/UCxCSSIsUl92fe7iqKH4nqPg/videos?view_as=subscriber"
+          rel="noopener"
+          target="_blank"
+          id="id-color-tutorial"
+        >
+          {{ "secure.parametize.support_modal.tutorial" | translate }}</a
+        >
+      </div>
+
+      <button
+        id="suport-modal-button-close-modal"
+        class="sc-button"
+        (click)="clearForm()"
+        mat-button
+      >
         <mat-icon>clear_all</mat-icon>
-        Limpiar
+        {{ "filters.clear" | translate }}
       </button>
-      <button id="suport-modal-button-sendInformation" class="sc-button" [disabled]="!f.form.valid" (click)="sendSupportMessage(myform)"
-        type="submit" mat-raised-button color="primary">Enviar</button>
+
+      <button
+        id="suport-modal-button-sendInformation"
+        class="sc-button"
+        [disabled]="!f.form.valid"
+        (click)="sendSupportMessage(myform)"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        {{ "actions.send" | translate }}
+      </button>
     </mat-dialog-actions>
   </div>
-
 </form>

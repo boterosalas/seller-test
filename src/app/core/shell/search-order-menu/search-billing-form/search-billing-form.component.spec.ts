@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BillingModule } from '@app/secure/billing/billing.module';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SearchBillingFormComponent', () => {
   let component: SearchBillingFormComponent;
@@ -62,7 +63,8 @@ describe('SearchBillingFormComponent', () => {
         ShellModule,
         FormsModule,
         ReactiveFormsModule,
-        BillingModule
+        BillingModule,
+        TranslateModule.forRoot({})
       ],
       declarations: [
       ],
