@@ -246,7 +246,7 @@
                   <mat-icon matPrefix>add_shopping_cart</mat-icon>
                   <input (change)="getPriceDescount()" matInput
                     [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo' | translate"
-                    (blur)="getVerifyPrice()" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
+                    (blur)="getVerifyPrice() ;validInput('Price');" formControlName="ComboQuantity" [errorStateMatcher]="matcher">
                   <mat-hint></mat-hint>
                   <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">
                     {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo' | translate}}}

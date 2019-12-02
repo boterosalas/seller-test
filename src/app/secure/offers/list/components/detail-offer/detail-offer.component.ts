@@ -634,6 +634,7 @@ export class DetailOfferComponent implements OnInit {
     this.formUpdateOffer.controls.DiscountPrice.setValue(total);
     this.valuePrice = this.formUpdateOffer.controls.Price.setValue(total);
     this.totalCombo = total;
+    this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: true });
     if (total <= 8000 && this.formUpdateOffer.value.Currency === 'COP') {
       this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less'), this.languageService.instant('actions.close'), {
         duration: 3000,
@@ -647,6 +648,7 @@ export class DetailOfferComponent implements OnInit {
     if (this.formUpdateOffer.controls.DiscountPrice.value) {
       if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= 8000) {
         errors = false;
+        this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: true });
         if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
           if (showErrors) {
             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
