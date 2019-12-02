@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadButtonComponent } from './upload-button.component';
 import { MatIconModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
 
 describe('UploadButtonComponent', () => {
   let component: UploadButtonComponent;
@@ -23,4 +24,24 @@ describe('UploadButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+/*   it('should render the name of attached', async(() => {
+
+    const file = {
+      lastModified: 1,
+      lastModifiedDate: new Date(),
+      name: 'FileName.txt',
+      size: 30000,
+      type: 'String',
+      webkitRelativePath: 'String',
+      base64: 'String'
+    };
+
+    component.attachments.push(file);
+
+    const compiled = fixture.debugElement.query(By.css('#attached-file-name'));
+    fixture.detectChanges();
+    expect(compiled).toBe(file.name);
+  })); */
+
 });

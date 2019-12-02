@@ -674,6 +674,7 @@ export class ProductBasicInfoComponent implements OnInit {
      */
 
     listOfBrands() {
+        this.loadingService.viewSpinner();
         this.service.getActiveBrands().subscribe(brands => {
             const initialBrands = brands.Data.Brands;
             this.brands = initialBrands.sort((a, b) => {
@@ -685,6 +686,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 }
                 return 0;
             });
+            this.loadingService.closeSpinner();
         });
     }
 

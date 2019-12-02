@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserParametersService, LoadingService } from '@app/core';
 import { ReportOffertService } from '../report-offert.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-download-modal-offert-report',
@@ -25,6 +26,8 @@ export class DownloadModalOffertReportComponent implements OnInit {
     public reporOffertService: ReportOffertService,
     private loadingService: LoadingService,
     public componentService: ComponentsService,
+    private languageService: TranslateService,
+
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -56,9 +59,9 @@ export class DownloadModalOffertReportComponent implements OnInit {
     this.reporOffertService.downloadReportOffertAdmin(email).subscribe(
       (result: any) => {
         if (result && (result.status === 200 || result.status === 201)) {
-          this.componentService.openSnackBar('Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.', 'Cerrar', 10000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-offert.download-modal-offert-ts.ok'), this.languageService.instant('actions.close'), 10000);
         } else {
-          this.componentService.openSnackBar('Se ha presentado un error al realizar la descarga del reporte de ofertas', 'Cerrar', 5000);
+          this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-offert.download-modal-offert-ts.ko'), this.languageService.instant('actions.close'), 5000);
         }
         this.onNoClick();
         this.loadingService.closeSpinner();

@@ -29,8 +29,7 @@ describe('BillingProductsOrderComponent', () => {
       declarations: [
       ],
       providers: [
-        {provide: LoadingService, useValue: mockLoadingService},
-        
+        { provide: LoadingService, useValue: mockLoadingService },
       ]
     })
       .compileComponents();
@@ -60,7 +59,7 @@ describe('BillingProductsOrderComponent', () => {
     it('open modal', () => {
       component.openModalDetailProduct(component.order);
     });
-    
+
 
     it('exist products Information', () => {
       expect(component.order).not.toBeNull();
@@ -122,7 +121,7 @@ describe('BillingProductsOrderComponent', () => {
         totalShippingCost: '',
         price: ''
       }];
-    })
+    });
 
     it('exist products Information', () => {
       expect(component.order).not.toBeNull();

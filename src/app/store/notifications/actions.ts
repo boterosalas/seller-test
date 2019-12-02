@@ -9,7 +9,9 @@ export const Types = {
   FetchUnreadCaseDone: withNamespace('Fetch unread case done'),
   RunNotificationDaemon: withNamespace('Run Notification Deamon'),
   FinishNotifications: withNamespace('Finish notifications'),
-  StartNotifications: withNamespace('Start notifications')
+  StartNotifications: withNamespace('Start notifications'),
+  GetAllDevolutionsDone: withNamespace('Get all devolutions done'),
+  GetAllDevolutions: withNamespace('Get all devolutions')
 };
 
 export class FetchUnreadCase implements Action {
@@ -34,6 +36,17 @@ export class RunNotificationDaemon implements Action {
 
 export class StartNotifications implements Action {
   readonly type = Types.StartNotifications;
+  constructor(public payload?: any) {}
+}
+
+// Valor de devoluciones por ver
+export class GetAllDevolutionsDone implements Action {
+  readonly type = Types.GetAllDevolutionsDone;
+  constructor(public payload?: any) {}
+}
+
+export class GetAllDevolutions implements Action {
+  readonly type = Types.GetAllDevolutions;
   constructor(public payload?: any) {}
 }
 
