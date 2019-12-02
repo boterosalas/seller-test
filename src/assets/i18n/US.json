@@ -36,6 +36,8 @@
     "menu.Listar reclamaciones": "Claims list",
     "menu.Validaciones": "In Validation",
     "menu.Devoluciones": "In Return",
+    "menu.En validación": "In Validation",
+    "menu.En devolución": "In Return",
     "menu.Solicitudes pendientes": "Pending Requests",
     "menu.Todas": "All",
     "menu.Por enviar": "Pending shipping",
