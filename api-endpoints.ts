@@ -164,8 +164,8 @@ export const endpoints = {
       getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
       // Crear/Editar/Elminar comision execpcion marca
       exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
-       // Classification of cases
-       getCaseCategories: '',
+      // Classification of cases
+      getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
     },
   },
   // Endpoints production
