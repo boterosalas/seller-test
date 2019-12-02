@@ -789,50 +789,6 @@
     "secure.products.create_product_unit.basic_information.invalid_ean": "Invalid Ean",
     "secure.products.create_product_unit.basic_information.not_exist_ean": "The Ean entered does not exist",
     "secure.products.create_product_unit.basic_information.alredy_added_ean": "The Ean has already been added",
-<<<<<<< HEAD
- 
-    "secure.products.create_product_unit.categorization.search_category": "Search category",  
-    "secure.products.create_product_unit.categorization.now_you_must": "Now you must categorize your product. In order to do this select the most apropiate category from the tree bellow. You may only select one specific subcategory for the product, if you need to look up the subcategory you need use the search bar entering the name and select it from the list.", 
- 
-    "secure.products.create_product_unit.categorization.list.you_selected": "You selected",  
-    "secure.products.create_product_unit.categorization.list.expand": "Expand",  
-    "secure.products.create_product_unit.categorization.list.colapse": "Colapse", 
-    "secure.products.create_product_unit.categorization.list.standard_variant": "No puedes cambiar la categoría de Estandar a Variante o de Variante a Estandar", 
-
- 
-    "secure.products.create_product_unit.component_process.categorization": "Categorization",  
-    "secure.products.create_product_unit.component_process.back": "Back",  
-    "secure.products.create_product_unit.component_process.continue": "Continue",  
-    "secure.products.create_product_unit.component_process.basic_information": "Basic information",  
-    "secure.products.create_product_unit.component_process.specifications": "Specifications",  
-    "secure.products.create_product_unit.component_process.images": "Images",  
-    "secure.products.create_product_unit.component_process.save": "Save", 
- 
-    "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",  
-    "secure.products.create_product_unit.component_process.dialog_save.home": "Home",  
-    "secure.products.create_product_unit.component_process.dialog_save.retry": "Retry",  
-    "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "An error has occurred", 
-     
-    "secure.products.create_product_unit.create_unutary_product.products": "Products",  
-    "secure.products.create_product_unit.create_unutary_product.unitary_creation": "Unitary creation", 
- 
-    "secure.products.create_product_unit.specifications.text_must_specifications": "In this section you must fill all the relevant specifications for the type of product you are creating. In each list you will see the specifications we consider important for your specific product type",  
-    "secure.products.create_product_unit.specifications.info": "Info",  
-    "secure.products.create_product_unit.specifications.error_has_occured_uploading": "An error has occurred when uploading the information",  
-    "secure.products.create_product_unit.specifications.200_characters": "200 characters maximum",  
-    "secure.products.create_product_unit.specifications.error_field": "There is an error in the field",  
-    "secure.products.create_product_unit.specifications.add_specifications": "Add specifications",  
-    "secure.products.create_product_unit.specifications.field_mandatory": "mandatory field",  
-    "secure.products.create_product_unit.specifications.group_mandatory_specifications": "This group has mandatory specifications", 
- 
-    "secure.products.create_product_unit.specifications.dialog.add_specifications": "Add specifications",  
-    "secure.products.create_product_unit.specifications.dialog.has": "has",  
-    "secure.products.create_product_unit.specifications.dialog.have": "have",  
-    "secure.products.create_product_unit.specifications.dialog.there": "There",  
-    "secure.products.create_product_unit.specifications.dialog.been": "been",  
-    "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",  
-    "secure.products.create_product_unit.specifications.dialog.errors": "errors",  
-=======
 
     "secure.products.create_product_unit.categorization.search_category": "Search category",
     "secure.products.create_product_unit.categorization.now_you_must": "Now you must categorize your product. In order to do this select the most apropiate category from the tree bellow. You may only select one specific subcategory for the product, if you need to look up the subcategory you need use the search bar entering the name and select it from the list.",
@@ -873,7 +829,6 @@
     "secure.products.create_product_unit.specifications.dialog.been": "been",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
->>>>>>> develop
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
     "secure.products.create_product_unit.specifications.specs": "Specification",
