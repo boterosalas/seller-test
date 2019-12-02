@@ -33,17 +33,14 @@ export class UploadButtonComponent implements OnInit {
     try {
       this.launchValidations(files);
 
-      this.uploadService
-        .base64FromArray(files)
-        .subscribe(
-          (fileB64: File) => {
-            this.isError = false;
-            this.attachments = [...this.attachments, fileB64];
-          },
-          null,
-          () => this.fileChange.emit(this.attachments)
-        );
-
+      this.uploadService.base64FromArray(files).subscribe(
+        (fileB64: File) => {
+          this.isError = false;
+          this.attachments = [...this.attachments, fileB64];
+        },
+        null,
+        () => this.fileChange.emit(this.attachments)
+      );
     } catch (error) {
       this.isError = true;
       this.messageError = error.message;
@@ -58,7 +55,9 @@ export class UploadButtonComponent implements OnInit {
       const message = this.messageErrorByFile(attach, this.validations);
 
       if (this.showGeneralError && message.length > 0) {
-        throw new Error(!this.generalMessageError ? `GENERAL_ERROR` : this.generalMessageError);
+        throw new Error(
+          !this.generalMessageError ? `GENERAL_ERROR` : this.generalMessageError
+        );
       } else if (message.length !== 0) {
         messageError += message;
       }
@@ -75,7 +74,6 @@ export class UploadButtonComponent implements OnInit {
       const validation = validations[i];
       const message = this.validator(attach, validation);
       messageError += message ? message : '';
-
     }
     return messageError;
   }
@@ -87,7 +85,6 @@ export class UploadButtonComponent implements OnInit {
    * @param validation
    */
   validator(file: File, validation: Validation): string {
-
     switch (validation.type) {
       case TYPE_VALIDATION.MAX_SIZE:
         this.totalSizeAllowed += file.size;

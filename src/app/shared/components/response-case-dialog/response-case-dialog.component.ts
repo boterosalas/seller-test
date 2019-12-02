@@ -20,8 +20,6 @@ export class ResponseCaseDialogComponent {
     attachments: new Array<Attachment>()
   };
 
-  accepts: any;
-
   validations = [
     {
       type: TYPE_VALIDATION.MAX_SIZE,

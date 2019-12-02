@@ -1,4 +1,8 @@
-<div class="sh-button-upload__attachments" id="upload-button-file-container">
+<div
+  *ngIf="attachments.length > 0"
+  class="sh-button-upload__attachments"
+  id="upload-button-file-container"
+>
   <div
     *ngFor="let attached of attachments; let i = index"
     class="sh-button-upload__attached-item"
@@ -35,7 +39,11 @@
     <mat-icon class="mat-18 ">file_upload</mat-icon>
     <ng-content></ng-content>
   </button>
-  <div *ngIf="isError" class="sh-button-upload__error-box" id="upload-error-message">
+  <div
+    *ngIf="isError"
+    class="sh-button-upload__error-box"
+    id="upload-error-message"
+  >
     {{ messageError }}
   </div>
 </div>
