@@ -24,7 +24,10 @@ import {
   switchMap,
   filter
 } from 'rxjs/operators';
-import { File, TYPE_VALIDATION } from '@app/shared/components/upload-button/configuration.model';
+import {
+  File,
+  TYPE_VALIDATION
+} from '@app/shared/components/upload-button/configuration.model';
 import { ACCEPT_TYPE } from '@app/shared/models';
 import { CaseCategory } from '@app/shared/models/case-category';
 
@@ -99,8 +102,7 @@ export class SupportModalComponent implements OnInit {
         ACCEPT_TYPE.APPLICATION_POTM,
         ACCEPT_TYPE.APPLICATION_PPSM,
         ACCEPT_TYPE.APPLICATION_MDB,
-        ACCEPT_TYPE.APPLICATION_PDF,
-
+        ACCEPT_TYPE.APPLICATION_PDF
       ],
       message:
         'El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word'
@@ -322,7 +324,9 @@ export class SupportModalComponent implements OnInit {
       (res: any) => {
         this.loadingService.closeSpinner();
         this.COMPONENT.openSnackBar(
-          this.languageService.instant('secure.parametize.support_modal.ts_send_msj'),
+          this.languageService.instant(
+            'secure.parametize.support_modal.ts_send_msj'
+          ),
           this.languageService.instant('actions.accpet_min'),
           10000
         );
@@ -356,7 +360,7 @@ export class SupportModalComponent implements OnInit {
         map(
           (file: File): Attachment => ({
             name: file.name,
-            type: file.type,
+            type: this.getExtensionName(file),
             base64: file.base64
           })
         ),
@@ -366,6 +370,13 @@ export class SupportModalComponent implements OnInit {
         (attachments: Array<Attachment>) =>
           (this.response.attachments = attachments)
       );
+  }
+
+  getExtensionName(file: File): string {
+    const extensionName = file.name.split(/(\.\w+$)/)[1];
+    return extensionName.length > 2
+      ? extensionName.slice(1, extensionName.length)
+      : '';
   }
 }
 
