@@ -633,6 +633,8 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "Información de oferta de componente faltante",
     "secure.offers.bulk_upload.table_error.sum_price": "El precio de este producto combo debe ser la sumatoria de sus componentes.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes.",
+    "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.", 
+    "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.", 
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",

@@ -633,6 +633,8 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "has missing information for a component",
     "secure.offers.bulk_upload.table_error.sum_price": "should have a price comprised of the sum of the components.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "should have a discount price comprised of the sum of the components.",
+    "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.", 
+    "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.", 
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
