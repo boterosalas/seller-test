@@ -5,6 +5,7 @@ import { interval } from 'rxjs';
 
 import * as NotificationActions from './actions';
 import { SellerSupportCenterService } from '../../secure/seller-support-center/services/seller-support-center.service';
+import { TermsService } from '@app/secure/seller/agreement/terms/terms.component.service';
 
 @Injectable()
 export class NotificationEffects {
@@ -32,8 +33,19 @@ export class NotificationEffects {
     map((data: number) => new NotificationActions.FetchUnreadCaseDone(data))
   );
 
+  @Effect()
+  getUnreadDevolution = this.actions.pipe(
+    ofType(NotificationActions.Types.GetAllDevolutions),
+    switchMap(() => this.termsService.getPendingDevolutions().pipe(
+      map(res => res.data),
+      map((data: number) => {
+        return new NotificationActions.GetAllDevolutionsDone(data);
+      }))),
+  );
+
   constructor(
     private actions: Actions,
-    private sellerSupportService: SellerSupportCenterService
-  ) {}
+    private sellerSupportService: SellerSupportCenterService,
+    private termsService: TermsService
+  ) { }
 }

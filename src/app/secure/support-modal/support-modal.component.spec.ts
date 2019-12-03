@@ -1,58 +1,55 @@
 /* 3rd party components */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
 import { SupportModalComponent } from './support-modal.component';
-import { SupportModule } from './support-modal.module';
 import { MatDialogRef } from '@angular/material';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsService, UserInformation } from '@app/shared';
 import { SupportService } from './support.service';
-import { UserParametersService, EndpointService, LoadingService } from '@app/core';
-import { ShellModule } from '@app/core/shell/shell.module';
+import {
+  UserParametersService,
+  EndpointService,
+  LoadingService
+} from '@app/core';
 import { MaterialModule } from '@app/material.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@app/shared/shared.module';
-import { of, Observable } from 'rxjs';
-
 
 describe('SupportModalComponent', () => {
   let component: SupportModalComponent;
   let fixture: ComponentFixture<SupportModalComponent>;
 
-  const userInfo = new UserInformation();
-  userInfo.sellerNit = '123';
-  userInfo.sellerName = 'Luis Miguel';
+    const userInfo = new UserInformation();
+    userInfo.sellerNit = '123';
+    userInfo.sellerName = 'Luis Miguel';
 
-  const mockPromise = new Promise<UserInformation>(async (resolve) => {
+  const mockPromise = new Promise<UserInformation>(async resolve => {
     resolve(this.userInfo);
   });
 
-  const COMPONENT = <ComponentsService>{
-  };
+  const COMPONENT = <ComponentsService>{};
 
-  const SUPPORT = <SupportService>{
-  };
+  const SUPPORT = <SupportService>{};
 
-  const userParams = <UserParametersService>{
-    getUserData(): Promise<any> {
-      return mockPromise;
-    }
-  };
+    const userParams = <UserParametersService>{
+      getUserData(): Promise<any> {
+        return mockPromise;
+      }
+    };
 
   const endpointService = <EndpointService>{
+    get: (name: string, params?: any[], version: string = null): string => ''
   };
 
-  const loadingService = <LoadingService>{
-  };
+  const loadingService = <LoadingService>{};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SupportModalComponent,
+        SupportModalComponent
         // SupportModule
       ],
       providers: [
@@ -62,7 +59,7 @@ describe('SupportModalComponent', () => {
         { provide: UserParametersService, useValue: userParams },
         { provide: LoadingService, useValue: loadingService },
         { provide: EndpointService, useValue: endpointService },
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }
       ],
       imports: [
         MaterialModule,
@@ -74,8 +71,7 @@ describe('SupportModalComponent', () => {
         SharedModule
         // SupportModule,
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -92,4 +88,3 @@ describe('SupportModalComponent', () => {
     fixture.destroy();
   });
 });
-

@@ -25,6 +25,7 @@ export const endpoints = {
       refuseOrAcceptDevolution: '',
       // Support message
       supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
+      createcaseseller: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/createcaseseller',
       getreasonsrejection: 'https://g7n20mhxc4.execute-api.us-east-1.amazonaws.com/ReasonsRejection{stringParams}',
       // shipments
       getShipmentById: 'service/shipping/{id}',
@@ -52,7 +53,7 @@ export const endpoints = {
       getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
       patchOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer',
       patchOffersProducts: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/registeruniqueoffer',
-      getStatusOffers : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
+      getStatusOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/status',
       // Historical
       getHistoricalOffers: 'https://27tkfc1vv8.execute-api.us-east-1.amazonaws.com/OfferHistorical/{params}',
       downloadHistorical: 'https://v40mzsj5hk.execute-api.us-east-1.amazonaws.com/OfferDownloadHistorical/{params}',
@@ -157,10 +158,14 @@ export const endpoints = {
       reportsOfferAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
       // Get vtex TREET
       getVtexTree: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtextree',
+      // Get ordenes Pendientes
+      getPendinOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/reversions/amount',
       // Get excecion brand comisiones
       getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
       // Crear/Editar/Elminar comision execpcion marca
       exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
+      // Classification of cases
+      getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
     },
   },
   // Endpoints production
@@ -185,6 +190,7 @@ export const endpoints = {
       refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
+      createcaseseller: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/createcaseseller',
       getreasonsrejection: 'https://m9rdnx8wog.execute-api.us-east-1.amazonaws.com/reasonrejection-pdn{stringParams}',
       // shipments
       getShipmentById: 'service/shipping/{id}',
@@ -212,7 +218,7 @@ export const endpoints = {
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
       getOffersAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/listoffersbyseller/{params}',
       patchOffersProducts: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/registeruniqueoffer',
-      getStatusOffers : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/status',
+      getStatusOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/status',
       // Historical
       getHistoricalOffers: 'https://k19m329r85.execute-api.us-east-1.amazonaws.com/offerhistorical-pdn/{params}',
       downloadHistorical: 'https://wq8pypt9ra.execute-api.us-east-1.amazonaws.com/offerdownloadhistorical-pdn/{params}',
@@ -316,12 +322,16 @@ export const endpoints = {
       exceptionBrandsManage: '',
       // Reporte de ofertas administrator
       reportsOfferAdmin: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',
-       // Get vtex TREET
-       getVtexTree: '',
-        // Get excecion brand comisiones
-      getExceptionBrand: '',
+      // Get vtex TREET
+      getVtexTree: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtextree',
+      // Get ordenes Pendientes
+      getPendinOrders: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/reversions/amount',
+      // Get excecion brand comisiones
+      getExceptionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn',
       // Crear/Editar/Elminar comision execpcion marca
-      exceptionComissionBrand: '',
+      exceptionComissionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/{params}',
+      // Classification of cases
+      getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
     }
   }
 };

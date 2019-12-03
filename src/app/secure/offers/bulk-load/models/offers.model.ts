@@ -12,6 +12,8 @@ export class ModelOffers {
         public Warranty: any,
         public IsLogisticsExito: any,
         public IsUpdatedStock: any,
+        public Address: any,
+        public DaneCode: any,
         public errorRow: boolean,
         public Currency?: boolean,
         public errorEan?: boolean,
@@ -31,6 +33,7 @@ export class ModelOffers {
         public errorEanCombo?: boolean,
         public errorComboQuantity?: boolean,
         public errorCurrency?: boolean,
-
+        public errorAddress?: boolean,
+        public errorDaneCode?: boolean,
     ) { }
 }

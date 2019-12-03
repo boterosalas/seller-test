@@ -41,6 +41,11 @@ export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO = 'Amount in combo';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
+export const OFFERS_HEADERS_DIRECCION = 'Direccion de Recogida';
+export const OFFERS_HEADERS_ADDRESS = 'Picking Address';
+export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
+export const OFFERS_HEADERS_DANECODE = 'Picking City';
+
 
 // log component
 const log = new Logger('BulkLoadComponent');
@@ -118,7 +123,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     promiseDelivery: '',
     currency: '',
     warranty: '',
-    price: ''
+    price: '',
+    address: '',
+    daneCode: ''
   };
 
 
@@ -303,7 +310,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_CANTIDAD_COMBO ||
             res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO ||
             res[0][j] === OFFERS_HEADERS_MONEDA ||
-            res[0][j] === OFFERS_HEADERS_CURRENCY
+            res[0][j] === OFFERS_HEADERS_CURRENCY ||
+            res[0][j] === OFFERS_HEADERS_DIRECCION ||
+            res[0][j] === OFFERS_HEADERS_ADDRESS ||
+            res[0][j] === OFFERS_HEADERS_CODIGO_DANE ||
+            res[0][j] === OFFERS_HEADERS_DANECODE
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
@@ -381,7 +392,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
-            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda')
+            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda'),
+            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida'),
+            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -551,6 +564,46 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
                 }
 
+              } else if (j === iVal.iAddress) {
+                const isAddress = this.validFormat(res[i][j], 'address');
+                if (!isAddress && isAddress === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidFormatAddress',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iAddress ? 'Address' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iDaneCode) {
+                const isDaneCode = this.validFormat(res[i][j], 'daneCode');
+                if (!isDaneCode && isDaneCode === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidFormatDaneCode',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iDaneCode ? 'DaneCode' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
               } else if (j === iVal.iGarantia) {
                 const iGarantia = this.validFormat(res[i][j], 'greaterWarranty');
                 if (!iGarantia && iGarantia === false) {
@@ -595,7 +648,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
 
                 }
-
                 const correctVal = this.validPrice(res[i][j], res[i][iVal.iCurrency]);
                 if (!correctVal) {
                   this.countErrors += 1;
@@ -761,7 +813,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         // InvalidPriceOfferCombo DiscountPrice
         this.listLog.push(itemLog);
 
-
         if (!exist) {
           this.countErrors++;
           this.addRowToTable(this.arrayNecessaryData, element.index, element.iVal);
@@ -792,7 +843,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       IsUpdatedStock: res[index][iVal.iActInventario] ? res[index][iVal.iActInventario] : '0',
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
-      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP'
+      Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP',
+      Address: res[index][iVal.iAddress],
+      DaneCode: res[index][iVal.iDaneCode],
       // Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
@@ -822,6 +875,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       ComboQuantity: res[index][iVal.iCantidadCombo] ? res[index][iVal.iCantidadCombo] : '',
       EanCombo: res[index][iVal.iEanCombo] ? res[index][iVal.iEanCombo] : '',
       Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : '',
+      Address: res[index][iVal.iAddress],
+      DaneCode: res[index][iVal.iDaneCode],
       errorRow: false
     };
 
@@ -867,6 +922,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.arrayInformation[index].errorEanCombo = false;
       this.arrayInformation[index].errorComboQuantity = false;
       this.arrayInformation[index].errorCurrency = false;
+      this.arrayInformation[index].errorAddress = false;
+      this.arrayInformation[index].errorDaneCode = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -1033,6 +1090,20 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
+        case 'address':
+          if ((inputtxt.match(this.offertRegex.address))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'daneCode':
+          if ((inputtxt.match(this.offertRegex.daneCode))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
     return valueReturn;
@@ -1063,6 +1134,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Ean combo': undefined,
         'Cantidad en combo': undefined,
         'Tipo de moneda': undefined,
+        'Direccion de Recogida': undefined,
+        'Ciudad de Recogida': undefined
       }];
       log.info(emptyFile);
       this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
@@ -1088,7 +1161,9 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'Warranty': undefined,
       'Ean combo': undefined,
       'Amount in combo': undefined,
-      'Currency': undefined
+      'Currency': undefined,
+      'Picking Address': undefined,
+      'Picking City': undefined,
     }];
     log.info(emptyFile);
     this.exportAsExcelFile(emptyFile, 'Offer upload format');
@@ -1186,9 +1261,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.arrayInformationForSend.splice(0, 1);
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
-      const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
-      const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-      element['PromiseDelivery'] = convertPromise;
+      if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+        const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
+        const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
+        element['PromiseDelivery'] = convertPromise;
+      }
     });
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
