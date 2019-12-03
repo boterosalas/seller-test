@@ -538,46 +538,47 @@ export class DetailOfferComponent implements OnInit {
         });
       });
     }
+    this.loadingService.viewSpinner();
+    this.loadOfferService.setOffersProducts(this.oferts).subscribe(
+      (result: any) => {
+        if (result.status === 200) {
+          const data = result;
+          if (data.body.successful !== 0 || data.body.error !== 0) {
+            if (data.body.data.error > 0) {
+              this.loadingService.closeSpinner();
+              this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
+                duration: 5000,
+              });
+              this.consumeServiceList.emit(true);
+              this.params = [];
+              this.oferts = [];
+            } else {
+              this.loadingService.closeSpinner();
+              this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                duration: 5000,
+              });
+              this.goToListOffers();
+              this.consumeServiceList.emit(true);
+              this.params = [];
+              this.oferts = [];
+            }
+          } else if (data.body.successful === 0 && data.body.error === 0) {
+            this.modalService.showModal('errorService');
+            this.params = [];
+            this.oferts = [];
+          }
+        } else {
+          this.modalService.showModal('errorService');
+          this.loadingService.closeSpinner();
+          this.params = [];
+          this.oferts = [];
+        }
 
-    console.log(this.oferts);
-
-    // this.loadingService.viewSpinner();
-    // this.loadOfferService.setOffersProducts(this.params).subscribe(
-    //   (result: any) => {
-    //     if (result.status === 200) {
-    //       const data = result;
-    //       if (data.body.successful !== 0 || data.body.error !== 0) {
-    //         if (data.body.data.error > 0) {
-    //           this.loadingService.closeSpinner();
-    //           this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
-    //             duration: 5000,
-    //           });
-    //           this.consumeServiceList.emit(true);
-    //           this.params = [];
-    //         } else {
-    //           this.loadingService.closeSpinner();
-    //           this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-    //             duration: 5000,
-    //           });
-    //           this.goToListOffers();
-    //           this.consumeServiceList.emit(true);
-    //           this.params = [];
-    //         }
-    //       } else if (data.body.successful === 0 && data.body.error === 0) {
-    //         this.modalService.showModal('errorService');
-    //         this.params = [];
-    //       }
-    //     } else {
-    //       this.modalService.showModal('errorService');
-    //       this.loadingService.closeSpinner();
-    //       this.params = [];
-    //     }
-
-    //     if (result.body.data.error === 1) {
-    //       this.modalService.showModal('errorService');
-    //     }
-    //   }
-    // );
+        if (result.body.data.error === 1) {
+          this.modalService.showModal('errorService');
+        }
+      }
+    );
   }
 
 
@@ -619,7 +620,7 @@ export class DetailOfferComponent implements OnInit {
       EAN: element.ean,
       ofertPriceComponet: new FormControl(element.price, [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
       ComboQuantity: [element.quantity, Validators.compose([Validators.required, Validators.pattern(this.offertRegex.formatNumber)])],
-      nameCombo: new FormControl('nombre largo para probar si se desmaqueta o si se ve presentable, esperemos que no se desmaquete por si no hay madre mia'),
+      nameCombo: new FormControl(element.productName),
     });
     this.Combos.push(this.comboForm);
   }
