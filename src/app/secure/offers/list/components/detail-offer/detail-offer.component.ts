@@ -12,6 +12,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { validateDataToEqual } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -137,6 +138,7 @@ export class DetailOfferComponent {
     public SUPPORT: SupportService,
     private languageService: TranslateService,
     public authService: AuthService,
+    private profileService: MyProfileService,
     public snackBar?: MatSnackBar
   ) {
     this.isUpdateOffer = false;
@@ -289,10 +291,10 @@ export class DetailOfferComponent {
       Currency: this.Currency
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
-    // this.formUpdateOffer.get('Currency').disable();
+    this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-      this.changeTypeCurrency(val);
+      // this.changeTypeCurrency(val);
       this.validateOffertType(val);
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
@@ -556,4 +558,26 @@ export class DetailOfferComponent {
       duration: 3000,
     });
   }
+
+  // /**
+  //  * Funcion que obtiene la información del usuario para obtener el país.
+  //  * @memberof DetailOfferComponent
+  //  */
+  // async getAllDataUser() {
+  //   this.loadingService.viewSpinner();
+  //   const sellerData = await this.profileService.getUser().toPromise().then(res => {
+  //     const body: any = res.body;
+  //     const response = JSON.parse(body.body);
+  //     const userData = response.Data;
+  //     this.loadingService.closeSpinner();
+  //     return userData;
+  //   });
+  //   this.loadingService.closeSpinner();
+  //   this.formUpdateOffer.get('Currency').disable();
+  //   if (sellerData.Country === 'COLOMBIA') {
+  //     this.formUpdateOffer.get('Currency').setValue('COP');
+  //   } else {
+  //     this.formUpdateOffer.get('Currency').setValue('USD');
+  //   }
+  // }
 }
