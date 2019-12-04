@@ -143,7 +143,7 @@
 
         <mat-form-field>
           <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]"
-            id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="validInput('Price')"
+            id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="valiteInput()"
             required>
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')"
@@ -162,7 +162,7 @@
 
         <mat-form-field>
           <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate"
-            [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="validInput('DiscountPrice')">
+            [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="valiteInput()">
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]">
@@ -171,6 +171,9 @@
             [innerHTML]="['errors.error_price_discount' | translate]"></mat-error>
           <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')"
             [innerHTML]="['errors.error_price_discount-2' | translate]"></mat-error>
+            <mat-error
+            *ngIf="!formUpdateOffer.get('DiscountPrice').hasError('required') && formUpdateOffer.get('DiscountPrice').hasError('isLessThanDiscPrice')"
+            [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -250,7 +253,7 @@
                     <mat-icon matPrefix>attach_money</mat-icon>
                     <input (change)="getPriceDescount()" matInput
                       [placeholder]="'secure.offers.historical_admin.historical_admin.price' | translate"
-                      formControlName="ofertPriceComponet" (blur)="validInput('Price'); getVerifyPrice()"
+                      formControlName="ofertPriceComponet" (blur)="validInput('Price'); valiteInput()"
                       [errorStateMatcher]="matcher">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="comp.get('ofertPriceComponet').hasError('required')">
@@ -264,7 +267,7 @@
                     <mat-icon matPrefix>add_shopping_cart</mat-icon>
                     <input (change)="getPriceDescount()" matInput
                       [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo' | translate"
-                      (blur)="getVerifyPrice() ;validInput('Price');" formControlName="ComboQuantity"
+                      (blur)="validInput('Price'); valiteInput()" formControlName="ComboQuantity"
                       [errorStateMatcher]="matcher">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="comp.get('ComboQuantity').hasError('required')">
@@ -279,8 +282,10 @@
             </div>
           </div>
         </div>
+        {{showButton}}
+        {{!updateOffer.form.valid}}
         <div class="button-update-offert flexbox justify-center align-center">
-          <button [disabled]="!updateOffer.form.valid" type="submit" mat-raised-button color="primary"
+          <button [disabled]="!updateOffer.form.valid || showButton === true" type="submit" mat-raised-button color="primary"
             [innerHTML]="'permissions.Editar' | translate"></button>
         </div>
       </form>

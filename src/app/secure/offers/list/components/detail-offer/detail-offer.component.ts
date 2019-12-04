@@ -89,6 +89,7 @@ export class DetailOfferComponent implements OnInit {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
+  public showButton = true;
 
   promiseFirts: string;
   promiseSeconds: string;
@@ -449,18 +450,18 @@ export class DetailOfferComponent implements OnInit {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
         } else if (parseFloat(this.Price.value) <= parseFloat(this.DiscountPrice.value)) {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
+          this.formUpdateOffer.controls.DiscountPrice.setErrors({ 'isLessThanDiscPrice': true });
         } else {
           this.DiscountPrice.enable();
         }
         break;
       case 'DiscountPrice':
-
         if (this.DiscountPrice.value !== '') {
           if (parseInt(this.DiscountPrice.value, 10) < 8000 && this.Currency.value === 'COP') {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseFloat(this.DiscountPrice.value) >= parseFloat(this.Price.value)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
-          } else {
+          }   else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
           }
         } else {
@@ -606,16 +607,25 @@ export class DetailOfferComponent implements OnInit {
       duration: 3000,
     });
   }
-
-  setCombos() {
+/**
+ * recorre combo y setear 
+ *
+ * @memberof DetailOfferComponent
+ */
+setCombos() {
     if (this.dataOffer && this.dataOffer.offerComponents.length > 0) {
       this.dataOffer.offerComponents.forEach((element: any) => {
         this.addItem(element);
       });
     }
   }
-
-  addItem(element: any): void {
+/**
+ * agregar combos
+ *
+ * @param {*} element
+ * @memberof DetailOfferComponent
+ */
+addItem(element: any): void {
     this.comboForm = this.fb.group({
       EAN: element.ean,
       ofertPriceComponet: new FormControl(element.price, [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
@@ -625,8 +635,13 @@ export class DetailOfferComponent implements OnInit {
     this.Combos.push(this.comboForm);
   }
 
-
-  getPriceDescount() {
+/**
+ * validar el precio con descuento
+ *
+ * @returns
+ * @memberof DetailOfferComponent
+ */
+getPriceDescount() {
     let total = 0;
     this.Combos.controls.forEach((price: any) => {
       total += (price.value.ofertPriceComponet * price.value.ComboQuantity);
@@ -643,8 +658,14 @@ export class DetailOfferComponent implements OnInit {
     }
     return total;
   }
-
-  getVerifyPrice(showErrors: boolean = true, total?: number) {
+/**
+ * validacion para verificar el precio
+ *
+ * @param {boolean} [showErrors=true]
+ * @param {number} [total]
+ * @memberof DetailOfferComponent
+ */
+getVerifyPrice(showErrors: boolean = true, total?: number) {
     let errors = true;
     if (this.formUpdateOffer.controls.DiscountPrice.value) {
       if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= 8000) {
@@ -686,7 +707,6 @@ export class DetailOfferComponent implements OnInit {
         });
       }
     } else {
-      // this.ofertProduct.controls.Price.setValue(this.totalCombo);
       if (this.formUpdateOffer.controls.Price.value && this.formUpdateOffer.controls.Price.value >= 8000) {
         errors = false;
       } else {
@@ -701,10 +721,35 @@ export class DetailOfferComponent implements OnInit {
         });
       }
     }
-    // this.sendArray();
+    this.sendArray();
   }
 
-  public setCategoryError(show: boolean): void {
+  /**
+   * Metodo que activa variable apra habilitar o deshabilitar el boton
+   *
+   * @memberof OfertExpandedProductComponent
+   */
+  public sendArray() {
+    if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
+      this.showButton = true;
+    } else if (this.Combos.controls.length !== 0 && (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) !== this.totalCombo)) {
+      this.showButton = true;
+    } else if (this.Combos.controls.length !== 0 && ((!this.formUpdateOffer.controls.DiscountPrice.value && (this.totalCombo !== parseFloat(this.formUpdateOffer.controls.Price.value))))) {
+      this.showButton = true;
+      this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
+    } else {
+      this.showButton = false;
+    }
+  }
+/**
+ * setear input error
+ *
+ * @param {boolean} show
+ * @memberof DetailOfferComponent
+ */
+public setCategoryError(show: boolean): void {
     if (show) {
       if (this.formUpdateOffer.controls.DiscountPrice.value <= 8000 && this.formUpdateOffer.controls.Currency.value === 'COP') {
         this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: show });
@@ -713,8 +758,13 @@ export class DetailOfferComponent implements OnInit {
       this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
     }
   }
-
-  public setCategoryErrorPrice(show: boolean): void {
+/**
+ * setear error en el input
+ *
+ * @param {boolean} show
+ * @memberof DetailOfferComponent
+ */
+public setCategoryErrorPrice(show: boolean): void {
     if (show) {
       if (this.formUpdateOffer.controls.Price.value <= 8000) {
         this.formUpdateOffer.controls.Price.setErrors({ priceReal: show });
@@ -723,9 +773,65 @@ export class DetailOfferComponent implements OnInit {
       this.formUpdateOffer.controls.Price.setErrors(null);
     }
   }
-
-
-  get Combos(): FormArray {
+/**
+ * validacion input para precio, combo y precio con descuento
+ *
+ * @memberof DetailOfferComponent
+ */
+public valiteInput() {
+    const price = this.formUpdateOffer.controls.Price.value;
+    const discountPrice = this.formUpdateOffer.controls.DiscountPrice.value;
+    let total = 0;
+    if (this.Combos && this.Combos.controls && this.Combos.controls.length > 0) {
+      this.Combos.controls.forEach((priceCombo: any) => {
+        total += (priceCombo.value.ofertPriceComponet * priceCombo.value.ComboQuantity);
+      });
+      if (discountPrice === null || discountPrice === '' || discountPrice === ' ' || discountPrice === undefined) {
+        this.formUpdateOffer.controls.Price.setErrors(null);
+        if (total <= 8000 && this.formUpdateOffer.value.Currency === 'COP') {
+          this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        } else {
+          if (parseFloat(price) !== total) {
+            this.showButton = true;
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos'), this.languageService.instant('actions.close'), {
+              duration: 3000,
+            });
+          } else {
+            this.showButton = false;
+          }
+        }
+      } else {
+        if (parseFloat(discountPrice) >= parseFloat(price)) {
+          this.showButton = true;
+          this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        } else {
+          this.showButton = false;
+          this.formUpdateOffer.controls.Price.setErrors(null);
+          this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
+          if (parseFloat(discountPrice) !== total) {
+            this.showButton = true;
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
+              duration: 3000,
+            });
+          } else {
+            this.showButton = false;
+          }
+        }
+      }
+    }
+  }
+/**
+ * inicializar control de combos
+ *
+ * @readonly
+ * @type {FormArray}
+ * @memberof DetailOfferComponent
+ */
+get Combos(): FormArray {
     return this.formUpdateOffer.get('Combos') as FormArray;
   }
 }
