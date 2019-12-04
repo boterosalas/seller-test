@@ -556,9 +556,9 @@ export class BrandsComponent implements OnInit {
             this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: this.body.nameBrands.toUpperCase(), UpdateStatus: false }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
                 
-                if (result.statusCode === 200) {
+                if (result.statusCode === 200 || result.statusCode === 201) {
                     this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
-                        duration: 3000,
+                        duration: 5000,
                     });
                     this.dialog.closeAll();
                     this.loading.closeSpinner();
@@ -575,10 +575,10 @@ export class BrandsComponent implements OnInit {
             this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
 
-                if (result.statusCode === 200) {
+                if (result.statusCode === 200 || result.statusCode === 201) {
                     this.getAllBrands();
                     this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {
-                        duration: 3000,
+                        duration: 5000,
                     });
                     this.dialog.closeAll();
                     this.loading.closeSpinner();
