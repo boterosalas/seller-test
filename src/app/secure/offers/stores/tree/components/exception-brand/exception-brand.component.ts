@@ -31,6 +31,7 @@ export class ExceptionBrandComponent implements OnInit {
   vtexIdUpdate: any;
   body: any;
   IdVtex: any;
+  addException: boolean;
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
@@ -345,13 +346,17 @@ export class ExceptionBrandComponent implements OnInit {
     } else {
       this.selectedBrands.forEach(el => {
         if (el.Brand === this.form.controls.Brand.value) {
+          this.addException = true;
           this.snackBar.open(this.languageService.instant('secure.offers.stores.treee.components.exception_brand_exist'), this.languageService.instant('actions.close'), {
             duration: 5000,
           });
         } else {
-          this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+          this.addException = false;
         }
       });
+      if (this.addException !== true) {
+        this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+      }
     }
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
