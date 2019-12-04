@@ -102,6 +102,7 @@ export class BrandsComponent implements OnInit {
     filterBrandsControlsName: any;
     filterBrandsControlsId: any;
     separatorKeysCodes: number[] = [];
+    errorMessageBrand: any;
 
     /**
      * Instanciar servicios, formularios y dialogos
@@ -553,6 +554,8 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         if (this.body && this.body.idBrands) {
             this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: this.body.nameBrands.toUpperCase(), UpdateStatus: false }).subscribe(result => {
+                const errorMessage = JSON.parse(result.body);
+                
                 if (result.statusCode === 200) {
                     this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
                         duration: 3000,
@@ -560,14 +563,28 @@ export class BrandsComponent implements OnInit {
                     this.dialog.closeAll();
                     this.loading.closeSpinner();
                     this.getAllBrands();
+                } else {
+                    this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
+                        duration: 5000,
+                    });
+                    this.dialog.closeAll();
+                    this.loading.closeSpinner();
                 }
             });
         } else {
             this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
+                const errorMessage = JSON.parse(result.body);
+
                 if (result.statusCode === 200) {
                     this.getAllBrands();
                     this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {
                         duration: 3000,
+                    });
+                    this.dialog.closeAll();
+                    this.loading.closeSpinner();
+                } else {
+                    this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
+                        duration: 5000,
                     });
                     this.dialog.closeAll();
                     this.loading.closeSpinner();
