@@ -36,6 +36,8 @@
     "menu.Listar reclamaciones": "Claims list",
     "menu.Validaciones": "In Validation",
     "menu.Devoluciones": "In Return",
+    "menu.En validación": "In Validation",
+    "menu.En devolución": "In Return",
     "menu.Solicitudes pendientes": "Pending Requests",
     "menu.Todas": "All",
     "menu.Por enviar": "Pending shipping",
@@ -55,6 +57,8 @@
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
+
+
     "permissions.Consultar": "Browse",
     "permissions.Editar": "Update",
     "permissions.Descargar": "Download",
@@ -81,6 +85,8 @@
     "permissions.Editarzonas": "Edit zones",
     "permissions.Eliminartransportadora": "Remove shipping company",
     "permissions.Eliminarzonas": "Remove zones",
+
+    
     "shared.name": "Name",
     "shared.category": "Category",
     "shared.brand": "Brand",
@@ -627,10 +633,14 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "has missing information for a component",
     "secure.offers.bulk_upload.table_error.sum_price": "should have a price comprised of the sum of the components.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "should have a discount price comprised of the sum of the components.",
+    "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.", 
+    "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.", 
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
+    "secure.offers.bulk_upload.table_load.address": "Picking Address",
+    "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
@@ -664,6 +674,7 @@
     "secure.products.bulk_upload.size": "Size",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.offers.bulk_upload.table_load.component_list": "Component list",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",
     "secure.products.Finish_upload_product_information.successful_upload": "Successful upload",

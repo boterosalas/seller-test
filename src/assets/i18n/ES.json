@@ -633,10 +633,14 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "Información de oferta de componente faltante",
     "secure.offers.bulk_upload.table_error.sum_price": "El precio de este producto combo debe ser la sumatoria de sus componentes.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes.",
+    "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.", 
+    "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.", 
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
+    "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
+    "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
@@ -670,6 +674,7 @@
     "secure.products.bulk_upload.size": "Talla",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.offers.bulk_upload.table_load.component_list": "Lista de componentes",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Carga en proceso",
     "secure.products.Finish_upload_product_information.successful_upload": "Carga realizada con éxito",
@@ -924,6 +929,8 @@
     "secure.parametize.specifications.btn_add_specifications": "Agregar especificaciones",
     "secure.parametize.specifications.tooltip_type_text": "Especificación de tipo texto",
     "secure.parametize.specifications.tooltip_type_list": "Especificación de tipo lista",
+    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" ,
+    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish",
 
     "secure.parametize.dialog.modal_title_spec": "Agregar grupo de especificaciones",
     "secure.parametize.dialog.modal_title_brand": "Agregar una marca",

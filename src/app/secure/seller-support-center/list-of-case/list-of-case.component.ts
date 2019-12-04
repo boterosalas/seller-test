@@ -115,10 +115,14 @@ export class ListOfCaseComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
-        const { pageSize, page } = res.data;
-        this.cases = res.data.cases;
-        this.loadingService.closeSpinner();
-        this.refreshPaginator(res.data.total, page, pageSize);
+        if (res && res['status'] === 200) {
+          if (res.body) {
+            const { pageSize, page } = res.body.data;
+            this.cases = res.body.data.cases;
+            this.refreshPaginator(res.body.data.total, page, pageSize);
+            this.loadingService.closeSpinner();
+          }
+        }
       },
       err => {
         this.modalService.showModal('errorService');

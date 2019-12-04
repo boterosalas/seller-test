@@ -293,7 +293,7 @@
           "
         >
           <ng-container *ngFor="let item of scReasonTypes; let i = index">
-            <mat-option [value]="item" (click)="onClickTypeOption(item)">
+            <mat-option [value]="item">
               <span id="{{ item }}-{{ i }}">
                 {{ item }}
               </span>

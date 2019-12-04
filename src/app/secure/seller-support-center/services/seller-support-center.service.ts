@@ -20,9 +20,9 @@ export class SellerSupportCenterService {
     return this._http.get<any>(URL);
   }
 
-  public getAllCase(filter?: Filter): Observable<CaseListResponse> {
+  public getAllCase(filter?: Filter): Observable<any> {
     const URL = this._api.get('getAllCase');
-    return this._http.post<CaseListResponse>(URL, filter);
+    return this._http.post<CaseListResponse>(URL, filter, {observe: 'response'});
   }
 
   public getCase(id: string): Observable<CaseDetailResponse> {
