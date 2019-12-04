@@ -674,6 +674,7 @@
     "secure.products.bulk_upload.size": "Size",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.offers.bulk_upload.table_load.component_list": "Component list",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",
     "secure.products.Finish_upload_product_information.successful_upload": "Successful upload",

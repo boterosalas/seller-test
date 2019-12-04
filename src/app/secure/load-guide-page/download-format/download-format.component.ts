@@ -84,7 +84,7 @@ export class DownloadFormatComponent implements OnInit {
           // aplico el formato al json para los campos tracking y guide
           this.applyFormatToJson(res);
         } else {
-          this.componentService.openConfirmAlert(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.instant('secure.laod_guide_page.download_format.ts_want_download'))
+          this.componentService.openConfirmAlert(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.instant('secure.load_guide_page.download_format.ts_want_download'))
             .then(response => {
               if (response) {
                 if (this.language === 'ES') {
