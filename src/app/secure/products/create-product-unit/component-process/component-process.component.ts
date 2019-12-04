@@ -39,6 +39,7 @@ export class ComponentProcessComponent implements OnInit {
   editFirstStep = true;
   public user: UserInformation;
   @Input() ean: string;
+  @Input() reference: any;
   detailProduct: any;
   editProduct = false;
   @ViewChild('stepper') stepper: MatStepper;
@@ -95,12 +96,15 @@ export class ComponentProcessComponent implements OnInit {
       this.isLinear = false;
       this.service.validateEan(this.ean).subscribe(res => {
         if (res['data']) {
-          const params = this.ean + '/' + null;
+          if (this.reference !== '' || this.reference !== null || this.reference !== ' ') {
+            this.reference = 'null';
+          }
+          const params = this.ean + '/' + this.reference;
            this.productsService.getProductsDetails(params).subscribe((result: any) => {
-             console.log(result);
-          // if (result && result.data.list.brand) {
-          //   this.detailProduct = result.data.list;
-          // }
+          if (result && result.data.brand) {
+            this.detailProduct = result.data;
+            this.detailProduct.reference = this.reference;
+          }
         });
         } else {
           this.detailProduct = null;
