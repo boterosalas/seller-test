@@ -847,6 +847,23 @@ public valiteInput() {
           }
         }
       }
+    } else {
+      if (price <= 8000 && this.formUpdateOffer.value.Currency === 'COP') {
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
+      } else {
+        if (parseFloat(discountPrice) >= parseFloat(price)) {
+          this.showButton = true;
+          this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        }  else {
+          this.showButton = false;
+          this.formUpdateOffer.controls.Price.setErrors(null);
+          this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
+        }
+      }
     }
   }
 /**
