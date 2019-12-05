@@ -536,12 +536,12 @@ export class DetailOfferComponent implements OnInit {
         AverageFreightCost: this.params[0].AverageFreightCost,
         PromiseDelivery: this.params[0].PromiseDelivery,
         Warranty: this.params[0].Warranty,
-        IsFreeShipping: this.params[0].IsFreeShipping,
-        IsEnviosExito: this.params[0].IsEnviosExito,
-        IsFreightCalculator: this.params[0].IsFreightCalculator,
-        IsLogisticsExito: this.params[0].IsLogisticsExito,
+        IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
+        IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
+        IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
+        IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
         IsUpdatedStock: this.params[0].IsUpdatedStock,
-        Currency: 'COP'
+        Currency: this.formUpdateOffer.controls['Currency'].value
       }
     ];
 
