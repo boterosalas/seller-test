@@ -4,7 +4,7 @@ import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { UserInformation } from '@app/shared';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,6 +35,8 @@ export class OfertExpandedProductComponent implements OnInit {
     // public Combos: FormArray;
     public matcher: MyErrorStateMatcher;
 
+    public user: UserInformation;
+
     @Input() applyOffer: any;
     @Input() productsExpanded: any;
 
@@ -49,12 +53,16 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
+    public showCharge: boolean;
+
+
     public validateNumberOrder = true;
     convertPromise: string;
 
     constructor(
         private languageService: TranslateService,
         public SUPPORT: SupportService,
+        private profileService: MyProfileService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
         private modalService?: ModalService,
@@ -67,6 +75,7 @@ export class OfertExpandedProductComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getAllDataUser();
         this.validateFormSupport();
         this.createFormControls();
     }
@@ -109,7 +118,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
-            Currency: new FormControl('COP')
+            Currency: new FormControl('')
         });
 
         // Borrar esta linea, para Internacional
@@ -123,7 +132,7 @@ export class OfertExpandedProductComponent implements OnInit {
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
         this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-            this.changeTypeCurrency(val);
+            // this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
                 this.ofertProduct.get('ofertOption').setValue(null);
                 // tslint:disable-next-line: no-unused-expression
@@ -231,7 +240,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 }
             } else {
                 this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-                    this.changeTypeCurrency(val);
+                    // this.changeTypeCurrency(val);
                     if (val === 'USD') {
                         errors = false;
                         if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
@@ -257,7 +266,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 errors = false;
             } else {
                 this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-                    this.changeTypeCurrency(val);
+                    // this.changeTypeCurrency(val);
                     if (val === 'COP') {
                         this.setCategoryErrorPrice(errors);
                     } else {
@@ -536,6 +545,28 @@ export class OfertExpandedProductComponent implements OnInit {
                     radioIsEnviosExito && radioIsEnviosExito.classList.add('mat-radio-checked');
                 }
                 break;
+        }
+    }
+
+    /**
+     * OBTENGO INFORMACION DEL USUARIO
+     * @memberof OfertExpandedProductComponent
+     */
+    async getAllDataUser() {
+        this.loadingService.viewSpinner();
+        const sellerData = await this.profileService.getUser().toPromise().then(res => {
+            const body: any = res.body;
+            const response = JSON.parse(body.body);
+            const userData = response.Data;
+            this.loadingService.closeSpinner();
+            return userData;
+        });
+        this.loadingService.closeSpinner();
+        this.ofertProduct.get('Currency').disable();
+        if (sellerData.Country === 'COLOMBIA') {
+            this.ofertProduct.get('Currency').setValue('COP');
+        } else {
+            this.ofertProduct.get('Currency').setValue('USD');
         }
     }
 }

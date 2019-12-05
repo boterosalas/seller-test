@@ -2501,7 +2501,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     });
 
     // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
-    for (let i = 0; i < maxSpecsValue; i++) {
+    for (let i = 0; i < this.vetex.data.specs.length; i++) {
       const object = Object.assign({}, this.modelSpecs);
       specs.push(object);
     }
