@@ -29,7 +29,7 @@ import {
   TYPE_VALIDATION
 } from '@app/shared/components/upload-button/configuration.model';
 import { ACCEPT_TYPE } from '@app/shared/models';
-import { CaseCategory } from '@app/shared/models/case-category';
+import { CaseCategory, FieldsRequired } from '@app/shared/models/case-category';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -112,6 +112,7 @@ export class SupportModalComponent implements OnInit {
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
+  scRequiered: Array<FieldsRequired> = [];
   classificationSelected = null;
 
   constructor(
@@ -166,11 +167,11 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
-    debugger
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
+    this.scRequiered = item.fields;
     this.groupByKey(this.omsCategories, 'classification',
       {
         classification: item.classification
@@ -178,24 +179,18 @@ export class SupportModalComponent implements OnInit {
       .pipe(
         switchMap(options => from(options)),
         groupBy(item => item['category']),
-        mergeMap((group) => group.pipe(toArray(), map(data => {
-          debugger;
-          return data[0];
-        }))),
+        mergeMap((group) => group.pipe(toArray(), map(data => data[0]))),
         toArray()
       )
       .subscribe((categories: any) => {
-        debugger
         this.scCategories = categories;
       });
     if (!item.category) {
       this.scReasonTypes = item.type;
-      debugger
     }
   }
 
   onClickCategoryOption(item: CaseCategory) {
-    debugger
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
@@ -205,16 +200,18 @@ export class SupportModalComponent implements OnInit {
       .pipe(
         switchMap(options =>
           from(options).pipe(
-            filter(
-              option => option.subcategory != null || option.category != null
-            )
+            filter(option => option.subcategory != null || option.category != null)
           )
         ),
         toArray()
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
-        this.scSubcategories = subcategories;
-        debugger
+        subcategories.forEach(e => {
+          if (this.classificationSelected.classification === e.classification) {
+            this.scSubcategories.push(e);
+
+          }
+        });
       });
     if (!item.subcategory) {
       this.scReasonTypes = item.type;
@@ -222,14 +219,9 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
-    debugger
     this.scReasonTypes = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
-<<<<<<< HEAD
-    debugger
-=======
->>>>>>> ad10be72b6fe1273c796b02bdb81fdf52fb00609
   }
 
   public getInfoSeller(): void {
