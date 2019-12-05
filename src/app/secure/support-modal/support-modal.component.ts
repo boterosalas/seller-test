@@ -300,7 +300,6 @@ export class SupportModalComponent implements OnInit {
   sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
-    console.log(this.classificationSelected)
     const messageSupport = {
       contact: form.value.contact.trim(),
       description: form.value.description.trim(),
@@ -309,11 +308,10 @@ export class SupportModalComponent implements OnInit {
       nit: this.user.sellerNit,
       idCategory: this.classificationSelected.idMatrix,
       typeOfRequirement: form.value.typeOfRequirement.trim(),
-      //caseOrigin: "Sitio web marketplace",
-      //caseMarketplaceOwner: "Soporte MarketPlace",
+      // caseOrigin: "Sitio web marketplace",
+      // caseMarketplaceOwner: "Soporte MarketPlace",
       attachments: this.response.attachments
     };
-    console.log(messageSupport)
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(
       this.user['access_token'],

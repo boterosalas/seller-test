@@ -260,7 +260,6 @@ export class DetailOfferComponent implements OnInit {
           return userData;
       });
       this.formUpdateOffer.get('Currency').disable();
-      console.log(sellerData.Country);
       if (sellerData.Country === 'COLOMBIA') {
           this.formUpdateOffer.get('Currency').setValue('COP');
       } else {
