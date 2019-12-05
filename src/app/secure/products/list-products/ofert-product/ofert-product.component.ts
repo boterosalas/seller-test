@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
+import { ErrorStateMatcher, MatSnackBar, MatDialog } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService } from '@app/core';
 import { ListProductService } from '../list-products.service';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalRuleOfferComponent } from '../modal-rule-offer/modal-rule-offer.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -49,12 +50,15 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
+    approvalOfert: boolean;
     public validateNumberOrder = true;
     convertPromise: string;
+    approvalOffert: boolean;
 
     constructor(
         private languageService: TranslateService,
         public SUPPORT: SupportService,
+        private dialog: MatDialog,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
         private modalService?: ModalService,
@@ -69,6 +73,7 @@ export class OfertExpandedProductComponent implements OnInit {
     ngOnInit() {
         this.validateFormSupport();
         this.createFormControls();
+        console.log(1, this.productsExpanded.bestOffer);
     }
 
 
@@ -268,6 +273,7 @@ export class OfertExpandedProductComponent implements OnInit {
             }
         }
         this.sendArray();
+        this.validateRulesOfert();
     }
 
 
@@ -342,6 +348,34 @@ export class OfertExpandedProductComponent implements OnInit {
 
     }
 
+    validateRulesOfert(): void {
+        if (this.productsExpanded.bestOffer) {
+            const valHigh = +this.productsExpanded.bestOffer * 1.30;
+            const valLow = +this.productsExpanded.bestOffer * 0.70;
+            const valPrice = +this.ofertProduct.controls.Price.value;
+            const valDiscount = +this.ofertProduct.controls.DiscountPrice.value;
+
+            if (valPrice < valLow || valPrice > valHigh) {
+                this.approvalOfert = true;
+                this.openDialogSendOrder();
+            }
+            if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
+                this.openDialogSendOrder();
+            }
+        }
+    }
+
+    openDialogSendOrder(): void {
+        const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
+            width: '95%',
+            // disableClose: res.body.data.status === 1,
+            data: { approvalOfert: this.approvalOfert },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            log.info('The dialog was closed');
+            console.log(result);
+        });
+    }
 
     /**
      * Metodo para concatenar todo el arreglo y enviar la data
@@ -349,6 +383,7 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(): void {
+        this.validateRulesOfert();
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
