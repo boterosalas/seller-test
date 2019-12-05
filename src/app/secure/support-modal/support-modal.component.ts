@@ -122,7 +122,7 @@ export class SupportModalComponent implements OnInit {
     public userParams: UserParametersService,
     public loadingService: LoadingService,
     private languageService: TranslateService
-  ) {}
+  ) { }
 
   /**
    * @memberof SupportModalComponent
@@ -131,21 +131,20 @@ export class SupportModalComponent implements OnInit {
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
-      .subscribe(categories => (this.omsCategories = categories.data));
+      .subscribe(categories => this.omsCategories = categories.data);
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
     return this.groupByKey(omsCategories, 'classification').pipe(
       map(options => options[0]),
-      toArray()
-    );
+      toArray());
   }
 
   groupByKey(datas: Array<CaseCategory>, query: string, include?: Object) {
     return from(datas).pipe(
       filter(data => (include ? this.matchQuery(data, include) : true)),
       groupBy(item => item[query]),
-      mergeMap(group => group.pipe(toArray()))
+      mergeMap((group) => group.pipe(toArray()))
     );
   }
 
@@ -167,23 +166,36 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
+    debugger
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
-    this.groupByKey(this.omsCategories, 'classification', {
-      classification: item.classification
-    })
+    this.groupByKey(this.omsCategories, 'classification',
+      {
+        classification: item.classification
+      })
       .pipe(
         switchMap(options => from(options)),
+        groupBy(item => item['category']),
+        mergeMap((group) => group.pipe(toArray(), map(data => {
+          debugger;
+          return data[0];
+        }))),
         toArray()
       )
-      .subscribe((categories: Array<CaseCategory>) => {
+      .subscribe((categories: any) => {
+        debugger
         this.scCategories = categories;
       });
+    if (!item.category) {
+      this.scReasonTypes = item.type;
+      debugger
+    }
   }
 
   onClickCategoryOption(item: CaseCategory) {
+    debugger
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
@@ -202,13 +214,19 @@ export class SupportModalComponent implements OnInit {
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
         this.scSubcategories = subcategories;
+        debugger
       });
+    if (!item.subcategory) {
+      this.scReasonTypes = item.type;
+    }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
+    debugger
     this.scReasonTypes = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
+    debugger
   }
 
   public getInfoSeller(): void {
