@@ -13,10 +13,13 @@
     <mat-icon>close</mat-icon>
   </a>
 </div>
+
 <form #f="ngForm" [formGroup]="myform" *ngIf="myform">
   <div fxFlex="100" fxLayoutGap.md="50px" fxLayoutGap.lg="50px" fxLayoutGap.xl="50px" fxLayoutAlign="center start"
     fxLayout="row wrap" class="example-form">
+
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
+
       <mat-form-field class="example-full-width">
         <input readonly id="suport-modal-input-nit" required matInput formControlName="nit"
           [placeholder]="'secure.seller.list.nit' | translate" />
@@ -62,6 +65,7 @@
             "secure.parametize.support_modal.error_email" | translate
           }}</mat-error>
       </mat-form-field>
+
     </div>
 
     <div fxFlex="45" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="45" fxFlex.xl="45">
@@ -105,7 +109,7 @@
       </ng-template>
 
       <mat-form-field id="suport-modal-input-category-content" class="example-full-width"
-        *ngIf="scCategories.length > 0 && scCategories[0].category">
+        *ngIf="scCategories.length > 0 && scCategories[0].category && scCategories">
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
         <mat-select id="suport-modal-input-reason1" formControlName="category" required
           [placeholder]="'secure.parametize.support_modal.category_case' | translate">
@@ -128,11 +132,12 @@
       <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width"
         *ngIf="scSubcategories.length > 0 && scSubcategories">
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-        <mat-select id="suport-modal-input-reason" formControlName="subCategory" required
+        <mat-select id="suport-modal-input-subCategory" formControlName="subCategory" required
           [placeholder]="'secure.parametize.support_modal.subcategory_case' | translate">
           <ng-container *ngFor="let item of scSubcategories; let i = index">
-            <mat-option [value]="item.subcategory ? item.subcategory : 'null'" (click)="onClickSubcategoryOption(item)">
-              <span id="{{ item.subcategory }}-{{ i }}">
+            <mat-option [value]="item.subcategory ? item.subcategory : 'null'" (click)="onClickSubcategoryOption(item)"
+              *ngIf="item.subcategory">
+              <span id="{{ item.subcategory }}-{{ i }}" *ngIf="item.subcategory">
                 {{ item.subcategory }}
               </span>
             </mat-option>

@@ -172,6 +172,7 @@ export class SupportModalComponent implements OnInit {
     this.scReasonTypes = [];
     this.classificationSelected = item;
     this.scRequiered = item.fields;
+    debugger
     this.groupByKey(this.omsCategories, 'classification',
       {
         classification: item.classification
@@ -209,13 +210,15 @@ export class SupportModalComponent implements OnInit {
         subcategories.forEach(e => {
           if (this.classificationSelected.classification === e.classification) {
             this.scSubcategories.push(e);
-
+            debugger
           }
         });
       });
     if (!item.subcategory) {
       this.scReasonTypes = item.type;
     }
+    console.log(this.scSubcategories);
+    debugger
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
