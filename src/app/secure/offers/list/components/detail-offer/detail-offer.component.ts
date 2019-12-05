@@ -175,7 +175,6 @@ export class DetailOfferComponent implements OnInit {
     this.setPromise();
     this.validateFormSupport();
     this.createValidators();
-    
   }
 
   /**
@@ -632,7 +631,7 @@ export class DetailOfferComponent implements OnInit {
     });
   }
 /**
- * recorre combo y setear 
+ * recorre combo y setear
  *
  * @memberof DetailOfferComponent
  */
