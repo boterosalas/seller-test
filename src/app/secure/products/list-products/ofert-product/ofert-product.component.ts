@@ -356,7 +356,6 @@ export class OfertExpandedProductComponent implements OnInit {
             const valDiscount = +this.ofertProduct.controls.DiscountPrice.value;
 
             if (valPrice < valLow || valPrice > valHigh) {
-                this.approvalOfert = true;
                 this.openDialogSendOrder();
             }
             if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
@@ -368,11 +367,11 @@ export class OfertExpandedProductComponent implements OnInit {
     openDialogSendOrder(): void {
         const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
             width: '95%',
-            // disableClose: res.body.data.status === 1,
-            data: { approvalOfert: this.approvalOfert },
+            data: { },
         });
         dialogRef.afterClosed().subscribe(result => {
             log.info('The dialog was closed');
+            this.approvalOfert = result;
             console.log(result);
         });
     }

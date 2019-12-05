@@ -3,6 +3,6 @@
 </p>
 
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" (click)="onNoClickOk()">Ok</button>
+  <button mat-button [mat-dialog-close]="'false'" (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="'true'" (click)="onNoClickOk()">Ok</button>
 </div>

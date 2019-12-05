@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ModalRuleOfferComponent implements AfterViewInit {
 
-  approval: boolean;
   /**
    * Creates an instance of ModalErrorsComponent.
    * @param {MatDialogRef<ModalErrorsComponent>} dialogRef
@@ -19,11 +18,7 @@ export class ModalRuleOfferComponent implements AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<ModalRuleOfferComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cd: ChangeDetectorRef,
-    private languageService: TranslateService
-  ) {
-    console.log(data);
-  }
+  ) {  }
 
   ngAfterViewInit() {
   }
@@ -33,12 +28,10 @@ export class ModalRuleOfferComponent implements AfterViewInit {
    * @memberof ModalErrorsComponent
    */
   onNoClick(): void {
-    this.data = false;
     this.dialogRef.close(false);
   }
 
   onNoClickOk(): void {
-    this.data = true;
-    this.dialogRef.close(false);
+    this.dialogRef.close(true);
   }
 }
