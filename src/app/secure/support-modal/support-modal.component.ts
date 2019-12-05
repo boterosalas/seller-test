@@ -226,7 +226,10 @@ export class SupportModalComponent implements OnInit {
     this.scReasonTypes = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
+<<<<<<< HEAD
     debugger
+=======
+>>>>>>> ad10be72b6fe1273c796b02bdb81fdf52fb00609
   }
 
   public getInfoSeller(): void {
