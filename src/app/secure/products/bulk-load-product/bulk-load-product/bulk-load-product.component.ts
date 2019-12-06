@@ -2500,11 +2500,22 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       }
     });
 
-    // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
-    for (let i = 0; i < this.vetex.data.specs.length; i++) {
+    if (Array.isArray(this.vetex.data.specs)) {
+      for (let i = 0; i < maxSpecsValue; i++) {
+        const object = Object.assign({}, this.modelSpecs);
+        specs.push(object);
+      }
+    }
+    if (maxSpecsValue === 0) {
       const object = Object.assign({}, this.modelSpecs);
       specs.push(object);
     }
+
+    // Crea la cantidad de objetos igual a la maxima cantidad de valores de una especifricacion
+    // for (let i = 0; i < maxSpecsValue; i++) {
+    //   const object = Object.assign({}, this.modelSpecs);
+    //   specs.push(object);
+    // }
 
     this.vetex.data.specs.map((element) => {
       if (element.listValues.length > 0) {

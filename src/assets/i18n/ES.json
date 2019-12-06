@@ -946,7 +946,7 @@
     "secure.parametize.dialogAddSpecs.modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
     "secure.parametize.dialogAddSpecs.modal_placeholder_specification_name": "Nombre de especificacion",
     "secure.parametize.dialogAddSpecs.modal_lbl_vendedor": "Visualización del vendedor",
-    "secure.parametize.dialogAddSpecs.modal_rdn_text": "Texo",
+    "secure.parametize.dialogAddSpecs.modal_rdn_text": "Texto",
     "secure.parametize.dialogAddSpecs.modal_rdn_list_action": "Selección una acción (lista)",
     "secure.parametize.dialogAddSpecs.modal_chk_required": "Obligatoria",
     "secure.parametize.dialogAddSpecs.modal_placeholder_add_option": "Ingresa opcion",
