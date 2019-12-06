@@ -633,8 +633,8 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "Información de oferta de componente faltante",
     "secure.offers.bulk_upload.table_error.sum_price": "El precio de este producto combo debe ser la sumatoria de sus componentes.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes.",
-    "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.", 
-    "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.", 
+    "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.",
+    "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
@@ -1046,12 +1046,15 @@
     "secure.parametize.support_modal.tutorial": "TUTORIALES",
     "secure.parametize.support_modal.contact_mail": "Correo contacto",
     "secure.parametize.support_modal.classification": "Selecciona la clasificación del caso",
-    "secure.parametize.support_modal.category_case": "Selecciona la categoría del caso (si aplica)",
-    "secure.parametize.support_modal.subcategory_case": "Selecciona la subcategoría del caso (si aplica)",
+    "secure.parametize.support_modal.subClassification": "Selecciona la subclasificación del caso (si aplica)",
+    "secure.parametize.support_modal.detail": "Selecciona el detalle del caso (si aplica)",
     "secure.parametize.support_modal.classification_tips": "Selecciona de la lista desplegable el motivo del caso",
     "secure.parametize.support_modal.category_tips": "La lista de categorías se despliega según la clasificación elegida",
     "secure.parametize.support_modal.subcategory_tips": "La lista de subcategorías se despliega según la categoría elegida",
     "secure.parametize.support_modal.description_tips": "Ingresa una descripción con el mayor detalle posible de la novedad. Este campo tiene un limite de 2000 caracteres.",
+    "secure.parametize.support_modal.field.paymentDate": "Fecha de pago",
+    "secure.parametize.support_modal.field.orderStripNumber": "Número de orden",
+    "secure.parametize.support_modal.field.billNumber": "Número de compra",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 

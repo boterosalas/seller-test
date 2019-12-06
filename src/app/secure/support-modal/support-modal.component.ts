@@ -166,13 +166,42 @@ export class SupportModalComponent implements OnInit {
     return false;
   }
 
+  getFieldsRequired(arrayFields: Array<FieldsRequired>): Array<FieldsRequired> {
+    ;
+    if (arrayFields != null && arrayFields.length > 0) {
+      const arrayReturn: Array<FieldsRequired> = [];
+      arrayFields.forEach(element => {
+        if (element.requiered) {
+          switch (element.name) {
+            case 'paymentDate':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.paymentDate');
+              break;
+
+            case 'orderStripNumber':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.orderStripNumber');
+              break;
+
+            case 'billNumber':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.billNumber');
+              break;
+
+            default:
+              break;
+          }
+          arrayReturn.push(element);
+        }
+      });
+      ;
+      return arrayReturn;
+    }
+    return null;
+  }
+
   onClickClassificationOption(item: CaseCategory) {
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
-    this.scRequiered = item.fields;
-
     this.groupByKey(this.omsCategories, 'classification',
       {
         classification: item.classification
@@ -188,6 +217,8 @@ export class SupportModalComponent implements OnInit {
       });
     if (!item.category) {
       this.scReasonTypes = item.type;
+      this.scRequiered = this.getFieldsRequired(item.fields);
+      ;
     }
   }
 
@@ -195,6 +226,7 @@ export class SupportModalComponent implements OnInit {
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
+    this.scRequiered = [];
     this.groupByKey(this.omsCategories, 'category', {
       category: item.category
     })
@@ -215,13 +247,18 @@ export class SupportModalComponent implements OnInit {
       });
     if (!item.subcategory) {
       this.scReasonTypes = item.type;
+      this.scRequiered = this.getFieldsRequired(item.fields);
+      ;
     }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
     this.scReasonTypes = [];
+    this.scRequiered = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
+    this.scRequiered = this.getFieldsRequired(item.fields);
+    ;
   }
 
   public getInfoSeller(): void {
@@ -277,7 +314,10 @@ export class SupportModalComponent implements OnInit {
       ),
       classification: new FormControl('null'),
       subCategory: new FormControl('null'),
-      category: new FormControl('null')
+      category: new FormControl('null'),
+      paymentDate: new FormControl(''),
+      orderStripNumber: new FormControl(''),
+      billNumber: new FormControl('')
     });
   }
 
