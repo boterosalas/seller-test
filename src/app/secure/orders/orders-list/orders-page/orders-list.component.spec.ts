@@ -32,12 +32,13 @@ import { ToolbarLinkComponent } from '@app/core/shell/toolbar-link';
 import { SearchOrderFormComponent } from '@app/core/shell/search-order-menu/search-order-form/search-order-form.component';
 import { MyProfileComponent } from '@app/secure/aws-cognito/profile/myprofile.component';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 export const registerRegex = [
     { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
 ];
 
-describe('ordersList', () => {
+fdescribe('ordersList', () => {
     const registerMenu = {
         Functionalities: [{
             NameFunctionality: 'Crear',
@@ -122,6 +123,7 @@ describe('ordersList', () => {
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+    const mockProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
     const data = {
         title: '',
@@ -182,6 +184,7 @@ describe('ordersList', () => {
                 { provide: MAT_DIALOG_DATA, useValue: data },
                 { provide: MatDialogRef, useValue: mockDialogRef },
                 { provide: UserParametersService, useValue: mockUserParameterService },
+                { provide: MyProfileService, useValue: mockProfileService},
                 ShellComponent,
                 ComponentsService,
                 EventEmitterOrders,
