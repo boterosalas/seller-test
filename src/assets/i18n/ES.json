@@ -846,7 +846,7 @@
 
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Formato inválido de EAN (7-13 caraceteres alfanúmericos).",
-    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",
+    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "El EAN ya existe, por favor asocie una oferta múltiple",
     "secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code": "No tengo EAN asociado",
     "secure.products.create_product_unit.specifications.validate-ean.continue": "Continuar",
 
