@@ -29,7 +29,7 @@ import {
   TYPE_VALIDATION
 } from '@app/shared/components/upload-button/configuration.model';
 import { ACCEPT_TYPE } from '@app/shared/models';
-import { CaseCategory } from '@app/shared/models/case-category';
+import { CaseCategory, FieldsRequired } from '@app/shared/models/case-category';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -112,6 +112,7 @@ export class SupportModalComponent implements OnInit {
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
+  scRequiered: Array<FieldsRequired> = [];
   classificationSelected = null;
 
   constructor(
@@ -122,7 +123,7 @@ export class SupportModalComponent implements OnInit {
     public userParams: UserParametersService,
     public loadingService: LoadingService,
     private languageService: TranslateService
-  ) {}
+  ) { }
 
   /**
    * @memberof SupportModalComponent
@@ -131,21 +132,20 @@ export class SupportModalComponent implements OnInit {
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
-      .subscribe(categories => (this.omsCategories = categories.data));
+      .subscribe(categories => this.omsCategories = categories.data);
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
     return this.groupByKey(omsCategories, 'classification').pipe(
       map(options => options[0]),
-      toArray()
-    );
+      toArray());
   }
 
   groupByKey(datas: Array<CaseCategory>, query: string, include?: Object) {
     return from(datas).pipe(
       filter(data => (include ? this.matchQuery(data, include) : true)),
       groupBy(item => item[query]),
-      mergeMap(group => group.pipe(toArray()))
+      mergeMap((group) => group.pipe(toArray()))
     );
   }
 
@@ -171,16 +171,24 @@ export class SupportModalComponent implements OnInit {
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
-    this.groupByKey(this.omsCategories, 'classification', {
-      classification: item.classification
-    })
+    this.scRequiered = item.fields;
+
+    this.groupByKey(this.omsCategories, 'classification',
+      {
+        classification: item.classification
+      })
       .pipe(
         switchMap(options => from(options)),
+        groupBy(item => item['category']),
+        mergeMap((group) => group.pipe(toArray(), map(data => data[0]))),
         toArray()
       )
-      .subscribe((categories: Array<CaseCategory>) => {
+      .subscribe((categories: any) => {
         this.scCategories = categories;
       });
+    if (!item.category) {
+      this.scReasonTypes = item.type;
+    }
   }
 
   onClickCategoryOption(item: CaseCategory) {
@@ -193,16 +201,21 @@ export class SupportModalComponent implements OnInit {
       .pipe(
         switchMap(options =>
           from(options).pipe(
-            filter(
-              option => option.subcategory != null || option.category != null
-            )
+            filter(option => option.subcategory != null || option.category != null)
           )
         ),
         toArray()
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
-        this.scSubcategories = subcategories;
+        subcategories.forEach(e => {
+          if (this.classificationSelected.classification === e.classification) {
+            this.scSubcategories.push(e);
+          }
+        });
       });
+    if (!item.subcategory) {
+      this.scReasonTypes = item.type;
+    }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {

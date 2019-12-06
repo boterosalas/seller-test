@@ -77,7 +77,6 @@ export class OfertExpandedProductComponent implements OnInit {
     ngOnInit() {
         this.getAllDataUser();
         this.validateFormSupport();
-        this.createFormControls();
     }
 
 
@@ -118,7 +117,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
-            Currency: new FormControl('')
+            Currency: new FormControl('COP')
         });
 
         // Borrar esta linea, para Internacional
@@ -553,6 +552,7 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     async getAllDataUser() {
+        this.createFormControls();
         this.loadingService.viewSpinner();
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
             const body: any = res.body;
