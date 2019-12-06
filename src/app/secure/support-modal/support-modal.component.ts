@@ -167,7 +167,6 @@ export class SupportModalComponent implements OnInit {
   }
 
   getFieldsRequired(arrayFields: Array<FieldsRequired>): Array<FieldsRequired> {
-    ;
     if (arrayFields != null && arrayFields.length > 0) {
       const arrayReturn: Array<FieldsRequired> = [];
       arrayFields.forEach(element => {
@@ -191,7 +190,6 @@ export class SupportModalComponent implements OnInit {
           arrayReturn.push(element);
         }
       });
-      ;
       return arrayReturn;
     }
     return null;
@@ -202,6 +200,7 @@ export class SupportModalComponent implements OnInit {
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
+    this.scRequiered = [];
     this.groupByKey(this.omsCategories, 'classification',
       {
         classification: item.classification
