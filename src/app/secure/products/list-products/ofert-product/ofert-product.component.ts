@@ -54,6 +54,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public validateNumberOrder = true;
     convertPromise: string;
     approvalOffert: boolean;
+    sendOffer: boolean;
 
     constructor(
         private languageService: TranslateService,
@@ -350,6 +351,7 @@ export class OfertExpandedProductComponent implements OnInit {
 
     validateRulesOfert(): void {
         if (this.productsExpanded.bestOffer) {
+            this.sendOffer = false;
             const valHigh = +this.productsExpanded.bestOffer * 1.30;
             const valLow = +this.productsExpanded.bestOffer * 0.70;
             const valPrice = +this.ofertProduct.controls.Price.value;
@@ -361,13 +363,15 @@ export class OfertExpandedProductComponent implements OnInit {
             if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
                 this.openDialogSendOrder();
             }
+        } else {
+            this.sendOffer = true;
         }
     }
 
     openDialogSendOrder(): void {
         const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
             width: '95%',
-            data: { },
+            data: {},
         });
         dialogRef.afterClosed().subscribe(result => {
             log.info('The dialog was closed');
@@ -376,13 +380,19 @@ export class OfertExpandedProductComponent implements OnInit {
         });
     }
 
+    sendJsonToService() {
+        if (this.sendOffer === true) {
+
+        }
+    }
+
     /**
      * Metodo para concatenar todo el arreglo y enviar la data
      *
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(): void {
-        this.validateRulesOfert();
+        // this.validateRulesOfert();
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
@@ -405,6 +415,18 @@ export class OfertExpandedProductComponent implements OnInit {
         aryOfAry = aryOfAry.concat(this.getChildrenData());
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
+        const dataOffer = {
+            listOffer: aryOfAry,
+            priceApproval: 0
+        };
+        console.log(dataOffer);
+        // if (this.sendOffer === true) {
+        //     const dataOffer = {
+        //         listOffer: aryOfAry,
+        //         priceApproval: 0
+        //     };
+        //     console.log(dataOffer);
+        // }
         this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
@@ -422,7 +444,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                window.location.reload();
+                // window.location.reload();
 
             }, error => {
                 this.loadingService.closeSpinner();
