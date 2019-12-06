@@ -311,9 +311,11 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl('null'),
-      subCategory: new FormControl('null'),
-      category: new FormControl('null'),
+      classification: new FormControl('',
+        Validators.compose([Validators.required])
+      ),
+      subCategory: new FormControl(''),
+      category: new FormControl(''),
       paymentDate: new FormControl(''),
       orderStripNumber: new FormControl(''),
       billNumber: new FormControl('')

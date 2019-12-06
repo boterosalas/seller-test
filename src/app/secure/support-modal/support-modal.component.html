@@ -76,9 +76,9 @@
       </div>
 
       <ng-template #classificationField>
-        <mat-form-field id="suport-modal-input-reason-content" class="example-full-width">
+        <mat-form-field id="suport-modal-input-reason-content" class="example-full-width" required>
           <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-          <mat-select id="suport-modal-input-reason" formControlName="classification" required
+          <mat-select id="suport-modal-input-reason" formControlName="classification"
             [placeholder]="'secure.parametize.support_modal.classification' | translate">
             <ng-container *ngFor="
                 let item of getClassification(omsCategories) | async;
@@ -103,9 +103,9 @@
       </ng-template>
 
       <mat-form-field id="suport-modal-input-category-content" class="example-full-width"
-        *ngIf="scCategories.length > 0 && scCategories[0].category && scCategories">
+        *ngIf="scCategories.length > 0 && scCategories[0].category && scCategories" required>
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-        <mat-select id="suport-modal-input-reason1" formControlName="category" required
+        <mat-select id="suport-modal-input-reason1" formControlName="category"
           [placeholder]="'secure.parametize.support_modal.subClassification' | translate">
           <ng-container *ngFor="let item of scCategories; let i = index">
             <mat-option [value]="item.category ? item.category : 'null'" (click)="onClickCategoryOption(item)"
@@ -124,9 +124,9 @@
       </mat-form-field>
 
       <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width"
-        *ngIf="scSubcategories.length > 0 && scSubcategories">
+        *ngIf="scSubcategories.length > 0 && scSubcategories" required>
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-        <mat-select id="suport-modal-input-subCategory" formControlName="subCategory" required
+        <mat-select id="suport-modal-input-subCategory" formControlName="subCategory"
           [placeholder]="'secure.parametize.support_modal.detail' | translate">
           <ng-container *ngFor="let item of scSubcategories; let i = index">
             <mat-option [value]="item.subcategory ? item.subcategory : 'null'" (click)="onClickSubcategoryOption(item)"
@@ -145,9 +145,9 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width" id="suport-modal-input-typeOfRequirement-content"
-        *ngIf="scReasonTypes.length > 0 && scReasonTypes">
+        *ngIf="scReasonTypes.length > 0 && scReasonTypes" required>
         <mat-icon matPrefix class="icon-support-modal">assignment</mat-icon>
-        <mat-select id="suport-modal-input-typeOfRequirement" required formControlName="typeOfRequirement"
+        <mat-select id="suport-modal-input-typeOfRequirement" formControlName="typeOfRequirement"
           [placeholder]="'secure.parametize.support_modal.type_case' | translate">
           <ng-container *ngFor="let item of scReasonTypes; let i = index">
             <mat-option [value]="item">
