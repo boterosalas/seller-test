@@ -62,6 +62,7 @@ export class OfertExpandedProductComponent implements OnInit {
     convertPromise: string;
     approvalOffert: boolean;
     sendOffer: boolean;
+    dataOffer: any;
 
     constructor(
         private languageService: TranslateService,
@@ -276,7 +277,7 @@ export class OfertExpandedProductComponent implements OnInit {
             }
         }
         this.sendArray();
-        this.validateRulesOfert();
+        // this.validateRulesOfert();
     }
 
 
@@ -352,22 +353,59 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
     validateRulesOfert(): void {
-        if (this.productsExpanded.bestOffer) {
-            this.sendOffer = false;
-            const valHigh = +this.productsExpanded.bestOffer * 1.30;
-            const valLow = +this.productsExpanded.bestOffer * 0.70;
-            const valPrice = +this.ofertProduct.controls.Price.value;
-            const valDiscount = +this.ofertProduct.controls.DiscountPrice.value;
+        this.sendOffer = false;
+        const valHigh = +this.productsExpanded.bestOffer * 1.30;
+        const valLow = +this.productsExpanded.bestOffer * 0.70;
+        const valPrice = +this.ofertProduct.controls.Price.value;
+        const valDiscount = +this.ofertProduct.controls.DiscountPrice.value;
 
-            if (valPrice < valLow || valPrice > valHigh) {
-                this.openDialogSendOrder();
-            }
-            if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
-                this.openDialogSendOrder();
-            }
+        if (valPrice < valLow || valPrice > valHigh) {
+            this.openDialogSendOrder();
+        } else if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
+            this.openDialogSendOrder();
         } else {
-            this.sendOffer = true;
+            this.loadingService.viewSpinner();
+            const data = {
+                EAN: this.applyOffer.ean,
+                Stock: this.ofertProduct.controls.Stock.value,
+                Price: this.ofertProduct.controls.Price.value,
+                DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
+                AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
+                PromiseDelivery: this.convertPromise,
+                Warranty: this.ofertProduct.controls.Warranty.value,
+                IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
+                IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
+                IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
+                IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
+                IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
+                Currency: this.ofertProduct.controls.Currency.value,
+            };
+            let aryOfAry = [data];
+            aryOfAry = aryOfAry.concat(this.getChildrenData());
+            this.process.validaData(aryOfAry);
+            this.dataOffer = {
+                listOffer: aryOfAry,
+                priceApproval: 1
+            };
+            this.bulkLoadService.setOffersProducts(this.dataOffer).subscribe(
+                (result: any) => {
+                    if (result.status === 200 || result.status === 201) {
+                        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                            duration: 5000,
+                        });
+                        this.loadingService.closeSpinner();
+                        this.listService.changeEmitter();
+                    } else {
+                        log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
+                        this.modalService.showModal('errorService');
+                    }
+                    this.loadingService.closeSpinner();
+                }, error => {
+                    this.loadingService.closeSpinner();
+                    window.location.reload();
+                });
         }
+
     }
 
     openDialogSendOrder(): void {
@@ -375,83 +413,115 @@ export class OfertExpandedProductComponent implements OnInit {
             width: '95%',
             data: {},
         });
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(res => {
             log.info('The dialog was closed');
-            this.approvalOfert = result;
-            console.log(result);
+            this.approvalOfert = res;
+            console.log(res);
+            if (this.approvalOfert === true) {
+                this.loadingService.viewSpinner();
+                const data = {
+                    EAN: this.applyOffer.ean,
+                    Stock: this.ofertProduct.controls.Stock.value,
+                    Price: this.ofertProduct.controls.Price.value,
+                    DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
+                    AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
+                    PromiseDelivery: this.convertPromise,
+                    Warranty: this.ofertProduct.controls.Warranty.value,
+                    IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
+                    IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
+                    IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
+                    IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
+                    IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
+                    Currency: this.ofertProduct.controls.Currency.value,
+                };
+                let aryOfAry = [data];
+                aryOfAry = aryOfAry.concat(this.getChildrenData());
+                this.process.validaData(aryOfAry);
+                this.dataOffer = {
+                    listOffer: aryOfAry,
+                    priceApproval: 1
+                };
+                this.bulkLoadService.setOffersProducts(this.dataOffer).subscribe(
+                    (result: any) => {
+                        if (result.status === 200 || result.status === 201) {
+                            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                                duration: 5000,
+                            });
+                            this.loadingService.closeSpinner();
+                            this.listService.changeEmitter();
+                        } else {
+                            log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
+                            this.modalService.showModal('errorService');
+                        }
+                        this.loadingService.closeSpinner();
+                    }, error => {
+                        this.loadingService.closeSpinner();
+                        window.location.reload();
+                    });
+            } else {
+                this.dataOffer = null;
+            }
         });
     }
 
-    sendJsonToService() {
-        if (this.sendOffer === true) {
-
+    validateBestOffert() {
+        if (this.productsExpanded.bestOffer) {
+            console.log('tiene best offert');
+            this.validateRulesOfert();
+        } else {
+            console.log('NO tiene best offert');
+            this.sendJsonToService();
         }
     }
 
-    /**
-     * Metodo para concatenar todo el arreglo y enviar la data
-     *
-     * @memberof OfertExpandedProductComponent
-     */
-    public sendDataToService(): void {
-        // this.validateRulesOfert();
-        const data = {
-            EAN: this.applyOffer.ean,
-            Stock: this.ofertProduct.controls.Stock.value,
-            Price: this.ofertProduct.controls.Price.value,
-            DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
-            AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-            // PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
-            PromiseDelivery: this.convertPromise,
-            Warranty: this.ofertProduct.controls.Warranty.value,
-            IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
-            IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
-            IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
-            IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-            IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
-            // ComboQuantity: this.Combos.controls.ComboQuantity.value,
-            // EanCombo: this.ofertProduct.controls.EanCombo.value,
-            Currency: this.ofertProduct.controls.Currency.value,
-        };
-        let aryOfAry = [data];
-        aryOfAry = aryOfAry.concat(this.getChildrenData());
-        this.process.validaData(aryOfAry);
-        this.loadingService.viewSpinner();
-        const dataOffer = {
-            listOffer: aryOfAry,
-            priceApproval: 0
-        };
-        console.log(dataOffer);
-        // if (this.sendOffer === true) {
-        //     const dataOffer = {
-        //         listOffer: aryOfAry,
-        //         priceApproval: 0
-        //     };
-        //     console.log(dataOffer);
-        // }
-        this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
-            (result: any) => {
-                if (result.status === 200 || result.status === 201) {
-                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                        duration: 5000,
-                    });
+    sendJsonToService() {
+        this.sendOffer = true;
+        if (this.sendOffer === true) {
+            const data = {
+                EAN: this.applyOffer.ean,
+                Stock: this.ofertProduct.controls.Stock.value,
+                Price: this.ofertProduct.controls.Price.value,
+                DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
+                AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
+                PromiseDelivery: this.convertPromise,
+                Warranty: this.ofertProduct.controls.Warranty.value,
+                IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
+                IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
+                IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
+                IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
+                IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
+                Currency: this.ofertProduct.controls.Currency.value,
+            };
+            let aryOfAry = [data];
+            aryOfAry = aryOfAry.concat(this.getChildrenData());
+            this.process.validaData(aryOfAry);
+            this.dataOffer = {
+                listOffer: aryOfAry,
+                priceApproval: 0
+            };
+            this.bulkLoadService.setOffersProducts(this.dataOffer).subscribe(
+                (result: any) => {
+                    if (result.status === 200 || result.status === 201) {
+                        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                            duration: 5000,
+                        });
+                        this.loadingService.closeSpinner();
+                        // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
+                        this.listService.changeEmitter();
+                    } else {
+                        log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
+                        this.modalService.showModal('errorService');
+                    }
                     this.loadingService.closeSpinner();
+                }, error => {
+                    this.loadingService.closeSpinner();
+                    window.location.reload();
+                });
+        }
+    }
 
-                    // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
-                    this.listService.changeEmitter();
-                    // window.location.reload();
-
-                } else {
-                    log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
-                    this.modalService.showModal('errorService');
-                }
-                this.loadingService.closeSpinner();
-                // window.location.reload();
-
-            }, error => {
-                this.loadingService.closeSpinner();
-                window.location.reload();
-            });
+    public sendDataToService(): void {
+        this.validateBestOffert();
     }
 
     /**
