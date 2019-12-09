@@ -210,17 +210,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   async getAllDataUser() {
-    const sellerData = await this.profileService.getUser().toPromise().then(res => {
-      const body: any = res.body;
-      const response = JSON.parse(body.body);
-      const userData = response.Data;
-      return userData;
-  });
-  if (sellerData.Country !== 'COLOMBIA') {
-    this.isInternational = true;
-  } else {
-    this.isInternational = false;
-  }
+    if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+      const sellerData = await this.profileService.getUser().toPromise().then(res => {
+        const body: any = res.body;
+        const response = JSON.parse(body.body);
+        const userData = response.Data;
+        return userData;
+    });
+    if (sellerData.Country !== 'COLOMBIA') {
+      this.isInternational = true;
+    } else {
+      this.isInternational = false;
+    }
+    }
 }
 
 
