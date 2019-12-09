@@ -51,7 +51,7 @@ export class SendOrderComponent implements OnInit {
   public Carries: Array<Carries> = [];
   public CarriesInternational: Array<Carries> = [];
   public CarriesNational: Array<Carries> = [];
-  public idState = 35;
+  public idState = 170;
 
   // Boolean que permite saber si se han editado productos de la orden
   public productIsUpdating = false;

@@ -33,7 +33,7 @@ export class FormProductComponent implements OnInit {
   @Input() order: Order;
   @Input() dialogRef: any;
   international = false;
-  idState: any;
+  idState = 170;
   @Input() set isInternational (value: boolean){
     if (value !== undefined && value !== null) {
         this.international = value;
@@ -102,7 +102,7 @@ export class FormProductComponent implements OnInit {
   sendProduct(product: ProductsEntity, form) {
 
     if (this.international) {
-      this.idState = '35';
+      this.idState = 35;
     } else {
       this.idState = Const.OrderEnProcesoDeEnvio;
     }
