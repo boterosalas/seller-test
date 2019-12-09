@@ -12,6 +12,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { validateDataToEqual } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -161,6 +162,7 @@ export class DetailOfferComponent implements OnInit {
     public SUPPORT: SupportService,
     private languageService: TranslateService,
     public authService: AuthService,
+    private profileService: MyProfileService,
     private fb?: FormBuilder,
     public snackBar?: MatSnackBar
   ) {
@@ -244,6 +246,26 @@ export class DetailOfferComponent implements OnInit {
     this.isUpdateOffer = false;
   }
 
+    /**
+     * OBTENGO INFORMACION DEL USUARIO
+     * @memberof OfertExpandedProductComponent
+     */
+    async getAllDataUser() {
+        const sellerData = await this.profileService.getUser().toPromise().then(res => {
+          const body: any = res.body;
+          const response = JSON.parse(body.body);
+          const userData = response.Data;
+          this.loadingService.closeSpinner();
+          return userData;
+      });
+      this.formUpdateOffer.get('Currency').disable();
+      if (sellerData.Country === 'COLOMBIA') {
+          this.formUpdateOffer.get('Currency').setValue('COP');
+      } else {
+          this.formUpdateOffer.get('Currency').setValue('USD');
+      }
+  }
+
 
   // Funcion para cargar datos de regex
   public validateFormSupport(): void {
@@ -317,14 +339,15 @@ export class DetailOfferComponent implements OnInit {
       Combos: this.fb.array([]),
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
-    // this.formUpdateOffer.get('Currency').disable();
+    this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-      this.changeTypeCurrency(val);
+      // this.changeTypeCurrency(val);
       this.validateOffertType(val);
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
+    this.getAllDataUser();
 
   }
 
@@ -513,12 +536,12 @@ export class DetailOfferComponent implements OnInit {
         AverageFreightCost: this.params[0].AverageFreightCost,
         PromiseDelivery: this.params[0].PromiseDelivery,
         Warranty: this.params[0].Warranty,
-        IsFreeShipping: this.params[0].IsFreeShipping,
-        IsEnviosExito: this.params[0].IsEnviosExito,
-        IsFreightCalculator: this.params[0].IsFreightCalculator,
-        IsLogisticsExito: this.params[0].IsLogisticsExito,
+        IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
+        IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
+        IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
+        IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
         IsUpdatedStock: this.params[0].IsUpdatedStock,
-        Currency: 'COP'
+        Currency: this.formUpdateOffer.controls['Currency'].value
       }
     ];
 
@@ -608,7 +631,7 @@ export class DetailOfferComponent implements OnInit {
     });
   }
 /**
- * recorre combo y setear 
+ * recorre combo y setear
  *
  * @memberof DetailOfferComponent
  */

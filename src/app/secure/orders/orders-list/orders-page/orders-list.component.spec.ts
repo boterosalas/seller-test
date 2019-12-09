@@ -32,6 +32,7 @@ import { ToolbarLinkComponent } from '@app/core/shell/toolbar-link';
 import { SearchOrderFormComponent } from '@app/core/shell/search-order-menu/search-order-form/search-order-form.component';
 import { MyProfileComponent } from '@app/secure/aws-cognito/profile/myprofile.component';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 export const registerRegex = [
     { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
@@ -122,6 +123,7 @@ describe('ordersList', () => {
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+    const mockMyProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData', 'clearUserData', 'getParameters', 'getAttributes', 'getSession']);
     const data = {
         title: '',
@@ -182,6 +184,7 @@ describe('ordersList', () => {
                 { provide: MAT_DIALOG_DATA, useValue: data },
                 { provide: MatDialogRef, useValue: mockDialogRef },
                 { provide: UserParametersService, useValue: mockUserParameterService },
+                { provide: MyProfileService, useValue: mockMyProfileService },
                 ShellComponent,
                 ComponentsService,
                 EventEmitterOrders,
@@ -198,7 +201,7 @@ describe('ordersList', () => {
         });
     }));
 
-    beforeEach(() => {
+    beforeEach(async function() {
         mockAuthService.getMenu.and.returnValue(registerMenu);
         mockAuthService.getMenuProfiel.and.returnValue(registerMenu);
         fixture = TestBed.createComponent(OrdersListComponent);
@@ -218,21 +221,14 @@ describe('ordersList', () => {
         fixture.detectChanges();
     });
 
-    it('', () => {
+    it('1', async function() {
         expect(orderService).toBeTruthy();
         expect(orderComponent).toBeTruthy();
     });
-    // it('', () => {
-    //     orderComponent.dataSource = new MatTableDataSource();
-    //     orderComponent.applyFilter('123366523');
-    // });
-    it('', () => {
+    it('2', async function() {
         orderComponent.stopPropagation(new Event('change'));
     });
-    // it('', () => {
-    //     orderComponent.getDateWithOutGMT(19011990);
-    // });
-    it('', () => {
+    it('3', async function() {
         orderComponent.dataSource = new MatTableDataSource();
         orderComponent.isAllSelected();
     });

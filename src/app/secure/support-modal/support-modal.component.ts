@@ -29,7 +29,7 @@ import {
   TYPE_VALIDATION
 } from '@app/shared/components/upload-button/configuration.model';
 import { ACCEPT_TYPE } from '@app/shared/models';
-import { CaseCategory } from '@app/shared/models/case-category';
+import { CaseCategory, FieldsRequired } from '@app/shared/models/case-category';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -112,6 +112,7 @@ export class SupportModalComponent implements OnInit {
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
+  scRequiered: Array<FieldsRequired> = [];
   classificationSelected = null;
 
   constructor(
@@ -122,7 +123,7 @@ export class SupportModalComponent implements OnInit {
     public userParams: UserParametersService,
     public loadingService: LoadingService,
     private languageService: TranslateService
-  ) {}
+  ) { }
 
   /**
    * @memberof SupportModalComponent
@@ -131,21 +132,20 @@ export class SupportModalComponent implements OnInit {
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
-      .subscribe(categories => (this.omsCategories = categories.data));
+      .subscribe(categories => this.omsCategories = categories.data);
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
     return this.groupByKey(omsCategories, 'classification').pipe(
       map(options => options[0]),
-      toArray()
-    );
+      toArray());
   }
 
   groupByKey(datas: Array<CaseCategory>, query: string, include?: Object) {
     return from(datas).pipe(
       filter(data => (include ? this.matchQuery(data, include) : true)),
       groupBy(item => item[query]),
-      mergeMap(group => group.pipe(toArray()))
+      mergeMap((group) => group.pipe(toArray()))
     );
   }
 
@@ -166,49 +166,98 @@ export class SupportModalComponent implements OnInit {
     return false;
   }
 
+  getFieldsRequired(arrayFields: Array<FieldsRequired>): Array<FieldsRequired> {
+    if (arrayFields != null && arrayFields.length > 0) {
+      const arrayReturn: Array<FieldsRequired> = [];
+      arrayFields.forEach(element => {
+        if (element.requiered) {
+          switch (element.name) {
+            case 'paymentDate':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.paymentDate');
+              break;
+
+            case 'orderStripNumber':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.orderStripNumber');
+              break;
+
+            case 'billNumber':
+              element.name = this.languageService.instant('secure.parametize.support_modal.field.billNumber');
+              break;
+
+            default:
+              break;
+          }
+          arrayReturn.push(element);
+        }
+      });
+      return arrayReturn;
+    }
+    return null;
+  }
+
   onClickClassificationOption(item: CaseCategory) {
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
-    this.groupByKey(this.omsCategories, 'classification', {
-      classification: item.classification
-    })
+    this.scRequiered = [];
+    this.groupByKey(this.omsCategories, 'classification',
+      {
+        classification: item.classification
+      })
       .pipe(
         switchMap(options => from(options)),
+        groupBy(item => item['category']),
+        mergeMap((group) => group.pipe(toArray(), map(data => data[0]))),
         toArray()
       )
-      .subscribe((categories: Array<CaseCategory>) => {
+      .subscribe((categories: any) => {
         this.scCategories = categories;
       });
+    if (!item.category) {
+      this.scReasonTypes = item.type;
+      this.scRequiered = this.getFieldsRequired(item.fields);
+      ;
+    }
   }
 
   onClickCategoryOption(item: CaseCategory) {
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
+    this.scRequiered = [];
     this.groupByKey(this.omsCategories, 'category', {
       category: item.category
     })
       .pipe(
         switchMap(options =>
           from(options).pipe(
-            filter(
-              option => option.subcategory != null || option.category != null
-            )
+            filter(option => option.subcategory != null || option.category != null)
           )
         ),
         toArray()
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
-        this.scSubcategories = subcategories;
+        subcategories.forEach(e => {
+          if (this.classificationSelected.classification === e.classification) {
+            this.scSubcategories.push(e);
+          }
+        });
       });
+    if (!item.subcategory) {
+      this.scReasonTypes = item.type;
+      this.scRequiered = this.getFieldsRequired(item.fields);
+      ;
+    }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
     this.scReasonTypes = [];
+    this.scRequiered = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
+    this.scRequiered = this.getFieldsRequired(item.fields);
+    ;
   }
 
   public getInfoSeller(): void {
@@ -262,9 +311,14 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl('null'),
-      subCategory: new FormControl('null'),
-      category: new FormControl('null')
+      classification: new FormControl('',
+        Validators.compose([Validators.required])
+      ),
+      subCategory: new FormControl(''),
+      category: new FormControl(''),
+      paymentDate: new FormControl(''),
+      orderStripNumber: new FormControl(''),
+      billNumber: new FormControl('')
     });
   }
 
@@ -300,7 +354,6 @@ export class SupportModalComponent implements OnInit {
   sendSupportMessage(form: any) {
     // Envió el mensaje de soporte. luego de retornar el servicio correctamente,
     // me pasan el id del soporte para asociar el archivo adjunto a la orden y poder realizar el envió
-    console.log(this.classificationSelected)
     const messageSupport = {
       contact: form.value.contact.trim(),
       description: form.value.description.trim(),
@@ -309,11 +362,10 @@ export class SupportModalComponent implements OnInit {
       nit: this.user.sellerNit,
       idCategory: this.classificationSelected.idMatrix,
       typeOfRequirement: form.value.typeOfRequirement.trim(),
-      //caseOrigin: "Sitio web marketplace",
-      //caseMarketplaceOwner: "Soporte MarketPlace",
+      // caseOrigin: "Sitio web marketplace",
+      // caseMarketplaceOwner: "Soporte MarketPlace",
       attachments: this.response.attachments
     };
-    console.log(messageSupport)
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(
       this.user['access_token'],

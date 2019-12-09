@@ -41,6 +41,7 @@ export class SendOrderComponent implements OnInit {
   // User information
   public user: UserInformation;
   public allUser: any;
+  public isInternational= false;
 
   // Información de la orden
   public order: Order;
@@ -50,6 +51,7 @@ export class SendOrderComponent implements OnInit {
   public Carries: Array<Carries> = [];
   public CarriesInternational: Array<Carries> = [];
   public CarriesNational: Array<Carries> = [];
+  public idState = 170;
 
   // Boolean que permite saber si se han editado productos de la orden
   public productIsUpdating = false;
@@ -131,6 +133,11 @@ export class SendOrderComponent implements OnInit {
       this.loadingService.closeSpinner();
       return userData;
     });
+    if (sellerData && sellerData.Country !== 'COLOMBIA') {
+      this.isInternational = true;
+    } else {
+      this.isInternational = false;
+    }
     this.loadingService.closeSpinner();
     this.getCarries();
   }
@@ -229,11 +236,16 @@ export class SendOrderComponent implements OnInit {
     for (let index = 0; index < order.products.length; index++) {
       productList.push(order.products[index].id);
     }
+    if (this.isInternational) {
+      this.idState = 35;
+    } else {
+      this.idState = Const.OrderEnProcesoDeEnvio;
+    }
     const jsonOrder = {
       tracking: this.sendAllForm.value.Guide,
       carrier: this.sendAllForm.value.Transporter,
       shipDate: new Date(),
-      idState: Const.OrderEnProcesoDeEnvio,
+      idState: this.idState,
       idSeller: this.user.sellerId,
       products: productList
     };

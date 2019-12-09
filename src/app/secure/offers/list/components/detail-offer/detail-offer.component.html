@@ -207,11 +207,12 @@
             [innerHTML]="['errors.error_required' | translate]"></mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}</mat-label>
-          <mat-select name="Currency" formControlName="Currency">
+          <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.currency' | translate]"
+            formControlName="Currency" >
+          <!-- <mat-select name="Currency" formControlName="Currency">
             <mat-option value="USD">USD</mat-option>
             <mat-option value="COP">COP</mat-option>
-          </mat-select>
+          </mat-select> -->
         </mat-form-field>
 
         <mat-slide-toggle color="primary" formControlName="IsFreeShipping"
@@ -237,7 +238,7 @@
           (change)="checkSlide($event, 'IsUpdatedStock')">
           {{'secure.offers.list.components.detail_offer.update_stock' | translate}}</mat-slide-toggle>
 
-        <div fxLayout="row wrap" *ngIf="dataOffer.offerComponents.length > 0">
+        <div fxLayout="row wrap" class="sizeContainer" *ngIf="dataOffer.offerComponents.length > 0">
           <div fxLayout="row" class="titleListCombo">{{'secure.offers.bulk_upload.table_load.component_list' | translate}}<span
               class="countCombo">({{Combos.controls.length}})</span></div>
               

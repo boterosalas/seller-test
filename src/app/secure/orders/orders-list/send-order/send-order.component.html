@@ -129,6 +129,7 @@
                 <app-form-product
                   (OnProductIsSend)="updateTrackingAndCarrierForProduct($event)"
                   [carries]="Carries"
+                  [isInternational]="isInternational"
                   [product]="product" [order]="order" [user]="user"
                   [dialogRef]="dialogRef"></app-form-product>
               </mat-expansion-panel>

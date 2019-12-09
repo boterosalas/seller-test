@@ -4,7 +4,7 @@ import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher, MatSnackBar, MatDialog } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from '../list-products.service';
 import { BulkLoadService } from '@app/secure/offers/bulk-load/bulk-load.service';
 import { ProcessService } from '../../create-product-unit/component-process/component-process.service';
@@ -13,6 +13,8 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalRuleOfferComponent } from '../modal-rule-offer/modal-rule-offer.component';
+import { UserInformation } from '@app/shared';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,6 +36,8 @@ export class OfertExpandedProductComponent implements OnInit {
     // public Combos: FormArray;
     public matcher: MyErrorStateMatcher;
 
+    public user: UserInformation;
+
     @Input() applyOffer: any;
     @Input() productsExpanded: any;
 
@@ -51,6 +55,9 @@ export class OfertExpandedProductComponent implements OnInit {
     };
 
     approvalOfert: boolean;
+    public showCharge: boolean;
+
+
     public validateNumberOrder = true;
     convertPromise: string;
     approvalOffert: boolean;
@@ -60,6 +67,7 @@ export class OfertExpandedProductComponent implements OnInit {
         private languageService: TranslateService,
         public SUPPORT: SupportService,
         private dialog: MatDialog,
+        private profileService: MyProfileService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
         private modalService?: ModalService,
@@ -72,6 +80,7 @@ export class OfertExpandedProductComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getAllDataUser();
         this.validateFormSupport();
         this.createFormControls();
         console.log(1, this.productsExpanded.bestOffer);
@@ -236,41 +245,34 @@ export class OfertExpandedProductComponent implements OnInit {
                     }
                 }
             } else {
-                this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-                    this.changeTypeCurrency(val);
-                    if (val === 'USD') {
-                        errors = false;
-                        if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
-                            if (showErrors) {
-                                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
-                                    duration: 3000,
-                                });
-                            }
-                        } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
-                            if (showErrors) {
-                                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
-                                    duration: 3000,
-                                });
-                            }
+                if (this.ofertProduct.get('Currency').value === 'USD') {
+                    errors = false;
+                    if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
+                        if (showErrors) {
+                            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
+                                duration: 3000,
+                            });
+                        }
+                    } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
+                        if (showErrors) {
+                            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
+                                duration: 3000,
+                            });
                         }
                     }
-                    this.setCategoryError(errors);
-                });
+                }
+                this.setCategoryError(errors);
             }
         } else {
-            // this.ofertProduct.controls.Price.setValue(this.totalCombo);
             if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
                 errors = false;
             } else {
-                this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-                    this.changeTypeCurrency(val);
-                    if (val === 'COP') {
-                        this.setCategoryErrorPrice(errors);
-                    } else {
-                        errors = false;
-                        this.setCategoryErrorPrice(errors);
-                    }
-                });
+                if (this.ofertProduct.get('Currency').value === 'COP') {
+                    this.setCategoryErrorPrice(errors);
+                } else {
+                    errors = false;
+                    this.setCategoryErrorPrice(errors);
+                }
             }
         }
         this.sendArray();
@@ -592,6 +594,31 @@ export class OfertExpandedProductComponent implements OnInit {
                     radioIsEnviosExito && radioIsEnviosExito.classList.add('mat-radio-checked');
                 }
                 break;
+        }
+    }
+
+    /**
+     * OBTENGO INFORMACION DEL USUARIO
+     * @memberof OfertExpandedProductComponent
+     */
+    async getAllDataUser() {
+        this.createFormControls();
+        this.loadingService.viewSpinner();
+        if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+            const sellerData = await this.profileService.getUser().toPromise().then(res => {
+                const body: any = res.body;
+                const response = JSON.parse(body.body);
+                const userData = response.Data;
+                this.loadingService.closeSpinner();
+                return userData;
+            });
+            this.loadingService.closeSpinner();
+            this.ofertProduct.get('Currency').disable();
+            if (sellerData.Country === 'COLOMBIA') {
+                this.ofertProduct.get('Currency').setValue('COP');
+            } else {
+                this.ofertProduct.get('Currency').setValue('USD');
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 export const registerRegex = [
     { Identifier: 'formatNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'ofertas' },
@@ -54,6 +55,8 @@ describe('Detail offer Component SELLER', () => {
     const mockListService = jasmine.createSpyObj('ListService', ['getOffers']);
     const mockBulkLoadService = jasmine.createSpyObj('BulkLoadService', ['setOffers']);
     const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+    const mockMyProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
+
     const formBuilder: FormBuilder = new FormBuilder();
 
     // Create Variables for services and component
@@ -86,6 +89,7 @@ describe('Detail offer Component SELLER', () => {
                 { provide: BulkLoadService, useValue: mockBulkLoadService },
                 { provide: SupportService, useValue: mockSuportService },
                 { provide: FormBuilder, useValue: formBuilder },
+                { provide: MyProfileService, useValue: mockMyProfileService },
                 ListComponent,
             ],
             schemas: [NO_ERRORS_SCHEMA]
@@ -147,7 +151,7 @@ describe('Detail offer Component SELLER', () => {
         beforeEach(() => {
             detailOfferComponent.dataOffer = detailOffer;
             detailOfferComponent.dataOffer.availableToOffer = true;
-            detailOfferComponent.dataOffer.offerComponents =[
+            detailOfferComponent.dataOffer.offerComponents = [
                 {
                     ean: '0321321321321',
                     id: 'MK00000006162336',
@@ -156,7 +160,7 @@ describe('Detail offer Component SELLER', () => {
                     pum: '$10000 por Unidad de product30october',
                     quantity: '1',
                     skuId: 'MK00000006162336',
-                    }, {
+                }, {
                     ean: 'ABC7573747057914',
                     id: 'MK00000006162261',
                     price: '90000',
@@ -164,7 +168,7 @@ describe('Detail offer Component SELLER', () => {
                     pum: '$0 por Unidad de Producto Creado con EAN ABC7573747057914',
                     quantity: '1',
                     skuId: 'MK00000006162261',
-                    }, {
+                }, {
                     ean: '0334589034881',
                     id: 'MK00000006162200',
                     price: '25000',
@@ -172,7 +176,7 @@ describe('Detail offer Component SELLER', () => {
                     pum: '$0 por Metro de Producto Camisa1331',
                     quantity: '1',
                     skuId: 'MK00000006162200',
-                    }
+                }
             ];
             fixture.detectChanges();
         });
