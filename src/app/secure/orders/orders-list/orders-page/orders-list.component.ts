@@ -494,7 +494,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * funcion para resetear la data 
+   * funcion para resetear la data
    *
    * @param {*} res
    * @memberof OrdersListComponent
