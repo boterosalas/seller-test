@@ -119,6 +119,18 @@
     "filters.clear": "Limpiar",
     "filters.filter": "Filtrar",
 
+    "January": "Enero",
+    "February": "Febrero",
+    "March": "Marzo",
+    "April": "Abril",
+    "May": "Mayo",
+    "June": "Junio",
+    "July": "Julio",
+    "August": "Agosto",
+    "September": "Septiembre",
+    "October": "Octubre",
+    "November": "Noviembre",
+    "December": "Diciembre",
 
     "actions.edit": "Editar",
     "actions.add": "Agregar",
@@ -633,10 +645,14 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "Información de oferta de componente faltante",
     "secure.offers.bulk_upload.table_error.sum_price": "El precio de este producto combo debe ser la sumatoria de sus componentes.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes.",
+    "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.",
+    "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
+    "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
+    "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
@@ -670,6 +686,7 @@
     "secure.products.bulk_upload.size": "Talla",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.offers.bulk_upload.table_load.component_list": "Lista de componentes",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Carga en proceso",
     "secure.products.Finish_upload_product_information.successful_upload": "Carga realizada con éxito",
@@ -841,7 +858,7 @@
 
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": " Primero debes ingresar un EAN o Código de Barras válido para tu producto. Recuerda que este código debe ser real ya que es la identificación del producto a nivel mundial. Para el EAN solo podrás ingresar números de 7 a 13 caracteres. Si tu EAN contiene menos de 13 caracteres ten en cuenta que este será autocompletado con 0 a su lado izquierdo hasta completar los 13 caracteres. Si eres fabricante o tu producto es genérico podrás seleccionar la opción de “No tengo EAN asociado” y nosotros te asignaremos un código.",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Formato inválido de EAN (7-13 caraceteres alfanúmericos).",
-    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",
+    "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "El EAN ya existe, por favor asocie una oferta múltiple",
     "secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code": "No tengo EAN asociado",
     "secure.products.create_product_unit.specifications.validate-ean.continue": "Continuar",
 
@@ -924,6 +941,8 @@
     "secure.parametize.specifications.btn_add_specifications": "Agregar especificaciones",
     "secure.parametize.specifications.tooltip_type_text": "Especificación de tipo texto",
     "secure.parametize.specifications.tooltip_type_list": "Especificación de tipo lista",
+    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" ,
+    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish",
 
     "secure.parametize.dialog.modal_title_spec": "Agregar grupo de especificaciones",
     "secure.parametize.dialog.modal_title_brand": "Agregar una marca",
@@ -946,7 +965,7 @@
     "secure.parametize.dialogAddSpecs.modal_text_3": "de las cuales el vendedor pueda escoger, puedes agregar más opciones de ser necesario.",
     "secure.parametize.dialogAddSpecs.modal_placeholder_specification_name": "Nombre de especificacion",
     "secure.parametize.dialogAddSpecs.modal_lbl_vendedor": "Visualización del vendedor",
-    "secure.parametize.dialogAddSpecs.modal_rdn_text": "Texo",
+    "secure.parametize.dialogAddSpecs.modal_rdn_text": "Texto",
     "secure.parametize.dialogAddSpecs.modal_rdn_list_action": "Selección una acción (lista)",
     "secure.parametize.dialogAddSpecs.modal_chk_required": "Obligatoria",
     "secure.parametize.dialogAddSpecs.modal_placeholder_add_option": "Ingresa opcion",
@@ -1039,12 +1058,15 @@
     "secure.parametize.support_modal.tutorial": "TUTORIALES",
     "secure.parametize.support_modal.contact_mail": "Correo contacto",
     "secure.parametize.support_modal.classification": "Selecciona la clasificación del caso",
-    "secure.parametize.support_modal.category_case": "Selecciona la categoría del caso (si aplica)",
-    "secure.parametize.support_modal.subcategory_case": "Selecciona la subcategoría del caso (si aplica)",
+    "secure.parametize.support_modal.subClassification": "Selecciona la subclasificación del caso (si aplica)",
+    "secure.parametize.support_modal.detail": "Selecciona el detalle del caso (si aplica)",
     "secure.parametize.support_modal.classification_tips": "Selecciona de la lista desplegable el motivo del caso",
     "secure.parametize.support_modal.category_tips": "La lista de categorías se despliega según la clasificación elegida",
     "secure.parametize.support_modal.subcategory_tips": "La lista de subcategorías se despliega según la categoría elegida",
     "secure.parametize.support_modal.description_tips": "Ingresa una descripción con el mayor detalle posible de la novedad. Este campo tiene un limite de 2000 caracteres.",
+    "secure.parametize.support_modal.field.paymentDate": "Fecha de pago",
+    "secure.parametize.support_modal.field.orderStripNumber": "Número de orden",
+    "secure.parametize.support_modal.field.billNumber": "Número de compra",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 

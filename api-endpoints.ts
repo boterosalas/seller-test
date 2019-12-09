@@ -166,8 +166,8 @@ export const endpoints = {
       getExceptionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev',
       // Crear/Editar/Elminar comision execpcion marca
       exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
-       // Classification of cases
-       getCaseCategories: '',
+      // Classification of cases
+      getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
     },
   },
   // Endpoints production
@@ -192,7 +192,7 @@ export const endpoints = {
       refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
-      createcaseseller: '',
+      createcaseseller: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/createcaseseller',
       getreasonsrejection: 'https://m9rdnx8wog.execute-api.us-east-1.amazonaws.com/reasonrejection-pdn{stringParams}',
       // shipments
       getShipmentById: 'service/shipping/{id}',
@@ -333,7 +333,7 @@ export const endpoints = {
       // Crear/Editar/Elminar comision execpcion marca
       exceptionComissionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/{params}',
       // Classification of cases
-      getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
+      getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
     }
   }
 };

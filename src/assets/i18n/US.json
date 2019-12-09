@@ -36,6 +36,8 @@
     "menu.Listar reclamaciones": "Claims list",
     "menu.Validaciones": "In Validation",
     "menu.Devoluciones": "In Return",
+    "menu.En validación": "In Validation",
+    "menu.En devolución": "In Return",
     "menu.Solicitudes pendientes": "Pending Requests",
     "menu.Todas": "All",
     "menu.Por enviar": "Pending shipping",
@@ -55,6 +57,8 @@
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
+
+
     "permissions.Consultar": "Browse",
     "permissions.Editar": "Update",
     "permissions.Descargar": "Download",
@@ -81,6 +85,8 @@
     "permissions.Editarzonas": "Edit zones",
     "permissions.Eliminartransportadora": "Remove shipping company",
     "permissions.Eliminarzonas": "Remove zones",
+
+
     "shared.name": "Name",
     "shared.category": "Category",
     "shared.brand": "Brand",
@@ -113,6 +119,18 @@
     "filters.clear": "Clear",
     "filters.filter": "Filter",
 
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
 
     "actions.edit": "Edit",
     "actions.add": "Add",
@@ -627,10 +645,14 @@
     "secure.offers.bulk_upload.table_error.incomplete_info": "has missing information for a component",
     "secure.offers.bulk_upload.table_error.sum_price": "should have a price comprised of the sum of the components.",
     "secure.offers.bulk_upload.table_error.sum_price_component": "should have a discount price comprised of the sum of the components.",
+    "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.",
+    "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
+    "secure.offers.bulk_upload.table_load.address": "Picking Address",
+    "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
@@ -664,6 +686,7 @@
     "secure.products.bulk_upload.size": "Size",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.offers.bulk_upload.table_load.component_list": "Component list",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",
     "secure.products.Finish_upload_product_information.successful_upload": "Successful upload",
@@ -1034,13 +1057,16 @@
     "secure.parametize.support_modal.field_invalid": "Invalid field",
     "secure.parametize.support_modal.tutorial": "TUTORIALS",
     "secure.parametize.support_modal.contact_mail": "Contact e-mail",
-    "secure.parametize.support_modal.classification": "Select the case classification",
-    "secure.parametize.support_modal.category_case": "Select the category of the case (if applicable)",
-    "secure.parametize.support_modal.subcategory_case": "Select the subcategory of the case (if applicable)",
+    "secure.parametize.support_modal.classification": "Select the classification of the case classification",
+    "secure.parametize.support_modal.subClassification": "Select the subclassification of the case (if applicable)",
+    "secure.parametize.support_modal.detail": "Select the detail of the case (if applicable)",
     "secure.parametize.support_modal.classification_tips": "Select the reason for the case from the drop-down list",
     "secure.parametize.support_modal.category_tips": "The list of categories is displayed according to the chosen classification",
     "secure.parametize.support_modal.subcategory_tips": "The list of subcategories is displayed according to the chosen category",
     "secure.parametize.support_modal.description_tips": "Enter a description in as much detail as possible of the novelty. This field has a limit of 2000 characters",
+    "secure.parametize.support_modal.field.paymentDate": "Payment date",
+    "secure.parametize.support_modal.field.orderStripNumber": "Order strip number",
+    "secure.parametize.support_modal.field.billNumber": "Bill number",
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 

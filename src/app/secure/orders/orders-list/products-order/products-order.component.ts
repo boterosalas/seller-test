@@ -31,6 +31,7 @@ export class ProductsOrderComponent {
   @Input() dataSource: any;
   @Input() user: any;
   @Input() Typeprofile: number;
+  @Input() isInternational: boolean;
 
   /**
    * Creates an instance of ProductsOrderComponent.

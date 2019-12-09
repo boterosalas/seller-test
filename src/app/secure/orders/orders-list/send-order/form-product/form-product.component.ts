@@ -32,6 +32,13 @@ export class FormProductComponent implements OnInit {
   @Input() user: any;
   @Input() order: Order;
   @Input() dialogRef: any;
+  international = false;
+  idState = 170;
+  @Input() set isInternational (value: boolean){
+    if (value !== undefined && value !== null) {
+        this.international = value;
+    }
+  }
   // Lista de transportadoras.
   @Input() carries: Array<Carries> = [];
   // Evento que permite consultar las órdenes
@@ -94,18 +101,22 @@ export class FormProductComponent implements OnInit {
    */
   sendProduct(product: ProductsEntity, form) {
 
+    if (this.international) {
+      this.idState = 35;
+    } else {
+      this.idState = Const.OrderEnProcesoDeEnvio;
+    }
     // Armo el json que se enviara al servicio.
     const jsonProduct = {
       tracking: form.value.Guide,
       carrier: form.value.Transporter,
       shipDate: new Date(),
       idSeller: this.user.sellerId,
-      idState: Const.OrderEnProcesoDeEnvio,
+      idState: this.idState,
       products: [
         product.id
       ]
     };
-
     if (this.product.id != null) {
       this.orderService.sendProductOrder(jsonProduct, this.order.id, this.product.id).subscribe((res: any) => {
         this.componentsService.openSnackBar(this.languageService.instant('secure.orders.send.send_correctly'), this.languageService.instant('actions.close'), 4000);
