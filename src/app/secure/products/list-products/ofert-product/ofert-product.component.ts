@@ -547,19 +547,21 @@ export class OfertExpandedProductComponent implements OnInit {
     async getAllDataUser() {
         this.createFormControls();
         this.loadingService.viewSpinner();
-        const sellerData = await this.profileService.getUser().toPromise().then(res => {
-            const body: any = res.body;
-            const response = JSON.parse(body.body);
-            const userData = response.Data;
+        if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+            const sellerData = await this.profileService.getUser().toPromise().then(res => {
+                const body: any = res.body;
+                const response = JSON.parse(body.body);
+                const userData = response.Data;
+                this.loadingService.closeSpinner();
+                return userData;
+            });
             this.loadingService.closeSpinner();
-            return userData;
-        });
-        this.loadingService.closeSpinner();
-        this.ofertProduct.get('Currency').disable();
-        if (sellerData.Country === 'COLOMBIA') {
-            this.ofertProduct.get('Currency').setValue('COP');
-        } else {
-            this.ofertProduct.get('Currency').setValue('USD');
+            this.ofertProduct.get('Currency').disable();
+            if (sellerData.Country === 'COLOMBIA') {
+                this.ofertProduct.get('Currency').setValue('COP');
+            } else {
+                this.ofertProduct.get('Currency').setValue('USD');
+            }
         }
     }
 }
