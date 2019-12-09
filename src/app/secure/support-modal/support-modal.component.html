@@ -165,10 +165,13 @@
       </mat-form-field>
 
 
-      <ng-container *ngFor="let field of scRequiered; let i=index">
-        <mat-form-field class="example-full-width" *ngIf="scRequiered && scRequiered.length > 0">
-          <input id="{{field.name}}-{{i}}" matInput formControlName="{{field.name}}" placeholder="{{field.name}}"
-            required="field.requiered" *ngIf="field.requiered">
+      <ng-container *ngIf="scRequiered && scRequiered.length > 0">
+        <mat-form-field class="example-full-width" *ngFor="let field of scRequiered; let i=index">
+          <input id="{{field.name}}-{{i}}" matInput required formControlName="{{field.name}}"
+            placeholder="{{field.placeHolder}}" *ngIf="field.requiered">
+          <mat-error *ngIf="!myform.get(field.name).hasError('fields')">
+            {{"secure.products.create_product_unit.basic_information.input_mandatory" | translate}}
+          </mat-error>
         </mat-form-field>
       </ng-container>
 
