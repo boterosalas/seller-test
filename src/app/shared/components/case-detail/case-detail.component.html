@@ -18,7 +18,8 @@
     </div>
     <div class="sh-case-detail__attachments-files">
       <div class="sh-case-detail__attach sh-case-detail--pointer">
-        <a *ngFor="let attach of case.attachments; let i = index" id="attach-{{ i }}" [href]="attach.url">
+        <a *ngFor="let attach of case.attachments; let i = index" id="attach-{{ i }}" target="_blank"
+          href="{{attach.url}}">
           {{ attach.name }}
         </a>
       </div>

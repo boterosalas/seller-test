@@ -4,7 +4,8 @@ import {
   FormGroup,
   Validators,
   FormControl,
-  AbstractControl
+  AbstractControl,
+  ValidatorFn
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
@@ -110,7 +111,7 @@ export class SupportModalComponent implements OnInit {
     }
   ];
 
-  omsCategories = [];
+  omsCategories: Array<any> = [];
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
@@ -225,7 +226,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickCategoryOption(item: CaseCategory) {
-    this.myform.clearValidators();
+    debugger
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
@@ -250,6 +251,7 @@ export class SupportModalComponent implements OnInit {
       });
     if (!item.subcategory) {
       this.scReasonTypes = item.type;
+      this.scSubcategories = [];
       this.scRequiered = this.getFieldsRequired(item.fields);
     }
   }
@@ -319,19 +321,30 @@ export class SupportModalComponent implements OnInit {
       ),
       subCategory: new FormControl(''),
       category: new FormControl(''),
-      paymentDate: new FormControl(null, [this.validateFields]),
-      orderStripNumber: new FormControl(null, [this.validateFields]),
-      billNumber: new FormControl(null, [this.validateFields])
+      paymentDate: new FormControl(null, [
+        /* this.validatorFunction('paymentDate').bind(this)] */
+      ]),
+      orderStripNumber: new FormControl(null, [
+        /* this.validatorFunction('orderStripNumber').bind(this) */
+      ]),
+      billNumber: new FormControl(null, [
+        /* this.validatorFunction('billNumber').bind(this) */
+      ])
     });
   }
 
-  public validateFields(field: FormControl): { [key: string]: boolean } | null {
-
-    if (field.value !== undefined && field.value !== null && field.value !== '') {
-      return null;
+  /* public validatorFunction(fieldName: string): ValidatorFn {
+    return (field: FormControl): { [key: string]: boolean } | null => {
+      debugger
+      this.scRequiered.forEach(element => {
+        if (element.requiered && element.name === fieldName &&
+          field.value !== undefined && field.value !== null && field.value !== '') {
+          return null;
+        }
+      });
+      return { 'fields': false };
     }
-    return { 'fields': false };
-  }
+  } */
 
   /**
    * Obtiene la regex de Dynamo
@@ -375,7 +388,10 @@ export class SupportModalComponent implements OnInit {
       typeOfRequirement: form.value.typeOfRequirement.trim(),
       // caseOrigin: "Sitio web marketplace",
       // caseMarketplaceOwner: "Soporte MarketPlace",
-      attachments: this.response.attachments
+      attachments: this.response.attachments,
+      paymentDate: form.value.paymentDate,
+      orderStripNumber: form.value.orderStripNumber,
+      billNumber: form.value.billNumber
     };
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(
