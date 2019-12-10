@@ -199,7 +199,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
-    debugger
+
     this.myform.clearValidators();
     this.scCategories = [];
     this.scSubcategories = [];
@@ -226,7 +226,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickCategoryOption(item: CaseCategory) {
-    debugger
+
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
@@ -335,7 +335,7 @@ export class SupportModalComponent implements OnInit {
 
   /* public validatorFunction(fieldName: string): ValidatorFn {
     return (field: FormControl): { [key: string]: boolean } | null => {
-      debugger
+
       this.scRequiered.forEach(element => {
         if (element.requiered && element.name === fieldName &&
           field.value !== undefined && field.value !== null && field.value !== '') {
