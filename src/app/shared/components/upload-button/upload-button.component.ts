@@ -30,6 +30,7 @@ export class UploadButtonComponent implements OnInit {
   accept: any;
 
   emitingChange(files: Array<File>) {
+
     try {
       this.launchValidations(files);
 
@@ -89,8 +90,13 @@ export class UploadButtonComponent implements OnInit {
       case TYPE_VALIDATION.MAX_SIZE:
         this.totalSizeAllowed += file.size;
         if (this.totalSizeAllowed > validation.value) {
-          this.totalSizeAllowed -= file.size;
-          return validation.message;
+          if (this.attachments.length === 0) {
+            this.totalSizeAllowed = 0;
+            return validation.message;
+          } else {
+            this.totalSizeAllowed -= file.size;
+            return validation.message;
+          }
         }
         break;
       case TYPE_VALIDATION.ACCEPT_TYPES:
