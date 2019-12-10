@@ -734,16 +734,6 @@ export class ProductBasicInfoComponent implements OnInit {
     getInformationBasic(detailProduct: any) {
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
-                    const source = {
-                        son: [
-                            { ean: '7001114217466', size: 'M', color: 'Verde', hexColorCodePDP: '#5f1f1f', colorPick: '#5f1f1f', spefiColor: 'turquesa' },
-                            { ean: '7001114217560', size: 'S', color: 'Azul', hexColorCodePDP: '#1f5f4e', colorPick: '#5f1f1f', spefiColor: 'celeste' }
-                        ]
-                    };
-                    detailProduct = { ...detailProduct, ...source };
-                    if ( detailProduct.son && detailProduct.son.length > 0) {
-                        this.setChildren(detailProduct);
-                    }
                 const packingData = this.formBasicInfo.controls.packing as FormGroup;
                 const productDateSize = this.formBasicInfo.controls.product as FormGroup;
                 this.formBasicInfo.controls.Name.setValue(detailProduct.name);
@@ -762,12 +752,15 @@ export class ProductBasicInfoComponent implements OnInit {
                 productDateSize.controls.LongProduct.setValue(detailProduct.productLength);
                 productDateSize.controls.WeightProduct.setValue(detailProduct.productWeight);
                 this.formBasicInfo.controls.Description.setValue(detailProduct.description);
-                if ( detailProduct.keyword && detailProduct.keyword.length > 0) {
-                    this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyword.join());
+                if (detailProduct.keyWords !== null && detailProduct.keyWords !== undefined ) {
+                    this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyWords);
                     this.inputRequired = false;
                 } else {
                     this.formBasicInfo.controls.Keyword.setValue(null);
                     this.inputRequired = true;
+                }
+                if ( detailProduct.son && detailProduct.son.length > 0) {
+                    this.setChildren(detailProduct);
                 }
                 this.saveKeyword();
                 this.sendDataToService();
