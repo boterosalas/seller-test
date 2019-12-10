@@ -129,7 +129,6 @@
       <!-- <div>
         <p class="sc-text-order">{{product.tracking}}</p>
       </div> -->
-
       <div>
         <p class="sc-text-order-international" *ngIf="!!product.tracking">Loc: <strong>{{product.tracking}}</strong></p>
         <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int:
@@ -140,6 +139,7 @@
       class="item-title-table">
       <div>
         <p class="sc-text-order-carrier" *ngIf="!!product.carrier">Loc: {{product.carrier}}</p>
+        <p class="sc-text-order-carrier" *ngIf="!product.carrier && product.tracking && isInternational===true && product.statusProduct == const.NameProductEnProcesoDeEnvio">Loc: INTERNATIONAL SHIPPING</p>
         <p class="sc-text-order-carrier" *ngIf="!!product.internationalCarrier">Int: {{product.internationalCarrier}}</p>
       </div>
     </div>

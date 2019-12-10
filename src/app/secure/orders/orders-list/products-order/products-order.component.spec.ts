@@ -23,6 +23,7 @@ import { OrderService } from '../orders.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/shared/shared.module';
 import { AuthRoutingService } from '@app/secure/auth/auth.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 const dataSource = {
   data: [{ orderNumber: '3', products: [{ checkProductToSend: true }, { checkProductToSend: false }], sendAllProduct: false },
@@ -70,6 +71,7 @@ describe('ProductsOrderComponent', () => {
   const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport', 'sendSupportMessage']);
   const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openConfirmAlert', 'openSnackBar']);
   // const mockTranslateService = jasmine.createSpyObj('TranslateService', ['instant', 'stream']);
+  const mockMyProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -106,6 +108,7 @@ describe('ProductsOrderComponent', () => {
         { provide: ModalService, useValue: mockDialogError },
         { provide: AuthService, useValue: mockAuthService },
         { provide: SupportService, useValue: mockSupportService },
+        { provide: MyProfileService, useValue: mockMyProfileService },
         // {provide: TranslateService, useValue: mockTranslateService}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

@@ -1261,11 +1261,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.arrayInformationForSend.splice(0, 1);
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
-      if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+      // if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+      if (element['PromiseDelivery']) {
         const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
-      }
+       }
     });
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(
