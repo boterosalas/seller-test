@@ -24,6 +24,8 @@ export class DropDownBoxComponent {
 
   @Input() read;
 
+  @Input() index;
+
   @Output() opened = new EventEmitter();
 
   panelOpenState = false;

@@ -59,7 +59,7 @@
             class="case-list-detail--item-detail case-list-detail--content-center"
             fxFlex="5%"
           >
-            <mat-icon id="dpbox-attachment-icon" *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
+            <mat-icon id="dpbox-attachment-icon-{{index}} " *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
               attachment
             </mat-icon>
           </div>
