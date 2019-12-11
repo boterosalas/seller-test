@@ -1,15 +1,15 @@
 <div class="response-case-dialog">
   <div class="response-case-dialog__item margin-bottom">
     <span mat-dialog-title class="response-case-dialog__title ">
-      Agregar respuesta
+      {{'secure.parametize.support_modal.reply.title.reply'|translate}}
+
     </span>
-    <span
-      *ngIf="
+    <span *ngIf="
         (data.followLast && data.followLast.length > 0) ||
         (data.follow && data.follow.length > 0)
       "
-      class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing response-case-dialog ellipsis-text"
-      >{{
+      class="response-case-dialog__text-primary response-case-dialog__item--vertical-spacing response-case-dialog ellipsis-text">
+      {{
         data.follow
           ? data.follow[0].description
           : data.followLast[0].description
@@ -18,42 +18,25 @@
   </div>
 
   <div class="response-case-dialog__item dialog-response">
-    <textarea
-      [(ngModel)]="response.description"
-      class="response-case-dialog__text-second"
-      matInput
-      name=""
-      id=""
-      cols="30"
-      rows="10"
-      placeholder="Escribe tu respuesta"
-      minlength="5"
-      maxlength="2000"
-      required
-    ></textarea>
+    <textarea [(ngModel)]="response.description" class="response-case-dialog__text-second" matInput name="" id=""
+      cols="30" rows="10" minlength="5" maxlength="2000" required
+      [placeholder]="translateService.instant('secure.parametize.support_modal.reply.placeholder-write-answer')"></textarea>
   </div>
 
-  <app-upload-button
-    [validations]="validations"
-    [showGeneralError]="true"
+  <app-upload-button [validations]="validations" [showGeneralError]="true"
     generalMessageError="El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Los formatos permitidos son: AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word"
-    (fileChange)="onFileChange($event)"
-  >
+    (fileChange)="onFileChange($event)">
     {{'secure.parametize.support_claims-upload-btn.title' | translate}}
   </app-upload-button>
 
   <div class="response-case-dialog__item response-case-dialog__control">
-    <button
-      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-close"
-      (click)="closeDialog()"
-    >
-      Cancelar
+    <button class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-close"
+      (click)="closeDialog()">
+      {{'secure.parametize.support_modal.reply.dialog-cancel-button'|translate}}
     </button>
-    <button
-      class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-save"
-      (click)="submitResponse()"
-    >
-      Agregar
+    <button class="mat-raised-button  response-case-dialog__button response-case-dialog__button--btn-save"
+      (click)="submitResponse()">
+      {{'secure.parametize.support_modal.reply.dialog-add-button'|translate}}
     </button>
   </div>
 </div>
