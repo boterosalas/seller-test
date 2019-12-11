@@ -5,15 +5,8 @@ import { Component, Input, OnInit } from "@angular/core";
   templateUrl: "./drop-down-list-header.component.html",
   styleUrls: ["./drop-down-list-header.component.scss"]
 })
-export class DropDownListHeaderComponent implements OnInit {
+export class DropDownListHeaderComponent {
   @Input() configurations: Array<Configuration>;
-
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.configurations;
-    debugger
-  }
 }
 
 export interface Configuration {
