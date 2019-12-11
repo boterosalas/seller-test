@@ -20,6 +20,8 @@ import {
 import { CoreState } from '@app/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ConfigurationState } from '@app/store/configuration';
+import { StoreService } from '@app/store/store.service';
 
 @Component({
   selector: 'app-list-of-case',
@@ -72,7 +74,8 @@ export class ListOfCaseComponent implements OnInit {
     public router: ActivatedRoute,
     private store: Store<CoreState>,
     private loadingService?: LoadingService,
-    private modalService?: ModalService
+    private modalService?: ModalService,
+    private storeService?: StoreService
   ) { }
 
   ngOnInit() {
@@ -106,8 +109,8 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(res => {
-      this.options = res.data;
+    this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
+      this.options = res.statusCases;
     });
   }
 

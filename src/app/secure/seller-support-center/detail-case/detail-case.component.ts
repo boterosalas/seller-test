@@ -15,6 +15,8 @@ import { LoadingService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
 import { MatDialog } from '@angular/material';
+import { StoreService } from '@app/store/store.service';
+import { ConfigurationState } from '@app/store/configuration';
 
 @Component({
   selector: 'app-detail-case',
@@ -57,7 +59,8 @@ export class DetailCaseComponent implements OnInit {
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
-    private loadingService?: LoadingService
+    private loadingService?: LoadingService,
+    private storeService?: StoreService
   ) {
     this.headerConfigurations = this.sellerSupportService.getListHeaderConfiguration();
   }
@@ -102,8 +105,8 @@ export class DetailCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(res => {
-      this.options = res.data;
+    this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
+      this.options = res.statusCases;
     });
   }
 }
