@@ -355,6 +355,10 @@ export class OfertExpandedProductComponent implements OnInit {
 
     }
 
+    /**
+     * Metodo que valida si el precio o precio con dscto cumple la regla del 30% para abrir el modal de confirmación
+     * @memberof OfertExpandedProductComponent
+     */
     validateRulesOfert(): void {
         this.sendOffer = false;
         const valHigh = +this.productsExpanded.bestOffer * 1.30;
@@ -362,58 +366,32 @@ export class OfertExpandedProductComponent implements OnInit {
         const valPrice = +this.ofertProduct.controls.Price.value;
         const valDiscount = +this.ofertProduct.controls.DiscountPrice.value;
 
-        if (valPrice < valLow || valPrice > valHigh) {
-            this.openDialogSendOrder();
-        } else if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
-            this.openDialogSendOrder();
-        } else {
-            this.loadingService.viewSpinner();
-            // const data = {
-            //     EAN: this.applyOffer.ean,
-            //     Stock: this.ofertProduct.controls.Stock.value,
-            //     Price: this.ofertProduct.controls.Price.value,
-            //     DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
-            //     AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-            //     PromiseDelivery: this.convertPromise,
-            //     Warranty: this.ofertProduct.controls.Warranty.value,
-            //     IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
-            //     IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
-            //     IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
-            //     IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-            //     IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
-            //     Currency: this.ofertProduct.controls.Currency.value,
-            // };
-            // let aryOfAry = [data];
-            // aryOfAry = aryOfAry.concat(this.getChildrenData());
-            // this.process.validaData(aryOfAry);
-            // this.dataOffer = {
-            //     listOffer: aryOfAry,
-            //     priceApproval: 0
-            // };
-            // this.bulkLoadService.setOffersProducts(this.dataOffer).subscribe(
-            //     (result: any) => {
-            //         if (result.status === 200 || result.status === 201) {
-            //             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-            //                 duration: 5000,
-            //             });
-            //             this.loadingService.closeSpinner();
-            //             this.listService.changeEmitter();
-            //         } else {
-            //             log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
-            //             this.modalService.showModal('errorService');
-            //         }
-            //         this.loadingService.closeSpinner();
-            //     }, error => {
-            //         this.loadingService.closeSpinner();
-            //         window.location.reload();
-            //     });
-            this.sameInfo();
-            this.dataOffer['priceApproval'] = 0;
-            this.serviceToSendOffer(this.dataOffer);
-        }
+        if (valDiscount) {
+            if (valDiscount && (valDiscount < valLow || valDiscount > valHigh)) {
+                this.openDialogSendOrder();
 
+            } else {
+                this.loadingService.viewSpinner();
+                this.sameInfo();
+                this.dataOffer['priceApproval'] = 0;
+                this.serviceToSendOffer(this.dataOffer);
+            }
+        } else {
+            if (valPrice < valLow || valPrice > valHigh) {
+                this.openDialogSendOrder();
+            } else {
+                this.loadingService.viewSpinner();
+                this.sameInfo();
+                this.dataOffer['priceApproval'] = 0;
+                this.serviceToSendOffer(this.dataOffer);
+            }
+        }
     }
 
+    /**
+     * metodo para abril el modal de confirmación
+     * @memberof OfertExpandedProductComponent
+     */
     openDialogSendOrder(): void {
         const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
             width: '95%',
@@ -425,45 +403,6 @@ export class OfertExpandedProductComponent implements OnInit {
             console.log(res);
             if (this.approvalOfert === true) {
                 this.loadingService.viewSpinner();
-                // const data = {
-                //     EAN: this.applyOffer.ean,
-                //     Stock: this.ofertProduct.controls.Stock.value,
-                //     Price: this.ofertProduct.controls.Price.value,
-                //     DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
-                //     AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-                //     PromiseDelivery: this.convertPromise,
-                //     Warranty: this.ofertProduct.controls.Warranty.value,
-                //     IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
-                //     IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
-                //     IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
-                //     IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-                //     IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
-                //     Currency: this.ofertProduct.controls.Currency.value,
-                // };
-                // let aryOfAry = [data];
-                // aryOfAry = aryOfAry.concat(this.getChildrenData());
-                // this.process.validaData(aryOfAry);
-                // this.dataOffer = {
-                //     listOffer: aryOfAry,
-                //     priceApproval: 1
-                // };
-                // this.bulkLoadService.setOffersProducts(this.dataOffer).subscribe(
-                //     (result: any) => {
-                //         if (result.status === 200 || result.status === 201) {
-                //             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                //                 duration: 5000,
-                //             });
-                //             this.loadingService.closeSpinner();
-                //             this.listService.changeEmitter();
-                //         } else {
-                //             log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
-                //             this.modalService.showModal('errorService');
-                //         }
-                //         this.loadingService.closeSpinner();
-                //     }, error => {
-                //         this.loadingService.closeSpinner();
-                //         window.location.reload();
-                //     });
                 this.sameInfo();
                 this.dataOffer['priceApproval'] = 1;
                 this.serviceToSendOffer(this.dataOffer);
@@ -473,6 +412,10 @@ export class OfertExpandedProductComponent implements OnInit {
         });
     }
 
+    /**
+     * Función para validar si hay o no mejor oferta y a partir de ello hacer envío del json
+     * @memberof OfertExpandedProductComponent
+     */
     validateBestOffert() {
         if (this.productsExpanded.bestOffer && (+this.productsExpanded.bestOffer !== 0)) {
             console.log('tiene best offert');
@@ -483,37 +426,24 @@ export class OfertExpandedProductComponent implements OnInit {
         }
     }
 
+    /**
+     * Funcion que envía json cuando no tiene mejor oferta
+     * El nuevo campo (priceApproval) va con 0
+     * @memberof OfertExpandedProductComponent
+     */
     sendJsonToService() {
         this.sendOffer = true;
         if (this.sendOffer === true) {
-            // const data = {
-            //     EAN: this.applyOffer.ean,
-            //     Stock: this.ofertProduct.controls.Stock.value,
-            //     Price: this.ofertProduct.controls.Price.value,
-            //     DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
-            //     AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-            //     PromiseDelivery: this.convertPromise,
-            //     Warranty: this.ofertProduct.controls.Warranty.value,
-            //     IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
-            //     IsEnviosExito: this.ofertProduct.controls.ofertOption.value === 'IsEnviosExito' ? '1' : '0',
-            //     IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
-            //     IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
-            //     IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
-            //     Currency: this.ofertProduct.controls.Currency.value,
-            // };
-            // let aryOfAry = [data];
-            // aryOfAry = aryOfAry.concat(this.getChildrenData());
-            // this.process.validaData(aryOfAry);
-            // this.dataOffer = {
-            //     listOffer: aryOfAry,
-            //     priceApproval: 0
-            // };
             this.sameInfo();
             this.dataOffer['priceApproval'] = 0;
             this.serviceToSendOffer(this.dataOffer);
         }
     }
 
+    /**
+     * Objeto para enviar JSON
+     * @memberof OfertExpandedProductComponent
+     */
     sameInfo() {
         const data = {
             EAN: this.applyOffer.ean,
@@ -539,6 +469,11 @@ export class OfertExpandedProductComponent implements OnInit {
         };
     }
 
+    /**
+     * Metodo que se encarga de hacer el llamado al servicio con el JSON especificado
+     * @param {*} data
+     * @memberof OfertExpandedProductComponent
+     */
     serviceToSendOffer(data: any) {
         this.bulkLoadService.setOffersProducts(data).subscribe(
             (result: any) => {
@@ -561,10 +496,6 @@ export class OfertExpandedProductComponent implements OnInit {
             });
     }
 
-    public sendDataToService(): void {
-        this.validateBestOffert();
-    }
-
     /**
      * Metodo que activa variable apra habilitar o deshabilitar el boton
      *
@@ -582,7 +513,6 @@ export class OfertExpandedProductComponent implements OnInit {
             });
         } else {
             this.showButton = false;
-            // this.sendDataToService();
         }
     }
 
