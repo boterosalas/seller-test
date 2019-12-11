@@ -17,6 +17,7 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail-case',
@@ -60,7 +61,8 @@ export class DetailCaseComponent implements OnInit {
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
     private loadingService?: LoadingService,
-    private storeService?: StoreService
+    private storeService?: StoreService,
+    private translateService?: TranslateService,
   ) { }
 
   ngOnInit(): void {

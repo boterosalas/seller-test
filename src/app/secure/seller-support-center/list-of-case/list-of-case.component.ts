@@ -22,6 +22,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ConfigurationState } from '@app/store/configuration';
 import { StoreService } from '@app/store/store.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-of-case',
@@ -75,7 +76,8 @@ export class ListOfCaseComponent implements OnInit {
     private store: Store<CoreState>,
     private loadingService?: LoadingService,
     private modalService?: ModalService,
-    private storeService?: StoreService
+    private storeService?: StoreService,
+    private translateService?: TranslateService
   ) { }
 
   ngOnInit() {

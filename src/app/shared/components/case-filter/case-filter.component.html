@@ -1,81 +1,73 @@
-<mat-sidenav-container >
-  <mat-sidenav #sidenavfilter mode="side" position="end" [disableClose]="true" >
+<mat-sidenav-container>
+  <mat-sidenav #sidenavfilter mode="side" position="end" [disableClose]="true">
     <div class="filter-content">
       <div class="filter-header">
-        <span class="filter-header--title">Filtro reclamaciones</span>
-        <span class="filter-header--close" (click)="toggleFilter()"
-          >&times;</span
-        >
+        <span class="filter-header--title">
+          {{'secure.parametize.support_claims-filter.modal-title'| translate}}
+        </span>
+        <span class="filter-header--close" (click)="toggleFilter()">&times;</span>
       </div>
       <form #filterForm="ngForm" (submit)="submitFilter()" (keydown.enter)="submitFilter()">
         <div class="filter-form">
           <mat-form-field class="filter-form--field">
-            <input matInput placeholder="ID" [(ngModel)]="filter.CaseNumber" name="caseNumber" />
+            <input matInput [placeholder]="translateService.instant('secure.parametize.support_claims-filter.id')"
+              [(ngModel)]="filter.CaseNumber" name="caseNumber" />
           </mat-form-field>
 
           <mat-form-field class="filter-form--field">
-            <input matInput placeholder="Motivo" [(ngModel)]="filter.ReasonPQR" name="reasonPQR"/>
+            <input matInput [placeholder]="translateService.instant('secure.parametize.support_claims-filter.reason')"
+              [(ngModel)]="filter.ReasonPQR" name="reasonPQR" />
           </mat-form-field>
 
-           <!-- Input date initial -->
-    <mat-form-field color="primary">
-      <input
-        id="sinceDate-input"
-        placeholder="Fecha inicio"
-        [(ngModel)]="filter.DateInit"
-        name="dateInitial"
-        [readonly]="true"
-        matInput
-        [matDatepicker]="dateInitial"
-        (click)="openDateInitial()">
-      <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-    </mat-form-field>
-    <!-- /Input date initial-->
+          <!-- Input date initial -->
+          <mat-form-field color="primary">
+            <input id="sinceDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
+              [(ngModel)]="filter.DateInit" name="dateInitial" [readonly]="true" matInput [matDatepicker]="dateInitial"
+              (click)="openDateInitial()">
+            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+          </mat-form-field>
+          <!-- /Input date initial-->
 
-    <!-- Input date final -->
-    <mat-form-field color="primary">
-      <input
-        id="untilDate-input"
-        placeholder="Fecha final"
-        [(ngModel)]="filter.DateEnd"
-        name="dateFinal"
-        [readonly]="true"
-        [min]="filter.DateInit"
-        [max]="rangeDateMax"
-        matInput
-        [matDatepicker]="dateFinal"
-        (click)="openDateFinal()">
-      <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
-      <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
-    </mat-form-field>
-    <!-- /Input date final -->
+          <!-- Input date final -->
+          <mat-form-field color="primary">
+            <input id="untilDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.end-date')"
+              [(ngModel)]="filter.DateEnd" name="dateFinal" [readonly]="true" [min]="filter.DateInit"
+              [max]="rangeDateMax" matInput [matDatepicker]="dateFinal" (click)="openDateFinal()">
+            <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
+            <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
+          </mat-form-field>
+          <!-- /Input date final -->
 
           <mat-form-field class="filter-form--field">
-            <mat-select placeholder="Estado"  name="status" [(ngModel)]="value" >
-                <mat-option *ngFor="let state of options" value="{{state.name}}">{{
-                  state.name
-                }}</mat-option>
+            <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
+              name="status" [(ngModel)]="value">
+              <mat-option *ngFor="let state of options" value="{{state.name}}">
+                {{state.name}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="filter-form--field">
-            <input matInput placeholder="Número de pedido" [(ngModel)]="filter.OrderNumber" name="orderNumber"/>
+            <input matInput
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.orderNumber')"
+              [(ngModel)]="filter.OrderNumber" name="orderNumber" />
           </mat-form-field>
         </div>
         <div class="filter-control">
           <button class="mat-raised-button  filter-control--btn-clean btn" (click)="cleanFilter()">
-            Limpiar
+            {{'secure.parametize.support_claims-filter.clear'| translate}}
           </button>
           <button type="submit" class="mat-raised-button  filter-control--btn-send btn">
-            Filtrar
+            {{'secure.parametize.support_claims-filter.filter'| translate}}
           </button>
         </div>
       </form>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content class=""
-  (click)="toggleFilter()">
+  <mat-sidenav-content class="" (click)="toggleFilter()">
     <div class="blank-content">
 
     </div>

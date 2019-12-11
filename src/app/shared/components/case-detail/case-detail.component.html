@@ -1,11 +1,13 @@
 <div class="sh-case-detail">
   <div class="sh-case-detail__item ticket-detail ticket-detail--col">
-    <app-basic-card class="sh-case-detail--bottom-space" title="Descripción" [description]="case.description">
+    <app-basic-card class="sh-case-detail--bottom-space"
+      [title]="translateService.instant('secure.parametize.support_claims.description')" [description]="case.description">
     </app-basic-card>
   </div>
 
   <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
-    <app-basic-card class="sh-case-detail--bottom-space" title="Detalle de la solución"
+    <app-basic-card class="sh-case-detail--bottom-space"
+      [title]="translateService.instant('secure.parametize.support_claims-details.detail-of-solution')"
       [description]="case.descriptionSolution"></app-basic-card>
   </div>
 
@@ -14,7 +16,7 @@
       <mat-icon class="sh-case-detail__icon">
         attach_file
       </mat-icon>
-      <span>Adjuntos</span>
+      <span>{{'secure.parametize.support_claims-details.attachments' | translate}}</span>
     </div>
     <div class="sh-case-detail__attachments-files">
       <div class="">
@@ -28,12 +30,13 @@
 
   <div class="sh-case-detail__item ticket-detail--col">
     <span class="sh-case-detail__title sh-case-detail--bottom-space">
-      Seguimiento
+      {{'secure.parametize.support_claims.tracing'|translate}}
     </span>
     <app-conversation>
       <div *ngIf="!case.follow || case.follow.length == 0">
         <app-conversation-message *itemConversation class="sh-case-detail--full-width" style="opacity: 0.7;"
-          message="No contiene seguimiento"></app-conversation-message>
+          [message]="translateService.instant('secure.parametize.support_claims.no-tracing')">
+        </app-conversation-message>
       </div>
 
       <div *ngFor="let follow of case.follow; let i = index">

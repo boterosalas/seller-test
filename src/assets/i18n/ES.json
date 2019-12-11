@@ -1068,6 +1068,31 @@
     "secure.parametize.support_modal.field.orderStripNumber": "Número de orden",
     "secure.parametize.support_modal.field.billNumber": "Número de compra",
 
+    "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.claims-display": "Visualización de productos",
+    "secure.parametize.support_claims.products-per-page": "Productos por página",
+    "secure.parametize.support_claims.filter": "Filtro",
+    "secure.parametize.support_claims.description": "Descripción",
+    "secure.parametize.support_claims.tracing": "Seguimiento",
+    "secure.parametize.support_claims.reply-btn": "RESPONDER",
+    "secure.parametize.support_claims.no-tracing": "No contiene seguimiento",
+    "secure.parametize.support_claims.back-to-claims": "Volver a reclamaciones",
+    "secure.parametize.support_claims.view-detail": "Ver detalle",
+    "secure.parametize.support_claims-details.attachments": "Adjuntos",
+    "secure.parametize.support_claims-details.detail-of-solution": "Detalle de la solución",
+
+    "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
+    "secure.parametize.support_claims-filter.id": "ID",
+    "secure.parametize.support_claims-filter.reason": "Motivo",
+    "secure.parametize.support_claims-filter.start-date": "Fecha de inicio",
+    "secure.parametize.support_claims-filter.end-date": "Fecha final",
+    "secure.parametize.support_claims-filter.status": "Estado",
+    "secure.parametize.support_claims-filter.orderNumber": "Número del pedido",
+    "secure.parametize.support_claims-filter.clear": "Limpiar",
+    "secure.parametize.support_claims-filter.filter": "Filtrar",
+
+    "secure.parametize.support_claims-upload-btn.title": "SELECCIONAR ARCHIVO PARA IMPORTAR",
+
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",

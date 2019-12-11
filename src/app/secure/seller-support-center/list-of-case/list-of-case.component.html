@@ -18,9 +18,7 @@
   </app-drop-down-list>
 </ng-template>
 
-<div [ngClass]="
-    filter ? 'support-center-case__filter-container' : 'hidden-content'
-  ">
+<div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
   <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
     <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filter" [options]="options"></app-case-filter>
   </div>
