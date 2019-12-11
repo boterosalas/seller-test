@@ -1,21 +1,12 @@
 <div class="sh-case-detail">
   <div class="sh-case-detail__item ticket-detail ticket-detail--col">
-    <app-basic-card
-      class="sh-case-detail--bottom-space"
-      title="Descripción"
-      [description]="case.description"
-    ></app-basic-card>
+    <app-basic-card class="sh-case-detail--bottom-space" title="Descripción" [description]="case.description">
+    </app-basic-card>
   </div>
 
-  <div
-    class="sh-case-detail__item ticket-detail ticket-detail--col"
-    *ngIf="case.descriptionSolution"
-  >
-    <app-basic-card
-      class="sh-case-detail--bottom-space"
-      title="Detalle de la solución"
-      [description]="case.descriptionSolution"
-    ></app-basic-card>
+  <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
+    <app-basic-card class="sh-case-detail--bottom-space" title="Detalle de la solución"
+      [description]="case.descriptionSolution"></app-basic-card>
   </div>
 
   <div class="sh-case-detail__attachments">
@@ -26,19 +17,11 @@
       <span>Adjuntos</span>
     </div>
     <div class="sh-case-detail__attachments-files">
-      <div
-        *ngFor="let attach of case.attachments; let i = index"
-        (click)="
-          commonServices.downloadFileFromUrl(
-            attach.url,
-            attach.name,
-            attach.type
-          )
-        "
-        class="sh-case-detail__attach sh-case-detail--pointer"
-        id="attach-{{ i }}"
-      >
-        {{ attach.name }}
+      <div class="">
+        <a *ngFor="let attach of case.attachments; let i = index" id="attach-{{ i }}" target="_blank"
+          href="{{attach.url}}" class="attachment-link">
+          {{ attach.name }}
+        </a>
       </div>
     </div>
   </div>
@@ -49,28 +32,14 @@
     </span>
     <app-conversation>
       <div *ngIf="!case.follow || case.follow.length == 0">
-        <app-conversation-message
-          *itemConversation
-          class="sh-case-detail--full-width"
-          style="opacity: 0.7;"
-          message="No contiene seguimiento"
-        ></app-conversation-message>
+        <app-conversation-message *itemConversation class="sh-case-detail--full-width" style="opacity: 0.7;"
+          message="No contiene seguimiento"></app-conversation-message>
       </div>
 
       <div *ngFor="let follow of case.follow; let i = index">
-        <app-conversation-message
-          *itemConversation
-          class="sh-case-detail--full-width"
-          [name]="follow.userName"
-          [message]="follow.description"
-          [date]="follow.createDate"
-          (replyEvent)="openResponseDialog()"
-          [disabledClass]="isClosed"
-          [configuration]="{
-            reply: i == 0,
-            theme: 'ALTER'
-          }"
-        ></app-conversation-message>
+        <app-conversation-message *itemConversation class="sh-case-detail--full-width" [name]="follow.userName"
+          [message]="follow.description" [date]="follow.createDate" (replyEvent)="openResponseDialog()"
+          [disabledClass]="isClosed" [configuration]="{reply: i == 0, theme: 'ALTER'}"></app-conversation-message>
       </div>
     </app-conversation>
   </div>

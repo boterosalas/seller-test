@@ -3,6 +3,10 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { CommonService } from '@shared/services/common.service';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
+import { HttpClient } from '@angular/common/http';
+import * as FileSaver from 'file-saver';
+import { ACCEPT_TYPE } from '@app/shared/models';
+
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -28,8 +32,9 @@ export class CaseDetailComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public commonServices: CommonService
-  ) {}
+    public commonServices: CommonService,
+    public http: HttpClient
+  ) { }
 
   ngOnInit() {
     this.productsConfig = productsConfig;
@@ -55,7 +60,7 @@ export class CaseDetailComponent implements OnInit {
       ProductsCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
   closeDialog(): void {

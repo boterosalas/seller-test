@@ -3,7 +3,9 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
+  FormControl,
+  AbstractControl,
+  ValidatorFn
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
@@ -24,9 +26,12 @@ import {
   switchMap,
   filter
 } from 'rxjs/operators';
-import { File, TYPE_VALIDATION } from '@app/shared/components/upload-button/configuration.model';
+import {
+  File,
+  TYPE_VALIDATION
+} from '@app/shared/components/upload-button/configuration.model';
 import { ACCEPT_TYPE } from '@app/shared/models';
-import { CaseCategory } from '@app/shared/models/case-category';
+import { CaseCategory, FieldsRequired } from '@app/shared/models/case-category';
 
 // log component
 const log = new Logger('SupportModalComponent');
@@ -99,17 +104,18 @@ export class SupportModalComponent implements OnInit {
         ACCEPT_TYPE.APPLICATION_POTM,
         ACCEPT_TYPE.APPLICATION_PPSM,
         ACCEPT_TYPE.APPLICATION_MDB,
-        ACCEPT_TYPE.APPLICATION_PDF,
-
+        ACCEPT_TYPE.APPLICATION_PDF
       ],
       message:
         'El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word'
     }
   ];
-  omsCategories = [];
+
+  omsCategories: Array<any> = [];
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
+  scRequiered: Array<FieldsRequired> = [];
   classificationSelected = null;
 
   constructor(
@@ -120,7 +126,7 @@ export class SupportModalComponent implements OnInit {
     public userParams: UserParametersService,
     public loadingService: LoadingService,
     private languageService: TranslateService
-  ) {}
+  ) { }
 
   /**
    * @memberof SupportModalComponent
@@ -129,21 +135,20 @@ export class SupportModalComponent implements OnInit {
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
-      .subscribe(categories => (this.omsCategories = categories.data));
+      .subscribe(categories => this.omsCategories = categories.data);
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
     return this.groupByKey(omsCategories, 'classification').pipe(
       map(options => options[0]),
-      toArray()
-    );
+      toArray());
   }
 
   groupByKey(datas: Array<CaseCategory>, query: string, include?: Object) {
     return from(datas).pipe(
       filter(data => (include ? this.matchQuery(data, include) : true)),
       groupBy(item => item[query]),
-      mergeMap(group => group.pipe(toArray()))
+      mergeMap((group) => group.pipe(toArray()))
     );
   }
 
@@ -164,53 +169,100 @@ export class SupportModalComponent implements OnInit {
     return false;
   }
 
+  getFieldsRequired(arrayFields: Array<FieldsRequired>): Array<FieldsRequired> {
+    if (arrayFields != null && arrayFields.length > 0) {
+      const arrayReturn: Array<FieldsRequired> = [];
+      arrayFields.forEach(element => {
+        if (element.requiered) {
+          switch (element.name) {
+            case 'paymentDate':
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.paymentDate');
+              break;
+
+            case 'orderStripNumber':
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.orderStripNumber');
+              break;
+
+            case 'billNumber':
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.billNumber');
+              break;
+
+            default:
+              break;
+          }
+          arrayReturn.push(element);
+        }
+      });
+      return arrayReturn;
+    }
+    return null;
+  }
+
   onClickClassificationOption(item: CaseCategory) {
+
+    this.myform.clearValidators();
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
-    this.groupByKey(this.omsCategories, 'classification', {
-      classification: item.classification
-    })
+    this.scRequiered = [];
+    this.groupByKey(this.omsCategories, 'classification',
+      {
+        classification: item.classification
+      })
       .pipe(
         switchMap(options => from(options)),
+        groupBy(item => item['category']),
+        mergeMap((group) => group.pipe(toArray(), map(data => data[0]))),
         toArray()
       )
-      .subscribe((categories: Array<CaseCategory>) => {
+      .subscribe((categories: any) => {
         this.scCategories = categories;
       });
+    if (!item.category) {
+      this.scReasonTypes = item.type;
+      this.scRequiered = this.getFieldsRequired(item.fields);
+    }
   }
 
   onClickCategoryOption(item: CaseCategory) {
+
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
+    this.scRequiered = [];
     this.groupByKey(this.omsCategories, 'category', {
       category: item.category
     })
       .pipe(
         switchMap(options =>
           from(options).pipe(
-            filter(
-              option => option.subcategory != null || option.category != null
-            )
+            filter(option => option.subcategory != null || option.category != null)
           )
         ),
         toArray()
       )
       .subscribe((subcategories: Array<CaseCategory>) => {
-        this.scSubcategories = subcategories;
+        subcategories.forEach(e => {
+          if (this.classificationSelected.classification === e.classification) {
+            this.scSubcategories.push(e);
+          }
+        });
       });
+    if (!item.subcategory) {
+      this.scReasonTypes = item.type;
+      this.scSubcategories = [];
+      this.scRequiered = this.getFieldsRequired(item.fields);
+    }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
+    this.myform.clearValidators();
     this.scReasonTypes = [];
+    this.scRequiered = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
-  }
-
-  onClickTypeOption(item: CaseCategory) {
-    this.classificationSelected = item;
+    this.scRequiered = this.getFieldsRequired(item.fields);
   }
 
   public getInfoSeller(): void {
@@ -253,7 +305,7 @@ export class SupportModalComponent implements OnInit {
       description: new FormControl(
         '',
         Validators.compose([
-          Validators.required,
+          /* Validators.required, */
           Validators.pattern(this.instant('descriptionOrders'))
         ])
       ),
@@ -264,11 +316,35 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl('null'),
-      subCategory: new FormControl('null'),
-      category: new FormControl('null')
+      classification: new FormControl('',
+        Validators.compose([Validators.required])
+      ),
+      subCategory: new FormControl(''),
+      category: new FormControl(''),
+      paymentDate: new FormControl(null, [
+        /* this.validatorFunction('paymentDate').bind(this)] */
+      ]),
+      orderStripNumber: new FormControl(null, [
+        /* this.validatorFunction('orderStripNumber').bind(this) */
+      ]),
+      billNumber: new FormControl(null, [
+        /* this.validatorFunction('billNumber').bind(this) */
+      ])
     });
   }
+
+  /* public validatorFunction(fieldName: string): ValidatorFn {
+    return (field: FormControl): { [key: string]: boolean } | null => {
+
+      this.scRequiered.forEach(element => {
+        if (element.requiered && element.name === fieldName &&
+          field.value !== undefined && field.value !== null && field.value !== '') {
+          return null;
+        }
+      });
+      return { 'fields': false };
+    }
+  } */
 
   /**
    * Obtiene la regex de Dynamo
@@ -310,9 +386,12 @@ export class SupportModalComponent implements OnInit {
       nit: this.user.sellerNit,
       idCategory: this.classificationSelected.idMatrix,
       typeOfRequirement: form.value.typeOfRequirement.trim(),
-      //caseOrigin: "Sitio web marketplace",
-      //caseMarketplaceOwner: "Soporte MarketPlace",
-      attachments: this.response.attachments
+      // caseOrigin: "Sitio web marketplace",
+      // caseMarketplaceOwner: "Soporte MarketPlace",
+      attachments: this.response.attachments,
+      paymentDate: form.value.paymentDate,
+      orderStripNumber: form.value.orderStripNumber,
+      billNumber: form.value.billNumber
     };
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(
@@ -322,7 +401,9 @@ export class SupportModalComponent implements OnInit {
       (res: any) => {
         this.loadingService.closeSpinner();
         this.COMPONENT.openSnackBar(
-          this.languageService.instant('secure.parametize.support_modal.ts_send_msj'),
+          this.languageService.instant(
+            'secure.parametize.support_modal.ts_send_msj'
+          ),
           this.languageService.instant('actions.accpet_min'),
           10000
         );
@@ -356,7 +437,7 @@ export class SupportModalComponent implements OnInit {
         map(
           (file: File): Attachment => ({
             name: file.name,
-            type: file.type,
+            type: this.getExtensionName(file),
             base64: file.base64
           })
         ),
@@ -366,6 +447,13 @@ export class SupportModalComponent implements OnInit {
         (attachments: Array<Attachment>) =>
           (this.response.attachments = attachments)
       );
+  }
+
+  getExtensionName(file: File): string {
+    const extensionName = file.name.split(/(\.\w+$)/)[1];
+    return extensionName.length > 2
+      ? extensionName.slice(1, extensionName.length)
+      : '';
   }
 }
 

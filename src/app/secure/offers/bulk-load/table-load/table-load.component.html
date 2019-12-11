@@ -19,7 +19,6 @@
         </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
-
     <div class="container-table-errors">
       <table mat-table #table [dataSource]="bulkLoad.dataSource">
 
@@ -297,6 +296,42 @@
               <p class="sc-text-normal">{{element.Currency}}</p>
             </div>
             <div class="information" *ngIf="element.Currency == undefined || element.Currency == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!--Direccion de recogida -->
+        <ng-container matColumnDef="Address">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>{{'secure.offers.bulk_upload.table_load.address' | translate}}</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorAddress == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Address != undefined && element.Address != ''">
+              <p class="sc-text-normal">{{element.Address}}</p>
+            </div>
+            <div class="information" *ngIf="element.Address == undefined || element.Address == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!--Ciudad de recogida -->
+        <ng-container matColumnDef="DaneCode">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>{{'secure.offers.bulk_upload.table_load.dane_code' | translate}}</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorDaneCode == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.DaneCode != undefined && element.DaneCode != ''">
+              <p class="sc-text-normal">{{element.DaneCode}}</p>
+            </div>
+            <div class="information" *ngIf="element.DaneCode == undefined || element.DaneCode == ''">
               <p class="text-error"> -
               </p>
             </div>

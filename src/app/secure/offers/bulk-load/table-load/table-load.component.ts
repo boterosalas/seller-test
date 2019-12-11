@@ -41,7 +41,9 @@ export class TableLoadComponent implements OnInit {
     'IsUpdatedStock',
     'ComboQuantity',
     'EanCombo',
-    'Currency'
+    'Currency',
+    'Address',
+    'DaneCode'
   ];
 
   /**

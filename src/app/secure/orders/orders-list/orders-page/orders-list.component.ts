@@ -21,6 +21,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -162,6 +163,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public numberLength: number;
   public lastState: number;
   private searchSubscription: any;
+  public userCurrent: any;
+  public isInternational= false;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -182,7 +185,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
-  ) { }
+    private profileService: MyProfileService,
+  ) {
+    this.getAllDataUser();
+   }
 
   /**
    * ngOnInit
@@ -202,6 +208,22 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
     });
   }
+
+  async getAllDataUser() {
+    if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+      const sellerData = await this.profileService.getUser().toPromise().then(res => {
+        const body: any = res.body;
+        const response = JSON.parse(body.body);
+        const userData = response.Data;
+        return userData;
+    });
+    if (sellerData.Country !== 'COLOMBIA') {
+      this.isInternational = true;
+    } else {
+      this.isInternational = false;
+    }
+    }
+}
 
 
   /**
@@ -474,7 +496,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * funcion para resetear la data 
+   * funcion para resetear la data
    *
    * @param {*} res
    * @memberof OrdersListComponent

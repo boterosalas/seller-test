@@ -15,10 +15,11 @@
   >
     <ng-container *itemDropDownList>
       <app-drop-down-box
-        *ngFor="let item of cases"
+        *ngFor="let item of cases; let i = index"
         [data]="item"
         [read]="item.read"
         (opened)="markAsRead($event)"
+        [index]="i"
       >
         <ng-container *itemCaseList>
           <app-case-summary
