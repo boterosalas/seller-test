@@ -91,7 +91,7 @@ export class ListOfCaseComponent implements OnInit {
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
 
     this.translateService.onLangChange.subscribe(event => {
-      setTimeout(() => { this.loadCases([]); }, 1000);
+      setTimeout(() => { this.loadCases([]); }, 500);
     });
   }
 
