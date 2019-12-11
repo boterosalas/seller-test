@@ -1097,6 +1097,7 @@
     "secure.parametize.support_claims-filter.filter": "Filtrar",
 
     "secure.parametize.support_claims-upload-btn.title": "SELECCIONAR ARCHIVO PARA IMPORTAR",
+    "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 

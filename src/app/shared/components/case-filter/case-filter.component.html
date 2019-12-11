@@ -45,7 +45,7 @@
           <mat-form-field class="filter-form--field">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
               name="status" [(ngModel)]="value">
-              <mat-option *ngFor="let state of options" value="{{state.name}}">
+              <mat-option *ngFor="let state of options" value="{{state.code}}">
                 {{state.name}}
               </mat-option>
             </mat-select>

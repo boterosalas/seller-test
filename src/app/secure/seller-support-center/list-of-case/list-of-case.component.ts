@@ -89,7 +89,12 @@ export class ListOfCaseComponent implements OnInit {
     this.store
       .select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
+
+    this.translateService.onLangChange.subscribe(event => {
+      setTimeout(() => { this.loadCases([]); }, 1000);
+    });
   }
+
 
   filterByRoute(queryParams: Observable<any>): Observable<any> {
     return queryParams.pipe(
