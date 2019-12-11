@@ -113,7 +113,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public intervalTime = 2000;
 
-  public language = 'ES';
+  public language: any;
 
   // Validación de las regex
   validateRegex: any;
@@ -169,6 +169,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.validateFormSupport();
     this.verifyProccesOffert();
     this.selectLanguage();
+    this.language = localStorage['culture_current'];
+
   }
 
   selectLanguage() {
