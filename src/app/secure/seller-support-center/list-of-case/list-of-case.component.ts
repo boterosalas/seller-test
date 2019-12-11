@@ -52,7 +52,7 @@ export class ListOfCaseComponent implements OnInit {
   menuState: string;
   cases: Array<any>;
   repondCase: any;
-  listConfiguration: Array<any>;
+  headerConfigurations: Array<any>;
   length: number;
   pageIndex = 1;
   pageSize = 50;
@@ -79,7 +79,6 @@ export class ListOfCaseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res =>
@@ -110,6 +109,19 @@ export class ListOfCaseComponent implements OnInit {
 
   getStatusCase() {
     this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
+      const arrayLang = this.sellerSupportService.getListHeaderConfiguration();
+      switch (res.language) {
+        case 'ES':
+          this.headerConfigurations = arrayLang[0].ES;
+          break;
+
+        case 'US':
+          this.headerConfigurations = arrayLang[1].US;
+          break;
+
+        default:
+          this.headerConfigurations = [];
+      }
       this.options = res.statusCases;
     });
   }
