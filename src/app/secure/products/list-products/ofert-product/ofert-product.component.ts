@@ -470,7 +470,7 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
     /**
-     * Metodo que se encarga de hacer el llamado al servicio con el JSON especificado
+     * Metodo que se encarga de hacer el llamado al servicio con el JSON
      * @param {*} data
      * @memberof OfertExpandedProductComponent
      */
@@ -496,6 +496,10 @@ export class OfertExpandedProductComponent implements OnInit {
             });
     }
 
+    public sendDataToService(): void {
+        this.validateBestOffert();
+    }
+
     /**
      * Metodo que activa variable apra habilitar o deshabilitar el boton
      *
@@ -513,6 +517,7 @@ export class OfertExpandedProductComponent implements OnInit {
             });
         } else {
             this.showButton = false;
+            // this.sendDataToService();
         }
     }
 

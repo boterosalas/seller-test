@@ -130,8 +130,7 @@
     <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')"
       class="udpade-date"></p>
     <div class="container-form-edit-offer" *ngIf="isUpdateOffer && isUpdateOffer === true">
-      <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" (ngSubmit)="submitUpdateOffer()"
-        class="flexbox flex-wrap align-center justify-between" autocomplete="off">
+      <form #updateOffer="ngForm" [formGroup]="formUpdateOffer" class="flexbox flex-wrap align-center justify-between" autocomplete="off">
         <mat-form-field>
           <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.stock' | translate]"
             id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" required>
@@ -285,7 +284,7 @@
         </div>
         <div class="button-update-offert flexbox justify-center align-center">
           <button [disabled]="!updateOffer.form.valid || showButton === true" type="submit" mat-raised-button color="primary"
-            [innerHTML]="'permissions.Editar' | translate"></button>
+            [innerHTML]="'permissions.Editar' | translate" (click)="validateRulesOfert()"></button>
         </div>
       </form>
     </div>
