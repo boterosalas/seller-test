@@ -34,7 +34,7 @@ export class SpecificationProductComponent implements OnInit {
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
-            this.idCategory = 28216;
+            this.idCategory = parseInt(value.categoryId, 0);
         }
     }
     @Input() ean: any;
@@ -88,7 +88,7 @@ export class SpecificationProductComponent implements OnInit {
 
     setSpecification(data: any) {
         if (this.idCategory) {
-            if (data.length > 0) {
+            if ( data && data.length > 0) {
                 let count = 0;
                 data.forEach(element => {
                     let specf = element.categories.replace(/'/g, '"');
@@ -269,7 +269,7 @@ export class SpecificationProductComponent implements OnInit {
         if (this._detailProduct) {
             if (form && form.form) {
                 if (form.form.controls['specs' + index]) {
-                    form.controls['specs' + index].setValue('Si');
+                    form.controls['specs' + index].setValue(this._detailProduct.features[index].value);
                 }
             }
         }

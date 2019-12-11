@@ -71,6 +71,7 @@ export class ExpandedProductComponent implements OnInit {
         this.applyOffer = this.productsExpanded;
     }
     editProduct(productsExpanded: any) {
+       console.log(productsExpanded)
         this.router.navigate(['securehome/products/creacion-unitaria', {ean: productsExpanded.ean, reference: productsExpanded.reference} ] );
     }
 }
