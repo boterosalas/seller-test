@@ -125,7 +125,7 @@ export class SupportModalComponent implements OnInit {
     public SUPPORT: SupportService,
     public userParams: UserParametersService,
     public loadingService: LoadingService,
-    private languageService: TranslateService
+    public languageService: TranslateService
   ) { }
 
   /**

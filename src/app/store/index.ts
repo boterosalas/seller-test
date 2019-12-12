@@ -20,4 +20,4 @@ export { CoreState } from './reducers';
   exports: [StoreModule],
   providers: []
 })
-export class CoreStoreModule {}
+export class CoreStoreModule { }

@@ -5,6 +5,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { SelectLanguageService } from './select-language.service';
 import { DateAdapter } from '@angular/material';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { StoreService } from '@app/store/store.service';
 
 @Component({
   selector: 'app-select-language',
@@ -23,7 +24,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   lang = 'ES';
 
-  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private languageService: TranslateService) {
+  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private languageService: TranslateService, private storeService: StoreService) {
     this.form = this.fb.group({
       lang: ['']
     });
@@ -38,6 +39,7 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
         this.lang = val;
         this.setLocalStorageCulture(val);
       }
+      storeService.changeLanguage(val);
     });
     this.subs.push(subsLang);
   }
