@@ -34,4 +34,5 @@ export class ModalRuleOfferComponent implements AfterViewInit {
   onNoClickOk(): void {
     this.dialogRef.close(true);
   }
+
 }

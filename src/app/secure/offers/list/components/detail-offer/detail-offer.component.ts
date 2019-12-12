@@ -110,7 +110,7 @@ export class DetailOfferComponent implements OnInit {
   };
 
   dataUpdateOffer = {
-    listOffer: [],
+    ListOffers: [],
     priceApproval: 0
   };
 
@@ -606,7 +606,7 @@ export class DetailOfferComponent implements OnInit {
     }
 
     this.dataUpdateOffer = {
-      listOffer: this.oferts,
+      ListOffers: this.oferts,
       priceApproval: 0
     };
   }
@@ -680,6 +680,7 @@ export class DetailOfferComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(dataUpdate).subscribe(
       (result: any) => {
+        console.log('result: ', result);
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {
