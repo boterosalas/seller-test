@@ -11,17 +11,27 @@ import {
   userModulesReducer
 } from './user-modules';
 
+import {
+  ConfigurationActions,
+  ConfigurationEffects,
+  ConfigurationState,
+  configurationReducer
+} from './configuration';
+
 export interface CoreState {
   notification: NotificationState;
   configuration: UserModulesState;
+  appConfiguration: ConfigurationState;
 }
 
 export const CoreReducers: ActionReducerMap<CoreState> = {
   notification: notificationReducer,
-  configuration: userModulesReducer
+  configuration: userModulesReducer,
+  appConfiguration: configurationReducer
 };
 
 export const CoreActionTypes = [
   NotificationActions.Types,
-  UserModulesActions.Types
+  UserModulesActions.Types,
+  ConfigurationActions.Types
 ];

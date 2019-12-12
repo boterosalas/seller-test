@@ -124,7 +124,8 @@ export class ToolbarLinkComponent implements OnInit {
    * @memberof ToolbarLinkComponent
    */
   public getPersonalityName(name: string): string {
-    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const nameModule = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    return nameModule;
   }
 
   /**
