@@ -686,7 +686,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       let isModifyImage = false;
       let errorInCell = false;
       if (i !== 0 && i > 0) {
-        if (res[i][iVal.iTipoDeProducto] === 'Clothing') {
+        if (res[i][iVal.iTipoDeProducto].trim() === 'Clothing') {
           variant = true;
         }
         for (let j = 0; j < numCol; j++) {
@@ -1204,7 +1204,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       if (errorInCell) {
         this.addRowToTable(res, i, iVal, variant);
       }
-
       this.addInfoTosend(res, i, iVal, variant, errorInCell);
       errorInCell = false;
     }
@@ -1348,8 +1347,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
       }
     }
-
-
     /*
     * Primero listo las categorias, si hay categorias, recorro el excel en la posicion de las categorias,
     * valido que la categoria del archivo del excel sea el mismo que el Id de la lista de categorias..
@@ -1598,6 +1595,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.arrayInformationForSend.splice(0, 1);
     this.loadingService.viewSpinner();
     // call to the bulk load product service
+    console.log(this.arrayInformationForSend);
     if (this.profileTypeLoad === 'Tienda') {
       this.BulkLoadProductS.setProductsModeration(this.arrayInformationForSend)
         .subscribe(
