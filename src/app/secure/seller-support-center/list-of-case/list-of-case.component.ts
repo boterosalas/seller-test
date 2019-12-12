@@ -90,8 +90,8 @@ export class ListOfCaseComponent implements OnInit {
       .select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
 
-    this.translateService.onLangChange.subscribe(event => {
-      setTimeout(() => { this.loadCases([]); }, 500);
+    this.translateService.onLangChange.subscribe(e => {
+      setTimeout(() => { this.loadCases([]); }, 350);
     });
   }
 

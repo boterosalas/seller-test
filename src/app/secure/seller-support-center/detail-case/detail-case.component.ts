@@ -120,6 +120,9 @@ export class DetailCaseComponent implements OnInit {
           this.headerConfigurations = [];
       }
       this.options = res.statusCases;
+      this.case$ = this.sellerSupportService
+        .getCase(this.route.snapshot.paramMap.get('idCase'))
+        .pipe(map((res: CaseDetailResponse) => res.data));
     });
   }
 }
