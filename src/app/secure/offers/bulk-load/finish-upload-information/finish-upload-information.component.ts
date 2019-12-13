@@ -177,8 +177,14 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-
-  typeErrorShowButton(list: any) {
+/**
+ * validar si sale el boton y no
+ *
+ * @param {*} list
+ * @returns
+ * @memberof FinishUploadInformationComponent
+ */
+typeErrorShowButton(list: any) {
     let countPex = 0;
     if (list && list.length > 0) {
       list.forEach(element => {
