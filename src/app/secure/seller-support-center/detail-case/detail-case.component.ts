@@ -15,6 +15,9 @@ import { LoadingService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
 import { MatDialog } from '@angular/material';
+import { StoreService } from '@app/store/store.service';
+import { ConfigurationState } from '@app/store/configuration';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail-case',
@@ -57,10 +60,10 @@ export class DetailCaseComponent implements OnInit {
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
-    private loadingService?: LoadingService
-  ) {
-    this.headerConfigurations = this.sellerSupportService.getListHeaderConfiguration();
-  }
+    private loadingService?: LoadingService,
+    private storeService?: StoreService,
+    private translateService?: TranslateService,
+  ) { }
 
   ngOnInit(): void {
     this.loadingService.viewSpinner();
@@ -102,8 +105,24 @@ export class DetailCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(res => {
-      this.options = res.data;
+    this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
+      const arrayLang = this.sellerSupportService.getListHeaderConfiguration();
+      switch (res.language) {
+        case 'ES':
+          this.headerConfigurations = arrayLang[0].ES;
+          break;
+
+        case 'US':
+          this.headerConfigurations = arrayLang[1].US;
+          break;
+
+        default:
+          this.headerConfigurations = [];
+      }
+      this.options = res.statusCases;
+      this.case$ = this.sellerSupportService
+        .getCase(this.route.snapshot.paramMap.get('idCase'))
+        .pipe(map((res: CaseDetailResponse) => res.data));
     });
   }
 }

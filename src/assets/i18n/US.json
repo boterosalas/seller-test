@@ -44,7 +44,7 @@
     "menu.Enviadas": "Sent",
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
-
+    "menu.Reporte de ofertas": "Active offers reports",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -119,6 +119,18 @@
     "filters.clear": "Clear",
     "filters.filter": "Filter",
 
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
 
     "actions.edit": "Edit",
     "actions.add": "Add",
@@ -1057,6 +1069,37 @@
     "secure.parametize.support_modal.field.paymentDate": "Payment date",
     "secure.parametize.support_modal.field.orderStripNumber": "Order strip number",
     "secure.parametize.support_modal.field.billNumber": "Bill number",
+
+    "secure.parametize.support_modal.reply.title.reply": "Reply",
+    "secure.parametize.support_modal.reply.dialog-cancel-button": "Cancel",
+    "secure.parametize.support_modal.reply.dialog-add-button": "Add",
+    "secure.parametize.support_modal.reply.placeholder-write-answer": "Write your answer",
+
+    "secure.parametize.support_claims.title.claim": "Claims",
+    "secure.parametize.support_claims.claims-display": "Claims display",
+    "secure.parametize.support_claims.products-per-page": "Products per page",
+    "secure.parametize.support_claims.filter": "Filter",
+    "secure.parametize.support_claims.description": "Description",
+    "secure.parametize.support_claims.tracing": "Tracing",
+    "secure.parametize.support_claims.reply-btn": "REPLY",
+    "secure.parametize.support_claims.no-tracing": "Have not tracing",
+    "secure.parametize.support_claims.back-to-claims": "Back to claims",
+    "secure.parametize.support_claims.view-detail": "View detail",
+    "secure.parametize.support_claims-details.attachments": "Attachments",
+    "secure.parametize.support_claims-details.detail-of-solution": "Solution details",
+
+    "secure.parametize.support_claims-filter.modal-title": "Claims filter",
+    "secure.parametize.support_claims-filter.id": "ID",
+    "secure.parametize.support_claims-filter.reason": "Reason",
+    "secure.parametize.support_claims-filter.start-date": "Start date",
+    "secure.parametize.support_claims-filter.end-date": "End date",
+    "secure.parametize.support_claims-filter.status": "Status",
+    "secure.parametize.support_claims-filter.orderNumber": "Order number",
+    "secure.parametize.support_claims-filter.clear": "Clear",
+    "secure.parametize.support_claims-filter.filter": "Filter",
+
+    "secure.parametize.support_claims-upload-btn.title": "Please choose a file",
+    "secure.parametize.support_claims-upload-general-error": "The attached document that you are trying to upload is not compatible with our platform, we ask you to take into account the following recommendations: Your video cannot last more than 90 seconds and the formats allowed are: AVI, 3GP (mobile), MOV (Mac) , WMV (Windows), MPG, MPEG and MP4 with a maximum weight of 4 MB. The images you can upload must be in JPG, PNG or PDF, Excel or Word documents",
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 

@@ -1,61 +1,40 @@
 <div class="ticket-content">
   <div class="ticket-content__item ticket-detail ticket-detail--col">
-    <app-basic-card
-      class="ticket-content--bottom-space"
-      title="Descripción"
-      [description]="case.description"
-    ></app-basic-card>
+    <app-basic-card class="ticket-content--bottom-space"
+      [title]=" translateService.instant('secure.parametize.support_claims.description')"
+      [description]="case.description"></app-basic-card>
   </div>
 
   <div class="ticket-content__item ticket-detail--col">
     <span class="ticket-content__title ticket-content--bottom-space">
-      Seguimiento
+      {{'secure.parametize.support_claims.tracing' | translate}}
     </span>
 
     <app-conversation>
       <ng-container *ngIf="!case.followLast || case.followLast.length == 0">
-        <app-conversation-message
-          *itemConversation
-          class="sh-case-detail--full-width"
-          style="opacity: 0.7;"
-          message="No contiene seguimiento"
-        ></app-conversation-message>
+        <app-conversation-message *itemConversation class="sh-case-detail--full-width" style="opacity: 0.7;"
+          message="No contiene seguimiento"></app-conversation-message>
       </ng-container>
 
       <ng-container *ngFor="let follow of case.followLast; let i = index">
-        <app-conversation-message
-          *itemConversation
-          style="width: 100%"
-          [name]="follow.userName"
-          [message]="follow.description"
-          [date]="follow.createDate"
-          [configuration]="{
-            theme: 'BASIC'
-          }"
-        ></app-conversation-message>
+        <app-conversation-message *itemConversation style="width: 100%" [name]="follow.userName"
+          [message]="follow.description" [date]="follow.createDate" [configuration]="{theme: 'BASIC'}">
+        </app-conversation-message>
       </ng-container>
     </app-conversation>
 
     <div class="ticket-content__controls ticket-content__controls--left">
-      <button
-        [disabled]="disabled"
-        (click)="openResponseDialog()"
+      <button [disabled]="disabled" (click)="openResponseDialog()"
         class="mat-raised-button ticket-content__button ticket-content__button--secondary"
-        [ngClass]="
-          disabledClass ? 'ticket-content__button--secondary-disabled' : ''
-        "
-      >
-        RESPONDER
+        [ngClass]="disabledClass ? 'ticket-content__button--secondary-disabled' : ''">
+        {{'secure.parametize.support_claims.reply-btn' | translate}}
       </button>
     </div>
   </div>
 
-  <span
-    [routerLink]="['/securehome/seller-center/support-center/' + case.id]"
-    class="ticket-content__item ticket-content__title ticket-content__item--full-width
+  <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
       ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
-      ticket-content--no-select"
-  >
-    Ver detalle
+      ticket-content--no-select">
+    {{'secure.parametize.support_claims.view-detail' | translate}}
   </span>
 </div>

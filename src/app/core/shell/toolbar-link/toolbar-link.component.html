@@ -17,11 +17,11 @@
         <mat-menu #orders="matMenu">
           <div *ngFor="let menu of module.Menus">
             <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
-              <span>{{('menu.' + menu.NameMenu) | translate}}</span>
+              <span>{{(menu.NameMenu) | translate}}</span>
               <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
-            id="circle-notification-toolbar"></app-notification-circle>
-            <app-notification-circle *ngIf="menu.NameMenu === 'En devolución'" [value]="devolution"
-            id="circle-notification-toolbar"></app-notification-circle>
+                id="circle-notification-toolbar"></app-notification-circle>
+              <app-notification-circle *ngIf="menu.NameMenu === 'En devolución'" [value]="devolution"
+                id="circle-notification-toolbar"></app-notification-circle>
             </button>
             <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation"
               href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)" target="_blank">
@@ -30,7 +30,7 @@
           </div>
         </mat-menu>
       </div>
-      
+
       <!-- MENU VERSION 0.1
       <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
         <mat-icon>arrow_drop_down</mat-icon>

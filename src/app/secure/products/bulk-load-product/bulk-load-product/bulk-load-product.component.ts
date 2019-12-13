@@ -501,7 +501,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito Logistics'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
@@ -587,7 +587,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
-                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
+                  iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito Logistics'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
@@ -686,7 +686,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       let isModifyImage = false;
       let errorInCell = false;
       if (i !== 0 && i > 0) {
-        if (res[i][iVal.iTipoDeProducto] === 'Clothing') {
+        if (res[i][iVal.iTipoDeProducto].trim() === 'Clothing') {
           variant = true;
         }
         for (let j = 0; j < numCol; j++) {
@@ -1204,7 +1204,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       if (errorInCell) {
         this.addRowToTable(res, i, iVal, variant);
       }
-
       this.addInfoTosend(res, i, iVal, variant, errorInCell);
       errorInCell = false;
     }
@@ -1348,8 +1347,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
       }
     }
-
-
     /*
     * Primero listo las categorias, si hay categorias, recorro el excel en la posicion de las categorias,
     * valido que la categoria del archivo del excel sea el mismo que el Id de la lista de categorias..

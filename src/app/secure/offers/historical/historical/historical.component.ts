@@ -1,6 +1,6 @@
 // 3rd party components
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, DateAdapter } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 // our own custom components
@@ -11,6 +11,7 @@ import { RoutesConst, UserInformation } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 import { Logger } from '@core/util/logger.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-historical-component',
@@ -67,6 +68,7 @@ export class HistoricalComponent implements OnInit {
 
   // Instancia de Logger
   public log: Logger;
+  lang: any;
 
   /**
    * Creates an instance of HistoricalComponent.
@@ -79,6 +81,7 @@ export class HistoricalComponent implements OnInit {
    */
 
   constructor(
+    private dateAdapter: DateAdapter<Date>,
     private loadingService?: LoadingService,
     private modalService?: ModalService,
     public shellComponent?: ShellComponent,
@@ -87,7 +90,7 @@ export class HistoricalComponent implements OnInit {
     public historicalService?: HistoricalService,
     public userParams?: UserParametersService,
     public breakpointObserver?: BreakpointObserver,
-    public downloadHistoricalService?: DownloadHistoricalService
+    public downloadHistoricalService?: DownloadHistoricalService,
   ) {
     this.paramData = new ModelFilter();
     this.layoutChanges = breakpointObserver.observe('(min-width: 577px)');
@@ -157,29 +160,28 @@ export class HistoricalComponent implements OnInit {
       (result: any) => {
         if (result.status === 200 && result.body !== undefined) {
           const response = result.body.data;
-
           // Pregunta si la respuesta tiene resultados
           if (response) {
             // Pregunta si ya hay datos en la variable historicalOffer
             if (this.historicalOffer) {
-              if ( response.paginationToken !== '{}') {
+              if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
               this.historicalService.savePaginationTokens(this.paginationToken);
-              this.historicalOffer = response.offerHistoricals;
-            // Entra cuando no hay datos en la variable historicalOffer
-            }else {
+              this.historicalOffer = this.jsonMap(response.offerHistoricals);
+              // Entra cuando no hay datos en la variable historicalOffer
+            } else {
               // Obtiene los valores iniciales de la primera consulta para poner datos en la variable historicalOffer
               this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / this.limit : response.total / this.paramData.limit;
               this.numberPages = Math.ceil(this.numberPages);
-              if ( response.paginationToken !== '{}') {
+              if (response.paginationToken !== '{}') {
                 this.paginationToken.push(response.paginationToken);
               }
               this.historicalService.savePaginationTokens(this.paginationToken);
-              this.historicalOffer = response.offerHistoricals;
+              this.historicalOffer = this.jsonMap(response.offerHistoricals);
             }
-          // Entra cuando la respuesta no tiene resultados
-          }else {
+            // Entra cuando la respuesta no tiene resultados
+          } else {
             // Pone en false la variable historicalOffer y resetea los valores del páginador
             this.historicalOffer = false;
             this.numberPages = 0;
@@ -240,13 +242,46 @@ export class HistoricalComponent implements OnInit {
    * @memberof HistoricalComponent
    */
   removeLastPaginationToken(currentPage: number) {
-    if ( currentPage === this.paginationToken.length) {
+    if (currentPage === this.paginationToken.length) {
       this.paginationToken.pop();
     } else {
       this.paginationToken.pop();
       this.paginationToken.pop();
     }
     this.historicalService.savePaginationTokens(this.paginationToken);
+  }
+  jsonMap(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        currency: x.currency,
+        discountPrice: x.discountPrice,
+        ean: x.ean,
+        id: x.id,
+        idSeller: x.idSeller,
+        isEnviosExito: x.isEnviosExito,
+        isFreeShipping: x.isFreeShipping,
+        isFreightCalculator: x.isFreightCalculator,
+        isLogisticsExito: x.isLogisticsExito,
+        isUpdatedStock: x.isUpdatedStock,
+        price: x.price,
+        promiseDelivery: x.promiseDelivery,
+        shippingCost: x.shippingCost,
+        stock: x.stock,
+        warranty: x.warranty,
+        updatedDate: x.updatedDate,
+        month: this.transformateDate(x.updatedDate)
+      };
+    });
+  }
+
+  transformateDate(date: any) {
+    let dateString = '';
+    if ( date && date !== '' && date != null) {
+      dateString = moment(date).format('MMMM');
+    } else {
+      dateString = date;
+    }
+    return dateString;
   }
 
 }

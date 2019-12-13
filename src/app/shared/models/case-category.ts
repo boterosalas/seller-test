@@ -14,4 +14,5 @@ export class CaseCategory {
 export class FieldsRequired {
   name: string;
   requiered: boolean;
+  placeHolder: string;
 }

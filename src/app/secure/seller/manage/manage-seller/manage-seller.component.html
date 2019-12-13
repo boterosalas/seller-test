@@ -218,7 +218,7 @@
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
-            <div fxFlex="50%">
+            <!-- <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_phone_form' | translate"
                   pattern="^[0-9]*$" maxlength="10" minlength="7" formControlName="PhoneNumber"
@@ -232,7 +232,7 @@
                   *ngIf="validateFormRegister.get('PhoneNumber').hasError('maxlength') || validateFormRegister.get('PhoneNumber').hasError('pattern') || validateFormRegister.get('PhoneNumber').hasError('minlength')">
                   {{'errors.phone_invalid' | translate}}</mat-error>
               </mat-form-field>
-            </div>
+            </div> -->
 
             <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
@@ -244,12 +244,12 @@
                   {{'errors.required' | translate}}</mat-error>
               </mat-form-field>
             </div>
-          </div>
+          <!-- </div> -->
 
-          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
-            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+          <!-- <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%"> -->
 
-            <div fxFlex="45%">
+            <div fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_store_name_form' | translate"
                   (blur)="validateExist($event, 'Name')" formControlName="Name" [errorStateMatcher]="matcher"
@@ -265,8 +265,8 @@
                   {{'errors.store_name_exist' | translate}}</mat-error>
               </mat-form-field>
             </div>
-          </div>
-
+          <!-- </div> -->
+        </div>
           <!--Campo politicas y devoluciones-->
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">

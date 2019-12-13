@@ -36,7 +36,7 @@
         <div class="center-product-list">
           <mat-form-field class="textarea-send-options sc-text-normal">
             <textarea name="Guide" required formControlName="Guide" matInput
-              placeholder="Guía"></textarea>
+              [placeholder]="'secure.orders.order_list.product_detail.guide'| translate"></textarea>
             <mat-error>{{'errors.error_guide' | translate}}</mat-error>
           </mat-form-field>
         </div>

@@ -113,7 +113,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public intervalTime = 2000;
 
-  public language = 'ES';
+  public language: any;
 
   // Validación de las regex
   validateRegex: any;
@@ -169,6 +169,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.validateFormSupport();
     this.verifyProccesOffert();
     this.selectLanguage();
+    this.language = localStorage['culture_current'];
+
   }
 
   selectLanguage() {
@@ -1261,11 +1263,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.arrayInformationForSend.splice(0, 1);
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
-      if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+      // if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+      if (element['PromiseDelivery']) {
         const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
-      }
+       }
     });
     this.bulkLoadService.setOffers(this.arrayInformationForSend)
       .subscribe(

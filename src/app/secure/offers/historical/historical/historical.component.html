@@ -10,7 +10,7 @@
         <mat-expansion-panel *ngFor="let item of historicalOffer">
           <mat-expansion-panel-header class="extension-panel-header" expandedHeight="48px" collapsedHeight="48px">
             <mat-panel-description class="extension-panel-description">
-              <p class="d-none d-block-md"><span>{{item.updatedDate | date:'LLLL d, y' | titlecase}} |
+              <p class="d-none d-block-md"><span>{{item.month | translate}} {{item.updatedDate | date:'d, y' | titlecase}} |
                   {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
               <p class="d-none d-block-sm d-none-md"><span>{{ item.updatedDate | date:'LLL d, y' | titlecase }} |
                   {{item.updatedDate | date:'h:mm'}} {{item.updatedDate | date:'a' | slice: 0:1}}m</span></p>
