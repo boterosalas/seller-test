@@ -20,6 +20,9 @@ import {
 import { CoreState } from '@app/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ConfigurationState } from '@app/store/configuration';
+import { StoreService } from '@app/store/store.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-of-case',
@@ -50,7 +53,7 @@ export class ListOfCaseComponent implements OnInit {
   menuState: string;
   cases: Array<any>;
   repondCase: any;
-  listConfiguration: Array<any>;
+  headerConfigurations: Array<any>;
   length: number;
   pageIndex = 1;
   pageSize = 50;
@@ -72,11 +75,12 @@ export class ListOfCaseComponent implements OnInit {
     public router: ActivatedRoute,
     private store: Store<CoreState>,
     private loadingService?: LoadingService,
-    private modalService?: ModalService
+    private modalService?: ModalService,
+    private storeService?: StoreService,
+    private translateService?: TranslateService
   ) { }
 
   ngOnInit() {
-    this.listConfiguration = this.sellerSupportService.getListHeaderConfiguration();
     this.toggleFilter(this.filter);
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res =>
@@ -85,7 +89,12 @@ export class ListOfCaseComponent implements OnInit {
     this.store
       .select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
+
+    this.translateService.onLangChange.subscribe(e => {
+      setTimeout(() => { this.loadCases([]); }, 350);
+    });
   }
+
 
   filterByRoute(queryParams: Observable<any>): Observable<any> {
     return queryParams.pipe(
@@ -106,8 +115,21 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   getStatusCase() {
-    this.sellerSupportService.getAllStatusCase().subscribe(res => {
-      this.options = res.data;
+    this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
+      const arrayLang = this.sellerSupportService.getListHeaderConfiguration();
+      switch (res.language) {
+        case 'ES':
+          this.headerConfigurations = arrayLang[0].ES;
+          break;
+
+        case 'US':
+          this.headerConfigurations = arrayLang[1].US;
+          break;
+
+        default:
+          this.headerConfigurations = [];
+      }
+      this.options = res.statusCases;
     });
   }
 

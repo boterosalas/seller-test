@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -25,7 +26,7 @@ export class CaseSummaryComponent implements OnInit {
 
   productsConfig: Array<any>;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public translateService: TranslateService) { }
 
   ngOnInit() {
     this.productsConfig = productsConfig;
@@ -40,7 +41,7 @@ export class CaseSummaryComponent implements OnInit {
       ProductsCaseDialogComponent,
       this.configDialog
     );
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
   closeDialog(): void {

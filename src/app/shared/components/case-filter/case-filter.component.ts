@@ -11,6 +11,7 @@ import { MatSidenav } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { Filter } from './models/Filter';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-case-filter',
@@ -46,7 +47,7 @@ export class CaseFilterComponent implements OnInit {
   public rangeError = false;
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private formatDate: DatePipe) {
+    private formatDate: DatePipe, public translateService: TranslateService) {
     this.options = [];
   }
 
