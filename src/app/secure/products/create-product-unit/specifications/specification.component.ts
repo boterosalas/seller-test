@@ -71,6 +71,9 @@ export class SpecificationProductComponent implements OnInit {
                     this.dataSpecification = result.data;
                     this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
                     this.setSpecification(result.data);
+                    if (this._detailProduct) {
+                        this.compareByName(this.specificationsGroups);
+                    }
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);
@@ -265,13 +268,43 @@ export class SpecificationProductComponent implements OnInit {
         this.ShowSpecTitle = cont;
     }
 
-    setValueSpefici(index: number, form: any) {
-        if (this._detailProduct) {
-            if (form && form.form) {
-                if (form.form.controls['specs' + index]) {
-                    form.controls['specs' + index].setValue(this._detailProduct.features[index].value);
-                }
-            }
-        }
+
+    compareByName(listSpecifications: any) {
+        listSpecifications.forEach((specificationsFather, indexFather) => {
+            specificationsFather.Sons.forEach((speficiationSon, indexSon) => {
+                console.log(indexSon);
+                // this.compareJson (speficiationSon.Label);
+            });
+        });
     }
+
+    compareJson(label: string) {
+        // console.log(label);
+        // console.log(this._detailProduct);
+        if (this._detailProduct && this._detailProduct.features.length >  0) {
+            const value = this._detailProduct.features.find(x => x.key === label).value;
+            console.log(value);
+        }
+    
+    }
+
+    // setValueSpefici(index: number, form: any) {
+    //     if (this.specificationsGroups && this.specificationsGroups.length > 0) {
+    //         this.specificationsGroups.forEach(item => {
+    //             this.compareJson(item);
+    //           });
+    //     }
+    //     if (this._detailProduct) {
+    //         if (form && form.form) {
+    //             if (form.form.controls['specs' + index]) {
+    //                 form.controls['specs' + index].setValue(this._detailProduct.features[index].value);
+    //             }
+    //         }
+    //     }
+    // }
+
+    // compareJson(elemet: any){
+    //     console.log(elemet);
+
+    // }
 }
