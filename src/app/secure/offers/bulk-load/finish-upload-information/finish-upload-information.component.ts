@@ -88,6 +88,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       this.Success = false;
       this.inProcess = false;
       this.listError = this.mapItems(this.data.listError);
+      this.pex = this.typeErrorShowButton(this.listError);
       this.countError = this.data.listError.length;
       this.cdr.detectChanges();
     }
@@ -105,6 +106,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       return {
         Ean: this.validateHeader(x.ean, x.Ean),
         Message: this.validateHeader(x.message, x.Message),
+        Code: x.code
       };
     });
   }
@@ -180,7 +182,6 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     let countPex = 0;
     if (list && list.length > 0) {
       list.forEach(element => {
-        element.Code = 'PEX';
         if (element.Code === 'PEX') {
           countPex ++;
         }

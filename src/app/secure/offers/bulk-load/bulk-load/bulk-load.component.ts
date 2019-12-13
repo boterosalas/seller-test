@@ -1279,8 +1279,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'PriceApproval': approval,
       'ListOffers' : this.arrayInformationForSend
     };
-    console.log(this.sendData);
-    this.bulkLoadService.setOffers(this.arrayInformationForSend)
+    this.bulkLoadService.setOffers(this.sendData)
       .subscribe(
         (result: any) => {
           if (result) {
