@@ -630,46 +630,6 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer(dataUpdate: any) {
-    // const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
-    // this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
-    // this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
-    // this.params.push(this.formUpdateOffer.value);
-    // const combos = this.formUpdateOffer.controls.Combos.value;
-    // this.oferts = [
-    //   {
-    //     EAN: this.dataOffer.ean,
-    //     Stock: this.params[0].Stock,
-    //     Price: this.params[0].Price,
-    //     DiscountPrice: this.params[0].DiscountPrice,
-    //     AverageFreightCost: this.params[0].AverageFreightCost,
-    //     PromiseDelivery: this.params[0].PromiseDelivery,
-    //     Warranty: this.params[0].Warranty,
-    //     IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
-    //     IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
-    //     IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
-    //     IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
-    //     IsUpdatedStock: this.params[0].IsUpdatedStock,
-    //     Currency: this.formUpdateOffer.controls['Currency'].value
-    //   }
-    // ];
-
-    // if (combos.length > 0) {
-    //   combos.forEach((element: any) => {
-    //     this.oferts.push({
-    //       'EanCombo': this.dataOffer.ean,
-    //       'Price': element.ofertPriceComponet,
-    //       'ComboQuantity': element.ComboQuantity,
-    //       'EAN': element.EAN,
-    //       'Stock': null,
-    //       'AverageFreightCost': null,
-    //       'IsEnviosExito': null,
-    //       'IsFreeShipping': null,
-    //       'IsFreightCalculator': null,
-    //       'PromiseDelivery': null,
-    //       'IsLogisticsExito': '0'
-    //     });
-    //   });
-    // }
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(dataUpdate).subscribe(
       (result: any) => {
