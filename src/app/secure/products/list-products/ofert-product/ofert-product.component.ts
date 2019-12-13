@@ -140,7 +140,7 @@ export class OfertExpandedProductComponent implements OnInit {
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
         this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-            this.changeTypeCurrency(val);
+            // this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
                 this.ofertProduct.get('ofertOption').setValue(null);
                 // tslint:disable-next-line: no-unused-expression
@@ -281,6 +281,11 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
 
+    /**
+     * Funcion que setea el error del precio con descuento.
+     * @param {boolean} show
+     * @memberof OfertExpandedProductComponent
+     */
     public setCategoryError(show: boolean): void {
         if (show) {
             if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
@@ -291,6 +296,11 @@ export class OfertExpandedProductComponent implements OnInit {
         }
     }
 
+    /**
+     * Funcion que setea el error del precio.
+     * @param {boolean} show
+     * @memberof OfertExpandedProductComponent
+     */
     public setCategoryErrorPrice(show: boolean): void {
         if (show) {
             if (this.ofertProduct.controls.Price.value <= 8000) {
@@ -352,6 +362,10 @@ export class OfertExpandedProductComponent implements OnInit {
 
     }
 
+    /**
+     * Metodo que llama el modal de regla de precio
+     * @memberof OfertExpandedProductComponent
+     */
     openDialogModalRule(): void {
         const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
             width: '95%',
@@ -366,6 +380,11 @@ export class OfertExpandedProductComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion que se encarga de enviar el JSON y llamar el servicio
+     * @param {number} approval
+     * @memberof OfertExpandedProductComponent
+     */
     public sendDataToService(approval: number): void {
         const data = {
             EAN: this.applyOffer.ean,
