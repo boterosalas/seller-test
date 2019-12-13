@@ -426,7 +426,7 @@ export class OfertExpandedProductComponent implements OnInit {
                         if (result.body.data.offerNotifyViewModels) {
                             const errorRule = result.body.data.offerNotifyViewModels;
                             errorRule.forEach(el => {
-                                if (el.code = 'PEX') {
+                                if (el.code === 'PEX') {
                                     this.openDialogModalRule();
                                 }
                             });
