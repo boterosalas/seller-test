@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+/* import { TestBed, async, inject } from '@angular/core/testing';
 import { StoreService } from './store.service';
 import { CoreStoreModule } from '.';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -40,7 +40,7 @@ describe('Service: Store', () => {
     });
   });
 
-  /*   describe('enviroment for change statusArray', () => {
+     describe('enviroment for change statusArray', () => {
       let storeMockService: StoreTestModule;
 
       TestBed.configureTestingModule({
@@ -55,6 +55,7 @@ describe('Service: Store', () => {
 
       });
 
-    }); */
+    });
 
 });
+ */
