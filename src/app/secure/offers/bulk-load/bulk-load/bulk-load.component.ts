@@ -115,6 +115,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public language: any;
 
+  public sendData: any;
+
   // Validación de las regex
   validateRegex: any;
 
@@ -768,7 +770,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.sendJsonOffer();
+      this.sendJsonOffer(0);
     }
   }
 
@@ -983,7 +985,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           } else {
             this.modalService.showModal('errorService');
           }
-          this.resetVariableUploadFile();
+          // this.resetVariableUploadFile();
           this.loadingService.closeSpinner();
         }
       );
@@ -1259,8 +1261,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  sendJsonOffer() {
-    this.arrayInformationForSend.splice(0, 1);
+  sendJsonOffer(approval: number) {
+    if (approval  !== 1) {
+      this.arrayInformationForSend.splice(0, 1);
+    }
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
       // if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
@@ -1268,9 +1272,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
-       }
+      }
     });
-    this.bulkLoadService.setOffers(this.arrayInformationForSend)
+
+    this.sendData = {
+      'PriceApproval': approval,
+      'ListOffers' : this.arrayInformationForSend
+    };
+    this.bulkLoadService.setOffers(this.sendData)
       .subscribe(
         (result: any) => {
           if (result) {
@@ -1281,7 +1290,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
               this.openModal(3, offerNotifyViewModels);
             }
           }
-          this.resetVariableUploadFile();
+          // this.resetVariableUploadFile();
           this.loadingService.closeSpinner();
         }
       );
@@ -1358,6 +1367,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
     });
+    this.configDialog(dialog);
+  }
+
+  configDialog(dialog: any) {
+    const dialogComponent = dialog.componentInstance;
+    dialogComponent.confirmation = () => {
+      this.dialog.closeAll();
+      this.sendJsonOffer(1);
+    };
   }
   /**
    * Calcula el tiempo del intervalo para realizar la consultado (consulta iterativa recursiva) el promedio de rango 0.012 ~ 0.018
