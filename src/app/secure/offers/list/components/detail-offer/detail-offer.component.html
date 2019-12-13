@@ -283,7 +283,7 @@
           </div>
         </div>
         <div class="button-update-offert flexbox justify-center align-center">
-          <button [disabled]="!updateOffer.form.valid || showButton === true" type="submit" mat-raised-button color="primary"
+          <button [disabled]="!updateOffer.form.valid || showButton === true || !updateOffer.form.touched" type="submit" mat-raised-button color="primary"
             [innerHTML]="'permissions.Editar' | translate" (click)="validateRulesOfert()"></button>
         </div>
       </form>

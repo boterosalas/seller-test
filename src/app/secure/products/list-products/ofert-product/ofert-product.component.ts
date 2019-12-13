@@ -360,17 +360,10 @@ export class OfertExpandedProductComponent implements OnInit {
         dialogRef.afterClosed().subscribe(res => {
             log.info('The dialog was closed');
             this.approvalOfert = res;
-            console.log(res);
             if (this.approvalOfert === true) {
                 this.sendDataToService(1);
-                // this.loadingService.viewSpinner();
-                // this.loadingService.closeSpinner();
-                // window.location.reload();
-                console.log(5);
             }
-            // this.loadingService.closeSpinner();
         });
-        // this.configDialog(dialogRef);
     }
 
     public sendDataToService(approval: number): void {
@@ -417,16 +410,12 @@ export class OfertExpandedProductComponent implements OnInit {
                                 if (el.code = 'PEX') {
                                     this.openDialogModalRule();
                                 }
-                                console.log(1);
-                                // this.loadingService.closeSpinner();
-                                // window.location.reload();
                             });
                         }
                     } else {
                         this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
                             duration: 5000,
                         });
-                        console.log(2);
                         this.loadingService.closeSpinner();
                         this.listService.changeEmitter();
                         window.location.reload();
@@ -437,7 +426,6 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                console.log(3);
                 // window.location.reload();
 
             }, error => {

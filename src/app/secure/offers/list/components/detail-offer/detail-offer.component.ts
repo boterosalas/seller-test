@@ -93,7 +93,7 @@ export class DetailOfferComponent implements OnInit {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
-  public showButton = true;
+  public showButton: boolean;
 
   promiseFirts: string;
   promiseSeconds: string;
@@ -185,7 +185,6 @@ export class DetailOfferComponent implements OnInit {
     this.setPromise();
     this.validateFormSupport();
     this.createValidators();
-    console.log(this.dataOffer);
   }
 
   /**
@@ -538,10 +537,8 @@ export class DetailOfferComponent implements OnInit {
 
     if (valDiscount) {
       if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
-        console.log('precio con dscto no cumple con regla');
         this.openDialogModalRule();
       } else {
-        console.log('precio con dscto ok');
         // this.loadingService.viewSpinner();
         this.sameInfoUpdate();
         this.dataUpdateOffer['priceApproval'] = 0;
@@ -549,13 +546,10 @@ export class DetailOfferComponent implements OnInit {
       }
     } else {
       // NO tiene precio con dscto
-      console.log('NO TIENE PR DSCTO');
       if (valPrice < valHighDown || valPrice > valHighUp) {
-        console.log('PRECIO NO CUPLE REGLA');
         this.openDialogModalRule();
       } else {
         // this.loadingService.viewSpinner();
-        console.log('PRECIO OK');
         this.sameInfoUpdate();
         this.dataUpdateOffer['priceApproval'] = 0;
         this.submitUpdateOffer(this.dataUpdateOffer);
@@ -619,7 +613,6 @@ export class DetailOfferComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       log.info('The dialog was closed');
       this.approvalOfert = res;
-      console.log(res);
       if (this.approvalOfert === true) {
         // this.loadingService.viewSpinner();
         this.sameInfoUpdate();
@@ -680,7 +673,6 @@ export class DetailOfferComponent implements OnInit {
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(dataUpdate).subscribe(
       (result: any) => {
-        console.log('result: ', result);
         if (result.status === 200) {
           const data = result;
           if (data.body.successful !== 0 || data.body.error !== 0) {
