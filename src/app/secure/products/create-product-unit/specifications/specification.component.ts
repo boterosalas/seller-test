@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
@@ -49,8 +49,8 @@ export class SpecificationProductComponent implements OnInit {
         public dialog: MatDialog,
         public processService: ProcessService,
         private languageService: TranslateService) {
-            this.listSpecification();
-         }
+        this.listSpecification();
+    }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
@@ -71,9 +71,6 @@ export class SpecificationProductComponent implements OnInit {
                     this.dataSpecification = result.data;
                     this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
                     this.setSpecification(result.data);
-                    if (this._detailProduct) {
-                        this.compareByName(this.specificationsGroups);
-                    }
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);
@@ -91,7 +88,7 @@ export class SpecificationProductComponent implements OnInit {
 
     setSpecification(data: any) {
         if (this.idCategory) {
-            if ( data && data.length > 0) {
+            if (data && data.length > 0) {
                 let count = 0;
                 data.forEach(element => {
                     let specf = element.categories.replace(/'/g, '"');
@@ -268,43 +265,25 @@ export class SpecificationProductComponent implements OnInit {
         this.ShowSpecTitle = cont;
     }
 
-
-    compareByName(listSpecifications: any) {
-        listSpecifications.forEach((specificationsFather, indexFather) => {
-            specificationsFather.Sons.forEach((speficiationSon, indexSon) => {
-                console.log(indexSon);
-                // this.compareJson (speficiationSon.Label);
-            });
-        });
-    }
-
-    compareJson(label: string) {
-        // console.log(label);
-        // console.log(this._detailProduct);
-        if (this._detailProduct && this._detailProduct.features.length >  0) {
-            const value = this._detailProduct.features.find(x => x.key === label).value;
-            console.log(value);
+    setValueSpefici(index: number, form: any, inputSpecifications: any) {
+        if (inputSpecifications && inputSpecifications.Label) {
+            if (this._detailProduct && this._detailProduct.features.length > 0) {
+                const valueArray = this._detailProduct.features.find(x => x.key === inputSpecifications.Label);
+                let value = '';
+                if (valueArray !== undefined && valueArray !== null) {
+                    if (valueArray.value === null || valueArray.value === undefined) {
+                        value = '';
+                    } else {
+                        value = valueArray.value;
+                    }
+                }
+                if (form && form.form) {
+                    if (form.form.controls['specs' + index]) {
+                        form.controls['specs' + index].setValue(value);
+                    }
+                }
+            }
         }
-    
     }
 
-    // setValueSpefici(index: number, form: any) {
-    //     if (this.specificationsGroups && this.specificationsGroups.length > 0) {
-    //         this.specificationsGroups.forEach(item => {
-    //             this.compareJson(item);
-    //           });
-    //     }
-    //     if (this._detailProduct) {
-    //         if (form && form.form) {
-    //             if (form.form.controls['specs' + index]) {
-    //                 form.controls['specs' + index].setValue(this._detailProduct.features[index].value);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // compareJson(elemet: any){
-    //     console.log(elemet);
-
-    // }
 }
