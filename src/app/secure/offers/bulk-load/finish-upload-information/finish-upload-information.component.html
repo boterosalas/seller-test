@@ -35,14 +35,17 @@
     <mat-divider></mat-divider>
   </div>
   <div>
-    <mat-dialog-actions align="center">
-      <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
-        mat-dialog-close>{{'actions.close' | translate}}</button>
+    <mat-dialog-actions align="end">
       <button id="export-to-excel-button" *ngIf="countError > 0" mat-raised-button color="primary"
         (click)="exportAsExcelFile(listError,'OffersLog')">{{'actions.export_excel' | translate}}
       </button>
+      <button id="btn-confirmation" type="submit" *ngIf="countError > 0 && pex" mat-raised-button color="primary" (click)="confirmation()">
+        {{'actions.accpet_min' | translate}}
+      </button>
       <button id="close-finish-upload-button" *ngIf="inProcess" mat-raised-button color="primary"
         [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'actions.go_to_start' | translate}}</button>
+        <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
+        mat-dialog-close>{{'actions.close' | translate}}</button>
     </mat-dialog-actions>
   </div>
 </div>

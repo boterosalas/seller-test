@@ -1,4 +1,4 @@
-import { Component, Inject, TemplateRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, TemplateRef, AfterViewInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -31,6 +31,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   countError: number;
   listError: any;
   listErrorStatus: any;
+  pex = false;
 
   request: Observable<any>;
   content: TemplateRef<any>;
@@ -63,6 +64,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
 
             if (response) {
               this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+              this.pex = this.typeErrorShowButton(this.listErrorStatus);
             } else {
               this.listErrorStatus = [length = 0];
             }
@@ -86,6 +88,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       this.Success = false;
       this.inProcess = false;
       this.listError = this.mapItems(this.data.listError);
+      this.pex = this.typeErrorShowButton(this.listError);
       this.countError = this.data.listError.length;
       this.cdr.detectChanges();
     }
@@ -103,6 +106,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       return {
         Ean: this.validateHeader(x.ean, x.Ean),
         Message: this.validateHeader(x.message, x.Message),
+        Code: x.code
       };
     });
   }
@@ -115,7 +119,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
    * @returns
    * @memberof FinishUploadInformationComponent
    */
-  validateHeader(a, b) {
+  validateHeader(a: any, b: any) {
     if (a !== undefined) {
       return a;
     } else {
@@ -173,6 +177,35 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
+/**
+ * validar si sale el boton y no
+ *
+ * @param {*} list
+ * @returns
+ * @memberof FinishUploadInformationComponent
+ */
+typeErrorShowButton(list: any) {
+    let countPex = 0;
+    if (list && list.length > 0) {
+      list.forEach(element => {
+        if (element.Code === 'PEX') {
+          countPex ++;
+        }
+      });
+    }
+    if (countPex === list.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  /**
+   * funcion para enviar el evento al aceptar o confrimar
+   *
+   * @memberof FinishUploadInformationComponent
+   */
+  // tslint:disable-next-line:member-ordering
+  confirmation: () => void;
   /**
    * Funcion para destruir el componente y parar la solicitud del estado de la carga masiva de ofertas
    *

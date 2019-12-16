@@ -924,6 +924,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "El formato es inválido",
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
 
+    "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
+
     "secure.parametize.title_toolbar": "Parametrización",
     "secure.parametize.brands.title_filter_brand": "Filtro Marcas",
     "secure.parametize.brands.txt_brand_name": "Nombre de la marca",

@@ -2,17 +2,18 @@ import { Component, EventEmitter, HostListener, Input, Output, OnInit } from '@a
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, Logger } from '@app/core';
 import { environment } from '@env/environment';
 import { BulkLoadService } from '../../../bulk-load/bulk-load.service';
 import { ListComponent } from '../../list/list.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { validateDataToEqual } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { ModalRuleOfferComponent } from '@app/secure/products/list-products/modal-rule-offer/modal-rule-offer.component';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -40,6 +41,8 @@ export interface Oferts {
   EanCombo?: string;
   ComboQuantity?: number;
 }
+
+const log = new Logger('DetailOfferComponent');
 
 
 /**
@@ -90,7 +93,7 @@ export class DetailOfferComponent implements OnInit {
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
-  public showButton = true;
+  public showButton: boolean;
 
   promiseFirts: string;
   promiseSeconds: string;
@@ -104,6 +107,11 @@ export class DetailOfferComponent implements OnInit {
     isUpdatedStock: '',
     discountPrice: '',
     price: ''
+  };
+
+  dataUpdateOffer = {
+    ListOffers: [],
+    priceApproval: 0
   };
 
   /**
@@ -153,6 +161,7 @@ export class DetailOfferComponent implements OnInit {
   public valuePrice: any;
   public totalCombo: any;
   public oferts: Oferts[];
+  approvalOfert: any;
 
   constructor(
     public list: ListComponent,
@@ -163,6 +172,7 @@ export class DetailOfferComponent implements OnInit {
     private languageService: TranslateService,
     public authService: AuthService,
     private profileService: MyProfileService,
+    private dialog: MatDialog,
     private fb?: FormBuilder,
     public snackBar?: MatSnackBar
   ) {
@@ -246,24 +256,24 @@ export class DetailOfferComponent implements OnInit {
     this.isUpdateOffer = false;
   }
 
-    /**
-     * OBTENGO INFORMACION DEL USUARIO
-     * @memberof OfertExpandedProductComponent
-     */
-    async getAllDataUser() {
-        const sellerData = await this.profileService.getUser().toPromise().then(res => {
-          const body: any = res.body;
-          const response = JSON.parse(body.body);
-          const userData = response.Data;
-          this.loadingService.closeSpinner();
-          return userData;
-      });
-      this.formUpdateOffer.get('Currency').disable();
-      if (sellerData.Country === 'COLOMBIA') {
-          this.formUpdateOffer.get('Currency').setValue('COP');
-      } else {
-          this.formUpdateOffer.get('Currency').setValue('USD');
-      }
+  /**
+   * OBTENGO INFORMACION DEL USUARIO
+   * @memberof OfertExpandedProductComponent
+   */
+  async getAllDataUser() {
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      this.loadingService.closeSpinner();
+      return userData;
+    });
+    this.formUpdateOffer.get('Currency').disable();
+    if (sellerData.Country === 'COLOMBIA') {
+      this.formUpdateOffer.get('Currency').setValue('COP');
+    } else {
+      this.formUpdateOffer.get('Currency').setValue('USD');
+    }
   }
 
 
@@ -484,7 +494,7 @@ export class DetailOfferComponent implements OnInit {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseFloat(this.DiscountPrice.value) >= parseFloat(this.Price.value)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
-          }   else {
+          } else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
           }
         } else {
@@ -516,12 +526,38 @@ export class DetailOfferComponent implements OnInit {
     }
   }
 
-  /**
-   * @description Metodo para enviar los datos al servicio y actualizar la oferta.
-   * @method submitUpdateOffer
-   * @memberof DetailOfferComponent
-   */
-  submitUpdateOffer() {
+  validateRulesOfert(): void {
+    // this.sendOffer = false;
+    const valHighUp = +this.dataOffer.price * 1.30;
+    const valHighDown = +this.dataOffer.price * 0.70;
+    const valLowUp = +this.dataOffer.discountPrice * 1.30;
+    const valLowDown = +this.dataOffer.discountPrice * 0.70;
+    const valPrice = +this.formUpdateOffer.controls.Price.value;
+    const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
+
+    if (valDiscount) {
+      if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
+        this.openDialogModalRule();
+      } else {
+        // this.loadingService.viewSpinner();
+        this.sameInfoUpdate();
+        this.dataUpdateOffer['priceApproval'] = 0;
+        this.submitUpdateOffer(this.dataUpdateOffer);
+      }
+    } else {
+      // NO tiene precio con dscto
+      if (valPrice < valHighDown || valPrice > valHighUp) {
+        this.openDialogModalRule();
+      } else {
+        // this.loadingService.viewSpinner();
+        this.sameInfoUpdate();
+        this.dataUpdateOffer['priceApproval'] = 0;
+        this.submitUpdateOffer(this.dataUpdateOffer);
+      }
+    }
+  }
+
+  sameInfoUpdate(): void {
     const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
     this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
     this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
@@ -562,8 +598,40 @@ export class DetailOfferComponent implements OnInit {
         });
       });
     }
+
+    this.dataUpdateOffer = {
+      ListOffers: this.oferts,
+      priceApproval: 0
+    };
+  }
+
+  openDialogModalRule(): void {
+    const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
+      width: '95%',
+      data: {},
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      log.info('The dialog was closed');
+      this.approvalOfert = res;
+      if (this.approvalOfert === true) {
+        // this.loadingService.viewSpinner();
+        this.sameInfoUpdate();
+        this.dataUpdateOffer['priceApproval'] = 1;
+        this.submitUpdateOffer(this.dataUpdateOffer);
+      } else {
+        this.dataUpdateOffer = null;
+      }
+    });
+  }
+
+  /**
+   * @description Metodo para enviar los datos al servicio y actualizar la oferta.
+   * @method submitUpdateOffer
+   * @memberof DetailOfferComponent
+   */
+  submitUpdateOffer(dataUpdate: any) {
     this.loadingService.viewSpinner();
-    this.loadOfferService.setOffersProducts(this.oferts).subscribe(
+    this.loadOfferService.setOffersProducts(dataUpdate).subscribe(
       (result: any) => {
         if (result.status === 200) {
           const data = result;
@@ -630,25 +698,25 @@ export class DetailOfferComponent implements OnInit {
       duration: 3000,
     });
   }
-/**
- * recorre combo y setear
- *
- * @memberof DetailOfferComponent
- */
-setCombos() {
+  /**
+   * recorre combo y setear
+   *
+   * @memberof DetailOfferComponent
+   */
+  setCombos() {
     if (this.dataOffer && this.dataOffer.offerComponents.length > 0) {
       this.dataOffer.offerComponents.forEach((element: any) => {
         this.addItem(element);
       });
     }
   }
-/**
- * agregar combos
- *
- * @param {*} element
- * @memberof DetailOfferComponent
- */
-addItem(element: any): void {
+  /**
+   * agregar combos
+   *
+   * @param {*} element
+   * @memberof DetailOfferComponent
+   */
+  addItem(element: any): void {
     this.comboForm = this.fb.group({
       EAN: element.ean,
       ofertPriceComponet: new FormControl(element.price, [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]),
@@ -658,13 +726,13 @@ addItem(element: any): void {
     this.Combos.push(this.comboForm);
   }
 
-/**
- * validar el precio con descuento
- *
- * @returns
- * @memberof DetailOfferComponent
- */
-getPriceDescount() {
+  /**
+   * validar el precio con descuento
+   *
+   * @returns
+   * @memberof DetailOfferComponent
+   */
+  getPriceDescount() {
     let total = 0;
     this.Combos.controls.forEach((price: any) => {
       total += (price.value.ofertPriceComponet * price.value.ComboQuantity);
@@ -681,14 +749,14 @@ getPriceDescount() {
     }
     return total;
   }
-/**
- * validacion para verificar el precio
- *
- * @param {boolean} [showErrors=true]
- * @param {number} [total]
- * @memberof DetailOfferComponent
- */
-getVerifyPrice(showErrors: boolean = true, total?: number) {
+  /**
+   * validacion para verificar el precio
+   *
+   * @param {boolean} [showErrors=true]
+   * @param {number} [total]
+   * @memberof DetailOfferComponent
+   */
+  getVerifyPrice(showErrors: boolean = true, total?: number) {
     let errors = true;
     if (this.formUpdateOffer.controls.DiscountPrice.value) {
       if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= 8000) {
@@ -766,13 +834,13 @@ getVerifyPrice(showErrors: boolean = true, total?: number) {
       this.showButton = false;
     }
   }
-/**
- * setear input error
- *
- * @param {boolean} show
- * @memberof DetailOfferComponent
- */
-public setCategoryError(show: boolean): void {
+  /**
+   * setear input error
+   *
+   * @param {boolean} show
+   * @memberof DetailOfferComponent
+   */
+  public setCategoryError(show: boolean): void {
     if (show) {
       if (this.formUpdateOffer.controls.DiscountPrice.value <= 8000 && this.formUpdateOffer.controls.Currency.value === 'COP') {
         this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: show });
@@ -781,13 +849,13 @@ public setCategoryError(show: boolean): void {
       this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
     }
   }
-/**
- * setear error en el input
- *
- * @param {boolean} show
- * @memberof DetailOfferComponent
- */
-public setCategoryErrorPrice(show: boolean): void {
+  /**
+   * setear error en el input
+   *
+   * @param {boolean} show
+   * @memberof DetailOfferComponent
+   */
+  public setCategoryErrorPrice(show: boolean): void {
     if (show) {
       if (this.formUpdateOffer.controls.Price.value <= 8000) {
         this.formUpdateOffer.controls.Price.setErrors({ priceReal: show });
@@ -796,12 +864,12 @@ public setCategoryErrorPrice(show: boolean): void {
       this.formUpdateOffer.controls.Price.setErrors(null);
     }
   }
-/**
- * validacion input para precio, combo y precio con descuento
- *
- * @memberof DetailOfferComponent
- */
-public valiteInput() {
+  /**
+   * validacion input para precio, combo y precio con descuento
+   *
+   * @memberof DetailOfferComponent
+   */
+  public valiteInput() {
     const price = this.formUpdateOffer.controls.Price.value;
     const discountPrice = this.formUpdateOffer.controls.DiscountPrice.value;
     let total = 0;
@@ -856,7 +924,7 @@ public valiteInput() {
           this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
             duration: 3000,
           });
-        }  else {
+        } else {
           this.showButton = false;
           this.formUpdateOffer.controls.Price.setErrors(null);
           this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
@@ -864,14 +932,14 @@ public valiteInput() {
       }
     }
   }
-/**
- * inicializar control de combos
- *
- * @readonly
- * @type {FormArray}
- * @memberof DetailOfferComponent
- */
-get Combos(): FormArray {
+  /**
+   * inicializar control de combos
+   *
+   * @readonly
+   * @type {FormArray}
+   * @memberof DetailOfferComponent
+   */
+  get Combos(): FormArray {
     return this.formUpdateOffer.get('Combos') as FormArray;
   }
 }

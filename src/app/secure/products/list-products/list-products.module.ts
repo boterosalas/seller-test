@@ -11,6 +11,7 @@ import { ExpandedProductComponent } from './expanded-product/expanded-product.co
 import { OfertExpandedProductComponent } from './ofert-product/ofert-product.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SharedModule } from '@app/shared/shared.module';
+import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.component';
 
 @NgModule({
     imports: [
@@ -26,15 +27,18 @@ import { SharedModule } from '@app/shared/shared.module';
       ListProductsComponent,
       ComboProductComponent,
       ExpandedProductComponent,
-      OfertExpandedProductComponent
+      OfertExpandedProductComponent,
+      ModalRuleOfferComponent,
+      ModalRuleOfferComponent
     ],
     exports: [
       ComboProductComponent,
       ExpandedProductComponent,
-      OfertExpandedProductComponent
+      OfertExpandedProductComponent,
+      ModalRuleOfferComponent
     ],
     entryComponents: [
-
+      ModalRuleOfferComponent
     ],
     providers: [
       ListProductService

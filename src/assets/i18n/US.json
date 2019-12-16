@@ -924,6 +924,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
 
+    "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
+
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",
     "secure.parametize.brands.txt_brand_name": "Brand's name",
