@@ -1,6 +1,6 @@
 :host ::ng-deep .content-products-pending-detail {
   height: auto;
-  max-height: 600px;
+  max-height: 400px;
   min-width: 260px;
   overflow: auto;
   display: flex;
@@ -37,4 +37,11 @@
       padding: 0;
     }
   }
+}
+
+.text-validate{
+  text-align: right;
+  margin-top: 16px;
+  color: #868585;
+  font-size: 13px;
 }
