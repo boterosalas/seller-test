@@ -103,13 +103,8 @@ export class DownloadBillingpayModalComponent implements OnInit {
         this.loadingService.closeSpinner();
         const closeSnackBar = this.languageService.instant('actions.close');
         let message;
-          if (res != null) {
             message = this.languageService.instant('secure.billing.correctly_download');
             this.componentsService.openSnackBar(message, closeSnackBar, 10000);
-          } else {
-            message = this.languageService.instant('secure.billing.error_download');
-            this.componentsService.openSnackBar(message, closeSnackBar, 5000);
-          }
           this.onNoClick();
         },
         err => {
