@@ -20,16 +20,15 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   arrayImageDadClothing: any = ['', '', '', '', ''];
   @Input() set detailProduct(value: any) {
     if (value) {
+      console.log(value);
       this._detailProduct = value;
-      const userArray = false;
-
-      if ( userArray) {
+      if (this._detailProduct.productType === 'Technology') {
         this.arrayImageDadTecnology = [
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-          'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
+          this._detailProduct.imageUrl1,
+          this._detailProduct.imageUrl2,
+          this._detailProduct.imageUrl3,
+          this._detailProduct.imageUrl4,
+          this._detailProduct.imageUrl5,
         ];
       } else {
         this.arrayImageDadClothing = [
