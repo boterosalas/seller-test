@@ -819,7 +819,7 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "You selected",
     "secure.products.create_product_unit.categorization.list.expand": "Expand",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapse",
-    "secure.products.create_product_unit.categorization.list.standard_variant": "",
+    "secure.products.create_product_unit.categorization.list.standard_variant": "You can not change a category from Standard to Variant or from Variant to Standard",
 
     "secure.products.create_product_unit.component_process.categorization": "Categorization",
     "secure.products.create_product_unit.component_process.back": "Back",
