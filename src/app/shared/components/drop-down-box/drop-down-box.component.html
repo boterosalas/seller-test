@@ -14,22 +14,22 @@
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-number-{{index}}">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-id-{{index}}">
             {{ data.caseNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="15%">
+          <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-number-{{index}}">
             {{ data.orderNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-reason-{{index}}">
             {{ data.reasonPQR }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="30%">
+          <div class="case-list-detail--item-detail" fxFlex="30%" id="dpbox-case-detail-{{index}}">
             <p>{{ data.reasonDetail }}</p>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="15%">
+          <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-date-{{index}}">
             {{ data.createDate | dateNoGtm | date }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
