@@ -54,6 +54,5 @@ export class ProductPendingDevolutionModalComponent {
     } else {
       this.showMessage = true;
     }
-
   }
 }

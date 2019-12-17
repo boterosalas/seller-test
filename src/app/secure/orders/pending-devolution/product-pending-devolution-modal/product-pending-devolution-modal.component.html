@@ -1,84 +1,59 @@
-<div class="container-product-list content-products-pending-detail">
-  <div class="title-page">
-    <span class="sc-title">{{'secure.orders.order_list.product_detail.product' | translate}}: {{order.reversionRequestDetailViewModel.productName}}
-    </span>
-    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
-      <mat-icon (click)="onNoClick()">close</mat-icon>
-    </a>
+<div class="title-page">
+  <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center"
+    class="toolbar-cont">
+    <div fxFlex="93">
+      <span class="sc-title">{{'secure.orders.order_list.product_detail.product'| translate}}: {{order.reversionRequestDetailViewModel.productName}}
+      </span>
+    </div>
+    <div fxFlex="7">
+      <a [matTooltip]="'actions.close' | translate" mat-icon-button matTooltipPosition="below"
+        mat-button>
+        <mat-icon (click)="onNoClick()">close</mat-icon>
+      </a>
+    </div>
   </div>
-
+</div>
+<div class="container-product-list content-products-pending-detail">
   <mat-accordion fxFlex="100">
     <mat-expansion-panel class="expanded-element" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title class="sc-link-text">
-          {{'secure.orders.in_devolution.product_devolution_modal.info_title' | translate}}
+          {{'secure.orders.in_devolution.product_devolution_modal.info_title' |
+          translate}}
         </mat-panel-title>
-
       </mat-expansion-panel-header>
-
-
       <mat-list class="card-info" fxFlex="100">
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>{{'secure.orders.order_list.product_detail.product' | translate}}
+          <h4 mat-line>{{'secure.orders.order_list.product_detail.product' |
+            translate}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.productName}}</p>
           </h4>
-
         </mat-list-item>
         <mat-divider></mat-divider>
-
-        <!-- <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Cantidad
-            <p mat-subheader class="sub-text-list">{{order.products.quantity}}</p>
-          </h4>
-        </mat-list-item>
-        <mat-divider></mat-divider> -->
-
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.reference' | translate}}
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.reference'
+            | translate}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.reference}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
-
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.sku' | translate}}
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.sku'
+            | translate}}
             <p mat-subheader class="sub-text-list">{{order.reversionRequestDetailViewModel.sku}}</p>
           </h4>
-
         </mat-list-item>
-        <!-- <mat-divider></mat-divider>
-
-        <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>Motivo
-            <p mat-subheader class="sub-text-list">{{order.products.reasonReturn}}</p>
-          </h4>
-
-        </mat-list-item>
-        <mat-divider></mat-divider>
-
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Comentario</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{order.products.commentaryReturn}}
-          </mat-card-content>
-        </mat-card> -->
-
       </mat-list>
-
     </mat-expansion-panel>
   </mat-accordion>
-
   <mat-accordion fxFlex="100">
     <mat-expansion-panel class="expanded-element">
       <mat-expansion-panel-header>
         <mat-panel-title class="sc-link-text">
-          {{'secure.orders.in_devolution.product_devolution_modal.view_info_client' | translate}}
+          {{'secure.orders.in_devolution.product_devolution_modal.view_info_client'
+          | translate}}
         </mat-panel-title>
-
       </mat-expansion-panel-header>
-
       <mat-list class="card-info" fxFlex="100">
         <mat-list-item class="mat-list-item-order">
           <h4 mat-line>{{'shared.name' | translate}}
@@ -86,14 +61,13 @@
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
-
         <mat-list-item class="mat-list-item-order">
-          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.id' | translate}}
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.id'
+            | translate}}
             <p mat-subheader class="sub-text-list">{{order.identificationCard}}</p>
           </h4>
         </mat-list-item>
         <mat-divider></mat-divider>
-
         <mat-list-item class="mat-list-item-order">
           <h4 mat-line>{{'secure.client_information.address' | translate}}
             <p mat-subheader class="sub-text-list">{{order.clientAddress}}</p>
@@ -109,12 +83,18 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<mat-dialog-actions align="end"  class="dialog-buttons">
-  <a download class="sc-default-button" id="download-file-button" (click)="cloudDownload(order.reversionRequestDetailViewModel.attachedEvidence);" mat-button>
-      <mat-icon class="mat-18">file_download</mat-icon>
-      {{'actions.view_attachments' | translate}}
+<mat-dialog-actions align="end" class="dialog-buttons">
+  <a download class="sc-default-button" id="download-file-button"
+    (click)="cloudDownload(order.reversionRequestDetailViewModel.attachedEvidence);"
+    mat-button>
+    <mat-icon class="mat-18">file_download</mat-icon>
+    {{'actions.view_attachments' | translate}}
+  </a>
+  <a download class="sc-default-button" id="download-file-button"
+    (click)="onNoClick()" mat-button>
+    {{'actions.close' | translate}}
   </a>
 </mat-dialog-actions>
-<div class="text-validate">
-  <span *ngIf="showMessage">*{{'error.pending.not_attachments' | translate}}</span>
+<div *ngIf="showMessage" class="text-validate">
+  <span class="text">{{'error.pending.not_attachments' | translate}}</span>
 </div>

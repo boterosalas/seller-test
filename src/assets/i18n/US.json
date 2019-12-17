@@ -229,7 +229,7 @@
     "error.exception_brand.max_error": "The entered tariffs can not be over 100",
     "error.exception_brand.min_error": "The entered tariffs can not be under 0",
     "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
-    "error.pending.not_attachments": "There are no attachments",
+    "error.pending.not_attachments": "No attached files",
 
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID",
     "modal.success.register title": "The process was successful!",
