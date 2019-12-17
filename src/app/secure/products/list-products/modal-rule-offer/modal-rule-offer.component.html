@@ -1,8 +1,15 @@
-<p class="type-text">
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch" >
+  <p class="type-text">
+    {{'secure.products.list_products.modal.title' | translate}}
+  </p>
+  <mat-icon>warning</mat-icon>
+</div>
+<!-- <p class="type-text">
   {{'secure.products.list_products.modal.title' | translate}}
-</p>
+  <mat-icon>warning</mat-icon>
+</p> -->
 
 <div mat-dialog-actions class="footer-dialog">
-  <button mat-button [mat-dialog-close]="'false'" mat-stroked-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
-  <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary" (click)="onNoClickOk()">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
+  <button mat-button [mat-dialog-close]="'false'" mat-stroked-button color="primary" (click)="onNoClick()">{{'actions.cancel_min' | translate}}</button>
+  <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary" (click)="onNoClickOk()">{{'actions.confirm_offer' | translate}}</button>
 </div>
