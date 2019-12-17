@@ -19,7 +19,7 @@ export class CreateUnutaryProductComponent implements OnInit {
     this.route.params.subscribe(params => {
       if ( params['ean'] != null) {
         this.ean = params['ean'];
-        this.reference = params['reference']
+        this.reference = params['reference'];
       }
     });
   }

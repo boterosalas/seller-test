@@ -96,7 +96,7 @@ export class ComponentProcessComponent implements OnInit {
       this.isLinear = false;
       this.service.validateEan(this.ean).subscribe(res => {
         if (res['data']) {
-          if (this.reference !== '' || this.reference !== null || this.reference !== ' ') {
+          if (this.reference === '' || this.reference === null || this.reference === ' ') {
             this.reference = 'null';
           }
           const params = this.ean + '/' + this.reference;

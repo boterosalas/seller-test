@@ -759,7 +759,7 @@ export class ProductBasicInfoComponent implements OnInit {
                     this.formBasicInfo.controls.Keyword.setValue(null);
                     this.inputRequired = true;
                 }
-                if ( detailProduct.son && detailProduct.son.length > 0) {
+                if ( detailProduct.children && detailProduct.children.length > 0) {
                     this.setChildren(detailProduct);
                 }
                 this.saveKeyword();
@@ -774,23 +774,23 @@ export class ProductBasicInfoComponent implements OnInit {
  * @memberof ProductBasicInfoComponent
  */
 setChildren(detailProduct: any) {
-        if (detailProduct && detailProduct.son && detailProduct.son.length > 0) {
-            for (let i = 0; i < detailProduct.son.length; i++) {
+        if (detailProduct && detailProduct.children && detailProduct.children.length > 0) {
+            for (let i = 0; i < detailProduct.children.length; i++) {
                 const newForm = {
                     form: new FormGroup({
-                        Ean: new FormControl({value: detailProduct.son[i].ean, disabled: true},
+                        Ean: new FormControl({value: detailProduct.children[i].ean, disabled: true},
                             [
                                 Validators.required, Validators.pattern(this.getValue('ean'))
                             ]),
-                        Size: new FormControl('M',
+                        Size: new FormControl(detailProduct.children[i].size,
                             [
                                 Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                             ]),
-                        HexColorCodePDP: new FormControl('#5f1f1f',
+                        HexColorCodePDP: new FormControl('#' + detailProduct.children[i].hexColourCodePDP,
                             [
                                 Validators.required,
                             ]),
-                        HexColorCodeName: new FormControl('RED',
+                        HexColorCodeName: new FormControl(detailProduct.children[i].color,
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
                             ]),
@@ -798,9 +798,9 @@ setChildren(detailProduct: any) {
                         )
                     }),
                     Show: false,
-                    colorPick: '#5f1f1f',
+                    colorPick: '#' + detailProduct.children[i].hexColourCodePDP,
                     colorPick2: null,
-                    colorSelected: 'Azul'
+                    colorSelected: detailProduct.children[i].color
                 };
                 let t = newForm.form.controls.HexColorCodePDP.disable();
                 t = newForm.form.controls.HexColorCodeName.enable();

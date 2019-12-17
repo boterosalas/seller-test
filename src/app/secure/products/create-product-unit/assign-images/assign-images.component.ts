@@ -18,9 +18,9 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   _detailProduct: any;
   arrayImageDadTecnology: any = ['', '', '', '', ''];
   arrayImageDadClothing: any = ['', '', '', '', ''];
+  arrayImageDadClothingPtrueba: any = ['', '', '', '', ''];
   @Input() set detailProduct(value: any) {
     if (value) {
-      console.log(value);
       this._detailProduct = value;
       if (this._detailProduct.productType === 'Technology') {
         this.arrayImageDadTecnology = [
@@ -31,22 +31,19 @@ export class AssignImagesComponent implements OnInit, OnChanges {
           this._detailProduct.imageUrl5,
         ];
       } else {
-        this.arrayImageDadClothing = [
-          [
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
-          ],
-          [
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            // 'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg',
-            'https://www.eurekaelectrodomesticos.es/4754-thickbox_default/blusens-h327b24ba-televisor-led-1366-x-768-p.jpg'
-          ]
-        ];
+        if (this._detailProduct && this._detailProduct.children && this._detailProduct.children.length > 0){
+          this.arrayImageDadClothing = [];
+          this._detailProduct.children.forEach(item => {
+              this.arrayImageDadClothing.push([
+                item.imageUrl1,
+                item.imageUrl2,
+                item.imageUrl3,
+                item.imageUrl4,
+                item.imageUrl5,
+              ]);
+            });
+        }
+        console.log(this.arrayImageDadClothing);
       }
     }
   }
