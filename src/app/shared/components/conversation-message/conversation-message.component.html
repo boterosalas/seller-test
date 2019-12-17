@@ -6,10 +6,10 @@
   <div class="sh-message__content">
     <span class="sh-message__small-text sh-message__small-text--bottom-space"
       *ngIf="configuration.theme === _THEMES.ALTER">
-      {{ date ? (date | date: "MM, d, y - HH:mm:ss") : '' }} asdfasdfasdf351465135135152
+      {{ date ? (date | date: "MM, d, y - HH:mm:ss") : '' }}
     </span>
     <p>{{ message ? message : '' }}</p>
-    <span class="sh-message__small-text">
+    <span class="sh-message__small-text" id="conversation-message-{{caseId}}">
       {{ name ? name : '' }}
     </span>
   </div>
