@@ -15,9 +15,9 @@
   </div>
   <div class="sh-message__controls sh-message__controls--right" *ngIf="configuration.reply">
     <button [disabled]="disabled" (click)="replyEvent.emit()"
-      class="mat-raised-button sh-message__button sh-message__button--secondary" [ngClass]="
-        disabledClass ? 'sh-message__button--secondary-disabled' : ''
-      ">
+      class="mat-raised-button sh-message__button sh-message__button--secondary"
+      [ngClass]="disabledClass ? 'sh-message__button--secondary-disabled' : ''"
+      id="conversation-message-reply-btn-{{caseId}}">
       {{'secure.parametize.support_claims.reply-btn'| translate}}
     </button>
   </div>

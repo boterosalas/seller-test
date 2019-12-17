@@ -10,7 +10,7 @@
         (opened)="markAsRead($event)" [index]="i">
         <ng-container *itemCaseList>
           <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
-            [disabledClass]="item.status === 'Cerrado'"></app-case-summary>
+            [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
         </ng-container>
       </app-drop-down-box>
     </ng-container>
