@@ -199,7 +199,6 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
-
     this.myform.clearValidators();
     this.scCategories = [];
     this.scSubcategories = [];
@@ -226,7 +225,6 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickCategoryOption(item: CaseCategory) {
-
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
