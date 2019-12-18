@@ -535,7 +535,7 @@ export class DetailOfferComponent implements OnInit {
     const valPrice = +this.formUpdateOffer.controls.Price.value;
     const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
 
-    if (+this.dataOffer.discountPrice > 1) {
+    if (+this.dataOffer.discountPrice !== 0) {
       if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
         this.openDialogModalRule();
       } else {
