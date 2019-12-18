@@ -538,6 +538,10 @@ export class DetailOfferComponent implements OnInit {
     if (+this.dataOffer.discountPrice !== 0) {
       if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
         this.openDialogModalRule();
+      } else if (valDiscount === 0 || valDiscount === null || valDiscount === undefined) {
+        if (valPrice < valLowDown || valPrice > valLowUp) {
+          this.openDialogModalRule();
+        }
       } else {
         // this.loadingService.viewSpinner();
         this.sameInfoUpdate();
