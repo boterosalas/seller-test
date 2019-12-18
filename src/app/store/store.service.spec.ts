@@ -34,7 +34,6 @@ describe('Service: Store', () => {
   it('Should change the lenguage of appConfiguration', (done: DoneFn) => {
     storeService.changeLanguage('US');
     storeService.getStateConfiguration().subscribe((s: ConfigurationState) => {
-      console.log(s);
       expect(s.language).toBe('US');
       done();
     });

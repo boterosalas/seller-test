@@ -535,7 +535,7 @@ export class DetailOfferComponent implements OnInit {
     const valPrice = +this.formUpdateOffer.controls.Price.value;
     const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
 
-    if (valDiscount) {
+    if (+this.dataOffer.discountPrice > 1) {
       if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
         this.openDialogModalRule();
       } else {
@@ -547,6 +547,8 @@ export class DetailOfferComponent implements OnInit {
     } else {
       // NO tiene precio con dscto
       if (valPrice < valHighDown || valPrice > valHighUp) {
+        this.openDialogModalRule();
+      } else if (valDiscount < valHighDown || valDiscount > valHighUp) {
         this.openDialogModalRule();
       } else {
         // this.loadingService.viewSpinner();
