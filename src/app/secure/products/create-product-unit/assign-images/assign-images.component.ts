@@ -43,7 +43,6 @@ export class AssignImagesComponent implements OnInit, OnChanges {
               ]);
             });
         }
-        console.log(this.arrayImageDadClothing);
       }
     }
   }

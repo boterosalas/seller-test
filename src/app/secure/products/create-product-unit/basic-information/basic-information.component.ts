@@ -732,6 +732,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     getInformationBasic(detailProduct: any) {
+        console.log(detailProduct);
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
                 const packingData = this.formBasicInfo.controls.packing as FormGroup;
@@ -742,7 +743,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.formBasicInfo.controls.Detail.setValue(detailProduct.details);
                 this.formBasicInfo.controls.MeasurementUnit.setValue(detailProduct.measurementUnit);
                 this.formBasicInfo.controls.ConversionFactor.setValue(detailProduct.conversionFactor);
-                this.formBasicInfo.controls.shippingSize.setValue(detailProduct.shipping_size);
+                this.formBasicInfo.controls.shippingSize.setValue(detailProduct.skuShippingSize);
                 packingData.controls.WidthPacking.setValue(detailProduct.packageWidth);
                 packingData.controls.HighPacking.setValue(detailProduct.packageHeight);
                 packingData.controls.LongPacking.setValue(detailProduct.packageLength);

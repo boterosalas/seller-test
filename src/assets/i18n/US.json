@@ -830,6 +830,7 @@
     "secure.products.create_product_unit.component_process.save": "Save",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "The product modification request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Home",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Retry",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "An error has occurred",

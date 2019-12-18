@@ -1,16 +1,17 @@
 <div *ngIf="response">
-  <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="!response.response.data.error">
+  <h4 id="dialogSave" class="succes-string" mat-subheader *ngIf="response.response.error === 0">
     <mat-icon mat-list-icon class="icon-color-succes">check</mat-icon>
-    {{'secure.products.create_product_unit.component_process.dialog_save.product_creation_request' | translate}}
+    <span *ngIf="!response.response.ean">{{'secure.products.create_product_unit.component_process.dialog_save.product_creation_request' | translate}}</span>
+    <span *ngIf="response.response.ean">{{'secure.products.create_product_unit.component_process.dialog_save.product_modification_request' | translate}}</span>
   </h4>
 
-  <h4 id="dialogSave" *ngIf="response.response.data.error > 0"> {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.errors > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}}
-    {{response.errors}} {{response.errors > 1 ? errors : error }} {{'secure.products.create_product_unit.specifications.dialog.try_create_products' | translate}}
+  <h4 id="dialogSave" *ngIf="response.response.error > 0"> {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}}
+    {{response.response.error}} {{response.response.error > 1 ? errors : error }} {{'secure.products.create_product_unit.specifications.dialog.try_create_products' | translate}}
   </h4>
 
-  <mat-divider *ngIf="response.response.data.error > 0"></mat-divider>
+  <mat-divider *ngIf="response.response.error > 0"></mat-divider>
 
-  <mat-nav-list *ngIf="response.response.data.error > 0">
+  <mat-nav-list *ngIf="response.response.error > 0">
     <mat-list-item *ngFor="let item of response.response.productNotifyViewModel">
       <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
       <h4 matLine>EAN:{{item.ean}}{{item.Ean}}</h4>
@@ -20,6 +21,6 @@
 </div>
 
 <mat-dialog-actions class="footer-Save">
-  <button mat-raised-button color="primary" *ngIf="!response.response.data.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']">{{'secure.products.create_product_unit.component_process.dialog_save.home' | translate}}</button>
-  <button mat-raised-button color="primary" *ngIf="response.response.data.error > 0" (click)="onNoClick()">{{'secure.products.create_product_unit.component_process.dialog_save.retry' | translate}}</button>
+  <button mat-raised-button color="primary" *ngIf="!response.response.error" (click)="onNoClick()" [routerLink]="['/securehome/seller-center']">{{'secure.products.create_product_unit.component_process.dialog_save.home' | translate}}</button>
+  <button mat-raised-button color="primary" *ngIf="response.response.error > 0" (click)="onNoClick()">{{'secure.products.create_product_unit.component_process.dialog_save.retry' | translate}}</button>
 </mat-dialog-actions>

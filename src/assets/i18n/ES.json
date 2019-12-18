@@ -830,6 +830,7 @@
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "La solicitud de modificación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Inicio",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Reintentar",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "Error presentado",

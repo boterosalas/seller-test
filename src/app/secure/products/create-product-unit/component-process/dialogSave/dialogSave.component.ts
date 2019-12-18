@@ -20,6 +20,7 @@ export class SaveProcessDialogComponent {
         private languageService: TranslateService
       ) {
         this.response = res;
+        console.log(this.response.error);
         this.has = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.has');
         this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
         this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');

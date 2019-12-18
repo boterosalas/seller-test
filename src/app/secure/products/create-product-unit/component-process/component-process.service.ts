@@ -210,6 +210,7 @@ export class ProcessService {
         private api: EndpointService,
         private languageService: TranslateService
         ) {
+        this.resetProduct();
         this.productData.AssignEan = false;
         this.refreshSpecifications();
     }
@@ -336,6 +337,7 @@ export class ProcessService {
             this.productData.EanCombo = data.EanCombo.join();
         }
         this.change.emit(this.views);
+        console.log(this.productData);
     }
 
     /**
@@ -393,12 +395,14 @@ export class ProcessService {
      * @returns {Observable<{}>}
      * @memberof ProcessService
      */
-    public saveInformationUnitreation(): Observable<{}> {
+    public saveInformationUnitreation(ean: any): Observable<{}> {
         this.sendFieldMeta();
-        // return new Observable(observer => {
-        //     observer.next(this.productData);
-        // });
-        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
+        if (ean) {
+            return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
+        } else {
+            return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
+        }
+
     }
 
     resetProduct() {

@@ -66,6 +66,7 @@ export class ComponentProcessComponent implements OnInit {
    * @memberof ComponentProcessComponent
    */
   ngOnInit() {
+    this.process.resetProduct();
     this.userService.isAuthenticated(this);
     this.eanFormGroup = this.fb.group({
       eanCtrl: ['', Validators.required]
@@ -206,15 +207,21 @@ export class ComponentProcessComponent implements OnInit {
     // call to the bulk load product service
     if (!this.saving) {
       this.saving = true;
-      this.process.saveInformationUnitreation().subscribe(result => {
+      this.process.saveInformationUnitreation(this.ean).subscribe(result => {
         const data = result;
+        console.log(result);
         this.loadingService.closeSpinner();
         this.saving = false;
-        if (data['data'] !== null && data['data'] !== undefined) {
-          if (data['data'].error === 0) {
+        if (result && result['body'] && result['body'].data && result['body'].data.productNotify) {
+          if (result['body'].data.error === 0) {
             this.process.resetProduct();
           }
-          this.openDialogSendOrder2(data);
+          this.openDialogSendOrder2(result['body'].data.productNotify, result['body'].data.error, this.ean );
+        } else if (result && result['data']) {
+             if (result['data'].error === 0) {
+            this.process.resetProduct();
+          }
+          this.openDialogSendOrder2(data['data'].productNotify, result['data'].error, this.ean);
         }
       }, error => {
         this.saving = false;
@@ -229,20 +236,17 @@ export class ComponentProcessComponent implements OnInit {
    * @param {*} res
    * @memberof ComponentProcessComponent
    */
-  openDialogSendOrder2(res: any): void {
-    if (!res.data) {
-      res.productNotifyViewModel = res.data.productNotify;
-    } else {
-      // Condicional apra mostrar errores mas profundos. ;
-      if (res.data) {
-        res.productNotifyViewModel = res.data.productNotify;
-      }
-    }
+  openDialogSendOrder2(res: any, error: any, ean: any): void {
+    const sendModal = {
+      productNotifyViewModel : res,
+      error: error,
+      ean: ean
+    };
     const dialogRef = this.dialog.open(SaveProcessDialogComponent, {
       width: '95%',
       disableClose: true,
       data: {
-        response: res
+        response: sendModal
       },
     });
     dialogRef.afterClosed().subscribe(resdialog => {

@@ -95,6 +95,9 @@ export const endpoints = {
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
+      //
+      postUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
+      patchUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       // Billing orders visualize.
