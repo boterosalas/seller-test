@@ -65,4 +65,5 @@ export interface Case {
   customerEmail: string;
   read: boolean;
   followLast: Array<any>;
+  caseNumber: string;
 }

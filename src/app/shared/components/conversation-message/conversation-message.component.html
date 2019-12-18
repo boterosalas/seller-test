@@ -8,8 +8,8 @@
       *ngIf="configuration.theme === _THEMES.ALTER">
       {{ date ? (date | date: "MM, d, y - HH:mm:ss") : '' }}
     </span>
-    <p>{{ message ? message : '' }}</p>
-    <span class="sh-message__small-text" id="conversation-message-{{caseId}}">
+    <p id="conversation-message-{{caseId}}">{{ message ? message : '' }}</p>
+    <span class="sh-message__small-text">
       {{ name ? name : '' }}
     </span>
   </div>
