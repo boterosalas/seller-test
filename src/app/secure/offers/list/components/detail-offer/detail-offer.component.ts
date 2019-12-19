@@ -676,6 +676,7 @@ export class DetailOfferComponent implements OnInit {
             }
           } else if (data.body.successful === 0 && data.body.error === 0) {
             this.modalService.showModal('errorService');
+            this.loadingService.closeSpinner();
             this.params = [];
             this.oferts = [];
           }
@@ -687,6 +688,7 @@ export class DetailOfferComponent implements OnInit {
         }
 
         if (result.body.data.error === 1) {
+          this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
         }
       }
