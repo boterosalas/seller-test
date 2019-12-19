@@ -527,7 +527,6 @@ export class DetailOfferComponent implements OnInit {
   }
 
   validateRulesOfert(): void {
-    // this.sendOffer = false;
     const valHighUp = +this.dataOffer.price * 1.30;
     const valHighDown = +this.dataOffer.price * 0.70;
     const valLowUp = +this.dataOffer.discountPrice * 1.30;
@@ -535,27 +534,28 @@ export class DetailOfferComponent implements OnInit {
     const valPrice = +this.formUpdateOffer.controls.Price.value;
     const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
 
-    if (+this.dataOffer.discountPrice !== 0) {
-      if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
-        this.openDialogModalRule();
-      } else if (valDiscount === 0 || valDiscount === null || valDiscount === undefined) {
-        if (valPrice < valLowDown || valPrice > valLowUp) {
+    if (this.formUpdateOffer.controls.DiscountPrice.value !== 0 && this.formUpdateOffer.controls.DiscountPrice.value !== '') {
+      if (this.dataOffer.discountPrice === '0.00' || this.dataOffer.discountPrice === 0.00 || this.dataOffer.discountPrice === '0') {
+        if (valDiscount && (valDiscount < valHighDown || valDiscount > valHighUp)) {
           this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
         }
       } else {
-        // this.loadingService.viewSpinner();
-        this.sameInfoUpdate();
-        this.dataUpdateOffer['priceApproval'] = 0;
-        this.submitUpdateOffer(this.dataUpdateOffer);
+        if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       }
     } else {
-      // NO tiene precio con dscto
-      if (valPrice < valHighDown || valPrice > valHighUp) {
-        this.openDialogModalRule();
-      } else if (valDiscount < valHighDown || valDiscount > valHighUp) {
+      if (valPrice && ( valPrice < valLowDown  || valPrice > valLowUp )) {
         this.openDialogModalRule();
       } else {
-        // this.loadingService.viewSpinner();
         this.sameInfoUpdate();
         this.dataUpdateOffer['priceApproval'] = 0;
         this.submitUpdateOffer(this.dataUpdateOffer);
