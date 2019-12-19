@@ -152,9 +152,9 @@
         <mat-select id="suport-modal-input-typeOfRequirement" formControlName="typeOfRequirement"
           [placeholder]="'secure.parametize.support_modal.type_case' | translate">
           <ng-container *ngFor="let item of scReasonTypes; let i = index">
-            <mat-option [value]="item">
+            <mat-option [value]="item.value">
               <span id="{{ item }}-{{ i }}">
-                {{ item }}
+                {{ item.value }}
               </span>
             </mat-option>
           </ng-container>

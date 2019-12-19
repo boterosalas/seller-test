@@ -1,65 +1,43 @@
 <div class="case-list-content">
   <mat-accordion class="case-list-expandable">
-    <mat-expansion-panel
-      [expanded]="isOpen"
-      (opened)="opened.emit(data); this.panelOpenState = true; read = true"
-      (closed)="panelOpenState = false"
-    >
+    <mat-expansion-panel [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true"
+      (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
-        <div
-          [ngClass]="read ? '' : 'bold-text'"
-          class="case-list-detail"
-          fxLayout
-          fxLayout.xs="row"
-          fxLayoutAlign="center center"
-          fxLayoutGap="10px"
-          fxLayoutGap.xs="0"
-        >
-          <div
-            class="case-list-detail--item-detail"
-            fxFlex="5%"
-            fxLayoutAlign="center center"
-            class="no-select"
-          >
-            <span
-              [ngClass]="
+        <div [ngClass]="read ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
+          fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+          <div class="case-list-detail--item-detail" fxFlex="5%" fxLayoutAlign="center center" class="no-select">
+            <span [ngClass]="
                 !panelOpenState
                   ? 'item-detail-arrow'
                   : 'item-detail-arrow--active'
-              "
-            >
+              ">
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-id-{{index}}">
             {{ data.caseNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="15%">
+          <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-number-{{index}}">
             {{ data.orderNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-reason-{{index}}">
             {{ data.reasonPQR }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="30%">
+          <div class="case-list-detail--item-detail" fxFlex="30%" id="dpbox-case-detail-{{index}}">
             <p>{{ data.reasonDetail }}</p>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="15%">
+          <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-date-{{index}}">
             {{ data.createDate | dateNoGtm | date }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%">
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
-          <div
-            class="case-list-detail--item-detail case-list-detail--content-center"
-            fxFlex="5%"
-          >
+          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
             <mat-icon>question_answer</mat-icon>
           </div>
-          <div
-            class="case-list-detail--item-detail case-list-detail--content-center"
-            fxFlex="5%"
-          >
-            <mat-icon id="dpbox-attachment-icon-{{index}} " *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
+          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
+            <mat-icon id="dpbox-attachment-icon-{{index}} "
+              *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
               attachment
             </mat-icon>
           </div>

@@ -132,6 +132,6 @@
 
   <div fxLayout="row" fxLayoutAlign="center" class="buttonsSend">
     <button mat-stroked-button color="primary" type="button" [innerHTML]="'actions.cancel_min' | translate" (click)="cleanFilter()"></button>
-    <button mat-flat-button color="primary" type="submit" [innerHTML]="'permissions.Ofertar' | translate"  [disabled]="!createOfertExpandetProduct.form.valid || showButton === true" (click)="sendDataToService()"></button>
+    <button mat-flat-button color="primary" type="submit" [innerHTML]="'permissions.Ofertar' | translate"  [disabled]="!createOfertExpandetProduct.form.valid || showButton === true" (click)="sendDataToService(0)"></button>
   </div>
 </form>

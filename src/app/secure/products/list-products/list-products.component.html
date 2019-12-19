@@ -63,7 +63,7 @@
           <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | translate}} </button>
           <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
           <button mat-flat-button color="primary" type="submit" (click)="filterApply(drawer)"
-          [disabled]="!createfilterProduts.form.valid">{{'filters.filter' | translate}}</button>
+          [disabled]="!createfilterProduts.form.valid || !createfilterProduts.form.touched">{{'filters.filter' | translate}}</button>
         </div>
       </div>
     </form>

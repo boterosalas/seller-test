@@ -14,6 +14,8 @@ export class CaseSummaryComponent implements OnInit {
 
   @Input() disabled: false;
 
+  @Input() indexParent: string;
+
   @Input() disabledClass: false;
 
   @Output() clickResponse = new EventEmitter<any>();
@@ -63,4 +65,5 @@ export interface Case {
   customerEmail: string;
   read: boolean;
   followLast: Array<any>;
+  caseNumber: string;
 }

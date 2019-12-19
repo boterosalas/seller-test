@@ -169,6 +169,7 @@
     "actions.page": "Ítems por página",
     "actions.next_page": "Página siguiente",
     "actions.previous_page": "Página anterior",
+    "actions.confirm_offer": "Confirmar Oferta",
 
     "errors.required": "Este cambio es obligatorio",
     "errors.invalid_name": "Nombre invalido",
@@ -637,7 +638,7 @@
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "no indexado, por favor intentar más tarde.",
 
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "Se han presentado",
-    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "error (es) al momento de cargar las ofertas.",
+    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "novedad(es) al momento de cargar las ofertas.",
 
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "debería tener el formato (# a #), los números deben ser mayores a 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "El tipo de moneda debe ser COP o USD.",
@@ -923,6 +924,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "El tipo de moneda se ha cambiado a ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "El formato es inválido",
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
+
+    "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
 
     "secure.parametize.title_toolbar": "Parametrización",
     "secure.parametize.brands.title_filter_brand": "Filtro Marcas",
