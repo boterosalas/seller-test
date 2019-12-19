@@ -298,10 +298,14 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   createValidators() {
+    let priceCurrent = '';
+    if (this.dataOffer.discountPrice !== '0.00') {
+      priceCurrent = this.dataOffer.discountPrice;
+    }
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.DiscountPrice = new FormControl(priceCurrent, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
@@ -553,12 +557,22 @@ export class DetailOfferComponent implements OnInit {
         }
       }
     } else {
-      if (valPrice && ( valPrice < valLowDown  || valPrice > valLowUp )) {
-        this.openDialogModalRule();
+      if (this.dataOffer.discountPrice !== '0.00') {
+        if (valPrice < valLowDown || valPrice >  valLowUp) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       } else {
-        this.sameInfoUpdate();
-        this.dataUpdateOffer['priceApproval'] = 0;
-        this.submitUpdateOffer(this.dataUpdateOffer);
+        if (valPrice && ( valPrice < valHighDown  || valPrice > valHighUp )) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       }
     }
   }
