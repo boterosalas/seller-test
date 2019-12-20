@@ -50,6 +50,13 @@
                   <mat-icon *ngIf="item.isUpdatedStock == 0" class="icon closeIsUpdatedStock">close</mat-icon>
               </span>
             </p>
+            <p>
+              {{'secure.offers.list.components.detail_offer.change_extreme_price' | translate}}: 
+              <span class="">
+                  <mat-icon *ngIf="item.priceApproval == 1" class="icon checkIsUpdatedStock">check</mat-icon>
+                  <span *ngIf="item.priceApproval == 0">N/A</span>
+              </span>
+            </p>
           </span>
 
           <mat-grid-list class="grid-list" cols="4" rowHeight="30px">

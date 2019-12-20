@@ -612,6 +612,7 @@
     "secure.offers.list.components.detail_offer.cop": "COP",
     "secure.offers.list.components.detail_offer.usd": "USD",
     "secure.offers.list.components.detail_offer.update_stock": "Stock update",
+    "secure.offers.list.components.detail_offer.change_extreme_price": "Extreme price change approval",
     "secure.offers.list.components.detail_offer.snackbar_offer_product": "This product is not ready for an offer to be associated, please try again later.",
     "secure.offers.list.components.detail_offer.snackbar_currency": "The currency has been changed to ",
     "secure.offers.list.components.detail_offer.id_offer": "Offer ID: ",

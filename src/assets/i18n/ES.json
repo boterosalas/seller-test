@@ -612,6 +612,7 @@
     "secure.offers.list.components.detail_offer.cop": "COP",
     "secure.offers.list.components.detail_offer.usd": "USD",
     "secure.offers.list.components.detail_offer.update_stock": "Actualización de Inventario",
+    "secure.offers.list.components.detail_offer.change_extreme_price": "Aprobación de Cambio Extremo de Precio",
     "secure.offers.list.components.detail_offer.snackbar_offer_product": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
     "secure.offers.list.components.detail_offer.snackbar_currency": "El tipo de moneda se ha cambiado a ",
     "secure.offers.list.components.detail_offer.id_offer": "ID de Oferta: ",
