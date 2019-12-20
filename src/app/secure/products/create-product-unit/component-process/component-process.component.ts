@@ -137,7 +137,7 @@ export class ComponentProcessComponent implements OnInit {
 
   async getDataUser() {
     this.userParams.getUserData().then(data => {
-      if (data.sellerProfile !== this.constantes.seller) {
+      if (data.sellerProfile === this.constantes.administrator &&  this.ean === undefined ) {
         this.router.navigate([`/${RoutesConst.home}`]);
       }
     });
