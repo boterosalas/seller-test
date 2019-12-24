@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuModel, historicDevolution } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 @Component({
   selector: 'app-historical-devolution',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoricalDevolutionComponent implements OnInit {
 
-  constructor() { }
+  permissionComponent: MenuModel;
+
+
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+    this.permissionComponent = this.authService.getMenu(historicDevolution);
   }
 
 }
