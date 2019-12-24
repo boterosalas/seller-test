@@ -18,7 +18,8 @@ import {
   InDevolutionModule,
   InValidationModule,
   OrdersModule,
-  PendingDevolutionModule
+  PendingDevolutionModule,
+  HistoricalDevolutionModule
 } from '@app/secure/orders';
 import { BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
 import { ManageModule, RegisterModule } from '@app/secure/seller';
@@ -49,6 +50,7 @@ import { ListReportsModule } from './reports/reports.module';
     OrdersModule,
     InValidationModule,
     PendingDevolutionModule,
+    HistoricalDevolutionModule,
     InDevolutionModule,
     BillingModule,
     RegisterModule,
