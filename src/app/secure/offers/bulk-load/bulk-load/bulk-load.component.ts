@@ -1283,7 +1283,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       .subscribe(
         (result: any) => {
           if (result) {
-            if (result.data.successful === result.data.totalProcess) {
+            if ((result.data.successful === result.data.totalProcess) && (result.data.error === 0)) {
               this.openModal(1, null);
             } else {
               const { offerNotifyViewModels } = result.data;
