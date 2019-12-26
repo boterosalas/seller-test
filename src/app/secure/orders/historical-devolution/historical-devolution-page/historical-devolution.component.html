@@ -1,3 +1,159 @@
-<p>
-  historical-devolution works!
-</p>
+<div class="content-order my-content">
+
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+
+    <div fxFlex="100" class="light-content">
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
+      <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions
+        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)">
+      </app-toolbar-options>
+      <!-- Toolbar de las opciones para la orden -->
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders">
+
+      <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- orderNumber Column -->
+        <ng-container matColumnDef="orderNumber">
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
+            mat-sort-header> {{'secure.orders.in_devolution.in_devolution_page.order' | translate}}
+          </mat-header-cell>
+          <mat-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-order">{{element.orderNumber}}</p>
+          </mat-cell>
+
+        </ng-container>
+
+        <!-- orderDate Column -->
+        <ng-container matColumnDef="orderDate">
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="true"
+            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            {{'secure.orders.in_devolution.in_devolution_page.date_order' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
+            <p class="sc-date-content-table">{{element.orderDate | date}} </p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- creationDate Column -->
+        <ng-container matColumnDef="creationDate">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            {{'secure.orders.in_devolution.in_devolution_page.date_request' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
+            <p class="sc-date-content-table">{{element.creationDate | date}} </p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- maximumDeliveryDate Column -->
+        <ng-container matColumnDef="maximumDeliveryDate">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
+            fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            {{'secure.orders.in_validation.in_validation_page.max_response_date' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
+            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-date-content-table">{{element.maximumDeliveryDate | date}} </p>
+          </mat-cell>
+        </ng-container>
+
+
+        <!-- reversionRequestReason Column -->
+        <ng-container matColumnDef="reversionRequestReason">
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="false"
+            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header
+            class="center-product-list">
+            {{'secure.seller.list.reason' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
+            <p class="sc-text-normal center-product-list">{{element.reversionRequestReason}} </p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- comment Column -->
+        <ng-container matColumnDef="comment">
+          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="false"
+            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header
+            class="center-product-list">
+            {{'secure.orders.in_devolution.in_devolution_page.commnet' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
+            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
+            <div class="center-product-list">
+              <button id="button-order-{{element.orderNumber}}-comment" color="primary"
+                class="sc-button-toolbar no-button button-toolbar"
+                mat-button>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+
+        <!-- detailOrder Column -->
+        <ng-container matColumnDef="detailOrder">
+          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
+            *matHeaderCellDef mat-sort-header>
+            {{'shared.actions' | translate}}
+          </mat-header-cell>
+          <mat-cell fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" *matCellDef="let element">
+            <div class="center-product-list">
+              <button id="dropdown-button-order-{{element.orderNumber}}" color="primary"
+                class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
+                <mat-icon>arrow_drop_down</mat-icon>
+                <span>{{'shared.actions' | translate}}</span>
+              </button>
+              <mat-menu #orderOptions="matMenu">
+                <button id="print-rot-order-{{element.orderNumber}}" mat-menu-item>
+                  <mat-icon>thumb_up</mat-icon>
+                  <span>{{'actions.accpet_min' | translate}}</span>
+                </button>
+
+                <button id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item>
+                  <mat-icon>thumb_down</mat-icon>
+                  <span>{{'secure.orders.in_devolution.in_devolution_page.rejected' | translate}}</span>
+                </button>
+
+                <button fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false"
+                  id="button-order-{{element.orderNumber}}-comment" mat-menu-item>
+                  <mat-icon>comment</mat-icon>
+                  <span>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}</span>
+                </button>
+
+                <button id="viewDetail-button-order-{{element.orderNumber}}" mat-menu-item>
+                  <mat-icon>more_vert</mat-icon>
+                  <span>{{'actions.show_detail' | translate}}</span>
+                </button>
+              </mat-menu>
+            </div>
+
+          </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+
+        <mat-row id="order-{{row.orderNumber}}" *matRowDef="let row; columns: displayedColumns;"
+          class="element-row personal-row-table">
+        </mat-row>
+      </mat-table>
+
+      <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength ">
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+        <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
+        </p>
+        <button id="load-all-orders-button" mat-button color="primary">
+          {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | translate}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
