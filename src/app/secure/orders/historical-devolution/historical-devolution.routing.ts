@@ -18,7 +18,7 @@ const routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [],
+  exports: [RouterModule],
   providers: []
 })
 export class HistoricalDevolutionRoutingModule {}

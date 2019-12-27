@@ -1,15 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuModel, historicDevolution } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatSort,
+  MatDialog
+} from '@angular/material';
 import { HistoricalDevolutionService } from '../historical-devolution.service';
 import {
   HistoricalDevolutionEntity,
   SearchFormEntity,
-  Const
+  Const,
+  UserInformation
 } from '@app/shared';
-import { LoadingService } from '@app/core';
+import { LoadingService, UserParametersService, Logger } from '@app/core';
 import { isEmpty } from 'lodash';
+import { ViewCommentComponent } from '../view-comment/view-comment.component';
+import { HistoricalDevolutionModalComponent } from '../historical-devolution-modal/historical-devolution-modal.component';
+import { ToolbarOptionsComponent } from '@app/shared/components';
+
+const log = new Logger('HistoricalDevolutionComponent');
 
 @Component({
   selector: 'app-historical-devolution',
@@ -18,19 +29,25 @@ import { isEmpty } from 'lodash';
 })
 export class HistoricalDevolutionComponent implements OnInit {
   // Elemento paginador
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) public sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions') toolbarOption;
-  // Columnas que se visualizan en la tabla
+  @ViewChild(ToolbarOptionsComponent)
+  public toolbarOption: ToolbarOptionsComponent;
 
+  public user: UserInformation;
+
+  /** Columnas que se visulizaran en la tabla */
   public displayedColumns = [
     'orderNumber',
     'orderDate',
     'creationDate',
-    'maximumDeliveryDate',
-    'reversionRequestReason'
+    // 'maximumDeliveryDate',
+    'reversionRequestStatus',
+    'reversionRequestReason',
+    // 'comment',
+    'detailOrder'
   ];
 
   public informationToForm: SearchFormEntity = {
@@ -50,56 +67,52 @@ export class HistoricalDevolutionComponent implements OnInit {
   // contendra la Información para la tabla
   public dataSource: MatTableDataSource<HistoricalDevolutionEntity>;
   public numberElements = 0;
+  public currentEventPaginate: any;
 
-  permissionComponent: MenuModel;
-  currentEventPaginate: any;
+  public permissionComponent: MenuModel;
 
   constructor(
     private authService: AuthService,
     private __historicalService: HistoricalDevolutionService,
-    private __loadingService: LoadingService
+    private __loadingService: LoadingService,
+    public dialog: MatDialog,
+    public userParams: UserParametersService
   ) {}
 
   ngOnInit() {
     this.permissionComponent = this.authService.getMenu(historicDevolution);
-    this.toolbarOption.getOrdersList();
-    // this.getHistorical();
+    this.getDataUser();
   }
 
-  getHistorical() {
-    this.__historicalService.getHistorical().subscribe(data => {
-      console.log(data);
-      this.orderListLength = data.length === 0;
-      this.dataSource = new MatTableDataSource(data);
-      console.log(this.dataSource);
-    });
+  public async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    this.toolbarOption.getOrdersList();
   }
 
   /**
-   * Método para obtener la lista de órdenes.
-   * @param {any} $event
-   * @memberof PendingDevolutionComponent
+   * Método para obtener la lista del historico.
+   * @param $event
+   * @memberof HistoricalDevolutionComponent
    */
-  getOrdersList($event) {
+  public getOrdersList($event: {
+    lengthOrder: number;
+    paginator: MatPaginator;
+    category: any;
+  }) {
     if (!$event) {
-      $event = {
-        lengthOrder: 100
-      };
+      $event.lengthOrder = 100;
     }
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
     this.__loadingService.viewSpinner();
-
     this.__historicalService.getHistorical().subscribe(
-      res => {
+      data => {
         this.__loadingService.closeSpinner();
         // guardo el filtro actual para la paginación.
         this.currentEventPaginate = $event;
-        if (isEmpty(res)) {
-          this.orderListLength = res.length === 0;
+        if (isEmpty(data)) {
+          this.orderListLength = data.length === 0;
         }
         // Creo el elemento que permite pintar la tabla
-        this.dataSource = new MatTableDataSource(res);
-        console.log(this.dataSource);
+        this.dataSource = new MatTableDataSource(data);
 
         // this.paginator.pageIndex = 0;
         this.dataSource.paginator = $event.paginator;
@@ -116,9 +129,43 @@ export class HistoricalDevolutionComponent implements OnInit {
   /**
    * Método para cambiar el page size de la tabla órdenes
    * @param {any} $event
-   * @memberof PendingDevolutionComponent
+   * @memberof HistoricalDevolutionComponent
    */
   changeSizeOrderTable($event) {
     this.dataSource.paginator = $event.paginator;
+  }
+
+  /**
+   * Método para desplegar el modal para ver el comentario de la orden
+   * @param item
+   */
+  public openModalCommentOrder(item: HistoricalDevolutionEntity): void {
+    const dialogRef = this.dialog.open(ViewCommentComponent, {
+      width: '50%',
+      data: {
+        user: this.user,
+        historical: item
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      log.info('The modal comment order was closed');
+    });
+  }
+
+  /**
+   * Método para desplegar el modal de detallen de orden
+   * @param {HistoricalDevolutionEntity} item
+   * @memberof HistoricalDevolutionComponent
+   */
+  public openModalDetailHistorical(item: HistoricalDevolutionEntity): void {
+    const dialogRef = this.dialog.open(HistoricalDevolutionModalComponent, {
+      data: {
+        user: this.user,
+        historical: item
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      log.info('The modal detail order was closed');
+    });
   }
 }

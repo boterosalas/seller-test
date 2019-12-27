@@ -362,7 +362,7 @@ export interface HistoricalDevolutionEntity {
   identificationCard: string;
   clientAddress: string;
   clientTelephone: string;
-  clientObservation: null;
+  clientObservation: null | string;
   sellerObservationReversionRequestRefuse: null | string;
   sacObservationReversionRequestRefuse: null | string;
   sellerObservationReceiptRefuse: null | string;

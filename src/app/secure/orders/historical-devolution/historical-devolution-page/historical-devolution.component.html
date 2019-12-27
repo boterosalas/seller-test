@@ -25,7 +25,6 @@
           <mat-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-order">{{element.orderNumber}}</p>
           </mat-cell>
-
         </ng-container>
 
         <!-- orderDate Column -->
@@ -52,7 +51,7 @@
           </mat-cell>
         </ng-container>
 
-        <!-- maximumDeliveryDate Column -->
+        <!-- Fecha de resolucion (Next Feature) - Column
         <ng-container matColumnDef="maximumDeliveryDate">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
             fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
@@ -62,8 +61,24 @@
             fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-date-content-table">{{element.maximumDeliveryDate | date}} </p>
           </mat-cell>
-        </ng-container>
+        </ng-container> -->
 
+        <!-- reversionRequestStatus Column -->
+        <ng-container matColumnDef="reversionRequestStatus">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
+            fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution' | translate}}
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
+            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 2">
+              {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved' | translate}}
+            </p>
+            <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 3">
+              {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected' | translate}}
+            </p>
+          </mat-cell>
+        </ng-container>
 
         <!-- reversionRequestReason Column -->
         <ng-container matColumnDef="reversionRequestReason">
@@ -88,14 +103,13 @@
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
             <div class="center-product-list">
-              <button id="button-order-{{element.orderNumber}}-comment" color="primary"
-                class="sc-button-toolbar no-button button-toolbar"
+              <button (click)="openModalCommentOrder(element)" id="button-order-{{element.orderNumber}}-comment"
+                color="primary" class="sc-button-toolbar no-button button-toolbar"
                 mat-button>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}
               </button>
             </div>
           </mat-cell>
         </ng-container>
-
 
         <!-- detailOrder Column -->
         <ng-container matColumnDef="detailOrder">
@@ -111,23 +125,8 @@
                 <span>{{'shared.actions' | translate}}</span>
               </button>
               <mat-menu #orderOptions="matMenu">
-                <button id="print-rot-order-{{element.orderNumber}}" mat-menu-item>
-                  <mat-icon>thumb_up</mat-icon>
-                  <span>{{'actions.accpet_min' | translate}}</span>
-                </button>
-
-                <button id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item>
-                  <mat-icon>thumb_down</mat-icon>
-                  <span>{{'secure.orders.in_devolution.in_devolution_page.rejected' | translate}}</span>
-                </button>
-
-                <button fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false"
-                  id="button-order-{{element.orderNumber}}-comment" mat-menu-item>
-                  <mat-icon>comment</mat-icon>
-                  <span>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}</span>
-                </button>
-
-                <button id="viewDetail-button-order-{{element.orderNumber}}" mat-menu-item>
+                <button (click)="openModalDetailHistorical(element)"
+                  id="viewDetail-button-order-{{element.orderNumber}}" mat-menu-item>
                   <mat-icon>more_vert</mat-icon>
                   <span>{{'actions.show_detail' | translate}}</span>
                 </button>

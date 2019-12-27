@@ -460,6 +460,10 @@
 
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment",
 
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolution",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
+
     "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
     "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
     "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
