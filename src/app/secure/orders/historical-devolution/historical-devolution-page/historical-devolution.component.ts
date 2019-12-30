@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, EventEmitter } from '@angular/core';
 import { MenuModel, historicDevolution } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import {
@@ -19,6 +19,7 @@ import { isEmpty } from 'lodash';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { HistoricalDevolutionModalComponent } from '../historical-devolution-modal/historical-devolution-modal.component';
 import { ToolbarOptionsComponent } from '@app/shared/components';
+import { ShellComponent } from '@app/core/shell';
 
 const log = new Logger('HistoricalDevolutionComponent');
 
@@ -27,7 +28,7 @@ const log = new Logger('HistoricalDevolutionComponent');
   templateUrl: './historical-devolution.component.html',
   styleUrls: ['./historical-devolution.component.scss']
 })
-export class HistoricalDevolutionComponent implements OnInit {
+export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   // Elemento paginador
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
@@ -37,6 +38,8 @@ export class HistoricalDevolutionComponent implements OnInit {
   public toolbarOption: ToolbarOptionsComponent;
 
   public user: UserInformation;
+
+  public subFilterHistoricalDevolution: EventEmitter<any>;
 
   /** Columnas que se visulizaran en la tabla */
   public displayedColumns = [
@@ -55,7 +58,7 @@ export class HistoricalDevolutionComponent implements OnInit {
     subtitle: 'menu.Historico de devoluciones',
     btn_title: 'secure.orders.filter.title_filter',
     title_for_search: 'secure.orders.filter.title_filter',
-    type_form: 'pending-devolution',
+    type_form: 'historical-devolution',
     information: {
       reversionRequestStatusId: Const.StatusPendingDevolution
     },
@@ -76,12 +79,18 @@ export class HistoricalDevolutionComponent implements OnInit {
     private __historicalService: HistoricalDevolutionService,
     private __loadingService: LoadingService,
     public dialog: MatDialog,
-    public userParams: UserParametersService
+    public userParams: UserParametersService,
+    private shellComponent: ShellComponent
   ) {}
 
   ngOnInit() {
     this.permissionComponent = this.authService.getMenu(historicDevolution);
     this.getDataUser();
+    this.getOrdersListSinceFilterSearchOrder();
+  }
+
+  ngOnDestroy() {
+    this.subFilterHistoricalDevolution.unsubscribe();
   }
 
   public async getDataUser() {
@@ -102,8 +111,11 @@ export class HistoricalDevolutionComponent implements OnInit {
     if (!$event) {
       $event.lengthOrder = 100;
     }
+
+    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
+
     this.__loadingService.viewSpinner();
-    this.__historicalService.getHistorical().subscribe(
+    this.__historicalService.getHistorical(stringSearch).subscribe(
       data => {
         this.__loadingService.closeSpinner();
         // guardo el filtro actual para la paginación.
@@ -167,5 +179,26 @@ export class HistoricalDevolutionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       log.info('The modal detail order was closed');
     });
+  }
+
+  /**
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
+   * @memberof OrdersListComponent
+   */
+  getOrdersListSinceFilterSearchOrder() {
+    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus.subscribe(
+      (data: HistoricalDevolutionEntity[]) => {
+        if (data !== null) {
+          this.orderListLength = data.length === 0;
+          this.dataSource = new MatTableDataSource(data);
+
+          const paginator = this.toolbarOption.getPaginator() as any;
+          paginator.pageIndex = 0;
+          this.dataSource.paginator = paginator;
+          this.dataSource.sort = this.sort;
+          this.numberElements = this.dataSource.data.length;
+        }
+      }
+    );
   }
 }

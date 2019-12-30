@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
+import { HistoricalDevolutionEntity } from '@app/shared';
 
 
 @Injectable()
@@ -66,6 +67,13 @@ export class SearchOrderMenuService {
       }, errorMessage => {
         observer.error(errorMessage);
       });
+    });
+  }
+
+  getHistoricalDevolutionFilter(limit: number, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+    return new Observable(obs => {
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('searchPendingDevolution', ['', limit + stringSearch]))
+        .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }
 }

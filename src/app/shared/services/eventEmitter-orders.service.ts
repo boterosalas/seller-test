@@ -1,5 +1,7 @@
 /* 3rd party components */
 import { EventEmitter, Injectable } from '@angular/core';
+import { HistoricalDevolutionEntity } from '../models';
+import { HistoricalDevolutionModule } from '@app/secure';
 
 /**
  * Método que permite crear los events emitter que se emplean en la aplicación
@@ -11,6 +13,7 @@ export class EventEmitterOrders {
     filterOrderList = new EventEmitter<any>();
     filterBillingList = new EventEmitter<any>();
     filterOrdersWithStatus = new EventEmitter<any>();
+    filterHistoricalDevolutionWithStatus = new EventEmitter<any>();
     tableInformationUploadGuide = new EventEmitter<any>();
     clearTable = new EventEmitter<any>();
 
@@ -64,5 +67,9 @@ export class EventEmitterOrders {
      */
     filterOrdersWithStatusResponse(data) {
         this.filterOrdersWithStatus.emit(data);
+    }
+
+    filterHistoricalDevolutionWithStatusResponse(data: HistoricalDevolutionEntity[]) {
+      this.filterHistoricalDevolutionWithStatus.emit(data);
     }
 }

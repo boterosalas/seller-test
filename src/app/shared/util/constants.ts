@@ -146,6 +146,9 @@ export class Const {
   static readonly OrderPendingDevolution = 2;
   static readonly OrdersInDevolution = 4;
 
+  // Constantes para estaods de historico de devolucion
+  static readonly StatusHistoricDevolution = -1;
+
   // Conceptos de facturación para los pagos.
   static readonly BILLING_CONCEPTS = {
     marketplaceSale: 'Venta Marketplace',

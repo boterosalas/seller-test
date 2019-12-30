@@ -17,6 +17,8 @@
     <app-search-pending-devolution-form [idSeller]="idSeller" [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'pending-devolution'"></app-search-pending-devolution-form>
 
     <app-search-envios-exito-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form == 'envios-exito'"></app-search-envios-exito-form>
-    
+
+    <app-search-historical-devolution-form [informationToForm]="informationToForm" *ngIf="informationToForm.type_form === 'historical-devolution'"></app-search-historical-devolution-form>
+
   </mat-card-content>
 </mat-card>
