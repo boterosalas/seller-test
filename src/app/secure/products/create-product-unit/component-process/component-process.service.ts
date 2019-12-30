@@ -56,6 +56,7 @@ export interface ProductModel {
     MetaDescription: string;
     IsCombo: boolean;
     EanCombo: any;
+    ModifyImage: any;
 }
 
 /**
@@ -167,7 +168,8 @@ export class ProcessService {
         MetaTitle: null,
         MetaDescription: null,
         IsCombo: null,
-        EanCombo: null
+        EanCombo: null,
+        ModifyImage: 0
     };
 
     /**
@@ -337,7 +339,6 @@ export class ProcessService {
             this.productData.EanCombo = data.EanCombo.join();
         }
         this.change.emit(this.views);
-        console.log(this.productData);
     }
 
     /**
@@ -398,8 +399,10 @@ export class ProcessService {
     public saveInformationUnitreation(ean: any): Observable<{}> {
         this.sendFieldMeta();
         if (ean) {
+            this.productData.ModifyImage = 1;
             return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
         } else {
+            this.productData.ModifyImage = 0;
             return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
         }
 
@@ -447,7 +450,8 @@ export class ProcessService {
             MetaTitle: null,
             MetaDescription: null,
             IsCombo: null,
-            EanCombo: null
+            EanCombo: null,
+            ModifyImage: 0
         };
         this.views.showCat = false;
     }

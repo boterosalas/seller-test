@@ -76,6 +76,7 @@ export class ImageUrlComponent implements OnInit {
       });
     } else {
       this.imgUrl = './assets/img/no-image.svg';
+      this.imgUrlOut.emit([this.index, '']);
     }
   }
 }
