@@ -308,6 +308,7 @@ export class ReversionRequestDetailViewModel {
   reference: string;
   requestedAmount: number;
   reverseAmount: number;
+  attachedEvidence: any;
 }
 
 /**
