@@ -1,7 +1,8 @@
 <div class="sh-case-detail">
   <div class="sh-case-detail__item ticket-detail ticket-detail--col">
     <app-basic-card class="sh-case-detail--bottom-space"
-      [title]="translateService.instant('secure.parametize.support_claims.description')" [description]="case.description">
+      [title]="translateService.instant('secure.parametize.support_claims.description')"
+      [description]="case.description">
     </app-basic-card>
   </div>
 
@@ -42,7 +43,8 @@
       <div *ngFor="let follow of case.follow; let i = index">
         <app-conversation-message *itemConversation class="sh-case-detail--full-width" [name]="follow.userName"
           [message]="follow.description" [date]="follow.createDate" (replyEvent)="openResponseDialog()"
-          [disabledClass]="isClosed" [configuration]="{reply: i == 0, theme: 'ALTER'}"></app-conversation-message>
+          [disabledClass]="isClosed" [configuration]="{reply: i == 0, theme: 'ALTER'}" [caseId]="case.caseNumber">
+        </app-conversation-message>
       </div>
     </app-conversation>
   </div>

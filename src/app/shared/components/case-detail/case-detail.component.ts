@@ -86,4 +86,5 @@ export interface Case {
   read: boolean;
   follow: Array<any>;
   attachments: Array<any>;
+  caseNumber: string;
 }

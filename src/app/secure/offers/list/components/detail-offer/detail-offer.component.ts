@@ -298,10 +298,14 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   createValidators() {
+    let priceCurrent = '';
+    if (this.dataOffer.discountPrice !== '0.00') {
+      priceCurrent = this.dataOffer.discountPrice;
+    }
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
-    this.DiscountPrice = new FormControl(this.dataOffer.discountPrice, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.DiscountPrice = new FormControl(priceCurrent, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
@@ -527,7 +531,6 @@ export class DetailOfferComponent implements OnInit {
   }
 
   validateRulesOfert(): void {
-    // this.sendOffer = false;
     const valHighUp = +this.dataOffer.price * 1.30;
     const valHighDown = +this.dataOffer.price * 0.70;
     const valLowUp = +this.dataOffer.discountPrice * 1.30;
@@ -535,24 +538,41 @@ export class DetailOfferComponent implements OnInit {
     const valPrice = +this.formUpdateOffer.controls.Price.value;
     const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
 
-    if (valDiscount) {
-      if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
-        this.openDialogModalRule();
+    if (this.formUpdateOffer.controls.DiscountPrice.value !== 0 && this.formUpdateOffer.controls.DiscountPrice.value !== '') {
+      if (this.dataOffer.discountPrice === '0.00' || this.dataOffer.discountPrice === 0.00 || this.dataOffer.discountPrice === '0') {
+        if (valDiscount && (valDiscount < valHighDown || valDiscount > valHighUp)) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       } else {
-        // this.loadingService.viewSpinner();
-        this.sameInfoUpdate();
-        this.dataUpdateOffer['priceApproval'] = 0;
-        this.submitUpdateOffer(this.dataUpdateOffer);
+        if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       }
     } else {
-      // NO tiene precio con dscto
-      if (valPrice < valHighDown || valPrice > valHighUp) {
-        this.openDialogModalRule();
+      if (this.dataOffer.discountPrice !== '0.00') {
+        if (valPrice < valLowDown || valPrice >  valLowUp) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       } else {
-        // this.loadingService.viewSpinner();
-        this.sameInfoUpdate();
-        this.dataUpdateOffer['priceApproval'] = 0;
-        this.submitUpdateOffer(this.dataUpdateOffer);
+        if (valPrice && ( valPrice < valHighDown  || valPrice > valHighUp )) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
       }
     }
   }
@@ -656,6 +676,7 @@ export class DetailOfferComponent implements OnInit {
             }
           } else if (data.body.successful === 0 && data.body.error === 0) {
             this.modalService.showModal('errorService');
+            this.loadingService.closeSpinner();
             this.params = [];
             this.oferts = [];
           }
@@ -667,6 +688,7 @@ export class DetailOfferComponent implements OnInit {
         }
 
         if (result.body.data.error === 1) {
+          this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
         }
       }

@@ -22,6 +22,8 @@ export class ConversationMessageComponent {
 
   @Input() disabledClass: false;
 
+  @Input() caseId: string;
+
   @Input() configuration: Configuration = {
     theme: this._THEMES.BASIC,
     reply: false
