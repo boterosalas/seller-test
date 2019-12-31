@@ -168,6 +168,14 @@ export class SearchOrderFormComponent implements OnInit {
       this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
+          res.filter = {
+            dateOrderFinal : dateOrderFinal,
+            dateOrderInitial: dateOrderInitial,
+            idChannel: data.value.idChannel,
+            orderNumber: data.value.orderNumber,
+            identificationCard: data.value.identificationCard,
+            processedOrder: data.value.processedOrder
+           };
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
           this.loadingService.closeSpinner();
