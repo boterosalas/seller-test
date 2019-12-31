@@ -352,7 +352,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
 
         if (data && data.filter) {
-          console.log(data.filter);
           this.dateOrderInitial = data.filter.dateOrderInitial;
           this.dateOrderFinal = data.filter.dateOrderFinal;
           this.idChannel = data.filter.idChannel;
