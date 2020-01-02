@@ -67,6 +67,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
       this.user = await this.userParams.getUserData();
       if (this.user && this.user.sellerId) {
         localStorage.setItem('userId', this.user.sellerId);
+        localStorage.setItem('email', this.user.sellerEmail);
       }
       this.routes = RoutesConst;
     }

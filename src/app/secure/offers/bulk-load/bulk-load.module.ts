@@ -15,6 +15,7 @@ import { BulkLoadComponent } from './bulk-load/bulk-load.component';
 import { FinishUploadInformationComponent } from './finish-upload-information/finish-upload-information.component';
 import { TableErrorsComponent } from './table-errors/table-errors.component';
 import { TableLoadComponent } from './table-load/table-load.component';
+import { ModalSendEmailComponent } from './modal-send-email/modal-send-email.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TableLoadComponent } from './table-load/table-load.component';
     BulkLoadComponent,
     FinishUploadInformationComponent,
     TableErrorsComponent,
-    TableLoadComponent
+    TableLoadComponent,
+    ModalSendEmailComponent
   ],
   exports: [
     BulkLoadComponent,
@@ -39,7 +41,8 @@ import { TableLoadComponent } from './table-load/table-load.component';
     TableLoadComponent
   ],
   entryComponents: [
-    FinishUploadInformationComponent
+    FinishUploadInformationComponent,
+    ModalSendEmailComponent
   ],
   providers: [
     ComponentsService,

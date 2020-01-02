@@ -8,6 +8,7 @@ export const endpoints = {
   stage: {
     v1: {
       // orders
+      sendOrderEmail : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller/{idSeller}/{email}',
       searchOrders: 'https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller={sellerId}&limit={limit}',
       carries: 'https://2he495iasj.execute-api.us-east-1.amazonaws.com/Carries',
       sendAllGuides: 'https://tew99ut1y2.execute-api.us-east-1.amazonaws.com/SendAllGuides',
@@ -172,6 +173,7 @@ export const endpoints = {
   prod: {
     v1: {
       // orders
+      sendOrderEmail : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller/{idSeller}/{email}',
       searchOrders: 'https://ldixrz8no2.execute-api.us-east-1.amazonaws.com/searchorders-pdn?idSeller={sellerId}&limit={limit}',
       carries: 'https://q8sree00sb.execute-api.us-east-1.amazonaws.com/carrier-pdn',
       sendAllGuides: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn',
