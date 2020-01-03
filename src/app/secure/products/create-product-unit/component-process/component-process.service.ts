@@ -211,7 +211,7 @@ export class ProcessService {
         private http: HttpClient,
         private api: EndpointService,
         private languageService: TranslateService
-        ) {
+    ) {
         this.resetProduct();
         this.productData.AssignEan = false;
         this.refreshSpecifications();
@@ -248,19 +248,19 @@ export class ProcessService {
         this.idCategory = idCategory;
         this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
             // if (data) {
-                this.specsByCategory.emit(data);
+            this.specsByCategory.emit(data);
             // }
         }, error => {
             console.error(error);
         });
     }
 
-    public refreshSpecifications () {
+    public refreshSpecifications() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             this.isLoad.emit(true);
             localStorage.setItem('culture_current', e['lang']);
             this.getSpecsByCategories(this.idCategory);
-          });
+        });
     }
 
     /**
@@ -455,8 +455,13 @@ export class ProcessService {
         };
         this.views.showCat = false;
     }
+    /**
+     * funcion para consultar el estatus del producto modificado por un admin
+     *
+     * @returns {Observable<{}>}
+     * @memberof ProcessService
+     */
+    setStatusChange(): Observable<any> {
+        return this.http.get(this.api.get('getStateOfCharge'), { observe: 'response' });
+    }
 }
-
-
-
-

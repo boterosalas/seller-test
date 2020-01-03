@@ -732,7 +732,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     getInformationBasic(detailProduct: any) {
-        console.log(detailProduct);
         if (detailProduct) {
             if (this.formBasicInfo && this.formBasicInfo.controls) {
                 const packingData = this.formBasicInfo.controls.packing as FormGroup;

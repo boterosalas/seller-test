@@ -4,9 +4,8 @@
     <span *ngIf="!response.response.ean">{{'secure.products.create_product_unit.component_process.dialog_save.product_creation_request' | translate}}</span>
     <span *ngIf="response.response.ean">{{'secure.products.create_product_unit.component_process.dialog_save.product_modification_request' | translate}}</span>
   </h4>
-
   <h4 id="dialogSave" *ngIf="response.response.error > 0"> {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}}
-    {{response.response.error}} {{response.response.error > 1 ? errors : error }} {{'secure.products.create_product_unit.specifications.dialog.try_create_products' | translate}}
+    {{response.response.error}} {{response.response.error > 1 ? errors : error }} <span *ngIf="response && response.response && response.response.ean ">{{'secure.products.create_product_unit.specifications.dialog.try_edit_products' | translate}}</span><span *ngIf="response && response.response && !response.response.ean">{{'secure.products.create_product_unit.specifications.dialog.try_create_products' | translate}}</span>
   </h4>
 
   <mat-divider *ngIf="response.response.error > 0"></mat-divider>

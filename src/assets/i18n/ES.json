@@ -238,7 +238,7 @@
     "modal.problems.title": "¡Oops!.",
     "modal.product.no_stock": "¡Este producto esta agotado! Por favor intenta con otro",
     "modal.success.update": "¡Tú actualización ha sido exitosa!",
-    "modal.success.update.title": "¡Actualización realizada con éxito!",
+    "modal.success.update.title": "Actualización realizada con éxito",
 
 
     "core.http.dialog_token_expired.title": "La sesión ha expirado",
@@ -853,6 +853,7 @@
     "secure.products.create_product_unit.specifications.dialog.there": "Se",
     "secure.products.create_product_unit.specifications.dialog.been": "presentado",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "al momento de crear el producto. Intentelo nuevamente... Gracias",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "al momento de modificar el producto. Intentelo nuevamente... Gracias",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te proveemos.",

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ProcessService } from './component-process.service';
 import { SaveProcessDialogComponent } from './dialogSave/dialogSave.component';
@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 import { UserParametersService, UserLoginService } from '@app/core';
 import { ListProductService } from '../../list-products/list-products.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
+import { TranslateService } from '@ngx-translate/core';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
+
 
 @Component({
   selector: 'app-component-process',
@@ -36,12 +39,15 @@ export class ComponentProcessComponent implements OnInit {
   modalService: any;
   constantes = new Const();
   saving = false;
+  isAdmin= false;
   editFirstStep = true;
   public user: UserInformation;
   @Input() ean: string;
   @Input() reference: any;
   detailProduct: any;
   editProduct = false;
+  intervalTime = 6000;
+  public listErrorStatus: any = [];
   @ViewChild('stepper') stepper: MatStepper;
 
   constructor(private fb: FormBuilder,
@@ -52,6 +58,8 @@ export class ComponentProcessComponent implements OnInit {
     public userParams: UserParametersService,
     private productsService: ListProductService,
     private service: EanServicesService,
+    private cdr: ChangeDetectorRef,
+    private languageService: TranslateService,
     public userService: UserLoginService) {
     this.options = fb.group({
       hideRequired: false,
@@ -137,8 +145,12 @@ export class ComponentProcessComponent implements OnInit {
 
   async getDataUser() {
     this.userParams.getUserData().then(data => {
-      if (data.sellerProfile === this.constantes.administrator &&  this.ean === undefined ) {
-        this.router.navigate([`/${RoutesConst.home}`]);
+      if (data.sellerProfile === this.constantes.administrator ) {
+        this.isAdmin = true;
+        if (this.ean === undefined){
+          this.isAdmin = false;
+          this.router.navigate([`/${RoutesConst.home}`]);
+        }
       }
     });
   }
@@ -209,25 +221,84 @@ export class ComponentProcessComponent implements OnInit {
       this.saving = true;
       this.process.saveInformationUnitreation(this.ean).subscribe(result => {
         const data = result;
-        console.log(result);
+        if (this.isAdmin) {
+            this.verificateStatus();
+        } else {
+          if (result && result['body'] && result['body'].data && result['body'].data.productNotify) {
+            if (result['body'].data.error === 0) {
+              this.process.resetProduct();
+            }
+            this.openDialogSendOrder2(result['body'].data.productNotify, result['body'].data.error, this.ean );
+          } else if (result && result['data']) {
+               if (result['data'].error === 0) {
+              this.process.resetProduct();
+            }
+            this.openDialogSendOrder2(data['data'].productNotify, result['data'].error, this.ean);
+          }
+        }
         this.loadingService.closeSpinner();
         this.saving = false;
-        if (result && result['body'] && result['body'].data && result['body'].data.productNotify) {
-          if (result['body'].data.error === 0) {
-            this.process.resetProduct();
-          }
-          this.openDialogSendOrder2(result['body'].data.productNotify, result['body'].data.error, this.ean );
-        } else if (result && result['data']) {
-             if (result['data'].error === 0) {
-            this.process.resetProduct();
-          }
-          this.openDialogSendOrder2(data['data'].productNotify, result['data'].error, this.ean);
-        }
       }, error => {
         this.saving = false;
         this.loadingService.closeSpinner();
       });
     }
+  }
+
+  verificateStatus() {
+    this.process.setStatusChange().subscribe((res) => {
+      try {
+        if (res && res.status) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4) && checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.validateStatus(statusCurrent, null); });
+          } else if (status === 2 && checked !== 'true') {
+            setTimeout(() => { this.validateStatus(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.validateStatus(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  validateStatus(type: any, listError: any) {
+    this.loadingService.closeSpinner();
+    this.intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('modal.success.update.title'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.when_uploading_products'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: this.intervalTime,
+      listError: listError,
+      typeStatus: type
+    };
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.process.setStatusChange();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+    });
   }
 
   /**

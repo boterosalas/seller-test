@@ -853,6 +853,7 @@
     "secure.products.create_product_unit.specifications.dialog.there": "There",
     "secure.products.create_product_unit.specifications.dialog.been": "been",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "when trying to edit the product. Try gain… Thank you",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",

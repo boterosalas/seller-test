@@ -50,6 +50,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   }
 
   ngAfterViewInit() {
+    console.log(this.data);
     const typeStatus = this.data.typeStatus;
     if (typeStatus === 1 || typeStatus === 4 && this.data.listError === null) {
       !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
@@ -60,9 +61,12 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.inProcess = false;
             this.processFinish$.next(res);
           } else if (status === 3) {
-
             if (response) {
-              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+              if(JSON.parse(response).Data.OfferNotify){
+                this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+              } else if (JSON.parse(response).Data.ProductNotify){
+                this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+              }
             } else {
               this.listErrorStatus = [length = 0];
             }
