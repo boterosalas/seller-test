@@ -310,6 +310,9 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
+      new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+  ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
 ]);
 
 

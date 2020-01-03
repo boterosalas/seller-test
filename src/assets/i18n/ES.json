@@ -463,6 +463,8 @@
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolución",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Aprovado",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rechazado",
+    "secure.orders.historical_devolutions.filter.title_filter": "Consultar historico de devoluciones",
+    "secure.orders.historical_devolutions.filter.resolution": "Filtrar por resolución",
 
     "secure.orders.send.no_more_sent_products": "La orden ya no posee mas productos para ser enviados",
     "secure.orders.send.total_sent_order": "Total del productos a ser enviados en la orden",

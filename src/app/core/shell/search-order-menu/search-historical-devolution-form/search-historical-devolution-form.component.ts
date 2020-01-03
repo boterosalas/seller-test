@@ -11,6 +11,7 @@ interface DataForm {
   dateReversionRequestFinal?: Date | string;
   identificationCard?: string;
   orderNumber?: string;
+  reversionRequestStatusId?: number;
 }
 @Component({
   selector: 'app-search-historical-devolution-form',
@@ -22,10 +23,18 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
   public myform: FormGroup;
 
   // Configuración para el formato de fecha
-  public locale = 'es-CO';
+  private locale = 'es-CO';
 
   @Input() public informationToForm: SearchFormEntity;
+  @Input() idSeller: number;
 
+  /**
+   * Creates an instance of SearchHistoricalDevolutionFormComponent.
+   * @param {FormBuilder} fb
+   * @param {ShellComponent} shellComponent
+   * @param {SearchOrderMenuService} __searchOrderMenuService
+   * @memberof SearchHistoricalDevolutionFormComponent
+   */
   constructor(
     private fb: FormBuilder,
     private shellComponent: ShellComponent,
@@ -36,12 +45,18 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     this.createForm();
   }
 
-  createForm() {
-    // Estructura para los datos del formulario de consulta.
+  /**
+   * Estructura para el formulario del filtro
+   *
+   * @private
+   * @memberof SearchHistoricalDevolutionFormComponent
+   */
+  private createForm() {
     this.myform = this.fb.group({
       dateReversionRequestInitial: [null, Validators.compose([])],
       dateReversionRequestFinal: [null, Validators.compose([])],
       identificationCard: [null, Validators.compose([])],
+      reversionRequestStatusId: [null, Validators.compose([])],
       orderNumber: [
         null,
         Validators.compose([Validators.minLength(1), Validators.maxLength(30)])
@@ -54,14 +69,20 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
    *
    * @memberof SearchHistoricalDevolutionFormComponent
    */
-  clearForm() {
+  public clearForm() {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }
 
-  filterHistorical(myform: FormGroup) {
-    const { identificationCard, orderNumber }: DataForm = myform.value;
+  /**
+   * Metodo para filtrar el historico segun los campos completados
+   *
+   * @param {FormGroup} myform
+   * @memberof SearchHistoricalDevolutionFormComponent
+   */
+  public filterHistorical(myform: FormGroup) {
+    const { identificationCard, orderNumber, reversionRequestStatusId }: DataForm = myform.value;
     let { dateReversionRequestInitial, dateReversionRequestFinal }: DataForm = myform.value;
 
     // Obtengo la información del usuario
@@ -85,6 +106,14 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
       objectQuery.dateReversionRequestFinal = dateReversionRequestFinal;
     }
 
+    if (reversionRequestStatusId) {
+      stringQuery += `&reversionRequestStatusId=${reversionRequestStatusId}`;
+      objectQuery.reversionRequestStatusId = reversionRequestStatusId;
+    } else {
+      stringQuery += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}`;
+      objectQuery.reversionRequestStatusId = this.informationToForm.information.reversionRequestStatusId;
+    }
+
     if (identificationCard !== null && identificationCard !== '') {
       stringQuery += `&identificationCard=${identificationCard}`;
       objectQuery.identificationCard = identificationCard;
@@ -96,6 +125,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     }
 
     if (!_.isEmpty(objectQuery)) {
+      stringQuery += `&idSeller=${this.idSeller}`;
       // Guardo el filtro aplicado por el usuario.
       this.__searchOrderMenuService.setCurrentFilterOrders(objectQuery);
       this.__searchOrderMenuService
@@ -104,17 +134,9 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
           if (data) {
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatusResponse(data);
-            this.toggleMenu();
+            this.shellComponent.sidenavSearchOrder.toggle();
           }
         });
     }
-  }
-
-  /**
-   * Método para desplegar el menú
-   * @memberof SearchOrderFormComponent
-   */
-  toggleMenu() {
-    this.shellComponent.sidenavSearchOrder.toggle();
   }
 }

@@ -1,32 +1,39 @@
 import { Component, OnInit, ViewChild, OnDestroy, EventEmitter } from '@angular/core';
 import { MenuModel, historicDevolution } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import {
-  MatTableDataSource,
-  MatPaginator,
-  MatSort,
-  MatDialog
-} from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { HistoricalDevolutionService } from '../historical-devolution.service';
-import {
-  HistoricalDevolutionEntity,
-  SearchFormEntity,
-  Const,
-  UserInformation
-} from '@app/shared';
+import { HistoricalDevolutionEntity, SearchFormEntity, Const, UserInformation } from '@app/shared';
 import { LoadingService, UserParametersService, Logger } from '@app/core';
 import { isEmpty } from 'lodash';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { HistoricalDevolutionModalComponent } from '../historical-devolution-modal/historical-devolution-modal.component';
 import { ToolbarOptionsComponent } from '@app/shared/components';
 import { ShellComponent } from '@app/core/shell';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 
 const log = new Logger('HistoricalDevolutionComponent');
 
+/**
+ * Componentes para visualizar el historico de devoluciones
+ */
 @Component({
   selector: 'app-historical-devolution',
   templateUrl: './historical-devolution.component.html',
-  styleUrls: ['./historical-devolution.component.scss']
+  styleUrls: ['./historical-devolution.component.scss'],
+  // Configuración para la páginación de la tabla animations:
+  animations: [
+    trigger('detailExpand', [
+      state(
+        'void',
+        style({ height: '0px', minHeight: '0', visibility: 'hidden' })
+      ),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    ])
+  ]
 })
 export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   // Elemento paginador
@@ -37,11 +44,19 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   @ViewChild(ToolbarOptionsComponent)
   public toolbarOption: ToolbarOptionsComponent;
 
+  // User info
   public user: UserInformation;
-
+  // Emmiter del filtro
   public subFilterHistoricalDevolution: EventEmitter<any>;
 
-  /** Columnas que se visulizaran en la tabla */
+  public typeProfile: number;
+  // Suscriptions vars
+  public searchSubscription: any;
+  // Id del seller
+  public idSeller: any;
+
+  public event: any;
+
   public displayedColumns = [
     'orderNumber',
     'orderDate',
@@ -53,49 +68,83 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     'detailOrder'
   ];
 
+  // Configuración para el toolbar-options y el search del componente
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
     subtitle: 'menu.Historico de devoluciones',
-    btn_title: 'secure.orders.filter.title_filter',
-    title_for_search: 'secure.orders.filter.title_filter',
+    btn_title: 'secure.orders.historical_devolutions.filter.title_filter',
+    title_for_search: 'secure.orders.historical_devolutions.filter.title_filter',
     type_form: 'historical-devolution',
     information: {
-      reversionRequestStatusId: Const.StatusPendingDevolution
+      reversionRequestStatusId: Const.StatusHistoricDevolution
     },
     count: ''
   };
 
+  // Variable que almacena el estado de numero de historico
   public orderListLength = false;
 
-  // contendra la Información para la tabla
+  // Contendra la información para la tabla
   public dataSource: MatTableDataSource<HistoricalDevolutionEntity>;
+  // Cantidad de elementos en la tabla
   public numberElements = 0;
   public currentEventPaginate: any;
 
   public permissionComponent: MenuModel;
 
+  /**
+   * Creates an instance of HistoricalDevolutionComponent.
+   * @param {AuthService} authService
+   * @param {HistoricalDevolutionService} __historicalService
+   * @param {LoadingService} __loadingService
+   * @param {MatDialog} dialog
+   * @param {UserParametersService} userParams
+   * @param {ShellComponent} shellComponent
+   * @param {EventEmitterSeller} eventsSeller
+   * @memberof HistoricalDevolutionComponent
+   */
   constructor(
     private authService: AuthService,
     private __historicalService: HistoricalDevolutionService,
     private __loadingService: LoadingService,
     public dialog: MatDialog,
     public userParams: UserParametersService,
-    private shellComponent: ShellComponent
+    private shellComponent: ShellComponent,
+    public eventsSeller: EventEmitterSeller
   ) {}
 
   ngOnInit() {
-    this.permissionComponent = this.authService.getMenu(historicDevolution);
     this.getDataUser();
-    this.getOrdersListSinceFilterSearchOrder();
+    this.searchSubscription = this.eventsSeller.eventSearchSeller
+      .subscribe((seller: StoreModel) => {
+          this.idSeller = seller.IdSeller;
+          if (this.event) {
+            this.getOrdersList(this.event);
+          }
+        }
+      );
   }
 
   ngOnDestroy() {
     this.subFilterHistoricalDevolution.unsubscribe();
   }
 
+  /**
+   * Traer el rol de usuario y lista el historico
+   *
+   * @memberof HistoricalDevolutionComponent
+   */
   public async getDataUser() {
     this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(historicDevolution, 0);
+      this.typeProfile = 0;
+    } else {
+      this.permissionComponent = this.authService.getMenuProfiel(historicDevolution, 1);
+      this.typeProfile = 1;
+    }
     this.toolbarOption.getOrdersList();
+    this.getOrdersListSinceFilterSearchOrder();
   }
 
   /**
@@ -112,7 +161,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
       $event.lengthOrder = 100;
     }
 
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
+    this.event = $event;
+
+    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
 
     this.__loadingService.viewSpinner();
     this.__historicalService.getHistorical(stringSearch).subscribe(
@@ -120,9 +171,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
         this.__loadingService.closeSpinner();
         // guardo el filtro actual para la paginación.
         this.currentEventPaginate = $event;
-        if (isEmpty(data)) {
-          this.orderListLength = data.length === 0;
-        }
+
+        this.orderListLength = isEmpty(data) ? true : false;
         // Creo el elemento que permite pintar la tabla
         this.dataSource = new MatTableDataSource(data);
 
@@ -140,16 +190,31 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   /**
    * Método para cambiar el page size de la tabla órdenes
-   * @param {any} $event
+   *
+   * @param {MatPaginator} $event
    * @memberof HistoricalDevolutionComponent
    */
-  changeSizeOrderTable($event) {
-    this.dataSource.paginator = $event.paginator;
+  changeSizeOrderTable($event: MatPaginator) {
+    this.changePageSizeTable($event);
+    this.dataSource.paginator = $event;
+  }
+
+  /**
+   * Método para cambiar el page size de la tabla órdenes
+   *
+   * @param {MatPaginator} $event
+   * @memberof HistoricalDevolutionComponent
+   */
+  changePageSizeTable($event: MatPaginator){
+    this.event.lengthOrder = $event.pageSize;
+    this.getOrdersList(this.event);
   }
 
   /**
    * Método para desplegar el modal para ver el comentario de la orden
-   * @param item
+   *
+   * @param {HistoricalDevolutionEntity} item
+   * @memberof HistoricalDevolutionComponent
    */
   public openModalCommentOrder(item: HistoricalDevolutionEntity): void {
     const dialogRef = this.dialog.open(ViewCommentComponent, {
@@ -166,6 +231,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   /**
    * Método para desplegar el modal de detallen de orden
+   *
    * @param {HistoricalDevolutionEntity} item
    * @memberof HistoricalDevolutionComponent
    */
@@ -182,8 +248,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
-   * @memberof OrdersListComponent
+   * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro del historico de devoluciones
+   *
+   * @memberof HistoricalDevolutionComponent
    */
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus.subscribe(

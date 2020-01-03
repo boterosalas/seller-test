@@ -20,6 +20,13 @@ import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n
 // log component
 const log = new Logger('ToolbarOptionsComponent');
 
+interface DataEventPaginator {
+  previousPageIndex: number;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+}
+
 @Component({
   selector: 'app-toolbar-options',
   templateUrl: './toolbar-options.component.html',
@@ -170,11 +177,13 @@ export class ToolbarOptionsComponent implements OnInit {
 
   /**
    * Método que permite actualizar el valor del pageSize de la tabla de acuerdo al valor pasado,
-   *  luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de órdenes.
+   * luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de órdenes.
+   *
+   * @param {DataEventPaginator} $event
    * @memberof ToolbarOptionsComponent
    */
-  changeSizeOrderTable() {
-    this.paginator.pageSize = this.pageSizeOrder;
+  changeSizeOrderTable($event: DataEventPaginator) {
+    this.paginator.pageSize = $event.pageSize;
     this.OnChangeSizeOrderTable.emit(this.paginator);
   }
   /*
@@ -239,16 +248,15 @@ export class ToolbarOptionsComponent implements OnInit {
   }
 
   /**
- * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
- * En la busqueda de tiendas
- * @param {any} search_seller
- * @memberof SearchStoreComponent
- */
+   * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
+   * En la busqueda de tiendas
+   * @param {any} search_seller
+   * @memberof SearchStoreComponent
+   */
   public viewStoreInformation(search_seller: StoreModel) {
     // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
     this.eventsSeller.searchSeller(search_seller);
   }
-
 
   public filter(val: string): string[] {
     if (val !== null && this.listSellers) {
