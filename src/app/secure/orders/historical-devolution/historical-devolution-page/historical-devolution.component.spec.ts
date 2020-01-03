@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoricalDevolutionComponent } from './historical-devolution.component';
+// import { HistoricalDevolutionComponent } from './historical-devolution.component';
 
-describe('HistoricalDevolutionComponent', () => {
-  let component: HistoricalDevolutionComponent;
-  let fixture: ComponentFixture<HistoricalDevolutionComponent>;
+// describe('HistoricalDevolutionComponent', () => {
+//   let component: HistoricalDevolutionComponent;
+//   let fixture: ComponentFixture<HistoricalDevolutionComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HistoricalDevolutionComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ HistoricalDevolutionComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HistoricalDevolutionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(HistoricalDevolutionComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
