@@ -117,12 +117,12 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     this.getDataUser();
     this.searchSubscription = this.eventsSeller.eventSearchSeller
       .subscribe((seller: StoreModel) => {
-          this.idSeller = seller.IdSeller;
-          if (this.event) {
-            this.getOrdersList(this.event);
-          }
+        this.idSeller = seller.IdSeller;
+        if (this.event) {
+          this.getOrdersList(this.event);
         }
-      );
+      });
+    this.clearData();
   }
 
   ngOnDestroy() {
@@ -156,7 +156,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     lengthOrder: number;
     paginator: MatPaginator;
     category: any;
-  }) {
+  }): void {
     if (!$event) {
       $event.lengthOrder = 100;
     }
@@ -166,8 +166,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
 
     this.__loadingService.viewSpinner();
-    this.__historicalService.getHistorical(stringSearch).subscribe(
-      data => {
+    this.__historicalService.getHistorical(stringSearch)
+      .subscribe(data => {
         this.__loadingService.closeSpinner();
         // guardo el filtro actual para la paginación.
         this.currentEventPaginate = $event;
@@ -181,11 +181,11 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
         this.numberElements = this.dataSource.data.length;
       },
-      () => {
-        this.orderListLength = true;
-        // log.error(this.dataSource);
-      }
-    );
+        () => {
+          this.orderListLength = true;
+          // log.error(this.dataSource);
+        }
+      );
   }
 
   /**
@@ -194,7 +194,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param {MatPaginator} $event
    * @memberof HistoricalDevolutionComponent
    */
-  changeSizeOrderTable($event: MatPaginator) {
+  changeSizeOrderTable($event: MatPaginator): void {
     this.changePageSizeTable($event);
     this.dataSource.paginator = $event;
   }
@@ -205,7 +205,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param {MatPaginator} $event
    * @memberof HistoricalDevolutionComponent
    */
-  changePageSizeTable($event: MatPaginator){
+  changePageSizeTable($event: MatPaginator): void {
     this.event.lengthOrder = $event.pageSize;
     this.getOrdersList(this.event);
   }
@@ -252,9 +252,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    *
    * @memberof HistoricalDevolutionComponent
    */
-  getOrdersListSinceFilterSearchOrder() {
-    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus.subscribe(
-      (data: HistoricalDevolutionEntity[]) => {
+  private getOrdersListSinceFilterSearchOrder(): void {
+    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus
+      .subscribe((data: HistoricalDevolutionEntity[]) => {
         if (data !== null) {
           this.orderListLength = data.length === 0;
           this.dataSource = new MatTableDataSource(data);
@@ -265,7 +265,16 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
           this.dataSource.sort = this.sort;
           this.numberElements = this.dataSource.data.length;
         }
-      }
-    );
+      });
+  }
+
+  /**
+   * Restaura la tabla cuando el Filtro del ShellComponent se limpia.
+   *
+   * @private
+   * @memberof HistoricalDevolutionComponent
+   */
+  private clearData(): void {
+    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.clearTable.subscribe(() => this.getOrdersList(this.event));
   }
 }
