@@ -349,6 +349,16 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             this.dataSource.sort = this.sort;
             this.setTitleToolbar();
           }
+        } else {
+            this.orderListLength = true;
+            this.length = 0;
+            this.isClear = true;
+            this.dataSource = new MatTableDataSource();
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.setTitleToolbar();
         }
 
         if (data && data.filter) {
@@ -373,7 +383,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
           'idSeller': this.idSeller,
           'state': this.lastState,
-          'callOne': true
+          'callOne': true,
+          'clear': true
         };
         this.isClear = true;
         this.getOrdersList(paramsArray);
@@ -501,6 +512,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     if (params && params.callOne) {
       this.paginationToken = '{}';
       this.arrayPosition = [];
+    }
+    if (params && params.clear) {
+      this.dateOrderFinal = '';
+      this.dateOrderInitial = '';
+      this.idChannel = '';
+      this.orderNumber = '';
+      this.identificationCard = '';
+      this.processedOrder = '';
     }
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
