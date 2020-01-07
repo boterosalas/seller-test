@@ -289,6 +289,7 @@ export class OrderDevolutionsModel {
   sacObservationReversionRequestRefuse?: null;
   sellerObservationReceiptRefuse?: null;
   sacObservationReceiptRefuse?: null;
+  attachedEvidence?: null;
   reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
 }
 
@@ -305,6 +306,7 @@ export class ReversionRequestDetailViewModel {
   reference: string;
   requestedAmount: number;
   reverseAmount: number;
+  attachedEvidence: any;
 }
 
 /**

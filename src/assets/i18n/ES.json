@@ -35,7 +35,7 @@
     "menu.Creación unitaria": "Creación unitaria",
     "menu.Validaciones": "Validaciones",
     "menu.Devoluciones": "Devoluciones",
-    "menu.Listarreclamaciones": "Listar reclamaciones",
+    "menu.Listar Reclamaciones": "Listar reclamaciones",
     "menu.En validación": "En validación",
     "menu.En devolución": "En devolución",
     "menu.Solicitudes pendientes": "Solicitudes pendientes",
@@ -170,6 +170,7 @@
     "actions.page": "Ítems por página",
     "actions.next_page": "Página siguiente",
     "actions.previous_page": "Página anterior",
+    "actions.view_attachments" : "Ver Adjunto",
     "actions.confirm_offer": "Confirmar Oferta",
 
     "errors.required": "Este cambio es obligatorio",
@@ -230,6 +231,7 @@
     "error.exception_brand.max_error": "La comisión no puede ser mayor a 100",
     "error.exception_brand.min_error": "La comisión no puede ser menor a 0",
     "error.exception_brand.number_int": "La  comisión ingresada debe ser entero positivo, y/o tener dos decimales",
+    "error.pending.not_attachments": "No hay archivos adjuntos",
 
 
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.",
@@ -793,7 +795,7 @@
     "secure.products.create_product_unit.basic_information.white": "Blanco",
     "secure.products.create_product_unit.basic_information.blue": "Azul",
     "secure.products.create_product_unit.basic_information.yellow": "Amarillo",
-    "secure.products.create_product_unit.basic_information.brown": "Café",
+    "secure.products.create_product_unit.basic_information.brown": "Cafe",
     "secure.products.create_product_unit.basic_information.gray": "Gris",
     "secure.products.create_product_unit.basic_information.green": "Verde",
     "secure.products.create_product_unit.basic_information.orange": "Naranja",

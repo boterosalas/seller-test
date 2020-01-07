@@ -102,6 +102,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public positionPagination: any;
   public arrayPosition = [];
   public listOrdens: any;
+  public dateOrderInitial = '';
+  public dateOrderFinal = '';
+  public idChannel= '';
+  public orderNumber = '';
+  public identificationCard= '';
+  public processedOrder= '';
 
 
   public length = 0;
@@ -344,6 +350,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             this.setTitleToolbar();
           }
         }
+
+        if (data && data.filter) {
+          this.dateOrderInitial = data.filter.dateOrderInitial;
+          this.dateOrderFinal = data.filter.dateOrderFinal;
+          this.idChannel = data.filter.idChannel;
+          this.orderNumber = data.filter.orderNumber;
+          this.identificationCard = data.filter.identificationCard;
+          this.processedOrder = data.filter.processedOrder;
+        }
       });
   }
   /**
@@ -490,7 +505,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
       'idSeller': this.idSeller,
-      'state': params.state
+      'state': params.state,
+      'dateOrderFinal': this.dateOrderFinal,
+      'dateOrderInitial': this.dateOrderInitial,
+      'idChannel': this.idChannel,
+      'orderNumber': this.orderNumber,
+      'identificationCard': this.identificationCard,
+      'processedOrder': this.processedOrder,
     };
     return paramsArray;
   }
@@ -578,7 +599,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const params = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
       'idSeller': this.idSeller,
-      'state': this.lastState
+      'state': this.lastState,
+      'dateOrderFinal': this.dateOrderFinal,
+      'dateOrderInitial': this.dateOrderInitial
     };
     this.getOrdersList(params);
   }
