@@ -76,7 +76,7 @@
               -->
               <mat-form-field class="selectPageSize">
                 <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
-                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable()">
+                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable($event)">
                   <mat-option value="5">5</mat-option>
                   <mat-option value="10">10</mat-option>
                   <mat-option value="20">20</mat-option>

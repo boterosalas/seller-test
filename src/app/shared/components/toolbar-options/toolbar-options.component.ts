@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
-import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { MatDialog, MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material';
 import { Logger } from '@app/core/util';
 import { ShellComponent } from '@core/shell/shell.component';
 import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal';
@@ -72,6 +72,7 @@ export class ToolbarOptionsComponent implements OnInit {
   // Numero de paginas por defecto
   pageSizeOrder = 50;
   listSellers = [];
+  pageEvent: PageEvent;
 
   /**
    * Creates an instance of ToolbarOptionsComponent.
@@ -182,7 +183,7 @@ export class ToolbarOptionsComponent implements OnInit {
    * @param {DataEventPaginator} $event
    * @memberof ToolbarOptionsComponent
    */
-  changeSizeOrderTable($event: DataEventPaginator) {
+  changeSizeOrderTable($event?: any): any {
     this.paginator.pageSize = $event.pageSize;
     this.OnChangeSizeOrderTable.emit(this.paginator);
   }
