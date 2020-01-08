@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
@@ -13,6 +13,7 @@ import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalSendEmailComponent } from '../modal-send-email/modal-send-email.component';
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
@@ -116,6 +117,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   public language: any;
 
   public sendData: any;
+
+  dialogRef: MatDialogRef<ModalSendEmailComponent>;
 
   // Validación de las regex
   validateRegex: any;
@@ -1390,6 +1393,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.intervalTime = 6000;
     }
 
+  }
+
+/**
+ * funcion para abrir el modal de envio de correo de ofertas 
+ *
+ * @memberof BulkLoadComponent
+ */
+requestMail() {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
   }
   /**
    * destruye el compomente y cierra el modal

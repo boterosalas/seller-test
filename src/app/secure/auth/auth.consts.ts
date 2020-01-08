@@ -281,8 +281,9 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * 2. En devolucion
  * 3. En devolucion (administrator)
  * 4. Validacion
+ * 5. Historico de devoluciones
  */
-export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación';
+export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones';
 const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
     // 1. Solicitudes pendientes
     new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -296,15 +297,22 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 9. Devoluciones (Rol administrador - Consultar)
+    // 3. Devoluciones (Rol administrador - Consultar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 3. Validaciónes (Consultar)
+    // 4. Validaciónes (Consultar)
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderInValidation),
+    // 5. Historico de devoluciones
+    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
+      new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+  ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
 ]);
 
 

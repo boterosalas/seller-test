@@ -17,12 +17,12 @@
             <mat-form-field class="input-search">
               <!-- Icon search -->
               <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
-    
+
               <!-- Input search -->
               <input id="input-search-store" class="search-store-input input-search-black" type="search"
                 (ngModelChange)="whatchValueInput($event)" matInput [formControl]="textForSearch" [matAutocomplete]="auto">
             </mat-form-field>
-    
+
             <!-- Autocomplete -->
             <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
               <mat-option id="option-search-store-number-{{position}}" (click)="viewStoreInformation(option)"
@@ -36,7 +36,7 @@
         </div>
         <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60%" fxFlex.md="50%" fxFlex.xl="50%" class="toolbar-paginate">
 
-          <!-- Paginación de la tabla 
+          <!-- Paginación de la tabla
           <mat-form-field [ngClass]="{'hidden-pagination': orderListLength == true}" fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
             fxShow="true" fxFlex="103px" class="list-length-order">
             <input id="number-elements-input" type="number" matInput placeholder="Número de registros" [(ngModel)]="lengthOrder" (ngModelChange)="getOrdersList()">
@@ -45,7 +45,7 @@
           <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="250px"
             fxFlex.sm="250px" fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px" class="paginator-style orders-paginate"
             itemsPerPageLabel="Items por pagina" #paginator [pageSize]="pageSizeOrder" [length]="lengthOrder"
-            [pageSizeOptions]="[50, 100, 200]">
+            [pageSizeOptions]="[50, 100, 200]" (page)="pageEvent = changeSizeOrderTable($event)">
           </mat-paginator>
 
           <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
@@ -76,7 +76,7 @@
               -->
               <mat-form-field class="selectPageSize">
                 <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
-                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable()">
+                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable($event)">
                   <mat-option value="5">5</mat-option>
                   <mat-option value="10">10</mat-option>
                   <mat-option value="20">20</mat-option>

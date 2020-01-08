@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
-import { MatDialog, MatPaginator, MatPaginatorIntl } from '@angular/material';
+import { MatDialog, MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material';
 import { Logger } from '@app/core/util';
 import { ShellComponent } from '@core/shell/shell.component';
 import { DownloadOrderModalComponent } from '@secure/orders/download-order-modal';
@@ -19,6 +19,13 @@ import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n
 
 // log component
 const log = new Logger('ToolbarOptionsComponent');
+
+interface DataEventPaginator {
+  previousPageIndex: number;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+}
 
 @Component({
   selector: 'app-toolbar-options',
@@ -65,6 +72,9 @@ export class ToolbarOptionsComponent implements OnInit {
   // Numero de paginas por defecto
   pageSizeOrder = 50;
   listSellers = [];
+  pageEvent: PageEvent;
+
+  filterParams: any;
 
   /**
    * Creates an instance of ToolbarOptionsComponent.
@@ -94,6 +104,7 @@ export class ToolbarOptionsComponent implements OnInit {
         )
       );
     this.getAllSellers();
+    this.getFilterParams();
     // consulto las tiendas disponibles
   }
 
@@ -170,12 +181,18 @@ export class ToolbarOptionsComponent implements OnInit {
 
   /**
    * Método que permite actualizar el valor del pageSize de la tabla de acuerdo al valor pasado,
-   *  luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de órdenes.
+   * luego se emite un evento que le indica al contenedor padre si se debe consultar un nuevo limite de órdenes.
+   *
+   * @param {DataEventPaginator} $event
    * @memberof ToolbarOptionsComponent
    */
-  changeSizeOrderTable() {
-    this.paginator.pageSize = this.pageSizeOrder;
-    this.OnChangeSizeOrderTable.emit(this.paginator);
+  changeSizeOrderTable($event?: any): any {
+    this.paginator.pageSize = $event.pageSize;
+    const customData = {
+      paginator: this.paginator,
+      filter: this.filterParams
+    };
+    this.OnChangeSizeOrderTable.emit(customData);
   }
   /*
    *
@@ -239,22 +256,25 @@ export class ToolbarOptionsComponent implements OnInit {
   }
 
   /**
- * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
- * En la busqueda de tiendas
- * @param {any} search_seller
- * @memberof SearchStoreComponent
- */
+   * Método que se encarga de ejecutar el event que le indica a los componentes que esten escuchando cualquier cambio
+   * En la busqueda de tiendas
+   * @param {any} search_seller
+   * @memberof SearchStoreComponent
+   */
   public viewStoreInformation(search_seller: StoreModel) {
     // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
     this.eventsSeller.searchSeller(search_seller);
   }
-
 
   public filter(val: string): string[] {
     if (val !== null && this.listSellers) {
       return this.listSellers.filter(option =>
         option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
     }
+  }
+
+  public getFilterParams() {
+    this.shellComponent.eventEmitterOrders.filterParams.subscribe(((data: any) => this.filterParams = data));
   }
 }
 

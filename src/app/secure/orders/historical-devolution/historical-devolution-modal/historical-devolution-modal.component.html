@@ -1,0 +1,112 @@
+<div class="container-product-list content-products-pending-detail">
+  <div class="title-page">
+    <span class="sc-title">{{'secure.orders.order_list.product_detail.product' | translate}}:
+      {{historical.reversionRequestDetailViewModel.productName}}
+    </span>
+    <a matTooltip="Cerrar" mat-icon-button matTooltipPosition="below" mat-button>
+      <mat-icon (click)="onNoClick()">close</mat-icon>
+    </a>
+  </div>
+
+  <mat-accordion fxFlex="100">
+    <mat-expansion-panel class="expanded-element" expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="sc-link-text">
+          {{'secure.orders.in_devolution.product_devolution_modal.info_title' | translate}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+
+      <mat-list class="card-info" fxFlex="100">
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.orders.order_list.product_detail.product' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.reversionRequestDetailViewModel.productName}}</p>
+          </h4>
+
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Cantidad
+            <p mat-subheader class="sub-text-list">{{historical.products.quantity}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider> -->
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.reference' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.reversionRequestDetailViewModel.reference}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.sku' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.reversionRequestDetailViewModel.sku}}</p>
+          </h4>
+
+        </mat-list-item>
+        <!-- <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>Motivo
+            <p mat-subheader class="sub-text-list">{{historical.products.reasonReturn}}</p>
+          </h4>
+
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Comentario</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{historical.products.commentaryReturn}}
+          </mat-card-content>
+        </mat-card> -->
+
+      </mat-list>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion fxFlex="100">
+    <mat-expansion-panel class="expanded-element">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="sc-link-text">
+          {{'secure.orders.in_devolution.product_devolution_modal.view_info_client' | translate}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+      <mat-list class="card-info" fxFlex="100">
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'shared.name' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.clientName}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.orders.in_devolution.product_devolution_modal.id' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.identificationCard}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.client_information.address' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.clientAddress}}</p>
+          </h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item class="mat-list-item-order">
+          <h4 mat-line>{{'secure.client_information.phone' | translate}}
+            <p mat-subheader class="sub-text-list">{{historical.clientTelephone}}</p>
+          </h4>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

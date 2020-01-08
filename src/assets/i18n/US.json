@@ -45,6 +45,7 @@
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Historico de devoluciones": "Historical devolution",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -169,6 +170,7 @@
     "actions.page": "Items per page",
     "actions.next_page": "Next page",
     "actions.previous_page": "Previous page",
+    "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
 
     "errors.required": "Field required",
@@ -229,7 +231,7 @@
     "error.exception_brand.max_error": "The entered tariffs can not be over 100",
     "error.exception_brand.min_error": "The entered tariffs can not be under 0",
     "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
-
+    "error.pending.not_attachments": "No attached files",
 
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID",
     "modal.success.register title": "The process was successful!",
@@ -459,6 +461,12 @@
 
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment",
 
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolution",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
+    "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",
+    "secure.orders.historical_devolutions.filter.resolution": "Filter by resolution",
+
     "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
     "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
     "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
@@ -612,6 +620,7 @@
     "secure.offers.list.components.detail_offer.cop": "COP",
     "secure.offers.list.components.detail_offer.usd": "USD",
     "secure.offers.list.components.detail_offer.update_stock": "Stock update",
+    "secure.offers.list.components.detail_offer.change_extreme_price": "Extreme price change approval",
     "secure.offers.list.components.detail_offer.snackbar_offer_product": "This product is not ready for an offer to be associated, please try again later.",
     "secure.offers.list.components.detail_offer.snackbar_currency": "The currency has been changed to ",
     "secure.offers.list.components.detail_offer.id_offer": "Offer ID: ",

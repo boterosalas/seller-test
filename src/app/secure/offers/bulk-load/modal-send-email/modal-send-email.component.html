@@ -1,0 +1,21 @@
+<div *ngIf="form">
+  <h3 mat-dialog-title>{{'secure.products.bulk_load_product_moderation.will_send_validation' | translate}}</h3>
+  <mat-dialog-content>
+    <form [formGroup]="form" class="form-login">
+      <div fxLayout="column" fxLayoutGap="20px">
+        <div fxLayout="row" fxFlex="100">
+          <mat-form-field fxFlex="100" class="input-style">
+            <input matInput name="email" formControlName="email" placeholder="Correo electrónico" type="email" required>
+            <mat-error>
+              <app-control-messages [control]="form.get('email')"></app-control-messages>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="dialog-buttons">
+    <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.close' | translate}}</button>
+    <button class="sc-button" [disabled]="!form.valid" mat-raised-button color="accent" (click)="sendEmail(form.value)">{{'actions.send' | translate}}</button>
+  </mat-dialog-actions>
+</div>

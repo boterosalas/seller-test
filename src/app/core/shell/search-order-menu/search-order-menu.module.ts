@@ -14,6 +14,7 @@ import { SearchOrderMenuService } from './search-order-menu.service';
 import {
     SearchPendingDevolutionFormComponent,
 } from './search-pending-devolution-form/search-pending-devolution-form.component';
+import { SearchHistoricalDevolutionFormComponent } from './search-historical-devolution-form/search-historical-devolution-form.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {
         SearchOrderFormComponent,
         SearchBillingFormComponent,
         SearchPendingDevolutionFormComponent,
-        SearchEnviosExitoFormComponent
+        SearchEnviosExitoFormComponent,
+        SearchHistoricalDevolutionFormComponent
     ],
     exports: [
         SearchOrderMenuComponent

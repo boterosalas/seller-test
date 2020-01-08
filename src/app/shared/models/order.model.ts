@@ -173,7 +173,6 @@ export class LoadGuide {
   errorColumn3: boolean;
   errorColumn4: boolean;
   errorColumn5: boolean;
-
 }
 
 /**
@@ -208,7 +207,6 @@ export class Billing {
   fulfillmentDetail?: DetailFulfillment | null;
   paginationToken: string;
 }
-
 
 /**
  * Include in Billing
@@ -291,6 +289,7 @@ export class OrderDevolutionsModel {
   sacObservationReversionRequestRefuse?: null;
   sellerObservationReceiptRefuse?: null;
   sacObservationReceiptRefuse?: null;
+  attachedEvidence?: null;
   reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
 }
 
@@ -307,6 +306,7 @@ export class ReversionRequestDetailViewModel {
   reference: string;
   requestedAmount: number;
   reverseAmount: number;
+  attachedEvidence: any;
 }
 
 /**
@@ -344,3 +344,30 @@ export class SearchFormEntity {
   count: string;
 }
 
+export interface HistoricalDevolutionEntity {
+  id: string;
+  idSeller: number;
+  reversionRequestId: string;
+  orderNumber: string;
+  reversionRequestStatusId: number;
+  reversionRequestStatus: string;
+  reversionRequestTypeId: number;
+  reversionRequestType: string;
+  reversionRequestReasonId: number;
+  reversionRequestReason: string;
+  creationDate: string;
+  maximumDeliveryDate: string;
+  orderDate: string;
+  typeReturnId: number;
+  typeReturn: string;
+  clientName: string;
+  identificationCard: string;
+  clientAddress: string;
+  clientTelephone: string;
+  clientObservation: null | string;
+  sellerObservationReversionRequestRefuse: null | string;
+  sacObservationReversionRequestRefuse: null | string;
+  sellerObservationReceiptRefuse: null | string;
+  sacObservationReceiptRefuse: null | string;
+  reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
+}
