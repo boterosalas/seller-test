@@ -13,8 +13,17 @@ import { ShellComponent } from '@app/core/shell';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import * as _ from 'lodash';
 
 const log = new Logger('HistoricalDevolutionComponent');
+
+interface DataForm {
+  dateReversionRequestInitial?: Date | string;
+  dateReversionRequestFinal?: Date | string;
+  identificationCard?: string;
+  orderNumber?: string;
+  reversionRequestStatusId?: number;
+}
 
 /**
  * Componentes para visualizar el historico de devoluciones
@@ -92,6 +101,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   public permissionComponent: MenuModel;
 
+  public filterParamsHistoricoDevoluciones: DataForm;
+
   /**
    * Creates an instance of HistoricalDevolutionComponent.
    * @param {AuthService} authService
@@ -163,7 +174,21 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
     this.event = $event;
 
-    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
+    const filter = this.filterParamsHistoricoDevoluciones;
+
+    let stringSearch = '';
+
+    if (filter && !_.isEmpty(filter)) {
+      stringSearch += `limit=${$event.lengthOrder}`;
+      stringSearch += `&idSeller=${this.idSeller}`;
+      stringSearch += (filter.reversionRequestStatusId) ? `&reversionRequestStatusId=${filter.reversionRequestStatusId}` : '';
+      stringSearch += (filter.dateReversionRequestInitial) ? `&dateReversionRequestInitial=${filter.dateReversionRequestInitial}` : '';
+      stringSearch += (filter.dateReversionRequestFinal) ? `&dateReversionRequestFinal=${filter.dateReversionRequestFinal}` : '';
+      stringSearch += (filter.orderNumber) ? `&orderNumber=${filter.orderNumber}` : '';
+      stringSearch += (filter.identificationCard) ? `&identificationCard=${filter.identificationCard}` : '';
+    } else {
+      stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
+    }
 
     this.__loadingService.viewSpinner();
     this.__historicalService.getHistorical(stringSearch)
@@ -194,9 +219,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param {MatPaginator} $event
    * @memberof HistoricalDevolutionComponent
    */
-  changeSizeOrderTable($event: MatPaginator): void {
+  changeSizeOrderTable($event: { paginator: MatPaginator, filter: any }): void {
     this.changePageSizeTable($event);
-    this.dataSource.paginator = $event;
+    this.dataSource.paginator = $event.paginator;
   }
 
   /**
@@ -205,8 +230,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param {MatPaginator} $event
    * @memberof HistoricalDevolutionComponent
    */
-  changePageSizeTable($event: MatPaginator): void {
-    this.event.lengthOrder = $event.pageSize;
+  changePageSizeTable($event: { paginator: MatPaginator, filter: DataForm }): void {
+    this.event.lengthOrder = $event.paginator.pageSize;
+    this.filterParamsHistoricoDevoluciones = $event.filter;
     this.getOrdersList(this.event);
   }
 
@@ -275,6 +301,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @memberof HistoricalDevolutionComponent
    */
   private clearData(): void {
-    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.clearTable.subscribe(() => this.getOrdersList(this.event));
+    this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.clearTable.subscribe(() => {
+      this.filterParamsHistoricoDevoluciones = undefined;
+      this.getOrdersList(this.event);
+    });
   }
 }

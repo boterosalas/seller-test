@@ -74,6 +74,8 @@ export class ToolbarOptionsComponent implements OnInit {
   listSellers = [];
   pageEvent: PageEvent;
 
+  filterParams: any;
+
   /**
    * Creates an instance of ToolbarOptionsComponent.
    * @param {MatDialog} dialog
@@ -102,6 +104,7 @@ export class ToolbarOptionsComponent implements OnInit {
         )
       );
     this.getAllSellers();
+    this.getFilterParams();
     // consulto las tiendas disponibles
   }
 
@@ -183,9 +186,13 @@ export class ToolbarOptionsComponent implements OnInit {
    * @param {DataEventPaginator} $event
    * @memberof ToolbarOptionsComponent
    */
-  changeSizeOrderTable($event?: any): any {
+  changeSizeOrderTable($event?: any) {
     this.paginator.pageSize = $event.pageSize;
-    this.OnChangeSizeOrderTable.emit(this.paginator);
+    const customData = {
+      paginator: this.paginator,
+      filter: this.filterParams
+    };
+    this.OnChangeSizeOrderTable.emit(customData);
   }
   /*
    *
@@ -264,6 +271,10 @@ export class ToolbarOptionsComponent implements OnInit {
       return this.listSellers.filter(option =>
         option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
     }
+  }
+
+  public getFilterParams() {
+    this.shellComponent.eventEmitterOrders.filterParams.subscribe(((data: any) => this.filterParams = data));
   }
 }
 

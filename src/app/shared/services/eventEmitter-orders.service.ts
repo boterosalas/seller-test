@@ -16,7 +16,7 @@ export class EventEmitterOrders {
     filterHistoricalDevolutionWithStatus = new EventEmitter<any>();
     tableInformationUploadGuide = new EventEmitter<any>();
     clearTable = new EventEmitter<any>();
-
+    filterParams = new EventEmitter<any>();
 
     /**
      *  Evento eventEmitter que permite crear un suscribe para saber cuando consultar las órdenes de acuerdo al estado proporcionado.

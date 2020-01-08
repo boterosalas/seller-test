@@ -71,6 +71,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
    */
   public clearForm() {
     this.myform.reset();
+    this.shellComponent.eventEmitterOrders.filterParams.emit();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }
@@ -132,6 +133,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
         .getHistoricalDevolutionFilter(100, stringQuery)
         .subscribe(data => {
           if (data) {
+            this.shellComponent.eventEmitterOrders.filterParams.emit(objectQuery);
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatusResponse(data);
             this.shellComponent.sidenavSearchOrder.toggle();
