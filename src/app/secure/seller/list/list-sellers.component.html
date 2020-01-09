@@ -212,7 +212,7 @@
           <mat-error *ngIf="reason.hasError('required') || reason.hasError('trim')">{{'errors.required'  | translate }}</mat-error>  
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput [placeholder]="'secure.seller.list.observtion' | translate" id="inputObservation" autocomplete="false" formControlName="Observations"></textarea>
+          <textarea matInput [placeholder]="'secure.seller.list.observation' | translate" id="inputObservation" autocomplete="false" formControlName="Observations"></textarea>
           <mat-hint></mat-hint>
           <mat-error *ngIf="observation.hasError('maxlength')">{{'errors.observation_max_length'  | translate }}</mat-error>
           <mat-error *ngIf="observation.hasError('required') || observation.hasError('trim')">{{'errors.required'  | translate }}</mat-error>  
