@@ -4,6 +4,8 @@ import { CitiesCoverageRoutingModule } from './cities-coverage.routing';
 import { CitiesCoverageComponent } from './cities-coverage-page/cities-coverage.component';
 import { CitiesCoverageService } from './cities-coverage.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { StatesService } from '@app/shared/components/states/states.service';
+import { CitiesServices } from '@app/shared/components/cities/cities.service';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { SharedModule } from '@app/shared/shared.module';
     CitiesCoverageComponent
   ],
   providers: [
-    CitiesCoverageService
+    CitiesCoverageService,
+    StatesService,
+    CitiesServices
   ]
 })
 export class CitiesCoverageModule { }

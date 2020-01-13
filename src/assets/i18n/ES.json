@@ -666,6 +666,8 @@
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
 
+    "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
+
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
     "secure.products.bulk_upload.select_file_import": "Seleccionar archivo para importar",

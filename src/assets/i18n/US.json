@@ -665,6 +665,8 @@
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
 
+    "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
+
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
     "secure.products.bulk_upload.select_file_import": "Select a file to import",

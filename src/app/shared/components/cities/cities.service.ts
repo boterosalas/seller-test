@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CitiesEntity } from '@app/shared';
 
 
 @Injectable()
@@ -31,5 +33,10 @@ export class CitiesServices {
           }
         );
     });
+  }
+
+  public getCities(idState: number): Observable<CitiesEntity[]> {
+    return this.http.get<CitiesEntity[]>(this.api.get('getCities', [idState]))
+      .pipe(map((res: any) => <CitiesEntity[]>JSON.parse(res.body).Data))
   }
 }
