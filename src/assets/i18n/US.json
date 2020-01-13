@@ -462,6 +462,7 @@
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment",
 
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolution",
+    "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Date of resolution",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
     "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",

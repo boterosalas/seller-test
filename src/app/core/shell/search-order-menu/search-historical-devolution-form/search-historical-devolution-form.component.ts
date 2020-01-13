@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 interface DataForm {
   dateReversionRequestInitial?: Date | string;
   dateReversionRequestFinal?: Date | string;
+  resolutionDate?: Date | string;
   identificationCard?: string;
   orderNumber?: string;
   reversionRequestStatusId?: number;
@@ -39,7 +40,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     private fb: FormBuilder,
     private shellComponent: ShellComponent,
     private __searchOrderMenuService: SearchOrderMenuService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -55,6 +56,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     this.myform = this.fb.group({
       dateReversionRequestInitial: [null, Validators.compose([])],
       dateReversionRequestFinal: [null, Validators.compose([])],
+      resolutionDate: [null, Validators.compose([])],
       identificationCard: [null, Validators.compose([])],
       reversionRequestStatusId: [null, Validators.compose([])],
       orderNumber: [
@@ -84,7 +86,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
    */
   public filterHistorical(myform: FormGroup) {
     const { identificationCard, orderNumber, reversionRequestStatusId }: DataForm = myform.value;
-    let { dateReversionRequestInitial, dateReversionRequestFinal }: DataForm = myform.value;
+    let { dateReversionRequestInitial, dateReversionRequestFinal, resolutionDate }: DataForm = myform.value;
 
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
@@ -93,6 +95,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     // aplico el formato para la fecha a emplear en la consulta
     dateReversionRequestFinal = datePipe.transform(dateReversionRequestFinal, 'yyyy/MM/dd');
     dateReversionRequestInitial = datePipe.transform(dateReversionRequestInitial, 'yyyy/MM/dd');
+    resolutionDate = datePipe.transform(resolutionDate, 'yyyy/MM/dd');
 
     let stringQuery = '';
     const objectQuery: DataForm = {};
@@ -105,6 +108,11 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     if (dateReversionRequestFinal !== null && dateReversionRequestFinal !== '') {
       stringQuery += `&dateReversionRequestFinal=${dateReversionRequestFinal}`;
       objectQuery.dateReversionRequestFinal = dateReversionRequestFinal;
+    }
+
+    if (resolutionDate !== null && resolutionDate !== '') {
+      stringQuery += `&resolutionDate=${resolutionDate}`;
+      objectQuery.resolutionDate = resolutionDate;
     }
 
     if (reversionRequestStatusId) {

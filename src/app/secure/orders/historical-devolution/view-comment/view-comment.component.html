@@ -7,9 +7,10 @@
       <p> {{'secure.orders.pending_devolution.view_comment.commnet_client' | translate}}</p>
     </div>
 
-    <p mat-subheader class="text-comment" *ngIf="historical.clientObservation != null">{{historical.clientObservation}}
+    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReversionRequestRefuse != null">
+      {{historical.sacObservationReversionRequestRefuse}}
     </p>
-    <p mat-subheader class="text-comment" *ngIf="historical.clientObservation == null">
+    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReversionRequestRefuse === null">
       {{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}</p>
 
   </mat-dialog-content>

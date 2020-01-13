@@ -463,6 +463,7 @@
     "secure.orders.pending_devolution.view_comment.commnet_client": "Comentario cliente",
 
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolución",
+    "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Fecha de resolución",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Aprobado",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rechazado",
     "secure.orders.historical_devolutions.filter.title_filter": "Consultar histórico de devoluciones",

@@ -20,6 +20,7 @@ const log = new Logger('HistoricalDevolutionComponent');
 interface DataForm {
   dateReversionRequestInitial?: Date | string;
   dateReversionRequestFinal?: Date | string;
+  resolutionDate?: Date | string;
   identificationCard?: string;
   orderNumber?: string;
   reversionRequestStatusId?: number;
@@ -70,10 +71,10 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     'orderNumber',
     'orderDate',
     'creationDate',
-    // 'maximumDeliveryDate',
+    'resolutionDate',
     'reversionRequestStatus',
     'reversionRequestReason',
-    // 'comment',
+    'comment',
     'detailOrder'
   ];
 
@@ -122,7 +123,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     public userParams: UserParametersService,
     private shellComponent: ShellComponent,
     public eventsSeller: EventEmitterSeller
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getDataUser();
@@ -186,6 +187,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
       stringSearch += (filter.dateReversionRequestFinal) ? `&dateReversionRequestFinal=${filter.dateReversionRequestFinal}` : '';
       stringSearch += (filter.orderNumber) ? `&orderNumber=${filter.orderNumber}` : '';
       stringSearch += (filter.identificationCard) ? `&identificationCard=${filter.identificationCard}` : '';
+      stringSearch += (filter.resolutionDate) ? `&resolutionDate=${filter.resolutionDate}` : '';
     } else {
       stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
     }
