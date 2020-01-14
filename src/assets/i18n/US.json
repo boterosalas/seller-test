@@ -757,6 +757,7 @@
     "secure.products.bulk_load_product_moderation.text_file_may_update": "in this file you may upload the product validation",
     "secure.products.bulk_load_product_moderation.product_validation": "Product validation",
     "secure.products.bulk_load_product_moderation.will_send_validation": "We will send you the validation form to the following e-mail address",
+    "secure.products.bulk_load_product_offer.will_send_validation": "We will send you the offer form to the following e-mail address",
     "secure.products.bulk_load_product_moderation.validation_sent_succesfully": "The validation has been sent succesfully",
     "secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent": "Something happened, the validation couldn't be sent",
     "secure.products.bulk_load_product_moderation.download_file": "Download file",

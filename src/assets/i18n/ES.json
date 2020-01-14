@@ -758,6 +758,7 @@
     "secure.products.bulk_load_product_moderation.text_file_may_update": ", en este archivo podrás cargar la validación de productos.",
     "secure.products.bulk_load_product_moderation.product_validation": "Validación del productos",
     "secure.products.bulk_load_product_moderation.will_send_validation": "Te enviaremos el formato de moderación al siguiente correo electrónico.",
+    "secure.products.bulk_load_product_offer.will_send_validation": "Te enviaremos el formato de ofertas al siguiente correo electrónico.",
     "secure.products.bulk_load_product_moderation.validation_sent_succesfully": "Se ha enviado correctamente la moderación.",
     "secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación.",
     "secure.products.bulk_load_product_moderation.download_file": "Descargar archivo",

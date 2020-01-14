@@ -186,7 +186,7 @@ export class ToolbarOptionsComponent implements OnInit {
    * @param {DataEventPaginator} $event
    * @memberof ToolbarOptionsComponent
    */
-  changeSizeOrderTable($event?: any) {
+  changeSizeOrderTable($event?: any): any {
     this.paginator.pageSize = $event.pageSize;
     const customData = {
       paginator: this.paginator,
