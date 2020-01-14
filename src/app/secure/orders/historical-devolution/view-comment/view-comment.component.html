@@ -7,10 +7,15 @@
       <p> {{'secure.orders.pending_devolution.view_comment.commnet_client' | translate}}</p>
     </div>
 
-    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReversionRequestRefuse != null">
+    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReversionRequestRefuse">
       {{historical.sacObservationReversionRequestRefuse}}
     </p>
-    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReversionRequestRefuse === null">
+
+    <p mat-subheader class="text-comment" *ngIf="historical.sacObservationReceiptRefuse">
+      {{historical.sacObservationReceiptRefuse}}
+    </p>
+
+    <p mat-subheader class="text-comment" *ngIf="!historical.sacObservationReversionRequestRefuse && !historical.sacObservationReceiptRefuse">
       {{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}</p>
 
   </mat-dialog-content>
