@@ -383,4 +383,5 @@ export interface CitiesEntity {
   IdState: number;
   DaneCode: string;
   SincoDaneCode: string;
+  Status?: boolean;
 }

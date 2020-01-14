@@ -8,6 +8,7 @@ import { CitiesServices } from '@app/shared/components/cities/cities.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CitiesCoverageService } from '../cities-coverage.service';
 
 @Component({
   selector: 'app-cities-coverage',
@@ -32,6 +33,8 @@ export class CitiesCoverageComponent implements OnInit {
   public states: StateEntity[];
   /** Departamento seleccionado (Nombre) */
   public stateSelected: string;
+  /** */
+  public daneCodesNonCoverage: string[] = [];
 
   /** Mapea las columnas a mostrar en la tabla */
   public shownColumns: string[] = ['select', 'department', 'city'];
@@ -54,7 +57,8 @@ export class CitiesCoverageComponent implements OnInit {
     private __userParams: UserParametersService,
     private __stateService: StatesService,
     private __citiesService: CitiesServices,
-    private __loadingService: LoadingService
+    private __loadingService: LoadingService,
+    private __citiesCoverage: CitiesCoverageService
   ) { }
 
   ngOnInit() {
@@ -87,7 +91,9 @@ export class CitiesCoverageComponent implements OnInit {
   public getDepartments(): void {
     this.__loadingService.viewSpinner();
     this.__stateService.getDepartments().subscribe(data => { this.states = data; this.__loadingService.closeSpinner(); });
+    this.__citiesCoverage.getDaneCodesNonCoverage().subscribe(data => { this.daneCodesNonCoverage = data; });
   }
+
 
   /**
    * Consume el servicio de ciudades segun el departamento seleccionado
@@ -99,12 +105,17 @@ export class CitiesCoverageComponent implements OnInit {
   public getCities(city: CitiesEntity): void {
     this.__loadingService.viewSpinner();
     this.__citiesService.getCities(city.Id).subscribe(data => {
-      console.table(data);
       this.selection.clear();
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource = new MatTableDataSource([]);
       if (data.length) {
+        data = data.map((city) => {
+          const obj = Object.assign({}, city);
+          obj.Status = !this.daneCodesNonCoverage.includes(city.DaneCode);
+          return obj;
+        });
+        this.dataSource = new MatTableDataSource(data);
         this.stateSelected = city.Name;
-        this.dataSource.data.forEach((row: CitiesEntity) => this.selection.select(row));
+        this.dataSource.data.forEach((row: CitiesEntity) => (row.Status) && this.selection.select(row));
       }
     }, (err) => { console.error(err) }, () => this.__loadingService.closeSpinner());
   }
