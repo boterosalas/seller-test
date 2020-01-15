@@ -15,7 +15,16 @@
       {{historical.sacObservationReceiptRefuse}}
     </p>
 
-    <p mat-subheader class="text-comment" *ngIf="!historical.sacObservationReversionRequestRefuse && !historical.sacObservationReceiptRefuse">
+    <p mat-subheader class="text-comment" *ngIf="historical.sellerObservationReversionRequestRefuse">
+      {{historical.sellerObservationReversionRequestRefuse}}
+    </p>
+
+    <p mat-subheader class="text-comment" *ngIf="historical.sellerObservationReceiptRefuse">
+      {{historical.sellerObservationReceiptRefuse}}
+    </p>
+
+    <p mat-subheader class="text-comment"
+      *ngIf="!historical.sacObservationReversionRequestRefuse && !historical.sacObservationReceiptRefuse && !historical.sellerObservationReversionRequestRefuse && !historical.sellerObservationReceiptRefuse">
       {{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}</p>
 
   </mat-dialog-content>
