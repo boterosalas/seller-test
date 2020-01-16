@@ -31,6 +31,7 @@ export class SearchOrderFormComponent implements OnInit {
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   @Input() state: number;
+  @Input() paginator: number;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -123,7 +124,6 @@ export class SearchOrderFormComponent implements OnInit {
     // aplico el formato para la fecha a emplear en la consulta
     const dateOrderFinal = datePipe.transform(this.myform.controls.dateOrderFinal.value, 'yyyy/MM/dd');
     const dateOrderInitial = datePipe.transform(this.myform.controls.dateOrderInitial.value, 'yyyy/MM/dd');
-
     // creo el string que indicara los parametros de la consulta
     let stringSearch = '';
     const objectSearch: any = {};
@@ -154,7 +154,6 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&processedOrder=${data.value.processedOrder}`;
       objectSearch.processedOrder = data.value.processedOrder;
     }
-
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');

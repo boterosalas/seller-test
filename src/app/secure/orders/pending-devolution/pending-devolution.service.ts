@@ -19,15 +19,45 @@ export class PendingDevolutionService {
    * @param stringSearch
    * @returns Observable<[{}]>
    */
-  getOrders(stringSearch: any): Observable<[{}]> {
+  // getOrders(stringSearch: any): Observable<[{}]> {
+  //   return new Observable(observer => {
+  //     this.http.get(this.api.get('pendingDevolution', [stringSearch]))
+  //       .subscribe((data: any) => {
+  //         data = data ? data : [];
+  //         observer.next(data);
+  //       }, err => {
+  //         observer.error(err);
+  //       });
+  //   });
+  // }
+
+  getOrders(params: any): Observable<[{}]> {
+    let filter = params.limit + `&reversionRequestStatusId=${params.reversionRequestStatusId}` ;
+    if (params) {
+      if ( params.dateOrderInitial && params.dateOrderInitial !== '') {
+        filter += `&dateOrderInitial=${params.dateOrderInitial}`;
+      }
+      if (params.dateOrderFinal && params.dateOrderFinal !== '') {
+        filter += `&dateOrderFinal=${params.dateOrderFinal}`;
+      }
+      if (params.orderNumber && params.orderNumber !== '') {
+        filter += `&orderNumber=${params.orderNumber}`;
+      }
+      if (params.identificationCard && params.identificationCard !== '') {
+        filter += `&identificationCard=${params.identificationCard}`;
+      }
+      if (params.idSeller && params.idSeller !== '') {
+        filter += `&idSeller=${params.idSeller}`;
+      }
+
+    }
     return new Observable(observer => {
-      this.http.get(this.api.get('pendingDevolution', [stringSearch]))
-        .subscribe((data: any) => {
-          data = data ? data : [];
-          observer.next(data);
-        }, err => {
-          observer.error(err);
-        });
+      // pendingDevolutionSearchTemporal
+      this.http.get(this.api.get('pendingDevolutionSearchTemporal', [filter])).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
     });
   }
 

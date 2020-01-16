@@ -4,7 +4,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [Typeprofile]='typeProfile' [idSeller]="idSeller" [_lengthOrder]="lengthOrder" [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
@@ -13,34 +13,6 @@
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
-
-        <!-- Check column -->
-        <!-- <ng-container matColumnDef="select">
-          <mat-header-cell class="center-product-list" fxFlex=" fxFlex.lg="" *matHeaderCellDef>
-            <mat-checkbox class="sc-check-personal" [disabled]="orderListLength" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </mat-header-cell>
-          <mat-cell fxFlex=" fxFlex.lg="" *matCellDef="let row" class="center-product-list">
-            <mat-checkbox class="sc-check-personal" id="check-order-{{row.orderNumber}}" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </mat-cell>
-        </ng-container> -->
-
-        <!-- Plus Column -->
-        <!-- <ng-container matColumnDef="plus">
-          <mat-header-cell fxFlex.lg="" fxFlex=" fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" *matHeaderCellDef
-            mat-sort-header>
-          </mat-header-cell>
-          <mat-cell fxFlex=" fxFlex.lg="" fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" *matCellDef="let element">
-            <button mat-icon-button>
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container> -->
-
-
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
           <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
@@ -129,17 +101,17 @@
                 <span>{{'shared.actions' | translate}}</span>
               </button>
               <mat-menu #orderOptions="matMenu">
-                <button (click)="openModalAceptOrder(element)" id="print-rot-order-{{element.orderNumber}}" mat-menu-item *ngIf="getFunctionality(accept)">
+                <button (click)="openModalAceptOrder(element)" id="print-rot-order-{{element.orderNumber}}" mat-menu-item *ngIf="acceptPermission">
                   <mat-icon>thumb_up</mat-icon>
                   <span>{{'actions.accpet_min' | translate}}</span>
                 </button>
 
-                <button (click)="openModalRefuseOrder(element)" id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item *ngIf="getFunctionality(refuse)">
+                <button (click)="openModalRefuseOrder(element)" id="print-rot-button-order-{{element.orderNumber}}" mat-menu-item *ngIf="refusePermission">
                   <mat-icon>thumb_down</mat-icon>
                   <span>{{'secure.orders.in_devolution.in_devolution_page.rejected' | translate}}</span>
                 </button>
 
-                <button fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false" (click)="openModalCommentOrder(element)"
+                <button fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false" *ngIf="acceptPermission" (click)="openModalCommentOrder(element)"
                   id="button-order-{{element.orderNumber}}-comment" mat-menu-item>
                   <mat-icon>comment</mat-icon>
                   <span>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}</span>
@@ -162,7 +134,7 @@
         </mat-row>
       </mat-table>
 
-      <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength ">
+      <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
         <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
         </p>

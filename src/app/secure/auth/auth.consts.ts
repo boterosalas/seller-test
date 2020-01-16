@@ -277,11 +277,12 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * Para incluir un menu en el modulo de ofertas un menu o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
  * Modulo de devoluciones que posee menus:
- * 1. Solicitudes pendientes
- * 2. En devolucion
- * 3. En devolucion (administrator)
- * 4. Validacion
- * 5. Historico de devoluciones
+ * 1. Solicitudes pendientes (vendedor)
+ * 2. Solicitudes pendientes (administrador)
+ * 3. En devolucion
+ * 4. En devolucion (administrator)
+ * 5. Validacion
+ * 6. Historico de devoluciones
  */
 export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones';
 const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
@@ -290,6 +291,10 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
+    // 2. Solicitudes pendientes
+    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
     // 2. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
