@@ -136,11 +136,8 @@
 
       <div [@detailExpand] class="orders-no-data " *ngIf="orderListLength">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
+        <p>{{'secure.orders.order_list.order_page.pending_requests' | translate}}
         </p>
-        <button id="load-all-orders-button" (click)="getOrdersList(currentEventPaginate)" mat-button color="primary">
-          {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | translate}}
-        </button>
       </div>
     </div>
 

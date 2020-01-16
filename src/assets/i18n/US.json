@@ -391,6 +391,7 @@
     "secure.orders.order_list.detail_modal.channel": "Channel",
 
     "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",
+    "secure.orders.order_list.order_page.pending_requests": "No pending requests have been found",
     "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",
     "secure.orders.order_list.order_page.all_orders": "All the orders",
     "secure.orders.order_list.order_page.without_invoice": "Without attached invoice",
@@ -441,6 +442,7 @@
     "secure.orders.in_devolution.in_devolution_page.rejected": "Reject",
     "secure.orders.in_devolution.in_devolution_page.no_found_orders": "No orders have been found.",
     "secure.orders.in_devolution.in_devolution_page.charge_orders": "Reload all the orders.",
+    "secure.orders.in_devolution.in_devolution_page.load_pending_requests": "Reload all the pending requests.",
     "secure.orders.in_devolution.in_devolution_page.sn_error_request": "An error has occurred while accepting the request.",
 
     "secure.orders.in_devolution.product_devolution_modal.info_title": "Product information",

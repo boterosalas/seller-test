@@ -266,6 +266,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         this.lengthOrder = 0;
         this.isClear = true;
         this.orderListLength = true;
+        this.dataSource = new MatTableDataSource(null);
       }
       this.loadingService.closeSpinner();
     });
