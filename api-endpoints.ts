@@ -47,7 +47,10 @@ export const endpoints = {
       validateSellerEmail: 'https://iye9w7rlsg.execute-api.us-east-1.amazonaws.com/ValidateSellerEmail/{params}',
       validateSellerName: 'https://4gxrzfojb9.execute-api.us-east-1.amazonaws.com/ValidateSellerName/{params}',
       // Cities and States services
-      getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/{params}',
+      // getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/{params}', original
+      getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/GetCitiesByState/{params}',
+      getCitiesCoverage: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/GetAllCitiesVtexS3',
+      getDaneCodesNonCoverage: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetSellerData',
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
@@ -214,6 +217,8 @@ export const endpoints = {
       validateSellerName: 'https://z0exz5y0f6.execute-api.us-east-1.amazonaws.com/validatesellername-pdn/{params}',
       // Cities and States services
       getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/{params}',
+      getCitiesCoverage: '',
+      getDaneCodesNonCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',

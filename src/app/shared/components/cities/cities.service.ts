@@ -37,6 +37,11 @@ export class CitiesServices {
 
   public getCities(idState: number): Observable<CitiesEntity[]> {
     return this.http.get<CitiesEntity[]>(this.api.get('getCities', [idState]))
-      .pipe(map((res: any) => <CitiesEntity[]>JSON.parse(res.body).Data))
+      .pipe(map((res: any) => <CitiesEntity[]>JSON.parse(res.body).Data));
+  }
+
+  public getCitiesCoverage(): Observable<CitiesEntity[]> {
+    return this.http.get<CitiesEntity[]>(this.api.get('getCitiesCoverage'))
+      .pipe(map((res: any) => <CitiesEntity[]>JSON.parse(res.body).Data));
   }
 }

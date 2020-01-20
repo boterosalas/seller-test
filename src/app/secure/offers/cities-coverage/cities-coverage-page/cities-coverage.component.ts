@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CitiesCoverageService } from '../cities-coverage.service';
+import { distinct } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cities-coverage',
@@ -30,7 +31,7 @@ export class CitiesCoverageComponent implements OnInit {
   public typeProfile: number;
 
   /** Lista de departamentos */
-  public states: StateEntity[];
+  public states: any;
   /** Departamento seleccionado (Nombre) */
   public stateSelected: string;
   /** */
@@ -55,7 +56,8 @@ export class CitiesCoverageComponent implements OnInit {
   constructor(
     private __authService: AuthService,
     private __userParams: UserParametersService,
-    private __stateService: StatesService,
+    // private __stateService: StatesService,
+    private __stateService: CitiesServices,
     private __citiesService: CitiesServices,
     private __loadingService: LoadingService,
     private __citiesCoverage: CitiesCoverageService
@@ -90,8 +92,14 @@ export class CitiesCoverageComponent implements OnInit {
    */
   public getDepartments(): void {
     this.__loadingService.viewSpinner();
-    this.__stateService.getDepartments().subscribe(data => { this.states = data; this.__loadingService.closeSpinner(); });
-    this.__citiesCoverage.getDaneCodesNonCoverage().subscribe(data => { this.daneCodesNonCoverage = data; });
+    this.__stateService.getCitiesCoverage().subscribe(data => {
+      const states2 = [new Set(data.map(x => x.State))];
+      this.states = states2[0];
+      this.__loadingService.closeSpinner(); });
+    this.__citiesCoverage.getDaneCodesNonCoverage().subscribe(data => {
+      const noCoverage = JSON.parse(data['body']);
+      this.daneCodesNonCoverage = noCoverage.Data.DaneCodesNonCoverage;
+    });
   }
 
 
@@ -102,22 +110,25 @@ export class CitiesCoverageComponent implements OnInit {
    * @param {CitiesEntity} city
    * @memberof CitiesCoverageComponent
    */
-  public getCities(city: CitiesEntity): void {
+  public getCities(stateSelected: String): void {
     this.__loadingService.viewSpinner();
-    this.__citiesService.getCities(city.Id).subscribe(data => {
+    this.__citiesService.getCitiesCoverage().subscribe(data => {
       this.selection.clear();
       this.dataSource = new MatTableDataSource([]);
       if (data.length) {
+        // tslint:disable-next-line:no-shadowed-variable
         data = data.map((city) => {
+          console.log('city: ', city);
           const obj = Object.assign({}, city);
           obj.Status = !this.daneCodesNonCoverage.includes(city.DaneCode);
+          console.log('obj.Status: ', obj.Status);
           return obj;
-        });
+        }).filter((el => el.State === stateSelected));
         this.dataSource = new MatTableDataSource(data);
-        this.stateSelected = city.Name;
         this.dataSource.data.forEach((row: CitiesEntity) => (row.Status) && this.selection.select(row));
+        // this.dataSource.data.forEach((row: CitiesEntity) => this.selection.select(row));
       }
-    }, (err) => { console.error(err) }, () => this.__loadingService.closeSpinner());
+    }, (err) => { console.error(err); }, () => this.__loadingService.closeSpinner());
   }
 
   /**
