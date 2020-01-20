@@ -60,7 +60,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'dd/MM/yyyy hh:mm'}} </p>
+            <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'dd/MM/yyyy hh:mm a'}} </p>
           </mat-cell>
         </ng-container>
 
