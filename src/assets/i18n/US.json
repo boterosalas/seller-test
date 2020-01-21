@@ -46,6 +46,8 @@
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
     "menu.Historico de devoluciones": "Historical devolution",
+    "menu.Calificación de Vendedores": "Quality Score",
+    "menu.Solicitudes Pendientes": "Awaiting request",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -58,6 +60,7 @@
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
+    "module.Calificación": "Quality",
 
 
     "permissions.Consultar": "Browse",
