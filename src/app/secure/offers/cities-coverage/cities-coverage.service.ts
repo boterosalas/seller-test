@@ -13,9 +13,25 @@ export class CitiesCoverageService {
     private http: HttpClient,
   ) { }
 
+  /**
+   * Service que se trae los codigos dane de no covered
+   * @returns {Observable<{}>}
+   * @memberof CitiesCoverageService
+   */
   public getDaneCodesNonCoverage(): Observable<{}> {
     // return of(dataMock).pipe(map(item => item.DaneCodesNonCoverage));
     return this.http.get(this.api.get('getDaneCodesNonCoverage'));
+
+  }
+
+  /**
+   * Servicio patch para guardar los codigos dane de no covered
+   * @param {*} params
+   * @returns {Observable<{}>}
+   * @memberof CitiesCoverageService
+   */
+  public pacthCitiesNoCoverage(params: any): Observable<{}> {
+    return this.http.patch(this.api.get('pacthCitiesNoCoverage'), params, { observe: 'response' });
 
   }
 }

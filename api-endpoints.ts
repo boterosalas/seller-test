@@ -52,6 +52,7 @@ export const endpoints = {
       getCitiesCoverage: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/GetAllCitiesVtexS3',
       getDaneCodesNonCoverage: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetSellerData',
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
+      pacthCitiesNoCoverage: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/UpdateCitiesNonCoverage',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
       getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
@@ -220,6 +221,7 @@ export const endpoints = {
       getCitiesCoverage: '',
       getDaneCodesNonCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
+      pacthCitiesNoCoverage: ' https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/UpdateCitiesNonCoverage',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',

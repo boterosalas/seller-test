@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { UserInformation, StateEntity, CitiesEntity } from '@app/shared';
 import { MenuModel, citiesCoverageName } from '@app/secure/auth/auth.consts';
-import { UserParametersService, LoadingService } from '@app/core';
+import { UserParametersService, LoadingService, ModalService } from '@app/core';
 import { StatesService } from '@app/shared/components/states/states.service';
 import { CitiesServices } from '@app/shared/components/cities/cities.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CitiesCoverageService } from '../cities-coverage.service';
 import { distinct } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cities-coverage',
@@ -60,7 +61,10 @@ export class CitiesCoverageComponent implements OnInit {
     private __stateService: CitiesServices,
     private __citiesService: CitiesServices,
     private __loadingService: LoadingService,
-    private __citiesCoverage: CitiesCoverageService
+    private __citiesCoverage: CitiesCoverageService,
+    private modalService: ModalService,
+    private snackBar: MatSnackBar,
+    private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -95,7 +99,8 @@ export class CitiesCoverageComponent implements OnInit {
     this.__stateService.getCitiesCoverage().subscribe(data => {
       const states2 = [new Set(data.map(x => x.State))];
       this.states = states2[0];
-      this.__loadingService.closeSpinner(); });
+      this.__loadingService.closeSpinner();
+    });
     this.__citiesCoverage.getDaneCodesNonCoverage().subscribe(data => {
       const noCoverage = JSON.parse(data['body']);
       this.daneCodesNonCoverage = noCoverage.Data.DaneCodesNonCoverage;
@@ -118,10 +123,8 @@ export class CitiesCoverageComponent implements OnInit {
       if (data.length) {
         // tslint:disable-next-line:no-shadowed-variable
         data = data.map((city) => {
-          console.log('city: ', city);
           const obj = Object.assign({}, city);
           obj.Status = !this.daneCodesNonCoverage.includes(city.DaneCode);
-          console.log('obj.Status: ', obj.Status);
           return obj;
         }).filter((el => el.State === stateSelected));
         this.dataSource = new MatTableDataSource(data);
@@ -161,7 +164,33 @@ export class CitiesCoverageComponent implements OnInit {
    * @param {CitiesEntity[]} cities
    * @memberof CitiesCoverageComponent
    */
-  public saveCities(cities: CitiesEntity[]): void {
-    console.log(cities);
+  public saveCities(cities: any): void {
+    this.__loadingService.viewSpinner();
+    const sendDaneCode = {
+      'DaneCodesNonCoverage': []
+    };
+    const uncheckCity = this.dataSource.data.filter(el => -1 === cities.indexOf(el));
+    uncheckCity.forEach(element => {
+      sendDaneCode['DaneCodesNonCoverage'].push(element.DaneCode);
+    });
+
+    this.__citiesCoverage.pacthCitiesNoCoverage(sendDaneCode).subscribe((result: any) => {
+      if (result.status === 200 || result.status === 201) {
+        const data = JSON.parse(result.body.body);
+        if (data && data.Errors.length > 0) {
+          this.snackBar.open(this.languageService.instant('secure.offers.cities_coverage.save_daneCode_ko'), this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+        } else {
+          this.snackBar.open(this.languageService.instant('secure.offers.cities_coverage.save_daneCode_ok'), this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+          window.location.reload();
+        }
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.__loadingService.closeSpinner();
+    });
   }
 }
