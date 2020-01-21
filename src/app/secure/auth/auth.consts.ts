@@ -534,8 +534,22 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
     ], RoutesConst.sellerCenterIntOfferReportOffert)]);
 
+
+/**
+ * Actualizado: 14/08/2019 - iTarazona.
+ * @version 1.0 (Creación del archivo).
+ * Modulo de calificacion que posee menus:
+ * 1. Listado de calificacion.
+ */
+
+export const calificationModule = 'CALIFICACION', listCalification = 'Listar calificaciones';
+const CalificationModule = new ModuleModel(calificationModule, showAll, calificationModule.toLowerCase(), [
+    new MenuModel(listCalification, showAll, listCalification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntListCalification)]);
+
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule,
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule, CalificationModule
 ]; // Lista de modelo, menus a mostrar.
 
 

@@ -21,6 +21,7 @@ export class RoutesConst {
     static readonly billing: any = 'billing';
     static readonly shipmentsExito: any = 'envios-exito';
     static readonly products: any = 'products';
+    static readonly califications: any = 'califications';
 
     static readonly ordersState: any = 'estado';
     static readonly orderLoadGuide: any = 'cargar-guia';
@@ -54,6 +55,7 @@ export class RoutesConst {
     static readonly listProducts: any = 'listado-productos';
     static readonly categoryTree: any = 'category-tree';
     static readonly reportOffertAdmin: any = 'category-tree';
+    static readonly listCalification: any = 'calification-list';
 
 
     /* Support Center */
@@ -85,6 +87,8 @@ export class RoutesConst {
     static readonly sellerCenterIntParamSpecs: any = RoutesConst.securehome + '/' + RoutesConst.paramSpecifications;
     static readonly sellerCenterIntParamBrand: any = RoutesConst.securehome + '/' + RoutesConst.paramBrands;
 
+    static readonly sellerCenterCalification: any = RoutesConst.securehome + '/' + RoutesConst.califications;
+
     static readonly sellerCenterIntOrderLoadGuide: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
     static readonly sellerCenterIntOrdersState: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.ordersState;
     static readonly sellerCenterIntOrderInDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInDevolution;
@@ -106,6 +110,9 @@ export class RoutesConst {
     static readonly sellerCenterProductModerationBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productModerationBulkLoad;
     static readonly sellerCenterIntCreateUnutaryProduct: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.createUnutaryProduct;
     static readonly sellerCenterIntListProducts: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.listProducts;
+
+    static readonly sellerCenterIntListCalification: any = RoutesConst.sellerCenterCalification + '/' + RoutesConst.listCalification;
+
 
 
     static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
