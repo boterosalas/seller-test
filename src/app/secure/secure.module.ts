@@ -40,6 +40,7 @@ import { SellerSupportCenterService } from './seller-support-center/services/sel
 import { SellerSupportCenterModule } from './seller-support-center/seller-support-center.module';
 import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
+import { CalificationsModule } from './califications/califications.module';
 
 @NgModule({
   declarations: [],
@@ -78,7 +79,8 @@ import { ListReportsModule } from './reports/reports.module';
     ParameterizeModule,
     SellerSupportCenterModule,
     CoreStoreModule,
-    ListReportsModule
+    ListReportsModule,
+    CalificationsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })
