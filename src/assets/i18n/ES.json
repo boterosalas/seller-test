@@ -46,6 +46,8 @@
     "menu.Menu": "Menú",
     "menu.Reporte de ofertas": "Reporte de ofertas",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
+    "menu.Calificación de Vendedores": "Calificación de Vendedores",
+    "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -58,6 +60,7 @@
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
+    "module.Calificación": "Calificación",
 
 
     "permissions.Consultar": "Consultar",
