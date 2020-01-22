@@ -47,6 +47,8 @@
     "menu.Reporte de ofertas": "Reporte de ofertas",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
+    "menu.Calificación de Vendedores": "Calificación de Vendedores",
+    "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -59,6 +61,7 @@
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
+    "module.Calificación": "Calificación",
 
 
     "permissions.Consultar": "Consultar",
@@ -391,7 +394,8 @@
     "secure.orders.order_list.detail_modal.channel": "Canal",
 
     "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",
-    "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",
+    "secure.orders.order_list.order_page.pending_requests": "No se han encontrado solicitudes pendientes",
+    "secure.orders.order_list.order_page.load_al_orders": "Cargar todas las órdenes",
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",
     "secure.orders.order_list.order_page.with_invoice": "Con factura adjunta",
@@ -441,6 +445,7 @@
     "secure.orders.in_devolution.in_devolution_page.rejected": "Rechazar",
     "secure.orders.in_devolution.in_devolution_page.no_found_orders": "No se han encontrado órdenes.",
     "secure.orders.in_devolution.in_devolution_page.charge_orders": "Cargar todas las órdenes",
+    "secure.orders.in_devolution.in_devolution_page.load_pending_requests": "Cargar todas las solicitudes pendientes",
     "secure.orders.in_devolution.in_devolution_page.sn_error_request": "Se ha presentado un error al aceptar la solicitud.",
 
     "secure.orders.in_devolution.product_devolution_modal.info_title": "Información del producto",
@@ -462,6 +467,7 @@
     "secure.orders.pending_devolution.view_comment.commnet_client": "Comentario cliente",
 
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolución",
+    "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Fecha de resolución",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Aprobado",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rechazado",
     "secure.orders.historical_devolutions.filter.title_filter": "Consultar histórico de devoluciones",

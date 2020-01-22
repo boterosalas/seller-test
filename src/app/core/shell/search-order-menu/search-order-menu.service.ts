@@ -60,9 +60,18 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersPendingDevolutionFilter(limit: any, stringSearch: any): Observable<[{}]> {
+  getOrdersPendingDevolutionFilter(stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', ['', limit + stringSearch])).subscribe((data: any) => {
+      this.http.get(this.api.get('searchPendingDevolution', [stringSearch])).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
+    });
+  }
+  getOrdersPendingDevolutionFilterTempo(stringSearch: any): Observable<[{}]> {
+    return new Observable(observer => {
+      this.http.get(this.api.get('pendingDevolutionSearchTemporal', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
