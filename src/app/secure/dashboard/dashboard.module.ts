@@ -12,10 +12,12 @@ import { SharedModule } from '@shared/shared.module';
 import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
 import { DashboardRoutingModule } from '@app/secure/dashboard/dashboard.routing';
 import { TermsService } from '../seller/agreement/terms/terms.component.service';
+import { SellerRatingComponent } from './seller-rating/seller-rating.component';
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        SellerRatingComponent
     ],
     imports: [
         CommonModule,
