@@ -221,7 +221,7 @@ export const endpoints = {
       getCitiesCoverage: '',
       getDaneCodesNonCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
-      pacthCitiesNoCoverage: ' https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/UpdateCitiesNonCoverage',
+      pacthCitiesNoCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/UpdateCitiesNonCoverage',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',
