@@ -13,17 +13,17 @@
 
     <!-- Orders table -->
     <div class="dashboard__orders orders">
-      <div class="orders__header" class="prueba">
-        <div>
+      <div class="orders__header" fxFlex="45%">
           <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
-        </div>
-        <div class="seller-rating">
-          <app-seller-rating ></app-seller-rating>
-        </div>
       </div>
-      <div class="orders__body">
+      <div class="prueba" fxFlex="45%">
+        <h3>Calificación de Calidad</h3>
+    </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" style="height: 300px">
+      <div class="orders__body" fxFlex="45%">
         <div class="orders__row">
-          <div class="orders__colum">
+          <div class="orders__colum_size">
             <div class="orders__cell orders__cell--title">
               {{'secure.dashboard.all' | translate}}
             </div>
@@ -126,6 +126,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="seller-rating" fxFlex="52%">
+        <app-seller-rating ></app-seller-rating>
       </div>
     </div>
 
