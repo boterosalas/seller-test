@@ -2,28 +2,156 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field> -->
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- <table mat-table [dataSource]="dataSource"> -->
+<!-- <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav-rating" [disableClose]="true">
+
+  <h3>hola</h3>
+
+  <h3>hola</h3>
+  <h3>hola</h3>
+  <h3>hola</h3> -->
+
+  <!-- <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h3>{{'secure.products.create_product_unit.list_products.product_filter' | translate}}</h3>
+      <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+        matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+    <div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field class="classDatapicker">
+          <input matInput [matDatepicker]="picker"
+            [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" disabled
+            formControlName="initialDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="classDatapicker">
+          <input matInput [matDatepicker]="picker1"
+            [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" disabled
+            formControlName="finalDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
 
 
-  <!-- Calificación -->
-  <ng-container matColumnDef="calification">
-    <th mat-header-cell *matHeaderCellDef> Calificación </th>
-    <td mat-cell *matCellDef="let element"> {{element.calification}} </td>
-  </ng-container>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+      <button mat-stroked-button color="primary" type="button">{{'filters.clear' | translate}} </button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+      <!-- <button mat-flat-button color="primary" type="submit" (click)="filterApply(drawer)">{{'filters.filter' | translate}}</button> -->
+    <!-- </div> -->
+  <!-- </form> -->
+<!-- </mat-drawer> -->
 
-  <!-- Fecha calificado -->
-  <ng-container matColumnDef="date_calificate">
-    <th mat-header-cell *matHeaderCellDef> Date_calificate </th>
-    <td mat-cell *matCellDef="let element"> {{element.date_calificate}} </td>
-  </ng-container>
+<div class="example-container-rating mat-elevation-z8">
+  <!-- <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav-rating" [disableClose]="true">
 
-  <!-- Fecha cuando se emitió -->
-  <ng-container matColumnDef="date_issued">
-    <th mat-header-cell *matHeaderCellDef> Date_issued </th>
-    <td mat-cell *matCellDef="let element"> {{element.date_issued}} </td>
-  </ng-container>
+    <h3>hola</h3>
+  
+    <h3>hola</h3>
+    <h3>hola</h3>
+    <h3>hola</h3>
+  </mat-drawer> -->
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between baseline" fxLayoutGap.md="10%"
+    fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+    <div fxFlex="30%">
+      <h3>Calificación de Calidad</h3>
+    </div>
+    <div fxFlex="60%">
+      <!-- <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+      </button> -->
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="Fecha inicial" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Fecha final"
+               [formControl]="serializedDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <button type="button" mat-button>
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+      </button>
+
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon>clear</mat-icon>
+        <small class="sub-title-filter">{{'filters.clear' | translate}}</small>
+      </button>
+      <!-- <mat-form-field placeholder="Filter"> -->
+      <!-- <h6>Filtrar</h6>
+        <mat-form-field >
+          <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true" [placeholder]="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation" (click)="openPicker(1)" (dateInput)="startDate()">
+          <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
+          <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field  >
+          <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart" [placeholder]="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation" (click)="openPicker(2)" [disabled]="enableEndVacation">
+          <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
+        </mat-form-field> -->
+      <!-- </mat-form-field> -->
+    </div>
+
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+    <!-- <table mat-table [dataSource]="dataSource"> -->
+
+
+    <!-- Calificación -->
+    <ng-container matColumnDef="calification">
+      <th mat-header-cell *matHeaderCellDef> Calificación </th>
+      <td mat-cell *matCellDef="let element"> {{element.calification}} </td>
+    </ng-container>
+
+    <!-- Fecha calificado -->
+    <ng-container matColumnDef="date_calificate">
+      <th mat-header-cell *matHeaderCellDef> Date_calificate </th>
+      <td mat-cell *matCellDef="let element"> {{element.date_calificate}} </td>
+    </ng-container>
+
+    <!-- Fecha cuando se emitió -->
+    <ng-container matColumnDef="date_issued">
+      <th mat-header-cell *matHeaderCellDef> Date_issued </th>
+      <td mat-cell *matCellDef="let element"> {{element.date_issued}} </td>
+    </ng-container>
+
+    <!-- Fecha cuando se emitió -->
+    <ng-container matColumnDef="downloadPDF">
+      <th mat-header-cell *matHeaderCellDef> Descargar PDF </th>
+      <td mat-cell *matCellDef="let element">
+        <!-- <i class="material-icons">
+            picture_as_pdf
+            </i> -->
+        <mat-icon color="primary">picture_as_pdf</mat-icon>
+
+        <!-- color="accent" -->
+      </td>
+    </ng-container>
+
+    <!-- Fecha cuando se emitió -->
+    <ng-container matColumnDef="apelation">
+      <th mat-header-cell *matHeaderCellDef> Apelación </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon color="accent">event_note</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

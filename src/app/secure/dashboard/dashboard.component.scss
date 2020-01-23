@@ -12,6 +12,23 @@ $table-break: 900px;
   }
 }
 
+.seller-rating {
+  width: 60%
+}
+
+.prueba{
+      /* flex-direction: inherit; */
+    /* box-sizing: border-box; */
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 100%;
+    /* place-content: center space-between; */
+    /* align-items: center; */
+    /* display: block; */
+    height: 280px;
+    margin-right: 5%;
+}
+
 .orders {
   $self: &;
 

@@ -27,7 +27,7 @@ const ELEMENT_DATA: Calification[] = [
 })
 export class SellerRatingComponent implements OnInit {
 
-  displayedColumns: string[] = ['calification', 'date_calificate', 'date_issued'];
+  displayedColumns: string[] = ['calification', 'date_calificate', 'date_issued', 'downloadPDF', 'apelation'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   constructor() { }
