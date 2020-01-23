@@ -1,3 +1,36 @@
-<p>
-  calification-list works!
-</p>
+<div class="content-order my-content">
+
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
+        [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
+        [Typeprofile]="typeProfile" [lengthOrder]="length"></app-toolbar-search-pagination>
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="content-table-orders">
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="channel">
+          <mat-header-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef
+            mat-sort-header>
+            <span class="title-table-header">{{'secure.orders.order_list.detail_modal.channel' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.channel}}</p>
+          </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;"
+          matRipple class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
+
+    </div>
+  </div>
+</div>

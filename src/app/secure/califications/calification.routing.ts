@@ -10,7 +10,7 @@ const routes = [
     {
       path: `${RoutesConst.sellerCenterIntListCalification}`,
       component: CalificationListComponent,
-      data: { title: 'Listar calificaciones' },
+      data: { title: 'Calificación de vendedores' },
       canActivate: [AuthService]
     }
   ])

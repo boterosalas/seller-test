@@ -542,7 +542,7 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
  * 1. Listado de calificacion.
  */
 
-export const calificationModule = 'CALIFICACION', listCalification = 'Listar calificaciones';
+export const calificationModule = 'CALIDAD', listCalification = 'Calificación de vendedores';
 const CalificationModule = new ModuleModel(calificationModule, showAll, calificationModule.toLowerCase(), [
     new MenuModel(listCalification, showAll, listCalification.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
