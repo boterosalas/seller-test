@@ -236,7 +236,6 @@
     "error.exception_brand.number_int": "La  comisión ingresada debe ser entero positivo, y/o tener dos decimales",
     "error.pending.not_attachments": "No hay archivos adjuntos",
 
-
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.",
     "modal.success.register title": "¡Registro realizado con éxito!",
     "modal.fail.register": "¡Tú registro ha sido rechazado! Por favor revisa que todos los campos cumplan con las debidas validaciones. Cualquier duda con las reglas de registro por favor consultar el manual de uso del formulario.",
@@ -333,6 +332,11 @@
     "secure.dashboard.sales": "Ventas",
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
+
+    "secure.dashboard.seller-rating.title":"Calificación de Calidad",
+    "secure.dashboard.seller-rating.header_rating":"Calificación",
+    "secure.dashboard.seller-rating.date_calificated":"Fecha mes Calificado",
+    "secure.dashboard.seller-rating.date_issued":"Fecha Emisión",
 
 
     "secure.error_page.no_found_page": "La pagina solicitada no ha sido encontrada",

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
+import { LoadingService } from '@app/core';
+import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 
 export interface Calification {
   calification: string;
@@ -30,9 +34,28 @@ export class SellerRatingComponent implements OnInit {
   displayedColumns: string[] = ['calification', 'date_calificate', 'date_issued', 'Actions'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private loadingService: LoadingService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
+  }
+
+  /**
+   * Metodo para abrir el modal de formulario de soporte para apelación
+   * @memberof SellerRatingComponent
+   */
+  openDialogSupport(): void {
+    this.loadingService.viewProgressBar();
+    const dialogRef = this.dialog.open(SupportModalComponent, {
+      width: '90%',
+      panelClass: 'full-width-dialog'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadingService.closeProgressBar();
+    });
   }
 
 }

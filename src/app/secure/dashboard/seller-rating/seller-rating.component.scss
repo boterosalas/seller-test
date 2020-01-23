@@ -22,10 +22,12 @@
   background: white;
 }
 
-.position_fixed_header{
+.position_fixed_header {
   position: sticky;
   top: 0;
   background: white;
+  width: 25%;
+  padding-right: 0px;
 }
 
 .example-container-rating {
