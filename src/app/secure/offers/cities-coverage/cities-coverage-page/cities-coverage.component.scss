@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+
+  .main__content {
+    padding: 3em;
+    width: 100%;
+
+    table {
+      width: 100%;
+    }
+
+    .button__save {
+      margin: 1em 0;
+      text-align: right;
+    }
+
+    .cities-no-data {
+      text-align: center;
+      padding: 2em 0;
+    }
+  }
+}

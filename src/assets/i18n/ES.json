@@ -46,6 +46,7 @@
     "menu.Menu": "Menú",
     "menu.Reporte de ofertas": "Reporte de ofertas",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
+    "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
 
@@ -292,7 +293,6 @@
     "public.auth.forgot.user_not_found": "Usuario no encontrado",
     "public.auth.forgot.pattern_psw": "La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.",
     "public.auth.forgot.code_not_valid": "El código de verificación no es válido, por favor intente de nuevo.",
-
 
     "secure.aws_cognito.profile.profile": "Mi Perfil",
     "secure.aws_cognito.profile.seller_id": "Id seller",
@@ -548,6 +548,9 @@
     "secure.seller.contracts.lb_subtitle_toolbar": "Buscar acuerdos",
     "secure.seller.contracts.txt_no_contract_seller": "No hay acuerdos asociados a este vendendor",
 
+    "secure.offers.cities_coverage.save_daneCode_ok": "Se ha guardado con éxito la restricción de las ciudades sin cobertura.",
+    "secure.offers.cities_coverage.save_daneCode_ko": "Se ha producido un error al intentar guardar la restricción de ciudades sin cobertura.",
+
     "secure.offers.stores.txt_no_seller": "Ingrese el nombre de la tienda en la  barra de búsqueda para ver las categorías.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Agregó correctamente una excepción por marca.",
     "secure.offers.stores.treee.components.exception_brand_create_ko": "Error al tratar de crear una excepción por marca. Intentalo de nuevo.",
@@ -674,6 +677,8 @@
     "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
+
+    "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",

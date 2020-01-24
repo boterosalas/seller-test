@@ -371,3 +371,19 @@ export interface HistoricalDevolutionEntity {
   sacObservationReceiptRefuse: null | string;
   reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
 }
+
+export interface StateEntity {
+  Id: number;
+  Name: string;
+}
+
+export interface CitiesEntity {
+  Id: number;
+  Name: string;
+  IdState: number;
+  DaneCode: string;
+  SincoDaneCode: string;
+  Status?: boolean;
+  City?: string;
+  State?: string;
+}

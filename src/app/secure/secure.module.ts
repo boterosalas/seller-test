@@ -11,7 +11,8 @@ import {
   HistoricalModuleAdmin,
   ListModule,
   ListAdminModule,
-  StoresModule
+  StoresModule,
+  CitiesCoverageModule
 } from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import {
@@ -78,7 +79,8 @@ import { ListReportsModule } from './reports/reports.module';
     ParameterizeModule,
     SellerSupportCenterModule,
     CoreStoreModule,
-    ListReportsModule
+    ListReportsModule,
+    CitiesCoverageModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

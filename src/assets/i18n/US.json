@@ -46,6 +46,7 @@
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
     "menu.Historico de devoluciones": "Historical devolution",
+    "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
 
@@ -292,7 +293,6 @@
     "public.auth.forgot.user_not_found": "User not found",
     "public.auth.forgot.pattern_psw": "The password must contain at least a letter, a number and a symbol, and must contain at least 7 characters.",
     "public.auth.forgot.code_not_valid": "The verification code is invalid, please try again later.",
-
 
     "secure.aws_cognito.profile.profile": "My profile",
     "secure.aws_cognito.profile.seller_id": "Seller id",
@@ -547,6 +547,9 @@
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
 
+    "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
+    "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
+
     "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Brand exception has been added correctly.",
     "secure.offers.stores.treee.components.exception_brand_create_ko": "An error has occurred when trying to create a brand exception. Please try again.",
@@ -673,6 +676,8 @@
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
+
+    "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
