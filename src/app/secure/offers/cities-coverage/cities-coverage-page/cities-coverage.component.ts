@@ -127,6 +127,7 @@ export class CitiesCoverageComponent implements OnInit {
           obj.Status = !this.daneCodesNonCoverage.includes(city.DaneCode);
           return obj;
         }).filter((el => el.State === stateSelected));
+        data = data.sort((a, b) => (a.City > b.City) ? 1 : -1);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.data.forEach((row: CitiesEntity) => (row.Status) && this.selection.select(row));
         // this.dataSource.data.forEach((row: CitiesEntity) => this.selection.select(row));
